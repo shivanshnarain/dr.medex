@@ -1,0 +1,1776 @@
+{
+  "products": [
+    {
+      "id": "prod-phy-01",
+      "slug": "ultrasound-therapy-machine-pro-1000",
+      "title": "MediCuro UltraSound Pro 1000 | Dual Frequency (1 & 3 MHz) Clinical Physiotherapy System",
+      "sku": "MC-PHY-US1000",
+      "brand": "MediCuro Global",
+      "category": "physiotherapy",
+      "subcategory": "ultrasound-therapy-machines",
+      "basePrice": 1450,
+      "originalPrice": 1750,
+      "stock": 22,
+      "rating": 4.9,
+      "reviewCount": 38,
+      "isFeatured": true,
+      "isBestSeller": true,
+      "images": [
+        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "shortDescription": "Clinical dual-frequency ultrasound therapy system with 1 MHz deep tissue penetration and 3 MHz superficial treatment capabilities. Microprocessor-controlled with continuous and pulsed output modes.",
+      "overview": "The MediCuro UltraSound Pro 1000 is an advanced medical ultrasound therapy unit designed for physical therapy clinics, sports rehabilitation centers, and orthopedic hospitals. Equipped with a waterproof multi-frequency transducer and digital contact detection, it delivers precise acoustic energy directly to targeted musculoskeletal tissue.",
+      "features": [
+        "Dual frequency operation (1 MHz and 3 MHz)",
+        "Continuous and pulsed output modes (10%, 20%, 50%, 100%)",
+        "Ergonomic waterproof soundhead with visual contact indicator",
+        "7-inch high-resolution medical touch display with treatment protocol presets",
+        "Microprocessor feedback control ensuring uniform acoustic energy output",
+        "Overheat auto-shutoff safety mechanism",
+        "Rugged clinical chassis designed for 24/7 rehabilitation ward use"
+      ],
+      "specifications": {
+        "Operating Frequency": "1 MHz and 3 MHz ± 5%",
+        "Maximum Intensity": "3.0 W/cm² (Pulsed), 2.0 W/cm² (Continuous)",
+        "Effective Radiating Area (ERA)": "5.0 cm² ± 10%",
+        "Beam Non-Uniformity Ratio (BNR)": "≤ 5:1 maximum",
+        "Pulse Frequency": "100 Hz",
+        "Treatment Timer": "0 to 30 minutes (Adjustable in 1 min increments)",
+        "Display": "7.0-inch Color TFT Touchscreen",
+        "Power Supply": "100–240V AC, 50/60 Hz, 85 VA",
+        "Dimensions (W x D x H)": "310 x 260 x 120 mm",
+        "Weight": "3.8 kg",
+        "Water Resistance": "IPX7 (Applicator Probe only)"
+      },
+      "applications": [
+        "Deep tissue musculoskeletal inflammation relief",
+        "Tendonitis, bursitis, and joint contractures",
+        "Post-surgical scar tissue remodeling",
+        "Sports injury rehabilitation and acute muscle spasm therapy"
+      ],
+      "packageContents": [
+        "UltraSound Pro 1000 Main Control Unit",
+        "Multi-frequency Waterproof 5 cm² Transducer Soundhead",
+        "Medical Grade Power Cable (Regional plug compliant)",
+        "Hospital Grade Ultrasound Gel (250 ml starter bottle)",
+        "Transducer Holder Cradle",
+        "User Operation Manual & Calibration Certificate"
+      ],
+      "powerRequirements": "AC 100–240V, 50/60 Hz universal input",
+      "certifications": [
+        "ISO 13485:2016",
+        "CE Medical Device Directive",
+        "IEC 60601-1-2 EMC compliant"
+      ],
+      "warranty": "3 Years Comprehensive OEM Warranty & Spare Parts Support",
+      "shippingLeadTime": "3–5 Business Days (Air Express Freight)"
+    },
+    {
+      "id": "prod-phy-02",
+      "slug": "tens-muscle-stimulator-4-channel",
+      "title": "MediCuro NeuroStim Pro 4-Channel | Clinical TENS & Electrical Muscle Stimulator",
+      "sku": "MC-PHY-TENS4C",
+      "brand": "MediCuro Global",
+      "category": "physiotherapy",
+      "subcategory": "tens-machines",
+      "basePrice": 890,
+      "originalPrice": 1100,
+      "stock": 45,
+      "rating": 4.8,
+      "reviewCount": 52,
+      "isFeatured": true,
+      "isBestSeller": true,
+      "images": [
+        "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "shortDescription": "4-Channel independent electrotherapy system combining TENS, EMS, Russian, and Interferential Current (IFC) waveforms for acute pain relief and neuromuscular re-education.",
+      "overview": "The NeuroStim Pro 4-Channel delivers clinical-grade electrotherapy across four completely independent channels, allowing simultaneous treatment of multiple anatomical sites or dual patients. Engineered for physiotherapy departments, pain management centers, and athletic rehabilitation clinics.",
+      "features": [
+        "4 fully independent channels with dedicated intensity rotary dials",
+        "Pre-programmed clinical library with 60+ anatomical protocols",
+        "Multiple waveform modes: TENS, EMS, Russian, Pre-modulated IFC",
+        "Constant current / constant voltage intelligent auto-switching",
+        "Dual patient treatment capability with independent timers"
+      ],
+      "specifications": {
+        "Output Channels": "4 Independent galvanically isolated channels",
+        "Waveforms": "Asymmetrical Biphasic, Symmetrical Biphasic, Russian (2.5 kHz), IFC",
+        "Pulse Amplitude": "0–100 mA (500 ohm load)",
+        "Pulse Width": "50–400 μs adjustable",
+        "Pulse Rate": "1–150 Hz adjustable",
+        "Timer": "1–60 min auto shutoff with audio alert",
+        "Power": "AC 110–240V, 50/60 Hz and built-in lithium backup",
+        "Weight": "2.9 kg"
+      },
+      "applications": [
+        "Chronic intractable pain management",
+        "Post-traumatic and post-surgical pain reduction",
+        "Muscle atrophy prevention and muscle strengthening",
+        "Peripheral nerve injury recovery"
+      ],
+      "packageContents": [
+        "NeuroStim Pro 4-Channel Unit",
+        "4x Color-coded Electrode Lead Wires",
+        "16x Medical Reusable Self-Adhesive Electrodes",
+        "Power Supply and Regional Adapter",
+        "User Manual & Clinical Protocol Guide"
+      ],
+      "powerRequirements": "100–240V AC, 50/60 Hz",
+      "certifications": [
+        "ISO 13485:2016",
+        "CE Marked",
+        "IEC 60601-2-10"
+      ],
+      "warranty": "2 Years OEM Warranty",
+      "shippingLeadTime": "2–4 Business Days"
+    },
+    {
+      "id": "prod-phy-03",
+      "slug": "laser-therapy-system-class-4",
+      "title": "MediCuro OptiLaser 15W | High-Intensity Class 4 Deep Tissue Laser Therapy System",
+      "sku": "MC-PHY-LAS15W",
+      "brand": "MediCuro Global",
+      "category": "physiotherapy",
+      "subcategory": "laser-therapy-machine",
+      "basePrice": 3850,
+      "originalPrice": 4600,
+      "stock": 12,
+      "rating": 5,
+      "reviewCount": 19,
+      "isFeatured": true,
+      "isBestSeller": false,
+      "images": [
+        "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "shortDescription": "High-power multi-wavelength (810nm, 980nm, 1064nm) Class 4 laser therapy system providing accelerated biostimulation and deep cellular photobiomodulation.",
+      "overview": "The OptiLaser 15W delivers penetrating photobiomodulation therapy to relieve deep inflammatory conditions, accelerate ligamentous repair, and dramatically reduce joint stiffness. Designed for elite athletic facilities and advanced orthopedic pain centers.",
+      "features": [
+        "Triple wavelength delivery: 810 nm, 980 nm, 1064 nm synchronised",
+        "Maximum continuous output power up to 15 Watts",
+        "Intelligent touch interface with skin tone and tissue depth calibration",
+        "Interchangeable clinical handpiece optical lenses (focus, zoom, massage ball)",
+        "Certified emergency stop switch and safety interlock door port"
+      ],
+      "specifications": {
+        "Laser Classification": "Class IV (Class 4)",
+        "Wavelengths": "810 nm, 980 nm, 1064 nm",
+        "Peak Optical Power": "15 Watts (Continuous & Pulsed)",
+        "Pulse Frequency": "1 Hz – 20,000 Hz",
+        "Aiming Beam": "650 nm Red Diode, < 5 mW",
+        "Cooling System": "Internal thermoelectric Peltier & silent forced air",
+        "Display": "10.1-inch Capacitive Medical Touch Panel",
+        "Weight": "7.5 kg"
+      },
+      "applications": [
+        "Cervical and lumbar disc herniation therapy",
+        "Osteoarthritis of knee and hip joints",
+        "Achilles tendinopathy and plantar fasciitis",
+        "Carpal tunnel syndrome and neuropathic pain"
+      ],
+      "packageContents": [
+        "OptiLaser 15W Base Unit",
+        "Fiber-optic Surgical Handpiece with 3 Optical Tips",
+        "2x Certified Laser Safety Goggles (OD 6+)",
+        "Patient Protective Eye Shields",
+        "Heavy-duty Foot Switch with Protective Hood",
+        "Laser Key & Interlock Plug"
+      ],
+      "powerRequirements": "110–240V AC, 50/60 Hz, 250W",
+      "certifications": [
+        "ISO 13485",
+        "CE 0123",
+        "IEC 60825-1 Laser Safety"
+      ],
+      "warranty": "3 Years Comprehensive Warranty on Laser Engine",
+      "shippingLeadTime": "3–6 Business Days"
+    },
+    {
+      "id": "prod-phy-04",
+      "slug": "cpm-knee-rehabilitation-machine",
+      "title": "MediCuro MobilKnee Pro | Motorized Continuous Passive Motion (CPM) System",
+      "sku": "MC-PHY-CPM200",
+      "brand": "MediCuro Global",
+      "category": "physiotherapy",
+      "subcategory": "cpm",
+      "basePrice": 1950,
+      "originalPrice": 2350,
+      "stock": 18,
+      "rating": 4.8,
+      "reviewCount": 27,
+      "isFeatured": false,
+      "isBestSeller": true,
+      "images": [
+        "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "shortDescription": "Anatomically correct Continuous Passive Motion device for post-operative knee and hip joint rehabilitation. Range of motion from -10° hyperextension to 120° flexion.",
+      "overview": "MobilKnee Pro provides controlled continuous passive movement to restore joint mobility following Total Knee Arthroplasty (TKA), ACL reconstructions, and articular cartilage repair. Features gentle start/stop ramp transitions and an intuitive handheld patient safety controller.",
+      "features": [
+        "Anatomical axis tracking ensures precise physiological alignment",
+        "Adjustable range: -10° to 120° flexion",
+        "Warm-up progressive mode automatically increases ROM gradually",
+        "Patient handheld remote with emergency pause button",
+        "Heavy-duty aluminum alloy chassis with washable antimicrobial padding"
+      ],
+      "specifications": {
+        "Range of Motion (Flexion/Extension)": "-10° to 120°",
+        "Speed Range": "45°/min to 150°/min (5 levels)",
+        "Patient Height Compatibility": "140 cm to 200 cm (Adult & Pediatric)",
+        "Max Patient Limb Weight": "30 kg",
+        "Chassis Material": "Extruded Aircraft Grade Anodized Aluminum",
+        "Weight": "12.4 kg"
+      },
+      "applications": [
+        "Total Knee Replacement (TKR/TKA) recovery",
+        "Cruciate ligament reconstruction (ACL/PCL)",
+        "Patellar fractures and stable osteosynthesis",
+        "Synovectomy and manipulation under anesthesia"
+      ],
+      "packageContents": [
+        "MobilKnee Pro CPM Frame",
+        "Digital Hand Controller with Backlit LCD",
+        "Soft Foam Patient Limb Support Kit (Autoclavable)",
+        "Transport Carry Case with Wheels",
+        "Power Supply and Emergency Stop Cord"
+      ],
+      "powerRequirements": "100–240V AC, 50/60 Hz, 50W",
+      "certifications": [
+        "ISO 13485:2016",
+        "CE Medical Device",
+        "IEC 60601-1"
+      ],
+      "warranty": "2 Years OEM Warranty",
+      "shippingLeadTime": "3–5 Business Days"
+    },
+    {
+      "id": "prod-phy-05",
+      "slug": "shockwave-therapy-machine-radial",
+      "title": "MediCuro RadialPulse 300 | Extracorporeal Radial Shockwave Therapy (ESWT) System",
+      "sku": "MC-PHY-ESWT300",
+      "brand": "MediCuro Global",
+      "category": "physiotherapy",
+      "subcategory": "shockwave-therapy-machine",
+      "basePrice": 4200,
+      "originalPrice": 5100,
+      "stock": 15,
+      "rating": 4.9,
+      "reviewCount": 31,
+      "isFeatured": true,
+      "isBestSeller": true,
+      "images": [
+        "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "shortDescription": "Ballistic pneumatic radial shockwave therapy system delivering up to 5.0 Bar pressure and 21 Hz frequency. Treats chronic tendinopathies, calcifications, and myofascial trigger points.",
+      "overview": "The RadialPulse 300 generates high-energy acoustic pulses using an electromagnetic ballistic applicator. It triggers angiogenesis, breaks down calcifications, and stimulates cellular self-repair mechanisms in stubborn chronic soft-tissue pathologies.",
+      "features": [
+        "Adjustable energy pressure: 1.0 to 5.0 Bar in 0.1 Bar increments",
+        "Frequency range: 1 to 21 Hz with burst and ramp modes",
+        "High-durability projectile mechanism rated for > 3,000,000 pulses",
+        "5 Interchangeable applicator transmitter heads (Radial, Focus, Deep, Trigger, Fascia)",
+        "Silent oil-free medical compressor built into the chassis"
+      ],
+      "specifications": {
+        "Technology": "Compressor-free Electromagnetic Ballistic Acoustic Wave",
+        "Energy Levels": "1.0 – 5.0 Bar (approx. 60 – 185 mJ)",
+        "Frequency": "1 – 21 Hz",
+        "Applicator Heads": "6mm, 15mm, 20mm, 25mm, 35mm Titanium Transmitters",
+        "Bullet Life Cycle": "≥ 3,000,000 Shocks before replacement",
+        "User Interface": "10-inch Full Color Touchscreen with Anatomical Illustrated Guide",
+        "Weight": "16.8 kg"
+      },
+      "applications": [
+        "Plantar fasciitis with or without heel spur",
+        "Calcific tendinitis of the shoulder rotator cuff",
+        "Lateral & medial epicondylitis (Tennis & Golfer's elbow)",
+        "Patellar tendinopathy (Jumper's knee)",
+        "Greater trochanteric pain syndrome"
+      ],
+      "packageContents": [
+        "RadialPulse 300 Console with Integrated Compressor",
+        "Ergonomic Shockwave Handpiece",
+        "5x Titanium Acoustic Transmitters in Aluminum Case",
+        "Handpiece Silicone Protective Caps (Pack of 10)",
+        "Medical Contact Gel (500 ml)",
+        "Heavy-duty Foot Switch and Power Cord"
+      ],
+      "powerRequirements": "110–240V AC, 50/60 Hz, 300 VA",
+      "certifications": [
+        "ISO 13485:2016",
+        "CE 0482",
+        "IEC 60601-1"
+      ],
+      "warranty": "3 Years Console & 1 Year Handpiece Warranty",
+      "shippingLeadTime": "4–6 Business Days"
+    },
+    {
+      "id": "prod-esu-01",
+      "slug": "electrosurgical-generator-400w-advanced",
+      "title": "MediCuro SurgiCut 400W | High-Frequency Digital Electrosurgical Generator (Monopolar & Bipolar)",
+      "sku": "MC-ESU-400PRO",
+      "brand": "MediCuro Global",
+      "category": "electrosurgical",
+      "subcategory": "electrosurgical-generator",
+      "basePrice": 2890,
+      "originalPrice": 3450,
+      "stock": 20,
+      "rating": 4.9,
+      "reviewCount": 44,
+      "isFeatured": true,
+      "isBestSeller": true,
+      "images": [
+        "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "shortDescription": "400W microprocessor-controlled electrosurgical unit with 7 monopolar and 3 bipolar surgical modes, instant tissue response feedback, and split-pad patient plate monitoring.",
+      "overview": "The SurgiCut 400W is an operating room powerhouse designed for general, laparoscopic, orthopedic, thoracic, and gynecological surgical procedures. Features advanced Return Electrode Contact Quality Monitoring (REM) to eliminate patient pad burn risks.",
+      "features": [
+        "Pure Cut, Blend 1, Blend 2, Blend 3 for precise tissue dissection",
+        "Fulguration, Spray, and Desiccation coagulation modes",
+        "Standard and Precise Micro-Bipolar modes with auto-start feature",
+        "REM Contact Quality Monitoring System with audible/visual safety alarms",
+        "Laparoscopic underwater TURP / hysteroscopy cutting capability",
+        "Stores 100 customized surgical program profiles"
+      ],
+      "specifications": {
+        "Maximum Output Power": "400W at 300Ω (Pure Cut), 120W (Fulgurate), 70W (Bipolar)",
+        "Operating Frequency": "360 kHz to 480 kHz sinusoidal",
+        "Output Channels": "2 Monopolar Handpiece Ports, 1 Bipolar Port",
+        "Safety Circuit": "Patient Plate Return Monitor (CQM / REM)",
+        "Leakage Current": "High frequency < 150 mA, Low frequency < 10 μA",
+        "Cooling": "Convection without cooling fan (Sterile OR compliant)",
+        "Dimensions": "410 x 360 x 145 mm",
+        "Weight": "8.6 kg"
+      },
+      "applications": [
+        "General and visceral surgery",
+        "Minimally invasive laparoscopic procedures",
+        "Gynecological laparotomy and hysteroscopy",
+        "Orthopedic joint replacement and spine surgery",
+        "Transurethral Resection of the Prostate (TURP)"
+      ],
+      "packageContents": [
+        "SurgiCut 400W Main Generator Console",
+        "2x Reusable Autoclavable Monopolar Electrosurgical Pencils with Cut/Coag Buttons",
+        "1x Bipolar Bayonet Forceps (Titanium non-stick tips)",
+        "1x Bipolar Connecting Cable (3 meters)",
+        "5x Split Reusable Silicone Patient Return Plates with Cable",
+        "Dual-pedal Explosion-proof Foot Switch",
+        "Mains Power Cable and Earth Cable"
+      ],
+      "powerRequirements": "110V / 220–240V AC Switchable, 50/60 Hz, 800 VA",
+      "certifications": [
+        "ISO 13485:2016",
+        "CE 0197",
+        "IEC 60601-2-2 ESU Standard"
+      ],
+      "warranty": "3 Years Comprehensive OEM Warranty",
+      "shippingLeadTime": "3–5 Business Days"
+    },
+    {
+      "id": "prod-esu-02",
+      "slug": "electrosurgical-cautery-unit-100w",
+      "title": "MediCuro DermaCut 100W | Compact Radiofrequency Electrosurgical Skin Cautery",
+      "sku": "MC-ESU-CAUT100",
+      "brand": "MediCuro Global",
+      "category": "electrosurgical",
+      "subcategory": "electro-surgical-skin-cautery",
+      "basePrice": 980,
+      "originalPrice": 1250,
+      "stock": 35,
+      "rating": 4.7,
+      "reviewCount": 29,
+      "isFeatured": false,
+      "isBestSeller": true,
+      "images": [
+        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1583912267670-6575ad362e4b?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "shortDescription": "Compact 100W radiofrequency skin cautery designed for dermatology, plastic surgery, dental oral surgery, and minor outpatient procedures.",
+      "overview": "DermaCut 100W delivers finely tuned high-frequency cutting and coagulation with minimal lateral thermal damage. Ideal for skin tag removal, mole excision, blepharoplasty, and superficial dermatological lesions.",
+      "features": [
+        "100W Pure Cut, Blend Cut, and Pinpoint Coagulation",
+        "High frequency RF emission minimizes charring and accelerates healing",
+        "Foot switch and hand pencil activation modes",
+        "Compact desktop footprint suitable for outpatient treatment rooms"
+      ],
+      "specifications": {
+        "Max Power Output": "100 Watts at 500Ω",
+        "Frequency": "1.7 MHz (True Radiofrequency)",
+        "Control": "Digital step increments (1W resolution)",
+        "Weight": "4.2 kg"
+      },
+      "applications": [
+        "Dermatology: Seborrheic keratosis, verrucae, skin tags, warts",
+        "Plastic surgery: Blepharoplasty, skin grafting margins",
+        "ENT: Epistaxis control, turbinate reduction",
+        "Oral & maxillofacial minor surgeries"
+      ],
+      "packageContents": [
+        "DermaCut 100W Unit",
+        "Monopolar Handpiece with 10 Assorted Active Electrodes (Needle, Loop, Ball)",
+        "Neutral Patient Plate with Cable",
+        "Pneumatic Foot Switch",
+        "Power Cord and User Manual"
+      ],
+      "powerRequirements": "110–230V AC, 50/60 Hz",
+      "certifications": [
+        "ISO 13485",
+        "CE Compliant"
+      ],
+      "warranty": "2 Years Warranty",
+      "shippingLeadTime": "2–4 Business Days"
+    },
+    {
+      "id": "prod-cryo-01",
+      "slug": "cryo-surgical-gun-master-500ml",
+      "title": "MediCuro CryoSurg Master 500ml | Liquid Nitrogen Cryosurgical Gun with 6 Precision Nozzles",
+      "sku": "MC-CRYO-500ML",
+      "brand": "MediCuro Global",
+      "category": "cryosurgery",
+      "subcategory": "cryo-surgical-guns",
+      "basePrice": 580,
+      "originalPrice": 720,
+      "stock": 60,
+      "rating": 4.9,
+      "reviewCount": 68,
+      "isFeatured": true,
+      "isBestSeller": true,
+      "images": [
+        "https://images.unsplash.com/photo-1583912267670-6575ad362e4b?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "shortDescription": "Stainless steel liquid nitrogen cryosurgical device featuring double-walled vacuum insulation, fingertip flow trigger, and set of 6 interchangeable spray apertures.",
+      "overview": "The CryoSurg Master 500ml is precision-engineered for dermatologists, oncologists, gynecologists, and general practitioners performing cryo-ablation. It maintains liquid nitrogen at -196°C with low static evaporation, giving practitioners total control over freeze depth and margin size.",
+      "features": [
+        "Double-walled stainless steel flask with high-vacuum thermal barrier",
+        "Ergonomic handle with smooth fingertip pressure trigger release",
+        "Comes with 6 precision spray nozzles (A, B, C, D, Curved, and Flat Spray)",
+        "Safety relief valve prevents over-pressurization",
+        "Static holding time up to 20–24 hours on full charge"
+      ],
+      "specifications": {
+        "Capacity": "500 ml (0.50 Liters)",
+        "Operating Temperature": "-196°C (Liquid Nitrogen LN2)",
+        "Material": "Medical Grade 304 Stainless Steel & Brass Core",
+        "Static Holding Time": "20 to 24 hours",
+        "Nozzle Orifice Sizes": "0.4 mm, 0.6 mm, 0.8 mm, 1.0 mm, plus angled probes",
+        "Weight (Empty)": "850 grams",
+        "Weight (Full LN2)": "1,260 grams"
+      },
+      "applications": [
+        "Actinic keratosis and basal cell carcinoma destruction",
+        "Common viral warts (Verruca vulgaris) and plantar warts",
+        "Molluscum contagiosum and keloid scar softening",
+        "Cervical ectropion and dysplasia in gynaecology"
+      ],
+      "packageContents": [
+        "CryoSurg Master 500ml Flask with Trigger Head Assembly",
+        "Set of 6 Stainless Steel Spray Tips with protective holder",
+        "Protective Insulated Thermal Silicone Grip",
+        "Carry Case with Precision Foam Cutouts",
+        "User Operation & Cryotherapy Temperature Guide"
+      ],
+      "powerRequirements": "Passive Cryogenic (Non-electrical)",
+      "certifications": [
+        "ISO 13485:2016",
+        "CE Medical Class IIa"
+      ],
+      "warranty": "5 Years Vacuum Flask Integrity Warranty",
+      "shippingLeadTime": "2–4 Business Days"
+    },
+    {
+      "id": "prod-cryo-02",
+      "slug": "cryotherapy-system-clinical-cart",
+      "title": "MediCuro CryoClinic Pro | Clinical Liquid Nitrogen System with Dewar Storage",
+      "sku": "MC-CRYO-CART30",
+      "brand": "MediCuro Global",
+      "category": "cryosurgery",
+      "subcategory": "cryotherapy-systems",
+      "basePrice": 1850,
+      "originalPrice": 2200,
+      "stock": 14,
+      "rating": 4.8,
+      "reviewCount": 16,
+      "isFeatured": false,
+      "isBestSeller": false,
+      "images": [
+        "https://images.unsplash.com/photo-1583912267670-6575ad362e4b?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "shortDescription": "Complete clinical cryotherapy suite including 300ml Cryo Gun, 10-liter LN2 storage dewar flask, withdrawal device, and mobile clinical trolley.",
+      "overview": "Designed for busy outpatient clinics, this turnkey cryotherapy suite includes long-term cryogenic storage, safe liquid nitrogen withdrawal without manual pouring, and precision handheld cryosurgical applicators on a mobile anti-static trolley.",
+      "features": [
+        "10-Liter aluminum storage dewar with static holding time of 60+ days",
+        "Safe pressure-dispensing withdrawal device for filling cryo gun without spillage",
+        "Includes 350ml Cryo Gun with 8 tip attachments and cryo-chambers",
+        "Mobile rolling base with locking casters"
+      ],
+      "specifications": {
+        "Dewar Volume": "10 Liters",
+        "Cryo Gun Volume": "350 ml",
+        "Static Holding Time": "60 days (Storage Tank)",
+        "Trolley Dimensions": "600 x 500 x 920 mm",
+        "Total Shipping Weight": "22 kg"
+      },
+      "applications": [
+        "Comprehensive outpatient dermatology and cryo-oncology"
+      ],
+      "packageContents": [
+        "10L Liquid Nitrogen Dewar Tank",
+        "LN2 Dispensing Withdrawal Pump",
+        "350ml Cryo Surgical Gun with 8 Nozzles",
+        "Mobile 4-Caster Utility Trolley",
+        "Cryogenic Handling Gloves and Protective Visor"
+      ],
+      "powerRequirements": "Non-electrical cryogenic operation",
+      "certifications": [
+        "ISO 13485",
+        "CE Medical"
+      ],
+      "warranty": "3 Years Warranty",
+      "shippingLeadTime": "4–7 Business Days"
+    },
+    {
+      "id": "prod-ot-01",
+      "slug": "double-dome-led-surgical-ot-light-160k-lux",
+      "title": "MediCuro Lumina 700+500 Dual Dome | Ceiling Mounted Shadowless LED Surgical Light",
+      "sku": "MC-OT-LUM750",
+      "brand": "MediCuro Global",
+      "category": "ot-lights",
+      "subcategory": "ot-surgical-lights-double-dome",
+      "basePrice": 2490,
+      "originalPrice": 3100,
+      "stock": 16,
+      "rating": 4.9,
+      "reviewCount": 57,
+      "isFeatured": true,
+      "isBestSeller": true,
+      "images": [
+        "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "shortDescription": "Premium dual-dome shadowless LED surgical illumination system delivering 160,000 + 120,000 Lux with CRI ≥ 96, adjustable color temperature (3800K–5000K), and 360° German balance arms.",
+      "overview": "The Lumina 700+500 Dual Dome is engineered for major surgical suites requiring exceptional depth of illumination and shadow management. Multi-matrix Osram LED arrays eliminate shadows cast by surgical teams, while laminar flow aerodynamic dome contours maintain cleanroom airflow in modern ORs.",
+      "features": [
+        "High-intensity shadowless lighting: 160,000 Lux (Major Dome) + 120,000 Lux (Satellite Dome)",
+        "High Color Rendering Index (CRI Ra ≥ 96, R9 ≥ 94) for vivid tissue discrimination",
+        "Adjustable color temperature: 3,800K to 5,000K (4 presets)",
+        "Sterilizable central handle with one-touch focus adjustment",
+        "Touch screen control console on lighthead yoke with Endo-light mode for laparoscopy",
+        "German spring-loaded suspension balance arm with 360° unlimited rotation",
+        "Ultra-long LED lifespan ≥ 60,000 hours with low temperature rise (< 1°C at surgeon's head)"
+      ],
+      "specifications": {
+        "Illuminance (Lux at 1m)": "Major Dome: 160,000 Lux | Minor Dome: 120,000 Lux",
+        "Dome Diameters": "Major: 700 mm (84 LEDs) | Minor: 500 mm (54 LEDs)",
+        "Color Temperature": "3,800K, 4,200K, 4,600K, 5,000K adjustable",
+        "Color Rendering Index (Ra)": "≥ 96 | R9 ≥ 94",
+        "Spot Diameter (d10)": "160 mm to 300 mm adjustable",
+        "Illumination Depth (L1+L2 at 20%)": "≥ 1,200 mm",
+        "LED Service Lifespan": "≥ 60,000 hours",
+        "Temperature Rise at Field": "≤ 1°C",
+        "Balance Arm System": "German imported Ondal style spring arm, 360° rotation",
+        "Mounting": "Ceiling Mounted (Custom height flange available)"
+      },
+      "applications": [
+        "Open heart and cardiovascular surgery",
+        "Neurosurgery and orthopedic trauma",
+        "General abdominal and colorectal procedures",
+        "Minimally invasive laparoscopic surgery (Endo mode)"
+      ],
+      "packageContents": [
+        "Lumina 700mm Major LED Surgical Lighthead",
+        "Lumina 500mm Minor LED Surgical Lighthead",
+        "Dual Heavy-duty Ceiling Articulating Suspension System",
+        "Central Ceiling Mounting Flange & Extension Column",
+        "4x Detachable Autoclavable Sterilizable Central Handles",
+        "Dual Integrated Touch Panel Controls",
+        "Installation Hardware & Structural Ceiling Fasteners"
+      ],
+      "powerRequirements": "100–240V AC, 50/60 Hz, 160W max total power consumption",
+      "certifications": [
+        "ISO 13485:2016",
+        "CE Medical Device Directive",
+        "IEC 60601-2-41 OT Light Standard"
+      ],
+      "warranty": "5 Years Manufacturer Warranty on LED Modules and Structure",
+      "shippingLeadTime": "5–8 Business Days (Reinforced Export Wooden Crate)"
+    },
+    {
+      "id": "prod-ot-02",
+      "slug": "single-dome-ceiling-ot-light-140k-lux",
+      "title": "MediCuro Stellar 500 Single Dome | Ceiling Mounted LED Surgical OT Lamp",
+      "sku": "MC-OT-STEL500",
+      "brand": "MediCuro Global",
+      "category": "ot-lights",
+      "subcategory": "single-dome-ot-lights",
+      "basePrice": 1650,
+      "originalPrice": 1990,
+      "stock": 22,
+      "rating": 4.8,
+      "reviewCount": 33,
+      "isFeatured": false,
+      "isBestSeller": true,
+      "images": [
+        "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "shortDescription": "140,000 Lux ceiling-mounted single dome surgical light with 54 high-intensity cold LEDs, touch brightness control, and shadow-reduction optic lens.",
+      "overview": "Ideal for minor operating theatres, ambulatory surgery centers, and emergency trauma rooms. Combines powerful shadowless output with an ultra-slim aerodynamic profile for low-clearance OR ceilings.",
+      "features": [
+        "140,000 Lux brightness with 10-step digital dimming",
+        "High CRI ≥ 95 with natural day-white 4300K color temperature",
+        "Removable sterilizable central positioning handle",
+        "360° continuous swivel joints for pinpoint positioning"
+      ],
+      "specifications": {
+        "Illuminance": "Up to 140,000 Lux at 1 meter",
+        "Dome Diameter": "500 mm",
+        "Number of LEDs": "54 High-Power Osram Medical LEDs",
+        "CRI": "≥ 95",
+        "Spot Diameter": "160–280 mm",
+        "Mounting": "Ceiling Mounted (Compatible with 2.6m – 3.2m ceiling heights)"
+      },
+      "applications": [
+        "Day surgery, obstetrics, plastic surgery, emergency trauma"
+      ],
+      "packageContents": [
+        "Stellar 500mm Light Dome with Arm",
+        "Ceiling Mount Flange and Tube",
+        "2x Autoclavable Handles",
+        "Wall/Arm Digital Control Box",
+        "Manual & Mounting Hardware"
+      ],
+      "powerRequirements": "110–240V AC, 50/60 Hz, 80W",
+      "certifications": [
+        "ISO 13485",
+        "CE Compliant"
+      ],
+      "warranty": "5 Years LED & Arm Warranty",
+      "shippingLeadTime": "4–6 Business Days"
+    },
+    {
+      "id": "prod-ot-03",
+      "slug": "mobile-led-ot-surgical-light-battery-backup",
+      "title": "MediCuro MobilLux 300 | Mobile Stand LED Surgical Light with 4-Hour Battery Backup",
+      "sku": "MC-OT-MOBL300",
+      "brand": "MediCuro Global",
+      "category": "ot-lights",
+      "subcategory": "mobile-led-ot-lights",
+      "basePrice": 1390,
+      "originalPrice": 1680,
+      "stock": 28,
+      "rating": 4.9,
+      "reviewCount": 41,
+      "isFeatured": true,
+      "isBestSeller": true,
+      "images": [
+        "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "shortDescription": "Heavy-duty mobile floor-stand surgical light producing 100,000 Lux with integrated emergency rechargeable battery backup sustaining up to 4 hours of uninterrupted operation.",
+      "overview": "The MobilLux 300 provides surgical illumination anywhere in the hospital. Featuring a low-center-of-gravity cast base with anti-static locking casters and seamless automatic battery switchover during power interruptions.",
+      "features": [
+        "100,000 Lux output with uniform spot field",
+        "Built-in rechargeable lithium-ion battery (up to 4 hours runtime)",
+        "Seamless instant switch to battery when AC power fails",
+        "Ultra-stable 5-point castor base with dual wheel foot brakes",
+        "Gooseneck and spring counterbalanced arm for effortless adjustment"
+      ],
+      "specifications": {
+        "Illuminance": "100,000 Lux at 1 meter",
+        "Battery Runtime": "≥ 4 hours at maximum brightness",
+        "Charge Time": "3.5 hours to 100%",
+        "CRI": "≥ 95",
+        "Base Diameter": "620 mm with medical anti-static casters",
+        "Total Weight": "32 kg (Stability weighted)"
+      },
+      "applications": [
+        "Emergency departments and field surgical hospitals",
+        "Intensive Care Units (ICU) and bedside surgical procedures",
+        "Obstetric delivery rooms and minor operating suites",
+        "Backup emergency lighting for critical surgical wards"
+      ],
+      "packageContents": [
+        "MobilLux 300 Floor Stand Assembly with Integrated Battery",
+        "Spring Articulated Lighthead Arm",
+        "Autoclavable Handle",
+        "Heavy-duty Hospital Grade Power Cord",
+        "Battery Level Indicator & Charger"
+      ],
+      "powerRequirements": "100–240V AC, 50/60 Hz and 24V Internal Battery",
+      "certifications": [
+        "ISO 13485:2016",
+        "CE Marked",
+        "IEC 60601-1-2"
+      ],
+      "warranty": "3 Years Unit Warranty (1 Year Battery)",
+      "shippingLeadTime": "3–5 Business Days"
+    },
+    {
+      "id": "prod-tbl-01",
+      "slug": "electric-operating-table-multipurpose-surgibase",
+      "title": "MediCuro SurgiBase 3000 | Electro-Hydraulic Multipurpose Operating Theatre Table",
+      "sku": "MC-TBL-SB3000",
+      "brand": "MediCuro Global",
+      "category": "tables",
+      "subcategory": "operating-tables",
+      "basePrice": 5200,
+      "originalPrice": 6400,
+      "stock": 8,
+      "rating": 5,
+      "reviewCount": 22,
+      "isFeatured": true,
+      "isBestSeller": true,
+      "images": [
+        "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "shortDescription": "Universal electro-hydraulic surgical operating table with 300 kg safe working load, C-arm X-ray radiolucent tabletop, longitudinal sliding, and motorized positioning.",
+      "overview": "The SurgiBase 3000 provides high surgical versatility for general surgery, orthopedics, neurosurgery, urology, and cardio-thoracic interventions. Features motorized Trendelenburg, reverse Trendelenburg, lateral tilt, and longitudinal sliding for C-arm fluoroscopy access.",
+      "features": [
+        "Full electro-hydraulic movements with micro-touch hand control and base auxiliary panel",
+        "Longitudinal tabletop shift of 350 mm for full C-arm fluoroscopic clearance",
+        "High load capacity of 300 kg (660 lbs) with high operational stability",
+        "Memory foam antistatic waterproof mattress with high pressure-relieving characteristics",
+        "Built-in battery backup for up to 80 full surgical positional cycles"
+      ],
+      "specifications": {
+        "Tabletop Dimensions": "2,100 mm x 520 mm",
+        "Height Adjustment": "680 mm to 1,000 mm (Motorized)",
+        "Trendelenburg / Reverse": "≥ 25° / ≥ 25°",
+        "Lateral Tilt (Left / Right)": "≥ 20° / ≥ 20°",
+        "Back Plate Adjustment": "+75° to -20°",
+        "Leg Plate Adjustment": "+15° to -90° (Split & detachable)",
+        "Longitudinal Sliding": "350 mm for C-Arm imaging",
+        "Maximum Weight Capacity": "300 kg (660 lbs)",
+        "Chassis Material": "Medical Grade 304 Brushed Stainless Steel",
+        "Total Weight": "260 kg"
+      },
+      "applications": [
+        "General laparotomy and laparoscopic surgery",
+        "Orthopedic trauma and total joint replacement",
+        "Neurosurgery and spinal interventions",
+        "Urological and gynecological surgical procedures"
+      ],
+      "packageContents": [
+        "SurgiBase 3000 Table with Electro-hydraulic System",
+        "Antistatic Memory Mattress Set (Detachable)",
+        "Digital Wired Hand Pendant Controller",
+        "Set of 2 Arm Boards with Straps",
+        "Set of 2 Lateral Body Supports",
+        "Set of 2 Shoulder Crutches",
+        "Anesthesia Screen Frame",
+        "Internal Rechargeable Battery & Power Cable"
+      ],
+      "powerRequirements": "110–240V AC, 50/60 Hz and 24V Internal Battery",
+      "certifications": [
+        "ISO 13485:2016",
+        "CE 0123",
+        "IEC 60601-2-46 Operating Table Standard"
+      ],
+      "warranty": "3 Years Comprehensive Electro-Hydraulic Warranty",
+      "shippingLeadTime": "7–10 Business Days (Heavy-duty Sea/Air Crate)"
+    },
+    {
+      "id": "prod-tbl-02",
+      "slug": "hydraulic-examination-table-clinical",
+      "title": "MediCuro CareBed Pro | Hydraulic Height-Adjustable Clinical Examination Table",
+      "sku": "MC-TBL-EXM200",
+      "brand": "MediCuro Global",
+      "category": "tables",
+      "subcategory": "examination-tables",
+      "basePrice": 1250,
+      "originalPrice": 1550,
+      "stock": 25,
+      "rating": 4.8,
+      "reviewCount": 30,
+      "isFeatured": false,
+      "isBestSeller": true,
+      "images": [
+        "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "shortDescription": "Heavy-duty hydraulic examination and treatment couch with bilateral foot pedal elevation, gas-spring assisted backrest, and seamless antimicrobial upholstery.",
+      "overview": "Built for hospital consultation suites, physiotherapy clinics, and health centers. Features smooth hydraulic pump elevation requiring no electrical hookup, making it versatile across global clinic environments.",
+      "features": [
+        "Foot pump hydraulic lift on both sides of table",
+        "Gas-spring assisted backrest elevation from 0° to 75°",
+        "Seamless hospital-grade vinyl upholstery resistant to disinfectant solutions",
+        "Retractable wheel carriage with single central foot lever"
+      ],
+      "specifications": {
+        "Dimensions": "1,950 mm x 680 mm",
+        "Height Range": "500 mm to 920 mm (Hydraulic Foot Pump)",
+        "Backrest Angle": "0° to +75° (Gas Strut)",
+        "Load Capacity": "220 kg (485 lbs)",
+        "Weight": "85 kg"
+      },
+      "applications": [
+        "General outpatient consultation, clinical diagnostics, minor therapy"
+      ],
+      "packageContents": [
+        "CareBed Pro Hydraulic Couch",
+        "Paper Roll Dispenser Bar",
+        "Integrated Retractable Central Castor System",
+        "Assembly Tools and Maintenance Manual"
+      ],
+      "powerRequirements": "Manual Hydraulic (Non-electrical)",
+      "certifications": [
+        "ISO 13485",
+        "CE Compliant"
+      ],
+      "warranty": "3 Years Frame & Hydraulic Pump Warranty",
+      "shippingLeadTime": "4–6 Business Days"
+    },
+    {
+      "id": "prod-obg-01",
+      "slug": "motorized-obstetric-delivery-bed-luna",
+      "title": "MediCuro LunaCare LDR | Motorized Obstetric Labor & Delivery Table",
+      "sku": "MC-OBG-LDR500",
+      "brand": "MediCuro Global",
+      "category": "ob-gyn",
+      "subcategory": "obstetric-tables",
+      "basePrice": 3950,
+      "originalPrice": 4750,
+      "stock": 10,
+      "rating": 4.9,
+      "reviewCount": 25,
+      "isFeatured": true,
+      "isBestSeller": true,
+      "images": [
+        "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "shortDescription": "Full-feature electric Labor, Delivery & Recovery (LDR) obstetric bed with motorized back, height, and Trendelenburg adjustments, retractable leg section, and stainless fluid basin.",
+      "overview": "LunaCare LDR seamlessly transitions from a comfortable labor bed to a specialized delivery platform. Designed with maternal comfort and immediate obstetric emergency access in mind.",
+      "features": [
+        "Motorized height, backrest, and Trendelenburg adjustments with hand controller and nurse lockout panel",
+        "Telescopic sliding leg section retracts smoothly beneath seat for birthing position",
+        "Integrated multi-axis padded leg crutches (lithotomy supports)",
+        "Slide-out stainless steel fluid collection basin with drainage hose",
+        "Fold-down side rails with integrated ergonomic push handles for labor pushing"
+      ],
+      "specifications": {
+        "Overall Length": "2,050 mm (Bed mode) | 1,450 mm (Delivery mode)",
+        "Width": "880 mm (Over side rails)",
+        "Height Range": "580 mm to 980 mm",
+        "Backrest Elevation": "0° to 70°",
+        "Trendelenburg": "≥ 12°",
+        "Safe Working Load": "250 kg (550 lbs)",
+        "Total Weight": "180 kg"
+      },
+      "applications": [
+        "Labor, delivery, and post-partum recovery in maternity hospitals",
+        "Emergency Cesarean transition and operative deliveries",
+        "Perineal repair and obstetric examinations"
+      ],
+      "packageContents": [
+        "LunaCare LDR Obstetric Bed Frame",
+        "Antimicrobial Waterproof Seamless Birthing Mattress",
+        "Pair of Padded Lithotomy Leg Crutches with Ball Joints",
+        "Stainless Steel Debris & Fluid Basin",
+        "Pair of Ergonomic Pull Handles",
+        "IV Pole and Oxygen Cylinder Holder"
+      ],
+      "powerRequirements": "100–240V AC, 50/60 Hz and internal emergency backup battery",
+      "certifications": [
+        "ISO 13485:2016",
+        "CE Marked",
+        "IEC 60601-2-52"
+      ],
+      "warranty": "3 Years Comprehensive Warranty",
+      "shippingLeadTime": "6–9 Business Days (Export Crate)"
+    },
+    {
+      "id": "prod-obg-02",
+      "slug": "fetal-doppler-heart-rate-monitor",
+      "title": "MediCuro FetalBeat Pro | Dual Ultrasound Clinical Fetal Doppler Monitor with Twins Detection",
+      "sku": "MC-OBG-FHR200",
+      "brand": "MediCuro Global",
+      "category": "ob-gyn",
+      "subcategory": "fetal-monitoring-equipment",
+      "basePrice": 1150,
+      "originalPrice": 1400,
+      "stock": 30,
+      "rating": 4.8,
+      "reviewCount": 36,
+      "isFeatured": false,
+      "isBestSeller": true,
+      "images": [
+        "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "shortDescription": "Advanced antepartum fetal and maternal monitor featuring high-sensitivity 1 MHz pulsed Doppler probes, automatic twin FHR separation, and built-in thermal recorder.",
+      "overview": "The FetalBeat Pro provides continuous, non-invasive monitoring of fetal heart rates (FHR), uterine contraction activity (TOCO), and fetal movement (FM). Equipped with a 12.1-inch tiltable high-definition screen and central monitoring network connectivity.",
+      "features": [
+        "12.1-inch color TFT display tiltable up to 60 degrees",
+        "High-sensitivity 12-crystal waterproof ultrasound transducers",
+        "Dual FHR monitoring with acoustic signal separation for twins",
+        "Wide-format 152mm thermal printer with high-speed printing",
+        "Continuous 24-hour trace waveform storage and review"
+      ],
+      "specifications": {
+        "Display": "12.1-inch Color LCD Touchscreen",
+        "Ultrasound Frequency": "1.0 MHz ± 10%",
+        "FHR Measurement Range": "50–240 BPM ± 1 BPM",
+        "TOCO Range": "0–100 relative units",
+        "Recorder": "Built-in 152 mm High Resolution Thermal Printer",
+        "Weight": "5.6 kg"
+      },
+      "applications": [
+        "Antepartum fetal well-being assessment, Non-Stress Test (NST), labor ward monitoring"
+      ],
+      "packageContents": [
+        "FetalBeat Pro Main Monitor",
+        "2x Waterproof FHR Ultrasound Probes",
+        "1x TOCO Uterine Contraction Probe",
+        "1x Maternal Event Marker Button",
+        "3x Elastic Probe Abdominal Belts",
+        "Thermal Recording Paper (Pack of 3 Packs)"
+      ],
+      "powerRequirements": "100–240V AC, 50/60 Hz and built-in lithium rechargeable battery",
+      "certifications": [
+        "ISO 13485:2016",
+        "CE 0123",
+        "IEC 60601-2-37"
+      ],
+      "warranty": "2 Years Warranty",
+      "shippingLeadTime": "3–5 Business Days"
+    }
+  ],
+  "categories": [
+    {
+      "id": "physiotherapy",
+      "slug": "physiotherapy",
+      "name": "Physiotherapy Machines",
+      "shortDescription": "Advanced electrotherapy and physical rehabilitation systems engineered for clinics and hospitals.",
+      "icon": "Activity",
+      "featuredImage": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80",
+      "subcategories": [
+        {
+          "id": "ultrasound",
+          "slug": "ultrasound-therapy-machines",
+          "name": "Ultrasound Therapy Machines"
+        },
+        {
+          "id": "tens",
+          "slug": "tens-machines",
+          "name": "TENS Machines"
+        },
+        {
+          "id": "laser",
+          "slug": "laser-therapy-machine",
+          "name": "Laser Therapy Machines"
+        },
+        {
+          "id": "cpm",
+          "slug": "cpm",
+          "name": "Continuous Passive Motion (CPM)"
+        },
+        {
+          "id": "shortwave-diathermy",
+          "slug": "shortwave-diathermy-machine",
+          "name": "Shortwave Diathermy Machine"
+        },
+        {
+          "id": "longwave-diathermy",
+          "slug": "longwave-diathermy-machine",
+          "name": "Longwave Diathermy Machine"
+        },
+        {
+          "id": "shockwave",
+          "slug": "shockwave-therapy-machine",
+          "name": "Shockwave Therapy Machine"
+        },
+        {
+          "id": "traction",
+          "slug": "electronic-traction-machine",
+          "name": "Electronic Traction Machine"
+        },
+        {
+          "id": "muscle-stimulator",
+          "slug": "electric-muscle-stimulator",
+          "name": "Electric Muscle Stimulator"
+        }
+      ]
+    },
+    {
+      "id": "electrosurgical",
+      "slug": "electro-surgical-units",
+      "name": "Electrosurgical Units",
+      "shortDescription": "High-frequency precision electrosurgical generators and cautery systems for modern ORs.",
+      "icon": "Zap",
+      "featuredImage": "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+      "subcategories": [
+        {
+          "id": "cautery",
+          "slug": "electro-surgical-skin-cautery",
+          "name": "Electrosurgical Cautery"
+        },
+        {
+          "id": "generators",
+          "slug": "electrosurgical-generator",
+          "name": "Electrosurgical Generators"
+        },
+        {
+          "id": "accessories",
+          "slug": "surgical-accessories",
+          "name": "Surgical Electrodes & Accessories"
+        }
+      ]
+    },
+    {
+      "id": "cryosurgery",
+      "slug": "cryo-gun",
+      "name": "Cryosurgical Equipment",
+      "shortDescription": "Liquid nitrogen cryotherapy guns, multi-nozzle spray sets, and surgical cryo systems.",
+      "icon": "ThermometerSnowflake",
+      "featuredImage": "https://images.unsplash.com/photo-1583912267670-6575ad362e4b?auto=format&fit=crop&w=800&q=80",
+      "subcategories": [
+        {
+          "id": "cryo-guns",
+          "slug": "cryo-surgical-guns",
+          "name": "Cryo Surgical Guns"
+        },
+        {
+          "id": "cryo-systems",
+          "slug": "cryotherapy-systems",
+          "name": "Cryotherapy Systems"
+        },
+        {
+          "id": "cryo-nozzles",
+          "slug": "cryo-replacement-nozzles",
+          "name": "Replacement Nozzles & Accessories"
+        }
+      ]
+    },
+    {
+      "id": "ot-lights",
+      "slug": "ot-light-ot-lamps",
+      "name": "OT / Surgical Lights",
+      "shortDescription": "Shadowless LED surgical illumination systems engineered with high CRI and cold-light optics.",
+      "icon": "Sun",
+      "featuredImage": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80",
+      "subcategories": [
+        {
+          "id": "single-dome",
+          "slug": "single-dome-ot-lights",
+          "name": "Single Dome OT Lights"
+        },
+        {
+          "id": "double-dome",
+          "slug": "ot-surgical-lights-double-dome",
+          "name": "Double Dome OT Lights"
+        },
+        {
+          "id": "mobile-lights",
+          "slug": "mobile-led-ot-lights",
+          "name": "Mobile OT Lights"
+        },
+        {
+          "id": "ceiling-lights",
+          "slug": "ceiling-mounted-systems",
+          "name": "Ceiling-Mounted Systems"
+        }
+      ]
+    },
+    {
+      "id": "tables",
+      "slug": "examination-ot-tables",
+      "name": "Examination & OT Tables",
+      "shortDescription": "Heavy-duty electric operating theatre tables, hydraulic surgical couches, and clinical examination beds.",
+      "icon": "Bed",
+      "featuredImage": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+      "subcategories": [
+        {
+          "id": "ot-tables",
+          "slug": "operating-tables",
+          "name": "Operating Tables"
+        },
+        {
+          "id": "exam-tables",
+          "slug": "examination-tables",
+          "name": "Examination Tables"
+        },
+        {
+          "id": "treatment-tables",
+          "slug": "treatment-tables",
+          "name": "Treatment & Rehabilitation Couches"
+        }
+      ]
+    },
+    {
+      "id": "ob-gyn",
+      "slug": "obstetrics-and-gynaecology",
+      "name": "Obstetrics & Gynaecology",
+      "shortDescription": "Specialized maternal delivery tables, gynaecological examination beds, and fetal monitoring instruments.",
+      "icon": "HeartPulse",
+      "featuredImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+      "subcategories": [
+        {
+          "id": "obstetric-tables",
+          "slug": "obstetric-tables",
+          "name": "Obstetric Delivery Tables"
+        },
+        {
+          "id": "gynae-tables",
+          "slug": "gynaecology-examination-tables",
+          "name": "Gynaecology Examination Tables"
+        },
+        {
+          "id": "fetal-care",
+          "slug": "fetal-monitoring-equipment",
+          "name": "Fetal Doppler & Monitoring"
+        }
+      ]
+    }
+  ],
+  "countries": [
+    {
+      "code": "US",
+      "name": "United States",
+      "flag": "🇺🇸",
+      "currency": "USD",
+      "symbol": "$",
+      "dialCode": "+1",
+      "postalLabel": "ZIP Code",
+      "stateLabel": "State",
+      "postalRegex": "^[0-9]{5}(?:-[0-9]{4})?$",
+      "defaultRate": 1,
+      "voltage": "120V / 60Hz",
+      "plugType": "Type A / B",
+      "leadTimeAirDays": "3–5 Days",
+      "regulatoryStandards": "FDA 510(k) Ready / ISO 13485"
+    },
+    {
+      "code": "IN",
+      "name": "India",
+      "flag": "🇮🇳",
+      "currency": "INR",
+      "symbol": "₹",
+      "dialCode": "+91",
+      "postalLabel": "PIN Code",
+      "stateLabel": "State",
+      "postalRegex": "^[1-9][0-9]{5}$",
+      "defaultRate": 86.85,
+      "voltage": "230V / 50Hz",
+      "plugType": "Type C / D / M",
+      "leadTimeAirDays": "2–4 Days",
+      "regulatoryStandards": "CDSCO / ISO 13485:2016"
+    },
+    {
+      "code": "GB",
+      "name": "United Kingdom",
+      "flag": "🇬🇧",
+      "currency": "GBP",
+      "symbol": "£",
+      "dialCode": "+44",
+      "postalLabel": "Postal Code",
+      "stateLabel": "County",
+      "postalRegex": "^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][A-Z]{2}$",
+      "defaultRate": 0.78,
+      "voltage": "230V / 50Hz",
+      "plugType": "Type G",
+      "leadTimeAirDays": "3–6 Days",
+      "regulatoryStandards": "MHRA / UKCA / CE Marked"
+    },
+    {
+      "code": "CA",
+      "name": "Canada",
+      "flag": "🇨🇦",
+      "currency": "CAD",
+      "symbol": "CA$",
+      "dialCode": "+1",
+      "postalLabel": "Postal Code",
+      "stateLabel": "Province",
+      "postalRegex": "^[A-Za-z]\\d[A-Za-z][ -]?\\d[A-Za-z]\\d$",
+      "defaultRate": 1.39,
+      "voltage": "120V / 60Hz",
+      "plugType": "Type A / B",
+      "leadTimeAirDays": "4–6 Days",
+      "regulatoryStandards": "Health Canada MDEL / ISO 13485"
+    },
+    {
+      "code": "DE",
+      "name": "Germany",
+      "flag": "🇩🇪",
+      "currency": "EUR",
+      "symbol": "€",
+      "dialCode": "+49",
+      "postalLabel": "Postleitzahl",
+      "stateLabel": "Bundesland",
+      "postalRegex": "^[0-9]{5}$",
+      "defaultRate": 0.92,
+      "voltage": "230V / 50Hz",
+      "plugType": "Type C / F",
+      "leadTimeAirDays": "3–5 Days",
+      "regulatoryStandards": "CE Medical Device Regulation (MDR) / ISO 13485"
+    },
+    {
+      "code": "FR",
+      "name": "France",
+      "flag": "🇫🇷",
+      "currency": "EUR",
+      "symbol": "€",
+      "dialCode": "+33",
+      "postalLabel": "Code Postal",
+      "stateLabel": "Région",
+      "postalRegex": "^[0-9]{5}$",
+      "defaultRate": 0.92,
+      "voltage": "230V / 50Hz",
+      "plugType": "Type C / E",
+      "leadTimeAirDays": "3–5 Days",
+      "regulatoryStandards": "CE MDR / ANSM / ISO 13485"
+    },
+    {
+      "code": "AE",
+      "name": "United Arab Emirates",
+      "flag": "🇦🇪",
+      "currency": "AED",
+      "symbol": "د.إ",
+      "dialCode": "+971",
+      "postalLabel": "PO Box / District",
+      "stateLabel": "Emirate",
+      "postalRegex": ".*",
+      "defaultRate": 3.67,
+      "voltage": "230V / 50Hz",
+      "plugType": "Type G",
+      "leadTimeAirDays": "2–4 Days",
+      "regulatoryStandards": "MOHAP Registered / CE Mark"
+    },
+    {
+      "code": "AU",
+      "name": "Australia",
+      "flag": "🇦🇺",
+      "currency": "AUD",
+      "symbol": "A$",
+      "dialCode": "+61",
+      "postalLabel": "Postcode",
+      "stateLabel": "State",
+      "postalRegex": "^[0-9]{4}$",
+      "defaultRate": 1.54,
+      "voltage": "230V / 50Hz",
+      "plugType": "Type I",
+      "leadTimeAirDays": "4–7 Days",
+      "regulatoryStandards": "TGA Compliant / ISO 13485"
+    },
+    {
+      "code": "SG",
+      "name": "Singapore",
+      "flag": "🇸🇬",
+      "currency": "SGD",
+      "symbol": "S$",
+      "dialCode": "+65",
+      "postalLabel": "Postal Code",
+      "stateLabel": "District",
+      "postalRegex": "^[0-9]{6}$",
+      "defaultRate": 1.34,
+      "voltage": "230V / 50Hz",
+      "plugType": "Type G",
+      "leadTimeAirDays": "2–4 Days",
+      "regulatoryStandards": "HSA Registered / ISO 13485"
+    },
+    {
+      "code": "ZA",
+      "name": "South Africa",
+      "flag": "🇿🇦",
+      "currency": "ZAR",
+      "symbol": "R",
+      "dialCode": "+27",
+      "postalLabel": "Postal Code",
+      "stateLabel": "Province",
+      "postalRegex": "^[0-9]{4}$",
+      "defaultRate": 18.25,
+      "voltage": "230V / 50Hz",
+      "plugType": "Type M / N",
+      "leadTimeAirDays": "5–8 Days",
+      "regulatoryStandards": "SAHPRA / ISO 13485"
+    },
+    {
+      "code": "JP",
+      "name": "Japan",
+      "flag": "🇯🇵",
+      "currency": "JPY",
+      "symbol": "¥",
+      "dialCode": "+81",
+      "postalLabel": "Postal Code",
+      "stateLabel": "Prefecture",
+      "postalRegex": "^[0-9]{3}-?[0-9]{4}$",
+      "defaultRate": 153.2,
+      "voltage": "100V / 50-60Hz",
+      "plugType": "Type A / B",
+      "leadTimeAirDays": "3–5 Days",
+      "regulatoryStandards": "PMDA Standards / ISO 13485"
+    }
+  ],
+  "blogs": [
+    {
+      "id": "blog-01",
+      "slug": "operating-theatre-lighting-selection-guide",
+      "title": "Operating Theatre Illumination: Optimizing Lux, Color Rendering (CRI), and Shadow Reduction in Modern Surgical Suites",
+      "excerpt": "Discover why shadow reduction, high R9 values, and laminar airflow integration are critical parameters when selecting LED surgical lights for tertiary hospitals.",
+      "category": "Surgical Technology",
+      "author": "Dr. Marcus Vance, Chief Biomedical Engineer",
+      "date": "October 14, 2026",
+      "readTime": "7 min read",
+      "image": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80",
+      "content": "\nOperating room illumination is not merely about brightness; it is a critical clinical factor directly influencing surgical precision, visual fatigue, and patient safety. \n\n### The Importance of Color Rendering Index (CRI) and R9\nStandard white lighting often obscures subtle physiological variations between arteries, veins, liver parenchyma, and lymphatic tissue. High-end surgical lights must attain a CRI (Ra) ≥ 95 and a saturated red index (R9) ≥ 92. This ensures accurate tissue differentiation during lengthy operative procedures.\n\n### Shadow-Minimizing Optical Physics\nWhen surgical teams lean into the cavity, multiple heads and overlapping hands inevitably create optical obstacles. Double-dome and multi-cluster LED arrays utilize faceted lenses to project converging light fields. Even if 60% of the lighthead aperture is obstructed, the remaining beams converge to maintain continuous cavity illumination above 120,000 Lux.\n\n### Thermal Management & Laminar Airflow\nExcessive thermal output from older halogen sources desiccates sensitive surgical tissue and induces surgeon perspiration. Modern solid-state LEDs engineered by MediCuro Global emit cold light with a temperature rise < 1°C at the surgeon's cranial level. Additionally, aerodynamic dome geometry prevents disruption of ceiling HEPA laminar airflow currents.\n    "
+    },
+    {
+      "id": "blog-02",
+      "slug": "high-frequency-electrosurgery-safety-protocols",
+      "title": "High-Frequency Electrosurgical Safety: Preventing Capacitive Coupling and Patient Return Electrode Complications",
+      "excerpt": "A comprehensive guide on Return Electrode Monitoring (REM), stray RF currents, and safe coagulation modes in minimally invasive laparoscopy.",
+      "category": "Electrosurgery & Safety",
+      "author": "Elena Rostova, Clinical Safety Director",
+      "date": "November 2, 2026",
+      "readTime": "6 min read",
+      "image": "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1000&q=80",
+      "content": "\nHigh-frequency (HF) electrosurgery remains one of the most widely used technologies across general surgery, gynecology, and urology. However, understanding radiofrequency physics is essential for eliminating inadvertent burns and electrical hazards.\n\n### The Physics of Return Electrode Monitoring (REM / CQM)\nIn monopolar surgery, radiofrequency current passes from the active pencil through the patient's body to the dispersive return pad. If the contact area of the pad decreases, current density spikes exponentially, creating serious thermal burn risks. Split-plate monitoring circuits continuously measure interrogation resistance between dual conductive halves, automatically disabling generator output if detachment exceeds safe thresholds.\n\n### Minimizing Capacitive Coupling in Laparoscopic Ports\nDuring laparoscopic dissection, high-frequency currents can inductively or capacitively couple across plastic and metal trocar cannulas. Utilizing the lowest effective generator wattage and brief intermittent activation bursts effectively mitigates collateral visceral trauma.\n    "
+    },
+    {
+      "id": "blog-03",
+      "slug": "clinical-advancements-in-cryosurgical-ablation",
+      "title": "Clinical Advancements in Cryosurgical Ablation: Controlling Ice-Ball Margins at -196°C",
+      "excerpt": "How double-walled vacuum cryosurgical devices and precision orifice nozzles achieve cellular necrosis while sparing healthy dermis.",
+      "category": "Cryosurgery",
+      "author": "Dr. Arvind Patel, Consultant Dermatologist",
+      "date": "December 5, 2026",
+      "readTime": "5 min read",
+      "image": "https://images.unsplash.com/photo-1583912267670-6575ad362e4b?auto=format&fit=crop&w=1000&q=80",
+      "content": "\nCryosurgery utilizes rapid freezing to induce intracellular crystallization, vascular stasis, and subsequent immunogenic necrosis of abnormal tissue.\n\n### The Freeze-Thaw Cycle\nCellular destruction occurs most effectively through a rapid freeze followed by slow spontaneous thawing. Liquid nitrogen delivery via pressurized spray tips produces a rapid temperature drop to -50°C within the targeted lesion, shearing cell membranes through ice crystal expansion.\n\n### Orifice Geometry and Spray Control\nUsing interchangeable nozzle apertures allows clinicians to tailor the cryogen plume diameter directly to lesion dimensions, preserving healthy surrounding tissue in delicate aesthetic zones like facial margins and eyelid borders.\n    "
+    }
+  ],
+  "orders": [
+    {
+      "id": "MC-55462",
+      "orderNumber": "MC-55462",
+      "customer": {
+        "fullName": "Dr. Aris Thorne",
+        "email": "dr.thorne@saintjude.org",
+        "phone": "+1 415-555-0192"
+      },
+      "shippingAddress": {
+        "addressLine1": "742 Clinic Way",
+        "city": "Munich",
+        "state": "Bavaria",
+        "postalCode": "80331",
+        "countryCode": "DE",
+        "country": "Germany"
+      },
+      "billingAddress": {
+        "addressLine1": "742 Clinic Way",
+        "city": "Munich",
+        "state": "Bavaria",
+        "postalCode": "80331",
+        "countryCode": "DE",
+        "country": "Germany"
+      },
+      "items": [
+        {
+          "productId": "prod-phy-01",
+          "title": "MediCuro UltraSound Pro 1000 | Dual Frequency (1 & 3 MHz) Clinical Physiotherapy System",
+          "sku": "MC-PHY-US1000",
+          "quantity": 2,
+          "basePriceUSD": 1450,
+          "convertedUnitPrice": 1334,
+          "currency": "EUR",
+          "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
+        }
+      ],
+      "pricing": {
+        "baseSubtotalUSD": 2900,
+        "subtotal": 0,
+        "discount": 0,
+        "shipping": 0,
+        "tax": 0,
+        "grandTotal": 2778.4,
+        "currency": "EUR",
+        "exchangeRateUsed": 0.92,
+        "rateTimestamp": "2026-09-19T13:45:54.082Z",
+        "couponApplied": null
+      },
+      "shippingMethod": {
+        "id": "dhl-air-express",
+        "name": "DHL Express Medical Air Cargo",
+        "carrier": "DHL Express",
+        "estimatedDays": "3–6 Business Days",
+        "trackingNumber": "DHL-468267106",
+        "trackingUrl": "https://www.dhl.com/en/express/tracking.html"
+      },
+      "payment": {
+        "method": "International Credit Card",
+        "transactionId": "TXN_W7SJI4LN2J",
+        "status": "PAID",
+        "paidAt": "2026-09-19T13:45:54.082Z"
+      },
+      "fulfillmentStatus": "CONFIRMED",
+      "status": "PROCESSING",
+      "createdAt": "2026-09-19T13:45:54.082Z",
+      "trackingTimeline": [
+        {
+          "stage": "ORDER_PLACED",
+          "title": "Order Placed",
+          "timestamp": "2026-09-19T13:45:54.082Z",
+          "completed": true,
+          "details": "Order validated and registered in central medical database."
+        },
+        {
+          "stage": "PAYMENT_CONFIRMED",
+          "title": "Payment Confirmed",
+          "timestamp": "2026-09-19T13:45:54.082Z",
+          "completed": true,
+          "details": "Verified payment via International Secure Gateway."
+        },
+        {
+          "stage": "PROCESSING",
+          "title": "Calibration & Processing",
+          "timestamp": null,
+          "completed": false,
+          "details": "Equipment pending biomedical bench inspection."
+        },
+        {
+          "stage": "QC_INSPECTED",
+          "title": "9-Stage Quality Passed",
+          "timestamp": null,
+          "completed": false,
+          "details": "Burn-in testing and electrical leakage audit."
+        },
+        {
+          "stage": "PACKED",
+          "title": "Export Crate Packed",
+          "timestamp": null,
+          "completed": false,
+          "details": "High-density foam protective crating."
+        },
+        {
+          "stage": "SHIPPED",
+          "title": "Shipped / In Transit",
+          "timestamp": null,
+          "completed": false,
+          "details": "AWB will be assigned upon carrier dispatch."
+        },
+        {
+          "stage": "DELIVERED",
+          "title": "Delivered",
+          "timestamp": null,
+          "completed": false,
+          "details": "Final receipt sign-off."
+        }
+      ]
+    },
+    {
+      "id": "MC-36387",
+      "orderNumber": "MC-36387",
+      "customer": {
+        "fullName": "Dr. Aris Thorne",
+        "email": "dr.thorne@saintjude.org",
+        "phone": "+1 415-555-0192",
+        "institutionName": "Saint Jude Hospital"
+      },
+      "shippingAddress": {
+        "addressLine1": "742 Clinic Way",
+        "city": "Munich",
+        "state": "Bavaria",
+        "postalCode": "80331",
+        "countryCode": "DE",
+        "country": "Germany"
+      },
+      "billingAddress": {
+        "addressLine1": "742 Clinic Way",
+        "city": "Munich",
+        "state": "Bavaria",
+        "postalCode": "80331",
+        "countryCode": "DE",
+        "country": "Germany"
+      },
+      "items": [
+        {
+          "quantity": 2,
+          "basePriceUSD": 100,
+          "convertedUnitPrice": 92,
+          "currency": "EUR",
+          "image": ""
+        }
+      ],
+      "pricing": {
+        "baseSubtotalUSD": 0,
+        "subtotal": 0,
+        "discount": 0,
+        "shipping": 0,
+        "tax": 0,
+        "grandTotal": 0,
+        "currency": "EUR",
+        "exchangeRateUsed": 0.92,
+        "rateTimestamp": "2026-09-19T13:45:16.726Z",
+        "couponApplied": null
+      },
+      "shippingMethod": {
+        "id": "dhl-air",
+        "name": "DHL Medical Air Express",
+        "carrier": "DHL",
+        "costUSD": 140
+      },
+      "payment": {
+        "method": "card",
+        "transactionId": "TXN_L1U605KALX",
+        "status": "PAID",
+        "paidAt": "2026-09-19T13:45:16.726Z"
+      },
+      "fulfillmentStatus": "CONFIRMED",
+      "status": "PROCESSING",
+      "createdAt": "2026-09-19T13:45:16.726Z",
+      "trackingTimeline": [
+        {
+          "stage": "ORDER_PLACED",
+          "title": "Order Placed",
+          "timestamp": "2026-09-19T13:45:16.726Z",
+          "completed": true,
+          "details": "Order validated and registered in central medical database."
+        },
+        {
+          "stage": "PAYMENT_CONFIRMED",
+          "title": "Payment Confirmed",
+          "timestamp": "2026-09-19T13:45:16.726Z",
+          "completed": true,
+          "details": "Verified payment via International Secure Gateway."
+        },
+        {
+          "stage": "PROCESSING",
+          "title": "Calibration & Processing",
+          "timestamp": null,
+          "completed": false,
+          "details": "Equipment pending biomedical bench inspection."
+        },
+        {
+          "stage": "QC_INSPECTED",
+          "title": "9-Stage Quality Passed",
+          "timestamp": null,
+          "completed": false,
+          "details": "Burn-in testing and electrical leakage audit."
+        },
+        {
+          "stage": "PACKED",
+          "title": "Export Crate Packed",
+          "timestamp": null,
+          "completed": false,
+          "details": "High-density foam protective crating."
+        },
+        {
+          "stage": "SHIPPED",
+          "title": "Shipped / In Transit",
+          "timestamp": null,
+          "completed": false,
+          "details": "AWB will be assigned upon carrier dispatch."
+        },
+        {
+          "stage": "DELIVERED",
+          "title": "Delivered",
+          "timestamp": null,
+          "completed": false,
+          "details": "Final receipt sign-off."
+        }
+      ]
+    },
+    {
+      "id": "MC-84920",
+      "orderNumber": "MC-84920",
+      "customer": {
+        "fullName": "Dr. Jonathan Reyes",
+        "email": "jreyes@mayoortho.com",
+        "phone": "+1 415-555-0192",
+        "country": "United States",
+        "countryCode": "US"
+      },
+      "shippingAddress": {
+        "addressLine1": "742 Medical Center Blvd, Suite 400",
+        "city": "San Francisco",
+        "state": "California",
+        "postalCode": "94143",
+        "country": "United States",
+        "countryCode": "US"
+      },
+      "billingAddress": {
+        "addressLine1": "742 Medical Center Blvd, Suite 400",
+        "city": "San Francisco",
+        "state": "California",
+        "postalCode": "94143",
+        "country": "United States",
+        "countryCode": "US"
+      },
+      "items": [
+        {
+          "productId": "prod-phy-01",
+          "title": "MediCuro UltraSound Pro 1000 | Dual Frequency (1 & 3 MHz) Clinical Physiotherapy System",
+          "sku": "MC-PHY-US1000",
+          "quantity": 1,
+          "basePriceUSD": 1450,
+          "convertedUnitPrice": 1450,
+          "currency": "USD",
+          "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
+        }
+      ],
+      "pricing": {
+        "baseSubtotalUSD": 1450,
+        "subtotal": 1450,
+        "discount": 145,
+        "shipping": 120,
+        "tax": 0,
+        "grandTotal": 1425,
+        "currency": "USD",
+        "exchangeRateUsed": 1,
+        "rateTimestamp": "2026-09-18T10:00:00.000Z",
+        "couponApplied": "MEDICURO10"
+      },
+      "shippingMethod": {
+        "id": "dhl-air-express",
+        "name": "DHL Express Medical Air Cargo",
+        "carrier": "DHL Express",
+        "estimatedDays": "3–5 Days",
+        "trackingNumber": "DHL-MED-994827110",
+        "trackingUrl": "https://www.dhl.com/en/express/tracking.html?AWB=994827110"
+      },
+      "payment": {
+        "method": "Stripe International Credit Card",
+        "transactionId": "ch_3N19M4K2819aZ",
+        "status": "PAID",
+        "paidAt": "2026-09-18T10:05:22.000Z"
+      },
+      "fulfillmentStatus": "IN_TRANSIT",
+      "status": "SHIPPED",
+      "createdAt": "2026-09-18T10:00:00.000Z",
+      "trackingTimeline": [
+        {
+          "stage": "ORDER_PLACED",
+          "title": "Order Placed",
+          "timestamp": "2026-09-18T10:00:00.000Z",
+          "completed": true,
+          "details": "Electronic purchase order validated."
+        },
+        {
+          "stage": "PAYMENT_CONFIRMED",
+          "title": "Payment Confirmed",
+          "timestamp": "2026-09-18T10:05:22.000Z",
+          "completed": true,
+          "details": "Verified payment via International Gateway."
+        },
+        {
+          "stage": "PROCESSING",
+          "title": "Calibration & Processing",
+          "timestamp": "2026-09-18T14:30:00.000Z",
+          "completed": true,
+          "details": "Medical unit pulled from climate storage and calibrated."
+        },
+        {
+          "stage": "QC_INSPECTED",
+          "title": "9-Stage Quality Passed",
+          "timestamp": "2026-09-19T08:15:00.000Z",
+          "completed": true,
+          "details": "Electrical safety & acoustic output certified."
+        },
+        {
+          "stage": "PACKED",
+          "title": "Export Crate Packed",
+          "timestamp": "2026-09-19T11:00:00.000Z",
+          "completed": true,
+          "details": "Packaged in shockproof export wooden crating."
+        },
+        {
+          "stage": "SHIPPED",
+          "title": "Shipped / In Transit",
+          "timestamp": "2026-09-19T13:45:00.000Z",
+          "completed": true,
+          "details": "Handed to DHL Express. AWB: DHL-MED-994827110."
+        },
+        {
+          "stage": "DELIVERED",
+          "title": "Delivered",
+          "timestamp": null,
+          "completed": false,
+          "details": "Estimated delivery: Sept 22, 2026."
+        }
+      ]
+    }
+  ],
+  "quotes": [
+    {
+      "id": "RFQ-2026-0104",
+      "quoteNumber": "RFQ-2026-0104",
+      "fullName": "Dr. Alistair Finch",
+      "companyName": "St. Jude Metropolitan Surgical Hospital",
+      "email": "afinch@stjudehospital.co.uk",
+      "phone": "+44 20 7946 0912",
+      "country": "United Kingdom",
+      "productName": "MediCuro Lumina 700+500 Dual Dome OT Light",
+      "sku": "MC-OT-LUM750",
+      "quantity": 4,
+      "targetTimeline": "Within 30 Days (Tender Phase)",
+      "message": "Requesting official proforma quote for 4 complete dual-dome OT light suites including low-ceiling ceiling columns and installation support in London.",
+      "status": "QUOTED",
+      "quotedAmountUSD": 8900,
+      "adminNotes": "Offered institutional 12% bulk discount with included UKCA compliance documentation and regional export freight.",
+      "createdAt": "2026-09-17T14:20:00.000Z"
+    }
+  ],
+  "coupons": [
+    {
+      "code": "MEDICURO10",
+      "discountPercent": 10,
+      "maxDiscountUSD": 500,
+      "minOrderUSD": 1000,
+      "description": "10% Off Clinical Orders over $1,000"
+    },
+    {
+      "code": "GLOBALCARE",
+      "discountAmountUSD": 200,
+      "minOrderUSD": 2000,
+      "description": "$200 Off International Hospital Shipments"
+    },
+    {
+      "code": "SURGICAL5",
+      "discountPercent": 5,
+      "maxDiscountUSD": 300,
+      "minOrderUSD": 500,
+      "description": "5% Off Surgical & OT Illumination"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rev-01",
+      "productId": "prod-phy-01",
+      "author": "Dr. K. Narang, Head of Rehabilitation",
+      "facility": "Apollo Specialty Clinics",
+      "rating": 5,
+      "date": "2026-09-02",
+      "verifiedPurchase": true,
+      "status": "APPROVED",
+      "comment": "The UltraSound Pro 1000 has been running continuously in our clinic for 6 months. The dual 1MHz and 3MHz heads have perfect acoustic coupling, and the touch UI is intuitive for our therapists."
+    },
+    {
+      "id": "rev-02",
+      "productId": "prod-ot-01",
+      "author": "Prof. G. Dupont, Surgical Director",
+      "facility": "Hôpital Européen Lyon",
+      "rating": 5,
+      "date": "2026-08-28",
+      "verifiedPurchase": true,
+      "status": "APPROVED",
+      "comment": "Outstanding shadowless illumination. The German suspension arms allow effortless 360-degree repositioning during lengthy cardiovascular procedures. The cold LED has zero thermal heat."
+    }
+  ],
+  "policies": {
+    "announcementBar": "GLOBAL AIR FREIGHT DELIVERY AVAILABLE | 24/7 BIOMEDICAL TECHNICAL SUPPORT | ISO 13485:2016 & CE CERTIFIED",
+    "supportEmail": "support@medicuroglobal.com",
+    "salesEmail": "sales@medicuroglobal.com",
+    "hotline": "+1 (800) 849-2041",
+    "whatsapp": "+91 98110 49200",
+    "headquarters": "MediCuro Global MedTech Tower, 45 Healthcare Innovation Way, Boston, MA 02115, USA & International Logistics Hub, Dubai Healthcare City, UAE"
+  }
+}
