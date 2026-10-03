@@ -35,27 +35,27 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView, 
   const isSaved = isInWishlist(product.id);
 
   return (
-    <div className="group relative bg-white rounded-2xl border border-slate-200 hover:border-sky-300 hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden">
+    <div className="group relative bg-white rounded-xl border border-[#EAEAEA] hover:border-[#111111] hover:shadow-lg transition-all duration-300 flex flex-col justify-between overflow-hidden">
       {/* Badges and Wishlist */}
-      <div className="relative aspect-square bg-slate-50 overflow-hidden">
+      <div className="relative aspect-square bg-[#F9F9F9] overflow-hidden p-3 flex items-center justify-center">
         <Link to={`/product/${product.slug}`} className="block w-full h-full">
           <img
             src={product.images[0]}
             alt={product.title}
-            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500"
             loading="lazy"
           />
         </Link>
 
         {/* Top Badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-1 z-10 pointer-events-none">
+        <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10 pointer-events-none">
           {product.isBestSeller && (
-            <span className="px-2 py-0.5 text-3xs font-extrabold uppercase bg-sky-900 text-white rounded-md tracking-wider shadow-xs">
+            <span className="px-2.5 py-1 text-3xs font-bold uppercase bg-[#111111] text-white rounded-md tracking-wider shadow-xs">
               BEST SELLER
             </span>
           )}
           {product.originalPrice && product.originalPrice > product.basePrice && (
-            <span className="px-2 py-0.5 text-3xs font-extrabold uppercase bg-amber-500 text-white rounded-md tracking-wider shadow-xs">
+            <span className="px-2.5 py-1 text-3xs font-bold uppercase bg-[#1F7A4D] text-white rounded-md tracking-wider shadow-xs">
               SALE
             </span>
           )}
@@ -65,14 +65,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView, 
         <button
           type="button"
           onClick={handleWishlist}
-          className={`absolute top-3 right-3 p-2 rounded-full shadow-md backdrop-blur-xs transition-colors z-10 ${
+          className={`absolute top-3 right-3 p-2 rounded-full shadow-xs transition-colors z-10 ${
             isSaved
               ? "bg-rose-50 text-rose-600"
-              : "bg-white/90 text-slate-400 hover:text-rose-600 hover:bg-white"
+              : "bg-white/95 text-neutral-400 hover:text-rose-600 hover:bg-white border border-[#EAEAEA]"
           }`}
           title="Save to favorites"
         >
-          <Heart size={15} fill={isSaved ? "currentColor" : "none"} />
+          <Heart size={14} fill={isSaved ? "currentColor" : "none"} />
         </button>
 
         {/* Hover Quick Actions overlay */}
@@ -81,7 +81,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView, 
             <button
               type="button"
               onClick={() => onQuickView(product)}
-              className="flex-1 py-2 bg-white/95 hover:bg-white text-slate-800 rounded-lg text-2xs font-bold shadow-md flex items-center justify-center gap-1.5 transition-colors"
+              className="flex-1 py-2 bg-white hover:bg-[#111111] text-[#111111] hover:text-white border border-[#EAEAEA] rounded-lg text-2xs font-semibold shadow-xs flex items-center justify-center gap-1.5 transition-all"
             >
               <Eye size={13} />
               <span>Quick View</span>
@@ -91,7 +91,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView, 
             <button
               type="button"
               onClick={() => onOpenQuote(product)}
-              className="px-2.5 py-2 bg-sky-900 hover:bg-sky-800 text-white rounded-lg text-2xs font-bold shadow-md flex items-center justify-center gap-1 transition-colors"
+              className="px-3 py-2 bg-[#111111] hover:bg-[#1F7A4D] text-white rounded-lg text-2xs font-semibold shadow-xs flex items-center justify-center gap-1.5 transition-all"
               title="Request Quote"
             >
               <FileText size={13} />
@@ -102,49 +102,50 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView, 
       </div>
 
       {/* Content */}
-      <div className="p-4 flex-1 flex flex-col justify-between">
+      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
         <div>
           {/* Metadata Row */}
-          <div className="flex items-center justify-between text-3xs text-slate-400 uppercase tracking-wider font-semibold mb-1">
-            <span className="text-sky-700 font-bold">{product.brand}</span>
-            <span className="font-mono">SKU: {product.sku}</span>
+          <div className="flex items-center justify-between text-3xs text-neutral-500 uppercase tracking-wider font-semibold mb-1.5">
+            <span className="text-[#111111] font-bold">{product.brand}</span>
+            <span className="font-mono text-neutral-400">SKU: {product.sku}</span>
           </div>
 
           {/* Title */}
-          <h3 className="text-xs font-bold text-slate-900 leading-snug line-clamp-2 hover:text-sky-700 transition-colors">
+          <h3 className="text-xs sm:text-sm font-semibold text-[#111111] leading-snug line-clamp-2 hover:text-[#1F7A4D] transition-colors">
             <Link to={`/product/${product.slug}`}>{product.title}</Link>
           </h3>
 
           {/* Ratings */}
-          <div className="flex items-center gap-1.5 mt-1.5 text-amber-500">
+          <div className="flex items-center gap-1.5 mt-2">
             <div className="flex">
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
                   size={11}
-                  fill={i < Math.floor(product.rating) ? "currentColor" : "none"}
-                  className={i < Math.floor(product.rating) ? "text-amber-400" : "text-slate-200"}
+                  fill={i < Math.floor(product.rating) ? "#111111" : "none"}
+                  className={i < Math.floor(product.rating) ? "text-[#111111]" : "text-neutral-200"}
                 />
               ))}
             </div>
-            <span className="text-3xs text-slate-500 font-medium">({product.reviewCount})</span>
+            <span className="text-3xs text-neutral-500 font-medium">({product.reviewCount})</span>
           </div>
         </div>
 
         {/* Price and Cart Footer */}
-        <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+        <div className="mt-4 pt-3.5 border-t border-[#EAEAEA] flex items-center justify-between">
           <div>
             <div className="flex items-baseline gap-1.5">
-              <span className="text-sm font-black text-slate-900">
+              <span className="text-sm sm:text-base font-extrabold text-[#111111]">
                 {formatPrice(product.basePrice)}
               </span>
               {product.originalPrice && product.originalPrice > product.basePrice && (
-                <span className="text-3xs text-slate-400 line-through">
+                <span className="text-3xs text-neutral-400 line-through">
                   {formatPrice(product.originalPrice)}
                 </span>
               )}
             </div>
-            <span className="text-3xs text-emerald-600 font-medium block">
+            <span className="text-3xs text-[#1F7A4D] font-medium flex items-center gap-1 mt-0.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1F7A4D] inline-block"></span>
               In Stock • Ships Air
             </span>
           </div>
@@ -154,8 +155,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView, 
             onClick={handleAddToCart}
             className={`p-2.5 rounded-xl transition-all ${
               isAdded
-                ? "bg-emerald-600 text-white"
-                : "bg-slate-100 text-slate-700 hover:bg-sky-700 hover:text-white"
+                ? "bg-[#1F7A4D] text-white"
+                : "bg-[#111111] text-white hover:bg-[#1F7A4D]"
             }`}
             title="Add to cart"
           >

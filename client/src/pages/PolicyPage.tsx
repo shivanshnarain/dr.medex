@@ -20,7 +20,7 @@ export const PolicyPage: React.FC = () => {
     sections: [
       {
         heading: "1. Scope of Privacy Protocol",
-        body: "MediCuro Global Systems Ltd respects practitioner and healthcare institutional privacy. This policy outlines how commercial transaction data, facility delivery credentials, and communication logs are handled under international security standards."
+        body: "DR.MEDEX Global Systems Ltd respects practitioner and healthcare institutional privacy. This policy outlines how commercial transaction data, facility delivery credentials, and communication logs are handled under international security standards."
       },
       {
         heading: "2. Information Collection & Usage",
@@ -41,7 +41,7 @@ export const PolicyPage: React.FC = () => {
       sections: [
         {
           heading: "1. Acceptance of Medical Purchase",
-          body: "By ordering equipment or issuing purchase orders to MediCuro Global, the buyer acknowledges they are a licensed healthcare facility, medical distributor, or registered medical practitioner authorized to operate clinical electrical equipment."
+          body: "By ordering equipment or issuing purchase orders to DR.MEDEX, the buyer acknowledges they are a licensed healthcare facility, medical distributor, or registered medical practitioner authorized to operate clinical electrical equipment."
         },
         {
           heading: "2. Export Compliance & Incoterms",
@@ -81,7 +81,7 @@ export const PolicyPage: React.FC = () => {
       sections: [
         {
           heading: "1. Scope of 5-Year Coverage",
-          body: "MediCuro Global provides a comprehensive 5-year OEM warranty on LED modules, structural articulation arms, generator circuit boards, and table hydraulic pumps against manufacturing defects."
+          body: "DR.MEDEX provides a comprehensive 5-year OEM warranty on LED modules, structural articulation arms, generator circuit boards, and table hydraulic pumps against manufacturing defects."
         },
         {
           heading: "2. Rapid Spare Parts Dispatch",
@@ -116,40 +116,40 @@ export const PolicyPage: React.FC = () => {
   }
 
   return (
-    <div className="w-full bg-slate-50 min-h-screen py-12">
+    <div className="w-full bg-[#FAFAFA] min-h-screen py-10 sm:py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-8">
         <Link
           to="/"
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-900"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-neutral-500 hover:text-[#111111] transition-colors"
         >
           <ArrowLeft size={14} />
           <span>Back to Home</span>
         </Link>
 
-        <div className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-12 shadow-xs space-y-8">
-          <div className="space-y-2 border-b border-slate-100 pb-6">
-            <span className="text-3xs font-extrabold uppercase tracking-wider text-sky-700">
+        <div className="bg-white rounded-xl border border-[#EAEAEA] p-8 sm:p-12 shadow-2xs space-y-8">
+          <div className="space-y-2 border-b border-[#EAEAEA] pb-6">
+            <span className="text-3xs font-extrabold uppercase tracking-wider text-[#1F7A4D]">
               Legal & Compliance Framework
             </span>
-            <h1 className="text-2xl sm:text-3.5xl font-black text-slate-900 tracking-tight">
+            <h1 className="text-2xl sm:text-3.5xl font-black text-[#111111] tracking-tight">
               {policy.title}
             </h1>
-            <p className="text-xs sm:text-sm text-slate-500">{policy.subtitle}</p>
-            <div className="text-3xs text-slate-400 pt-1">Effective Date: {policy.lastUpdated}</div>
+            <p className="text-xs sm:text-sm text-neutral-500">{policy.subtitle}</p>
+            <div className="text-3xs text-neutral-400 pt-1">Effective Date: {policy.lastUpdated}</div>
           </div>
 
-          <div className="space-y-6 text-xs sm:text-sm text-slate-700 leading-relaxed">
+          <div className="space-y-6 text-xs sm:text-sm text-neutral-700 leading-relaxed">
             {policy.sections.map((sec, idx) => (
               <div key={idx} className="space-y-2">
-                <h3 className="text-sm sm:text-base font-bold text-slate-900">{sec.heading}</h3>
-                <p className="text-slate-600 leading-relaxed">{sec.body}</p>
+                <h3 className="text-sm sm:text-base font-bold text-[#111111]">{sec.heading}</h3>
+                <p className="text-neutral-600 leading-relaxed">{sec.body}</p>
               </div>
             ))}
           </div>
 
-          <div className="pt-6 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-            <span>Questions regarding compliance? Email: compliance@medicuroglobal.com</span>
-            <Link to="/contact" className="font-bold text-sky-700 hover:underline">
+          <div className="pt-6 border-t border-[#EAEAEA] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-neutral-500">
+            <span>Questions regarding compliance? Email: compliance@drmedex.com</span>
+            <Link to="/contact" className="font-bold text-[#111111] hover:text-[#1F7A4D] hover:underline transition-colors">
               Contact Legal Desk →
             </Link>
           </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import { Building, ShieldCheck, CheckCircle2, FileText, Send, Phone, Mail, Award, Clock } from "lucide-react";
+import { Building, ShieldCheck, CheckCircle2, Send } from "lucide-react";
 import { useCurrency } from "../context/CurrencyContext";
 import { InternationalPhoneInput } from "../components/InternationalPhoneInput";
 import { Product } from "../types";
@@ -82,47 +82,47 @@ export const RequestQuotePage: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-slate-50 min-h-screen py-12">
+    <div className="w-full bg-[#FAFAFA] min-h-screen py-10 sm:py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto space-y-3 mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100/80 border border-sky-200 text-sky-900 text-3xs font-bold uppercase tracking-wider">
-            <Building size={14} className="text-sky-700" />
+        <div className="text-center max-w-2xl mx-auto space-y-3.5 mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#EAEAEA] text-[#111111] text-3xs font-bold uppercase tracking-wider shadow-2xs">
+            <Building size={14} className="text-[#1F7A4D]" />
             <span>Institutional B2B Procurement Portal</span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-4xl font-black text-[#111111] tracking-tight">
             Request Formal Institutional Quotation
           </h1>
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+          <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
             Direct OEM factory pricing, comprehensive tender compliance documentation, CIF/FOB export air-freight schedules, and multi-unit discounts for hospitals and global distributors.
           </p>
         </div>
 
         {/* Form or Success Box */}
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-xs">
+        <div className="bg-white rounded-xl border border-[#EAEAEA] p-6 sm:p-10 shadow-2xs">
           {submittedQuote ? (
             <div className="text-center py-10 space-y-5">
-              <div className="w-20 h-20 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+              <div className="w-20 h-20 bg-[#EAF5EF] text-[#1F7A4D] rounded-full flex items-center justify-center mx-auto">
                 <CheckCircle2 size={44} />
               </div>
-              <h2 className="text-2xl font-black text-slate-900">RFQ Received & Logged</h2>
-              <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl max-w-sm mx-auto">
-                <div className="text-3xs text-slate-400 font-bold uppercase tracking-wider">Official RFQ Number</div>
-                <div className="text-2xl font-mono font-black text-sky-900 mt-1">{submittedQuote.quoteNumber}</div>
+              <h2 className="text-2xl font-black text-[#111111]">RFQ Received & Logged</h2>
+              <div className="p-4 bg-[#FAFAFA] border border-[#EAEAEA] rounded-xl max-w-sm mx-auto">
+                <div className="text-3xs text-neutral-400 font-bold uppercase tracking-wider">Official RFQ Number</div>
+                <div className="text-2xl font-mono font-black text-[#111111] mt-1">{submittedQuote.quoteNumber}</div>
               </div>
-              <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
+              <p className="text-xs text-neutral-600 max-w-md mx-auto leading-relaxed">
                 Your clinical equipment request has been routed to our Senior Biomedical Procurement Manager. A formal proforma quotation with CE/ISO certificates and delivery schedule will be dispatched to <strong>{email}</strong> within 12 business hours.
               </p>
               <div className="pt-4 flex justify-center gap-3">
                 <Link
                   to="/account?tab=quotes"
-                  className="px-6 py-3 bg-slate-900 hover:bg-sky-800 text-white rounded-xl text-xs font-bold transition-colors"
+                  className="px-6 py-3 bg-[#111111] hover:bg-[#1F7A4D] text-white rounded-xl text-xs font-bold transition-colors"
                 >
                   View Quote in Account
                 </Link>
                 <Link
                   to="/shop-all"
-                  className="px-6 py-3 border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition-colors"
+                  className="px-6 py-3 border border-[#EAEAEA] hover:bg-[#F7F7F7] text-neutral-700 rounded-xl text-xs font-bold transition-colors"
                 >
                   Back to Catalog
                 </Link>
@@ -132,7 +132,7 @@ export const RequestQuotePage: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase tracking-wider text-2xs mb-1">
+                  <label className="block font-bold text-neutral-700 uppercase tracking-wider text-2xs mb-1.5">
                     Practitioner / Contact Full Name *
                   </label>
                   <input
@@ -141,12 +141,12 @@ export const RequestQuotePage: React.FC = () => {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="e.g. Dr. Sarah Jenkins, Chief of Surgery"
-                    className="w-full p-2.5 border border-slate-300 rounded-xl focus:outline-none focus:border-sky-600"
+                    className="w-full p-2.5 border border-[#EAEAEA] rounded-lg focus:outline-none focus:border-[#111111] text-[#111111]"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase tracking-wider text-2xs mb-1">
+                  <label className="block font-bold text-neutral-700 uppercase tracking-wider text-2xs mb-1.5">
                     Hospital / Institution / Entity *
                   </label>
                   <input
@@ -155,12 +155,12 @@ export const RequestQuotePage: React.FC = () => {
                     value={companyName}
                     onChange={(e) => setCompanyName(e.target.value)}
                     placeholder="e.g. St. Jude Surgical Hospital"
-                    className="w-full p-2.5 border border-slate-300 rounded-xl focus:outline-none focus:border-sky-600"
+                    className="w-full p-2.5 border border-[#EAEAEA] rounded-lg focus:outline-none focus:border-[#111111] text-[#111111]"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase tracking-wider text-2xs mb-1">
+                  <label className="block font-bold text-neutral-700 uppercase tracking-wider text-2xs mb-1.5">
                     Official Work Email *
                   </label>
                   <input
@@ -169,12 +169,12 @@ export const RequestQuotePage: React.FC = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="procurement@hospital.org"
-                    className="w-full p-2.5 border border-slate-300 rounded-xl focus:outline-none focus:border-sky-600"
+                    className="w-full p-2.5 border border-[#EAEAEA] rounded-lg focus:outline-none focus:border-[#111111] text-[#111111]"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase tracking-wider text-2xs mb-1">
+                  <label className="block font-bold text-neutral-700 uppercase tracking-wider text-2xs mb-1.5">
                     International Phone (+ Country Code) *
                   </label>
                   <InternationalPhoneInput
@@ -186,13 +186,13 @@ export const RequestQuotePage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase tracking-wider text-2xs mb-1">
+                  <label className="block font-bold text-neutral-700 uppercase tracking-wider text-2xs mb-1.5">
                     Destination Country *
                   </label>
                   <select
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
-                    className="w-full p-2.5 border border-slate-300 rounded-xl bg-white font-semibold text-slate-800"
+                    className="w-full p-2.5 border border-[#EAEAEA] rounded-lg bg-white font-semibold text-[#111111] focus:outline-none focus:border-[#111111]"
                   >
                     {countries.map((c) => (
                       <option key={c.code} value={c.name}>
@@ -203,13 +203,13 @@ export const RequestQuotePage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase tracking-wider text-2xs mb-1">
+                  <label className="block font-bold text-neutral-700 uppercase tracking-wider text-2xs mb-1.5">
                     Target Medical Equipment Model *
                   </label>
                   <select
                     value={selectedProduct}
                     onChange={(e) => setSelectedProduct(e.target.value)}
-                    className="w-full p-2.5 border border-slate-300 rounded-xl bg-white text-xs font-semibold text-slate-800"
+                    className="w-full p-2.5 border border-[#EAEAEA] rounded-lg bg-white text-xs font-semibold text-[#111111] focus:outline-none focus:border-[#111111]"
                   >
                     {products.map((p) => (
                       <option key={p.id} value={p.title}>
@@ -223,7 +223,7 @@ export const RequestQuotePage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase tracking-wider text-2xs mb-1">
+                  <label className="block font-bold text-neutral-700 uppercase tracking-wider text-2xs mb-1.5">
                     Desired Units Quantity *
                   </label>
                   <input
@@ -232,18 +232,18 @@ export const RequestQuotePage: React.FC = () => {
                     required
                     value={quantity}
                     onChange={(e) => setQuantity(Number(e.target.value))}
-                    className="w-full p-2.5 border border-slate-300 rounded-xl font-bold text-slate-900"
+                    className="w-full p-2.5 border border-[#EAEAEA] rounded-lg font-bold text-[#111111] focus:outline-none focus:border-[#111111]"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase tracking-wider text-2xs mb-1">
+                  <label className="block font-bold text-neutral-700 uppercase tracking-wider text-2xs mb-1.5">
                     Procurement Project Timeline
                   </label>
                   <select
                     value={targetTimeline}
                     onChange={(e) => setTargetTimeline(e.target.value)}
-                    className="w-full p-2.5 border border-slate-300 rounded-xl bg-white font-semibold text-slate-800"
+                    className="w-full p-2.5 border border-[#EAEAEA] rounded-lg bg-white font-semibold text-[#111111] focus:outline-none focus:border-[#111111]"
                   >
                     <option value="Immediate Installation (< 14 Days)">Immediate Installation (&lt; 14 Days)</option>
                     <option value="Within 30 Days">Within 30 Days</option>
@@ -254,7 +254,7 @@ export const RequestQuotePage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 uppercase tracking-wider text-2xs mb-1">
+                <label className="block font-bold text-neutral-700 uppercase tracking-wider text-2xs mb-1.5">
                   Customization Specifications & Technical Details
                 </label>
                 <textarea
@@ -262,20 +262,20 @@ export const RequestQuotePage: React.FC = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Detail ceiling height for OT lights, voltage/frequency requirements (e.g. 110V 60Hz or 230V 50Hz), included accessories, or CIF destination airport..."
-                  className="w-full p-3 text-xs border border-slate-300 rounded-xl focus:outline-none focus:border-sky-600"
+                  className="w-full p-3 text-xs border border-[#EAEAEA] rounded-lg focus:outline-none focus:border-[#111111] text-[#111111]"
                 />
               </div>
 
-              <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-100">
-                <div className="flex items-center gap-2 text-2xs text-slate-400">
-                  <ShieldCheck size={16} className="text-emerald-600" />
+              <div className="pt-3 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#EAEAEA]">
+                <div className="flex items-center gap-2 text-2xs text-neutral-500">
+                  <ShieldCheck size={16} className="text-[#1F7A4D]" />
                   <span>Confidential hospital RFP processing under NDA protocols</span>
                 </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full sm:w-auto px-8 py-3.5 bg-sky-700 hover:bg-sky-800 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-md transition-colors disabled:opacity-50"
+                  className="w-full sm:w-auto px-8 py-3.5 bg-[#111111] hover:bg-[#1F7A4D] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-xs transition-colors disabled:opacity-50"
                 >
                   <Send size={15} />
                   <span>{isSubmitting ? "Transmitting RFQ..." : "Submit Formal RFQ"}</span>

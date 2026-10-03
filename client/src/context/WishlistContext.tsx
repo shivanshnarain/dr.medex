@@ -13,7 +13,7 @@ const WishlistContext = createContext<WishlistContextType | undefined>(undefined
 export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [wishlist, setWishlist] = useState<Product[]>(() => {
     try {
-      const saved = localStorage.getItem("medicuro_wishlist");
+      const saved = localStorage.getItem("drmedex_wishlist");
       return saved ? JSON.parse(saved) : [];
     } catch {
       return [];
@@ -21,7 +21,7 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   });
 
   useEffect(() => {
-    localStorage.setItem("medicuro_wishlist", JSON.stringify(wishlist));
+    localStorage.setItem("drmedex_wishlist", JSON.stringify(wishlist));
   }, [wishlist]);
 
   const toggleWishlist = (product: Product) => {

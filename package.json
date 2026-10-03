@@ -1,9 +1,14 @@
 {
-  "name": "medicuroglobal",
+  "name": "drmedex",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
+    "dev": "node dev.js",
+    "dev:client": "npm --prefix client run dev",
+    "dev:server": "node server/index.js",
+    "build": "npm --prefix client run build",
+    "start": "node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

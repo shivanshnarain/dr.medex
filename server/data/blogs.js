@@ -19,7 +19,7 @@ Standard white lighting often obscures subtle physiological variations between a
 When surgical teams lean into the cavity, multiple heads and overlapping hands inevitably create optical obstacles. Double-dome and multi-cluster LED arrays utilize faceted lenses to project converging light fields. Even if 60% of the lighthead aperture is obstructed, the remaining beams converge to maintain continuous cavity illumination above 120,000 Lux.
 
 ### Thermal Management & Laminar Airflow
-Excessive thermal output from older halogen sources desiccates sensitive surgical tissue and induces surgeon perspiration. Modern solid-state LEDs engineered by MediCuro Global emit cold light with a temperature rise < 1°C at the surgeon's cranial level. Additionally, aerodynamic dome geometry prevents disruption of ceiling HEPA laminar airflow currents.
+Excessive thermal output from older halogen sources desiccates sensitive surgical tissue and induces surgeon perspiration. Modern solid-state LEDs engineered by DR.MEDEX Global emit cold light with a temperature rise < 1°C at the surgeon's cranial level. Additionally, aerodynamic dome geometry prevents disruption of ceiling HEPA laminar airflow currents.
     `
   },
   {

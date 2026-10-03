@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { X, CheckCircle2, FileText, Send, Building, ShieldCheck } from "lucide-react";
+import { X, CheckCircle2, Send, Building, ShieldCheck } from "lucide-react";
 import { Product } from "../types";
 import { useCurrency } from "../context/CurrencyContext";
 import { InternationalPhoneInput } from "./InternationalPhoneInput";
@@ -78,48 +78,48 @@ export const B2BQuoteModal: React.FC<B2BQuoteModalProps> = ({ product, isOpen, o
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
-      <div className="flex min-h-screen items-center justify-center p-4 text-center sm:p-0">
-        <div onClick={onClose} className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity" />
+      <div className="flex min-h-screen items-center justify-center p-4 text-center sm:p-6">
+        <div onClick={onClose} className="fixed inset-0 bg-[#000000]/60 backdrop-blur-xs transition-opacity" />
 
-        <div className="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-xl animate-in zoom-in-95 duration-200">
-          <div className="px-6 py-4 bg-slate-900 text-white flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Building size={20} className="text-sky-400" />
+        <div className="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-xl animate-in zoom-in-95 duration-200 border border-[#EAEAEA]">
+          <div className="px-6 py-5 bg-[#111111] text-white flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Building size={20} className="text-white" />
               <div>
-                <h3 className="text-sm font-bold uppercase tracking-wider">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-white">
                   Request B2B / Institutional Quotation
                 </h3>
-                <p className="text-3xs text-slate-400">Hospital Procurement, Tenders & Distribution RFQs</p>
+                <p className="text-3xs text-neutral-400 mt-0.5">Hospital Procurement, Tenders & Distribution RFQs</p>
               </div>
             </div>
-            <button onClick={onClose} className="text-slate-400 hover:text-white transition-colors">
+            <button onClick={onClose} className="text-neutral-400 hover:text-white transition-colors">
               <X size={20} />
             </button>
           </div>
 
-          <div className="p-6">
+          <div className="p-6 sm:p-8">
             {submittedQuote ? (
               <div className="text-center py-6 space-y-4">
-                <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                <div className="w-16 h-16 bg-[#EAF5EF] text-[#1F7A4D] rounded-full flex items-center justify-center mx-auto">
                   <CheckCircle2 size={36} />
                 </div>
-                <h4 className="text-lg font-bold text-slate-900">RFQ Received Successfully</h4>
-                <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl max-w-sm mx-auto">
-                  <div className="text-3xs text-slate-400 uppercase font-bold tracking-wider">
+                <h4 className="text-lg font-bold text-[#111111]">RFQ Received Successfully</h4>
+                <div className="p-4 bg-[#FAFAFA] border border-[#EAEAEA] rounded-xl max-w-sm mx-auto">
+                  <div className="text-3xs text-neutral-500 uppercase font-bold tracking-wider">
                     Official Reference Identifier
                   </div>
-                  <div className="text-lg font-mono font-black text-sky-800 mt-0.5">
+                  <div className="text-xl font-mono font-black text-[#111111] mt-1">
                     {submittedQuote.quoteNumber}
                   </div>
                 </div>
-                <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
+                <p className="text-xs text-neutral-600 max-w-md mx-auto leading-relaxed">
                   Our international institutional sales division has received your requirements. A formal proforma quote with export freight terms (FOB/CIF/DDP) and regulatory compliance certificates will be transmitted to <strong>{email}</strong> within 12 business hours.
                 </p>
                 <div className="pt-2">
                   <button
                     type="button"
                     onClick={handleReset}
-                    className="px-6 py-2.5 bg-slate-900 hover:bg-sky-800 text-white rounded-xl text-xs font-bold transition-colors"
+                    className="px-6 py-3 bg-[#111111] hover:bg-[#1F7A4D] text-white rounded-xl text-xs font-bold transition-colors"
                   >
                     Done & Return to Catalog
                   </button>
@@ -128,22 +128,22 @@ export const B2BQuoteModal: React.FC<B2BQuoteModalProps> = ({ product, isOpen, o
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 {product && (
-                  <div className="p-3 bg-sky-50/70 border border-sky-100 rounded-xl flex items-center gap-3">
+                  <div className="p-3 bg-[#FAFAFA] border border-[#EAEAEA] rounded-xl flex items-center gap-3">
                     <img
                       src={product.images[0]}
                       alt={product.title}
-                      className="w-12 h-12 object-cover rounded-lg border border-sky-200 shrink-0"
+                      className="w-12 h-12 object-contain rounded-lg border border-[#EAEAEA] bg-white shrink-0 p-1"
                     />
                     <div className="min-w-0 flex-1">
-                      <div className="text-xs font-bold text-slate-900 truncate">{product.title}</div>
-                      <div className="text-2xs text-slate-500 font-mono">SKU: {product.sku}</div>
+                      <div className="text-xs font-bold text-[#111111] truncate">{product.title}</div>
+                      <div className="text-2xs text-neutral-500 font-mono">SKU: {product.sku}</div>
                     </div>
                   </div>
                 )}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-2xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    <label className="block text-2xs font-bold text-neutral-700 uppercase tracking-wider mb-1.5">
                       Full Name *
                     </label>
                     <input
@@ -152,12 +152,12 @@ export const B2BQuoteModal: React.FC<B2BQuoteModalProps> = ({ product, isOpen, o
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder="Dr. / Administrator Name"
-                      className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-sky-600"
+                      className="w-full px-3.5 py-2 text-xs border border-[#EAEAEA] rounded-lg focus:outline-none focus:border-[#111111] text-[#111111]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-2xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    <label className="block text-2xs font-bold text-neutral-700 uppercase tracking-wider mb-1.5">
                       Hospital / Institution / Entity *
                     </label>
                     <input
@@ -166,12 +166,12 @@ export const B2BQuoteModal: React.FC<B2BQuoteModalProps> = ({ product, isOpen, o
                       value={companyName}
                       onChange={(e) => setCompanyName(e.target.value)}
                       placeholder="e.g. Apollo Hospitals / MedSupply Ltd"
-                      className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-sky-600"
+                      className="w-full px-3.5 py-2 text-xs border border-[#EAEAEA] rounded-lg focus:outline-none focus:border-[#111111] text-[#111111]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-2xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    <label className="block text-2xs font-bold text-neutral-700 uppercase tracking-wider mb-1.5">
                       Work Email Address *
                     </label>
                     <input
@@ -180,12 +180,12 @@ export const B2BQuoteModal: React.FC<B2BQuoteModalProps> = ({ product, isOpen, o
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="procurement@hospital.org"
-                      className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-sky-600"
+                      className="w-full px-3.5 py-2 text-xs border border-[#EAEAEA] rounded-lg focus:outline-none focus:border-[#111111] text-[#111111]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-2xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    <label className="block text-2xs font-bold text-neutral-700 uppercase tracking-wider mb-1.5">
                       Phone Number (+ Country Code) *
                     </label>
                     <InternationalPhoneInput
@@ -197,13 +197,13 @@ export const B2BQuoteModal: React.FC<B2BQuoteModalProps> = ({ product, isOpen, o
                   </div>
 
                   <div>
-                    <label className="block text-2xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    <label className="block text-2xs font-bold text-neutral-700 uppercase tracking-wider mb-1.5">
                       Destination Country *
                     </label>
                     <select
                       value={country}
                       onChange={(e) => setCountry(e.target.value)}
-                      className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-sky-600 bg-white"
+                      className="w-full px-3.5 py-2 text-xs border border-[#EAEAEA] rounded-lg focus:outline-none focus:border-[#111111] bg-white text-[#111111]"
                     >
                       {countries.map((c) => (
                         <option key={c.code} value={c.name}>
@@ -215,7 +215,7 @@ export const B2BQuoteModal: React.FC<B2BQuoteModalProps> = ({ product, isOpen, o
 
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="block text-2xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                      <label className="block text-2xs font-bold text-neutral-700 uppercase tracking-wider mb-1.5">
                         Quantity *
                       </label>
                       <input
@@ -224,18 +224,18 @@ export const B2BQuoteModal: React.FC<B2BQuoteModalProps> = ({ product, isOpen, o
                         required
                         value={quantity}
                         onChange={(e) => setQuantity(Number(e.target.value))}
-                        className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-sky-600 font-bold text-slate-900"
+                        className="w-full px-3.5 py-2 text-xs border border-[#EAEAEA] rounded-lg focus:outline-none focus:border-[#111111] font-bold text-[#111111]"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-2xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                      <label className="block text-2xs font-bold text-neutral-700 uppercase tracking-wider mb-1.5">
                         Timeline
                       </label>
                       <select
                         value={targetTimeline}
                         onChange={(e) => setTargetTimeline(e.target.value)}
-                        className="w-full px-2 py-2 text-2xs border border-slate-300 rounded-lg focus:outline-none focus:border-sky-600 bg-white"
+                        className="w-full px-2 py-2 text-2xs border border-[#EAEAEA] rounded-lg focus:outline-none focus:border-[#111111] bg-white text-[#111111]"
                       >
                         <option value="Immediate">Immediate</option>
                         <option value="Within 30 Days">30 Days</option>
@@ -247,7 +247,7 @@ export const B2BQuoteModal: React.FC<B2BQuoteModalProps> = ({ product, isOpen, o
                 </div>
 
                 <div>
-                  <label className="block text-2xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  <label className="block text-2xs font-bold text-neutral-700 uppercase tracking-wider mb-1.5">
                     Specific Clinical or Customization Requirements
                   </label>
                   <textarea
@@ -255,7 +255,7 @@ export const B2BQuoteModal: React.FC<B2BQuoteModalProps> = ({ product, isOpen, o
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Specify ceiling height, voltage preferences, optional accessories, CIF port name or distributor partnership inquiries..."
-                    className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-sky-600"
+                    className="w-full px-3.5 py-2 text-xs border border-[#EAEAEA] rounded-lg focus:outline-none focus:border-[#111111] text-[#111111]"
                   />
                 </div>
 
@@ -263,16 +263,16 @@ export const B2BQuoteModal: React.FC<B2BQuoteModalProps> = ({ product, isOpen, o
                   <p className="text-xs text-rose-600 font-semibold">{errorMessage}</p>
                 )}
 
-                <div className="pt-2 flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-3xs text-slate-400">
-                    <ShieldCheck size={14} className="text-sky-600" />
+                <div className="pt-3 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 text-3xs text-neutral-500">
+                    <ShieldCheck size={14} className="text-[#1F7A4D]" />
                     <span>Protected by Non-Disclosure Protocol</span>
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="py-2.5 px-5 bg-sky-700 hover:bg-sky-800 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-xs transition-colors disabled:opacity-50"
+                    className="py-2.5 px-6 bg-[#111111] hover:bg-[#1F7A4D] text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-xs transition-colors disabled:opacity-50"
                   >
                     <Send size={14} />
                     <span>{isSubmitting ? "Submitting RFQ..." : "Submit Quote Request"}</span>

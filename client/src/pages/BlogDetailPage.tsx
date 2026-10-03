@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Clock, User, Calendar, Share2, BookOpen } from "lucide-react";
+import { ArrowLeft, Clock } from "lucide-react";
 import { BlogArticle } from "../types";
 
 export const BlogDetailPage: React.FC = () => {
@@ -32,19 +32,19 @@ export const BlogDetailPage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-16">
-        <div className="h-64 bg-slate-200 animate-pulse rounded-2xl mb-6" />
-        <div className="h-8 bg-slate-200 animate-pulse rounded-lg w-3/4 mb-4" />
-        <div className="h-4 bg-slate-200 animate-pulse rounded-lg w-1/2" />
+      <div className="max-w-3xl mx-auto px-6 py-24">
+        <div className="h-64 bg-[#F2F2F2] animate-pulse rounded-2xl mb-6" />
+        <div className="h-8 bg-[#F2F2F2] animate-pulse rounded-lg w-3/4 mb-4" />
+        <div className="h-4 bg-[#F2F2F2] animate-pulse rounded-lg w-1/2" />
       </div>
     );
   }
 
   if (!blog) {
     return (
-      <div className="max-w-md mx-auto px-4 py-20 text-center space-y-4">
-        <h2 className="text-xl font-bold text-slate-900">Article Not Found</h2>
-        <Link to="/blog" className="text-xs font-bold text-sky-700 hover:underline">
+      <div className="max-w-md mx-auto px-6 py-28 text-center space-y-4">
+        <h2 className="text-xl font-bold text-[#111111]">Article Not Found</h2>
+        <Link to="/blog" className="text-xs font-semibold text-[#1F7A4D] hover:underline">
           Return to Blog Directory →
         </Link>
       </div>
@@ -52,26 +52,26 @@ export const BlogDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="w-full bg-slate-50 min-h-screen py-12">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
+    <div className="w-full bg-[#FAFAFA] min-h-screen py-16 sm:py-24">
+      <div className="max-w-3xl mx-auto px-6">
         <Link
           to="/blog"
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-900 mb-6"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[#555555] hover:text-[#111111] mb-8 transition-colors"
         >
-          <ArrowLeft size={15} />
+          <ArrowLeft size={14} />
           <span>Back to Clinical Resources</span>
         </Link>
 
-        <article className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-xs space-y-6">
-          <div className="space-y-3">
-            <span className="px-2.5 py-1 text-3xs font-extrabold uppercase bg-sky-50 text-sky-800 rounded-md border border-sky-200">
+        <article className="bg-white rounded-2xl border border-[#EAEAEA] p-8 sm:p-12 shadow-xs space-y-8">
+          <div className="space-y-4">
+            <span className="px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-[#EAF5EF] text-[#1F7A4D] rounded-full">
               {blog.category}
             </span>
-            <h1 className="text-2xl sm:text-3.5xl font-black text-slate-900 tracking-tight leading-snug">
+            <h1 className="text-2xl sm:text-4xl font-extrabold text-[#111111] tracking-tight leading-snug">
               {blog.title}
             </h1>
-            <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 pt-2 border-b border-slate-100 pb-4">
-              <span className="font-semibold text-slate-700">{blog.author}</span>
+            <div className="flex flex-wrap items-center gap-4 text-xs text-[#777777] pt-2 border-b border-[#EAEAEA] pb-4">
+              <span className="font-semibold text-[#111111]">{blog.author}</span>
               <span>•</span>
               <span>{blog.date}</span>
               <span>•</span>
@@ -81,23 +81,23 @@ export const BlogDetailPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="aspect-video rounded-2xl overflow-hidden border border-slate-200">
+          <div className="aspect-video rounded-xl overflow-hidden border border-[#EAEAEA]">
             <img src={blog.image} alt={blog.title} className="w-full h-full object-cover" />
           </div>
 
-          <div className="prose prose-slate max-w-none text-xs sm:text-sm leading-relaxed space-y-4 text-slate-700">
-            <p className="font-semibold text-slate-900 leading-relaxed text-sm">
+          <div className="prose prose-neutral max-w-none text-sm leading-relaxed space-y-5 text-[#555555]">
+            <p className="font-semibold text-[#111111] leading-relaxed text-base">
               {blog.excerpt}
             </p>
-            <div className="whitespace-pre-line">
+            <div className="whitespace-pre-line text-[#444444] leading-relaxed">
               {blog.content}
             </div>
           </div>
 
-          <div className="pt-6 border-t border-slate-100 flex items-center justify-between">
+          <div className="pt-8 border-t border-[#EAEAEA] flex items-center justify-between">
             <Link
               to="/request-quote"
-              className="text-xs font-bold text-sky-700 hover:underline"
+              className="text-xs font-semibold text-[#111111] hover:text-[#1F7A4D] transition-colors"
             >
               Inquire about Equipment Mentioned in this Guide →
             </Link>

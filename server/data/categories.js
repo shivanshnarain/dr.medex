@@ -19,8 +19,8 @@ const categories = [
     ]
   },
   {
-    id: "electrosurgical",
-    slug: "electro-surgical-units",
+    id: "electrosurgical-units",
+    slug: "electrosurgical-units",
     name: "Electrosurgical Units",
     shortDescription: "High-frequency precision electrosurgical generators and cautery systems for modern ORs.",
     icon: "Zap",
@@ -32,21 +32,21 @@ const categories = [
     ]
   },
   {
-    id: "cryosurgery",
-    slug: "cryo-gun",
+    id: "cryo-surgical",
+    slug: "cryo-surgical",
     name: "Cryosurgical Equipment",
     shortDescription: "Liquid nitrogen cryotherapy guns, multi-nozzle spray sets, and surgical cryo systems.",
     icon: "ThermometerSnowflake",
     featuredImage: "https://images.unsplash.com/photo-1583912267670-6575ad362e4b?auto=format&fit=crop&w=800&q=80",
     subcategories: [
-      { id: "cryo-guns", slug: "cryo-surgical-guns", name: "Cryo Surgical Guns" },
+      { id: "cryo-guns", slug: "cryo-gun", name: "Cryo Surgical Guns" },
       { id: "cryo-systems", slug: "cryotherapy-systems", name: "Cryotherapy Systems" },
       { id: "cryo-nozzles", slug: "cryo-replacement-nozzles", name: "Replacement Nozzles & Accessories" }
     ]
   },
   {
     id: "ot-lights",
-    slug: "ot-light-ot-lamps",
+    slug: "ot-lights",
     name: "OT / Surgical Lights",
     shortDescription: "Shadowless LED surgical illumination systems engineered with high CRI and cold-light optics.",
     icon: "Sun",
@@ -59,7 +59,7 @@ const categories = [
     ]
   },
   {
-    id: "tables",
+    id: "examination-ot-tables",
     slug: "examination-ot-tables",
     name: "Examination & OT Tables",
     shortDescription: "Heavy-duty electric operating theatre tables, hydraulic surgical couches, and clinical examination beds.",
@@ -72,7 +72,7 @@ const categories = [
     ]
   },
   {
-    id: "ob-gyn",
+    id: "obstetrics-and-gynaecology",
     slug: "obstetrics-and-gynaecology",
     name: "Obstetrics & Gynaecology",
     shortDescription: "Specialized maternal delivery tables, gynaecological examination beds, and fetal monitoring instruments.",
@@ -82,6 +82,19 @@ const categories = [
       { id: "obstetric-tables", slug: "obstetric-tables", name: "Obstetric Delivery Tables" },
       { id: "gynae-tables", slug: "gynaecology-examination-tables", name: "Gynaecology Examination Tables" },
       { id: "fetal-care", slug: "fetal-monitoring-equipment", name: "Fetal Doppler & Monitoring" }
+    ]
+  },
+  {
+    id: "medical-equipment",
+    slug: "medical-equipment",
+    name: "General Medical Equipment",
+    shortDescription: "Diagnostic equipment, medical trolleys, surgical headlights, and emergency equipment.",
+    icon: "Activity",
+    featuredImage: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+    subcategories: [
+      { id: "diagnostic", slug: "diagnostic-equipment", name: "Diagnostic Instruments" },
+      { id: "headlights", slug: "surgical-headlights", name: "Surgical Headlights" },
+      { id: "trolleys", slug: "medical-trolleys", name: "Medical Equipment Trolleys" }
     ]
   }
 ];

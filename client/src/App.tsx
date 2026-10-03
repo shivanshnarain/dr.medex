@@ -43,6 +43,69 @@ function ScrollToTop() {
   return null;
 }
 
+import { AdminAuthProvider } from "./context/AdminAuthContext";
+import { AdminLoginPage } from "./pages/AdminLoginPage";
+import { AdminProductsPage } from "./pages/AdminProductsPage";
+
+/**
+ * Main Content Component with location-based layout control
+ */
+function AppContent() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
+  return (
+    <div className="min-h-screen flex flex-col bg-white text-neutral-900 antialiased selection:bg-neutral-200 selection:text-neutral-900">
+      {/* Global Customer Navigation Header (hidden on admin console) */}
+      {!isAdminRoute && <Header />}
+
+      {/* Main Content Area */}
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/shop-all" element={<ShopPage />} />
+          <Route path="/category/:categorySlug" element={<ShopPage />} />
+          <Route path="/product/:slug" element={<ProductDetailPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/track-order" element={<TrackOrderPage />} />
+          <Route path="/track-order/:orderId" element={<TrackOrderPage />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/request-quote" element={<RequestQuotePage />} />
+          <Route path="/worldwide-network" element={<WorldwideNetworkPage />} />
+          <Route path="/country/:countryCode" element={<CountryPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/blog" element={<BlogListPage />} />
+          <Route path="/blog/:slug" element={<BlogDetailPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+
+          {/* International Legal & Policy Compliance */}
+          <Route path="/privacy-policy" element={<PolicyPage />} />
+          <Route path="/terms-conditions" element={<PolicyPage />} />
+          <Route path="/shipping-policy" element={<PolicyPage />} />
+          <Route path="/warranty-policy" element={<PolicyPage />} />
+          <Route path="/payment-policy" element={<PolicyPage />} />
+          <Route path="/cookie-policy" element={<PolicyPage />} />
+
+          {/* DR.MEDEX Central Operations Administration */}
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin" element={<AdminDashboardPage />} />
+          <Route path="/admin/products" element={<AdminProductsPage />} />
+
+          {/* 404 Fallback */}
+          <Route path="*" element={<HomePage />} />
+        </Routes>
+      </main>
+
+      {/* Interactive Slide-out Cart Drawer (customer only) */}
+      {!isAdminRoute && <CartDrawer />}
+
+      {/* Institutional Medical Equipment Footer (customer only) */}
+      {!isAdminRoute && <Footer />}
+    </div>
+  );
+}
+
 /**
  * Main Application Component with Global Context Providers and Routing
  */
@@ -51,57 +114,14 @@ export default function App() {
     <Router>
       <CurrencyProvider>
         <AuthProvider>
-          <WishlistProvider>
-            <CartProvider>
-              <ScrollToTop />
-              <div className="min-h-screen flex flex-col bg-white text-slate-800 antialiased selection:bg-sky-100 selection:text-sky-900">
-                {/* Global Navigation Header */}
-                <Header />
-
-                {/* Main Content Area */}
-                <main className="flex-1">
-                  <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/shop-all" element={<ShopPage />} />
-                    <Route path="/category/:categorySlug" element={<ShopPage />} />
-                    <Route path="/product/:slug" element={<ProductDetailPage />} />
-                    <Route path="/cart" element={<CartPage />} />
-                    <Route path="/checkout" element={<CheckoutPage />} />
-                    <Route path="/track-order" element={<TrackOrderPage />} />
-                    <Route path="/track-order/:orderId" element={<TrackOrderPage />} />
-                    <Route path="/account" element={<AccountPage />} />
-                    <Route path="/request-quote" element={<RequestQuotePage />} />
-                    <Route path="/worldwide-network" element={<WorldwideNetworkPage />} />
-                    <Route path="/country/:countryCode" element={<CountryPage />} />
-                    <Route path="/about" element={<AboutPage />} />
-                    <Route path="/blog" element={<BlogListPage />} />
-                    <Route path="/blog/:slug" element={<BlogDetailPage />} />
-                    <Route path="/contact" element={<ContactPage />} />
-
-                    {/* International Legal & Policy Compliance */}
-                    <Route path="/privacy-policy" element={<PolicyPage />} />
-                    <Route path="/terms-conditions" element={<PolicyPage />} />
-                    <Route path="/shipping-policy" element={<PolicyPage />} />
-                    <Route path="/warranty-policy" element={<PolicyPage />} />
-                    <Route path="/payment-policy" element={<PolicyPage />} />
-                    <Route path="/cookie-policy" element={<PolicyPage />} />
-
-                    {/* Central Operations Administration */}
-                    <Route path="/admin" element={<AdminDashboardPage />} />
-
-                    {/* 404 Fallback */}
-                    <Route path="*" element={<HomePage />} />
-                  </Routes>
-                </main>
-
-                {/* Interactive Slide-out Cart Drawer */}
-                <CartDrawer />
-
-                {/* Institutional Medical Equipment Footer */}
-                <Footer />
-              </div>
-            </CartProvider>
-          </WishlistProvider>
+          <AdminAuthProvider>
+            <WishlistProvider>
+              <CartProvider>
+                <ScrollToTop />
+                <AppContent />
+              </CartProvider>
+            </WishlistProvider>
+          </AdminAuthProvider>
         </AuthProvider>
       </CurrencyProvider>
     </Router>

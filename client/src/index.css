@@ -2,60 +2,90 @@
 
 @layer base {
   :root {
-    --brand-blue: #0f3b7d;
-    --brand-blue-hover: #0a2958;
-    --brand-cyan: #0284c7;
-    --brand-cyan-light: #e0f2fe;
-    --medical-bg-tint: #f4f9fd;
+    /* Primary Black & White Foundation */
+    --color-medex-black: #111111;
+    --color-medex-pure-black: #000000;
+    --color-medex-white: #ffffff;
+    --color-medex-off-white: #fafafa;
+    --color-medex-bg-neutral: #f7f7f7;
+    --color-medex-light-neutral: #f2f2f2;
+    --color-medex-border: #eaeaea;
+    --color-medex-border-subtle: #f2f2f2;
+
+    /* Text Colors */
+    --color-text-primary: #111111;
+    --color-text-secondary: #555555;
+    --color-text-muted: #777777;
+
+    /* Controlled Accent Green (<= 20% visual usage) */
+    --color-accent-green: #1F7A4D;
+    --color-accent-green-hover: #145A38;
+    --color-accent-green-secondary: #2E8B57;
+    --color-accent-green-light: #EAF5EF;
+    --color-accent-green-dark: #145A38;
   }
 
   body {
     background-color: #ffffff;
-    color: #1e293b;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #111111;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
   }
 }
 
-/* Custom smooth scrollbar */
+/* Custom smooth scrollbar in neutral tones */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #f7f7f7;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #d4d4d4;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #a3a3a3;
 }
 
-/* Subtle medical grid background */
+/* Subtle neutral medical grid background (Zero Blue Tint) */
 .bg-medical-grid {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(14, 165, 233, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(14, 165, 233, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
 }
 
-.text-brand-navy {
-  color: #0f3b7d;
+/* Design System Utilities */
+.text-medex-primary {
+  color: #111111;
 }
 
-.bg-brand-navy {
-  background-color: #0f3b7d;
+.text-medex-secondary {
+  color: #555555;
 }
 
-.bg-brand-navy-hover:hover {
-  background-color: #0a2958;
+.text-medex-muted {
+  color: #777777;
 }
 
-.border-brand-soft {
-  border-color: #e0f2fe;
+.text-medex-green {
+  color: #1F7A4D;
+}
+
+.bg-medex-green {
+  background-color: #1F7A4D;
+}
+
+.bg-medex-green-light {
+  background-color: #EAF5EF;
+}
+
+.border-medex-light {
+  border-color: #eaeaea;
 }

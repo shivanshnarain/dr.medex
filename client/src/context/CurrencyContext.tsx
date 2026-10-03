@@ -55,12 +55,12 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             setCountries(countryData.countries);
 
             // Check saved preference in localStorage
-            const savedCode = localStorage.getItem("medicuro_country");
+            const savedCode = localStorage.getItem("drmedex_country");
             if (savedCode) {
               const matched = countryData.countries.find((c: Country) => c.code === savedCode);
               if (matched) {
                 setCurrentCountryState(matched);
-                setCurrentCurrencyState(localStorage.getItem("medicuro_currency") || matched.currency);
+                setCurrentCurrencyState(localStorage.getItem("drmedex_currency") || matched.currency);
               }
             } else {
               // Default to US or detect if needed
@@ -92,14 +92,14 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (selected) {
       setCurrentCountryState(selected);
       setCurrentCurrencyState(selected.currency);
-      localStorage.setItem("medicuro_country", selected.code);
-      localStorage.setItem("medicuro_currency", selected.currency);
+      localStorage.setItem("drmedex_country", selected.code);
+      localStorage.setItem("drmedex_currency", selected.currency);
     }
   };
 
   const setCurrencyManually = (currencyCode: string) => {
     setCurrentCurrencyState(currencyCode);
-    localStorage.setItem("medicuro_currency", currencyCode);
+    localStorage.setItem("drmedex_currency", currencyCode);
   };
 
   const convertPrice = (usdAmount: number): number => {

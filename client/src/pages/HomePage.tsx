@@ -9,31 +9,29 @@ import {
   HeartPulse,
   ArrowRight,
   ShieldCheck,
-  Award,
   Globe,
   Truck,
   CheckCircle2,
   FileText,
-  Clock,
-  Wrench,
   Headphones,
   Star,
-  Quote
+  Users
 } from "lucide-react";
 import { useCurrency } from "../context/CurrencyContext";
 import { Product, Category, BlogArticle } from "../types";
 import { ProductCard } from "../components/ProductCard";
 import { QuickViewModal } from "../components/QuickViewModal";
 import { B2BQuoteModal } from "../components/B2BQuoteModal";
+import { HeroSection } from "../components/HeroSection";
 
 export const HomePage: React.FC = () => {
-  const { currentCountry, currentCurrency, formatPrice } = useCurrency();
+  const { currentCountry, currentCurrency } = useCurrency();
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [bestSellers, setBestSellers] = useState<Product[]>([]);
   const [blogs, setBlogs] = useState<BlogArticle[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [, setIsLoading] = useState(true);
 
   // Modals state
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
@@ -83,185 +81,148 @@ export const HomePage: React.FC = () => {
 
   const getCategoryIcon = (iconName: string) => {
     switch (iconName) {
-      case "Activity": return <Activity className="text-sky-600" size={24} />;
-      case "Zap": return <Zap className="text-amber-500" size={24} />;
-      case "ThermometerSnowflake": return <ThermometerSnowflake className="text-cyan-500" size={24} />;
-      case "Sun": return <Sun className="text-amber-500" size={24} />;
-      case "Bed": return <Bed className="text-blue-600" size={24} />;
-      case "HeartPulse": return <HeartPulse className="text-rose-500" size={24} />;
-      default: return <Activity className="text-sky-600" size={24} />;
+      case "Activity": return <Activity className="text-[#111111]" size={22} />;
+      case "Zap": return <Zap className="text-[#111111]" size={22} />;
+      case "ThermometerSnowflake": return <ThermometerSnowflake className="text-[#111111]" size={22} />;
+      case "Sun": return <Sun className="text-[#111111]" size={22} />;
+      case "Bed": return <Bed className="text-[#111111]" size={22} />;
+      case "HeartPulse": return <HeartPulse className="text-[#111111]" size={22} />;
+      default: return <Activity className="text-[#111111]" size={22} />;
     }
   };
 
   return (
     <div className="w-full bg-white">
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-sky-50/60 via-white to-white py-14 sm:py-20 border-b border-slate-100">
-        <div className="absolute inset-0 bg-medical-grid pointer-events-none" />
+      {/* 1. HERO SECTION & 3D MEDICAL EQUIPMENT CAROUSEL */}
+      <HeroSection
+        onOpenQuote={(productTitle?: string) => {
+          const match = productTitle
+            ? featuredProducts.find((p) => p.title.toLowerCase().includes(productTitle.toLowerCase())) || featuredProducts[0]
+            : featuredProducts[0];
+          setQuoteProduct(match || null);
+          setIsQuoteModalOpen(true);
+        }}
+        onQuickView={(productId?: string) => {
+          const match = featuredProducts.find((p) => p.id === productId) || featuredProducts[0];
+          if (match) setQuickViewProduct(match);
+        }}
+      />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Content Column */}
-            <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-sky-100/80 border border-sky-200 text-sky-900 text-xs font-bold tracking-wide">
-                <ShieldCheck size={16} className="text-sky-700" />
-                <span>OEM Certified Medical Technology & Global Supplier</span>
+      {/* =========================================================================
+          BOTTOM TRUST / FEATURE STRIP
+          Clean dark medical-tech foundation with subtle green accents
+      ========================================================================= */}
+      <div className="relative z-20 w-full bg-[#111111] border-t border-[#222222] py-6 sm:py-7">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 items-center">
+            {/* Block 1: Worldwide Shipping */}
+            <div className="flex items-center gap-4">
+              <div className="w-11 h-11 rounded-xl bg-[#1c1c1c] border border-[#2a2a2a] flex items-center justify-center shrink-0">
+                <Truck size={20} className="text-[#1F7A4D]" />
               </div>
-
-              <h1 className="text-3xl sm:text-5xl lg:text-5.5xl font-black text-slate-900 tracking-tight leading-tight">
-                Global Medical Equipment & <span className="text-sky-700">Advanced Healthcare</span> Technology
-              </h1>
-
-              <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                Precision engineering for operating rooms, physical therapy centers, and clinical facilities worldwide. Sourced directly from our ISO 13485:2016 manufacturing hubs with international air-freight and localized currency settlement.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
-                <Link
-                  to="/shop-all"
-                  className="w-full sm:w-auto px-8 py-3.5 bg-slate-900 hover:bg-sky-800 text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-slate-900/10 transition-all hover:scale-[1.02]"
-                >
-                  <span>Explore Equipment Catalog</span>
-                  <ArrowRight size={16} />
-                </Link>
-
-                <Link
-                  to="/request-quote"
-                  className="w-full sm:w-auto px-8 py-3.5 bg-sky-50 hover:bg-sky-100 text-sky-900 border border-sky-200 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-colors"
-                >
-                  <FileText size={16} className="text-sky-700" />
-                  <span>Request Institutional B2B Quote</span>
-                </Link>
-              </div>
-
-              {/* Live Trust Metrics */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-200/80">
-                <div className="text-center lg:text-left">
-                  <div className="text-2xl font-black text-slate-900 font-mono">50+</div>
-                  <div className="text-3xs font-semibold uppercase tracking-wider text-slate-500">Countries Served</div>
-                </div>
-                <div className="text-center lg:text-left">
-                  <div className="text-2xl font-black text-sky-700 font-mono">15,000+</div>
-                  <div className="text-3xs font-semibold uppercase tracking-wider text-slate-500">Installed Units</div>
-                </div>
-                <div className="text-center lg:text-left">
-                  <div className="text-2xl font-black text-slate-900 font-mono">99.8%</div>
-                  <div className="text-3xs font-semibold uppercase tracking-wider text-slate-500">Clinical Reliability</div>
-                </div>
-                <div className="text-center lg:text-left">
-                  <div className="text-2xl font-black text-emerald-600 font-mono">5-Year</div>
-                  <div className="text-3xs font-semibold uppercase tracking-wider text-slate-500">OEM Warranty</div>
-                </div>
+              <div>
+                <div className="text-sm font-bold text-white leading-tight">Worldwide Shipping</div>
+                <div className="text-xs text-neutral-400 mt-0.5">To 100+ Countries Via Air Cargo</div>
               </div>
             </div>
 
-            {/* Right Hero Visual Column */}
-            <div className="lg:col-span-5 relative">
-              <div className="relative mx-auto max-w-md lg:max-w-none">
-                {/* Hero Main Card */}
-                <div className="relative rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-2xl p-4">
-                  <img
-                    src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80"
-                    alt="Operating Theatre Illumination"
-                    className="w-full h-80 object-cover rounded-2xl"
-                  />
+            {/* Block 2: Certified Products */}
+            <div className="flex items-center gap-4 lg:border-l lg:border-[#262626] lg:pl-8">
+              <div className="w-11 h-11 rounded-xl bg-[#1c1c1c] border border-[#2a2a2a] flex items-center justify-center shrink-0">
+                <ShieldCheck size={20} className="text-[#1F7A4D]" />
+              </div>
+              <div>
+                <div className="text-sm font-bold text-white leading-tight">Certified Products</div>
+                <div className="text-xs text-neutral-400 mt-0.5">ISO 13485 & CE Verified</div>
+              </div>
+            </div>
 
-                  {/* Floating Medical Feature Tag */}
-                  <div className="mt-4 p-3 bg-sky-50/80 rounded-xl border border-sky-100 flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-lg bg-sky-600 text-white flex items-center justify-center">
-                        <Sun size={18} />
-                      </div>
-                      <div>
-                        <div className="text-xs font-bold text-slate-900">MediCuro Lumina 700/500</div>
-                        <div className="text-3xs text-slate-500 font-medium">160,000 Lux Shadowless LED</div>
-                      </div>
-                    </div>
-                    <Link
-                      to="/product/double-dome-led-surgical-ot-light-160k-lux"
-                      className="text-xs font-bold text-sky-700 hover:text-sky-900"
-                    >
-                      View Specs →
-                    </Link>
-                  </div>
-                </div>
+            {/* Block 3: Expert Support */}
+            <div className="flex items-center gap-4 lg:border-l lg:border-[#262626] lg:pl-8">
+              <div className="w-11 h-11 rounded-xl bg-[#1c1c1c] border border-[#2a2a2a] flex items-center justify-center shrink-0">
+                <Headphones size={20} className="text-[#1F7A4D]" />
+              </div>
+              <div>
+                <div className="text-sm font-bold text-white leading-tight">Bio-Medical Support</div>
+                <div className="text-xs text-neutral-400 mt-0.5">Direct Engineering Assistance</div>
+              </div>
+            </div>
 
-                {/* Floating Trust Badge */}
-                <div className="absolute -bottom-6 -left-6 bg-slate-900 text-white p-4 rounded-2xl shadow-xl hidden sm:flex items-center gap-3 border border-slate-800">
-                  <ShieldCheck size={28} className="text-sky-400 shrink-0" />
-                  <div>
-                    <div className="text-xs font-bold">ISO 13485:2016 Certified</div>
-                    <div className="text-3xs text-slate-400">Medical Device Quality Management</div>
-                  </div>
-                </div>
+            {/* Block 4: Trusted by Professionals */}
+            <div className="flex items-center gap-4 lg:border-l lg:border-[#262626] lg:pl-8">
+              <div className="w-11 h-11 rounded-xl bg-[#1c1c1c] border border-[#2a2a2a] flex items-center justify-center shrink-0">
+                <Users size={20} className="text-[#1F7A4D]" />
+              </div>
+              <div>
+                <div className="text-sm font-bold text-white leading-tight">Institutional Procurement</div>
+                <div className="text-xs text-neutral-400 mt-0.5">Hospitals | Clinics | Distributors</div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* 2. PRIMARY MEDICAL CATEGORIES */}
-      <section className="py-16 bg-white">
+      <section className="py-20 sm:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12">
             <div>
-              <span className="text-3xs font-extrabold uppercase tracking-widest text-sky-700 block mb-1">
+              <span className="text-3xs font-extrabold uppercase tracking-widest text-[#1F7A4D] block mb-2">
                 Medical Product Taxonomy
               </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
                 Core Equipment Categories
               </h2>
             </div>
             <Link
               to="/shop-all"
-              className="mt-3 sm:mt-0 text-xs font-bold text-sky-700 hover:text-sky-900 flex items-center gap-1"
+              className="mt-3 sm:mt-0 text-xs font-bold text-[#111111] hover:text-[#1F7A4D] flex items-center gap-1.5 transition-colors"
             >
               <span>Explore All Products</span>
               <ArrowRight size={14} />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {categories.map((cat) => (
               <div
                 key={cat.id}
-                className="group relative bg-slate-50/50 hover:bg-white rounded-2xl border border-slate-200/80 hover:border-sky-300 p-6 transition-all duration-300 hover:shadow-xl flex flex-col justify-between"
+                className="group relative bg-[#FAFAFA] hover:bg-white rounded-xl border border-[#EAEAEA] hover:border-[#111111] p-7 transition-all duration-300 hover:shadow-lg flex flex-col justify-between"
               >
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center shadow-xs group-hover:scale-110 transition-transform mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-white border border-[#EAEAEA] flex items-center justify-center shadow-2xs group-hover:scale-105 transition-transform mb-5">
                     {getCategoryIcon(cat.icon)}
                   </div>
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-sky-700 transition-colors">
+                  <h3 className="text-base font-bold text-[#111111] group-hover:text-[#1F7A4D] transition-colors">
                     {cat.name}
                   </h3>
-                  <p className="text-xs text-slate-500 mt-2 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-neutral-500 mt-2.5 line-clamp-2 leading-relaxed">
                     {cat.shortDescription}
                   </p>
 
                   {/* Subcategories list snippet */}
-                  <div className="mt-4 pt-3 border-t border-slate-200/60 space-y-1.5">
+                  <div className="mt-5 pt-4 border-t border-[#EAEAEA] space-y-2">
                     {cat.subcategories.slice(0, 3).map((sub) => (
                       <Link
                         key={sub.id}
                         to={`/shop-all?subcategory=${sub.slug}`}
-                        className="block text-2xs text-slate-600 hover:text-sky-700 font-medium truncate"
+                        className="block text-2xs text-neutral-600 hover:text-[#111111] font-medium truncate transition-colors"
                       >
                         • {sub.name}
                       </Link>
                     ))}
                     {cat.subcategories.length > 3 && (
-                      <span className="text-3xs text-sky-600 font-semibold block">
+                      <span className="text-3xs text-[#1F7A4D] font-semibold block">
                         +{cat.subcategories.length - 3} more sub-specialties
                       </span>
                     )}
                   </div>
                 </div>
 
-                <div className="mt-6 pt-3 border-t border-slate-100 flex items-center justify-between">
+                <div className="mt-7 pt-4 border-t border-[#EAEAEA] flex items-center justify-between">
                   <Link
                     to={`/shop-all?category=${cat.slug}`}
-                    className="text-xs font-bold text-slate-900 group-hover:text-sky-700 flex items-center gap-1"
+                    className="text-xs font-bold text-[#111111] group-hover:text-[#1F7A4D] flex items-center gap-1.5 transition-colors"
                   >
                     <span>Browse {cat.name}</span>
                     <ArrowRight size={13} />
@@ -274,31 +235,31 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 3. SPOTLIGHT 1: PHYSIOTHERAPY & REHABILITATION */}
-      <section className="py-16 bg-sky-50/40 border-y border-sky-100">
+      <section className="py-20 sm:py-28 bg-[#FAFAFA] border-y border-[#EAEAEA]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-5 space-y-5">
-              <span className="text-3xs font-extrabold uppercase tracking-widest text-sky-700 block">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-5 space-y-6">
+              <span className="text-3xs font-extrabold uppercase tracking-widest text-[#1F7A4D] block">
                 Physical Medicine & Orthopedics
               </span>
-              <h2 className="text-2xl sm:text-3.5xl font-black text-slate-900 tracking-tight leading-tight">
+              <h2 className="text-2xl sm:text-3.5xl font-black text-[#111111] tracking-tight leading-tight">
                 Advanced Physiotherapy & Clinical Rehabilitation Systems
               </h2>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                From high-power Class 4 cold lasers to dual-frequency ultrasound and ballistic radial shockwave generators, MediCuro delivers non-invasive therapeutic solutions for accelerated musculoskeletal healing.
+              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
+                From high-power Class 4 cold lasers to dual-frequency ultrasound and ballistic radial shockwave generators, DR.MEDEX delivers non-invasive therapeutic solutions for accelerated musculoskeletal healing.
               </p>
 
-              <div className="space-y-2.5 pt-1 text-xs text-slate-700">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={16} className="text-sky-600 shrink-0" />
+              <div className="space-y-3 pt-1 text-xs text-neutral-700">
+                <div className="flex items-center gap-2.5">
+                  <CheckCircle2 size={16} className="text-[#1F7A4D] shrink-0" />
                   <span>Dual 1 MHz & 3 MHz Ultrasound with IPX7 waterproof soundheads</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={16} className="text-sky-600 shrink-0" />
+                <div className="flex items-center gap-2.5">
+                  <CheckCircle2 size={16} className="text-[#1F7A4D] shrink-0" />
                   <span>Pneumatic Radial Shockwave up to 5.0 Bar for chronic calcifications</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={16} className="text-sky-600 shrink-0" />
+                <div className="flex items-center gap-2.5">
+                  <CheckCircle2 size={16} className="text-[#1F7A4D] shrink-0" />
                   <span>Continuous Passive Motion (CPM) for total knee rehabilitation</span>
                 </div>
               </div>
@@ -306,7 +267,7 @@ export const HomePage: React.FC = () => {
               <div className="pt-3">
                 <Link
                   to="/shop-all?category=physiotherapy"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 hover:bg-sky-800 text-white rounded-xl text-xs font-bold shadow-md transition-colors"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#111111] hover:bg-[#1F7A4D] text-white rounded-xl text-xs font-bold shadow-xs transition-colors"
                 >
                   <span>Explore Physiotherapy Range</span>
                   <ArrowRight size={14} />
@@ -314,7 +275,7 @@ export const HomePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
               {featuredProducts.slice(0, 2).map((prod) => (
                 <ProductCard
                   key={prod.id}
@@ -329,23 +290,23 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 4. FEATURED PRODUCTS GRID */}
-      <section className="py-16 bg-white">
+      <section className="py-20 sm:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12">
             <div>
-              <span className="text-3xs font-extrabold uppercase tracking-widest text-sky-700 block mb-1">
+              <span className="text-3xs font-extrabold uppercase tracking-widest text-[#1F7A4D] block mb-2">
                 Precision Engineering
               </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
                 Featured Medical Devices
               </h2>
             </div>
-            <div className="mt-2 sm:mt-0 text-xs text-slate-500">
+            <div className="mt-2 sm:mt-0 text-xs text-neutral-500">
               Settlement in <strong>{currentCurrency} ({currentCountry.name})</strong>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {featuredProducts.map((prod) => (
               <ProductCard
                 key={prod.id}
@@ -359,49 +320,49 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 5. SPOTLIGHT 2: OPERATING THEATRE & SURGICAL LIGHTING */}
-      <section className="py-16 bg-slate-950 text-white relative overflow-hidden">
+      <section className="py-20 sm:py-28 bg-[#111111] text-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-6 space-y-5">
-              <span className="text-3xs font-extrabold uppercase tracking-widest text-sky-400 block">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-6 space-y-6">
+              <span className="text-3xs font-extrabold uppercase tracking-widest text-[#1F7A4D] block">
                 Surgical Illumination Standards
               </span>
               <h2 className="text-2xl sm:text-4xl font-black tracking-tight leading-tight">
                 Shadowless Operating Theatre Illumination: 160,000 Lux Precision
               </h2>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                MediCuro surgical lights integrate multi-faceted optical lenses and German counterbalance articulation to deliver uniform deep-cavity light fields with CRI ≥ 96, zero thermal rise at the surgeon's cranial level, and dedicated laparoscopic Endo-lighting.
+              <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
+                DR.MEDEX surgical lights integrate multi-faceted optical lenses and German counterbalance articulation to deliver uniform deep-cavity light fields with CRI ≥ 96, zero thermal rise at the surgeon's cranial level, and dedicated laparoscopic Endo-lighting.
               </p>
 
               <div className="grid grid-cols-2 gap-4 pt-2">
-                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl">
-                  <div className="text-lg font-black text-sky-400 font-mono">160,000 Lux</div>
-                  <div className="text-3xs text-slate-400 uppercase font-semibold">Maximum Field Illumination</div>
+                <div className="p-4 bg-[#181818] border border-[#262626] rounded-xl">
+                  <div className="text-xl font-black text-white font-mono">160,000 Lux</div>
+                  <div className="text-3xs text-neutral-400 uppercase font-semibold mt-1">Maximum Field Illumination</div>
                 </div>
-                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl">
-                  <div className="text-lg font-black text-sky-400 font-mono">≥ 96 CRI (Ra)</div>
-                  <div className="text-3xs text-slate-400 uppercase font-semibold">Color Differentiation</div>
+                <div className="p-4 bg-[#181818] border border-[#262626] rounded-xl">
+                  <div className="text-xl font-black text-white font-mono">≥ 96 CRI (Ra)</div>
+                  <div className="text-3xs text-neutral-400 uppercase font-semibold mt-1">Color Differentiation</div>
                 </div>
-                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl">
-                  <div className="text-lg font-black text-sky-400 font-mono">&lt; 1°C</div>
-                  <div className="text-3xs text-slate-400 uppercase font-semibold">Cold Light Temperature Rise</div>
+                <div className="p-4 bg-[#181818] border border-[#262626] rounded-xl">
+                  <div className="text-xl font-black text-white font-mono">&lt; 1°C</div>
+                  <div className="text-3xs text-neutral-400 uppercase font-semibold mt-1">Cold Light Temperature Rise</div>
                 </div>
-                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl">
-                  <div className="text-lg font-black text-sky-400 font-mono">60,000+ Hrs</div>
-                  <div className="text-3xs text-slate-400 uppercase font-semibold">Solid-State LED Lifespan</div>
+                <div className="p-4 bg-[#181818] border border-[#262626] rounded-xl">
+                  <div className="text-xl font-black text-white font-mono">60,000+ Hrs</div>
+                  <div className="text-3xs text-neutral-400 uppercase font-semibold mt-1">Solid-State LED Lifespan</div>
                 </div>
               </div>
 
-              <div className="pt-2 flex gap-3">
+              <div className="pt-3 flex flex-wrap gap-4">
                 <Link
                   to="/shop-all?category=ot-lights"
-                  className="px-6 py-3 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold transition-colors"
+                  className="px-7 py-3.5 bg-white hover:bg-neutral-200 text-[#111111] rounded-xl text-xs font-bold transition-colors"
                 >
                   Explore Surgical Lights
                 </Link>
                 <Link
                   to="/request-quote"
-                  className="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition-colors"
+                  className="px-7 py-3.5 bg-[#181818] hover:bg-[#222222] border border-[#333333] text-white rounded-xl text-xs font-bold transition-colors"
                 >
                   Request OR Illumination Tender
                 </Link>
@@ -409,7 +370,7 @@ export const HomePage: React.FC = () => {
             </div>
 
             <div className="lg:col-span-6">
-              <div className="rounded-3xl overflow-hidden border border-slate-800 shadow-2xl">
+              <div className="rounded-2xl overflow-hidden border border-[#262626] shadow-2xl">
                 <img
                   src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1000&q=80"
                   alt="Operating Theatre Surgery"
@@ -422,27 +383,27 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 6. BEST SELLERS SHOWCASE */}
-      <section className="py-16 bg-white">
+      <section className="py-20 sm:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12">
             <div>
-              <span className="text-3xs font-extrabold uppercase tracking-widest text-sky-700 block mb-1">
+              <span className="text-3xs font-extrabold uppercase tracking-widest text-[#1F7A4D] block mb-2">
                 Hospital Procurement Favorites
               </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
                 Best Selling Medical Equipment
               </h2>
             </div>
             <Link
               to="/shop-all"
-              className="mt-2 sm:mt-0 text-xs font-bold text-sky-700 hover:text-sky-900 flex items-center gap-1"
+              className="mt-2 sm:mt-0 text-xs font-bold text-[#111111] hover:text-[#1F7A4D] flex items-center gap-1.5 transition-colors"
             >
               <span>View Full Inventory</span>
               <ArrowRight size={14} />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {bestSellers.map((prod) => (
               <ProductCard
                 key={prod.id}
@@ -456,53 +417,53 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 7. MEDICAL TECHNOLOGY & INNOVATION */}
-      <section className="py-16 bg-slate-50 border-t border-slate-200/80">
+      <section className="py-20 sm:py-28 bg-[#FAFAFA] border-t border-[#EAEAEA]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-3xs font-extrabold uppercase tracking-widest text-sky-700 block mb-1">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <span className="text-3xs font-extrabold uppercase tracking-widest text-[#1F7A4D] block mb-2">
               Engineering Architecture
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
               Medical Technology & Innovation Pillars
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 mt-2">
+            <p className="text-xs sm:text-sm text-neutral-500 mt-2.5">
               Every medical device is subjected to rigorous biomedical verification and electronic isolation protocols.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
-              <div className="w-12 h-12 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center mb-4">
-                <Sun size={24} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-7 rounded-xl border border-[#EAEAEA] shadow-2xs">
+              <div className="w-12 h-12 rounded-xl bg-[#FAFAFA] border border-[#EAEAEA] text-[#111111] flex items-center justify-center mb-5">
+                <Sun size={22} />
               </div>
-              <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
+              <h3 className="text-sm font-bold text-[#111111] uppercase tracking-wider">
                 Shadowless Optical Design
               </h3>
-              <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+              <p className="text-xs text-neutral-500 mt-2.5 leading-relaxed">
                 Computer-simulated faceted lenses converge multiple light beams into a continuous surgical column, eliminating visual dead zones even during deep abdominal interventions.
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
-              <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4">
-                <Zap size={24} />
+            <div className="bg-white p-7 rounded-xl border border-[#EAEAEA] shadow-2xs">
+              <div className="w-12 h-12 rounded-xl bg-[#FAFAFA] border border-[#EAEAEA] text-[#111111] flex items-center justify-center mb-5">
+                <Zap size={22} />
               </div>
-              <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
+              <h3 className="text-sm font-bold text-[#111111] uppercase tracking-wider">
                 Micro-Feedback RF Generators
               </h3>
-              <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+              <p className="text-xs text-neutral-500 mt-2.5 leading-relaxed">
                 Instant tissue-impedance sensing circuitry samples electrical resistance 5,000 times per second, automatically adjusting RF wattage to minimize lateral thermal margin damage.
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
-              <div className="w-12 h-12 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center mb-4">
-                <ThermometerSnowflake size={24} />
+            <div className="bg-white p-7 rounded-xl border border-[#EAEAEA] shadow-2xs">
+              <div className="w-12 h-12 rounded-xl bg-[#FAFAFA] border border-[#EAEAEA] text-[#111111] flex items-center justify-center mb-5">
+                <ThermometerSnowflake size={22} />
               </div>
-              <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
+              <h3 className="text-sm font-bold text-[#111111] uppercase tracking-wider">
                 -196°C Vacuum Cryogenics
               </h3>
-              <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+              <p className="text-xs text-neutral-500 mt-2.5 leading-relaxed">
                 Double-walled vacuum insulated surgical flasks preserve cryogenic liquid nitrogen for over 24 hours without external power, delivering controlled freeze-thaw cycles.
               </p>
             </div>
@@ -511,35 +472,35 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 8. WORLDWIDE NETWORK & LOGISTICS */}
-      <section className="py-16 bg-white">
+      <section className="py-20 sm:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="bg-gradient-to-tr from-slate-900 via-slate-800 to-sky-950 text-white rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+          <div className="bg-[#111111] text-white rounded-2xl p-8 sm:p-14 border border-[#222222] shadow-xl relative overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-              <div className="lg:col-span-7 space-y-4">
-                <span className="text-3xs font-extrabold uppercase tracking-widest text-sky-400 block">
+              <div className="lg:col-span-7 space-y-5">
+                <span className="text-3xs font-extrabold uppercase tracking-widest text-[#1F7A4D] block">
                   International Supply Chain
                 </span>
                 <h2 className="text-2xl sm:text-3.5xl font-black tracking-tight leading-tight">
                   Global Air Express Logistics to 50+ Countries
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
                   Our certified logistics network delivers medical devices with full export documentation, AWB tracking, shockproof crating, and seamless customs clearance across North America, Europe, Middle East, Asia, and Africa.
                 </p>
 
-                <div className="flex flex-wrap gap-2 pt-2">
-                  <span className="px-3 py-1 bg-slate-800/80 rounded-lg text-2xs font-semibold border border-slate-700">
+                <div className="flex flex-wrap gap-2.5 pt-2">
+                  <span className="px-3 py-1.5 bg-[#1c1c1c] rounded-lg text-2xs font-semibold border border-[#2a2a2a] text-neutral-300">
                     🇺🇸 USA (3–5 Days)
                   </span>
-                  <span className="px-3 py-1 bg-slate-800/80 rounded-lg text-2xs font-semibold border border-slate-700">
+                  <span className="px-3 py-1.5 bg-[#1c1c1c] rounded-lg text-2xs font-semibold border border-[#2a2a2a] text-neutral-300">
                     🇬🇧 UK & Europe (3–6 Days)
                   </span>
-                  <span className="px-3 py-1 bg-slate-800/80 rounded-lg text-2xs font-semibold border border-slate-700">
+                  <span className="px-3 py-1.5 bg-[#1c1c1c] rounded-lg text-2xs font-semibold border border-[#2a2a2a] text-neutral-300">
                     🇦🇪 UAE & Gulf (2–4 Days)
                   </span>
-                  <span className="px-3 py-1 bg-slate-800/80 rounded-lg text-2xs font-semibold border border-slate-700">
+                  <span className="px-3 py-1.5 bg-[#1c1c1c] rounded-lg text-2xs font-semibold border border-[#2a2a2a] text-neutral-300">
                     🇮🇳 India (2–4 Days)
                   </span>
-                  <span className="px-3 py-1 bg-slate-800/80 rounded-lg text-2xs font-semibold border border-slate-700">
+                  <span className="px-3 py-1.5 bg-[#1c1c1c] rounded-lg text-2xs font-semibold border border-[#2a2a2a] text-neutral-300">
                     🇿🇦 South Africa (5–8 Days)
                   </span>
                 </div>
@@ -548,7 +509,7 @@ export const HomePage: React.FC = () => {
               <div className="lg:col-span-5 text-center lg:text-right">
                 <Link
                   to="/worldwide-network"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-sky-500 hover:bg-sky-400 text-slate-950 font-black rounded-xl text-xs sm:text-sm shadow-xl transition-colors"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-white hover:bg-neutral-200 text-[#111111] font-bold rounded-xl text-xs sm:text-sm shadow-md transition-colors"
                 >
                   <Globe size={18} />
                   <span>View Global Network Map</span>
@@ -560,55 +521,55 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 9. CERTIFICATIONS & 9-STAGE QUALITY CONTROL */}
-      <section className="py-16 bg-slate-50 border-t border-slate-200">
+      <section className="py-20 sm:py-28 bg-[#FAFAFA] border-t border-[#EAEAEA]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-6 space-y-4">
-              <span className="text-3xs font-extrabold uppercase tracking-widest text-sky-700 block">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-6 space-y-5">
+              <span className="text-3xs font-extrabold uppercase tracking-widest text-[#1F7A4D] block">
                 Quality Assurance Protocols
               </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
                 9-Stage Quality Verification Protocol
               </h2>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
                 Before any surgical light, table, or therapy generator is approved for international crating, our biomedical engineers execute a 9-stage verification protocol covering component integrity, electrical leakage, acoustic/lux calibration, and thermal burn-in testing.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2 text-2xs font-semibold text-slate-700">
-                <div className="p-2.5 bg-white border border-slate-200 rounded-lg">1. Raw Material Spectrometry</div>
-                <div className="p-2.5 bg-white border border-slate-200 rounded-lg">2. SMD Component Verification</div>
-                <div className="p-2.5 bg-white border border-slate-200 rounded-lg">3. SMT Soldering Inspection</div>
-                <div className="p-2.5 bg-white border border-slate-200 rounded-lg">4. High-Pot Electrical Safety</div>
-                <div className="p-2.5 bg-white border border-slate-200 rounded-lg">5. Functional Lux / Wattage Test</div>
-                <div className="p-2.5 bg-white border border-slate-200 rounded-lg">6. Thermal Chamber Analysis</div>
-                <div className="p-2.5 bg-white border border-slate-200 rounded-lg">7. 48-Hour Continuous Burn-In</div>
-                <div className="p-2.5 bg-white border border-slate-200 rounded-lg">8. Mechanical Load & Articulation</div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-2xs font-semibold text-neutral-700">
+                <div className="p-3 bg-white border border-[#EAEAEA] rounded-lg">1. Raw Material Spectrometry</div>
+                <div className="p-3 bg-white border border-[#EAEAEA] rounded-lg">2. SMD Component Verification</div>
+                <div className="p-3 bg-white border border-[#EAEAEA] rounded-lg">3. SMT Soldering Inspection</div>
+                <div className="p-3 bg-white border border-[#EAEAEA] rounded-lg">4. High-Pot Electrical Safety</div>
+                <div className="p-3 bg-white border border-[#EAEAEA] rounded-lg">5. Functional Lux / Wattage Test</div>
+                <div className="p-3 bg-white border border-[#EAEAEA] rounded-lg">6. Thermal Chamber Analysis</div>
+                <div className="p-3 bg-white border border-[#EAEAEA] rounded-lg">7. 48-Hour Continuous Burn-In</div>
+                <div className="p-3 bg-white border border-[#EAEAEA] rounded-lg">8. Mechanical Load & Articulation</div>
               </div>
             </div>
 
-            <div className="lg:col-span-6 grid grid-cols-2 gap-4">
-              <div className="p-6 bg-white rounded-2xl border border-slate-200 text-center shadow-xs">
-                <div className="text-3xl font-black text-sky-700 font-mono mb-1">ISO 13485</div>
-                <div className="text-xs font-bold text-slate-800">Quality Management</div>
-                <p className="text-3xs text-slate-400 mt-1">Medical Device Manufacturing Directive</p>
+            <div className="lg:col-span-6 grid grid-cols-2 gap-5">
+              <div className="p-7 bg-white rounded-xl border border-[#EAEAEA] text-center shadow-2xs">
+                <div className="text-3xl font-black text-[#111111] font-mono mb-1.5">ISO 13485</div>
+                <div className="text-xs font-bold text-[#111111]">Quality Management</div>
+                <p className="text-3xs text-neutral-400 mt-1">Medical Device Manufacturing Directive</p>
               </div>
 
-              <div className="p-6 bg-white rounded-2xl border border-slate-200 text-center shadow-xs">
-                <div className="text-3xl font-black text-sky-700 font-mono mb-1">CE 0123</div>
-                <div className="text-xs font-bold text-slate-800">European Conformity</div>
-                <p className="text-3xs text-slate-400 mt-1">Medical Device Regulation Compliant</p>
+              <div className="p-7 bg-white rounded-xl border border-[#EAEAEA] text-center shadow-2xs">
+                <div className="text-3xl font-black text-[#111111] font-mono mb-1.5">CE 0123</div>
+                <div className="text-xs font-bold text-[#111111]">European Conformity</div>
+                <p className="text-3xs text-neutral-400 mt-1">Medical Device Regulation Compliant</p>
               </div>
 
-              <div className="p-6 bg-white rounded-2xl border border-slate-200 text-center shadow-xs">
-                <div className="text-3xl font-black text-sky-700 font-mono mb-1">IEC 60601</div>
-                <div className="text-xs font-bold text-slate-800">Electrical Safety</div>
-                <p className="text-3xs text-slate-400 mt-1">Medical Electrical Equipment Standards</p>
+              <div className="p-7 bg-white rounded-xl border border-[#EAEAEA] text-center shadow-2xs">
+                <div className="text-3xl font-black text-[#111111] font-mono mb-1.5">IEC 60601</div>
+                <div className="text-xs font-bold text-[#111111]">Electrical Safety</div>
+                <p className="text-3xs text-neutral-400 mt-1">Medical Electrical Equipment Standards</p>
               </div>
 
-              <div className="p-6 bg-white rounded-2xl border border-slate-200 text-center shadow-xs">
-                <div className="text-3xl font-black text-sky-700 font-mono mb-1">5 YEARS</div>
-                <div className="text-xs font-bold text-slate-800">OEM Warranty</div>
-                <p className="text-3xs text-slate-400 mt-1">Direct Manufacturer Support</p>
+              <div className="p-7 bg-white rounded-xl border border-[#EAEAEA] text-center shadow-2xs">
+                <div className="text-3xl font-black text-[#111111] font-mono mb-1.5">5 YEARS</div>
+                <div className="text-xs font-bold text-[#111111]">OEM Warranty</div>
+                <p className="text-3xs text-neutral-400 mt-1">Direct Manufacturer Support</p>
               </div>
             </div>
           </div>
@@ -616,22 +577,22 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 10. B2B / INSTITUTIONAL QUOTE CALLOUT */}
-      <section className="py-16 bg-white">
+      <section className="py-20 sm:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="border border-sky-200 bg-gradient-to-r from-sky-50 via-white to-sky-50 rounded-3xl p-8 sm:p-12 shadow-sm text-center max-w-4xl mx-auto space-y-5">
-            <span className="text-3xs font-extrabold uppercase tracking-widest text-sky-700 block">
+          <div className="border border-[#EAEAEA] bg-[#FAFAFA] rounded-2xl p-8 sm:p-14 text-center max-w-4xl mx-auto space-y-6">
+            <span className="text-3xs font-extrabold uppercase tracking-widest text-[#1F7A4D] block">
               Equip Entire Hospitals & Clinics
             </span>
-            <h2 className="text-2xl sm:text-3.5xl font-black text-slate-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3.5xl font-black text-[#111111] tracking-tight">
               Institutional B2B Procurement & Tender Support
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed">
-              Are you outfitting a new surgical center, physical therapy clinic, or hospital ward? MediCuro provides factory-direct bulk pricing, customized voltage/plug adaptations, comprehensive tender documentation, and dedicated project management.
+            <p className="text-xs sm:text-sm text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+              Are you outfitting a new surgical center, physical therapy clinic, or hospital ward? DR.MEDEX provides factory-direct bulk pricing, customized voltage/plug adaptations, comprehensive tender documentation, and dedicated project management.
             </p>
             <div className="pt-2">
               <Link
                 to="/request-quote"
-                className="inline-flex items-center gap-2 px-8 py-3.5 bg-slate-900 hover:bg-sky-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-colors"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-[#111111] hover:bg-[#1F7A4D] text-white rounded-xl text-xs sm:text-sm font-bold shadow-xs transition-colors"
               >
                 <FileText size={16} />
                 <span>Submit Institutional RFP / Request a Quote</span>
@@ -642,53 +603,53 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 11. HOSPITAL & CLINICAL REVIEWS */}
-      <section className="py-16 bg-slate-50 border-t border-slate-200">
+      <section className="py-20 sm:py-28 bg-[#FAFAFA] border-t border-[#EAEAEA]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-3xs font-extrabold uppercase tracking-widest text-sky-700 block mb-1">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <span className="text-3xs font-extrabold uppercase tracking-widest text-[#1F7A4D] block mb-2">
               Clinical Trust
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
               Trusted by Surgeons & Clinical Directors
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-              <div className="flex text-amber-400">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white p-7 rounded-xl border border-[#EAEAEA] shadow-2xs space-y-5">
+              <div className="flex text-[#111111]">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={15} fill="currentColor" />
                 ))}
               </div>
-              <p className="text-xs text-slate-600 italic leading-relaxed">
+              <p className="text-xs text-neutral-600 italic leading-relaxed">
                 "The Lumina 700+500 surgical light system exceeded our surgical team's expectations. The depth of illumination during open cardiac surgeries is exceptional, and the cold-light technology prevents surgeon fatigue during 8-hour procedures."
               </p>
-              <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div className="pt-3 border-t border-[#EAEAEA] flex items-center justify-between text-xs">
                 <div>
-                  <div className="font-bold text-slate-900">Prof. G. Dupont, Surgical Director</div>
-                  <div className="text-3xs text-slate-400">Hôpital Européen Lyon, France</div>
+                  <div className="font-bold text-[#111111]">Prof. G. Dupont, Surgical Director</div>
+                  <div className="text-3xs text-neutral-400">Hôpital Européen Lyon, France</div>
                 </div>
-                <span className="text-3xs text-emerald-600 font-semibold px-2 py-0.5 bg-emerald-50 rounded-md">
+                <span className="text-3xs text-[#145A38] font-semibold px-2.5 py-1 bg-[#EAF5EF] border border-[#1F7A4D]/20 rounded-md">
                   Verified Purchase
                 </span>
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-              <div className="flex text-amber-400">
+            <div className="bg-white p-7 rounded-xl border border-[#EAEAEA] shadow-2xs space-y-5">
+              <div className="flex text-[#111111]">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={15} fill="currentColor" />
                 ))}
               </div>
-              <p className="text-xs text-slate-600 italic leading-relaxed">
+              <p className="text-xs text-neutral-600 italic leading-relaxed">
                 "We procured 6 units of the UltraSound Pro 1000 and 4 Radial Shockwave machines for our sports medicine center. The build quality and microprocessor accuracy have provided outstanding therapeutic results for our athletes."
               </p>
-              <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div className="pt-3 border-t border-[#EAEAEA] flex items-center justify-between text-xs">
                 <div>
-                  <div className="font-bold text-slate-900">Dr. K. Narang, Head of Physical Medicine</div>
-                  <div className="text-3xs text-slate-400">Apollo Specialty Clinics, India</div>
+                  <div className="font-bold text-[#111111]">Dr. K. Narang, Head of Physical Medicine</div>
+                  <div className="text-3xs text-neutral-400">Apollo Specialty Clinics, India</div>
                 </div>
-                <span className="text-3xs text-emerald-600 font-semibold px-2 py-0.5 bg-emerald-50 rounded-md">
+                <span className="text-3xs text-[#145A38] font-semibold px-2.5 py-1 bg-[#EAF5EF] border border-[#1F7A4D]/20 rounded-md">
                   Verified Purchase
                 </span>
               </div>
@@ -698,57 +659,57 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 12. CLINICAL BLOG & EDUCATIONAL RESOURCES */}
-      <section className="py-16 bg-white">
+      <section className="py-20 sm:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12">
             <div>
-              <span className="text-3xs font-extrabold uppercase tracking-widest text-sky-700 block mb-1">
+              <span className="text-3xs font-extrabold uppercase tracking-widest text-[#1F7A4D] block mb-2">
                 Medical Knowledge
               </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
                 Clinical Technology Guides & Resources
               </h2>
             </div>
             <Link
               to="/blog"
-              className="mt-2 sm:mt-0 text-xs font-bold text-sky-700 hover:text-sky-900 flex items-center gap-1"
+              className="mt-2 sm:mt-0 text-xs font-bold text-[#111111] hover:text-[#1F7A4D] flex items-center gap-1.5 transition-colors"
             >
               <span>View All Articles</span>
               <ArrowRight size={14} />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {blogs.map((b) => (
               <div
                 key={b.id}
-                className="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+                className="group bg-white rounded-xl border border-[#EAEAEA] overflow-hidden hover:border-[#111111] hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  <div className="aspect-video bg-slate-100 overflow-hidden">
+                  <div className="aspect-video bg-[#FAFAFA] overflow-hidden">
                     <img
                       src={b.image}
                       alt={b.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <div className="p-5">
-                    <div className="text-3xs font-bold uppercase tracking-wider text-sky-700 mb-1.5">
+                  <div className="p-6">
+                    <div className="text-3xs font-bold uppercase tracking-wider text-[#1F7A4D] mb-2">
                       {b.category} • {b.readTime}
                     </div>
-                    <h3 className="text-xs font-bold text-slate-900 leading-snug line-clamp-2 group-hover:text-sky-700 transition-colors">
+                    <h3 className="text-xs font-bold text-[#111111] leading-snug line-clamp-2 group-hover:text-[#1F7A4D] transition-colors">
                       <Link to={`/blog/${b.slug}`}>{b.title}</Link>
                     </h3>
-                    <p className="text-2xs text-slate-500 mt-2 line-clamp-2 leading-relaxed">
+                    <p className="text-2xs text-neutral-500 mt-2.5 line-clamp-2 leading-relaxed">
                       {b.excerpt}
                     </p>
                   </div>
                 </div>
 
-                <div className="px-5 pb-5 pt-0">
+                <div className="px-6 pb-6 pt-0">
                   <Link
                     to={`/blog/${b.slug}`}
-                    className="text-xs font-bold text-sky-700 hover:text-sky-900 flex items-center gap-1"
+                    className="text-xs font-bold text-[#111111] hover:text-[#1F7A4D] flex items-center gap-1.5 transition-colors"
                   >
                     <span>Read Guide</span>
                     <ArrowRight size={13} />

@@ -44,7 +44,7 @@ let state = {
       items: [
         {
           productId: "prod-phy-01",
-          title: "MediCuro UltraSound Pro 1000 | Dual Frequency (1 & 3 MHz) Clinical Physiotherapy System",
+          title: "DR.MEDEX UltraSound Pro 1000 | Dual Frequency (1 & 3 MHz) Clinical Physiotherapy System",
           sku: "MC-PHY-US1000",
           quantity: 1,
           basePriceUSD: 1450.00,
@@ -63,7 +63,7 @@ let state = {
         currency: "USD",
         exchangeRateUsed: 1.0,
         rateTimestamp: "2026-09-18T10:00:00.000Z",
-        couponApplied: "MEDICURO10"
+        couponApplied: "DRMEDEX10"
       },
       shippingMethod: {
         id: "dhl-air-express",
@@ -102,7 +102,7 @@ let state = {
       email: "afinch@stjudehospital.co.uk",
       phone: "+44 20 7946 0912",
       country: "United Kingdom",
-      productName: "MediCuro Lumina 700+500 Dual Dome OT Light",
+      productName: "DR.MEDEX Lumina 700+500 Dual Dome OT Light",
       sku: "MC-OT-LUM750",
       quantity: 4,
       targetTimeline: "Within 30 Days (Tender Phase)",
@@ -114,7 +114,7 @@ let state = {
     }
   ],
   coupons: [
-    { code: "MEDICURO10", discountPercent: 10, maxDiscountUSD: 500, minOrderUSD: 1000, description: "10% Off Clinical Orders over $1,000" },
+    { code: "DRMEDEX10", discountPercent: 10, maxDiscountUSD: 500, minOrderUSD: 1000, description: "10% Off Clinical Orders over $1,000" },
     { code: "GLOBALCARE", discountAmountUSD: 200, minOrderUSD: 2000, description: "$200 Off International Hospital Shipments" },
     { code: "SURGICAL5", discountPercent: 5, maxDiscountUSD: 300, minOrderUSD: 500, description: "5% Off Surgical & OT Illumination" }
   ],
@@ -144,11 +144,11 @@ let state = {
   ],
   policies: {
     announcementBar: "GLOBAL AIR FREIGHT DELIVERY AVAILABLE | 24/7 BIOMEDICAL TECHNICAL SUPPORT | ISO 13485:2016 & CE CERTIFIED",
-    supportEmail: "support@medicuroglobal.com",
-    salesEmail: "sales@medicuroglobal.com",
+    supportEmail: "support@drmedex.com",
+    salesEmail: "sales@drmedex.com",
     hotline: "+1 (800) 849-2041",
     whatsapp: "+91 98110 49200",
-    headquarters: "MediCuro Global MedTech Tower, 45 Healthcare Innovation Way, Boston, MA 02115, USA & International Logistics Hub, Dubai Healthcare City, UAE"
+    headquarters: "DR.MEDEX Global MedTech Tower, 45 Healthcare Innovation Way, Boston, MA 02115, USA & International Logistics Hub, Dubai Healthcare City, UAE"
   }
 };
 
@@ -176,50 +176,58 @@ function persist() {
 module.exports = {
   getProducts: (filters = {}) => {
     let list = [...state.products];
-    if (filters.category) {
+    if (!filters.includeInactive) {
+      list = list.filter(p => (p.status || "ACTIVE") === "ACTIVE");
+    }
+    if (filters.category && filters.category !== "ALL") {
       list = list.filter(p => p.category === filters.category);
     }
-    if (filters.subcategory) {
+    if (filters.subcategory && filters.subcategory !== "ALL") {
       list = list.filter(p => p.subcategory === filters.subcategory);
     }
     if (filters.search) {
       const q = filters.search.toLowerCase();
       list = list.filter(p => 
-        p.title.toLowerCase().includes(q) ||
-        p.sku.toLowerCase().includes(q) ||
-        p.shortDescription.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q) ||
+        (p.title || p.productName || "").toLowerCase().includes(q) ||
+        (p.sku || p.SKU || "").toLowerCase().includes(q) ||
+        (p.modelNumber || "").toLowerCase().includes(q) ||
+        (p.shortDescription || p.overview || "").toLowerCase().includes(q) ||
+        (p.category || "").toLowerCase().includes(q) ||
         (p.applications && p.applications.some(a => a.toLowerCase().includes(q)))
       );
     }
     if (filters.featured === "true" || filters.featured === true) {
-      list = list.filter(p => p.isFeatured);
+      list = list.filter(p => p.featured || p.isFeatured);
     }
     if (filters.bestSeller === "true" || filters.bestSeller === true) {
-      list = list.filter(p => p.isBestSeller);
+      list = list.filter(p => p.bestseller || p.isBestSeller);
     }
     if (filters.sort) {
       if (filters.sort === "price-low") list.sort((a, b) => a.basePrice - b.basePrice);
       if (filters.sort === "price-high") list.sort((a, b) => b.basePrice - a.basePrice);
-      if (filters.sort === "rating") list.sort((a, b) => b.rating - a.rating);
+      if (filters.sort === "rating") list.sort((a, b) => (b.rating || b.averageRating || 0) - (a.rating || a.averageRating || 0));
       if (filters.sort === "newest") list.sort((a, b) => b.id.localeCompare(a.id));
     }
     return list;
+  },
+  getProductById: (id) => {
+    return state.products.find(p => p.id === id || p.slug === id);
   },
   getProductBySlug: (slug) => {
     return state.products.find(p => p.slug === slug || p.id === slug);
   },
   addProduct: (productData) => {
+    const assignedId = (productData && productData.id) ? productData.id : "prod-" + Date.now() + "-" + Math.random().toString(36).substring(2, 6);
     const newProduct = {
-      id: "prod-" + Date.now(),
-      slug: productData.slug || productData.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
       stock: 10,
       rating: 5.0,
       reviewCount: 0,
-      images: productData.images || [
+      images: [
         "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
       ],
-      ...productData
+      ...productData,
+      id: assignedId,
+      slug: (productData && productData.slug) || (productData && productData.title ? productData.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") : assignedId)
     };
     state.products.unshift(newProduct);
     persist();

@@ -54,7 +54,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserProfile | null>(() => {
     try {
-      const saved = localStorage.getItem("medicuro_user");
+      const saved = localStorage.getItem("drmedex_user");
       return saved ? JSON.parse(saved) : defaultUser;
     } catch {
       return defaultUser;
@@ -63,9 +63,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     if (user) {
-      localStorage.setItem("medicuro_user", JSON.stringify(user));
+      localStorage.setItem("drmedex_user", JSON.stringify(user));
     } else {
-      localStorage.removeItem("medicuro_user");
+      localStorage.removeItem("drmedex_user");
     }
   }, [user]);
 

@@ -23,7 +23,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>(() => {
     try {
-      const saved = localStorage.getItem("medicuro_cart");
+      const saved = localStorage.getItem("drmedex_cart");
       return saved ? JSON.parse(saved) : [];
     } catch (e) {
       return [];
@@ -31,7 +31,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   });
   const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(() => {
     try {
-      const saved = localStorage.getItem("medicuro_coupon");
+      const saved = localStorage.getItem("drmedex_coupon");
       return saved ? JSON.parse(saved) : null;
     } catch (e) {
       return null;
@@ -40,14 +40,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    localStorage.setItem("medicuro_cart", JSON.stringify(items));
+    localStorage.setItem("drmedex_cart", JSON.stringify(items));
   }, [items]);
 
   useEffect(() => {
     if (appliedCoupon) {
-      localStorage.setItem("medicuro_coupon", JSON.stringify(appliedCoupon));
+      localStorage.setItem("drmedex_coupon", JSON.stringify(appliedCoupon));
     } else {
-      localStorage.removeItem("medicuro_coupon");
+      localStorage.removeItem("drmedex_coupon");
     }
   }, [appliedCoupon]);
 
