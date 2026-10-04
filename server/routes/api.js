@@ -38,6 +38,13 @@ router.delete("/products/:id", (req, res) => {
   res.json({ success: true, message: "Product deleted", product: removed });
 });
 
+// SEARCH AUTOCOMPLETE & LIVE SEARCH
+router.get("/search/live", (req, res) => {
+  const q = req.query.q || req.query.query || req.query.search || "";
+  const result = store.searchLive(q);
+  res.json({ success: true, ...result });
+});
+
 // CATEGORIES
 router.get("/categories", (req, res) => {
   res.json({ success: true, categories: store.getCategories() });

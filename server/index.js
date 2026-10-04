@@ -35,7 +35,7 @@ app.use((req, res) => {
 // Start Server
 const server = app.listen(PORT, () => {
   console.log(`[DR.MEDEX Global] REST API Server running on port ${PORT}`);
-  console.log(`[DR.MEDEX Global] Base currency: USD | Multi-currency engine active`);
+  console.log(`[DR.MEDEX Global] Base currency: INR | Live FX Multi-currency engine active`);
 });
 
 server.on("error", (err) => {

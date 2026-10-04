@@ -585,7 +585,7 @@ export const AdminProductsPage: React.FC = () => {
                   <th className="p-4">Equipment Details</th>
                   <th className="p-4">SKU / Model</th>
                   <th className="p-4">Category</th>
-                  <th className="p-4">Pricing (USD)</th>
+                  <th className="p-4">Base Price (INR)</th>
                   <th className="p-4">Stock</th>
                   <th className="p-4">Badges</th>
                   <th className="p-4">Status</th>
@@ -679,11 +679,14 @@ export const AdminProductsPage: React.FC = () => {
                         {/* Pricing */}
                         <td className="p-4 font-mono text-xs">
                           <div className="font-bold text-slate-900">
-                            ${(p.basePrice || 0).toLocaleString()}
+                            ₹{(p.basePrice || 0).toLocaleString()}
+                          </div>
+                          <div className="text-[10px] text-slate-500 font-normal">
+                            ≈ ${((p.basePrice || 0) * 0.010379).toFixed(2)} USD
                           </div>
                           {p.originalPrice && p.originalPrice > (p.basePrice || 0) && (
                             <div className="text-3xs text-slate-400 line-through">
-                              ${p.originalPrice.toLocaleString()}
+                              ₹{p.originalPrice.toLocaleString()}
                             </div>
                           )}
                         </td>

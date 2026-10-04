@@ -20,6 +20,7 @@ import { RequestQuotePage } from "./pages/RequestQuotePage";
 import { WorldwideNetworkPage } from "./pages/WorldwideNetworkPage";
 import { CountryPage } from "./pages/CountryPage";
 import { AboutPage } from "./pages/AboutPage";
+import { WishlistPage } from "./pages/WishlistPage";
 import { BlogListPage } from "./pages/BlogListPage";
 import { BlogDetailPage } from "./pages/BlogDetailPage";
 import { ContactPage } from "./pages/ContactPage";
@@ -67,6 +68,7 @@ function AppContent() {
           <Route path="/category/:categorySlug" element={<ShopPage />} />
           <Route path="/product/:slug" element={<ProductDetailPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/track-order" element={<TrackOrderPage />} />
           <Route path="/track-order/:orderId" element={<TrackOrderPage />} />

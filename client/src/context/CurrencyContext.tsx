@@ -8,27 +8,44 @@ interface CurrencyContextType {
   countries: Country[];
   setCountry: (countryCode: string) => void;
   setCurrencyManually: (currencyCode: string) => void;
-  convertPrice: (usdAmount: number) => number;
-  formatPrice: (usdAmount: number) => string;
+  convertPrice: (inrAmount: number) => number;
+  formatPrice: (inrAmount: number) => string;
   getSymbol: () => string;
   isLoading: boolean;
+  lastUpdated: string | null;
 }
 
+const defaultFallbackRatesAgainstINR: Record<string, number> = {
+  INR: 1.0,
+  USD: 0.010379,
+  EUR: 0.009228,
+  GBP: 0.007854,
+  AED: 0.038116,
+  SAR: 0.038921,
+  CAD: 0.014791,
+  AUD: 0.014939,
+  ZAR: 0.173245,
+  NGN: 14.195452,
+  SGD: 0.01352,
+  JPY: 1.5732,
+  CHF: 0.00951
+};
+
 const defaultCountry: Country = {
-  code: "US",
-  name: "United States",
-  flag: "🇺🇸",
-  currency: "USD",
-  symbol: "$",
-  dialCode: "+1",
-  postalLabel: "ZIP Code",
+  code: "IN",
+  name: "India",
+  flag: "🇮🇳",
+  currency: "INR",
+  symbol: "₹",
+  dialCode: "+91",
+  postalLabel: "PIN Code",
   stateLabel: "State",
-  postalRegex: "^[0-9]{5}(?:-[0-9]{4})?$",
+  postalRegex: "^[1-9][0-9]{5}$",
   defaultRate: 1.0,
-  voltage: "120V / 60Hz",
-  plugType: "Type A / B",
-  leadTimeAirDays: "3–5 Days",
-  regulatoryStandards: "FDA 510(k) Ready / ISO 13485"
+  voltage: "230V / 50Hz",
+  plugType: "Type C / D / M",
+  leadTimeAirDays: "2–4 Days",
+  regulatoryStandards: "CDSCO / ISO 13485:2016"
 };
 
 const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined);
@@ -36,8 +53,9 @@ const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined
 export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [countries, setCountries] = useState<Country[]>([defaultCountry]);
   const [currentCountry, setCurrentCountryState] = useState<Country>(defaultCountry);
-  const [currentCurrency, setCurrentCurrencyState] = useState<string>("USD");
-  const [exchangeRates, setExchangeRates] = useState<Record<string, number>>({ USD: 1.0 });
+  const [currentCurrency, setCurrentCurrencyState] = useState<string>("INR");
+  const [exchangeRates, setExchangeRates] = useState<Record<string, number>>(defaultFallbackRatesAgainstINR);
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Load countries and exchange rates
@@ -51,7 +69,7 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
         if (countryRes.ok) {
           const countryData = await countryRes.json();
-          if (countryData.success && countryData.countries) {
+          if (countryData.success && countryData.countries && countryData.countries.length > 0) {
             setCountries(countryData.countries);
 
             // Check saved preference in localStorage
@@ -60,13 +78,14 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
               const matched = countryData.countries.find((c: Country) => c.code === savedCode);
               if (matched) {
                 setCurrentCountryState(matched);
-                setCurrentCurrencyState(localStorage.getItem("drmedex_currency") || matched.currency);
+                const savedCurr = localStorage.getItem("drmedex_currency");
+                setCurrentCurrencyState(savedCurr || matched.currency);
               }
             } else {
-              // Default to US or detect if needed
-              const us = countryData.countries.find((c: Country) => c.code === "US") || countryData.countries[0];
-              setCurrentCountryState(us);
-              setCurrentCurrencyState(us.currency);
+              // Default to India (INR)
+              const india = countryData.countries.find((c: Country) => c.code === "IN") || countryData.countries[0];
+              setCurrentCountryState(india);
+              setCurrentCurrencyState(india.currency || "INR");
             }
           }
         }
@@ -74,7 +93,13 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         if (rateRes.ok) {
           const rateData = await rateRes.json();
           if (rateData.success && rateData.rates) {
-            setExchangeRates(rateData.rates);
+            setExchangeRates({
+              ...defaultFallbackRatesAgainstINR,
+              ...rateData.rates
+            });
+            if (rateData.lastFetchedAt) {
+              setLastUpdated(rateData.lastFetchedAt);
+            }
           }
         }
       } catch (err) {
@@ -102,31 +127,46 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     localStorage.setItem("drmedex_currency", currencyCode);
   };
 
-  const convertPrice = (usdAmount: number): number => {
-    const rate = exchangeRates[currentCurrency] || 1.0;
-    const converted = usdAmount * rate;
-    if (currentCurrency === "INR" || currentCurrency === "JPY") {
+  const convertPrice = (inrAmount: number): number => {
+    const code = (currentCurrency || "INR").toUpperCase();
+    if (code === "INR") {
+      return Math.round(inrAmount);
+    }
+    const rate = exchangeRates[code] || defaultFallbackRatesAgainstINR[code] || 1.0;
+    const converted = inrAmount * rate;
+    if (code === "JPY") {
       return Math.round(converted);
     }
     return Number(converted.toFixed(2));
   };
 
   const getSymbol = (): string => {
-    const matched = countries.find((c) => c.currency === currentCurrency);
-    if (matched) return matched.symbol;
-    if (currentCurrency === "USD") return "$";
-    if (currentCurrency === "EUR") return "€";
-    if (currentCurrency === "GBP") return "£";
-    if (currentCurrency === "INR") return "₹";
-    return currentCurrency;
+    const code = (currentCurrency || "INR").toUpperCase();
+    const matched = countries.find((c) => c.currency === code);
+    if (matched && matched.symbol) return matched.symbol;
+    if (code === "INR") return "₹";
+    if (code === "USD") return "$";
+    if (code === "EUR") return "€";
+    if (code === "GBP") return "£";
+    if (code === "AED") return "AED ";
+    if (code === "SAR") return "SAR ";
+    if (code === "CAD") return "CA$";
+    if (code === "AUD") return "A$";
+    if (code === "ZAR") return "R";
+    if (code === "NGN") return "₦";
+    if (code === "SGD") return "S$";
+    if (code === "JPY") return "¥";
+    return `${code} `;
   };
 
-  const formatPrice = (usdAmount: number): string => {
-    const converted = convertPrice(usdAmount);
+  const formatPrice = (inrAmount: number): string => {
+    const code = (currentCurrency || "INR").toUpperCase();
+    const converted = convertPrice(inrAmount);
     const symbol = getSymbol();
     
-    // Formatting with commas
-    const decimals = (currentCurrency === "INR" || currentCurrency === "JPY") ? 0 : 2;
+    // Formatting decimals
+    const isZeroDecimal = code === "INR" || code === "JPY";
+    const decimals = isZeroDecimal ? 0 : 2;
     const formattedNum = converted.toLocaleString(undefined, {
       minimumFractionDigits: decimals,
       maximumFractionDigits: decimals
@@ -147,7 +187,8 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         convertPrice,
         formatPrice,
         getSymbol,
-        isLoading
+        isLoading,
+        lastUpdated
       }}
     >
       {children}

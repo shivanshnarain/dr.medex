@@ -698,41 +698,46 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
             <div className="space-y-4">
               <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-3">
-                  Base USD Currency Pricing
+                  Base INR Currency Pricing
                 </h3>
                 <p className="text-3xs text-slate-500 mb-4">
-                  DR.MEDEX automatically converts this base USD price into local currency (INR, EUR, GBP, CAD) for international buyers.
+                  DR.MEDEX stores the master product price in INR (Base Currency). International buyers view dynamic converted pricing (USD, EUR, GBP, AED, SAR) using current live exchange rates.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                   <div>
                     <label className="block text-2xs font-bold uppercase text-slate-600 mb-1">
-                      Base Price (USD) *
+                      Base Price (INR) *
                     </label>
                     <div className="relative">
-                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500 font-bold">$</span>
+                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500 font-bold">₹</span>
                       <input
                         type="number"
                         min="0"
-                        step="0.01"
+                        step="1"
                         required
                         value={basePrice}
                         onChange={(e) => setBasePrice(Number(e.target.value))}
                         className="w-full pl-8 pr-3 py-2 border border-slate-300 rounded-xl text-sm font-mono font-bold focus:ring-2 focus:ring-red-500"
                       />
                     </div>
+                    {basePrice > 0 && (
+                      <span className="text-[10px] text-slate-500 font-mono mt-1 block">
+                        ≈ ${(basePrice * 0.010379).toFixed(2)} USD (Live FX)
+                      </span>
+                    )}
                   </div>
 
                   <div>
                     <label className="block text-2xs font-bold uppercase text-slate-600 mb-1">
-                      Regular / MSRP (USD)
+                      Regular / MSRP (INR)
                     </label>
                     <div className="relative">
-                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500 font-bold">$</span>
+                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500 font-bold">₹</span>
                       <input
                         type="number"
                         min="0"
-                        step="0.01"
+                        step="1"
                         value={regularPrice}
                         onChange={(e) => setRegularPrice(Number(e.target.value))}
                         className="w-full pl-8 pr-3 py-2 border border-slate-300 rounded-xl text-sm font-mono focus:ring-2 focus:ring-red-500"
@@ -742,14 +747,14 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
 
                   <div>
                     <label className="block text-2xs font-bold uppercase text-slate-600 mb-1">
-                      Sale Price (USD)
+                      Sale Price (INR)
                     </label>
                     <div className="relative">
-                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500 font-bold">$</span>
+                      <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500 font-bold">₹</span>
                       <input
                         type="number"
                         min="0"
-                        step="0.01"
+                        step="1"
                         value={salePrice || ""}
                         onChange={(e) => setSalePrice(e.target.value ? Number(e.target.value) : undefined)}
                         placeholder="Optional"

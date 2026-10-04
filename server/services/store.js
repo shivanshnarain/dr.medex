@@ -186,15 +186,51 @@ module.exports = {
       list = list.filter(p => p.subcategory === filters.subcategory);
     }
     if (filters.search) {
-      const q = filters.search.toLowerCase();
-      list = list.filter(p => 
-        (p.title || p.productName || "").toLowerCase().includes(q) ||
-        (p.sku || p.SKU || "").toLowerCase().includes(q) ||
-        (p.modelNumber || "").toLowerCase().includes(q) ||
-        (p.shortDescription || p.overview || "").toLowerCase().includes(q) ||
-        (p.category || "").toLowerCase().includes(q) ||
-        (p.applications && p.applications.some(a => a.toLowerCase().includes(q)))
-      );
+      const q = filters.search.toLowerCase().trim();
+      const tokens = q.split(/\s+/).filter(Boolean);
+      
+      list = list
+        .map(p => {
+          let score = 0;
+          const title = (p.title || p.productName || "").toLowerCase();
+          const sku = (p.sku || p.SKU || "").toLowerCase();
+          const model = (p.modelNumber || "").toLowerCase();
+          const cat = (p.category || "").toLowerCase();
+          const catName = (p.categoryName || "").toLowerCase();
+          const subcat = (p.subcategory || "").toLowerCase();
+          const subcatName = (p.subcategoryName || "").toLowerCase();
+          const type = (p.productType || "").toLowerCase();
+          const desc = (p.shortDescription || p.fullDescription || p.overview || "").toLowerCase();
+          const apps = (p.applications || []).join(" ").toLowerCase();
+          const specs = Object.values(p.technicalSpecifications || p.specifications || {}).join(" ").toLowerCase();
+          const tags = (p.tags || p.keywords || []).join(" ").toLowerCase();
+
+          // Exact or startsWith matches
+          if (title === q || sku === q || model === q) score += 100;
+          if (title.startsWith(q)) score += 50;
+          if (title.includes(q)) score += 30;
+          if (sku.includes(q) || model.includes(q)) score += 40;
+          if (cat.includes(q) || catName.includes(q)) score += 25;
+          if (subcat.includes(q) || subcatName.includes(q)) score += 20;
+          if (type.includes(q)) score += 15;
+          if (tags.includes(q) || apps.includes(q)) score += 15;
+          if (specs.includes(q)) score += 10;
+          if (desc.includes(q)) score += 8;
+
+          // Token matches
+          for (const token of tokens) {
+            if (title.includes(token)) score += 10;
+            if (sku.includes(token)) score += 10;
+            if (cat.includes(token) || catName.includes(token)) score += 8;
+            if (subcat.includes(token) || subcatName.includes(token)) score += 6;
+            if (desc.includes(token)) score += 3;
+          }
+
+          return { product: p, score };
+        })
+        .filter(item => item.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .map(item => item.product);
     }
     if (filters.featured === "true" || filters.featured === true) {
       list = list.filter(p => p.featured || p.isFeatured);
@@ -209,6 +245,55 @@ module.exports = {
       if (filters.sort === "newest") list.sort((a, b) => b.id.localeCompare(a.id));
     }
     return list;
+  },
+  searchLive: (query) => {
+    if (!query || !query.trim()) {
+      return { products: [], categories: [], totalCount: 0 };
+    }
+    const q = query.toLowerCase().trim();
+    // Fetch ranked products
+    const matchedProducts = module.exports.getProducts({ search: q });
+
+    // Match categories & subcategories
+    const matchedCategories = [];
+    const seenCatSlugs = new Set();
+
+    for (const cat of state.categories) {
+      const catMatch = (cat.name || "").toLowerCase().includes(q) || (cat.slug || "").toLowerCase().includes(q);
+      if (catMatch && !seenCatSlugs.has(cat.slug)) {
+        seenCatSlugs.add(cat.slug);
+        matchedCategories.push({
+          id: cat.id,
+          name: cat.name,
+          slug: cat.slug,
+          isSubcategory: false,
+          link: `/shop-all?category=${cat.slug}`
+        });
+      }
+
+      if (cat.subcategories) {
+        for (const sub of cat.subcategories) {
+          const subMatch = (sub.name || "").toLowerCase().includes(q) || (sub.slug || "").toLowerCase().includes(q);
+          if (subMatch && !seenCatSlugs.has(sub.slug)) {
+            seenCatSlugs.add(sub.slug);
+            matchedCategories.push({
+              id: sub.id,
+              name: sub.name,
+              slug: sub.slug,
+              parentCategory: cat.name,
+              isSubcategory: true,
+              link: `/shop-all?category=${cat.slug}&subcategory=${sub.slug}`
+            });
+          }
+        }
+      }
+    }
+
+    return {
+      products: matchedProducts.slice(0, 6),
+      categories: matchedCategories.slice(0, 5),
+      totalCount: matchedProducts.length
+    };
   },
   getProductById: (id) => {
     return state.products.find(p => p.id === id || p.slug === id);
@@ -264,7 +349,7 @@ module.exports = {
   },
   createOrder: (orderPayload) => {
     const orderNumber = "MC-" + Math.floor(10000 + Math.random() * 90000);
-    const targetCurrency = orderPayload.currency || "USD";
+    const targetCurrency = orderPayload.currency || "INR";
     const exchangeRateUsed = currencyService.getRateForCurrency(targetCurrency);
     const now = new Date().toISOString();
 
@@ -276,25 +361,29 @@ module.exports = {
       billingAddress: orderPayload.billingAddress || orderPayload.shippingAddress,
       items: orderPayload.items.map(item => {
         const prod = state.products.find(p => p.id === item.productId) || {};
+        const baseINR = item.basePriceINR || item.basePriceUSD || prod.basePrice || 1000;
         return {
           productId: item.productId,
           title: item.title || prod.title,
           sku: item.sku || prod.sku,
           quantity: item.quantity || 1,
-          basePriceUSD: item.basePriceUSD || prod.basePrice || 100,
-          convertedUnitPrice: currencyService.convertPrice(item.basePriceUSD || prod.basePrice || 100, targetCurrency),
+          originalINRPrice: baseINR,
+          basePriceINR: baseINR,
+          convertedUnitPrice: currencyService.convertPrice(baseINR, targetCurrency),
           currency: targetCurrency,
           image: item.image || (prod.images && prod.images[0]) || ""
         };
       }),
       pricing: {
-        baseSubtotalUSD: orderPayload.baseSubtotalUSD || 0,
+        originalINRPrice: orderPayload.baseSubtotalINR || orderPayload.baseSubtotalUSD || 0,
         subtotal: orderPayload.subtotal || 0,
         discount: orderPayload.discount || 0,
         shipping: orderPayload.shipping || 0,
         tax: orderPayload.tax || 0,
         grandTotal: orderPayload.grandTotal || 0,
+        finalOrderAmount: orderPayload.grandTotal || 0,
         currency: targetCurrency,
+        selectedCurrency: targetCurrency,
         exchangeRateUsed,
         rateTimestamp: now,
         couponApplied: orderPayload.couponApplied || null
