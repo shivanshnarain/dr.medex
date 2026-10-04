@@ -5,40 +5,6 @@ const fs = require("fs");
 // Load .env if present
 require("dotenv").config();
 
-// Default Super Admin credentials configured securely
-// Raw passwords are NEVER stored in code or database.
-const DEFAULT_ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@drmedex.com";
-
-// Generate or read salt & hash
-let adminSalt = process.env.ADMIN_PASSWORD_SALT;
-let adminHash = process.env.ADMIN_PASSWORD_HASH;
-
-// If not present in environment, generate and write to .env securely
-if (!adminHash || !adminSalt) {
-  adminSalt = crypto.randomBytes(16).toString("hex");
-  // Default strong master password for initial setup: DrMedex@2026!Global
-  // The client can override via ADMIN_PASSWORD_HASH and ADMIN_PASSWORD_SALT in .env
-  adminHash = crypto.pbkdf2Sync("DrMedex@2026!Global", adminSalt, 100000, 64, "sha512").toString("hex");
-  
-  const envPath = path.join(__dirname, "../../.env");
-  const envContent = [
-    `# DR.MEDEX Global Environment Configuration`,
-    `PORT=4000`,
-    `ADMIN_EMAIL=${DEFAULT_ADMIN_EMAIL}`,
-    `ADMIN_PASSWORD_SALT=${adminSalt}`,
-    `ADMIN_PASSWORD_HASH=${adminHash}`,
-    `SESSION_SECRET=${crypto.randomBytes(32).toString("hex")}`
-  ].join("\n") + "\n";
-
-  try {
-    if (!fs.existsSync(envPath)) {
-      fs.writeFileSync(envPath, envContent, "utf-8");
-    }
-  } catch (e) {
-    // Non-fatal
-  }
-}
-
 // Active session storage (token -> session)
 const sessions = new Map();
 
@@ -62,10 +28,45 @@ function verifyPassword(password, salt, expectedHash) {
 
 module.exports = {
   login: (email, password, ip = "127.0.0.1") => {
-    const key = `${email.toLowerCase()}_${ip}`;
+    // Reload env to ensure fresh values
+    require("dotenv").config();
+
+    const cleanEmail = (email || "").toLowerCase().trim();
+    const cleanPass = password || "";
+    const key = `${cleanEmail}_${ip}`;
     const attemptRecord = loginAttempts.get(key) || { attempts: 0, lockedUntil: 0 };
 
-    if (Date.now() < attemptRecord.lockedUntil) {
+    const targetEmail = (process.env.ADMIN_EMAIL || "roshan.official0009@gmail.com").toLowerCase().trim();
+    const currentSalt = process.env.ADMIN_PASSWORD_SALT || "fab0708d13f9adebbfb634773a90fd90";
+    const currentHash = process.env.ADMIN_PASSWORD_HASH || "356b38dc8851f031184bf00b980031ee13e9bfab3cfd377a20dd3d221b5b4ca47938341d56807c5ddfc5060f4489c6fd1c45f99645d08a8810b05b2e3d6c2204";
+
+    let isValid = false;
+    let adminName = "DR.MEDEX Super Admin";
+
+    // 1. Primary credential: Roshan.official0009@gmail.com / Roshan1998@@
+    if (cleanEmail === "roshan.official0009@gmail.com") {
+      if (cleanPass === "Roshan1998@@" || verifyPassword(cleanPass, currentSalt, currentHash)) {
+        isValid = true;
+        adminName = "Roshan (DR.MEDEX Super Admin)";
+      }
+    }
+
+    // 2. Check from configured environment
+    if (!isValid && cleanEmail === targetEmail) {
+      if (verifyPassword(cleanPass, currentSalt, currentHash)) {
+        isValid = true;
+      }
+    }
+
+    // 3. Fallback master admin
+    if (!isValid && cleanEmail === "admin@drmedex.com") {
+      if (cleanPass === "DrMedex@2026!Global" || cleanPass === "Roshan1998@@") {
+        isValid = true;
+      }
+    }
+
+    // Check lockout ONLY if credentials are not valid
+    if (!isValid && Date.now() < attemptRecord.lockedUntil) {
       const waitMin = Math.ceil((attemptRecord.lockedUntil - Date.now()) / 60000);
       return {
         success: false,
@@ -74,14 +75,7 @@ module.exports = {
       };
     }
 
-    const targetEmail = (process.env.ADMIN_EMAIL || DEFAULT_ADMIN_EMAIL).toLowerCase();
-    const currentSalt = process.env.ADMIN_PASSWORD_SALT || adminSalt;
-    const currentHash = process.env.ADMIN_PASSWORD_HASH || adminHash;
-
-    const emailMatches = email.toLowerCase().trim() === targetEmail;
-    const passwordValid = emailMatches && verifyPassword(password, currentSalt, currentHash);
-
-    if (!passwordValid) {
+    if (!isValid) {
       attemptRecord.attempts += 1;
       if (attemptRecord.attempts >= MAX_ATTEMPTS) {
         attemptRecord.lockedUntil = Date.now() + LOCKOUT_MS;
@@ -103,8 +97,8 @@ module.exports = {
     const token = crypto.randomBytes(32).toString("hex");
     const session = {
       token,
-      email: targetEmail,
-      name: "DR.MEDEX Super Admin",
+      email: cleanEmail,
+      name: adminName,
       role: "SUPER_ADMIN",
       createdAt: Date.now(),
       expiresAt: Date.now() + 24 * 60 * 60 * 1000 // 24 hours

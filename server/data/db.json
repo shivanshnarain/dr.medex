@@ -37795,6 +37795,70 @@
   },
   "auditLogs": [
     {
+      "id": "audit-1791123240101-9e0up",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "::ffff:127.0.0.1"
+      },
+      "timestamp": "2026-10-04T14:14:00.101Z"
+    },
+    {
+      "id": "audit-1791123223825-45svq",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "::1"
+      },
+      "timestamp": "2026-10-04T14:13:43.825Z"
+    },
+    {
+      "id": "audit-1791122427787-yiale",
+      "adminId": "admin@drmedex.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "::ffff:127.0.0.1",
+        "remainingAttempts": 1
+      },
+      "timestamp": "2026-10-04T14:00:27.787Z"
+    },
+    {
+      "id": "audit-1791122427527-yu286",
+      "adminId": "admin@drmedex.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "::ffff:127.0.0.1",
+        "remainingAttempts": 2
+      },
+      "timestamp": "2026-10-04T14:00:27.527Z"
+    },
+    {
+      "id": "audit-1791122426792-gprk3",
+      "adminId": "admin@drmedex.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "::ffff:127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-04T14:00:26.792Z"
+    },
+    {
+      "id": "audit-1791122387054-ujy0y",
+      "adminId": "admin@drmedex.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "::ffff:127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-04T13:59:47.054Z"
+    },
+    {
       "id": "audit-1791043826722-gwx33",
       "adminId": "admin@drmedex.com",
       "action": "LOGIN_SUCCESS",
