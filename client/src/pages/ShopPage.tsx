@@ -28,7 +28,7 @@ export const ShopPage: React.FC = () => {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [onlyInStock, setOnlyInStock] = useState(false);
   const [sortBy, setSortBy] = useState("featured");
-  const [maxPriceUSD, setMaxPriceUSD] = useState<number>(7000);
+  const [maxPriceINR, setMaxPriceINR] = useState<number>(700000);
 
   const handleOpenQuote = (prod: Product) => {
     setQuoteProduct(prod);
@@ -94,8 +94,8 @@ export const ShopPage: React.FC = () => {
     if (onlyInStock) {
       list = list.filter((p) => p.stock > 0);
     }
-    if (maxPriceUSD < 10000) {
-      list = list.filter((p) => p.basePrice <= maxPriceUSD);
+    if (maxPriceINR < 700000) {
+      list = list.filter((p) => p.basePrice <= maxPriceINR);
     }
 
     // Sort
@@ -121,7 +121,7 @@ export const ShopPage: React.FC = () => {
     }
 
     return list;
-  }, [products, selectedCategory, selectedSubcategory, searchQuery, selectedRating, onlyInStock, maxPriceUSD, sortBy]);
+  }, [products, selectedCategory, selectedSubcategory, searchQuery, selectedRating, onlyInStock, maxPriceINR, sortBy]);
 
   const handleCategoryClick = (catSlug: string) => {
     const params = new URLSearchParams(searchParams);
@@ -149,7 +149,7 @@ export const ShopPage: React.FC = () => {
     setSearchParams(new URLSearchParams());
     setSelectedRating(null);
     setOnlyInStock(false);
-    setMaxPriceUSD(7000);
+    setMaxPriceINR(700000);
     setSortBy("featured");
   };
 
@@ -290,21 +290,21 @@ export const ShopPage: React.FC = () => {
                     Maximum Budget
                   </h4>
                   <span className="text-xs font-bold text-[#111111] font-mono">
-                    {formatPrice(maxPriceUSD)}
+                    {formatPrice(maxPriceINR)}
                   </span>
                 </div>
                 <input
                   type="range"
-                  min="100"
-                  max="10000"
-                  step="250"
-                  value={maxPriceUSD}
-                  onChange={(e) => setMaxPriceUSD(Number(e.target.value))}
+                  min="5000"
+                  max="700000"
+                  step="10000"
+                  value={maxPriceINR}
+                  onChange={(e) => setMaxPriceINR(Number(e.target.value))}
                   className="w-full h-1.5 bg-[#EAEAEA] rounded-lg appearance-none cursor-pointer accent-[#111111]"
                 />
                 <div className="flex justify-between text-3xs text-neutral-400 font-mono mt-1.5">
-                  <span>{formatPrice(100)}</span>
-                  <span>{formatPrice(10000)}</span>
+                  <span>{formatPrice(5000)}</span>
+                  <span>{formatPrice(700000)}</span>
                 </div>
               </div>
 

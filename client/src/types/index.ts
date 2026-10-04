@@ -55,9 +55,32 @@ export interface Product {
   canonicalSlug?: string;
   relatedProducts?: string[];
   frequentlyBoughtTogether?: string[];
-  recommendedProducts?: string[];
-  createdAt?: string;
-  updatedAt?: string;
+  ribbon?: string;
+  priceStatus?: string;
+  priceSyncStatus?: string;
+  lastPriceSync?: string;
+  referencePricing?: ReferencePricing;
+}
+
+export interface ReferencePricing {
+  referenceSource?: string;
+  referenceProductName?: string;
+  referenceModel?: string;
+  category?: string;
+  referenceURL?: string;
+  referenceRegularINR?: number | null;
+  referenceSaleINR?: number | null;
+  referenceRegularUSD?: number | null;
+  referenceSaleUSD?: number | null;
+  regularPriceINR?: number | null;
+  salePriceINR?: number | null;
+  regularPriceUSD?: number | null;
+  salePriceUSD?: number | null;
+  hasDiscount?: boolean;
+  discountPercentage?: number;
+  discountPercent?: number;
+  lastSyncedAt?: string;
+  syncStatus?: string;
 }
 
 export interface Subcategory {

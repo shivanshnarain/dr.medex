@@ -23,7 +23,8 @@ import {
   Tag,
   Star,
   CheckCircle2,
-  Copy
+  Copy,
+  ExternalLink
 } from "lucide-react";
 import { Product, Category } from "../../types";
 import { useAdminAuth } from "../../context/AdminAuthContext";
@@ -70,6 +71,11 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
   const [stock, setStock] = useState(10);
   const [lowStockThreshold, setLowStockThreshold] = useState(2);
   const [stockStatus, setStockStatus] = useState<"IN_STOCK" | "LOW_STOCK" | "OUT_OF_STOCK">("IN_STOCK");
+
+  // Reference Pricing & Sync
+  const [referencePricing, setReferencePricing] = useState<any>(null);
+  const [lastPriceSync, setLastPriceSync] = useState<string>("");
+  const [isSyncingPrice, setIsSyncingPrice] = useState(false);
 
   // Descriptions & Bullets
   const [shortDescription, setShortDescription] = useState("");
@@ -137,6 +143,9 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
       setStock(product.stock ?? 10);
       setLowStockThreshold(product.lowStockThreshold ?? 2);
       setStockStatus(product.stockStatus || (product.stock > 0 ? "IN_STOCK" : "OUT_OF_STOCK"));
+
+      setReferencePricing(product.referencePricing || null);
+      setLastPriceSync(product.lastPriceSync || product.referencePricing?.lastSyncedAt || "");
 
       setShortDescription(product.shortDescription || "");
       setFullDescription(product.fullDescription || product.overview || "");
@@ -422,9 +431,13 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
       originalPrice: Number(regularPrice),
       salePrice: salePrice ? Number(salePrice) : undefined,
       discountPercentage: discountPercentage ? Number(discountPercentage) : undefined,
+      baseCurrency: "INR",
       stock: Number(stock),
       lowStockThreshold: Number(lowStockThreshold),
       stockStatus,
+      referencePricing,
+      lastPriceSync,
+      priceSyncStatus: referencePricing?.syncStatus || product?.priceSyncStatus || "SYNCED",
       shortDescription,
       overview: fullDescription,
       fullDescription,
@@ -472,6 +485,46 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
       setErrorMessage("Network error while persisting product data.");
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleSyncPrice = async (applyToSelling: boolean = false) => {
+    if (!product?.id) {
+      setErrorMessage("Please save the product first before synchronizing reference pricing.");
+      return;
+    }
+    setIsSyncingPrice(true);
+    setErrorMessage(null);
+    try {
+      const res = await adminFetch(`/api/admin/products/${product.id}/sync-price`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ applyToSelling })
+      });
+      const data = await res.json();
+      if (res.ok && data.success && data.referencePricing) {
+        setReferencePricing(data.referencePricing);
+        setLastPriceSync(data.referencePricing.lastSyncedAt);
+        if (applyToSelling) {
+          if (data.referencePricing.referenceRegularINR) {
+            setRegularPrice(data.referencePricing.referenceRegularINR);
+          }
+          if (data.referencePricing.referenceSaleINR) {
+            setSalePrice(data.referencePricing.referenceSaleINR);
+            setBasePrice(data.referencePricing.referenceSaleINR);
+          }
+          if (data.referencePricing.discountPercentage) {
+            setDiscountPercentage(data.referencePricing.discountPercentage);
+          }
+        }
+        setSuccessMessage(applyToSelling ? "Reference pricing synchronized and applied to selling price!" : "Reference price verified from source catalogue.");
+      } else {
+        setErrorMessage(data.message || "No reference pricing found for this product.");
+      }
+    } catch {
+      setErrorMessage("Failed to synchronize price from reference catalogue.");
+    } finally {
+      setIsSyncingPrice(false);
     }
   };
 
@@ -695,35 +748,43 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
 
           {/* TAB 2: PRICING & INVENTORY */}
           {activeTab === "pricing" && (
-            <div className="space-y-4">
-              <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-3">
-                  Base INR Currency Pricing
-                </h3>
-                <p className="text-3xs text-slate-500 mb-4">
-                  DR.MEDEX stores the master product price in INR (Base Currency). International buyers view dynamic converted pricing (USD, EUR, GBP, AED, SAR) using current live exchange rates.
-                </p>
+            <div className="space-y-6">
+              {/* 1. BASE PRICING (DR.MEDEX Active Commercial Price) */}
+              <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 border-b border-slate-100 pb-3">
+                  <div>
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">
+                      DR.MEDEX Active Selling Pricing (Base Price)
+                    </h3>
+                    <p className="text-3xs text-slate-500 mt-0.5">
+                      Base INR currency commercial pricing. Automatically converted for international buyers via live multi-currency FX.
+                    </p>
+                  </div>
+                  <span className="px-2.5 py-1 text-3xs font-extrabold uppercase bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-md shrink-0">
+                    Base Currency: INR (₹)
+                  </span>
+                </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                   <div>
                     <label className="block text-2xs font-bold uppercase text-slate-600 mb-1">
-                      Base Price (INR) *
+                      Base / Selling Price (INR) *
                     </label>
                     <div className="relative">
                       <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500 font-bold">₹</span>
                       <input
                         type="number"
                         min="0"
-                        step="1"
+                        step="0.01"
                         required
                         value={basePrice}
                         onChange={(e) => setBasePrice(Number(e.target.value))}
-                        className="w-full pl-8 pr-3 py-2 border border-slate-300 rounded-xl text-sm font-mono font-bold focus:ring-2 focus:ring-red-500"
+                        className="w-full pl-8 pr-3 py-2 border border-slate-300 rounded-xl text-sm font-mono font-bold focus:ring-2 focus:ring-emerald-500"
                       />
                     </div>
                     {basePrice > 0 && (
-                      <span className="text-[10px] text-slate-500 font-mono mt-1 block">
-                        ≈ ${(basePrice * 0.010379).toFixed(2)} USD (Live FX)
+                      <span className="text-3xs text-slate-500 font-mono mt-1 block">
+                        ≈ ${(basePrice * 0.010379).toFixed(2)} USD (Live FX Converted)
                       </span>
                     )}
                   </div>
@@ -737,10 +798,10 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
                       <input
                         type="number"
                         min="0"
-                        step="1"
+                        step="0.01"
                         value={regularPrice}
                         onChange={(e) => setRegularPrice(Number(e.target.value))}
-                        className="w-full pl-8 pr-3 py-2 border border-slate-300 rounded-xl text-sm font-mono focus:ring-2 focus:ring-red-500"
+                        className="w-full pl-8 pr-3 py-2 border border-slate-300 rounded-xl text-sm font-mono focus:ring-2 focus:ring-emerald-500"
                       />
                     </div>
                   </div>
@@ -754,11 +815,11 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
                       <input
                         type="number"
                         min="0"
-                        step="1"
+                        step="0.01"
                         value={salePrice || ""}
                         onChange={(e) => setSalePrice(e.target.value ? Number(e.target.value) : undefined)}
                         placeholder="Optional"
-                        className="w-full pl-8 pr-3 py-2 border border-slate-300 rounded-xl text-sm font-mono focus:ring-2 focus:ring-red-500"
+                        className="w-full pl-8 pr-3 py-2 border border-slate-300 rounded-xl text-sm font-mono focus:ring-2 focus:ring-emerald-500"
                       />
                     </div>
                   </div>
@@ -773,10 +834,144 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
                       max="100"
                       value={discountPercentage || ""}
                       onChange={(e) => setDiscountPercentage(e.target.value ? Number(e.target.value) : undefined)}
-                      placeholder="e.g. 15"
-                      className="w-full px-3 py-2 border border-slate-300 rounded-xl text-sm font-mono focus:ring-2 focus:ring-red-500"
+                      placeholder="e.g. 12"
+                      className="w-full px-3 py-2 border border-slate-300 rounded-xl text-sm font-mono focus:ring-2 focus:ring-emerald-500"
                     />
                   </div>
+                </div>
+              </div>
+
+              {/* 2. REFERENCE PRICING (Synchronized SKRILIX Public Catalogue) */}
+              <div className="p-5 bg-slate-50 border border-slate-200 rounded-2xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 border-b border-slate-200 pb-3">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">
+                        Reference Catalogue Pricing
+                      </h3>
+                      <span className="px-2 py-0.5 rounded text-3xs font-bold font-mono bg-emerald-100 text-emerald-800">
+                        {referencePricing?.syncStatus || "AUDITED"}
+                      </span>
+                    </div>
+                    <p className="text-3xs text-slate-500 mt-0.5">
+                      Exact live pricing captured from the public SKRILIX reference catalogue. Reference and DR.MEDEX selling prices are maintained separately.
+                    </p>
+                  </div>
+
+                  {referencePricing && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (referencePricing.referenceRegularINR) {
+                          setRegularPrice(referencePricing.referenceRegularINR);
+                        }
+                        if (referencePricing.referenceSaleINR) {
+                          setSalePrice(referencePricing.referenceSaleINR);
+                          setBasePrice(referencePricing.referenceSaleINR);
+                        }
+                        if (referencePricing.discountPercentage) {
+                          setDiscountPercentage(referencePricing.discountPercentage);
+                        }
+                        setSuccessMessage("Reference prices copied to DR.MEDEX Selling Price fields.");
+                      }}
+                      className="px-3 py-1.5 bg-slate-900 hover:bg-[#167A4A] text-white rounded-lg text-2xs font-bold transition-colors whitespace-nowrap shadow-2xs"
+                    >
+                      Apply to DR.MEDEX Selling Price
+                    </button>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                  <div className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-2xs">
+                    <span className="text-3xs font-semibold text-slate-400 block uppercase">Reference Regular INR</span>
+                    <span className="text-sm font-bold font-mono text-slate-900 mt-0.5 block">
+                      {referencePricing?.referenceRegularINR !== undefined && referencePricing?.referenceRegularINR !== null
+                        ? `₹${Number(referencePricing.referenceRegularINR).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                        : "N/A"}
+                    </span>
+                  </div>
+
+                  <div className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-2xs">
+                    <span className="text-3xs font-semibold text-slate-400 block uppercase">Reference Sale INR</span>
+                    <span className="text-sm font-bold font-mono text-emerald-700 mt-0.5 block">
+                      {referencePricing?.referenceSaleINR !== undefined && referencePricing?.referenceSaleINR !== null
+                        ? `₹${Number(referencePricing.referenceSaleINR).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                        : "N/A"}
+                    </span>
+                  </div>
+
+                  <div className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-2xs">
+                    <span className="text-3xs font-semibold text-slate-400 block uppercase">Reference Regular USD</span>
+                    <span className="text-sm font-bold font-mono text-slate-900 mt-0.5 block">
+                      {referencePricing?.referenceRegularUSD !== undefined && referencePricing?.referenceRegularUSD !== null
+                        ? `$${Number(referencePricing.referenceRegularUSD).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                        : "N/A"}
+                    </span>
+                  </div>
+
+                  <div className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-2xs">
+                    <span className="text-3xs font-semibold text-slate-400 block uppercase">Reference Sale USD</span>
+                    <span className="text-sm font-bold font-mono text-emerald-700 mt-0.5 block">
+                      {referencePricing?.referenceSaleUSD !== undefined && referencePricing?.referenceSaleUSD !== null
+                        ? `$${Number(referencePricing.referenceSaleUSD).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                        : "N/A"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3. SOURCE INFORMATION & AUDIT */}
+              <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-3">
+                  Source Information & Verification
+                </h3>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                  <div>
+                    <span className="text-3xs font-semibold text-slate-400 uppercase block">Reference Source</span>
+                    <span className="font-semibold text-slate-800 mt-0.5 block">
+                      {referencePricing?.referenceSource || "SKRILIX Global Public Catalogue"}
+                    </span>
+                  </div>
+
+                  <div>
+                    <span className="text-3xs font-semibold text-slate-400 uppercase block">Last Synced At</span>
+                    <span className="font-mono text-slate-600 mt-0.5 block">
+                      {lastPriceSync ? new Date(lastPriceSync).toLocaleString() : "Audit Cached"}
+                    </span>
+                  </div>
+
+                  <div>
+                    <span className="text-3xs font-semibold text-slate-400 uppercase block">Reference Product URL</span>
+                    {referencePricing?.referenceURL ? (
+                      <a
+                        href={referencePricing.referenceURL}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-[#167A4A] hover:underline flex items-center gap-1 font-mono text-2xs mt-0.5 truncate"
+                      >
+                        <span className="truncate">{referencePricing.referenceURL.replace("https://www.skrilixglobal.com/product-page/", "")}</span>
+                        <ExternalLink size={12} className="shrink-0" />
+                      </a>
+                    ) : (
+                      <span className="text-slate-400 mt-0.5 block">—</span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mt-4 pt-3.5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <span className="text-3xs text-slate-400">
+                    Audit captures exact publicly displayed prices without rounding.
+                  </span>
+                  <button
+                    type="button"
+                    disabled={isSyncingPrice || !product?.id}
+                    onClick={() => handleSyncPrice(false)}
+                    className="px-4 py-2 border border-slate-300 hover:border-slate-800 hover:bg-slate-50 text-slate-800 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+                  >
+                    <RefreshCw size={13} className={isSyncingPrice ? "animate-spin text-[#167A4A]" : ""} />
+                    <span>{isSyncingPrice ? "Syncing..." : "Sync Live Reference Price"}</span>
+                  </button>
                 </div>
               </div>
 

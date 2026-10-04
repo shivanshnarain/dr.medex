@@ -291,6 +291,70 @@ router.put("/products/:id", requireAdmin, (req, res) => {
   res.json({ success: true, product: updated });
 });
 
+router.post("/products/:id/sync-price", requireAdmin, (req, res) => {
+  const existing = store.getProductById(req.params.id);
+  if (!existing) {
+    return res.status(404).json({ success: false, message: "Product not found" });
+  }
+
+  const auditPath = path.join(__dirname, "../data/reference_catalogue_audit.json");
+  let auditItems = [];
+  if (fs.existsSync(auditPath)) {
+    auditItems = JSON.parse(fs.readFileSync(auditPath, "utf-8"));
+  }
+
+  const pslug = existing.slug;
+  const ptitle = (existing.title || "").toLowerCase();
+  const matched = auditItems.find(a => a.slug === pslug || (a.modelRibbon && ptitle.includes(a.modelRibbon.toLowerCase())));
+
+  if (!matched || matched.status === "NO_PRICE" || !matched.regularPriceINR) {
+    return res.json({
+      success: false,
+      message: "No public reference price available for this product on source catalogue.",
+      product: existing
+    });
+  }
+
+  const refPricing = {
+    referenceSource: "SKRILIX Global Public Catalogue",
+    referenceProductName: matched.referenceProductName,
+    referenceModel: matched.modelRibbon,
+    category: matched.category,
+    referenceURL: matched.referenceURL,
+    referenceRegularINR: matched.regularPriceINR,
+    referenceSaleINR: matched.salePriceINR,
+    referenceRegularUSD: matched.regularPriceUSD,
+    referenceSaleUSD: matched.salePriceUSD,
+    hasDiscount: matched.hasDiscount,
+    discountPercentage: matched.regularPriceINR > matched.salePriceINR ? Math.round(((matched.regularPriceINR - matched.salePriceINR) / matched.regularPriceINR) * 100) : 0,
+    lastSyncedAt: new Date().toISOString(),
+    syncStatus: "SYNCED"
+  };
+
+  const applyToSelling = req.body.applyToSelling === true;
+  const updates = {
+    referencePricing: refPricing,
+    lastPriceSync: refPricing.lastSyncedAt,
+    priceSyncStatus: "SYNCED"
+  };
+
+  if (applyToSelling) {
+    updates.basePrice = matched.salePriceINR || matched.regularPriceINR;
+    updates.regularPrice = matched.regularPriceINR;
+    updates.salePrice = matched.salePriceINR || matched.regularPriceINR;
+    updates.discountPercentage = refPricing.discountPercentage;
+  }
+
+  const updated = store.updateProduct(existing.id, updates);
+  auditService.logAction(req.admin.email, "PRICE_SYNCED", updated.id, {
+    referenceRegularINR: matched.regularPriceINR,
+    referenceSaleINR: matched.salePriceINR,
+    appliedToSelling: applyToSelling
+  });
+
+  res.json({ success: true, product: updated, referencePricing: refPricing });
+});
+
 router.delete("/products/:id", requireAdmin, (req, res) => {
   const permanent = req.query.permanent === "true";
   const existing = store.getProductById(req.params.id);

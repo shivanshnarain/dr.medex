@@ -59,6 +59,7 @@ export const AdminProductsPage: React.FC = () => {
   // Delete Modal State
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deletingProduct, setDeletingProduct] = useState<Product | null>(null);
+  const [syncingId, setSyncingId] = useState<string | null>(null);
 
   // Notification Banner
   const [bannerMessage, setBannerMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
@@ -297,6 +298,35 @@ export const AdminProductsPage: React.FC = () => {
       }
     } catch {
       setBannerMessage({ text: "Error creating duplicate product record.", type: "error" });
+    }
+  };
+
+  // Sync price with reference catalogue
+  const handleSyncProductPrice = async (product: Product) => {
+    setSyncingId(product.id);
+    try {
+      const res = await adminFetch(`/api/admin/products/${product.id}/sync-price`, {
+        method: "POST"
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setProducts((prev) =>
+          prev.map((p) => (p.id === product.id ? data.product : p))
+        );
+        setBannerMessage({
+          text: `Price successfully synchronized for "${product.title}".`,
+          type: "success"
+        });
+      } else {
+        setBannerMessage({
+          text: data.message || "Could not find matching reference product to sync.",
+          type: "error"
+        });
+      }
+    } catch {
+      setBannerMessage({ text: "Error syncing price with reference catalogue.", type: "error" });
+    } finally {
+      setSyncingId(null);
     }
   };
 
@@ -582,20 +612,21 @@ export const AdminProductsPage: React.FC = () => {
                       className="w-4 h-4 rounded text-red-600 focus:ring-red-500"
                     />
                   </th>
-                  <th className="p-4">Equipment Details</th>
-                  <th className="p-4">SKU / Model</th>
+                  <th className="p-4">Product</th>
                   <th className="p-4">Category</th>
-                  <th className="p-4">Base Price (INR)</th>
+                  <th className="p-4">SKU</th>
+                  <th className="p-4">Regular Price</th>
+                  <th className="p-4">Sale Price</th>
                   <th className="p-4">Stock</th>
-                  <th className="p-4">Badges</th>
                   <th className="p-4">Status</th>
+                  <th className="p-4">Last Price Sync</th>
                   <th className="p-4 text-center">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
                 {paginatedProducts.length === 0 ? (
                   <tr>
-                    <td colSpan={9} className="p-12 text-center text-slate-400">
+                    <td colSpan={10} className="p-12 text-center text-slate-400">
                       <Package size={32} className="mx-auto mb-2 text-slate-300" />
                       <p className="text-sm font-bold text-slate-600">No medical products found</p>
                       <p className="text-xs text-slate-400 mt-1">Try adjusting your search query or category filters.</p>
@@ -604,6 +635,17 @@ export const AdminProductsPage: React.FC = () => {
                 ) : (
                   paginatedProducts.map((p) => {
                     const isSelected = selectedIds.includes(p.id);
+                    const regularPriceINR = p.originalPrice || p.referencePricing?.regularPriceINR || p.basePrice || 0;
+                    const salePriceINR = p.basePrice || 0;
+                    const hasDiscount = regularPriceINR > salePriceINR && salePriceINR > 0;
+                    const lastSyncDate = p.referencePricing?.lastSyncedAt
+                      ? new Date(p.referencePricing.lastSyncedAt).toLocaleDateString(undefined, {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric"
+                        })
+                      : null;
+
                     return (
                       <tr
                         key={p.id}
@@ -621,27 +663,22 @@ export const AdminProductsPage: React.FC = () => {
                           />
                         </td>
 
-                        {/* Product Details & Primary Thumbnail */}
+                        {/* Product Details & Thumbnail */}
                         <td className="p-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-14 h-14 rounded-2xl bg-slate-100 overflow-hidden shrink-0 border border-slate-200 relative group">
+                            <div className="w-12 h-12 rounded-xl bg-slate-100 overflow-hidden shrink-0 border border-slate-200 relative group">
                               <img
                                 src={
                                   p.images?.[0] ||
                                   "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=300&q=80"
                                 }
                                 alt={p.title}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-contain p-1"
                                 onError={(e) => {
                                   (e.target as HTMLImageElement).src =
                                     "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=300&q=80";
                                 }}
                               />
-                              {p.images && p.images.length > 1 && (
-                                <span className="absolute bottom-1 right-1 px-1 py-0.2 rounded bg-black/70 text-white text-3xs font-mono font-bold">
-                                  +{p.images.length - 1}
-                                </span>
-                              )}
                             </div>
                             <div className="min-w-0 max-w-xs sm:max-w-sm">
                               <h4 className="font-bold text-slate-900 truncate hover:text-red-600 transition-colors">
@@ -653,7 +690,7 @@ export const AdminProductsPage: React.FC = () => {
                                 <Link
                                   to={`/product/${p.slug}`}
                                   target="_blank"
-                                  className="text-[#111111] hover:text-[#1F7A4D] hover:underline flex items-center gap-0.5"
+                                  className="text-[#111111] hover:text-[#167A4A] hover:underline flex items-center gap-0.5"
                                 >
                                   <span>View Live</span>
                                   <ExternalLink size={10} />
@@ -663,30 +700,58 @@ export const AdminProductsPage: React.FC = () => {
                           </div>
                         </td>
 
+                        {/* Category */}
+                        <td className="p-4">
+                          <span className="px-2.5 py-1 rounded-full text-3xs font-semibold bg-slate-100 text-slate-700 capitalize whitespace-nowrap">
+                            {p.category}
+                          </span>
+                        </td>
+
                         {/* SKU / Model */}
                         <td className="p-4 font-mono text-2xs">
                           <div className="font-bold text-slate-900">{p.sku}</div>
                           <div className="text-slate-400">{p.modelNumber || "—"}</div>
                         </td>
 
-                        {/* Category */}
-                        <td className="p-4">
-                          <span className="px-2.5 py-1 rounded-full text-3xs font-semibold bg-slate-100 text-slate-700 capitalize">
-                            {p.category}
-                          </span>
+                        {/* Regular Price */}
+                        <td className="p-4 font-mono text-xs">
+                          {p.priceStatus === "PRICE_NOT_AVAILABLE" ? (
+                            <span className="text-slate-400 text-3xs">N/A</span>
+                          ) : (
+                            <div>
+                              <div className={hasDiscount ? "text-slate-400 line-through text-2xs" : "font-bold text-slate-800"}>
+                                ₹{regularPriceINR.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                              </div>
+                              {p.referencePricing?.regularPriceUSD ? (
+                                <div className="text-3xs text-slate-400">
+                                  ${p.referencePricing.regularPriceUSD.toFixed(2)} USD
+                                </div>
+                              ) : null}
+                            </div>
+                          )}
                         </td>
 
-                        {/* Pricing */}
+                        {/* Sale Price */}
                         <td className="p-4 font-mono text-xs">
-                          <div className="font-bold text-slate-900">
-                            ₹{(p.basePrice || 0).toLocaleString()}
-                          </div>
-                          <div className="text-[10px] text-slate-500 font-normal">
-                            ≈ ${((p.basePrice || 0) * 0.010379).toFixed(2)} USD
-                          </div>
-                          {p.originalPrice && p.originalPrice > (p.basePrice || 0) && (
-                            <div className="text-3xs text-slate-400 line-through">
-                              ₹{p.originalPrice.toLocaleString()}
+                          {p.priceStatus === "PRICE_NOT_AVAILABLE" ? (
+                            <span className="inline-block px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-3xs font-bold font-sans">
+                              Contact for price
+                            </span>
+                          ) : (
+                            <div>
+                              <div className="font-bold text-slate-900">
+                                ₹{salePriceINR.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                              </div>
+                              {p.referencePricing?.salePriceUSD ? (
+                                <div className="text-3xs text-emerald-700 font-medium">
+                                  ${p.referencePricing.salePriceUSD.toFixed(2)} USD
+                                </div>
+                              ) : null}
+                              {hasDiscount && (
+                                <span className="inline-block mt-0.5 px-1.5 py-0.2 rounded bg-emerald-50 text-emerald-800 text-3xs font-bold font-sans">
+                                  Save {p.discountPercentage || Math.round(((regularPriceINR - salePriceINR) / regularPriceINR) * 100)}%
+                                </span>
+                              )}
                             </div>
                           )}
                         </td>
@@ -702,37 +767,6 @@ export const AdminProductsPage: React.FC = () => {
                           </div>
                           <div className="text-3xs text-slate-400">
                             {(p.stock || 0) > 0 ? "In Stock" : "Out of Stock"}
-                          </div>
-                        </td>
-
-                        {/* Badges: Featured / Bestseller */}
-                        <td className="p-4">
-                          <div className="flex items-center gap-1.5">
-                            <button
-                              type="button"
-                              onClick={() => handleToggleFeatured(p)}
-                              title={p.isFeatured ? "Unmark Featured" : "Mark Featured"}
-                              className={`p-1.5 rounded-lg transition-colors ${
-                                p.isFeatured
-                                  ? "bg-amber-100 text-amber-700"
-                                  : "text-slate-300 hover:text-amber-500"
-                              }`}
-                            >
-                              <Star size={14} fill={p.isFeatured ? "currentColor" : "none"} />
-                            </button>
-
-                            <button
-                              type="button"
-                              onClick={() => handleToggleBestseller(p)}
-                              title={p.isBestSeller ? "Unmark Bestseller" : "Mark Bestseller"}
-                              className={`p-1.5 rounded-lg transition-colors ${
-                                p.isBestSeller
-                                  ? "bg-red-100 text-red-700"
-                                  : "text-slate-300 hover:text-red-500"
-                              }`}
-                            >
-                              <Flame size={14} fill={p.isBestSeller ? "currentColor" : "none"} />
-                            </button>
                           </div>
                         </td>
 
@@ -754,9 +788,38 @@ export const AdminProductsPage: React.FC = () => {
                           </button>
                         </td>
 
+                        {/* Last Price Sync */}
+                        <td className="p-4 text-2xs">
+                          {p.referencePricing ? (
+                            <div>
+                              <div className="flex items-center gap-1">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0"></span>
+                                <span className="font-semibold text-slate-800">
+                                  {p.referencePricing.syncStatus === "NO_PUBLIC_PRICE" ? "No Public Price" : "Synced"}
+                                </span>
+                              </div>
+                              <div className="text-3xs text-slate-400 mt-0.5">
+                                {lastSyncDate || "Recent"}
+                              </div>
+                            </div>
+                          ) : (
+                            <span className="text-slate-400 text-3xs italic">Manual / Unsynced</span>
+                          )}
+                        </td>
+
                         {/* Action buttons */}
                         <td className="p-4 text-center">
                           <div className="flex items-center justify-center gap-1">
+                            <button
+                              type="button"
+                              onClick={() => handleSyncProductPrice(p)}
+                              disabled={syncingId === p.id}
+                              className="p-1.5 text-slate-500 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition-colors"
+                              title="Sync Price with SKRILIX Reference"
+                            >
+                              <RefreshCw size={13} className={syncingId === p.id ? "animate-spin text-emerald-600" : ""} />
+                            </button>
+
                             <button
                               type="button"
                               onClick={() => {
@@ -766,7 +829,7 @@ export const AdminProductsPage: React.FC = () => {
                               className="p-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
                               title="Edit Product"
                             >
-                              <Edit2 size={14} />
+                              <Edit2 size={13} />
                             </button>
 
                             <button
@@ -775,7 +838,7 @@ export const AdminProductsPage: React.FC = () => {
                               className="p-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
                               title="Duplicate Product"
                             >
-                              <Copy size={14} />
+                              <Copy size={13} />
                             </button>
 
                             <button
@@ -787,7 +850,7 @@ export const AdminProductsPage: React.FC = () => {
                               className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                               title="Archive or Delete"
                             >
-                              <Trash2 size={14} />
+                              <Trash2 size={13} />
                             </button>
                           </div>
                         </td>

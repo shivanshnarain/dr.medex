@@ -9,7 +9,8 @@ interface CurrencyContextType {
   setCountry: (countryCode: string) => void;
   setCurrencyManually: (currencyCode: string) => void;
   convertPrice: (inrAmount: number) => number;
-  formatPrice: (inrAmount: number) => string;
+  formatPrice: (inrAmount: number, options?: { forceDecimals?: boolean }) => string;
+  formatProductPrice: (product: any, type?: "sale" | "regular" | "base") => string;
   getSymbol: () => string;
   isLoading: boolean;
   lastUpdated: string | null;
@@ -128,9 +129,10 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const convertPrice = (inrAmount: number): number => {
+    if (typeof inrAmount !== "number" || isNaN(inrAmount)) return 0;
     const code = (currentCurrency || "INR").toUpperCase();
     if (code === "INR") {
-      return Math.round(inrAmount);
+      return Number(inrAmount.toFixed(2));
     }
     const rate = exchangeRates[code] || defaultFallbackRatesAgainstINR[code] || 1.0;
     const converted = inrAmount * rate;
@@ -159,20 +161,47 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return `${code} `;
   };
 
-  const formatPrice = (inrAmount: number): string => {
+  const formatPrice = (inrAmount: number, options?: { forceDecimals?: boolean }): string => {
+    if (typeof inrAmount !== "number" || isNaN(inrAmount) || inrAmount <= 0) return "Quote";
     const code = (currentCurrency || "INR").toUpperCase();
     const converted = convertPrice(inrAmount);
     const symbol = getSymbol();
     
-    // Formatting decimals
-    const isZeroDecimal = code === "INR" || code === "JPY";
-    const decimals = isZeroDecimal ? 0 : 2;
+    // Formatting decimals: preserve exact 2 decimals if present or if forceDecimals
+    const hasDecimals = (converted % 1 !== 0) || options?.forceDecimals || code === "INR";
+    const decimals = code === "JPY" ? 0 : (hasDecimals ? 2 : 0);
     const formattedNum = converted.toLocaleString(undefined, {
       minimumFractionDigits: decimals,
       maximumFractionDigits: decimals
     });
 
     return `${symbol}${formattedNum}`;
+  };
+
+  const formatProductPrice = (product: any, type: "sale" | "regular" | "base" = "sale"): string => {
+    if (!product) return "Quote";
+    if (product.priceStatus === "PRICE_NOT_AVAILABLE") return "Contact for Price";
+
+    const code = (currentCurrency || "INR").toUpperCase();
+
+    // If USD and explicit reference USD price exists, preserve it exactly
+    if (code === "USD" && product.referencePricing) {
+      if (type === "regular" && typeof product.referencePricing.referenceRegularUSD === "number") {
+        return `$${product.referencePricing.referenceRegularUSD.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      }
+      if ((type === "sale" || type === "base") && typeof product.referencePricing.referenceSaleUSD === "number") {
+        return `$${product.referencePricing.referenceSaleUSD.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      }
+    }
+
+    let inrVal = product.basePrice;
+    if (type === "regular") {
+      inrVal = product.regularPrice || (product.referencePricing?.referenceRegularINR ?? product.basePrice);
+    } else if (type === "sale") {
+      inrVal = product.salePrice || product.basePrice;
+    }
+
+    return formatPrice(inrVal, { forceDecimals: true });
   };
 
   return (
@@ -186,6 +215,7 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         setCurrencyManually,
         convertPrice,
         formatPrice,
+        formatProductPrice,
         getSymbol,
         isLoading,
         lastUpdated
