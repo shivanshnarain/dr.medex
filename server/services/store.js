@@ -152,29 +152,45 @@ let state = {
   }
 };
 
-// Try loading persisted file if exists
-try {
-  if (fs.existsSync(DB_FILE)) {
-    const raw = fs.readFileSync(DB_FILE, "utf-8");
-    const loaded = JSON.parse(raw);
-    if (loaded && loaded.products && loaded.products.length > 0) {
-      state = { ...state, ...loaded };
+let lastMtime = 0;
+function checkReload() {
+  try {
+    if (fs.existsSync(DB_FILE)) {
+      const stat = fs.statSync(DB_FILE);
+      if (stat.mtimeMs > lastMtime) {
+        lastMtime = stat.mtimeMs;
+        const raw = fs.readFileSync(DB_FILE, "utf-8");
+        const loaded = JSON.parse(raw);
+        if (loaded && loaded.products && loaded.products.length > 0) {
+          state = { ...state, ...loaded };
+        }
+      }
     }
-  }
-} catch (e) {
-  // Use initialized memory state
+  } catch (e) {}
 }
+
+// Initial load
+checkReload();
 
 function persist() {
   try {
     fs.writeFileSync(DB_FILE, JSON.stringify(state, null, 2), "utf-8");
+    if (fs.existsSync(DB_FILE)) {
+      lastMtime = fs.statSync(DB_FILE).mtimeMs;
+    }
   } catch (e) {
     // Non-fatal if read-only filesystem
   }
 }
 
 module.exports = {
+  reloadFromDisk: () => {
+    lastMtime = 0;
+    checkReload();
+    return state;
+  },
   getProducts: (filters = {}) => {
+    checkReload();
     let list = [...state.products];
     if (!filters.includeInactive) {
       list = list.filter(p => (p.status || "ACTIVE") === "ACTIVE");
@@ -296,9 +312,11 @@ module.exports = {
     };
   },
   getProductById: (id) => {
+    checkReload();
     return state.products.find(p => p.id === id || p.slug === id);
   },
   getProductBySlug: (slug) => {
+    checkReload();
     return state.products.find(p => p.slug === slug || p.id === slug);
   },
   addProduct: (productData) => {

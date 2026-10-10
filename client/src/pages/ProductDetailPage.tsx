@@ -298,9 +298,11 @@ export const ProductDetailPage: React.FC = () => {
                         {formatPrice(product.originalPrice)}
                       </span>
                     )}
-                    <span className="px-2.5 py-1 text-3xs font-extrabold uppercase bg-[#EAF5EF] text-[#145A38] rounded-md border border-[#1F7A4D]/20">
-                      SAVE {Math.round(((product.originalPrice! - product.basePrice) / product.originalPrice!) * 100)}%
-                    </span>
+                    {((product.originalPrice && product.originalPrice > product.basePrice) || (product.discountPercentage && product.discountPercentage > 0)) && (
+                      <span className="px-2.5 py-1 text-3xs font-extrabold uppercase bg-[#EAF5EF] text-[#145A38] rounded-md border border-[#1F7A4D]/20">
+                        SAVE {product.discountPercentage || Math.round(((product.originalPrice! - product.basePrice) / product.originalPrice!) * 100)}%
+                      </span>
+                    )}
                   </div>
 
                   <div className="flex items-center justify-between text-2xs text-neutral-500 mt-3 pt-3 border-t border-[#EAEAEA]">
