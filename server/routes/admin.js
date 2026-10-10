@@ -5,6 +5,7 @@ const auditService = require("../services/auditService");
 const mediaService = require("../services/mediaService");
 const aiGeneratorService = require("../services/aiGeneratorService");
 const store = require("../services/store");
+const catalogueHierarchy = require("../data/catalogueHierarchy");
 
 /**
  * Authentication Middleware
@@ -233,6 +234,10 @@ router.get("/products", requireAdmin, (req, res) => {
   });
 });
 
+router.get("/catalogue/hierarchy", requireAdmin, (req, res) => {
+  res.json({ success: true, hierarchy: catalogueHierarchy });
+});
+
 router.get("/products/check-sku", requireAdmin, (req, res) => {
   const { sku, excludeId } = req.query;
   if (!sku) {
@@ -252,6 +257,125 @@ router.get("/products/check-sku", requireAdmin, (req, res) => {
   });
 });
 
+router.get("/products/generate-sku", requireAdmin, (req, res) => {
+  const { category = "ot-lights" } = req.query;
+  const catCodeMap = {
+    "ot-lights": "OTL",
+    "electrosurgical-units": "ESU",
+    "cryo-surgical": "CRY",
+    "examination-ot-tables": "TAB",
+    "obstetrics-and-gynaecology": "OBG",
+    "medical-equipment": "MED",
+    "physiotherapy": "PHY"
+  };
+  const prefix = catCodeMap[category] || "MED";
+  const allProducts = store.getProducts({ includeInactive: true });
+
+  // Find max sequence in this category
+  let maxSeq = 0;
+  const regex = new RegExp(`^DRM-${prefix}-(\\d+)`, "i");
+  allProducts.forEach(p => {
+    const s = p.sku || p.SKU || "";
+    const m = s.match(regex);
+    if (m && m[1]) {
+      const num = parseInt(m[1], 10);
+      if (!isNaN(num) && num > maxSeq) {
+        maxSeq = num;
+      }
+    }
+  });
+
+  let candidateSeq = maxSeq + 1;
+  let candidateSku = `DRM-${prefix}-${String(candidateSeq).padStart(4, "0")}`;
+
+  // Guarantee uniqueness against ANY existing SKU in the entire DB
+  const existingSkus = new Set(allProducts.map(p => (p.sku || p.SKU || "").toLowerCase()));
+  while (existingSkus.has(candidateSku.toLowerCase())) {
+    candidateSeq += 1;
+    candidateSku = `DRM-${prefix}-${String(candidateSeq).padStart(4, "0")}`;
+  }
+
+  res.json({
+    success: true,
+    category,
+    prefix,
+    sku: candidateSku,
+    sequence: candidateSeq
+  });
+});
+
+router.post("/products/check-duplicate", requireAdmin, (req, res) => {
+  const {
+    category,
+    subcategory,
+    equipmentType,
+    modelNumber,
+    title,
+    productName,
+    excludeId
+  } = req.body;
+
+  const allProducts = store.getProducts({ includeInactive: true });
+  const norm = (str) => (str || "").toLowerCase().replace(/[^a-z0-9]/g, "").trim();
+  const normModel = norm(modelNumber);
+  const normTitle = norm(title || productName);
+
+  const matched = allProducts.find(p => {
+    if (excludeId && (p.id === excludeId || p.slug === excludeId)) return false;
+
+    // Check same category
+    const catMatch = p.category === category || norm(p.category) === norm(category);
+    if (!catMatch) return false;
+
+    // 1. If manufacturer model number is provided and matches an existing model number
+    if (normModel && p.modelNumber) {
+      if (norm(p.modelNumber) === normModel) return true;
+    }
+
+    // 2. If exact title or normalized identity matches in the same category
+    if (normTitle && p.title) {
+      if (norm(p.title) === normTitle) return true;
+    }
+
+    // 3. If category + subcategory + equipmentType match, and models match or both lack a specific distinct model
+    if (equipmentType && p.equipmentType) {
+      if (norm(p.equipmentType) === norm(equipmentType)) {
+        if (normModel && p.modelNumber) {
+          return norm(p.modelNumber) === normModel;
+        }
+        if (!normModel && (!p.modelNumber || p.modelNumber === "—" || p.modelNumber === "Std Unit")) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  });
+
+  if (matched) {
+    return res.json({
+      success: true,
+      isDuplicate: true,
+      message: "A matching product already exists in this category. Please open the existing product instead of creating a duplicate.",
+      duplicateProduct: {
+        id: matched.id,
+        title: matched.title || matched.productName,
+        sku: matched.sku || matched.SKU,
+        modelNumber: matched.modelNumber,
+        category: matched.category,
+        slug: matched.slug
+      }
+    });
+  }
+
+  res.json({
+    success: true,
+    isDuplicate: false,
+    message: null,
+    duplicateProduct: null
+  });
+});
+
 router.get("/products/:id", requireAdmin, (req, res) => {
   const product = store.getProductById(req.params.id, true);
   if (!product) {
@@ -265,6 +389,51 @@ router.post("/products", requireAdmin, (req, res) => {
     const data = req.body;
     if (!data.productName && !data.title) {
       return res.status(400).json({ success: false, message: "Product name is required" });
+    }
+
+    const allProducts = store.getProducts({ includeInactive: true });
+
+    // Enforce SKU Uniqueness
+    if (data.sku) {
+      const cleanSku = data.sku.trim().toLowerCase();
+      const skuConflict = allProducts.find(p => (p.sku || p.SKU || "").toLowerCase() === cleanSku);
+      if (skuConflict) {
+        return res.status(400).json({
+          success: false,
+          message: `SKU '${data.sku}' is already assigned to '${skuConflict.title || skuConflict.productName}'. Please provide a unique SKU.`
+        });
+      }
+    }
+
+    // Duplicate Check
+    const norm = (str) => (str || "").toLowerCase().replace(/[^a-z0-9]/g, "").trim();
+    const normModel = norm(data.modelNumber);
+    const normTitle = norm(data.title || data.productName);
+
+    const duplicate = allProducts.find(p => {
+      const catMatch = p.category === data.category || norm(p.category) === norm(data.category);
+      if (!catMatch) return false;
+
+      if (normModel && p.modelNumber && norm(p.modelNumber) === normModel) return true;
+      if (normTitle && p.title && norm(p.title) === normTitle) return true;
+      if (data.equipmentType && p.equipmentType && norm(p.equipmentType) === norm(data.equipmentType)) {
+        if (normModel && p.modelNumber && norm(p.modelNumber) === normModel) return true;
+      }
+      return false;
+    });
+
+    if (duplicate && !data.forceCreate) {
+      return res.status(409).json({
+        success: false,
+        isDuplicate: true,
+        message: "A matching product already exists in this category. Please open the existing product instead of creating a duplicate.",
+        duplicateProduct: {
+          id: duplicate.id,
+          title: duplicate.title || duplicate.productName,
+          sku: duplicate.sku || duplicate.SKU,
+          modelNumber: duplicate.modelNumber
+        }
+      });
     }
 
     const created = store.addProduct({

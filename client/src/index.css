@@ -1,28 +1,40 @@
 @import "tailwindcss";
 
+@theme {
+  --color-alabaster: #F4F1EB;
+  --color-moss-green: #7AA05A;
+  --color-slate-green: #2D5A4A;
+  --color-dark-emerald: #0D4C3C;
+  --color-charcoal: #1F2421;
+}
+
 @layer base {
   :root {
-    /* Primary Black & White Foundation */
-    --color-medex-black: #111111;
-    --color-medex-pure-black: #000000;
+    /* Exact DR.MEDEX Master Palette */
+    --color-alabaster: #F4F1EB;
+    --color-moss-green: #7AA05A;
+    --color-slate-green: #2D5A4A;
+    --color-dark-emerald: #0D4C3C;
+
+    /* Foundation & Backgrounds */
     --color-medex-white: #ffffff;
-    --color-medex-off-white: #fafafa;
-    --color-medex-bg-neutral: #f7f7f7;
-    --color-medex-light-neutral: #f2f2f2;
-    --color-medex-border: #eaeaea;
-    --color-medex-border-subtle: #f2f2f2;
+    --color-medex-alabaster: #F4F1EB;
+    --color-medex-black: #111111;
+    --color-medex-charcoal: #1F2421;
+    --color-medex-border: #E5E0D8;
+    --color-medex-border-subtle: #ECE8E1;
 
     /* Text Colors */
     --color-text-primary: #111111;
-    --color-text-secondary: #555555;
-    --color-text-muted: #777777;
+    --color-text-secondary: #4A4A4A;
+    --color-text-muted: #737373;
 
-    /* Controlled Accent Green (<= 20% visual usage) */
-    --color-accent-green: #1F7A4D;
-    --color-accent-green-hover: #145A38;
-    --color-accent-green-secondary: #2E8B57;
-    --color-accent-green-light: #EAF5EF;
-    --color-accent-green-dark: #145A38;
+    /* Brand Green Accents */
+    --color-accent-green: #2D5A4A;
+    --color-accent-green-hover: #0D4C3C;
+    --color-accent-green-secondary: #7AA05A;
+    --color-accent-green-light: #F4F1EB;
+    --color-accent-green-dark: #0D4C3C;
   }
 
   body {
@@ -43,49 +55,93 @@
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f7f7f7;
+  background: #F4F1EB;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d4;
+  background: #D1CBC1;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #a3a3a3;
+  background: #7AA05A;
 }
 
-/* Subtle neutral medical grid background (Zero Blue Tint) */
+/* Subtle neutral medical grid background */
 .bg-medical-grid {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(45, 90, 74, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(45, 90, 74, 0.04) 1px, transparent 1px);
 }
 
 /* Design System Utilities */
+.bg-alabaster {
+  background-color: #F4F1EB;
+}
+
+.text-alabaster {
+  color: #F4F1EB;
+}
+
+.bg-moss-green {
+  background-color: #7AA05A;
+}
+
+.text-moss-green {
+  color: #7AA05A;
+}
+
+.border-moss-green {
+  border-color: #7AA05A;
+}
+
+.bg-slate-green {
+  background-color: #2D5A4A;
+}
+
+.text-slate-green {
+  color: #2D5A4A;
+}
+
+.border-slate-green {
+  border-color: #2D5A4A;
+}
+
+.bg-dark-emerald {
+  background-color: #0D4C3C;
+}
+
+.text-dark-emerald {
+  color: #0D4C3C;
+}
+
+.border-dark-emerald {
+  border-color: #0D4C3C;
+}
+
 .text-medex-primary {
   color: #111111;
 }
 
 .text-medex-secondary {
-  color: #555555;
+  color: #4A4A4A;
 }
 
 .text-medex-muted {
-  color: #777777;
+  color: #737373;
 }
 
 .text-medex-green {
-  color: #1F7A4D;
+  color: #2D5A4A;
 }
 
 .bg-medex-green {
-  background-color: #1F7A4D;
+  background-color: #2D5A4A;
 }
 
 .bg-medex-green-light {
-  background-color: #EAF5EF;
+  background-color: #F4F1EB;
 }
 
 .border-medex-light {
-  border-color: #eaeaea;
+  border-color: #E5E0D8;
 }

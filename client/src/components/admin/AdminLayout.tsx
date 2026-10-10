@@ -119,7 +119,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
         <div className="h-16 px-6 border-b border-[#E5E5E5] flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <Logo variant="monochrome" showTagline={false} />
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-neutral-100 text-black border border-neutral-300">
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-[#F4F1EB] text-[#0D4C3C] border border-[#E5E0D8]">
               ADMIN
             </span>
           </div>
@@ -146,8 +146,8 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                 onClick={() => setIsMobileSidebarOpen(false)}
                 className={`flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
                   isCurrentRoute("/admin")
-                    ? "bg-neutral-100 text-black font-bold border-l-2 border-black"
-                    : "text-neutral-600 hover:text-black hover:bg-neutral-50"
+                    ? "bg-[#F4F1EB] text-[#2D5A4A] font-bold border-l-2 border-[#2D5A4A]"
+                    : "text-[#4A4A4A] hover:text-[#111111] hover:bg-[#F4F1EB]"
                 }`}
               >
                 <LayoutDashboard size={16} />
@@ -180,8 +180,8 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                       onClick={() => setIsMobileSidebarOpen(false)}
                       className={`block px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                         location.pathname === "/admin/products"
-                          ? "bg-neutral-100 text-black font-bold"
-                          : "text-neutral-500 hover:text-black hover:bg-neutral-50"
+                          ? "bg-[#F4F1EB] text-[#2D5A4A] font-bold"
+                          : "text-[#4A4A4A] hover:text-[#111111] hover:bg-[#F4F1EB]"
                       }`}
                     >
                       All Products
@@ -192,12 +192,12 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                       onClick={() => setIsMobileSidebarOpen(false)}
                       className={`flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                         location.pathname === "/admin/products/new"
-                          ? "bg-neutral-100 text-black font-bold"
-                          : "text-neutral-500 hover:text-black hover:bg-neutral-50"
+                          ? "bg-[#F4F1EB] text-[#2D5A4A] font-bold"
+                          : "text-[#4A4A4A] hover:text-[#111111] hover:bg-[#F4F1EB]"
                       }`}
                     >
                       <span>Add Product</span>
-                      <Plus size={12} className="text-neutral-400" />
+                      <Plus size={12} className="text-[#2D5A4A]" />
                     </Link>
 
                     <Link
@@ -205,12 +205,12 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                       onClick={() => setIsMobileSidebarOpen(false)}
                       className={`flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                         location.pathname === "/admin/categories"
-                          ? "bg-neutral-100 text-black font-bold"
-                          : "text-neutral-500 hover:text-black hover:bg-neutral-50"
+                          ? "bg-[#F4F1EB] text-[#2D5A4A] font-bold"
+                          : "text-[#4A4A4A] hover:text-[#111111] hover:bg-[#F4F1EB]"
                       }`}
                     >
                       <span>Categories</span>
-                      <span className="text-[10px] font-mono px-1.5 py-0.2 bg-neutral-200 text-neutral-800 rounded">7</span>
+                      <span className="text-[10px] font-mono px-1.5 py-0.2 bg-[#F4F1EB] text-[#0D4C3C] border border-[#E5E0D8] rounded">7</span>
                     </Link>
 
                     <button
@@ -463,7 +463,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
         </div>
 
         {/* Main Page Content Body */}
-        <main className="flex-1 px-6 lg:px-8 py-8 bg-white">
+        <main className="flex-1 px-6 lg:px-8 py-8 bg-[#F4F1EB]">
           <div className="max-w-7xl mx-auto">
             {children}
           </div>

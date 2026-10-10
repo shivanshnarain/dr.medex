@@ -57,7 +57,12 @@ router.get("/countries", (req, res) => {
 });
 
 // CURRENCY & EXCHANGE RATES
-router.get("/currency/rates", (req, res) => {
+router.get("/currency/rates", async (req, res) => {
+  try {
+    await currencyService.syncLiveRates();
+  } catch (e) {
+    // Graceful fallback to cached
+  }
   const data = currencyService.getExchangeRates();
   res.json({ success: true, ...data });
 });

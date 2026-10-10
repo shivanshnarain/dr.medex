@@ -401,7 +401,7 @@ export const AdminCategoriesPage: React.FC = () => {
                 type="button"
                 disabled={isSavingEdit}
                 onClick={handleSaveEdit}
-                className="px-5 py-2 bg-black hover:bg-neutral-800 text-white rounded-lg text-xs font-bold"
+                className="px-5 py-2 bg-[#2D5A4A] hover:bg-[#0D4C3C] text-white rounded-lg text-xs font-bold transition-colors"
               >
                 {isSavingEdit ? "Saving..." : "Save Changes"}
               </button>

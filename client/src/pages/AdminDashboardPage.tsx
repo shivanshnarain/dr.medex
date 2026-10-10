@@ -84,14 +84,14 @@ export const AdminDashboardPage: React.FC = () => {
           <button
             type="button"
             onClick={fetchDashboardData}
-            className="flex items-center gap-2 px-4 py-2 border border-neutral-300 rounded-lg text-xs font-semibold text-black bg-white hover:bg-neutral-50 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 border border-[#E5E0D8] rounded-lg text-xs font-semibold text-[#111111] bg-white hover:bg-[#F4F1EB] transition-colors"
           >
             <RefreshCw size={13} className={isLoading ? "animate-spin" : ""} />
             <span>Refresh</span>
           </button>
           <Link
             to="/admin/products/new"
-            className="flex items-center gap-2 px-5 py-2 bg-black hover:bg-neutral-800 text-white rounded-lg text-xs font-semibold transition-colors"
+            className="flex items-center gap-2 px-5 py-2 bg-[#2D5A4A] hover:bg-[#0D4C3C] text-white rounded-lg text-xs font-semibold transition-colors shadow-2xs"
           >
             <Plus size={14} />
             <span>Add New Product</span>
@@ -100,23 +100,23 @@ export const AdminDashboardPage: React.FC = () => {
       }
     >
       <div className="space-y-10">
-        {/* Metric Cards Grid - STRICT MONOCHROME */}
+        {/* Metric Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {/* Total Products */}
-          <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-2xs flex flex-col justify-between">
+          <div className="bg-white p-6 rounded-2xl border border-[#E5E0D8] shadow-2xs flex flex-col justify-between">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#737373]">
                 Total Products
               </span>
-              <div className="w-8 h-8 rounded-lg bg-neutral-100 flex items-center justify-center text-black">
+              <div className="w-8 h-8 rounded-lg bg-[#F4F1EB] flex items-center justify-center text-[#2D5A4A]">
                 <Package size={16} />
               </div>
             </div>
             <div className="mt-4">
-              <div className="text-3xl font-extrabold text-black font-mono">
+              <div className="text-3xl font-extrabold text-[#111111] font-mono">
                 {stats.totalProducts ?? 193}
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-neutral-600 font-medium mt-1.5">
+              <div className="flex items-center gap-1.5 text-xs text-[#2D5A4A] font-medium mt-1.5">
                 <CheckCircle2 size={13} />
                 <span>All catalogue inventory preserved</span>
               </div>
@@ -124,20 +124,20 @@ export const AdminDashboardPage: React.FC = () => {
           </div>
 
           {/* Published / Active Storefront */}
-          <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-2xs flex flex-col justify-between">
+          <div className="bg-white p-6 rounded-2xl border border-[#E5E0D8] shadow-2xs flex flex-col justify-between">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#737373]">
                 Storefront Active
               </span>
-              <div className="w-8 h-8 rounded-lg bg-black text-white flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-[#2D5A4A] text-white flex items-center justify-center">
                 <CheckCircle2 size={16} />
               </div>
             </div>
             <div className="mt-4">
-              <div className="text-3xl font-extrabold text-black font-mono">
+              <div className="text-3xl font-extrabold text-[#111111] font-mono">
                 {stats.activeProducts ?? 130}
               </div>
-              <div className="text-xs text-neutral-600 font-medium mt-1.5">
+              <div className="text-xs text-[#2D5A4A] font-medium mt-1.5">
                 Live across 6 verified active categories
               </div>
             </div>

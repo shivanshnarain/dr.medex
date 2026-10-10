@@ -267,7 +267,7 @@ export const AdminProductsPage: React.FC = () => {
           <button
             type="button"
             onClick={fetchProducts}
-            className="px-4 py-2 bg-white border border-[#CCCCCC] hover:border-black text-black rounded-lg text-xs font-bold flex items-center gap-2 transition-colors"
+            className="px-4 py-2 bg-white border border-[#E5E0D8] hover:border-[#2D5A4A] text-[#111111] rounded-lg text-xs font-bold flex items-center gap-2 transition-colors"
           >
             <RefreshCw size={13} className={isLoading ? "animate-spin" : ""} />
             <span>Refresh</span>
@@ -275,7 +275,7 @@ export const AdminProductsPage: React.FC = () => {
 
           <Link
             to="/admin/products/new"
-            className="px-5 py-2 bg-black hover:bg-neutral-800 text-white rounded-lg text-xs font-bold flex items-center gap-2 shadow-xs transition-colors"
+            className="px-5 py-2 bg-[#2D5A4A] hover:bg-[#0D4C3C] text-white rounded-lg text-xs font-bold flex items-center gap-2 shadow-xs transition-colors"
           >
             <Plus size={14} />
             <span>Add Product</span>
