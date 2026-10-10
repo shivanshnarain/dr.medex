@@ -100,12 +100,19 @@ export const ProductDetailPage: React.FC = () => {
 
   if (!product) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-24 text-center space-y-4">
-        <h2 className="text-2xl font-bold text-[#111111]">Medical Product Not Found</h2>
-        <p className="text-xs text-neutral-500">The requested equipment model or SKU could not be located in our clinical database.</p>
-        <Link to="/shop-all" className="inline-block px-7 py-3 bg-[#111111] text-white rounded-xl text-xs font-bold hover:bg-[#1F7A4D] transition-colors">
-          Browse Full Catalog
-        </Link>
+      <div className="max-w-2xl mx-auto px-4 py-24 text-center space-y-4">
+        <h2 className="text-2xl font-bold text-[#111111]">Equipment Currently Unavailable</h2>
+        <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
+          The requested medical device could not be found or belongs to a category that is temporarily inactive for online customer access during this catalogue phase. All institutional records remain preserved in our central system.
+        </p>
+        <div className="pt-2 flex items-center justify-center gap-3">
+          <Link to="/" className="inline-block px-7 py-3 bg-[#111111] text-white rounded-xl text-xs font-bold hover:bg-black transition-colors">
+            Explore Active Categories
+          </Link>
+          <Link to="/request-quote" className="inline-block px-6 py-3 bg-white border border-neutral-300 text-neutral-900 rounded-xl text-xs font-bold hover:bg-neutral-50 transition-colors">
+            Request Institutional RFQ
+          </Link>
+        </div>
       </div>
     );
   }

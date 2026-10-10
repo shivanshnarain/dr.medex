@@ -9,10 +9,11 @@ import {
   ShieldCheck,
   Image as ImageIcon,
   RefreshCw,
-  Edit2
+  Edit2,
+  ExternalLink,
+  EyeOff
 } from "lucide-react";
 import { AdminLayout } from "../components/admin/AdminLayout";
-import { ProductEditorModal } from "../components/admin/ProductEditorModal";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { Product, Category } from "../types";
 
@@ -21,12 +22,11 @@ export const AdminDashboardPage: React.FC = () => {
 
   const [stats, setStats] = useState<any>({
     totalProducts: 193,
-    activeProducts: 193,
-    draftProducts: 0,
-    archivedProducts: 0,
-    outOfStockProducts: 0,
-    featuredProducts: 12,
+    activeProducts: 130,
+    inactiveProducts: 63,
     totalCategories: 7,
+    activeCategories: 6,
+    inactiveCategories: 1,
     mediaStatus: {
       totalImages: 965,
       localStoredImages: 965,
@@ -39,22 +39,18 @@ export const AdminDashboardPage: React.FC = () => {
   const [recentAuditLogs, setRecentAuditLogs] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Editor Modal
-  const [isEditorOpen, setIsEditorOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-
   const fetchDashboardData = async () => {
     setIsLoading(true);
     try {
       const [dashRes, catRes] = await Promise.all([
         adminFetch("/api/admin/dashboard"),
-        fetch("/api/categories")
+        fetch("/api/categories?includeInactive=true")
       ]);
 
       if (dashRes.ok) {
         const data = await dashRes.json();
         if (data.success) {
-          setStats(data.stats || stats);
+          setStats((prev: any) => ({ ...prev, ...(data.stats || {}) }));
           setRecentProducts(data.recentProducts || []);
           if (data.auditLogs) {
             setRecentAuditLogs(data.auditLogs.slice(0, 6));
@@ -79,240 +75,256 @@ export const AdminDashboardPage: React.FC = () => {
     fetchDashboardData();
   }, []);
 
-  const handleEditProduct = (prod: Product) => {
-    setSelectedProduct(prod);
-    setIsEditorOpen(true);
-  };
-
-  const handleCreateNew = () => {
-    setSelectedProduct(null);
-    setIsEditorOpen(true);
-  };
-
   return (
     <AdminLayout
       title="Catalogue & Operations Overview"
-      subtitle="Single source of truth medical equipment inventory database"
+      subtitle="Single source of truth medical equipment inventory and category control"
       actions={
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={fetchDashboardData}
-            className="flex items-center gap-2 px-4 py-2.5 border border-[#EAEAEA] rounded-lg text-xs font-semibold text-[#111111] bg-white hover:bg-[#FAFAFA] transition-colors shadow-2xs"
+            className="flex items-center gap-2 px-4 py-2 border border-neutral-300 rounded-lg text-xs font-semibold text-black bg-white hover:bg-neutral-50 transition-colors"
           >
             <RefreshCw size={13} className={isLoading ? "animate-spin" : ""} />
-            <span>Refresh Metrics</span>
+            <span>Refresh</span>
           </button>
-          <button
-            type="button"
-            onClick={handleCreateNew}
-            className="flex items-center gap-2 px-5 py-2.5 bg-[#111111] hover:bg-black text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
+          <Link
+            to="/admin/products/new"
+            className="flex items-center gap-2 px-5 py-2 bg-black hover:bg-neutral-800 text-white rounded-lg text-xs font-semibold transition-colors"
           >
             <Plus size={14} />
             <span>Add New Product</span>
-          </button>
+          </Link>
         </div>
       }
     >
       <div className="space-y-10">
-        {/* Metric Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Metric Cards Grid - STRICT MONOCHROME */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {/* Total Products */}
-          <div className="bg-white p-6 rounded-2xl border border-[#EAEAEA] shadow-xs flex flex-col justify-between">
+          <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-2xs flex flex-col justify-between">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#777777]">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
                 Total Products
               </span>
-              <div className="w-8 h-8 rounded-lg bg-[#F7F7F7] flex items-center justify-center text-[#111111]">
+              <div className="w-8 h-8 rounded-lg bg-neutral-100 flex items-center justify-center text-black">
                 <Package size={16} />
               </div>
             </div>
             <div className="mt-4">
-              <div className="text-3xl font-extrabold text-[#111111] font-mono">
+              <div className="text-3xl font-extrabold text-black font-mono">
                 {stats.totalProducts ?? 193}
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-[#1F7A4D] font-medium mt-1.5">
+              <div className="flex items-center gap-1.5 text-xs text-neutral-600 font-medium mt-1.5">
                 <CheckCircle2 size={13} />
-                <span>Authorized Catalogue Imported</span>
+                <span>All catalogue inventory preserved</span>
               </div>
             </div>
           </div>
 
-          {/* Active / Published */}
-          <div className="bg-white p-6 rounded-2xl border border-[#EAEAEA] shadow-xs flex flex-col justify-between">
+          {/* Published / Active Storefront */}
+          <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-2xs flex flex-col justify-between">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#777777]">
-                Published & Active
+              <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+                Storefront Active
               </span>
-              <div className="w-8 h-8 rounded-lg bg-[#EAF5EF] flex items-center justify-center text-[#1F7A4D]">
+              <div className="w-8 h-8 rounded-lg bg-black text-white flex items-center justify-center">
                 <CheckCircle2 size={16} />
               </div>
             </div>
             <div className="mt-4">
-              <div className="text-3xl font-extrabold text-[#1F7A4D] font-mono">
-                {stats.activeProducts ?? 193}
+              <div className="text-3xl font-extrabold text-black font-mono">
+                {stats.activeProducts ?? 130}
               </div>
-              <div className="text-xs text-[#777777] font-medium mt-1.5">
-                Visible to international healthcare buyers
+              <div className="text-xs text-neutral-600 font-medium mt-1.5">
+                Live across 6 verified active categories
               </div>
             </div>
           </div>
 
-          {/* Categories */}
-          <div className="bg-white p-6 rounded-2xl border border-[#EAEAEA] shadow-xs flex flex-col justify-between">
+          {/* Temporarily Inactive Products */}
+          <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-2xs flex flex-col justify-between">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#777777]">
-                Equipment Categories
+              <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+                Inactive / Stored
               </span>
-              <div className="w-8 h-8 rounded-lg bg-[#F7F7F7] flex items-center justify-center text-[#111111]">
-                <Layers size={16} />
+              <div className="w-8 h-8 rounded-lg bg-neutral-100 flex items-center justify-center text-neutral-600">
+                <EyeOff size={16} />
               </div>
             </div>
             <div className="mt-4">
-              <div className="text-3xl font-extrabold text-[#111111] font-mono">
-                {stats.totalCategories ?? 7}
+              <div className="text-3xl font-extrabold text-neutral-700 font-mono">
+                {stats.inactiveProducts ?? 63}
               </div>
-              <div className="text-xs text-[#777777] font-medium mt-1.5">
-                Normalized surgical & therapy groups
+              <div className="text-xs text-neutral-500 font-medium mt-1.5">
+                Physiotherapy (safe in DB, 1-click restore)
               </div>
             </div>
           </div>
 
           {/* Media Assets Status */}
-          <div className="bg-white p-6 rounded-2xl border border-[#EAEAEA] shadow-xs flex flex-col justify-between">
+          <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-2xs flex flex-col justify-between">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#777777]">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
                 Catalogue Images
               </span>
-              <div className="w-8 h-8 rounded-lg bg-[#F7F7F7] flex items-center justify-center text-[#111111]">
+              <div className="w-8 h-8 rounded-lg bg-neutral-100 flex items-center justify-center text-black">
                 <ImageIcon size={16} />
               </div>
             </div>
             <div className="mt-4">
-              <div className="text-3xl font-extrabold text-[#111111] font-mono">
+              <div className="text-3xl font-extrabold text-black font-mono">
                 {stats.mediaStatus?.totalImages ?? 965}
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-[#1F7A4D] font-medium mt-1.5">
-                <span>0 Replacements Required</span>
+              <div className="flex items-center gap-1.5 text-xs text-neutral-600 font-medium mt-1.5">
+                <span>100% locally preserved assets</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Phase Architecture Banner */}
-        <div className="p-8 bg-[#111111] rounded-2xl border border-[#222222] text-white flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-sm">
-          <div className="space-y-2.5 max-w-2xl">
+        {/* System Architecture Callout */}
+        <div className="p-7 bg-black rounded-2xl border border-neutral-900 text-white flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-2 max-w-2xl">
             <div className="flex items-center gap-2.5">
-              <span className="px-2.5 py-0.5 rounded text-3xs font-bold bg-[#EAF5EF] text-[#1F7A4D] uppercase tracking-wider">
-                CORE SYSTEM READY
+              <span className="px-2.5 py-0.5 rounded text-[10px] font-bold bg-white text-black uppercase tracking-wider font-mono">
+                CATALOGUE CONTROL ACTIVE
               </span>
-              <span className="text-xs font-medium text-[#888888]">
-                Media Abstraction Layer Active
+              <span className="text-xs font-medium text-neutral-400">
+                Direct Full-Page Editing Architecture
               </span>
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
-              Self-Contained Local Assets Active & Cloudinary-Ready
+            <h3 className="text-lg font-bold text-white tracking-tight">
+              Single-Source Medical Inventory & Category Visibility Engine
             </h3>
-            <p className="text-xs text-[#999999] leading-relaxed">
-              All 965 product gallery images are downloaded locally to prevent external hotlinking.
-              The media service is structured with MediaProvider interfaces, ready for seamless synchronization with Cloudinary.
+            <p className="text-xs text-neutral-400 leading-relaxed">
+              DR.MEDEX central operations maintains 193 medical units. 6 categories are live on the public international storefront, while Physiotherapy (63 units) is held safely in maintenance status with zero data loss.
             </p>
           </div>
 
           <div className="shrink-0 flex items-center gap-3">
             <Link
-              to="/admin/products"
-              className="px-6 py-3 bg-white hover:bg-[#F2F2F2] text-[#111111] rounded-lg text-xs font-bold transition-colors flex items-center gap-2"
+              to="/admin/categories"
+              className="px-5 py-2.5 border border-neutral-700 hover:border-white text-white rounded-lg text-xs font-semibold transition-colors"
             >
-              <span>Manage 193 Products</span>
+              Manage Categories
+            </Link>
+            <Link
+              to="/admin/products"
+              className="px-5 py-2.5 bg-white hover:bg-neutral-200 text-black rounded-lg text-xs font-bold transition-colors flex items-center gap-2"
+            >
+              <span>All 193 Products</span>
               <ArrowRight size={14} />
             </Link>
           </div>
         </div>
 
-        {/* Quick Links & Category Distribution */}
+        {/* Category Hierarchy & Operations Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Category distribution */}
-          <div className="bg-white p-8 rounded-2xl border border-[#EAEAEA] shadow-xs lg:col-span-2">
+          <div className="bg-white p-7 rounded-2xl border border-neutral-200 shadow-2xs lg:col-span-2">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h3 className="text-base font-bold text-[#111111]">
+                <h3 className="text-sm font-bold text-black tracking-tight uppercase">
                   Catalogue Category Hierarchy
                 </h3>
-                <p className="text-xs text-[#777777] mt-0.5">
-                  DR.MEDEX Medical Equipment Portfolio
+                <p className="text-xs text-neutral-500 mt-0.5">
+                  Live storefront category controls & product quotas
                 </p>
               </div>
               <Link
-                to="/admin/products"
-                className="text-xs font-semibold text-[#111111] hover:text-[#1F7A4D] flex items-center gap-1.5 transition-colors"
+                to="/admin/categories"
+                className="text-xs font-bold text-black hover:underline flex items-center gap-1 transition-colors"
               >
-                <span>View Filtered</span>
+                <span>Category Settings</span>
                 <ArrowRight size={13} />
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {categories.map((cat) => (
-                <Link
-                  key={cat.id}
-                  to={`/admin/products?category=${cat.id}`}
-                  className="p-4 rounded-xl border border-[#EAEAEA] hover:border-[#CCCCCC] hover:bg-[#FAFAFA] transition-all flex items-center justify-between group"
-                >
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-10 h-10 rounded-lg bg-[#F7F7F7] flex items-center justify-center text-[#111111] group-hover:bg-[#EAF5EF] group-hover:text-[#1F7A4D] transition-colors">
-                      <Layers size={18} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              {categories.map((cat) => {
+                const isCatActive = cat.status === "ACTIVE" || cat.active === true;
+                return (
+                  <Link
+                    key={cat.id}
+                    to={`/admin/products?category=${cat.id}`}
+                    className={`p-4 rounded-xl border transition-all flex items-center justify-between group ${
+                      isCatActive
+                        ? "border-neutral-200 hover:border-black bg-white hover:bg-neutral-50"
+                        : "border-dashed border-neutral-300 bg-neutral-50 hover:bg-neutral-100"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3.5 min-w-0">
+                      <div
+                        className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+                          isCatActive
+                            ? "bg-neutral-100 text-black group-hover:bg-black group-hover:text-white"
+                            : "bg-neutral-200 text-neutral-500"
+                        }`}
+                      >
+                        <Layers size={17} />
+                      </div>
+                      <div className="min-w-0">
+                        <h4 className="text-xs font-bold text-black truncate">
+                          {cat.name}
+                        </h4>
+                        <div className="text-[10px] text-neutral-500 font-mono mt-0.5">
+                          {cat.totalProducts ?? 0} units
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-xs font-bold text-[#111111] group-hover:text-[#1F7A4D] transition-colors">
-                        {cat.name}
-                      </h4>
-                      <span className="text-3xs text-[#777777] font-mono">
-                        Slug: {cat.slug}
-                      </span>
-                    </div>
-                  </div>
-                  <span className="text-3xs font-semibold px-2 py-0.5 rounded bg-[#F2F2F2] text-[#555555] font-mono">
-                    Active
-                  </span>
-                </Link>
-              ))}
+                    <span
+                      className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-bold shrink-0 ${
+                        isCatActive
+                          ? "bg-black text-white"
+                          : "bg-neutral-200 text-neutral-600"
+                      }`}
+                    >
+                      {isCatActive ? "Active" : "Inactive"}
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
 
           {/* Operational Audit Preview */}
-          <div className="bg-white p-8 rounded-2xl border border-[#EAEAEA] shadow-xs">
+          <div className="bg-white p-7 rounded-2xl border border-neutral-200 shadow-2xs">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h3 className="text-base font-bold text-[#111111]">
+                <h3 className="text-sm font-bold text-black uppercase tracking-tight">
                   Audit Activity
                 </h3>
-                <p className="text-xs text-[#777777] mt-0.5">
-                  Real-time mutations log
+                <p className="text-xs text-neutral-500 mt-0.5">
+                  Latest system operations
                 </p>
               </div>
-              <ShieldCheck size={18} className="text-[#1F7A4D]" />
+              <ShieldCheck size={18} className="text-black" />
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {recentAuditLogs.length === 0 ? (
-                <div className="py-10 text-center text-xs text-[#777777]">
-                  No recent audit events.
+                <div className="py-10 text-center text-xs text-neutral-500">
+                  No recent audit events recorded.
                 </div>
               ) : (
                 recentAuditLogs.map((log: any, idx: number) => (
                   <div
                     key={idx}
-                    className="p-3 rounded-lg bg-[#FAFAFA] border border-[#EAEAEA] text-xs space-y-1"
+                    className="p-3 rounded-lg bg-neutral-50 border border-neutral-200 text-xs space-y-1"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-semibold text-[#111111]">{log.action}</span>
-                      <span className="text-3xs font-mono text-[#777777]">
-                        {new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      <span className="font-semibold text-black">{log.action}</span>
+                      <span className="text-[10px] font-mono text-neutral-500">
+                        {new Date(log.timestamp).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit"
+                        })}
                       </span>
                     </div>
-                    <div className="text-3xs text-[#777777] font-mono truncate">
-                      {log.adminEmail || "SYSTEM"}
+                    <div className="text-[10px] text-neutral-500 font-mono truncate">
+                      {log.adminEmail || "SYSTEM_OPERATOR"}
                     </div>
                   </div>
                 ))
@@ -322,19 +334,19 @@ export const AdminDashboardPage: React.FC = () => {
         </div>
 
         {/* Recent Catalogue Products Table */}
-        <div className="bg-white rounded-2xl border border-[#EAEAEA] shadow-xs overflow-hidden">
-          <div className="p-6 sm:p-8 border-b border-[#EAEAEA] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="bg-white rounded-2xl border border-neutral-200 shadow-2xs overflow-hidden">
+          <div className="p-6 sm:p-7 border-b border-neutral-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h3 className="text-base font-bold text-[#111111]">
+              <h3 className="text-sm font-bold text-black uppercase tracking-tight">
                 Recently Managed Medical Products
               </h3>
-              <p className="text-xs text-[#777777] mt-0.5">
-                Direct editing connected to live database
+              <p className="text-xs text-neutral-500 mt-0.5">
+                Full-page editing directly connected to repository database
               </p>
             </div>
             <Link
               to="/admin/products"
-              className="px-5 py-2.5 bg-[#111111] hover:bg-black text-white rounded-lg text-xs font-semibold inline-flex items-center gap-2 transition-colors"
+              className="px-4 py-2 bg-black hover:bg-neutral-800 text-white rounded-lg text-xs font-semibold inline-flex items-center gap-2 transition-colors"
             >
               <span>View All 193 Products</span>
               <ArrowRight size={13} />
@@ -344,23 +356,26 @@ export const AdminDashboardPage: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-[#FAFAFA] border-b border-[#EAEAEA] text-[#777777] font-bold uppercase text-3xs tracking-wider">
+                <tr className="bg-neutral-50 border-b border-neutral-200 text-neutral-500 font-bold uppercase text-[10px] tracking-wider font-mono">
                   <th className="p-4 sm:p-5">Product Details</th>
                   <th className="p-4 sm:p-5">SKU / Model</th>
                   <th className="p-4 sm:p-5">Category</th>
                   <th className="p-4 sm:p-5">Base USD Price</th>
                   <th className="p-4 sm:p-5">Status</th>
-                  <th className="p-4 sm:p-5 text-center">Action</th>
+                  <th className="p-4 sm:p-5 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#EAEAEA] text-[#555555]">
+              <tbody className="divide-y divide-neutral-200 text-neutral-600">
                 {recentProducts.slice(0, 8).map((p) => (
-                  <tr key={p.id} className="hover:bg-[#FAFAFA] transition-colors">
+                  <tr key={p.id} className="hover:bg-neutral-50 transition-colors">
                     <td className="p-4 sm:p-5">
                       <div className="flex items-center gap-3.5">
-                        <div className="w-12 h-12 rounded-lg bg-[#F7F7F7] overflow-hidden shrink-0 border border-[#EAEAEA]">
+                        <div className="w-12 h-12 rounded-lg bg-neutral-100 overflow-hidden shrink-0 border border-neutral-200">
                           <img
-                            src={p.images?.[0] || "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=300&q=80"}
+                            src={
+                              p.images?.[0] ||
+                              "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=300&q=80"
+                            }
                             alt={p.title}
                             className="w-full h-full object-cover"
                             onError={(e) => {
@@ -370,49 +385,49 @@ export const AdminDashboardPage: React.FC = () => {
                           />
                         </div>
                         <div className="min-w-0">
-                          <h4 className="font-bold text-[#111111] truncate max-w-xs sm:max-w-md">
+                          <Link
+                            to={`/admin/products/${p.id}/edit`}
+                            className="font-bold text-black hover:underline truncate block max-w-xs sm:max-w-md"
+                          >
                             {p.title}
-                          </h4>
-                          <span className="text-3xs text-[#777777]">
+                          </Link>
+                          <span className="text-[10px] text-neutral-400 font-mono">
                             ID: {p.id}
                           </span>
                         </div>
                       </div>
                     </td>
                     <td className="p-4 sm:p-5 font-mono text-xs">
-                      <div className="font-bold text-[#111111]">{p.sku}</div>
-                      <div className="text-[#777777]">{p.modelNumber || "—"}</div>
+                      <div className="font-bold text-black">{p.sku}</div>
+                      <div className="text-neutral-400 text-[11px]">{p.modelNumber || "—"}</div>
                     </td>
-                    <td className="p-4 sm:p-5 capitalize">
-                      <span className="px-2.5 py-1 rounded bg-[#F2F2F2] text-[#555555] text-3xs font-medium">
+                    <td className="p-4 sm:p-5">
+                      <span className="px-2.5 py-1 rounded bg-neutral-100 text-neutral-700 text-[10px] font-mono border border-neutral-200">
                         {p.category}
                       </span>
                     </td>
-                    <td className="p-4 sm:p-5 font-mono font-bold text-[#111111]">
+                    <td className="p-4 sm:p-5 font-mono font-bold text-black">
                       ${(p.basePrice || 0).toLocaleString()}
                     </td>
                     <td className="p-4 sm:p-5">
                       <span
-                        className={`px-2.5 py-1 rounded text-3xs font-bold ${
+                        className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase ${
                           p.status === "ACTIVE"
-                            ? "bg-[#EAF5EF] text-[#1F7A4D]"
-                            : p.status === "DRAFT"
-                            ? "bg-[#FFF8E1] text-[#B78103]"
-                            : "bg-[#F2F2F2] text-[#777777]"
+                            ? "bg-black text-white"
+                            : "bg-neutral-100 text-neutral-600 border border-neutral-300"
                         }`}
                       >
                         {p.status || "ACTIVE"}
                       </span>
                     </td>
-                    <td className="p-4 sm:p-5 text-center">
-                      <button
-                        type="button"
-                        onClick={() => handleEditProduct(p)}
-                        className="px-3 py-1.5 bg-[#F2F2F2] hover:bg-[#EAEAEA] text-[#111111] rounded-md text-xs font-semibold transition-colors inline-flex items-center gap-1.5"
+                    <td className="p-4 sm:p-5 text-right">
+                      <Link
+                        to={`/admin/products/${p.id}/edit`}
+                        className="px-3 py-1.5 bg-neutral-100 hover:bg-black hover:text-white text-black rounded-md text-xs font-semibold transition-colors inline-flex items-center gap-1.5 border border-neutral-300"
                       >
                         <Edit2 size={12} />
                         <span>Edit</span>
-                      </button>
+                      </Link>
                     </td>
                   </tr>
                 ))}
@@ -421,17 +436,6 @@ export const AdminDashboardPage: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Product Editor Modal */}
-      <ProductEditorModal
-        product={selectedProduct}
-        isOpen={isEditorOpen}
-        onClose={() => setIsEditorOpen(false)}
-        onSaved={() => {
-          fetchDashboardData();
-        }}
-        categories={categories}
-      />
     </AdminLayout>
   );
 };

@@ -28,55 +28,101 @@ interface CategorySectionDef {
   viewAllLink: string;
 }
 
-const CATEGORY_SECTIONS: CategorySectionDef[] = [
+interface ActiveCategoryCard {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  image: string;
+}
+
+const SIX_ACTIVE_CATEGORIES: ActiveCategoryCard[] = [
   {
-    id: "physiotherapy",
-    slug: "physiotherapy",
-    title: "Physiotherapy",
-    description: "Advanced equipment for rehabilitation, pain management and physical therapy.",
-    viewAllLink: "/shop-all?category=physiotherapy"
+    id: "electrosurgical-units",
+    slug: "electrosurgical-units",
+    name: "Electrosurgical Units",
+    description: "High-frequency precision electrosurgical generators, RF cautery units and smoke evacuation systems.",
+    image: "/products-hero/electrosurgical_generator.jpg"
   },
+  {
+    id: "cryo-surgical",
+    slug: "cryo-surgical",
+    name: "Cryosurgical Equipment",
+    description: "Liquid nitrogen cryotherapy guns, multi-nozzle spray sets, and surgical cryo systems.",
+    image: "/products-hero/cryo_surgical_gun.jpg"
+  },
+  {
+    id: "ot-lights",
+    slug: "ot-lights",
+    name: "OT / Surgical Lights",
+    description: "Shadowless LED surgical illumination systems engineered with high CRI and cold-light optics.",
+    image: "/products-hero/ot_light_petal.jpg"
+  },
+  {
+    id: "examination-ot-tables",
+    slug: "examination-ot-tables",
+    name: "Examination & OT Tables",
+    description: "Heavy-duty electric operating theatre tables, hydraulic surgical couches, and clinical examination beds.",
+    image: "/products-hero/ot_surgical_table.jpg"
+  },
+  {
+    id: "obstetrics-and-gynaecology",
+    slug: "obstetrics-and-gynaecology",
+    name: "Obstetrics & Gynaecology",
+    description: "Specialized maternal delivery tables, gynaecological examination beds, and fetal monitoring instruments.",
+    image: "/products-hero/examination_table.jpg"
+  },
+  {
+    id: "medical-equipment",
+    slug: "medical-equipment",
+    name: "General Medical Equipment",
+    description: "Hospital diagnostic instruments, surgical headlights, medical equipment trolleys, and emergency systems.",
+    image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80"
+  }
+];
+
+const CATEGORY_SECTIONS: CategorySectionDef[] = [
   {
     id: "electrosurgical-units",
     slug: "electrosurgical-units",
     title: "Electrosurgical",
     description: "High-performance electrosurgical generators, RF cautery units and smoke evacuation systems.",
-    viewAllLink: "/shop-all?category=electrosurgical-units"
+    viewAllLink: "/category/electrosurgical-units"
   },
   {
     id: "cryo-surgical",
     slug: "cryo-surgical",
     title: "Cryo Surgical",
     description: "Precision liquid nitrogen cryo spray guns, dermatological cryotherapy devices and specialized extraction probes.",
-    viewAllLink: "/shop-all?category=cryo-surgical"
+    viewAllLink: "/category/cryo-surgical"
   },
   {
     id: "ot-lights",
     slug: "ot-lights",
     title: "OT Lights",
     description: "Ceiling-mounted single & double dome surgical lights, mobile LED operating theatre lamps and shadowless illumination.",
-    viewAllLink: "/shop-all?category=ot-lights"
+    viewAllLink: "/category/ot-lights"
   },
   {
     id: "examination-ot-tables",
     slug: "examination-ot-tables",
     title: "OT Tables",
     description: "Durable and ergonomic operating tables, treatment beds and motorized procedure chairs for surgical suites.",
-    viewAllLink: "/shop-all?category=examination-ot-tables"
+    viewAllLink: "/category/examination-ot-tables"
   },
   {
     id: "obstetrics-and-gynaecology",
     slug: "obstetrics-and-gynaecology",
     title: "Obstetrics & Gynaecology",
     description: "Specialized clinical gynecology equipment, digital optical colposcopes and thermal ablation coagulators.",
-    viewAllLink: "/shop-all?category=obstetrics-and-gynaecology"
+    viewAllLink: "/category/obstetrics-and-gynaecology"
   },
   {
     id: "medical-equipment",
     slug: "medical-equipment",
     title: "General Medical Equipment",
     description: "Hospital diagnostic instruments, clinical visual acuity monitors and specialized medical equipment.",
-    viewAllLink: "/shop-all?category=medical-equipment"
+    viewAllLink: "/category/medical-equipment"
   }
 ];
 
@@ -202,6 +248,86 @@ export const HomePage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* 2.5. EXPLORE MEDICAL EQUIPMENT CATEGORIES (6 ACTIVE CATEGORIES) */}
+      <section className="py-14 sm:py-20 bg-white border-b border-[#E8E8E8]">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-[#E8E8E8] gap-3">
+            <div>
+              <span className="text-3xs font-extrabold uppercase tracking-widest text-[#167A4A] block mb-2">
+                Certified Healthcare Technology
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
+                Explore Medical Equipment Categories
+              </h2>
+              <p className="text-xs sm:text-sm text-neutral-500 mt-1.5">
+                Precision-engineered medical devices for hospitals, surgical centres, and clinical healthcare providers worldwide.
+              </p>
+            </div>
+            <Link
+              to="/shop-all"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#111111] hover:text-[#167A4A] transition-colors shrink-0 group uppercase tracking-wider"
+            >
+              <span>View All Products</span>
+              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform text-[#167A4A]" />
+            </Link>
+          </div>
+
+          {/* Grid: Desktop 3 cards per row (2 rows), Tablet 2 cards per row, Mobile 1-2 cards per row */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {SIX_ACTIVE_CATEGORIES.map((cat) => {
+              const count = productsByCategory[cat.slug]?.length || 0;
+              return (
+                <Link
+                  key={cat.id}
+                  to={`/category/${cat.slug}`}
+                  className="group bg-white rounded-2xl border border-[#E8E8E8] hover:border-[#167A4A]/60 hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden hover:-translate-y-1"
+                >
+                  {/* Category Image Box with consistent dimension */}
+                  <div className="relative aspect-16/10 bg-[#FAFAFA] overflow-hidden flex items-center justify-center p-6 border-b border-[#F0F0F0]">
+                    <img
+                      src={cat.image}
+                      alt={cat.name}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src =
+                          "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80";
+                      }}
+                    />
+                    <div className="absolute top-3.5 right-3.5">
+                      <span className="px-2.5 py-1 rounded-full text-3xs font-bold bg-white/95 backdrop-blur-xs text-[#111111] border border-neutral-200 shadow-2xs font-mono">
+                        {count > 0 ? `${count} Units Available` : "Catalogue Certified"}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Category Content Box */}
+                  <div className="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-base sm:text-lg font-bold text-[#111111] group-hover:text-[#167A4A] transition-colors tracking-tight">
+                        {cat.name}
+                      </h3>
+                      <p className="text-xs text-neutral-500 mt-2 line-clamp-2 leading-relaxed">
+                        {cat.description}
+                      </p>
+                    </div>
+
+                    <div className="mt-5 pt-4 border-t border-[#F0F0F0] flex items-center justify-between">
+                      <span className="text-xs font-bold text-[#111111] group-hover:text-[#167A4A] transition-colors flex items-center gap-1.5 uppercase tracking-wider">
+                        <span>Explore Products</span>
+                        <ArrowRight size={13} className="text-[#167A4A] group-hover:translate-x-1 transition-transform" />
+                      </span>
+                      <span className="text-3xs font-semibold text-neutral-400 uppercase tracking-widest font-mono">
+                        ISO 13485
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       {/* 3. CATEGORY-WISE PRODUCT SECTIONS (SYSTEMATIC ORDER) */}
       <div className="w-full bg-white divide-y divide-[#F0F0F0]">

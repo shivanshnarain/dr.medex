@@ -144,27 +144,9 @@ export const Header: React.FC = () => {
       hasSubmenu: false
     },
     {
-      id: "physiotherapy",
-      label: "Physiotherapy",
-      to: "/shop-all?category=physiotherapy",
-      categorySlug: "physiotherapy",
-      hasSubmenu: true,
-      subcategories: [
-        { label: "Ultrasound Therapy Machines", to: "/shop-all?category=physiotherapy&subcategory=ultrasound-therapy-machines" },
-        { label: "TENS Machines", to: "/shop-all?category=physiotherapy&subcategory=tens-machines" },
-        { label: "Laser Therapy Machines", to: "/shop-all?category=physiotherapy&subcategory=laser-therapy-machine" },
-        { label: "CPM Machines", to: "/shop-all?category=physiotherapy&subcategory=cpm" },
-        { label: "Shortwave Diathermy", to: "/shop-all?category=physiotherapy&subcategory=shortwave-diathermy-machine" },
-        { label: "Longwave Diathermy", to: "/shop-all?category=physiotherapy&subcategory=longwave-diathermy-machine" },
-        { label: "Shockwave Therapy", to: "/shop-all?category=physiotherapy&subcategory=shockwave-therapy-machine" },
-        { label: "Electronic Traction", to: "/shop-all?category=physiotherapy&subcategory=electronic-traction-machine" },
-        { label: "Muscle Stimulators", to: "/shop-all?category=physiotherapy&subcategory=electric-muscle-stimulator" }
-      ]
-    },
-    {
       id: "electrosurgical",
       label: "Electrosurgical",
-      to: "/shop-all?category=electrosurgical-units",
+      to: "/category/electrosurgical-units",
       categorySlug: "electrosurgical-units",
       hasSubmenu: true,
       subcategories: [
@@ -176,7 +158,7 @@ export const Header: React.FC = () => {
     {
       id: "cryo-surgical",
       label: "Cryo Surgical",
-      to: "/shop-all?category=cryo-surgical",
+      to: "/category/cryo-surgical",
       categorySlug: "cryo-surgical",
       hasSubmenu: true,
       subcategories: [
@@ -188,7 +170,7 @@ export const Header: React.FC = () => {
     {
       id: "ot-lights",
       label: "OT Lights",
-      to: "/shop-all?category=ot-lights",
+      to: "/category/ot-lights",
       categorySlug: "ot-lights",
       hasSubmenu: true,
       subcategories: [
@@ -201,7 +183,7 @@ export const Header: React.FC = () => {
     {
       id: "ot-tables",
       label: "OT Tables",
-      to: "/shop-all?category=examination-ot-tables",
+      to: "/category/examination-ot-tables",
       categorySlug: "examination-ot-tables",
       hasSubmenu: true,
       subcategories: [
@@ -213,13 +195,25 @@ export const Header: React.FC = () => {
     {
       id: "obg",
       label: "OBG",
-      to: "/shop-all?category=obstetrics-and-gynaecology",
+      to: "/category/obstetrics-and-gynaecology",
       categorySlug: "obstetrics-and-gynaecology",
       hasSubmenu: true,
       subcategories: [
         { label: "Obstetric Delivery Tables", to: "/shop-all?category=obstetrics-and-gynaecology&subcategory=obstetric-tables" },
         { label: "Gynaecology Examination Tables", to: "/shop-all?category=obstetrics-and-gynaecology&subcategory=gynaecology-examination-tables" },
         { label: "Fetal Doppler & Monitoring", to: "/shop-all?category=obstetrics-and-gynaecology&subcategory=fetal-monitoring-equipment" }
+      ]
+    },
+    {
+      id: "medical-equipment",
+      label: "General Medical",
+      to: "/category/medical-equipment",
+      categorySlug: "medical-equipment",
+      hasSubmenu: true,
+      subcategories: [
+        { label: "Diagnostic Instruments", to: "/shop-all?category=medical-equipment&subcategory=diagnostic-equipment" },
+        { label: "Surgical Headlights", to: "/shop-all?category=medical-equipment&subcategory=surgical-headlights" },
+        { label: "Medical Equipment Trolleys", to: "/shop-all?category=medical-equipment&subcategory=medical-trolleys" }
       ]
     }
   ];

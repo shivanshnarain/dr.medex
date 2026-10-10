@@ -47,7 +47,8 @@ router.get("/search/live", (req, res) => {
 
 // CATEGORIES
 router.get("/categories", (req, res) => {
-  res.json({ success: true, categories: store.getCategories() });
+  const includeInactive = req.query.includeInactive === "true";
+  res.json({ success: true, categories: store.getCategories(includeInactive) });
 });
 
 // COUNTRIES

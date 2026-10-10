@@ -47,6 +47,8 @@ function ScrollToTop() {
 import { AdminAuthProvider } from "./context/AdminAuthContext";
 import { AdminLoginPage } from "./pages/AdminLoginPage";
 import { AdminProductsPage } from "./pages/AdminProductsPage";
+import { AdminProductEditorPage } from "./pages/AdminProductEditorPage";
+import { AdminCategoriesPage } from "./pages/AdminCategoriesPage";
 
 /**
  * Main Content Component with location-based layout control
@@ -93,6 +95,9 @@ function AppContent() {
           <Route path="/admin/login" element={<AdminLoginPage />} />
           <Route path="/admin" element={<AdminDashboardPage />} />
           <Route path="/admin/products" element={<AdminProductsPage />} />
+          <Route path="/admin/products/new" element={<AdminProductEditorPage />} />
+          <Route path="/admin/products/:productId/edit" element={<AdminProductEditorPage />} />
+          <Route path="/admin/categories" element={<AdminCategoriesPage />} />
 
           {/* 404 Fallback */}
           <Route path="*" element={<HomePage />} />

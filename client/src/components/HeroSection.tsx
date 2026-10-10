@@ -17,39 +17,39 @@ interface HeroCategoryCard {
 
 const HERO_CATEGORY_CARDS: HeroCategoryCard[] = [
   {
-    id: "physiotherapy",
-    name: "Physiotherapy",
-    description: "Advanced therapy equipment for rehabilitation & pain relief.",
-    image: "/products-hero/ultrasound_therapy.jpg",
-    link: "/shop-all?category=physiotherapy"
-  },
-  {
     id: "electrosurgical",
     name: "Electrosurgical Units",
     description: "High-performance electrosurgical solutions for safe procedures.",
     image: "/products-hero/electrosurgical_generator.jpg",
-    link: "/shop-all?category=electrosurgical-units"
-  },
-  {
-    id: "ot-tables",
-    name: "OT Tables",
-    description: "Durable and ergonomic tables for modern surgical & clinical needs.",
-    image: "/products-hero/ot_surgical_table.jpg",
-    link: "/shop-all?category=examination-ot-tables"
-  },
-  {
-    id: "ot-lights",
-    name: "OT Lights",
-    description: "Advanced LED OT lights for precise and shadow-free illumination.",
-    image: "/products-hero/ot_light_petal.jpg",
-    link: "/shop-all?category=ot-lights"
+    link: "/category/electrosurgical-units"
   },
   {
     id: "cryo-surgical",
     name: "Cryo Surgical",
     description: "Liquid nitrogen sprayers & precision cryo equipment.",
     image: "/products-hero/cryo_surgical_gun.jpg",
-    link: "/shop-all?category=cryo-surgical"
+    link: "/category/cryo-surgical"
+  },
+  {
+    id: "ot-lights",
+    name: "OT Lights",
+    description: "Advanced LED OT lights for precise and shadow-free illumination.",
+    image: "/products-hero/ot_light_petal.jpg",
+    link: "/category/ot-lights"
+  },
+  {
+    id: "ot-tables",
+    name: "OT Tables",
+    description: "Durable and ergonomic tables for modern surgical & clinical needs.",
+    image: "/products-hero/ot_surgical_table.jpg",
+    link: "/category/examination-ot-tables"
+  },
+  {
+    id: "obstetrics",
+    name: "Obstetrics & Gynae",
+    description: "Maternal delivery tables, examination beds and monitoring.",
+    image: "/products-hero/examination_table.jpg",
+    link: "/category/obstetrics-and-gynaecology"
   }
 ];
 

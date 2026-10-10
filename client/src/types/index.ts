@@ -93,6 +93,10 @@ export interface Category {
   id: string;
   slug: string;
   name: string;
+  status?: "ACTIVE" | "INACTIVE";
+  active?: boolean;
+  totalProducts?: number;
+  publishedProducts?: number;
   shortDescription: string;
   icon: string;
   featuredImage: string;

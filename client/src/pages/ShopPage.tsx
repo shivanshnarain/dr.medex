@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useSearchParams, Link } from "react-router-dom";
-import { Filter, SlidersHorizontal, X, Search, RotateCcw } from "lucide-react";
+import { useSearchParams, useParams, Link } from "react-router-dom";
+import { Filter, SlidersHorizontal, X, Search, RotateCcw, AlertCircle, ArrowRight } from "lucide-react";
 import { Product, Category } from "../types";
 import { ProductCard } from "../components/ProductCard";
 import { QuickViewModal } from "../components/QuickViewModal";
@@ -8,6 +8,7 @@ import { B2BQuoteModal } from "../components/B2BQuoteModal";
 import { useCurrency } from "../context/CurrencyContext";
 
 export const ShopPage: React.FC = () => {
+  const { categorySlug } = useParams<{ categorySlug?: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
   const { currentCurrency, currentCountry, formatPrice } = useCurrency();
 
@@ -22,7 +23,9 @@ export const ShopPage: React.FC = () => {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
   // Active filters from URL or local state
-  const selectedCategory = searchParams.get("category") || "";
+  const rawCategory = categorySlug || searchParams.get("category") || "";
+  const isPhysioInactiveRequested = rawCategory === "physiotherapy";
+  const selectedCategory = isPhysioInactiveRequested ? "" : rawCategory;
   const selectedSubcategory = searchParams.get("subcategory") || "";
   const searchQuery = searchParams.get("search") || "";
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
@@ -215,6 +218,37 @@ export const ShopPage: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {isPhysioInactiveRequested && (
+          <div className="mb-10 p-8 bg-white border border-[#E8E8E8] rounded-2xl shadow-sm">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-3xs font-bold uppercase tracking-wider bg-neutral-100 text-neutral-800 border border-neutral-300 mb-4">
+                <span>Catalogue Status: Temporarily Inactive</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold text-[#111111]">
+                Physiotherapy Machines Category Temporarily Inactive
+              </h2>
+              <p className="text-xs sm:text-sm text-neutral-600 mt-2 leading-relaxed">
+                The Physiotherapy Machines equipment catalogue is temporarily inactive for customer-facing online browsing during this phase. All product specifications, clinical assets, and institutional pricing records remain safely preserved in our central medical system.
+              </p>
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <Link
+                  to="/"
+                  className="px-5 py-2.5 bg-[#111111] hover:bg-black text-white text-xs font-bold rounded-lg transition-colors flex items-center gap-2"
+                >
+                  <span>Explore 6 Active Categories</span>
+                  <ArrowRight size={14} className="text-[#167A4A]" />
+                </Link>
+                <Link
+                  to="/request-quote"
+                  className="px-5 py-2.5 bg-white border border-neutral-300 hover:bg-neutral-50 text-neutral-900 text-xs font-bold rounded-lg transition-colors"
+                >
+                  <span>Institutional Procurement Inquiry</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Main 2-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-10">

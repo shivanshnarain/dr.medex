@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 interface LogoProps {
-  variant?: "dark-bg" | "light-bg";
+  variant?: "dark-bg" | "light-bg" | "monochrome";
   className?: string;
   showTagline?: boolean;
 }
@@ -13,14 +13,15 @@ export const Logo: React.FC<LogoProps> = ({
   showTagline = true,
 }) => {
   const isLightBg = variant === "light-bg";
+  const isMonochrome = variant === "monochrome";
 
   return (
-    <Link to="/" className={`inline-flex items-center gap-3 group select-none ${className}`}>
+    <Link to={isMonochrome ? "/admin" : "/"} className={`inline-flex items-center gap-3 group select-none ${className}`}>
       {/* Precision Medical Cross Icon */}
-      <div className="relative w-9 h-9 sm:w-10 sm:h-10 shrink-0 flex items-center justify-center rounded-xl overflow-hidden shadow-md shadow-black/10 group-hover:scale-105 transition-transform duration-200">
+      <div className="relative w-9 h-9 sm:w-10 sm:h-10 shrink-0 flex items-center justify-center rounded-xl overflow-hidden shadow-xs group-hover:scale-105 transition-transform duration-200">
         <svg viewBox="0 0 40 40" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
           {/* Base rounded square */}
-          <rect width="40" height="40" rx="10" fill="#111111" />
+          <rect width="40" height="40" rx="10" fill="#000000" />
 
           {/* Symmetrical Layered Medical Cross */}
           {/* Vertical stem */}
@@ -28,12 +29,12 @@ export const Logo: React.FC<LogoProps> = ({
           {/* Horizontal crossbar */}
           <rect x="7" y="16" width="26" height="8" rx="2.5" fill="#FFFFFF" />
 
-          {/* Red Accent on Core Cross - Brand Identity */}
-          <rect x="17.5" y="8.5" width="5" height="11" rx="1.5" fill="#EF4444" />
-          <rect x="8.5" y="17.5" width="11" height="5" rx="1.5" fill="#EF4444" />
+          {/* Core Cross Accents */}
+          <rect x="17.5" y="8.5" width="5" height="11" rx="1.5" fill={isMonochrome ? "#111111" : "#EF4444"} />
+          <rect x="8.5" y="17.5" width="11" height="5" rx="1.5" fill={isMonochrome ? "#111111" : "#EF4444"} />
 
-          {/* Medical Technology Center Accent */}
-          <rect x="17.5" y="17.5" width="5" height="5" rx="1" fill="#1F7A4D" />
+          {/* Center Accent */}
+          <rect x="17.5" y="17.5" width="5" height="5" rx="1" fill={isMonochrome ? "#444444" : "#1F7A4D"} />
           <circle cx="20" cy="20" r="1.5" fill="#FFFFFF" />
         </svg>
       </div>
@@ -41,18 +42,18 @@ export const Logo: React.FC<LogoProps> = ({
       {/* DR.MEDEX Wordmark */}
       <div className="flex flex-col leading-none">
         <div className="flex items-baseline tracking-tight font-black text-xl sm:text-2xl">
-          <span className="text-[#EF4444] transition-colors">DR.</span>
-          <span className={`${isLightBg ? "text-[#111111]" : "text-white"} transition-colors tracking-wide`}>
+          <span className={`${isMonochrome ? "text-black" : "text-[#EF4444]"} transition-colors`}>DR.</span>
+          <span className={`${isMonochrome ? "text-black" : isLightBg ? "text-[#111111]" : "text-white"} transition-colors tracking-wide`}>
             MEDEX
           </span>
         </div>
         {showTagline && (
           <span
             className={`text-[8px] sm:text-[9px] font-bold tracking-[0.18em] uppercase mt-1 ${
-              isLightBg ? "text-neutral-500" : "text-neutral-400"
+              isMonochrome ? "text-neutral-500" : isLightBg ? "text-neutral-500" : "text-neutral-400"
             }`}
           >
-            ADVANCING HEALTHCARE GLOBALLY
+            {isMonochrome ? "ADMIN OPERATIONS CONSOLE" : "ADVANCING HEALTHCARE GLOBALLY"}
           </span>
         )}
       </div>

@@ -194,6 +194,12 @@ module.exports = {
     let list = [...state.products];
     if (!filters.includeInactive) {
       list = list.filter(p => (p.status || "ACTIVE") === "ACTIVE");
+      // Hide products whose category is inactive
+      list = list.filter(p => {
+        const cat = state.categories.find(c => c.id === p.category || c.slug === p.category);
+        if (cat && (cat.status === "INACTIVE" || cat.active === false)) return false;
+        return true;
+      });
     }
     if (filters.category && filters.category !== "ALL") {
       list = list.filter(p => p.category === filters.category);
@@ -267,14 +273,15 @@ module.exports = {
       return { products: [], categories: [], totalCount: 0 };
     }
     const q = query.toLowerCase().trim();
-    // Fetch ranked products
+    // Fetch ranked products (respects category active state)
     const matchedProducts = module.exports.getProducts({ search: q });
 
-    // Match categories & subcategories
+    // Match categories & subcategories (only active categories)
     const matchedCategories = [];
     const seenCatSlugs = new Set();
 
     for (const cat of state.categories) {
+      if (cat.status === "INACTIVE" || cat.active === false) continue;
       const catMatch = (cat.name || "").toLowerCase().includes(q) || (cat.slug || "").toLowerCase().includes(q);
       if (catMatch && !seenCatSlugs.has(cat.slug)) {
         seenCatSlugs.add(cat.slug);
@@ -311,13 +318,27 @@ module.exports = {
       totalCount: matchedProducts.length
     };
   },
-  getProductById: (id) => {
+  getProductById: (id, includeInactive = false) => {
     checkReload();
-    return state.products.find(p => p.id === id || p.slug === id);
+    const p = state.products.find(prod => prod.id === id || prod.slug === id);
+    if (!p) return null;
+    if (!includeInactive) {
+      const cat = state.categories.find(c => c.id === p.category || c.slug === p.category);
+      if (cat && (cat.status === "INACTIVE" || cat.active === false)) return null;
+      if ((p.status || "ACTIVE") !== "ACTIVE") return null;
+    }
+    return p;
   },
-  getProductBySlug: (slug) => {
+  getProductBySlug: (slug, includeInactive = false) => {
     checkReload();
-    return state.products.find(p => p.slug === slug || p.id === slug);
+    const p = state.products.find(prod => prod.slug === slug || prod.id === slug);
+    if (!p) return null;
+    if (!includeInactive) {
+      const cat = state.categories.find(c => c.id === p.category || c.slug === p.category);
+      if (cat && (cat.status === "INACTIVE" || cat.active === false)) return null;
+      if ((p.status || "ACTIVE") !== "ACTIVE") return null;
+    }
+    return p;
   },
   addProduct: (productData) => {
     const assignedId = (productData && productData.id) ? productData.id : "prod-" + Date.now() + "-" + Math.random().toString(36).substring(2, 6);
@@ -354,7 +375,25 @@ module.exports = {
     }
     return null;
   },
-  getCategories: () => state.categories,
+  getCategories: (includeInactive = false) => {
+    checkReload();
+    if (includeInactive) return state.categories;
+    return state.categories.filter(c => c.status !== "INACTIVE" && c.active !== false);
+  },
+  getAllCategories: () => {
+    checkReload();
+    return state.categories;
+  },
+  updateCategory: (id, updates) => {
+    checkReload();
+    const idx = state.categories.findIndex(c => c.id === id || c.slug === id);
+    if (idx !== -1) {
+      state.categories[idx] = { ...state.categories[idx], ...updates };
+      persist();
+      return state.categories[idx];
+    }
+    return null;
+  },
   getCountries: () => state.countries,
   getBlogs: () => state.blogs,
   getOrders: () => state.orders,

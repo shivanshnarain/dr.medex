@@ -107,33 +107,33 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-xs text-neutral-400">
               <li>
-                <Link to="/shop-all?category=physiotherapy" className="hover:text-white transition-colors">
-                  Physiotherapy Machines
-                </Link>
-              </li>
-              <li>
-                <Link to="/shop-all?category=electrosurgical" className="hover:text-white transition-colors">
+                <Link to="/category/electrosurgical-units" className="hover:text-white transition-colors">
                   Electrosurgical Units
                 </Link>
               </li>
               <li>
-                <Link to="/shop-all?category=cryosurgery" className="hover:text-white transition-colors">
+                <Link to="/category/cryo-surgical" className="hover:text-white transition-colors">
                   Cryosurgical Equipment
                 </Link>
               </li>
               <li>
-                <Link to="/shop-all?category=ot-lights" className="hover:text-white transition-colors">
+                <Link to="/category/ot-lights" className="hover:text-white transition-colors">
                   OT / Surgical Lights
                 </Link>
               </li>
               <li>
-                <Link to="/shop-all?category=tables" className="hover:text-white transition-colors">
+                <Link to="/category/examination-ot-tables" className="hover:text-white transition-colors">
                   Examination & OT Tables
                 </Link>
               </li>
               <li>
-                <Link to="/shop-all?category=ob-gyn" className="hover:text-white transition-colors">
+                <Link to="/category/obstetrics-and-gynaecology" className="hover:text-white transition-colors">
                   Obstetrics & Gynaecology
+                </Link>
+              </li>
+              <li>
+                <Link to="/category/medical-equipment" className="hover:text-white transition-colors">
+                  General Medical Equipment
                 </Link>
               </li>
               <li className="pt-1">

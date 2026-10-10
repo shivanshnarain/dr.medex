@@ -47,37 +47,37 @@ export const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden border border-[#EAEAEA] animate-in fade-in zoom-in-95 duration-200">
-        <div className="px-6 py-4 border-b border-[#222222] flex items-center justify-between bg-[#111111] text-white">
+        <div className="px-6 py-4 border-b border-[#E5E5E5] flex items-center justify-between bg-white text-black">
           <div className="flex items-center gap-2.5">
-            <ShieldAlert size={18} className="text-[#E57373]" />
-            <h3 className="font-bold text-sm sm:text-base">
-              Product Status & Removal Management
+            <ShieldAlert size={18} className="text-black" />
+            <h3 className="font-bold text-sm sm:text-base font-mono uppercase tracking-wider">
+              Product Removal Management
             </h3>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="text-[#888888] hover:text-white"
+            className="text-neutral-400 hover:text-black"
           >
             <X size={18} />
           </button>
         </div>
 
         <div className="p-6 sm:p-8 space-y-5">
-          <div className="p-4 bg-[#FAFAFA] border border-[#EAEAEA] rounded-xl">
-            <span className="text-3xs uppercase font-bold text-[#777777] block">
+          <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-xl">
+            <span className="text-3xs uppercase font-bold text-neutral-500 font-mono block">
               Target Product:
             </span>
-            <p className="text-xs sm:text-sm font-bold text-[#111111] mt-1">
+            <p className="text-xs sm:text-sm font-bold text-black mt-1">
               {product.title}
             </p>
-            <p className="text-3xs font-mono text-[#777777] mt-1">
+            <p className="text-3xs font-mono text-neutral-500 mt-1">
               SKU: {product.sku} | ID: {product.id}
             </p>
           </div>
 
           <div className="space-y-3">
-            <label className="text-xs font-bold text-[#111111] block">
+            <label className="text-xs font-bold text-black block">
               Choose Removal Action:
             </label>
 
@@ -85,22 +85,22 @@ export const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
               onClick={() => setDeleteMode("archive")}
               className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
                 deleteMode === "archive"
-                  ? "border-[#111111] bg-[#FAFAFA]"
-                  : "border-[#EAEAEA] hover:border-[#CCCCCC]"
+                  ? "border-black bg-neutral-50"
+                  : "border-neutral-200 hover:border-neutral-400"
               }`}
             >
               <div className="flex items-start gap-3">
-                <Archive size={18} className="text-[#1F7A4D] shrink-0 mt-0.5" />
+                <Archive size={18} className="text-black shrink-0 mt-0.5" />
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-[#111111]">
+                    <span className="text-xs font-bold text-black">
                       Archive Product (Recommended)
                     </span>
-                    <span className="px-2 py-0.5 rounded text-3xs font-extrabold bg-[#EAF5EF] text-[#1F7A4D]">
+                    <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-neutral-200 text-black">
                       SAFE
                     </span>
                   </div>
-                  <p className="text-xs text-[#555555] mt-1 leading-relaxed">
+                  <p className="text-xs text-neutral-600 mt-1 leading-relaxed">
                     Immediately unpublishes and hides the product from the storefront. Preserves database records to guarantee historical orders and audit tracking never break.
                   </p>
                 </div>
@@ -111,23 +111,23 @@ export const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
               onClick={() => setDeleteMode("permanent")}
               className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
                 deleteMode === "permanent"
-                  ? "border-[#DC2626] bg-[#FEF2F2]"
-                  : "border-[#EAEAEA] hover:border-[#CCCCCC]"
+                  ? "border-black bg-neutral-100"
+                  : "border-neutral-200 hover:border-neutral-400"
               }`}
             >
               <div className="flex items-start gap-3">
-                <Trash2 size={18} className="text-[#DC2626] shrink-0 mt-0.5" />
+                <Trash2 size={18} className="text-black shrink-0 mt-0.5" />
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-[#DC2626]">
-                      Delete this product permanently?
+                    <span className="text-xs font-bold text-black">
+                      Delete this product permanently
                     </span>
-                    <span className="px-2 py-0.5 rounded text-3xs font-extrabold bg-[#FEE2E2] text-[#DC2626]">
+                    <span className="px-2 py-0.5 rounded text-3xs font-mono font-bold bg-black text-white">
                       IRREVERSIBLE
                     </span>
                   </div>
-                  <p className="text-xs text-[#555555] mt-1 leading-relaxed">
-                    Completely purges the product from the database. If this product was previously purchased in customer orders, deletion will be blocked and converted to archive to protect financial records.
+                  <p className="text-xs text-neutral-600 mt-1 leading-relaxed">
+                    Purges the record from the database. If this product was previously purchased in customer orders, deletion is blocked and converted to archive to protect historical records.
                   </p>
                 </div>
               </div>
@@ -135,26 +135,26 @@ export const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
           </div>
 
           {deleteMode === "permanent" && (
-            <div className="p-3.5 bg-[#FEF2F2] border border-[#FECACA] rounded-xl space-y-2">
-              <label className="block text-3xs font-bold uppercase text-[#991B1B]">
-                Type <span className="font-mono underline">DELETE</span> to confirm permanent purge:
+            <div className="p-3.5 bg-neutral-50 border border-neutral-300 rounded-xl space-y-2">
+              <label className="block text-3xs font-bold uppercase font-mono text-black">
+                Type <span className="underline">DELETE</span> to confirm permanent removal:
               </label>
               <input
                 type="text"
                 value={confirmText}
                 onChange={(e) => setConfirmText(e.target.value)}
                 placeholder="DELETE"
-                className="w-full px-3 py-2 border border-[#F87171] rounded-lg text-xs font-mono font-bold text-[#991B1B] focus:outline-none focus:ring-1 focus:ring-[#DC2626]"
+                className="w-full px-3 py-2 border border-black rounded-lg text-xs font-mono font-bold text-black focus:outline-none"
               />
             </div>
           )}
         </div>
 
-        <div className="px-6 sm:px-8 py-4 border-t border-[#EAEAEA] bg-[#FAFAFA] flex items-center justify-end gap-3">
+        <div className="px-6 sm:px-8 py-4 border-t border-neutral-200 bg-neutral-50 flex items-center justify-end gap-3">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2.5 border border-[#EAEAEA] rounded-lg text-xs font-semibold text-[#111111] hover:bg-white transition-colors"
+            className="px-4 py-2 border border-neutral-300 rounded-lg text-xs font-semibold text-black hover:bg-white transition-colors"
           >
             Cancel
           </button>
@@ -162,13 +162,9 @@ export const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
             type="button"
             disabled={isProcessing || (deleteMode === "permanent" && confirmText !== "DELETE")}
             onClick={handleAction}
-            className={`px-5 py-2.5 rounded-lg text-xs font-semibold text-white shadow-xs disabled:opacity-50 transition-colors ${
-              deleteMode === "archive"
-                ? "bg-[#111111] hover:bg-black"
-                : "bg-[#DC2626] hover:bg-[#B91C1C]"
-            }`}
+            className="px-5 py-2 rounded-lg text-xs font-bold text-white bg-black hover:bg-neutral-800 disabled:opacity-40 transition-colors"
           >
-            {isProcessing ? "Executing..." : deleteMode === "archive" ? "Confirm Archive" : "Permanently Delete"}
+            {isProcessing ? "Processing..." : deleteMode === "archive" ? "Confirm Archive" : "Permanently Delete"}
           </button>
         </div>
       </div>

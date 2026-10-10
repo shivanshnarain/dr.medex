@@ -75,8 +75,8 @@ router.get("/me", requireAdmin, (req, res) => {
 // ==========================================
 
 router.get("/dashboard", requireAdmin, (req, res) => {
-  const products = store.getProducts();
-  const categories = store.getCategories();
+  const products = store.getProducts({ includeInactive: true });
+  const categories = store.getAllCategories();
   const orders = store.getOrders();
   const quotes = store.getQuotes();
   const auditLogs = auditService.getLogs({ limit: 12 });
@@ -168,7 +168,7 @@ router.get("/dashboard", requireAdmin, (req, res) => {
 
 router.get("/products", requireAdmin, (req, res) => {
   const { search, category, status, stock, sort = "updated_desc", page = 1, limit = 20 } = req.query;
-  let list = store.getProducts();
+  let list = store.getProducts({ includeInactive: true });
 
   // Search filter
   if (search) {
@@ -231,6 +231,33 @@ router.get("/products", requireAdmin, (req, res) => {
     totalPages: Math.ceil(total / l),
     products: paginated
   });
+});
+
+router.get("/products/check-sku", requireAdmin, (req, res) => {
+  const { sku, excludeId } = req.query;
+  if (!sku) {
+    return res.json({ success: true, isUnique: true });
+  }
+  const clean = sku.trim().toLowerCase();
+  const all = store.getProducts({ includeInactive: true });
+  const conflict = all.find(p => {
+    if (excludeId && (p.id === excludeId || p.slug === excludeId)) return false;
+    const s = (p.sku || p.SKU || "").toLowerCase();
+    return s === clean;
+  });
+  res.json({
+    success: true,
+    isUnique: !conflict,
+    conflictingProduct: conflict ? { id: conflict.id, title: conflict.title || conflict.productName, sku: conflict.sku } : null
+  });
+});
+
+router.get("/products/:id", requireAdmin, (req, res) => {
+  const product = store.getProductById(req.params.id, true);
+  if (!product) {
+    return res.status(404).json({ success: false, message: "Product not found" });
+  }
+  res.json({ success: true, product });
 });
 
 router.post("/products", requireAdmin, (req, res) => {
@@ -553,6 +580,54 @@ router.delete("/media", requireAdmin, async (req, res) => {
 router.get("/audit-logs", requireAdmin, (req, res) => {
   const logs = auditService.getLogs(req.query);
   res.json({ success: true, count: logs.length, logs });
+});
+
+// ==========================================
+// 7. CATEGORY MANAGEMENT ENDPOINTS
+// ==========================================
+
+router.get("/categories", requireAdmin, (req, res) => {
+  const allCats = store.getAllCategories();
+  const allProds = store.getProducts({ includeInactive: true });
+  const categoryStats = allCats.map(cat => {
+    const prods = allProds.filter(p => p.category === cat.id || p.category === cat.slug);
+    const published = prods.filter(p => (p.status || "ACTIVE") === "ACTIVE");
+    return {
+      ...cat,
+      totalProducts: prods.length,
+      publishedProducts: published.length
+    };
+  });
+  res.json({ success: true, categories: categoryStats });
+});
+
+router.put("/categories/:id", requireAdmin, (req, res) => {
+  const cat = store.getAllCategories().find(c => c.id === req.params.id || c.slug === req.params.id);
+  if (!cat) {
+    return res.status(404).json({ success: false, message: "Category not found" });
+  }
+  const updates = req.body;
+  const updated = store.updateCategory(cat.id, updates);
+  auditService.logAction(req.admin.email, "CATEGORY_UPDATED", cat.id, updates);
+  res.json({ success: true, category: updated });
+});
+
+router.put("/categories/:id/status", requireAdmin, (req, res) => {
+  const cat = store.getAllCategories().find(c => c.id === req.params.id || c.slug === req.params.id);
+  if (!cat) {
+    return res.status(404).json({ success: false, message: "Category not found" });
+  }
+  const { status, active } = req.body;
+  const newStatus = status || (active ? "ACTIVE" : "INACTIVE");
+  const newActive = active !== undefined ? active : newStatus === "ACTIVE";
+
+  const updated = store.updateCategory(cat.id, { status: newStatus, active: newActive });
+  auditService.logAction(req.admin.email, "CATEGORY_STATUS_CHANGED", cat.id, {
+    categoryName: cat.name,
+    status: newStatus,
+    active: newActive
+  });
+  res.json({ success: true, category: updated });
 });
 
 module.exports = router;
