@@ -64,6 +64,21 @@ export interface Product {
   reviewNote?: string | null;
   reviewedBy?: string | null;
   reviewedAt?: string | null;
+  cloudinarySyncStatus?: "UPLOADING" | "IMAGES_UPLOADED" | "UPLOAD_INCOMPLETE" | "UPLOAD_FAILED" | "REMOVING" | "IMAGES_REMOVED" | "REMOVAL_INCOMPLETE" | "REMOVAL_FAILED" | string;
+  cloudinaryLastSyncedAt?: string;
+  managedCloudinaryImages?: Array<{
+    publicId: string;
+    secureUrl: string;
+    originalUrl?: string;
+    order?: number;
+    isPrimary?: boolean;
+    sizeBytes?: number;
+    originalSizeBytes?: number;
+    compressionRatio?: number;
+    uploadState?: string;
+  }>;
+  originalImages?: string[];
+  originalPrimaryImage?: string;
   createdAt?: string;
   updatedAt?: string;
 }

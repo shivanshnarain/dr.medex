@@ -208,10 +208,23 @@
       },
       "lastPriceSync": "2026-10-04T18:39:44.225866+00:00",
       "priceSyncStatus": "SYNCED",
-      "reviewStatus": "CORRECT",
+      "reviewStatus": "NEEDS_EDITING",
       "reviewNote": null,
       "reviewedBy": "roshan.official0009@gmail.com",
-      "reviewedAt": "2026-10-11T08:32:45.182Z"
+      "reviewedAt": "2026-10-11T08:32:45.182Z",
+      "managedCloudinaryImages": [],
+      "originalImages": [
+        "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_1.png",
+        "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_2.png",
+        "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_3.png",
+        "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_4.png",
+        "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_5.png",
+        "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_6.png",
+        "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_7.png",
+        "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_8.png"
+      ],
+      "originalPrimaryImage": "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_1.png",
+      "cloudinarySyncStatus": "IMAGES_REMOVED"
     },
     {
       "id": "prod-1-mhz-ultrasound-therapy",

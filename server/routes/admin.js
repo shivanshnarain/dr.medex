@@ -7,6 +7,7 @@ const aiGeneratorService = require("../services/aiGeneratorService");
 const store = require("../services/store");
 const catalogueHierarchy = require("../data/catalogueHierarchy");
 const exportService = require("../services/exportService");
+const cloudinaryService = require("../services/cloudinaryService");
 
 /**
  * Authentication Middleware
@@ -439,7 +440,7 @@ router.get("/products/:id/download-package", requireAdmin, async (req, res) => {
 /**
  * Update Admin Review Status (CORRECT, NEEDS_EDITING, PENDING) with optional review note
  */
-router.put("/products/:id/review", requireAdmin, (req, res) => {
+router.put("/products/:id/review", requireAdmin, async (req, res) => {
   try {
     let { reviewStatus, reviewNote } = req.body;
     if (reviewStatus === "NOT_YET_REVIEWED" || reviewStatus === "NOT_REVIEWED") {
@@ -459,7 +460,9 @@ router.put("/products/:id/review", requireAdmin, (req, res) => {
       return res.status(404).json({ success: false, message: "Product not found" });
     }
 
-    // Only update review fields without modifying price, stock, publication status, images, or other product data
+    const previousReviewStatus = existing.reviewStatus || "PENDING";
+
+    // Base review metadata updates
     const updates = {
       reviewStatus,
       reviewNote: reviewNote !== undefined ? (reviewNote ? String(reviewNote).trim() : null) : (reviewStatus === "CORRECT" ? null : existing.reviewNote || null),
@@ -467,23 +470,129 @@ router.put("/products/:id/review", requireAdmin, (req, res) => {
       reviewedAt: new Date().toISOString()
     };
 
+    let cloudinaryResult = null;
+
+    // IMAGE LIFECYCLE HOOKS
+    if (cloudinaryService.isConfigured()) {
+      if (reviewStatus === "CORRECT") {
+        // Upload / optimize images to Cloudinary
+        try {
+          const syncRes = await cloudinaryService.syncProductReviewToCorrect(existing);
+          cloudinaryResult = syncRes;
+          updates.managedCloudinaryImages = syncRes.managedImages;
+          updates.originalImages = syncRes.originalImages;
+          updates.originalPrimaryImage = syncRes.originalPrimaryImage;
+          updates.images = syncRes.images;
+          updates.primaryImage = syncRes.primaryImage;
+          updates.cloudinarySyncStatus = syncRes.status;
+          updates.cloudinaryLastSyncedAt = new Date().toISOString();
+        } catch (syncErr) {
+          console.error("Cloudinary sync to CORRECT error:", syncErr);
+          cloudinaryResult = { status: "UPLOAD_FAILED", error: syncErr.message };
+          updates.cloudinarySyncStatus = "UPLOAD_FAILED";
+        }
+      } else if (reviewStatus === "NEEDS_EDITING" || reviewStatus === "PENDING") {
+        // Remove managed Cloudinary copies and restore source images
+        try {
+          const allProducts = store.getProducts({ includeInactive: true });
+          const removalRes = await cloudinaryService.syncProductReviewRemoval(existing, allProducts);
+          cloudinaryResult = removalRes;
+          updates.images = removalRes.restoredImages;
+          updates.primaryImage = removalRes.restoredPrimaryImage;
+          updates.managedCloudinaryImages = [];
+          updates.cloudinarySyncStatus = removalRes.status;
+          updates.cloudinaryLastSyncedAt = new Date().toISOString();
+        } catch (remErr) {
+          console.error("Cloudinary removal error:", remErr);
+          cloudinaryResult = { status: "REMOVAL_FAILED", error: remErr.message };
+          updates.cloudinarySyncStatus = "REMOVAL_FAILED";
+        }
+      }
+    }
+
     const updated = store.updateProduct(req.params.id, updates);
 
     auditService.logAction(req.admin.email, "PRODUCT_REVIEW_UPDATED", updated.id, {
       title: updated.title || updated.productName,
       sku: updated.sku || updated.SKU,
-      fromStatus: existing.reviewStatus || "PENDING",
+      fromStatus: previousReviewStatus,
       toStatus: reviewStatus,
-      note: updates.reviewNote
+      note: updates.reviewNote,
+      cloudinaryStatus: cloudinaryResult ? cloudinaryResult.status : "NOT_CONFIGURED"
     });
 
     res.json({
       success: true,
       message: `Product review status set to ${reviewStatus}`,
-      product: updated
+      product: updated,
+      cloudinary: cloudinaryResult
     });
   } catch (err) {
     console.error("Update review status error:", err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+/**
+ * Cloudinary Account Usage & Quota
+ */
+router.get("/cloudinary/usage", requireAdmin, async (req, res) => {
+  try {
+    const usage = await cloudinaryService.getAccountUsage();
+    res.json({ success: true, usage });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+/**
+ * Catalogue-Wide Cloudinary Dry Run Report
+ */
+router.get("/cloudinary/dry-run", requireAdmin, async (req, res) => {
+  try {
+    const allProducts = store.getProducts({ includeInactive: true });
+    const dryRun = await cloudinaryService.getCatalogueDryRun(allProducts);
+    res.json({ success: true, dryRun });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+/**
+ * Manual/Retry Product Cloudinary Sync
+ */
+router.post("/products/:id/sync-cloudinary", requireAdmin, async (req, res) => {
+  try {
+    const product = store.getProductById(req.params.id, true);
+    if (!product) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    if (product.reviewStatus === "CORRECT") {
+      const syncRes = await cloudinaryService.syncProductReviewToCorrect(product, { forceReupload: true });
+      const updated = store.updateProduct(product.id, {
+        managedCloudinaryImages: syncRes.managedImages,
+        images: syncRes.images,
+        primaryImage: syncRes.primaryImage,
+        originalImages: syncRes.originalImages,
+        originalPrimaryImage: syncRes.originalPrimaryImage,
+        cloudinarySyncStatus: syncRes.status,
+        cloudinaryLastSyncedAt: new Date().toISOString()
+      });
+      return res.json({ success: true, product: updated, cloudinary: syncRes });
+    } else {
+      const allProducts = store.getProducts({ includeInactive: true });
+      const remRes = await cloudinaryService.syncProductReviewRemoval(product, allProducts);
+      const updated = store.updateProduct(product.id, {
+        images: remRes.restoredImages,
+        primaryImage: remRes.restoredPrimaryImage,
+        managedCloudinaryImages: [],
+        cloudinarySyncStatus: remRes.status,
+        cloudinaryLastSyncedAt: new Date().toISOString()
+      });
+      return res.json({ success: true, product: updated, cloudinary: remRes });
+    }
+  } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 });
