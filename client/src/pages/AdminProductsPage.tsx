@@ -20,7 +20,9 @@ import {
   SlidersHorizontal,
   X,
   Layers,
-  ShieldAlert
+  ShieldAlert,
+  Download,
+  Check
 } from "lucide-react";
 import { AdminLayout } from "../components/admin/AdminLayout";
 import { DeleteProductModal } from "../components/admin/DeleteProductModal";
@@ -40,8 +42,15 @@ export const AdminProductsPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get("category") || "all");
   const [selectedStatus, setSelectedStatus] = useState(searchParams.get("status") || "all");
+  const [selectedReviewStatus, setSelectedReviewStatus] = useState<string>("all");
   const [selectedStock, setSelectedStock] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
+
+  // Review Status Action & Modal State
+  const [reviewUpdatingId, setReviewUpdatingId] = useState<string | null>(null);
+  const [reviewModalProduct, setReviewModalProduct] = useState<Product | null>(null);
+  const [reviewNoteInput, setReviewNoteInput] = useState<string>("");
+  const [downloadingId, setDownloadingId] = useState<string | null>(null);
 
   // Selection & Bulk State
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -119,6 +128,17 @@ export const AdminProductsPage: React.FC = () => {
       result = result.filter((p) => (p.status || "ACTIVE") === selectedStatus);
     }
 
+    // Review status filter (Decoupled from publication status)
+    if (selectedReviewStatus !== "all") {
+      if (selectedReviewStatus === "CORRECT") {
+        result = result.filter((p) => p.reviewStatus === "CORRECT");
+      } else if (selectedReviewStatus === "NEEDS_EDITING") {
+        result = result.filter((p) => p.reviewStatus === "NEEDS_EDITING");
+      } else if (selectedReviewStatus === "PENDING") {
+        result = result.filter((p) => !p.reviewStatus || p.reviewStatus === "PENDING");
+      }
+    }
+
     // Stock filter
     if (selectedStock !== "all") {
       if (selectedStock === "in_stock") {
@@ -156,7 +176,17 @@ export const AdminProductsPage: React.FC = () => {
     }
 
     return result;
-  }, [products, searchQuery, selectedCategory, selectedStatus, selectedStock, sortBy]);
+  }, [products, searchQuery, selectedCategory, selectedStatus, selectedReviewStatus, selectedStock, sortBy]);
+
+  // Live review counts calculated from actual database records
+  const reviewCounts = useMemo(() => {
+    return {
+      all: products.length,
+      correct: products.filter((p) => p.reviewStatus === "CORRECT").length,
+      needsEditing: products.filter((p) => p.reviewStatus === "NEEDS_EDITING").length,
+      pending: products.filter((p) => !p.reviewStatus || p.reviewStatus === "PENDING").length
+    };
+  }, [products]);
 
   // Paginated Products
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
@@ -257,6 +287,80 @@ export const AdminProductsPage: React.FC = () => {
     }
   };
 
+  const handleSetReviewStatus = async (
+    product: Product,
+    status: "CORRECT" | "NEEDS_EDITING" | "PENDING",
+    note?: string
+  ) => {
+    setReviewUpdatingId(product.id);
+    try {
+      const res = await adminFetch(`/api/admin/products/${product.id}/review`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reviewStatus: status, reviewNote: note })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setProducts((prev) =>
+          prev.map((p) => (p.id === product.id ? { ...p, ...data.product } : p))
+        );
+        setBannerMessage({
+          text:
+            status === "CORRECT"
+              ? `✓ "${product.title || product.productName}" verified as Correct.`
+              : status === "NEEDS_EDITING"
+              ? `✕ "${product.title || product.productName}" marked as Needs Editing.`
+              : `Review status reset for "${product.title || product.productName}".`,
+          type: "success"
+        });
+      } else {
+        setBannerMessage({ text: data.message || "Failed to update review status.", type: "error" });
+      }
+    } catch (err) {
+      console.error("Review update error:", err);
+      setBannerMessage({ text: "Network error updating review status.", type: "error" });
+    } finally {
+      setReviewUpdatingId(null);
+    }
+  };
+
+  const handleDownloadPackage = async (product: Product) => {
+    if (downloadingId) return;
+    setDownloadingId(product.id);
+    setBannerMessage({
+      text: `Compiling complete download package for "${product.title || product.productName}"...`,
+      type: "success"
+    });
+    try {
+      const res = await adminFetch(`/api/admin/products/${product.id}/download-package`);
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.message || `Export failed with status ${res.status}`);
+      }
+      const blob = await res.blob();
+      const disposition = res.headers.get("content-disposition");
+      let filename = `DR-MEDEX-${product.slug || product.sku || "product"}.zip`;
+      if (disposition) {
+        const match = disposition.match(/filename=["']?([^"';]+)["']?/i);
+        if (match && match[1]) filename = match[1];
+      }
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = downloadUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(downloadUrl);
+      setBannerMessage({ text: `Package downloaded successfully: ${filename}`, type: "success" });
+    } catch (err: any) {
+      console.error("Export download error:", err);
+      setBannerMessage({ text: err.message || "Failed to download product package.", type: "error" });
+    } finally {
+      setDownloadingId(null);
+    }
+  };
+
   return (
     <AdminLayout
       title="All Catalogue Products"
@@ -298,6 +402,85 @@ export const AdminProductsPage: React.FC = () => {
 
       {/* Filter & Search Toolbar */}
       <div className="bg-white p-5 rounded-2xl border border-[#E5E5E5] space-y-4 mb-6">
+        {/* Review Status Filter Tabs (Phase 4) */}
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-neutral-100">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[10px] font-bold font-mono uppercase text-neutral-400">Review Filter:</span>
+            
+            <button
+              type="button"
+              onClick={() => { setSelectedReviewStatus("all"); setCurrentPage(1); }}
+              className={`px-3 py-1.5 rounded-lg border text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+                selectedReviewStatus === "all"
+                  ? "bg-black text-white border-black shadow-xs"
+                  : "bg-white text-neutral-700 border-neutral-300 hover:border-black"
+              }`}
+            >
+              <span>All Products</span>
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${
+                selectedReviewStatus === "all" ? "bg-neutral-800 text-white" : "bg-neutral-100 text-neutral-700"
+              }`}>{reviewCounts.all}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => { setSelectedReviewStatus("CORRECT"); setCurrentPage(1); }}
+              className={`px-3 py-1.5 rounded-lg border text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+                selectedReviewStatus === "CORRECT"
+                  ? "bg-black text-white border-black shadow-xs"
+                  : "bg-white text-neutral-700 border-neutral-300 hover:border-black"
+              }`}
+            >
+              <Check size={12} className="stroke-[2.5]" />
+              <span>Correct</span>
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${
+                selectedReviewStatus === "CORRECT" ? "bg-neutral-800 text-white" : "bg-neutral-100 text-neutral-700"
+              }`}>{reviewCounts.correct}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => { setSelectedReviewStatus("NEEDS_EDITING"); setCurrentPage(1); }}
+              className={`px-3 py-1.5 rounded-lg border text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+                selectedReviewStatus === "NEEDS_EDITING"
+                  ? "bg-black text-white border-black shadow-xs"
+                  : "bg-white text-neutral-700 border-neutral-300 hover:border-black"
+              }`}
+            >
+              <X size={12} className="stroke-[2.5]" />
+              <span>Needs Editing</span>
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${
+                selectedReviewStatus === "NEEDS_EDITING" ? "bg-neutral-800 text-white" : "bg-neutral-100 text-neutral-700"
+              }`}>{reviewCounts.needsEditing}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => { setSelectedReviewStatus("PENDING"); setCurrentPage(1); }}
+              className={`px-3 py-1.5 rounded-lg border text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+                selectedReviewStatus === "PENDING"
+                  ? "bg-black text-white border-black shadow-xs"
+                  : "bg-white text-neutral-700 border-neutral-300 hover:border-black"
+              }`}
+            >
+              <span>Not Yet Reviewed</span>
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${
+                selectedReviewStatus === "PENDING" ? "bg-neutral-800 text-white" : "bg-neutral-100 text-neutral-700"
+              }`}>{reviewCounts.pending}</span>
+            </button>
+          </div>
+
+          {selectedReviewStatus !== "all" && (
+            <button
+              type="button"
+              onClick={() => { setSelectedReviewStatus("all"); setCurrentPage(1); }}
+              className="text-[11px] text-neutral-500 hover:text-black underline font-mono cursor-pointer"
+            >
+              Reset review filter
+            </button>
+          )}
+        </div>
+
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           {/* Search Box */}
           <div className="relative flex-1 max-w-lg">
@@ -470,13 +653,14 @@ export const AdminProductsPage: React.FC = () => {
                 <th className="py-3 px-4 text-right">Price (INR)</th>
                 <th className="py-3 px-4 text-center">Stock</th>
                 <th className="py-3 px-4 text-center">Status</th>
+                <th className="py-3 px-4 text-center">Review Status</th>
                 <th className="py-3 px-6 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#E5E5E5]">
               {paginatedProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-16 text-center text-neutral-400 text-xs">
+                  <td colSpan={9} className="py-16 text-center text-neutral-400 text-xs">
                     No products matched your active filters or search terms.
                   </td>
                 </tr>
@@ -583,9 +767,93 @@ export const AdminProductsPage: React.FC = () => {
                         </span>
                       </td>
 
+                      {/* Review Status (Tick/Cross Workflow) */}
+                      <td className="py-4 px-4 text-center">
+                        <div className="inline-flex flex-col items-center gap-1">
+                          <div className="inline-flex items-center rounded-lg border border-neutral-300 p-0.5 bg-neutral-50">
+                            {/* ✓ Correct Button */}
+                            <button
+                              type="button"
+                              disabled={reviewUpdatingId === p.id}
+                              onClick={() => handleSetReviewStatus(p, "CORRECT")}
+                              title={
+                                p.reviewStatus === "CORRECT"
+                                  ? `Marked Correct${p.reviewedBy ? ` by ${p.reviewedBy}` : ""} (Click to re-confirm)`
+                                  : "Confirm product information is correct (✓)"
+                              }
+                              className={`px-2 py-1 rounded text-[11px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                                p.reviewStatus === "CORRECT"
+                                  ? "bg-black text-white shadow-xs"
+                                  : "text-neutral-600 hover:text-black hover:bg-neutral-200/60"
+                              }`}
+                            >
+                              <Check size={11} className={p.reviewStatus === "CORRECT" ? "stroke-[2.5]" : ""} />
+                              <span>Correct</span>
+                            </button>
+
+                            {/* ✕ Needs Editing Button */}
+                            <button
+                              type="button"
+                              disabled={reviewUpdatingId === p.id}
+                              onClick={() => {
+                                setReviewModalProduct(p);
+                                setReviewNoteInput(p.reviewNote || "");
+                              }}
+                              title={
+                                p.reviewStatus === "NEEDS_EDITING"
+                                  ? `Needs Editing: ${p.reviewNote || "No note specified"} (Click to edit note)`
+                                  : "Flag that this product requires changes (✕)"
+                              }
+                              className={`px-2 py-1 rounded text-[11px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                                p.reviewStatus === "NEEDS_EDITING"
+                                  ? "bg-neutral-800 text-white shadow-xs"
+                                  : "text-neutral-600 hover:text-black hover:bg-neutral-200/60"
+                              }`}
+                            >
+                              <X size={11} className={p.reviewStatus === "NEEDS_EDITING" ? "stroke-[2.5]" : ""} />
+                              <span>Needs Editing</span>
+                            </button>
+                          </div>
+
+                          {/* Review Note preview if present */}
+                          {p.reviewStatus === "NEEDS_EDITING" && p.reviewNote && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setReviewModalProduct(p);
+                                setReviewNoteInput(p.reviewNote || "");
+                              }}
+                              title={`Review note: ${p.reviewNote}. Click to edit note.`}
+                              className="max-w-[155px] truncate text-[10px] text-neutral-600 font-mono bg-neutral-100 hover:bg-neutral-200 px-1.5 py-0.5 rounded border border-neutral-200 text-left transition-colors cursor-pointer"
+                            >
+                              "{p.reviewNote}"
+                            </button>
+                          )}
+
+                          {/* Unreviewed status text */}
+                          {(!p.reviewStatus || p.reviewStatus === "PENDING") && (
+                            <span className="text-[9px] font-mono text-neutral-400">
+                              Not Yet Reviewed
+                            </span>
+                          )}
+                        </div>
+                      </td>
+
                       {/* Action Buttons */}
                       <td className="py-4 px-6 text-right">
                         <div className="flex items-center justify-end gap-1.5">
+                          {/* Download Complete Product Package (ZIP) */}
+                          <button
+                            type="button"
+                            onClick={() => handleDownloadPackage(p)}
+                            disabled={downloadingId === p.id}
+                            title="Download Complete Product Package (ZIP: images + JSON + CSV + README)"
+                            aria-label={`Download complete product package for ${p.title || p.productName}`}
+                            className="p-1.5 text-neutral-500 hover:text-black hover:bg-neutral-100 rounded-md transition-colors cursor-pointer"
+                          >
+                            <Download size={13} className={downloadingId === p.id ? "animate-pulse text-black" : ""} />
+                          </button>
+
                           {/* Sync Reference Price */}
                           <button
                             type="button"
@@ -683,6 +951,107 @@ export const AdminProductsPage: React.FC = () => {
         onConfirmArchive={handleConfirmArchive}
         onConfirmPermanentDelete={handleConfirmPermanentDelete}
       />
+
+      {/* Review Note Modal (Needs Editing Workflow) */}
+      {reviewModalProduct && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 border border-neutral-300 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
+              <div>
+                <h3 className="text-sm font-bold text-black flex items-center gap-1.5">
+                  <X size={15} />
+                  <span>Mark as Needs Editing</span>
+                </h3>
+                <p className="text-[11px] text-neutral-500 font-mono mt-0.5 truncate max-w-xs">
+                  {reviewModalProduct.title || reviewModalProduct.productName} ({reviewModalProduct.sku || reviewModalProduct.modelNumber || "SKU"})
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setReviewModalProduct(null)}
+                className="text-neutral-400 hover:text-black p-1 cursor-pointer"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-xs font-bold text-neutral-800">
+                Reason / Short Review Note for the Owner <span className="font-normal text-neutral-400">(Optional)</span>
+              </label>
+              <textarea
+                rows={3}
+                value={reviewNoteInput}
+                onChange={(e) => setReviewNoteInput(e.target.value)}
+                placeholder="e.g. Incorrect product image, technical specifications need verification, price requires review..."
+                className="w-full p-3 bg-neutral-50 border border-neutral-300 rounded-xl text-xs text-black focus:outline-none focus:border-black font-medium resize-none"
+              />
+
+              {/* Quick Suggestion Buttons */}
+              <div className="pt-1">
+                <span className="text-[10px] font-mono uppercase text-neutral-400 block mb-1.5">Quick suggestion presets:</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {[
+                    "Incorrect product image",
+                    "Product title needs correction",
+                    "Technical specifications need verification",
+                    "Price requires review",
+                    "Missing product information"
+                  ].map((preset) => (
+                    <button
+                      key={preset}
+                      type="button"
+                      onClick={() => setReviewNoteInput(preset)}
+                      className="px-2 py-1 rounded bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 text-[10px] text-neutral-700 transition-colors cursor-pointer"
+                    >
+                      + {preset}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between pt-3 border-t border-neutral-200">
+              <button
+                type="button"
+                onClick={() => {
+                  handleSetReviewStatus(reviewModalProduct, "PENDING", "");
+                  setReviewModalProduct(null);
+                }}
+                className="text-xs text-neutral-500 hover:text-black font-semibold cursor-pointer"
+              >
+                Reset to Unreviewed
+              </button>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setReviewModalProduct(null)}
+                  className="px-3 py-1.5 border border-neutral-300 text-neutral-700 rounded-lg text-xs font-bold hover:bg-neutral-100 transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  disabled={reviewUpdatingId === reviewModalProduct.id}
+                  onClick={() => {
+                    handleSetReviewStatus(reviewModalProduct, "NEEDS_EDITING", reviewNoteInput);
+                    setReviewModalProduct(null);
+                  }}
+                  className="px-4 py-1.5 bg-black text-white rounded-lg text-xs font-bold hover:bg-neutral-800 transition-colors flex items-center gap-1.5 cursor-pointer"
+                >
+                  {reviewUpdatingId === reviewModalProduct.id ? (
+                    <RefreshCw size={12} className="animate-spin" />
+                  ) : (
+                    <X size={12} />
+                  )}
+                  <span>Save as Needs Editing</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </AdminLayout>
   );
 };

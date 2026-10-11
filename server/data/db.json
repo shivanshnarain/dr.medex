@@ -207,7 +207,11 @@
         "syncStatus": "SYNCED"
       },
       "lastPriceSync": "2026-10-04T18:39:44.225866+00:00",
-      "priceSyncStatus": "SYNCED"
+      "priceSyncStatus": "SYNCED",
+      "reviewStatus": "CORRECT",
+      "reviewNote": null,
+      "reviewedBy": "roshan.official0009@gmail.com",
+      "reviewedAt": "2026-10-11T08:32:45.182Z"
     },
     {
       "id": "prod-1-mhz-ultrasound-therapy",
@@ -5162,7 +5166,11 @@
         "syncStatus": "SYNCED"
       },
       "lastPriceSync": "2026-10-04T18:40:39.833540+00:00",
-      "priceSyncStatus": "SYNCED"
+      "priceSyncStatus": "SYNCED",
+      "reviewStatus": "CORRECT",
+      "reviewNote": null,
+      "reviewedBy": "roshan.official0009@gmail.com",
+      "reviewedAt": "2026-10-11T08:32:45.086Z"
     },
     {
       "id": "prod-4-channel-tnes-machine",
@@ -40824,6 +40832,127 @@
     "headquarters": "DR.MEDEX Global MedTech Tower, 45 Healthcare Innovation Way, Boston, MA 02115, USA & International Logistics Hub, Dubai Healthcare City, UAE"
   },
   "auditLogs": [
+    {
+      "id": "audit-1791707565198-yiz33",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-1-3-mhz-ultrasound-thera",
+      "details": {
+        "title": "DR.MEDEX 1&3 MHz Ultrasound Therapy with Dynamic Mode",
+        "sku": "DRM-PHY-B943",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "CORRECT",
+        "note": null
+      },
+      "timestamp": "2026-10-11T08:32:45.198Z"
+    },
+    {
+      "id": "audit-1791707565148-l0ddx",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-1-3-mhz-ultrasound-thera",
+      "details": {
+        "title": "DR.MEDEX 1&3 MHz Ultrasound Therapy with Dynamic Mode",
+        "sku": "DRM-PHY-B943",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Technical specifications need verification against 2026 CE directive."
+      },
+      "timestamp": "2026-10-11T08:32:45.149Z"
+    },
+    {
+      "id": "audit-1791707565101-lb5gl",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-300-w-electrosurgical-ge",
+      "details": {
+        "title": "DR.MEDEX 300 W Electrosurgical Generator Diathermy Machine",
+        "sku": "DRM-ELE-18EE",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null
+      },
+      "timestamp": "2026-10-11T08:32:45.101Z"
+    },
+    {
+      "id": "audit-1791707564907-79inv",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PACKAGE_DOWNLOADED",
+      "productId": "prod-1-3-mhz-ultrasound-thera",
+      "details": {
+        "title": "DR.MEDEX 1&3 MHz Ultrasound Therapy with Dynamic Mode",
+        "sku": "DRM-PHY-B943",
+        "filename": "DR-MEDEX-DR.MEDEX-13-MHz-Ultrasound-Therapy-with-Dynamic-Mode-DRM-PHY-B943.zip",
+        "stats": {
+          "totalImages": 8,
+          "includedImages": 8,
+          "failedImages": 0
+        }
+      },
+      "timestamp": "2026-10-11T08:32:44.907Z"
+    },
+    {
+      "id": "audit-1791707564410-yw3nn",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PACKAGE_DOWNLOADED",
+      "productId": "prod-300-w-electrosurgical-ge",
+      "details": {
+        "title": "DR.MEDEX 300 W Electrosurgical Generator Diathermy Machine",
+        "sku": "DRM-ELE-18EE",
+        "filename": "DR-MEDEX-DR.MEDEX-300-W-Electrosurgical-Generator-Diathermy-Machine-DRM-ELE-18EE.zip",
+        "stats": {
+          "totalImages": 5,
+          "includedImages": 5,
+          "failedImages": 0
+        }
+      },
+      "timestamp": "2026-10-11T08:32:44.410Z"
+    },
+    {
+      "id": "audit-1791707260265-rbhmd",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PACKAGE_DOWNLOADED",
+      "productId": "prod-300-w-electrosurgical-ge",
+      "details": {
+        "title": "DR.MEDEX 300 W Electrosurgical Generator Diathermy Machine",
+        "sku": "DRM-ELE-18EE",
+        "filename": "DR-MEDEX-DR.MEDEX-300-W-Electrosurgical-Generator-Diathermy-Machine-DRM-ELE-18EE.zip",
+        "stats": {
+          "totalImages": 5,
+          "includedImages": 5,
+          "failedImages": 0
+        }
+      },
+      "timestamp": "2026-10-11T08:27:40.265Z"
+    },
+    {
+      "id": "audit-1791707260223-77lc8",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-1-3-mhz-ultrasound-thera",
+      "details": {
+        "title": "DR.MEDEX 1&3 MHz Ultrasound Therapy with Dynamic Mode",
+        "sku": "DRM-PHY-B943",
+        "fromStatus": "PENDING",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Needs high-resolution clinical sensor diagram."
+      },
+      "timestamp": "2026-10-11T08:27:40.223Z"
+    },
+    {
+      "id": "audit-1791707260172-3q5ye",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-300-w-electrosurgical-ge",
+      "details": {
+        "title": "DR.MEDEX 300 W Electrosurgical Generator Diathermy Machine",
+        "sku": "DRM-ELE-18EE",
+        "fromStatus": "PENDING",
+        "toStatus": "CORRECT",
+        "note": null
+      },
+      "timestamp": "2026-10-11T08:27:40.172Z"
+    },
     {
       "id": "audit-1791622186927-wjq97",
       "adminId": "roshan.official0009@gmail.com",

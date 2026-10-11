@@ -60,6 +60,10 @@ export interface Product {
   priceSyncStatus?: string;
   lastPriceSync?: string;
   referencePricing?: ReferencePricing;
+  reviewStatus?: "CORRECT" | "NEEDS_EDITING" | "PENDING";
+  reviewNote?: string | null;
+  reviewedBy?: string | null;
+  reviewedAt?: string | null;
 }
 
 export interface ReferencePricing {

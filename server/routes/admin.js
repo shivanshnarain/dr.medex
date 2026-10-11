@@ -6,6 +6,7 @@ const mediaService = require("../services/mediaService");
 const aiGeneratorService = require("../services/aiGeneratorService");
 const store = require("../services/store");
 const catalogueHierarchy = require("../data/catalogueHierarchy");
+const exportService = require("../services/exportService");
 
 /**
  * Authentication Middleware
@@ -168,8 +169,17 @@ router.get("/dashboard", requireAdmin, (req, res) => {
 // ==========================================
 
 router.get("/products", requireAdmin, (req, res) => {
-  const { search, category, status, stock, sort = "updated_desc", page = 1, limit = 20 } = req.query;
+  const { search, category, status, stock, reviewStatus, sort = "updated_desc", page = 1, limit = 20 } = req.query;
   let list = store.getProducts({ includeInactive: true });
+
+  // Calculate live review counts across all products before filtering
+  const allProducts = list;
+  const reviewCounts = {
+    all: allProducts.length,
+    correct: allProducts.filter(p => p.reviewStatus === "CORRECT").length,
+    needsEditing: allProducts.filter(p => p.reviewStatus === "NEEDS_EDITING").length,
+    pending: allProducts.filter(p => !p.reviewStatus || p.reviewStatus === "PENDING").length
+  };
 
   // Search filter
   if (search) {
@@ -188,9 +198,20 @@ router.get("/products", requireAdmin, (req, res) => {
     list = list.filter(p => p.category === category);
   }
 
-  // Status filter
+  // Status filter (Publication status: ACTIVE, DRAFT, ARCHIVED)
   if (status && status !== "ALL") {
     list = list.filter(p => (p.status || "ACTIVE") === status);
+  }
+
+  // Review Status filter (Decoupled from publication status)
+  if (reviewStatus && reviewStatus !== "ALL" && reviewStatus !== "all") {
+    if (reviewStatus === "CORRECT") {
+      list = list.filter(p => p.reviewStatus === "CORRECT");
+    } else if (reviewStatus === "NEEDS_EDITING") {
+      list = list.filter(p => p.reviewStatus === "NEEDS_EDITING");
+    } else if (reviewStatus === "PENDING" || reviewStatus === "NOT_REVIEWED") {
+      list = list.filter(p => !p.reviewStatus || p.reviewStatus === "PENDING");
+    }
   }
 
   // Stock filter
@@ -230,6 +251,7 @@ router.get("/products", requireAdmin, (req, res) => {
     page: p,
     limit: l,
     totalPages: Math.ceil(total / l),
+    reviewCounts,
     products: paginated
   });
 });
@@ -382,6 +404,85 @@ router.get("/products/:id", requireAdmin, (req, res) => {
     return res.status(404).json({ success: false, message: "Product not found" });
   }
   res.json({ success: true, product });
+});
+
+/**
+ * Export complete product package (JSON + CSV + README + all original images in ZIP)
+ */
+router.get("/products/:id/download-package", requireAdmin, async (req, res) => {
+  try {
+    const product = store.getProductById(req.params.id, true);
+    if (!product) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    const pkg = await exportService.generateProductPackage(product, req.admin);
+
+    auditService.logAction(req.admin.email, "PRODUCT_PACKAGE_DOWNLOADED", product.id, {
+      title: product.title || product.productName,
+      sku: product.sku || product.SKU,
+      filename: pkg.filename,
+      stats: pkg.stats
+    });
+
+    res.setHeader("Content-Type", "application/zip");
+    res.setHeader("Content-Disposition", `attachment; filename="${pkg.filename}"`);
+    res.setHeader("Content-Length", pkg.buffer.length);
+    res.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
+    res.send(pkg.buffer);
+  } catch (err) {
+    console.error("Export product package error:", err);
+    res.status(500).json({ success: false, message: "Failed to generate product package: " + err.message });
+  }
+});
+
+/**
+ * Update Admin Review Status (CORRECT, NEEDS_EDITING, PENDING) with optional review note
+ */
+router.put("/products/:id/review", requireAdmin, (req, res) => {
+  try {
+    const { reviewStatus, reviewNote } = req.body;
+    const permittedStatuses = ["CORRECT", "NEEDS_EDITING", "PENDING"];
+
+    if (!reviewStatus || !permittedStatuses.includes(reviewStatus)) {
+      return res.status(400).json({
+        success: false,
+        message: `Invalid review status. Must be one of: ${permittedStatuses.join(", ")}`
+      });
+    }
+
+    const existing = store.getProductById(req.params.id, true);
+    if (!existing) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    // Only update review fields without modifying price, stock, publication status, images, or other product data
+    const updates = {
+      reviewStatus,
+      reviewNote: reviewNote !== undefined ? (reviewNote ? String(reviewNote).trim() : null) : (reviewStatus === "CORRECT" ? null : existing.reviewNote || null),
+      reviewedBy: req.admin.email,
+      reviewedAt: new Date().toISOString()
+    };
+
+    const updated = store.updateProduct(req.params.id, updates);
+
+    auditService.logAction(req.admin.email, "PRODUCT_REVIEW_UPDATED", updated.id, {
+      title: updated.title || updated.productName,
+      sku: updated.sku || updated.SKU,
+      fromStatus: existing.reviewStatus || "PENDING",
+      toStatus: reviewStatus,
+      note: updates.reviewNote
+    });
+
+    res.json({
+      success: true,
+      message: `Product review status set to ${reviewStatus}`,
+      product: updated
+    });
+  } catch (err) {
+    console.error("Update review status error:", err);
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
 router.post("/products", requireAdmin, (req, res) => {
