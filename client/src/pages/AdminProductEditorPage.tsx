@@ -161,7 +161,7 @@ export const AdminProductEditorPage: React.FC = () => {
   // ==========================================
   // SECTION 9: PUBLISHING & VISIBILITY
   // ==========================================
-  const [status, setStatus] = useState<"ACTIVE" | "DRAFT" | "ARCHIVED">("ACTIVE");
+  const [status, setStatus] = useState<"ACTIVE" | "INACTIVE" | "DRAFT" | "ARCHIVED">("ACTIVE");
   const [isFeatured, setIsFeatured] = useState(false);
   const [isBestSeller, setIsBestSeller] = useState(false);
   const [showOnHomepage, setShowOnHomepage] = useState(true);

@@ -9,7 +9,7 @@ export interface Product {
   category: string;
   subcategory: string;
   productType?: string;
-  status?: "ACTIVE" | "DRAFT" | "ARCHIVED";
+  status?: "ACTIVE" | "INACTIVE" | "DRAFT" | "ARCHIVED";
   basePrice: number;
   regularPrice?: number;
   salePrice?: number;
@@ -60,10 +60,12 @@ export interface Product {
   priceSyncStatus?: string;
   lastPriceSync?: string;
   referencePricing?: ReferencePricing;
-  reviewStatus?: "CORRECT" | "NEEDS_EDITING" | "PENDING";
+  reviewStatus?: "CORRECT" | "NEEDS_EDITING" | "PENDING" | "NOT_YET_REVIEWED";
   reviewNote?: string | null;
   reviewedBy?: string | null;
   reviewedAt?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface ReferencePricing {

@@ -59,7 +59,7 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
   const [subcategory, setSubcategory] = useState("general");
   const [productType, setProductType] = useState("Medical Equipment");
   const [brand, setBrand] = useState("DR.MEDEX");
-  const [status, setStatus] = useState<"ACTIVE" | "DRAFT" | "ARCHIVED">("ACTIVE");
+  const [status, setStatus] = useState<"ACTIVE" | "INACTIVE" | "DRAFT" | "ARCHIVED">("ACTIVE");
   const [isFeatured, setIsFeatured] = useState(false);
   const [isBestSeller, setIsBestSeller] = useState(false);
 

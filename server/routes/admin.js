@@ -441,7 +441,10 @@ router.get("/products/:id/download-package", requireAdmin, async (req, res) => {
  */
 router.put("/products/:id/review", requireAdmin, (req, res) => {
   try {
-    const { reviewStatus, reviewNote } = req.body;
+    let { reviewStatus, reviewNote } = req.body;
+    if (reviewStatus === "NOT_YET_REVIEWED" || reviewStatus === "NOT_REVIEWED") {
+      reviewStatus = "PENDING";
+    }
     const permittedStatuses = ["CORRECT", "NEEDS_EDITING", "PENDING"];
 
     if (!reviewStatus || !permittedStatuses.includes(reviewStatus)) {
@@ -481,6 +484,48 @@ router.put("/products/:id/review", requireAdmin, (req, res) => {
     });
   } catch (err) {
     console.error("Update review status error:", err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+/**
+ * Toggle Active/Inactive Status for Product
+ */
+router.put("/products/:id/status", requireAdmin, (req, res) => {
+  try {
+    const { status } = req.body;
+    const permitted = ["ACTIVE", "INACTIVE", "DRAFT", "ARCHIVED"];
+    if (!status || !permitted.includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: `Invalid status. Must be one of: ${permitted.join(", ")}`
+      });
+    }
+
+    const existing = store.getProductById(req.params.id, true);
+    if (!existing) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    const updated = store.updateProduct(req.params.id, {
+      status,
+      updatedBy: req.admin.email,
+      updatedAt: new Date().toISOString()
+    });
+
+    auditService.logAction(req.admin.email, "PRODUCT_STATUS_TOGGLED", req.params.id, {
+      title: updated.title || updated.productName,
+      fromStatus: existing.status || "ACTIVE",
+      toStatus: status
+    });
+
+    res.json({
+      success: true,
+      message: `Product status updated to ${status}`,
+      product: updated
+    });
+  } catch (err) {
+    console.error("Update product status error:", err);
     res.status(500).json({ success: false, message: err.message });
   }
 });
@@ -556,7 +601,7 @@ router.post("/products", requireAdmin, (req, res) => {
 });
 
 router.put("/products/:id", requireAdmin, (req, res) => {
-  const existing = store.getProductById(req.params.id);
+  const existing = store.getProductById(req.params.id, true);
   if (!existing) {
     return res.status(404).json({ success: false, message: "Product not found" });
   }
@@ -589,7 +634,7 @@ router.put("/products/:id", requireAdmin, (req, res) => {
 });
 
 router.post("/products/:id/sync-price", requireAdmin, (req, res) => {
-  const existing = store.getProductById(req.params.id);
+  const existing = store.getProductById(req.params.id, true);
   if (!existing) {
     return res.status(404).json({ success: false, message: "Product not found" });
   }
@@ -654,7 +699,7 @@ router.post("/products/:id/sync-price", requireAdmin, (req, res) => {
 
 router.delete("/products/:id", requireAdmin, (req, res) => {
   const permanent = req.query.permanent === "true";
-  const existing = store.getProductById(req.params.id);
+  const existing = store.getProductById(req.params.id, true);
 
   if (!existing) {
     return res.status(404).json({ success: false, message: "Product not found" });
@@ -687,7 +732,7 @@ router.delete("/products/:id", requireAdmin, (req, res) => {
 });
 
 router.post("/products/:id/duplicate", requireAdmin, (req, res) => {
-  const existing = store.getProductById(req.params.id);
+  const existing = store.getProductById(req.params.id, true);
   if (!existing) {
     return res.status(404).json({ success: false, message: "Product not found" });
   }
@@ -727,7 +772,7 @@ router.post("/products/bulk", requireAdmin, (req, res) => {
 
   let affected = 0;
   ids.forEach(id => {
-    const p = store.getProductById(id);
+    const p = store.getProductById(id, true);
     if (p) {
       if (action === "publish") {
         store.updateProduct(id, { status: "ACTIVE", updatedBy: req.admin.email });
@@ -821,7 +866,7 @@ router.delete("/media", requireAdmin, async (req, res) => {
 
     // If productId provided, clean up product record gallery
     if (productId) {
-      const p = store.getProductById(productId);
+      const p = store.getProductById(productId, true);
       if (p) {
         let updatedGallery = (p.galleryImages || []).filter(img => (typeof img === "string" ? img : img.url) !== url);
         let updatedImages = (p.images || []).filter(u => u !== url);

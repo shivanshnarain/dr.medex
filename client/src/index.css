@@ -35,6 +35,23 @@
     --color-accent-green-secondary: #7AA05A;
     --color-accent-green-light: #F4F1EB;
     --color-accent-green-dark: #0D4C3C;
+
+    /* DR.MEDEX Admin Panel — Premium White, Black & Yellow Design Tokens */
+    --admin-white: #FFFFFF;
+    --admin-black: #000000;
+    --admin-yellow: #F2C94C;
+    --admin-yellow-light: #FFF8DB;
+    --admin-border-gray: #E5E5E5;
+    --admin-secondary-text: #666666;
+    --admin-status-correct-text: #15803D;
+    --admin-status-correct-bg: #DCFCE7;
+    --admin-status-correct-border: #86EFAC;
+    --admin-status-editing-text: #B91C1C;
+    --admin-status-editing-bg: #FEE2E2;
+    --admin-status-editing-border: #FCA5A5;
+    --admin-status-unreviewed-text: #666666;
+    --admin-status-unreviewed-bg: #F5F5F5;
+    --admin-status-unreviewed-border: #E5E5E5;
   }
 
   body {

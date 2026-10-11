@@ -2864,7 +2864,9 @@
         "syncStatus": "SYNCED"
       },
       "lastPriceSync": "2026-10-04T18:40:31.479297+00:00",
-      "priceSyncStatus": "SYNCED"
+      "priceSyncStatus": "SYNCED",
+      "reviewStatus": "PENDING",
+      "reviewNote": null
     },
     {
       "id": "prod-3-mhz-replacement-wand-p",
@@ -15704,7 +15706,11 @@
         "syncStatus": "SYNCED"
       },
       "lastPriceSync": "2026-10-04T18:41:48.757295+00:00",
-      "priceSyncStatus": "SYNCED"
+      "priceSyncStatus": "SYNCED",
+      "reviewStatus": "NEEDS_EDITING",
+      "reviewNote": null,
+      "reviewedBy": "roshan.official0009@gmail.com",
+      "reviewedAt": "2026-10-11T10:53:58.773Z"
     },
     {
       "id": "prod-examination-table-gyneco",
@@ -40832,6 +40838,86 @@
     "headquarters": "DR.MEDEX Global MedTech Tower, 45 Healthcare Innovation Way, Boston, MA 02115, USA & International Logistics Hub, Dubai Healthcare City, UAE"
   },
   "auditLogs": [
+    {
+      "id": "audit-1791716038792-4vqxv",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-electrosurgical-cautery-",
+      "details": {
+        "title": "DR.MEDEX Electrosurgical Cautery mini electro surgical skin cautery diathermy machine",
+        "sku": "DRM-ELE-D717",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": null
+      },
+      "timestamp": "2026-10-11T10:53:58.792Z"
+    },
+    {
+      "id": "audit-1791716036313-mhhhw",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-electrosurgical-cautery-",
+      "details": {
+        "title": "DR.MEDEX Electrosurgical Cautery mini electro surgical skin cautery diathermy machine",
+        "sku": "DRM-ELE-D717",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null
+      },
+      "timestamp": "2026-10-11T10:53:56.313Z"
+    },
+    {
+      "id": "audit-1791716023660-c0b6j",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-electrosurgical-cautery-",
+      "details": {
+        "title": "DR.MEDEX Electrosurgical Cautery mini electro surgical skin cautery diathermy machine",
+        "sku": "DRM-ELE-D717",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null
+      },
+      "timestamp": "2026-10-11T10:53:43.660Z"
+    },
+    {
+      "id": "audit-1791716022660-i78n0",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-electrosurgical-cautery-",
+      "details": {
+        "title": "DR.MEDEX Electrosurgical Cautery mini electro surgical skin cautery diathermy machine",
+        "sku": "DRM-ELE-D717",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null
+      },
+      "timestamp": "2026-10-11T10:53:42.660Z"
+    },
+    {
+      "id": "audit-1791716019158-5d1ix",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-electrosurgical-cautery-",
+      "details": {
+        "title": "DR.MEDEX Electrosurgical Cautery mini electro surgical skin cautery diathermy machine",
+        "sku": "DRM-ELE-D717",
+        "fromStatus": "PENDING",
+        "toStatus": "CORRECT",
+        "note": null
+      },
+      "timestamp": "2026-10-11T10:53:39.158Z"
+    },
+    {
+      "id": "audit-1791716009926-lo6le",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "::ffff:127.0.0.1"
+      },
+      "timestamp": "2026-10-11T10:53:29.927Z"
+    },
     {
       "id": "audit-1791707565198-yiz33",
       "adminId": "roshan.official0009@gmail.com",
