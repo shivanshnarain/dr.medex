@@ -343,42 +343,33 @@ export const AdminProductsPage: React.FC = () => {
         );
 
         const cld = data.cloudinary;
+        const mongo = data.mongo;
         if (status === "CORRECT") {
+          const parts = [];
           if (cld?.status === "IMAGES_UPLOADED") {
-            setBannerMessage({
-              text: `✓ "${product.title || product.productName}" marked as Correct. ${cld.uploadedCount || "All"} image(s) optimized to WebP and securely stored in Cloudinary.`,
-              type: "success"
-            });
-          } else if (cld?.status === "UPLOAD_INCOMPLETE" || cld?.status === "UPLOAD_FAILED") {
-            setBannerMessage({
-              text: `Review status saved, but Cloudinary upload incomplete: ${cld.error || "Some assets could not be uploaded. Click retry below."}`,
-              type: "error"
-            });
-          } else {
-            setBannerMessage({
-              text: `✓ "${product.title || product.productName}" marked as Correct.`,
-              type: "success"
-            });
+            parts.push(`${cld.uploadedCount || "All"} image(s) in Cloudinary`);
           }
+          if (mongo?.status === "SYNCED") {
+            parts.push("Text synced to MongoDB Atlas");
+          }
+          setBannerMessage({
+            text: `✓ "${product.title || product.productName}" marked as Correct.${parts.length > 0 ? " (" + parts.join(" · ") + ")" : ""}`,
+            type: "success"
+          });
         } else {
+          const parts = [];
           if (cld?.status === "IMAGES_REMOVED") {
-            setBannerMessage({
-              text: `Review status updated. Managed Cloudinary copies removed; original source images preserved & restored.`,
-              type: "success"
-            });
-          } else if (cld?.preservedCount > 0) {
-            setBannerMessage({
-              text: `Review status updated. ${cld.preservedCount} asset(s) preserved from deletion for safety (backup required or shared asset).`,
-              type: "success"
-            });
-          } else {
-            setBannerMessage({
-              text: status === "NEEDS_EDITING"
-                ? `✕ "${product.title || product.productName}" marked as Needs Editing.`
-                : `Review status reset to Not Yet Reviewed for "${product.title || product.productName}".`,
-              type: "success"
-            });
+            parts.push("Cloudinary copies removed");
           }
+          if (mongo?.status === "REMOVED") {
+            parts.push("Removed from MongoDB Atlas");
+          }
+          setBannerMessage({
+            text: status === "NEEDS_EDITING"
+              ? `✕ "${product.title || product.productName}" marked as Needs Editing.${parts.length > 0 ? " (" + parts.join(" · ") + ")" : ""}`
+              : `Review status reset to Not Yet Reviewed.${parts.length > 0 ? " (" + parts.join(" · ") + ")" : ""}`,
+            type: "success"
+          });
         }
       } else {
         setBannerMessage({ text: data.message || "Failed to update review status.", type: "error" });
@@ -1146,6 +1137,37 @@ export const AdminProductsPage: React.FC = () => {
                             <div className="mt-0.5 text-[9px] text-[#666666] font-mono">
                               Images Removed
                             </div>
+                          )}
+
+                          {/* MongoDB Atlas Text Synchronization Micro-Indicator */}
+                          {p.mongoSyncStatus === "SYNCED" && p.reviewStatus === "CORRECT" && (
+                            <div className="mt-0.5 text-[9px] text-[#047857] font-mono flex items-center justify-center gap-1">
+                              <Database size={8} />
+                              <span>MongoDB Atlas Synced</span>
+                            </div>
+                          )}
+
+                          {p.mongoSyncStatus === "SYNC_FAILED" && (
+                            <button
+                              type="button"
+                              onClick={async () => {
+                                try {
+                                  const res = await adminFetch(`/api/admin/products/${p.id}/sync-mongodb`, { method: "POST" });
+                                  const data = await res.json();
+                                  if (data.success) {
+                                    setProducts(prev => prev.map(prod => prod.id === p.id ? { ...prod, ...data.product } : prod));
+                                    setBannerMessage({ text: "MongoDB Atlas sync completed successfully.", type: "success" });
+                                  }
+                                } catch (e: any) {
+                                  setBannerMessage({ text: e.message, type: "error" });
+                                }
+                              }}
+                              title="Click to retry MongoDB Atlas sync"
+                              className="mt-0.5 inline-flex items-center gap-1 text-[9px] text-[#B91C1C] font-mono bg-[#FEE2E2] px-1.5 py-0.5 rounded border border-[#FCA5A5] hover:bg-[#FECACA] cursor-pointer"
+                            >
+                              <RefreshCw size={8} />
+                              <span>MongoDB Failed · Retry</span>
+                            </button>
                           )}
 
                           {/* Review Note preview if present */}

@@ -15723,7 +15723,7 @@
       "reviewStatus": "NEEDS_EDITING",
       "reviewNote": null,
       "reviewedBy": "roshan.official0009@gmail.com",
-      "reviewedAt": "2026-10-11T11:30:22.622Z"
+      "reviewedAt": "2026-10-11T13:28:19.119Z"
     },
     {
       "id": "prod-examination-table-gyneco",
@@ -40851,6 +40851,34 @@
     "headquarters": "DR.MEDEX Global MedTech Tower, 45 Healthcare Innovation Way, Boston, MA 02115, USA & International Logistics Hub, Dubai Healthcare City, UAE"
   },
   "auditLogs": [
+    {
+      "id": "audit-1791725299137-vr0fh",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-electrosurgical-cautery-",
+      "details": {
+        "title": "DR.MEDEX Electrosurgical Cautery mini electro surgical skin cautery diathermy machine",
+        "sku": "DRM-ELE-D717",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": null
+      },
+      "timestamp": "2026-10-11T13:28:19.137Z"
+    },
+    {
+      "id": "audit-1791725292008-dnjj9",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-electrosurgical-cautery-",
+      "details": {
+        "title": "DR.MEDEX Electrosurgical Cautery mini electro surgical skin cautery diathermy machine",
+        "sku": "DRM-ELE-D717",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "CORRECT",
+        "note": null
+      },
+      "timestamp": "2026-10-11T13:28:12.008Z"
+    },
     {
       "id": "audit-1791718222647-6a4mx",
       "adminId": "roshan.official0009@gmail.com",

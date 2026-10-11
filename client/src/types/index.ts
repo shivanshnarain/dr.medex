@@ -79,6 +79,8 @@ export interface Product {
   }>;
   originalImages?: string[];
   originalPrimaryImage?: string;
+  mongoSyncStatus?: "SYNCED" | "REMOVED" | "SYNC_FAILED" | "REMOVAL_FAILED" | string;
+  mongoSyncedAt?: string;
   createdAt?: string;
   updatedAt?: string;
 }

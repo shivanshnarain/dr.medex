@@ -8,6 +8,7 @@ const store = require("../services/store");
 const catalogueHierarchy = require("../data/catalogueHierarchy");
 const exportService = require("../services/exportService");
 const cloudinaryService = require("../services/cloudinaryService");
+const mongoService = require("../services/mongoService");
 
 /**
  * Authentication Middleware
@@ -510,6 +511,35 @@ router.put("/products/:id/review", requireAdmin, async (req, res) => {
       }
     }
 
+    // MONGODB TEXT-DATA LIFECYCLE HOOKS
+    let mongoResult = null;
+    if (mongoService.isConfigured()) {
+      if (reviewStatus === "CORRECT") {
+        try {
+          const candidateProduct = { ...existing, ...updates };
+          const mRes = await mongoService.upsertApprovedProduct(candidateProduct, req.admin.email);
+          mongoResult = mRes;
+          updates.mongoSyncStatus = mRes.status;
+          updates.mongoSyncedAt = new Date().toISOString();
+        } catch (mErr) {
+          console.error("MongoDB Atlas sync to CORRECT error:", mErr.message);
+          mongoResult = { status: "SYNC_FAILED", error: mErr.message };
+          updates.mongoSyncStatus = "SYNC_FAILED";
+        }
+      } else if (reviewStatus === "NEEDS_EDITING" || reviewStatus === "PENDING") {
+        try {
+          const mDel = await mongoService.removeApprovedProduct(existing.id);
+          mongoResult = mDel;
+          updates.mongoSyncStatus = mDel.status;
+          updates.mongoSyncedAt = new Date().toISOString();
+        } catch (mDelErr) {
+          console.error("MongoDB Atlas removal error:", mDelErr.message);
+          mongoResult = { status: "REMOVAL_FAILED", error: mDelErr.message };
+          updates.mongoSyncStatus = "REMOVAL_FAILED";
+        }
+      }
+    }
+
     const updated = store.updateProduct(req.params.id, updates);
 
     auditService.logAction(req.admin.email, "PRODUCT_REVIEW_UPDATED", updated.id, {
@@ -518,14 +548,16 @@ router.put("/products/:id/review", requireAdmin, async (req, res) => {
       fromStatus: previousReviewStatus,
       toStatus: reviewStatus,
       note: updates.reviewNote,
-      cloudinaryStatus: cloudinaryResult ? cloudinaryResult.status : "NOT_CONFIGURED"
+      cloudinaryStatus: cloudinaryResult ? cloudinaryResult.status : "NOT_CONFIGURED",
+      mongoStatus: mongoResult ? mongoResult.status : "NOT_CONFIGURED"
     });
 
     res.json({
       success: true,
       message: `Product review status set to ${reviewStatus}`,
       product: updated,
-      cloudinary: cloudinaryResult
+      cloudinary: cloudinaryResult,
+      mongo: mongoResult
     });
   } catch (err) {
     console.error("Update review status error:", err);
@@ -591,6 +623,48 @@ router.post("/products/:id/sync-cloudinary", requireAdmin, async (req, res) => {
         cloudinaryLastSyncedAt: new Date().toISOString()
       });
       return res.json({ success: true, product: updated, cloudinary: remRes });
+    }
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+/**
+ * MongoDB Atlas Connection Status & Document Counts
+ */
+router.get("/mongodb/status", requireAdmin, async (req, res) => {
+  try {
+    const status = await mongoService.getMongoStatus();
+    res.json({ success: true, mongodb: status });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+/**
+ * Manual/Retry Product MongoDB Atlas Synchronization
+ */
+router.post("/products/:id/sync-mongodb", requireAdmin, async (req, res) => {
+  try {
+    const product = store.getProductById(req.params.id, true);
+    if (!product) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    if (product.reviewStatus === "CORRECT") {
+      const mRes = await mongoService.upsertApprovedProduct(product, req.admin.email);
+      const updated = store.updateProduct(product.id, {
+        mongoSyncStatus: mRes.status,
+        mongoSyncedAt: new Date().toISOString()
+      });
+      return res.json({ success: true, product: updated, mongodb: mRes });
+    } else {
+      const mRes = await mongoService.removeApprovedProduct(product.id);
+      const updated = store.updateProduct(product.id, {
+        mongoSyncStatus: mRes.status,
+        mongoSyncedAt: new Date().toISOString()
+      });
+      return res.json({ success: true, product: updated, mongodb: mRes });
     }
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
