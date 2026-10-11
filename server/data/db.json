@@ -15710,7 +15710,7 @@
       "reviewStatus": "NEEDS_EDITING",
       "reviewNote": null,
       "reviewedBy": "roshan.official0009@gmail.com",
-      "reviewedAt": "2026-10-11T10:53:58.773Z"
+      "reviewedAt": "2026-10-11T11:30:22.622Z"
     },
     {
       "id": "prod-examination-table-gyneco",
@@ -40838,6 +40838,51 @@
     "headquarters": "DR.MEDEX Global MedTech Tower, 45 Healthcare Innovation Way, Boston, MA 02115, USA & International Logistics Hub, Dubai Healthcare City, UAE"
   },
   "auditLogs": [
+    {
+      "id": "audit-1791718222647-6a4mx",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-electrosurgical-cautery-",
+      "details": {
+        "title": "DR.MEDEX Electrosurgical Cautery mini electro surgical skin cautery diathermy machine",
+        "sku": "DRM-ELE-D717",
+        "fromStatus": "PENDING",
+        "toStatus": "NEEDS_EDITING",
+        "note": null
+      },
+      "timestamp": "2026-10-11T11:30:22.647Z"
+    },
+    {
+      "id": "audit-1791718032686-61qs0",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-electrosurgical-cautery-",
+      "details": {
+        "title": "DR.MEDEX Electrosurgical Cautery mini electro surgical skin cautery diathermy machine",
+        "sku": "DRM-ELE-D717",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": null
+      },
+      "timestamp": "2026-10-11T11:27:12.686Z"
+    },
+    {
+      "id": "audit-1791717942080-zy2wa",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PACKAGE_DOWNLOADED",
+      "productId": "prod-electrosurgical-cautery-",
+      "details": {
+        "title": "DR.MEDEX Electrosurgical Cautery mini electro surgical skin cautery diathermy machine",
+        "sku": "DRM-ELE-D717",
+        "filename": "DR-MEDEX-DR.MEDEX-Electrosurgical-Cautery-mini-electro-surgical-skin-cautery-diathermy-machine-DRM-ELE-D717.zip",
+        "stats": {
+          "totalImages": 8,
+          "includedImages": 8,
+          "failedImages": 0
+        }
+      },
+      "timestamp": "2026-10-11T11:25:42.080Z"
+    },
     {
       "id": "audit-1791716038792-4vqxv",
       "adminId": "roshan.official0009@gmail.com",
