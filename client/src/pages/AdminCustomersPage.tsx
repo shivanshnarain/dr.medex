@@ -18,7 +18,12 @@ import {
   Laptop,
   Globe,
   Trash2,
-  CheckCircle2
+  CheckCircle2,
+  ArrowUpDown,
+  ArrowUp,
+  ArrowDown,
+  KeyRound,
+  Shield
 } from "lucide-react";
 import { AdminLayout } from "../components/admin/AdminLayout";
 import { useAdminAuth } from "../context/AdminAuthContext";
@@ -39,6 +44,9 @@ interface LoginActivityRecord {
   customerId: string;
   email: string;
   fullName: string;
+  phone?: string;
+  authMethod?: string;
+  outcome?: string;
   timestamp: string;
   ip: string;
   device: string;
@@ -68,6 +76,8 @@ export const AdminCustomersPage: React.FC = () => {
   const [actSearch, setActSearch] = useState("");
   const [activeActSearch, setActiveActSearch] = useState("");
   const [isLoadingActivities, setIsLoadingActivities] = useState(false);
+  const [actSortBy, setActSortBy] = useState<"date" | "email" | "customerId">("date");
+  const [actSortOrder, setActSortOrder] = useState<"asc" | "desc">("desc");
 
   // Feedback states
   const [isCleaning, setIsCleaning] = useState(false);
@@ -110,14 +120,16 @@ export const AdminCustomersPage: React.FC = () => {
 
   // 2. Load Login Activity (Latest first, 30-day retention)
   const loadActivities = useCallback(
-    async (targetPage = 1, search = activeActSearch) => {
+    async (targetPage = 1, search = activeActSearch, sortBy = actSortBy, sortOrder = actSortOrder) => {
       setIsLoadingActivities(true);
       setErrorMessage(null);
       try {
         const queryParams = new URLSearchParams({
           page: targetPage.toString(),
           limit: "15",
-          search: search.trim()
+          search: search.trim(),
+          sortBy,
+          sortOrder
         });
 
         const res = await adminFetch(`/api/admin/customer-activity?${queryParams.toString()}`);
@@ -139,13 +151,13 @@ export const AdminCustomersPage: React.FC = () => {
         setIsLoadingActivities(false);
       }
     },
-    [adminFetch, activeActSearch]
+    [adminFetch, activeActSearch, actSortBy, actSortOrder]
   );
 
   useEffect(() => {
     loadCustomers(custPage, activeCustSearch);
-    loadActivities(actPage, activeActSearch);
-  }, [loadCustomers, loadActivities, custPage, activeCustSearch, actPage, activeActSearch]);
+    loadActivities(actPage, activeActSearch, actSortBy, actSortOrder);
+  }, [loadCustomers, loadActivities, custPage, activeCustSearch, actPage, activeActSearch, actSortBy, actSortOrder]);
 
   // Handle Search Submission
   const handleCustSearchSubmit = (e: React.FormEvent) => {
@@ -431,12 +443,70 @@ export const AdminCustomersPage: React.FC = () => {
                   <table className="w-full text-left text-xs">
                     <thead>
                       <tr className="bg-neutral-50 border-b border-neutral-200 text-neutral-500 uppercase tracking-wider text-[11px] font-bold">
-                        <th className="py-3 px-4">Customer</th>
-                        <th className="py-3 px-4">Email</th>
-                        <th className="py-3 px-4">Login Timestamp</th>
-                        <th className="py-3 px-4">Device & Browser</th>
-                        <th className="py-3 px-4">IP Address</th>
-                        <th className="py-3 px-4">Account Status</th>
+                        <th
+                          className="py-3 px-4 cursor-pointer hover:text-neutral-900 select-none transition-colors"
+                          onClick={() => {
+                            if (actSortBy === "customerId") {
+                              setActSortOrder((o) => (o === "asc" ? "desc" : "asc"));
+                            } else {
+                              setActSortBy("customerId");
+                              setActSortOrder("asc");
+                            }
+                          }}
+                        >
+                          <div className="flex items-center gap-1.5">
+                            <span>Customer / User ID</span>
+                            {actSortBy === "customerId" ? (
+                              actSortOrder === "asc" ? <ArrowUp size={12} className="text-[#2D5A4A]" /> : <ArrowDown size={12} className="text-[#2D5A4A]" />
+                            ) : (
+                              <ArrowUpDown size={11} className="text-neutral-400" />
+                            )}
+                          </div>
+                        </th>
+                        <th
+                          className="py-3 px-4 cursor-pointer hover:text-neutral-900 select-none transition-colors"
+                          onClick={() => {
+                            if (actSortBy === "email") {
+                              setActSortOrder((o) => (o === "asc" ? "desc" : "asc"));
+                            } else {
+                              setActSortBy("email");
+                              setActSortOrder("asc");
+                            }
+                          }}
+                        >
+                          <div className="flex items-center gap-1.5">
+                            <span>Email</span>
+                            {actSortBy === "email" ? (
+                              actSortOrder === "asc" ? <ArrowUp size={12} className="text-[#2D5A4A]" /> : <ArrowDown size={12} className="text-[#2D5A4A]" />
+                            ) : (
+                              <ArrowUpDown size={11} className="text-neutral-400" />
+                            )}
+                          </div>
+                        </th>
+                        <th className="py-3 px-4">Verified Phone</th>
+                        <th
+                          className="py-3 px-4 cursor-pointer hover:text-neutral-900 select-none transition-colors"
+                          onClick={() => {
+                            if (actSortBy === "date") {
+                              setActSortOrder((o) => (o === "asc" ? "desc" : "asc"));
+                            } else {
+                              setActSortBy("date");
+                              setActSortOrder("desc");
+                            }
+                          }}
+                        >
+                          <div className="flex items-center gap-1.5">
+                            <span>Login Timestamp (UTC)</span>
+                            {actSortBy === "date" ? (
+                              actSortOrder === "asc" ? <ArrowUp size={12} className="text-[#2D5A4A]" /> : <ArrowDown size={12} className="text-[#2D5A4A]" />
+                            ) : (
+                              <ArrowUpDown size={11} className="text-neutral-400" />
+                            )}
+                          </div>
+                        </th>
+                        <th className="py-3 px-4">Auth Method</th>
+                        <th className="py-3 px-4">Device & IP</th>
+                        <th className="py-3 px-4">Outcome</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-neutral-100">
@@ -458,6 +528,17 @@ export const AdminCustomersPage: React.FC = () => {
                             </div>
                           </td>
 
+                          <td className="py-3 px-4 text-neutral-600 text-xs">
+                            {act.phone ? (
+                              <div className="flex items-center gap-1.5 font-mono text-[11px] text-neutral-700">
+                                <Phone size={11} className="text-neutral-400 shrink-0" />
+                                <span>{act.phone}</span>
+                              </div>
+                            ) : (
+                              <span className="text-neutral-300">—</span>
+                            )}
+                          </td>
+
                           <td className="py-3 px-4 text-neutral-700">
                             <div className="font-semibold text-xs text-neutral-800">
                               {formatRelativeTime(act.timestamp)}
@@ -468,24 +549,28 @@ export const AdminCustomersPage: React.FC = () => {
                             </div>
                           </td>
 
-                          <td className="py-3 px-4 text-neutral-700">
-                            <div className="flex items-center gap-1.5 font-medium text-xs">
-                              <Laptop size={13} className="text-neutral-400 shrink-0" />
-                              <span>{act.device || "Desktop Browser"}</span>
-                            </div>
+                          <td className="py-3 px-4">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-neutral-100 text-neutral-700 border border-neutral-200">
+                              <KeyRound size={10} className="text-neutral-500" />
+                              <span>{act.authMethod === "recovery_reset" ? "Password Recovery" : act.authMethod === "google" ? "Google OAuth" : "Email / Password"}</span>
+                            </span>
                           </td>
 
-                          <td className="py-3 px-4 text-neutral-600 font-mono text-[11px]">
-                            <div className="flex items-center gap-1.5">
-                              <Globe size={12} className="text-neutral-400 shrink-0" />
+                          <td className="py-3 px-4 text-neutral-700">
+                            <div className="flex items-center gap-1.5 font-medium text-xs">
+                              <Laptop size={12} className="text-neutral-400 shrink-0" />
+                              <span>{act.device || "Desktop"}</span>
+                            </div>
+                            <div className="flex items-center gap-1 text-[10px] text-neutral-400 font-mono mt-0.5">
+                              <Globe size={10} />
                               <span>{act.ip || "127.0.0.1"}</span>
                             </div>
                           </td>
 
                           <td className="py-3 px-4">
                             <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                              <span>Verified Customer</span>
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                              <span>{act.outcome || "SUCCESS"}</span>
                             </span>
                           </td>
                         </tr>

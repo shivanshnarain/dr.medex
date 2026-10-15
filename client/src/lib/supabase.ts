@@ -324,15 +324,21 @@ export const supabase = {
 
         const backendData = await backendRes.json().catch(() => ({}));
         if (!backendRes.ok || !backendData.success) {
+          const defaultMsg = backendRes.status === 429
+            ? "Too many password recovery requests. Please wait 15 minutes before retrying."
+            : backendRes.status === 503
+            ? backendData.message || "Password recovery email service is not configured. Please check provider settings."
+            : backendData.message || "Unable to send password recovery email. Please check your email address or provider configuration.";
+
           return {
             data: null,
             error: {
-              message: backendData.message || "Unable to send password recovery email. Please check your address or provider configuration."
+              message: backendData.message || defaultMsg
             }
           };
         }
 
-        return { data: { message: backendData.message || "Recovery email sent." }, error: null };
+        return { data: { message: backendData.message || "Password recovery instructions sent." }, error: null };
       } catch (err: any) {
         console.error("[Auth] Password reset request error:", err.message);
         return {

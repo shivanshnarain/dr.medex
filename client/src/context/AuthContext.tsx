@@ -193,7 +193,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           body: JSON.stringify({
             customerId: data.user.id,
             email: cleanEmail,
-            fullName: newProfile.fullName
+            fullName: newProfile.fullName,
+            phone: cleanPhone || undefined,
+            authMethod: "email_password"
           })
         });
       } catch (e) {
@@ -232,7 +234,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           body: JSON.stringify({
             customerId: data.user.id,
             email: data.user.email,
-            fullName: profile.fullName
+            fullName: profile.fullName,
+            phone: profile.phone || undefined,
+            authMethod: "email_password"
           })
         });
       } catch (e) {

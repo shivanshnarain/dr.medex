@@ -1390,11 +1390,13 @@ router.get("/customers/:id", requireAdmin, async (req, res) => {
 
 router.get("/customer-activity", requireAdmin, async (req, res) => {
   try {
-    const { search, page, limit } = req.query;
+    const { search, page, limit, sortBy, sortOrder } = req.query;
     const result = await supabaseService.getCustomerLoginActivity({
       search,
       page: parseInt(page, 10) || 1,
-      limit: parseInt(limit, 10) || 20
+      limit: parseInt(limit, 10) || 20,
+      sortBy: sortBy || "date",
+      sortOrder: sortOrder || "desc"
     });
     res.json({ success: true, ...result });
   } catch (err) {

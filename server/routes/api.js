@@ -271,18 +271,31 @@ router.get("/reviews/provider-status", (req, res) => {
 // Customer Authentication & Login Activity Audit
 router.post("/auth/record-login", async (req, res) => {
   try {
-    const { customerId, email, fullName } = req.body;
+    const { customerId, email, fullName, phone, authMethod } = req.body;
     if (!customerId || !email) {
       return res.status(400).json({ success: false, message: "Customer ID and email are required." });
     }
 
-    const ip = req.ip || req.connection.remoteAddress || "127.0.0.1";
+    // Security check: Never accept passwords or tokens in login audit payloads
+    if (req.body.password || req.body.token || req.body.secret) {
+      return res.status(400).json({ success: false, message: "Invalid payload: security credentials must not be submitted." });
+    }
+
+    const cleanEmail = String(email).trim().toLowerCase();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(cleanEmail)) {
+      return res.status(400).json({ success: false, message: "Invalid customer email address format." });
+    }
+
+    const ip = (req.ip || req.connection.remoteAddress || "127.0.0.1").replace(/^.*:/, "") || "127.0.0.1";
     const userAgent = req.headers["user-agent"] || "";
 
     const activity = await supabaseService.recordCustomerLogin({
-      customerId,
-      email,
-      fullName,
+      customerId: String(customerId).trim(),
+      email: cleanEmail,
+      fullName: fullName ? String(fullName).trim() : cleanEmail.split("@")[0],
+      phone: phone ? String(phone).trim() : undefined,
+      authMethod: authMethod ? String(authMethod).trim() : "email_password",
       ip,
       userAgent
     });
@@ -292,6 +305,22 @@ router.post("/auth/record-login", async (req, res) => {
     console.warn("[API] Record login error:", err.message);
     res.status(500).json({ success: false, message: "Failed to record login event." });
   }
+});
+
+// Vercel Cron / Scheduled 30-Day Activity Cleanup Endpoint
+router.get("/cron/cleanup-activity", (req, res) => {
+  // Protect with CRON_SECRET if configured
+  const authHeader = req.headers.authorization;
+  if (process.env.CRON_SECRET && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return res.status(401).json({ success: false, message: "Unauthorized: invalid cron authorization header." });
+  }
+
+  const result = supabaseService.cleanupExpiredActivity(30);
+  res.json({
+    success: true,
+    message: "30-day login activity retention cleanup completed successfully.",
+    ...result
+  });
 });
 
 // Customer Email Update (Synchronizes auth email and updates customer records)

@@ -148,6 +148,16 @@ function parseUserAgent(ua = "") {
 }
 
 class SupabaseService {
+  constructor() {
+    // Rolling 30-day activity retention cleanup (hourly timer)
+    this._cleanupTimer = setInterval(() => {
+      this.cleanupExpiredActivity(30);
+    }, 60 * 60 * 1000);
+    if (this._cleanupTimer.unref) {
+      this._cleanupTimer.unref();
+    }
+  }
+
   /**
    * Retrieves paginated, searchable list of customers using Supabase Admin API
    * Falls back smoothly in offline sandbox test environments
@@ -331,10 +341,10 @@ class SupabaseService {
 
   /**
    * Records a Customer Login Activity Event
-   * Only called on successful customer authentication. Never logs passwords or secrets.
+   * Only called on genuine successful customer authentication. Never logs passwords or secrets.
    * Updates lastSignInAt timestamp on customer account.
    */
-  async recordCustomerLogin({ customerId, email, fullName, ip, userAgent }) {
+  async recordCustomerLogin({ customerId, email, fullName, phone, authMethod = "email_password", ip, userAgent }) {
     if (!customerId || !email) {
       throw new Error("Customer ID and email are required to record login activity.");
     }
@@ -344,14 +354,33 @@ class SupabaseService {
 
     const nowIso = new Date().toISOString();
     const cleanIp = (ip || "127.0.0.1").replace(/^.*:/, "") || "127.0.0.1";
+    const cleanEmail = String(email).toLowerCase().trim();
+    const cleanPhone = phone && String(phone).trim() ? String(phone).trim() : undefined;
+    const cleanMethod = String(authMethod || "email_password").toLowerCase().trim();
     const device = parseUserAgent(userAgent);
+
+    // Prevent duplicate records within 60 seconds for same customer, IP, and device (page reload / React re-render defense)
+    const recentDuplicate = CUSTOMER_LOGIN_ACTIVITIES.find((a) => {
+      const isSameCustomer = a.customerId === String(customerId) || a.email === cleanEmail;
+      const isSameOrigin = a.ip === cleanIp && a.device === device;
+      if (!isSameCustomer || !isSameOrigin) return false;
+      const ageMs = Date.now() - new Date(a.timestamp).getTime();
+      return ageMs < 60 * 1000;
+    });
+
+    if (recentDuplicate) {
+      return recentDuplicate;
+    }
 
     const activityEvent = {
       id: `act_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`,
       customerId: String(customerId),
-      email: String(email).toLowerCase().trim(),
+      email: cleanEmail,
       fullName: String(fullName || email.split("@")[0]).trim(),
+      phone: cleanPhone, // Only recorded if explicitly supplied by customer
+      authMethod: cleanMethod,
       timestamp: nowIso,
+      outcome: "SUCCESS",
       ip: cleanIp,
       device,
       userAgent: String(userAgent || "").substring(0, 255),
@@ -361,17 +390,20 @@ class SupabaseService {
     // Prepend to list (latest activity first)
     CUSTOMER_LOGIN_ACTIVITIES.unshift(activityEvent);
 
-    // Update customer lastSignInAt in local memory
+    // Update customer lastSignInAt in persistent customer directory
     const existingMock = MOCK_CUSTOMERS.find((c) => c.id === customerId || c.email === activityEvent.email);
     if (existingMock) {
       existingMock.lastSignInAt = nowIso;
+      if (cleanPhone && !existingMock.phone) {
+        existingMock.phone = cleanPhone;
+      }
     } else {
       // If customer was newly signed up in session, ensure they exist in persistent directory
       MOCK_CUSTOMERS.push({
         id: customerId,
         email: activityEvent.email,
         fullName: activityEvent.fullName,
-        phone: "",
+        phone: cleanPhone || "",
         createdAt: nowIso,
         lastSignInAt: nowIso,
         emailConfirmed: true,
@@ -384,9 +416,9 @@ class SupabaseService {
 
   /**
    * Retrieves paginated, searchable login activity (30-day retention window)
-   * Latest activity first
+   * Supports sorting by date, email, or customerId
    */
-  async getCustomerLoginActivity({ search = "", page = 1, limit = 20 } = {}) {
+  async getCustomerLoginActivity({ search = "", page = 1, limit = 20, sortBy = "date", sortOrder = "desc" } = {}) {
     // Purge expired records before retrieval
     this.cleanupExpiredActivity(30);
 
@@ -399,16 +431,30 @@ class SupabaseService {
     if (searchTerm) {
       filtered = filtered.filter(
         (a) =>
-          a.fullName.toLowerCase().includes(searchTerm) ||
-          a.email.toLowerCase().includes(searchTerm) ||
-          a.ip.toLowerCase().includes(searchTerm) ||
-          a.device.toLowerCase().includes(searchTerm) ||
-          a.customerId.toLowerCase().includes(searchTerm)
+          (a.fullName && a.fullName.toLowerCase().includes(searchTerm)) ||
+          (a.email && a.email.toLowerCase().includes(searchTerm)) ||
+          (a.customerId && a.customerId.toLowerCase().includes(searchTerm)) ||
+          (a.phone && a.phone.toLowerCase().includes(searchTerm)) ||
+          (a.ip && a.ip.toLowerCase().includes(searchTerm)) ||
+          (a.device && a.device.toLowerCase().includes(searchTerm)) ||
+          (a.authMethod && a.authMethod.toLowerCase().includes(searchTerm))
       );
     }
 
-    // Sort latest first
-    filtered.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+    // Sort by field
+    filtered.sort((a, b) => {
+      if (sortBy === "email") {
+        const cmp = a.email.localeCompare(b.email);
+        return sortOrder === "asc" ? cmp : -cmp;
+      }
+      if (sortBy === "customerId") {
+        const cmp = a.customerId.localeCompare(b.customerId);
+        return sortOrder === "asc" ? cmp : -cmp;
+      }
+      // Default: date/timestamp
+      const timeDiff = new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+      return sortOrder === "asc" ? -timeDiff : timeDiff;
+    });
 
     const startIndex = (pageNum - 1) * limitNum;
     const paginated = filtered.slice(startIndex, startIndex + limitNum);
@@ -418,14 +464,15 @@ class SupabaseService {
       totalCount: filtered.length,
       page: pageNum,
       limit: limitNum,
-      totalPages: Math.ceil(filtered.length / limitNum) || 1
+      totalPages: Math.ceil(filtered.length / limitNum) || 1,
+      retentionDays: 30
     };
   }
 
   /**
    * 30-Day Activity Retention Cleanup
    * Strictly cleans up temporary login activity events older than retentionDays.
-   * GUARANTEE: Never touches customer accounts, profiles, or orders!
+   * GUARANTEE: Never touches customer accounts, profiles, orders, or reviews!
    */
   cleanupExpiredActivity(retentionDays = 30) {
     const cutoffTime = Date.now() - retentionDays * 24 * 60 * 60 * 1000;
@@ -443,6 +490,20 @@ class SupabaseService {
       retentionDays,
       accountsUntouched: MOCK_CUSTOMERS.length
     };
+  }
+
+  /**
+   * Test helper to seed activities for verification
+   */
+  _seedActivity(record) {
+    CUSTOMER_LOGIN_ACTIVITIES.unshift(record);
+  }
+
+  /**
+   * Test helper to reset activity list
+   */
+  _clearAllActivities() {
+    CUSTOMER_LOGIN_ACTIVITIES = [];
   }
 }
 

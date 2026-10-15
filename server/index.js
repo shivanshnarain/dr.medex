@@ -14,6 +14,14 @@ app.use(cors({ origin: "*" }));
 app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ extended: true, limit: "25mb" }));
 
+// URL normalization for Vercel Serverless Function invocations
+app.use((req, res, next) => {
+  if (req.url && !req.url.startsWith("/api") && !req.url.startsWith("/health")) {
+    req.url = `/api${req.url.startsWith("/") ? "" : "/"}${req.url}`;
+  }
+  next();
+});
+
 // API Routes (with dynamic dispatch to prevent stale module caching)
 app.use("/api/admin", (req, res, next) => {
   try {

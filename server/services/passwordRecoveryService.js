@@ -25,6 +25,7 @@ const ALLOWED_ORIGINS = new Set([
   "http://127.0.0.1:5173",
   "http://localhost:3000",
   "http://127.0.0.1:3000",
+  "https://dr-medex.vercel.app",
   "https://drmedex.com",
   "https://www.drmedex.com"
 ]);
@@ -65,7 +66,12 @@ class PasswordRecoveryService {
   isAllowedOrigin(urlStr) {
     try {
       const parsed = new URL(urlStr);
-      return ALLOWED_ORIGINS.has(parsed.origin);
+      if (ALLOWED_ORIGINS.has(parsed.origin)) return true;
+      // Allow preview deployments for dr-medex on Vercel
+      if (parsed.hostname.endsWith(".vercel.app") && parsed.hostname.startsWith("dr-medex")) return true;
+      if (process.env.APP_URL && new URL(process.env.APP_URL).origin === parsed.origin) return true;
+      if (process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}` === parsed.origin) return true;
+      return false;
     } catch {
       return false;
     }
@@ -132,7 +138,7 @@ class PasswordRecoveryService {
     }
 
     // Determine target redirect base
-    let baseOrigin = "http://localhost:5173";
+    let baseOrigin = process.env.NODE_ENV === "production" ? "https://dr-medex.vercel.app" : "http://localhost:5173";
     if (origin && this.isAllowedOrigin(origin)) {
       baseOrigin = new URL(origin).origin;
     }
@@ -207,24 +213,34 @@ class PasswordRecoveryService {
       return {
         success: false,
         code: "DELIVERY_FAILED",
-        message: "Failed to dispatch password recovery email. Please check email provider configuration."
+        message: `Failed to dispatch password recovery email: ${err.message}`
       };
     }
 
-    // If no email provider or SMTP is configured in the environment
-    if (!emailResult.delivered && !emailResult.simulated) {
+    // Verify delivery status honestly — never pretend delivery if provider was unconfigured or rejected
+    if (!emailResult.delivered) {
+      if (emailResult.simulated && process.env.NODE_ENV !== "production") {
+        return {
+          success: true,
+          delivered: false,
+          simulated: true,
+          provider: "test-mailbox",
+          resetUrl,
+          message: "If an account is associated with this email, password recovery instructions have been sent."
+        };
+      }
       return {
         success: false,
         code: "EMAIL_NOT_CONFIGURED",
-        message: "Password recovery email service is not configured. Please configure SMTP or Supabase Auth."
+        message: "Password recovery email service is not configured. Please configure an email provider (SMTP, Resend, or SendGrid) or Supabase Auth in production."
       };
     }
 
     return {
       success: true,
-      delivered: emailResult.delivered,
-      simulated: Boolean(emailResult.simulated),
-      provider: emailResult.provider || "internal",
+      delivered: true,
+      simulated: false,
+      provider: emailResult.provider || "smtp",
       message: "If an account is associated with this email, password recovery instructions have been sent. Please check your inbox and spam folder."
     };
   }
