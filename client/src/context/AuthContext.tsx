@@ -31,7 +31,7 @@ interface AuthContextType {
   isAdmin: boolean;
   isAuthLoading: boolean;
   signUp: (input: SignUpInput) => Promise<{ success: boolean; error?: string }>;
-  signIn: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  signIn: (email: string, password: string) => Promise<{ success: boolean; isAdmin?: boolean; redirectTo?: string; token?: string; user?: any; error?: string }>;
   logout: () => Promise<void>;
   requestPasswordReset: (email: string) => Promise<{ success: boolean; error?: string }>;
   updatePassword: (newPassword: string, recoveryToken?: string) => Promise<{ success: boolean; error?: string }>;
@@ -41,7 +41,7 @@ interface AuthContextType {
   deleteAddress: (index: number) => void;
 
   // Backward-compatibility aliases
-  signInWithEmail: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  signInWithEmail: (email: string, password: string) => Promise<{ success: boolean; isAdmin?: boolean; redirectTo?: string; token?: string; user?: any; error?: string }>;
   signUpWithEmail: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   sendPasswordReset: (email: string) => Promise<{ success: boolean; error?: string }>;
   login: (email: string, role?: UserProfile["role"]) => void;
@@ -206,13 +206,102 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return { success: true };
   };
 
-  // Customer Sign In
-  const signIn = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
+  // Customer & Administrator Sign In
+  const signIn = async (
+    email: string,
+    password: string
+  ): Promise<{ success: boolean; isAdmin?: boolean; redirectTo?: string; token?: string; user?: any; error?: string }> => {
     const cleanEmail = email.trim().toLowerCase();
     if (!cleanEmail || !password) {
       return { success: false, error: "Please enter your email and password." };
     }
 
+    try {
+      // 1. Authenticate against unified backend authentication gateway
+      const loginRes = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: cleanEmail, password })
+      });
+
+      const loginData = await loginRes.json().catch(() => ({}));
+
+      // A. Genuine Administrator Authentication
+      if (loginRes.ok && loginData.success && loginData.isAdmin) {
+        if (loginData.token) {
+          localStorage.setItem("drmedex_admin_session_token", loginData.token);
+          // Broadcast to AdminAuthContext to synchronize state immediately
+          if (typeof window !== "undefined") {
+            window.dispatchEvent(
+              new CustomEvent("drmedex_admin_session_sync", {
+                detail: { token: loginData.token, user: loginData.user }
+              })
+            );
+          }
+        }
+
+        const adminProfile: UserProfile = {
+          id: loginData.user?.id || "admin-super",
+          fullName: loginData.user?.fullName || loginData.user?.name || "DR.MEDEX Super Admin",
+          email: cleanEmail,
+          phone: "",
+          institutionName: "Central Operations",
+          role: "super_admin",
+          country: "United States",
+          countryCode: "US",
+          addresses: [],
+          createdAt: new Date().toISOString()
+        };
+        setUser(adminProfile);
+
+        return {
+          success: true,
+          isAdmin: true,
+          redirectTo: "/admin",
+          token: loginData.token,
+          user: loginData.user
+        };
+      }
+
+      // B. Administrator credentials rejected
+      if (!loginRes.ok && loginData.isAdmin === false && loginData.message) {
+        const targetAdmin = "roshan.official0009@gmail.com";
+        if (cleanEmail === targetAdmin || cleanEmail === "admin@drmedex.com") {
+          return {
+            success: false,
+            error: loginData.message || "Invalid email or password. Please try again."
+          };
+        }
+      }
+
+      // C. Customer Authentication via Unified Backend
+      if (loginRes.ok && loginData.success && !loginData.isAdmin) {
+        const customerProfile: UserProfile = {
+          id: loginData.user?.id || `usr-${Math.random().toString(36).substring(2, 9)}`,
+          fullName: loginData.user?.fullName || cleanEmail.split("@")[0] || "Customer",
+          email: cleanEmail,
+          phone: "",
+          institutionName: "",
+          role: "buyer",
+          country: "United States",
+          countryCode: "US",
+          addresses: [],
+          createdAt: new Date().toISOString()
+        };
+        setUser(customerProfile);
+
+        return {
+          success: true,
+          isAdmin: false,
+          redirectTo: "/account",
+          user: customerProfile
+        };
+      }
+    } catch (e) {
+      console.warn("[Auth] Backend login request failed, attempting provider fallback:", e);
+    }
+
+    // 2. Fallback to Supabase Auth for standard customer credentials
     const { data, error } = await supabase.auth.signInWithPassword({
       email: cleanEmail,
       password
@@ -242,12 +331,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       } catch (e) {
         console.warn("[Auth] Failed to audit signin login:", e);
       }
+
+      return {
+        success: true,
+        isAdmin: false,
+        redirectTo: "/account",
+        user: profile
+      };
     }
 
-    return { success: true };
+    return { success: true, isAdmin: false, redirectTo: "/account" };
   };
 
-  // Customer Logout
+  // Customer & Administrator Logout
   const logout = async () => {
     await supabase.auth.signOut();
     setSession(null);
@@ -256,6 +352,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.removeItem("drmedex_customer_profile");
       localStorage.removeItem("drmedex_supabase_session");
       localStorage.removeItem("drmedex_customer_user");
+      localStorage.removeItem("drmedex_admin_session_token");
     } catch {}
   };
 
@@ -441,7 +538,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         supabaseUser: session?.user || null,
         session,
         isAuthenticated: Boolean(user),
-        isAdmin: false, // Customer authentication strictly never grants administrator access
+        isAdmin: Boolean(user && (user.role === "super_admin" || user.role === "admin")),
         isAuthLoading,
         signUp,
         signIn,

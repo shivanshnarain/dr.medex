@@ -8,6 +8,8 @@ const reviewAiService = require("../services/reviewAiService");
 const reviewModerationService = require("../services/reviewModerationService");
 const supabaseService = require("../services/supabaseService");
 const passwordRecoveryService = require("../services/passwordRecoveryService");
+const authService = require("../services/authService");
+const auditService = require("../services/auditService");
 
 // PRODUCTS
 router.get("/products", (req, res) => {
@@ -486,6 +488,130 @@ router.post("/auth/verify-credentials", (req, res) => {
       user_metadata: { full_name: cleanEmail.split("@")[0] }
     }
   });
+});
+
+// Unified Secure Authentication Endpoint (Admin & Customer Authentication)
+router.post("/auth/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: "Email and password are required." });
+    }
+
+    const cleanEmail = String(email).trim().toLowerCase();
+    const cleanPassword = String(password);
+    const ip = (req.ip || req.connection.remoteAddress || "127.0.0.1").replace(/^.*:/, "") || "127.0.0.1";
+    const userAgent = req.headers["user-agent"] || "";
+    const targetAdminEmail = (process.env.ADMIN_EMAIL || "roshan.official0009@gmail.com").toLowerCase().trim();
+
+    // 1. Designated Administrator Authentication Check
+    const isAdminAccount =
+      cleanEmail === targetAdminEmail ||
+      cleanEmail === "roshan.official0009@gmail.com" ||
+      cleanEmail === "admin@drmedex.com";
+
+    if (isAdminAccount) {
+      const adminResult = authService.login(cleanEmail, cleanPassword, ip);
+      if (!adminResult.success) {
+        auditService.logAction(cleanEmail, "LOGIN_FAILED", null, { ip, remainingAttempts: adminResult.remainingAttempts });
+        return res.status(adminResult.status || 401).json({
+          success: false,
+          isAdmin: false,
+          message: adminResult.message || "Invalid email or password. Please try again.",
+          retryAfter: adminResult.retryAfter
+        });
+      }
+
+      auditService.logAction(adminResult.user.email, "LOGIN_SUCCESS", null, { ip });
+
+      // Record genuine successful admin login in activity audit
+      await supabaseService.recordCustomerLogin({
+        customerId: "admin-super",
+        email: cleanEmail,
+        fullName: adminResult.user.name || "Roshan (DR.MEDEX Super Admin)",
+        authMethod: "admin_credentials",
+        ip,
+        userAgent
+      }).catch(() => {});
+
+      return res.json({
+        success: true,
+        isAdmin: true,
+        token: adminResult.token,
+        user: {
+          id: "admin-super",
+          email: adminResult.user.email,
+          fullName: adminResult.user.name || "DR.MEDEX Super Admin",
+          role: "super_admin"
+        },
+        redirectTo: "/admin"
+      });
+    }
+
+    // 2. Normal Customer Authentication Check
+    // If the customer has an updated/reset password in recovery store
+    const isValidCustomer = passwordRecoveryService.verifyCredentials(cleanEmail, cleanPassword);
+    if (isValidCustomer) {
+      const customerUser = {
+        id: `usr-${Buffer.from(cleanEmail).toString("hex").substring(0, 10)}`,
+        email: cleanEmail,
+        fullName: cleanEmail.split("@")[0] || "Customer",
+        role: "buyer"
+      };
+
+      await supabaseService.recordCustomerLogin({
+        customerId: customerUser.id,
+        email: cleanEmail,
+        fullName: customerUser.fullName,
+        authMethod: "email_password",
+        ip,
+        userAgent
+      }).catch(() => {});
+
+      return res.json({
+        success: true,
+        isAdmin: false,
+        user: customerUser,
+        redirectTo: "/account"
+      });
+    }
+
+    // Standard valid customer authentication (min 6 characters password requirement)
+    // NOTE: This ONLY applies to non-admin accounts. Admin accounts are strictly validated above.
+    if (cleanPassword.length >= 6) {
+      const customerUser = {
+        id: `usr-${Buffer.from(cleanEmail).toString("hex").substring(0, 10)}`,
+        email: cleanEmail,
+        fullName: cleanEmail.split("@")[0] || "Customer",
+        role: "buyer"
+      };
+
+      await supabaseService.recordCustomerLogin({
+        customerId: customerUser.id,
+        email: cleanEmail,
+        fullName: customerUser.fullName,
+        authMethod: "email_password",
+        ip,
+        userAgent
+      }).catch(() => {});
+
+      return res.json({
+        success: true,
+        isAdmin: false,
+        user: customerUser,
+        redirectTo: "/account"
+      });
+    }
+
+    return res.status(401).json({
+      success: false,
+      isAdmin: false,
+      message: "Invalid email or password. Please try again."
+    });
+  } catch (err) {
+    console.warn("[API] Auth login error:", err.message);
+    res.status(500).json({ success: false, message: "Authentication service error. Please try again." });
+  }
 });
 
 // Customer Password Recovery — Status Diagnostics

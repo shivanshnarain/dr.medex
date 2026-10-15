@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Mail, Lock, Eye, EyeOff, AlertCircle, CheckCircle, Loader2, ArrowRight } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
+import { useAdminAuth } from "../../context/AdminAuthContext";
 import { Logo } from "../../components/Logo";
 
 export const SignInPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { signIn, isAuthenticated } = useAuth();
+  const { setAdminSession } = useAdminAuth();
 
   const searchParams = new URLSearchParams(location.search);
   const redirectTarget = searchParams.get("redirect") || "/account";
@@ -50,11 +52,21 @@ export const SignInPage: React.FC = () => {
     try {
       const res = await signIn(cleanEmail, password);
       if (res.success) {
-        setSuccessMessage("Signed in successfully! Redirecting...");
-        setTimeout(() => {
-          const dest = actionTarget ? `${redirectTarget}?action=${actionTarget}` : redirectTarget;
-          navigate(dest, { replace: true });
-        }, 500);
+        if (res.isAdmin) {
+          if (res.token && res.user) {
+            setAdminSession(res.token, res.user);
+          }
+          setSuccessMessage("Authenticated as Administrator. Opening Admin Dashboard...");
+          setTimeout(() => {
+            navigate("/admin", { replace: true });
+          }, 350);
+        } else {
+          setSuccessMessage("Signed in successfully! Redirecting...");
+          setTimeout(() => {
+            const dest = actionTarget ? `${redirectTarget}?action=${actionTarget}` : redirectTarget;
+            navigate(dest, { replace: true });
+          }, 500);
+        }
       } else {
         setErrorMessage(res.error || "Invalid email or password. Please try again.");
       }

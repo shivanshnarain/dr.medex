@@ -15,6 +15,7 @@ interface AdminAuthContextType {
   isLoading: boolean;
   login: (email: string, password: string) => Promise<{ success: boolean; message?: string; retryAfter?: number }>;
   logout: () => Promise<void>;
+  setAdminSession: (token: string, user: AdminUser) => void;
   adminFetch: (url: string, init?: RequestInit) => Promise<Response>;
 }
 
@@ -26,6 +27,28 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [token, setToken] = useState<string | null>(() => localStorage.getItem(TOKEN_KEY));
   const [adminUser, setAdminUser] = useState<AdminUser | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  // Directly set validated admin session without redundant login calls
+  const setAdminSession = useCallback((newToken: string, newAdmin: AdminUser) => {
+    localStorage.setItem(TOKEN_KEY, newToken);
+    setToken(newToken);
+    setAdminUser(newAdmin);
+    setIsLoading(false);
+  }, []);
+
+  // Listen for session synchronization events from other auth components
+  useEffect(() => {
+    const handleSync = (e: any) => {
+      if (e?.detail?.token && e?.detail?.user) {
+        localStorage.setItem(TOKEN_KEY, e.detail.token);
+        setToken(e.detail.token);
+        setAdminUser(e.detail.user);
+        setIsLoading(false);
+      }
+    };
+    window.addEventListener("drmedex_admin_session_sync", handleSync as EventListener);
+    return () => window.removeEventListener("drmedex_admin_session_sync", handleSync as EventListener);
+  }, []);
 
   // Authenticated fetch wrapper
   const adminFetch = useCallback(
@@ -155,6 +178,7 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         isLoading,
         login,
         logout,
+        setAdminSession,
         adminFetch
       }}
     >

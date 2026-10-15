@@ -109,8 +109,9 @@ router.get("/dashboard", requireAdmin, (req, res) => {
     const imgs = p.galleryImages || (p.images ? p.images.map((u, i) => ({ url: u, isPrimary: i === 0 })) : []);
     totalImages += imgs.length;
     imgs.forEach(img => {
-      const url = typeof img === "string" ? img : img.url;
-      if (url && (url.startsWith("/products-") || url.startsWith("/uploads"))) {
+      const rawUrl = typeof img === "string" ? img : (img && img.url ? img.url : null);
+      const url = typeof rawUrl === "string" ? rawUrl : (rawUrl && typeof rawUrl.url === "string" ? rawUrl.url : null);
+      if (typeof url === "string" && (url.startsWith("/products-") || url.startsWith("/uploads"))) {
         localImages += 1;
       }
       if (img.status === "REPLACEMENT_REQUIRED") {

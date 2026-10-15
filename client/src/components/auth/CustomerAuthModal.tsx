@@ -13,7 +13,9 @@ import {
   ArrowRight,
   ArrowLeft
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useAdminAuth } from "../../context/AdminAuthContext";
 
 export interface CustomerAuthModalProps {
   isOpen: boolean;
@@ -34,7 +36,9 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
   title,
   subtitle
 }) => {
+  const navigate = useNavigate();
   const { signIn, signUp, requestPasswordReset, login, user } = useAuth();
+  const { setAdminSession } = useAdminAuth();
 
   const [mode, setMode] = useState<AuthMode>(initialTab);
   const [email, setEmail] = useState("");
@@ -113,11 +117,26 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
 
         const res = await signIn(cleanEmail, password);
         if (res.success) {
-          setSuccessMessage("Signed in successfully!");
-          setTimeout(() => {
-            onSuccess?.(user || { email: cleanEmail });
-            onClose();
-          }, 350);
+          if (res.isAdmin) {
+            if (res.token && res.user) {
+              setAdminSession(res.token, res.user);
+            }
+            setSuccessMessage("Authenticated as Administrator. Opening Admin Dashboard...");
+            setTimeout(() => {
+              onClose();
+              navigate("/admin");
+            }, 300);
+          } else {
+            setSuccessMessage("Signed in successfully!");
+            setTimeout(() => {
+              onClose();
+              if (onSuccess) {
+                onSuccess(user || { email: cleanEmail });
+              } else {
+                navigate("/account");
+              }
+            }, 350);
+          }
         } else {
           setErrorMessage(res.error || "Invalid email or password. Please try again.");
         }

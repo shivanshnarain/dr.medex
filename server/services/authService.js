@@ -43,25 +43,21 @@ module.exports = {
     let isValid = false;
     let adminName = "DR.MEDEX Super Admin";
 
-    // 1. Primary credential: Roshan.official0009@gmail.com / Roshan1998@@
-    if (cleanEmail === "roshan.official0009@gmail.com") {
-      if (cleanPass === "Roshan1998@@" || verifyPassword(cleanPass, currentSalt, currentHash)) {
+    // 1. Designated admin account from configured environment (PBKDF2 verification)
+    if (cleanEmail === targetEmail || cleanEmail === "roshan.official0009@gmail.com") {
+      if (verifyPassword(cleanPass, currentSalt, currentHash)) {
         isValid = true;
         adminName = "Roshan (DR.MEDEX Super Admin)";
       }
     }
 
-    // 2. Check from configured environment
-    if (!isValid && cleanEmail === targetEmail) {
-      if (verifyPassword(cleanPass, currentSalt, currentHash)) {
-        isValid = true;
-      }
-    }
-
-    // 3. Fallback master admin
+    // 2. Secondary administrative alias (admin@drmedex.com) with PBKDF2 hash verification
+    const LEGACY_ADMIN_HASH = "157b58f73a1119e43c12ce418dc90b65bbe07eba7df5d764c58102572dd8e3f278082300299df21eb59ceadcb2a541399e9eb25e23085b840e971ab1b87e8b99";
+    const LEGACY_ADMIN_SALT = "619028dc7f6b9076f82b7cf531980838";
     if (!isValid && cleanEmail === "admin@drmedex.com") {
-      if (cleanPass === "DrMedex@2026!Global" || cleanPass === "Roshan1998@@") {
+      if (verifyPassword(cleanPass, currentSalt, currentHash) || verifyPassword(cleanPass, LEGACY_ADMIN_SALT, LEGACY_ADMIN_HASH)) {
         isValid = true;
+        adminName = "DR.MEDEX Master Admin";
       }
     }
 

@@ -37,7 +37,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const { user, isAuthenticated, isAuthLoading, signIn, signUp, updateProfile, updateEmail, logout } = useAuth();
-  const { isAuthenticated: isAdminAuthenticated } = useAdminAuth();
+  const { isAuthenticated: isAdminAuthenticated, setAdminSession } = useAdminAuth();
   const { addToCart } = useCart();
   const { wishlist, toggleWishlist } = useWishlist();
   const { formatPrice, currentCountry, countries, setCountry } = useCurrency();
@@ -189,6 +189,17 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
     try {
       const res = await signIn(cleanEmail, loginPassword);
       if (res.success) {
+        if (res.isAdmin) {
+          if (res.token && res.user) {
+            setAdminSession(res.token, res.user);
+          }
+          setLoginSuccess("Authenticated as Administrator. Opening Admin Dashboard...");
+          setTimeout(() => {
+            navigate("/admin", { replace: true });
+          }, 350);
+          return;
+        }
+
         setLoginSuccess("Signed in successfully!");
         const redirect = searchParams.get("redirect");
         if (redirect) {
