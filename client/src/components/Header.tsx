@@ -11,12 +11,15 @@ import {
   X,
   ArrowRight,
   Check,
-  ChevronRight
+  ChevronRight,
+  Package,
+  LogOut
 } from "lucide-react";
 import { useCurrency } from "../context/CurrencyContext";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { useAuth } from "../context/AuthContext";
+import { CustomerAuthModal } from "./auth/CustomerAuthModal";
 import { Product } from "../types";
 import { Logo } from "./Logo";
 
@@ -36,11 +39,17 @@ export const Header: React.FC = () => {
   const { currentCountry, currentCurrency, countries, setCountry, formatPrice } = useCurrency();
   const { itemCount, openDrawer } = useCart();
   const { wishlistCount } = useWishlist();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCountryModalOpen, setIsCountryModalOpen] = useState(false);
   const [countrySearch, setCountrySearch] = useState("");
+
+  // Customer Authentication Modal State
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authModalTab, setAuthModalTab] = useState<"signin" | "signup">("signin");
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
   // Search state
   const [searchQuery, setSearchQuery] = useState("");
@@ -155,6 +164,9 @@ export const Header: React.FC = () => {
       }
       if (countryModalRef.current && !countryModalRef.current.contains(e.target as Node)) {
         setIsCountryModalOpen(false);
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
+        setIsUserMenuOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -562,28 +574,98 @@ export const Header: React.FC = () => {
 
             {/* Account Icon / Customer Greeting */}
             {user ? (
-              <Link
-                to="/account"
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded-full hover:bg-neutral-100 text-neutral-800 transition-all text-xs font-semibold group border border-transparent hover:border-neutral-200"
-                title={`Logged in as ${user.fullName || user.email}`}
-                aria-label="User Account"
-              >
-                <div className="w-5 h-5 rounded-full bg-[#2D5A4A]/10 text-[#2D5A4A] flex items-center justify-center">
-                  <User size={13} />
-                </div>
-                <span className="hidden md:inline text-neutral-700 group-hover:text-[#2D5A4A] font-medium max-w-[130px] truncate">
-                  Hi, {user.fullName ? user.fullName.split(" ")[0].replace(/^Dr\.?\s*/i, "") : user.email?.split("@")[0]}
-                </span>
-              </Link>
+              <div className="relative" ref={userMenuRef}>
+                <button
+                  type="button"
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-full hover:bg-neutral-100 text-neutral-800 transition-all text-xs font-semibold group border border-transparent hover:border-neutral-200 cursor-pointer"
+                  title={`Customer Account: ${user.fullName || user.email}`}
+                  aria-label="Customer Account Menu"
+                  aria-expanded={isUserMenuOpen}
+                >
+                  <div className="w-5 h-5 rounded-full bg-[#2D5A4A]/10 text-[#2D5A4A] flex items-center justify-center">
+                    <User size={13} />
+                  </div>
+                  <span className="hidden md:inline text-neutral-700 group-hover:text-[#2D5A4A] font-medium max-w-[130px] truncate">
+                    Hi, {user.fullName ? user.fullName.split(" ")[0].replace(/^Dr\.?\s*/i, "") : user.email?.split("@")[0]}
+                  </span>
+                  <ChevronDown
+                    size={12}
+                    className={`text-neutral-400 group-hover:text-neutral-600 transition-transform ${
+                      isUserMenuOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+
+                {/* Compact Customer Menu Dropdown */}
+                {isUserMenuOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-2xl shadow-xl border border-neutral-200 py-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
+                    <div className="px-4 py-2.5 border-b border-neutral-100">
+                      <div className="text-3xs font-extrabold uppercase tracking-wider text-[#7AA05A] mb-0.5">
+                        Verified Customer
+                      </div>
+                      <p className="text-xs font-bold text-neutral-900 truncate">
+                        {user.fullName || "Customer"}
+                      </p>
+                      <p className="text-2xs text-neutral-500 truncate">{user.email}</p>
+                    </div>
+
+                    <div className="py-1">
+                      <Link
+                        to="/account"
+                        onClick={() => setIsUserMenuOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2 text-xs text-neutral-700 hover:bg-neutral-50 hover:text-[#2D5A4A] font-medium transition-colors"
+                      >
+                        <User size={14} className="text-neutral-400" />
+                        <span>Account Dashboard</span>
+                      </Link>
+                      <Link
+                        to="/account?tab=orders"
+                        onClick={() => setIsUserMenuOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2 text-xs text-neutral-700 hover:bg-neutral-50 hover:text-[#2D5A4A] font-medium transition-colors"
+                      >
+                        <Package size={14} className="text-neutral-400" />
+                        <span>Orders & RFQ Quotes</span>
+                      </Link>
+                      <Link
+                        to="/wishlist"
+                        onClick={() => setIsUserMenuOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2 text-xs text-neutral-700 hover:bg-neutral-50 hover:text-[#2D5A4A] font-medium transition-colors"
+                      >
+                        <Heart size={14} className="text-neutral-400" />
+                        <span>Saved Equipment</span>
+                      </Link>
+                    </div>
+
+                    <div className="border-t border-neutral-100 pt-1">
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          setIsUserMenuOpen(false);
+                          await logout();
+                        }}
+                        className="w-full flex items-center gap-2.5 px-4 py-2 text-xs text-rose-600 hover:bg-rose-50 font-semibold transition-colors cursor-pointer"
+                      >
+                        <LogOut size={14} />
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             ) : (
-              <Link
-                to="/account/signin"
-                className="p-2 rounded-full hover:bg-neutral-100 text-neutral-800 hover:text-[#2D5A4A] transition-all"
-                title="Sign In / Customer Portal"
-                aria-label="Sign In"
+              <button
+                type="button"
+                onClick={() => {
+                  setAuthModalTab("signin");
+                  setIsAuthModalOpen(true);
+                }}
+                className="p-2 rounded-full hover:bg-neutral-100 text-neutral-800 hover:text-[#2D5A4A] transition-all cursor-pointer"
+                title="Sign In / Customer Account"
+                aria-label="Sign In or Register"
               >
                 <User size={18} />
-              </Link>
+              </button>
             )}
 
             {/* Wishlist / Favorite Icon with Count Badge */}
@@ -825,18 +907,62 @@ export const Header: React.FC = () => {
                 </span>
               </button>
 
-              <Link
-                to="/account"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full block py-2.5 text-center bg-[#111111] hover:bg-black text-white rounded-xl text-xs font-bold shadow-xs transition-colors"
-              >
-                Customer Portal / Account
-              </Link>
+              {user ? (
+                <div className="space-y-2">
+                  <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200">
+                    <div className="text-3xs font-extrabold uppercase tracking-wider text-[#7AA05A]">
+                      Verified Customer
+                    </div>
+                    <div className="text-xs font-bold text-neutral-900 truncate mt-0.5">
+                      {user.fullName || "Customer"}
+                    </div>
+                    <div className="text-2xs text-neutral-500 truncate">{user.email}</div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Link
+                      to="/account"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="py-2.5 px-3 text-center bg-white border border-neutral-200 hover:bg-neutral-50 text-neutral-800 rounded-xl text-xs font-bold transition-colors"
+                    >
+                      My Account
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        setIsMobileMenuOpen(false);
+                        await logout();
+                      }}
+                      className="py-2.5 px-3 text-center bg-rose-50 hover:bg-rose-100 text-rose-700 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setAuthModalTab("signin");
+                    setIsAuthModalOpen(true);
+                  }}
+                  className="w-full block py-2.5 text-center bg-[#111111] hover:bg-black text-white rounded-xl text-xs font-bold shadow-xs transition-colors cursor-pointer"
+                >
+                  Sign In / Create Account
+                </button>
+              )}
             </div>
           </div>
           <div className="flex-1" onClick={() => setIsMobileMenuOpen(false)} />
         </div>
       )}
+
+      {/* Customer Authentication Modal */}
+      <CustomerAuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        initialTab={authModalTab}
+      />
     </header>
   );
 };
