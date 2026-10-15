@@ -7,10 +7,13 @@
     "dev": "node dev.js",
     "dev:client": "npm --prefix client run dev",
     "dev:server": "node server/index.js",
-    "build": "npm --prefix client run build",
+    "build": "npm --prefix client install && npm --prefix client run build",
     "start": "node server/index.js",
     "test": "node server/tests/firestoreAdminLifecycleTest.js && node server/tests/focusedReviewsSecurityTest.js && node server/tests/supabaseAuthAdminTest.js && node server/tests/customerLoginTrackingAndAiSuggestionsTest.js && node server/tests/geminiSuggestionsAndReviewPopupTest.js && node server/tests/cloudflareAndMultiProviderReviewTest.js && node server/tests/instantPublishAndAbuseModerationTest.js && node server/tests/passwordResetFlowTest.js && node server/tests/singleCardSelectionAndStylingTest.js"
   },
+  "workspaces": [
+    "client"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
