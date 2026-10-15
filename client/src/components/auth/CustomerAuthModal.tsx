@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import {
   X,
   Mail,
@@ -81,7 +82,13 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
     }
   }, [isOpen]);
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   if (!isOpen) return null;
+  if (!mounted || typeof document === "undefined") return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -165,7 +172,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
     }
   };
 
-  return (
+  const modalContent = (
     <div
       role="dialog"
       aria-modal="true"
@@ -173,15 +180,16 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
-      className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
+      className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
+      style={{ margin: 0 }}
     >
-      <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl border border-neutral-200 overflow-hidden">
+      <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl border border-neutral-200 overflow-hidden my-auto max-h-[92vh] flex flex-col">
         {/* Modal Header */}
         <div className="p-6 pb-4 border-b border-neutral-100 flex items-start justify-between">
-          <div>
+          <div className="pr-4">
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#7AA05A]" />
-              <span className="text-2xs font-extrabold uppercase tracking-wider text-[#7AA05A]">
+              <span className="w-2 h-2 rounded-full bg-[#7A805A]" />
+              <span className="text-2xs font-extrabold uppercase tracking-wider text-[#7A805A]">
                 DR.MEDEX Customer Portal
               </span>
             </div>
@@ -199,11 +207,14 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
 
           <button
             type="button"
-            onClick={onClose}
-            className="p-1.5 rounded-lg text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 transition-colors cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            className="p-2 rounded-xl text-neutral-500 hover:text-neutral-900 bg-neutral-100 hover:bg-neutral-200 transition-colors cursor-pointer shrink-0"
             aria-label="Close authentication modal"
           >
-            <X size={18} />
+            <X size={20} strokeWidth={2.2} />
           </button>
         </div>
 
@@ -493,6 +504,8 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 };
 
 export { CustomerAuthModal as AuthModal };
