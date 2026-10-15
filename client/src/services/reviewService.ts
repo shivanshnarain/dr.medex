@@ -6,7 +6,9 @@ import {
   limit as firestoreLimit,
   startAfter,
   getDocs,
-  DocumentSnapshot
+  DocumentSnapshot,
+  QueryDocumentSnapshot,
+  DocumentData
 } from "firebase/firestore";
 import { db, isFirebaseConfigured } from "../lib/firebase";
 import { Review, CreateReviewInput, ReviewSuggestion } from "../types";
@@ -330,7 +332,7 @@ export async function fetchProductReviews(
       const pageDocs = hasMore ? docs.slice(0, pageSize) : docs;
       const lastDoc = pageDocs.length > 0 ? pageDocs[pageDocs.length - 1] : null;
 
-      const items: Review[] = pageDocs.map(d => {
+      const items: Review[] = pageDocs.map((d: QueryDocumentSnapshot<DocumentData>) => {
         const data = d.data();
         return {
           id: d.id,
