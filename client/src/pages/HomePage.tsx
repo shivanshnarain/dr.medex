@@ -19,6 +19,7 @@ import { ProductCard } from "../components/ProductCard";
 import { QuickViewModal } from "../components/QuickViewModal";
 import { B2BQuoteModal } from "../components/B2BQuoteModal";
 import { HeroSection } from "../components/HeroSection";
+import { getProducts } from "../services/productService";
 
 interface CategorySectionDef {
   id: string;
@@ -139,19 +140,16 @@ export const HomePage: React.FC = () => {
   useEffect(() => {
     async function loadHomeData() {
       try {
-        const [prodRes, blogRes] = await Promise.all([
-          fetch("/api/products"),
-          fetch("/api/blogs")
+        const [prodResult, blogRes] = await Promise.all([
+          getProducts(),
+          fetch("/api/blogs").catch(() => null)
         ]);
 
-        if (prodRes.ok) {
-          const pData = await prodRes.json();
-          if (pData.success && Array.isArray(pData.products)) {
-            setAllProducts(pData.products);
-          }
+        if (prodResult && prodResult.products) {
+          setAllProducts(prodResult.products);
         }
 
-        if (blogRes.ok) {
+        if (blogRes && blogRes.ok) {
           const bData = await blogRes.json();
           if (bData.success && Array.isArray(bData.blogs)) {
             setBlogs(bData.blogs.slice(0, 3));

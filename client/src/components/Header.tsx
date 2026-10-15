@@ -194,7 +194,7 @@ export const Header: React.FC = () => {
     }, 150);
   };
 
-  // Second row category items and their subcategories
+  // Second row category items and their verified subcategories
   const navCategories = [
     {
       id: "home",
@@ -217,8 +217,7 @@ export const Header: React.FC = () => {
       hasSubmenu: true,
       subcategories: [
         { label: "Electrosurgical Cautery", to: "/shop-all?category=electrosurgical-units&subcategory=electro-surgical-skin-cautery" },
-        { label: "Electrosurgical Generators", to: "/shop-all?category=electrosurgical-units&subcategory=electrosurgical-generator" },
-        { label: "Surgical Electrodes & Accessories", to: "/shop-all?category=electrosurgical-units&subcategory=surgical-accessories" }
+        { label: "Electrosurgical Generators", to: "/shop-all?category=electrosurgical-units&subcategory=electrosurgical-generator" }
       ]
     },
     {
@@ -229,8 +228,7 @@ export const Header: React.FC = () => {
       hasSubmenu: true,
       subcategories: [
         { label: "Cryo Surgical Guns", to: "/shop-all?category=cryo-surgical&subcategory=cryo-gun" },
-        { label: "Cryotherapy Systems", to: "/shop-all?category=cryo-surgical&subcategory=cryotherapy-systems" },
-        { label: "Replacement Nozzles & Accessories", to: "/shop-all?category=cryo-surgical&subcategory=cryo-replacement-nozzles" }
+        { label: "Cryo Skin Cautery Units", to: "/shop-all?category=cryo-surgical&subcategory=electro-surgical-skin-cautery" }
       ]
     },
     {
@@ -242,8 +240,7 @@ export const Header: React.FC = () => {
       subcategories: [
         { label: "Single Dome OT Lights", to: "/shop-all?category=ot-lights&subcategory=single-dome-ot-lights" },
         { label: "Double Dome OT Lights", to: "/shop-all?category=ot-lights&subcategory=ot-surgical-lights-double-dome" },
-        { label: "Mobile OT Lights", to: "/shop-all?category=ot-lights&subcategory=mobile-led-ot-lights" },
-        { label: "Ceiling-Mounted Systems", to: "/shop-all?category=ot-lights&subcategory=ceiling-mounted-systems" }
+        { label: "Mobile LED OT Lights", to: "/shop-all?category=ot-lights&subcategory=mobile-led-ot-lights" }
       ]
     },
     {
@@ -253,9 +250,8 @@ export const Header: React.FC = () => {
       categorySlug: "examination-ot-tables",
       hasSubmenu: true,
       subcategories: [
-        { label: "Operating Tables", to: "/shop-all?category=examination-ot-tables&subcategory=operating-tables" },
-        { label: "Examination Tables", to: "/shop-all?category=examination-ot-tables&subcategory=examination-tables" },
-        { label: "Treatment & Rehabilitation Couches", to: "/shop-all?category=examination-ot-tables&subcategory=treatment-tables" }
+        { label: "Operating OT Tables", to: "/shop-all?category=examination-ot-tables&subcategory=examination-ot-tables" },
+        { label: "Clinical Chairs & Exam Tables", to: "/shop-all?category=examination-ot-tables&subcategory=general-medical" }
       ]
     },
     {
@@ -265,9 +261,9 @@ export const Header: React.FC = () => {
       categorySlug: "obstetrics-and-gynaecology",
       hasSubmenu: true,
       subcategories: [
-        { label: "Obstetric Delivery Tables", to: "/shop-all?category=obstetrics-and-gynaecology&subcategory=obstetric-tables" },
-        { label: "Gynaecology Examination Tables", to: "/shop-all?category=obstetrics-and-gynaecology&subcategory=gynaecology-examination-tables" },
-        { label: "Fetal Doppler & Monitoring", to: "/shop-all?category=obstetrics-and-gynaecology&subcategory=fetal-monitoring-equipment" }
+        { label: "Obstetric & Gynecological Delivery", to: "/shop-all?category=obstetrics-and-gynaecology&subcategory=obstetrics-and-gynaecology" },
+        { label: "Gynecology Examination Tables", to: "/shop-all?category=obstetrics-and-gynaecology&subcategory=examination-ot-tables" },
+        { label: "Thermal Coagulation & Colposcopy", to: "/shop-all?category=obstetrics-and-gynaecology&subcategory=electrosurgical-generator" }
       ]
     },
     {
@@ -277,9 +273,10 @@ export const Header: React.FC = () => {
       categorySlug: "medical-equipment",
       hasSubmenu: true,
       subcategories: [
-        { label: "Diagnostic Instruments", to: "/shop-all?category=medical-equipment&subcategory=diagnostic-equipment" },
-        { label: "Surgical Headlights", to: "/shop-all?category=medical-equipment&subcategory=surgical-headlights" },
-        { label: "Medical Equipment Trolleys", to: "/shop-all?category=medical-equipment&subcategory=medical-trolleys" }
+        { label: "Diagnostic Instruments & Screens", to: "/shop-all?category=medical-equipment&subcategory=general-medical" },
+        { label: "Ultrasound Therapy Transducers", to: "/shop-all?category=medical-equipment&subcategory=ultrasound-therapy-machines" },
+        { label: "TENS & Clinical Muscle Stimulation", to: "/shop-all?category=medical-equipment&subcategory=tens-machines" },
+        { label: "Hospital Trolleys & Utility Equipment", to: "/shop-all?category=medical-equipment&subcategory=cpm" }
       ]
     }
   ];
@@ -290,12 +287,16 @@ export const Header: React.FC = () => {
       return location.pathname === "/";
     }
     if (item.id === "shop-all") {
-      return location.pathname === "/shop-all" && !location.search;
+      return (
+        (location.pathname === "/shop-all" && !location.search.includes("category=")) ||
+        (location.pathname === "/products" && !location.search.includes("category="))
+      );
     }
     if (item.categorySlug) {
       return (
         location.search.includes(`category=${item.categorySlug}`) ||
-        location.pathname.includes(`/category/${item.categorySlug}`)
+        location.pathname === `/category/${item.categorySlug}` ||
+        location.pathname.startsWith(`/category/${item.categorySlug}/`)
       );
     }
     return false;
@@ -728,7 +729,7 @@ export const Header: React.FC = () => {
       {/* ==============================================================
           SECOND ROW: HORIZONTALLY CENTERED CATEGORY NAVIGATION + MEGA MENUS
       ============================================================== */}
-      <div className="border-t border-[#7AA05A] hidden lg:block bg-[#7AA05A] relative shadow-xs">
+      <div className="border-t border-[#E5E5E5] hidden lg:block bg-white relative">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <nav
             className="flex items-center justify-center gap-1 xl:gap-2 py-1"
@@ -747,20 +748,23 @@ export const Header: React.FC = () => {
                 >
                   <Link
                     to={item.to}
-                    className={`relative inline-flex items-center gap-1 px-3 py-2 text-xs font-medium tracking-normal transition-colors rounded-md ${
+                    className={`relative inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold tracking-normal transition-all rounded-lg ${
                       active
-                        ? "text-white font-bold"
-                        : "text-white/95 hover:text-white hover:bg-white/15"
+                        ? "text-[#167A4A] bg-[#EAF5EF] font-bold"
+                        : "text-[#374151] hover:text-[#167A4A] hover:bg-[#F3F8F5]"
                     }`}
                   >
                     <span>{item.label}</span>
                     {item.hasSubmenu && (
                       <ChevronDown
                         size={12}
-                        className={`text-white/80 transition-transform duration-200 ${
-                          isMegaOpen ? "rotate-180 text-white" : ""
-                        }`}
+                        className={`transition-transform duration-200 ${
+                          active ? "text-[#167A4A]" : "text-neutral-400"
+                        } ${isMegaOpen ? "rotate-180 text-[#167A4A]" : ""}`}
                       />
+                    )}
+                    {active && (
+                      <span className="absolute bottom-0 left-2.5 right-2.5 h-[2px] bg-[#167A4A] rounded-full" />
                     )}
                   </Link>
 
@@ -781,10 +785,10 @@ export const Header: React.FC = () => {
                               key={sub.to}
                               to={sub.to}
                               onClick={() => setActiveMegaMenu(null)}
-                              className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-[#171717] hover:text-[#2D5A4A] hover:bg-[#7AA05A]/10 transition-colors group"
+                              className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-[#171717] hover:text-[#167A4A] hover:bg-[#EAF5EF] transition-colors group"
                             >
                               <span>{sub.label}</span>
-                              <ChevronRight size={13} className="text-[#6B7280] group-hover:text-[#2D5A4A] transition-colors" />
+                              <ChevronRight size={13} className="text-neutral-400 group-hover:text-[#167A4A] transition-colors" />
                             </Link>
                           ))}
                         </div>

@@ -1,20 +1,23 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useSearchParams, useParams, Link } from "react-router-dom";
-import { Filter, SlidersHorizontal, X, Search, RotateCcw, AlertCircle, ArrowRight } from "lucide-react";
+import { useSearchParams, useParams, Link, useNavigate } from "react-router-dom";
+import { Filter, SlidersHorizontal, X, Search, RotateCcw, AlertCircle, ArrowRight, RefreshCw } from "lucide-react";
 import { Product, Category } from "../types";
 import { ProductCard } from "../components/ProductCard";
 import { QuickViewModal } from "../components/QuickViewModal";
 import { B2BQuoteModal } from "../components/B2BQuoteModal";
 import { useCurrency } from "../context/CurrencyContext";
+import { getProducts, getCategories } from "../services/productService";
 
 export const ShopPage: React.FC = () => {
   const { categorySlug } = useParams<{ categorySlug?: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const { currentCurrency, currentCountry, formatPrice } = useCurrency();
 
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [apiError, setApiError] = useState<string | null>(null);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
   // Modals
@@ -38,33 +41,52 @@ export const ShopPage: React.FC = () => {
     setIsQuoteModalOpen(true);
   };
 
-  // Load products & categories
-  useEffect(() => {
-    async function loadData() {
-      setIsLoading(true);
-      try {
-        const [prodRes, catRes] = await Promise.all([
-          fetch("/api/products"),
-          fetch("/api/categories")
-        ]);
+  // Load products & categories via resilient product service
+  const loadData = async () => {
+    setIsLoading(true);
+    setApiError(null);
+    try {
+      const [prodRes, catRes] = await Promise.all([
+        getProducts(),
+        getCategories()
+      ]);
 
-        if (prodRes.ok) {
-          const pData = await prodRes.json();
-          if (pData.success) setProducts(pData.products);
-        }
+      setProducts(prodRes.products);
+      setCategories(catRes.categories);
 
-        if (catRes.ok) {
-          const cData = await catRes.json();
-          if (cData.success) setCategories(cData.categories);
-        }
-      } catch (e) {
-        console.error("Error loading shop data:", e);
-      } finally {
-        setIsLoading(false);
+      if (prodRes.products.length === 0) {
+        setApiError("No product catalog records are currently available.");
       }
+    } catch (e: any) {
+      console.error("Error loading shop data:", e);
+      setApiError("Unable to establish connection with medical catalog service.");
+    } finally {
+      setIsLoading(false);
     }
+  };
+
+  useEffect(() => {
     loadData();
   }, []);
+
+  // Reconcile stale subcategory filter when switching category
+  useEffect(() => {
+    if (selectedCategory && selectedSubcategory && categories.length > 0) {
+      const activeCat = categories.find(
+        (c) => c.slug === selectedCategory || c.id === selectedCategory
+      );
+      if (activeCat) {
+        const subcategoryBelongs = activeCat.subcategories.some(
+          (s) => s.slug === selectedSubcategory || s.id === selectedSubcategory
+        );
+        if (!subcategoryBelongs) {
+          const params = new URLSearchParams(searchParams);
+          params.delete("subcategory");
+          setSearchParams(params, { replace: true });
+        }
+      }
+    }
+  }, [selectedCategory, selectedSubcategory, categories, searchParams, setSearchParams]);
 
   // Filter and sort products
   const filteredProducts = useMemo(() => {
@@ -78,9 +100,31 @@ export const ShopPage: React.FC = () => {
       const catSlug = activeCat ? activeCat.slug : selectedCategory;
       list = list.filter((p) => p.category === catId || p.category === catSlug);
     }
+
     if (selectedSubcategory) {
-      list = list.filter((p) => p.subcategory === selectedSubcategory);
+      const directMatches = list.filter((p) => p.subcategory === selectedSubcategory);
+      if (directMatches.length > 0) {
+        list = directMatches;
+      } else {
+        const cleanSub = selectedSubcategory.replace(/-/g, " ").toLowerCase();
+        const subTokens = cleanSub
+          .split(/\s+/)
+          .filter(
+            (w) =>
+              w.length > 2 &&
+              !["equipment", "machines", "systems", "medical", "surgical"].includes(w)
+          );
+        const fuzzyMatches = list.filter((p) => {
+          const pSub = (p.subcategory || "").replace(/-/g, " ").toLowerCase();
+          const pTitle = (p.title || "").toLowerCase();
+          return subTokens.some((t) => pSub.includes(t) || pTitle.includes(t));
+        });
+        if (fuzzyMatches.length > 0) {
+          list = fuzzyMatches;
+        }
+      }
     }
+
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
       list = list.filter(
@@ -124,18 +168,14 @@ export const ShopPage: React.FC = () => {
     }
 
     return list;
-  }, [products, selectedCategory, selectedSubcategory, searchQuery, selectedRating, onlyInStock, maxPriceINR, sortBy]);
+  }, [products, selectedCategory, selectedSubcategory, searchQuery, selectedRating, onlyInStock, maxPriceINR, sortBy, categories]);
 
   const handleCategoryClick = (catSlug: string) => {
-    const params = new URLSearchParams(searchParams);
     if (selectedCategory === catSlug) {
-      params.delete("category");
-      params.delete("subcategory");
+      navigate("/shop-all");
     } else {
-      params.set("category", catSlug);
-      params.delete("subcategory");
+      navigate(`/category/${catSlug}`);
     }
-    setSearchParams(params);
   };
 
   const handleSubcategoryClick = (subSlug: string) => {
@@ -149,11 +189,11 @@ export const ShopPage: React.FC = () => {
   };
 
   const handleResetFilters = () => {
-    setSearchParams(new URLSearchParams());
     setSelectedRating(null);
     setOnlyInStock(false);
     setMaxPriceINR(700000);
     setSortBy("featured");
+    navigate("/shop-all");
   };
 
   const activeCategoryObject = categories.find((c) => c.slug === selectedCategory);
@@ -400,6 +440,24 @@ export const ShopPage: React.FC = () => {
                 {[...Array(6)].map((_, i) => (
                   <div key={i} className="h-80 bg-white rounded-xl animate-pulse border border-[#EAEAEA]" />
                 ))}
+              </div>
+            ) : apiError && products.length === 0 ? (
+              <div className="bg-white rounded-xl border border-red-200 p-16 text-center space-y-4 shadow-xs">
+                <div className="w-16 h-16 bg-red-50 text-red-600 rounded-full border border-red-200 flex items-center justify-center mx-auto">
+                  <AlertCircle size={28} />
+                </div>
+                <h3 className="text-base font-bold text-[#111111]">Catalogue Service Unavailable</h3>
+                <p className="text-xs text-neutral-500 max-w-sm mx-auto leading-relaxed">
+                  {apiError}
+                </p>
+                <button
+                  type="button"
+                  onClick={loadData}
+                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#167A4A] hover:bg-[#13673e] text-white rounded-xl text-xs font-bold transition-colors shadow-xs cursor-pointer"
+                >
+                  <RefreshCw size={14} />
+                  <span>Retry Connection</span>
+                </button>
               </div>
             ) : filteredProducts.length === 0 ? (
               <div className="bg-white rounded-xl border border-[#EAEAEA] p-16 text-center space-y-4">

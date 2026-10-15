@@ -21,6 +21,7 @@ import { useCart } from "../context/CartContext";
 import { ProductCard } from "../components/ProductCard";
 import { B2BQuoteModal } from "../components/B2BQuoteModal";
 import { ProductReviewsSection } from "../components/reviews/ProductReviewsSection";
+import { getProductBySlug, fallbackProducts } from "../services/productService";
 
 /**
  * Pure title parser: separates brand prefix from descriptive title
@@ -472,33 +473,36 @@ export const ProductDetailPage: React.FC = () => {
     setIsLoading(true);
     setFetchError(null);
     try {
-      const res = await fetch(`/api/products/${encodeURIComponent(slug)}`);
-      if (res.status === 404) {
-        setProduct(null);
-        return;
-      }
-      if (!res.ok) {
-        throw new Error(`Server returned status ${res.status}`);
-      }
-      const data = await res.json();
-      if (data.success && data.product) {
-        setProduct(data.product);
+      const { product: prod } = await getProductBySlug(slug);
+      if (prod) {
+        setProduct(prod);
         setActiveImageIndex(0);
 
         // Fetch related products in the same category
-        if (data.product.category) {
+        if (prod.category) {
+          let relatedLoaded = false;
           try {
-            const relRes = await fetch(`/api/products?category=${encodeURIComponent(data.product.category)}`);
-            const relData = await relRes.json();
-            if (relData.success && Array.isArray(relData.products)) {
-              setRelatedProducts(
-                relData.products
-                  .filter((p: Product) => p.id !== data.product.id && p.slug !== data.product.slug)
-                  .slice(0, 4)
-              );
+            const relRes = await fetch(`/api/products?category=${encodeURIComponent(prod.category)}`);
+            if (relRes.ok) {
+              const relData = await relRes.json();
+              if (relData.success && Array.isArray(relData.products)) {
+                setRelatedProducts(
+                  relData.products
+                    .filter((p: Product) => p.id !== prod.id && p.slug !== prod.slug)
+                    .slice(0, 4)
+                );
+                relatedLoaded = true;
+              }
             }
-          } catch (relErr) {
-            console.warn("Failed to load related products:", relErr);
+          } catch {
+            // fallback handled below
+          }
+
+          if (!relatedLoaded) {
+            const relFallback = fallbackProducts
+              .filter((p) => p.category === prod.category && p.id !== prod.id && p.slug !== prod.slug)
+              .slice(0, 4);
+            setRelatedProducts(relFallback);
           }
         }
       } else {

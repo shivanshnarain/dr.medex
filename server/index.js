@@ -55,17 +55,21 @@ app.use((req, res) => {
   res.sendFile(path.join(clientDistPath, "index.html"));
 });
 
-// Start Server
-const server = app.listen(PORT, () => {
-  console.log(`[DR.MEDEX Global] REST API Server running on port ${PORT}`);
-  console.log(`[DR.MEDEX Global] Base currency: INR | Live FX Multi-currency engine active`);
-});
+module.exports = app;
 
-server.on("error", (err) => {
-  if (err.code === "EADDRINUSE") {
-    console.warn(`[DR.MEDEX Global] Port ${PORT} is already in use by an existing instance.`);
-  } else {
-    console.error("[DR.MEDEX Global] Server error:", err);
-  }
-});
+// Start Server if executed directly
+if (require.main === module) {
+  const server = app.listen(PORT, () => {
+    console.log(`[DR.MEDEX Global] REST API Server running on port ${PORT}`);
+    console.log(`[DR.MEDEX Global] Base currency: INR | Live FX Multi-currency engine active`);
+  });
+
+  server.on("error", (err) => {
+    if (err.code === "EADDRINUSE") {
+      console.warn(`[DR.MEDEX Global] Port ${PORT} is already in use by an existing instance.`);
+    } else {
+      console.error("[DR.MEDEX Global] Server error:", err);
+    }
+  });
+}
 
