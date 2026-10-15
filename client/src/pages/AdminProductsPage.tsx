@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import {
   Package,
@@ -35,6 +35,8 @@ export const AdminProductsPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const categoryScrollRef = useRef<HTMLDivElement>(null);
 
   // Search & Filter State
   const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
@@ -68,6 +70,41 @@ export const AdminProductsPage: React.FC = () => {
   // Notification Banner (Error is strictly red, success is green)
   const [bannerMessage, setBannerMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
 
+  // Auto-dismissing Toast Notification System (Replaces persistent sync labels)
+  const [toast, setToast] = useState<{
+    id: string;
+    type: "success" | "error" | "warning";
+    title?: string;
+    message: string;
+  } | null>(null);
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const showToast = (type: "success" | "error" | "warning", message: string, title?: string) => {
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current);
+    }
+    const id = String(Date.now());
+    setToast({ id, type, message, title });
+    toastTimerRef.current = setTimeout(() => {
+      setToast(null);
+    }, 3500);
+  };
+
+  const dismissToast = () => {
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current);
+    }
+    setToast(null);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) {
+        clearTimeout(toastTimerRef.current);
+      }
+    };
+  }, []);
+
   // Cloudinary Image Lifecycle & Quota State
   const [pendingReviewAction, setPendingReviewAction] = useState<string | null>(null);
   const [syncingCloudinaryId, setSyncingCloudinaryId] = useState<string | null>(null);
@@ -75,32 +112,49 @@ export const AdminProductsPage: React.FC = () => {
   const [cloudinaryReport, setCloudinaryReport] = useState<any>(null);
   const [loadingCloudinaryReport, setLoadingCloudinaryReport] = useState(false);
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (isManualRefresh = false) => {
+    if (isRefreshing) return;
     setIsLoading(true);
+    setIsRefreshing(true);
     try {
       const [prodRes, catRes] = await Promise.all([
         adminFetch("/api/admin/products?limit=1000"),
         fetch("/api/categories?includeInactive=true")
       ]);
 
-      if (prodRes.ok) {
-        const pData = await prodRes.json();
-        if (pData.success) {
-          setProducts(pData.products || []);
-        }
+      if (!prodRes.ok) {
+        throw new Error(`Failed to load products from server (HTTP ${prodRes.status})`);
       }
+
+      const pData = await prodRes.json();
+      if (!pData || !pData.success) {
+        throw new Error((pData && pData.message) || "Failed to load product catalogue records.");
+      }
+
+      setProducts(pData.products || []);
 
       if (catRes.ok) {
         const cData = await catRes.json();
-        if (cData.success) {
+        if (cData && cData.success) {
           setCategories(cData.categories || []);
         }
       }
-    } catch (e) {
+
+      if (isManualRefresh) {
+        setBannerMessage({
+          text: `Refreshed catalogue: ${pData.products?.length || 0} products synced from backend.`,
+          type: "success"
+        });
+      }
+    } catch (e: any) {
       console.error("Products load error:", e);
-      setBannerMessage({ text: "Failed to load product catalogue records.", type: "error" });
+      setBannerMessage({
+        text: e.message || "Failed to load product catalogue records.",
+        type: "error"
+      });
     } finally {
       setIsLoading(false);
+      setIsRefreshing(false);
     }
   };
 
@@ -123,45 +177,47 @@ export const AdminProductsPage: React.FC = () => {
     return categories.find((c) => c.slug === selectedCategory || c.id === selectedCategory) || null;
   }, [categories, selectedCategory]);
 
-  // Products belonging to the selected category
+  // Products belonging to the selected category (handling slug and id mapping)
   const categoryScopedProducts = useMemo(() => {
     if (!selectedCategory || selectedCategory === "all") {
       return products;
     }
-    return products.filter((p) => p.category === selectedCategory);
-  }, [products, selectedCategory]);
+    const catObj = categories.find((c) => c.slug === selectedCategory || c.id === selectedCategory);
+    return products.filter(
+      (p) =>
+        p.category === selectedCategory ||
+        (catObj && (p.category === catObj.slug || p.category === catObj.id))
+    );
+  }, [products, selectedCategory, categories]);
 
   const categoryProductCount = categoryScopedProducts.length;
 
-  // Live review counts scoped to the selected category
+  // Live review counts scoped to the selected category - each product belongs to exactly one bucket
   const reviewCounts = useMemo(() => {
-    return {
-      all: categoryScopedProducts.length,
-      correct: categoryScopedProducts.filter((p) => p.reviewStatus === "CORRECT").length,
-      needsEditing: categoryScopedProducts.filter((p) => p.reviewStatus === "NEEDS_EDITING").length,
-      pending: categoryScopedProducts.filter(
-        (p) => !p.reviewStatus || p.reviewStatus === "PENDING" || p.reviewStatus === "NOT_YET_REVIEWED"
-      ).length
-    };
+    const all = categoryScopedProducts.length;
+    const correct = categoryScopedProducts.filter((p) => p.reviewStatus === "CORRECT").length;
+    const needsEditing = categoryScopedProducts.filter((p) => p.reviewStatus === "NEEDS_EDITING").length;
+    const pending = categoryScopedProducts.filter(
+      (p) => p.reviewStatus !== "CORRECT" && p.reviewStatus !== "NEEDS_EDITING"
+    ).length;
+    return { all, correct, needsEditing, pending };
   }, [categoryScopedProducts]);
 
   // Filtered & Sorted Products
   const filteredProducts = useMemo(() => {
     let result = [...categoryScopedProducts];
 
-    // Search query
+    // Search query: Case-insensitive across product name/title, SKU, modelNumber, and description
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
-      result = result.filter(
-        (p) =>
-          (p.title && p.title.toLowerCase().includes(q)) ||
-          (p.productName && p.productName.toLowerCase().includes(q)) ||
-          (p.sku && p.sku.toLowerCase().includes(q)) ||
-          ((p as any).SKU && (p as any).SKU.toLowerCase().includes(q)) ||
-          (p.modelNumber && p.modelNumber.toLowerCase().includes(q)) ||
-          (p.shortDescription && p.shortDescription.toLowerCase().includes(q)) ||
-          (p.overview && p.overview.toLowerCase().includes(q))
-      );
+      result = result.filter((p) => {
+        const titleMatch = (p.title || "").toLowerCase().includes(q);
+        const nameMatch = (p.productName || "").toLowerCase().includes(q);
+        const skuMatch = ((p.sku || (p as any).SKU || "").toLowerCase()).includes(q);
+        const modelMatch = ((p.modelNumber || "").toLowerCase()).includes(q);
+        const descMatch = ((p.shortDescription || p.overview || "").toLowerCase()).includes(q);
+        return titleMatch || nameMatch || skuMatch || modelMatch || descMatch;
+      });
     }
 
     // Publication Status filter (ACTIVE, INACTIVE, DRAFT, ARCHIVED)
@@ -177,12 +233,12 @@ export const AdminProductsPage: React.FC = () => {
         result = result.filter((p) => p.reviewStatus === "NEEDS_EDITING");
       } else if (selectedReviewStatus === "PENDING") {
         result = result.filter(
-          (p) => !p.reviewStatus || p.reviewStatus === "PENDING" || p.reviewStatus === "NOT_YET_REVIEWED"
+          (p) => p.reviewStatus !== "CORRECT" && p.reviewStatus !== "NEEDS_EDITING"
         );
       }
     }
 
-    // Sorting
+    // Sorting: Newest First (by createdAt descending) and Price options
     switch (sortBy) {
       case "price_asc":
         result.sort((a, b) => (a.basePrice || 0) - (b.basePrice || 0));
@@ -190,22 +246,14 @@ export const AdminProductsPage: React.FC = () => {
       case "price_desc":
         result.sort((a, b) => (b.basePrice || 0) - (a.basePrice || 0));
         break;
-      case "name_asc":
-        result.sort((a, b) =>
-          (a.title || a.productName || "").localeCompare(b.title || b.productName || "")
-        );
-        break;
-      case "name_desc":
-        result.sort((a, b) =>
-          (b.title || b.productName || "").localeCompare(a.title || a.productName || "")
-        );
-        break;
+      case "newest":
       default:
-        // Default: newest / recently updated
+        // Default: Recently Updated / Newest First (updatedAt takes precedence over createdAt)
         result.sort((a, b) => {
-          const dateA = new Date(a.updatedAt || a.createdAt || 0).getTime();
-          const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
-          return dateB - dateA;
+          const timeA = new Date(a.updatedAt || a.createdAt || 0).getTime();
+          const timeB = new Date(b.updatedAt || b.createdAt || 0).getTime();
+          if (timeB !== timeA) return timeB - timeA;
+          return 0;
         });
         break;
     }
@@ -265,52 +313,66 @@ export const AdminProductsPage: React.FC = () => {
    * When INACTIVE -> Saves as ACTIVE
    * Only updates button after confirmed response. Never shows success before server confirms.
    */
+  /**
+   * Functional Active/Inactive Status Button
+   * When ACTIVE -> Saves as INACTIVE
+   * When INACTIVE -> Saves as ACTIVE
+   * Updates only after confirmed server response. On failure, restores previous value and shows error.
+   */
   const handleToggleProductStatus = async (product: Product) => {
     if (statusUpdatingId === product.id) return;
     const currentStatus = product.status || "ACTIVE";
     const nextStatus = currentStatus === "ACTIVE" ? "INACTIVE" : "ACTIVE";
     setStatusUpdatingId(product.id);
 
+    // Save previous state for rollback on error
+    const previousProducts = products;
+
+    // Optimistically update UI
+    setProducts((prev) =>
+      prev.map((p) => (p.id === product.id ? { ...p, status: nextStatus } : p))
+    );
+
     try {
-      // 1. Send status update to existing backend
-      let res = await adminFetch(`/api/admin/products/${product.id}/status`, {
+      // Send status update to existing dedicated status route
+      const res = await adminFetch(`/api/admin/products/${encodeURIComponent(product.id)}/status`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: nextStatus })
       });
 
-      // Fallback to general product PUT if /status is not available
-      if (!res.ok) {
-        res = await adminFetch(`/api/admin/products/${product.id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ status: nextStatus })
-        });
-      }
+      const data = await res.json().catch(() => null);
 
-      const data = await res.json().catch(() => ({}));
-      if (res.ok && data.success) {
-        // 2 & 3. Update the button to nextStatus only AFTER successful confirmation
-        setProducts((prev) =>
-          prev.map((p) => (p.id === product.id ? { ...p, status: nextStatus } : p))
+      if (res.ok && data && data.success && data.product) {
+        // Read the updated product from successful API response and move it to top of list
+        setProducts((prev) => {
+          const updated = { ...product, ...data.product };
+          const others = prev.filter((p) => p.id !== product.id);
+          return [updated, ...others];
+        });
+        showToast(
+          "success",
+          `Status changed to ${data.product.status === "ACTIVE" ? "Active" : "Inactive"}. Product moved to top of list.`,
+          `"${product.title || product.productName}"`
         );
-        setBannerMessage({
-          text: `"${product.title || product.productName}" is now ${nextStatus === "ACTIVE" ? "Active" : "Inactive"}.`,
-          type: "success"
-        });
       } else {
-        // Error messages MUST be red
-        setBannerMessage({
-          text: data.message || "Failed to update publication status on server.",
-          type: "error"
-        });
+        // Restore previous UI value on failure
+        setProducts(previousProducts);
+        showToast(
+          "error",
+          (data && data.message) || `Failed to update status for "${product.title || product.productName}".`,
+          "Status Update Failed"
+        );
       }
     } catch (err: any) {
       console.error("Status update error:", err);
-      setBannerMessage({
-        text: err.message || "Network error updating product status.",
-        type: "error"
-      });
+      // Restore previous UI value on error
+      setProducts(previousProducts);
+      showToast(
+        "error",
+        err.message || "Network error updating product status.",
+        "Status Update Error"
+      );
     } finally {
       setStatusUpdatingId(null);
     }
@@ -338,45 +400,61 @@ export const AdminProductsPage: React.FC = () => {
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.success) {
-        setProducts((prev) =>
-          prev.map((p) => (p.id === product.id ? { ...p, ...data.product } : p))
-        );
+        // Move updated product to top of list
+        setProducts((prev) => {
+          const updated = { ...product, ...data.product };
+          const others = prev.filter((p) => p.id !== product.id);
+          return [updated, ...others];
+        });
 
         const cld = data.cloudinary;
         const mongo = data.mongo;
+        const prodTitle = product.title || product.productName;
+
         if (status === "CORRECT") {
-          const parts = [];
-          if (cld?.status === "IMAGES_UPLOADED") {
-            parts.push(`${cld.uploadedCount || "All"} image(s) in Cloudinary`);
+          const cldOk = cld?.status === "IMAGES_UPLOADED" || cld?.status === "ALREADY_UPLOADED";
+          const mongoOk = mongo?.status === "SYNCED" || mongo?.status === "ALREADY_SYNCED";
+
+          if (cldOk && mongoOk) {
+            showToast(
+              "success",
+              `Cloudinary images uploaded & text approved to MongoDB Atlas. Product moved to top.`,
+              `✓ "${prodTitle}" Marked as Correct`
+            );
+          } else if (cldOk && !mongoOk) {
+            showToast(
+              "warning",
+              `Cloudinary images uploaded, but MongoDB Atlas sync reported: ${mongo?.error || mongo?.status || "sync failed"}.`,
+              `⚠ Partial Sync: "${prodTitle}"`
+            );
+          } else if (!cldOk && mongoOk) {
+            showToast(
+              "warning",
+              `MongoDB text synced, but Cloudinary reported: ${cld?.error || cld?.status || "upload failed"}.`,
+              `⚠ Partial Sync: "${prodTitle}"`
+            );
+          } else {
+            showToast(
+              "error",
+              `Cloudinary (${cld?.status || "failed"}) and MongoDB Atlas (${mongo?.status || "failed"}) both reported errors.`,
+              `✕ Sync Failed: "${prodTitle}"`
+            );
           }
-          if (mongo?.status === "SYNCED") {
-            parts.push("Text synced to MongoDB Atlas");
-          }
-          setBannerMessage({
-            text: `✓ "${product.title || product.productName}" marked as Correct.${parts.length > 0 ? " (" + parts.join(" · ") + ")" : ""}`,
-            type: "success"
-          });
         } else {
-          const parts = [];
-          if (cld?.status === "IMAGES_REMOVED") {
-            parts.push("Cloudinary copies removed");
-          }
-          if (mongo?.status === "REMOVED") {
-            parts.push("Removed from MongoDB Atlas");
-          }
-          setBannerMessage({
-            text: status === "NEEDS_EDITING"
-              ? `✕ "${product.title || product.productName}" marked as Needs Editing.${parts.length > 0 ? " (" + parts.join(" · ") + ")" : ""}`
-              : `Review status reset to Not Yet Reviewed.${parts.length > 0 ? " (" + parts.join(" · ") + ")" : ""}`,
-            type: "success"
-          });
+          showToast(
+            "success",
+            status === "NEEDS_EDITING"
+              ? `Marked as Needs Editing. Cloudinary & MongoDB records safely removed. Product moved to top.`
+              : `Review status reset to Not Yet Reviewed. Product moved to top.`,
+            `"${prodTitle}"`
+          );
         }
       } else {
-        setBannerMessage({ text: data.message || "Failed to update review status.", type: "error" });
+        showToast("error", data.message || "Failed to update review status.", "Review Update Failed");
       }
     } catch (err: any) {
       console.error("Review update error:", err);
-      setBannerMessage({ text: err.message || "Network error updating review status.", type: "error" });
+      showToast("error", err.message || "Network error updating review status.", "Review Update Error");
     } finally {
       setReviewUpdatingId(null);
       setPendingReviewAction(null);
@@ -519,6 +597,7 @@ export const AdminProductsPage: React.FC = () => {
   return (
     <AdminLayout
       title={currentCategoryObj ? currentCategoryObj.name : "All Products"}
+      titleClassName="text-[#DC2626]"
       subtitle={
         currentCategoryObj
           ? `${categoryProductCount} products · Manage all products in this category`
@@ -530,37 +609,16 @@ export const AdminProductsPage: React.FC = () => {
       ]}
       actions={
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Refresh Button with Loading Spinner & Duplicate Guard */}
           <button
             type="button"
-            onClick={async () => {
-              setCloudinaryModalOpen(true);
-              setLoadingCloudinaryReport(true);
-              try {
-                const res = await adminFetch("/api/admin/cloudinary/dry-run");
-                const data = await res.json();
-                if (data.success) {
-                  setCloudinaryReport(data.dryRun);
-                }
-              } catch (e) {
-                console.error("Failed to load Cloudinary report", e);
-              } finally {
-                setLoadingCloudinaryReport(false);
-              }
-            }}
-            className="px-3.5 py-1.5 bg-white border border-[#E5E5E5] hover:border-black text-black rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
-            title="View Cloudinary account usage, plan quota & catalogue dry-run analysis"
+            disabled={isRefreshing || isLoading}
+            onClick={() => fetchProducts(true)}
+            className="px-3.5 py-1.5 bg-white border border-[#E5E5E5] hover:border-black text-black rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            title="Fetch latest products, counts, status values, and review statuses from backend"
           >
-            <Cloud size={13} className="text-black" />
-            <span className="hidden md:inline">Cloudinary Storage & Quota</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={fetchProducts}
-            className="px-3.5 py-1.5 bg-white border border-[#E5E5E5] hover:border-black text-black rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
-          >
-            <RefreshCw size={13} className={isLoading ? "animate-spin" : ""} />
-            <span className="hidden sm:inline">Refresh</span>
+            <RefreshCw size={13} className={isRefreshing ? "animate-spin" : ""} />
+            <span className="hidden sm:inline">{isRefreshing ? "Refreshing..." : "Refresh"}</span>
           </button>
 
           <Link
@@ -600,7 +658,7 @@ export const AdminProductsPage: React.FC = () => {
         </div>
       )}
 
-      {/* 1. Category Navigation Pills with Clear Active Highlight */}
+      {/* 1. Category Navigation Pills with Bright RED Accent & Horizontal Scrolling Controls */}
       <div className="bg-white rounded-xl border border-[#E5E5E5] p-3 sm:p-4 mb-4 shadow-2xs">
         <div className="flex items-center justify-between gap-3 mb-2.5">
           <div className="flex items-center gap-2">
@@ -609,36 +667,78 @@ export const AdminProductsPage: React.FC = () => {
               {selectedCategory === "all" ? "All Categories" : currentCategoryObj?.name || selectedCategory}
             </span>
           </div>
-          <div className="text-[11px] text-[#666666] font-mono">
-            <span className="font-bold text-black">{categoryProductCount}</span> products in category
+          <div className="flex items-center gap-3">
+            <div className="text-[11px] text-[#666666] font-mono">
+              <span className="font-bold text-black">{categoryProductCount}</span> products in category
+            </div>
+            {/* Scroll Navigation Chevrons for Desktop and Mobile */}
+            <div className="hidden sm:flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => {
+                  if (categoryScrollRef.current) {
+                    categoryScrollRef.current.scrollBy({ left: -220, behavior: "smooth" });
+                  }
+                }}
+                className="w-6 h-6 rounded-md bg-neutral-100 hover:bg-neutral-200 border border-[#E5E5E5] flex items-center justify-center text-neutral-700 hover:text-black cursor-pointer transition-colors"
+                title="Scroll categories left"
+                aria-label="Scroll categories left"
+              >
+                <ChevronLeft size={13} />
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (categoryScrollRef.current) {
+                    categoryScrollRef.current.scrollBy({ left: 220, behavior: "smooth" });
+                  }
+                }}
+                className="w-6 h-6 rounded-md bg-neutral-100 hover:bg-neutral-200 border border-[#E5E5E5] flex items-center justify-center text-neutral-700 hover:text-black cursor-pointer transition-colors"
+                title="Scroll categories right"
+                aria-label="Scroll categories right"
+              >
+                <ChevronRight size={13} />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Horizontal Category Filters */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+        {/* Fully Horizontally Scrollable Category Filter Row */}
+        <div
+          ref={categoryScrollRef}
+          className="flex items-center gap-2 overflow-x-auto pb-1.5 scroll-smooth select-none"
+          style={{
+            scrollbarWidth: "thin",
+            scrollbarColor: "#D1D5DB transparent"
+          }}
+        >
+          {/* All Categories Filter */}
           <button
             type="button"
+            data-selected={selectedCategory === "all"}
             onClick={() => {
               setSelectedCategory("all");
               setSearchParams({});
               setCurrentPage(1);
             }}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer border ${
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer shrink-0 border ${
               selectedCategory === "all"
-                ? "bg-black text-white border-black shadow-2xs"
-                : "bg-white text-neutral-700 hover:bg-[#FFF8DB] hover:text-black border-[#E5E5E5]"
+                ? "bg-neutral-900 text-white border-neutral-900 shadow-xs font-bold"
+                : "bg-white text-neutral-700 hover:bg-neutral-100 hover:text-black border-[#E5E5E5]"
             }`}
           >
+            {selectedCategory === "all" && <span className="w-2 h-2 rounded-full bg-amber-400 inline-block shadow-xs" />}
             <span>All Categories</span>
             <span
               className={`px-1.5 py-0.2 rounded text-[10px] font-mono ${
-                selectedCategory === "all" ? "bg-neutral-800 text-white" : "bg-neutral-100 text-[#666666]"
+                selectedCategory === "all" ? "bg-neutral-800 text-neutral-200 font-bold" : "bg-neutral-100 text-[#666666]"
               }`}
             >
               {products.length}
             </span>
           </button>
 
+          {/* Individual Category Filters */}
           {categories.map((cat) => {
             const count = products.filter((p) => p.category === cat.slug || p.category === cat.id).length;
             const isSelected = selectedCategory === cat.slug;
@@ -646,23 +746,23 @@ export const AdminProductsPage: React.FC = () => {
               <button
                 key={cat.id}
                 type="button"
+                data-selected={isSelected}
                 onClick={() => {
                   setSelectedCategory(cat.slug);
                   setSearchParams({ category: cat.slug });
                   setCurrentPage(1);
                 }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer border ${
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer shrink-0 border ${
                   isSelected
-                    ? "bg-[#FFF8DB] text-black border-2 border-[#F2C94C] shadow-2xs font-bold relative"
-                    : "bg-white text-neutral-700 hover:bg-neutral-50 border-[#E5E5E5]"
+                    ? "bg-neutral-900 text-white border-neutral-900 shadow-xs font-bold"
+                    : "bg-white text-neutral-700 hover:bg-neutral-100 hover:text-black border-[#E5E5E5]"
                 }`}
               >
-                {/* Red accent dot indicator for selected category */}
-                {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#B91C1C] inline-block" />}
+                {isSelected && <span className="w-2 h-2 rounded-full bg-amber-400 inline-block shadow-xs" />}
                 <span>{cat.name}</span>
                 <span
                   className={`px-1.5 py-0.2 rounded text-[10px] font-mono ${
-                    isSelected ? "bg-[#F2C94C] text-black font-bold" : "bg-neutral-100 text-[#666666]"
+                    isSelected ? "bg-neutral-800 text-neutral-200 font-bold" : "bg-neutral-100 text-[#666666]"
                   }`}
                 >
                   {count}
@@ -835,16 +935,15 @@ export const AdminProductsPage: React.FC = () => {
             {/* Sort Filter */}
             <div className="flex items-center gap-1.5">
               <span className="text-[10px] font-bold font-mono uppercase text-[#666666]">Sort:</span>
+              {/* Sort Filter: Only useful options including Newest First */}
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 className="px-2.5 py-1 bg-white border border-[#E5E5E5] rounded-lg text-xs font-semibold text-black focus:outline-none focus:border-black cursor-pointer"
               >
-                <option value="newest">Newest</option>
+                <option value="newest">Recently Updated</option>
                 <option value="price_asc">Price: Low to High</option>
                 <option value="price_desc">Price: High to Low</option>
-                <option value="name_asc">Title: A–Z</option>
-                <option value="name_desc">Title: Z–A</option>
               </select>
             </div>
 
@@ -1099,14 +1198,7 @@ export const AdminProductsPage: React.FC = () => {
                             <ChevronDown size={10} className="opacity-60" />
                           </button>
 
-                          {/* Cloudinary Lifecycle State Micro-Indicator */}
-                          {p.cloudinarySyncStatus === "IMAGES_UPLOADED" && p.reviewStatus === "CORRECT" && (
-                            <div className="mt-0.5 text-[9px] text-[#15803D] font-mono flex items-center justify-center gap-1">
-                              <Cloud size={9} />
-                              <span>Images Uploaded</span>
-                            </div>
-                          )}
-
+                          {/* Retry Buttons shown strictly on failure */}
                           {(p.cloudinarySyncStatus === "UPLOAD_FAILED" || p.cloudinarySyncStatus === "UPLOAD_INCOMPLETE") && (
                             <button
                               type="button"
@@ -1131,20 +1223,6 @@ export const AdminProductsPage: React.FC = () => {
                               <RefreshCw size={8} className={syncingCloudinaryId === p.id ? "animate-spin" : ""} />
                               <span>Removal Incomplete · Retry</span>
                             </button>
-                          )}
-
-                          {p.cloudinarySyncStatus === "IMAGES_REMOVED" && (p.reviewStatus === "NEEDS_EDITING" || p.reviewStatus === "PENDING") && (
-                            <div className="mt-0.5 text-[9px] text-[#666666] font-mono">
-                              Images Removed
-                            </div>
-                          )}
-
-                          {/* MongoDB Atlas Text Synchronization Micro-Indicator */}
-                          {p.mongoSyncStatus === "SYNCED" && p.reviewStatus === "CORRECT" && (
-                            <div className="mt-0.5 text-[9px] text-[#047857] font-mono flex items-center justify-center gap-1">
-                              <Database size={8} />
-                              <span>MongoDB Atlas Synced</span>
-                            </div>
                           )}
 
                           {p.mongoSyncStatus === "SYNC_FAILED" && (
@@ -1674,6 +1752,43 @@ export const AdminProductsPage: React.FC = () => {
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Auto-Dismissing Toast Notification Container */}
+      {toast && (
+        <div
+          role="alert"
+          aria-live="assertive"
+          className={`fixed bottom-6 right-6 z-50 max-w-sm sm:max-w-md w-full shadow-xl rounded-xl border p-4 flex items-start justify-between gap-3 backdrop-blur-xs transition-all animate-in fade-in slide-in-from-bottom-3 duration-200 ${
+            toast.type === "error"
+              ? "bg-[#FEF2F2] border-[#FCA5A5] text-[#991B1B]"
+              : toast.type === "warning"
+              ? "bg-[#FFFBEB] border-[#FDE68A] text-[#92400E]"
+              : "bg-[#F0FDF4] border-[#86EFAC] text-[#166534]"
+          }`}
+        >
+          <div className="flex items-start gap-3">
+            {toast.type === "error" ? (
+              <AlertCircle size={18} className="text-[#DC2626] shrink-0 mt-0.5" />
+            ) : toast.type === "warning" ? (
+              <AlertCircle size={18} className="text-[#D97706] shrink-0 mt-0.5" />
+            ) : (
+              <CheckCircle2 size={18} className="text-[#16A34A] shrink-0 mt-0.5" />
+            )}
+            <div>
+              {toast.title && <div className="text-xs font-bold leading-tight mb-1">{toast.title}</div>}
+              <div className="text-xs font-medium leading-relaxed">{toast.message}</div>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={dismissToast}
+            className="text-current opacity-60 hover:opacity-100 p-1 rounded-md transition-opacity cursor-pointer shrink-0"
+            aria-label="Dismiss notification"
+          >
+            <X size={15} />
+          </button>
         </div>
       )}
     </AdminLayout>

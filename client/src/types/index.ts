@@ -7,7 +7,9 @@ export interface Product {
   modelNumber?: string;
   brand: string;
   category: string;
+  categoryName?: string;
   subcategory: string;
+  subcategoryName?: string;
   productType?: string;
   status?: "ACTIVE" | "INACTIVE" | "DRAFT" | "ARCHIVED";
   basePrice: number;
@@ -248,14 +250,48 @@ export interface QuoteRequest {
 export interface Review {
   id: string;
   productId: string;
-  author: string;
-  facility: string;
+  productSlug?: string;
+  productTitle?: string;
   rating: number;
-  date: string;
+  reviewTitle?: string;
+  reviewText?: string;
+  customerFeedbackPoints?: string[];
+  userId?: string;
+  userEmail?: string;
+  customerName?: string;
+  author?: string; // Backward compatibility alias
+  facility?: string;
   verifiedPurchase: boolean;
-  status: "APPROVED" | "PENDING" | "REJECTED";
-  comment: string;
+  status: "APPROVED" | "PENDING" | "REJECTED" | "QUARANTINED";
+  aiAssisted?: boolean;
+  comment?: string; // Backward compatibility alias
+  date?: string; // Backward compatibility alias
+  createdAt?: string;
+  updatedAt?: string;
 }
+
+export interface ReviewSuggestion {
+  id: string;
+  theme: string;
+  title: string;
+  text: string;
+}
+
+export interface CreateReviewInput {
+  productId: string;
+  productSlug: string;
+  productTitle?: string;
+  rating: number;
+  reviewTitle: string;
+  reviewText: string;
+  customerFeedbackPoints?: string[];
+  customerName?: string;
+  facility?: string;
+  userId?: string;
+  userEmail?: string;
+  aiAssisted?: boolean;
+}
+
 
 export interface BlogArticle {
   id: string;

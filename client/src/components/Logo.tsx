@@ -42,8 +42,8 @@ export const Logo: React.FC<LogoProps> = ({
       {/* DR.MEDEX Wordmark */}
       <div className="flex flex-col leading-none">
         <div className="flex items-baseline tracking-tight font-black text-xl sm:text-2xl">
-          <span className={`${isMonochrome ? "text-black" : "text-[#EF4444]"} transition-colors`}>DR.</span>
-          <span className={`${isMonochrome ? "text-black" : isLightBg ? "text-[#111111]" : "text-white"} transition-colors tracking-wide`}>
+          <span className={`${isMonochrome ? "text-black" : "text-[#2D5A4A]"} transition-colors`}>DR.</span>
+          <span className={`${isMonochrome ? "text-black" : "text-[#7AA05A]"} transition-colors tracking-wide ml-0.5`}>
             MEDEX
           </span>
         </div>

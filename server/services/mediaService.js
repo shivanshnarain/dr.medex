@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
+const cloudinaryService = require("./cloudinaryService");
 
 const LOCAL_STORAGE_DIR = path.join(__dirname, "../../client/public/products-catalog");
 osEnsureDir(LOCAL_STORAGE_DIR);
@@ -73,12 +74,12 @@ module.exports = {
   /**
    * Upload image for a product
    */
-  uploadProductImage: async (base64OrBuffer, originalFilename, mimeType, productId, altText = "") => {
+  uploadProductImage: async (base64OrBuffer, originalFilename = "image.jpg", mimeType = "image/jpeg", productId = "general", altText = "") => {
     let buffer;
     if (Buffer.isBuffer(base64OrBuffer)) {
       buffer = base64OrBuffer;
     } else if (typeof base64OrBuffer === "string") {
-      // Handle data URI
+      // Handle data URI or raw base64
       const base64Data = base64OrBuffer.replace(/^data:image\/\w+;base64,/, "");
       buffer = Buffer.from(base64Data, "base64");
     } else {
@@ -93,7 +94,28 @@ module.exports = {
       throw new Error(`Unsupported image MIME type: ${mimeType}. Allowed types: JPEG, PNG, WEBP, SVG`);
     }
 
-    const uploadResult = await activeProvider.upload(buffer, originalFilename, mimeType, productId);
+    let uploadResult;
+    if (cloudinaryService && cloudinaryService.isConfigured()) {
+      try {
+        const safePid = (productId || "general").replace(/[^a-zA-Z0-9_-]/g, "_");
+        const publicId = `dr-medex/products/${safePid}/img_${Date.now()}_${crypto.randomBytes(4).toString("hex")}`;
+        const cRes = await cloudinaryService.uploadToCloudinary(buffer, publicId, {
+          tags: ["dr-medex", "admin-upload", safePid]
+        });
+        uploadResult = {
+          url: cRes.secure_url || cRes.url,
+          sourceUrl: "admin-upload",
+          sizeBytes: buffer.length,
+          storageProvider: "cloudinary",
+          publicId: cRes.public_id
+        };
+      } catch (cErr) {
+        console.warn("[MediaService] Cloudinary upload failed, falling back to local storage:", cErr.message);
+        uploadResult = await activeProvider.upload(buffer, originalFilename, mimeType, productId);
+      }
+    } else {
+      uploadResult = await activeProvider.upload(buffer, originalFilename, mimeType, productId);
+    }
 
     return {
       id: `img-${Date.now()}-${crypto.randomBytes(3).toString("hex")}`,
@@ -103,6 +125,8 @@ module.exports = {
       isPrimary: false,
       importedAt: new Date().toISOString(),
       sizeBytes: uploadResult.sizeBytes,
+      storageProvider: uploadResult.storageProvider,
+      publicId: uploadResult.publicId || null,
       status: "READY"
     };
   },
@@ -112,5 +136,13 @@ module.exports = {
    */
   deleteProductImage: async (publicUrl) => {
     return await activeProvider.delete(publicUrl);
+  },
+
+  uploadImage: async (base64OrBuffer, opts = {}) => {
+    const filename = typeof opts === "string" ? opts : (opts.originalFilename || "image.png");
+    const mime = (typeof opts === "object" && opts.mimeType) || "image/png";
+    const pid = (typeof opts === "object" && opts.productId) || "general";
+    const alt = (typeof opts === "object" && opts.altText) || filename;
+    return await module.exports.uploadProductImage(base64OrBuffer, filename, mime, pid, alt);
   }
 };

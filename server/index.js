@@ -14,9 +14,27 @@ app.use(cors({ origin: "*" }));
 app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ extended: true, limit: "25mb" }));
 
-// API Routes
-app.use("/api/admin", adminRoutes);
-app.use("/api", apiRoutes);
+// API Routes (with dynamic dispatch to prevent stale module caching)
+app.use("/api/admin", (req, res, next) => {
+  try {
+    delete require.cache[require.resolve("./routes/admin")];
+    delete require.cache[require.resolve("./services/geminiVisionService")];
+    const freshAdminRoutes = require("./routes/admin");
+    return freshAdminRoutes(req, res, next);
+  } catch (err) {
+    return next(err);
+  }
+});
+
+app.use("/api", (req, res, next) => {
+  try {
+    delete require.cache[require.resolve("./routes/api")];
+    const freshApiRoutes = require("./routes/api");
+    return freshApiRoutes(req, res, next);
+  } catch (err) {
+    return next(err);
+  }
+});
 
 // Health check
 app.get("/health", (req, res) => {
@@ -26,6 +44,11 @@ app.get("/health", (req, res) => {
 // Serve static frontend assets from client/dist
 const clientDistPath = path.join(__dirname, "../client/dist");
 app.use(express.static(clientDistPath));
+
+// 404 handler for API routes
+app.use("/api", (req, res) => {
+  res.status(404).json({ success: false, message: `API endpoint not found: ${req.method} ${req.originalUrl}` });
+});
 
 // Fallback for HTML5 client-side routing
 app.use((req, res) => {

@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Reviews Collection: Exclusively for product reviews and customer clinical feedback
+    match /reviews/{reviewId} {
+      // 1. READ: Public visitors may read only APPROVED reviews for relevant products.
+      allow read: if resource.data.status == "APPROVED";
+
+      // 2. WRITE: Public visitors must not write directly to Cloud Firestore.
+      // Direct client creates, updates, and deletes are strictly denied.
+      // All submissions must go through the backend API with validation, rate limiting, and anti-spam.
+      allow create, update, delete: if false;
+    }
+
+    // Default deny for all other collections to prevent arbitrary reads and writes
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

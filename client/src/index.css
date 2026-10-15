@@ -82,6 +82,26 @@
   background: #7AA05A;
 }
 
+/* Product description scrollbar with Moss Green thumb */
+.product-description-scrollbar {
+  scrollbar-color: #7AA05A #F3F4F6;
+  scrollbar-width: thin;
+}
+.product-description-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.product-description-scrollbar::-webkit-scrollbar-track {
+  background: #F3F4F6;
+  border-radius: 9999px;
+}
+.product-description-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #7AA05A;
+  border-radius: 9999px;
+}
+.product-description-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #6B8F4E;
+}
+
 /* Subtle neutral medical grid background */
 .bg-medical-grid {
   background-size: 32px 32px;

@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useTransition } from "react";
+import { supabase, SupabaseSession, SupabaseUser } from "../lib/supabase";
 import { ShippingAddress } from "../types";
 
 export interface UserProfile {
@@ -11,80 +12,384 @@ export interface UserProfile {
   country: string;
   countryCode: string;
   addresses: ShippingAddress[];
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+interface SignUpInput {
+  fullName: string;
+  email: string;
+  phone: string;
+  password: string;
 }
 
 interface AuthContextType {
   user: UserProfile | null;
+  supabaseUser: SupabaseUser | null;
+  session: SupabaseSession | null;
   isAuthenticated: boolean;
   isAdmin: boolean;
-  login: (email: string, role?: UserProfile["role"]) => void;
-  logout: () => void;
-  updateProfile: (updates: Partial<UserProfile>) => void;
+  isAuthLoading: boolean;
+  signUp: (input: SignUpInput) => Promise<{ success: boolean; error?: string }>;
+  signIn: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  logout: () => Promise<void>;
+  requestPasswordReset: (email: string) => Promise<{ success: boolean; error?: string }>;
+  updatePassword: (newPassword: string, recoveryToken?: string) => Promise<{ success: boolean; error?: string }>;
+  updateProfile: (updates: Partial<UserProfile>) => Promise<void>;
+  updateEmail: (newEmail: string) => Promise<{ success: boolean; error?: string; pendingVerification?: boolean; newEmail?: string }>;
   addAddress: (address: ShippingAddress) => void;
   deleteAddress: (index: number) => void;
-}
 
-const defaultUser: UserProfile = {
-  id: "usr-dr-reyes",
-  fullName: "Dr. Jonathan Reyes",
-  email: "jreyes@mayoortho.com",
-  phone: "+1 415-555-0192",
-  institutionName: "Mayo Orthopedic & Surgical Institute",
-  role: "super_admin",
-  country: "United States",
-  countryCode: "US",
-  addresses: [
-    {
-      fullName: "Dr. Jonathan Reyes",
-      companyName: "Mayo Orthopedic & Surgical Institute",
-      email: "jreyes@mayoortho.com",
-      phone: "+1 415-555-0192",
-      addressLine1: "742 Medical Center Blvd, Suite 400",
-      city: "San Francisco",
-      state: "California",
-      postalCode: "94143",
-      country: "United States",
-      countryCode: "US"
-    }
-  ]
-};
+  // Backward-compatibility aliases
+  signInWithEmail: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  signUpWithEmail: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  sendPasswordReset: (email: string) => Promise<{ success: boolean; error?: string }>;
+  login: (email: string, role?: UserProfile["role"]) => void;
+}
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+function mapSupabaseUserToProfile(sbUser: SupabaseUser, prevProfile?: UserProfile | null): UserProfile {
+  const meta = sbUser.user_metadata || {};
+  const email = sbUser.email || "";
+  const fullName = meta.full_name || prevProfile?.fullName || email.split("@")[0] || "Customer";
+  const phone = meta.phone || prevProfile?.phone || "";
+
+  return {
+    id: sbUser.id,
+    fullName,
+    email,
+    phone,
+    institutionName: prevProfile?.institutionName || "",
+    role: "buyer",
+    country: prevProfile?.country || "United States",
+    countryCode: prevProfile?.countryCode || "US",
+    addresses: prevProfile?.addresses || [],
+    createdAt: sbUser.created_at || new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+}
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [session, setSession] = useState<SupabaseSession | null>(null);
   const [user, setUser] = useState<UserProfile | null>(() => {
     try {
-      const saved = localStorage.getItem("drmedex_user");
-      return saved ? JSON.parse(saved) : defaultUser;
+      const saved = localStorage.getItem("drmedex_customer_profile");
+      return saved ? JSON.parse(saved) : null;
     } catch {
-      return defaultUser;
+      return null;
     }
   });
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
 
+  // Initialize and synchronize with Supabase Auth
+  useEffect(() => {
+    let isMounted = true;
+
+    // Check active session immediately to prevent screen flicker
+    supabase.auth.getSession().then(({ data }) => {
+      if (!isMounted) return;
+      if (data.session) {
+        setSession(data.session);
+        setUser((prev) => {
+          const profile = mapSupabaseUserToProfile(data.session!.user, prev);
+          try {
+            localStorage.setItem("drmedex_customer_profile", JSON.stringify(profile));
+          } catch {}
+          return profile;
+        });
+      }
+      setIsAuthLoading(false);
+    });
+
+    // Listen to Supabase auth events
+    const { data: authSubscription } = supabase.auth.onAuthStateChange((event, currentSession) => {
+      if (!isMounted) return;
+      setSession(currentSession);
+      if (currentSession?.user) {
+        setUser((prev) => {
+          const profile = mapSupabaseUserToProfile(currentSession.user, prev);
+          try {
+            localStorage.setItem("drmedex_customer_profile", JSON.stringify(profile));
+          } catch {}
+          return profile;
+        });
+      } else if (event === "SIGNED_OUT") {
+        setUser(null);
+        try {
+          localStorage.removeItem("drmedex_customer_profile");
+        } catch {}
+      }
+      setIsAuthLoading(false);
+    });
+
+    return () => {
+      isMounted = false;
+      authSubscription?.subscription?.unsubscribe();
+    };
+  }, []);
+
+  // Update localStorage when user profile changes
   useEffect(() => {
     if (user) {
-      localStorage.setItem("drmedex_user", JSON.stringify(user));
+      try {
+        localStorage.setItem("drmedex_customer_profile", JSON.stringify(user));
+      } catch {}
     } else {
-      localStorage.removeItem("drmedex_user");
+      try {
+        localStorage.removeItem("drmedex_customer_profile");
+      } catch {}
     }
   }, [user]);
 
-  const login = (email: string, role: UserProfile["role"] = "buyer") => {
-    const newUser: UserProfile = {
-      ...defaultUser,
-      email,
-      role
-    };
-    setUser(newUser);
+  // Customer Sign Up
+  const signUp = async (input: SignUpInput): Promise<{ success: boolean; error?: string }> => {
+    const cleanEmail = input.email.trim().toLowerCase();
+    const cleanName = input.fullName.trim();
+    const cleanPhone = input.phone.trim();
+
+    if (!cleanEmail || !input.password) {
+      return { success: false, error: "Email and password are required." };
+    }
+    if (input.password.length < 6) {
+      return { success: false, error: "Password must be at least 6 characters." };
+    }
+
+    const { data, error } = await supabase.auth.signUp({
+      email: cleanEmail,
+      password: input.password,
+      options: {
+        data: {
+          full_name: cleanName,
+          phone: cleanPhone
+        }
+      }
+    });
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    if (data?.user) {
+      const newProfile: UserProfile = {
+        id: data.user.id,
+        fullName: cleanName || cleanEmail.split("@")[0],
+        email: cleanEmail,
+        phone: cleanPhone,
+        institutionName: "",
+        role: "buyer",
+        country: "United States",
+        countryCode: "US",
+        addresses: [],
+        createdAt: new Date().toISOString()
+      };
+      setUser(newProfile);
+
+      // Record successful registration/login audit event
+      try {
+        await fetch("/api/auth/record-login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            customerId: data.user.id,
+            email: cleanEmail,
+            fullName: newProfile.fullName
+          })
+        });
+      } catch (e) {
+        console.warn("[Auth] Failed to audit signup login:", e);
+      }
+    }
+
+    return { success: true };
   };
 
-  const logout = () => {
+  // Customer Sign In
+  const signIn = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail || !password) {
+      return { success: false, error: "Please enter your email and password." };
+    }
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: cleanEmail,
+      password
+    });
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    if (data?.user) {
+      const profile = mapSupabaseUserToProfile(data.user);
+      setUser(profile);
+
+      // Record successful login audit event on backend
+      try {
+        await fetch("/api/auth/record-login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            customerId: data.user.id,
+            email: data.user.email,
+            fullName: profile.fullName
+          })
+        });
+      } catch (e) {
+        console.warn("[Auth] Failed to audit signin login:", e);
+      }
+    }
+
+    return { success: true };
+  };
+
+  // Customer Logout
+  const logout = async () => {
+    await supabase.auth.signOut();
+    setSession(null);
     setUser(null);
+    try {
+      localStorage.removeItem("drmedex_customer_profile");
+      localStorage.removeItem("drmedex_supabase_session");
+      localStorage.removeItem("drmedex_customer_user");
+    } catch {}
   };
 
-  const updateProfile = (updates: Partial<UserProfile>) => {
+  // Request Password Reset Link
+  const requestPasswordReset = async (email: string): Promise<{ success: boolean; error?: string }> => {
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail) {
+      return { success: false, error: "Please enter your email address." };
+    }
+
+    const { error } = await supabase.auth.resetPasswordForEmail(cleanEmail, {
+      redirectTo: `${window.location.origin}/account/reset-password`
+    });
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    return { success: true };
+  };
+
+  // Update Password (from reset-password screen)
+  const updatePassword = async (newPassword: string, recoveryToken?: string): Promise<{ success: boolean; error?: string }> => {
+    if (!newPassword || newPassword.length < 6) {
+      return { success: false, error: "Password must be at least 6 characters long." };
+    }
+
+    // 1. If recovery token is provided from URL query param, use secure token reset endpoint
+    if (recoveryToken) {
+      try {
+        const res = await fetch("/api/auth/reset-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token: recoveryToken, newPassword })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) {
+          return { success: false, error: data.message || "Failed to update password." };
+        }
+        return { success: true };
+      } catch (err: any) {
+        return { success: false, error: err.message || "Failed to update password." };
+      }
+    }
+
+    // 2. Otherwise update password through Supabase session
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword
+    });
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    return { success: true };
+  };
+
+  // Update Customer Email Address using Supabase Auth
+  const updateEmail = async (newEmail: string): Promise<{ success: boolean; error?: string; pendingVerification?: boolean; newEmail?: string }> => {
+    if (!user || !session) {
+      return { success: false, error: "Please sign in to update your account email." };
+    }
+
+    const clean = (newEmail || "").trim().toLowerCase();
+    if (!clean) {
+      return { success: false, error: "Email address is required." };
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean)) {
+      return { success: false, error: "Please enter a valid email address (e.g. name@domain.com)." };
+    }
+    if (clean === user.email.toLowerCase()) {
+      return { success: false, error: "The new email address cannot be the same as your current email." };
+    }
+
+    const { data, error } = await supabase.auth.updateUser({ email: clean });
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    // Check if provider requires email confirmation (pending verification)
+    const returnedUser: any = data?.user;
+    if (returnedUser?.new_email && returnedUser.new_email !== returnedUser.email) {
+      return {
+        success: true,
+        pendingVerification: true,
+        newEmail: returnedUser.new_email
+      };
+    }
+
+    // Provider confirmed email update immediately: synchronize profile state
+    const updatedProfile: UserProfile = {
+      ...user,
+      email: clean,
+      updatedAt: new Date().toISOString()
+    };
+    setUser(updatedProfile);
+
+    // Sync PostgreSQL customer_profiles table via RLS
+    if (session?.user?.id) {
+      try {
+        await supabase.from("customer_profiles").update({
+          email: clean,
+          updated_at: new Date().toISOString()
+        }).eq("id", session.user.id);
+      } catch (e) {}
+    }
+
+    return { success: true, pendingVerification: false };
+  };
+
+  // Update Customer Profile
+  const updateProfile = async (updates: Partial<UserProfile>) => {
     if (!user) return;
-    setUser({ ...user, ...updates });
+    const updated = { ...user, ...updates };
+    setUser(updated);
+
+    if (updates.email && updates.email !== user.email) {
+      await updateEmail(updates.email);
+    }
+
+    // Synchronize to Supabase Auth user metadata
+    if (updates.fullName || updates.phone) {
+      await supabase.auth.updateUser({
+        data: {
+          full_name: updated.fullName,
+          phone: updated.phone
+        }
+      });
+    }
+
+    // Synchronize to PostgreSQL customer_profiles table via RLS
+    if (session?.user?.id) {
+      await supabase.from("customer_profiles").update({
+        full_name: updated.fullName,
+        phone: updated.phone,
+        updated_at: new Date().toISOString()
+      }).eq("id", session.user.id);
+    }
   };
 
   const addAddress = (address: ShippingAddress) => {
@@ -103,17 +408,50 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   };
 
+  // Compatibility helpers
+  const signInWithEmail = (email: string, password: string) => signIn(email, password);
+  const signUpWithEmail = (email: string, password: string) =>
+    signUp({ fullName: email.split("@")[0], email, phone: "", password });
+  const sendPasswordReset = (email: string) => requestPasswordReset(email);
+
+  const login = (email: string, role: UserProfile["role"] = "buyer") => {
+    const cleanEmail = email.trim().toLowerCase();
+    const newUser: UserProfile = {
+      id: "usr-" + Math.random().toString(36).substring(2, 9),
+      fullName: cleanEmail.split("@")[0] || "Customer",
+      email: cleanEmail,
+      phone: "",
+      institutionName: "",
+      role,
+      country: "United States",
+      countryCode: "US",
+      addresses: []
+    };
+    setUser(newUser);
+  };
+
   return (
     <AuthContext.Provider
       value={{
         user,
-        isAuthenticated: !!user,
-        isAdmin: user?.role === "super_admin" || user?.role === "admin",
-        login,
+        supabaseUser: session?.user || null,
+        session,
+        isAuthenticated: Boolean(user),
+        isAdmin: false, // Customer authentication strictly never grants administrator access
+        isAuthLoading,
+        signUp,
+        signIn,
         logout,
+        requestPasswordReset,
+        updatePassword,
         updateProfile,
+        updateEmail,
         addAddress,
-        deleteAddress
+        deleteAddress,
+        signInWithEmail,
+        signUpWithEmail,
+        sendPasswordReset,
+        login
       }}
     >
       {children}

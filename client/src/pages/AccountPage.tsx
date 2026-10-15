@@ -1,32 +1,114 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import {
   Package,
   FileText,
   Heart,
   MapPin,
   User,
-  Plus
+  Plus,
+  LogOut,
+  ShoppingBag,
+  ArrowRight,
+  ShieldCheck,
+  CheckCircle2,
+  Mail,
+  AlertCircle,
+  Check,
+  Loader2,
+  Edit2,
+  Lock,
+  Eye,
+  EyeOff
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { useAdminAuth } from "../context/AdminAuthContext";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { useCurrency } from "../context/CurrencyContext";
+import { Logo } from "../components/Logo";
 
-export const AccountPage: React.FC = () => {
-  const { user, isAdmin, updateProfile } = useAuth();
+interface AccountPageProps {
+  initialAuthTab?: "signin" | "signup";
+}
+
+export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const { user, isAuthenticated, isAuthLoading, signIn, signUp, updateProfile, updateEmail, logout } = useAuth();
+  const { isAuthenticated: isAdminAuthenticated } = useAdminAuth();
   const { addToCart } = useCart();
   const { wishlist, toggleWishlist } = useWishlist();
   const { formatPrice, currentCountry, countries, setCountry } = useCurrency();
 
+  // Authentication mode for unauthenticated visitors
+  const [authTab, setAuthTab] = useState<"signin" | "signup">(() => {
+    if (initialAuthTab) return initialAuthTab;
+    if (location.pathname.includes("signup") || searchParams.get("tab") === "signup") return "signup";
+    return "signin";
+  });
+
+  // Customer Sign In State
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [loginSuccess, setLoginSuccess] = useState<string | null>(null);
+
+  // Customer Sign Up State
+  const [signupFullName, setSignupFullName] = useState("");
+  const [signupEmail, setSignupEmail] = useState("");
+  const [signupPhone, setSignupPhone] = useState("");
+  const [signupPassword, setSignupPassword] = useState("");
+  const [signupConfirmPassword, setSignupConfirmPassword] = useState("");
+  const [showSignupPassword, setShowSignupPassword] = useState(false);
+  const [signupAcceptedTerms, setSignupAcceptedTerms] = useState(false);
+  const [isSigningUp, setIsSigningUp] = useState(false);
+  const [signupError, setSignupError] = useState<string | null>(null);
+  const [signupSuccess, setSignupSuccess] = useState<string | null>(null);
+
   const [activeTab, setActiveTab] = useState<"orders" | "quotes" | "wishlist" | "addresses" | "profile">("orders");
+  const [profileSuccess, setProfileSuccess] = useState(false);
+
+  // Form edit state
+  const [editFullName, setEditFullName] = useState(user?.fullName || "");
+  const [editPhone, setEditPhone] = useState(user?.phone || "");
+  const [editInstitution, setEditInstitution] = useState(user?.institutionName || "");
+
+  // Email update state
+  const [editEmail, setEditEmail] = useState(user?.email || "");
+  const [isUpdatingEmail, setIsUpdatingEmail] = useState(false);
+  const [emailUpdateSuccess, setEmailUpdateSuccess] = useState<string | null>(null);
+  const [emailUpdateError, setEmailUpdateError] = useState<string | null>(null);
+  const [isEditingEmail, setIsEditingEmail] = useState(false);
+
+  useEffect(() => {
+    if (initialAuthTab) {
+      setAuthTab(initialAuthTab);
+    } else if (location.pathname.includes("signup") || searchParams.get("tab") === "signup") {
+      setAuthTab("signup");
+    } else if (location.pathname.includes("signin") || searchParams.get("tab") === "signin") {
+      setAuthTab("signin");
+    }
+  }, [initialAuthTab, location.pathname, searchParams]);
+
+  React.useEffect(() => {
+    if (user) {
+      setEditFullName(user.fullName || "");
+      setEditPhone(user.phone || "");
+      setEditInstitution(user.institutionName || "");
+      setEditEmail(user.email || "");
+    }
+  }, [user]);
 
   // Mock addresses state
   const [addresses, setAddresses] = useState([
     {
       id: "addr-1",
-      fullName: user?.fullName || "Dr. Jonathan Reyes",
-      companyName: user?.institutionName || "Mayo Orthopedic Surgery Center",
+      fullName: user?.fullName || "Facility Officer",
+      companyName: user?.institutionName || "Clinical Center",
       addressLine1: "742 Medical Center Blvd, Suite 400",
       city: "San Francisco",
       state: "California",
@@ -40,6 +122,450 @@ export const AccountPage: React.FC = () => {
   const [newAddrCity, setNewAddrCity] = useState("");
   const [newAddrState, setNewAddrState] = useState("");
   const [newAddrPostal, setNewAddrPostal] = useState("");
+
+  const handleSaveProfile = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await updateProfile({
+      fullName: editFullName.trim(),
+      phone: editPhone.trim(),
+      institutionName: editInstitution.trim()
+    });
+    setProfileSuccess(true);
+    setTimeout(() => setProfileSuccess(false), 3000);
+  };
+
+  const handleUpdateEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setEmailUpdateError(null);
+    setEmailUpdateSuccess(null);
+
+    const clean = editEmail.trim().toLowerCase();
+    if (!clean) {
+      setEmailUpdateError("Please enter an email address.");
+      return;
+    }
+
+    setIsUpdatingEmail(true);
+    try {
+      const res = await updateEmail(clean);
+      if (res.success) {
+        if (res.pendingVerification) {
+          setEmailUpdateSuccess(
+            `A verification link has been sent to ${res.newEmail || clean}. Please check your email inbox to confirm this update.`
+          );
+        } else {
+          setEmailUpdateSuccess("Your customer account email has been updated successfully.");
+          setIsEditingEmail(false);
+        }
+      } else {
+        setEmailUpdateError(res.error || "Failed to update email address.");
+      }
+    } catch (err: any) {
+      setEmailUpdateError(err?.message || "An unexpected error occurred while updating email.");
+    } finally {
+      setIsUpdatingEmail(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    setAuthTab("signin");
+    setLoginError(null);
+    setLoginSuccess(null);
+  };
+
+  const handleCustomerSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError(null);
+    setLoginSuccess(null);
+
+    const cleanEmail = loginEmail.trim().toLowerCase();
+    if (!cleanEmail || !loginPassword) {
+      setLoginError("Please enter your email and password.");
+      return;
+    }
+
+    setIsLoggingIn(true);
+    try {
+      const res = await signIn(cleanEmail, loginPassword);
+      if (res.success) {
+        setLoginSuccess("Signed in successfully!");
+        const redirect = searchParams.get("redirect");
+        if (redirect) {
+          navigate(redirect, { replace: true });
+        }
+      } else {
+        setLoginError(res.error || "Invalid email or password. Please try again.");
+      }
+    } catch (err: any) {
+      setLoginError(err?.message || "An unexpected error occurred.");
+    } finally {
+      setIsLoggingIn(false);
+    }
+  };
+
+  const handleCustomerSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSignupError(null);
+    setSignupSuccess(null);
+
+    const cleanName = signupFullName.trim();
+    const cleanEmail = signupEmail.trim().toLowerCase();
+    const cleanPhone = signupPhone.trim();
+
+    if (!cleanName) {
+      setSignupError("Please enter your full name.");
+      return;
+    }
+    if (!cleanEmail) {
+      setSignupError("Please enter a valid email address.");
+      return;
+    }
+    if (!signupPassword) {
+      setSignupError("Please enter a password.");
+      return;
+    }
+    if (signupPassword.length < 6) {
+      setSignupError("Password must be at least 6 characters long.");
+      return;
+    }
+    if (signupPassword !== signupConfirmPassword) {
+      setSignupError("Passwords do not match.");
+      return;
+    }
+    if (!signupAcceptedTerms) {
+      setSignupError("Please accept the Terms of Service and Privacy Policy.");
+      return;
+    }
+
+    setIsSigningUp(true);
+    try {
+      const res = await signUp({
+        fullName: cleanName,
+        email: cleanEmail,
+        phone: cleanPhone,
+        password: signupPassword
+      });
+
+      if (res.success) {
+        setSignupSuccess("Account created successfully!");
+        const redirect = searchParams.get("redirect");
+        if (redirect) {
+          navigate(redirect, { replace: true });
+        }
+      } else {
+        setSignupError(res.error || "Failed to create account. Please try again.");
+      }
+    } catch (err: any) {
+      setSignupError(err?.message || "An unexpected error occurred.");
+    } finally {
+      setIsSigningUp(false);
+    }
+  };
+
+  // Loading state during auth initialization
+  if (isAuthLoading) {
+    return (
+      <div className="min-h-[75vh] flex flex-col items-center justify-center py-16 px-4 bg-[#FAF9F7]">
+        <Loader2 size={36} className="animate-spin text-[#2D5A4A] mb-3" />
+        <p className="text-xs font-semibold text-neutral-500">Checking customer account session...</p>
+      </div>
+    );
+  }
+
+  // Customer Authentication Interface (when unauthenticated)
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-[80vh] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#FAF9F7]">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md text-center mb-6">
+          <div className="flex justify-center mb-4">
+            <Logo />
+          </div>
+          <h1 className="text-2xl font-black text-[#111111] tracking-tight">
+            Customer Account Portal
+          </h1>
+          <p className="mt-1 text-xs text-neutral-500">
+            Sign in to access order tracking, quotes, and saved equipment.
+          </p>
+        </div>
+
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <div className="bg-white py-8 px-6 sm:px-8 shadow-sm rounded-2xl border border-[#E5E1DD]">
+            {/* Tab Switcher */}
+            <div className="grid grid-cols-2 p-1 bg-neutral-100 rounded-xl mb-6 text-xs font-bold">
+              <button
+                type="button"
+                onClick={() => {
+                  setAuthTab("signin");
+                  setLoginError(null);
+                  setLoginSuccess(null);
+                }}
+                className={`py-2 rounded-lg transition-all cursor-pointer ${
+                  authTab === "signin"
+                    ? "bg-white text-[#111111] shadow-xs"
+                    : "text-neutral-500 hover:text-neutral-900"
+                }`}
+              >
+                Sign In
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setAuthTab("signup");
+                  setSignupError(null);
+                  setSignupSuccess(null);
+                }}
+                className={`py-2 rounded-lg transition-all cursor-pointer ${
+                  authTab === "signup"
+                    ? "bg-white text-[#111111] shadow-xs"
+                    : "text-neutral-500 hover:text-neutral-900"
+                }`}
+              >
+                Create Account
+              </button>
+            </div>
+
+            {/* SIGN IN TAB */}
+            {authTab === "signin" && (
+              <form onSubmit={handleCustomerSignIn} className="space-y-4">
+                {loginError && (
+                  <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 text-xs flex items-start gap-2">
+                    <AlertCircle size={16} className="shrink-0 mt-0.5 text-rose-600" />
+                    <span className="leading-relaxed font-medium">{loginError}</span>
+                  </div>
+                )}
+                {loginSuccess && (
+                  <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-xs flex items-start gap-2">
+                    <CheckCircle2 size={16} className="shrink-0 mt-0.5 text-emerald-600" />
+                    <span className="leading-relaxed font-medium">{loginSuccess}</span>
+                  </div>
+                )}
+
+                <div>
+                  <label className="block text-xs font-bold text-neutral-700 mb-1">
+                    Email Address <span className="text-rose-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <Mail size={16} className="absolute left-3 top-3 text-neutral-400" />
+                    <input
+                      type="email"
+                      required
+                      value={loginEmail}
+                      onChange={(e) => setLoginEmail(e.target.value)}
+                      placeholder="name@hospital.org"
+                      autoComplete="email"
+                      className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-xs font-bold text-neutral-700">
+                      Password <span className="text-rose-500">*</span>
+                    </label>
+                    <Link
+                      to="/account/forgot-password"
+                      className="text-2xs text-[#2D5A4A] hover:underline font-semibold"
+                    >
+                      Forgot password?
+                    </Link>
+                  </div>
+                  <div className="relative">
+                    <Lock size={16} className="absolute left-3 top-3 text-neutral-400" />
+                    <input
+                      type={showLoginPassword ? "text" : "password"}
+                      required
+                      value={loginPassword}
+                      onChange={(e) => setLoginPassword(e.target.value)}
+                      placeholder="••••••••"
+                      autoComplete="current-password"
+                      className="w-full pl-9 pr-10 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowLoginPassword(!showLoginPassword)}
+                      className="absolute right-3 top-3 text-neutral-400 hover:text-neutral-700 cursor-pointer"
+                      aria-label={showLoginPassword ? "Hide password" : "Show password"}
+                    >
+                      {showLoginPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isLoggingIn}
+                  className="w-full mt-2 py-2.5 px-4 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                >
+                  {isLoggingIn ? (
+                    <>
+                      <Loader2 size={14} className="animate-spin" />
+                      <span>Signing In...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Sign In</span>
+                      <ArrowRight size={14} />
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
+
+            {/* CREATE ACCOUNT / SIGN UP TAB */}
+            {authTab === "signup" && (
+              <form onSubmit={handleCustomerSignUp} className="space-y-4">
+                {signupError && (
+                  <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 text-xs flex items-start gap-2">
+                    <AlertCircle size={16} className="shrink-0 mt-0.5 text-rose-600" />
+                    <span className="leading-relaxed font-medium">{signupError}</span>
+                  </div>
+                )}
+                {signupSuccess && (
+                  <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-xs flex items-start gap-2">
+                    <CheckCircle2 size={16} className="shrink-0 mt-0.5 text-emerald-600" />
+                    <span className="leading-relaxed font-medium">{signupSuccess}</span>
+                  </div>
+                )}
+
+                <div>
+                  <label className="block text-xs font-bold text-neutral-700 mb-1">
+                    Full Legal / Clinical Name <span className="text-rose-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <User size={16} className="absolute left-3 top-3 text-neutral-400" />
+                    <input
+                      type="text"
+                      required
+                      value={signupFullName}
+                      onChange={(e) => setSignupFullName(e.target.value)}
+                      placeholder="e.g. Dr. Shivansh Narain"
+                      className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-neutral-700 mb-1">
+                    Institutional Email Address <span className="text-rose-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <Mail size={16} className="absolute left-3 top-3 text-neutral-400" />
+                    <input
+                      type="email"
+                      required
+                      value={signupEmail}
+                      onChange={(e) => setSignupEmail(e.target.value)}
+                      placeholder="name@hospital.org"
+                      className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-neutral-700 mb-1">
+                    Contact Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    value={signupPhone}
+                    onChange={(e) => setSignupPhone(e.target.value)}
+                    placeholder="+1 (555) 000-0000"
+                    className="w-full px-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-neutral-700 mb-1">
+                    Password <span className="text-rose-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <Lock size={16} className="absolute left-3 top-3 text-neutral-400" />
+                    <input
+                      type={showSignupPassword ? "text" : "password"}
+                      required
+                      value={signupPassword}
+                      onChange={(e) => setSignupPassword(e.target.value)}
+                      placeholder="Minimum 6 characters"
+                      className="w-full pl-9 pr-10 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowSignupPassword(!showSignupPassword)}
+                      className="absolute right-3 top-3 text-neutral-400 hover:text-neutral-700 cursor-pointer"
+                      aria-label={showSignupPassword ? "Hide password" : "Show password"}
+                    >
+                      {showSignupPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-neutral-700 mb-1">
+                    Confirm Password <span className="text-rose-500">*</span>
+                  </label>
+                  <input
+                    type={showSignupPassword ? "text" : "password"}
+                    required
+                    value={signupConfirmPassword}
+                    onChange={(e) => setSignupConfirmPassword(e.target.value)}
+                    placeholder="Repeat password"
+                    className="w-full px-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
+                  />
+                </div>
+
+                <div className="flex items-start gap-2 pt-1">
+                  <input
+                    type="checkbox"
+                    id="account-terms"
+                    required
+                    checked={signupAcceptedTerms}
+                    onChange={(e) => setSignupAcceptedTerms(e.target.checked)}
+                    className="mt-0.5 rounded-sm border-neutral-300 text-[#2D5A4A] focus:ring-[#2D5A4A]"
+                  />
+                  <label htmlFor="account-terms" className="text-3xs text-neutral-600 leading-normal">
+                    I agree to the{" "}
+                    <Link to="/terms-conditions" className="text-[#2D5A4A] underline font-semibold" target="_blank">
+                      Terms & Conditions
+                    </Link>{" "}
+                    and{" "}
+                    <Link to="/privacy-policy" className="text-[#2D5A4A] underline font-semibold" target="_blank">
+                      Privacy Policy
+                    </Link>
+                    .
+                  </label>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSigningUp}
+                  className="w-full mt-2 py-2.5 px-4 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                >
+                  {isSigningUp ? (
+                    <>
+                      <Loader2 size={14} className="animate-spin" />
+                      <span>Creating Account...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Create Customer Account</span>
+                      <ArrowRight size={14} />
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Greeting logic: e.g. "Hi, Shivansh!"
+  const firstName = user?.fullName
+    ? user.fullName.split(" ")[0].replace(/^Dr\.?\s*/i, "")
+    : user?.email?.split("@")[0] || "Customer";
 
   const orders = [
     {
@@ -105,33 +631,62 @@ export const AccountPage: React.FC = () => {
     <div className="w-full bg-[#FAFAFA] min-h-screen py-10 sm:py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Account Top Summary */}
-        <div className="bg-white rounded-xl border border-[#EAEAEA] p-6 sm:p-8 shadow-2xs mb-8">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="bg-white rounded-2xl border border-[#EAEAEA] p-6 sm:p-8 shadow-2xs mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-xl bg-[#111111] text-white flex items-center justify-center font-bold text-xl shadow-xs">
-                {user ? user.fullName.charAt(0) : "D"}
+              <div className="w-16 h-16 rounded-2xl bg-[#2D5A4A] text-white flex items-center justify-center font-bold text-2xl shadow-xs">
+                {user?.fullName ? user.fullName.charAt(0).toUpperCase() : "C"}
               </div>
               <div>
-                <div className="flex items-center gap-2.5">
-                  <h1 className="text-xl sm:text-2xl font-black text-[#111111]">{user?.fullName}</h1>
-                  <span className="px-2.5 py-0.5 text-3xs font-extrabold uppercase bg-[#FAFAFA] border border-[#EAEAEA] text-[#111111] rounded-md">
-                    {user?.role === "super_admin" ? "ADMINISTRATOR" : "HOSPITAL BUYER"}
-                  </span>
+                <div className="text-2xs font-extrabold uppercase tracking-wider text-[#7AA05A]">
+                  Welcome Back
                 </div>
-                <div className="text-xs text-neutral-500 mt-1">
-                  {user?.institutionName} • {user?.email}
+                <h1 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
+                  Hi, {firstName}!
+                </h1>
+                <div className="text-xs text-neutral-500 mt-1 flex items-center gap-2 flex-wrap">
+                  <span className="font-semibold text-neutral-800">{user?.fullName}</span>
+                  <span>•</span>
+                  <span>{user?.email}</span>
+                  {user?.phone && (
+                    <>
+                      <span>•</span>
+                      <span>{user?.phone}</span>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
 
-            {isAdmin && (
+            <div className="flex items-center gap-3 flex-wrap">
+              {/* Explore Products Button */}
               <Link
-                to="/admin"
-                className="px-5 py-2.5 bg-[#111111] hover:bg-[#1F7A4D] text-white rounded-xl text-xs font-bold transition-colors flex items-center gap-2 self-start sm:self-auto"
+                to="/shop-all"
+                className="px-4 py-2.5 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 rounded-xl text-xs font-bold transition-colors flex items-center gap-2"
               >
-                <span>⚡ Open Admin Panel</span>
+                <ShoppingBag size={14} />
+                <span>Explore Products</span>
               </Link>
-            )}
+
+              {/* Logout Button */}
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="px-4 py-2.5 border border-neutral-300 hover:border-neutral-400 text-neutral-700 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer"
+              >
+                <LogOut size={14} />
+                <span>Logout</span>
+              </button>
+
+              {isAdminAuthenticated && (
+                <Link
+                  to="/admin"
+                  className="px-4 py-2.5 bg-[#111111] hover:bg-[#1F7A4D] text-white rounded-xl text-xs font-bold transition-colors flex items-center gap-2"
+                >
+                  <span>⚡ Admin Console</span>
+                </Link>
+              )}
+            </div>
           </div>
 
           {/* Quick KPI stats */}
@@ -496,18 +1051,143 @@ export const AccountPage: React.FC = () => {
 
             {/* PROFILE TAB */}
             {activeTab === "profile" && (
-              <div className="space-y-6">
-                <h3 className="text-base font-bold text-[#111111] pb-3.5 border-b border-[#EAEAEA]">
-                  Practitioner & Facility Preferences
-                </h3>
+              <div className="space-y-8">
+                {/* 1. Customer Email Address (Login ID) Section */}
+                <div className="p-6 bg-[#FAFAFA] rounded-2xl border border-[#EAEAEA] space-y-4">
+                  <div className="flex items-center justify-between flex-wrap gap-2 pb-3.5 border-b border-[#EAEAEA]">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-lg bg-[#2D5A4A]/10 text-[#2D5A4A] flex items-center justify-center">
+                        <Mail size={16} />
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-bold text-[#111111]">Account Email Address</h3>
+                        <p className="text-2xs text-neutral-500">Your primary login identifier and verification email</p>
+                      </div>
+                    </div>
 
-                <div className="space-y-4 text-xs max-w-lg">
+                    {!isEditingEmail && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEditEmail(user?.email || "");
+                          setEmailUpdateError(null);
+                          setEmailUpdateSuccess(null);
+                          setIsEditingEmail(true);
+                        }}
+                        className="px-3.5 py-1.5 bg-white border border-[#EAEAEA] hover:border-neutral-300 rounded-lg text-xs font-bold text-[#111111] transition-colors flex items-center gap-1.5 shadow-2xs cursor-pointer"
+                      >
+                        <Edit2 size={12} />
+                        <span>Update Email</span>
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Feedback Alerts */}
+                  {emailUpdateError && (
+                    <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 text-xs flex items-start gap-2">
+                      <AlertCircle size={15} className="shrink-0 mt-0.5 text-rose-600" />
+                      <span className="leading-relaxed font-medium">{emailUpdateError}</span>
+                    </div>
+                  )}
+
+                  {emailUpdateSuccess && (
+                    <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-xs flex items-start gap-2">
+                      <Check size={15} className="shrink-0 mt-0.5 text-emerald-600" />
+                      <span className="leading-relaxed font-semibold">{emailUpdateSuccess}</span>
+                    </div>
+                  )}
+
+                  {!isEditingEmail ? (
+                    <div className="flex items-center justify-between p-3.5 bg-white rounded-xl border border-[#EAEAEA]">
+                      <div>
+                        <div className="text-3xs font-semibold uppercase text-neutral-400">Current Login Email</div>
+                        <div className="text-sm font-bold text-[#111111] font-mono mt-0.5">{user?.email}</div>
+                      </div>
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#2D5A4A]/10 text-[#2D5A4A] rounded-md text-3xs font-bold">
+                        <ShieldCheck size={12} />
+                        <span>Verified Account</span>
+                      </span>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleUpdateEmail} className="space-y-3.5 text-xs">
+                      <div>
+                        <label className="block font-bold text-neutral-700 mb-1">
+                          New Email Address <span className="text-rose-500">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={editEmail}
+                          onChange={(e) => setEditEmail(e.target.value)}
+                          placeholder="doctor@institution.org"
+                          className="w-full p-2.5 border border-[#EAEAEA] rounded-lg bg-white text-[#111111] focus:outline-none focus:border-[#2D5A4A]"
+                        />
+                        <p className="text-2xs text-neutral-500 mt-1">
+                          A confirmation link will be dispatched if email verification is active. Your displayed login email synchronizes upon verification.
+                        </p>
+                      </div>
+
+                      <div className="flex items-center justify-end gap-2.5 pt-1">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsEditingEmail(false);
+                            setEditEmail(user?.email || "");
+                            setEmailUpdateError(null);
+                          }}
+                          className="px-4 py-2 border border-[#EAEAEA] rounded-lg text-neutral-600 hover:bg-neutral-100 font-semibold cursor-pointer"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="submit"
+                          disabled={isUpdatingEmail}
+                          className="px-5 py-2 bg-[#2D5A4A] hover:bg-[#23473a] text-white font-bold rounded-lg transition-colors flex items-center gap-1.5 shadow-xs disabled:opacity-50 cursor-pointer"
+                        >
+                          {isUpdatingEmail ? (
+                            <>
+                              <Loader2 size={13} className="animate-spin" />
+                              <span>Updating...</span>
+                            </>
+                          ) : (
+                            <span>Save Email Address</span>
+                          )}
+                        </button>
+                      </div>
+                    </form>
+                  )}
+                </div>
+
+                {/* 2. Practitioner & Facility Preferences Section */}
+                <form onSubmit={handleSaveProfile} className="space-y-4 text-xs max-w-lg">
+                  <h3 className="text-base font-bold text-[#111111] pb-3.5 border-b border-[#EAEAEA]">
+                    Practitioner & Facility Preferences
+                  </h3>
+
+                  {profileSuccess && (
+                    <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-xs flex items-center gap-2">
+                      <Check size={15} className="text-emerald-600" />
+                      <span>Profile preferences saved successfully.</span>
+                    </div>
+                  )}
+
                   <div>
                     <label className="block font-bold text-neutral-700 mb-1.5">Full Legal / Clinical Name</label>
                     <input
                       type="text"
-                      value={user?.fullName || ""}
-                      onChange={(e) => updateProfile({ fullName: e.target.value })}
+                      value={editFullName}
+                      onChange={(e) => setEditFullName(e.target.value)}
+                      className="w-full p-2.5 border border-[#EAEAEA] rounded-lg bg-white text-[#111111] focus:outline-none focus:border-[#111111]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-neutral-700 mb-1.5">Phone Number</label>
+                    <input
+                      type="tel"
+                      value={editPhone}
+                      onChange={(e) => setEditPhone(e.target.value)}
+                      placeholder="+1 (555) 000-0000"
                       className="w-full p-2.5 border border-[#EAEAEA] rounded-lg bg-white text-[#111111] focus:outline-none focus:border-[#111111]"
                     />
                   </div>
@@ -516,8 +1196,8 @@ export const AccountPage: React.FC = () => {
                     <label className="block font-bold text-neutral-700 mb-1.5">Institution Name</label>
                     <input
                       type="text"
-                      value={user?.institutionName || ""}
-                      onChange={(e) => updateProfile({ institutionName: e.target.value })}
+                      value={editInstitution}
+                      onChange={(e) => setEditInstitution(e.target.value)}
                       className="w-full p-2.5 border border-[#EAEAEA] rounded-lg bg-white text-[#111111] focus:outline-none focus:border-[#111111]"
                     />
                   </div>
@@ -536,7 +1216,16 @@ export const AccountPage: React.FC = () => {
                       ))}
                     </select>
                   </div>
-                </div>
+
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      className="px-5 py-2.5 bg-[#111111] hover:bg-[#1F7A4D] text-white font-bold rounded-lg transition-colors cursor-pointer"
+                    >
+                      Save Preferences
+                    </button>
+                  </div>
+                </form>
               </div>
             )}
           </div>

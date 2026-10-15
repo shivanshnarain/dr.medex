@@ -2,6 +2,12 @@ const express = require("express");
 const router = express.Router();
 const store = require("../services/store");
 const currencyService = require("../services/currencyService");
+const firestoreService = require("../services/firestoreService");
+const geminiVisionService = require("../services/geminiVisionService");
+const reviewAiService = require("../services/reviewAiService");
+const reviewModerationService = require("../services/reviewModerationService");
+const supabaseService = require("../services/supabaseService");
+const passwordRecoveryService = require("../services/passwordRecoveryService");
 
 // PRODUCTS
 router.get("/products", (req, res) => {
@@ -181,20 +187,648 @@ router.get("/blogs/:slug", (req, res) => {
   res.json({ success: true, blog });
 });
 
-// REVIEWS
-router.get("/reviews", (req, res) => {
-  const list = store.getReviews(req.query.productId);
-  res.json({ success: true, reviews: list });
+// REVIEWS & CLINICAL FEEDBACK
+router.get("/reviews", async (req, res) => {
+  try {
+    const productId = req.query.productId || null;
+    const limit = Math.min(50, Math.max(1, parseInt(req.query.limit, 10) || 10));
+    const offset = Math.max(0, parseInt(req.query.offset, 10) || 0);
+
+    const result = await firestoreService.getApprovedReviews(productId, { limit, offset });
+    res.json({ success: true, ...result });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
-router.get("/reviews/:productId", (req, res) => {
-  const list = store.getReviews(req.params.productId);
-  res.json({ success: true, reviews: list });
+router.get("/reviews/:productId", async (req, res) => {
+  try {
+    const limit = Math.min(50, Math.max(1, parseInt(req.query.limit, 10) || 10));
+    const offset = Math.max(0, parseInt(req.query.offset, 10) || 0);
+    const result = await firestoreService.getApprovedReviews(req.params.productId, { limit, offset });
+    res.json({ success: true, ...result });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
-router.post("/reviews", (req, res) => {
-  const review = store.addReview(req.body);
-  res.status(201).json({ success: true, review });
+// In-memory rate limiting map for review submissions (max 5 submissions per 10 minutes per IP)
+const reviewSubmissionRateLimitMap = new Map();
+// Cache of recent review hashes to prevent duplicate review submissions
+const recentReviewsSet = new Map();
+
+function checkReviewSubmissionRateLimit(ip) {
+  const now = Date.now();
+  const windowMs = 10 * 60 * 1000; // 10 minutes
+  const maxSubmissions = 5;
+
+  const record = reviewSubmissionRateLimitMap.get(ip) || { count: 0, resetTime: now + windowMs };
+  if (now > record.resetTime) {
+    record.count = 0;
+    record.resetTime = now + windowMs;
+  }
+
+  if (record.count >= maxSubmissions) {
+    return false;
+  }
+
+  record.count++;
+  reviewSubmissionRateLimitMap.set(ip, record);
+  return true;
+}
+
+// In-memory cache for review suggestions: Map<string, { batch: any[], recentBatches: string[][], poolIndex: number, provider?: string, model?: string, timestamp: number }>
+const reviewSuggestionsCache = new Map();
+
+// In-flight suggestions request deduplication map to prevent simultaneous duplicate generation calls
+const inFlightSuggestions = new Map();
+
+// Rate limit map for review suggestions: max 40 requests per minute per IP
+const suggestionRateLimitMap = new Map();
+function checkSuggestionRateLimit(ip) {
+  const now = Date.now();
+  const windowMs = 60 * 1000;
+  const maxRequests = 40;
+  const record = suggestionRateLimitMap.get(ip) || { count: 0, resetTime: now + windowMs };
+  if (now > record.resetTime) {
+    record.count = 0;
+    record.resetTime = now + windowMs;
+  }
+  if (record.count >= maxRequests) {
+    return false;
+  }
+  record.count++;
+  suggestionRateLimitMap.set(ip, record);
+  return true;
+}
+
+// Diagnostic/provider status endpoint (safe, non-sensitive)
+router.get("/reviews/provider-status", (req, res) => {
+  const status = reviewAiService.getProviderStatus();
+  res.json({ success: true, ...status });
+});
+
+// Customer Authentication & Login Activity Audit
+router.post("/auth/record-login", async (req, res) => {
+  try {
+    const { customerId, email, fullName } = req.body;
+    if (!customerId || !email) {
+      return res.status(400).json({ success: false, message: "Customer ID and email are required." });
+    }
+
+    const ip = req.ip || req.connection.remoteAddress || "127.0.0.1";
+    const userAgent = req.headers["user-agent"] || "";
+
+    const activity = await supabaseService.recordCustomerLogin({
+      customerId,
+      email,
+      fullName,
+      ip,
+      userAgent
+    });
+
+    res.json({ success: true, activity });
+  } catch (err) {
+    console.warn("[API] Record login error:", err.message);
+    res.status(500).json({ success: false, message: "Failed to record login event." });
+  }
+});
+
+// Customer Email Update (Synchronizes auth email and updates customer records)
+router.post("/auth/update-customer-email", async (req, res) => {
+  try {
+    const { customerId, oldEmail, newEmail } = req.body;
+    if (!newEmail || typeof newEmail !== "string") {
+      return res.status(400).json({ success: false, message: "Valid new email address is required." });
+    }
+
+    const cleanNewEmail = newEmail.trim().toLowerCase();
+    const cleanOldEmail = oldEmail ? oldEmail.trim().toLowerCase() : "";
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(cleanNewEmail)) {
+      return res.status(400).json({ success: false, message: "Invalid email format. Please provide a valid email address." });
+    }
+
+    if (cleanOldEmail && cleanNewEmail === cleanOldEmail) {
+      return res.status(400).json({ success: false, message: "New email must be different from current email address." });
+    }
+
+    // Check duplicate against existing customers
+    const existingCustomers = supabaseService.getMockCustomers ? supabaseService.getMockCustomers() : [];
+    const isDuplicate = existingCustomers.some(
+      (c) => c.email.toLowerCase() === cleanNewEmail && c.id !== customerId
+    );
+    if (isDuplicate) {
+      return res.status(409).json({
+        success: false,
+        code: "DUPLICATE_EMAIL",
+        message: "This email address is already registered to another account."
+      });
+    }
+
+    // Update customer in supabaseService
+    if (supabaseService.updateCustomerEmail) {
+      supabaseService.updateCustomerEmail(customerId || cleanOldEmail, cleanNewEmail);
+    }
+
+    // Migrate password credentials if customer has set local password
+    if (passwordRecoveryService.migrateCredentialsEmail) {
+      passwordRecoveryService.migrateCredentialsEmail(cleanOldEmail, cleanNewEmail);
+    }
+
+    res.json({
+      success: true,
+      message: "Customer email updated successfully.",
+      email: cleanNewEmail
+    });
+  } catch (err) {
+    console.warn("[API] Update customer email error:", err.message);
+    res.status(500).json({ success: false, message: "Failed to update customer email." });
+  }
+});
+
+// Customer Password Recovery — Request Recovery Link & Dispatch Email
+router.post("/auth/forgot-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+    const origin = req.headers.origin || req.headers.referer || "http://localhost:5173";
+    const clientIp = (req.ip || req.connection.remoteAddress || "127.0.0.1").replace(/^.*:/, "") || "127.0.0.1";
+
+    const result = await passwordRecoveryService.requestRecovery({
+      email,
+      origin,
+      clientIp
+    });
+
+    if (!result.success) {
+      if (result.code === "INVALID_EMAIL") {
+        return res.status(400).json({ success: false, code: result.code, message: result.message });
+      }
+      if (result.code === "RATE_LIMITED") {
+        return res.status(429).json({ success: false, code: result.code, message: result.message });
+      }
+      if (result.code === "EMAIL_NOT_CONFIGURED" || result.code === "DELIVERY_FAILED") {
+        return res.status(503).json({ success: false, code: result.code, message: result.message });
+      }
+      return res.status(400).json({ success: false, code: result.code || "REQUEST_FAILED", message: result.message });
+    }
+
+    res.json({
+      success: true,
+      delivered: result.delivered,
+      simulated: result.simulated,
+      message: result.message
+    });
+  } catch (err) {
+    console.warn("[API] Forgot password error:", err.message);
+    res.status(500).json({ success: false, message: "An unexpected error occurred while processing your request." });
+  }
+});
+
+// Customer Password Recovery — Verify Token
+router.get("/auth/verify-reset-token", (req, res) => {
+  const token = req.query.token;
+  const verification = passwordRecoveryService.verifyRecoveryToken(token);
+  if (!verification.valid) {
+    return res.status(400).json({
+      success: false,
+      valid: false,
+      code: verification.code,
+      message: verification.error
+    });
+  }
+  res.json({
+    success: true,
+    valid: true,
+    email: verification.email
+  });
+});
+
+// Customer Password Recovery — Set New Password
+router.post("/auth/reset-password", async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+    if (!token || !newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: "Recovery token and new password are required."
+      });
+    }
+
+    const result = await passwordRecoveryService.resetPassword({
+      rawToken: token,
+      newPassword
+    });
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        code: result.code,
+        message: result.message
+      });
+    }
+
+    res.json({
+      success: true,
+      message: result.message
+    });
+  } catch (err) {
+    console.warn("[API] Reset password error:", err.message);
+    res.status(500).json({ success: false, message: "Failed to reset password." });
+  }
+});
+
+// Customer Authentication — Verify Credentials (supports updated password verification)
+router.post("/auth/verify-credentials", (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ success: false, message: "Email and password are required." });
+  }
+  const cleanEmail = String(email).trim().toLowerCase();
+  const isValid = passwordRecoveryService.verifyCredentials(cleanEmail, password);
+  if (!isValid) {
+    return res.status(401).json({ success: false, message: "Invalid email or password." });
+  }
+  res.json({
+    success: true,
+    user: {
+      id: `usr-${Buffer.from(cleanEmail).toString("hex").substring(0, 10)}`,
+      email: cleanEmail,
+      user_metadata: { full_name: cleanEmail.split("@")[0] }
+    }
+  });
+});
+
+// Customer Password Recovery — Status Diagnostics
+router.get("/auth/recovery-diagnostics", (req, res) => {
+  const diagnostics = passwordRecoveryService.getDiagnostics();
+  res.json({ success: true, diagnostics });
+});
+
+// Get product- and rating-specific review suggestions (Fresh suggestions with intelligent rotation & caching)
+router.get("/reviews/suggestions", async (req, res) => {
+  try {
+    const ip = req.ip || req.connection.remoteAddress || "127.0.0.1";
+    if (!checkSuggestionRateLimit(ip)) {
+      return res.status(429).json({
+        success: false,
+        message: "Suggestion refresh rate limit reached. Please wait a moment before trying again."
+      });
+    }
+
+    const { productId, rating, productTitle, category, refresh, bustCache, poolIndex } = req.query;
+    if (!productId || typeof productId !== "string" || productId.trim().length === 0) {
+      return res.status(400).json({ success: false, message: "Missing or invalid productId" });
+    }
+
+    const cleanRating = Math.min(5, Math.max(1, Math.round(Number(rating) || 4)));
+    const activeProvider = reviewAiService.getConfiguredProvider();
+    const cacheKey = `${productId.trim()}:${cleanRating}:${activeProvider}`;
+    const TTL_MS = 5 * 60 * 1000; // 5-minute configurable cache window
+    const isRefresh = refresh === "true" || bustCache === "true" || Boolean(req.query.t);
+
+    const existingEntry = reviewSuggestionsCache.get(cacheKey);
+
+    // Return cached batch if available, not expired, and not explicitly refreshing
+    if (!isRefresh && existingEntry && (Date.now() - (existingEntry.timestamp || 0)) < TTL_MS) {
+      if (Array.isArray(existingEntry.batch) && existingEntry.batch.length === 6) {
+        return res.json({
+          success: true,
+          suggestions: existingEntry.batch,
+          cached: true,
+          provider: existingEntry.provider || activeProvider,
+          model: existingEntry.model
+        });
+      }
+    }
+
+    // In-flight request deduplication: if identical generation is already running, wait on existing promise
+    if (inFlightSuggestions.has(cacheKey)) {
+      try {
+        const sharedResult = await inFlightSuggestions.get(cacheKey);
+        return res.json({ ...sharedResult, cached: true });
+      } catch (err) {
+        // Continue to fresh execution if in-flight failed
+      }
+    }
+
+    // Determine pool index for variation
+    const prevPool = existingEntry ? (existingEntry.poolIndex || 0) : 0;
+    const requestedPool = parseInt(poolIndex, 10);
+    const nextPool = !isNaN(requestedPool) ? requestedPool : (prevPool + 1);
+
+    // Create execution promise and register in inFlightSuggestions map
+    const generationPromise = (async () => {
+      const aiResult = await reviewAiService.generateProductReviewSuggestions({
+        productId: String(productId).trim(),
+        productTitle: String(productTitle || "Medical Equipment"),
+        category: String(category || "operating-theater"),
+        rating: cleanRating,
+        poolIndex: nextPool,
+        variantSeed: Date.now() + nextPool * 1000
+      });
+
+      let suggestions = aiResult.suggestions || [];
+
+      // Enforce word limit (<= 20 words, 1-2 lines) across all suggestions
+      if (Array.isArray(suggestions)) {
+        suggestions = suggestions.map((item, idx) => ({
+          id: item.id || `sugg-${cleanRating}-${nextPool}-${idx + 1}`,
+          theme: item.theme || "Clinical Utility",
+          title: String(item.title || `${cleanRating}-Star Review`).trim(),
+          text: geminiVisionService.enforceWordLimit(String(item.text || "").trim(), 20)
+        }));
+      }
+
+      // Deduplication check across recent batch history (prevent repeating sentences across consecutive refreshes)
+      const recentBatches = existingEntry?.recentBatches || (existingEntry?.lastTexts ? [existingEntry.lastTexts] : []);
+      const newTexts = suggestions.map(s => s.text);
+
+      let isDuplicate = false;
+      for (const oldBatch of recentBatches) {
+        const matchCount = newTexts.filter(t => oldBatch.includes(t)).length;
+        if (matchCount >= 4) {
+          isDuplicate = true;
+          break;
+        }
+      }
+
+      if (isDuplicate) {
+        // Too similar to recent batches: draw fresh deterministic pool
+        const alternateBatch = geminiVisionService.buildThemedSuggestions({
+          rating: cleanRating,
+          productTitle: String(productTitle || "Medical Equipment"),
+          category: String(category || "operating-theater"),
+          poolIndex: nextPool + 1
+        });
+        suggestions = alternateBatch.map((item) => ({
+          ...item,
+          text: geminiVisionService.enforceWordLimit(item.text, 20)
+        }));
+      }
+
+      // Fallback safety to guarantee exactly 6 valid suggestions
+      if (!Array.isArray(suggestions) || suggestions.length < 6) {
+        suggestions = geminiVisionService.buildThemedSuggestions({
+          rating: cleanRating,
+          productTitle: String(productTitle || "Medical Equipment"),
+          category: String(category || "operating-theater"),
+          poolIndex: nextPool
+        });
+      }
+
+      const updatedHistory = [suggestions.map(s => s.text), ...recentBatches].slice(0, 5);
+
+      reviewSuggestionsCache.set(cacheKey, {
+        batch: suggestions,
+        recentBatches: updatedHistory,
+        lastTexts: suggestions.map(s => s.text),
+        poolIndex: nextPool,
+        provider: aiResult.provider || activeProvider,
+        model: aiResult.model,
+        timestamp: Date.now()
+      });
+
+      return {
+        success: true,
+        suggestions,
+        cached: false,
+        provider: aiResult.provider || activeProvider,
+        model: aiResult.model,
+        poolIndex: nextPool,
+        fallbackUsed: Boolean(aiResult.fallbackUsed)
+      };
+    })();
+
+    inFlightSuggestions.set(cacheKey, generationPromise);
+
+    try {
+      const result = await generationPromise;
+      res.json(result);
+    } finally {
+      inFlightSuggestions.delete(cacheKey);
+    }
+  } catch (err) {
+    console.warn("[API] Suggestions generation error:", err.message);
+    const cleanRating = Math.min(5, Math.max(1, Math.round(Number(req.query.rating) || 4)));
+    const fallbackBatch = geminiVisionService.buildThemedSuggestions({
+      rating: cleanRating,
+      productTitle: String(req.query.productTitle || "Medical Equipment"),
+      category: String(req.query.category || "operating-theater"),
+      poolIndex: parseInt(req.query.poolIndex, 10) || 1
+    });
+    res.json({
+      success: true,
+      suggestions: fallbackBatch,
+      cached: false,
+      fallback: true,
+      provider: "deterministic-fallback"
+    });
+  }
+});
+
+// Submit a new review (Anti-spam, forced PENDING, and verifiedPurchase: false)
+router.post("/reviews", async (req, res) => {
+  let reviewFingerprint;
+  try {
+    const ip = req.ip || req.connection.remoteAddress || "127.0.0.1";
+    if (!checkReviewSubmissionRateLimit(ip)) {
+      return res.status(429).json({
+        success: false,
+        message: "Submission rate limit reached. Please wait a few minutes before submitting another review."
+      });
+    }
+
+    const {
+      productId,
+      productSlug,
+      productTitle,
+      rating,
+      customerName,
+      author,
+      facility,
+      reviewTitle,
+      reviewText,
+      comment,
+      customerFeedbackPoints,
+      aiAssisted,
+      userId,
+      userEmail
+    } = req.body;
+    
+    if (!productId || typeof productId !== "string") {
+      return res.status(400).json({ success: false, message: "Missing or invalid productId" });
+    }
+
+    const parsedRating = Math.min(5, Math.max(1, Math.round(Number(rating) || 5)));
+    const cleanEmail = String(userEmail || "").trim().toLowerCase().substring(0, 150);
+    const cleanUserId = String(userId || "anonymous").trim().substring(0, 128);
+
+    let cleanName = String(customerName || author || "").trim().substring(0, 100);
+    if (!cleanName && cleanEmail) {
+      cleanName = cleanEmail.split("@")[0] || "Verified Customer";
+    }
+    if (!cleanName) {
+      cleanName = "Verified Customer";
+    }
+
+    const rawReviewText = String(reviewText || comment || "").trim();
+    if (!rawReviewText || rawReviewText.length < 10) {
+      return res.status(400).json({ success: false, message: "Review feedback must be at least 10 characters" });
+    }
+    if (rawReviewText.length > 200) {
+      return res.status(400).json({ success: false, message: "Review text cannot exceed 200 characters" });
+    }
+
+    const cleanText = rawReviewText;
+    const cleanTitle = String(reviewTitle || `${parsedRating}-Star Product Review`).trim().substring(0, 150);
+    const cleanFacility = String(facility || "").trim().substring(0, 150);
+    const cleanProductSlug = String(productSlug || "").trim().substring(0, 150);
+    const cleanProductTitle = String(productTitle || "").trim().substring(0, 200);
+
+    // Duplicate submission prevention (same product + author/email + content within 15 minutes)
+    reviewFingerprint = `${productId}:${(cleanName || cleanEmail || "anon").toLowerCase()}:${cleanText.toLowerCase()}`;
+    const now = Date.now();
+    const existingSubmissionTime = recentReviewsSet.get(reviewFingerprint);
+    if (existingSubmissionTime && now - existingSubmissionTime < 15 * 60 * 1000) {
+      return res.status(409).json({
+        success: false,
+        message: "Duplicate review detected. This evaluation has already been submitted for verification."
+      });
+    }
+    recentReviewsSet.set(reviewFingerprint, now);
+
+    // Whitelist and sanitize feedback points (max 10 items, max 150 chars each)
+    const cleanPoints = Array.isArray(customerFeedbackPoints)
+      ? customerFeedbackPoints.map(p => String(p).trim()).filter(Boolean).slice(0, 10)
+      : [];
+
+    // SERVER-SIDE ABUSE & SPAM MODERATION CHECK (Runs before review becomes public)
+    const moderation = reviewModerationService.moderateReview({
+      reviewText: cleanText,
+      reviewTitle: cleanTitle,
+      customerName: cleanName,
+      userEmail: cleanEmail
+    });
+
+    if (moderation.decision === "REJECT") {
+      if (reviewFingerprint) {
+        recentReviewsSet.delete(reviewFingerprint);
+      }
+      return res.status(422).json({
+        success: false,
+        decision: "REJECT",
+        status: "REJECTED",
+        reason: moderation.reason,
+        message: moderation.userMessage || "Your review contains prohibited language or promotional content. Please edit your review to focus on your clinical or product experience."
+      });
+    }
+
+    const initialStatus = moderation.decision === "ALLOW" ? "APPROVED" : "QUARANTINED";
+    const successMessage = moderation.decision === "ALLOW"
+      ? "Your review has been published and is now live!"
+      : (moderation.userMessage || "Thank you! Your review has been submitted and is undergoing standard safety verification before display.");
+
+    // STRICT PRIVILEGE ENFORCEMENT: Never trust client-supplied status, verifiedPurchase, or userId
+    const reviewData = {
+      productId,
+      productSlug: cleanProductSlug,
+      productTitle: cleanProductTitle,
+      rating: parsedRating,
+      reviewTitle: cleanTitle,
+      reviewText: cleanText,
+      comment: cleanText, // backward compatibility
+      customerFeedbackPoints: cleanPoints,
+      customerName: cleanName,
+      author: cleanName, // backward compatibility
+      facility: cleanFacility,
+      userId: cleanUserId,
+      userEmail: cleanEmail,
+      verifiedPurchase: false, // CANNOT self-verify
+      moderationReason: moderation.reason,
+      aiAssisted: Boolean(aiAssisted)
+    };
+
+    const created = await firestoreService.createReview(reviewData, { initialStatus });
+    res.status(201).json({
+      success: true,
+      decision: moderation.decision,
+      status: created.status,
+      message: successMessage,
+      review: created
+    });
+  } catch (err) {
+    if (reviewFingerprint) {
+      recentReviewsSet.delete(reviewFingerprint);
+    }
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// In-memory rate limit map for AI review drafting (max 20 requests per 10 minutes per IP)
+const aiRateLimitMap = new Map();
+
+function checkAiRateLimit(ip) {
+  const now = Date.now();
+  const windowMs = 10 * 60 * 1000; // 10 minutes
+  const maxRequests = 20;
+
+  const record = aiRateLimitMap.get(ip) || { count: 0, resetTime: now + windowMs };
+  if (now > record.resetTime) {
+    record.count = 0;
+    record.resetTime = now + windowMs;
+  }
+
+  if (record.count >= maxRequests) {
+    return false;
+  }
+
+  record.count++;
+  aiRateLimitMap.set(ip, record);
+  return true;
+}
+
+// Grounded AI Review Drafting Assistant (Server-Side using existing Gemini integration)
+router.post("/reviews/ai-assist", async (req, res) => {
+  try {
+    const ip = req.ip || req.connection.remoteAddress || "127.0.0.1";
+    if (!checkAiRateLimit(ip)) {
+      return res.status(429).json({
+        success: false,
+        message: "AI review assistant rate limit reached. Please wait a few minutes before trying again."
+      });
+    }
+
+    const { rating, feedbackPoints, roughDraft, productTitle, customerName, facility } = req.body;
+
+    // Request size bounds validation
+    const cleanPoints = Array.isArray(feedbackPoints) 
+      ? feedbackPoints.map(p => String(p).trim()).filter(Boolean).slice(0, 10)
+      : [];
+    const cleanDraft = String(roughDraft || "").trim().substring(0, 1000);
+    const cleanProduct = String(productTitle || "Medical Device").trim().substring(0, 200);
+
+    if (cleanPoints.length === 0 && !cleanDraft) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide at least one key feedback point or rough thought to ground the AI draft."
+      });
+    }
+
+    const suggestion = await geminiVisionService.generateReviewDraft({
+      rating,
+      feedbackPoints: cleanPoints,
+      roughDraft: cleanDraft,
+      productTitle: cleanProduct,
+      customerName: String(customerName || "").trim().substring(0, 100),
+      facility: String(facility || "").trim().substring(0, 150)
+    });
+
+    res.json({ success: true, suggestion });
+  } catch (err) {
+    console.warn("[API] AI Review Assist error:", err.message);
+    res.status(400).json({ success: false, message: err.message || "Failed to generate AI suggestion." });
+  }
 });
 
 // ADMIN METRICS

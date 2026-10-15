@@ -18,6 +18,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, onClose
   const { toggleWishlist, isInWishlist } = useWishlist();
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [hoveredThumbnailIndex, setHoveredThumbnailIndex] = useState<number | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [isAdded, setIsAdded] = useState(false);
 
@@ -60,19 +61,37 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, onClose
 
               {/* Thumbnails */}
               {product.images.length > 1 && (
-                <div className="flex gap-2.5">
-                  {product.images.map((img, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => setActiveImageIndex(idx)}
-                      className={`w-14 h-14 rounded-lg overflow-hidden border-2 transition-all p-1 bg-[#F9F9F9] ${
-                        activeImageIndex === idx ? "border-[#111111] shadow-xs" : "border-[#EAEAEA] opacity-70 hover:opacity-100"
-                      }`}
-                    >
-                      <img src={img} alt="Angle" className="w-full h-full object-contain" />
-                    </button>
-                  ))}
+                <div className="flex gap-2.5 items-center">
+                  {product.images.map((img, idx) => {
+                    const isSelected = activeImageIndex === idx;
+                    const isHovered = hoveredThumbnailIndex === idx;
+                    const showShade = isSelected || isHovered;
+
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => {
+                          setActiveImageIndex(idx);
+                          setHoveredThumbnailIndex(null);
+                        }}
+                        onMouseEnter={() => setHoveredThumbnailIndex(idx)}
+                        onMouseLeave={() => setHoveredThumbnailIndex(null)}
+                        className="p-1 m-0 border-0 bg-transparent cursor-pointer shrink-0 inline-flex items-center justify-center focus:outline-none focus-visible:ring-1 focus-visible:ring-[#7AA05A] rounded-[10px]"
+                        aria-label={`View angle ${idx + 1}`}
+                      >
+                        <img
+                          src={img}
+                          alt={`Angle ${idx + 1}`}
+                          className={`block max-w-[56px] max-h-[56px] w-auto h-auto object-contain rounded-[8px] select-none opacity-100 transition-all duration-200 ease-out ${
+                            showShade
+                              ? "border-[2px] border-[#7AA05A] shadow-[0_2px_6px_rgba(0,0,0,0.08)] scale-[1.05]"
+                              : "border border-[#D9D9D9] shadow-[0_1px_3px_rgba(0,0,0,0.06)] scale-100"
+                          }`}
+                        />
+                      </button>
+                    );
+                  })}
                 </div>
               )}
             </div>

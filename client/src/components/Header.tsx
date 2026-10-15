@@ -59,6 +59,60 @@ export const Header: React.FC = () => {
   // Mobile menu accordion state
   const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>(null);
 
+  // Check if current route is a product detail page
+  const isProductDetailPage =
+    location.pathname.startsWith("/product/") || location.pathname.startsWith("/products/");
+
+  // Scroll direction state for hiding header on scroll down (product detail page only)
+  const [isHeaderHidden, setIsHeaderHidden] = useState(false);
+  const lastScrollYRef = useRef(0);
+
+  useEffect(() => {
+    if (!isProductDetailPage) {
+      setIsHeaderHidden(false);
+      return;
+    }
+
+    // Always reset to visible on route change
+    setIsHeaderHidden(false);
+    lastScrollYRef.current = window.scrollY;
+
+    const SCROLL_THRESHOLD = 8;
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          const prevScrollY = lastScrollYRef.current;
+          const diff = currentScrollY - prevScrollY;
+
+          // Keep header visible at the top when page is at its initial position
+          if (currentScrollY <= 20) {
+            setIsHeaderHidden(false);
+          } else if (Math.abs(diff) >= SCROLL_THRESHOLD) {
+            if (diff > 0 && currentScrollY > 60) {
+              // Scrolling downward: smoothly hide header
+              setIsHeaderHidden(true);
+            } else if (diff < 0) {
+              // Scrolling upward: smoothly reveal header
+              setIsHeaderHidden(false);
+            }
+          }
+
+          lastScrollYRef.current = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isProductDetailPage, location.pathname]);
+
   // Live search handler (fetches on ANY input, even single characters like 'F', 'OT', etc.)
   useEffect(() => {
     const trimmed = searchQuery.trim();
@@ -243,8 +297,14 @@ export const Header: React.FC = () => {
       c.code.toLowerCase().includes(countrySearch.toLowerCase())
   );
 
+  const shouldHideHeader = isProductDetailPage && isHeaderHidden && !isMobileMenuOpen;
+
   return (
-    <header className="w-full z-40 sticky top-0 bg-white border-b border-[#E5E5E5] shadow-xs select-none">
+    <header
+      className={`w-full z-40 sticky top-0 bg-white border-b border-[#E5E5E5] shadow-xs select-none transition-transform duration-300 ease-in-out will-change-transform ${
+        shouldHideHeader ? "-translate-y-full pointer-events-none" : "translate-y-0"
+      }`}
+    >
       {/* ==============================================================
           TOP ROW: LOGO (LEFT) | CENTERED SEARCH BAR | UTILITY ICONS (RIGHT)
       ============================================================== */}
@@ -397,43 +457,147 @@ export const Header: React.FC = () => {
 
           {/* RIGHT: Country/Currency Selector, Account, Wishlist, Cart */}
           <div className="flex items-center gap-1 sm:gap-2 shrink-0 text-neutral-800">
-            {/* Country / Currency Selector */}
-            <button
-              onClick={() => setIsCountryModalOpen(true)}
-              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full hover:bg-neutral-100 text-neutral-800 transition-all text-xs font-semibold group cursor-pointer border border-transparent hover:border-neutral-200"
-              title="Select Country & Currency"
-              aria-label="Country and Currency Selector"
-            >
-              <Globe size={16} className="text-neutral-600 group-hover:text-black transition-colors" />
-              <span className="tracking-wide font-mono text-xs font-bold">{currentCurrency}</span>
-              <ChevronDown size={13} className="text-neutral-400 group-hover:text-neutral-700 transition-transform" />
-            </button>
+            {/* Country / Currency Selector Dropdown */}
+            <div className="relative" ref={countryModalRef}>
+              <button
+                onClick={() => setIsCountryModalOpen(!isCountryModalOpen)}
+                className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full hover:bg-neutral-100 text-neutral-800 transition-all text-xs font-semibold group cursor-pointer border border-transparent hover:border-neutral-200"
+                title="Select Country & Currency"
+                aria-label="Country and Currency Selector"
+                aria-expanded={isCountryModalOpen}
+              >
+                <Globe size={16} className="text-[#2D5A4A] group-hover:text-[#0D4C3C] transition-colors" />
+                <span className="tracking-wide font-mono text-xs font-bold text-[#2D5A4A]">{currentCurrency}</span>
+                <ChevronDown size={13} className={`text-neutral-400 group-hover:text-neutral-700 transition-transform ${isCountryModalOpen ? "rotate-180" : ""}`} />
+              </button>
+
+              {/* Anchored Popover directly below trigger */}
+              {isCountryModalOpen && (
+                <div
+                  className="absolute right-0 top-full mt-2 w-[340px] sm:w-[380px] max-w-[calc(100vw-2rem)] bg-white rounded-2xl p-5 shadow-2xl border border-neutral-200 z-[100] flex flex-col max-h-[80vh] sm:max-h-[500px] animate-in fade-in duration-150"
+                  role="dialog"
+                  aria-label="Country and Currency Selection"
+                >
+                  <div className="flex items-center justify-between pb-3.5 border-b border-neutral-100">
+                    <div>
+                      <h3 className="text-sm font-black text-neutral-900 flex items-center gap-2">
+                        <Globe size={16} className="text-[#2D5A4A]" />
+                        <span>Select Country & Currency</span>
+                      </h3>
+                      <p className="text-[11px] text-neutral-500 mt-0.5">
+                        Base prices convert dynamically using live exchange rates.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => setIsCountryModalOpen(false)}
+                      className="p-1.5 text-neutral-400 hover:text-black hover:bg-neutral-100 rounded-lg transition-colors cursor-pointer"
+                      aria-label="Close"
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+
+                  {/* Search Bar */}
+                  <div className="my-3 relative">
+                    <input
+                      type="text"
+                      value={countrySearch}
+                      onChange={(e) => setCountrySearch(e.target.value)}
+                      placeholder="Search country or currency..."
+                      className="w-full pl-8 pr-3 py-1.5 text-xs bg-neutral-50 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#7AA05A] text-neutral-900"
+                    />
+                    <Search size={14} className="absolute left-2.5 top-2.5 text-neutral-400" />
+                  </div>
+
+                  {/* Country List with Moss Green scrollbar */}
+                  <div className="flex-1 overflow-y-auto space-y-1.5 pr-1 min-h-0 [scrollbar-color:#7AA05A_#F3F4F6] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-[#F3F4F6] [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#7AA05A] hover:[&::-webkit-scrollbar-thumb]:bg-[#688a4c] [&::-webkit-scrollbar-thumb]:rounded-full">
+                    {filteredCountries.map((c) => {
+                      const isSelected = currentCountry.code === c.code;
+                      return (
+                        <button
+                          key={c.code}
+                          type="button"
+                          onClick={() => {
+                            setCountry(c.code);
+                            setIsCountryModalOpen(false);
+                          }}
+                          className={`w-full p-2.5 rounded-xl flex items-center justify-between text-left transition-all cursor-pointer ${
+                            isSelected
+                              ? "bg-[#7AA05A]/15 border border-[#7AA05A]/30 text-[#2D5A4A]"
+                              : "hover:bg-neutral-50 border border-transparent text-neutral-800"
+                          }`}
+                        >
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <span className="text-lg leading-none shrink-0">{c.flag}</span>
+                            <div className="min-w-0">
+                              <div className="text-xs font-bold text-neutral-900 truncate">{c.name}</div>
+                              <div className="text-[10px] text-neutral-500">
+                                <span className="font-semibold text-neutral-700">{c.currency}</span> ({c.symbol})
+                              </div>
+                            </div>
+                          </div>
+                          {isSelected && <Check size={15} className="text-[#0D4C3C] shrink-0" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Footer & Done Button */}
+                  <div className="pt-3 mt-2 border-t border-neutral-100 flex items-center justify-between text-[11px] text-neutral-500">
+                    <span className="text-[10px] text-neutral-400">Automatic freight at checkout</span>
+                    <button
+                      type="button"
+                      onClick={() => setIsCountryModalOpen(false)}
+                      className="px-4 py-1.5 rounded-lg bg-[#7AA05A] hover:bg-[#688a4c] text-white font-bold text-xs shadow-xs transition-colors cursor-pointer"
+                    >
+                      Done
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* Subtle Divider */}
             <span className="w-px h-4 bg-neutral-200 hidden sm:block mx-1" />
 
-            {/* Account Icon */}
-            <Link
-              to="/account"
-              className="p-2 rounded-full hover:bg-neutral-100 text-neutral-800 hover:text-black transition-all"
-              title={user ? `Account (${user.fullName})` : "Login / Customer Portal"}
-              aria-label="User Account"
-            >
-              <User size={18} />
-            </Link>
+            {/* Account Icon / Customer Greeting */}
+            {user ? (
+              <Link
+                to="/account"
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-full hover:bg-neutral-100 text-neutral-800 transition-all text-xs font-semibold group border border-transparent hover:border-neutral-200"
+                title={`Logged in as ${user.fullName || user.email}`}
+                aria-label="User Account"
+              >
+                <div className="w-5 h-5 rounded-full bg-[#2D5A4A]/10 text-[#2D5A4A] flex items-center justify-center">
+                  <User size={13} />
+                </div>
+                <span className="hidden md:inline text-neutral-700 group-hover:text-[#2D5A4A] font-medium max-w-[130px] truncate">
+                  Hi, {user.fullName ? user.fullName.split(" ")[0].replace(/^Dr\.?\s*/i, "") : user.email?.split("@")[0]}
+                </span>
+              </Link>
+            ) : (
+              <Link
+                to="/account/signin"
+                className="p-2 rounded-full hover:bg-neutral-100 text-neutral-800 hover:text-[#2D5A4A] transition-all"
+                title="Sign In / Customer Portal"
+                aria-label="Sign In"
+              >
+                <User size={18} />
+              </Link>
+            )}
 
             {/* Wishlist / Favorite Icon with Count Badge */}
             <Link
               to="/wishlist"
               className={`relative p-2 rounded-full hover:bg-neutral-100 transition-all ${
-                location.pathname === "/wishlist" ? "text-[#167A4A]" : "text-neutral-800 hover:text-black"
+                location.pathname === "/wishlist" ? "text-[#2D5A4A]" : "text-neutral-800 hover:text-[#2D5A4A]"
               }`}
               title="Saved Equipment (Wishlist)"
               aria-label="Wishlist"
             >
               <Heart size={18} />
               {wishlistCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 min-w-[17px] h-[17px] px-1 rounded-full bg-[#167A4A] text-white text-[10px] font-black flex items-center justify-center shadow-xs">
+                <span className="absolute -top-0.5 -right-0.5 min-w-[17px] h-[17px] px-1 rounded-full bg-[#7AA05A] text-white text-[10px] font-black flex items-center justify-center shadow-xs">
                   {wishlistCount}
                 </span>
               )}
@@ -442,13 +606,13 @@ export const Header: React.FC = () => {
             {/* Shopping Cart Icon with Circular Quantity Badge */}
             <button
               onClick={openDrawer}
-              className="relative p-2 rounded-full hover:bg-neutral-100 text-neutral-800 hover:text-black transition-all cursor-pointer"
+              className="relative p-2 rounded-full hover:bg-neutral-100 text-neutral-800 hover:text-[#2D5A4A] transition-all cursor-pointer"
               title="Shopping Cart"
               aria-label="Shopping Cart"
             >
               <ShoppingCart size={19} />
               {itemCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 min-w-[17px] h-[17px] px-1 rounded-full bg-[#111111] text-white text-[10px] font-black flex items-center justify-center shadow-xs">
+                <span className="absolute -top-0.5 -right-0.5 min-w-[17px] h-[17px] px-1 rounded-full bg-[#7AA05A] text-white text-[10px] font-black flex items-center justify-center shadow-xs">
                   {itemCount}
                 </span>
               )}
@@ -482,7 +646,7 @@ export const Header: React.FC = () => {
       {/* ==============================================================
           SECOND ROW: HORIZONTALLY CENTERED CATEGORY NAVIGATION + MEGA MENUS
       ============================================================== */}
-      <div className="border-t border-[#E5E5E5] hidden lg:block bg-white relative">
+      <div className="border-t border-[#7AA05A] hidden lg:block bg-[#7AA05A] relative shadow-xs">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <nav
             className="flex items-center justify-center gap-1 xl:gap-2 py-1"
@@ -503,23 +667,18 @@ export const Header: React.FC = () => {
                     to={item.to}
                     className={`relative inline-flex items-center gap-1 px-3 py-2 text-xs font-medium tracking-normal transition-colors rounded-md ${
                       active
-                        ? "text-[#111111] font-bold"
-                        : "text-neutral-800 hover:text-black hover:bg-neutral-50"
+                        ? "text-white font-bold"
+                        : "text-white/95 hover:text-white hover:bg-white/15"
                     }`}
                   >
                     <span>{item.label}</span>
                     {item.hasSubmenu && (
                       <ChevronDown
                         size={12}
-                        className={`text-neutral-400 transition-transform duration-200 ${
-                          isMegaOpen ? "rotate-180 text-neutral-700" : ""
+                        className={`text-white/80 transition-transform duration-200 ${
+                          isMegaOpen ? "rotate-180 text-white" : ""
                         }`}
                       />
-                    )}
-
-                    {/* Reference-style active underline */}
-                    {active && (
-                      <span className="absolute bottom-0 left-2.5 right-2.5 h-[2px] bg-[#167A4A] rounded-full" />
                     )}
                   </Link>
 
@@ -530,8 +689,8 @@ export const Header: React.FC = () => {
                       onMouseEnter={() => handleMegaMenuEnter(item.id)}
                       onMouseLeave={handleMegaMenuLeave}
                     >
-                      <div className="bg-white rounded-2xl shadow-xl border border-[#E5E5E5] p-2.5 overflow-hidden">
-                        <div className="px-3 py-1.5 text-[10px] font-bold text-neutral-400 uppercase tracking-wider border-b border-neutral-100 mb-1 flex items-center justify-between">
+                      <div className="bg-white rounded-2xl shadow-xl border border-[#E5E7EB] p-2.5 overflow-hidden">
+                        <div className="px-3 py-1.5 text-[10px] font-bold text-[#6B7280] uppercase tracking-wider border-b border-[#E5E7EB] mb-1 flex items-center justify-between">
                           <span>{item.label} Subcategories</span>
                         </div>
                         <div className="space-y-0.5">
@@ -540,10 +699,10 @@ export const Header: React.FC = () => {
                               key={sub.to}
                               to={sub.to}
                               onClick={() => setActiveMegaMenu(null)}
-                              className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-neutral-800 hover:text-[#167A4A] hover:bg-[#EAF5EF] transition-colors group"
+                              className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-[#171717] hover:text-[#2D5A4A] hover:bg-[#7AA05A]/10 transition-colors group"
                             >
                               <span>{sub.label}</span>
-                              <ChevronRight size={13} className="text-neutral-300 group-hover:text-[#167A4A] transition-colors" />
+                              <ChevronRight size={13} className="text-[#6B7280] group-hover:text-[#2D5A4A] transition-colors" />
                             </Link>
                           ))}
                         </div>
@@ -676,93 +835,6 @@ export const Header: React.FC = () => {
             </div>
           </div>
           <div className="flex-1" onClick={() => setIsMobileMenuOpen(false)} />
-        </div>
-      )}
-
-      {/* ==============================================================
-          GLOBAL COUNTRY & CURRENCY SELECTION MODAL
-      ============================================================== */}
-      {isCountryModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div
-            ref={countryModalRef}
-            className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-neutral-200 max-h-[90vh] flex flex-col"
-          >
-            <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
-              <div>
-                <h3 className="text-base font-black text-neutral-900 flex items-center gap-2">
-                  <Globe size={18} className="text-[#167A4A]" />
-                  <span>Select Destination Country & Currency</span>
-                </h3>
-                <p className="text-[11px] text-neutral-500 mt-0.5">
-                  Base prices are stored in INR and converted dynamically using current live exchange rates.
-                </p>
-              </div>
-              <button
-                onClick={() => setIsCountryModalOpen(false)}
-                className="p-1.5 text-neutral-400 hover:text-black hover:bg-neutral-100 rounded-lg transition-colors"
-                aria-label="Close Modal"
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            {/* Country Search Bar */}
-            <div className="my-4 relative">
-              <input
-                type="text"
-                value={countrySearch}
-                onChange={(e) => setCountrySearch(e.target.value)}
-                placeholder="Search country or currency (e.g. India, INR, United States, USD, EUR)..."
-                className="w-full pl-9 pr-3 py-2 text-xs bg-neutral-50 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#167A4A] text-neutral-900"
-              />
-              <Search size={15} className="absolute left-3 top-2.5 text-neutral-400" />
-            </div>
-
-            {/* Country List */}
-            <div className="flex-1 overflow-y-auto space-y-1.5 pr-1">
-              {filteredCountries.map((c) => {
-                const isSelected = currentCountry.code === c.code;
-                return (
-                  <button
-                    key={c.code}
-                    onClick={() => {
-                      setCountry(c.code);
-                      setIsCountryModalOpen(false);
-                    }}
-                    className={`w-full p-3 rounded-xl flex items-center justify-between text-left transition-all ${
-                      isSelected
-                        ? "bg-[#EAF5EF] border border-[#167A4A]/30 text-[#167A4A]"
-                        : "hover:bg-neutral-50 border border-transparent text-neutral-800"
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="text-xl leading-none">{c.flag}</span>
-                      <div>
-                        <div className="text-xs font-bold text-neutral-900">{c.name}</div>
-                        <div className="text-[11px] text-neutral-500">
-                          Currency: <span className="font-semibold text-neutral-700">{c.currency}</span> ({c.symbol})
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {isSelected && <Check size={16} className="text-[#167A4A]" />}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="pt-4 mt-2 border-t border-neutral-100 flex items-center justify-between text-[11px] text-neutral-500">
-              <span>Automatic freight & regulatory compliance calculated at checkout.</span>
-              <button
-                onClick={() => setIsCountryModalOpen(false)}
-                className="px-4 py-1.5 rounded-lg bg-[#111111] hover:bg-black text-white font-bold transition-colors"
-              >
-                Done
-              </button>
-            </div>
-          </div>
         </div>
       )}
     </header>

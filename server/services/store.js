@@ -118,30 +118,7 @@ let state = {
     { code: "GLOBALCARE", discountAmountUSD: 200, minOrderUSD: 2000, description: "$200 Off International Hospital Shipments" },
     { code: "SURGICAL5", discountPercent: 5, maxDiscountUSD: 300, minOrderUSD: 500, description: "5% Off Surgical & OT Illumination" }
   ],
-  reviews: [
-    {
-      id: "rev-01",
-      productId: "prod-phy-01",
-      author: "Dr. K. Narang, Head of Rehabilitation",
-      facility: "Apollo Specialty Clinics",
-      rating: 5,
-      date: "2026-09-02",
-      verifiedPurchase: true,
-      status: "APPROVED",
-      comment: "The UltraSound Pro 1000 has been running continuously in our clinic for 6 months. The dual 1MHz and 3MHz heads have perfect acoustic coupling, and the touch UI is intuitive for our therapists."
-    },
-    {
-      id: "rev-02",
-      productId: "prod-ot-01",
-      author: "Prof. G. Dupont, Surgical Director",
-      facility: "Hôpital Européen Lyon",
-      rating: 5,
-      date: "2026-08-28",
-      verifiedPurchase: true,
-      status: "APPROVED",
-      comment: "Outstanding shadowless illumination. The German suspension arms allow effortless 360-degree repositioning during lengthy cardiovascular procedures. The cold LED has zero thermal heat."
-    }
-  ],
+  reviews: [], // Reviews are persisted exclusively in Cloud Firestore (drmedex project) via firestoreService
   policies: {
     announcementBar: "GLOBAL AIR FREIGHT DELIVERY AVAILABLE | 24/7 BIOMEDICAL TECHNICAL SUPPORT | ISO 13485:2016 & CE CERTIFIED",
     supportEmail: "support@drmedex.com",
@@ -151,6 +128,17 @@ let state = {
     headquarters: "DR.MEDEX Global MedTech Tower, 45 Healthcare Innovation Way, Boston, MA 02115, USA & International Logistics Hub, Dubai Healthcare City, UAE"
   }
 };
+
+function ensureUniqueProductIds(products) {
+  if (!Array.isArray(products)) return;
+  const seen = new Set();
+  for (const p of products) {
+    if (seen.has(p.id)) {
+      p.id = `prod-${p.slug || Math.random().toString(36).substring(2, 8)}`;
+    }
+    seen.add(p.id);
+  }
+}
 
 let lastMtime = 0;
 function checkReload() {
@@ -163,6 +151,7 @@ function checkReload() {
         const loaded = JSON.parse(raw);
         if (loaded && loaded.products && loaded.products.length > 0) {
           state = { ...state, ...loaded };
+          ensureUniqueProductIds(state.products);
         }
       }
     }
@@ -170,6 +159,7 @@ function checkReload() {
 }
 
 // Initial load
+ensureUniqueProductIds(state.products);
 checkReload();
 
 function persist() {
@@ -264,7 +254,13 @@ module.exports = {
       if (filters.sort === "price-low") list.sort((a, b) => a.basePrice - b.basePrice);
       if (filters.sort === "price-high") list.sort((a, b) => b.basePrice - a.basePrice);
       if (filters.sort === "rating") list.sort((a, b) => (b.rating || b.averageRating || 0) - (a.rating || a.averageRating || 0));
-      if (filters.sort === "newest") list.sort((a, b) => b.id.localeCompare(a.id));
+      if (filters.sort === "newest" || filters.sort === "updated_desc") {
+        list.sort((a, b) => {
+          const dateA = new Date(a.updatedAt || a.createdAt || 0).getTime();
+          const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
+          return dateB - dateA;
+        });
+      }
     }
     return list;
   },
@@ -331,7 +327,84 @@ module.exports = {
   },
   getProductBySlug: (slug, includeInactive = false) => {
     checkReload();
-    const p = state.products.find(prod => prod.slug === slug || prod.id === slug);
+    if (!slug) return null;
+    const raw = String(slug).trim().replace(/\/+$/, "").replace(/\.html$/i, "");
+    let decoded = raw;
+    try {
+      decoded = decodeURIComponent(raw).trim();
+    } catch {}
+    const lower = decoded.toLowerCase();
+
+    // 1. Direct match on slug, id, or canonicalSlug
+    let p = state.products.find(
+      prod =>
+        prod.slug === raw ||
+        prod.slug === decoded ||
+        prod.slug?.toLowerCase() === lower ||
+        prod.id === raw ||
+        prod.id === decoded ||
+        prod.id?.toLowerCase() === lower ||
+        prod.canonicalSlug === raw ||
+        prod.canonicalSlug === decoded ||
+        prod.canonicalSlug?.toLowerCase() === lower
+    );
+
+    // 2. Normalize hyphens and underscores
+    if (!p) {
+      const normalizedSlug = lower.replace(/[\s_]+/g, "-");
+      p = state.products.find(
+        prod =>
+          prod.slug?.toLowerCase() === normalizedSlug ||
+          prod.canonicalSlug?.toLowerCase() === normalizedSlug
+      );
+    }
+
+    // 3. Typo and phonetic alias tolerance (e.g. dematologist -> dermatologist)
+    if (!p) {
+      if (lower.includes("dematologist")) {
+        const fixed = lower.replace(/dematologist/g, "dermatologist");
+        p = state.products.find(
+          prod =>
+            prod.slug?.toLowerCase() === fixed ||
+            prod.canonicalSlug?.toLowerCase() === fixed
+        );
+      }
+    }
+
+    // 4. Alphanumeric match ignoring punctuation/apostrophes
+    if (!p && lower.length > 5) {
+      const cleanLower = lower.replace(/[^a-z0-9]/g, "");
+      p = state.products.find(prod => {
+        if (!prod.slug) return false;
+        const cleanProd = prod.slug.toLowerCase().replace(/[^a-z0-9]/g, "");
+        return cleanProd === cleanLower;
+      });
+    }
+
+    // 5. Fuzzy match for long slugs with small edit distance (<= 3 edits)
+    if (!p && lower.length > 12) {
+      p = state.products.find(prod => {
+        if (!prod.slug) return false;
+        const prodSlug = prod.slug.toLowerCase();
+        if (Math.abs(prodSlug.length - lower.length) > 3) return false;
+        let diff = 0;
+        let i = 0, j = 0;
+        while (i < prodSlug.length && j < lower.length) {
+          if (prodSlug[i] !== lower[j]) {
+            diff++;
+            if (prodSlug.length > lower.length) i++;
+            else if (lower.length > prodSlug.length) j++;
+            else { i++; j++; }
+          } else {
+            i++;
+            j++;
+          }
+          if (diff > 3) return false;
+        }
+        return diff <= 3;
+      });
+    }
+
     if (!p) return null;
     if (!includeInactive) {
       const cat = state.categories.find(c => c.id === p.category || c.slug === p.category);
@@ -342,6 +415,7 @@ module.exports = {
   },
   addProduct: (productData) => {
     const assignedId = (productData && productData.id) ? productData.id : "prod-" + Date.now() + "-" + Math.random().toString(36).substring(2, 6);
+    const now = new Date().toISOString();
     const newProduct = {
       stock: 10,
       rating: 5.0,
@@ -349,6 +423,8 @@ module.exports = {
       images: [
         "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
       ],
+      createdAt: (productData && productData.createdAt) || now,
+      updatedAt: now,
       ...productData,
       id: assignedId,
       slug: (productData && productData.slug) || (productData && productData.title ? productData.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") : assignedId)
@@ -358,16 +434,26 @@ module.exports = {
     return newProduct;
   },
   updateProduct: (id, updates) => {
-    const idx = state.products.findIndex(p => p.id === id);
+    checkReload();
+    const idx = state.products.findIndex(p => p.id === id || p.slug === id);
     if (idx !== -1) {
-      state.products[idx] = { ...state.products[idx], ...updates };
+      const now = new Date().toISOString();
+      const updated = {
+        ...state.products[idx],
+        ...updates,
+        updatedAt: updates.updatedAt || now
+      };
+      // Shift updated product to beginning of array so recently updated product appears first
+      state.products.splice(idx, 1);
+      state.products.unshift(updated);
       persist();
-      return state.products[idx];
+      return updated;
     }
     return null;
   },
   deleteProduct: (id) => {
-    const idx = state.products.findIndex(p => p.id === id);
+    checkReload();
+    const idx = state.products.findIndex(p => p.id === id || p.slug === id);
     if (idx !== -1) {
       const removed = state.products.splice(idx, 1);
       persist();
@@ -405,14 +491,47 @@ module.exports = {
     );
   },
   createOrder: (orderPayload) => {
+    checkReload();
+
+    if (!orderPayload || !Array.isArray(orderPayload.items) || orderPayload.items.length === 0) {
+      throw new Error("Order must contain at least one item.");
+    }
+
+    // 1. Idempotency check: Prevent duplicate deduction if transaction was already processed
+    const incomingTx = orderPayload.transactionId || (orderPayload.payment && orderPayload.payment.transactionId);
+    if (incomingTx) {
+      const existing = state.orders.find(o => 
+        (o.transactionId && o.transactionId === incomingTx) ||
+        (o.payment && o.payment.transactionId === incomingTx)
+      );
+      if (existing) {
+        return existing;
+      }
+    }
+
+    // 2. Validate inventory availability before accepting order
+    for (const it of orderPayload.items) {
+      const p = state.products.find(prod => prod.id === it.productId);
+      if (!p) {
+        throw new Error(`Product not found in catalogue: ${it.productId}`);
+      }
+      const qty = it.quantity || 1;
+      const currentStock = p.stock !== undefined ? p.stock : (p.stockQuantity !== undefined ? p.stockQuantity : 0);
+      if (currentStock < qty) {
+        throw new Error(`Insufficient inventory for "${p.title || p.productName || p.id}". Requested: ${qty}, Available: ${currentStock}`);
+      }
+    }
+
     const orderNumber = "MC-" + Math.floor(10000 + Math.random() * 90000);
     const targetCurrency = orderPayload.currency || "INR";
     const exchangeRateUsed = currencyService.getRateForCurrency(targetCurrency);
     const now = new Date().toISOString();
+    const resolvedTxId = incomingTx || ("TXN_" + Math.random().toString(36).substring(2, 12).toUpperCase());
 
     const newOrder = {
       id: orderNumber,
       orderNumber,
+      transactionId: resolvedTxId,
       customer: orderPayload.customer,
       shippingAddress: orderPayload.shippingAddress,
       billingAddress: orderPayload.billingAddress || orderPayload.shippingAddress,
@@ -455,12 +574,13 @@ module.exports = {
       },
       payment: {
         method: orderPayload.paymentMethod || "International Credit Card",
-        transactionId: "TXN_" + Math.random().toString(36).substring(2, 12).toUpperCase(),
+        transactionId: resolvedTxId,
         status: "PAID",
         paidAt: now
       },
       fulfillmentStatus: "CONFIRMED",
       status: "PROCESSING",
+      stockRestored: false,
       createdAt: now,
       trackingTimeline: [
         { stage: "ORDER_PLACED", title: "Order Placed", timestamp: now, completed: true, details: "Order validated and registered in central medical database." },
@@ -473,11 +593,16 @@ module.exports = {
       ]
     };
 
-    // Deduct stock
+    // 3. Atomically deduct inventory by purchased quantity
     newOrder.items.forEach(it => {
       const p = state.products.find(prod => prod.id === it.productId);
-      if (p && p.stock >= it.quantity) {
-        p.stock -= it.quantity;
+      if (p) {
+        const qty = it.quantity || 1;
+        const currentStock = p.stock !== undefined ? p.stock : (p.stockQuantity !== undefined ? p.stockQuantity : 0);
+        p.stock = Math.max(0, currentStock - qty);
+        p.stockQuantity = p.stock;
+        p.stockStatus = p.stock <= 0 ? "OUT_OF_STOCK" : (p.stock <= (p.lowStockThreshold || 3) ? "LOW_STOCK" : "IN_STOCK");
+        p.updatedAt = new Date().toISOString();
       }
     });
 
@@ -486,8 +611,10 @@ module.exports = {
     return newOrder;
   },
   updateOrderStatus: (orderId, status, stageToComplete = null) => {
+    checkReload();
     const order = state.orders.find(o => o.id === orderId);
     if (!order) return null;
+    const oldStatus = order.status;
     order.status = status;
     if (stageToComplete && order.trackingTimeline) {
       const st = order.trackingTimeline.find(t => t.stage === stageToComplete);
@@ -496,6 +623,23 @@ module.exports = {
         st.timestamp = new Date().toISOString();
       }
     }
+
+    // 4. Restore inventory when order is cancelled or refunded (idempotent)
+    if (!order.stockRestored && (status === "CANCELLED" || status === "REFUNDED") && oldStatus !== "CANCELLED" && oldStatus !== "REFUNDED") {
+      (order.items || []).forEach(it => {
+        const p = state.products.find(prod => prod.id === it.productId);
+        if (p) {
+          const qty = it.quantity || 1;
+          const currentStock = p.stock !== undefined ? p.stock : (p.stockQuantity || 0);
+          p.stock = currentStock + qty;
+          p.stockQuantity = p.stock;
+          p.stockStatus = p.stock <= 0 ? "OUT_OF_STOCK" : (p.stock <= (p.lowStockThreshold || 3) ? "LOW_STOCK" : "IN_STOCK");
+          p.updatedAt = new Date().toISOString();
+        }
+      });
+      order.stockRestored = true;
+    }
+
     persist();
     return order;
   },
@@ -549,24 +693,17 @@ module.exports = {
       description: c.description
     };
   },
-  getReviews: (productId) => {
-    if (productId) {
-      return state.reviews.filter(r => r.productId === productId && r.status === "APPROVED");
-    }
-    return state.reviews;
+  getReviews: () => {
+    // Deprecated: Reviews are persisted exclusively in Cloud Firestore (drmedex project).
+    // All queries must use firestoreService.getApprovedReviews or firestoreService.getAdminReviews.
+    return [];
   },
-  addReview: (reviewData) => {
-    const newReview = {
-      id: "rev-" + Date.now(),
-      date: new Date().toISOString().split("T")[0],
-      verifiedPurchase: true,
-      status: "APPROVED",
-      ...reviewData
-    };
-    state.reviews.unshift(newReview);
-    persist();
-    return newReview;
+  addReview: () => {
+    // Deprecated: Reviews are persisted exclusively in Cloud Firestore (drmedex project).
+    // All submissions must use firestoreService.createReview.
+    throw new Error("Local review creation deprecated: Reviews must be saved to Cloud Firestore via firestoreService.createReview");
   },
+  persist: () => persist(),
   getPolicies: () => state.policies,
   updatePolicies: (updates) => {
     state.policies = { ...state.policies, ...updates };

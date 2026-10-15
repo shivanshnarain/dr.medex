@@ -7,6 +7,7 @@ import { CartProvider } from "./context/CartContext";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { CartDrawer } from "./components/CartDrawer";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
 // Pages
 import { HomePage } from "./pages/HomePage";
@@ -49,6 +50,14 @@ import { AdminLoginPage } from "./pages/AdminLoginPage";
 import { AdminProductsPage } from "./pages/AdminProductsPage";
 import { AdminProductEditorPage } from "./pages/AdminProductEditorPage";
 import { AdminCategoriesPage } from "./pages/AdminCategoriesPage";
+import { AdminReviewsPage } from "./pages/AdminReviewsPage";
+import { AdminCustomersPage } from "./pages/AdminCustomersPage";
+
+// Customer Authentication Pages (Supabase Auth)
+import { SignUpPage } from "./pages/account/SignUpPage";
+import { SignInPage } from "./pages/account/SignInPage";
+import { ForgotPasswordPage } from "./pages/account/ForgotPasswordPage";
+import { ResetPasswordPage } from "./pages/account/ResetPasswordPage";
 
 /**
  * Main Content Component with location-based layout control
@@ -68,13 +77,33 @@ function AppContent() {
           <Route path="/" element={<HomePage />} />
           <Route path="/shop-all" element={<ShopPage />} />
           <Route path="/category/:categorySlug" element={<ShopPage />} />
-          <Route path="/product/:slug" element={<ProductDetailPage />} />
+          <Route
+            path="/product/:slug"
+            element={
+              <ErrorBoundary>
+                <ProductDetailPage />
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="/products/:slug"
+            element={
+              <ErrorBoundary>
+                <ProductDetailPage />
+              </ErrorBoundary>
+            }
+          />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/track-order" element={<TrackOrderPage />} />
           <Route path="/track-order/:orderId" element={<TrackOrderPage />} />
           <Route path="/account" element={<AccountPage />} />
+          <Route path="/account/profile" element={<AccountPage />} />
+          <Route path="/account/signup" element={<AccountPage initialAuthTab="signup" />} />
+          <Route path="/account/signin" element={<AccountPage initialAuthTab="signin" />} />
+          <Route path="/account/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/account/reset-password" element={<ResetPasswordPage />} />
           <Route path="/request-quote" element={<RequestQuotePage />} />
           <Route path="/worldwide-network" element={<WorldwideNetworkPage />} />
           <Route path="/country/:countryCode" element={<CountryPage />} />
@@ -98,6 +127,8 @@ function AppContent() {
           <Route path="/admin/products/new" element={<AdminProductEditorPage />} />
           <Route path="/admin/products/:productId/edit" element={<AdminProductEditorPage />} />
           <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+          <Route path="/admin/reviews" element={<AdminReviewsPage />} />
+          <Route path="/admin/customers" element={<AdminCustomersPage />} />
 
           {/* 404 Fallback */}
           <Route path="*" element={<HomePage />} />

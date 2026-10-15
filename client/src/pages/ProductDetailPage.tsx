@@ -1,98 +1,605 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import {
-  ShieldCheck,
-  Award,
-  Truck,
   ShoppingCart,
-  Heart,
   Check,
   Star,
-  Download,
   Package,
-  Building
+  ShieldCheck,
+  Shield,
+  Award,
+  AlertCircle,
+  RotateCcw,
+  Zap,
+  Plug,
+  Wrench,
+  CheckCircle
 } from "lucide-react";
 import { Product, Review } from "../types";
 import { useCurrency } from "../context/CurrencyContext";
 import { useCart } from "../context/CartContext";
-import { useWishlist } from "../context/WishlistContext";
 import { ProductCard } from "../components/ProductCard";
 import { B2BQuoteModal } from "../components/B2BQuoteModal";
+import { ProductReviewsSection } from "../components/reviews/ProductReviewsSection";
+
+/**
+ * Pure title parser: separates brand prefix from descriptive title
+ */
+function parseProductTitle(rawTitle: string) {
+  const cleanTitle = (rawTitle || "Medical Equipment").trim();
+  const drMedexRegex = /^(DR\.?)\s*(MEDEX)\s*[-–—:]*\s*(.*)$/i;
+  const match = cleanTitle.match(drMedexRegex);
+  if (match) {
+    return {
+      hasBrandPrefix: true,
+      dr: "DR.",
+      medex: "MEDEX",
+      descriptiveName: match[3].trim()
+    };
+  }
+
+  const drRegex = /^(DR\.?)\s*[-–—:]*\s*(.*)$/i;
+  const drMatch = cleanTitle.match(drRegex);
+  if (drMatch) {
+    return {
+      hasBrandPrefix: true,
+      dr: "DR.",
+      medex: "MEDEX",
+      descriptiveName: drMatch[2].trim()
+    };
+  }
+
+  return {
+    hasBrandPrefix: false,
+    dr: "DR.",
+    medex: "MEDEX",
+    descriptiveName: cleanTitle
+  };
+}
+
+interface NormalizedSpec {
+  key: string;
+  value: string;
+  unit?: string;
+}
+
+/**
+ * Normalizes technical specifications across objects, arrays, and strings
+ */
+function normalizeSpecs(rawSpecs: any): NormalizedSpec[] {
+  if (!rawSpecs) return [];
+  if (Array.isArray(rawSpecs)) {
+    const list: NormalizedSpec[] = [];
+    for (const item of rawSpecs) {
+      if (!item) continue;
+      if (typeof item === "string") {
+        const parts = item.split(":");
+        list.push({
+          key: parts[0]?.trim() || "Specification",
+          value: parts.slice(1).join(":")?.trim() || item
+        });
+      } else if (typeof item === "object") {
+        const key = item.parameter || item.key || item.name || item.title || "";
+        const value = item.specification || item.value || item.val || "";
+        const unit = item.unit || "";
+        if (!key && !value) continue;
+        list.push({
+          key: String(key || "Specification"),
+          value: typeof value === "object" ? JSON.stringify(value) : String(value),
+          ...(unit ? { unit: String(unit) } : {})
+        });
+      }
+    }
+    return list;
+  }
+
+  if (typeof rawSpecs === "object") {
+    return Object.entries(rawSpecs).map(([k, v]) => ({
+      key: k,
+      value: typeof v === "object" ? JSON.stringify(v) : String(v)
+    }));
+  }
+
+  if (typeof rawSpecs === "string") {
+    try {
+      const parsed = JSON.parse(rawSpecs);
+      return normalizeSpecs(parsed);
+    } catch {
+      return rawSpecs
+        .split("\n")
+        .filter((l) => l.trim())
+        .map((l) => {
+          const parts = l.split(":");
+          return {
+            key: parts[0]?.trim() || "Specification",
+            value: parts.slice(1).join(":")?.trim() || l
+          };
+        });
+    }
+  }
+
+  return [];
+}
+
+/**
+ * Normalizes array-like fields that might be strings or arrays
+ */
+function normalizeList(val: any): string[] {
+  if (!val) return [];
+  if (Array.isArray(val)) return val.map(String).filter((s) => s.trim().length > 0);
+  if (typeof val === "string") {
+    return val.split(/\r?\n|;/).map((s) => s.trim()).filter(Boolean);
+  }
+  return [];
+}
+
+/**
+ * Helper to safely extract Card 1: Power Supply
+ */
+function getPowerSupplyValue(product: Product | null | undefined, specs: NormalizedSpec[]): string {
+  if (!product) return "Not specified";
+  // 1. Direct powerRequirements if present as a non-empty string
+  if (product.powerRequirements && typeof product.powerRequirements === "string" && product.powerRequirements.trim()) {
+    return product.powerRequirements.trim();
+  }
+  // 2. Direct technicalSpecifications or specifications lookup
+  const techSpecs = product.technicalSpecifications || product.specifications;
+  if (techSpecs && typeof techSpecs === "object") {
+    for (const [key, val] of Object.entries(techSpecs)) {
+      if (/power\s*supply|power\s*requirements|input\s*voltage|voltage\s*rating|operating\s*voltage/i.test(key)) {
+        if (typeof val === "string" && val.trim()) return val.trim();
+        if (typeof val === "number") return String(val);
+      }
+    }
+  }
+  // 3. Search normalized specs
+  const specific = specs.find((s) =>
+    /power\s*supply|input\s*voltage|voltage\s*rating|operating\s*voltage|power\s*requirements/i.test(s.key)
+  );
+  if (specific && specific.value && String(specific.value).trim()) {
+    return `${specific.value}${specific.unit ? ` ${specific.unit}` : ""}`.trim();
+  }
+  const general = specs.find((s) => /power|supply|voltage|input/i.test(s.key));
+  if (general && general.value && String(general.value).trim()) {
+    return `${general.value}${general.unit ? ` ${general.unit}` : ""}`.trim();
+  }
+  return "Not specified";
+}
+
+/**
+ * Helper to safely extract Card 2: Quality Standard
+ */
+function getQualityStandardValue(product: Product | null | undefined, specs: NormalizedSpec[]): string {
+  if (!product) return "Not specified";
+  // 1. Direct technicalSpecifications or specifications lookup
+  const techSpecs = product.technicalSpecifications || product.specifications;
+  if (techSpecs && typeof techSpecs === "object") {
+    for (const [key, val] of Object.entries(techSpecs)) {
+      if (/quality\s*standard|quality\s*system|iso\b/i.test(key)) {
+        if (typeof val === "string" && val.trim()) return val.trim();
+        if (typeof val === "number") return String(val);
+      }
+    }
+  }
+  // 2. Search normalized specs
+  const specific = specs.find((s) => /quality\s*standard|quality\s*system|iso\b/i.test(s.key));
+  if (specific && specific.value && String(specific.value).trim()) {
+    return `${specific.value}${specific.unit ? ` ${specific.unit}` : ""}`.trim();
+  }
+  // 3. Check certifications array (e.g. ISO certifications)
+  const certs = normalizeList(product.certifications);
+  const isoCert = certs.find((c) => /iso/i.test(c));
+  if (isoCert) return isoCert;
+  if (certs.length > 0) return certs[0];
+  return "Not specified";
+}
+
+/**
+ * Helper to safely extract Card 3: Regulatory Status
+ */
+function getRegulatoryStatusValue(product: Product | null | undefined, specs: NormalizedSpec[]): string {
+  if (!product) return "Not specified";
+  // 1. Direct technicalSpecifications or specifications lookup
+  const techSpecs = product.technicalSpecifications || product.specifications;
+  if (techSpecs && typeof techSpecs === "object") {
+    for (const [key, val] of Object.entries(techSpecs)) {
+      if (/regulatory\s*status|regulatory\s*compliance|regulatory\s*approval|ce\s*mark|fda\b/i.test(key)) {
+        if (typeof val === "string" && val.trim()) return val.trim();
+        if (typeof val === "number") return String(val);
+      }
+    }
+  }
+  // 2. Search normalized specs
+  const specific = specs.find((s) => /regulatory\s*status|regulatory|compliance|approval|ce\s*mark|fda/i.test(s.key));
+  if (specific && specific.value && String(specific.value).trim()) {
+    return `${specific.value}${specific.unit ? ` ${specific.unit}` : ""}`.trim();
+  }
+  // 3. Direct product fields
+  const reg = (product as any).regulatoryClassification || (product as any).regulatoryStatus;
+  if (reg && typeof reg === "string" && reg.trim()) {
+    return reg.trim();
+  }
+  // 4. Certifications
+  const certs = normalizeList(product.certifications);
+  const ceCert = certs.find((c) => /ce|fda|regulatory|compliance/i.test(c));
+  if (ceCert) return ceCert;
+  return "Not specified";
+}
+
+/**
+ * Helper to safely extract Card 4: Warranty
+ */
+function getWarrantyValue(product: Product | null | undefined, specs: NormalizedSpec[]): string {
+  if (!product) return "Not specified";
+  // 1. Product direct warranty field (contains full duration and coverage details)
+  if (product.warranty && typeof product.warranty === "string" && product.warranty.trim()) {
+    return product.warranty.trim();
+  }
+  // 2. Direct technicalSpecifications or specifications lookup
+  const techSpecs = product.technicalSpecifications || product.specifications;
+  if (techSpecs && typeof techSpecs === "object") {
+    for (const [key, val] of Object.entries(techSpecs)) {
+      if (/warranty|guarantee|service\s*contract/i.test(key)) {
+        if (typeof val === "string" && val.trim()) return val.trim();
+        if (typeof val === "number") return String(val);
+      }
+    }
+  }
+  // 3. Search normalized specs
+  const specific = specs.find((s) => /warranty|guarantee|service\s*contract/i.test(s.key));
+  if (specific && specific.value && String(specific.value).trim()) {
+    return `${specific.value}${specific.unit ? ` ${specific.unit}` : ""}`.trim();
+  }
+  return "Not specified";
+}
+
+/**
+ * White line crossed-tools icon matching DR.MEDEX specification reference
+ */
+const CrossedToolsIcon: React.FC<{ size?: number; className?: string; strokeWidth?: number }> = ({
+  size = 24,
+  className,
+  strokeWidth = 2
+}) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.1-3.1c.3-.3.9-.2 1 .2a6 6 0 0 1-8.3 7.1l-7.9 7.9a1 1 0 0 1-3-3l7.9-7.9a6 6 0 0 1 7.1-8.3c.4.1.5.7.2 1z" />
+    <path d="m4.5 19.5 4.5-4.5" />
+    <path d="m15 9 4.5-4.5" />
+    <path d="m18 3 3 3" />
+  </svg>
+);
+
+/**
+ * Safely extracts verified key factors and highlights from product data.
+ * Adheres strictly to factual claims in database without inventing specs.
+ */
+function isNonEngineeringBoilerplate(str: string): boolean {
+  return /delivered within|delivery within|business days|return or replace|exchange within|return within|replacement within|refund policy|within 30 days/i.test(
+    str
+  );
+}
+
+/**
+ * Safely extracts verified key factors and highlights from product data.
+ * Adheres strictly to factual claims in database without inventing specs.
+ */
+function getProductKeyFactors(product: Product | null | undefined): string[] {
+  if (!product) return [];
+
+  // 1. Structured keyFeatures or features (filtered against delivery/return boilerplate)
+  const rawFeatures = normalizeList(product.keyFeatures || product.features);
+  const cleanFeatures = rawFeatures.filter((s) => !isNonEngineeringBoilerplate(s));
+  if (cleanFeatures.length > 0) return cleanFeatures;
+
+  // 2. Benefits (filtered)
+  const rawBenefits = normalizeList(product.benefits);
+  const cleanBenefits = rawBenefits.filter((s) => !isNonEngineeringBoilerplate(s));
+  if (cleanBenefits.length > 0) return cleanBenefits;
+
+  // 3. Structured technical specifications from database
+  const rawSpecs = product.technicalSpecifications || product.specifications;
+  if (rawSpecs && Array.isArray(rawSpecs)) {
+    const specLines = rawSpecs
+      .map((s: any) => {
+        const k = s.parameter || s.key || s.name || "";
+        const v = s.specification || s.value || "";
+        const unit = s.unit ? ` ${s.unit}` : "";
+        if (!k || !v || k.toLowerCase() === "item" || String(v).toLowerCase() === "value") return null;
+        return `${k}: ${v}${unit}`;
+      })
+      .filter(Boolean) as string[];
+    if (specLines.length > 0) return specLines.slice(0, 8);
+  } else if (rawSpecs && typeof rawSpecs === "object") {
+    const specLines = Object.entries(rawSpecs)
+      .map(([k, v]) => {
+        if (!k || !v || k.toLowerCase() === "item" || String(v).toLowerCase() === "value") return null;
+        return `${k}: ${String(v)}`;
+      })
+      .filter(Boolean) as string[];
+    if (specLines.length > 0) return specLines.slice(0, 8);
+  }
+
+  // 4. Factual highlights derived only from existing description
+  const desc = product.fullDescription || product.overview || product.shortDescription || "";
+  if (desc) {
+    const lines = desc
+      .split(/\r?\n/)
+      .map((l) => l.replace(/^[-*•\t]+\s*/, "").trim())
+      .filter((l) => l.length > 15 && !isNonEngineeringBoilerplate(l));
+    if (lines.length >= 2) {
+      return lines.slice(0, 8);
+    }
+    const sentences = desc
+      .split(/(?<=[.!?])\s+/)
+      .map((s) => s.trim())
+      .filter((s) => s.length > 25 && !isNonEngineeringBoilerplate(s));
+    if (sentences.length > 0) {
+      return sentences.slice(0, 6);
+    }
+  }
+
+  return [];
+}
+
+/**
+ * Parses a key factor item into an important highlight phrase and supporting details.
+ */
+function parseKeyFactor(raw: string): { title: string; detail: string } {
+  let text = (raw || "").trim();
+  // Fix cases where title merges into sentence without space (e.g. TechnologyIdeal -> Technology: Ideal)
+  text = text.replace(/([a-z0-9])([A-Z][a-z]{2,})/g, "$1: $2");
+
+  // 1. Check for colon separator
+  const colonIdx = text.indexOf(":");
+  if (colonIdx > 2 && colonIdx < 55) {
+    return {
+      title: text.substring(0, colonIdx).trim() + ":",
+      detail: text.substring(colonIdx + 1).trim()
+    };
+  }
+
+  // 2. Check for spaced hyphen/dash separator (avoiding hyphenated words like "medical-grade")
+  const dashMatch = text.match(/^([^–—\n]{3,45}?)\s+(?:[–—]|-)\s+(.+)$/);
+  if (dashMatch) {
+    return {
+      title: dashMatch[1].trim() + " –",
+      detail: dashMatch[2].trim()
+    };
+  }
+
+  // 3. Fallback: split leading phrase (first 3 to 4 words or before key prepositions)
+  const words = text.split(/\s+/);
+  if (words.length <= 4) {
+    return { title: text, detail: "" };
+  }
+
+  const breakWords = ["for", "with", "to", "that", "conforming", "engineered", "designed", "including"];
+  let breakIdx = -1;
+  for (let i = 2; i < Math.min(words.length - 1, 6); i++) {
+    if (breakWords.includes(words[i].toLowerCase())) {
+      breakIdx = i;
+      break;
+    }
+  }
+  if (breakIdx === -1) {
+    breakIdx = 3;
+  }
+
+  return {
+    title: words.slice(0, breakIdx).join(" "),
+    detail: words.slice(breakIdx).join(" ")
+  };
+}
 
 export const ProductDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const { formatPrice, currentCountry, currentCurrency } = useCurrency();
+  const { formatPrice } = useCurrency();
   const { addToCart } = useCart();
-  const { toggleWishlist, isInWishlist } = useWishlist();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
-  const [reviews, setReviews] = useState<Review[]>([]);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
-  const [quantity, setQuantity] = useState(1);
-  const [activeTab, setActiveTab] = useState<"overview" | "specs" | "applications" | "package" | "warranty" | "reviews">("specs");
+  const [hoveredThumbnailIndex, setHoveredThumbnailIndex] = useState<number | null>(null);
   const [isAdded, setIsAdded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+  const [isSubmittingBuy, setIsSubmittingBuy] = useState(false);
 
-  // Quote modal
-  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  // Gallery autoplay & interaction state
+  const [isGalleryPaused, setIsGalleryPaused] = useState(false);
+  const [isPageVisible, setIsPageVisible] = useState(true);
 
-  // Review form
-  const [showReviewForm, setShowReviewForm] = useState(false);
-  const [reviewAuthor, setReviewAuthor] = useState("");
-  const [reviewFacility, setReviewFacility] = useState("");
-  const [reviewRating, setReviewRating] = useState(5);
-  const [reviewComment, setReviewComment] = useState("");
-  const [reviewSuccess, setReviewSuccess] = useState(false);
+  // Dynamic measurement of product gallery height to coordinate with right column
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const mainImageRef = useRef<HTMLImageElement>(null);
+  const [galleryHeight, setGalleryHeight] = useState<number | null>(null);
+
+  const updateGalleryHeight = useCallback(() => {
+    if (typeof window !== "undefined" && window.innerWidth >= 1024) {
+      const imgEl = mainImageRef.current;
+      if (imgEl && imgEl.offsetHeight > 0) {
+        setGalleryHeight(Math.round(imgEl.offsetHeight));
+      } else if (galleryRef.current && galleryRef.current.offsetHeight > 0) {
+        setGalleryHeight(Math.round(galleryRef.current.offsetHeight));
+      }
+    } else {
+      setGalleryHeight(null);
+    }
+  }, []);
 
   useEffect(() => {
-    async function loadProduct() {
-      setIsLoading(true);
-      try {
-        const res = await fetch(`/api/products/${slug}`);
-        const data = await res.json();
-        if (data.success && data.product) {
-          setProduct(data.product);
-          setActiveImageIndex(0);
+    updateGalleryHeight();
 
-          // Fetch related in same category
-          const relRes = await fetch(`/api/products?category=${data.product.category}`);
-          const relData = await relRes.json();
-          if (relData.success) {
-            setRelatedProducts(relData.products.filter((p: Product) => p.id !== data.product.id).slice(0, 4));
-          }
+    const handleResize = () => updateGalleryHeight();
+    window.addEventListener("resize", handleResize);
 
-          // Fetch reviews
-          const revRes = await fetch(`/api/reviews/${data.product.id}`);
-          const revData = await revRes.json();
-          if (revData.success) {
-            setReviews(revData.reviews);
-          }
-        }
-      } catch (e) {
-        console.error("Failed to load product detail:", e);
-      } finally {
-        setIsLoading(false);
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(() => {
+        updateGalleryHeight();
+      });
+      if (mainImageRef.current) {
+        resizeObserver.observe(mainImageRef.current);
+      }
+      if (galleryRef.current) {
+        resizeObserver.observe(galleryRef.current);
       }
     }
 
-    if (slug) {
-      loadProduct();
-      window.scrollTo(0, 0);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (resizeObserver) resizeObserver.disconnect();
+    };
+  }, [updateGalleryHeight, activeImageIndex, product?.id]);
+
+  // Quote modal (for related product cards)
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+
+  // Fetch product data
+  const loadProduct = useCallback(async () => {
+    if (!slug) return;
+    setIsLoading(true);
+    setFetchError(null);
+    try {
+      const res = await fetch(`/api/products/${encodeURIComponent(slug)}`);
+      if (res.status === 404) {
+        setProduct(null);
+        return;
+      }
+      if (!res.ok) {
+        throw new Error(`Server returned status ${res.status}`);
+      }
+      const data = await res.json();
+      if (data.success && data.product) {
+        setProduct(data.product);
+        setActiveImageIndex(0);
+
+        // Fetch related products in the same category
+        if (data.product.category) {
+          try {
+            const relRes = await fetch(`/api/products?category=${encodeURIComponent(data.product.category)}`);
+            const relData = await relRes.json();
+            if (relData.success && Array.isArray(relData.products)) {
+              setRelatedProducts(
+                relData.products
+                  .filter((p: Product) => p.id !== data.product.id && p.slug !== data.product.slug)
+                  .slice(0, 4)
+              );
+            }
+          } catch (relErr) {
+            console.warn("Failed to load related products:", relErr);
+          }
+        }
+      } else {
+        setProduct(null);
+      }
+    } catch (e: any) {
+      console.error("Failed to load product detail:", e);
+      setFetchError(e.message || "Failed to load product information.");
+      setProduct(null);
+    } finally {
+      setIsLoading(false);
     }
   }, [slug]);
 
+  useEffect(() => {
+    loadProduct();
+    window.scrollTo(0, 0);
+  }, [loadProduct]);
+
+  // Page visibility listener for gallery autoplay pausing
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsPageVisible(!document.hidden);
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
+  // Gallery autoplay timer (~4.5 seconds), pauses on user interaction or background tab
+  const imagesCount = product?.images?.length || 0;
+  useEffect(() => {
+    if (imagesCount <= 1 || isGalleryPaused || !isPageVisible) return;
+
+    const interval = setInterval(() => {
+      setActiveImageIndex((prev) => (prev + 1) % imagesCount);
+    }, 4500);
+
+    return () => clearInterval(interval);
+  }, [imagesCount, isGalleryPaused, isPageVisible]);
+
   if (isLoading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="aspect-square bg-[#F7F7F7] animate-pulse rounded-2xl border border-[#EAEAEA]" />
-          <div className="space-y-6">
-            <div className="h-9 bg-[#F7F7F7] animate-pulse rounded-lg w-3/4" />
-            <div className="h-5 bg-[#F7F7F7] animate-pulse rounded-lg w-1/2" />
-            <div className="h-32 bg-[#F7F7F7] animate-pulse rounded-xl" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 bg-white">
+        <div className="h-4 bg-neutral-100 animate-pulse rounded w-48 mb-4 sm:mb-6" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+          <div className="flex gap-4">
+            <div className="hidden sm:flex flex-col gap-3">
+              <div className="w-16 h-16 bg-neutral-100 animate-pulse rounded-lg" />
+              <div className="w-16 h-16 bg-neutral-100 animate-pulse rounded-lg" />
+              <div className="w-16 h-16 bg-neutral-100 animate-pulse rounded-lg" />
+            </div>
+            <div className="flex-1 h-[520px] bg-neutral-50 animate-pulse rounded-xl" />
           </div>
+          <div className="space-y-4 pt-2 flex flex-col justify-between">
+            <div className="space-y-4">
+              <div className="h-8 bg-neutral-100 animate-pulse rounded w-3/4" />
+              <div className="h-6 bg-neutral-100 animate-pulse rounded w-1/4" />
+              <div className="h-px bg-neutral-200 my-4" />
+              <div className="h-44 bg-neutral-100 animate-pulse rounded" />
+              <div className="h-px bg-neutral-200 my-4" />
+            </div>
+            <div className="h-12 bg-neutral-100 animate-pulse rounded w-full mt-auto" />
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 sm:mt-12 pt-2">
+          <div className="h-16 bg-neutral-100 animate-pulse rounded-lg" />
+          <div className="h-16 bg-neutral-100 animate-pulse rounded-lg" />
+          <div className="h-16 bg-neutral-100 animate-pulse rounded-lg" />
+          <div className="h-16 bg-neutral-100 animate-pulse rounded-lg" />
+        </div>
+      </div>
+    );
+  }
+
+  if (fetchError) {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-28 text-center space-y-5">
+        <div className="w-12 h-12 mx-auto rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600">
+          <AlertCircle size={24} />
+        </div>
+        <h2 className="text-2xl font-extrabold text-[#2D5A4A]">Catalogue Connection Interrupted</h2>
+        <p className="text-sm text-neutral-600 leading-relaxed">
+          A temporary network error prevented retrieval of this medical equipment record.
+        </p>
+        <div className="pt-2 flex items-center justify-center gap-3">
+          <button
+            type="button"
+            onClick={loadProduct}
+            className="px-6 py-3 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs font-bold transition-colors shadow-2xs cursor-pointer flex items-center gap-2"
+          >
+            <RotateCcw size={14} />
+            <span>Retry Connection</span>
+          </button>
+          <Link
+            to="/shop-all"
+            className="px-6 py-3 bg-white border border-[#E5E7EB] text-[#2D5A4A] rounded-xl text-xs font-bold hover:bg-[#F3F4F6] transition-colors shadow-2xs"
+          >
+            Explore Active Catalogue
+          </Link>
         </div>
       </div>
     );
@@ -100,16 +607,25 @@ export const ProductDetailPage: React.FC = () => {
 
   if (!product) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-24 text-center space-y-4">
-        <h2 className="text-2xl font-bold text-[#111111]">Equipment Currently Unavailable</h2>
-        <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-          The requested medical device could not be found or belongs to a category that is temporarily inactive for online customer access during this catalogue phase. All institutional records remain preserved in our central system.
+      <div className="max-w-2xl mx-auto px-4 py-28 text-center space-y-5">
+        <div className="w-12 h-12 mx-auto rounded-full bg-white border border-[#E5E7EB] flex items-center justify-center text-[#2D5A4A]">
+          <Package size={24} />
+        </div>
+        <h2 className="text-2xl font-extrabold text-[#2D5A4A]">Equipment Currently Unavailable</h2>
+        <p className="text-sm text-neutral-600 leading-relaxed">
+          The requested medical device could not be found or belongs to a catalogue category currently reserved for direct institutional requisition.
         </p>
         <div className="pt-2 flex items-center justify-center gap-3">
-          <Link to="/" className="inline-block px-7 py-3 bg-[#111111] text-white rounded-xl text-xs font-bold hover:bg-black transition-colors">
-            Explore Active Categories
+          <Link
+            to="/shop-all"
+            className="inline-block px-6 py-3 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs font-bold transition-colors shadow-2xs"
+          >
+            Explore Active Catalogue
           </Link>
-          <Link to="/request-quote" className="inline-block px-6 py-3 bg-white border border-neutral-300 text-neutral-900 rounded-xl text-xs font-bold hover:bg-neutral-50 transition-colors">
+          <Link
+            to="/request-quote"
+            className="inline-block px-6 py-3 bg-white border border-[#E5E7EB] text-[#2D5A4A] rounded-xl text-xs font-bold hover:bg-[#F3F4F6] transition-colors shadow-2xs"
+          >
             Request Institutional RFQ
           </Link>
         </div>
@@ -117,650 +633,462 @@ export const ProductDetailPage: React.FC = () => {
     );
   }
 
+  const rawImages =
+    product.images && product.images.length > 0
+      ? product.images
+      : product.galleryImages && product.galleryImages.length > 0
+      ? product.galleryImages
+      : product.primaryImage
+      ? [product.primaryImage]
+      : [];
+
+  const productImages = rawImages
+    .map((img: any) => (typeof img === "string" ? img : img?.url || img?.src || ""))
+    .filter((url: string) => typeof url === "string" && url.trim().length > 0);
+
+  if (productImages.length === 0) {
+    productImages.push("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80");
+  }
+
+  const productTitle = product.title || product.productName || "Medical Equipment";
+  const titleParts = parseProductTitle(productTitle);
+  const originalPrice = product.originalPrice || product.regularPrice;
+  const discountPercentage =
+    product.discountPercentage && product.discountPercentage > 0
+      ? product.discountPercentage
+      : originalPrice && originalPrice > product.basePrice
+      ? Math.round(((originalPrice - product.basePrice) / originalPrice) * 100)
+      : 0;
+
+  const normalizedSpecs = normalizeSpecs(product.technicalSpecifications || product.specifications);
+  const productKeyFactors = getProductKeyFactors(product);
+  const productApplications = normalizeList(
+    (product as any).clinicalIndications ||
+    product.applications ||
+    (product as any).indications ||
+    (product as any).specialtyProcedures
+  );
+  const productPackage = normalizeList(
+    product.packageContents ||
+    (product as any).package ||
+    (product as any).standardIncluded ||
+    (product as any).includedAccessories
+  );
+  const productOverview = product.fullDescription || product.overview || product.shortDescription || "";
+
+  // Cart and purchase handlers
   const handleAddToCart = () => {
-    addToCart(product, quantity);
+    addToCart(product, 1);
     setIsAdded(true);
-    setTimeout(() => setIsAdded(false), 1500);
+    setTimeout(() => setIsAdded(false), 1600);
   };
 
   const handleBuyNow = () => {
-    addToCart(product, quantity);
+    setIsSubmittingBuy(true);
+    addToCart(product, 1);
     navigate("/checkout");
   };
 
-  const handleReviewSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const payload = {
-        productId: product.id,
-        author: reviewAuthor,
-        facility: reviewFacility,
-        rating: reviewRating,
-        comment: reviewComment
-      };
-      const res = await fetch("/api/reviews", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
-      if (data.success && data.review) {
-        setReviews([data.review, ...reviews]);
-        setShowReviewForm(false);
-        setReviewSuccess(true);
-        setReviewAuthor("");
-        setReviewFacility("");
-        setReviewComment("");
-      }
-    } catch (e) {
-      console.error("Error submitting review:", e);
+  // Exactly Four Technical Specification Cards
+  const specCards = [
+    {
+      id: "power",
+      title: "Power Supply",
+      value: getPowerSupplyValue(product, normalizedSpecs),
+      icon: Plug
+    },
+    {
+      id: "quality",
+      title: "Quality Standard",
+      value: getQualityStandardValue(product, normalizedSpecs),
+      icon: Award
+    },
+    {
+      id: "regulatory",
+      title: "Regulatory Status",
+      value: getRegulatoryStatusValue(product, normalizedSpecs),
+      icon: ShieldCheck
+    },
+    {
+      id: "warranty",
+      title: "Warranty",
+      value: getWarrantyValue(product, normalizedSpecs),
+      icon: CrossedToolsIcon
     }
-  };
-
-  const isSaved = isInWishlist(product.id);
-
-  const productImages =
-    product.images && product.images.length > 0
-      ? product.images
-      : ["https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80"];
-  const productTitle = product.title || product.productName || "Medical Equipment";
-  const productSpecs = product.technicalSpecifications || product.specifications || {};
-  const productFeatures = product.features || product.keyFeatures || [];
-  const productApplications = product.applications || [];
-  const productPackage = product.packageContents || [];
-  const productOverview = product.fullDescription || product.overview || product.shortDescription || "";
-  const productCerts =
-    product.certifications && product.certifications.length > 0
-      ? product.certifications
-      : ["ISO 13485:2016", "CE MARKED"];
+  ];
 
   return (
-    <div className="w-full bg-[#FAFAFA] min-h-screen py-10 sm:py-14">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Breadcrumbs */}
-        <div className="flex items-center gap-2 text-xs text-neutral-400 mb-8 flex-wrap">
-          <Link to="/" className="hover:text-[#111111] transition-colors">Home</Link>
-          <span>/</span>
-          <Link to="/shop-all" className="hover:text-[#111111] transition-colors">Equipment</Link>
-          <span>/</span>
-          <Link to={`/shop-all?category=${product.category}`} className="hover:text-[#111111] capitalize transition-colors">
-            {product.category}
+    <div className="w-full bg-white min-h-screen text-neutral-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+        {/* Compact Breadcrumb Navigation - Aligned above content, Category Level Only */}
+        <nav
+          aria-label="Breadcrumb"
+          className="flex items-center gap-1.5 text-xs text-neutral-500 mb-3 sm:mb-4"
+        >
+          <Link to="/" className="hover:text-[#171717] transition-colors">
+            Home
           </Link>
-          <span>/</span>
-          <span className="text-[#111111] font-semibold truncate max-w-xs sm:max-w-md">{productTitle}</span>
-        </div>
+          <span className="text-neutral-400">&gt;</span>
+          <Link
+            to={product.category ? `/shop-all?category=${product.category}` : "/shop-all"}
+            className="hover:text-[#171717] transition-colors font-medium text-neutral-600"
+          >
+            {product.categoryName || "Examination & OT Tables"}
+          </Link>
+        </nav>
 
-        {/* Product Hero: Gallery + Buying Details */}
-        <div className="bg-white rounded-2xl border border-[#EAEAEA] p-6 sm:p-10 shadow-2xs mb-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
-            {/* Gallery Column */}
-            <div className="lg:col-span-6 space-y-4">
-              <div className="aspect-square bg-[#F9F9F9] rounded-xl overflow-hidden border border-[#EAEAEA] relative group flex items-center justify-center p-6">
-                <img
-                  src={productImages[activeImageIndex] || productImages[0]}
-                  alt={productTitle}
-                  className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src =
-                      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
-                  }}
-                />
-                <div className="absolute top-4 left-4 flex flex-col gap-1.5 pointer-events-none">
-                  {productCerts.slice(0, 2).map((cert, cIdx) => (
-                    <span
-                      key={cIdx}
-                      className="px-2.5 py-1 text-3xs font-extrabold uppercase bg-[#111111] text-white rounded-md tracking-wider shadow-xs"
-                    >
-                      {cert}
-                    </span>
-                  ))}
-                </div>
-              </div>
+        {/* ========================================================= */}
+        {/* TOP SECTION: 50/50 SPLIT GALLERY & DETAILS                */}
+        {/* ========================================================= */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
+          {/* ------------------------------------------------------- */}
+          {/* LEFT 50%: PRODUCT IMAGE GALLERY (Vertical Left Thumbnails) */}
+          {/* ------------------------------------------------------- */}
+          <div
+            ref={galleryRef}
+            className="w-full flex flex-col sm:flex-row items-start gap-3 sm:gap-4 min-w-0"
+            onMouseEnter={() => setIsGalleryPaused(true)}
+            onMouseLeave={() => setIsGalleryPaused(false)}
+            onTouchStart={() => setIsGalleryPaused(true)}
+            onTouchEnd={() => setIsGalleryPaused(false)}
+          >
+            {/* Vertical thumbnails on the left on desktop; horizontal scroll on mobile */}
+            {productImages.length > 1 && (
+              <div
+                style={galleryHeight ? { maxHeight: `${galleryHeight}px` } : undefined}
+                className="flex sm:flex-col items-center gap-2.5 sm:gap-3 overflow-x-auto sm:overflow-y-auto max-h-[580px] shrink-0 w-full sm:w-auto scrollbar-none order-2 sm:order-1 pt-1 pb-1 px-1"
+              >
+                {productImages.map((img, idx) => {
+                  const isSelected = activeImageIndex === idx;
+                  const isHovered = hoveredThumbnailIndex === idx;
+                  const isHighlighted = isSelected || isHovered;
 
-              {/* Multi-angle Thumbnails */}
-              {productImages.length > 1 && (
-                <div className="flex gap-3 overflow-x-auto pb-1">
-                  {productImages.map((img, idx) => (
+                  return (
                     <button
                       key={idx}
                       type="button"
-                      onClick={() => setActiveImageIndex(idx)}
-                      className={`w-20 h-20 rounded-xl overflow-hidden border-2 transition-all shrink-0 p-1.5 bg-[#F9F9F9] ${
-                        activeImageIndex === idx ? "border-[#111111] ring-1 ring-[#111111]" : "border-[#EAEAEA] opacity-70 hover:opacity-100"
-                      }`}
+                      onClick={() => {
+                        setActiveImageIndex(idx);
+                        setHoveredThumbnailIndex(null);
+                        setIsGalleryPaused(true);
+                      }}
+                      onMouseEnter={() => setHoveredThumbnailIndex(idx)}
+                      onMouseLeave={() => setHoveredThumbnailIndex(null)}
+                      className="p-1 m-0 border-0 bg-transparent cursor-pointer shrink-0 inline-flex items-center justify-center focus:outline-none focus-visible:ring-1 focus-visible:ring-[#7AA05A] rounded-[10px]"
+                      aria-label={`View angle ${idx + 1}`}
                     >
                       <img
                         src={img}
-                        alt="Angle"
-                        className="w-full h-full object-contain"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src =
-                            "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=300&q=80";
-                        }}
+                        alt={`${productTitle} angle ${idx + 1}`}
+                        className={`block max-w-[56px] max-h-[56px] sm:max-w-[68px] sm:max-h-[68px] lg:max-w-[76px] lg:max-h-[76px] w-auto h-auto object-contain rounded-[8px] select-none opacity-100 transition-all duration-200 ease-out ${
+                          isHighlighted
+                            ? "border-[2px] border-[#7AA05A] shadow-[0_2px_6px_rgba(0,0,0,0.08)] scale-[1.05]"
+                            : "border border-[#D9D9D9] shadow-[0_1px_3px_rgba(0,0,0,0.06)] scale-100"
+                        }`}
+                        loading="lazy"
                       />
                     </button>
-                  ))}
-                </div>
-              )}
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Main Product Image directly on page background with reserved dimensions */}
+            <div className="flex-1 w-full flex items-start justify-center order-1 sm:order-2 min-w-0">
+              <img
+                ref={mainImageRef}
+                src={productImages[activeImageIndex] || productImages[0]}
+                alt={productTitle}
+                width={600}
+                height={600}
+                onLoad={updateGalleryHeight}
+                className="w-full h-auto max-h-[580px] lg:max-h-[640px] object-contain select-none aspect-square sm:aspect-auto"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src =
+                    "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
+                }}
+              />
             </div>
+          </div>
 
-            {/* Product Meta & Purchase Column */}
-            <div className="lg:col-span-6 flex flex-col justify-between">
-              <div className="space-y-5">
-                {/* Meta Header */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-2xs uppercase tracking-wider font-semibold text-neutral-500">
-                    <span className="text-[#111111] font-extrabold">{product.brand}</span>
-                    <span>•</span>
-                    <span className="font-mono text-neutral-400">SKU: {product.sku}</span>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => toggleWishlist(product)}
-                    className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border transition-colors ${
-                      isSaved ? "bg-rose-50 border-rose-200 text-rose-600" : "border-[#EAEAEA] text-neutral-600 hover:bg-[#F7F7F7]"
-                    }`}
-                  >
-                    <Heart size={14} fill={isSaved ? "currentColor" : "none"} />
-                    <span>{isSaved ? "Saved" : "Save"}</span>
-                  </button>
-                </div>
-
-                <h1 className="text-xl sm:text-2.5xl font-black text-[#111111] tracking-tight leading-snug">
-                  {product.title}
+          {/* ------------------------------------------------------- */}
+          {/* RIGHT 50%: PRODUCT DETAILS & ACTIONS (Bottom Aligned)    */}
+          {/* ------------------------------------------------------- */}
+          <div
+            style={galleryHeight ? { height: `${galleryHeight}px`, maxHeight: `${galleryHeight}px` } : undefined}
+            className="w-full flex flex-col justify-between min-w-0"
+          >
+            {/* Top Group: Title, Pricing, Description */}
+            <div className="flex-1 flex flex-col min-h-0 space-y-2">
+              {/* 1. Brand and Product Title */}
+              <div className="shrink-0">
+                <h1 className="text-xl sm:text-2xl lg:text-[1.65rem] tracking-tight leading-snug">
+                  <span className="font-extrabold text-[#2D5A4A]">{titleParts.dr}</span>
+                  <span className="font-extrabold text-[#7AA05A] ml-0.5">{titleParts.medex}</span>{" "}
+                  <span className="font-normal text-[#171717]">{titleParts.descriptiveName}</span>
                 </h1>
-
-                {/* Rating summary */}
-                <div className="flex items-center gap-2 text-xs">
-                  <div className="flex text-[#111111]">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        size={14}
-                        fill={i < Math.floor(product.rating) ? "currentColor" : "none"}
-                        className={i < Math.floor(product.rating) ? "text-[#111111]" : "text-neutral-200"}
-                      />
-                    ))}
-                  </div>
-                  <span className="font-bold text-[#111111]">{product.rating}</span>
-                  <span className="text-neutral-300">•</span>
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab("reviews")}
-                    className="text-neutral-600 hover:text-[#1F7A4D] hover:underline font-medium transition-colors"
-                  >
-                    ({reviews.length || product.reviewCount} Verified Clinical Reviews)
-                  </button>
-                </div>
-
-                {/* Pricing Box with Live Currency */}
-                <div className="p-5 bg-[#FAFAFA] rounded-xl border border-[#EAEAEA]">
-                  <div className="flex items-baseline gap-3">
-                    <span className="text-2.5xl sm:text-3xl font-black text-[#111111] font-mono">
-                      {formatPrice(product.basePrice)}
-                    </span>
-                    {product.originalPrice && (
-                      <span className="text-sm text-neutral-400 line-through font-mono">
-                        {formatPrice(product.originalPrice)}
-                      </span>
-                    )}
-                    {((product.originalPrice && product.originalPrice > product.basePrice) || (product.discountPercentage && product.discountPercentage > 0)) && (
-                      <span className="px-2.5 py-1 text-3xs font-extrabold uppercase bg-[#EAF5EF] text-[#145A38] rounded-md border border-[#1F7A4D]/20">
-                        SAVE {product.discountPercentage || Math.round(((product.originalPrice! - product.basePrice) / product.originalPrice!) * 100)}%
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="flex items-center justify-between text-2xs text-neutral-500 mt-3 pt-3 border-t border-[#EAEAEA]">
-                    <div className="flex items-center gap-2 text-[#1F7A4D] font-semibold">
-                      <span className="w-2 h-2 rounded-full bg-[#1F7A4D]" />
-                      <span>In Stock ({product.stock} units ready for crating)</span>
-                    </div>
-                    <div className="text-neutral-400 font-mono">
-                      Settlement in <strong>{currentCurrency}</strong>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Short Description */}
-                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                  {product.shortDescription}
-                </p>
-
-                {/* Technical Highlights bullets */}
-                <div className="space-y-2.5 py-1 text-xs text-neutral-700">
-                  {productFeatures.slice(0, 4).map((f, i) => (
-                    <div key={i} className="flex items-start gap-2.5">
-                      <Check size={15} className="text-[#1F7A4D] shrink-0 mt-0.5" />
-                      <span>{f}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Trust mini-grid */}
-                <div className="grid grid-cols-3 gap-3 pt-2 text-center text-3xs font-semibold text-neutral-700">
-                  <div className="p-3 bg-[#FAFAFA] border border-[#EAEAEA] rounded-xl">
-                    <Truck size={16} className="mx-auto text-[#111111] mb-1.5" />
-                    <span>{product.shippingLeadTime || "3–5 Days Air Freight"}</span>
-                  </div>
-                  <div className="p-3 bg-[#FAFAFA] border border-[#EAEAEA] rounded-xl">
-                    <Award size={16} className="mx-auto text-[#111111] mb-1.5" />
-                    <span>{product.warranty || "5-Year OEM Warranty"}</span>
-                  </div>
-                  <div className="p-3 bg-[#FAFAFA] border border-[#EAEAEA] rounded-xl">
-                    <ShieldCheck size={16} className="mx-auto text-[#1F7A4D] mb-1.5" />
-                    <span>9-Stage QC Tested</span>
-                  </div>
-                </div>
               </div>
 
-              {/* Purchase Actions Block */}
-              <div className="pt-6 border-t border-[#EAEAEA] space-y-3.5">
-                <div className="flex items-center gap-3">
-                  {/* Quantity selector */}
-                  <div className="flex items-center border border-[#EAEAEA] rounded-xl bg-white">
-                    <button
-                      type="button"
-                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="px-4 py-3 text-neutral-600 hover:text-[#111111] hover:bg-[#F7F7F7] rounded-l-xl font-bold text-sm"
-                    >
-                      -
-                    </button>
-                    <span className="px-4 py-3 text-sm font-bold text-[#111111]">{quantity}</span>
-                    <button
-                      type="button"
-                      onClick={() => setQuantity(quantity + 1)}
-                      className="px-4 py-3 text-neutral-600 hover:text-[#111111] hover:bg-[#F7F7F7] rounded-r-xl font-bold text-sm"
-                    >
-                      +
-                    </button>
-                  </div>
-
-                  {/* Add to Cart */}
-                  <button
-                    type="button"
-                    onClick={handleAddToCart}
-                    className="flex-1 py-3.5 px-6 bg-[#111111] hover:bg-neutral-800 text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-xs transition-colors"
-                  >
-                    {isAdded ? <Check size={18} /> : <ShoppingCart size={18} />}
-                    <span>{isAdded ? "Added to Cart" : "Add to Cart"}</span>
-                  </button>
-
-                  {/* Buy Now */}
-                  <button
-                    type="button"
-                    onClick={handleBuyNow}
-                    className="py-3.5 px-7 bg-[#1F7A4D] hover:bg-[#145A38] text-white rounded-xl text-xs sm:text-sm font-bold shadow-xs transition-colors"
-                  >
-                    Buy Now
-                  </button>
-                </div>
-
-                {/* Institutional Quote CTA */}
-                <button
-                  type="button"
-                  onClick={() => setIsQuoteModalOpen(true)}
-                  className="w-full py-3.5 bg-[#FAFAFA] hover:bg-neutral-100 text-[#111111] border border-[#EAEAEA] rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors"
-                >
-                  <Building size={16} className="text-[#111111]" />
-                  <span>Request Institutional B2B Quote / Tender Pricing</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Structured Tabs Section */}
-        <div className="bg-white rounded-2xl border border-[#EAEAEA] p-6 sm:p-10 shadow-2xs mb-14">
-          {/* Tab Navigation */}
-          <div className="flex border-b border-[#EAEAEA] overflow-x-auto gap-2 pb-3 mb-8">
-            <button
-              onClick={() => setActiveTab("specs")}
-              className={`px-5 py-2.5 text-xs font-bold rounded-lg whitespace-nowrap transition-colors ${
-                activeTab === "specs"
-                  ? "bg-[#111111] text-white"
-                  : "text-neutral-600 hover:text-[#111111] hover:bg-[#F7F7F7]"
-              }`}
-            >
-              Technical Specifications
-            </button>
-            <button
-              onClick={() => setActiveTab("overview")}
-              className={`px-5 py-2.5 text-xs font-bold rounded-lg whitespace-nowrap transition-colors ${
-                activeTab === "overview"
-                  ? "bg-[#111111] text-white"
-                  : "text-neutral-600 hover:text-[#111111] hover:bg-[#F7F7F7]"
-              }`}
-            >
-              Clinical Overview
-            </button>
-            <button
-              onClick={() => setActiveTab("applications")}
-              className={`px-5 py-2.5 text-xs font-bold rounded-lg whitespace-nowrap transition-colors ${
-                activeTab === "applications"
-                  ? "bg-[#111111] text-white"
-                  : "text-neutral-600 hover:text-[#111111] hover:bg-[#F7F7F7]"
-              }`}
-            >
-              Clinical Applications
-            </button>
-            <button
-              onClick={() => setActiveTab("package")}
-              className={`px-5 py-2.5 text-xs font-bold rounded-lg whitespace-nowrap transition-colors ${
-                activeTab === "package"
-                  ? "bg-[#111111] text-white"
-                  : "text-neutral-600 hover:text-[#111111] hover:bg-[#F7F7F7]"
-              }`}
-            >
-              Package Contents
-            </button>
-            <button
-              onClick={() => setActiveTab("warranty")}
-              className={`px-5 py-2.5 text-xs font-bold rounded-lg whitespace-nowrap transition-colors ${
-                activeTab === "warranty"
-                  ? "bg-[#111111] text-white"
-                  : "text-neutral-600 hover:text-[#111111] hover:bg-[#F7F7F7]"
-              }`}
-            >
-              Quality & Warranty
-            </button>
-            <button
-              onClick={() => setActiveTab("reviews")}
-              className={`px-5 py-2.5 text-xs font-bold rounded-lg whitespace-nowrap transition-colors ${
-                activeTab === "reviews"
-                  ? "bg-[#111111] text-white"
-                  : "text-neutral-600 hover:text-[#111111] hover:bg-[#F7F7F7]"
-              }`}
-            >
-              Reviews ({reviews.length})
-            </button>
-          </div>
-
-          {/* Tab 1: Structured Technical Specifications Table */}
-          {activeTab === "specs" && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-              <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold text-[#111111]">
-                  Engineering & Technical Specifications Table
-                </h3>
-                <button
-                  type="button"
-                  onClick={() => alert("Downloading official technical datasheet PDF (Simulated).")}
-                  className="flex items-center gap-1.5 text-xs font-bold text-[#111111] hover:text-[#1F7A4D] transition-colors"
-                >
-                  <Download size={14} />
-                  <span>Download Spec Sheet (PDF)</span>
-                </button>
-              </div>
-
-              <div className="border border-[#EAEAEA] rounded-xl overflow-hidden">
-                <table className="w-full text-left text-xs border-collapse">
-                  <thead>
-                    <tr className="bg-[#FAFAFA] border-b border-[#EAEAEA] text-neutral-700 font-bold uppercase tracking-wider text-3xs">
-                      <th className="p-4 w-1/3">Technical Parameter</th>
-                      <th className="p-4">Factory Verified Specification</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#EAEAEA] font-medium text-neutral-700">
-                    {Object.entries(productSpecs).length > 0 ? (
-                      Object.entries(productSpecs).map(([key, val], idx) => (
-                        <tr key={key} className={idx % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]"}>
-                          <td className="p-4 font-bold text-[#111111]">{key}</td>
-                          <td className="p-4 font-mono text-neutral-800">{String(val)}</td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan={2} className="p-6 text-center text-neutral-400">
-                          Contact DR.MEDEX engineering team for detailed technical specification documentation.
-                        </td>
-                      </tr>
-                    )}
-                    <tr className="bg-[#FAFAFA]">
-                      <td className="p-4 font-bold text-[#111111]">Power Supply Requirements</td>
-                      <td className="p-4 font-mono text-neutral-800">{product.powerRequirements || "Universal 100–240V AC"}</td>
-                    </tr>
-                    <tr>
-                      <td className="p-4 font-bold text-[#111111]">Manufacturing Quality Standard</td>
-                      <td className="p-4 font-mono text-neutral-800">ISO 13485:2016 / CE Medical Device Directive</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-
-          {/* Tab 2: Overview */}
-          {activeTab === "overview" && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-              <h3 className="text-base font-bold text-[#111111]">Clinical Overview & Purpose</h3>
-              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-3xl whitespace-pre-line">
-                {productOverview}
-              </p>
-
-              {productFeatures.length > 0 && (
-                <div className="mt-6">
-                  <h4 className="text-xs font-bold text-[#111111] uppercase tracking-wider mb-4">
-                    Comprehensive Feature Set
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-neutral-700">
-                    {productFeatures.map((f, i) => (
-                      <div key={i} className="p-4 bg-[#FAFAFA] border border-[#EAEAEA] rounded-xl flex items-start gap-3">
-                        <Check size={16} className="text-[#1F7A4D] shrink-0 mt-0.5" />
-                        <span>{f}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Tab 3: Applications */}
-          {activeTab === "applications" && (
-            <div className="space-y-5 animate-in fade-in duration-200">
-              <h3 className="text-base font-bold text-[#111111]">Clinical Indications & Surgical Procedures</h3>
-              <p className="text-xs text-neutral-500">
-                Validated for hospital departments, outpatient surgical centers, and physical rehabilitation wards:
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                {productApplications.length > 0 ? (
-                  productApplications.map((app, idx) => (
-                    <div key={idx} className="p-4 bg-[#FAFAFA] rounded-xl border border-[#EAEAEA] flex items-center gap-3.5">
-                      <div className="w-7 h-7 rounded-full bg-white border border-[#EAEAEA] text-[#111111] flex items-center justify-center font-bold text-3xs shrink-0 shadow-2xs">
-                        {idx + 1}
-                      </div>
-                      <span className="font-semibold text-neutral-800">{app}</span>
-                    </div>
-                  ))
-                ) : (
-                  <div className="p-4 text-xs text-neutral-400">General hospital and clinic installations.</div>
+              {/* 2. Pricing Section */}
+              <div className="flex items-baseline gap-3 pt-0.5 flex-wrap shrink-0">
+                <span className="text-2xl sm:text-3xl font-extrabold text-[#171717] font-mono tracking-tight">
+                  {formatPrice(product.basePrice)}
+                </span>
+                {originalPrice && originalPrice > product.basePrice && (
+                  <span className="text-base sm:text-lg text-neutral-400 line-through font-mono">
+                    {formatPrice(originalPrice)}
+                  </span>
+                )}
+                {discountPercentage > 0 && (
+                  <span className="px-2.5 py-1 text-xs font-bold uppercase bg-[#D92D32] text-white rounded tracking-wide shadow-2xs">
+                    {discountPercentage}% OFF
+                  </span>
                 )}
               </div>
-            </div>
-          )}
 
-          {/* Tab 4: Package Contents */}
-          {activeTab === "package" && (
-            <div className="space-y-5 animate-in fade-in duration-200">
-              <h3 className="text-base font-bold text-[#111111]">Standard Included Package & Accessories</h3>
-              <p className="text-xs text-neutral-500">
-                Every unit arrives sealed in export wooden crating with all standard sterilizable accessories:
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                {productPackage.map((item, idx) => (
-                  <div key={idx} className="p-4 bg-[#FAFAFA] rounded-xl border border-[#EAEAEA] flex items-start gap-3">
-                    <Package size={16} className="text-[#111111] shrink-0 mt-0.5" />
-                    <span className="font-medium text-neutral-800">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+              {/* 3. Horizontal Divider below Pricing */}
+              <hr className="border-t border-neutral-200 my-1.5 shrink-0" />
 
-          {/* Tab 5: Warranty & Logistics */}
-          {activeTab === "warranty" && (
-            <div className="space-y-6 animate-in fade-in duration-200 text-xs text-neutral-700">
-              <h3 className="text-base font-bold text-[#111111]">Quality, Warranty & Export Crating</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="p-5 bg-[#FAFAFA] border border-[#EAEAEA] rounded-xl space-y-2.5">
-                  <Award size={20} className="text-[#111111]" />
-                  <div className="font-bold text-[#111111]">5-Year OEM Warranty</div>
-                  <p className="text-neutral-500 text-2xs leading-relaxed">
-                    Direct coverage on LED arrays, motors, generators, and chassis components with rapid air shipment of genuine replacement assemblies.
-                  </p>
-                </div>
-                <div className="p-5 bg-[#FAFAFA] border border-[#EAEAEA] rounded-xl space-y-2.5">
-                  <ShieldCheck size={20} className="text-[#1F7A4D]" />
-                  <div className="font-bold text-[#111111]">ISO 13485:2016 Compliant</div>
-                  <p className="text-neutral-500 text-2xs leading-relaxed">
-                    Manufactured under international medical device standards with complete batch traceability and test certificates included in crate.
-                  </p>
-                </div>
-                <div className="p-5 bg-[#FAFAFA] border border-[#EAEAEA] rounded-xl space-y-2.5">
-                  <Truck size={20} className="text-[#111111]" />
-                  <div className="font-bold text-[#111111]">Shockproof Export Crate</div>
-                  <p className="text-neutral-500 text-2xs leading-relaxed">
-                    Custom molded foam lining inside heat-treated ISPM-15 export wooden crates protects delicate optical and electronic circuits during air cargo.
-                  </p>
+              {/* 4. Description Section - Fills available vertical space naturally */}
+              <div className="flex-1 min-h-[60px] flex flex-col my-0.5">
+                <h2 className="text-sm font-bold text-[#2D5A4A] tracking-tight mb-1.5 shrink-0">
+                  Description
+                </h2>
+                <div className="flex-1 min-h-0 max-h-[220px] lg:max-h-none overflow-y-auto pr-3 text-xs sm:text-[13px] text-neutral-600 leading-relaxed product-description-scrollbar [scrollbar-color:#7AA05A_#F3F4F6] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-[#F3F4F6] [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#7AA05A] hover:[&::-webkit-scrollbar-thumb]:bg-[#6B8F4E] [&::-webkit-scrollbar-thumb]:rounded-full">
+                  {productOverview ? (
+                    <p className="whitespace-pre-line pb-2">{productOverview}</p>
+                  ) : (
+                    <p className="text-xs text-neutral-400 italic">No description provided for this equipment.</p>
+                  )}
                 </div>
               </div>
-            </div>
-          )}
 
-          {/* Tab 6: Reviews */}
-          {activeTab === "reviews" && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-base font-bold text-[#111111]">Verified Clinical Reviews</h3>
-                  <p className="text-xs text-neutral-500">From healthcare facilities and practicing biomedical teams.</p>
-                </div>
+              {/* Horizontal Divider below Description */}
+              <hr className="border-t border-neutral-200 my-1 shrink-0" />
+            </div>
+
+            {/* Bottom Group: Purchase Buttons & 2x2 Specifications */}
+            <div className="mt-auto pt-2 shrink-0 space-y-3.5">
+              {/* Purchase Buttons */}
+              <div className="flex flex-col sm:flex-row items-center gap-3 w-full">
+                {/* Add to Cart button: Filled Moss Green #7AA05A bg, white text & cart icon */}
                 <button
                   type="button"
-                  onClick={() => setShowReviewForm(!showReviewForm)}
-                  className="px-5 py-2.5 bg-[#111111] text-white rounded-xl text-xs font-bold hover:bg-[#1F7A4D] transition-colors"
+                  onClick={handleAddToCart}
+                  className="w-full sm:flex-1 h-11 sm:h-12 px-4 bg-[#7AA05A] hover:bg-[#6b8f4e] text-white border border-[#7AA05A] rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-colors duration-200 shadow-2xs cursor-pointer select-none"
                 >
-                  Write a Review
+                  {isAdded ? (
+                    <Check size={18} className="text-white" />
+                  ) : (
+                    <ShoppingCart size={18} className="text-white" />
+                  )}
+                  <span>{isAdded ? "Added to Cart" : "Add to Cart"}</span>
+                </button>
+
+                {/* Buy Now button: Solid Slate Green #2D5A4A bg, white text */}
+                <button
+                  type="button"
+                  onClick={handleBuyNow}
+                  disabled={isSubmittingBuy}
+                  className="w-full sm:flex-1 h-11 sm:h-12 px-4 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center transition-colors duration-200 shadow-2xs cursor-pointer select-none disabled:opacity-50"
+                >
+                  {isSubmittingBuy ? "Processing..." : "Buy Now"}
                 </button>
               </div>
 
-              {reviewSuccess && (
-                <div className="p-3.5 bg-[#EAF5EF] border border-[#1F7A4D]/20 rounded-xl text-xs text-[#145A38] font-semibold">
-                  Thank you! Your verified review has been recorded.
-                </div>
-              )}
+              {/* Four Specification Items in a 2x2 Grid with Plus-Shaped Divider (+) */}
+              <div className="pt-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-0 gap-y-3">
+                  {specCards.map((card, idx) => {
+                    const IconComponent = card.icon;
+                    const isLeftCol = idx % 2 === 0;
+                    const isTopRow = idx < 2;
+                    const isLastMobile = idx === specCards.length - 1;
 
-              {/* Review submission form */}
-              {showReviewForm && (
-                <form onSubmit={handleReviewSubmit} className="p-6 bg-[#FAFAFA] border border-[#EAEAEA] rounded-2xl space-y-4 text-xs">
-                  <h4 className="font-bold text-[#111111]">Submit Practitioner Review</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div>
-                      <label className="block font-bold text-neutral-700 mb-1.5">Your Name & Title *</label>
-                      <input
-                        type="text"
-                        required
-                        value={reviewAuthor}
-                        onChange={(e) => setReviewAuthor(e.target.value)}
-                        placeholder="e.g. Dr. Sarah Jenkins"
-                        className="w-full p-2.5 border border-[#EAEAEA] rounded-lg bg-white text-[#111111] focus:outline-none focus:border-[#111111]"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-bold text-neutral-700 mb-1.5">Hospital / Clinic *</label>
-                      <input
-                        type="text"
-                        required
-                        value={reviewFacility}
-                        onChange={(e) => setReviewFacility(e.target.value)}
-                        placeholder="e.g. Memorial Hospital, London"
-                        className="w-full p-2.5 border border-[#EAEAEA] rounded-lg bg-white text-[#111111] focus:outline-none focus:border-[#111111]"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-bold text-neutral-700 mb-1.5">Rating</label>
-                      <select
-                        value={reviewRating}
-                        onChange={(e) => setReviewRating(Number(e.target.value))}
-                        className="w-full p-2.5 border border-[#EAEAEA] rounded-lg bg-white text-[#111111] focus:outline-none focus:border-[#111111]"
+                    return (
+                      <div
+                        key={card.id}
+                        className={`flex items-start gap-3 min-w-0 ${
+                          !isLastMobile ? "border-b border-neutral-100 pb-3" : "pb-0"
+                        } ${
+                          isLeftCol
+                            ? "sm:border-r sm:border-[#7AA05A]/50 sm:pr-4"
+                            : "sm:border-r-0 sm:pl-4"
+                        } ${
+                          isTopRow
+                            ? "sm:border-b sm:border-[#7AA05A]/50 sm:pb-3.5 sm:pt-0"
+                            : "sm:border-b-0 sm:pt-3.5 sm:pb-0"
+                        }`}
                       >
-                        <option value={5}>5 Stars (Excellent)</option>
-                        <option value={4}>4 Stars (Very Good)</option>
-                        <option value={3}>3 Stars (Satisfactory)</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block font-bold text-neutral-700 mb-1.5">Clinical Experience Feedback *</label>
-                    <textarea
-                      rows={3}
-                      required
-                      value={reviewComment}
-                      onChange={(e) => setReviewComment(e.target.value)}
-                      placeholder="Comment on equipment reliability, optics, precision, or clinic usability..."
-                      className="w-full p-2.5 border border-[#EAEAEA] rounded-lg bg-white text-[#111111] focus:outline-none focus:border-[#111111]"
-                    />
-                  </div>
-                  <div className="flex justify-end gap-3 pt-1">
-                    <button
-                      type="button"
-                      onClick={() => setShowReviewForm(false)}
-                      className="px-5 py-2.5 border border-[#EAEAEA] rounded-lg text-neutral-600 hover:bg-[#F7F7F7]"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      className="px-6 py-2.5 bg-[#111111] hover:bg-[#1F7A4D] text-white font-bold rounded-lg transition-colors"
-                    >
-                      Post Review
-                    </button>
-                  </div>
-                </form>
-              )}
-
-              {/* Reviews List */}
-              <div className="space-y-4">
-                {reviews.length === 0 ? (
-                  <p className="text-xs text-neutral-500">No customer reviews yet. Be the first to review this equipment.</p>
-                ) : (
-                  reviews.map((rev) => (
-                    <div key={rev.id} className="p-5 bg-[#FAFAFA] border border-[#EAEAEA] rounded-xl space-y-2.5">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <span className="font-bold text-xs text-[#111111]">{rev.author}</span>
-                          <span className="text-3xs text-neutral-500 ml-2 font-medium">({rev.facility})</span>
+                        <div className="w-10 h-10 rounded-full bg-[#2D5A4A] flex items-center justify-center text-white shrink-0 shadow-2xs mt-0.5">
+                          <IconComponent size={20} strokeWidth={2} />
                         </div>
-                        <span className="text-3xs text-neutral-400">{rev.date}</span>
+                        <div className="min-w-0 flex-1">
+                          <h3 className="text-xs sm:text-[13px] font-bold text-[#171717] tracking-tight leading-tight">
+                            {card.title}
+                          </h3>
+                          <p className="text-[11px] sm:text-xs font-normal text-[#6B7280] leading-snug break-words whitespace-pre-line mt-0.5">
+                            {card.value}
+                          </p>
+                        </div>
                       </div>
-                      <div className="flex text-[#111111]">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} size={13} fill={i < rev.rating ? "currentColor" : "none"} />
-                        ))}
-                      </div>
-                      <p className="text-xs text-neutral-600 italic leading-relaxed">"{rev.comment}"</p>
-                    </div>
-                  ))
-                )}
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          )}
+          </div>
         </div>
 
-        {/* Related Medical Equipment */}
+        {/* ========================================================= */}
+        {/* LOWER PRODUCT INFORMATION: STRUCTURED MEDICAL CATALOGUE   */}
+        {/* Alternating Left - Right - Left Layout on Desktop         */}
+        {/* 1. Clinical Indications & Specialty Procedures (Left)     */}
+        {/* 2. Standard Included Package Contents (Right)             */}
+        {/* 3. Key Factors & Engineering Highlights (Left)           */}
+        {/* ========================================================= */}
+        <div className="mt-12 sm:mt-16 space-y-8 sm:space-y-10">
+          {/* 1. Clinical Indications & Specialty Procedures (Row 1 - Left Aligned) */}
+          <section className="w-full lg:max-w-2xl lg:mr-auto">
+            <div className="mb-3.5">
+              <div className="flex items-center gap-2 mb-1">
+                <div className="w-2 h-2 rounded-full bg-[#2D5A4A] shrink-0" />
+                <h3 className="text-base sm:text-lg font-bold text-[#2D5A4A] tracking-tight">
+                  Clinical Indications & Specialty Procedures
+                </h3>
+              </div>
+              <p className="text-xs sm:text-[13px] text-[#7AA05A] ml-4">
+                Verified clinical indications, departmental applications, and specialty procedure protocols.
+              </p>
+            </div>
+
+            {productApplications.length > 0 ? (
+              <ul className="ml-4 space-y-2.5">
+                {productApplications.map((app, idx) => (
+                  <li key={`app-${idx}`} className="flex items-start gap-2.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#7AA05A] shrink-0 mt-2" />
+                    <span className="text-xs sm:text-[13px] leading-relaxed text-[#171717]">
+                      {app}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="ml-4 text-xs text-neutral-500 italic">
+                Clinical application guidelines and specialty procedure protocols available on request.
+              </p>
+            )}
+          </section>
+
+          {/* Subtle separator */}
+          <hr className="border-t border-[#E5E7EB]" />
+
+          {/* 2. Standard Included Package Contents (Row 2 - Right Aligned Block) */}
+          <section className="w-full lg:max-w-2xl lg:ml-auto">
+            <div className="mb-3.5">
+              <div className="flex items-center gap-2 mb-1">
+                <div className="w-2 h-2 rounded-full bg-[#2D5A4A] shrink-0" />
+                <h3 className="text-base sm:text-lg font-bold text-[#2D5A4A] tracking-tight">
+                  Standard Included Package Contents
+                </h3>
+              </div>
+              <p className="text-xs sm:text-[13px] text-[#7AA05A] ml-4">
+                Standard accessories, documentation, and included assemblies.
+              </p>
+            </div>
+
+            {productPackage.length > 0 ? (
+              <ul className="ml-4 space-y-2.5">
+                {productPackage.map((item, idx) => (
+                  <li key={`pkg-${idx}`} className="flex items-start gap-2.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#7AA05A] shrink-0 mt-2" />
+                    <span className="text-xs sm:text-[13px] leading-relaxed text-[#171717]">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="ml-4 text-xs text-neutral-500 italic">
+                Standard package accessories and certified documentation available upon request.
+              </p>
+            )}
+          </section>
+
+          {/* Subtle separator */}
+          <hr className="border-t border-[#E5E7EB]" />
+
+          {/* 3. Key Factors & Engineering Highlights (Row 3 - Left Aligned) */}
+          <section className="w-full lg:max-w-2xl lg:mr-auto">
+            <div className="mb-3.5">
+              <div className="flex items-center gap-2 mb-1">
+                <div className="w-2 h-2 rounded-full bg-[#2D5A4A] shrink-0" />
+                <h3 className="text-base sm:text-lg font-bold text-[#2D5A4A] tracking-tight">
+                  Key Factors & Engineering Highlights
+                </h3>
+              </div>
+              <p className="text-xs sm:text-[13px] text-[#7AA05A] ml-4">
+                Verified operational capabilities, safety mechanisms, and performance highlights.
+              </p>
+            </div>
+
+            {productKeyFactors.length > 0 ? (
+              <ul className="ml-4 space-y-3">
+                {productKeyFactors.map((item, idx) => {
+                  const parsed = parseKeyFactor(item);
+                  return (
+                    <li key={`kf-${idx}`} className="flex items-start gap-2.5">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#7AA05A] shrink-0 mt-2" />
+                      <div className="text-xs sm:text-[13px] leading-relaxed text-[#171717]">
+                        <span className="font-bold text-[#2D5A4A]">{parsed.title} </span>
+                        {parsed.detail && (
+                          <span className="font-normal text-[#171717]">{parsed.detail}</span>
+                        )}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <p className="ml-4 text-xs text-neutral-500 italic">
+                Technical specifications, operating parameters, and engineering dossier available upon request.
+              </p>
+            )}
+          </section>
+        </div>
+
+        {/* ========================================================= */}
+        {/* CLINICAL EVALUATIONS & VERIFIED PRACTITIONER REVIEWS      */}
+        {/* Cloud Firestore Powered with Grounded Gemini AI Assistant  */}
+        {/* ========================================================= */}
+        <ProductReviewsSection
+          productId={product.id || (product as any)._id || product.slug || slug || "product"}
+          productSlug={product.slug || slug || product.id}
+          productTitle={product.title || product.productName || "Medical Device"}
+          productImage={(product.images && product.images[0]) || (product as any).image || (product as any).imageUrl || ""}
+          category={product.category}
+        />
+
+        {/* ========================================================= */}
+        {/* RELATED MEDICAL EQUIPMENT (Compact Card Row)              */}
+        {/* ========================================================= */}
         {relatedProducts.length > 0 && (
-          <div className="mb-14">
-            <div className="flex items-center justify-between mb-8">
-              <h3 className="text-xl font-black text-[#111111] tracking-tight">
-                Complementary & Related Medical Equipment
-              </h3>
-              <Link to={`/shop-all?category=${product.category}`} className="text-xs font-bold text-[#111111] hover:text-[#1F7A4D] transition-colors">
+          <div className="mt-14 sm:mt-20 border-t border-[#E5E1DD] pt-10">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <span className="text-2xs font-bold uppercase tracking-wider text-[#7AA05A]">Clinical Complement</span>
+                <h3 className="text-lg sm:text-xl font-extrabold text-[#2D5A4A] tracking-tight">
+                  Related Medical Equipment
+                </h3>
+              </div>
+              <Link
+                to={`/shop-all?category=${product.category}`}
+                className="text-xs font-bold text-[#2D5A4A] hover:text-[#7AA05A] transition-colors"
+              >
                 View Category →
               </Link>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {relatedProducts.map((p) => (
                 <ProductCard key={p.id} product={p} onOpenQuote={() => setIsQuoteModalOpen(true)} />
               ))}
@@ -769,7 +1097,7 @@ export const ProductDetailPage: React.FC = () => {
         )}
       </div>
 
-      {/* B2B Quote Modal */}
+      {/* B2B Institutional Quote Modal */}
       <B2BQuoteModal
         product={product}
         isOpen={isQuoteModalOpen}

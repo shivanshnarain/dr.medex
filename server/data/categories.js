@@ -17,7 +17,8 @@ const categories = [
       { id: "longwave-diathermy", slug: "longwave-diathermy-machine", name: "Longwave Diathermy Machine" },
       { id: "shockwave", slug: "shockwave-therapy-machine", name: "Shockwave Therapy Machine" },
       { id: "traction", slug: "electronic-traction-machine", name: "Electronic Traction Machine" },
-      { id: "muscle-stimulator", slug: "electric-muscle-stimulator", name: "Electric Muscle Stimulator" }
+      { id: "muscle-stimulator", slug: "electric-muscle-stimulator", name: "Electric Muscle Stimulator" },
+      { id: "combination-therapy", slug: "combination-therapy-machines", name: "Combination Electrotherapy Systems" }
     ]
   },
   {
@@ -32,7 +33,8 @@ const categories = [
     subcategories: [
       { id: "cautery", slug: "electro-surgical-skin-cautery", name: "Electrosurgical Cautery" },
       { id: "generators", slug: "electrosurgical-generator", name: "Electrosurgical Generators" },
-      { id: "accessories", slug: "surgical-accessories", name: "Surgical Electrodes & Accessories" }
+      { id: "accessories", slug: "surgical-accessories", name: "Surgical Electrodes & Accessories" },
+      { id: "smoke-evacuators", slug: "smoke-evacuation-systems", name: "Surgical Smoke Evacuators" }
     ]
   },
   {
@@ -63,7 +65,8 @@ const categories = [
       { id: "single-dome", slug: "single-dome-ot-lights", name: "Single Dome OT Lights" },
       { id: "double-dome", slug: "ot-surgical-lights-double-dome", name: "Double Dome OT Lights" },
       { id: "mobile-lights", slug: "mobile-led-ot-lights", name: "Mobile OT Lights" },
-      { id: "ceiling-lights", slug: "ceiling-mounted-systems", name: "Ceiling-Mounted Systems" }
+      { id: "ceiling-lights", slug: "ceiling-mounted-systems", name: "Ceiling-Mounted Systems" },
+      { id: "examination-lights", slug: "examination-lights", name: "Examination Lights & Lamps" }
     ]
   },
   {
@@ -108,7 +111,9 @@ const categories = [
     subcategories: [
       { id: "diagnostic", slug: "diagnostic-equipment", name: "Diagnostic Instruments" },
       { id: "headlights", slug: "surgical-headlights", name: "Surgical Headlights" },
-      { id: "trolleys", slug: "medical-trolleys", name: "Medical Equipment Trolleys" }
+      { id: "trolleys", slug: "medical-trolleys", name: "Medical Equipment Trolleys" },
+      { id: "insufflators", slug: "laparoscopic-insufflation", name: "Laparoscopic Insufflators" },
+      { id: "biopsy-instruments", slug: "surgical-instruments-biopsy", name: "Biopsy & Minor Surgery Instruments" }
     ]
   }
 ];

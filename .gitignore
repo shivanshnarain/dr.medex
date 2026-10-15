@@ -5,3 +5,9 @@ dist
 .env
 .env.*
 .env.local
+**/.env
+**/.env.*
+*serviceAccount*.json
+*service-account*.json
+firebase-debug.log*
+firestore-debug.log*

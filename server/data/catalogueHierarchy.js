@@ -4,6 +4,8 @@
  * 1. Primary Category (7 categories)
  * 2. Subcategory (dependent)
  * 3. Product / Equipment Type (dependent)
+ *
+ * Enriched with full discovery from reference medical equipment catalogue
  */
 
 const catalogueHierarchy = {
@@ -53,6 +55,16 @@ const catalogueHierarchy = {
           { id: "spring-arm-suspension", name: "Heavy-Duty Spring Arm Ceiling Suspension", defaultCode: "SAS" },
           { id: "low-ceiling-assembly", name: "Low-Ceiling Surgical Light Assembly", defaultCode: "LCA" }
         ]
+      },
+      {
+        id: "examination-lights",
+        name: "Examination Lights & Lamps",
+        equipmentTypes: [
+          { id: "gooseneck-led-exam", name: "Flexible Gooseneck LED Examination Light", defaultCode: "GEL" },
+          { id: "wall-mounted-shadowless", name: "Wall-Mounted Shadowless Examination Lamp", defaultCode: "WSL" },
+          { id: "ceiling-minor-procedure", name: "Ceiling-Suspended Minor Procedure Light", defaultCode: "CMP" },
+          { id: "table-clamp-exam-light", name: "Table-Clamp Clinical Examination Lamp", defaultCode: "TCE" }
+        ]
       }
     ]
   },
@@ -70,7 +82,8 @@ const catalogueHierarchy = {
           { id: "rf-cautery-3-5mhz", name: "RF Radiofrequency Cautery Unit (3.5 MHz)", defaultCode: "RFC" },
           { id: "digital-cautery-mono-bi", name: "Digital Monopolar & Bipolar Cautery", defaultCode: "DMC" },
           { id: "battery-pen-cautery", name: "Battery-Operated Portable Pen Cautery", defaultCode: "BPC" },
-          { id: "dermatology-micro-cautery", name: "Dermatology / Ophthalmology Micro Cautery", defaultCode: "DMC" }
+          { id: "dermatology-micro-cautery", name: "Dermatology / Ophthalmology Micro Cautery", defaultCode: "DMC" },
+          { id: "wet-field-bipolar-coagulator", name: "Wet-Field Bipolar Coagulator (Ophthalmic & ENT)", defaultCode: "WBC" }
         ]
       },
       {
@@ -92,6 +105,14 @@ const catalogueHierarchy = {
           { id: "bipolar-forceps-cable", name: "Bipolar Coagulation Forceps & Cable", defaultCode: "BFC" },
           { id: "footswitch-controller", name: "Foot Switch Controller Assembly", defaultCode: "FSC" }
         ]
+      },
+      {
+        id: "smoke-evacuation-systems",
+        name: "Surgical Smoke Evacuators",
+        equipmentTypes: [
+          { id: "portable-smoke-evacuator-hepa", name: "Portable Surgical Smoke Evacuator with HEPA Filtration", defaultCode: "PSE" },
+          { id: "high-suction-smoke-evacuator", name: "High-Suction ULPA Surgical Smoke Evacuation System", defaultCode: "SSE" }
+        ]
       }
     ]
   },
@@ -106,6 +127,7 @@ const catalogueHierarchy = {
         id: "cryo-gun",
         name: "Cryo Surgical Guns",
         equipmentTypes: [
+          { id: "liquid-nitrogen-gun-300ml", name: "Precision Liquid Nitrogen Mini Cryo Gun (300 ml)", defaultCode: "C30" },
           { id: "liquid-nitrogen-gun-350ml", name: "Liquid Nitrogen Mini Cryo Gun (350 ml)", defaultCode: "C35" },
           { id: "liquid-nitrogen-gun-500ml", name: "Liquid Nitrogen Cryo Gun (500 ml)", defaultCode: "C50" },
           { id: "dermatology-cryo-sprayer", name: "Dermatology Precision Cryo Sprayer", defaultCode: "DPS" },
@@ -118,7 +140,8 @@ const catalogueHierarchy = {
         equipmentTypes: [
           { id: "clinical-cryo-system", name: "Clinical Cryotherapy System", defaultCode: "CCS" },
           { id: "gynaecology-cryo-cautery", name: "Gynecological Cryo Cautery System", defaultCode: "GCC" },
-          { id: "cryo-decongestive-unit", name: "Cryo Decongestive Chamber Unit", defaultCode: "CDU" }
+          { id: "cryo-decongestive-unit", name: "Cryo Decongestive Chamber Unit", defaultCode: "CDU" },
+          { id: "cordless-cervical-thermal-ablation", name: "Cordless Cervical Thermal Ablation Thermocoagulator", defaultCode: "CTA" }
         ]
       },
       {
@@ -156,7 +179,8 @@ const catalogueHierarchy = {
         equipmentTypes: [
           { id: "clinical-exam-bed", name: "Electric Clinical Examination Bed", defaultCode: "CEB" },
           { id: "hydraulic-treatment-couch", name: "2-Section Hydraulic Treatment Couch", defaultCode: "HTC" },
-          { id: "hi-low-exam-couch", name: "Hi-Low Examination Couch with Paper Roll", defaultCode: "HLE" }
+          { id: "hi-low-exam-couch", name: "Hi-Low Examination Couch with Paper Roll", defaultCode: "HLE" },
+          { id: "multi-section-exam-table", name: "Multi-Section Clinical Examination Table", defaultCode: "MET" }
         ]
       },
       {
@@ -165,7 +189,9 @@ const catalogueHierarchy = {
         equipmentTypes: [
           { id: "dermatology-chair", name: "Adjustable Dermatology & Cosmetology Chair", defaultCode: "ADC" },
           { id: "rehab-massage-bed", name: "Rehabilitation & Massage Treatment Bed", defaultCode: "RMB" },
-          { id: "diagnostic-tilt-table", name: "Tilt-Table for Physical Diagnostics", defaultCode: "TTD" }
+          { id: "diagnostic-tilt-table", name: "Tilt-Table for Physical Diagnostics", defaultCode: "TTD" },
+          { id: "rotating-electric-spa-bed", name: "Rotating Electric Facial & Spa Treatment Bed", defaultCode: "RFB" },
+          { id: "zero-gravity-therapy-chair", name: "Electric 4D Zero Gravity Physical Therapy Chair", defaultCode: "ZGC" }
         ]
       }
     ]
@@ -221,7 +247,9 @@ const catalogueHierarchy = {
           { id: "diagnostic-station", name: "Digital Diagnostic Station", defaultCode: "DDS" },
           { id: "vitrectomy-system", name: "Ophthalmic Anterior Vitrectomy System", defaultCode: "AVS" },
           { id: "needleless-jet-injector", name: "High-Pressure Needleless Jet Injector", defaultCode: "NJI" },
-          { id: "vital-signs-monitor", name: "Digital Vital Signs Patient Monitor", defaultCode: "VSM" }
+          { id: "vital-signs-monitor", name: "Digital Vital Signs Patient Monitor", defaultCode: "VSM" },
+          { id: "infrared-vein-finder-glasses", name: "Hands-Free Infrared Vein Finder Glasses", defaultCode: "VFG" },
+          { id: "handheld-vein-illuminator", name: "Handheld Vascular Infrared Vein Illuminator", defaultCode: "HVI" }
         ]
       },
       {
@@ -241,6 +269,22 @@ const catalogueHierarchy = {
           { id: "instrument-trolley", name: "Operating Theatre Instrument Trolley", defaultCode: "OIT" },
           { id: "emergency-crash-cart", name: "Emergency Crash Cart & Utility Trolley", defaultCode: "ECC" }
         ]
+      },
+      {
+        id: "laparoscopic-insufflation",
+        name: "Laparoscopic Insufflators",
+        equipmentTypes: [
+          { id: "co2-insufflator-30l", name: "Laparoscopic CO₂ Insufflator 30L with Gas Heating", defaultCode: "INF" },
+          { id: "co2-insufflator-40l", name: "High-Flow Laparoscopic CO₂ Insufflator 40L", defaultCode: "HF4" }
+        ]
+      },
+      {
+        id: "surgical-instruments-biopsy",
+        name: "Biopsy & Minor Surgery Instruments",
+        equipmentTypes: [
+          { id: "sterile-biopsy-punch", name: "Sterile Disposable Dermal Biopsy Punch Set", defaultCode: "DBP" },
+          { id: "precision-biopsy-forceps", name: "Precision Endoscopic & Dermal Biopsy Forceps", defaultCode: "PBF" }
+        ]
       }
     ]
   },
@@ -257,7 +301,8 @@ const catalogueHierarchy = {
         equipmentTypes: [
           { id: "ultrasound-1mhz", name: "1 MHz Therapeutic Ultrasound Machine", defaultCode: "U01" },
           { id: "ultrasound-1-3mhz", name: "1 & 3 MHz Dual Frequency Ultrasound Therapy", defaultCode: "U13" },
-          { id: "ultrasound-portable", name: "Portable Compact Ultrasound Unit", defaultCode: "PCU" }
+          { id: "ultrasound-portable", name: "Portable Compact Ultrasound Unit", defaultCode: "PCU" },
+          { id: "ultrasound-wand-probe", name: "1 & 3 MHz Ultrasound Transducer Wand Probe", defaultCode: "UWP" }
         ]
       },
       {
@@ -274,7 +319,8 @@ const catalogueHierarchy = {
         name: "Laser Therapy Machines",
         equipmentTypes: [
           { id: "laser-class-3b", name: "Class 3B Clinical Cold Laser Therapy", defaultCode: "L3B" },
-          { id: "laser-dual-diode", name: "Dual Diode High-Intensity Laser Unit", defaultCode: "DIL" }
+          { id: "laser-dual-diode", name: "Dual Diode High-Intensity Laser Unit", defaultCode: "DIL" },
+          { id: "lllt-probe-cluster", name: "Low-Level Laser Therapy (LLLT) Cluster Probe", defaultCode: "LCP" }
         ]
       },
       {
@@ -282,7 +328,8 @@ const catalogueHierarchy = {
         name: "Continuous Passive Motion (CPM)",
         equipmentTypes: [
           { id: "cpm-lower-limb", name: "Lower Limb Knee & Hip CPM Machine", defaultCode: "LLC" },
-          { id: "cpm-upper-limb", name: "Upper Limb Shoulder CPM Device", defaultCode: "ULC" }
+          { id: "cpm-upper-limb", name: "Upper Limb Shoulder CPM Device", defaultCode: "ULC" },
+          { id: "cpm-ankle-exerciser", name: "Continuous Passive Motion Ankle Joint Exerciser", defaultCode: "AJE" }
         ]
       },
       {
@@ -321,7 +368,16 @@ const catalogueHierarchy = {
         name: "Electric Muscle Stimulator",
         equipmentTypes: [
           { id: "muscle-stimulator-galvanic", name: "Diagnostic Muscle Stimulator with Galvanic/Faradic", defaultCode: "MGF" },
-          { id: "muscle-stimulator-nmse", name: "Digital Neuromuscular Stimulation Unit", defaultCode: "NMS" }
+          { id: "muscle-stimulator-nmse", name: "Digital Neuromuscular Stimulation Unit", defaultCode: "NMS" },
+          { id: "russian-current-stimulator", name: "Clinical Russian Current Muscle Stimulator", defaultCode: "RMS" }
+        ]
+      },
+      {
+        id: "combination-therapy-machines",
+        name: "Combination Electrotherapy Systems",
+        equipmentTypes: [
+          { id: "combo-ift-us-tens-ems", name: "4-in-1 Combination Therapy (IFT/Ultrasound/TENS/EMS)", defaultCode: "CMB" },
+          { id: "interferential-ift-unit", name: "Dual-Channel Clinical Interferential Therapy (IFT) Unit", defaultCode: "IFT" }
         ]
       }
     ]

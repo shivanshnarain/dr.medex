@@ -6,13 +6,13 @@ module.exports = [
     "slug": "1-3-mhz-ultrasound-therapy-with-dynamic-mode",
     "sku": "DRM-PHY-B943",
     "modelNumber": "Dynamic Brio",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
     "subcategoryName": "Ultrasound Therapy Machines",
     "productType": "Medical Equipment",
-    "status": "ACTIVE",
+    "status": "DRAFT",
     "featured": true,
     "bestseller": true,
     "newProduct": false,
@@ -186,9 +186,9 @@ module.exports = [
       "prod-1-mhz-ultrasound-therapy"
     ],
     "createdAt": "2026-10-03T15:44:43Z",
-    "updatedAt": "2026-10-10T07:35:00.000Z",
+    "updatedAt": "2026-10-11T14:07:49.120Z",
     "createdBy": "SYSTEM_IMPORT",
-    "updatedBy": "SYSTEM_IMPORT",
+    "updatedBy": "Roshan.official0009@gmail.com",
     "ribbon": "Dynamic Brio",
     "referencePricing": {
       "referenceSource": "SKRILIX Global Public Catalogue",
@@ -206,7 +206,25 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:39:44.225866+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "reviewStatus": "NEEDS_EDITING",
+    "reviewNote": null,
+    "reviewedBy": "roshan.official0009@gmail.com",
+    "reviewedAt": "2026-10-11T08:32:45.182Z",
+    "managedCloudinaryImages": [],
+    "originalImages": [
+      "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_1.png",
+      "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_2.png",
+      "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_3.png",
+      "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_4.png",
+      "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_5.png",
+      "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_6.png",
+      "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_7.png",
+      "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_8.png"
+    ],
+    "originalPrimaryImage": "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_1.png",
+    "cloudinarySyncStatus": "IMAGES_REMOVED",
+    "stock": 25
   },
   {
     "id": "prod-1-mhz-ultrasound-therapy",
@@ -215,7 +233,7 @@ module.exports = [
     "slug": "1-mhz-ultrasound-therapy-machine-2",
     "sku": "DRM-PHY-0878",
     "modelNumber": "Skyro 1 Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -391,9 +409,9 @@ module.exports = [
       "prod-2-channel-mini-tens"
     ],
     "createdAt": "2026-10-03T15:44:43Z",
-    "updatedAt": "2026-10-10T07:35:00.000Z",
+    "updatedAt": "2026-10-11T14:19:45.784Z",
     "createdBy": "SYSTEM_IMPORT",
-    "updatedBy": "SYSTEM_IMPORT",
+    "updatedBy": "Roshan.official0009@gmail.com",
     "ribbon": "Skyro 1 Pro",
     "referencePricing": {
       "referenceSource": "SKRILIX Global Public Catalogue",
@@ -411,7 +429,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:24.337592+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-1-mhz-3-mhz-compatible-t",
@@ -420,7 +439,7 @@ module.exports = [
     "slug": "1-mhz-3-mhz-compatible-transducer-head-for-skrilix-megamax-1-3",
     "sku": "DRM-PHY-5576",
     "modelNumber": "Megamax Probes",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "medical-equipment",
     "categoryName": "Medical Equipment",
     "subcategory": "ultrasound-therapy-machines",
@@ -610,16 +629,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:39:43.720126+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-1-mhz-ultrasound-therapy",
+    "id": "prod-1-mhz-ultrasound-therapy-machine-1",
     "productName": "DR.MEDEX 1MHz Ultrasound Therapy Machine – Advanced Treatment for Effective Healing",
     "title": "DR.MEDEX 1MHz Ultrasound Therapy Machine – Advanced Treatment for Effective Healing",
     "slug": "1-mhz-ultrasound-therapy-machine-1",
     "sku": "DRM-PHY-C57E",
     "modelNumber": "SUPRO 1",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -823,16 +843,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:14.088336+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-1-mhz-ultrasound-therapy",
+    "id": "prod-1-mhz-ultrasound-therapy-machine-for-home-use-convenient-effective-pain-relief",
     "productName": "DR.MEDEX 1 MHz Ultrasound Therapy Machine for Home Use- Convenient, Effective Pain Relief",
     "title": "DR.MEDEX 1 MHz Ultrasound Therapy Machine for Home Use- Convenient, Effective Pain Relief",
     "slug": "1-mhz-ultrasound-therapy-machine-for-home-use-convenient-effective-pain-relief",
     "sku": "DRM-PHY-51AE",
     "modelNumber": "HELIX 1",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -1014,16 +1035,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:23.347683+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-1-3-mhz-ultrasound-thera",
+    "id": "prod-1-3-mhz-ultrasound-therapy-machine",
     "productName": "DR.MEDEX 1 & 3 MHz Ultrasound Therapy Machine – Advanced Pain Relief & Physiotherapy Unit",
     "title": "DR.MEDEX 1 & 3 MHz Ultrasound Therapy Machine – Advanced Pain Relief & Physiotherapy Unit",
     "slug": "1-3-mhz-ultrasound-therapy-machine",
     "sku": "DRM-PHY-F8AB",
     "modelNumber": "ULTRONIX",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -1233,7 +1255,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:39:42.951859+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-1-and-3-mhz-ultrasound-t",
@@ -1242,7 +1265,7 @@ module.exports = [
     "slug": "1-and-3-mhz-ultrasound-therapy-machine-with-lcd-display-ideal-for-home-use",
     "sku": "DRM-ELE-5751",
     "modelNumber": "SONOMAX",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "electro-surgical-skin-cautery",
@@ -1422,16 +1445,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:39:40.208746+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-1-mhz-ultrasound-therapy",
+    "id": "prod-1-mhz-ultrasound-therapy-for-physical-therapy-machine",
     "productName": "DR.MEDEX 1 MHz Ultrasound Therapy For Physical Therapy Pain Relief",
     "title": "DR.MEDEX 1 MHz Ultrasound Therapy For Physical Therapy Pain Relief",
     "slug": "1-mhz-ultrasound-therapy-for-physical-therapy-machine",
     "sku": "DRM-PHY-6110",
     "modelNumber": "DROGON",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -1615,16 +1639,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:09.802113+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-1-mhz-ultrasound-therapy",
+    "id": "prod-1-mhz-ultrasound-therapy-machine",
     "productName": "DR.MEDEX 1 MHz Ultrasound Therapy Machine",
     "title": "DR.MEDEX 1 MHz Ultrasound Therapy Machine",
     "slug": "1-mhz-ultrasound-therapy-machine",
     "sku": "DRM-PHY-1179",
     "modelNumber": "GALAXY 3",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -1828,16 +1853,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:39:59.845965+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-1-mhz-ultrasound-therapy",
+    "id": "prod-1-mhz-ultrasound-therapy-machine-precision-and-effectiveness-for-advanced-pain",
     "productName": "DR.MEDEX 1 MHz Ultrasound Therapy Machine – Precision and Effectiveness for Advanced Pain",
     "title": "DR.MEDEX 1 MHz Ultrasound Therapy Machine – Precision and Effectiveness for Advanced Pain",
     "slug": "1-mhz-ultrasound-therapy-machine-precision-and-effectiveness-for-advanced-pain",
     "sku": "DRM-PHY-D25D",
     "modelNumber": "G1",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -2029,7 +2055,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:23.618436+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-1mhz-ultrasound-therapy-",
@@ -2038,7 +2065,7 @@ module.exports = [
     "slug": "1mhz-ultrasound-therapy-machine-for-physiotherapy-pain-relief",
     "sku": "DRM-ELE-0C9C",
     "modelNumber": "UltraPro:100",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "electrosurgical-generator",
@@ -2254,7 +2281,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:27.839849+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-2-channel-mini-tens",
@@ -2263,7 +2291,7 @@ module.exports = [
     "slug": "2-channel-mini-tens",
     "sku": "DRM-PHY-EF2B",
     "modelNumber": "Mini Stim",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "tens-machines",
@@ -2451,16 +2479,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:29.220004+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-1-3-mhz-ultrasound-thera",
+    "id": "prod-1-3-mhz-ultrasound-therapy-machine-with-27-preset-programs",
     "productName": "DR.MEDEX 1 & 3 MHz Ultrasound Therapy Machine with 27 Preset Programs",
     "title": "DR.MEDEX 1 & 3 MHz Ultrasound Therapy Machine with 27 Preset Programs",
     "slug": "1-3-mhz-ultrasound-therapy-machine-with-27-preset-programs",
     "sku": "DRM-PHY-6FA3",
     "modelNumber": "Megamax",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -2664,7 +2693,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:39:36.111271+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-3-5-mhz-rf-cautery-preci",
@@ -2673,7 +2703,7 @@ module.exports = [
     "slug": "3-5-mhz-rf-cautery-precision-electrosurgery-for-enhanced-surgical-outcomes",
     "sku": "DRM-ELE-8866",
     "modelNumber": "Top",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electro-surgical-skin-cautery",
@@ -2859,7 +2889,10 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:31.479297+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "reviewStatus": "PENDING",
+    "reviewNote": null,
+    "stock": 25
   },
   {
     "id": "prod-3-mhz-replacement-wand-p",
@@ -2868,7 +2901,7 @@ module.exports = [
     "slug": "3-mhz-replacement-wand-probe-for-primo",
     "sku": "DRM-PHY-A8B3",
     "modelNumber": "Supro 3 Probe",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "medical-equipment",
     "categoryName": "Medical Equipment",
     "subcategory": "ultrasound-therapy-machines",
@@ -3046,7 +3079,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:30.307795+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-3-mhz-ultrasound-therapy",
@@ -3055,7 +3089,7 @@ module.exports = [
     "slug": "3-mhz-ultrasound-therapy-machine",
     "sku": "DRM-PHY-DECB",
     "modelNumber": "SUPRO 3",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -3279,16 +3313,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:34.437563+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-1-mhz-ultrasound-therapy",
+    "id": "prod-1-mhz-ultrasound-therapy-machine-skrilix-pain-management-system-for-pain-relief",
     "productName": "DR.MEDEX 1 MHz Ultrasound Therapy Machine |DR.MEDEX Pain Management System for Pain Relief",
     "title": "DR.MEDEX 1 MHz Ultrasound Therapy Machine |DR.MEDEX Pain Management System for Pain Relief",
     "slug": "1-mhz-ultrasound-therapy-machine-skrilix-pain-management-system-for-pain-relief",
     "sku": "DRM-PHY-5878",
     "modelNumber": "HEAL-O-SONIC",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -3470,16 +3505,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:23.727861+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-1-mhz-ultrasound-therapy",
+    "id": "prod-1-mhz-ultrasound-therapy-machine-for-pain-relief",
     "productName": "DR.MEDEX 1 MHz Ultrasound Therapy Machine for Pain Relief Therapeutic ultrasound machine",
     "title": "DR.MEDEX 1 MHz Ultrasound Therapy Machine for Pain Relief Therapeutic ultrasound machine",
     "slug": "1-mhz-ultrasound-therapy-machine-for-pain-relief",
     "sku": "DRM-PHY-1024",
     "modelNumber": "ORION",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -3679,7 +3715,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:24.621079+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-2-channel-mini-tenswith-",
@@ -3688,7 +3725,7 @@ module.exports = [
     "slug": "2-channel-mini-tenswith-sticky-pads",
     "sku": "DRM-PHY-904A",
     "modelNumber": "Mini Stimo",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "tens-machines",
@@ -3876,16 +3913,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:29.479117+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-3-mhz-ultrasound-therapy",
+    "id": "prod-3-mhz-ultrasound-therapy-machine-1",
     "productName": "DR.MEDEX 3 MHz Ultrasound Therapy Machine For Physical Pain Relief",
     "title": "DR.MEDEX 3 MHz Ultrasound Therapy Machine For Physical Pain Relief",
     "slug": "3-mhz-ultrasound-therapy-machine-1",
     "sku": "DRM-PHY-15E6",
     "modelNumber": "Primo",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -4101,16 +4139,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:36.873763+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-3-mhz-ultrasound-therapy",
+    "id": "prod-3-mhz-ultrasound-therapy-machine-for-home-therapy-precision-and-relief-at-home",
     "productName": "DR.MEDEX 3 MHz Ultrasound Therapy Machine for Home Therapy Physical Pain relief Therapy",
     "title": "DR.MEDEX 3 MHz Ultrasound Therapy Machine for Home Therapy Physical Pain relief Therapy",
     "slug": "3-mhz-ultrasound-therapy-machine-for-home-therapy-precision-and-relief-at-home",
     "sku": "DRM-PHY-3895",
     "modelNumber": "Smart 3",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -4300,16 +4339,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:36.529415+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-3-mhz-ultrasound-therapy",
+    "id": "prod-3-mhz-ultrasound-therapy-machine-with-lcd-display-home-use-for-pain-reief-unit",
     "productName": "DR.MEDEX 3 MHz Ultrasound Therapy Machine with LCD Display – Home Use for Pain Reief Unit",
     "title": "DR.MEDEX 3 MHz Ultrasound Therapy Machine with LCD Display – Home Use for Pain Reief Unit",
     "slug": "3-mhz-ultrasound-therapy-machine-with-lcd-display-home-use-for-pain-reief-unit",
     "sku": "DRM-ELE-B9B2",
     "modelNumber": "03-LCD",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "electro-surgical-skin-cautery",
@@ -4511,16 +4551,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:40.493757+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-3-mhz-ultrasound-therapy",
+    "id": "prod-3-mhz-ultrasound-therapy-machine-special-edition",
     "productName": "DR.MEDEX 3MHz Ultrasound Therapy Machine - Advanced Therapeutic Solution",
     "title": "DR.MEDEX 3MHz Ultrasound Therapy Machine - Advanced Therapeutic Solution",
     "slug": "3-mhz-ultrasound-therapy-machine-special-edition",
     "sku": "DRM-ELE-902E",
     "modelNumber": "Viserion 3",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "electrosurgical-generator",
@@ -4738,7 +4779,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:37.115958+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-4-channel-tens-unit-with",
@@ -4747,7 +4789,7 @@ module.exports = [
     "slug": "4-channel-tens-unit-with-1-mhz-ultrasound-therapy-advanced-pain-relief-unit",
     "sku": "DRM-PHY-A316",
     "modelNumber": "ULTRATENS+",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -4937,7 +4979,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:45.799902+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-300-w-electrosurgical-ge",
@@ -4946,7 +4989,7 @@ module.exports = [
     "slug": "300-w-electrosurgical-generator-diathermy-machine",
     "sku": "DRM-ELE-18EE",
     "modelNumber": "SSE-300-TUR",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electrosurgical-generator",
@@ -5161,7 +5204,12 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:39.833540+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "reviewStatus": "CORRECT",
+    "reviewNote": null,
+    "reviewedBy": "roshan.official0009@gmail.com",
+    "reviewedAt": "2026-10-11T08:32:45.086Z",
+    "stock": 25
   },
   {
     "id": "prod-4-channel-tnes-machine",
@@ -5170,7 +5218,7 @@ module.exports = [
     "slug": "4-channel-tnes-machine",
     "sku": "DRM-PHY-5128",
     "modelNumber": "Stimo Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "tens-machines",
@@ -5362,7 +5410,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:46.268186+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-3mhz-ultrasound-therapy-",
@@ -5371,7 +5420,7 @@ module.exports = [
     "slug": "3mhz-ultrasound-therapy-machine",
     "sku": "DRM-PHY-60AD",
     "modelNumber": "HELIX",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -5543,7 +5592,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:42.437360+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-4-channel-automode-tnes",
@@ -5552,7 +5602,7 @@ module.exports = [
     "slug": "4-channel-automode-tnes",
     "sku": "DRM-PHY-FB00",
     "modelNumber": "Autostim",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "tens-machines",
@@ -5740,7 +5790,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:43.664875+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-4-channel-tens-machine-m",
@@ -5749,7 +5800,7 @@ module.exports = [
     "slug": "4-channel-tens-machine-muscle-stimulator-therapy-device",
     "sku": "DRM-PHY-DCD6",
     "modelNumber": "OMEX TENS",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "tens-machines",
@@ -5927,7 +5978,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:44.148501+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-4-channeltensmachine",
@@ -5936,7 +5988,7 @@ module.exports = [
     "slug": "4-channeltensmachine",
     "sku": "DRM-PHY-220F",
     "modelNumber": "THERAPULSE",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "tens-machines",
@@ -6124,16 +6176,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:50.080217+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-84-led-mobile-ot-light",
     "productName": "DR.MEDEX 84 LED Mobile OT Light – High-Intensity Surgical Lighting with Easy Mobility",
     "title": "DR.MEDEX 84 LED Mobile OT Light – High-Intensity Surgical Lighting with Easy Mobility",
     "slug": "84-led-mobile-ot-light",
-    "sku": "DRM-OT--A6EC",
+    "sku": "DRM-OT-A6EC",
     "modelNumber": "START 84 MOBILE",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -6325,7 +6378,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:48.424445+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-advanced-4-channel-tens-",
@@ -6334,7 +6388,7 @@ module.exports = [
     "slug": "advanced-4-channel-tens-machine-effective-pain-relief-muscle-stimulation",
     "sku": "DRM-PHY-AF6F",
     "modelNumber": "THERAPULSE 2.0",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "tens-machines",
@@ -6534,7 +6588,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:51.672937+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-advance-laser-therapy-lo",
@@ -6543,7 +6598,7 @@ module.exports = [
     "slug": "advance-laser-therapy-low-level-laser-therapy-cold-laser-therapy",
     "sku": "DRM-ELE-A7E1",
     "modelNumber": "Adv. Laser",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "electro-surgical-skin-cautery",
@@ -6775,7 +6830,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:50.740804+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-advanced-laparoscopic-el",
@@ -6784,7 +6840,7 @@ module.exports = [
     "slug": "advanced-laparoscopic-electrosurgical-generator-300w",
     "sku": "DRM-ELE-BAFC",
     "modelNumber": "Smart 3",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electrosurgical-generator",
@@ -7012,7 +7068,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:53.455483+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-anterior-vitrectomy-mach",
@@ -7021,7 +7078,7 @@ module.exports = [
     "slug": "anterior-vitrectomy-machine-built-in-compressor-ab60",
     "sku": "DRM-PHY-E380",
     "modelNumber": "AB60",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "medical-equipment",
     "categoryName": "Medical Equipment",
     "subcategory": "cpm",
@@ -7269,7 +7326,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:02.183304+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-advanced-cpm-machine-kne",
@@ -7278,7 +7336,7 @@ module.exports = [
     "slug": "advanced-cpm-machine-knee-exercise-continuous-passive-motion-leg-exerciser-unit",
     "sku": "DRM-PHY-2567",
     "modelNumber": "CPM Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "cpm",
@@ -7462,7 +7520,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:52.601055+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-arthritis-pain-relief-jo",
@@ -7471,7 +7530,7 @@ module.exports = [
     "slug": "arthritis-pain-relief-joint-massage-machine-infrared-physiotherapy-knee-massager",
     "sku": "DRM-PHY-E65C",
     "modelNumber": "KN-MSGR",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "tens-machines",
@@ -7649,7 +7708,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:59.291201+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-advanced-shoulder-and-el",
@@ -7658,7 +7718,7 @@ module.exports = [
     "slug": "advanced-shoulder-and-elbow-cpm-machine-continuous-passive-motion-device",
     "sku": "DRM-PHY-F8FB",
     "modelNumber": "Best Seller",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "cpm",
@@ -7840,16 +7900,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:58.498595+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-battery-backup-for-ot-li",
     "productName": "DR.MEDEX Battery Backup for OT Lights",
     "title": "DR.MEDEX Battery Backup for OT Lights",
     "slug": "battery-backup-for-ot-lights",
-    "sku": "DRM-OT--468B",
+    "sku": "DRM-OT-468B",
     "modelNumber": "Add-On",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -7870,7 +7931,7 @@ module.exports = [
     "lowStockThreshold": 5,
     "shortDescription": "Battery Backup for OT Light – Reliable Power When You Need It MostEnsure uninterrupted surgical procedures with our reliable Battery Backup for OT Lights. Designed to provide seamless power support during electricity failures, this backup s...",
     "fullDescription": "Battery Backup for OT Light – Reliable Power When You Need It MostEnsure uninterrupted surgical procedures with our reliable Battery Backup for OT Lights. Designed to provide seamless power support during electricity failures, this backup system is a must-have addition to your operation theatre setup. It guarantees consistent lighting, allowing critical medical tasks to continue without disruption.👉 How to Order with Battery Backup:If you want to purchase OT lights with battery backup, simply add your preferred OT light to the cart along with this battery backup. By doing so, your order will be processed as a combined package, ensuring your OT light comes equipped with this essential backup power system.Stay prepared and maintain safety with our dependable battery solution for OT lights.",
-    "overview": "Battery Backup for OT Light – Reliable Power When You Need It MostEnsure uninterrupted surgical procedures with our reliable Battery Backup for OT Lights. Designed to provide seamless power support during electricity failures, this backup system is a must-have addition to your operation theatre setup. It guarantees consistent lighting, allowing critical medical tasks to continue without disruption...",
+    "overview": "Battery Backup for OT Light – Reliable Power When You Need It MostEnsure uninterrupted surgical procedures with our reliable Battery Backup for OT Lights. Designed to provide seamless power support during electricity failures, this backup system is a must-have addition to your operation theatre setup. It guarantees consistent lighting, allowing critical medical tasks to continue without disruption.👉 How to Order with Battery Backup:If you want to purchase OT lights with battery backup, simply add your preferred OT light to the cart along with this battery backup. By doing so, your order will be processed as a combined package, ensuring your OT light comes equipped with this essential backup power system.Stay prepared and maintain safety with our dependable battery solution for OT lights.",
     "keyFeatures": [
       "Advanced microprocessor feedback control for stable operational output",
       "Medical-grade clinical chassis with intuitive operator interface",
@@ -7893,25 +7954,18 @@ module.exports = [
       "Specialty outpatient surgical clinics",
       "Medical university teaching and research facilities"
     ],
-    "technicalSpecifications": [
-      {
-        "parameter": "Power Supply",
-        "specification": "100–240V AC, 50/60 Hz Universal"
-      },
-      {
-        "parameter": "Quality Standard",
-        "specification": "ISO 13485:2016 Certified"
-      },
-      {
-        "parameter": "Regulatory Status",
-        "specification": "CE Marked & Medical Compliant"
-      },
-      {
-        "parameter": "Warranty",
-        "specification": "3 Years Comprehensive OEM"
-      }
-    ],
-    "specifications": {},
+    "technicalSpecifications": {
+      "0": "[object Object]",
+      "1": "[object Object]",
+      "2": "[object Object]",
+      "3": "[object Object]"
+    },
+    "specifications": {
+      "0": "[object Object]",
+      "1": "[object Object]",
+      "2": "[object Object]",
+      "3": "[object Object]"
+    },
     "certifications": [
       "ISO 13485:2016 Medical Devices Quality Management",
       "ISO 9001:2015 General Quality Assurance",
@@ -7931,55 +7985,12 @@ module.exports = [
     "maintenanceInformation": "Autoclavable removable handles and wipe-clean clinical surface disinfection.",
     "primaryImage": "/products-catalog/battery-backup-for-ot-lights/img_1.jpg",
     "galleryImages": [
-      {
-        "id": "img-battery-backup-for-ot-lights-1",
-        "url": "/products-catalog/battery-backup-for-ot-lights/img_1.jpg",
-        "altText": "DR.MEDEX Battery Backup for OT Lights - View 1",
-        "sourceUrl": "https://static.wixstatic.com/media/e6a92b_04eee7769d6d4a87a0a40c32ec55d937~mv2.jpg/v1/fit/w_500,h_500,q_90/file.jpg",
-        "isPrimary": true,
-        "importedAt": "2026-10-03T15:45:13Z",
-        "status": "READY"
-      },
-      {
-        "id": "img-battery-backup-for-ot-lights-2",
-        "url": "/products-catalog/battery-backup-for-ot-lights/img_2.png",
-        "altText": "DR.MEDEX Battery Backup for OT Lights - View 2",
-        "sourceUrl": "https://static.wixstatic.com/media/e6a92b_1f9523edf8414c31b3a9477a00a14ffb~mv2.png/v1/fit/w_1000,h_1000,q_90/file.jpg",
-        "isPrimary": false,
-        "importedAt": "2026-10-03T15:45:13Z",
-        "status": "READY"
-      },
-      {
-        "id": "img-battery-backup-for-ot-lights-3",
-        "url": "/products-catalog/battery-backup-for-ot-lights/img_3.png",
-        "altText": "DR.MEDEX Battery Backup for OT Lights - View 3",
-        "sourceUrl": "https://static.wixstatic.com/media/e6a92b_f88a7cf7745b45f2969ef617dff484ea~mv2.png/v1/fit/w_1000,h_1000,q_90/file.jpg",
-        "isPrimary": false,
-        "importedAt": "2026-10-03T15:45:13Z",
-        "status": "READY"
-      },
-      {
-        "id": "img-battery-backup-for-ot-lights-4",
-        "url": "/products-catalog/battery-backup-for-ot-lights/img_4.png",
-        "altText": "DR.MEDEX Battery Backup for OT Lights - View 4",
-        "sourceUrl": "https://static.wixstatic.com/media/e6a92b_55bea4ff52d24cf3b696db78a6d91432~mv2.png/v1/fit/w_1000,h_1000,q_90/file.jpg",
-        "isPrimary": false,
-        "importedAt": "2026-10-03T15:45:17Z",
-        "status": "READY"
-      },
-      {
-        "id": "img-battery-backup-for-ot-lights-5",
-        "url": "/products-catalog/battery-backup-for-ot-lights/img_5.png",
-        "altText": "DR.MEDEX Battery Backup for OT Lights - View 5",
-        "sourceUrl": "https://static.wixstatic.com/media/e6a92b_2023ebb828e44f8197fc33fba80098c4~mv2.png/v1/fit/w_1000,h_1000,q_90/file.jpg",
-        "isPrimary": false,
-        "importedAt": "2026-10-03T15:45:18Z",
-        "status": "READY"
-      }
+      "/products-catalog/battery-backup-for-ot-lights/img_3.png",
+      "/products-catalog/battery-backup-for-ot-lights/img_4.png",
+      "/products-catalog/battery-backup-for-ot-lights/img_5.png"
     ],
     "images": [
       "/products-catalog/battery-backup-for-ot-lights/img_1.jpg",
-      "/products-catalog/battery-backup-for-ot-lights/img_2.png",
       "/products-catalog/battery-backup-for-ot-lights/img_3.png",
       "/products-catalog/battery-backup-for-ot-lights/img_4.png",
       "/products-catalog/battery-backup-for-ot-lights/img_5.png"
@@ -8007,9 +8018,9 @@ module.exports = [
       "prod-double-dome-led-ot-surgi"
     ],
     "createdAt": "2026-10-03T15:45:18Z",
-    "updatedAt": "2026-10-03T15:45:18Z",
+    "updatedAt": "2026-10-11T13:42:18.296Z",
     "createdBy": "SYSTEM_IMPORT",
-    "updatedBy": "SYSTEM_IMPORT",
+    "updatedBy": "roshan.official0009@gmail.com",
     "ribbon": "Add-On",
     "referencePricing": {
       "referenceSource": "SKRILIX Global Public Catalogue",
@@ -8027,7 +8038,15 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:40:58.515663+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "originalPrice": 21639.56,
+    "stock": 10,
+    "altText": "DR.MEDEX Battery Backup for OT Lights",
+    "metaTitle": "DR.MEDEX Battery Backup for OT Lights",
+    "metaDescription": "Battery Backup for OT Light – Reliable Power When You Need It MostEnsure uninterrupted surgical procedures with our reliable Battery Backup for OT Lights. Designed to provide seamless power support during electricity failures, this backup s...",
+    "keywords": []
   },
   {
     "id": "prod-battery-operated-pen-cau",
@@ -8036,7 +8055,7 @@ module.exports = [
     "slug": "battery-operated-pen-cautery-replaceable-tips-ideal-for-dermatology",
     "sku": "DRM-ELE-D198",
     "modelNumber": "BC-01",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electro-surgical-skin-cautery",
@@ -8220,7 +8239,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:01.315638+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-best-1-mhz-ultrasound-th",
@@ -8229,7 +8249,7 @@ module.exports = [
     "slug": "best-1-mhz-ultrasound-therapy-machine",
     "sku": "DRM-PHY-77A4",
     "modelNumber": "GALAXY 1",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -8417,7 +8437,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:05.306766+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-cervical-thermal-ablatio",
@@ -8426,7 +8447,7 @@ module.exports = [
     "slug": "cervical-thermal-ablation-thermocoagulator",
     "sku": "DRM-ELE-457C",
     "modelNumber": "Thermal Ablation",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "obstetrics-and-gynaecology",
     "categoryName": "Obstetrics & Gynaecology",
     "subcategory": "electrosurgical-generator",
@@ -8689,7 +8710,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:10.896671+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-best-home-use-1-3-mhz-ul",
@@ -8698,7 +8720,7 @@ module.exports = [
     "slug": "best-home-use-1-3-mhz-ultrasound-therapy-machine-for-effective-pain-relief",
     "sku": "DRM-PHY-16E4",
     "modelNumber": "SUPER PRO",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -8902,16 +8924,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:07.416697+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-ceiling-mounted-led-ot-l",
     "productName": "DR.MEDEX Ceiling-Mounted LED OT Light – Single Dome Hex Design For Surgical Use",
     "title": "DR.MEDEX Ceiling-Mounted LED OT Light – Single Dome Hex Design For Surgical Use",
     "slug": "ceiling-mounted-led-ot-light-single-dome-hex-design-for-surgical-use",
-    "sku": "DRM-OT--3960",
+    "sku": "DRM-OT-3960",
     "modelNumber": "MI HEX 90",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -9154,7 +9177,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:05.776845+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-bipolar-cautery-machine-",
@@ -9163,7 +9187,7 @@ module.exports = [
     "slug": "bipolar-cautery-machine-400w-electrosurgical-generator",
     "sku": "DRM-ELE-189F",
     "modelNumber": "SMART 400",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electrosurgical-generator",
@@ -9365,7 +9389,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:05.117838+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-cervical-and-lumbar-trac",
@@ -9374,7 +9399,7 @@ module.exports = [
     "slug": "cervical-and-lumbar-traction-machine",
     "sku": "DRM-PHY-2BEE",
     "modelNumber": "SKRITRAC",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "tens-machines",
@@ -9552,16 +9577,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:11.741184+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-ceiling-mounted-single-d",
     "productName": "DR.MEDEX Ceiling-Mounted Single Dome LED OT Light – Surgical Grade Illumination",
     "title": "DR.MEDEX Ceiling-Mounted Single Dome LED OT Light – Surgical Grade Illumination",
     "slug": "ceiling-mounted-single-dome-led-ot-light-surgical-grade-illumination",
-    "sku": "DRM-OT--0192",
+    "sku": "DRM-OT-0192",
     "modelNumber": "Star 84",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -9745,7 +9771,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:07.952037+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-computerized-ultrasound-",
@@ -9754,7 +9781,7 @@ module.exports = [
     "slug": "computerized-ultrasound-therapy-machine-1-3-mhz",
     "sku": "DRM-PHY-544D",
     "modelNumber": "DIGISONIC 3n Plus",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -9928,7 +9955,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:12.016544+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-cpm-machine-for-knee-reh",
@@ -9937,7 +9965,7 @@ module.exports = [
     "slug": "cpm-machine-for-knee-rehabilitation-continuous-passive-motion-therapy-device",
     "sku": "DRM-PHY-D33D",
     "modelNumber": "CPM",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "cpm",
@@ -10123,7 +10151,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:13.994737+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-continuous-passive-motio",
@@ -10132,7 +10161,7 @@ module.exports = [
     "slug": "continuous-passive-motion-machine-for-rehabilitation-knee-recovery",
     "sku": "DRM-PHY-0D39",
     "modelNumber": "CPM BLACK",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "cpm",
@@ -10312,7 +10341,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:13.195829+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-cpm-therapy-machine-cont",
@@ -10321,7 +10351,7 @@ module.exports = [
     "slug": "cpm-therapy-machine-continuous-passive-motion-machine-for-joint-recovery-rehabi",
     "sku": "DRM-PHY-97D4",
     "modelNumber": "CPM LCD Display",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "cpm",
@@ -10501,7 +10531,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:16.003215+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-cryogenic-gloves-high-pe",
@@ -10510,7 +10541,7 @@ module.exports = [
     "slug": "cryogenic-gloves-high-performance-protection-for-extreme-temperatures",
     "sku": "DRM-CRY-60B6",
     "modelNumber": "New",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "cryo-surgical",
     "categoryName": "Cryo Surgical",
     "subcategory": "cryo-gun",
@@ -10692,7 +10723,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:19.580566+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-dermatologist-s-no-1-cho",
@@ -10701,7 +10733,7 @@ module.exports = [
     "slug": "dermatologist-s-no-1-choice-mini-cryo-gun-liquid-nitrogen-sprayer",
     "sku": "DRM-ELE-4738",
     "modelNumber": "RED CRYO",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "cryo-surgical",
     "categoryName": "Cryo Surgical",
     "subcategory": "electro-surgical-skin-cautery",
@@ -10887,7 +10919,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:21.299066+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-dermajet-b1-high-pressur",
@@ -10896,7 +10929,7 @@ module.exports = [
     "slug": "dermajet-b1-high-pressure-needle-less-injector",
     "sku": "DRM-MED-7EC8",
     "modelNumber": "B1",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "medical-equipment",
     "categoryName": "Medical Equipment",
     "subcategory": "general-medical",
@@ -11076,7 +11109,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:24.891168+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-digisonic-2s-advanced-1-",
@@ -11085,7 +11119,7 @@ module.exports = [
     "slug": "digisonic-2s-advanced-1-3-mhz-ultrasound-therapy-machine",
     "sku": "DRM-ELE-2CEA",
     "modelNumber": "Digisonic-2s",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "electrosurgical-generator",
@@ -11273,7 +11307,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:22.729899+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-digital-cautery-400w-ele",
@@ -11282,7 +11317,7 @@ module.exports = [
     "slug": "digital-cautery-400w-electro-surgical-generator-bipolar-monopolar-laparoscopic",
     "sku": "DRM-ELE-CD60",
     "modelNumber": "SKR 400",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electrosurgical-generator",
@@ -11464,16 +11499,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:21.871788+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-digital-vision-acuity-ch",
     "productName": "DR.MEDEX Digital Vision Acuity Chart – 18.5\" LCD Eye Test Screen with  Remote",
-    "title": "DR.MEDEX Digital Vision Acuity Chart – 18.5\" LCD Eye Test Screen with  Remote",
+    "title": "DR.MEDEX Digital Vision Acuity Chart – 18.5\" LCD Eye Test Screen with Remote",
     "slug": "digital-vision-acuity-chart-18-5-lcd-eye-test-screen-with-remote",
     "sku": "DRM-MED-C9AE",
     "modelNumber": "New",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "medical-equipment",
     "categoryName": "Medical Equipment",
     "subcategory": "general-medical",
@@ -11661,7 +11697,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:28.992857+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-digital-optical-colposco",
@@ -11670,7 +11707,7 @@ module.exports = [
     "slug": "digital-optical-colposcope-video-colposcope-for-gynecological-examination",
     "sku": "DRM-OBS-D24B",
     "modelNumber": "Latest",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "obstetrics-and-gynaecology",
     "categoryName": "Obstetrics & Gynaecology",
     "subcategory": "obstetrics-and-gynaecology",
@@ -11847,16 +11884,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:26.040246+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-double-dome-led-ot-surgi",
     "productName": "DR.MEDEX Double Dome LED OT Surgical Light – Shadow-Free illumination",
     "title": "DR.MEDEX Double Dome LED OT Surgical Light – Shadow-Free illumination",
     "slug": "double-dome-led-ot-surgical-light",
-    "sku": "DRM-OT--7BDA",
+    "sku": "DRM-OT-7BDA",
     "modelNumber": "ALO 600+ 600",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -12028,16 +12066,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:31.398127+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-double-dome-led-ot-surgi",
+    "id": "prod-double-dome-led-ot-surgical-light-48-48-led-160-000-lux-each",
     "productName": "DR.MEDEX Double Dome LED OT Surgical Light – 48+48 LED | 160,000 Lux Each",
     "title": "DR.MEDEX Double Dome LED OT Surgical Light – 48+48 LED | 160,000 Lux Each",
     "slug": "double-dome-led-ot-surgical-light-48-48-led-160-000-lux-each",
-    "sku": "DRM-OT--0EE9",
+    "sku": "DRM-OT-0EE9",
     "modelNumber": "48+48 Double Dome (Ceiling/Wall Mounted)",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -12278,16 +12317,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:34.242379+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-double-dome-led-ot-surgi",
+    "id": "prod-double-dome-led-ot-surgical-light-90-90-led-operating-theatre-light",
     "productName": "DR.MEDEX Double Dome LED OT Surgical Light – 90+90 LED Operating Theatre Light",
     "title": "DR.MEDEX Double Dome LED OT Surgical Light – 90+90 LED Operating Theatre Light",
     "slug": "double-dome-led-ot-surgical-light-90-90-led-operating-theatre-light",
-    "sku": "DRM-OT--32A8",
+    "sku": "DRM-OT-32A8",
     "modelNumber": "MI HEX 90+90",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -12528,16 +12568,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:34.415731+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-doubel-dome-led-ot-light",
     "productName": "DR.MEDEX LED Pro 48+48 Ceiling OT Light | Shadowless LED Surgical Light for Operating",
     "title": "DR.MEDEX LED Pro 48+48 Ceiling OT Light | Shadowless LED Surgical Light for Operating",
     "slug": "doubel-dome-led-ot-light",
-    "sku": "DRM-OT--5A8F",
+    "sku": "DRM-OT-5A8F",
     "modelNumber": "LED 48+48 Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -12709,16 +12750,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:28.835724+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-double-dome-led-ot-surgi",
+    "id": "prod-double-dome-led-ot-surgical-light-or-lamp",
     "productName": "DR.MEDEX Double Dome LED OT Surgical Light OR Lamp",
     "title": "DR.MEDEX Double Dome LED OT Surgical Light OR Lamp",
     "slug": "double-dome-led-ot-surgical-light-or-lamp",
-    "sku": "DRM-OT--FFDD",
+    "sku": "DRM-OT-FFDD",
     "modelNumber": "RISH 64+64 (Orange)",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -12896,16 +12938,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:35.242596+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-double-dome-led-ot-surgi",
+    "id": "prod-double-dome-led-ot-surgical-light-1",
     "productName": "DR.MEDEX Double Dome LED OT Light – Superior Brightness and Durability for Operating Room",
     "title": "DR.MEDEX Double Dome LED OT Light – Superior Brightness and Durability for Operating Room",
     "slug": "double-dome-led-ot-surgical-light-1",
-    "sku": "DRM-OT--5A4B",
+    "sku": "DRM-OT-5A4B",
     "modelNumber": "RISH 84+84",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -13103,7 +13146,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:31.005595+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-disposable-biopsy-punch-",
@@ -13112,7 +13156,7 @@ module.exports = [
     "slug": "disposable-biopsy-punch-2mm-sterile-dermal-skin-biopsy-punch-50-pcs",
     "sku": "DRM-MED-94A3",
     "modelNumber": "Pack Of 50",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "medical-equipment",
     "categoryName": "Medical Equipment",
     "subcategory": "general-medical",
@@ -13298,7 +13342,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:29.365264+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-dual-1-3-mhz-ultrasound-",
@@ -13307,7 +13352,7 @@ module.exports = [
     "slug": "dual-1-3-mhz-ultrasound-therapy-physical-pain-relief-therapeutic-machine",
     "sku": "DRM-ELE-80DC",
     "modelNumber": "SUPER PRO 1300",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "electrosurgical-generator",
@@ -13487,16 +13532,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:44.208361+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-double-dome-led-surgical",
     "productName": "DR.MEDEX Double Dome LED Surgical OT Light | Ceiling Mounted Shadowless Operating Light",
     "title": "DR.MEDEX Double Dome LED Surgical OT Light | Ceiling Mounted Shadowless Operating Light",
     "slug": "double-dome-led-surgical-ot-light-ceiling-mounted-shadowless-operating-light",
-    "sku": "DRM-OT--A815",
+    "sku": "DRM-OT-A815",
     "modelNumber": "SurgiBeam 48+48",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -13730,16 +13776,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:36.388625+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-double-dome-led-ot-surgi",
+    "id": "prod-double-dome-led-ot-surgical-light-shadowless-adjustable-ceiling-light-for-ot",
     "productName": "DR.MEDEX Double Dome LED OT Surgical Light | Shadowless, Adjustable Ceiling Light for OT",
     "title": "DR.MEDEX Double Dome LED OT Surgical Light | Shadowless, Adjustable Ceiling Light for OT",
     "slug": "double-dome-led-ot-surgical-light-shadowless-adjustable-ceiling-light-for-ot",
-    "sku": "DRM-OT--FA24",
+    "sku": "DRM-OT-FA24",
     "modelNumber": "SurgiBeam 48+48",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -13973,16 +14020,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:35.688530+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-dual-dome-led-ot-surgica",
     "productName": "DR.MEDEX Dual Dome LED OT Surgical Light – 84 LEDs Per Dome, Operation Theatre Light",
     "title": "DR.MEDEX Dual Dome LED OT Surgical Light – 84 LEDs Per Dome, Operation Theatre Light",
     "slug": "dual-dome-led-ot-surgical-light-84-leds-per-dome-operation-theatre-light",
-    "sku": "DRM-OT--E889",
+    "sku": "DRM-OT-E889",
     "modelNumber": "UniBeam 84+84",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -14216,7 +14264,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:41.340242+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-electric-full-body-4d-ze",
@@ -14225,7 +14274,7 @@ module.exports = [
     "slug": "electric-full-body-4d-zero-gravity-therapy-foot-roller-massage-chair-with-heat",
     "sku": "DRM-PHY-257C",
     "modelNumber": "DREMIO",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "medical-equipment",
     "categoryName": "Medical Equipment",
     "subcategory": "tens-machines",
@@ -14417,7 +14466,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:42.323832+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-electric-dermatology-exa",
@@ -14426,7 +14476,7 @@ module.exports = [
     "slug": "electric-dermatology-exam-chair-adjustable-leg-rest-cosmetologytreatment-chair",
     "sku": "DRM-MED-B006",
     "modelNumber": "DermaPro 3000",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "examination-ot-tables",
     "categoryName": "Examination & OT Tables",
     "subcategory": "general-medical",
@@ -14696,7 +14746,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:41.461223+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-electro-surgical-skin-ca",
@@ -14705,7 +14756,7 @@ module.exports = [
     "slug": "electro-surgical-skin-cautery-unit-compact-versatile",
     "sku": "DRM-ELE-9B0A",
     "modelNumber": "ESC-C",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electro-surgical-skin-cautery",
@@ -14909,16 +14960,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:48.596185+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-double-dome-surgical-ot-",
     "productName": "DR.MEDEX Double Dome Surgical OT Light",
     "title": "DR.MEDEX Double Dome Surgical OT Light",
     "slug": "double-dome-surgical-ot-light",
-    "sku": "DRM-OT--A731",
+    "sku": "DRM-OT-A731",
     "modelNumber": "RISH 64+64",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -15120,7 +15172,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:39.739860+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-electro-cautery-dermatol",
@@ -15129,7 +15182,7 @@ module.exports = [
     "slug": "electro-cautery-dermatology-e-n-t-general-byfricator",
     "sku": "DRM-ELE-8323",
     "modelNumber": "Byfricator",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electro-surgical-skin-cautery",
@@ -15309,7 +15362,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:48.773830+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-electronic-pelvic-and-ce",
@@ -15318,7 +15372,7 @@ module.exports = [
     "slug": "electronic-pelvic-and-cervical-traction",
     "sku": "DRM-PHY-5F0C",
     "modelNumber": "INDOTRAC-2",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "electronic-traction-machine",
@@ -15532,7 +15586,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:47.707595+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-electrosurgical-cautery-",
@@ -15541,7 +15596,7 @@ module.exports = [
     "slug": "electrosurgical-cautery-mini-electro-surgical-skin-cautery-diathermy-machine",
     "sku": "DRM-ELE-D717",
     "modelNumber": "Healocator",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electrosurgical-generator",
@@ -15717,9 +15772,9 @@ module.exports = [
       "prod-3-mhz-ultrasound-therapy"
     ],
     "createdAt": "2026-10-03T15:46:07Z",
-    "updatedAt": "2026-10-10T07:35:00.000Z",
+    "updatedAt": "2026-10-11T13:51:13.497Z",
     "createdBy": "SYSTEM_IMPORT",
-    "updatedBy": "SYSTEM_IMPORT",
+    "updatedBy": "roshan.official0009@gmail.com",
     "ribbon": "Healocator",
     "referencePricing": {
       "referenceSource": "SKRILIX Global Public Catalogue",
@@ -15737,7 +15792,12 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:48.757295+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "reviewStatus": "CORRECT",
+    "reviewNote": null,
+    "reviewedBy": "roshan.official0009@gmail.com",
+    "reviewedAt": "2026-10-11T13:35:25.324Z",
+    "stock": 25
   },
   {
     "id": "prod-examination-table-gyneco",
@@ -15746,7 +15806,7 @@ module.exports = [
     "slug": "examination-table-gynecology-exam-table",
     "sku": "DRM-EXA-C737",
     "modelNumber": "SK-GN",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "obstetrics-and-gynaecology",
     "categoryName": "Obstetrics & Gynaecology",
     "subcategory": "examination-ot-tables",
@@ -15966,7 +16026,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:58.603662+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-extracorporeal-shock-wav",
@@ -15975,7 +16036,7 @@ module.exports = [
     "slug": "extracorporeal-shock-wave-therapy-eswt-machine-for-joint-and-muscle-pain-relief",
     "sku": "DRM-ELE-2678",
     "modelNumber": "Latest",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "medical-equipment",
     "categoryName": "Medical Equipment",
     "subcategory": "electro-surgical-skin-cautery",
@@ -16147,7 +16208,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:55.030465+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-ems-digital-therapy-mach",
@@ -16156,7 +16218,7 @@ module.exports = [
     "slug": "ems-digital-therapy-machine-full-body-massager-electric-tens-unit",
     "sku": "DRM-PHY-3BF5",
     "modelNumber": "Skrilix FitStim Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "tens-machines",
@@ -16401,7 +16463,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:55.706164+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-electrosurgical-skin-cau",
@@ -16410,7 +16473,7 @@ module.exports = [
     "slug": "electrosurgical-skin-cautery-healocator",
     "sku": "DRM-ELE-2E49",
     "modelNumber": "Healocator",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electrosurgical-generator",
@@ -16582,16 +16645,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:49.962228+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-floor-standing-surgical-",
     "productName": "DR.MEDEX Floor Standing Hospital LED light Stainless steel LED OT Light",
     "title": "DR.MEDEX Floor Standing Hospital LED light Stainless steel LED OT Light",
     "slug": "floor-standing-surgical-led-ot-light",
-    "sku": "DRM-OT--B389",
+    "sku": "DRM-OT-B389",
     "modelNumber": "RISH 42 Mobile",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -16773,16 +16837,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:57.586232+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-floorstanding-surgical-o",
     "productName": "DR.MEDEX Mobile Operation Theater Light with Shadow-Free Illumination",
     "title": "DR.MEDEX Mobile Operation Theater Light with Shadow-Free Illumination",
     "slug": "floorstanding-surgical-ot-light-led-ot-light",
-    "sku": "DRM-OT--CB86",
+    "sku": "DRM-OT-CB86",
     "modelNumber": "LED 80 Mobile",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -17007,7 +17072,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:05.322852+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-first-aid-kit-emergency-",
@@ -17016,7 +17082,7 @@ module.exports = [
     "slug": "first-aid-kit-emergency-medical-kit-for-wounds-bruises-pack-of-10-kits",
     "sku": "DRM-MED-DC71",
     "modelNumber": "Pack of 10",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "medical-equipment",
     "categoryName": "Medical Equipment",
     "subcategory": "general-medical",
@@ -17230,16 +17296,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:41:54.345491+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-floorstanding-surgical-o",
+    "id": "prod-floorstanding-surgical-ot-light-led-ot-light-1",
     "productName": "DR.MEDEX Floor-Standing OT Light High-Performance LED Surgical Lighting",
     "title": "DR.MEDEX Floor-Standing OT Light High-Performance LED Surgical Lighting",
     "slug": "floorstanding-surgical-ot-light-led-ot-light-1",
-    "sku": "DRM-OT--49E3",
+    "sku": "DRM-OT-49E3",
     "modelNumber": "RISH 84 Mobile",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -17439,7 +17506,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:03.063726+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-high-capacity-500-ml-min",
@@ -17448,7 +17516,7 @@ module.exports = [
     "slug": "high-capacity-500-ml-mini-cryo-gun-liquid-nitrogen-sprayer-for-dermatology",
     "sku": "DRM-CRY-858C",
     "modelNumber": "New",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "cryo-surgical",
     "categoryName": "Cryo Surgical",
     "subcategory": "cryo-gun",
@@ -17636,7 +17704,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:05.107736+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-focused-shockwave-therap",
@@ -17645,7 +17714,7 @@ module.exports = [
     "slug": "focused-shockwave-therapy-machine-emfocus-focus-shockwave-eswt-focused",
     "sku": "DRM-ELE-A418",
     "modelNumber": "ESWT",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "electro-surgical-skin-cautery",
@@ -17848,16 +17917,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:01.601013+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-hospital-ot-light-surgic",
     "productName": "DR.MEDEX Surgical & Examination LED OT Light Hospital Shadow-Free illumination",
     "title": "DR.MEDEX Surgical & Examination LED OT Light Hospital Shadow-Free illumination",
     "slug": "hospital-ot-light-surgical-examination-ot-light-led",
-    "sku": "DRM-OT--9A6E",
-    "modelNumber": "DRM-OT--9A6E",
-    "brand": "DR.MEDEX Global",
+    "sku": "DRM-OT-9A6E",
+    "modelNumber": "",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -18076,7 +18146,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:14.384079+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-high-performance-400w-el",
@@ -18085,7 +18156,7 @@ module.exports = [
     "slug": "high-performance-400w-electrosurgical-generator-for-advanced-surgical-operations",
     "sku": "DRM-ELE-1FD5",
     "modelNumber": "SSE400",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electrosurgical-generator",
@@ -18283,7 +18354,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:04.347639+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-home-ultrasound-therapy-",
@@ -18292,7 +18364,7 @@ module.exports = [
     "slug": "home-ultrasound-therapy-machine-1-mhz-for-effective-pain-management",
     "sku": "DRM-ELE-F1AC",
     "modelNumber": "07-FND",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "electro-surgical-skin-cautery",
@@ -18494,16 +18566,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:11.916495+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-high-performance-led-mob",
     "productName": "DR.MEDEX High-Performance LED Mobile Surgical OT Light – Energy-Efficient, Portable Light",
     "title": "DR.MEDEX High-Performance LED Mobile Surgical OT Light – Energy-Efficient, Portable Light",
     "slug": "high-performance-led-mobile-surgical-ot-light-energy-efficient-portable-light",
-    "sku": "DRM-OT--C349",
+    "sku": "DRM-OT-C349",
     "modelNumber": "Miraz-5",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -18697,7 +18770,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:09.667668+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-laser-therapy-low-level-",
@@ -18706,7 +18780,7 @@ module.exports = [
     "slug": "laser-therapy-low-level-laser-therapy-cold-laser-therapy",
     "sku": "DRM-PHY-5B47",
     "modelNumber": "AdvLaser",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "laser-therapy-machine",
@@ -18878,16 +18952,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:11.932930+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-led-double-dome-surgical",
     "productName": "DR.MEDEX LED Double Dome Surgical OT Light – Advanced Dual-Dome Technology OT Light",
     "title": "DR.MEDEX LED Double Dome Surgical OT Light – Advanced Dual-Dome Technology OT Light",
     "slug": "led-double-dome-surgical-ot-light-advanced-dual-dome-technology-for-precise-su",
-    "sku": "DRM-OT--C87C",
+    "sku": "DRM-OT-C87C",
     "modelNumber": "Miraz Dual",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -19084,16 +19159,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:11.973900+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-led-operating-room-light",
     "productName": "DR.MEDEX Premium LED OT Surgical Light  LED Operating Room Light",
-    "title": "DR.MEDEX Premium LED OT Surgical Light  LED Operating Room Light",
+    "title": "DR.MEDEX Premium LED OT Surgical Light | LED Operating Room Light",
     "slug": "led-operating-room-light-alo-600",
-    "sku": "DRM-OT--3FCB",
+    "sku": "DRM-OT-3FCB",
     "modelNumber": "ALO 600",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -19279,16 +19355,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:14.761242+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-led-operation-theatre-li",
     "productName": "DR.MEDEX LED OPERATION THEATRE LIGHT SURGICAL OR LAMP",
     "title": "DR.MEDEX LED OPERATION THEATRE LIGHT SURGICAL OR LAMP",
     "slug": "led-operation-theatre-light-surgical-or-lamp",
-    "sku": "DRM-OT--235E",
+    "sku": "DRM-OT-235E",
     "modelNumber": "Mars 48+48",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -19500,16 +19577,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:19.594451+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-led-ot-light-advanced-su",
     "productName": "DR.MEDEX High-Intensity Shadowless Surgical Light Star 105 LED OT Light",
     "title": "DR.MEDEX High-Intensity Shadowless Surgical Light Star 105 LED OT Light",
     "slug": "led-ot-light-advanced-surgical-lighting-for-precision-and-clarity",
-    "sku": "DRM-OT--3910",
+    "sku": "DRM-OT-3910",
     "modelNumber": "S-105",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -19729,16 +19807,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:16.783593+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-led-ot-surgical-light-do",
     "productName": "DR.MEDEX RISH 48+48 LED OT Light | Shadowless Surgical Light for Operation Theaters",
     "title": "DR.MEDEX RISH 48+48 LED OT Light | Shadowless Surgical Light for Operation Theaters",
     "slug": "led-ot-surgical-light-double-dome",
-    "sku": "DRM-OT--3710",
+    "sku": "DRM-OT-3710",
     "modelNumber": "RISH 48+48",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -19958,7 +20037,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:29.485537+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-led-infrared-vein-finder",
@@ -19967,7 +20047,7 @@ module.exports = [
     "slug": "led-infrared-vein-finder-glasses-for-iv-access-phlebotomy-light-for-docter-nurse",
     "sku": "DRM-PHY-8305",
     "modelNumber": "VeinDragon",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "medical-equipment",
     "categoryName": "Medical Equipment",
     "subcategory": "tens-machines",
@@ -20185,16 +20265,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:15.144491+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-led-ot-light-ceiling-mob",
     "productName": "DR.MEDEX Single Dome Ceiling OT Light with German LED Technology Adjustable Focus",
     "title": "DR.MEDEX Single Dome Ceiling OT Light with German LED Technology Adjustable Focus",
     "slug": "led-ot-light-ceiling-mobile-surgical-operation-theater-examination-ot-light",
-    "sku": "DRM-OT--446B",
+    "sku": "DRM-OT-446B",
     "modelNumber": "Omex 48",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -20384,16 +20465,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:25.093816+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-led-ot-surgical-light-ce",
     "productName": "DR.MEDEX WING 60 LED Ceiling-Mounted OT Light  180,000 Lux Surgical Lighting",
-    "title": "DR.MEDEX WING 60 LED Ceiling-Mounted OT Light  180,000 Lux Surgical Lighting",
+    "title": "DR.MEDEX WING 60 LED Ceiling-Mounted OT Light | 180,000 Lux Surgical Lighting",
     "slug": "led-ot-surgical-light-ceining-mounted",
-    "sku": "DRM-OT--019C",
+    "sku": "DRM-OT-019C",
     "modelNumber": "WING 60",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -20664,16 +20746,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:20.842176+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-led-ot-surgical-light-5-",
     "productName": "DR.MEDEX LED OT Surgical Light | 5-Head Operating Theatre Light | DR.MEDEX OEM",
     "title": "DR.MEDEX LED OT Surgical Light | 5-Head Operating Theatre Light | DR.MEDEX OEM",
     "slug": "led-ot-surgical-light-5-head-operating-theatre-light-skrilix-oem",
-    "sku": "DRM-OT--C80F",
+    "sku": "DRM-OT-C80F",
     "modelNumber": "RISH 500",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -20940,16 +21023,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:30.575800+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-led-ot-surgical-light-fl",
     "productName": "DR.MEDEX LED OT Surgical Light FLOORSTANDING  German Design OT Light",
-    "title": "DR.MEDEX LED OT Surgical Light FLOORSTANDING  German Design OT Light",
+    "title": "DR.MEDEX LED OT Surgical Light FLOORSTANDING | German Design OT Light",
     "slug": "led-ot-surgical-light-floorstanding-german-design",
-    "sku": "DRM-OT--1A16",
+    "sku": "DRM-OT-1A16",
     "modelNumber": "WING 60 MOBILE",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -21162,16 +21246,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:50.672242+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-led-ot-surgical-lights-o",
     "productName": "DR.MEDEX LED OT Surgical Lights OR Lamp",
     "title": "DR.MEDEX LED OT Surgical Lights OR Lamp",
     "slug": "led-ot-surgical-lights-or-lamp",
-    "sku": "DRM-OT--C5BC",
+    "sku": "DRM-OT-C5BC",
     "modelNumber": "RISH 42+42",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -21349,16 +21434,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:54.487693+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-led-ot-surgical-light-op",
     "productName": "DR.MEDEX Advanced LED Surgical Light for Precision Operations OT LED Lamp",
     "title": "DR.MEDEX Advanced LED Surgical Light for Precision Operations OT LED Lamp",
     "slug": "led-ot-surgical-light-operating-lamp",
-    "sku": "DRM-OT--2B5F",
+    "sku": "DRM-OT-2B5F",
     "modelNumber": "RISH 72",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -21540,16 +21626,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:43:04.471963+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-led-ot-surgical-light-op",
+    "id": "prod-led-ot-surgical-light-operating-room-light",
     "productName": "DR.MEDEX LED Operation Theater Light Advanced Surgical Lighting",
     "title": "DR.MEDEX LED Operation Theater Light Advanced Surgical Lighting",
     "slug": "led-ot-surgical-light-operating-room-light",
-    "sku": "DRM-OT--0ED3",
+    "sku": "DRM-OT-0ED3",
     "modelNumber": "RISH 42",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -21733,16 +21820,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:40.548229+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-ledotsurgicallightdouble",
     "productName": "DR.MEDEX Double Dome OT Surgical Light LED Shadow-Free & Adjustable Brightness",
     "title": "DR.MEDEX Double Dome OT Surgical Light LED Shadow-Free & Adjustable Brightness",
     "slug": "ledotsurgicallightdoubledome",
-    "sku": "DRM-OT--2408",
+    "sku": "DRM-OT-2408",
     "modelNumber": "Miraz 5+5",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -21936,16 +22024,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:54.815200+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-lunar-54-54-ot-light",
     "productName": "DR.MEDEX Advanced Double Dome LED OT Light – Optimal Lighting for Surgeons",
     "title": "DR.MEDEX Advanced Double Dome LED OT Light – Optimal Lighting for Surgeons",
     "slug": "lunar-54-54-ot-light",
-    "sku": "DRM-OT--F01C",
+    "sku": "DRM-OT-F01C",
     "modelNumber": "LUNAR 54+54",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -22193,7 +22282,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:43:13.227956+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-longwave-diathermy-machi",
@@ -22202,7 +22292,7 @@ module.exports = [
     "slug": "longwave-diathermy-machine-advanced-heat-therapy-for-pain-relief",
     "sku": "DRM-ELE-C27E",
     "modelNumber": "New",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "electro-surgical-skin-cautery",
@@ -22396,7 +22486,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:43:16.562620+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-massage-table-spa-bed-ro",
@@ -22405,7 +22496,7 @@ module.exports = [
     "slug": "massage-table-spa-bed-rotating-electric-facial-synthetic-leather-treatment-bed",
     "sku": "DRM-MED-0221",
     "modelNumber": "Best Seller",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "examination-ot-tables",
     "categoryName": "Examination & OT Tables",
     "subcategory": "general-medical",
@@ -22591,16 +22682,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:43:11.117832+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-led-surgical-light-nova-",
     "productName": "DR.MEDEX LED Surgical Light for Superior Operating Room Precision Operation Theatre Light",
     "title": "DR.MEDEX LED Surgical Light for Superior Operating Room Precision Operation Theatre Light",
     "slug": "led-surgical-light-nova-4-skilrix",
-    "sku": "DRM-OT--9BB9",
+    "sku": "DRM-OT-9BB9",
     "modelNumber": "NOVA-4",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -22792,7 +22884,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:42:59.217276+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-mini-cryo-gun-350-ml",
@@ -22801,7 +22894,7 @@ module.exports = [
     "slug": "mini-cryo-gun-350-ml",
     "sku": "DRM-ELE-C89B",
     "modelNumber": "Skyro CR-Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "cryo-surgical",
     "categoryName": "Cryo Surgical",
     "subcategory": "electro-surgical-skin-cautery",
@@ -22988,7 +23081,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:43:39.778864+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-mini-cryo-gun-cryo-surgi",
@@ -22997,7 +23091,7 @@ module.exports = [
     "slug": "mini-cryo-gun-cryo-surgical-spray-500ml",
     "sku": "DRM-CRY-9705",
     "modelNumber": "Cryo Pro 500 ML",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "cryo-surgical",
     "categoryName": "Cryo Surgical",
     "subcategory": "cryo-gun",
@@ -23187,7 +23281,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:43:51.030259+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-medical-trolley-storage-",
@@ -23196,7 +23291,7 @@ module.exports = [
     "slug": "medical-trolley-storage-cart-with-removable-drawer-with-wheels",
     "sku": "DRM-PHY-9845",
     "modelNumber": "New",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "medical-equipment",
     "categoryName": "Medical Equipment",
     "subcategory": "ultrasound-therapy-machines",
@@ -23382,7 +23477,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:43:28.079206+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-mini-cryo-gun-liquid-nit",
@@ -23391,7 +23487,7 @@ module.exports = [
     "slug": "mini-cryo-gun-liquid-nitrogen-sprayer-can-for-dermatology-350ml",
     "sku": "DRM-CRY-2605",
     "modelNumber": "Cryo CR Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "cryo-surgical",
     "categoryName": "Cryo Surgical",
     "subcategory": "cryo-gun",
@@ -23594,16 +23690,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:43:44.450596+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-mobile-led-ot-surgical-l",
     "productName": "DR.MEDEX Mobile LED OT Surgical Light – Shadowless Illumination for Precise Operations",
     "title": "DR.MEDEX Mobile LED OT Surgical Light – Shadowless Illumination for Precise Operations",
     "slug": "mobile-led-ot-surgical-light-shadowless-illumination-for-precise-operations",
-    "sku": "DRM-OT--A22D",
+    "sku": "DRM-OT-A22D",
     "modelNumber": "Lunar 54 Mobile",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -23862,7 +23959,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:43:50.268658+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-mini-cryo-gun-nozzle-set",
@@ -23871,7 +23969,7 @@ module.exports = [
     "slug": "mini-cryo-gun-nozzle-set-5-piece-replacement-probes",
     "sku": "DRM-CRY-5658",
     "modelNumber": "5-PIECE REPLACEMENT NOZZLE SET",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "cryo-surgical",
     "categoryName": "Cryo Surgical",
     "subcategory": "cryo-gun",
@@ -24059,7 +24157,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:43:48.848936+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-mini-cryo-gun-for-dermat",
@@ -24068,7 +24167,7 @@ module.exports = [
     "slug": "mini-cryo-gun-for-dermatology-precision-cryotherapy-device-300ml",
     "sku": "DRM-CRY-7EDA",
     "modelNumber": "Cr Black 300",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "cryo-surgical",
     "categoryName": "Cryo Surgical",
     "subcategory": "cryo-gun",
@@ -24262,16 +24361,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:43:32.477936+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-mobile-led-operation-the",
     "productName": "DR.MEDEX Mobile OT Light LED Operation Theater Light Shadow-free illumination",
     "title": "DR.MEDEX Mobile OT Light LED Operation Theater Light Shadow-free illumination",
     "slug": "mobile-led-operation-theater-light",
-    "sku": "DRM-OT--BA02",
+    "sku": "DRM-OT-BA02",
     "modelNumber": "LED 48 Mobile",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -24451,16 +24551,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:43:46.036978+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-mobile-led-ot-surgical-l",
+    "id": "prod-mobile-led-ot-surgical-light-shadowless-operation-theatre-light",
     "productName": "DR.MEDEX Mobile LED OT Surgical Light – Shadowless Operation Theatre Light",
     "title": "DR.MEDEX Mobile LED OT Surgical Light – Shadowless Operation Theatre Light",
     "slug": "mobile-led-ot-surgical-light-shadowless-operation-theatre-light",
-    "sku": "DRM-OT--BCF0",
+    "sku": "DRM-OT-BCF0",
     "modelNumber": "Solar 48",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -24721,16 +24822,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:43:47.960023+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-mini-cryo-gun-cryo-surgi",
+    "id": "prod-mini-cryo-gun-cryo-surgical-spray-350-ml",
     "productName": "DR.MEDEX Mini Cryo Gun Cryo Surgical Spray (350 ML)",
     "title": "DR.MEDEX Mini Cryo Gun Cryo Surgical Spray (350 ML)",
     "slug": "mini-cryo-gun-cryo-surgical-spray-350-ml",
     "sku": "DRM-CRY-F4F9",
     "modelNumber": "Cryo Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "cryo-surgical",
     "categoryName": "Cryo Surgical",
     "subcategory": "cryo-gun",
@@ -24933,16 +25035,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:43:27.491044+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-mobile-surgical-light-po",
     "productName": "DR.MEDEX Mobile Surgical Light Surgical illumination Operating Theater Light",
     "title": "DR.MEDEX Mobile Surgical Light Surgical illumination Operating Theater Light",
     "slug": "mobile-surgical-light-portable",
-    "sku": "DRM-OT--5BED",
+    "sku": "DRM-OT-5BED",
     "modelNumber": "S 21 Mobile",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -25165,16 +25268,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:00.574333+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-mobile-ot-light-for-oper",
     "productName": "DR.MEDEX Mobile OT Light – Superior Illumination & Easy Mobility for Operating Rooms",
     "title": "DR.MEDEX Mobile OT Light – Superior Illumination & Easy Mobility for Operating Rooms",
     "slug": "mobile-ot-light-for-operating-rooms-superior-illumination-easy-mobility",
-    "sku": "DRM-OT--FFD4",
+    "sku": "DRM-OT-FFD4",
     "modelNumber": "Omex Mobile",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -25370,16 +25474,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:43:53.539948+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-mobile-surgical-ot-light",
     "productName": "DR.MEDEX Mobile LED surgical light for Hospital Shadow-free Surgical Lamp",
     "title": "DR.MEDEX Mobile LED surgical light for Hospital Shadow-free Surgical Lamp",
     "slug": "mobile-surgical-ot-light",
-    "sku": "DRM-OT--62A5",
+    "sku": "DRM-OT-62A5",
     "modelNumber": "Mars 48 Pro Mobile",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -25594,16 +25699,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:15.134970+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-mobile-surgical-operatio",
     "productName": "DR.MEDEX Mobile Surgical Operation Theater & Examination OT Light LED",
     "title": "DR.MEDEX Mobile Surgical Operation Theater & Examination OT Light LED",
     "slug": "mobile-surgical-operation-theater-examination-ot-light",
-    "sku": "DRM-OT--7843",
+    "sku": "DRM-OT-7843",
     "modelNumber": "Omex Mobile",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -25819,16 +25925,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:13.846187+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-opearting-room-surgical-",
     "productName": "DR.MEDEX Opearting Room Surgical Light Double Dome",
-    "title": "DR.MEDEX Opearting Room Surgical Light Double Dome",
+    "title": "DR.MEDEX Operating Room Surgical Light Double Dome",
     "slug": "opearting-room-surgical-light-double-dome",
-    "sku": "DRM-OT--12C5",
+    "sku": "DRM-OT-12C5",
     "modelNumber": "RISH 80+80",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -26000,16 +26107,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:18.982011+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-mobile-surgical-ot-light",
+    "id": "prod-mobile-surgical-ot-light-led-ot-light-skrilix",
     "productName": "DR.MEDEX Mobile Surgical lighting Advanced LED Surgical light",
     "title": "DR.MEDEX Mobile Surgical lighting Advanced LED Surgical light",
     "slug": "mobile-surgical-ot-light-led-ot-light-skrilix",
-    "sku": "DRM-OT--2310",
+    "sku": "DRM-OT-2310",
     "modelNumber": "OMEGA 500 Mobile",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -26226,7 +26334,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:14.737982+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-ombination-therapy-machi",
@@ -26235,7 +26344,7 @@ module.exports = [
     "slug": "ombination-therapy-machine-ift-ultrasound-tens-russian-muscle-stimulator",
     "sku": "DRM-PHY-72D3",
     "modelNumber": "Combi Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -26423,16 +26532,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:14.633010+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-omega-led-ot-lights-doub",
     "productName": "DR.MEDEX OMEGA LED OT LIGHTS DOUBLE DOME",
     "title": "DR.MEDEX OMEGA LED OT LIGHTS DOUBLE DOME",
     "slug": "omega-led-ot-lights-double-dome",
-    "sku": "DRM-OT--8C26",
+    "sku": "DRM-OT-8C26",
     "modelNumber": "HEXA 126+126",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -26604,16 +26714,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:20.124418+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-mobile-surgical-ot-light",
+    "id": "prod-mobile-surgical-ot-light-led-ot-light",
     "productName": "DR.MEDEX Mobile Operating Room Light Shadow-free Surgical Lighting",
     "title": "DR.MEDEX Mobile Operating Room Light Shadow-free Surgical Lighting",
     "slug": "mobile-surgical-ot-light-led-ot-light",
-    "sku": "DRM-OT--44E0",
+    "sku": "DRM-OT-44E0",
     "modelNumber": "RISH 64 Mobile",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -26830,7 +26941,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:13.629553+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-multifunction-adjustable",
@@ -26839,7 +26951,7 @@ module.exports = [
     "slug": "multifunction-adjustable-gynecology-obstetric-electric-gynecological-examination",
     "sku": "DRM-OBS-374B",
     "modelNumber": "New",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "obstetrics-and-gynaecology",
     "categoryName": "Obstetrics & Gynaecology",
     "subcategory": "obstetrics-and-gynaecology",
@@ -27012,16 +27124,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:07.612828+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-ot-light-adjustable-focu",
     "productName": "DR.MEDEX Premium LED OT Light for Operation Theaters  LED 48 Pro Ceiling Mounted",
-    "title": "DR.MEDEX Premium LED OT Light for Operation Theaters  LED 48 Pro Ceiling Mounted",
+    "title": "DR.MEDEX Premium LED OT Light for Operation Theaters | LED 48 Pro Ceiling Mounted",
     "slug": "ot-light-adjustable-focus-operation-theatre-light",
-    "sku": "DRM-OT--86AA",
+    "sku": "DRM-OT-86AA",
     "modelNumber": "LED 48 Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -27238,16 +27351,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:20.868637+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-operating-roomsurgical-l",
     "productName": "DR.MEDEX Operating RoomSurgical Light",
     "title": "DR.MEDEX Operating RoomSurgical Light",
     "slug": "operating-roomsurgical-light",
-    "sku": "DRM-OT--9B56",
+    "sku": "DRM-OT-9B56",
     "modelNumber": "ALO-5",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -27425,16 +27539,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:20.351954+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-ot-light-surgical-operat",
     "productName": "DR.MEDEX Adjustable Focus LED Light Operation Theater LED Light for Surgery",
     "title": "DR.MEDEX Adjustable Focus LED Light Operation Theater LED Light for Surgery",
     "slug": "ot-light-surgical-operating-lamp",
-    "sku": "DRM-OT--C57B",
+    "sku": "DRM-OT-C57B",
     "modelNumber": "Solitaire-48",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -27657,16 +27772,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:26.587871+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-ot-light-mobile-floorsta",
     "productName": "DR.MEDEX OT Light Mobile Operating Theater Light Floor mount Surgical Lighting",
     "title": "DR.MEDEX OT Light Mobile Operating Theater Light Floor mount Surgical Lighting",
     "slug": "ot-light-mobile-floorstanding",
-    "sku": "DRM-OT--B0F0",
+    "sku": "DRM-OT-B0F0",
     "modelNumber": "MD-84 Mobile",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -27848,16 +27964,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:27.131171+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-ot-light-surgical-operat",
+    "id": "prod-ot-light-surgical-operating-light",
     "productName": "DR.MEDEX Ceiling Mount OT Light Surgical Operating Light Hospital",
     "title": "DR.MEDEX Ceiling Mount OT Light Surgical Operating Light Hospital",
     "slug": "ot-light-surgical-operating-light",
-    "sku": "DRM-OT--3A3F",
+    "sku": "DRM-OT-3A3F",
     "modelNumber": "Mars 48 Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -28039,16 +28156,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:27.072354+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-ot-surgical-light-double",
     "productName": "DR.MEDEX Double dome LED surgical light Ceiling mounted OT light",
     "title": "DR.MEDEX Double dome LED surgical light Ceiling mounted OT light",
     "slug": "ot-surgical-light-double-dome-ot-lamp",
-    "sku": "DRM-OT--DB04",
+    "sku": "DRM-OT-DB04",
     "modelNumber": "Pro 80 + 80 Ceiling",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -28270,16 +28388,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:30.016910+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-operating-room-led-light",
     "productName": "DR.MEDEX Advanced LED OT Light – Single Dome Design for Precise Surgical Lighting",
     "title": "DR.MEDEX Advanced LED OT Light – Single Dome Design for Precise Surgical Lighting",
     "slug": "operating-room-led-light-ot-surgical-light",
-    "sku": "DRM-OT--9589",
+    "sku": "DRM-OT-9589",
     "modelNumber": "Star 105",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -28509,16 +28628,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:19.997939+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-ot-surgical-light-led-10",
     "productName": "DR.MEDEX 105 LED Mobile OT Surgical Light – High-Performance Illumination",
     "title": "DR.MEDEX 105 LED Mobile OT Surgical Light – High-Performance Illumination",
     "slug": "ot-surgical-light-led-105-mobile",
-    "sku": "DRM-OT--ADBF",
+    "sku": "DRM-OT-ADBF",
     "modelNumber": "Star 105 Mobile",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -28710,16 +28830,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:37.052175+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-ot-surgical-light-double",
+    "id": "prod-ot-surgical-light-double-dome-1",
     "productName": "DR.MEDEX OT Surgical Light Double Dome – LED Shadowless Surgical Light for Precision",
     "title": "DR.MEDEX OT Surgical Light Double Dome – LED Shadowless Surgical Light for Precision",
     "slug": "ot-surgical-light-double-dome-1",
-    "sku": "DRM-OT--0B78",
+    "sku": "DRM-OT-0B78",
     "modelNumber": "STAR 105+105",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -28915,7 +29036,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:26.388534+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-pain-relief-laser-therap",
@@ -28924,7 +29046,7 @@ module.exports = [
     "slug": "pain-relief-laser-therapy-physiotherapy-machine-30w",
     "sku": "DRM-PHY-B8A2",
     "modelNumber": "New",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "laser-therapy-machine",
@@ -29098,7 +29220,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:35.389172+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-portable-smoke-evacuator",
@@ -29107,7 +29230,7 @@ module.exports = [
     "slug": "portable-smoke-evacuator-with-adjustable-suction-and-hepa-filtration",
     "sku": "DRM-ELE-B087",
     "modelNumber": "SMOKE-VAC",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electro-surgical-skin-cautery",
@@ -29309,7 +29432,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:32.005741+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-portable-1-mhz-ultrasoun",
@@ -29318,7 +29442,7 @@ module.exports = [
     "slug": "portable-1-mhz-ultrasound-therapy-machine",
     "sku": "DRM-PHY-7E8E",
     "modelNumber": "SONOHEAL",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -29502,7 +29626,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:38.588586+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-portable-thermal-cautery",
@@ -29511,7 +29636,7 @@ module.exports = [
     "slug": "portable-thermal-cautery-for-minor-surgery-dermatology",
     "sku": "DRM-ELE-043D",
     "modelNumber": "PFC-2",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electro-surgical-skin-cautery",
@@ -29695,16 +29820,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:43.878170+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-premium-double-dome-led-",
     "productName": "DR.MEDEX Premium Double Dome LED OT Surgical Light",
     "title": "DR.MEDEX Premium Double Dome LED OT Surgical Light",
     "slug": "premium-double-dome-led-ot-surgical-light",
-    "sku": "DRM-OT--7E80",
+    "sku": "DRM-OT-7E80",
     "modelNumber": "Glenza 700+700",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -29882,16 +30008,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:42.060135+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-portable-ot-surgical-lig",
     "productName": "DR.MEDEX Portable OT Surgical Light For Veterinary Use",
     "title": "DR.MEDEX Portable OT Surgical Light For Veterinary Use",
     "slug": "portable-ot-surgical-light-for-veterinary-use",
-    "sku": "DRM-OT--90AB",
+    "sku": "DRM-OT-90AB",
     "modelNumber": "S21+S21",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -30063,16 +30190,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:35.836402+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
-    "id": "prod-premium-double-dome-led-",
+    "id": "prod-premium-double-dome-led-surgical-light",
     "productName": "DR.MEDEX Premium Double Dome LED Surgical Light",
     "title": "DR.MEDEX Premium Double Dome LED Surgical Light",
     "slug": "premium-double-dome-led-surgical-light",
-    "sku": "DRM-OT--07AD",
+    "sku": "DRM-OT-07AD",
     "modelNumber": "HEXA 126+126",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -30248,7 +30376,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:43.858434+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-powerful-400w-electrosur",
@@ -30257,7 +30386,7 @@ module.exports = [
     "slug": "powerful-400w-electrosurgical-generator-for-accurate-and-safe-surgical-procedure",
     "sku": "DRM-ELE-41DB",
     "modelNumber": "SSE-TUR",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electrosurgical-generator",
@@ -30447,16 +30576,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:41.055396+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-premium-led-medical-exam",
     "productName": "DR.MEDEX Premium LED Medical Examination Light with Flexible Arm LED Shadowless light",
     "title": "DR.MEDEX Premium LED Medical Examination Light with Flexible Arm LED Shadowless light",
     "slug": "premium-led-medical-examination-light-with-flexible-arm-shadowless-light",
-    "sku": "DRM-OT--1544",
+    "sku": "DRM-OT-1544",
     "modelNumber": "MD-21",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -30638,7 +30768,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:44.593710+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-pro-laser-therapy-low-le",
@@ -30647,7 +30778,7 @@ module.exports = [
     "slug": "pro-laser-therapy-low-level-laser-therapy-cold-laser-therapy",
     "sku": "DRM-PHY-A388",
     "modelNumber": "Adv. Laser",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "laser-therapy-machine",
@@ -30825,7 +30956,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:47.794175+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-premium-replacement-prob",
@@ -30834,7 +30966,7 @@ module.exports = [
     "slug": "premium-replacement-probes-for-ultronix-ultrasound-therapy-machine",
     "sku": "DRM-ELE-F9E7",
     "modelNumber": "New",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "electro-surgical-skin-cautery",
@@ -31012,7 +31144,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:46.785506+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-professional-1-mhz-3-mhz",
@@ -31021,7 +31154,7 @@ module.exports = [
     "slug": "professional-1-mhz-3-mhz-ultrasound-therapy-machine",
     "sku": "DRM-PHY-910E",
     "modelNumber": "XTRA-SONIC",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -31203,7 +31336,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:52.474568+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-professional-mini-cryo-g",
@@ -31212,7 +31346,7 @@ module.exports = [
     "slug": "professional-mini-cryo-gun-liquid-nitrogen-sprayer-for-dermatology",
     "sku": "DRM-ELE-66D9",
     "modelNumber": "CR-PRO BLUE",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "cryo-surgical",
     "categoryName": "Cryo Surgical",
     "subcategory": "electro-surgical-skin-cautery",
@@ -31420,7 +31554,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:52.087414+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-professional-solid-state",
@@ -31429,7 +31564,7 @@ module.exports = [
     "slug": "professional-solid-state-shortwave-diathermy-machine-500w",
     "sku": "DRM-ELE-9922",
     "modelNumber": "New",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "electro-surgical-skin-cautery",
@@ -31627,7 +31762,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:49.593272+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-professional-thermal-cau",
@@ -31636,7 +31772,7 @@ module.exports = [
     "slug": "professional-thermal-cautery-for-minor-surgery-dermatology",
     "sku": "DRM-ELE-F6CF",
     "modelNumber": "PFC-2 Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electro-surgical-skin-cautery",
@@ -31820,7 +31956,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:53.259240+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-rehabilitation-equipment",
@@ -31829,7 +31966,7 @@ module.exports = [
     "slug": "rehabilitation-equipment-knee-traction-cpm-machine-promote-the-rehabilitation",
     "sku": "DRM-PHY-4239",
     "modelNumber": "Kinetix CPM",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "cpm",
@@ -32015,7 +32152,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:44:59.091226+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-rehabilitation-therapy-a",
@@ -32024,7 +32162,7 @@ module.exports = [
     "slug": "rehabilitation-therapy-automatic-folding-electric-wheelchair-wheel-chair",
     "sku": "DRM-PHY-45C4",
     "modelNumber": "New",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "physiotherapy-general",
@@ -32210,7 +32348,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:14.541665+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-replacement-laser-therap",
@@ -32218,8 +32357,8 @@ module.exports = [
     "title": "DR.MEDEX Replacement Laser Therapy Probe - Compatible with DR.MEDEX Skrilaser",
     "slug": "replacement-laser-therapy-probe-compatible-with-skrilix-skrilaser",
     "sku": "DRM-ELE-B08C",
-    "modelNumber": "DRM-ELE-B08C",
-    "brand": "DR.MEDEX Global",
+    "modelNumber": "",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "electro-surgical-skin-cautery",
@@ -32396,16 +32535,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:03.688717+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-s21-ot-light-fixed-focus",
     "productName": "DR.MEDEX Ceiling-Mounted Surgical light Operating Theater illumination",
     "title": "DR.MEDEX Ceiling-Mounted Surgical light Operating Theater illumination",
     "slug": "s21-ot-light-fixed-focus-led-illumination",
-    "sku": "DRM-OT--3AD8",
+    "sku": "DRM-OT-3AD8",
     "modelNumber": "S 21",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -32591,16 +32731,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:00.191422+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-shadowless-led-operating",
     "productName": "DR.MEDEX Shadowless LED Operating Light – 48 LEDs with Touch Panel for Surgical Precision",
     "title": "DR.MEDEX Shadowless LED Operating Light – 48 LEDs with Touch Panel for Surgical Precision",
     "slug": "shadowless-led-operating-light-48-leds-with-touch-panel-for-surgical-precision",
-    "sku": "DRM-OT--4E02",
+    "sku": "DRM-OT-4E02",
     "modelNumber": "SurgiBeam 48",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -32816,16 +32957,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:01.504908+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-shadowless-led-ot-light-",
     "productName": "DR.MEDEX Shadowless LED OT Light with 48 LEDs & Touch Panel | High CRI Surgical Light",
     "title": "DR.MEDEX Shadowless LED OT Light with 48 LEDs & Touch Panel | High CRI Surgical Light",
     "slug": "shadowless-led-ot-light-48-led-touch-panel",
-    "sku": "DRM-OT--CBC6",
+    "sku": "DRM-OT-CBC6",
     "modelNumber": "LuminaX Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -33019,16 +33161,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:19.189964+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-single-dome-surgical-led",
     "productName": "DR.MEDEX Single Dome LED Surgical Light Advanced Operating Lamp",
     "title": "DR.MEDEX Single Dome LED Surgical Light Advanced Operating Lamp",
     "slug": "single-dome-surgical-led-ot-light",
-    "sku": "DRM-OT--4107",
+    "sku": "DRM-OT-4107",
     "modelNumber": "RISH 64",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -33224,7 +33367,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:16.934253+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-skrilix-electrolysis-pro",
@@ -33232,8 +33376,8 @@ module.exports = [
     "title": "DR.MEDEX Electrolysis Pro 003 – Professional Permanent Hair Removal Machine",
     "slug": "skrilix-electrolysis-pro-003-professional-permanent-hair-removal-machine",
     "sku": "DRM-PHY-C0F3",
-    "modelNumber": "DRM-PHY-C0F3",
-    "brand": "DR.MEDEX Global",
+    "modelNumber": "",
+    "brand": "DR.MEDEX",
     "category": "medical-equipment",
     "categoryName": "Medical Equipment",
     "subcategory": "tens-machines",
@@ -33444,16 +33588,17 @@ module.exports = [
       "syncStatus": "NO_PUBLIC_PRICE"
     },
     "lastPriceSync": "2026-10-04T18:49:31.472459+00:00",
-    "priceSyncStatus": "NO_PUBLIC_PRICE"
+    "priceSyncStatus": "NO_PUBLIC_PRICE",
+    "stock": 25
   },
   {
     "id": "prod-single-dome-led-ot-light",
     "productName": "DR.MEDEX Ceiling Mounted LED OT Light Shadowless LED Operation Theater Light",
     "title": "DR.MEDEX Ceiling Mounted LED OT Light Shadowless LED Operation Theater Light",
     "slug": "single-dome-led-ot-light-surgical-operation-theater-light",
-    "sku": "DRM-OT--C7BE",
+    "sku": "DRM-OT-C7BE",
     "modelNumber": "RISH 84",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -33686,7 +33831,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:15.814762+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-skrilix-digital-shockwav",
@@ -33695,7 +33841,7 @@ module.exports = [
     "slug": "skrilix-digital-shockwave-therapy-machine-7-heads-10-zones-touch-screen",
     "sku": "DRM-PHY-E073",
     "modelNumber": "SKRITRONIX",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "shockwave-therapy-machine",
@@ -33887,7 +34033,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:11.621729+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-skrilix-g-combo-400w-ele",
@@ -33896,7 +34043,7 @@ module.exports = [
     "slug": "skrilix-g-combo-400w-electrosurgical-generator-with-vessel-sealer",
     "sku": "DRM-ELE-C789",
     "modelNumber": "G COMBO 400",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electrosurgical-generator",
@@ -34088,7 +34235,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:40.590496+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-skrilix-g-400-digi-400w-",
@@ -34097,7 +34245,7 @@ module.exports = [
     "slug": "skrilix-g-400-digi-400w-electrosurgery-unit-monopolar-bipolar-esu",
     "sku": "DRM-ELE-D224",
     "modelNumber": "G 400 DIGI",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electrosurgical-generator",
@@ -34377,16 +34525,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:23.123500+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-skrilix-led-surgical-lig",
     "productName": "DR.MEDEX Ceiling Mounted LED OT Light Operation Theater Light For Hospital",
     "title": "DR.MEDEX Ceiling Mounted LED OT Light Operation Theater Light For Hospital",
     "slug": "skrilix-led-surgical-light-nova-6",
-    "sku": "DRM-OT--92FC",
+    "sku": "DRM-OT-92FC",
     "modelNumber": "NOVA 6",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -34564,16 +34713,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:37.062429+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-skrilix-st-5-led-surgica",
     "productName": "DR.MEDEX Ceiling Mounted LED OT Light Precision Illumination for Modern Surgery",
     "title": "DR.MEDEX Ceiling Mounted LED OT Light Precision Illumination for Modern Surgery",
     "slug": "skrilix-st-5-led-surgical-light",
-    "sku": "DRM-OT--5514",
+    "sku": "DRM-OT-5514",
     "modelNumber": "ST-5",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -34755,7 +34905,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:25.392500+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-solid-state-shortwave-di",
@@ -34764,7 +34915,7 @@ module.exports = [
     "slug": "solid-state-shortwave-diathermy-machine-500w",
     "sku": "DRM-ELE-5BAD",
     "modelNumber": "New",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "electro-surgical-skin-cautery",
@@ -34962,16 +35113,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:32.624723+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-skrilix-sigma-4-led-surg",
     "productName": "DR.MEDEX LED Surgical Light  Advanced Lighting for Precision Surgery",
-    "title": "DR.MEDEX LED Surgical Light  Advanced Lighting for Precision Surgery",
+    "title": "DR.MEDEX LED Surgical Light | Advanced Lighting for Precision Surgery",
     "slug": "skrilix-sigma-4-led-surgical-light",
-    "sku": "DRM-OT--B5BE",
+    "sku": "DRM-OT-B5BE",
     "modelNumber": "Sigma-4",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -35153,7 +35305,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:22.477009+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-surgery-operating-ot-tab",
@@ -35162,7 +35315,7 @@ module.exports = [
     "slug": "surgery-operating-ot-table",
     "sku": "DRM-EXA-50AF",
     "modelNumber": "New",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "examination-ot-tables",
     "categoryName": "Examination & OT Tables",
     "subcategory": "examination-ot-tables",
@@ -35422,16 +35575,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:35.473266+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-surgical-led-ot-light-or",
     "productName": "DR.MEDEX Shadow Free illumination LED Surgical Light OT Room LED Lamp",
     "title": "DR.MEDEX Shadow Free illumination LED Surgical Light OT Room LED Lamp",
     "slug": "surgical-led-ot-light-or-lamp",
-    "sku": "DRM-OT--FFF9",
+    "sku": "DRM-OT-FFF9",
     "modelNumber": "ST-4",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -35609,7 +35763,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:58.590942+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-surgical-cautery-400-wat",
@@ -35618,7 +35773,7 @@ module.exports = [
     "slug": "surgical-cautery-400-watts-electrosurgical-generator",
     "sku": "DRM-ELE-8326",
     "modelNumber": "EX-400",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electrosurgical-generator",
@@ -35664,25 +35819,18 @@ module.exports = [
       "Specialty outpatient surgical clinics",
       "Medical university teaching and research facilities"
     ],
-    "technicalSpecifications": [
-      {
-        "parameter": "Power Supply",
-        "specification": "100–240V AC, 50/60 Hz Universal"
-      },
-      {
-        "parameter": "Quality Standard",
-        "specification": "ISO 13485:2016 Certified"
-      },
-      {
-        "parameter": "Regulatory Status",
-        "specification": "CE Marked & Medical Compliant"
-      },
-      {
-        "parameter": "Warranty",
-        "specification": "3 Years Comprehensive OEM"
-      }
-    ],
-    "specifications": {},
+    "technicalSpecifications": {
+      "0": "[object Object]",
+      "1": "[object Object]",
+      "2": "[object Object]",
+      "3": "[object Object]"
+    },
+    "specifications": {
+      "0": "[object Object]",
+      "1": "[object Object]",
+      "2": "[object Object]",
+      "3": "[object Object]"
+    },
     "certifications": [
       "ISO 13485:2016 Medical Devices Quality Management",
       "ISO 9001:2015 General Quality Assurance",
@@ -35700,7 +35848,7 @@ module.exports = [
     ],
     "installationInformation": "Professional plug-and-play assembly with standard ceiling/chassis mounting hardware provided.",
     "maintenanceInformation": "Autoclavable removable handles and wipe-clean clinical surface disinfection.",
-    "primaryImage": "/products-catalog/surgical-cautery-400-watts-electrosurgical-generator/img_1.jpg",
+    "primaryImage": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729326/dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_1_e7d52211.webp",
     "galleryImages": [
       {
         "id": "img-surgical-cautery-400-watts-electrosurgical-generator-1",
@@ -35749,11 +35897,10 @@ module.exports = [
       }
     ],
     "images": [
-      "/products-catalog/surgical-cautery-400-watts-electrosurgical-generator/img_1.jpg",
-      "/products-catalog/surgical-cautery-400-watts-electrosurgical-generator/img_2.jpg",
-      "/products-catalog/surgical-cautery-400-watts-electrosurgical-generator/img_3.jpg",
-      "/products-catalog/surgical-cautery-400-watts-electrosurgical-generator/img_4.jpg",
-      "/products-catalog/surgical-cautery-400-watts-electrosurgical-generator/img_5.png"
+      "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729326/dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_1_e7d52211.webp",
+      "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729327/dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_2_10a33d0d.webp",
+      "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729328/dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_3_31578fb6.webp",
+      "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729329/dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_4_a62de1a5.webp"
     ],
     "averageRating": 4.9,
     "reviewCount": 24,
@@ -35778,9 +35925,9 @@ module.exports = [
       "prod-3-mhz-ultrasound-therapy"
     ],
     "createdAt": "2026-10-03T15:48:11Z",
-    "updatedAt": "2026-10-03T15:48:11Z",
+    "updatedAt": "2026-10-11T14:34:58.619Z",
     "createdBy": "SYSTEM_IMPORT",
-    "updatedBy": "SYSTEM_IMPORT",
+    "updatedBy": "roshan.official0009@gmail.com",
     "ribbon": "EX-400",
     "referencePricing": {
       "referenceSource": "SKRILIX Global Public Catalogue",
@@ -35798,7 +35945,106 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:38.958367+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "equipmentType": "",
+    "internalModelId": "DM-DRM-ELE-8326",
+    "regulatoryClassification": "Class IIa (MDR 2017/745)",
+    "originalPrice": 173020.32,
+    "calculatedSavings": 20762.429999999993,
+    "stock": 10,
+    "moq": 1,
+    "leadTimeWeeks": "1–2 Weeks",
+    "certificateNumber": "MED-ISO-9948201",
+    "issuingOrg": "TÜV SÜD Medical Compliance",
+    "manualUrl": "",
+    "datasheetUrl": "",
+    "metaTitle": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+    "metaDescription": "Surgical Cautery 400 Watts - Electrosurgical GeneratorThe Surgical Cautery 400 Watts Electrosurgical Generator is a powerful, high-performance device designed to meet the precision demands of modern surgical procedures. With 400 watts of po...",
+    "isFeatured": false,
+    "isBestSeller": true,
+    "showOnHomepage": true,
+    "forceCreate": false,
+    "reviewStatus": "CORRECT",
+    "reviewNote": null,
+    "reviewedBy": "roshan.official0009@gmail.com",
+    "reviewedAt": "2026-10-11T14:35:25.997Z",
+    "managedCloudinaryImages": [
+      {
+        "publicId": "dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_1_e7d52211",
+        "secureUrl": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729326/dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_1_e7d52211.webp",
+        "originalUrl": "/products-catalog/surgical-cautery-400-watts-electrosurgical-generator/img_1.jpg",
+        "order": 0,
+        "isPrimary": true,
+        "format": "webp",
+        "width": 500,
+        "height": 374,
+        "sizeBytes": 12134,
+        "originalSizeBytes": 31431,
+        "compressionRatio": 61.4,
+        "uploadState": "UPLOADED",
+        "managedByReviewWorkflow": true,
+        "uploadedAt": "2026-10-11T14:35:27.613Z"
+      },
+      {
+        "publicId": "dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_2_10a33d0d",
+        "secureUrl": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729327/dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_2_10a33d0d.webp",
+        "originalUrl": "/products-catalog/surgical-cautery-400-watts-electrosurgical-generator/img_2.jpg",
+        "order": 1,
+        "isPrimary": false,
+        "format": "webp",
+        "width": 500,
+        "height": 392,
+        "sizeBytes": 14680,
+        "originalSizeBytes": 32000,
+        "compressionRatio": 54.1,
+        "uploadState": "UPLOADED",
+        "managedByReviewWorkflow": true,
+        "uploadedAt": "2026-10-11T14:35:28.271Z"
+      },
+      {
+        "publicId": "dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_3_31578fb6",
+        "secureUrl": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729328/dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_3_31578fb6.webp",
+        "originalUrl": "/products-catalog/surgical-cautery-400-watts-electrosurgical-generator/img_3.jpg",
+        "order": 2,
+        "isPrimary": false,
+        "format": "webp",
+        "width": 404,
+        "height": 500,
+        "sizeBytes": 20672,
+        "originalSizeBytes": 55104,
+        "compressionRatio": 62.5,
+        "uploadState": "UPLOADED",
+        "managedByReviewWorkflow": true,
+        "uploadedAt": "2026-10-11T14:35:28.957Z"
+      },
+      {
+        "publicId": "dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_4_a62de1a5",
+        "secureUrl": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729329/dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_4_a62de1a5.webp",
+        "originalUrl": "/products-catalog/surgical-cautery-400-watts-electrosurgical-generator/img_4.jpg",
+        "order": 3,
+        "isPrimary": false,
+        "format": "webp",
+        "width": 500,
+        "height": 368,
+        "sizeBytes": 16570,
+        "originalSizeBytes": 50926,
+        "compressionRatio": 67.5,
+        "uploadState": "UPLOADED",
+        "managedByReviewWorkflow": true,
+        "uploadedAt": "2026-10-11T14:35:29.696Z"
+      }
+    ],
+    "originalImages": [
+      "/products-catalog/surgical-cautery-400-watts-electrosurgical-generator/img_1.jpg",
+      "/products-catalog/surgical-cautery-400-watts-electrosurgical-generator/img_2.jpg",
+      "/products-catalog/surgical-cautery-400-watts-electrosurgical-generator/img_3.jpg",
+      "/products-catalog/surgical-cautery-400-watts-electrosurgical-generator/img_4.jpg"
+    ],
+    "originalPrimaryImage": "/products-catalog/surgical-cautery-400-watts-electrosurgical-generator/img_1.jpg",
+    "cloudinarySyncStatus": "IMAGES_UPLOADED",
+    "cloudinaryLastSyncedAt": "2026-10-11T14:35:29.697Z",
+    "mongoSyncStatus": "SYNCED",
+    "mongoSyncedAt": "2026-10-11T14:35:30.610Z"
   },
   {
     "id": "prod-supro-3-mhz-ultrasound-t",
@@ -35807,7 +36053,7 @@ module.exports = [
     "slug": "supro-3-mhz-ultrasound-therapy-machine-advanced-therapeutic-precision",
     "sku": "DRM-ELE-E7D0",
     "modelNumber": "S3",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "electrosurgical-generator",
@@ -35989,16 +36235,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:32.586740+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-surgical-ot-light-double",
     "productName": "DR.MEDEX Surgical OT Light Double Dome",
     "title": "DR.MEDEX Surgical OT Light Double Dome",
     "slug": "surgical-ot-light-double-dome",
-    "sku": "DRM-OT--95C1",
+    "sku": "DRM-OT-95C1",
     "modelNumber": "80+80 Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -36172,7 +36419,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:51.493941+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-thermo-coagulator-thermo",
@@ -36180,8 +36428,8 @@ module.exports = [
     "title": "DR.MEDEX Thermo Coagulator Thermoglide Thermocoagulation for Gynecology Obstetrics",
     "slug": "thermo-coagulator-thermoglide-thermocoagulation-for-gynecology-obstetrics",
     "sku": "DRM-ELE-6C0D",
-    "modelNumber": "DRM-ELE-6C0D",
-    "brand": "DR.MEDEX Global",
+    "modelNumber": "",
+    "brand": "DR.MEDEX",
     "category": "obstetrics-and-gynaecology",
     "categoryName": "Obstetrics & Gynaecology",
     "subcategory": "electro-surgical-skin-cautery",
@@ -36360,16 +36608,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:46:00.195454+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-surgical-led-ot-light-si",
     "productName": "DR.MEDEX Surgical LED OT Single Dome Operating Room Light",
     "title": "DR.MEDEX Surgical LED OT Single Dome Operating Room Light",
     "slug": "surgical-led-ot-light-single-dome",
-    "sku": "DRM-OT--AD71",
+    "sku": "DRM-OT-AD71",
     "modelNumber": "RISH 64 (Orange)",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -36563,16 +36812,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:49.412582+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-triple-arm-led-ot-surgic",
     "productName": "DR.MEDEX Triple Arm LED OT Surgical light with with Integrated Monitor",
     "title": "DR.MEDEX Triple Arm LED OT Surgical light with with Integrated Monitor",
     "slug": "triple-arm-led-ot-surgical-light-with-with-integrated-monitor",
-    "sku": "DRM-OT--7231",
+    "sku": "DRM-OT-7231",
     "modelNumber": "ULTRA 48+48",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -36756,16 +37006,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:46:05.509855+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-twin-dome-led-surgical-l",
     "productName": "DR.MEDEX Twin Dome LED Surgical Light Operating Lamps",
     "title": "DR.MEDEX Twin Dome LED Surgical Light Operating Lamps",
     "slug": "twin-dome-led-surgical-light-operating-lamps",
-    "sku": "DRM-OT--83EE",
+    "sku": "DRM-OT-83EE",
     "modelNumber": "RISH 72+72",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -36977,7 +37228,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:46:25.263670+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-top-rated-2-mhz-rf-caute",
@@ -36986,7 +37238,7 @@ module.exports = [
     "slug": "top-rated-2-mhz-rf-cautery-machine-professional-grade-radio-frequency-cautery",
     "sku": "DRM-ELE-553A",
     "modelNumber": "RF-Cautery",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electro-surgical-skin-cautery",
@@ -37178,16 +37430,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:57.322844+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-twin-dome-led-ot-surgica",
     "productName": "DR.MEDEX Twin Dome LED OT Surgical Light",
     "title": "DR.MEDEX Twin Dome LED OT Surgical Light",
     "slug": "twin-dome-led-ot-surgical-light",
-    "sku": "DRM-OT--17B6",
+    "sku": "DRM-OT-17B6",
     "modelNumber": "ST5+ST4",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "ot-surgical-lights-double-dome",
@@ -37359,7 +37612,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:46:25.910089+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-ultrasound-therapy-machi",
@@ -37368,7 +37622,7 @@ module.exports = [
     "slug": "ultrasound-therapy-machine-1mhz-advanced-therapy-system",
     "sku": "DRM-PHY-5C7D",
     "modelNumber": "ULT 100a",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -37556,16 +37810,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:46:23.894683+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-twin-ot-light-surgical-o",
     "productName": "DR.MEDEX Twin OT Light Surgical Operating Light",
     "title": "DR.MEDEX Twin OT Light Surgical Operating Light",
     "slug": "twin-ot-light-surgical-operating-light",
-    "sku": "DRM-OT--2DCF",
+    "sku": "DRM-OT-2DCF",
     "modelNumber": "Mars 48+48 Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -37743,16 +37998,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:46:10.231453+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-surgical-ot-light-led-ot",
     "productName": "DR.MEDEX Surgical LED OT Light – Floorstanding Model | High-Intensity Shadow-Free Light",
     "title": "DR.MEDEX Surgical LED OT Light – Floorstanding Model | High-Intensity Shadow-Free Light",
     "slug": "surgical-ot-light-led-ot-light-floorstanding",
-    "sku": "DRM-OT--5EA1",
+    "sku": "DRM-OT-5EA1",
     "modelNumber": "LED 48 Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -37944,7 +38200,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:45:54.881874+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-usa-power-cord-compatibl",
@@ -37953,7 +38210,7 @@ module.exports = [
     "slug": "usa-power-cord-compatible-with-skrilix-ultrasound-tens-therapy-machines-110v",
     "sku": "DRM-PHY-B163",
     "modelNumber": "110v",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -38135,7 +38392,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:46:23.769324+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-uro-bitur-advance-bipola",
@@ -38144,7 +38402,7 @@ module.exports = [
     "slug": "uro-bitur-advance-bipolar-turp-electrosurgical-generator",
     "sku": "DRM-ELE-AA58",
     "modelNumber": "URO BITUR",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electrosurgical-generator",
@@ -38414,7 +38672,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:46:15.634254+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-upgraded-ultrasound-ther",
@@ -38423,7 +38682,7 @@ module.exports = [
     "slug": "upgraded-ultrasound-therapy-machine-1-3-mhz",
     "sku": "DRM-PHY-FECE",
     "modelNumber": "ULTRONIX Pro",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "ultrasound-therapy-machines",
@@ -38627,16 +38886,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:46:21.156183+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-wall-mounted-led-ot-surg",
     "productName": "DR.MEDEX Wall Mounted LED OT Surgical Light - Shadowless Operation Theatre Light",
     "title": "DR.MEDEX Wall Mounted LED OT Surgical Light - Shadowless Operation Theatre Light",
     "slug": "wall-mounted-led-ot-surgical-light-shadowless-operation-theatre-light",
-    "sku": "DRM-OT--7DEB",
+    "sku": "DRM-OT-7DEB",
     "modelNumber": "SurgiBeam 48 WL",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "single-dome-ot-lights",
@@ -38820,7 +39080,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:46:30.904914+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-wet-field-bipolar-coagul",
@@ -38829,7 +39090,7 @@ module.exports = [
     "slug": "wet-field-bipolar-coagulator-ophthalmic-wet-field-bipolar-cautery",
     "sku": "DRM-ELE-D29D",
     "modelNumber": "WF-COAGULATOR",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electrosurgical-generator",
@@ -39011,7 +39272,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:46:31.430994+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-welch-allyn-74710-otosco",
@@ -39020,7 +39282,7 @@ module.exports = [
     "slug": "welch-allyn-74710-otoscope-opthalmoscope-3-5v-wall-mount",
     "sku": "DRM-MED-E3B5",
     "modelNumber": "WL-YN",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "medical-equipment",
     "categoryName": "Medical Equipment",
     "subcategory": "general-medical",
@@ -39204,16 +39466,17 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:46:30.865669+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-wireless-10w-led-medical",
     "productName": "DR.MEDEX Wireless 10W LED Medical Headlight – Portable Surgical Dental ENT Light",
     "title": "DR.MEDEX Wireless 10W LED Medical Headlight – Portable Surgical Dental ENT Light",
     "slug": "wireless-10w-led-medical-headlight-portable-surgical-dental-ent-light",
-    "sku": "DRM-OT--0DE8",
+    "sku": "DRM-OT-0DE8",
     "modelNumber": "Latest",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "ot-lights",
     "categoryName": "OT Lights",
     "subcategory": "mobile-led-ot-lights",
@@ -39427,7 +39690,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:46:37.874023+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-veterinary-laser-therapy",
@@ -39436,7 +39700,7 @@ module.exports = [
     "slug": "veterinary-laser-therapy-machine",
     "sku": "DRM-PHY-485E",
     "modelNumber": "VETLASER",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
     "subcategory": "laser-therapy-machine",
@@ -39612,7 +39876,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:46:29.832960+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-wireless-remote-control-",
@@ -39621,7 +39886,7 @@ module.exports = [
     "slug": "wireless-remote-control-electric-ankle-joint-trainer-ankle-exerciser",
     "sku": "DRM-PHY-9BDB",
     "modelNumber": "SKANCKE PRO",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "medical-equipment",
     "categoryName": "Medical Equipment",
     "subcategory": "physiotherapy-general",
@@ -39803,7 +40068,8 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:46:44.409369+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   },
   {
     "id": "prod-wet-field-cautery",
@@ -39812,7 +40078,7 @@ module.exports = [
     "slug": "wet-field-cautery",
     "sku": "DRM-ELE-C210",
     "modelNumber": "New",
-    "brand": "DR.MEDEX Global",
+    "brand": "DR.MEDEX",
     "category": "electrosurgical-units",
     "categoryName": "Electrosurgical Units",
     "subcategory": "electro-surgical-skin-cautery",
@@ -39974,9 +40240,9 @@ module.exports = [
       "prod-3-mhz-ultrasound-therapy"
     ],
     "createdAt": "2026-10-03T15:48:37Z",
-    "updatedAt": "2026-10-03T15:48:37Z",
+    "updatedAt": "2026-10-11T14:32:41.865Z",
     "createdBy": "SYSTEM_IMPORT",
-    "updatedBy": "SYSTEM_IMPORT",
+    "updatedBy": "roshan.official0009@gmail.com",
     "ribbon": "New",
     "referencePricing": {
       "referenceSource": "SKRILIX Global Public Catalogue",
@@ -39994,6 +40260,7 @@ module.exports = [
       "syncStatus": "SYNCED"
     },
     "lastPriceSync": "2026-10-04T18:46:35.190124+00:00",
-    "priceSyncStatus": "SYNCED"
+    "priceSyncStatus": "SYNCED",
+    "stock": 25
   }
 ];

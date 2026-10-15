@@ -10,8 +10,9 @@ console.log("\x1b[36m%s\x1b[0m", "==============================================
 const isWindows = process.platform === "win32";
 const npmCmd = isWindows ? "npm.cmd" : "npm";
 
-// Spawn backend server
-const server = spawn(process.execPath, [path.join(__dirname, "server/index.js")], {
+// Spawn backend server with --watch for automatic reload
+const serverArgs = ["--watch", path.join(__dirname, "server/index.js")];
+const server = spawn(process.execPath, serverArgs, {
   cwd: __dirname,
   env: { ...process.env },
   stdio: ["inherit", "pipe", "pipe"],

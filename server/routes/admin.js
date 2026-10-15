@@ -9,6 +9,9 @@ const catalogueHierarchy = require("../data/catalogueHierarchy");
 const exportService = require("../services/exportService");
 const cloudinaryService = require("../services/cloudinaryService");
 const mongoService = require("../services/mongoService");
+const geminiVisionService = require("../services/geminiVisionService");
+const firestoreService = require("../services/firestoreService");
+const supabaseService = require("../services/supabaseService");
 
 /**
  * Authentication Middleware
@@ -234,9 +237,7 @@ router.get("/products", requireAdmin, (req, res) => {
   list.sort((a, b) => {
     if (sort === "price_asc") return (a.basePrice || 0) - (b.basePrice || 0);
     if (sort === "price_desc") return (b.basePrice || 0) - (a.basePrice || 0);
-    if (sort === "name_asc") return (a.title || a.productName || "").localeCompare(b.title || b.productName || "");
-    if (sort === "name_desc") return (b.title || b.productName || "").localeCompare(a.title || a.productName || "");
-    // Default: updated_desc / recent
+    // Default: recently updated / newest (updatedAt takes precedence over createdAt)
     const dateA = new Date(a.updatedAt || a.createdAt || 0).getTime();
     const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
     return dateB - dateA;
@@ -468,7 +469,8 @@ router.put("/products/:id/review", requireAdmin, async (req, res) => {
       reviewStatus,
       reviewNote: reviewNote !== undefined ? (reviewNote ? String(reviewNote).trim() : null) : (reviewStatus === "CORRECT" ? null : existing.reviewNote || null),
       reviewedBy: req.admin.email,
-      reviewedAt: new Date().toISOString()
+      reviewedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     };
 
     let cloudinaryResult = null;
@@ -690,13 +692,17 @@ router.put("/products/:id/status", requireAdmin, (req, res) => {
       return res.status(404).json({ success: false, message: "Product not found" });
     }
 
-    const updated = store.updateProduct(req.params.id, {
+    const updated = store.updateProduct(existing.id, {
       status,
-      updatedBy: req.admin.email,
+      updatedBy: req.admin?.email || "SYSTEM_ADMIN",
       updatedAt: new Date().toISOString()
     });
 
-    auditService.logAction(req.admin.email, "PRODUCT_STATUS_TOGGLED", req.params.id, {
+    if (!updated) {
+      return res.status(500).json({ success: false, message: "Failed to persist product status update in store." });
+    }
+
+    auditService.logAction(req.admin?.email || "SYSTEM_ADMIN", "PRODUCT_STATUS_TOGGLED", existing.id, {
       title: updated.title || updated.productName,
       fromStatus: existing.status || "ACTIVE",
       toStatus: status
@@ -784,36 +790,44 @@ router.post("/products", requireAdmin, (req, res) => {
 });
 
 router.put("/products/:id", requireAdmin, (req, res) => {
-  const existing = store.getProductById(req.params.id, true);
-  if (!existing) {
-    return res.status(404).json({ success: false, message: "Product not found" });
+  try {
+    const existing = store.getProductById(req.params.id, true);
+    if (!existing) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    const updates = {
+      ...req.body,
+      updatedBy: req.admin?.email || "SYSTEM_ADMIN",
+      updatedAt: new Date().toISOString()
+    };
+
+    const updated = store.updateProduct(existing.id, updates);
+    if (!updated) {
+      return res.status(500).json({ success: false, message: "Failed to persist product update in store." });
+    }
+
+    // Detect specific changes for granular audit logging
+    const changes = {};
+    if (existing.basePrice !== updated.basePrice) {
+      changes.price = { from: existing.basePrice, to: updated.basePrice };
+      auditService.logAction(req.admin?.email || "SYSTEM_ADMIN", "PRICE_CHANGED", updated.id, changes.price);
+    }
+    if (existing.status !== updated.status) {
+      changes.status = { from: existing.status, to: updated.status };
+      auditService.logAction(req.admin?.email || "SYSTEM_ADMIN", "STATUS_CHANGED", updated.id, changes.status);
+    }
+
+    auditService.logAction(req.admin?.email || "SYSTEM_ADMIN", "PRODUCT_UPDATED", updated.id, {
+      title: updated.title || updated.productName,
+      changes
+    });
+
+    res.json({ success: true, product: updated });
+  } catch (err) {
+    console.error("Update product error:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
-
-  const updates = {
-    ...req.body,
-    updatedBy: req.admin.email,
-    updatedAt: new Date().toISOString()
-  };
-
-  const updated = store.updateProduct(req.params.id, updates);
-
-  // Detect specific changes for granular audit logging
-  const changes = {};
-  if (existing.basePrice !== updated.basePrice) {
-    changes.price = { from: existing.basePrice, to: updated.basePrice };
-    auditService.logAction(req.admin.email, "PRICE_CHANGED", updated.id, changes.price);
-  }
-  if (existing.status !== updated.status) {
-    changes.status = { from: existing.status, to: updated.status };
-    auditService.logAction(req.admin.email, "STATUS_CHANGED", updated.id, changes.status);
-  }
-
-  auditService.logAction(req.admin.email, "PRODUCT_UPDATED", updated.id, {
-    title: updated.title || updated.productName,
-    changes
-  });
-
-  res.json({ success: true, product: updated });
 });
 
 router.post("/products/:id/sync-price", requireAdmin, (req, res) => {
@@ -981,8 +995,24 @@ router.post("/products/bulk", requireAdmin, (req, res) => {
 });
 
 // ==========================================
-// 4. AI DESCRIPTION GENERATOR ENDPOINT
+// 4. AI & IDENTITY GENERATOR ENDPOINTS
 // ==========================================
+
+router.post("/products/suggest-identity", requireAdmin, (req, res) => {
+  try {
+    const { category, subcategory, equipmentType, currentProduct = {} } = req.body;
+    const suggestions = aiGeneratorService.generateIdentitySuggestions({
+      category,
+      subcategory,
+      equipmentType,
+      currentProduct
+    });
+
+    res.json({ success: true, suggestions });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
 
 router.post("/products/ai-generate", requireAdmin, (req, res) => {
   try {
@@ -1006,10 +1036,92 @@ router.post("/products/ai-generate", requireAdmin, (req, res) => {
         metaTitle: generated.data.seo.metaTitle,
         metaDescription: generated.data.seo.metaDescription
       },
-      data: generated.data
+      data: generated.data,
+      metadata: generated.metadata
     });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/products/ai-identify", requireAdmin, async (req, res) => {
+  try {
+    const rawPhotos = (req.body && req.body.photos) || 
+                      (req.body && req.body.images) || 
+                      (req.body && req.body.photo ? [req.body.photo] : null) || 
+                      (req.body && req.body.image ? [req.body.image] : null);
+
+    if (!rawPhotos || !Array.isArray(rawPhotos) || rawPhotos.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "At least one photograph is required for AI product identification."
+      });
+    }
+
+    if (rawPhotos.length > geminiVisionService.MAX_PHOTOS) {
+      return res.status(400).json({
+        success: false,
+        message: `Maximum ${geminiVisionService.MAX_PHOTOS} photographs allowed per identification request.`
+      });
+    }
+
+    // Format incoming photos (supports array of base64 strings or objects with { data, mimeType, filename })
+    const photos = rawPhotos.map((item, idx) => {
+      if (typeof item === "string") {
+        let mimeType = "image/jpeg";
+        const match = item.match(/^data:(image\/[a-zA-Z0-9+.-]+);base64,/);
+        if (match) {
+          mimeType = match[1];
+        }
+        return {
+          data: item,
+          mimeType,
+          filename: `photo_${idx + 1}.jpg`
+        };
+      }
+      return {
+        data: item.data || item.base64 || item.url || item.file,
+        mimeType: item.mimeType || item.contentType || "image/jpeg",
+        filename: item.filename || item.name || `photo_${idx + 1}.jpg`
+      };
+    });
+
+    const result = await geminiVisionService.identifyProductFromPhotos(photos);
+
+    auditService.logAction(req.admin.email, "AI_PRODUCT_IDENTIFIED", null, {
+      photosCount: photos.length,
+      modelUsed: result.modelUsed,
+      equipmentType: result.data.equipmentType,
+      confidence: result.data.confidence
+    });
+
+    res.json({
+      success: true,
+      data: result.data,
+      metadata: {
+        engine: "AI Product Identification",
+        photosAnalyzed: result.photosAnalyzed,
+        identifiedAt: new Date().toISOString()
+      }
+    });
+  } catch (err) {
+    console.error("[Admin API] AI Product Identification Error:", err.message);
+    const msg = err.message || "Failed to identify medical equipment.";
+    let statusCode = 500;
+    if (msg.includes("GEMINI_API_KEY") || msg.includes("API key")) {
+      statusCode = 503;
+    } else if (msg.includes("rate limit") || msg.includes("RESOURCE_EXHAUSTED")) {
+      statusCode = 429;
+    } else if (msg.includes("high demand") || msg.includes("503")) {
+      statusCode = 503;
+    } else if (msg.includes("Maximum") || msg.includes("Unsupported") || msg.includes("No photographs") || msg.includes("Invalid")) {
+      statusCode = 400;
+    }
+
+    res.status(statusCode).json({
+      success: false,
+      message: msg
+    });
   }
 });
 
@@ -1019,22 +1131,78 @@ router.post("/products/ai-generate", requireAdmin, (req, res) => {
 
 router.post("/media/upload", requireAdmin, async (req, res) => {
   try {
-    const { imageBase64, filename = "image.jpg", mimeType = "image/jpeg", productId = "general", altText = "" } = req.body;
+    const rawImage = req.body.imageBase64 || req.body.data || req.body.file || req.body.image;
+    const { filename = "image.jpg", mimeType, contentType, productId = "general", altText = "" } = req.body;
+    const finalMime = mimeType || contentType || "image/jpeg";
 
-    if (!imageBase64) {
-      return res.status(400).json({ success: false, message: "imageBase64 payload is required" });
+    if (!rawImage) {
+      return res.status(400).json({ success: false, message: "Image base64 payload is required" });
     }
 
-    const uploaded = await mediaService.uploadProductImage(imageBase64, filename, mimeType, productId, altText);
+    const uploaded = await mediaService.uploadProductImage(rawImage, filename, finalMime, productId, altText);
 
     auditService.logAction(req.admin.email, "IMAGE_UPLOADED", productId, {
       url: uploaded.url,
       filename
     });
 
-    res.status(201).json({ success: true, image: uploaded });
+    res.status(201).json({
+      success: true,
+      image: uploaded,
+      asset: uploaded,
+      url: uploaded.url
+    });
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/media/upload-batch", requireAdmin, async (req, res) => {
+  try {
+    const { items = [], images = [], productId = "general" } = req.body;
+    const filesToUpload = items.length > 0 ? items : images;
+
+    if (!Array.isArray(filesToUpload) || filesToUpload.length === 0) {
+      return res.status(400).json({ success: false, message: "No images provided for batch upload" });
+    }
+
+    const uploadedResults = [];
+    const errors = [];
+
+    for (let i = 0; i < filesToUpload.length; i++) {
+      const item = filesToUpload[i];
+      const rawImage = item.imageBase64 || item.data || item.file || item.image;
+      const filename = item.filename || `image_${i + 1}.jpg`;
+      const mimeType = item.mimeType || item.contentType || "image/jpeg";
+      const altText = item.altText || filename;
+
+      if (!rawImage) {
+        errors.push({ filename, error: "Missing image data" });
+        continue;
+      }
+
+      try {
+        const uploaded = await mediaService.uploadProductImage(rawImage, filename, mimeType, productId, altText);
+        uploadedResults.push(uploaded);
+      } catch (uploadErr) {
+        errors.push({ filename, error: uploadErr.message });
+      }
+    }
+
+    auditService.logAction(req.admin.email, "BATCH_IMAGES_UPLOADED", productId, {
+      uploadedCount: uploadedResults.length,
+      failedCount: errors.length
+    });
+
+    res.status(201).json({
+      success: true,
+      uploadedCount: uploadedResults.length,
+      images: uploadedResults,
+      urls: uploadedResults.map(u => u.url),
+      errors: errors.length > 0 ? errors : undefined
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
@@ -1126,6 +1294,123 @@ router.put("/categories/:id/status", requireAdmin, (req, res) => {
     active: newActive
   });
   res.json({ success: true, category: updated });
+});
+
+// ==========================================
+// 8. CUSTOMER REVIEWS & CLINICAL FEEDBACK MODERATION
+// ==========================================
+
+router.get("/reviews", requireAdmin, async (req, res) => {
+  try {
+    const { status, productId, page, limit } = req.query;
+    const result = await firestoreService.getAdminReviews({
+      status: status || "ALL",
+      productId: productId || null,
+      page: parseInt(page, 10) || 1,
+      limit: parseInt(limit, 10) || 50
+    });
+    res.json({ success: true, ...result });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.put("/reviews/:id/status", requireAdmin, async (req, res) => {
+  try {
+    const { status, verifiedPurchase, adminNote } = req.body;
+    const updated = await firestoreService.updateReviewStatus(req.params.id, {
+      status,
+      verifiedPurchase,
+      adminNote
+    });
+
+    if (!updated) {
+      return res.status(404).json({ success: false, message: "Review not found" });
+    }
+
+    auditService.logAction(req.admin.email, "REVIEW_STATUS_UPDATED", req.params.id, {
+      status,
+      verifiedPurchase,
+      adminNote
+    });
+
+    res.json({ success: true, review: updated });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.delete("/reviews/:id", requireAdmin, async (req, res) => {
+  try {
+    const deleted = await firestoreService.deleteReview(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ success: false, message: "Review not found" });
+    }
+
+    auditService.logAction(req.admin.email, "REVIEW_DELETED", req.params.id, {});
+    res.json({ success: true, message: "Review permanently deleted." });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ==========================================
+// 9. CUSTOMER ACCOUNTS & DIRECTORY (SUPABASE AUTH)
+// ==========================================
+
+router.get("/customers", requireAdmin, async (req, res) => {
+  try {
+    const { search, page, limit } = req.query;
+    const result = await supabaseService.getCustomers({
+      search,
+      page: parseInt(page, 10) || 1,
+      limit: parseInt(limit, 10) || 20
+    });
+    res.json({ success: true, ...result });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.get("/customers/:id", requireAdmin, async (req, res) => {
+  try {
+    const customer = await supabaseService.getCustomerById(req.params.id);
+    if (!customer) {
+      return res.status(404).json({ success: false, message: "Customer not found" });
+    }
+    res.json({ success: true, customer });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ==========================================
+// 10. CUSTOMER LOGIN ACTIVITY AUDIT (30-DAY RETENTION)
+// ==========================================
+
+router.get("/customer-activity", requireAdmin, async (req, res) => {
+  try {
+    const { search, page, limit } = req.query;
+    const result = await supabaseService.getCustomerLoginActivity({
+      search,
+      page: parseInt(page, 10) || 1,
+      limit: parseInt(limit, 10) || 20
+    });
+    res.json({ success: true, ...result });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/customer-activity/cleanup", requireAdmin, async (req, res) => {
+  try {
+    const { days = 30 } = req.body;
+    const result = supabaseService.cleanupExpiredActivity(parseInt(days, 10) || 30);
+    auditService.logAction(req.admin.email, "CUSTOMER_ACTIVITY_CLEANED", null, result);
+    res.json({ success: true, ...result });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
 module.exports = router;
