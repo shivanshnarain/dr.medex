@@ -188,8 +188,8 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
         <div className="p-6 pb-4 border-b border-neutral-100 flex items-start justify-between">
           <div className="pr-4">
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#7A805A]" />
-              <span className="text-2xs font-extrabold uppercase tracking-wider text-[#7A805A]">
+              <span className="w-2 h-2 rounded-full bg-[#7AA05A]" />
+              <span className="text-2xs font-extrabold uppercase tracking-wider text-[#7AA05A]">
                 DR.MEDEX Customer Portal
               </span>
             </div>

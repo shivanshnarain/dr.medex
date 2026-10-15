@@ -729,7 +729,7 @@ export const Header: React.FC = () => {
       {/* ==============================================================
           SECOND ROW: HORIZONTALLY CENTERED CATEGORY NAVIGATION + MEGA MENUS
       ============================================================== */}
-      <div className="border-t border-[#7A805A] bg-[#7A805A] relative shadow-xs overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="border-t border-[#7AA05A] bg-[#7AA05A] relative shadow-xs overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <nav
             className="flex items-center justify-start lg:justify-center gap-1 xl:gap-2 py-1 whitespace-nowrap min-w-max lg:min-w-0"
@@ -782,7 +782,7 @@ export const Header: React.FC = () => {
                               key={sub.to}
                               to={sub.to}
                               onClick={() => setActiveMegaMenu(null)}
-                              className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-[#171717] hover:text-[#2D5A4A] hover:bg-[#7A805A]/10 transition-colors group"
+                              className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-[#171717] hover:text-[#2D5A4A] hover:bg-[#7AA05A]/10 transition-colors group"
                             >
                               <span>{sub.label}</span>
                               <ChevronRight size={13} className="text-[#6B7280] group-hover:text-[#2D5A4A] transition-colors" />
@@ -831,7 +831,7 @@ export const Header: React.FC = () => {
                           onClick={() => setIsMobileMenuOpen(false)}
                           className={`flex-1 py-2 px-3 rounded-xl transition-colors ${
                             active
-                              ? "bg-[#7A805A]/15 text-[#7A805A] font-bold"
+                              ? "bg-[#7AA05A]/15 text-[#7AA05A] font-bold"
                               : "hover:bg-neutral-50 text-neutral-800"
                           }`}
                         >
@@ -846,7 +846,7 @@ export const Header: React.FC = () => {
                           >
                             <ChevronDown
                               size={16}
-                              className={`transition-transform duration-200 ${isExpanded ? "rotate-180 text-[#7A805A]" : ""}`}
+                              className={`transition-transform duration-200 ${isExpanded ? "rotate-180 text-[#7AA05A]" : ""}`}
                             />
                           </button>
                         )}
@@ -860,7 +860,7 @@ export const Header: React.FC = () => {
                               key={sub.to}
                               to={sub.to}
                               onClick={() => setIsMobileMenuOpen(false)}
-                              className="block py-1.5 px-2 text-[11px] font-medium text-neutral-700 hover:text-[#7A805A] transition-colors"
+                              className="block py-1.5 px-2 text-[11px] font-medium text-neutral-700 hover:text-[#7AA05A] transition-colors"
                             >
                               • {sub.label}
                             </Link>
