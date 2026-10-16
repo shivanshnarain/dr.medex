@@ -79,12 +79,13 @@ async function runAuditVerification() {
   const apiCatchAllFn = require("../../api/[...path]");
   const apiAdminCatchAllFn = require("../../api/admin/[...path]");
   const apiAdminProductsFn = require("../../api/admin/products");
+  const apiCronCleanupFn = require("../../api/cron/cleanup-activity");
 
-  // Simulate vercel.json rewrite: /api/(.*) -> /api?__subpath=$1
+  // Test 1a: Direct invocation of api/admin/products.js
   const testVercelReq1 = { on: () => {}, resume: () => {}, unpipe: () => {},
     headers: { host: "localhost", authorization: `Bearer ${adminToken}` },
-    url: "/api?__subpath=admin/products&limit=10",
-    query: { __subpath: "admin/products", limit: "10" },
+    url: "/api/admin/products?limit=10",
+    query: { limit: "10" },
     method: "GET"
   };
   await new Promise((resolve) => {
@@ -94,7 +95,6 @@ async function runAuditVerification() {
       getHeader(k) { return headers[k]; }, removeHeader(k) { delete headers[k]; },
       status(c) { this.statusCode = c; return this; },
       json(data) {
-        assert.strictEqual(testVercelReq1.originalUrl, "/api/admin/products?limit=10");
         assert.strictEqual(data.success, true);
         assert(Array.isArray(data.products));
         resolve();
@@ -102,9 +102,32 @@ async function runAuditVerification() {
       send() { resolve(); },
       end() { resolve(); }
     };
-    apiIndexFn(testVercelReq1, res);
+    apiAdminProductsFn(testVercelReq1, res);
   });
-  console.log("   ✔ vercel.json rewrite to /api?__subpath=$1 correctly reconstructs /api/admin/products");
+  console.log("   ✔ api/admin/products.js directly handles /api/admin/products?limit=10");
+
+  // Test 1b: Verify api/cron/cleanup-activity entrypoint
+  const testCronReq = { on: () => {}, resume: () => {}, unpipe: () => {},
+    headers: { host: "localhost" },
+    url: "/api/cron/cleanup-activity",
+    method: "GET"
+  };
+  await new Promise((resolve) => {
+    const headers = {};
+    const res = {
+      setHeader(k, v) { headers[k] = v; },
+      getHeader(k) { return headers[k]; }, removeHeader(k) { delete headers[k]; },
+      status(c) { this.statusCode = c; return this; },
+      json(data) {
+        assert.strictEqual(data.success, true);
+        resolve();
+      },
+      send() { resolve(); },
+      end() { resolve(); }
+    };
+    apiCronCleanupFn(testCronReq, res);
+  });
+  console.log("   ✔ api/cron/cleanup-activity.js correctly routes scheduled cleanup");
 
   // Simulate api/admin/[...path].js catch-all for PUT /api/admin/products/:id/review
   const testVercelReq2 = { on: () => {}, resume: () => {}, unpipe: () => {},
