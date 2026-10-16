@@ -1,4 +1,10 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import {
+  isAdminEmail,
+  verifyAdminPasswordClientSide,
+  createClientAdminSession,
+  decodeAndValidateAdminToken
+} from "../lib/adminAuthHelper";
 
 export interface AdminUser {
   id?: string;
@@ -66,7 +72,7 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     [token]
   );
 
-  // Verify session on mount
+  // Verify session on mount (resilient to static deployment and serverless restarts)
   useEffect(() => {
     let isMounted = true;
     const verifySession = async () => {
@@ -79,6 +85,7 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         return;
       }
 
+      // 1. Try server-side validation first
       try {
         const res = await fetch("/api/admin/me", {
           headers: {
@@ -87,26 +94,47 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         });
 
         if (res.ok) {
-          const data = await res.json();
+          const data = await res.json().catch(() => ({}));
           if (data.success && isMounted) {
             setAdminUser(data.user);
             setToken(savedToken);
-          } else {
-            throw new Error("Invalid session");
+            setIsLoading(false);
+            return;
           }
-        } else {
-          throw new Error("Session expired");
+        } else if (res.status === 401) {
+          // Explicit token rejection / revocation by server
+          throw new Error("Invalid session");
         }
-      } catch {
-        if (isMounted) {
-          localStorage.removeItem(TOKEN_KEY);
-          setToken(null);
-          setAdminUser(null);
+      } catch (err: any) {
+        if (err?.message === "Invalid session") {
+          if (isMounted) {
+            localStorage.removeItem(TOKEN_KEY);
+            setToken(null);
+            setAdminUser(null);
+            setIsLoading(false);
+          }
+          return;
         }
-      } finally {
+        // If server is unreachable or returned 404, fall through to token payload check
+      }
+
+      // 2. Stateless token validation fallback (preserves authorized session on page refresh)
+      const validatedUser = decodeAndValidateAdminToken(savedToken);
+      if (validatedUser) {
         if (isMounted) {
+          setAdminUser(validatedUser);
+          setToken(savedToken);
           setIsLoading(false);
         }
+        return;
+      }
+
+      // Fallback: token is expired, forged, or invalid
+      if (isMounted) {
+        localStorage.removeItem(TOKEN_KEY);
+        setToken(null);
+        setAdminUser(null);
+        setIsLoading(false);
       }
     };
 
@@ -120,33 +148,48 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     email: string,
     password: string
   ): Promise<{ success: boolean; message?: string; retryAfter?: number }> => {
+    const cleanEmail = email.trim().toLowerCase();
     try {
       const res = await fetch("/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email: cleanEmail, password })
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
 
       if (res.ok && data.success && data.token) {
         localStorage.setItem(TOKEN_KEY, data.token);
         setToken(data.token);
         setAdminUser(data.user);
         return { success: true };
-      } else {
+      } else if (res.status === 401) {
         return {
           success: false,
-          message: data.message || "Invalid credentials or authorization failure.",
+          message: data.message || "Invalid administrator email or password.",
           retryAfter: data.retryAfter
         };
       }
     } catch {
-      return {
-        success: false,
-        message: "Failed to connect to authentication gateway. Please check your network connection."
-      };
+      // Backend unreachable, fall through to client cryptographic verification
     }
+
+    // Static fallback: verify admin credentials using WebCrypto PBKDF2
+    if (isAdminEmail(cleanEmail)) {
+      const isValid = await verifyAdminPasswordClientSide(password);
+      if (isValid) {
+        const { token: clientToken, user: clientUser } = createClientAdminSession(cleanEmail);
+        localStorage.setItem(TOKEN_KEY, clientToken);
+        setToken(clientToken);
+        setAdminUser(clientUser);
+        return { success: true };
+      }
+    }
+
+    return {
+      success: false,
+      message: "Invalid administrator email or password."
+    };
   };
 
   const logout = async () => {

@@ -1,6 +1,11 @@
 import React, { createContext, useContext, useState, useEffect, useTransition } from "react";
 import { supabase, SupabaseSession, SupabaseUser } from "../lib/supabase";
 import { ShippingAddress } from "../types";
+import {
+  isAdminEmail,
+  verifyAdminPasswordClientSide,
+  createClientAdminSession
+} from "../lib/adminAuthHelper";
 
 export interface UserProfile {
   id: string;
@@ -216,7 +221,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return { success: false, error: "Please enter your email and password." };
     }
 
-    const isAdminAccount = cleanEmail === "roshan.official0009@gmail.com" || cleanEmail === "admin@drmedex.com";
+    const isAdminAccount = isAdminEmail(cleanEmail);
 
     try {
       // 1. Authenticate against unified backend authentication gateway
@@ -228,7 +233,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       const loginData = await loginRes.json().catch(() => ({}));
 
-      // A. Genuine Administrator Authentication
+      // A. Genuine Administrator Authentication from server
       if (loginRes.ok && loginData.success && loginData.isAdmin) {
         if (loginData.token) {
           localStorage.setItem("drmedex_admin_session_token", loginData.token);
@@ -304,15 +309,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       // C. Explicit credentials rejection by server (HTTP 401)
-      if (loginRes.status === 401 || loginData.success === false) {
+      if (loginRes.status === 401) {
         return {
           success: false,
           isAdmin: false,
-          error: loginData.message || "Invalid email or password. Please try again."
+          error: loginData.message || (isAdminAccount ? "Invalid administrator email or password." : "Invalid email or password. Please try again.")
         };
       }
 
-      // C. Customer Authentication via Unified Backend
+      // D. Customer Authentication via Unified Backend
       if (loginRes.ok && loginData.success && !loginData.isAdmin) {
         const customerProfile: UserProfile = {
           id: loginData.user?.id || `usr-${Math.random().toString(36).substring(2, 9)}`,
@@ -339,11 +344,43 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.warn("[Auth] Backend login request failed, attempting provider fallback:", e);
     }
 
-    // 2. Fallback to Supabase Auth strictly for standard customer credentials (never admin accounts)
+    // 2. Administrator Cryptographic Fallback (if server unreachable / static deployment)
     if (isAdminAccount) {
-      return { success: false, isAdmin: false, error: "Invalid email or password. Please try again." };
+      const isValidAdminPass = await verifyAdminPasswordClientSide(password);
+      if (isValidAdminPass) {
+        const { token, user: adminUser } = createClientAdminSession(cleanEmail);
+        localStorage.setItem("drmedex_admin_session_token", token);
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(
+            new CustomEvent("drmedex_admin_session_sync", {
+              detail: { token, user: adminUser }
+            })
+          );
+        }
+        setUser(null);
+        try {
+          localStorage.removeItem("drmedex_customer_profile");
+          localStorage.removeItem("drmedex_supabase_session");
+          localStorage.removeItem("drmedex_customer_user");
+        } catch {}
+
+        return {
+          success: true,
+          isAdmin: true,
+          redirectTo: "/admin",
+          token,
+          user: adminUser
+        };
+      }
+
+      return {
+        success: false,
+        isAdmin: false,
+        error: "Invalid administrator email or password."
+      };
     }
 
+    // 3. Fallback to Supabase Auth strictly for standard customer credentials
     const { data, error } = await supabase.auth.signInWithPassword({
       email: cleanEmail,
       password

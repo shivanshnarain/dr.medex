@@ -14,35 +14,11 @@ app.use(cors({ origin: "*" }));
 app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ extended: true, limit: "25mb" }));
 
-// URL normalization for Vercel Serverless Function invocations
-app.use((req, res, next) => {
-  if (req.url && !req.url.startsWith("/api") && !req.url.startsWith("/health")) {
-    req.url = `/api${req.url.startsWith("/") ? "" : "/"}${req.url}`;
-  }
-  next();
-});
-
-// API Routes (with dynamic dispatch to prevent stale module caching)
-app.use("/api/admin", (req, res, next) => {
-  try {
-    delete require.cache[require.resolve("./routes/admin")];
-    delete require.cache[require.resolve("./services/geminiVisionService")];
-    const freshAdminRoutes = require("./routes/admin");
-    return freshAdminRoutes(req, res, next);
-  } catch (err) {
-    return next(err);
-  }
-});
-
-app.use("/api", (req, res, next) => {
-  try {
-    delete require.cache[require.resolve("./routes/api")];
-    const freshApiRoutes = require("./routes/api");
-    return freshApiRoutes(req, res, next);
-  } catch (err) {
-    return next(err);
-  }
-});
+// API Routes (mounted under both /api and root to handle any rewrite format)
+app.use("/api/admin", adminRoutes);
+app.use("/admin", adminRoutes);
+app.use("/api", apiRoutes);
+app.use("/", apiRoutes);
 
 // Health check
 app.get("/health", (req, res) => {

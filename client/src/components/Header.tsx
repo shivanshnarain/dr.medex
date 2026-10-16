@@ -20,6 +20,7 @@ import { useCurrency } from "../context/CurrencyContext";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { useAuth } from "../context/AuthContext";
+import { useAdminAuth } from "../context/AdminAuthContext";
 import { CustomerAuthModal } from "./auth/CustomerAuthModal";
 import { Product } from "../types";
 import { Logo } from "./Logo";
@@ -41,6 +42,7 @@ export const Header: React.FC = () => {
   const { itemCount, openDrawer } = useCart();
   const { wishlistCount } = useWishlist();
   const { user, logout } = useAuth();
+  const { isAuthenticated: isAdminAuthenticated, adminUser } = useAdminAuth();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCountryModalOpen, setIsCountryModalOpen] = useState(false);
@@ -655,6 +657,15 @@ export const Header: React.FC = () => {
                   </div>
                 )}
               </div>
+            ) : isAdminAuthenticated ? (
+              <Link
+                to="/admin"
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#167A4A]/10 text-[#167A4A] hover:bg-[#167A4A]/20 transition-all text-xs font-bold border border-[#167A4A]/30 cursor-pointer"
+                title={`Admin Platform: ${adminUser?.name || "Administrator"}`}
+              >
+                <ShieldCheck size={14} className="text-[#167A4A]" />
+                <span className="hidden md:inline">Admin</span>
+              </Link>
             ) : (
               <button
                 type="button"
