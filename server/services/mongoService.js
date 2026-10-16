@@ -107,14 +107,15 @@ async function upsertApprovedProduct(product, adminEmail = "admin@drmedex.com") 
     stock: Number(product.stock || 0),
     stockStatus: product.stockStatus || (Number(product.stock || 0) > 0 ? "IN_STOCK" : "OUT_OF_STOCK"),
     status: product.status || "ACTIVE",
-    reviewStatus: "CORRECT",
+    reviewStatus: product.reviewStatus || "PENDING",
     reviewNote: product.reviewNote || null,
     // Store only verified image URLs/references — NEVER raw binaries or base64
     images: Array.isArray(product.images) ? product.images.filter(i => typeof i === "string" && !i.startsWith("data:")) : [],
     primaryImage: typeof product.primaryImage === "string" && !product.primaryImage.startsWith("data:") ? product.primaryImage : "",
+    managedCloudinaryImages: Array.isArray(product.managedCloudinaryImages) ? product.managedCloudinaryImages : [],
     cloudinarySyncStatus: product.cloudinarySyncStatus || null,
-    approvedAt: new Date().toISOString(),
-    approvedBy: adminEmail,
+    approvedAt: product.reviewStatus === "CORRECT" ? (product.approvedAt || new Date().toISOString()) : (product.approvedAt || null),
+    approvedBy: product.reviewStatus === "CORRECT" ? adminEmail : (product.approvedBy || null),
     updatedAt: new Date().toISOString()
   };
 
@@ -135,9 +136,47 @@ async function upsertApprovedProduct(product, adminEmail = "admin@drmedex.com") 
 }
 
 /**
- * Remove approved product from MongoDB Atlas when status changes to NEEDS_EDITING or PENDING
- * - Targeted delete by stable product ID
- * - Preserves editable source record in source store
+ * Update review status in MongoDB Atlas without deleting any product data or images
+ */
+async function updateProductReviewStatus(productId, reviewStatus, reviewNote = null, adminEmail = "admin@drmedex.com") {
+  if (!isConfigured()) {
+    return { success: false, status: "NOT_CONFIGURED", message: "MongoDB Atlas is not configured." };
+  }
+
+  if (!productId) throw new Error("Product ID is required for review status update");
+  const collection = await getCollection();
+
+  const updates = {
+    reviewStatus,
+    reviewNote: reviewNote !== undefined ? (reviewNote ? String(reviewNote).trim() : null) : null,
+    reviewedBy: adminEmail,
+    reviewedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+
+  if (reviewStatus === "CORRECT") {
+    updates.approvedAt = new Date().toISOString();
+    updates.approvedBy = adminEmail;
+  }
+
+  const result = await collection.updateOne(
+    { id: String(productId) },
+    { $set: updates }
+  );
+
+  return {
+    success: true,
+    status: "UPDATED",
+    id: String(productId),
+    reviewStatus,
+    modified: Boolean(result.modifiedCount > 0),
+    matched: Boolean(result.matchedCount > 0)
+  };
+}
+
+/**
+ * Remove approved product from MongoDB Atlas ONLY on explicit permanent deletion
+ * - Preserves records for status changes
  */
 async function removeApprovedProduct(productId) {
   if (!isConfigured()) {
@@ -158,12 +197,50 @@ async function removeApprovedProduct(productId) {
 }
 
 /**
- * Get approved product by ID
+ * Get product by ID from MongoDB
  */
 async function getApprovedProduct(productId) {
   if (!isConfigured()) return null;
   const collection = await getCollection();
   return collection.findOne({ id: String(productId) });
+}
+
+/**
+ * Query all products directly from MongoDB collection
+ */
+async function getProductsFromMongo(filters = {}) {
+  if (!isConfigured()) return null;
+  try {
+    const collection = await getCollection();
+    const query = {};
+    if (filters.category && filters.category !== "ALL") {
+      query.category = filters.category;
+    }
+    if (filters.reviewStatus && filters.reviewStatus !== "ALL" && filters.reviewStatus !== "all") {
+      if (filters.reviewStatus === "PENDING" || filters.reviewStatus === "NOT_REVIEWED") {
+        query.$or = [{ reviewStatus: "PENDING" }, { reviewStatus: { $exists: false } }];
+      } else {
+        query.reviewStatus = filters.reviewStatus;
+      }
+    }
+    return await collection.find(query).toArray();
+  } catch (err) {
+    console.warn("[mongoService] getProductsFromMongo error:", err.message);
+    return null;
+  }
+}
+
+/**
+ * Get product count in MongoDB collection
+ */
+async function getProductsCount() {
+  if (!isConfigured()) return null;
+  try {
+    const collection = await getCollection();
+    return await collection.countDocuments();
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -200,7 +277,12 @@ async function getMongoStatus() {
 module.exports = {
   isConfigured,
   upsertApprovedProduct,
+  upsertProduct: upsertApprovedProduct,
+  updateProductReviewStatus,
   removeApprovedProduct,
   getApprovedProduct,
+  getProduct: getApprovedProduct,
+  getProductsFromMongo,
+  getProductsCount,
   getMongoStatus
 };

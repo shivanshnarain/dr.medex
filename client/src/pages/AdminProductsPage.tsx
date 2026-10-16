@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { useSearchParams, Link, useNavigate } from "react-router-dom";
+import { useSearchParams, Link, useNavigate, useLocation } from "react-router-dom";
 import {
   Package,
   Search,
@@ -33,6 +33,7 @@ export const AdminProductsPage: React.FC = () => {
   const { adminFetch } = useAdminAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -164,6 +165,7 @@ export const AdminProductsPage: React.FC = () => {
           type: "warning"
         });
       } else {
+        setBannerMessage(null);
         if (isManualRefresh) {
           setBannerMessage({
             text: `Refreshed catalogue: ${loadedProducts.length} products synced from backend.`,
@@ -172,7 +174,9 @@ export const AdminProductsPage: React.FC = () => {
         }
       }
 
-      setProducts(loadedProducts);
+      if (loadedProducts.length > 0) {
+        setProducts(loadedProducts);
+      }
 
       if (catRes.ok) {
         const cData = await catRes.json();
@@ -195,7 +199,9 @@ export const AdminProductsPage: React.FC = () => {
       if (!loadedProducts.length && fallbackProducts) {
         loadedProducts = fallbackProducts;
       }
-      setProducts(loadedProducts);
+      if (loadedProducts.length > 0) {
+        setProducts(loadedProducts);
+      }
       setCategories(fallbackCategories);
       setBannerMessage({
         text: `Error contacting server: ${e.message || "Failed to load"}. Displaying ${loadedProducts.length} verified catalogue products.`,
@@ -210,6 +216,18 @@ export const AdminProductsPage: React.FC = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  // Listen for navigation state from product editor after successful save
+  useEffect(() => {
+    if (location.state && (location.state as any).refreshed) {
+      const stateMsg = (location.state as any).message;
+      if (stateMsg) {
+        showToast("success", stateMsg, "Catalogue Updated");
+      }
+      fetchProducts(true);
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   // Sync category query param
   useEffect(() => {
@@ -438,7 +456,7 @@ export const AdminProductsPage: React.FC = () => {
   ) => {
     if (reviewUpdatingId === product.id) return;
     setReviewUpdatingId(product.id);
-    setPendingReviewAction(status === "CORRECT" ? "UPLOADING" : "REMOVING");
+    setPendingReviewAction(status === "CORRECT" ? "UPLOADING" : "UPDATING");
     setActiveReviewPopoverId(null);
 
     try {
@@ -493,8 +511,8 @@ export const AdminProductsPage: React.FC = () => {
           showToast(
             "success",
             status === "NEEDS_EDITING"
-              ? `Marked as Needs Editing. Cloudinary & MongoDB records safely removed. Product moved to top.`
-              : `Review status reset to Not Yet Reviewed. Product moved to top.`,
+              ? `Marked as Needs Editing. All catalogue text & images preserved. Product in review queue.`
+              : `Review status reset to Not Yet Reviewed. All catalogue text & images preserved.`,
             `"${prodTitle}"`
           );
         }
@@ -549,7 +567,8 @@ export const AdminProductsPage: React.FC = () => {
     try {
       const res = await adminFetch(`/api/admin/products/${product.id}/download-package`);
       if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
+        let errData: any = {};
+        try { errData = await res.json(); } catch {}
         throw new Error(errData.message || `Export failed with status ${res.status}`);
       }
       const blob = await res.blob();
@@ -569,7 +588,54 @@ export const AdminProductsPage: React.FC = () => {
       window.URL.revokeObjectURL(downloadUrl);
       setBannerMessage({ text: `Product ZIP package downloaded: ${filename}`, type: "success" });
     } catch (err: any) {
-      console.error("Export download error:", err);
+      console.error("Export download error, checking fallback asset download:", err);
+      // Fallback: download individual images if server ZIP fails
+      const allImages: string[] = [];
+      if (product.primaryImage) allImages.push(product.primaryImage);
+      if (Array.isArray(product.images)) {
+        product.images.forEach(img => {
+          if (img && !allImages.includes(img)) allImages.push(img);
+        });
+      }
+      if (Array.isArray(product.galleryImages)) {
+        product.galleryImages.forEach((g: any) => {
+          const u = typeof g === "string" ? g : g?.url;
+          if (u && !allImages.includes(u)) allImages.push(u);
+        });
+      }
+
+      if (allImages.length > 0) {
+        let downloadedCount = 0;
+        for (let i = 0; i < allImages.length; i++) {
+          try {
+            const imgUrl = allImages[i];
+            const ext = imgUrl.match(/\.(jpg|jpeg|png|webp|gif|svg)/i)?.[1] || "jpg";
+            const imgRes = await fetch(imgUrl);
+            if (imgRes.ok) {
+              const imgBlob = await imgRes.blob();
+              const blobUrl = window.URL.createObjectURL(imgBlob);
+              const imgLink = document.createElement("a");
+              imgLink.href = blobUrl;
+              imgLink.download = `${product.sku || product.id}_img_${i + 1}.${ext}`;
+              document.body.appendChild(imgLink);
+              imgLink.click();
+              document.body.removeChild(imgLink);
+              window.URL.revokeObjectURL(blobUrl);
+              downloadedCount++;
+            }
+          } catch (dlErr) {
+            console.warn("Direct image download error:", dlErr);
+          }
+        }
+        if (downloadedCount > 0) {
+          setBannerMessage({
+            text: `Server package unavailable. Downloaded ${downloadedCount}/${allImages.length} product images directly to your computer.`,
+            type: "warning"
+          });
+          return;
+        }
+      }
+
       setBannerMessage({ text: err.message || "Failed to download product package.", type: "error" });
     } finally {
       setDownloadingId(null);

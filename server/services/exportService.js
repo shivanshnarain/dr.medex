@@ -36,7 +36,22 @@ function escapeCSV(val) {
  */
 async function resolveImageBuffer(imgUrl, sourceUrl) {
   if (!imgUrl && !sourceUrl) return null;
-  const targetUrl = imgUrl || sourceUrl;
+  const rawTarget = imgUrl || sourceUrl;
+  const targetUrl = typeof rawTarget === "string" ? rawTarget : (rawTarget?.url || rawTarget?.src || "");
+  if (!targetUrl || typeof targetUrl !== "string") return null;
+
+  // 0. Check data: URI
+  if (targetUrl.startsWith("data:")) {
+    const commaIdx = targetUrl.indexOf(",");
+    if (commaIdx !== -1) {
+      try {
+        const b64Data = targetUrl.substring(commaIdx + 1);
+        return Buffer.from(b64Data, "base64");
+      } catch (e) {
+        // failed parsing base64
+      }
+    }
+  }
 
   // 1. Check local public directories
   if (targetUrl.startsWith("/")) {
@@ -68,11 +83,11 @@ async function resolveImageBuffer(imgUrl, sourceUrl) {
   }
 
   // 3. Remote URL fetch with timeout
-  const remoteUrl = targetUrl.startsWith("http") ? targetUrl : (sourceUrl && sourceUrl.startsWith("http") ? sourceUrl : null);
+  const remoteUrl = targetUrl.startsWith("http") ? targetUrl : (sourceUrl && typeof sourceUrl === "string" && sourceUrl.startsWith("http") ? sourceUrl : null);
   if (remoteUrl && typeof fetch === "function") {
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 6000);
+      const timeoutId = setTimeout(() => controller.abort(), 8000);
       const res = await fetch(remoteUrl, { signal: controller.signal });
       clearTimeout(timeoutId);
       if (res.ok) {
@@ -103,28 +118,47 @@ async function generateProductPackage(product, adminUser = null) {
 
   // 1. Collect all images and normalize
   const rawImages = [];
-  const primaryUrl = product.primaryImage || (product.galleryImages && product.galleryImages[0]?.url) || null;
+  const primaryUrl = typeof product.primaryImage === "string"
+    ? product.primaryImage
+    : (product.primaryImage?.url || (product.galleryImages && (product.galleryImages[0]?.url || product.galleryImages[0])) || null);
 
   if (Array.isArray(product.galleryImages) && product.galleryImages.length > 0) {
     product.galleryImages.forEach((img, idx) => {
-      const url = typeof img === "string" ? img : img.url;
-      const altText = (typeof img === "object" && img.altText) ? img.altText : `${title} - View ${idx + 1}`;
+      const url = typeof img === "string" ? img : (img?.url || img?.src);
+      const altText = (typeof img === "object" && (img.altText || img.alt)) ? (img.altText || img.alt) : `${title} - View ${idx + 1}`;
       const isPrimary = typeof img === "object" ? !!img.isPrimary : (url === primaryUrl || idx === 0);
-      const sourceUrl = typeof img === "object" ? img.sourceUrl : null;
+      const sourceUrl = typeof img === "object" ? (img.sourceUrl || img.url) : null;
       if (url) {
         rawImages.push({ url, altText, isPrimary, sourceUrl, originalOrder: idx });
       }
     });
   }
 
-  // Also check images string array
+  // Also check images array (which can contain strings or objects)
   if (Array.isArray(product.images)) {
-    product.images.forEach((imgUrl, idx) => {
-      if (imgUrl && !rawImages.some(r => r.url === imgUrl)) {
+    product.images.forEach((imgItem, idx) => {
+      const url = typeof imgItem === "string" ? imgItem : (imgItem?.url || imgItem?.src || "");
+      if (url && !rawImages.some(r => r.url === url)) {
         rawImages.push({
-          url: imgUrl,
-          altText: `${title} - Image ${idx + 1}`,
-          isPrimary: imgUrl === primaryUrl,
+          url,
+          altText: (typeof imgItem === "object" && (imgItem.alt || imgItem.altText)) ? (imgItem.alt || imgItem.altText) : `${title} - Image ${idx + 1}`,
+          isPrimary: typeof imgItem === "object" ? !!imgItem.isPrimary : (url === primaryUrl),
+          sourceUrl: typeof imgItem === "object" ? (imgItem.sourceUrl || imgItem.url) : null,
+          originalOrder: rawImages.length
+        });
+      }
+    });
+  }
+
+  // Also check managed Cloudinary images
+  if (Array.isArray(product.managedCloudinaryImages)) {
+    product.managedCloudinaryImages.forEach((cldImg, idx) => {
+      const cldUrl = typeof cldImg === "string" ? cldImg : cldImg?.url;
+      if (cldUrl && !rawImages.some(r => r.url === cldUrl)) {
+        rawImages.push({
+          url: cldUrl,
+          altText: `${title} - Cloudinary Image ${idx + 1}`,
+          isPrimary: cldUrl === primaryUrl,
           sourceUrl: null,
           originalOrder: rawImages.length
         });
@@ -155,16 +189,24 @@ async function generateProductPackage(product, adminUser = null) {
   const imageManifest = [];
   const failedImages = [];
 
+  const cleanSku = sanitizeFilename(sku || "SKU");
   let imgSeq = 1;
   for (const imgItem of rawImages) {
-    const extMatch = imgItem.url.match(/\.(jpg|jpeg|png|webp|gif|svg)(\?.*)?$/i);
-    let ext = extMatch ? extMatch[1].toLowerCase() : "jpg";
-    if (ext === "jpeg") ext = "jpg";
+    let ext = "jpg";
+    if (typeof imgItem.url === "string" && imgItem.url.startsWith("data:image/")) {
+      const m = imgItem.url.match(/^data:image\/([a-zA-Z0-9+]+);/);
+      if (m && m[1]) {
+        ext = m[1].toLowerCase();
+        if (ext === "jpeg") ext = "jpg";
+      }
+    } else if (typeof imgItem.url === "string") {
+      const extMatch = imgItem.url.match(/\.(jpg|jpeg|png|webp|gif|svg)(\?.*)?$/i);
+      ext = extMatch ? extMatch[1].toLowerCase() : "jpg";
+      if (ext === "jpeg") ext = "jpg";
+    }
 
     const seqStr = String(imgSeq).padStart(2, "0");
-    const filename = imgSeq === 1 && imgItem.isPrimary
-      ? `${seqStr}-primary-image.${ext}`
-      : `${seqStr}-product-image.${ext}`;
+    const filename = `${cleanSku}_img_${seqStr}${imgItem.isPrimary ? '_primary' : ''}.${ext}`;
 
     const buffer = await resolveImageBuffer(imgItem.url, imgItem.sourceUrl);
 

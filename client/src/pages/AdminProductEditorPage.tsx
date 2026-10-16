@@ -989,6 +989,8 @@ export const AdminProductEditorPage: React.FC = () => {
   // SAVE PRODUCT HANDLER
   // ==========================================
   const handleSaveProduct = async () => {
+    if (isSaving) return;
+
     if (duplicateInfo.isDuplicate && !allowDuplicateOverride) {
       setStatusBanner({
         type: "error",
@@ -1094,31 +1096,40 @@ export const AdminProductEditorPage: React.FC = () => {
         body: JSON.stringify(payload)
       });
 
-      const data = await res.json();
+      let data: any = {};
+      try {
+        data = await res.json();
+      } catch (parseErr) {
+        data = { message: `Server returned HTTP ${res.status}: ${res.statusText || 'Unable to parse server response'}` };
+      }
+
       if (res.ok && data.success) {
         setHasUnsavedChanges(false);
-        setStatusBanner({
-          type: "success",
-          text: isEditMode
-            ? "Medical equipment catalogue record updated successfully."
-            : "New medical equipment record added to clinical inventory."
+        navigate("/admin/products", {
+          state: {
+            refreshed: true,
+            message: isEditMode
+              ? `Product "${payload.productName || payload.title}" updated successfully.`
+              : `Product "${payload.productName || payload.title}" created successfully.`
+          }
         });
-
-        if (!isEditMode && data.product?.id) {
-          navigate(`/admin/products/${data.product.id}/edit`, { replace: true });
-        }
+        return;
       } else {
         setStatusBanner({
           type: "error",
-          text: data.message || "Failed to save product. Please check required fields."
+          text: data.message || `Failed to save product (HTTP ${res.status}). Form data has been preserved.`
         });
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
     } catch (err: any) {
       console.error("Save error:", err);
       setStatusBanner({
         type: "error",
-        text: "Network error occurred while saving product."
+        text: err?.message
+          ? `Failed to save product: ${err.message}. Your form changes have been preserved.`
+          : "Network error occurred while saving product. Your form data has been retained."
       });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } finally {
       setIsSaving(false);
     }

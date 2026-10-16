@@ -7,8 +7,12 @@ const LOCAL_STORAGE_DIR = path.join(__dirname, "../../client/public/products-cat
 osEnsureDir(LOCAL_STORAGE_DIR);
 
 function osEnsureDir(dirPath) {
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
+  try {
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
+    }
+  } catch (e) {
+    // Safe fallback for read-only serverless environments
   }
 }
 
@@ -34,7 +38,16 @@ class LocalMediaProvider {
     const safeName = `img_${Date.now()}_${crypto.randomBytes(4).toString("hex")}${ext}`;
     const targetPath = path.join(prodDir, safeName);
 
-    fs.writeFileSync(targetPath, buffer);
+    try {
+      fs.writeFileSync(targetPath, buffer);
+    } catch (e) {
+      // Handle read-only serverless environment gracefully
+      try {
+        const tmpDir = path.join("/tmp/products-catalog", productId.replace(/[^a-zA-Z0-9_-]/g, "_"));
+        osEnsureDir(tmpDir);
+        fs.writeFileSync(path.join(tmpDir, safeName), buffer);
+      } catch (err2) {}
+    }
 
     const publicUrl = `/products-catalog/${productId.replace(/[^a-zA-Z0-9_-]/g, "_")}/${safeName}`;
     return {

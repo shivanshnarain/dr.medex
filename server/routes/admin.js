@@ -174,9 +174,33 @@ router.get("/dashboard", requireAdmin, (req, res) => {
 // 3. PRODUCT MANAGEMENT ENDPOINTS
 // ==========================================
 
-router.get("/products", requireAdmin, (req, res) => {
+router.get("/products", requireAdmin, async (req, res) => {
   const { search, category, status, stock, reviewStatus, sort = "updated_desc", page = 1, limit = 20 } = req.query;
   let list = store.getProducts({ includeInactive: true });
+
+  // Merge authoritative records from MongoDB if configured and reachable
+  if (mongoService.isConfigured()) {
+    try {
+      const mongoList = await mongoService.getProductsFromMongo();
+      if (Array.isArray(mongoList) && mongoList.length > 0) {
+        const mongoMap = new Map(mongoList.map(m => [m.id, m]));
+        list = list.map(p => {
+          const m = mongoMap.get(p.id);
+          if (m) {
+            return {
+              ...p,
+              ...m,
+              reviewStatus: m.reviewStatus || p.reviewStatus || "PENDING",
+              reviewNote: m.reviewNote !== undefined ? m.reviewNote : p.reviewNote
+            };
+          }
+          return p;
+        });
+      }
+    } catch (e) {
+      // Fallback gracefully to store
+    }
+  }
 
   // Calculate live review counts across all products before filtering
   const allProducts = list;
@@ -415,7 +439,20 @@ router.get("/products/:id", requireAdmin, (req, res) => {
  */
 router.get("/products/:id/download-package", requireAdmin, async (req, res) => {
   try {
-    const product = store.getProductById(req.params.id, true);
+    let product = store.getProductById(req.params.id, true);
+    if (!product && mongoService.isConfigured()) {
+      try {
+        product = await mongoService.getApprovedProduct(req.params.id);
+      } catch (mErr) {}
+    } else if (product && mongoService.isConfigured()) {
+      try {
+        const mongoProd = await mongoService.getApprovedProduct(req.params.id);
+        if (mongoProd) {
+          product = { ...product, ...mongoProd };
+        }
+      } catch (mErr) {}
+    }
+
     if (!product) {
       return res.status(404).json({ success: false, message: "Product not found" });
     }
@@ -477,6 +514,7 @@ router.put("/products/:id/review", requireAdmin, async (req, res) => {
     let cloudinaryResult = null;
 
     // IMAGE LIFECYCLE HOOKS
+    // IMAGE LIFECYCLE HOOKS - Strictly non-destructive preservation
     if (cloudinaryService.isConfigured()) {
       if (reviewStatus === "CORRECT") {
         // Upload / optimize images to Cloudinary
@@ -495,51 +533,24 @@ router.put("/products/:id/review", requireAdmin, async (req, res) => {
           cloudinaryResult = { status: "UPLOAD_FAILED", error: syncErr.message };
           updates.cloudinarySyncStatus = "UPLOAD_FAILED";
         }
-      } else if (reviewStatus === "NEEDS_EDITING" || reviewStatus === "PENDING") {
-        // Remove managed Cloudinary copies and restore source images
-        try {
-          const allProducts = store.getProducts({ includeInactive: true });
-          const removalRes = await cloudinaryService.syncProductReviewRemoval(existing, allProducts);
-          cloudinaryResult = removalRes;
-          updates.images = removalRes.restoredImages;
-          updates.primaryImage = removalRes.restoredPrimaryImage;
-          updates.managedCloudinaryImages = [];
-          updates.cloudinarySyncStatus = removalRes.status;
-          updates.cloudinaryLastSyncedAt = new Date().toISOString();
-        } catch (remErr) {
-          console.error("Cloudinary removal error:", remErr);
-          cloudinaryResult = { status: "REMOVAL_FAILED", error: remErr.message };
-          updates.cloudinarySyncStatus = "REMOVAL_FAILED";
-        }
       }
+      // CRITICAL: When reviewStatus is NEEDS_EDITING or PENDING, preserve all existing Cloudinary images!
+      // Do not delete Cloudinary assets.
     }
 
-    // MONGODB TEXT-DATA LIFECYCLE HOOKS
+    // MONGODB TEXT-DATA LIFECYCLE HOOKS - Non-destructive persistence
     let mongoResult = null;
     if (mongoService.isConfigured()) {
-      if (reviewStatus === "CORRECT") {
-        try {
-          const candidateProduct = { ...existing, ...updates };
-          const mRes = await mongoService.upsertApprovedProduct(candidateProduct, req.admin.email);
-          mongoResult = mRes;
-          updates.mongoSyncStatus = mRes.status;
-          updates.mongoSyncedAt = new Date().toISOString();
-        } catch (mErr) {
-          console.error("MongoDB Atlas sync to CORRECT error:", mErr.message);
-          mongoResult = { status: "SYNC_FAILED", error: mErr.message };
-          updates.mongoSyncStatus = "SYNC_FAILED";
-        }
-      } else if (reviewStatus === "NEEDS_EDITING" || reviewStatus === "PENDING") {
-        try {
-          const mDel = await mongoService.removeApprovedProduct(existing.id);
-          mongoResult = mDel;
-          updates.mongoSyncStatus = mDel.status;
-          updates.mongoSyncedAt = new Date().toISOString();
-        } catch (mDelErr) {
-          console.error("MongoDB Atlas removal error:", mDelErr.message);
-          mongoResult = { status: "REMOVAL_FAILED", error: mDelErr.message };
-          updates.mongoSyncStatus = "REMOVAL_FAILED";
-        }
+      try {
+        const candidateProduct = { ...existing, ...updates };
+        const mRes = await mongoService.upsertProduct(candidateProduct, req.admin.email);
+        mongoResult = mRes;
+        updates.mongoSyncStatus = mRes.status;
+        updates.mongoSyncedAt = new Date().toISOString();
+      } catch (mErr) {
+        console.error("MongoDB Atlas sync error:", mErr.message);
+        mongoResult = { status: "SYNC_FAILED", error: mErr.message };
+        updates.mongoSyncStatus = "SYNC_FAILED";
       }
     }
 
@@ -654,21 +665,12 @@ router.post("/products/:id/sync-mongodb", requireAdmin, async (req, res) => {
       return res.status(404).json({ success: false, message: "Product not found" });
     }
 
-    if (product.reviewStatus === "CORRECT") {
-      const mRes = await mongoService.upsertApprovedProduct(product, req.admin.email);
-      const updated = store.updateProduct(product.id, {
-        mongoSyncStatus: mRes.status,
-        mongoSyncedAt: new Date().toISOString()
-      });
-      return res.json({ success: true, product: updated, mongodb: mRes });
-    } else {
-      const mRes = await mongoService.removeApprovedProduct(product.id);
-      const updated = store.updateProduct(product.id, {
-        mongoSyncStatus: mRes.status,
-        mongoSyncedAt: new Date().toISOString()
-      });
-      return res.json({ success: true, product: updated, mongodb: mRes });
-    }
+    const mRes = await mongoService.upsertProduct(product, req.admin.email);
+    const updated = store.updateProduct(product.id, {
+      mongoSyncStatus: mRes.status,
+      mongoSyncedAt: new Date().toISOString()
+    });
+    return res.json({ success: true, product: updated, mongodb: mRes });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -720,9 +722,9 @@ router.put("/products/:id/status", requireAdmin, (req, res) => {
   }
 });
 
-router.post("/products", requireAdmin, (req, res) => {
+router.post("/products", requireAdmin, async (req, res) => {
   try {
-    const data = req.body;
+    const data = { ...req.body };
     if (!data.productName && !data.title) {
       return res.status(400).json({ success: false, message: "Product name is required" });
     }
@@ -772,11 +774,57 @@ router.post("/products", requireAdmin, (req, res) => {
       });
     }
 
+    // Handle base64 image uploads if present
+    if (Array.isArray(data.images)) {
+      const processedImages = [];
+      for (let i = 0; i < data.images.length; i++) {
+        const img = data.images[i];
+        if (typeof img === "string" && img.startsWith("data:image/")) {
+          try {
+            const uploadRes = await mediaService.uploadProductImage(
+              img,
+              `img_${i}_${Date.now()}.jpg`,
+              "image/jpeg",
+              "new_product",
+              data.title || data.productName || "Product"
+            );
+            if (uploadRes && uploadRes.url) {
+              processedImages.push(uploadRes.url);
+            } else {
+              processedImages.push(img);
+            }
+          } catch (upErr) {
+            console.warn("[admin.js] Image upload error during product create:", upErr.message);
+            processedImages.push(img);
+          }
+        } else if (img) {
+          processedImages.push(img);
+        }
+      }
+      data.images = processedImages;
+      if (typeof data.primaryImage === "string" && data.primaryImage.startsWith("data:image/")) {
+        data.primaryImage = processedImages[0] || data.primaryImage;
+      }
+    }
+
     const created = store.addProduct({
       ...data,
       createdBy: req.admin.email,
       updatedBy: req.admin.email
     });
+
+    // Persist to MongoDB Atlas if configured
+    if (mongoService.isConfigured()) {
+      try {
+        const mRes = await mongoService.upsertProduct(created, req.admin.email);
+        if (mRes && mRes.success) {
+          created.mongoSyncStatus = "SYNCED";
+          store.updateProduct(created.id, { mongoSyncStatus: "SYNCED", mongoSyncedAt: new Date().toISOString() });
+        }
+      } catch (mErr) {
+        console.warn("[admin.js] MongoDB Atlas sync on create:", mErr.message);
+      }
+    }
 
     auditService.logAction(req.admin.email, "PRODUCT_CREATED", created.id, {
       title: created.title || created.productName,
@@ -790,7 +838,7 @@ router.post("/products", requireAdmin, (req, res) => {
   }
 });
 
-router.put("/products/:id", requireAdmin, (req, res) => {
+router.put("/products/:id", requireAdmin, async (req, res) => {
   try {
     const existing = store.getProductById(req.params.id, true);
     if (!existing) {
@@ -803,9 +851,55 @@ router.put("/products/:id", requireAdmin, (req, res) => {
       updatedAt: new Date().toISOString()
     };
 
+    // Upload any new base64 images to Cloudinary and preserve existing images
+    if (Array.isArray(updates.images)) {
+      const processedImages = [];
+      for (let i = 0; i < updates.images.length; i++) {
+        const img = updates.images[i];
+        if (typeof img === "string" && img.startsWith("data:image/")) {
+          try {
+            const uploadRes = await mediaService.uploadProductImage(
+              img,
+              `img_${i}_${Date.now()}.jpg`,
+              "image/jpeg",
+              existing.id,
+              existing.title || existing.productName || "Product"
+            );
+            if (uploadRes && uploadRes.url) {
+              processedImages.push(uploadRes.url);
+            } else {
+              processedImages.push(img);
+            }
+          } catch (upErr) {
+            console.warn("[admin.js] Image upload error during product save:", upErr.message);
+            processedImages.push(img);
+          }
+        } else if (img) {
+          processedImages.push(img);
+        }
+      }
+      updates.images = processedImages;
+      if (typeof updates.primaryImage === "string" && updates.primaryImage.startsWith("data:image/")) {
+        updates.primaryImage = processedImages[0] || updates.primaryImage;
+      }
+    }
+
     const updated = store.updateProduct(existing.id, updates);
     if (!updated) {
       return res.status(500).json({ success: false, message: "Failed to persist product update in store." });
+    }
+
+    // Persist to MongoDB Atlas if configured
+    if (mongoService.isConfigured()) {
+      try {
+        const mRes = await mongoService.upsertProduct(updated, req.admin?.email || "admin@drmedex.com");
+        if (mRes && mRes.success) {
+          updated.mongoSyncStatus = "SYNCED";
+          store.updateProduct(existing.id, { mongoSyncStatus: "SYNCED", mongoSyncedAt: new Date().toISOString() });
+        }
+      } catch (mErr) {
+        console.warn("[admin.js] MongoDB Atlas sync on update:", mErr.message);
+      }
     }
 
     // Detect specific changes for granular audit logging

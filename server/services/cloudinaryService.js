@@ -4,7 +4,12 @@ const https = require("https");
 const http = require("http");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary").v2;
-const sharp = require("sharp");
+let sharp = null;
+try {
+  sharp = require("sharp");
+} catch (e) {
+  // sharp native module not available in current runtime (e.g. Vercel serverless)
+}
 
 // Configure Cloudinary from server environment
 const cloudName = process.env.CLOUDINARY_CLOUD_NAME || "";
@@ -85,14 +90,16 @@ async function getAccountUsage() {
  */
 async function resolveImageBuffer(imgUrl) {
   if (!imgUrl) return null;
+  const target = typeof imgUrl === "string" ? imgUrl : (imgUrl?.url || imgUrl?.src || imgUrl?.path || "");
+  if (!target || typeof target !== "string") return null;
 
   // 1. Check local public filesystem paths
-  if (imgUrl.startsWith("/")) {
+  if (target.startsWith("/")) {
     const candidatePaths = [
-      path.join(__dirname, "../../client/public", imgUrl),
-      path.join(__dirname, "../public", imgUrl),
-      path.join(__dirname, "../../client/dist", imgUrl),
-      path.join(__dirname, "../../", imgUrl)
+      path.join(__dirname, "../../client/public", target),
+      path.join(__dirname, "../public", target),
+      path.join(__dirname, "../../client/dist", target),
+      path.join(__dirname, "../../", target)
     ];
 
     for (const p of candidatePaths) {
@@ -111,10 +118,10 @@ async function resolveImageBuffer(imgUrl) {
   }
 
   // 2. Remote URL fetching (HTTPS / HTTP)
-  if (imgUrl.startsWith("http://") || imgUrl.startsWith("https://")) {
+  if (target.startsWith("http://") || target.startsWith("https://")) {
     return new Promise((resolve) => {
-      const client = imgUrl.startsWith("https://") ? https : http;
-      const req = client.get(imgUrl, { timeout: 12000 }, (res) => {
+      const client = target.startsWith("https://") ? https : http;
+      const req = client.get(target, { timeout: 12000 }, (res) => {
         if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
           // Follow redirect
           resolve(resolveImageBuffer(res.headers.location));
@@ -132,7 +139,7 @@ async function resolveImageBuffer(imgUrl) {
           resolve({
             buffer,
             sourceType: "remote_url",
-            resolvedPath: imgUrl
+            resolvedPath: target
           });
         });
       });
@@ -156,35 +163,56 @@ async function resolveImageBuffer(imgUrl) {
  * - Do not enlarge small images
  */
 async function optimizeImage(inputBuffer) {
-  const metadata = await sharp(inputBuffer).metadata();
-  const originalSizeBytes = inputBuffer.length;
+  if (!sharp) {
+    return {
+      buffer: inputBuffer,
+      format: "auto",
+      sizeBytes: inputBuffer.length,
+      originalSizeBytes: inputBuffer.length,
+      savedBytes: 0,
+      compressionRatio: 0
+    };
+  }
+  try {
+    const metadata = await sharp(inputBuffer).metadata();
+    const originalSizeBytes = inputBuffer.length;
 
-  const optimizedBuffer = await sharp(inputBuffer)
-    .resize({
-      width: 1200,
-      height: 1200,
-      fit: "inside",
-      withoutEnlargement: true
-    })
-    .webp({
-      quality: 80,
-      effort: 4,
-      alphaQuality: 85
-    })
-    .toBuffer();
+    const optimizedBuffer = await sharp(inputBuffer)
+      .resize({
+        width: 1200,
+        height: 1200,
+        fit: "inside",
+        withoutEnlargement: true
+      })
+      .webp({
+        quality: 80,
+        effort: 4,
+        alphaQuality: 85
+      })
+      .toBuffer();
 
-  const optMetadata = await sharp(optimizedBuffer).metadata();
+    const optMetadata = await sharp(optimizedBuffer).metadata();
 
-  return {
-    buffer: optimizedBuffer,
-    format: "webp",
-    width: optMetadata.width,
-    height: optMetadata.height,
-    sizeBytes: optimizedBuffer.length,
-    originalSizeBytes,
-    savedBytes: originalSizeBytes - optimizedBuffer.length,
-    compressionRatio: Number(((1 - optimizedBuffer.length / originalSizeBytes) * 100).toFixed(1))
-  };
+    return {
+      buffer: optimizedBuffer,
+      format: "webp",
+      width: optMetadata.width,
+      height: optMetadata.height,
+      sizeBytes: optimizedBuffer.length,
+      originalSizeBytes,
+      savedBytes: originalSizeBytes - optimizedBuffer.length,
+      compressionRatio: Number(((1 - optimizedBuffer.length / originalSizeBytes) * 100).toFixed(1))
+    };
+  } catch (err) {
+    return {
+      buffer: inputBuffer,
+      format: "auto",
+      sizeBytes: inputBuffer.length,
+      originalSizeBytes: inputBuffer.length,
+      savedBytes: 0,
+      compressionRatio: 0
+    };
+  }
 }
 
 /**
@@ -258,8 +286,9 @@ async function syncProductReviewToCorrect(product, options = {}) {
   const errors = [];
 
   for (let idx = 0; idx < rawImages.length; idx++) {
-    const sourceRef = originalImages[idx] || rawImages[idx];
-    const isPrimary = (idx === 0) || (sourceRef === originalPrimaryImage);
+    const rawSource = originalImages[idx] || rawImages[idx];
+    const sourceRef = typeof rawSource === "string" ? rawSource : (rawSource?.url || rawSource?.src || JSON.stringify(rawSource));
+    const isPrimary = (idx === 0) || (sourceRef === originalPrimaryImage || rawSource === originalPrimaryImage);
 
     // Idempotency check: Is this image already stored and valid in Cloudinary?
     const existing = existingManaged.find(m => m.order === idx && m.uploadState === "UPLOADED" && m.publicId && m.secureUrl);
