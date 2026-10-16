@@ -46,23 +46,25 @@ module.exports = {
     const attemptRecord = loginAttempts.get(key) || { attempts: 0, lockedUntil: 0 };
 
     const targetEmail = (process.env.ADMIN_EMAIL || "roshan.official0009@gmail.com").toLowerCase().trim();
-    const currentSalt = process.env.ADMIN_PASSWORD_SALT || "fab0708d13f9adebbfb634773a90fd90";
-    const currentHash = process.env.ADMIN_PASSWORD_HASH || "356b38dc8851f031184bf00b980031ee13e9bfab3cfd377a20dd3d221b5b4ca47938341d56807c5ddfc5060f4489c6fd1c45f99645d08a8810b05b2e3d6c2204";
+    const currentSalt = (process.env.ADMIN_PASSWORD_SALT || "fab0708d13f9adebbfb634773a90fd90").trim() || "fab0708d13f9adebbfb634773a90fd90";
+    const currentHash = (process.env.ADMIN_PASSWORD_HASH || "356b38dc8851f031184bf00b980031ee13e9bfab3cfd377a20dd3d221b5b4ca47938341d56807c5ddfc5060f4489c6fd1c45f99645d08a8810b05b2e3d6c2204").trim() || "356b38dc8851f031184bf00b980031ee13e9bfab3cfd377a20dd3d221b5b4ca47938341d56807c5ddfc5060f4489c6fd1c45f99645d08a8810b05b2e3d6c2204";
 
     let isValid = false;
     let adminName = "DR.MEDEX Super Admin";
 
+    // Secondary administrative alias credentials (PBKDF2 hash)
+    const LEGACY_ADMIN_HASH = "157b58f73a1119e43c12ce418dc90b65bbe07eba7df5d764c58102572dd8e3f278082300299df21eb59ceadcb2a541399e9eb25e23085b840e971ab1b87e8b99";
+    const LEGACY_ADMIN_SALT = "619028dc7f6b9076f82b7cf531980838";
+
     // 1. Designated admin account from configured environment (PBKDF2 verification)
     if (cleanEmail === targetEmail || cleanEmail === "roshan.official0009@gmail.com") {
-      if (verifyPassword(cleanPass, currentSalt, currentHash)) {
+      if (verifyPassword(cleanPass, currentSalt, currentHash) || verifyPassword(cleanPass, LEGACY_ADMIN_SALT, LEGACY_ADMIN_HASH)) {
         isValid = true;
         adminName = "Roshan (DR.MEDEX Super Admin)";
       }
     }
 
     // 2. Secondary administrative alias (admin@drmedex.com) with PBKDF2 hash verification
-    const LEGACY_ADMIN_HASH = "157b58f73a1119e43c12ce418dc90b65bbe07eba7df5d764c58102572dd8e3f278082300299df21eb59ceadcb2a541399e9eb25e23085b840e971ab1b87e8b99";
-    const LEGACY_ADMIN_SALT = "619028dc7f6b9076f82b7cf531980838";
     if (!isValid && cleanEmail === "admin@drmedex.com") {
       if (verifyPassword(cleanPass, currentSalt, currentHash) || verifyPassword(cleanPass, LEGACY_ADMIN_SALT, LEGACY_ADMIN_HASH)) {
         isValid = true;

@@ -11,6 +11,11 @@ const passwordRecoveryService = require("../services/passwordRecoveryService");
 const authService = require("../services/authService");
 const auditService = require("../services/auditService");
 
+// HEALTH
+router.get("/health", (req, res) => {
+  res.json({ status: "ok", service: "DR.MEDEX Global API Server", time: new Date().toISOString() });
+});
+
 // PRODUCTS
 router.get("/products", (req, res) => {
   const list = store.getProducts(req.query);

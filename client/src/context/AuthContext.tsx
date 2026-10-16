@@ -216,6 +216,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return { success: false, error: "Please enter your email and password." };
     }
 
+    const isAdminAccount = cleanEmail === "roshan.official0009@gmail.com" || cleanEmail === "admin@drmedex.com";
+
     try {
       // 1. Authenticate against unified backend authentication gateway
       const loginRes = await fetch("/api/auth/login", {
@@ -257,8 +259,52 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         };
       }
 
-      // B. Authentication rejected by server (both admin and customer)
-      if (!loginRes.ok || loginData.success === false) {
+      // B. If /api/auth/login failed due to gateway/proxy (non-401) and it's an admin account, try /api/admin/login directly
+      if (!loginRes.ok && loginRes.status !== 401 && isAdminAccount) {
+        try {
+          const adminDirectRes = await fetch("/api/admin/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: cleanEmail, password })
+          });
+          const adminDirectData = await adminDirectRes.json().catch(() => ({}));
+          if (adminDirectRes.ok && adminDirectData.success && adminDirectData.token) {
+            localStorage.setItem("drmedex_admin_session_token", adminDirectData.token);
+            if (typeof window !== "undefined") {
+              window.dispatchEvent(
+                new CustomEvent("drmedex_admin_session_sync", {
+                  detail: { token: adminDirectData.token, user: adminDirectData.user }
+                })
+              );
+            }
+            setUser(null);
+            try {
+              localStorage.removeItem("drmedex_customer_profile");
+              localStorage.removeItem("drmedex_supabase_session");
+              localStorage.removeItem("drmedex_customer_user");
+            } catch {}
+
+            return {
+              success: true,
+              isAdmin: true,
+              redirectTo: "/admin",
+              token: adminDirectData.token,
+              user: adminDirectData.user
+            };
+          } else if (adminDirectRes.status === 401) {
+            return {
+              success: false,
+              isAdmin: false,
+              error: adminDirectData.message || "Invalid administrator email or password."
+            };
+          }
+        } catch (directErr) {
+          console.warn("[Auth] Direct admin endpoint failed:", directErr);
+        }
+      }
+
+      // C. Explicit credentials rejection by server (HTTP 401)
+      if (loginRes.status === 401 || loginData.success === false) {
         return {
           success: false,
           isAdmin: false,
@@ -294,7 +340,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     // 2. Fallback to Supabase Auth strictly for standard customer credentials (never admin accounts)
-    const isAdminAccount = cleanEmail === "roshan.official0009@gmail.com" || cleanEmail === "admin@drmedex.com";
     if (isAdminAccount) {
       return { success: false, isAdmin: false, error: "Invalid email or password. Please try again." };
     }
