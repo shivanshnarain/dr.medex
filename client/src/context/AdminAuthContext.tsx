@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import { getApiUrl } from "../lib/apiConfig";
 import {
   isAdminEmail,
   verifyAdminPasswordClientSide,
@@ -64,7 +65,8 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       if (activeToken) {
         headers.set("Authorization", `Bearer ${activeToken}`);
       }
-      return fetch(url, {
+      const targetUrl = url.startsWith("http") ? url : getApiUrl(url);
+      return fetch(targetUrl, {
         ...init,
         headers
       });
@@ -87,7 +89,7 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
       // 1. Try server-side validation first
       try {
-        const res = await fetch("/api/admin/me", {
+        const res = await fetch(getApiUrl("/api/admin/me"), {
           headers: {
             Authorization: `Bearer ${savedToken}`
           }
@@ -196,7 +198,7 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     try {
       const savedToken = token || localStorage.getItem(TOKEN_KEY);
       if (savedToken) {
-        await fetch("/api/admin/logout", {
+        await fetch(getApiUrl("/api/admin/logout"), {
           method: "POST",
           headers: {
             Authorization: `Bearer ${savedToken}`

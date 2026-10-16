@@ -1097,10 +1097,20 @@ export const AdminProductEditorPage: React.FC = () => {
       });
 
       let data: any = {};
-      try {
-        data = await res.json();
-      } catch (parseErr) {
-        data = { message: `Server returned HTTP ${res.status}: ${res.statusText || 'Unable to parse server response'}` };
+      const contentType = res.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        try {
+          data = await res.json();
+        } catch {
+          data = { message: `Malformed JSON response from server (HTTP ${res.status})` };
+        }
+      } else {
+        const text = await res.text().catch(() => "");
+        data = {
+          message: res.status === 404
+            ? `API endpoint returned HTTP 404 (Not Found): ${url}`
+            : `Server returned HTTP ${res.status} (${res.statusText || "Non-JSON response"})${text ? `: ${text.slice(0, 100)}` : ""}`
+        };
       }
 
       if (res.ok && data.success) {
@@ -1194,7 +1204,7 @@ export const AdminProductEditorPage: React.FC = () => {
             className="flex items-center gap-2 px-6 py-2 bg-[#171717] hover:bg-black text-white rounded-lg text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer"
           >
             {isSaving ? <RefreshCw size={14} className="animate-spin" /> : <Save size={14} />}
-            <span>{isSaving ? "Saving..." : isEditMode ? "Save Changes" : "Create Product"}</span>
+            <span>{isSaving ? "Saving..." : isEditMode ? "Save Changes" : "Save Product"}</span>
           </button>
         </div>
       }
@@ -2727,7 +2737,7 @@ export const AdminProductEditorPage: React.FC = () => {
               className="flex items-center gap-2 px-8 py-2.5 bg-[#171717] hover:bg-black text-white rounded-lg text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer"
             >
               {isSaving ? <RefreshCw size={14} className="animate-spin" /> : <Save size={14} />}
-              <span>{isSaving ? "Saving Product..." : isEditMode ? "Save Changes" : "Create Product"}</span>
+              <span>{isSaving ? "Saving Product..." : isEditMode ? "Save Changes" : "Save Product"}</span>
             </button>
           </div>
         </div>

@@ -27,6 +27,7 @@ import { AdminLayout } from "../components/admin/AdminLayout";
 import { DeleteProductModal } from "../components/admin/DeleteProductModal";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { Product, Category } from "../types";
+import { getApiUrl } from "../lib/apiConfig";
 import { fallbackProducts, fallbackCategories } from "../services/productService";
 
 export const AdminProductsPage: React.FC = () => {
@@ -122,7 +123,7 @@ export const AdminProductsPage: React.FC = () => {
     try {
       const [prodRes, catRes] = await Promise.all([
         adminFetch("/api/admin/products?limit=1000"),
-        fetch("/api/categories?includeInactive=true")
+        fetch(getApiUrl("/api/categories?includeInactive=true"))
       ]);
 
       let loadedProducts: Product[] = [];
@@ -1231,15 +1232,7 @@ export const AdminProductsPage: React.FC = () => {
                             maximumFractionDigits: 2
                           })}
                         </div>
-                        {p.originalPrice && p.originalPrice > (p.basePrice || 0) && (
-                          <div className="text-[10px] line-through text-[#666666]">
-                            ₹
-                            {Number(p.originalPrice).toLocaleString("en-IN", {
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2
-                            })}
-                          </div>
-                        )}
+
                       </td>
 
                       {/* 4. Status: Functional Pill-Shaped Button (ACTIVE / INACTIVE) */}
