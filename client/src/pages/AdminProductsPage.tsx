@@ -466,7 +466,23 @@ export const AdminProductsPage: React.FC = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ reviewStatus: status, reviewNote: note })
       });
-      const data = await res.json().catch(() => ({}));
+
+      let data: any = {};
+      const contentType = res.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        try {
+          data = await res.json();
+        } catch {
+          data = { message: `Malformed JSON response from server (HTTP ${res.status})` };
+        }
+      } else {
+        data = {
+          message: res.status === 404
+            ? "API endpoint returned HTTP 404. Backend product service is currently unreachable."
+            : `Server returned HTTP ${res.status} (${res.statusText || "Non-JSON response"})`
+        };
+      }
+
       if (res.ok && data.success) {
         // Move updated product to top of list
         setProducts((prev) => {
