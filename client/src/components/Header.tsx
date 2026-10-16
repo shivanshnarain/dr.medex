@@ -603,10 +603,8 @@ export const Header: React.FC = () => {
                 {isUserMenuOpen && (
                   <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-2xl shadow-xl border border-neutral-200 py-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
                     <div className="px-4 py-2.5 border-b border-neutral-100">
-                      <div className={`text-3xs font-extrabold uppercase tracking-wider mb-0.5 ${
-                        user.role === "super_admin" || user.role === "admin" ? "text-amber-600" : "text-[#7AA05A]"
-                      }`}>
-                        {user.role === "super_admin" || user.role === "admin" ? "Administrator" : "Verified Customer"}
+                      <div className="text-3xs font-extrabold uppercase tracking-wider text-[#7AA05A] mb-0.5">
+                        Verified Customer
                       </div>
                       <p className="text-xs font-bold text-neutral-900 truncate">
                         {user.fullName || "Customer"}
@@ -615,16 +613,6 @@ export const Header: React.FC = () => {
                     </div>
 
                     <div className="py-1">
-                      {(user.role === "super_admin" || user.role === "admin") && (
-                        <Link
-                          to="/admin"
-                          onClick={() => setIsUserMenuOpen(false)}
-                          className="flex items-center gap-2.5 px-4 py-2 text-xs text-[#2D5A4A] bg-[#2D5A4A]/5 hover:bg-[#2D5A4A]/10 font-bold transition-colors"
-                        >
-                          <ShieldCheck size={14} className="text-[#2D5A4A]" />
-                          <span>Admin Dashboard</span>
-                        </Link>
-                      )}
                       <Link
                         to="/account"
                         onClick={() => setIsUserMenuOpen(false)}

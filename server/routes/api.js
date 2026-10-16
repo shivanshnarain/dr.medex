@@ -610,7 +610,7 @@ router.post("/auth/login", async (req, res) => {
     });
   } catch (err) {
     console.warn("[API] Auth login error:", err.message);
-    res.status(500).json({ success: false, message: "Authentication service error. Please try again." });
+    res.status(500).json({ success: false, isAdmin: false, message: "Authentication service error. Please try again." });
   }
 });
 

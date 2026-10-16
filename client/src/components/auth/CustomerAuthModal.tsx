@@ -121,11 +121,9 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             if (res.token && res.user) {
               setAdminSession(res.token, res.user);
             }
-            setSuccessMessage("Authenticated as Administrator. Opening Admin Dashboard...");
-            setTimeout(() => {
-              onClose();
-              navigate("/admin");
-            }, 300);
+            onClose();
+            navigate("/admin", { replace: true });
+            return;
           } else {
             setSuccessMessage("Signed in successfully!");
             setTimeout(() => {

@@ -5,8 +5,11 @@ const fs = require("fs");
 // Load .env if present
 require("dotenv").config();
 
-// Active session storage (token -> session)
+// In-memory session cache and revocation store
 const sessions = new Map();
+const revokedTokens = new Set();
+
+const SESSION_SECRET = process.env.SESSION_SECRET || "82b38e552f117f57ef2ed3aa6bc3f693697d3ad196534aa0bfdd2cff7af34b95";
 
 // Rate limiting: ip/email -> { attempts, lockedUntil }
 const loginAttempts = new Map();
@@ -24,6 +27,12 @@ function verifyPassword(password, salt, expectedHash) {
   } catch {
     return false;
   }
+}
+
+function createSignedAdminToken(payload) {
+  const payloadStr = Buffer.from(JSON.stringify(payload)).toString("base64url");
+  const signature = crypto.createHmac("sha256", SESSION_SECRET).update(payloadStr).digest("hex");
+  return `${payloadStr}.${signature}`;
 }
 
 module.exports = {
@@ -89,15 +98,27 @@ module.exports = {
     // Reset attempts on successful login
     loginAttempts.delete(key);
 
-    // Generate cryptographically secure session token
-    const token = crypto.randomBytes(32).toString("hex");
+    const now = Date.now();
+    const expiresAt = now + 24 * 60 * 60 * 1000; // 24 hours
+
+    // Generate cryptographically signed, stateless session token
+    const payload = {
+      email: cleanEmail,
+      name: adminName,
+      role: "SUPER_ADMIN",
+      iat: now,
+      exp: expiresAt,
+      jti: crypto.randomBytes(16).toString("hex")
+    };
+
+    const token = createSignedAdminToken(payload);
     const session = {
       token,
       email: cleanEmail,
       name: adminName,
       role: "SUPER_ADMIN",
-      createdAt: Date.now(),
-      expiresAt: Date.now() + 24 * 60 * 60 * 1000 // 24 hours
+      createdAt: now,
+      expiresAt
     };
 
     sessions.set(token, session);
@@ -114,21 +135,72 @@ module.exports = {
   },
 
   validateSession: (token) => {
-    if (!token) return null;
-    const session = sessions.get(token);
-    if (!session) return null;
+    if (!token || typeof token !== "string") return null;
+    if (revokedTokens.has(token)) return null;
 
-    if (Date.now() > session.expiresAt) {
-      sessions.delete(token);
-      return null;
+    // Fast path: In-memory cached session
+    const cached = sessions.get(token);
+    if (cached) {
+      if (Date.now() > cached.expiresAt) {
+        sessions.delete(token);
+        return null;
+      }
+      return cached;
     }
 
-    return session;
+    // Stateless verification path (resilient to serverless restarts & multi-container environments)
+    const dotIndex = token.lastIndexOf(".");
+    if (dotIndex === -1) return null;
+
+    const payloadStr = token.substring(0, dotIndex);
+    const signature = token.substring(dotIndex + 1);
+
+    if (!payloadStr || !signature) return null;
+
+    try {
+      const expectedSig = crypto.createHmac("sha256", SESSION_SECRET).update(payloadStr).digest("hex");
+      if (signature.length !== expectedSig.length) return null;
+      if (!crypto.timingSafeEqual(Buffer.from(signature, "hex"), Buffer.from(expectedSig, "hex"))) {
+        return null;
+      }
+
+      const payload = JSON.parse(Buffer.from(payloadStr, "base64url").toString("utf8"));
+      if (!payload || !payload.exp || Date.now() > payload.exp) {
+        return null;
+      }
+
+      // Verify authorized administrator identity allowlist
+      const targetEmail = (process.env.ADMIN_EMAIL || "roshan.official0009@gmail.com").toLowerCase().trim();
+      const tokenEmail = (payload.email || "").toLowerCase().trim();
+      const isAuthorized =
+        tokenEmail === targetEmail ||
+        tokenEmail === "roshan.official0009@gmail.com" ||
+        tokenEmail === "admin@drmedex.com";
+
+      if (!isAuthorized || payload.role !== "SUPER_ADMIN") {
+        return null;
+      }
+
+      const session = {
+        token,
+        email: tokenEmail,
+        name: payload.name || "DR.MEDEX Super Admin",
+        role: "SUPER_ADMIN",
+        createdAt: payload.iat || Date.now(),
+        expiresAt: payload.exp
+      };
+
+      sessions.set(token, session);
+      return session;
+    } catch {
+      return null;
+    }
   },
 
   logout: (token) => {
     if (token) {
       sessions.delete(token);
+      revokedTokens.add(token);
     }
     return { success: true };
   },

@@ -9,7 +9,7 @@ export const SignInPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { signIn, isAuthenticated } = useAuth();
-  const { setAdminSession } = useAdminAuth();
+  const { isAuthenticated: isAdminAuthenticated, setAdminSession } = useAdminAuth();
 
   const searchParams = new URLSearchParams(location.search);
   const redirectTarget = searchParams.get("redirect") || "/account";
@@ -26,11 +26,15 @@ export const SignInPage: React.FC = () => {
 
   // If already authenticated, redirect
   React.useEffect(() => {
+    if (isAdminAuthenticated) {
+      navigate("/admin", { replace: true });
+      return;
+    }
     if (isAuthenticated) {
       const dest = actionTarget ? `${redirectTarget}?action=${actionTarget}` : redirectTarget;
       navigate(dest, { replace: true });
     }
-  }, [isAuthenticated, navigate, redirectTarget, actionTarget]);
+  }, [isAuthenticated, isAdminAuthenticated, navigate, redirectTarget, actionTarget]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,16 +60,13 @@ export const SignInPage: React.FC = () => {
           if (res.token && res.user) {
             setAdminSession(res.token, res.user);
           }
-          setSuccessMessage("Authenticated as Administrator. Opening Admin Dashboard...");
-          setTimeout(() => {
-            navigate("/admin", { replace: true });
-          }, 350);
+          navigate("/admin", { replace: true });
         } else {
           setSuccessMessage("Signed in successfully! Redirecting...");
           setTimeout(() => {
             const dest = actionTarget ? `${redirectTarget}?action=${actionTarget}` : redirectTarget;
             navigate(dest, { replace: true });
-          }, 500);
+          }, 400);
         }
       } else {
         setErrorMessage(res.error || "Invalid email or password. Please try again.");

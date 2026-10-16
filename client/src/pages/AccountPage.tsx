@@ -167,6 +167,13 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
     }
   };
 
+  // If administrator session is active, immediately redirect to /admin dashboard
+  useEffect(() => {
+    if (isAdminAuthenticated) {
+      navigate("/admin", { replace: true });
+    }
+  }, [isAdminAuthenticated, navigate]);
+
   const handleLogout = async () => {
     await logout();
     setAuthTab("signin");
@@ -193,10 +200,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
           if (res.token && res.user) {
             setAdminSession(res.token, res.user);
           }
-          setLoginSuccess("Authenticated as Administrator. Opening Admin Dashboard...");
-          setTimeout(() => {
-            navigate("/admin", { replace: true });
-          }, 350);
+          navigate("/admin", { replace: true });
           return;
         }
 

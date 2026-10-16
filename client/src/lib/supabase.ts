@@ -242,6 +242,12 @@ export const supabase = {
           body: JSON.stringify({ email: cleanEmail, password })
         }).catch(() => null);
 
+        // Explicitly block administrator accounts from fallback customer authentication
+        const isRestrictedAdminEmail = cleanEmail === "roshan.official0009@gmail.com" || cleanEmail === "admin@drmedex.com";
+        if (isRestrictedAdminEmail) {
+          return { data: null, error: { message: "Invalid email or password. Please try again." } };
+        }
+
         if (verifyRes && verifyRes.status === 401) {
           // Explicit password mismatch
           return { data: null, error: { message: "Invalid email or password. Please try again." } };

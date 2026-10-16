@@ -240,19 +240,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           }
         }
 
-        const adminProfile: UserProfile = {
-          id: loginData.user?.id || "admin-super",
-          fullName: loginData.user?.fullName || loginData.user?.name || "DR.MEDEX Super Admin",
-          email: cleanEmail,
-          phone: "",
-          institutionName: "Central Operations",
-          role: "super_admin",
-          country: "United States",
-          countryCode: "US",
-          addresses: [],
-          createdAt: new Date().toISOString()
-        };
-        setUser(adminProfile);
+        // Clean customer profile state so customer dashboard is never displayed
+        setUser(null);
+        try {
+          localStorage.removeItem("drmedex_customer_profile");
+          localStorage.removeItem("drmedex_supabase_session");
+          localStorage.removeItem("drmedex_customer_user");
+        } catch {}
 
         return {
           success: true,
@@ -263,15 +257,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         };
       }
 
-      // B. Administrator credentials rejected
-      if (!loginRes.ok && loginData.isAdmin === false && loginData.message) {
-        const targetAdmin = "roshan.official0009@gmail.com";
-        if (cleanEmail === targetAdmin || cleanEmail === "admin@drmedex.com") {
-          return {
-            success: false,
-            error: loginData.message || "Invalid email or password. Please try again."
-          };
-        }
+      // B. Authentication rejected by server (both admin and customer)
+      if (!loginRes.ok || loginData.success === false) {
+        return {
+          success: false,
+          isAdmin: false,
+          error: loginData.message || "Invalid email or password. Please try again."
+        };
       }
 
       // C. Customer Authentication via Unified Backend
@@ -301,7 +293,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.warn("[Auth] Backend login request failed, attempting provider fallback:", e);
     }
 
-    // 2. Fallback to Supabase Auth for standard customer credentials
+    // 2. Fallback to Supabase Auth strictly for standard customer credentials (never admin accounts)
+    const isAdminAccount = cleanEmail === "roshan.official0009@gmail.com" || cleanEmail === "admin@drmedex.com";
+    if (isAdminAccount) {
+      return { success: false, isAdmin: false, error: "Invalid email or password. Please try again." };
+    }
+
     const { data, error } = await supabase.auth.signInWithPassword({
       email: cleanEmail,
       password
