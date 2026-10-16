@@ -80,10 +80,10 @@ async function runAuditVerification() {
   const apiAdminCatchAllFn = require("../../api/admin/[...path]");
   const apiAdminProductsFn = require("../../api/admin/products");
 
-  // Simulate vercel.json rewrite: /api/(.*) -> /api/index.js?__subpath=$1
+  // Simulate vercel.json rewrite: /api/(.*) -> /api?__subpath=$1
   const testVercelReq1 = { on: () => {}, resume: () => {}, unpipe: () => {},
     headers: { host: "localhost", authorization: `Bearer ${adminToken}` },
-    url: "/api/index.js?__subpath=admin/products&limit=10",
+    url: "/api?__subpath=admin/products&limit=10",
     query: { __subpath: "admin/products", limit: "10" },
     method: "GET"
   };
@@ -104,7 +104,7 @@ async function runAuditVerification() {
     };
     apiIndexFn(testVercelReq1, res);
   });
-  console.log("   ✔ vercel.json rewrite to api/index.js correctly reconstructs /api/admin/products");
+  console.log("   ✔ vercel.json rewrite to /api?__subpath=$1 correctly reconstructs /api/admin/products");
 
   // Simulate api/admin/[...path].js catch-all for PUT /api/admin/products/:id/review
   const testVercelReq2 = { on: () => {}, resume: () => {}, unpipe: () => {},
