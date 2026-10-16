@@ -16,6 +16,7 @@ import {
 import { AdminLayout } from "../components/admin/AdminLayout";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { Product, Category } from "../types";
+import { fallbackProducts, fallbackCategories } from "../services/productService";
 
 export const AdminDashboardPage: React.FC = () => {
   const { adminFetch } = useAdminAuth();
@@ -56,16 +57,32 @@ export const AdminDashboardPage: React.FC = () => {
             setRecentAuditLogs(data.auditLogs.slice(0, 6));
           }
         }
+      } else {
+        // Fallback stats and recent products from verified 193 product catalogue
+        const total = fallbackProducts.length;
+        const active = fallbackProducts.filter(p => (p.status || "ACTIVE") === "ACTIVE").length;
+        setStats((prev: any) => ({
+          ...prev,
+          totalProducts: total,
+          activeProducts: active,
+          inactiveProducts: total - active,
+          totalCategories: fallbackCategories.length
+        }));
+        setRecentProducts(fallbackProducts.slice(0, 8));
       }
 
       if (catRes.ok) {
         const cData = await catRes.json();
-        if (cData.success) {
-          setCategories(cData.categories || []);
+        if (cData && cData.success && Array.isArray(cData.categories)) {
+          setCategories(cData.categories);
         }
+      } else {
+        setCategories(fallbackCategories);
       }
     } catch (e) {
       console.error("Dashboard data load error:", e);
+      setRecentProducts(fallbackProducts.slice(0, 8));
+      setCategories(fallbackCategories);
     } finally {
       setIsLoading(false);
     }

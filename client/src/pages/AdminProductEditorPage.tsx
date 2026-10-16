@@ -24,6 +24,7 @@ import {
 import { AdminLayout } from "../components/admin/AdminLayout";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { Category } from "../types";
+import { fallbackProducts } from "../services/productService";
 
 export const AdminProductEditorPage: React.FC = () => {
   const { productId } = useParams<{ productId?: string }>();
@@ -41,7 +42,7 @@ export const AdminProductEditorPage: React.FC = () => {
   const [skuError, setSkuError] = useState<string | null>(null);
   const [copiedSku, setCopiedSku] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
-  const [statusBanner, setStatusBanner] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [statusBanner, setStatusBanner] = useState<{ type: "success" | "error" | "warning"; text: string } | null>(null);
 
   // Active step in 7-step tracker
   const [activeStep, setActiveStep] = useState<number>(1);
@@ -240,82 +241,112 @@ export const AdminProductEditorPage: React.FC = () => {
           }
         }
 
+        const populateProductFields = (p: any) => {
+          setCategory(p.category || "ot-lights");
+          setSubcategory(p.subcategory || "");
+          setEquipmentType(p.equipmentType || "");
+          setProductName(p.productName || p.title || "");
+          setTitle(p.title || p.productName || "");
+          setManufacturerModel(p.modelNumber || "");
+          setInternalModelId(p.internalModelId || `DM-${p.sku || p.id}`);
+          setSku(p.sku || p.SKU || "");
+          setSlug(p.slug || "");
+          setBrand(p.brand || "DR.MEDEX");
+          setRegulatoryClass(p.regulatoryClassification || "Class IIa (MDR 2017/745)");
+          setCertificationStatus(p.certificationStatus || "Claimed");
+          setCertificateNumber(p.certificateNumber || "");
+          setIssuingOrg(p.issuingOrg || "");
+          setStatus(p.status || "ACTIVE");
+
+          // Prices in INR
+          setOriginalPrice(p.originalPrice || p.regularPrice || p.basePrice || 0);
+          setBasePrice(p.basePrice || p.salePrice || 0);
+          const pStock = p.stock !== undefined ? p.stock : (p.stockQuantity !== undefined ? p.stockQuantity : 10);
+          setStock(pStock);
+          setLowStockThreshold(p.lowStockThreshold || 3);
+          setStockStatus(p.stockStatus || (pStock > 0 ? (pStock <= 5 ? "LOW_STOCK" : "IN_STOCK") : "OUT_OF_STOCK"));
+          setMinOrderQuantity(p.moq || 1);
+          setLeadTimeWeeks(p.leadTimeWeeks || "1–2 Weeks");
+
+          setImages(p.images || (p.primaryImage ? [p.primaryImage] : []));
+          setShortDescription(p.shortDescription || p.overview || "");
+          setFullDescription(p.fullDescription || p.overview || "");
+          setKeyFeatures(p.features || p.keyFeatures || []);
+          setApplications(p.applications || []);
+          setPackageContents(p.packageContents || []);
+          if (p.warranty) setWarranty(p.warranty);
+          if (p.shippingInformation) setShippingInformation(p.shippingInformation);
+
+          // Normalize specifications
+          let initialSpecs: { key: string; value: string; unit?: string; note?: string }[] = [];
+          if (Array.isArray(p.technicalSpecifications)) {
+            initialSpecs = p.technicalSpecifications.map((s: any) => ({
+              key: s.parameter || s.key || "",
+              value: s.specification || s.value || "",
+              unit: s.unit || "",
+              note: s.note || ""
+            }));
+          } else if (typeof p.technicalSpecifications === "object" && p.technicalSpecifications !== null) {
+            initialSpecs = Object.entries(p.technicalSpecifications).map(([k, v]) => ({
+              key: k,
+              value: typeof v === "object" ? JSON.stringify(v) : String(v),
+              unit: "",
+              note: ""
+            }));
+          } else if (typeof p.specifications === "object" && p.specifications !== null) {
+            initialSpecs = Object.entries(p.specifications).map(([k, v]) => ({
+              key: k,
+              value: typeof v === "object" ? JSON.stringify(v) : String(v),
+              unit: "",
+              note: ""
+            }));
+          }
+          setSpecList(initialSpecs);
+
+          setCertifications(p.certifications || []);
+          setManualUrl(p.manualUrl || "");
+          setDatasheetUrl(p.datasheetUrl || "");
+          setMetaTitle(p.metaTitle || p.title || "");
+          setMetaDescription(p.metaDescription || p.shortDescription || "");
+          setIsFeatured(Boolean(p.featured || p.isFeatured));
+          setIsBestSeller(Boolean(p.bestseller || p.isBestSeller));
+          setCategoryGridVisible(p.categoryGridVisible !== false);
+        };
+
         if (isEditMode && productId) {
           setIsLoading(true);
-          const pRes = await adminFetch(`/api/admin/products/${productId}`);
-          if (pRes.ok) {
-            const pData = await pRes.json();
-            if (pData.success && pData.product) {
-              const p = pData.product;
-              setCategory(p.category || "ot-lights");
-              setSubcategory(p.subcategory || "");
-              setEquipmentType(p.equipmentType || "");
-              setProductName(p.productName || p.title || "");
-              setTitle(p.title || p.productName || "");
-              setManufacturerModel(p.modelNumber || "");
-              setInternalModelId(p.internalModelId || `DM-${p.sku || p.id}`);
-              setSku(p.sku || p.SKU || "");
-              setSlug(p.slug || "");
-              setBrand(p.brand || "DR.MEDEX");
-              setRegulatoryClass(p.regulatoryClassification || "Class IIa (MDR 2017/745)");
-              setCertificationStatus(p.certificationStatus || "Claimed");
-              setCertificateNumber(p.certificateNumber || "");
-              setIssuingOrg(p.issuingOrg || "");
-              setStatus(p.status || "ACTIVE");
-
-              // Prices in INR
-              setOriginalPrice(p.originalPrice || p.regularPrice || p.basePrice || 0);
-              setBasePrice(p.basePrice || p.salePrice || 0);
-              const pStock = p.stock !== undefined ? p.stock : (p.stockQuantity !== undefined ? p.stockQuantity : 10);
-              setStock(pStock);
-              setLowStockThreshold(p.lowStockThreshold || 3);
-              setStockStatus(p.stockStatus || (pStock > 0 ? (pStock <= 5 ? "LOW_STOCK" : "IN_STOCK") : "OUT_OF_STOCK"));
-              setMinOrderQuantity(p.moq || 1);
-              setLeadTimeWeeks(p.leadTimeWeeks || "1–2 Weeks");
-
-              setImages(p.images || (p.primaryImage ? [p.primaryImage] : []));
-              setShortDescription(p.shortDescription || p.overview || "");
-              setFullDescription(p.fullDescription || p.overview || "");
-              setKeyFeatures(p.features || p.keyFeatures || []);
-              setApplications(p.applications || []);
-              setPackageContents(p.packageContents || []);
-              if (p.warranty) setWarranty(p.warranty);
-              if (p.shippingInformation) setShippingInformation(p.shippingInformation);
-
-              // Normalize specifications
-              let initialSpecs: { key: string; value: string; unit?: string; note?: string }[] = [];
-              if (Array.isArray(p.technicalSpecifications)) {
-                initialSpecs = p.technicalSpecifications.map((s: any) => ({
-                  key: s.parameter || s.key || "",
-                  value: s.specification || s.value || "",
-                  unit: s.unit || "",
-                  note: s.note || ""
-                }));
-              } else if (typeof p.technicalSpecifications === "object" && p.technicalSpecifications !== null) {
-                initialSpecs = Object.entries(p.technicalSpecifications).map(([k, v]) => ({
-                  key: k,
-                  value: typeof v === "object" ? JSON.stringify(v) : String(v),
-                  unit: "",
-                  note: ""
-                }));
-              } else if (typeof p.specifications === "object" && p.specifications !== null) {
-                initialSpecs = Object.entries(p.specifications).map(([k, v]) => ({
-                  key: k,
-                  value: typeof v === "object" ? JSON.stringify(v) : String(v),
-                  unit: "",
-                  note: ""
-                }));
+          let loaded = false;
+          try {
+            const pRes = await adminFetch(`/api/admin/products/${productId}`);
+            if (pRes.ok) {
+              const pData = await pRes.json();
+              if (pData.success && pData.product) {
+                populateProductFields(pData.product);
+                loaded = true;
               }
-              setSpecList(initialSpecs);
+            }
+          } catch (fetchErr) {
+            console.warn("Product live fetch failed, activating fallback lookup:", fetchErr);
+          }
 
-              setCertifications(p.certifications || []);
-              setManualUrl(p.manualUrl || "");
-              setDatasheetUrl(p.datasheetUrl || "");
-              setMetaTitle(p.metaTitle || p.title || "");
-              setMetaDescription(p.metaDescription || p.shortDescription || "");
-              setIsFeatured(Boolean(p.featured || p.isFeatured));
-              setIsBestSeller(Boolean(p.bestseller || p.isBestSeller));
-              setCategoryGridVisible(p.categoryGridVisible !== false);
+          if (!loaded) {
+            let fallbackP: any = null;
+            try {
+              const cached = localStorage.getItem("drmedex_admin_products_cache");
+              if (cached) {
+                const list = JSON.parse(cached);
+                fallbackP = list.find((p: any) => p.id === productId || p.slug === productId || p.sku === productId);
+              }
+            } catch {}
+            if (!fallbackP) {
+              fallbackP = fallbackProducts.find((p: any) => p.id === productId || p.slug === productId || p.sku === productId);
+            }
+            if (fallbackP) {
+              populateProductFields(fallbackP);
+              setStatusBanner({
+                type: "warning",
+                text: "Product details loaded from verified local catalogue."
+              });
             }
           }
           setIsLoading(false);

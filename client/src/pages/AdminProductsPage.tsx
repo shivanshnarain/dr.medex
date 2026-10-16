@@ -20,12 +20,14 @@ import {
   ChevronDown,
   Cloud,
   Database,
-  Sparkles
+  Sparkles,
+  AlertTriangle
 } from "lucide-react";
 import { AdminLayout } from "../components/admin/AdminLayout";
 import { DeleteProductModal } from "../components/admin/DeleteProductModal";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { Product, Category } from "../types";
+import { fallbackProducts, fallbackCategories } from "../services/productService";
 
 export const AdminProductsPage: React.FC = () => {
   const { adminFetch } = useAdminAuth();
@@ -67,8 +69,8 @@ export const AdminProductsPage: React.FC = () => {
   const [deletingProduct, setDeletingProduct] = useState<Product | null>(null);
   const [syncingId, setSyncingId] = useState<string | null>(null);
 
-  // Notification Banner (Error is strictly red, success is green)
-  const [bannerMessage, setBannerMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
+  // Notification Banner (Error is strictly red, warning is amber, success is green)
+  const [bannerMessage, setBannerMessage] = useState<{ text: string; type: "success" | "error" | "warning" } | null>(null);
 
   // Auto-dismissing Toast Notification System (Replaces persistent sync labels)
   const [toast, setToast] = useState<{
@@ -122,34 +124,81 @@ export const AdminProductsPage: React.FC = () => {
         fetch("/api/categories?includeInactive=true")
       ]);
 
-      if (!prodRes.ok) {
-        throw new Error(`Failed to load products from server (HTTP ${prodRes.status})`);
-      }
+      let loadedProducts: Product[] = [];
+      let loadedFromLive = false;
 
-      const pData = await prodRes.json();
-      if (!pData || !pData.success) {
-        throw new Error((pData && pData.message) || "Failed to load product catalogue records.");
-      }
-
-      setProducts(pData.products || []);
-
-      if (catRes.ok) {
-        const cData = await catRes.json();
-        if (cData && cData.success) {
-          setCategories(cData.categories || []);
+      if (prodRes.ok) {
+        try {
+          const pData = await prodRes.json();
+          if (pData && pData.success && Array.isArray(pData.products) && pData.products.length > 0) {
+            loadedProducts = pData.products;
+            loadedFromLive = true;
+            try {
+              localStorage.setItem("drmedex_admin_products_cache", JSON.stringify(pData.products));
+            } catch {}
+          }
+        } catch (parseErr) {
+          console.warn("Error parsing products response:", parseErr);
         }
       }
 
-      if (isManualRefresh) {
+      if (!loadedFromLive) {
+        // Fallback to local cache or verified catalogue
+        try {
+          const cached = localStorage.getItem("drmedex_admin_products_cache");
+          if (cached) {
+            const parsed = JSON.parse(cached);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              loadedProducts = parsed;
+            }
+          }
+        } catch {}
+
+        if (!loadedProducts.length && fallbackProducts && fallbackProducts.length > 0) {
+          loadedProducts = fallbackProducts;
+        }
+
+        const statusMsg = !prodRes.ok ? `HTTP ${prodRes.status}` : "network synchronization";
         setBannerMessage({
-          text: `Refreshed catalogue: ${pData.products?.length || 0} products synced from backend.`,
-          type: "success"
+          text: `Backend product service synchronizing (${statusMsg}). Displaying ${loadedProducts.length} verified catalogue products from local store.`,
+          type: "warning"
         });
+      } else {
+        if (isManualRefresh) {
+          setBannerMessage({
+            text: `Refreshed catalogue: ${loadedProducts.length} products synced from backend.`,
+            type: "success"
+          });
+        }
+      }
+
+      setProducts(loadedProducts);
+
+      if (catRes.ok) {
+        const cData = await catRes.json();
+        if (cData && cData.success && Array.isArray(cData.categories)) {
+          setCategories(cData.categories);
+        }
+      } else if (fallbackCategories && fallbackCategories.length > 0) {
+        setCategories(fallbackCategories);
       }
     } catch (e: any) {
       console.error("Products load error:", e);
+      let loadedProducts: Product[] = [];
+      try {
+        const cached = localStorage.getItem("drmedex_admin_products_cache");
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (Array.isArray(parsed) && parsed.length > 0) loadedProducts = parsed;
+        }
+      } catch {}
+      if (!loadedProducts.length && fallbackProducts) {
+        loadedProducts = fallbackProducts;
+      }
+      setProducts(loadedProducts);
+      setCategories(fallbackCategories);
       setBannerMessage({
-        text: e.message || "Failed to load product catalogue records.",
+        text: `Error contacting server: ${e.message || "Failed to load"}. Displaying ${loadedProducts.length} verified catalogue products.`,
         type: "error"
       });
     } finally {
@@ -637,12 +686,16 @@ export const AdminProductsPage: React.FC = () => {
           className={`mb-4 p-3 rounded-lg border text-xs font-semibold flex items-center justify-between shadow-2xs ${
             bannerMessage.type === "error"
               ? "bg-[#FEE2E2] text-[#991B1B] border-[#FCA5A5]"
+              : bannerMessage.type === "warning"
+              ? "bg-[#FEF3C7] text-[#92400E] border-[#FCD34D]"
               : "bg-[#DCFCE7] text-[#15803D] border-[#86EFAC]"
           }`}
         >
           <div className="flex items-center gap-2.5">
             {bannerMessage.type === "error" ? (
               <AlertCircle size={16} className="text-[#B91C1C] shrink-0" />
+            ) : bannerMessage.type === "warning" ? (
+              <AlertTriangle size={16} className="text-[#D97706] shrink-0" />
             ) : (
               <CheckCircle2 size={16} className="text-[#15803D] shrink-0" />
             )}
