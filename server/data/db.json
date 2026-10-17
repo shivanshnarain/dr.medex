@@ -159,7 +159,7 @@
         "prod-3-mhz-ultrasound-therapy"
       ],
       "createdAt": "2026-10-03T15:48:11Z",
-      "updatedAt": "2026-10-17T07:45:35.230Z",
+      "updatedAt": "2026-10-17T11:15:56.863Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "roshan.official0009@gmail.com",
       "ribbon": "EX-400",
@@ -201,7 +201,7 @@
       "reviewStatus": "CORRECT",
       "reviewNote": "Test review note for clinical audit",
       "reviewedBy": "roshan.official0009@gmail.com",
-      "reviewedAt": "2026-10-17T07:45:35.163Z",
+      "reviewedAt": "2026-10-17T11:15:55.100Z",
       "managedCloudinaryImages": [
         {
           "publicId": "dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_1_e7d52211",
@@ -277,10 +277,11 @@
       "originalPrimaryImage": "/products-catalog/surgical-cautery-400-watts-electrosurgical-generator/img_1.jpg",
       "cloudinarySyncStatus": "IMAGES_UPLOADED",
       "cloudinaryLastSyncedAt": "2026-10-11T14:35:29.697Z",
-      "mongoSyncStatus": "SYNC_FAILED",
-      "mongoSyncedAt": "2026-10-11T14:35:30.610Z",
-      "approvedAt": "2026-10-17T07:45:35.230Z",
-      "approvedBy": "roshan.official0009@gmail.com"
+      "mongoSyncStatus": "SYNCED",
+      "mongoSyncedAt": "2026-10-17T11:15:56.863Z",
+      "approvedAt": "2026-10-17T11:15:55.167Z",
+      "approvedBy": "roshan.official0009@gmail.com",
+      "mongoSyncError": null
     },
     {
       "stock": 9,
@@ -42358,6 +42359,1208 @@
     "headquarters": "DR.MEDEX Global MedTech Tower, 45 Healthcare Innovation Way, Boston, MA 02115, USA & International Logistics Hub, Dubai Healthcare City, UAE"
   },
   "auditLogs": [
+    {
+      "id": "audit-1792235756995-p7zys",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-unref-1792235756965",
+      "details": {
+        "title": "TEST DISPOSABLE FORCEPS",
+        "sku": "TEST-FOR-1792235756965",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-unref-1792235756965",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T11:15:56.995Z"
+    },
+    {
+      "id": "audit-1792235756915-z6m5u",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ret-prod-1792235756882",
+      "details": {
+        "title": "TEST SURGICAL CO2 LASER SYSTEM",
+        "sku": "TEST-LAS-1792235756882",
+        "reason": "Customer orders reference this product; safely retired from active catalogue to protect order history integrity",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T11:15:56.915Z"
+    },
+    {
+      "id": "audit-1792235756808-nbjxz",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T11:15:56.808Z"
+    },
+    {
+      "id": "audit-1792235756039-o8q5f",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1792235755942",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1792235755942",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 1,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "test_asset_exclusive_delete"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1792235755942",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T11:15:56.039Z"
+    },
+    {
+      "id": "audit-1792235755855-pqf9x",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1792235755767",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1792235755767",
+        "reason": "Customer orders reference this product; safely retired from active catalogue to protect order history integrity",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T11:15:55.855Z"
+    },
+    {
+      "id": "audit-1792235755736-w45dj",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T11:15:55.736Z"
+    },
+    {
+      "id": "audit-1792235755183-2vw17",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T11:15:55.183Z"
+    },
+    {
+      "id": "audit-1792235755118-hpf7d",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T11:15:55.118Z"
+    },
+    {
+      "id": "audit-1792235755069-n2scs",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T11:15:55.069Z"
+    },
+    {
+      "id": "audit-1792235755019-ii23g",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T11:15:55.019Z"
+    },
+    {
+      "id": "audit-1792235750412-wuu0z",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-17T11:15:50.412Z"
+    },
+    {
+      "id": "audit-1792235750359-ge7j2",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-17T11:15:50.359Z"
+    },
+    {
+      "id": "audit-1792235750250-al15w",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-17T11:15:50.250Z"
+    },
+    {
+      "id": "audit-1792235750145-t42iw",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T11:15:50.145Z"
+    },
+    {
+      "id": "audit-1792235606435-ub1vz",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T11:13:26.435Z"
+    },
+    {
+      "id": "audit-1792235605901-t6xjz",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1792235605840",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1792235605840",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 1,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "test_asset_exclusive_delete"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1792235605840",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T11:13:25.901Z"
+    },
+    {
+      "id": "audit-1792235605796-21zdm",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1792235605758",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1792235605758",
+        "reason": "Customer orders reference this product; safely retired from active catalogue to protect order history integrity",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T11:13:25.796Z"
+    },
+    {
+      "id": "audit-1792235605728-0wr7v",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T11:13:25.728Z"
+    },
+    {
+      "id": "audit-1792235605181-5lbdc",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T11:13:25.181Z"
+    },
+    {
+      "id": "audit-1792235605121-ej2vp",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T11:13:25.121Z"
+    },
+    {
+      "id": "audit-1792235605075-t52rj",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T11:13:25.075Z"
+    },
+    {
+      "id": "audit-1792235605029-pas00",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T11:13:25.029Z"
+    },
+    {
+      "id": "audit-1792235600424-60bvw",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-17T11:13:20.424Z"
+    },
+    {
+      "id": "audit-1792235600373-ikvdi",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-17T11:13:20.373Z"
+    },
+    {
+      "id": "audit-1792235600265-hu6cj",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-17T11:13:20.265Z"
+    },
+    {
+      "id": "audit-1792235600160-rpjnw",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T11:13:20.160Z"
+    },
+    {
+      "id": "audit-1792235583376-3ubfk",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1792235583303",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1792235583303",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 1,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "test_asset_exclusive_delete"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1792235583303",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T11:13:03.376Z"
+    },
+    {
+      "id": "audit-1792235583258-h8k6e",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1792235583220",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1792235583220",
+        "reason": "Customer orders reference this product; safely retired from active catalogue to protect order history integrity",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T11:13:03.258Z"
+    },
+    {
+      "id": "audit-1792235583190-semdq",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T11:13:03.190Z"
+    },
+    {
+      "id": "audit-1792235579692-ulxwr",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-unref-1792235579661",
+      "details": {
+        "title": "TEST DISPOSABLE FORCEPS",
+        "sku": "TEST-FOR-1792235579661",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-unref-1792235579661",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T11:12:59.692Z"
+    },
+    {
+      "id": "audit-1792235579610-25bed",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ret-prod-1792235579578",
+      "details": {
+        "title": "TEST SURGICAL CO2 LASER SYSTEM",
+        "sku": "TEST-LAS-1792235579578",
+        "reason": "Customer orders reference this product; safely retired from active catalogue to protect order history integrity",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T11:12:59.610Z"
+    },
+    {
+      "id": "audit-1792235579518-cti0n",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T11:12:59.518Z"
+    },
+    {
+      "id": "audit-1792235537496-begx5",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-unref-1792235537464",
+      "details": {
+        "title": "TEST DISPOSABLE FORCEPS",
+        "sku": "TEST-FOR-1792235537464",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-unref-1792235537464",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T11:12:17.496Z"
+    },
+    {
+      "id": "audit-1792235537416-fl6d0",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ret-prod-1792235537342",
+      "details": {
+        "title": "TEST SURGICAL CO2 LASER SYSTEM",
+        "sku": "TEST-LAS-1792235537342",
+        "reason": "Customer orders reference this product; safely retired from active catalogue to protect order history integrity",
+        "mongo": {
+          "success": true,
+          "status": "SYNCED",
+          "id": "test-ret-prod-1792235537342",
+          "upserted": true,
+          "modified": false,
+          "matched": false
+        }
+      },
+      "timestamp": "2026-10-17T11:12:17.416Z"
+    },
+    {
+      "id": "audit-1792235536283-445pu",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T11:12:16.283Z"
+    },
+    {
+      "id": "audit-1792235485413-wh8po",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-unref-1792235485382",
+      "details": {
+        "title": "TEST DISPOSABLE FORCEPS",
+        "sku": "TEST-FOR-1792235485382",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-unref-1792235485382",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T11:11:25.413Z"
+    },
+    {
+      "id": "audit-1792235485336-v5atj",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ret-prod-1792235485304",
+      "details": {
+        "title": "TEST SURGICAL CO2 LASER SYSTEM",
+        "sku": "TEST-LAS-1792235485304",
+        "reason": "Customer orders reference this product; safely retired from active catalogue to protect order history integrity",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T11:11:25.336Z"
+    },
+    {
+      "id": "audit-1792235485245-gyu14",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T11:11:25.245Z"
+    },
+    {
+      "id": "audit-1792234928488-b1h4j",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-unref-1792234928423",
+      "details": {
+        "title": "TEST DISPOSABLE FORCEPS",
+        "sku": "TEST-FOR-1792234928424",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-unref-1792234928423",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T11:02:08.488Z"
+    },
+    {
+      "id": "audit-1792234928376-zg8n4",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ret-prod-1792234928345",
+      "details": {
+        "title": "TEST SURGICAL CO2 LASER SYSTEM",
+        "sku": "TEST-LAS-1792234928345",
+        "reason": "Customer orders reference this product; safely retired from active catalogue to protect order history integrity",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T11:02:08.376Z"
+    },
+    {
+      "id": "audit-1792234928288-xfo0w",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T11:02:08.288Z"
+    },
+    {
+      "id": "audit-1792234877874-l0mpf",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-unref-1792234877842",
+      "details": {
+        "title": "TEST DISPOSABLE FORCEPS",
+        "sku": "TEST-FOR-1792234877842",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-unref-1792234877842",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T11:01:17.874Z"
+    },
+    {
+      "id": "audit-1792234877795-38ie0",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ret-prod-1792234877763",
+      "details": {
+        "title": "TEST SURGICAL CO2 LASER SYSTEM",
+        "sku": "TEST-LAS-1792234877763",
+        "reason": "Customer orders reference this product; safely retired from active catalogue to protect order history integrity",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T11:01:17.795Z"
+    },
+    {
+      "id": "audit-1792234877708-31x2p",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T11:01:17.708Z"
+    },
+    {
+      "id": "audit-1792234429760-s3qzp",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T10:53:49.760Z"
+    },
+    {
+      "id": "audit-1792234429168-us5k6",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1792234429104",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1792234429104",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 1,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "test_asset_exclusive_delete"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1792234429104",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T10:53:49.168Z"
+    },
+    {
+      "id": "audit-1792234429056-58z0d",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1792234429017",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1792234429017",
+        "reason": "Customer orders reference this product; safely retired from active catalogue to protect order history integrity",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T10:53:49.056Z"
+    },
+    {
+      "id": "audit-1792234428987-byzqc",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T10:53:48.987Z"
+    },
+    {
+      "id": "audit-1792234428417-g0nt7",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T10:53:48.417Z"
+    },
+    {
+      "id": "audit-1792234428353-3y7dg",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T10:53:48.353Z"
+    },
+    {
+      "id": "audit-1792234428305-z9b13",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T10:53:48.305Z"
+    },
+    {
+      "id": "audit-1792234428250-y6bi7",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T10:53:48.250Z"
+    },
+    {
+      "id": "audit-1792234423693-dgibs",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-17T10:53:43.693Z"
+    },
+    {
+      "id": "audit-1792234423636-hlx2c",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-17T10:53:43.636Z"
+    },
+    {
+      "id": "audit-1792234423524-jwumk",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-17T10:53:43.524Z"
+    },
+    {
+      "id": "audit-1792234423419-8pjb9",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T10:53:43.419Z"
+    },
+    {
+      "id": "audit-1792228889159-wqlik",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T09:21:29.159Z"
+    },
+    {
+      "id": "audit-1792228714620-ajy5z",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1792228714554",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1792228714554",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 1,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "test_asset_exclusive_delete"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1792228714554",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T09:18:34.620Z"
+    },
+    {
+      "id": "audit-1792228714511-aclsj",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1792228714474",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1792228714474",
+        "reason": "Customer orders reference this product; safely retired from active catalogue to protect order history integrity",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T09:18:34.511Z"
+    },
+    {
+      "id": "audit-1792228714446-3jul7",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T09:18:34.446Z"
+    },
+    {
+      "id": "audit-1792228713900-mn9fq",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T09:18:33.900Z"
+    },
+    {
+      "id": "audit-1792228713830-p39rx",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T09:18:33.830Z"
+    },
+    {
+      "id": "audit-1792228713783-btena",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T09:18:33.783Z"
+    },
+    {
+      "id": "audit-1792228713737-ery8v",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T09:18:33.737Z"
+    },
+    {
+      "id": "audit-1792228709230-2urt0",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-17T09:18:29.230Z"
+    },
+    {
+      "id": "audit-1792228709175-2hhqk",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-17T09:18:29.175Z"
+    },
+    {
+      "id": "audit-1792228709043-3k0p0",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-17T09:18:29.043Z"
+    },
+    {
+      "id": "audit-1792228708935-nsbp8",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T09:18:28.935Z"
+    },
+    {
+      "id": "audit-1792228690040-m5h26",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1792228689961",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1792228689961",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 1,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "test_asset_exclusive_delete"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1792228689961",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T09:18:10.040Z"
+    },
+    {
+      "id": "audit-1792228689915-lj304",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1792228689876",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1792228689876",
+        "reason": "Customer orders reference this product; safely retired from active catalogue to protect order history integrity",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T09:18:09.915Z"
+    },
+    {
+      "id": "audit-1792228689846-t5jsv",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T09:18:09.846Z"
+    },
+    {
+      "id": "audit-1792228246866-mm6db",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1792228246785",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1792228246785",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 1,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "test_asset_exclusive_delete"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1792228246785",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T09:10:46.866Z"
+    },
+    {
+      "id": "audit-1792228246747-p1lij",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T09:10:46.747Z"
+    },
+    {
+      "id": "audit-1792228246148-urg79",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T09:10:46.148Z"
+    },
+    {
+      "id": "audit-1792228246084-8wo94",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T09:10:46.084Z"
+    },
+    {
+      "id": "audit-1792228246035-2ikes",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T09:10:46.035Z"
+    },
+    {
+      "id": "audit-1792228245987-v2fhe",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T09:10:45.987Z"
+    },
+    {
+      "id": "audit-1792228241314-57mi2",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-17T09:10:41.314Z"
+    },
+    {
+      "id": "audit-1792228241262-dhnqt",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-17T09:10:41.262Z"
+    },
+    {
+      "id": "audit-1792228241153-dontf",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-17T09:10:41.153Z"
+    },
+    {
+      "id": "audit-1792228241047-y8sdy",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T09:10:41.047Z"
+    },
     {
       "id": "audit-1792223135247-bcdtt",
       "adminId": "roshan.official0009@gmail.com",

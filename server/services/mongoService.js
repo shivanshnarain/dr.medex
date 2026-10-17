@@ -162,8 +162,14 @@ async function upsertApprovedProduct(product, adminEmail = "admin@drmedex.com") 
     stock: Number(product.stock || 0),
     stockStatus: product.stockStatus || (Number(product.stock || 0) > 0 ? "IN_STOCK" : "OUT_OF_STOCK"),
     status: product.status || "ACTIVE",
+    isRetired: Boolean(product.isRetired),
+    inCatalogue: product.inCatalogue !== undefined ? Boolean(product.inCatalogue) : (product.status !== "ARCHIVED" && !product.isRetired),
+    archivedAt: product.archivedAt || null,
+    archivedBy: product.archivedBy || null,
     reviewStatus: product.reviewStatus || "PENDING",
     reviewNote: product.reviewNote || null,
+    mongoSyncStatus: "SYNCED",
+    mongoSyncedAt: new Date().toISOString(),
     // Store only verified image URLs/references — NEVER raw binaries or base64
     images: Array.isArray(product.images) ? product.images.filter(i => typeof i === "string" && !i.startsWith("data:")) : [],
     primaryImage: typeof product.primaryImage === "string" && !product.primaryImage.startsWith("data:") ? product.primaryImage : "",
@@ -204,6 +210,8 @@ async function updateProductReviewStatus(productId, reviewStatus, reviewNote = n
   const updates = {
     reviewStatus,
     reviewNote: reviewNote !== undefined ? (reviewNote ? String(reviewNote).trim() : null) : null,
+    mongoSyncStatus: "SYNCED",
+    mongoSyncedAt: new Date().toISOString(),
     reviewedBy: adminEmail,
     reviewedAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()

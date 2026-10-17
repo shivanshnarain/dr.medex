@@ -1385,10 +1385,6 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
                         src={imgUrl}
                         alt={`Product ${idx + 1}`}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src =
-                            "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=600&q=80";
-                        }}
                       />
                       {idx === 0 && (
                         <span className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-red-600 text-white text-3xs font-extrabold shadow-sm">

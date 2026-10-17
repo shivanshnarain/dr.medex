@@ -110,7 +110,21 @@ router.get("/orders/:id", (req, res) => {
   if (!order) {
     return res.status(404).json({ success: false, message: "Order not found" });
   }
-  res.json({ success: true, order });
+  // Annotate items with historical product status without mutating stored order
+  const orderCopy = JSON.parse(JSON.stringify(order));
+  if (Array.isArray(orderCopy.items)) {
+    orderCopy.items = orderCopy.items.map(it => {
+      const prod = store.getProductById(it.productId, true);
+      const isRetired = prod ? (prod.status === "ARCHIVED" || prod.isRetired === true) : false;
+      return {
+        ...it,
+        isRetired,
+        availability: isRetired ? "UNAVAILABLE_RETIRED" : "AVAILABLE",
+        availabilityLabel: isRetired ? "Product retired from active catalogue" : "Active catalogue product"
+      };
+    });
+  }
+  res.json({ success: true, order: orderCopy });
 });
 
 router.put("/orders/:id/status", (req, res) => {
@@ -140,7 +154,17 @@ router.get("/track/:orderId", (req, res) => {
     fulfillmentStatus: order.fulfillmentStatus,
     shippingAddress: order.shippingAddress,
     timeline: order.trackingTimeline,
-    items: order.items.map(it => ({ title: it.title, quantity: it.quantity, sku: it.sku }))
+    items: order.items.map(it => {
+      const prod = store.getProductById(it.productId, true);
+      const isRetired = prod ? (prod.status === "ARCHIVED" || prod.isRetired === true) : false;
+      return {
+        title: it.title,
+        quantity: it.quantity,
+        sku: it.sku,
+        isRetired,
+        availabilityLabel: isRetired ? "Product retired from active catalogue" : "Active"
+      };
+    })
   });
 });
 

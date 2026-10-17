@@ -108,6 +108,8 @@ async function runTestMatrix() {
   const origProduct = store.getProductById(testProdId, true);
   assert(origProduct, `Test product ${testProdId} must exist in catalogue`);
   const initialReviewStatus = origProduct.reviewStatus || "PENDING";
+  const initialMongoSyncStatus = origProduct.mongoSyncStatus || "SYNCED";
+  const initialMongoSyncError = origProduct.mongoSyncError || null;
 
   try {
     // Test 3: Review status → Correct
@@ -158,7 +160,11 @@ async function runTestMatrix() {
     passes++;
   } finally {
     // Restore initial status
-    store.updateProduct(testProdId, { reviewStatus: initialReviewStatus });
+    store.updateProduct(testProdId, {
+      reviewStatus: initialReviewStatus,
+      mongoSyncStatus: initialMongoSyncStatus,
+      mongoSyncError: initialMongoSyncError
+    });
   }
 
   // Test 6: Invalid product ID

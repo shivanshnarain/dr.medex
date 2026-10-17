@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const express = require("express");
 const router = express.Router();
 const authService = require("../services/authService");
@@ -12,6 +14,7 @@ const mongoService = require("../services/mongoService");
 const geminiVisionService = require("../services/geminiVisionService");
 const firestoreService = require("../services/firestoreService");
 const supabaseService = require("../services/supabaseService");
+const imageResolver = require("../services/imageResolver");
 
 /**
  * Authentication Middleware
@@ -175,8 +178,26 @@ router.get("/dashboard", requireAdmin, (req, res) => {
 // ==========================================
 
 router.get("/products", requireAdmin, async (req, res) => {
-  const { search, category, status, stock, reviewStatus, sort = "updated_desc", page = 1, limit = 20 } = req.query;
+  const { search, category, status, includeArchived, stock, reviewStatus, sort = "updated_desc", page = 1, limit = 20 } = req.query;
   let list = store.getProducts({ includeInactive: true });
+
+  // Exclude archived/retired products from active catalogue list unless explicitly requested
+  if (status === "ARCHIVED") {
+    list = list.filter(p => p.status === "ARCHIVED" || p.isRetired === true);
+  } else if (!includeArchived && status !== "ALL_WITH_ARCHIVED") {
+    list = list.filter(p => p.status !== "ARCHIVED" && !p.isRetired && p.inCatalogue !== false);
+  }
+
+  // Pre-calculate orders reference map so frontend knows whether each product has order history
+  const orders = store.getOrders();
+  const orderProductIds = new Set();
+  orders.forEach(o => {
+    if (Array.isArray(o.items)) {
+      o.items.forEach(it => {
+        if (it && it.productId) orderProductIds.add(it.productId);
+      });
+    }
+  });
 
   // Merge authoritative records from MongoDB if configured and reachable
   if (mongoService.isConfigured()) {
@@ -185,24 +206,46 @@ router.get("/products", requireAdmin, async (req, res) => {
       if (Array.isArray(mongoList) && mongoList.length > 0) {
         const mongoMap = new Map(mongoList.map(m => [m.id, m]));
         list = list.map(p => {
+          const hasOrders = orderProductIds.has(p.id);
           const m = mongoMap.get(p.id);
           if (m) {
             return {
               ...p,
               ...m,
+              hasOrders,
+              mongoSyncStatus: "SYNCED",
+              mongoSyncedAt: m.mongoSyncedAt || p.mongoSyncedAt || new Date().toISOString(),
               reviewStatus: m.reviewStatus || p.reviewStatus || "PENDING",
               reviewNote: m.reviewNote !== undefined ? m.reviewNote : p.reviewNote
             };
           }
-          return p;
+          return {
+            ...p,
+            hasOrders,
+            mongoSyncStatus: p.mongoSyncStatus === "SYNC_FAILED" ? "SYNC_FAILED" : (p.mongoSyncStatus || "PENDING")
+          };
         });
+      } else {
+        list = list.map(p => ({
+          ...p,
+          hasOrders: orderProductIds.has(p.id)
+        }));
       }
     } catch (e) {
       // Fallback gracefully to store
+      list = list.map(p => ({
+        ...p,
+        hasOrders: orderProductIds.has(p.id)
+      }));
     }
+  } else {
+    list = list.map(p => ({
+      ...p,
+      hasOrders: orderProductIds.has(p.id)
+    }));
   }
 
-  // Calculate live review counts across all products before filtering
+  // Calculate live review counts across active catalogue products before filtering
   const allProducts = list;
   const reviewCounts = {
     all: allProducts.length,
@@ -229,7 +272,7 @@ router.get("/products", requireAdmin, async (req, res) => {
   }
 
   // Status filter (Publication status: ACTIVE, DRAFT, ARCHIVED)
-  if (status && status !== "ALL") {
+  if (status && status !== "ALL" && status !== "ARCHIVED") {
     list = list.filter(p => (p.status || "ACTIVE") === status);
   }
 
@@ -478,25 +521,95 @@ router.get("/products/:id/download-package", requireAdmin, async (req, res) => {
 });
 
 /**
+ * Canonical Product Images Retrieval Endpoint
+ * Resolves all valid photos across historical and modern formats
+ */
+router.get("/products/:id/images", requireAdmin, async (req, res) => {
+  try {
+    let product = store.getProductById(req.params.id, true);
+    if (!product && mongoService.isConfigured()) {
+      try {
+        product = await mongoService.getApprovedProduct(req.params.id);
+      } catch (mErr) {}
+    }
+
+    if (!product) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    const images = imageResolver.resolveProductImages(product);
+    res.json({
+      success: true,
+      productId: product.id,
+      title: product.title || product.productName,
+      sku: product.sku || product.SKU,
+      count: images.length,
+      images
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+/**
  * Direct Product Photo Proxy Download (preserves original content without ZIP packaging)
+ * Supports both local catalogue storage and remote Cloudinary assets with SSRF protection
  */
 router.get("/download-image", requireAdmin, async (req, res) => {
   try {
-    const { url, filename } = req.query;
-    if (!url || !String(url).startsWith("http")) {
-      return res.status(400).json({ success: false, message: "Valid HTTP(S) image URL is required" });
+    const { url, filename, productId } = req.query;
+    if (!url || typeof url !== "string") {
+      return res.status(400).json({ success: false, message: "Image URL parameter is required" });
     }
+
+    const rawUrl = url.trim();
     const cleanFilename = String(filename || "product-image.jpg").replace(/[^a-zA-Z0-9._-]/g, "_");
-    const fetchRes = await fetch(url);
-    if (!fetchRes.ok) {
-      return res.status(fetchRes.status).json({ success: false, message: `Failed to fetch image: HTTP ${fetchRes.status}` });
+
+    // Case 1: Local catalog image file
+    if (rawUrl.startsWith("/products-catalog/") || rawUrl.startsWith("products-catalog/")) {
+      const localPath = imageResolver.resolveLocalImagePath(rawUrl);
+      if (!localPath || !fs.existsSync(localPath)) {
+        return res.status(404).json({ success: false, message: "Local photo asset not found on server" });
+      }
+
+      const ext = path.extname(localPath).toLowerCase();
+      let contentType = "image/jpeg";
+      if (ext === ".png") contentType = "image/png";
+      else if (ext === ".webp") contentType = "image/webp";
+      else if (ext === ".svg") contentType = "image/svg+xml";
+
+      res.setHeader("Content-Type", contentType);
+      res.setHeader("Content-Disposition", `attachment; filename="${cleanFilename}"`);
+      res.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
+
+      const fileStream = fs.createReadStream(localPath);
+      fileStream.on("error", (sErr) => {
+        if (!res.headersSent) res.status(500).json({ success: false, message: "Failed to stream image" });
+      });
+      return fileStream.pipe(res);
     }
-    const contentType = fetchRes.headers.get("content-type") || "image/jpeg";
-    res.setHeader("Content-Type", contentType);
-    res.setHeader("Content-Disposition", `attachment; filename="${cleanFilename}"`);
-    res.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
-    const buffer = await fetchRes.arrayBuffer();
-    res.send(Buffer.from(buffer));
+
+    // Case 2: Remote image (Cloudinary or allowed external URL)
+    if (rawUrl.startsWith("http://") || rawUrl.startsWith("https://")) {
+      if (!imageResolver.isAllowedRemoteUrl(rawUrl)) {
+        return res.status(400).json({ success: false, message: "Remote image URL host is not permitted (SSRF protection)" });
+      }
+
+      const fetchRes = await fetch(rawUrl);
+      if (!fetchRes.ok) {
+        return res.status(fetchRes.status).json({ success: false, message: `Failed to fetch image: HTTP ${fetchRes.status}` });
+      }
+
+      const contentType = fetchRes.headers.get("content-type") || "image/jpeg";
+      res.setHeader("Content-Type", contentType);
+      res.setHeader("Content-Disposition", `attachment; filename="${cleanFilename}"`);
+      res.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
+
+      const buffer = await fetchRes.arrayBuffer();
+      return res.send(Buffer.from(buffer));
+    }
+
+    return res.status(400).json({ success: false, message: "Unsupported image URL format" });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -663,6 +776,28 @@ router.get("/mongodb/status", requireAdmin, async (req, res) => {
 });
 
 /**
+ * Safe Server-Side Gemini AI Configuration & Health Diagnostic
+ * Returns status without exposing secret keys
+ */
+router.get("/ai/status", requireAdmin, (req, res) => {
+  const gemini = geminiVisionService.getGeminiStatus();
+  res.json({
+    success: true,
+    gemini,
+    timestamp: new Date().toISOString()
+  });
+});
+
+router.get("/gemini/status", requireAdmin, (req, res) => {
+  const gemini = geminiVisionService.getGeminiStatus();
+  res.json({
+    success: true,
+    gemini,
+    timestamp: new Date().toISOString()
+  });
+});
+
+/**
  * Manual/Retry Product MongoDB Atlas Synchronization
  */
 router.post("/products/:id/sync-mongodb", requireAdmin, async (req, res) => {
@@ -686,7 +821,7 @@ router.post("/products/:id/sync-mongodb", requireAdmin, async (req, res) => {
 /**
  * Toggle Active/Inactive Status for Product
  */
-router.put("/products/:id/status", requireAdmin, (req, res) => {
+router.put("/products/:id/status", requireAdmin, async (req, res) => {
   try {
     const { status } = req.body;
     const permitted = ["ACTIVE", "INACTIVE", "DRAFT", "ARCHIVED"];
@@ -712,6 +847,16 @@ router.put("/products/:id/status", requireAdmin, (req, res) => {
       return res.status(500).json({ success: false, message: "Failed to persist product status update in store." });
     }
 
+    // Persist status change to MongoDB Atlas
+    let mongoResult = null;
+    if (mongoService.isConfigured()) {
+      try {
+        mongoResult = await mongoService.upsertApprovedProduct(updated, req.admin?.email || "SYSTEM_ADMIN");
+      } catch (mErr) {
+        console.warn("[admin.js] MongoDB Atlas sync on status toggle error:", mErr.message);
+      }
+    }
+
     auditService.logAction(req.admin?.email || "SYSTEM_ADMIN", "PRODUCT_STATUS_TOGGLED", existing.id, {
       title: updated.title || updated.productName,
       fromStatus: existing.status || "ACTIVE",
@@ -721,7 +866,8 @@ router.put("/products/:id/status", requireAdmin, (req, res) => {
     res.json({
       success: true,
       message: `Product status updated to ${status}`,
-      product: updated
+      product: updated,
+      mongo: mongoResult
     });
   } catch (err) {
     console.error("Update product status error:", err);
@@ -857,6 +1003,7 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
 
     const updates = {
       ...req.body,
+      status: req.body.status || existing.status || "ACTIVE",
       reviewStatus: "CORRECT",
       approvedAt: new Date().toISOString(),
       approvedBy: req.admin?.email || "SYSTEM_ADMIN",
@@ -1012,21 +1159,61 @@ router.delete("/products/:id", requireAdmin, async (req, res) => {
       return res.status(404).json({ success: false, message: "Product not found" });
     }
 
-    // 1. Order safety check: do not delete product if part of existing customer orders
+    // 1. Order safety check: if customer orders reference this product, safely retire it from catalogue
     const orders = store.getOrders();
-    const hasOrder = orders.some(o => o.items && o.items.some(it => it.productId === existing.id));
+    const hasOrder = orders.some(o => Array.isArray(o.items) && o.items.some(it => it && it.productId === existing.id));
     if (hasOrder) {
-      return res.status(400).json({
-        success: false,
-        message: "Cannot permanently delete product with existing customer orders. Product must be retained for business and order history integrity."
+      // SAFE CATALOGUE REMOVAL / RETIREMENT:
+      // Preserves customer orders, payment snapshots, and historical order details.
+      // Retires product from active catalogue without destroying business records.
+      const retiredUpdates = {
+        status: "ARCHIVED",
+        isRetired: true,
+        inCatalogue: false,
+        archivedAt: new Date().toISOString(),
+        archivedBy: req.admin.email,
+        updatedAt: new Date().toISOString()
+      };
+
+      // In MongoDB Atlas: update record status to ARCHIVED so it's not active in catalogue,
+      // but retained for historical order reference integrity
+      let mongoResult = null;
+      if (mongoService.isConfigured()) {
+        try {
+          const candidateProduct = { ...existing, ...retiredUpdates };
+          mongoResult = await mongoService.upsertApprovedProduct(candidateProduct, req.admin.email);
+        } catch (mErr) {
+          console.warn("[admin.js] MongoDB Atlas archive update error:", mErr.message);
+          mongoResult = { status: "SYNC_FAILED", error: mongoService.sanitizeMongoError(mErr) };
+        }
+      }
+
+      // Update in local store
+      const retiredProduct = store.updateProduct(existing.id, retiredUpdates);
+
+      // Audit log
+      auditService.logAction(req.admin.email, "PRODUCT_CATALOGUE_RETIRED", existing.id, {
+        title: existing.title || existing.productName,
+        sku: existing.sku || existing.SKU,
+        reason: "Customer orders reference this product; safely retired from active catalogue to protect order history integrity",
+        mongo: mongoResult
+      });
+
+      return res.json({
+        success: true,
+        retired: true,
+        deleted: false,
+        message: `Product "${existing.title || existing.productName}" has existing customer orders. It has been safely retired from the active catalogue while preserving customer order history.`,
+        product: retiredProduct,
+        mongo: mongoResult
       });
     }
 
-    // 2. Delete exclusively owned Cloudinary assets
+    // 2. No order references: Delete exclusively owned Cloudinary assets
     const allProducts = store.getProducts({ includeInactive: true });
     let cloudinaryResult = null;
     try {
-      cloudinaryResult = await cloudinaryService.deleteProductExclusivelyOwnedMedia(existing, allProducts);
+      cloudinaryResult = await cloudinaryService.deleteProductExclusivelyOwnedMedia(existing, allProducts, orders);
     } catch (cErr) {
       console.warn("[admin.js] Cloudinary media deletion error:", cErr.message);
       cloudinaryResult = { status: "ERROR", error: cErr.message };
@@ -1063,6 +1250,7 @@ router.delete("/products/:id", requireAdmin, async (req, res) => {
     res.json({
       success: true,
       deleted: true,
+      retired: false,
       message: "Product and associated media permanently deleted.",
       product: removed,
       cloudinary: cloudinaryResult,

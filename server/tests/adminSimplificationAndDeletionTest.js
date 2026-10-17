@@ -125,20 +125,78 @@ async function runTestSuite() {
 
   console.log("✔ PASS: Photo download proxy validates authorization and input parameters.");
 
-  // --- 3. CHANGE 3: Permanent Product Deletion ---
-  console.log("\n--- 4. Testing Permanent Deletion Protection on Customer Orders ---");
-  const allOrders = store.getOrders();
-  if (allOrders.length > 0 && allOrders[0].items && allOrders[0].items.length > 0) {
-    const orderedProdId = allOrders[0].items[0].productId;
-    const orderedProduct = store.getProductById(orderedProdId, true);
-    if (orderedProduct) {
-      const blockedDelete = await makeRequest(`/api/admin/products/${orderedProdId}`, "DELETE", {
-        headers: { authorization: `Bearer ${adminToken}` }
-      });
-      assert.strictEqual(blockedDelete.status, 400, "Deletion of product with customer order history must return HTTP 400");
-      assert.strictEqual(blockedDelete.body.success, false);
-      console.log(`✔ PASS: Deletion blocked for product ${orderedProdId} with existing customer orders to preserve audit trail.`);
-    }
+  // --- 3. CHANGE 3: Safe Catalogue Retirement & Permanent Product Deletion ---
+  console.log("\n--- 4. Testing Safe Catalogue Retirement for Products with Customer Orders ---");
+  const retirementTestId = `test-retire-${Date.now()}`;
+  const retirementTestProduct = {
+    id: retirementTestId,
+    title: "TEST SURGICAL LIGHT TO RETIRE",
+    slug: `test-surgical-light-to-retire-${Date.now()}`,
+    sku: `TEST-RET-SKU-${Date.now()}`,
+    category: "ot-lights",
+    basePrice: 5000,
+    status: "ACTIVE",
+    primaryImage: "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729326/test_order_asset.jpg",
+    images: [],
+    createdAt: new Date().toISOString()
+  };
+  store.addProduct(retirementTestProduct);
+
+  // Add a temporary test order referencing this product
+  const tempOrder = {
+    id: `ORD-TEST-${Date.now()}`,
+    orderNumber: `ORD-TEST-${Date.now()}`,
+    items: [
+      {
+        productId: retirementTestId,
+        title: retirementTestProduct.title,
+        sku: retirementTestProduct.sku,
+        quantity: 2,
+        basePriceUSD: 5000,
+        convertedUnitPrice: 5000,
+        currency: "USD",
+        image: retirementTestProduct.primaryImage
+      }
+    ],
+    status: "PAID",
+    createdAt: new Date().toISOString()
+  };
+  store.getOrders().push(tempOrder);
+
+  try {
+    const retireRes = await makeRequest(`/api/admin/products/${retirementTestId}`, "DELETE", {
+      headers: { authorization: `Bearer ${adminToken}` }
+    });
+
+    assert.strictEqual(retireRes.status, 200, "Retirement of product with orders must return HTTP 200");
+    assert.strictEqual(retireRes.body.success, true, "Success flag must be true");
+    assert.strictEqual(retireRes.body.retired, true, "Product must be flagged as retired");
+    assert.strictEqual(retireRes.body.deleted, false, "Product must NOT be physically deleted");
+    assert.ok(retireRes.body.message.includes("safely retired"), "Message must explain safe retirement");
+
+    // Verify product status in store is now ARCHIVED / isRetired: true
+    const retiredRecord = store.getProductById(retirementTestId, true);
+    assert.ok(retiredRecord, "Product record must still exist for order history");
+    assert.strictEqual(retiredRecord.status, "ARCHIVED", "Product status must be ARCHIVED");
+    assert.strictEqual(retiredRecord.isRetired, true, "Product must be marked as isRetired: true");
+
+    // Verify excluded from normal storefront queries
+    const publicRecord = store.getProductById(retirementTestId, false);
+    assert.strictEqual(publicRecord, null, "Retired product must not be available on public storefront");
+
+    // Verify order record remains completely intact
+    const ordersAfter = store.getOrders();
+    const foundOrder = ordersAfter.find(o => o.id === tempOrder.id);
+    assert.ok(foundOrder, "Customer order must remain 100% intact");
+    assert.strictEqual(foundOrder.items[0].productId, retirementTestId);
+    assert.strictEqual(foundOrder.items[0].quantity, 2);
+
+    console.log(`✔ PASS: Product ${retirementTestId} safely retired from active catalogue while retaining customer order history.`);
+  } finally {
+    // Clean up temporary test order and test product
+    const orderIdx = store.getOrders().findIndex(o => o.id === tempOrder.id);
+    if (orderIdx !== -1) store.getOrders().splice(orderIdx, 1);
+    store.deleteProduct(retirementTestId);
   }
 
   console.log("\n--- 5. Testing Isolated Test Product Permanent Deletion ---");

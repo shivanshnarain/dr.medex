@@ -585,7 +585,7 @@ async function getCatalogueDryRun(products = []) {
  * - Deletes via cloudinary.uploader.destroy(publicId, { invalidate: true })
  * - Returns structured audit summary
  */
-async function deleteProductExclusivelyOwnedMedia(product, allProducts = []) {
+async function deleteProductExclusivelyOwnedMedia(product, allProducts = [], orders = []) {
   if (!isConfigured()) {
     return { status: "NOT_CONFIGURED", deletedCount: 0, preservedCount: 0, errorCount: 0 };
   }
@@ -624,7 +624,7 @@ async function deleteProductExclusivelyOwnedMedia(product, allProducts = []) {
   const errors = [];
 
   for (const publicId of candidates) {
-    // Verify no OTHER product references this asset
+    // 1. Verify no OTHER product references this asset
     const isShared = allProducts.some(other => {
       if (other.id === product.id) return false;
       const otherManaged = Array.isArray(other.managedCloudinaryImages) ? other.managedCloudinaryImages : [];
@@ -637,6 +637,24 @@ async function deleteProductExclusivelyOwnedMedia(product, allProducts = []) {
       preserved.push({
         publicId,
         reason: "Asset shared with another product. Preserved from deletion."
+      });
+      continue;
+    }
+
+    // 2. Verify asset is NOT needed for historical customer order displays
+    const isNeededInOrders = orders.some(o => {
+      if (!Array.isArray(o.items)) return false;
+      return o.items.some(it => {
+        if (it && it.image && typeof it.image === "string" && it.image.includes(publicId)) return true;
+        if (it && it.publicId && it.publicId === publicId) return true;
+        return false;
+      });
+    });
+
+    if (isNeededInOrders) {
+      preserved.push({
+        publicId,
+        reason: "Asset referenced in customer order history. Preserved from deletion to maintain order details."
       });
       continue;
     }

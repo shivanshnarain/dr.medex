@@ -635,9 +635,9 @@ export const AdminProductEditorPage: React.FC = () => {
 
       if (activeAnalysisIdRef.current !== thisAnalysisId) return;
 
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.message || "Failed to identify medical equipment.");
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data || !data.success) {
+        throw new Error((data && data.message) || `AI service returned HTTP ${res.status}`);
       }
 
       // 3. Matching catalogue categories
@@ -664,8 +664,13 @@ export const AdminProductEditorPage: React.FC = () => {
       });
     } catch (err: any) {
       if (activeAnalysisIdRef.current === thisAnalysisId) {
-        console.error("AI identification error:", err);
-        setAiIdentifyError(err.message || "Failed to identify medical equipment. Please check network connection and retry.");
+        console.warn("AI identification error:", err);
+        const errMsg = err?.message || "Failed to identify medical equipment.";
+        if (errMsg.includes("GEMINI_API_KEY")) {
+          setAiIdentifyError("Smart Product Assistant: GEMINI_API_KEY is not configured on this server. Please configure it in Vercel Environment Variables. Your original photos are safely preserved.");
+        } else {
+          setAiIdentifyError(`AI analysis failed: ${errMsg}. Your uploaded photos are preserved and you can continue editing manually.`);
+        }
         setAiIdentifyPhase("idle");
       }
     } finally {
@@ -679,8 +684,19 @@ export const AdminProductEditorPage: React.FC = () => {
   const handleStep1PhotosSelected = async (selectedFiles: File[]) => {
     if (!selectedFiles || selectedFiles.length === 0) return;
 
+    if (images.length >= 5) {
+      setUploadError("Maximum 5 photographs allowed per product. Please remove an existing photo first.");
+      return;
+    }
+
+    const availableSlots = 5 - images.length;
+    const filesToProcess = selectedFiles.slice(0, availableSlots);
+    if (selectedFiles.length > availableSlots) {
+      setUploadError(`Only ${availableSlots} more photo(s) can be added to reach the maximum 5 photographs limit.`);
+    }
+
     const validTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
-    for (const f of selectedFiles) {
+    for (const f of filesToProcess) {
       if (!validTypes.has(f.type)) {
         setUploadError(`File "${f.name}" has an unsupported format (${f.type}). Supported formats: JPEG, PNG, WebP.`);
         return;
@@ -693,12 +709,13 @@ export const AdminProductEditorPage: React.FC = () => {
 
     setIsUploadingImage(true);
     setUploadError(null);
-    setUploadProgress({ current: 0, total: selectedFiles.length });
+    setUploadProgress({ current: 0, total: filesToProcess.length });
 
     const newUploadedUrls: string[] = [];
+    const failedFiles: string[] = [];
 
-    for (let i = 0; i < selectedFiles.length; i++) {
-      const file = selectedFiles[i];
+    for (let i = 0; i < filesToProcess.length; i++) {
+      const file = filesToProcess[i];
       try {
         const base64Data = await new Promise<string>((resolve, reject) => {
           const reader = new FileReader();
@@ -713,35 +730,40 @@ export const AdminProductEditorPage: React.FC = () => {
           body: JSON.stringify({
             data: base64Data,
             filename: file.name,
-            contentType: file.type
+            contentType: file.type,
+            productId: productId || "new-product"
           })
         });
 
-        const data = await res.json();
-        if (res.ok && data.success && data.url) {
+        const data = await res.json().catch(() => null);
+        if (res.ok && data && data.success && data.url) {
           newUploadedUrls.push(data.url);
         } else {
-          newUploadedUrls.push(base64Data);
+          failedFiles.push(file.name);
         }
       } catch {
-        // Fallback to data URI if upload server fails
+        failedFiles.push(file.name);
       }
-      setUploadProgress({ current: i + 1, total: selectedFiles.length });
+      setUploadProgress({ current: i + 1, total: filesToProcess.length });
     }
 
     setIsUploadingImage(false);
 
+    if (failedFiles.length > 0) {
+      setUploadError(`Failed to upload ${failedFiles.join(", ")}. Please check connection and retry.`);
+    }
+
     if (newUploadedUrls.length > 0) {
       // Invalidate any active analysis
       activeAnalysisIdRef.current = 0;
-      const combined = [...images, ...newUploadedUrls].slice(0, 5);
-      setImages(combined);
+      setImages(prev => {
+        const updated = [...prev, ...newUploadedUrls].slice(0, 5);
+        if (autoAnalyze) {
+          triggerAiIdentification(updated);
+        }
+        return updated;
+      });
       setHasUnsavedChanges(true);
-
-      // Mode A: Automatic analysis
-      if (autoAnalyze) {
-        triggerAiIdentification(combined);
-      }
     }
   };
 
@@ -1057,8 +1079,10 @@ export const AdminProductEditorPage: React.FC = () => {
       moq: Number(minOrderQuantity),
       leadTimeWeeks,
 
-      images: images.length > 0 ? images : ["https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80"],
-      primaryImage: images[primaryImageIndex] || images[0] || "",
+      images: images.filter((img) => typeof img === "string" && !img.startsWith("data:")),
+      primaryImage: (images[primaryImageIndex] && !images[primaryImageIndex].startsWith("data:"))
+        ? images[primaryImageIndex]
+        : (images.find((img) => typeof img === "string" && !img.startsWith("data:")) || ""),
 
       shortDescription: shortDescription.trim(),
       fullDescription: fullDescription.trim(),
@@ -1639,10 +1663,6 @@ export const AdminProductEditorPage: React.FC = () => {
                           src={imgUrl}
                           alt={`Device view ${idx + 1}`}
                           className="w-full h-full object-contain"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src =
-                              "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=300&q=80";
-                          }}
                         />
                       </div>
 

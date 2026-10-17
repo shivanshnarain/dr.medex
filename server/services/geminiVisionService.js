@@ -25,12 +25,27 @@ const CANDIDATE_MODELS = [
   "gemini-3.8-flash"
 ];
 
+function isConfigured() {
+  return Boolean(process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY.trim());
+}
+
+function getGeminiStatus() {
+  const configured = isConfigured();
+  return {
+    configured,
+    provider: "google-gemini",
+    models: CANDIDATE_MODELS,
+    envVarName: "GEMINI_API_KEY",
+    activeModel: CANDIDATE_MODELS[0]
+  };
+}
+
 function getApiKey() {
   const key = process.env.GEMINI_API_KEY;
-  if (!key) {
+  if (!key || !key.trim()) {
     throw new Error("GEMINI_API_KEY is not configured on the server. Please set it in .env file.");
   }
-  return key;
+  return key.trim();
 }
 
 /**
@@ -227,7 +242,26 @@ async function identifyProductFromPhotos(photos) {
       }
       base64Data = p.data.toString("base64");
     } else if (typeof p.data === "string") {
-      if (p.data.startsWith("/") && !p.data.startsWith("/data:")) {
+      if (p.data.startsWith("http://") || p.data.startsWith("https://")) {
+        try {
+          const fetchRes = await fetch(p.data);
+          if (!fetchRes.ok) {
+            throw new Error(`Failed to fetch photo from URL (HTTP ${fetchRes.status})`);
+          }
+          const arrayBuf = await fetchRes.arrayBuffer();
+          const buf = Buffer.from(arrayBuf);
+          if (buf.length > MAX_FILE_SIZE_BYTES) {
+            throw new Error(`Photo #${i + 1} exceeds the 10MB file size limit.`);
+          }
+          base64Data = buf.toString("base64");
+          const cType = fetchRes.headers.get("content-type");
+          if (cType && ALLOWED_MIME_TYPES.has(cType.toLowerCase())) {
+            mimeType = cType.toLowerCase();
+          }
+        } catch (fetchErr) {
+          throw new Error(`Could not read photo #${i + 1} from URL: ${fetchErr.message}`);
+        }
+      } else if (p.data.startsWith("/") && !p.data.startsWith("/data:")) {
         const possiblePaths = [
           path.join(__dirname, "../../client/public", p.data),
           path.join(__dirname, "../public", p.data),
@@ -826,6 +860,8 @@ function buildThemedSuggestions({ rating, productTitle, category, poolIndex = 0 
 }
 
 module.exports = {
+  isConfigured,
+  getGeminiStatus,
   identifyProductFromPhotos,
   validateAndSanitizeOutput,
   buildTaxonomyReference,

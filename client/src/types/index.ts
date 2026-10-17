@@ -83,6 +83,11 @@ export interface Product {
   originalPrimaryImage?: string;
   mongoSyncStatus?: "SYNCED" | "REMOVED" | "SYNC_FAILED" | "REMOVAL_FAILED" | string;
   mongoSyncedAt?: string;
+  hasOrders?: boolean;
+  isRetired?: boolean;
+  inCatalogue?: boolean;
+  archivedAt?: string;
+  archivedBy?: string;
   createdAt?: string;
   updatedAt?: string;
 }

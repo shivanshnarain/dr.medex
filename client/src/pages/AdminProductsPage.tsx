@@ -41,7 +41,12 @@ export const AdminProductsPage: React.FC = () => {
       const cached = localStorage.getItem("drmedex_admin_products_cache");
       if (cached) {
         const parsed = JSON.parse(cached);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed.map((p: any) => ({
+            ...p,
+            mongoSyncStatus: p.mongoSyncStatus === "SYNC_FAILED" ? "PENDING" : p.mongoSyncStatus
+          }));
+        }
       }
     } catch {}
     return fallbackProducts && fallbackProducts.length > 0 ? (fallbackProducts as Product[]) : [];
@@ -122,6 +127,7 @@ export const AdminProductsPage: React.FC = () => {
   // Cloudinary Image Lifecycle & Quota State
   const [pendingReviewAction, setPendingReviewAction] = useState<string | null>(null);
   const [syncingCloudinaryId, setSyncingCloudinaryId] = useState<string | null>(null);
+  const [syncingMongoId, setSyncingMongoId] = useState<string | null>(null);
   const [cloudinaryModalOpen, setCloudinaryModalOpen] = useState(false);
   const [cloudinaryReport, setCloudinaryReport] = useState<any>(null);
   const [loadingCloudinaryReport, setLoadingCloudinaryReport] = useState(false);
@@ -131,8 +137,9 @@ export const AdminProductsPage: React.FC = () => {
     setIsLoading(true);
     setIsRefreshing(true);
     try {
+      const url = `/api/admin/products?limit=1000${selectedStatus === "ARCHIVED" ? "&status=ARCHIVED" : ""}`;
       const [prodRes, catRes] = await Promise.all([
-        adminFetch("/api/admin/products?limit=1000"),
+        adminFetch(url),
         fetch(getApiUrl("/api/categories?includeInactive=true"))
       ]);
 
@@ -161,7 +168,10 @@ export const AdminProductsPage: React.FC = () => {
           if (cached) {
             const parsed = JSON.parse(cached);
             if (Array.isArray(parsed) && parsed.length > 0) {
-              loadedProducts = parsed;
+              loadedProducts = parsed.map((p: any) => ({
+                ...p,
+                mongoSyncStatus: p.mongoSyncStatus === "SYNC_FAILED" ? "PENDING" : p.mongoSyncStatus
+              }));
             }
           }
         } catch {}
@@ -598,23 +608,41 @@ export const AdminProductsPage: React.FC = () => {
     setDownloadingId(product.id);
 
     try {
-      // 1. Collect all original image URLs for this product
-      const urls: string[] = [];
-      const seen = new Set<string>();
-      const addUrl = (raw: any) => {
-        if (!raw) return;
-        const u = typeof raw === "string" ? raw.trim() : (raw.url || raw.secureUrl || raw.secure_url || "").trim();
-        if (u && u.startsWith("http") && !seen.has(u)) {
-          seen.add(u);
-          urls.push(u);
+      // 1. Resolve canonical images via server endpoint, falling back to comprehensive client resolution
+      let urls: string[] = [];
+      try {
+        const imgRes = await adminFetch(`/api/admin/products/${encodeURIComponent(product.id)}/images`);
+        if (imgRes.ok) {
+          const imgData = await imgRes.json().catch(() => null);
+          if (imgData && imgData.success && Array.isArray(imgData.images)) {
+            urls = imgData.images.map((im: any) => im.url).filter(Boolean);
+          }
         }
-      };
+      } catch (err) {
+        console.warn("Failed to fetch resolved images from server endpoint, using client-side fallback:", err);
+      }
 
-      addUrl(product.primaryImage);
-      if (Array.isArray(product.images)) product.images.forEach(addUrl);
-      if (Array.isArray(product.galleryImages)) product.galleryImages.forEach(addUrl);
-      if (Array.isArray((product as any).managedCloudinaryImages)) {
-        (product as any).managedCloudinaryImages.forEach((m: any) => addUrl(m?.url || m?.secure_url));
+      if (urls.length === 0) {
+        const seen = new Set<string>();
+        const addUrl = (raw: any) => {
+          if (!raw) return;
+          let u = typeof raw === "string" ? raw.trim() : (raw.url || raw.secureUrl || raw.secure_url || raw.src || "").trim();
+          if (!u || u.startsWith("data:")) return;
+          if (u.startsWith("products-catalog/")) u = `/${u}`;
+          if (!seen.has(u)) {
+            seen.add(u);
+            urls.push(u);
+          }
+        };
+
+        addUrl(product.primaryImage);
+        addUrl((product as any).originalPrimaryImage);
+        if (Array.isArray(product.images)) product.images.forEach(addUrl);
+        if (Array.isArray((product as any).originalImages)) (product as any).originalImages.forEach(addUrl);
+        if (Array.isArray(product.galleryImages)) product.galleryImages.forEach(addUrl);
+        if (Array.isArray((product as any).managedCloudinaryImages)) {
+          (product as any).managedCloudinaryImages.forEach((m: any) => addUrl(m?.secureUrl || m?.secure_url || m?.url));
+        }
       }
 
       if (urls.length === 0) {
@@ -695,20 +723,26 @@ export const AdminProductsPage: React.FC = () => {
       const res = await adminFetch(`/api/admin/products/${prod.id}`, { method: "DELETE" });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.success) {
-        setProducts(prev => prev.filter(p => p.id !== prod.id));
+        setProducts(prev => {
+          const next = prev.filter(p => p.id !== prod.id);
+          try {
+            localStorage.setItem("drmedex_admin_products_cache", JSON.stringify(next));
+          } catch {}
+          return next;
+        });
         setBannerMessage({
-          text: `Product "${prod.title || prod.productName}" and associated media permanently deleted.`,
+          text: data.message || (data.retired ? `Product "${prod.title || prod.productName}" retired from catalogue.` : `Product "${prod.title || prod.productName}" permanently deleted.`),
           type: "success"
         });
         fetchProducts();
       } else {
         setBannerMessage({
-          text: data.message || "Failed to permanently delete product.",
+          text: data.message || "Failed to remove product from catalogue.",
           type: "error"
         });
       }
     } catch (e: any) {
-      console.error("Permanent delete error:", e);
+      console.error("Permanent delete / retire error:", e);
       setBannerMessage({ text: e?.message || "Failed to delete product.", type: "error" });
     }
   };
@@ -1356,25 +1390,35 @@ export const AdminProductsPage: React.FC = () => {
                           {p.mongoSyncStatus === "SYNC_FAILED" && (
                             <button
                               type="button"
+                              disabled={syncingMongoId === p.id}
                               onClick={async () => {
+                                setSyncingMongoId(p.id);
                                 try {
                                   const res = await adminFetch(`/api/admin/products/${p.id}/sync-mongodb`, { method: "POST" });
                                   const data = await res.json().catch(() => ({}));
                                   if (res.ok && data.success) {
-                                    setProducts(prev => prev.map(prod => prod.id === p.id ? { ...prod, ...data.product } : prod));
-                                    setBannerMessage({ text: "MongoDB Atlas sync completed successfully.", type: "success" });
+                                    setProducts(prev => {
+                                      const next = prev.map(prod => prod.id === p.id ? { ...prod, ...data.product, mongoSyncStatus: "SYNCED" } : prod);
+                                      try {
+                                        localStorage.setItem("drmedex_admin_products_cache", JSON.stringify(next));
+                                      } catch {}
+                                      return next;
+                                    });
+                                    setBannerMessage({ text: `MongoDB Atlas sync completed for "${p.title || p.productName}".`, type: "success" });
                                   } else {
                                     setBannerMessage({ text: data.message || "MongoDB Atlas sync failed.", type: "error" });
                                   }
                                 } catch (e: any) {
                                   setBannerMessage({ text: e.message || "Request failed", type: "error" });
+                                } finally {
+                                  setSyncingMongoId(null);
                                 }
                               }}
                               title="Click to retry MongoDB Atlas sync"
-                              className="mt-0.5 inline-flex items-center gap-1 text-[9px] text-[#B91C1C] font-mono bg-[#FEE2E2] px-1.5 py-0.5 rounded border border-[#FCA5A5] hover:bg-[#FECACA] cursor-pointer"
+                              className="mt-0.5 inline-flex items-center gap-1 text-[9px] text-[#B91C1C] font-mono bg-[#FEE2E2] px-1.5 py-0.5 rounded border border-[#FCA5A5] hover:bg-[#FECACA] cursor-pointer disabled:opacity-50"
                             >
-                              <RefreshCw size={8} />
-                              <span>MongoDB Failed · Retry</span>
+                              <RefreshCw size={8} className={syncingMongoId === p.id ? "animate-spin" : ""} />
+                              <span>{syncingMongoId === p.id ? "Syncing..." : "MongoDB Failed · Retry"}</span>
                             </button>
                           )}
 

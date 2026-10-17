@@ -205,7 +205,7 @@ module.exports = {
     checkReload();
     let list = [...state.products];
     if (!filters.includeInactive) {
-      list = list.filter(p => (p.status || "ACTIVE") === "ACTIVE");
+      list = list.filter(p => (p.status || "ACTIVE") === "ACTIVE" && p.status !== "ARCHIVED" && !p.isRetired && p.inCatalogue !== false);
       // Hide products whose category is inactive
       list = list.filter(p => {
         const cat = state.categories.find(c => c.id === p.category || c.slug === p.category);
@@ -343,7 +343,7 @@ module.exports = {
     if (!includeInactive) {
       const cat = state.categories.find(c => c.id === p.category || c.slug === p.category);
       if (cat && (cat.status === "INACTIVE" || cat.active === false)) return null;
-      if ((p.status || "ACTIVE") !== "ACTIVE") return null;
+      if ((p.status || "ACTIVE") !== "ACTIVE" || p.status === "ARCHIVED" || p.isRetired || p.inCatalogue === false) return null;
     }
     return p;
   },
@@ -431,7 +431,7 @@ module.exports = {
     if (!includeInactive) {
       const cat = state.categories.find(c => c.id === p.category || c.slug === p.category);
       if (cat && (cat.status === "INACTIVE" || cat.active === false)) return null;
-      if ((p.status || "ACTIVE") !== "ACTIVE") return null;
+      if ((p.status || "ACTIVE") !== "ACTIVE" || p.status === "ARCHIVED" || p.isRetired || p.inCatalogue === false) return null;
     }
     return p;
   },
