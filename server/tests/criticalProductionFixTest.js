@@ -170,16 +170,28 @@ async function runTests() {
   store.getOrders().push(testOrder);
 
   try {
-    // Attempt deletion
+    // Attempt deletion — must be blocked with HTTP 409 Conflict
     const deleteRes = await makeRequest(`/api/admin/products/${retiredTestId}`, "DELETE", {
       headers: { authorization: `Bearer ${adminToken}` }
     });
 
-    assert.strictEqual(deleteRes.status, 200, "Retirement must return HTTP 200");
-    assert.strictEqual(deleteRes.body.success, true);
-    assert.strictEqual(deleteRes.body.retired, true, "Body must indicate retired: true");
-    assert.strictEqual(deleteRes.body.deleted, false, "Body must indicate deleted: false");
-    assert.ok(deleteRes.body.message.includes("safely retired"), "Message must explain safe retirement");
+    assert.strictEqual(deleteRes.status, 409, "Must return HTTP 409 Conflict when product is referenced in orders");
+    assert.strictEqual(deleteRes.body.success, false);
+    assert.strictEqual(deleteRes.body.error, "PRODUCT_HAS_ORDER_REFERENCES");
+    assert.strictEqual(deleteRes.body.canArchive, true);
+    assert.ok(deleteRes.body.message.includes("is referenced in"));
+
+    // Verify product was not silently archived or deleted
+    const preArchive = store.getProductById(retiredTestId, true);
+    assert.strictEqual(preArchive.status, "ACTIVE");
+
+    // Execute explicit archive request
+    const archiveRes = await makeRequest(`/api/admin/products/${retiredTestId}/archive`, "POST", {
+      headers: { authorization: `Bearer ${adminToken}` }
+    });
+    assert.strictEqual(archiveRes.status, 200, "Archive must return HTTP 200");
+    assert.strictEqual(archiveRes.body.success, true);
+    assert.strictEqual(archiveRes.body.archived, true);
 
     // Check store record
     const recordInStore = store.getProductById(retiredTestId, true);

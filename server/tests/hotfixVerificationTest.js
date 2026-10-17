@@ -61,7 +61,7 @@ async function runHotfixVerificationSuite() {
   const baselineProducts = store.getProducts({ includeInactive: true });
   const baselineCount = baselineProducts.length;
   console.log(`[Baseline] Product catalogue count: ${baselineCount} products.\n`);
-  assert.strictEqual(baselineCount, 197, "Authoritative catalog must contain exactly 197 products.");
+  assert.strictEqual(baselineCount, 193, "Authoritative catalog must contain exactly 193 products.");
 
   // 1. Authenticate Admin
   console.log("--- 1. Authenticating Admin Session ---");

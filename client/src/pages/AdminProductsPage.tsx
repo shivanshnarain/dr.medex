@@ -149,7 +149,7 @@ export const AdminProductsPage: React.FC = () => {
       if (prodRes.ok) {
         try {
           const pData = await prodRes.json();
-          if (pData && pData.success && Array.isArray(pData.products) && pData.products.length > 0) {
+          if (pData && pData.success && Array.isArray(pData.products)) {
             loadedProducts = pData.products;
             loadedFromLive = true;
             try {
@@ -162,7 +162,7 @@ export const AdminProductsPage: React.FC = () => {
       }
 
       if (!loadedFromLive) {
-        // Fallback to local cache or verified catalogue
+        // Fallback to local cache or verified catalogue ONLY if network/backend failed
         try {
           const cached = localStorage.getItem("drmedex_admin_products_cache");
           if (cached) {
@@ -195,7 +195,7 @@ export const AdminProductsPage: React.FC = () => {
         }
       }
 
-      if (loadedProducts.length > 0) {
+      if (loadedFromLive || loadedProducts.length > 0) {
         setProducts(loadedProducts);
       }
 
@@ -749,9 +749,9 @@ export const AdminProductsPage: React.FC = () => {
     }
   };
 
-  const handleConfirmPermanentDelete = async (prod: Product) => {
+  const handleConfirmPermanentDelete = async (prod: Product): Promise<boolean> => {
     try {
-      const res = await adminFetch(`/api/admin/products/${prod.id}`, { method: "DELETE" });
+      const res = await adminFetch(`/api/admin/products/${encodeURIComponent(prod.id)}`, { method: "DELETE" });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.success) {
         setProducts(prev => {
@@ -761,20 +761,68 @@ export const AdminProductsPage: React.FC = () => {
           } catch {}
           return next;
         });
+        showToast("success", data.message || `Product "${prod.title || prod.productName}" permanently deleted.`);
         setBannerMessage({
-          text: data.message || (data.retired ? `Product "${prod.title || prod.productName}" retired from catalogue.` : `Product "${prod.title || prod.productName}" permanently deleted.`),
+          text: data.message || `Product "${prod.title || prod.productName}" permanently deleted.`,
           type: "success"
         });
-        fetchProducts();
-      } else {
+        await fetchProducts();
+        return true;
+      } else if (res.status === 409) {
         setBannerMessage({
-          text: data.message || "Failed to remove product from catalogue.",
-          type: "error"
+          text: data.message || "Deletion blocked: Product is referenced in existing customer orders.",
+          type: "warning"
         });
+        showToast("warning", data.message || "Deletion blocked: Product has existing customer orders.", "Action Blocked");
+        return false;
+      } else {
+        const errMsg = data.message || `Failed to delete product (HTTP ${res.status}).`;
+        setBannerMessage({ text: errMsg, type: "error" });
+        showToast("error", errMsg, "Deletion Failed");
+        return false;
       }
     } catch (e: any) {
-      console.error("Permanent delete / retire error:", e);
-      setBannerMessage({ text: e?.message || "Failed to delete product.", type: "error" });
+      console.error("Permanent delete error:", e);
+      const errMsg = e?.message || "Failed to delete product.";
+      setBannerMessage({ text: errMsg, type: "error" });
+      showToast("error", errMsg, "Error");
+      return false;
+    }
+  };
+
+  const handleArchiveProduct = async (prod: Product): Promise<boolean> => {
+    try {
+      const res = await adminFetch(`/api/admin/products/${encodeURIComponent(prod.id)}/archive`, {
+        method: "POST"
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.success) {
+        setProducts(prev => {
+          const next = prev.filter(p => p.id !== prod.id);
+          try {
+            localStorage.setItem("drmedex_admin_products_cache", JSON.stringify(next));
+          } catch {}
+          return next;
+        });
+        showToast("success", data.message || `Product "${prod.title || prod.productName}" safely retired from catalogue.`);
+        setBannerMessage({
+          text: data.message || `Product "${prod.title || prod.productName}" safely retired from active catalogue. Customer order history preserved.`,
+          type: "success"
+        });
+        await fetchProducts();
+        return true;
+      } else {
+        const errMsg = data.message || `Failed to archive product (HTTP ${res.status}).`;
+        setBannerMessage({ text: errMsg, type: "error" });
+        showToast("error", errMsg, "Archive Failed");
+        return false;
+      }
+    } catch (e: any) {
+      console.error("Archive product error:", e);
+      const errMsg = e?.message || "Failed to archive product.";
+      setBannerMessage({ text: errMsg, type: "error" });
+      showToast("error", errMsg, "Error");
+      return false;
     }
   };
 
@@ -1695,6 +1743,7 @@ export const AdminProductsPage: React.FC = () => {
           setDeletingProduct(null);
         }}
         onConfirmPermanentDelete={handleConfirmPermanentDelete}
+        onArchiveProduct={handleArchiveProduct}
       />
 
       {/* Review Note Modal */}

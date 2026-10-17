@@ -14,7 +14,7 @@ export async function getProducts(): Promise<{ products: Product[]; isFallback: 
     const res = await fetch("/api/products");
     if (res.ok) {
       const data = await res.json();
-      if (data && data.success && Array.isArray(data.products) && data.products.length > 0) {
+      if (data && data.success && Array.isArray(data.products)) {
         return { products: data.products, isFallback: false };
       }
     }
@@ -58,6 +58,9 @@ export async function getProductBySlug(slug: string): Promise<{ product: Product
 
   try {
     const res = await fetch(`/api/products/${encodeURIComponent(slug)}`);
+    if (res.status === 404) {
+      return { product: null, isFallback: false };
+    }
     if (res.ok) {
       const data = await res.json();
       if (data && data.success && data.product) {

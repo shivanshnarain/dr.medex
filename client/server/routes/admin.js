@@ -179,35 +179,38 @@ router.get("/dashboard", requireAdmin, (req, res) => {
 
 router.get("/products", requireAdmin, async (req, res) => {
   const { search, category, status, includeArchived, stock, reviewStatus, sort = "updated_desc", page = 1, limit = 20 } = req.query;
-  let list = store.getProducts({ includeInactive: true });
 
-  // Exclude archived/retired products from active catalogue list unless explicitly requested
-  if (status === "ARCHIVED") {
-    list = list.filter(p => p.status === "ARCHIVED" || p.isRetired === true);
-  } else if (!includeArchived && status !== "ALL_WITH_ARCHIVED") {
-    list = list.filter(p => p.status !== "ARCHIVED" && !p.isRetired && p.inCatalogue !== false);
-  }
+  // 1. Get tombstone deleted product IDs from MongoDB Atlas
+  const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
 
-  // Pre-calculate orders reference map so frontend knows whether each product has order history
+  // 2. Pre-calculate orders reference map so frontend knows whether each product has order history
   const orders = store.getOrders();
   const orderProductIds = new Set();
   orders.forEach(o => {
     if (Array.isArray(o.items)) {
       o.items.forEach(it => {
-        if (it && it.productId) orderProductIds.add(it.productId);
+        if (it && it.productId) orderProductIds.add(String(it.productId));
       });
     }
   });
 
-  // Merge authoritative records from MongoDB if configured and reachable
+  // 3. Load base list from store, excluding permanently deleted IDs
+  let list = store.getProducts({ includeInactive: true }).filter(p => !deletedIds.has(String(p.id)));
+
+  // 4. Merge authoritative records from MongoDB if configured and reachable
   if (mongoService.isConfigured()) {
     try {
       const mongoList = await mongoService.getProductsFromMongo();
-      if (Array.isArray(mongoList) && mongoList.length > 0) {
-        const mongoMap = new Map(mongoList.map(m => [m.id, m]));
+      if (Array.isArray(mongoList)) {
+        const activeMongoList = mongoList.filter(m => !deletedIds.has(String(m.id)));
+        const mongoMap = new Map(activeMongoList.map(m => [String(m.id), m]));
+        const storeMap = new Set(list.map(p => String(p.id)));
+
+        // Merge onto existing store items
         list = list.map(p => {
-          const hasOrders = orderProductIds.has(p.id);
-          const m = mongoMap.get(p.id);
+          const pid = String(p.id);
+          const hasOrders = orderProductIds.has(pid);
+          const m = mongoMap.get(pid);
           if (m) {
             return {
               ...p,
@@ -225,24 +228,41 @@ router.get("/products", requireAdmin, async (req, res) => {
             mongoSyncStatus: p.mongoSyncStatus === "SYNC_FAILED" ? "SYNC_FAILED" : (p.mongoSyncStatus || "PENDING")
           };
         });
-      } else {
-        list = list.map(p => ({
-          ...p,
-          hasOrders: orderProductIds.has(p.id)
-        }));
+
+        // Add any products that exist in MongoDB but NOT in store
+        activeMongoList.forEach(m => {
+          const mid = String(m.id);
+          if (!storeMap.has(mid)) {
+            list.push({
+              ...m,
+              hasOrders: orderProductIds.has(mid),
+              mongoSyncStatus: "SYNCED",
+              mongoSyncedAt: m.mongoSyncedAt || new Date().toISOString(),
+              reviewStatus: m.reviewStatus || "PENDING"
+            });
+          }
+        });
       }
     } catch (e) {
       // Fallback gracefully to store
       list = list.map(p => ({
         ...p,
-        hasOrders: orderProductIds.has(p.id)
+        hasOrders: orderProductIds.has(String(p.id))
       }));
     }
   } else {
     list = list.map(p => ({
       ...p,
-      hasOrders: orderProductIds.has(p.id)
+      hasOrders: orderProductIds.has(String(p.id))
     }));
+  }
+
+  // 5. Exclude archived/retired products from active catalogue list unless explicitly requested
+  // CRITICAL: Filter AFTER merging MongoDB authoritative status so database status is respected!
+  if (status === "ARCHIVED") {
+    list = list.filter(p => p.status === "ARCHIVED" || p.isRetired === true);
+  } else if (!includeArchived && status !== "ALL_WITH_ARCHIVED") {
+    list = list.filter(p => p.status !== "ARCHIVED" && !p.isRetired && p.inCatalogue !== false);
   }
 
   // Calculate live review counts across active catalogue products before filtering
@@ -878,11 +898,17 @@ router.put("/products/:id/status", requireAdmin, async (req, res) => {
       return res.status(404).json({ success: false, message: "Product not found" });
     }
 
-    const updated = store.updateProduct(existing.id, {
+    const statusUpdates = {
       status,
+      isRetired: status === "ARCHIVED",
+      inCatalogue: status !== "ARCHIVED",
+      archivedAt: status === "ARCHIVED" ? new Date().toISOString() : null,
+      archivedBy: status === "ARCHIVED" ? (req.admin?.email || "SYSTEM_ADMIN") : null,
       updatedBy: req.admin?.email || "SYSTEM_ADMIN",
       updatedAt: new Date().toISOString()
-    });
+    };
+
+    const updated = store.updateProduct(existing.id, statusUpdates);
 
     if (!updated) {
       return res.status(500).json({ success: false, message: "Failed to persist product status update in store." });
@@ -1365,76 +1391,80 @@ router.post("/products/:id/sync-price", requireAdmin, (req, res) => {
 
 router.delete("/products/:id", requireAdmin, async (req, res) => {
   try {
-    const existing = store.getProductById(req.params.id, true);
+    const productId = req.params.id;
+    if (!productId || typeof productId !== "string") {
+      return res.status(400).json({ success: false, message: "Valid product ID is required." });
+    }
+
+    // 1. Fetch exact product from MongoDB Atlas (authoritative) or store
+    let existing = null;
+    if (mongoService.isConfigured()) {
+      try {
+        existing = await mongoService.getApprovedProduct(productId);
+      } catch (mErr) {
+        console.warn("[admin.js] Mongo lookup error on delete:", mErr.message);
+      }
+    }
+    if (!existing) {
+      existing = store.getProductById(productId, true) || store.getProductBySlug(productId, true);
+    }
+
     if (!existing) {
       return res.status(404).json({ success: false, message: "Product not found" });
     }
 
-    // 1. Order safety check: if customer orders reference this product, safely retire it from catalogue
+    const canonicalId = existing.id || productId;
+    const productTitle = existing.title || existing.productName || "Product";
+    const productSku = existing.sku || existing.SKU || "N/A";
+
+    // 2. Order safety check: if customer orders reference this product, BLOCK permanent deletion
     const orders = store.getOrders();
-    const hasOrder = orders.some(o => Array.isArray(o.items) && o.items.some(it => it && it.productId === existing.id));
-    if (hasOrder) {
-      // SAFE CATALOGUE REMOVAL / RETIREMENT:
-      // Preserves customer orders, payment snapshots, and historical order details.
-      // Retires product from active catalogue without destroying business records.
-      const retiredUpdates = {
-        status: "ARCHIVED",
-        isRetired: true,
-        inCatalogue: false,
-        archivedAt: new Date().toISOString(),
-        archivedBy: req.admin.email,
-        updatedAt: new Date().toISOString()
-      };
+    const referencingOrders = orders.filter(o =>
+      Array.isArray(o.items) && o.items.some(it => it && (
+        String(it.productId) === String(canonicalId) ||
+        String(it.productId) === String(existing.id) ||
+        String(it.productId) === String(existing.slug)
+      ))
+    );
 
-      // In MongoDB Atlas: update record status to ARCHIVED so it's not active in catalogue,
-      // but retained for historical order reference integrity
-      let mongoResult = null;
-      if (mongoService.isConfigured()) {
-        try {
-          const candidateProduct = { ...existing, ...retiredUpdates };
-          mongoResult = await mongoService.upsertApprovedProduct(candidateProduct, req.admin.email);
-        } catch (mErr) {
-          console.warn("[admin.js] MongoDB Atlas archive update error:", mErr.message);
-          mongoResult = { status: "SYNC_FAILED", error: mongoService.sanitizeMongoError(mErr) };
-        }
-      }
-
-      // Update in local store
-      const retiredProduct = store.updateProduct(existing.id, retiredUpdates);
-
-      // Audit log
-      auditService.logAction(req.admin.email, "PRODUCT_CATALOGUE_RETIRED", existing.id, {
-        title: existing.title || existing.productName,
-        sku: existing.sku || existing.SKU,
-        reason: "Customer orders reference this product; safely retired from active catalogue to protect order history integrity",
-        mongo: mongoResult
-      });
-
-      return res.json({
-        success: true,
-        retired: true,
-        deleted: false,
-        message: `Product "${existing.title || existing.productName}" has existing customer orders. It has been safely retired from the active catalogue while preserving customer order history.`,
-        product: retiredProduct,
-        mongo: mongoResult
+    if (referencingOrders.length > 0) {
+      const orderCount = referencingOrders.length;
+      const sampleOrders = referencingOrders.slice(0, 3).map(o => o.orderNumber || o.id);
+      return res.status(409).json({
+        success: false,
+        conflict: "PROTECTED_ORDER_REFERENCE",
+        error: "PRODUCT_HAS_ORDER_REFERENCES",
+        blocked: true,
+        canArchive: true,
+        orderCount,
+        message: `Permanent deletion blocked: Product "${productTitle}" (SKU: ${productSku}) is referenced in ${orderCount} customer order(s) (e.g. Order #${sampleOrders.join(", ")}). Preserving order integrity, invoice history, and payment compliance. You can safely archive/deactivate this product instead to remove it from the active catalogue.`,
+        productId: canonicalId,
+        product: existing
       });
     }
 
-    // 2. No order references: Delete exclusively owned Cloudinary assets
+    // 3. No order references: Clean up exclusively owned Cloudinary assets
     const allProducts = store.getProducts({ includeInactive: true });
     let cloudinaryResult = null;
     try {
       cloudinaryResult = await cloudinaryService.deleteProductExclusivelyOwnedMedia(existing, allProducts, orders);
     } catch (cErr) {
       console.warn("[admin.js] Cloudinary media deletion error:", cErr.message);
-      cloudinaryResult = { status: "ERROR", error: cErr.message };
+      cloudinaryResult = { status: "ERROR", success: false, error: cErr.message };
     }
 
-    // 3. Delete from MongoDB Atlas if configured
+    // 4. Delete from MongoDB Atlas (authoritative collection)
     let mongoResult = null;
     if (mongoService.isConfigured()) {
       try {
-        mongoResult = await mongoService.removeApprovedProduct(existing.id);
+        mongoResult = await mongoService.removeApprovedProduct(canonicalId, req.admin.email);
+        if (!mongoResult || !mongoResult.success) {
+          return res.status(500).json({
+            success: false,
+            message: "Failed to delete product from database: Authoritative deletion returned unsuccessful status.",
+            mongo: mongoResult
+          });
+        }
       } catch (mErr) {
         console.error("MongoDB Atlas deletion error:", mErr);
         return res.status(500).json({
@@ -1444,16 +1474,13 @@ router.delete("/products/:id", requireAdmin, async (req, res) => {
       }
     }
 
-    // 4. Delete from local store & persistence file
-    const removed = store.deleteProduct(existing.id);
-    if (!removed) {
-      return res.status(500).json({ success: false, message: "Failed to remove product from store." });
-    }
+    // 5. Delete from local store & persistence file
+    const removed = store.deleteProduct(canonicalId) || store.deleteProduct(existing.id);
 
-    // 5. Audit log
-    auditService.logAction(req.admin.email, "PRODUCT_PERMANENTLY_DELETED", existing.id, {
-      title: existing.title || existing.productName,
-      sku: existing.sku || existing.SKU,
+    // 6. Audit log
+    auditService.logAction(req.admin.email, "PRODUCT_PERMANENTLY_DELETED", canonicalId, {
+      title: productTitle,
+      sku: productSku,
       cloudinary: cloudinaryResult,
       mongo: mongoResult
     });
@@ -1462,13 +1489,75 @@ router.delete("/products/:id", requireAdmin, async (req, res) => {
       success: true,
       deleted: true,
       retired: false,
-      message: "Product and associated media permanently deleted.",
-      product: removed,
+      productId: canonicalId,
+      message: `Product "${productTitle}" and exclusively owned media permanently deleted.`,
+      product: removed || existing,
       cloudinary: cloudinaryResult,
       mongo: mongoResult
     });
   } catch (err) {
     console.error("Delete product error:", err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+/**
+ * Dedicated Safe Archive Route for Order-Referenced Products
+ */
+router.post("/products/:id/archive", requireAdmin, async (req, res) => {
+  try {
+    let existing = null;
+    if (mongoService.isConfigured()) {
+      try {
+        existing = await mongoService.getApprovedProduct(req.params.id);
+      } catch (e) {}
+    }
+    if (!existing) {
+      existing = store.getProductById(req.params.id, true);
+    }
+    if (!existing) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    const retiredUpdates = {
+      status: "ARCHIVED",
+      isRetired: true,
+      inCatalogue: false,
+      archivedAt: new Date().toISOString(),
+      archivedBy: req.admin.email,
+      updatedAt: new Date().toISOString()
+    };
+
+    let mongoResult = null;
+    if (mongoService.isConfigured()) {
+      try {
+        const candidate = { ...existing, ...retiredUpdates };
+        mongoResult = await mongoService.upsertApprovedProduct(candidate, req.admin.email);
+      } catch (mErr) {
+        console.warn("[admin.js] MongoDB archive error:", mErr.message);
+        mongoResult = { status: "SYNC_FAILED", error: mongoService.sanitizeMongoError(mErr) };
+      }
+    }
+
+    const retiredProduct = store.updateProduct(existing.id, retiredUpdates);
+
+    auditService.logAction(req.admin.email, "PRODUCT_CATALOGUE_RETIRED", existing.id, {
+      title: existing.title || existing.productName,
+      sku: existing.sku || existing.SKU,
+      reason: "Administrator explicitly retired product from active catalogue to preserve customer order history",
+      mongo: mongoResult
+    });
+
+    res.json({
+      success: true,
+      retired: true,
+      archived: true,
+      deleted: false,
+      message: `Product "${existing.title || existing.productName}" safely retired from active catalogue. Customer order history preserved.`,
+      product: retiredProduct,
+      mongo: mongoResult
+    });
+  } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 });

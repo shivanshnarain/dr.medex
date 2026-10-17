@@ -475,11 +475,20 @@ module.exports = {
   },
   deleteProduct: (id) => {
     checkReload();
-    const idx = state.products.findIndex(p => p.id === id || p.slug === id);
-    if (idx !== -1) {
-      const removed = state.products.splice(idx, 1);
+    if (!id) return null;
+    const cleanId = String(id).trim();
+    let removed = null;
+    const initialLen = state.products.length;
+    state.products = state.products.filter(p => {
+      if (p.id === cleanId || p.slug === cleanId || (p._id && String(p._id) === cleanId)) {
+        if (!removed) removed = p;
+        return false;
+      }
+      return true;
+    });
+    if (state.products.length < initialLen) {
       persist();
-      return removed[0];
+      return removed;
     }
     return null;
   },

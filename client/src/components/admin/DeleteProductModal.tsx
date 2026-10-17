@@ -6,16 +6,19 @@ interface DeleteProductModalProps {
   product: Product | null;
   isOpen: boolean;
   onClose: () => void;
-  onConfirmPermanentDelete: (product: Product) => Promise<void>;
+  onConfirmPermanentDelete: (product: Product) => Promise<boolean | void>;
+  onArchiveProduct?: (product: Product) => Promise<boolean | void>;
 }
 
 export const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
   product,
   isOpen,
   onClose,
-  onConfirmPermanentDelete
+  onConfirmPermanentDelete,
+  onArchiveProduct
 }) => {
   const [isProcessing, setIsProcessing] = useState(false);
+  const [actionError, setActionError] = useState<string | null>(null);
 
   if (!isOpen || !product) return null;
 
@@ -24,11 +27,20 @@ export const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
   const handleAction = async () => {
     if (isProcessing) return;
     setIsProcessing(true);
+    setActionError(null);
     try {
-      await onConfirmPermanentDelete(product);
-      onClose();
-    } catch (e) {
+      if (hasOrders) {
+        if (onArchiveProduct) {
+          const ok = await onArchiveProduct(product);
+          if (ok !== false) onClose();
+        }
+      } else {
+        const ok = await onConfirmPermanentDelete(product);
+        if (ok !== false) onClose();
+      }
+    } catch (e: any) {
       console.error("Delete/retire action failed:", e);
+      setActionError(e?.message || "Operation failed. Please try again.");
     } finally {
       setIsProcessing(false);
     }
@@ -94,6 +106,12 @@ export const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
                   This product has no existing customer orders. Confirming will permanently delete this product from MongoDB Atlas, local storage, and delete all exclusively owned Cloudinary images.
                 </p>
               </div>
+            </div>
+          )}
+
+          {actionError && (
+            <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800 font-medium">
+              {actionError}
             </div>
           )}
         </div>

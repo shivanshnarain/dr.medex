@@ -20,14 +20,19 @@ router.get("/health", (req, res) => {
 // PRODUCTS
 router.get("/products", async (req, res) => {
   try {
-    let list = store.getProducts(req.query);
+    const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
+    let list = store.getProducts(req.query).filter(p => !deletedIds.has(String(p.id)));
+
     if (mongoService.isConfigured()) {
       try {
         const mongoList = await mongoService.getProductsFromMongo(req.query);
-        if (Array.isArray(mongoList) && mongoList.length > 0) {
-          const mongoMap = new Map(mongoList.map(m => [m.id, m]));
+        if (Array.isArray(mongoList)) {
+          const activeMongoList = mongoList.filter(m => !deletedIds.has(String(m.id)));
+          const mongoMap = new Map(activeMongoList.map(m => [String(m.id), m]));
+          const storeMap = new Set(list.map(p => String(p.id)));
+
           list = list.map(p => {
-            const m = mongoMap.get(p.id);
+            const m = mongoMap.get(String(p.id));
             if (m) {
               return {
                 ...p,
@@ -36,9 +41,20 @@ router.get("/products", async (req, res) => {
             }
             return p;
           });
+
+          // Include products that exist in MongoDB and are ACTIVE
+          activeMongoList.forEach(m => {
+            if (!storeMap.has(String(m.id)) && (m.status || "ACTIVE") === "ACTIVE" && !m.isRetired && m.inCatalogue !== false) {
+              list.push(m);
+            }
+          });
         }
       } catch (mErr) {}
     }
+
+    // Strictly ensure only active, non-archived products are on public storefront
+    list = list.filter(p => (p.status || "ACTIVE") === "ACTIVE" && p.status !== "ARCHIVED" && !p.isRetired && p.inCatalogue !== false && !deletedIds.has(String(p.id)));
+
     res.json({ success: true, count: list.length, products: list });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -48,18 +64,28 @@ router.get("/products", async (req, res) => {
 router.get("/products/:slug", async (req, res) => {
   try {
     res.set("Cache-Control", "public, max-age=0, must-revalidate");
-    let product = store.getProductBySlug(req.params.slug) || store.getProductById(req.params.slug, true);
+    const slugOrId = req.params.slug;
+    const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
+
+    let product = store.getProductBySlug(slugOrId) || store.getProductById(slugOrId, true);
+    if (product && deletedIds.has(String(product.id))) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
     if (mongoService.isConfigured()) {
       try {
-        const lookup = (product && product.id) ? product.id : req.params.slug;
-        const mongoProd = await mongoService.getApprovedProduct(lookup) || await mongoService.getApprovedProduct(req.params.slug);
+        const lookup = (product && product.id) ? product.id : slugOrId;
+        const mongoProd = await mongoService.getApprovedProduct(lookup) || await mongoService.getApprovedProduct(slugOrId);
         if (mongoProd) {
+          if (deletedIds.has(String(mongoProd.id))) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+          }
           product = product ? { ...product, ...mongoProd } : mongoProd;
         }
       } catch (mErr) {}
     }
 
-    if (!product) {
+    if (!product || product.status === "ARCHIVED" || product.isRetired || product.inCatalogue === false || deletedIds.has(String(product.id))) {
       return res.status(404).json({ success: false, message: "Product not found" });
     }
     res.json({ success: true, product });

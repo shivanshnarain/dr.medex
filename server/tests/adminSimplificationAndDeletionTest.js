@@ -164,15 +164,30 @@ async function runTestSuite() {
   store.getOrders().push(tempOrder);
 
   try {
-    const retireRes = await makeRequest(`/api/admin/products/${retirementTestId}`, "DELETE", {
+    // 1. Permanent deletion attempt must be strictly blocked with HTTP 409 and clear reason
+    const deleteAttemptRes = await makeRequest(`/api/admin/products/${retirementTestId}`, "DELETE", {
       headers: { authorization: `Bearer ${adminToken}` }
     });
 
-    assert.strictEqual(retireRes.status, 200, "Retirement of product with orders must return HTTP 200");
-    assert.strictEqual(retireRes.body.success, true, "Success flag must be true");
-    assert.strictEqual(retireRes.body.retired, true, "Product must be flagged as retired");
-    assert.strictEqual(retireRes.body.deleted, false, "Product must NOT be physically deleted");
-    assert.ok(retireRes.body.message.includes("safely retired"), "Message must explain safe retirement");
+    assert.strictEqual(deleteAttemptRes.status, 409, "Attempted deletion of product with orders must return HTTP 409 Conflict");
+    assert.strictEqual(deleteAttemptRes.body.success, false, "Success must be false on blocked deletion");
+    assert.strictEqual(deleteAttemptRes.body.error, "PRODUCT_HAS_ORDER_REFERENCES", "Error code must be PRODUCT_HAS_ORDER_REFERENCES");
+    assert.strictEqual(deleteAttemptRes.body.canArchive, true, "Response must offer canArchive: true");
+    assert.ok(deleteAttemptRes.body.message.includes("is referenced in"), "Message must explain conflict");
+
+    // Verify product was NOT deleted and NOT silently archived yet
+    const intactRecord = store.getProductById(retirementTestId, true);
+    assert.ok(intactRecord, "Product must still exist");
+    assert.strictEqual(intactRecord.status, "ACTIVE", "Product must not be silently archived");
+
+    // 2. Administrator executes explicit archive action
+    const archiveRes = await makeRequest(`/api/admin/products/${retirementTestId}/archive`, "POST", {
+      headers: { authorization: `Bearer ${adminToken}` }
+    });
+
+    assert.strictEqual(archiveRes.status, 200, "Explicit archive request must return HTTP 200");
+    assert.strictEqual(archiveRes.body.success, true, "Archive success flag must be true");
+    assert.strictEqual(archiveRes.body.archived, true, "Product must be flagged as archived");
 
     // Verify product status in store is now ARCHIVED / isRetired: true
     const retiredRecord = store.getProductById(retirementTestId, true);

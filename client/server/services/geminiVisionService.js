@@ -477,7 +477,7 @@ STRICT GROUNDING & ETHICS RULES:
 
     for (const model of CANDIDATE_MODELS) {
       try {
-        const response = await ai.models.generateContent({
+        const callPromise = ai.models.generateContent({
           model,
           contents: [
             {
@@ -489,6 +489,10 @@ STRICT GROUNDING & ETHICS RULES:
             responseMimeType: "application/json"
           }
         });
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Gemini API call timed out")), 4000)
+        );
+        const response = await Promise.race([callPromise, timeoutPromise]);
 
         rawText = response.text;
         if (rawText) break;
@@ -692,11 +696,15 @@ Return ONLY a valid JSON array of 6 objects with this exact structure:
 
     for (const model of CANDIDATE_MODELS) {
       try {
-        const response = await ai.models.generateContent({
+        const callPromise = ai.models.generateContent({
           model,
           contents: [{ role: "user", parts: [{ text: systemPrompt }] }],
           config: { responseMimeType: "application/json" }
         });
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Gemini API call timed out")), 4000)
+        );
+        const response = await Promise.race([callPromise, timeoutPromise]);
         rawText = response.text;
         if (rawText) break;
       } catch (err) {

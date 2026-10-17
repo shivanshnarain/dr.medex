@@ -594,26 +594,55 @@ async function deleteProductExclusivelyOwnedMedia(product, allProducts = [], ord
   }
 
   const candidates = new Set();
+  
+  // 1. Trustworthy public IDs from managedCloudinaryImages
   if (Array.isArray(product.managedCloudinaryImages)) {
     product.managedCloudinaryImages.forEach(m => {
-      if (m && m.publicId) candidates.add(m.publicId);
+      if (m && m.publicId && typeof m.publicId === "string" && m.publicId.trim()) {
+        candidates.add(m.publicId.trim());
+      }
     });
   }
 
+  // 2. Trustworthy public IDs from galleryImages objects
+  if (Array.isArray(product.galleryImages)) {
+    product.galleryImages.forEach(g => {
+      if (g && typeof g === "object" && g.publicId && typeof g.publicId === "string" && g.publicId.trim()) {
+        candidates.add(g.publicId.trim());
+      }
+    });
+  }
+
+  // 3. Trustworthy public IDs from images objects
+  if (Array.isArray(product.images)) {
+    product.images.forEach(img => {
+      if (img && typeof img === "object" && img.publicId && typeof img.publicId === "string" && img.publicId.trim()) {
+        candidates.add(img.publicId.trim());
+      }
+    });
+  }
+
+  // 4. Canonical Cloudinary URLs strictly matching the canonical app upload path (dr-medex/...)
   const allProductUrls = [];
-  if (product.primaryImage) allProductUrls.push(product.primaryImage);
-  if (Array.isArray(product.images)) allProductUrls.push(...product.images);
+  if (typeof product.primaryImage === "string") allProductUrls.push(product.primaryImage);
+  if (Array.isArray(product.images)) {
+    product.images.forEach(i => {
+      if (typeof i === "string") allProductUrls.push(i);
+      else if (i && typeof i.url === "string") allProductUrls.push(i.url);
+    });
+  }
   if (Array.isArray(product.galleryImages)) {
     product.galleryImages.forEach(g => {
       const u = typeof g === "string" ? g : g?.url || g?.secureUrl;
-      if (u) allProductUrls.push(u);
+      if (typeof u === "string") allProductUrls.push(u);
     });
   }
 
   allProductUrls.forEach(url => {
     if (typeof url === "string" && url.includes("res.cloudinary.com")) {
-      const match = url.match(/\/upload\/(?:v\d+\/)?([^\.]+)/);
-      if (match && match[1]) {
+      // Deterministically match standard Cloudinary public ID without transformation flags
+      const match = url.match(/\/upload\/(?:v\d+\/)?([a-zA-Z0-9_\-\/]+?)(?:\.[a-zA-Z0-9]+)?$/);
+      if (match && match[1] && !match[1].includes(",") && !match[1].split("/").some(s => /^[a-z]_[a-z0-9]/.test(s))) {
         candidates.add(match[1]);
       }
     }

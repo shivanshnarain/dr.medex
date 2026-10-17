@@ -1,7 +1,24 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 
 const dbName = process.env.MONGODB_DB || "drmedex";
 const COLLECTION_NAME = "approved_products";
+const DELETED_COLLECTION_NAME = "deleted_products";
+
+function buildProductFilter(identifier) {
+  if (!identifier) return null;
+  const idStr = String(identifier).trim();
+  const lowerPid = idStr.toLowerCase();
+  const clauses = [
+    { id: idStr },
+    { id: lowerPid },
+    { slug: idStr },
+    { slug: lowerPid }
+  ];
+  if (ObjectId.isValid(idStr) && String(new ObjectId(idStr)) === idStr) {
+    clauses.push({ _id: new ObjectId(idStr) });
+  }
+  return { $or: clauses };
+}
 
 function getNormalizedUri() {
   let raw = process.env.MONGODB_URI || "mongodb+srv://roshanofficial0009_db_user:ExUyOvI6KQ5NNJOq@cluster0.7y0dbdy.mongodb.net/?appName=Cluster0";
@@ -111,6 +128,44 @@ async function getCollection() {
   return collection;
 }
 
+let deletedIndexesEnsured = false;
+async function getDeletedCollection() {
+  const c = await getClient();
+  const db = c.db(process.env.MONGODB_DB || "drmedex");
+  const collection = db.collection(DELETED_COLLECTION_NAME);
+
+  if (!deletedIndexesEnsured) {
+    try {
+      await collection.createIndex({ id: 1 }, { unique: true });
+      deletedIndexesEnsured = true;
+    } catch (e) {
+      deletedIndexesEnsured = true;
+    }
+  }
+
+  return collection;
+}
+
+let cachedDeletedIds = null;
+let lastDeletedFetch = 0;
+
+async function getDeletedProductIds(forceRefresh = false) {
+  if (!isConfigured()) return new Set();
+  const now = Date.now();
+  if (!forceRefresh && cachedDeletedIds && (now - lastDeletedFetch < 10000)) {
+    return cachedDeletedIds;
+  }
+  try {
+    const col = await getDeletedCollection();
+    const docs = await col.find({}, { projection: { id: 1 } }).toArray();
+    cachedDeletedIds = new Set(docs.map(d => String(d.id)));
+    lastDeletedFetch = now;
+    return cachedDeletedIds;
+  } catch (err) {
+    return cachedDeletedIds || new Set();
+  }
+}
+
 /**
  * Validate product required fields
  */
@@ -189,6 +244,13 @@ async function upsertApprovedProduct(product, adminEmail = "admin@drmedex.com") 
     { upsert: true }
   );
 
+  // Clear from deleted_products if it was previously marked deleted
+  try {
+    const delCol = await getDeletedCollection();
+    await delCol.deleteOne({ id: approvedRecord.id });
+    if (cachedDeletedIds) cachedDeletedIds.delete(approvedRecord.id);
+  } catch (e) {}
+
   return {
     success: true,
     status: "SYNCED",
@@ -249,23 +311,43 @@ async function updateProductReviewStatus(productId, reviewStatus, reviewNote = n
 
 /**
  * Remove approved product from MongoDB Atlas ONLY on explicit permanent deletion
- * - Preserves records for status changes
+ * - Matches by id, slug, or MongoDB _id (ObjectId)
+ * - Safely records tombstone in deleted_products to prevent resurrection from seed files
  */
-async function removeApprovedProduct(productId) {
+async function removeApprovedProduct(productId, adminEmail = "admin@drmedex.com") {
   if (!isConfigured()) {
     return { success: false, status: "NOT_CONFIGURED", message: "MongoDB Atlas is not configured." };
   }
 
   if (!productId) throw new Error("Product ID is required for removal");
-  const collection = await getCollection();
+  const filter = buildProductFilter(productId);
+  if (!filter) throw new Error("Invalid product identifier for removal");
 
-  const result = await collection.deleteOne({ id: String(productId) });
+  const collection = await getCollection();
+  const existing = await collection.findOne(filter);
+  const canonicalId = existing?.id || String(productId);
+
+  const result = await collection.deleteOne(filter);
+
+  // Add tombstone to deleted_products collection
+  try {
+    const delCol = await getDeletedCollection();
+    await delCol.updateOne(
+      { id: canonicalId },
+      { $set: { id: canonicalId, deletedAt: new Date().toISOString(), deletedBy: adminEmail } },
+      { upsert: true }
+    );
+    if (cachedDeletedIds) cachedDeletedIds.add(canonicalId);
+  } catch (tombErr) {
+    console.warn("[mongoService] Failed to record deleted tombstone:", tombErr.message);
+  }
 
   return {
     success: true,
     status: "REMOVED",
-    id: productId,
-    deletedCount: result.deletedCount
+    id: canonicalId,
+    deletedCount: result.deletedCount,
+    document: existing || null
   };
 }
 
@@ -276,22 +358,20 @@ async function getApprovedProduct(productId) {
   if (!isConfigured() || !productId) return null;
   if (Date.now() - lastFailureTime < 15000 && connectionFailureCount > 0) return null;
   try {
+    const filter = buildProductFilter(productId);
+    if (!filter) return null;
+
     const collection = await getCollection();
-    const pid = String(productId).trim();
-    const lowerPid = pid.toLowerCase();
-    return await collection.findOne({
-      $or: [
-        { id: pid },
-        { id: lowerPid },
-        { slug: pid },
-        { slug: lowerPid }
-      ]
-    });
+    const doc = await collection.findOne(filter);
+    if (doc) {
+      const deletedSet = await getDeletedProductIds();
+      if (deletedSet.has(String(doc.id))) return null;
+    }
+    return doc;
   } catch (err) {
     return null;
   }
 }
-
 
 /**
  * Query all products directly from MongoDB collection
@@ -315,7 +395,9 @@ async function getProductsFromMongo(filters = {}) {
         query.reviewStatus = filters.reviewStatus;
       }
     }
-    return await collection.find(query).toArray();
+    const docs = await collection.find(query).toArray();
+    const deletedSet = await getDeletedProductIds();
+    return docs.filter(d => !deletedSet.has(String(d.id)));
   } catch (err) {
     console.warn("[mongoService] getProductsFromMongo:", sanitizeMongoError(err));
     return null;
@@ -416,5 +498,8 @@ module.exports = {
   getProduct: getApprovedProduct,
   getProductsFromMongo,
   getProductsCount,
-  getMongoStatus
+  getMongoStatus,
+  getDeletedProductIds,
+  buildProductFilter,
+  getClient
 };

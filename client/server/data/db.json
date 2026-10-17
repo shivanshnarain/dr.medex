@@ -159,7 +159,7 @@
         "prod-3-mhz-ultrasound-therapy"
       ],
       "createdAt": "2026-10-03T15:48:11Z",
-      "updatedAt": "2026-10-17T11:13:25.166Z",
+      "updatedAt": "2026-10-17T17:49:32.241Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "roshan.official0009@gmail.com",
       "ribbon": "EX-400",
@@ -201,7 +201,7 @@
       "reviewStatus": "CORRECT",
       "reviewNote": "Test review note for clinical audit",
       "reviewedBy": "roshan.official0009@gmail.com",
-      "reviewedAt": "2026-10-17T11:13:25.105Z",
+      "reviewedAt": "2026-10-17T17:49:28.440Z",
       "managedCloudinaryImages": [
         {
           "publicId": "dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_1_e7d52211",
@@ -278,248 +278,10 @@
       "cloudinarySyncStatus": "IMAGES_UPLOADED",
       "cloudinaryLastSyncedAt": "2026-10-11T14:35:29.697Z",
       "mongoSyncStatus": "SYNCED",
-      "mongoSyncedAt": "2026-10-17T11:12:59.562Z",
-      "approvedAt": "2026-10-17T11:13:25.166Z",
-      "approvedBy": "roshan.official0009@gmail.com"
-    },
-    {
-      "stock": 9,
-      "rating": 5,
-      "reviewCount": 0,
-      "images": [
-        {
-          "url": "/products-catalog/general/img_1791741016242_a2ffc851.png",
-          "alt": "Angle 1",
-          "isPrimary": true,
-          "publicId": null
-        },
-        {
-          "url": "/products-catalog/general/img_1791741016242_e5c399fe.png",
-          "alt": "Angle 2",
-          "isPrimary": false,
-          "publicId": null
-        },
-        {
-          "url": "/products-catalog/general/img_1791741016243_8e9b1e48.png",
-          "alt": "Angle 3",
-          "isPrimary": false,
-          "publicId": null
-        }
-      ],
-      "createdAt": "2026-10-11T17:50:16.012Z",
-      "updatedAt": "2026-10-11T17:50:16.243Z",
-      "name": "DR.MEDEX Electrosurgical Generator Test Unit",
-      "title": "DR.MEDEX ESU-400T Electrosurgical Unit (Updated Pro Edition)",
-      "sku": "TEST-INV-1791741016012",
-      "primaryCategory": "Electrosurgical Units",
-      "subCategory": "Monopolar & Bipolar ESU",
-      "equipmentType": "Electrosurgical Generators",
-      "mrp": 120000,
-      "price": 92000,
-      "stockQuantity": 9,
-      "stockStatus": "IN_STOCK",
-      "status": "ACTIVE",
-      "id": "prod-1791741016012-1fr9",
-      "slug": "dr-medex-esu-400t-electrosurgical-unit",
-      "technicalSpecifications": [
-        {
-          "parameter": "Operating Frequency",
-          "value": "400",
-          "unit": "kHz",
-          "note": "Monopolar cut & coag"
-        },
-        {
-          "parameter": "Input Voltage",
-          "value": "220-240",
-          "unit": "V",
-          "note": "50/60 Hz single phase"
-        }
-      ],
-      "features": [
-        "400W pure cut output",
-        "Dual neutral electrode monitoring",
-        "Waterproof footswitch"
-      ],
-      "seo": {
-        "metaTitle": "DR.MEDEX ESU-400T - Premium Surgical Generator",
-        "metaDescription": "Verified electrosurgical generator with pure cut and blend coagulation.",
-        "slug": "dr-medex-esu-400t-updated"
-      }
-    },
-    {
-      "stock": 9,
-      "rating": 5,
-      "reviewCount": 0,
-      "images": [
-        {
-          "url": "/products-catalog/general/img_1791740987392_4fde6b2d.png",
-          "alt": "Angle 1",
-          "isPrimary": true,
-          "publicId": null
-        },
-        {
-          "url": "/products-catalog/general/img_1791740987393_b79a1a20.png",
-          "alt": "Angle 2",
-          "isPrimary": false,
-          "publicId": null
-        },
-        {
-          "url": "/products-catalog/general/img_1791740987393_e1b59efe.png",
-          "alt": "Angle 3",
-          "isPrimary": false,
-          "publicId": null
-        }
-      ],
-      "createdAt": "2026-10-11T17:49:47.163Z",
-      "updatedAt": "2026-10-11T17:49:47.394Z",
-      "name": "DR.MEDEX Electrosurgical Generator Test Unit",
-      "title": "DR.MEDEX ESU-400T Electrosurgical Unit (Updated Pro Edition)",
-      "sku": "TEST-INV-1791740987163",
-      "primaryCategory": "Electrosurgical Units",
-      "subCategory": "Monopolar & Bipolar ESU",
-      "equipmentType": "Electrosurgical Generators",
-      "mrp": 120000,
-      "price": 92000,
-      "stockQuantity": 9,
-      "stockStatus": "IN_STOCK",
-      "status": "ACTIVE",
-      "id": "prod-1791740987163-oed6",
-      "slug": "dr-medex-esu-400t-electrosurgical-unit",
-      "technicalSpecifications": [
-        {
-          "parameter": "Operating Frequency",
-          "value": "400",
-          "unit": "kHz",
-          "note": "Monopolar cut & coag"
-        },
-        {
-          "parameter": "Input Voltage",
-          "value": "220-240",
-          "unit": "V",
-          "note": "50/60 Hz single phase"
-        }
-      ],
-      "features": [
-        "400W pure cut output",
-        "Dual neutral electrode monitoring",
-        "Waterproof footswitch"
-      ],
-      "seo": {
-        "metaTitle": "DR.MEDEX ESU-400T - Premium Surgical Generator",
-        "metaDescription": "Verified electrosurgical generator with pure cut and blend coagulation.",
-        "slug": "dr-medex-esu-400t-updated"
-      }
-    },
-    {
-      "stock": 9,
-      "rating": 5,
-      "reviewCount": 0,
-      "images": [
-        {
-          "url": "/products-catalog/general/img_1791740953568_fe87daec.png",
-          "alt": "Angle 1",
-          "isPrimary": true,
-          "publicId": null
-        },
-        {
-          "url": "/products-catalog/general/img_1791740953568_ebac97e6.png",
-          "alt": "Angle 2",
-          "isPrimary": false,
-          "publicId": null
-        },
-        {
-          "url": "/products-catalog/general/img_1791740953569_47a0ba16.png",
-          "alt": "Angle 3",
-          "isPrimary": false,
-          "publicId": null
-        }
-      ],
-      "createdAt": "2026-10-11T17:49:13.311Z",
-      "updatedAt": "2026-10-11T17:49:13.569Z",
-      "name": "DR.MEDEX Electrosurgical Generator Test Unit",
-      "title": "DR.MEDEX ESU-400T Electrosurgical Unit (Updated Pro Edition)",
-      "sku": "TEST-INV-1791740953311",
-      "primaryCategory": "Electrosurgical Units",
-      "subCategory": "Monopolar & Bipolar ESU",
-      "equipmentType": "Electrosurgical Generators",
-      "mrp": 120000,
-      "price": 92000,
-      "stockQuantity": 9,
-      "stockStatus": "IN_STOCK",
-      "status": "ACTIVE",
-      "id": "prod-1791740953311-395k",
-      "slug": "dr-medex-esu-400t-electrosurgical-unit",
-      "technicalSpecifications": [
-        {
-          "parameter": "Operating Frequency",
-          "value": "400",
-          "unit": "kHz",
-          "note": "Monopolar cut & coag"
-        },
-        {
-          "parameter": "Input Voltage",
-          "value": "220-240",
-          "unit": "V",
-          "note": "50/60 Hz single phase"
-        }
-      ],
-      "features": [
-        "400W pure cut output",
-        "Dual neutral electrode monitoring",
-        "Waterproof footswitch"
-      ],
-      "seo": {
-        "metaTitle": "DR.MEDEX ESU-400T - Premium Surgical Generator",
-        "metaDescription": "Verified electrosurgical generator with pure cut and blend coagulation.",
-        "slug": "dr-medex-esu-400t-updated"
-      }
-    },
-    {
-      "stock": 7,
-      "rating": 5,
-      "reviewCount": 0,
-      "images": [
-        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
-      ],
-      "createdAt": "2026-10-11T17:47:53.319Z",
-      "updatedAt": "2026-10-11T17:47:53.436Z",
-      "name": "DR.MEDEX Electrosurgical Generator Test Unit",
-      "title": "DR.MEDEX ESU-400T Electrosurgical Unit (Updated Pro Edition)",
-      "sku": "TEST-INV-1791740873319",
-      "primaryCategory": "Electrosurgical Units",
-      "subCategory": "Monopolar & Bipolar ESU",
-      "equipmentType": "Electrosurgical Generators",
-      "mrp": 120000,
-      "price": 92000,
-      "stockQuantity": 7,
-      "stockStatus": "IN_STOCK",
-      "status": "ACTIVE",
-      "id": "prod-1791740873319-zx26",
-      "slug": "dr-medex-esu-400t-electrosurgical-unit",
-      "technicalSpecifications": [
-        {
-          "parameter": "Operating Frequency",
-          "value": "400",
-          "unit": "kHz",
-          "note": "Monopolar cut & coag"
-        },
-        {
-          "parameter": "Input Voltage",
-          "value": "220-240",
-          "unit": "V",
-          "note": "50/60 Hz single phase"
-        }
-      ],
-      "features": [
-        "400W pure cut output",
-        "Dual neutral electrode monitoring",
-        "Waterproof footswitch"
-      ],
-      "seo": {
-        "metaTitle": "DR.MEDEX ESU-400T - Premium Surgical Generator",
-        "metaDescription": "Verified electrosurgical generator with pure cut and blend coagulation.",
-        "slug": "dr-medex-esu-400t-updated"
-      }
+      "mongoSyncedAt": "2026-10-17T17:49:29.860Z",
+      "approvedAt": "2026-10-17T17:49:32.192Z",
+      "approvedBy": "roshan.official0009@gmail.com",
+      "mongoSyncError": null
     },
     {
       "id": "prod-3-5-mhz-rf-cautery-preci",
@@ -40992,948 +40754,6 @@
   ],
   "orders": [
     {
-      "id": "MC-39619",
-      "orderNumber": "MC-39619",
-      "transactionId": "TX_TEST_002_1791741016044",
-      "customer": {
-        "name": "Clinic Beta",
-        "email": "beta@clinic.org"
-      },
-      "items": [
-        {
-          "productId": "prod-1791741016012-1fr9",
-          "title": "DR.MEDEX ESU-400T Electrosurgical Unit",
-          "sku": "TEST-INV-1791741016012",
-          "quantity": 1,
-          "originalINRPrice": 1000,
-          "basePriceINR": 1000,
-          "convertedUnitPrice": 1000,
-          "currency": "INR",
-          "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
-        }
-      ],
-      "pricing": {
-        "originalINRPrice": 0,
-        "subtotal": 0,
-        "discount": 0,
-        "shipping": 0,
-        "tax": 0,
-        "grandTotal": 0,
-        "finalOrderAmount": 0,
-        "currency": "INR",
-        "selectedCurrency": "INR",
-        "exchangeRateUsed": 1,
-        "rateTimestamp": "2026-10-11T17:50:16.044Z",
-        "couponApplied": null
-      },
-      "shippingMethod": {
-        "id": "dhl-air-express",
-        "name": "DHL Express Medical Air Cargo",
-        "carrier": "DHL Express",
-        "estimatedDays": "3–6 Business Days",
-        "trackingNumber": "DHL-441081855",
-        "trackingUrl": "https://www.dhl.com/en/express/tracking.html"
-      },
-      "payment": {
-        "method": "STRIPE",
-        "transactionId": "TX_TEST_002_1791741016044",
-        "status": "PAID",
-        "paidAt": "2026-10-11T17:50:16.044Z"
-      },
-      "fulfillmentStatus": "CONFIRMED",
-      "status": "PROCESSING",
-      "stockRestored": false,
-      "createdAt": "2026-10-11T17:50:16.044Z",
-      "trackingTimeline": [
-        {
-          "stage": "ORDER_PLACED",
-          "title": "Order Placed",
-          "timestamp": "2026-10-11T17:50:16.044Z",
-          "completed": true,
-          "details": "Order validated and registered in central medical database."
-        },
-        {
-          "stage": "PAYMENT_CONFIRMED",
-          "title": "Payment Confirmed",
-          "timestamp": "2026-10-11T17:50:16.044Z",
-          "completed": true,
-          "details": "Verified payment via International Secure Gateway."
-        },
-        {
-          "stage": "PROCESSING",
-          "title": "Calibration & Processing",
-          "timestamp": null,
-          "completed": false,
-          "details": "Equipment pending biomedical bench inspection."
-        },
-        {
-          "stage": "QC_INSPECTED",
-          "title": "9-Stage Quality Passed",
-          "timestamp": null,
-          "completed": false,
-          "details": "Burn-in testing and electrical leakage audit."
-        },
-        {
-          "stage": "PACKED",
-          "title": "Export Crate Packed",
-          "timestamp": null,
-          "completed": false,
-          "details": "High-density foam protective crating."
-        },
-        {
-          "stage": "SHIPPED",
-          "title": "Shipped / In Transit",
-          "timestamp": null,
-          "completed": false,
-          "details": "AWB will be assigned upon carrier dispatch."
-        },
-        {
-          "stage": "DELIVERED",
-          "title": "Delivered",
-          "timestamp": null,
-          "completed": false,
-          "details": "Final receipt sign-off."
-        }
-      ]
-    },
-    {
-      "id": "MC-51484",
-      "orderNumber": "MC-51484",
-      "transactionId": "TX_TEST_001_1791741016029",
-      "customer": {
-        "name": "Hospital Alpha",
-        "email": "alpha@hospital.org"
-      },
-      "items": [
-        {
-          "productId": "prod-1791741016012-1fr9",
-          "title": "DR.MEDEX ESU-400T Electrosurgical Unit",
-          "sku": "TEST-INV-1791741016012",
-          "quantity": 2,
-          "originalINRPrice": 1000,
-          "basePriceINR": 1000,
-          "convertedUnitPrice": 1000,
-          "currency": "INR",
-          "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
-        }
-      ],
-      "pricing": {
-        "originalINRPrice": 0,
-        "subtotal": 0,
-        "discount": 0,
-        "shipping": 0,
-        "tax": 0,
-        "grandTotal": 0,
-        "finalOrderAmount": 0,
-        "currency": "INR",
-        "selectedCurrency": "INR",
-        "exchangeRateUsed": 1,
-        "rateTimestamp": "2026-10-11T17:50:16.030Z",
-        "couponApplied": null
-      },
-      "shippingMethod": {
-        "id": "dhl-air-express",
-        "name": "DHL Express Medical Air Cargo",
-        "carrier": "DHL Express",
-        "estimatedDays": "3–6 Business Days",
-        "trackingNumber": "DHL-339473987",
-        "trackingUrl": "https://www.dhl.com/en/express/tracking.html"
-      },
-      "payment": {
-        "method": "STRIPE",
-        "transactionId": "TX_TEST_001_1791741016029",
-        "status": "PAID",
-        "paidAt": "2026-10-11T17:50:16.030Z"
-      },
-      "fulfillmentStatus": "CONFIRMED",
-      "status": "CANCELLED",
-      "stockRestored": true,
-      "createdAt": "2026-10-11T17:50:16.030Z",
-      "trackingTimeline": [
-        {
-          "stage": "ORDER_PLACED",
-          "title": "Order Placed",
-          "timestamp": "2026-10-11T17:50:16.030Z",
-          "completed": true,
-          "details": "Order validated and registered in central medical database."
-        },
-        {
-          "stage": "PAYMENT_CONFIRMED",
-          "title": "Payment Confirmed",
-          "timestamp": "2026-10-11T17:50:16.030Z",
-          "completed": true,
-          "details": "Verified payment via International Secure Gateway."
-        },
-        {
-          "stage": "PROCESSING",
-          "title": "Calibration & Processing",
-          "timestamp": null,
-          "completed": false,
-          "details": "Equipment pending biomedical bench inspection."
-        },
-        {
-          "stage": "QC_INSPECTED",
-          "title": "9-Stage Quality Passed",
-          "timestamp": null,
-          "completed": false,
-          "details": "Burn-in testing and electrical leakage audit."
-        },
-        {
-          "stage": "PACKED",
-          "title": "Export Crate Packed",
-          "timestamp": null,
-          "completed": false,
-          "details": "High-density foam protective crating."
-        },
-        {
-          "stage": "SHIPPED",
-          "title": "Shipped / In Transit",
-          "timestamp": null,
-          "completed": false,
-          "details": "AWB will be assigned upon carrier dispatch."
-        },
-        {
-          "stage": "DELIVERED",
-          "title": "Delivered",
-          "timestamp": null,
-          "completed": false,
-          "details": "Final receipt sign-off."
-        }
-      ]
-    },
-    {
-      "id": "MC-58936",
-      "orderNumber": "MC-58936",
-      "transactionId": "TX_TEST_002_1791740987198",
-      "customer": {
-        "name": "Clinic Beta",
-        "email": "beta@clinic.org"
-      },
-      "items": [
-        {
-          "productId": "prod-1791740987163-oed6",
-          "title": "DR.MEDEX ESU-400T Electrosurgical Unit",
-          "sku": "TEST-INV-1791740987163",
-          "quantity": 1,
-          "originalINRPrice": 1000,
-          "basePriceINR": 1000,
-          "convertedUnitPrice": 1000,
-          "currency": "INR",
-          "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
-        }
-      ],
-      "pricing": {
-        "originalINRPrice": 0,
-        "subtotal": 0,
-        "discount": 0,
-        "shipping": 0,
-        "tax": 0,
-        "grandTotal": 0,
-        "finalOrderAmount": 0,
-        "currency": "INR",
-        "selectedCurrency": "INR",
-        "exchangeRateUsed": 1,
-        "rateTimestamp": "2026-10-11T17:49:47.198Z",
-        "couponApplied": null
-      },
-      "shippingMethod": {
-        "id": "dhl-air-express",
-        "name": "DHL Express Medical Air Cargo",
-        "carrier": "DHL Express",
-        "estimatedDays": "3–6 Business Days",
-        "trackingNumber": "DHL-677482315",
-        "trackingUrl": "https://www.dhl.com/en/express/tracking.html"
-      },
-      "payment": {
-        "method": "STRIPE",
-        "transactionId": "TX_TEST_002_1791740987198",
-        "status": "PAID",
-        "paidAt": "2026-10-11T17:49:47.198Z"
-      },
-      "fulfillmentStatus": "CONFIRMED",
-      "status": "PROCESSING",
-      "stockRestored": false,
-      "createdAt": "2026-10-11T17:49:47.198Z",
-      "trackingTimeline": [
-        {
-          "stage": "ORDER_PLACED",
-          "title": "Order Placed",
-          "timestamp": "2026-10-11T17:49:47.198Z",
-          "completed": true,
-          "details": "Order validated and registered in central medical database."
-        },
-        {
-          "stage": "PAYMENT_CONFIRMED",
-          "title": "Payment Confirmed",
-          "timestamp": "2026-10-11T17:49:47.198Z",
-          "completed": true,
-          "details": "Verified payment via International Secure Gateway."
-        },
-        {
-          "stage": "PROCESSING",
-          "title": "Calibration & Processing",
-          "timestamp": null,
-          "completed": false,
-          "details": "Equipment pending biomedical bench inspection."
-        },
-        {
-          "stage": "QC_INSPECTED",
-          "title": "9-Stage Quality Passed",
-          "timestamp": null,
-          "completed": false,
-          "details": "Burn-in testing and electrical leakage audit."
-        },
-        {
-          "stage": "PACKED",
-          "title": "Export Crate Packed",
-          "timestamp": null,
-          "completed": false,
-          "details": "High-density foam protective crating."
-        },
-        {
-          "stage": "SHIPPED",
-          "title": "Shipped / In Transit",
-          "timestamp": null,
-          "completed": false,
-          "details": "AWB will be assigned upon carrier dispatch."
-        },
-        {
-          "stage": "DELIVERED",
-          "title": "Delivered",
-          "timestamp": null,
-          "completed": false,
-          "details": "Final receipt sign-off."
-        }
-      ]
-    },
-    {
-      "id": "MC-26237",
-      "orderNumber": "MC-26237",
-      "transactionId": "TX_TEST_001_1791740987181",
-      "customer": {
-        "name": "Hospital Alpha",
-        "email": "alpha@hospital.org"
-      },
-      "items": [
-        {
-          "productId": "prod-1791740987163-oed6",
-          "title": "DR.MEDEX ESU-400T Electrosurgical Unit",
-          "sku": "TEST-INV-1791740987163",
-          "quantity": 2,
-          "originalINRPrice": 1000,
-          "basePriceINR": 1000,
-          "convertedUnitPrice": 1000,
-          "currency": "INR",
-          "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
-        }
-      ],
-      "pricing": {
-        "originalINRPrice": 0,
-        "subtotal": 0,
-        "discount": 0,
-        "shipping": 0,
-        "tax": 0,
-        "grandTotal": 0,
-        "finalOrderAmount": 0,
-        "currency": "INR",
-        "selectedCurrency": "INR",
-        "exchangeRateUsed": 1,
-        "rateTimestamp": "2026-10-11T17:49:47.182Z",
-        "couponApplied": null
-      },
-      "shippingMethod": {
-        "id": "dhl-air-express",
-        "name": "DHL Express Medical Air Cargo",
-        "carrier": "DHL Express",
-        "estimatedDays": "3–6 Business Days",
-        "trackingNumber": "DHL-726477892",
-        "trackingUrl": "https://www.dhl.com/en/express/tracking.html"
-      },
-      "payment": {
-        "method": "STRIPE",
-        "transactionId": "TX_TEST_001_1791740987181",
-        "status": "PAID",
-        "paidAt": "2026-10-11T17:49:47.182Z"
-      },
-      "fulfillmentStatus": "CONFIRMED",
-      "status": "CANCELLED",
-      "stockRestored": true,
-      "createdAt": "2026-10-11T17:49:47.182Z",
-      "trackingTimeline": [
-        {
-          "stage": "ORDER_PLACED",
-          "title": "Order Placed",
-          "timestamp": "2026-10-11T17:49:47.182Z",
-          "completed": true,
-          "details": "Order validated and registered in central medical database."
-        },
-        {
-          "stage": "PAYMENT_CONFIRMED",
-          "title": "Payment Confirmed",
-          "timestamp": "2026-10-11T17:49:47.182Z",
-          "completed": true,
-          "details": "Verified payment via International Secure Gateway."
-        },
-        {
-          "stage": "PROCESSING",
-          "title": "Calibration & Processing",
-          "timestamp": null,
-          "completed": false,
-          "details": "Equipment pending biomedical bench inspection."
-        },
-        {
-          "stage": "QC_INSPECTED",
-          "title": "9-Stage Quality Passed",
-          "timestamp": null,
-          "completed": false,
-          "details": "Burn-in testing and electrical leakage audit."
-        },
-        {
-          "stage": "PACKED",
-          "title": "Export Crate Packed",
-          "timestamp": null,
-          "completed": false,
-          "details": "High-density foam protective crating."
-        },
-        {
-          "stage": "SHIPPED",
-          "title": "Shipped / In Transit",
-          "timestamp": null,
-          "completed": false,
-          "details": "AWB will be assigned upon carrier dispatch."
-        },
-        {
-          "stage": "DELIVERED",
-          "title": "Delivered",
-          "timestamp": null,
-          "completed": false,
-          "details": "Final receipt sign-off."
-        }
-      ]
-    },
-    {
-      "id": "MC-54100",
-      "orderNumber": "MC-54100",
-      "transactionId": "TX_TEST_002_1791740953346",
-      "customer": {
-        "name": "Clinic Beta",
-        "email": "beta@clinic.org"
-      },
-      "items": [
-        {
-          "productId": "prod-1791740953311-395k",
-          "title": "DR.MEDEX ESU-400T Electrosurgical Unit",
-          "sku": "TEST-INV-1791740953311",
-          "quantity": 1,
-          "originalINRPrice": 1000,
-          "basePriceINR": 1000,
-          "convertedUnitPrice": 1000,
-          "currency": "INR",
-          "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
-        }
-      ],
-      "pricing": {
-        "originalINRPrice": 0,
-        "subtotal": 0,
-        "discount": 0,
-        "shipping": 0,
-        "tax": 0,
-        "grandTotal": 0,
-        "finalOrderAmount": 0,
-        "currency": "INR",
-        "selectedCurrency": "INR",
-        "exchangeRateUsed": 1,
-        "rateTimestamp": "2026-10-11T17:49:13.346Z",
-        "couponApplied": null
-      },
-      "shippingMethod": {
-        "id": "dhl-air-express",
-        "name": "DHL Express Medical Air Cargo",
-        "carrier": "DHL Express",
-        "estimatedDays": "3–6 Business Days",
-        "trackingNumber": "DHL-275426910",
-        "trackingUrl": "https://www.dhl.com/en/express/tracking.html"
-      },
-      "payment": {
-        "method": "STRIPE",
-        "transactionId": "TX_TEST_002_1791740953346",
-        "status": "PAID",
-        "paidAt": "2026-10-11T17:49:13.346Z"
-      },
-      "fulfillmentStatus": "CONFIRMED",
-      "status": "PROCESSING",
-      "stockRestored": false,
-      "createdAt": "2026-10-11T17:49:13.346Z",
-      "trackingTimeline": [
-        {
-          "stage": "ORDER_PLACED",
-          "title": "Order Placed",
-          "timestamp": "2026-10-11T17:49:13.346Z",
-          "completed": true,
-          "details": "Order validated and registered in central medical database."
-        },
-        {
-          "stage": "PAYMENT_CONFIRMED",
-          "title": "Payment Confirmed",
-          "timestamp": "2026-10-11T17:49:13.346Z",
-          "completed": true,
-          "details": "Verified payment via International Secure Gateway."
-        },
-        {
-          "stage": "PROCESSING",
-          "title": "Calibration & Processing",
-          "timestamp": null,
-          "completed": false,
-          "details": "Equipment pending biomedical bench inspection."
-        },
-        {
-          "stage": "QC_INSPECTED",
-          "title": "9-Stage Quality Passed",
-          "timestamp": null,
-          "completed": false,
-          "details": "Burn-in testing and electrical leakage audit."
-        },
-        {
-          "stage": "PACKED",
-          "title": "Export Crate Packed",
-          "timestamp": null,
-          "completed": false,
-          "details": "High-density foam protective crating."
-        },
-        {
-          "stage": "SHIPPED",
-          "title": "Shipped / In Transit",
-          "timestamp": null,
-          "completed": false,
-          "details": "AWB will be assigned upon carrier dispatch."
-        },
-        {
-          "stage": "DELIVERED",
-          "title": "Delivered",
-          "timestamp": null,
-          "completed": false,
-          "details": "Final receipt sign-off."
-        }
-      ]
-    },
-    {
-      "id": "MC-28752",
-      "orderNumber": "MC-28752",
-      "transactionId": "TX_TEST_001_1791740953328",
-      "customer": {
-        "name": "Hospital Alpha",
-        "email": "alpha@hospital.org"
-      },
-      "items": [
-        {
-          "productId": "prod-1791740953311-395k",
-          "title": "DR.MEDEX ESU-400T Electrosurgical Unit",
-          "sku": "TEST-INV-1791740953311",
-          "quantity": 2,
-          "originalINRPrice": 1000,
-          "basePriceINR": 1000,
-          "convertedUnitPrice": 1000,
-          "currency": "INR",
-          "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
-        }
-      ],
-      "pricing": {
-        "originalINRPrice": 0,
-        "subtotal": 0,
-        "discount": 0,
-        "shipping": 0,
-        "tax": 0,
-        "grandTotal": 0,
-        "finalOrderAmount": 0,
-        "currency": "INR",
-        "selectedCurrency": "INR",
-        "exchangeRateUsed": 1,
-        "rateTimestamp": "2026-10-11T17:49:13.329Z",
-        "couponApplied": null
-      },
-      "shippingMethod": {
-        "id": "dhl-air-express",
-        "name": "DHL Express Medical Air Cargo",
-        "carrier": "DHL Express",
-        "estimatedDays": "3–6 Business Days",
-        "trackingNumber": "DHL-878988894",
-        "trackingUrl": "https://www.dhl.com/en/express/tracking.html"
-      },
-      "payment": {
-        "method": "STRIPE",
-        "transactionId": "TX_TEST_001_1791740953328",
-        "status": "PAID",
-        "paidAt": "2026-10-11T17:49:13.329Z"
-      },
-      "fulfillmentStatus": "CONFIRMED",
-      "status": "CANCELLED",
-      "stockRestored": true,
-      "createdAt": "2026-10-11T17:49:13.329Z",
-      "trackingTimeline": [
-        {
-          "stage": "ORDER_PLACED",
-          "title": "Order Placed",
-          "timestamp": "2026-10-11T17:49:13.329Z",
-          "completed": true,
-          "details": "Order validated and registered in central medical database."
-        },
-        {
-          "stage": "PAYMENT_CONFIRMED",
-          "title": "Payment Confirmed",
-          "timestamp": "2026-10-11T17:49:13.329Z",
-          "completed": true,
-          "details": "Verified payment via International Secure Gateway."
-        },
-        {
-          "stage": "PROCESSING",
-          "title": "Calibration & Processing",
-          "timestamp": null,
-          "completed": false,
-          "details": "Equipment pending biomedical bench inspection."
-        },
-        {
-          "stage": "QC_INSPECTED",
-          "title": "9-Stage Quality Passed",
-          "timestamp": null,
-          "completed": false,
-          "details": "Burn-in testing and electrical leakage audit."
-        },
-        {
-          "stage": "PACKED",
-          "title": "Export Crate Packed",
-          "timestamp": null,
-          "completed": false,
-          "details": "High-density foam protective crating."
-        },
-        {
-          "stage": "SHIPPED",
-          "title": "Shipped / In Transit",
-          "timestamp": null,
-          "completed": false,
-          "details": "AWB will be assigned upon carrier dispatch."
-        },
-        {
-          "stage": "DELIVERED",
-          "title": "Delivered",
-          "timestamp": null,
-          "completed": false,
-          "details": "Final receipt sign-off."
-        }
-      ]
-    },
-    {
-      "id": "MC-35313",
-      "orderNumber": "MC-35313",
-      "customer": {
-        "name": "Hospital Alpha",
-        "email": "alpha@hospital.org"
-      },
-      "items": [
-        {
-          "productId": "prod-1791740873319-zx26",
-          "title": "DR.MEDEX ESU-400T Electrosurgical Unit",
-          "sku": "TEST-INV-1791740873319",
-          "quantity": 2,
-          "originalINRPrice": 1000,
-          "basePriceINR": 1000,
-          "convertedUnitPrice": 1000,
-          "currency": "INR",
-          "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
-        }
-      ],
-      "pricing": {
-        "originalINRPrice": 0,
-        "subtotal": 0,
-        "discount": 0,
-        "shipping": 0,
-        "tax": 0,
-        "grandTotal": 0,
-        "finalOrderAmount": 0,
-        "currency": "INR",
-        "selectedCurrency": "INR",
-        "exchangeRateUsed": 1,
-        "rateTimestamp": "2026-10-11T17:47:53.371Z",
-        "couponApplied": null
-      },
-      "shippingMethod": {
-        "id": "dhl-air-express",
-        "name": "DHL Express Medical Air Cargo",
-        "carrier": "DHL Express",
-        "estimatedDays": "3–6 Business Days",
-        "trackingNumber": "DHL-783663467",
-        "trackingUrl": "https://www.dhl.com/en/express/tracking.html"
-      },
-      "payment": {
-        "method": "STRIPE",
-        "transactionId": "TXN_MPT9LIMBGK",
-        "status": "PAID",
-        "paidAt": "2026-10-11T17:47:53.371Z"
-      },
-      "fulfillmentStatus": "CONFIRMED",
-      "status": "PROCESSING",
-      "stockRestored": false,
-      "createdAt": "2026-10-11T17:47:53.371Z",
-      "trackingTimeline": [
-        {
-          "stage": "ORDER_PLACED",
-          "title": "Order Placed",
-          "timestamp": "2026-10-11T17:47:53.371Z",
-          "completed": true,
-          "details": "Order validated and registered in central medical database."
-        },
-        {
-          "stage": "PAYMENT_CONFIRMED",
-          "title": "Payment Confirmed",
-          "timestamp": "2026-10-11T17:47:53.371Z",
-          "completed": true,
-          "details": "Verified payment via International Secure Gateway."
-        },
-        {
-          "stage": "PROCESSING",
-          "title": "Calibration & Processing",
-          "timestamp": null,
-          "completed": false,
-          "details": "Equipment pending biomedical bench inspection."
-        },
-        {
-          "stage": "QC_INSPECTED",
-          "title": "9-Stage Quality Passed",
-          "timestamp": null,
-          "completed": false,
-          "details": "Burn-in testing and electrical leakage audit."
-        },
-        {
-          "stage": "PACKED",
-          "title": "Export Crate Packed",
-          "timestamp": null,
-          "completed": false,
-          "details": "High-density foam protective crating."
-        },
-        {
-          "stage": "SHIPPED",
-          "title": "Shipped / In Transit",
-          "timestamp": null,
-          "completed": false,
-          "details": "AWB will be assigned upon carrier dispatch."
-        },
-        {
-          "stage": "DELIVERED",
-          "title": "Delivered",
-          "timestamp": null,
-          "completed": false,
-          "details": "Final receipt sign-off."
-        }
-      ]
-    },
-    {
-      "id": "MC-36684",
-      "orderNumber": "MC-36684",
-      "customer": {
-        "name": "Clinic Beta",
-        "email": "beta@clinic.org"
-      },
-      "items": [
-        {
-          "productId": "prod-1791740873319-zx26",
-          "title": "DR.MEDEX ESU-400T Electrosurgical Unit",
-          "sku": "TEST-INV-1791740873319",
-          "quantity": 1,
-          "originalINRPrice": 1000,
-          "basePriceINR": 1000,
-          "convertedUnitPrice": 1000,
-          "currency": "INR",
-          "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
-        }
-      ],
-      "pricing": {
-        "originalINRPrice": 0,
-        "subtotal": 0,
-        "discount": 0,
-        "shipping": 0,
-        "tax": 0,
-        "grandTotal": 0,
-        "finalOrderAmount": 0,
-        "currency": "INR",
-        "selectedCurrency": "INR",
-        "exchangeRateUsed": 1,
-        "rateTimestamp": "2026-10-11T17:47:53.354Z",
-        "couponApplied": null
-      },
-      "shippingMethod": {
-        "id": "dhl-air-express",
-        "name": "DHL Express Medical Air Cargo",
-        "carrier": "DHL Express",
-        "estimatedDays": "3–6 Business Days",
-        "trackingNumber": "DHL-239460764",
-        "trackingUrl": "https://www.dhl.com/en/express/tracking.html"
-      },
-      "payment": {
-        "method": "STRIPE",
-        "transactionId": "TX_TEST_002_1791740873354",
-        "status": "PAID",
-        "paidAt": "2026-10-11T17:47:53.354Z"
-      },
-      "fulfillmentStatus": "CONFIRMED",
-      "status": "PROCESSING",
-      "stockRestored": false,
-      "createdAt": "2026-10-11T17:47:53.354Z",
-      "trackingTimeline": [
-        {
-          "stage": "ORDER_PLACED",
-          "title": "Order Placed",
-          "timestamp": "2026-10-11T17:47:53.354Z",
-          "completed": true,
-          "details": "Order validated and registered in central medical database."
-        },
-        {
-          "stage": "PAYMENT_CONFIRMED",
-          "title": "Payment Confirmed",
-          "timestamp": "2026-10-11T17:47:53.354Z",
-          "completed": true,
-          "details": "Verified payment via International Secure Gateway."
-        },
-        {
-          "stage": "PROCESSING",
-          "title": "Calibration & Processing",
-          "timestamp": null,
-          "completed": false,
-          "details": "Equipment pending biomedical bench inspection."
-        },
-        {
-          "stage": "QC_INSPECTED",
-          "title": "9-Stage Quality Passed",
-          "timestamp": null,
-          "completed": false,
-          "details": "Burn-in testing and electrical leakage audit."
-        },
-        {
-          "stage": "PACKED",
-          "title": "Export Crate Packed",
-          "timestamp": null,
-          "completed": false,
-          "details": "High-density foam protective crating."
-        },
-        {
-          "stage": "SHIPPED",
-          "title": "Shipped / In Transit",
-          "timestamp": null,
-          "completed": false,
-          "details": "AWB will be assigned upon carrier dispatch."
-        },
-        {
-          "stage": "DELIVERED",
-          "title": "Delivered",
-          "timestamp": null,
-          "completed": false,
-          "details": "Final receipt sign-off."
-        }
-      ]
-    },
-    {
-      "id": "MC-73631",
-      "orderNumber": "MC-73631",
-      "customer": {
-        "name": "Hospital Alpha",
-        "email": "alpha@hospital.org"
-      },
-      "items": [
-        {
-          "productId": "prod-1791740873319-zx26",
-          "title": "DR.MEDEX ESU-400T Electrosurgical Unit",
-          "sku": "TEST-INV-1791740873319",
-          "quantity": 2,
-          "originalINRPrice": 1000,
-          "basePriceINR": 1000,
-          "convertedUnitPrice": 1000,
-          "currency": "INR",
-          "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
-        }
-      ],
-      "pricing": {
-        "originalINRPrice": 0,
-        "subtotal": 0,
-        "discount": 0,
-        "shipping": 0,
-        "tax": 0,
-        "grandTotal": 0,
-        "finalOrderAmount": 0,
-        "currency": "INR",
-        "selectedCurrency": "INR",
-        "exchangeRateUsed": 1,
-        "rateTimestamp": "2026-10-11T17:47:53.338Z",
-        "couponApplied": null
-      },
-      "shippingMethod": {
-        "id": "dhl-air-express",
-        "name": "DHL Express Medical Air Cargo",
-        "carrier": "DHL Express",
-        "estimatedDays": "3–6 Business Days",
-        "trackingNumber": "DHL-724945371",
-        "trackingUrl": "https://www.dhl.com/en/express/tracking.html"
-      },
-      "payment": {
-        "method": "STRIPE",
-        "transactionId": "TX_TEST_001_1791740873337",
-        "status": "PAID",
-        "paidAt": "2026-10-11T17:47:53.338Z"
-      },
-      "fulfillmentStatus": "CONFIRMED",
-      "status": "CANCELLED",
-      "stockRestored": true,
-      "createdAt": "2026-10-11T17:47:53.338Z",
-      "trackingTimeline": [
-        {
-          "stage": "ORDER_PLACED",
-          "title": "Order Placed",
-          "timestamp": "2026-10-11T17:47:53.338Z",
-          "completed": true,
-          "details": "Order validated and registered in central medical database."
-        },
-        {
-          "stage": "PAYMENT_CONFIRMED",
-          "title": "Payment Confirmed",
-          "timestamp": "2026-10-11T17:47:53.338Z",
-          "completed": true,
-          "details": "Verified payment via International Secure Gateway."
-        },
-        {
-          "stage": "PROCESSING",
-          "title": "Calibration & Processing",
-          "timestamp": null,
-          "completed": false,
-          "details": "Equipment pending biomedical bench inspection."
-        },
-        {
-          "stage": "QC_INSPECTED",
-          "title": "9-Stage Quality Passed",
-          "timestamp": null,
-          "completed": false,
-          "details": "Burn-in testing and electrical leakage audit."
-        },
-        {
-          "stage": "PACKED",
-          "title": "Export Crate Packed",
-          "timestamp": null,
-          "completed": false,
-          "details": "High-density foam protective crating."
-        },
-        {
-          "stage": "SHIPPED",
-          "title": "Shipped / In Transit",
-          "timestamp": null,
-          "completed": false,
-          "details": "AWB will be assigned upon carrier dispatch."
-        },
-        {
-          "stage": "DELIVERED",
-          "title": "Delivered",
-          "timestamp": null,
-          "completed": false,
-          "details": "Final receipt sign-off."
-        }
-      ]
-    },
-    {
       "id": "MC-55462",
       "orderNumber": "MC-55462",
       "customer": {
@@ -42358,6 +41178,1540 @@
     "headquarters": "DR.MEDEX Global MedTech Tower, 45 Healthcare Innovation Way, Boston, MA 02115, USA & International Logistics Hub, Dubai Healthcare City, UAE"
   },
   "auditLogs": [
+    {
+      "id": "audit-1792259372208-7g6zo",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:49:32.208Z"
+    },
+    {
+      "id": "audit-1792259372158-quyp0",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-db-fail-1792259372129",
+      "details": {
+        "title": "TEST DB FAILURE PRODUCT",
+        "sku": "TEST-DBF-1792259372129",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-db-fail-1792259372129",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T17:49:32.158Z"
+    },
+    {
+      "id": "audit-1792259372082-rmkvs",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ord-prod-1792259372049",
+      "details": {
+        "title": "TEST ORDER-LINKED ICU VENTILATOR",
+        "sku": "TEST-ORD-SKU-1792259372049",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T17:49:32.082Z"
+    },
+    {
+      "id": "audit-1792259372005-4vv3k",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-prod-1792259371929",
+      "details": {
+        "title": "TEST TEMPORARY ELECTROSURGICAL GENERATOR",
+        "sku": "TEST-E2E-DEL-1792259371929",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 2,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_1"
+            },
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_2"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-prod-1792259371929",
+          "deletedCount": 1,
+          "adminEmail": "roshan.official0009@gmail.com"
+        }
+      },
+      "timestamp": "2026-10-17T17:49:32.005Z"
+    },
+    {
+      "id": "audit-1792259371898-qawpb",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T17:49:31.898Z"
+    },
+    {
+      "id": "audit-1792259371279-hrp74",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-hotfix-1792259371116",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:49:31.279Z"
+    },
+    {
+      "id": "audit-1792259371194-d7d0n",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-hotfix-1792259371116",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:49:31.194Z"
+    },
+    {
+      "id": "audit-1792259371142-2ch8u",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CREATED",
+      "productId": "test-hotfix-1792259371116",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "basePrice": 450000,
+        "sku": "TEST-HF-6E1E76"
+      },
+      "timestamp": "2026-10-17T17:49:31.142Z"
+    },
+    {
+      "id": "audit-1792259370628-iyg5b",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1792259370451",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:49:30.629Z"
+    },
+    {
+      "id": "audit-1792259370582-co842",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1792259370451",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:49:30.582Z"
+    },
+    {
+      "id": "audit-1792259370528-5sigw",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1792259370451",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:49:30.528Z"
+    },
+    {
+      "id": "audit-1792259370478-gu0ze",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CREATED",
+      "productId": "test-e2e-prod-1792259370451",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "basePrice": 185000,
+        "sku": "TEST-E2E-1792259370451"
+      },
+      "timestamp": "2026-10-17T17:49:30.478Z"
+    },
+    {
+      "id": "audit-1792259369988-bulpw",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-unref-1792259369957",
+      "details": {
+        "title": "TEST DISPOSABLE FORCEPS",
+        "sku": "TEST-FOR-1792259369957",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-unref-1792259369957",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T17:49:29.988Z"
+    },
+    {
+      "id": "audit-1792259369910-cfe7i",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ret-prod-1792259369876",
+      "details": {
+        "title": "TEST SURGICAL CO2 LASER SYSTEM",
+        "sku": "TEST-LAS-1792259369876",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T17:49:29.910Z"
+    },
+    {
+      "id": "audit-1792259369816-51jar",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T17:49:29.816Z"
+    },
+    {
+      "id": "audit-1792259369273-j5udq",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1792259369211",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1792259369211",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 1,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "test_asset_exclusive_delete"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1792259369211",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T17:49:29.273Z"
+    },
+    {
+      "id": "audit-1792259369166-ulr8l",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1792259369125",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1792259369125",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T17:49:29.166Z"
+    },
+    {
+      "id": "audit-1792259369095-wee2q",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T17:49:29.095Z"
+    },
+    {
+      "id": "audit-1792259368532-o8j4i",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:49:28.532Z"
+    },
+    {
+      "id": "audit-1792259368457-mmyra",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T17:49:28.457Z"
+    },
+    {
+      "id": "audit-1792259368409-fsj54",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T17:49:28.409Z"
+    },
+    {
+      "id": "audit-1792259368359-qdd2r",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T17:49:28.359Z"
+    },
+    {
+      "id": "audit-1792259363817-2xn2a",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-17T17:49:23.817Z"
+    },
+    {
+      "id": "audit-1792259363762-sn2jg",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-17T17:49:23.762Z"
+    },
+    {
+      "id": "audit-1792259363651-fspwr",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-17T17:49:23.651Z"
+    },
+    {
+      "id": "audit-1792259363544-4gdlc",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T17:49:23.544Z"
+    },
+    {
+      "id": "audit-1792258893552-m4nbc",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:41:33.552Z"
+    },
+    {
+      "id": "audit-1792258893499-lmxjb",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-db-fail-1792258893469",
+      "details": {
+        "title": "TEST DB FAILURE PRODUCT",
+        "sku": "TEST-DBF-1792258893469",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-db-fail-1792258893469",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T17:41:33.499Z"
+    },
+    {
+      "id": "audit-1792258893419-5yqmb",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ord-prod-1792258893388",
+      "details": {
+        "title": "TEST ORDER-LINKED ICU VENTILATOR",
+        "sku": "TEST-ORD-SKU-1792258893388",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T17:41:33.419Z"
+    },
+    {
+      "id": "audit-1792258893347-zrnjh",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-prod-1792258893277",
+      "details": {
+        "title": "TEST TEMPORARY ELECTROSURGICAL GENERATOR",
+        "sku": "TEST-E2E-DEL-1792258893277",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 2,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_1"
+            },
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_2"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-prod-1792258893277",
+          "deletedCount": 1,
+          "adminEmail": "roshan.official0009@gmail.com"
+        }
+      },
+      "timestamp": "2026-10-17T17:41:33.347Z"
+    },
+    {
+      "id": "audit-1792258893253-2j79u",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T17:41:33.253Z"
+    },
+    {
+      "id": "audit-1792258861985-q6567",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-db-fail-1792258861955",
+      "details": {
+        "title": "TEST DB FAILURE PRODUCT",
+        "sku": "TEST-DBF-1792258861955",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-db-fail-1792258861955",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T17:41:01.985Z"
+    },
+    {
+      "id": "audit-1792258861907-rpxgk",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ord-prod-1792258861875",
+      "details": {
+        "title": "TEST ORDER-LINKED ICU VENTILATOR",
+        "sku": "TEST-ORD-SKU-1792258861875",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T17:41:01.907Z"
+    },
+    {
+      "id": "audit-1792258861835-9xoy1",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-prod-1792258861765",
+      "details": {
+        "title": "TEST TEMPORARY ELECTROSURGICAL GENERATOR",
+        "sku": "TEST-E2E-DEL-1792258861765",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 2,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_1"
+            },
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_2"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-prod-1792258861765",
+          "deletedCount": 1,
+          "adminEmail": "roshan.official0009@gmail.com"
+        }
+      },
+      "timestamp": "2026-10-17T17:41:01.835Z"
+    },
+    {
+      "id": "audit-1792258861740-e57d7",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T17:41:01.740Z"
+    },
+    {
+      "id": "audit-1792258839227-nkn9a",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ord-prod-1792258839193",
+      "details": {
+        "title": "TEST ORDER-LINKED ICU VENTILATOR",
+        "sku": "TEST-ORD-SKU-1792258839193",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T17:40:39.227Z"
+    },
+    {
+      "id": "audit-1792258839155-9w3gv",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-prod-1792258839082",
+      "details": {
+        "title": "TEST TEMPORARY ELECTROSURGICAL GENERATOR",
+        "sku": "TEST-E2E-DEL-1792258839082",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 2,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_1"
+            },
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_2"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-prod-1792258839082",
+          "deletedCount": 1,
+          "adminEmail": "roshan.official0009@gmail.com"
+        }
+      },
+      "timestamp": "2026-10-17T17:40:39.155Z"
+    },
+    {
+      "id": "audit-1792258839057-9ibyf",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T17:40:39.057Z"
+    },
+    {
+      "id": "audit-1792258803715-m53rp",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-prod-1792258803642",
+      "details": {
+        "title": "TEST TEMPORARY ELECTROSURGICAL GENERATOR",
+        "sku": "TEST-E2E-DEL-1792258803642",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 2,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_1"
+            },
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_2"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-prod-1792258803642",
+          "deletedCount": 1,
+          "adminEmail": "roshan.official0009@gmail.com"
+        }
+      },
+      "timestamp": "2026-10-17T17:40:03.715Z"
+    },
+    {
+      "id": "audit-1792258803617-s8ut3",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T17:40:03.617Z"
+    },
+    {
+      "id": "audit-1792258737870-y4g42",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-hotfix-1792258737712",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:38:57.870Z"
+    },
+    {
+      "id": "audit-1792258737789-6fwds",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-hotfix-1792258737712",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:38:57.789Z"
+    },
+    {
+      "id": "audit-1792258737739-feolq",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CREATED",
+      "productId": "test-hotfix-1792258737712",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "basePrice": 450000,
+        "sku": "TEST-HF-2ADC3E"
+      },
+      "timestamp": "2026-10-17T17:38:57.739Z"
+    },
+    {
+      "id": "audit-1792258737226-02klv",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1792258737052",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:38:57.226Z"
+    },
+    {
+      "id": "audit-1792258737180-4zxs0",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1792258737052",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:38:57.180Z"
+    },
+    {
+      "id": "audit-1792258737128-a8mtk",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1792258737052",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:38:57.128Z"
+    },
+    {
+      "id": "audit-1792258737079-3rpzz",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CREATED",
+      "productId": "test-e2e-prod-1792258737052",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "basePrice": 185000,
+        "sku": "TEST-E2E-1792258737052"
+      },
+      "timestamp": "2026-10-17T17:38:57.079Z"
+    },
+    {
+      "id": "audit-1792258736572-mnha0",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-unref-1792258736538",
+      "details": {
+        "title": "TEST DISPOSABLE FORCEPS",
+        "sku": "TEST-FOR-1792258736538",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-unref-1792258736538",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T17:38:56.572Z"
+    },
+    {
+      "id": "audit-1792258736489-sdwr2",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ret-prod-1792258736456",
+      "details": {
+        "title": "TEST SURGICAL CO2 LASER SYSTEM",
+        "sku": "TEST-LAS-1792258736456",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T17:38:56.490Z"
+    },
+    {
+      "id": "audit-1792258736399-ufq19",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T17:38:56.399Z"
+    },
+    {
+      "id": "audit-1792258735859-nmpy2",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1792258735798",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1792258735798",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 1,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "test_asset_exclusive_delete"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1792258735798",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T17:38:55.859Z"
+    },
+    {
+      "id": "audit-1792258735753-4jls2",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1792258735713",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1792258735713",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T17:38:55.753Z"
+    },
+    {
+      "id": "audit-1792258735683-2uera",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T17:38:55.683Z"
+    },
+    {
+      "id": "audit-1792258735105-x5yd2",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:38:55.105Z"
+    },
+    {
+      "id": "audit-1792258735033-zte74",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T17:38:55.033Z"
+    },
+    {
+      "id": "audit-1792258734983-vxrbr",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T17:38:54.983Z"
+    },
+    {
+      "id": "audit-1792258734936-tmwsx",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T17:38:54.936Z"
+    },
+    {
+      "id": "audit-1792258730410-iggmp",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-17T17:38:50.410Z"
+    },
+    {
+      "id": "audit-1792258730354-ujnye",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-17T17:38:50.354Z"
+    },
+    {
+      "id": "audit-1792258730243-ltwmd",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-17T17:38:50.243Z"
+    },
+    {
+      "id": "audit-1792258730136-0r6v0",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T17:38:50.136Z"
+    },
+    {
+      "id": "audit-1792258646543-rzhzu",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1792258646455",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1792258646455",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1792258646455",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T17:37:26.543Z"
+    },
+    {
+      "id": "audit-1792258646360-9wvtp",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1792258646274",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1792258646274",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T17:37:26.360Z"
+    },
+    {
+      "id": "audit-1792258646215-9pu6q",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T17:37:26.215Z"
+    },
+    {
+      "id": "audit-1792258645391-9wn1h",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:37:25.391Z"
+    },
+    {
+      "id": "audit-1792258645321-5jk3j",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T17:37:25.321Z"
+    },
+    {
+      "id": "audit-1792258645257-t5ghw",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T17:37:25.257Z"
+    },
+    {
+      "id": "audit-1792258645200-w0r89",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T17:37:25.200Z"
+    },
+    {
+      "id": "audit-1792258640640-zu6wp",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-17T17:37:20.640Z"
+    },
+    {
+      "id": "audit-1792258640588-x9qaf",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-17T17:37:20.588Z"
+    },
+    {
+      "id": "audit-1792258640478-ktwqy",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-17T17:37:20.478Z"
+    },
+    {
+      "id": "audit-1792258640372-7pw45",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T17:37:20.372Z"
+    },
+    {
+      "id": "audit-1792258585864-xr1tf",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:36:25.864Z"
+    },
+    {
+      "id": "audit-1792258585796-5vcmf",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T17:36:25.796Z"
+    },
+    {
+      "id": "audit-1792258585749-jmyqz",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T17:36:25.749Z"
+    },
+    {
+      "id": "audit-1792258585701-vgh8v",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T17:36:25.701Z"
+    },
+    {
+      "id": "audit-1792258581174-nofwr",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-17T17:36:21.174Z"
+    },
+    {
+      "id": "audit-1792258581119-bmezj",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-17T17:36:21.119Z"
+    },
+    {
+      "id": "audit-1792258581010-nm29g",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-17T17:36:21.010Z"
+    },
+    {
+      "id": "audit-1792258580902-bm3so",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T17:36:20.902Z"
+    },
+    {
+      "id": "audit-1792258517194-sf30q",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T17:35:17.194Z"
+    },
+    {
+      "id": "audit-1792258517129-ad1d3",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T17:35:17.129Z"
+    },
+    {
+      "id": "audit-1792258517081-32sw4",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T17:35:17.081Z"
+    },
+    {
+      "id": "audit-1792258517034-h264t",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T17:35:17.034Z"
+    },
+    {
+      "id": "audit-1792258512499-esqws",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-17T17:35:12.499Z"
+    },
+    {
+      "id": "audit-1792258512443-2jnhg",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-17T17:35:12.443Z"
+    },
+    {
+      "id": "audit-1792258512333-x7sm3",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-17T17:35:12.333Z"
+    },
+    {
+      "id": "audit-1792258512227-2wgoa",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T17:35:12.227Z"
+    },
+    {
+      "id": "audit-1792258394006-2jl8b",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-17T17:33:14.006Z"
+    },
+    {
+      "id": "audit-1792258393951-zg7q5",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-17T17:33:13.951Z"
+    },
+    {
+      "id": "audit-1792258393841-x6f49",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-17T17:33:13.841Z"
+    },
+    {
+      "id": "audit-1792258393735-96pm2",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T17:33:13.736Z"
+    },
+    {
+      "id": "audit-1792235756995-p7zys",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-unref-1792235756965",
+      "details": {
+        "title": "TEST DISPOSABLE FORCEPS",
+        "sku": "TEST-FOR-1792235756965",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-unref-1792235756965",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T11:15:56.995Z"
+    },
+    {
+      "id": "audit-1792235756915-z6m5u",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ret-prod-1792235756882",
+      "details": {
+        "title": "TEST SURGICAL CO2 LASER SYSTEM",
+        "sku": "TEST-LAS-1792235756882",
+        "reason": "Customer orders reference this product; safely retired from active catalogue to protect order history integrity",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T11:15:56.915Z"
+    },
+    {
+      "id": "audit-1792235756808-nbjxz",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T11:15:56.808Z"
+    },
+    {
+      "id": "audit-1792235756039-o8q5f",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1792235755942",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1792235755942",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 1,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "test_asset_exclusive_delete"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1792235755942",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-17T11:15:56.039Z"
+    },
+    {
+      "id": "audit-1792235755855-pqf9x",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1792235755767",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1792235755767",
+        "reason": "Customer orders reference this product; safely retired from active catalogue to protect order history integrity",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-17T11:15:55.855Z"
+    },
+    {
+      "id": "audit-1792235755736-w45dj",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T11:15:55.736Z"
+    },
+    {
+      "id": "audit-1792235755183-2vw17",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T11:15:55.183Z"
+    },
+    {
+      "id": "audit-1792235755118-hpf7d",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T11:15:55.118Z"
+    },
+    {
+      "id": "audit-1792235755069-n2scs",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T11:15:55.069Z"
+    },
+    {
+      "id": "audit-1792235755019-ii23g",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T11:15:55.019Z"
+    },
+    {
+      "id": "audit-1792235750412-wuu0z",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-17T11:15:50.412Z"
+    },
+    {
+      "id": "audit-1792235750359-ge7j2",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-17T11:15:50.359Z"
+    },
+    {
+      "id": "audit-1792235750250-al15w",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-17T11:15:50.250Z"
+    },
+    {
+      "id": "audit-1792235750145-t42iw",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T11:15:50.145Z"
+    },
     {
       "id": "audit-1792235606435-ub1vz",
       "adminId": "roshan.official0009@gmail.com",

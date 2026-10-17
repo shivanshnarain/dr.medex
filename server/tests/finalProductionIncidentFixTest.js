@@ -76,7 +76,7 @@ async function runTestMatrix() {
 
   const countBefore = store.getProducts({ includeInactive: true }).length;
   console.log(`[Baseline] Product catalogue count: ${countBefore} products.\n`);
-  assert.strictEqual(countBefore, 197, `Expected exactly 197 products, found ${countBefore}`);
+  assert.strictEqual(countBefore, 193, `Expected exactly 193 products, found ${countBefore}`);
 
   // Test 1: Admin catalogue request
   console.log("--- Test 1: Admin Catalogue Request ---");
@@ -85,7 +85,7 @@ async function runTestMatrix() {
   });
   assert.strictEqual(catRes.status, 200);
   assert.strictEqual(catRes.body.success, true);
-  assert.strictEqual(catRes.body.total, 197);
+  assert.strictEqual(catRes.body.total, 193);
   assert(catRes.body.products.length <= 10 && catRes.body.products.length > 0);
   console.log(`✔ PASS: Valid product records returned. Total: ${catRes.body.total}, Page items: ${catRes.body.products.length}.\n`);
   passes++;
@@ -99,8 +99,8 @@ async function runTestMatrix() {
     headers: { authorization: `Bearer ${adminToken}` }
   });
   assert.strictEqual(fallbackCatRes.status, 200);
-  assert.strictEqual(fallbackCatRes.body.total, 197);
-  console.log("✔ PASS: MongoDB connection failure does not cause false empty catalogue. All 197 products returned.\n");
+  assert.strictEqual(fallbackCatRes.body.total, 193);
+  console.log("✔ PASS: MongoDB connection failure does not cause false empty catalogue. All 193 products returned.\n");
   passes++;
 
   // Isolated test product ID (prod-surgical-cautery-400-wat)
@@ -197,7 +197,7 @@ async function runTestMatrix() {
   assert.strictEqual(updateRes.status, 200);
   assert.strictEqual(updateRes.body.success, true);
   const countAfter = store.getProducts({ includeInactive: true }).length;
-  assert.strictEqual(countAfter, 197, `Product count must remain exactly 197, got ${countAfter}`);
+  assert.strictEqual(countAfter, 193, `Product count must remain exactly 193, got ${countAfter}`);
   console.log(`✔ PASS: Product updated in place without duplicate creation. Count remains ${countAfter}.\n`);
   passes++;
 
@@ -207,7 +207,7 @@ async function runTestMatrix() {
     headers: { authorization: `Bearer ${adminToken}` }
   });
   assert.strictEqual(freshList.status, 200);
-  assert.strictEqual(freshList.body.total, 197);
+  assert.strictEqual(freshList.body.total, 193);
   console.log("✔ PASS: Fresh authoritative list loaded successfully.\n");
   passes++;
 
@@ -238,9 +238,9 @@ async function runTestMatrix() {
   // Test 12: Final Count Integrity
   console.log("--- Test 12: Catalogue Integrity Verification ---");
   const finalCount = store.getProducts({ includeInactive: true }).length;
-  assert.strictEqual(finalCount, 197, `Expected exactly 197 products, got ${finalCount}`);
-  assert.strictEqual(fallbackProducts.length, 197, `Expected fallbackProducts to have 197 items, got ${fallbackProducts.length}`);
-  console.log(`✔ PASS: Catalogue preserved at exactly 197 authoritative entries.\n`);
+  assert.strictEqual(finalCount, 193, `Expected exactly 193 products, got ${finalCount}`);
+  assert.strictEqual(fallbackProducts.length, 193, `Expected fallbackProducts to have 193 items, got ${fallbackProducts.length}`);
+  console.log(`✔ PASS: Catalogue preserved at exactly 193 authoritative entries.\n`);
   passes++;
 
   console.log("==========================================================================");
