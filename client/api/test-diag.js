@@ -1,10 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
 
-module.exports = (req, res) => {
+export default function handler(req, res) {
   try {
     const cwd = process.cwd();
-    const dir = __dirname;
     let parentFiles = [];
     try {
       parentFiles = fs.readdirSync(path.join(cwd, '..'));
@@ -21,7 +20,6 @@ module.exports = (req, res) => {
     res.status(200).json({
       ok: true,
       cwd,
-      dir,
       parentFiles,
       cwdFiles,
       env: {
@@ -33,6 +31,6 @@ module.exports = (req, res) => {
       }
     });
   } catch (err) {
-    res.status(500).json({ ok: false, error: err.message });
+    res.status(500).json({ ok: false, error: err.message, stack: err.stack });
   }
-};
+}
