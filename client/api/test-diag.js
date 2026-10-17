@@ -4,33 +4,28 @@ import path from 'node:path';
 export default function handler(req, res) {
   try {
     const cwd = process.cwd();
-    let parentFiles = [];
+    let clientFiles = [];
     try {
-      parentFiles = fs.readdirSync(path.join(cwd, '..'));
+      clientFiles = fs.readdirSync(path.join(cwd, 'client'));
     } catch (e) {
-      parentFiles = [e.message];
+      clientFiles = [e.message];
     }
-    let cwdFiles = [];
+    
+    let rootFiles = [];
     try {
-      cwdFiles = fs.readdirSync(cwd);
+      rootFiles = fs.readdirSync('/var/task');
     } catch (e) {
-      cwdFiles = [e.message];
+      rootFiles = [e.message];
     }
 
     res.status(200).json({
       ok: true,
       cwd,
-      parentFiles,
-      cwdFiles,
-      env: {
-        hasMongo: !!process.env.MONGODB_URI,
-        hasCloudinary: !!process.env.CLOUDINARY_URL,
-        hasJwtSecret: !!process.env.JWT_SECRET,
-        hasAdminToken: !!process.env.ADMIN_TOKEN,
-        nodeEnv: process.env.NODE_ENV
-      }
+      rootFiles,
+      clientFiles,
+      nodeVersion: process.version
     });
   } catch (err) {
-    res.status(500).json({ ok: false, error: err.message, stack: err.stack });
+    res.status(500).json({ ok: false, error: err.message });
   }
 }
