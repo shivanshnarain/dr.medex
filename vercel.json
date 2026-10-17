@@ -14,12 +14,12 @@
   ],
   "rewrites": [
     {
-      "source": "/api/admin/:match*",
-      "destination": "/api/admin/[...path]?path=:match*"
+      "source": "/api/admin/(.*)",
+      "destination": "/api/admin/[...path]?path=$1"
     },
     {
-      "source": "/api/:match*",
-      "destination": "/api/[...path]?path=:match*"
+      "source": "/api/(.*)",
+      "destination": "/api/[...path]?path=$1"
     },
     {
       "source": "/((?!api(?:/|$)).*)",
