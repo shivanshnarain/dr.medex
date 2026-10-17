@@ -1,6 +1,6 @@
 const { MongoClient } = require("mongodb");
 
-const uri = process.env.MONGODB_URI || "";
+const uri = process.env.MONGODB_URI || "mongodb+srv://roshanofficial0009_db_user:ExUyOvI6KQ5NNJOq@cluster0.7y0dbdy.mongodb.net/?appName=Cluster0";
 const dbName = process.env.MONGODB_DB || "drmedex";
 const COLLECTION_NAME = "approved_products";
 
@@ -9,7 +9,7 @@ let clientPromise = null;
 let indexesEnsured = false;
 
 function isConfigured() {
-  return Boolean(process.env.MONGODB_URI);
+  return Boolean(uri);
 }
 
 /**
@@ -21,9 +21,9 @@ async function getClient() {
   }
 
   if (!clientPromise) {
-    client = new MongoClient(process.env.MONGODB_URI, {
+    client = new MongoClient(uri, {
       maxPoolSize: 10,
-      serverSelectionTimeoutMS: 10000
+      serverSelectionTimeoutMS: 5000
     });
     clientPromise = client.connect();
   }

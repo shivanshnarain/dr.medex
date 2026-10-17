@@ -12,9 +12,9 @@ try {
 }
 
 // Configure Cloudinary from server environment
-const cloudName = process.env.CLOUDINARY_CLOUD_NAME || "";
-const apiKey = process.env.CLOUDINARY_API_KEY || "";
-const apiSecret = process.env.CLOUDINARY_API_SECRET || "";
+const cloudName = process.env.CLOUDINARY_CLOUD_NAME || "mjqna8qi";
+const apiKey = process.env.CLOUDINARY_API_KEY || "975956791511158";
+const apiSecret = process.env.CLOUDINARY_API_SECRET || "4ZHTxXDbL1vweJ_oADvPa0wRxqE";
 
 if (cloudName && apiKey && apiSecret) {
   cloudinary.config({
@@ -26,7 +26,7 @@ if (cloudName && apiKey && apiSecret) {
 }
 
 function isConfigured() {
-  return Boolean(process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET);
+  return Boolean(cloudName && apiKey && apiSecret);
 }
 
 /**

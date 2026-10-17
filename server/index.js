@@ -25,8 +25,11 @@ app.get("/health", (req, res) => {
   res.json({ status: "ok", service: "DR.MEDEX Global API Server", time: new Date().toISOString() });
 });
 
-// Serve static frontend assets from client/dist
-const clientDistPath = path.join(__dirname, "../client/dist");
+// Serve static frontend assets from client/dist or dist
+const fs = require("fs");
+const clientDistPath = fs.existsSync(path.join(__dirname, "../dist"))
+  ? path.join(__dirname, "../dist")
+  : path.join(__dirname, "../client/dist");
 app.use(express.static(clientDistPath));
 
 // 404 handler for API routes
