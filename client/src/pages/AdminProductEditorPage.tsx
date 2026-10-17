@@ -121,6 +121,7 @@ export const AdminProductEditorPage: React.FC = () => {
   const [manuallyEditedFields, setManuallyEditedFields] = useState<Set<string>>(new Set());
   const activeAnalysisIdRef = useRef<number>(0);
   const [aiAppliedNotification, setAiAppliedNotification] = useState(false);
+  const [aiPopulatedFields, setAiPopulatedFields] = useState<Set<string>>(new Set());
 
   // Modal view for AI identification (optional alternative popup)
   const [showAiIdentifyModal, setShowAiIdentifyModal] = useState(false);
@@ -233,7 +234,7 @@ export const AdminProductEditorPage: React.FC = () => {
   // ==========================================
   // STEP 7: PUBLISHING & VISIBILITY
   // ==========================================
-  const [status, setStatus] = useState<"ACTIVE" | "INACTIVE" | "DRAFT" | "ARCHIVED">("ACTIVE");
+  const [status, setStatus] = useState<"ACTIVE" | "INACTIVE" | "DRAFT" | "ARCHIVED">("DRAFT");
   const [isFeatured, setIsFeatured] = useState(false);
   const [isBestSeller, setIsBestSeller] = useState(false);
   const [categoryGridVisible, setCategoryGridVisible] = useState(true);
@@ -522,12 +523,16 @@ export const AdminProductEditorPage: React.FC = () => {
   }, [category, subcategory, equipmentType, manufacturerModel, title, productName, productId]);
 
   // ============================================================
-  // ONE COORDINATED AI IDENTIFICATION WORKFLOW
+  // ONE COORDINATED AI IDENTIFICATION WORKFLOW (STEPS 1 TO 7)
   // ============================================================
   const applyAiResultsToForm = (result: any) => {
     if (!result) return;
+    const populated = new Set<string>();
 
-    // 1. Classification
+    // Step 1: Product Photographs
+    // All uploaded photographs, persistent URLs, and current slot ordering remain untouched
+
+    // Step 2: Product Classification
     if (result.primaryCategory) {
       const suggestedCat = String(result.primaryCategory).toLowerCase();
       const catEntry = Object.entries(catalogueHierarchy).find(
@@ -537,6 +542,7 @@ export const AdminProductEditorPage: React.FC = () => {
         const [catKey, catVal] = catEntry;
         if (!preserveManualEdits || !manuallyEditedFields.has("category")) {
           setCategory(catKey);
+          populated.add("category");
         }
 
         if (result.subcategory && catVal.subcategories) {
@@ -547,6 +553,7 @@ export const AdminProductEditorPage: React.FC = () => {
           if (subEntry) {
             if (!preserveManualEdits || !manuallyEditedFields.has("subcategory")) {
               setSubcategory(subEntry.id || subEntry.name);
+              populated.add("subcategory");
             }
 
             if (result.equipmentType && subEntry.equipmentTypes) {
@@ -557,10 +564,12 @@ export const AdminProductEditorPage: React.FC = () => {
               if (eqEntry) {
                 if (!preserveManualEdits || !manuallyEditedFields.has("equipmentType")) {
                   setEquipmentType(eqEntry.name);
+                  populated.add("equipmentType");
                 }
               } else {
                 if (!preserveManualEdits || !manuallyEditedFields.has("equipmentType")) {
                   setEquipmentType(result.equipmentType);
+                  populated.add("equipmentType");
                 }
               }
             }
@@ -569,31 +578,73 @@ export const AdminProductEditorPage: React.FC = () => {
       }
     }
 
-    // 2. Identity
+    // Step 3: Product Identity
     if (!preserveManualEdits || !manuallyEditedFields.has("productName")) {
       if (result.productName) {
         setProductName(result.productName);
         setTitle(result.productName);
+        populated.add("productName");
+        populated.add("title");
       }
     }
     if (!preserveManualEdits || !manuallyEditedFields.has("brand")) {
-      if (result.brand) setBrand(result.brand);
+      if (result.brand) {
+        setBrand(result.brand);
+        populated.add("brand");
+      }
     }
     if (!preserveManualEdits || !manuallyEditedFields.has("manufacturerModel")) {
-      if (result.manufacturerModel) setManufacturerModel(result.manufacturerModel);
+      if (result.manufacturerModel) {
+        setManufacturerModel(result.manufacturerModel);
+        populated.add("manufacturerModel");
+      }
+    }
+    if (!preserveManualEdits || !manuallyEditedFields.has("internalModelId")) {
+      if (result.manufacturerModel) {
+        setInternalModelId(result.manufacturerModel);
+      } else if (result.productName) {
+        const cleanSlug = result.productName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+        setInternalModelId(`DM-${cleanSlug.slice(0, 10).toUpperCase()}`);
+      }
+      populated.add("internalModelId");
     }
     if (!isEditMode && (!sku || !manuallyEditedFields.has("sku"))) {
       fetchNewSku(category);
+      populated.add("sku");
     }
     if (!preserveManualEdits || !manuallyEditedFields.has("slug")) {
       if (result.productName) {
         setSlug(result.productName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""));
+        populated.add("slug");
       }
     }
 
-    // 3. Descriptions & Clinical Overview
+    // Step 4: Pricing & Inventory Defaults (Never invent selling price from photographs)
+    if (!preserveManualEdits || !manuallyEditedFields.has("stock")) {
+      if (!stock || stock === 0) setStock(10);
+      populated.add("stock");
+    }
+    if (!preserveManualEdits || !manuallyEditedFields.has("stockStatus")) {
+      setStockStatus("IN_STOCK");
+      populated.add("stockStatus");
+    }
+    if (!preserveManualEdits || !manuallyEditedFields.has("lowStockThreshold")) {
+      if (!lowStockThreshold) setLowStockThreshold(3);
+    }
+    if (!preserveManualEdits || !manuallyEditedFields.has("minOrderQuantity")) {
+      if (!minOrderQuantity) setMinOrderQuantity(1);
+    }
+    if (!preserveManualEdits || !manuallyEditedFields.has("leadTimeWeeks")) {
+      if (!leadTimeWeeks) setLeadTimeWeeks("1–2 Weeks");
+      populated.add("leadTimeWeeks");
+    }
+
+    // Step 5: Description & Technical Specifications
     if (!preserveManualEdits || !manuallyEditedFields.has("shortDescription")) {
-      if (result.clinicalOverview) setShortDescription(result.clinicalOverview);
+      if (result.clinicalOverview) {
+        setShortDescription(result.clinicalOverview);
+        populated.add("shortDescription");
+      }
     }
     if (!preserveManualEdits || !manuallyEditedFields.has("fullDescription")) {
       if (result.clinicalOverview) {
@@ -602,31 +653,27 @@ export const AdminProductEditorPage: React.FC = () => {
           full += "\n\nIntended Clinical Applications:\n" + result.intendedUses.map((u: string) => `• ${u}`).join("\n");
         }
         setFullDescription(full);
+        populated.add("fullDescription");
       }
     }
-
-    // 4. Key Features
     if (!preserveManualEdits || !manuallyEditedFields.has("keyFeatures")) {
       if (Array.isArray(result.keyFeatures) && result.keyFeatures.length > 0) {
         setKeyFeatures(result.keyFeatures);
+        populated.add("keyFeatures");
       }
     }
-
-    // 5. Applications / Intended Uses
     if (!preserveManualEdits || !manuallyEditedFields.has("applications")) {
       if (Array.isArray(result.intendedUses) && result.intendedUses.length > 0) {
         setApplications(result.intendedUses);
+        populated.add("applications");
       }
     }
-
-    // 6. Package Contents
     if (!preserveManualEdits || !manuallyEditedFields.has("packageContents")) {
       if (Array.isArray(result.packageContents) && result.packageContents.length > 0) {
         setPackageContents(result.packageContents);
+        populated.add("packageContents");
       }
     }
-
-    // 7. Technical Specifications
     if (!preserveManualEdits || !manuallyEditedFields.has("specList")) {
       if (Array.isArray(result.technicalSpecifications) && result.technicalSpecifications.length > 0) {
         const newSpecs = result.technicalSpecifications.map((s: any) => ({
@@ -636,19 +683,47 @@ export const AdminProductEditorPage: React.FC = () => {
           note: s.note || ""
         }));
         setSpecList(newSpecs);
+        populated.add("specList");
+      }
+    }
+    if (!preserveManualEdits || !manuallyEditedFields.has("warranty")) {
+      if (!warranty) setWarranty("2-Year Comprehensive Clinical Warranty");
+    }
+    if (!preserveManualEdits || !manuallyEditedFields.has("shippingInformation")) {
+      if (!shippingInformation) setShippingInformation("Express Air Cargo Dispatch with Shockproof Wooden Crating");
+    }
+
+    // Step 6: Documentation & SEO
+    if (!preserveManualEdits || !manuallyEditedFields.has("regulatoryClass")) {
+      if (result.regulatoryClassification) {
+        setRegulatoryClass(result.regulatoryClassification);
+        populated.add("regulatoryClass");
+      }
+    }
+    if (!preserveManualEdits || !manuallyEditedFields.has("certificationStatus")) {
+      setCertificationStatus(result.fieldsNeedingVerification?.length > 0 ? "Pending Verification" : "Verified");
+      populated.add("certificationStatus");
+    }
+    if (!preserveManualEdits || !manuallyEditedFields.has("metaTitle")) {
+      if (result.seoTitle) {
+        setMetaTitle(result.seoTitle);
+        populated.add("metaTitle");
+      }
+    }
+    if (!preserveManualEdits || !manuallyEditedFields.has("metaDescription")) {
+      if (result.seoDescription) {
+        setMetaDescription(result.seoDescription);
+        populated.add("metaDescription");
       }
     }
 
-    // 8. Documentation & SEO
-    if (!preserveManualEdits || !manuallyEditedFields.has("certificationStatus")) {
-      setCertificationStatus(result.fieldsNeedingVerification?.length > 0 ? "Pending Verification" : "Verified");
+    // Step 7: Publishing & Visibility (Draft status for new creations)
+    if (!isEditMode && (!preserveManualEdits || !manuallyEditedFields.has("status"))) {
+      setStatus("DRAFT");
+      populated.add("status");
     }
-    if (!preserveManualEdits || !manuallyEditedFields.has("metaTitle")) {
-      if (result.seoTitle) setMetaTitle(result.seoTitle);
-    }
-    if (!preserveManualEdits || !manuallyEditedFields.has("metaDescription")) {
-      if (result.seoDescription) setMetaDescription(result.seoDescription);
-    }
+
+    setAiPopulatedFields(populated);
   };
 
   const triggerAiIdentification = async () => {
@@ -707,18 +782,24 @@ export const AdminProductEditorPage: React.FC = () => {
       await new Promise((r) => setTimeout(r, 100));
       if (activeAnalysisIdRef.current !== thisAnalysisId) return;
 
-      // 5. Presenting suggestions (requires user confirmation before applying)
+      // 5. Automatically populate applicable form fields across all 7 steps
       setAiIdentifyPhase("preparing_fields");
       if (activeAnalysisIdRef.current !== thisAnalysisId) return;
 
       setAiIdentifyResult(data.data);
+      applyAiResultsToForm(data.data);
+      setAiAppliedNotification(true);
       setAiIdentifyPhase("complete");
     } catch (err: any) {
       if (activeAnalysisIdRef.current === thisAnalysisId) {
         console.warn("AI identification error:", err);
         const errMsg = err?.message || "Failed to identify medical equipment.";
         if (errMsg.includes("GEMINI_API_KEY") || errMsg.includes("not configured")) {
-          setAiIdentifyError("Smart Product Assistant: GEMINI_API_KEY is not configured on this server. Please configure it in Vercel Environment Variables. Your original photos are safely preserved.");
+          setAiIdentifyError("Smart Product Assistant: GEMINI_API_KEY is not configured on this server. Please ensure GEMINI_API_KEY or GOOGLE_API_KEY is configured in Vercel Environment Variables and redeployed. Your original photos are safely preserved.");
+        } else if (errMsg.includes("rate limit") || errMsg.includes("quota") || errMsg.includes("RESOURCE_EXHAUSTED")) {
+          setAiIdentifyError("Smart Product Assistant: Gemini API quota or rate limit exceeded. Please retry in a few moments. Your original photos are safely preserved.");
+        } else if (errMsg.includes("timed out") || errMsg.includes("timeout")) {
+          setAiIdentifyError("Smart Product Assistant: Request timed out while analyzing photographs. Please retry. Your original photos are safely preserved.");
         } else {
           setAiIdentifyError(`AI analysis failed: ${errMsg}. Your uploaded photos are preserved and you can continue editing manually.`);
         }
@@ -1901,8 +1982,13 @@ export const AdminProductEditorPage: React.FC = () => {
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-[#16803D]" />
                     <span className="text-xs font-bold text-[#171717]">
-                      AI Suggestions Ready: {aiIdentifyResult.productName || aiIdentifyResult.equipmentType}
+                      AI Suggestions Applied: {aiIdentifyResult.productName || aiIdentifyResult.equipmentType}
                     </span>
+                    {aiPopulatedFields.size > 0 && (
+                      <span className="text-[10px] px-2 py-0.5 rounded-full font-mono bg-emerald-100 text-[#16803D] font-bold">
+                        {aiPopulatedFields.size} fields auto-populated
+                      </span>
+                    )}
                   </div>
                   <div className="flex items-center gap-2">
                     <span
@@ -1931,9 +2017,17 @@ export const AdminProductEditorPage: React.FC = () => {
                       className="px-3 py-1 bg-[#16803D] hover:bg-[#126430] text-white text-xs font-bold rounded shadow-xs cursor-pointer flex items-center gap-1.5"
                     >
                       <Check size={12} />
-                      <span>Apply Suggestions to Form Fields</span>
+                      <span>Re-apply AI Suggestions</span>
                     </button>
                   </div>
+                </div>
+
+                {/* Selling Price / Manual Input Reminder */}
+                <div className="p-2 rounded bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-center gap-2">
+                  <AlertCircle size={14} className="shrink-0 text-amber-600" />
+                  <span>
+                    Selling Price (₹) requires manual confirmation in Step 4. All generated details remain 100% editable before saving.
+                  </span>
                 </div>
 
                 {/* Matched Taxonomy Summary */}
@@ -1951,6 +2045,22 @@ export const AdminProductEditorPage: React.FC = () => {
                     <span className="font-semibold text-neutral-800">{aiIdentifyResult.equipmentType}</span>
                   </div>
                 </div>
+
+                {/* Fields Needing Verification */}
+                {Array.isArray(aiIdentifyResult.fieldsNeedingVerification) && aiIdentifyResult.fieldsNeedingVerification.length > 0 && (
+                  <div className="p-2 rounded bg-neutral-50 border border-[#E5E5E5] text-[11px] space-y-1">
+                    <span className="font-bold text-neutral-700 block text-[9px] uppercase font-mono">
+                      Specs Requiring Physical Rating Plate Check:
+                    </span>
+                    <div className="flex flex-wrap gap-1">
+                      {aiIdentifyResult.fieldsNeedingVerification.map((f: string, i: number) => (
+                        <span key={i} className="px-1.5 py-0.5 bg-neutral-200 text-neutral-800 rounded text-[10px] font-mono">
+                          {f}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* Grounded Visual Evidence */}
                 {aiIdentifyResult.evidenceFromImages && (

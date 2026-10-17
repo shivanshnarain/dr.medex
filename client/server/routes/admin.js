@@ -1742,12 +1742,14 @@ router.post("/products/ai-identify", requireAdmin, async (req, res) => {
     console.error("[Admin API] AI Product Identification Error:", err.message);
     const msg = err.message || "Failed to identify medical equipment.";
     let statusCode = 500;
-    if (msg.includes("GEMINI_API_KEY") || msg.includes("API key")) {
+    if (msg.includes("GEMINI_API_KEY") || msg.includes("API key") || msg.includes("not configured")) {
       statusCode = 503;
-    } else if (msg.includes("rate limit") || msg.includes("RESOURCE_EXHAUSTED")) {
+    } else if (msg.includes("rate limit") || msg.includes("RESOURCE_EXHAUSTED") || msg.includes("quota")) {
       statusCode = 429;
-    } else if (msg.includes("high demand") || msg.includes("503")) {
+    } else if (msg.includes("high demand") || msg.includes("503") || msg.includes("temporarily unavailable")) {
       statusCode = 503;
+    } else if (msg.includes("timed out") || msg.includes("timeout")) {
+      statusCode = 504;
     } else if (msg.includes("Maximum") || msg.includes("Unsupported") || msg.includes("No photographs") || msg.includes("Invalid")) {
       statusCode = 400;
     }

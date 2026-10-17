@@ -297,17 +297,6 @@ router.get("/reviews", async (req, res) => {
   }
 });
 
-router.get("/reviews/:productId", async (req, res) => {
-  try {
-    const limit = Math.min(50, Math.max(1, parseInt(req.query.limit, 10) || 10));
-    const offset = Math.max(0, parseInt(req.query.offset, 10) || 0);
-    const result = await firestoreService.getApprovedReviews(req.params.productId, { limit, offset });
-    res.json({ success: true, ...result });
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
-  }
-});
-
 // In-memory rate limiting map for review submissions (max 5 submissions per 10 minutes per IP)
 const reviewSubmissionRateLimitMap = new Map();
 // Cache of recent review hashes to prevent duplicate review submissions
@@ -362,6 +351,179 @@ function checkSuggestionRateLimit(ip) {
 router.get("/reviews/provider-status", (req, res) => {
   const status = reviewAiService.getProviderStatus();
   res.json({ success: true, ...status });
+});
+
+// Get product- and rating-specific review suggestions (Fresh suggestions with intelligent rotation & caching)
+router.get("/reviews/suggestions", async (req, res) => {
+  try {
+    const ip = req.ip || req.connection.remoteAddress || "127.0.0.1";
+    if (!checkSuggestionRateLimit(ip)) {
+      return res.status(429).json({
+        success: false,
+        message: "Suggestion refresh rate limit reached. Please wait a moment before trying again."
+      });
+    }
+
+    const { productId, rating, productTitle, category, refresh, bustCache, poolIndex } = req.query;
+    if (!productId || typeof productId !== "string" || productId.trim().length === 0) {
+      return res.status(400).json({ success: false, message: "Missing or invalid productId" });
+    }
+
+    const cleanRating = Math.min(5, Math.max(1, Math.round(Number(rating) || 4)));
+    const activeProvider = reviewAiService.getConfiguredProvider();
+    const cacheKey = `${productId.trim()}:${cleanRating}:${activeProvider}`;
+    const TTL_MS = 5 * 60 * 1000; // 5-minute configurable cache window
+    const isRefresh = refresh === "true" || bustCache === "true" || Boolean(req.query.t);
+
+    const existingEntry = reviewSuggestionsCache.get(cacheKey);
+
+    // Return cached batch if available, not expired, and not explicitly refreshing
+    if (!isRefresh && existingEntry && (Date.now() - (existingEntry.timestamp || 0)) < TTL_MS) {
+      if (Array.isArray(existingEntry.batch) && existingEntry.batch.length === 6) {
+        return res.json({
+          success: true,
+          suggestions: existingEntry.batch,
+          cached: true,
+          provider: existingEntry.provider || activeProvider,
+          model: existingEntry.model
+        });
+      }
+    }
+
+    // In-flight request deduplication: if identical generation is already running, wait on existing promise
+    if (inFlightSuggestions.has(cacheKey)) {
+      try {
+        const sharedResult = await inFlightSuggestions.get(cacheKey);
+        return res.json({ ...sharedResult, cached: true });
+      } catch (err) {
+        // Continue to fresh execution if in-flight failed
+      }
+    }
+
+    // Determine pool index for variation
+    const prevPool = existingEntry ? (existingEntry.poolIndex || 0) : 0;
+    const requestedPool = parseInt(poolIndex, 10);
+    const nextPool = !isNaN(requestedPool) ? requestedPool : (prevPool + 1);
+
+    // Create execution promise and register in inFlightSuggestions map
+    const generationPromise = (async () => {
+      const aiResult = await reviewAiService.generateProductReviewSuggestions({
+        productId: String(productId).trim(),
+        productTitle: String(productTitle || "Medical Equipment"),
+        category: String(category || "operating-theater"),
+        rating: cleanRating,
+        poolIndex: nextPool,
+        variantSeed: Date.now() + nextPool * 1000
+      });
+
+      let suggestions = aiResult.suggestions || [];
+
+      // Enforce word limit (<= 20 words, 1-2 lines) across all suggestions
+      if (Array.isArray(suggestions)) {
+        suggestions = suggestions.map((item, idx) => ({
+          id: item.id || `sugg-${cleanRating}-${nextPool}-${idx + 1}`,
+          theme: item.theme || "Clinical Utility",
+          title: String(item.title || `${cleanRating}-Star Review`).trim(),
+          text: geminiVisionService.enforceWordLimit(String(item.text || "").trim(), 20)
+        }));
+      }
+
+      // Deduplication check across recent batch history (prevent repeating sentences across consecutive refreshes)
+      const recentBatches = existingEntry?.recentBatches || (existingEntry?.lastTexts ? [existingEntry.lastTexts] : []);
+      const newTexts = suggestions.map(s => s.text);
+
+      let isDuplicate = false;
+      for (const oldBatch of recentBatches) {
+        const matchCount = newTexts.filter(t => oldBatch.includes(t)).length;
+        if (matchCount >= 4) {
+          isDuplicate = true;
+          break;
+        }
+      }
+
+      if (isDuplicate) {
+        // Too similar to recent batches: draw fresh deterministic pool
+        const alternateBatch = geminiVisionService.buildThemedSuggestions({
+          rating: cleanRating,
+          productTitle: String(productTitle || "Medical Equipment"),
+          category: String(category || "operating-theater"),
+          poolIndex: nextPool + 1
+        });
+        suggestions = alternateBatch.map((item) => ({
+          ...item,
+          text: geminiVisionService.enforceWordLimit(item.text, 20)
+        }));
+      }
+
+      // Fallback safety to guarantee exactly 6 valid suggestions
+      if (!Array.isArray(suggestions) || suggestions.length < 6) {
+        suggestions = geminiVisionService.buildThemedSuggestions({
+          rating: cleanRating,
+          productTitle: String(productTitle || "Medical Equipment"),
+          category: String(category || "operating-theater"),
+          poolIndex: nextPool
+        });
+      }
+
+      const updatedHistory = [suggestions.map(s => s.text), ...recentBatches].slice(0, 5);
+
+      reviewSuggestionsCache.set(cacheKey, {
+        batch: suggestions,
+        recentBatches: updatedHistory,
+        lastTexts: suggestions.map(s => s.text),
+        poolIndex: nextPool,
+        provider: aiResult.provider || activeProvider,
+        model: aiResult.model,
+        timestamp: Date.now()
+      });
+
+      return {
+        success: true,
+        suggestions,
+        cached: false,
+        provider: aiResult.provider || activeProvider,
+        model: aiResult.model,
+        poolIndex: nextPool,
+        fallbackUsed: Boolean(aiResult.fallbackUsed)
+      };
+    })();
+
+    inFlightSuggestions.set(cacheKey, generationPromise);
+
+    try {
+      const result = await generationPromise;
+      res.json(result);
+    } finally {
+      inFlightSuggestions.delete(cacheKey);
+    }
+  } catch (err) {
+    console.warn("[API] Suggestions generation error:", err.message);
+    const cleanRating = Math.min(5, Math.max(1, Math.round(Number(req.query.rating) || 4)));
+    const fallbackBatch = geminiVisionService.buildThemedSuggestions({
+      rating: cleanRating,
+      productTitle: String(req.query.productTitle || "Medical Equipment"),
+      category: String(req.query.category || "operating-theater"),
+      poolIndex: parseInt(req.query.poolIndex, 10) || 1
+    });
+    res.json({
+      success: true,
+      suggestions: fallbackBatch,
+      cached: false,
+      fallback: true,
+      provider: "deterministic-fallback"
+    });
+  }
+});
+
+router.get("/reviews/:productId", async (req, res) => {
+  try {
+    const limit = Math.min(50, Math.max(1, parseInt(req.query.limit, 10) || 10));
+    const offset = Math.max(0, parseInt(req.query.offset, 10) || 0);
+    const result = await firestoreService.getApprovedReviews(req.params.productId, { limit, offset });
+    res.json({ success: true, ...result });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
 // Customer Authentication & Login Activity Audit
@@ -714,167 +876,7 @@ router.get("/auth/recovery-diagnostics", (req, res) => {
   res.json({ success: true, diagnostics });
 });
 
-// Get product- and rating-specific review suggestions (Fresh suggestions with intelligent rotation & caching)
-router.get("/reviews/suggestions", async (req, res) => {
-  try {
-    const ip = req.ip || req.connection.remoteAddress || "127.0.0.1";
-    if (!checkSuggestionRateLimit(ip)) {
-      return res.status(429).json({
-        success: false,
-        message: "Suggestion refresh rate limit reached. Please wait a moment before trying again."
-      });
-    }
 
-    const { productId, rating, productTitle, category, refresh, bustCache, poolIndex } = req.query;
-    if (!productId || typeof productId !== "string" || productId.trim().length === 0) {
-      return res.status(400).json({ success: false, message: "Missing or invalid productId" });
-    }
-
-    const cleanRating = Math.min(5, Math.max(1, Math.round(Number(rating) || 4)));
-    const activeProvider = reviewAiService.getConfiguredProvider();
-    const cacheKey = `${productId.trim()}:${cleanRating}:${activeProvider}`;
-    const TTL_MS = 5 * 60 * 1000; // 5-minute configurable cache window
-    const isRefresh = refresh === "true" || bustCache === "true" || Boolean(req.query.t);
-
-    const existingEntry = reviewSuggestionsCache.get(cacheKey);
-
-    // Return cached batch if available, not expired, and not explicitly refreshing
-    if (!isRefresh && existingEntry && (Date.now() - (existingEntry.timestamp || 0)) < TTL_MS) {
-      if (Array.isArray(existingEntry.batch) && existingEntry.batch.length === 6) {
-        return res.json({
-          success: true,
-          suggestions: existingEntry.batch,
-          cached: true,
-          provider: existingEntry.provider || activeProvider,
-          model: existingEntry.model
-        });
-      }
-    }
-
-    // In-flight request deduplication: if identical generation is already running, wait on existing promise
-    if (inFlightSuggestions.has(cacheKey)) {
-      try {
-        const sharedResult = await inFlightSuggestions.get(cacheKey);
-        return res.json({ ...sharedResult, cached: true });
-      } catch (err) {
-        // Continue to fresh execution if in-flight failed
-      }
-    }
-
-    // Determine pool index for variation
-    const prevPool = existingEntry ? (existingEntry.poolIndex || 0) : 0;
-    const requestedPool = parseInt(poolIndex, 10);
-    const nextPool = !isNaN(requestedPool) ? requestedPool : (prevPool + 1);
-
-    // Create execution promise and register in inFlightSuggestions map
-    const generationPromise = (async () => {
-      const aiResult = await reviewAiService.generateProductReviewSuggestions({
-        productId: String(productId).trim(),
-        productTitle: String(productTitle || "Medical Equipment"),
-        category: String(category || "operating-theater"),
-        rating: cleanRating,
-        poolIndex: nextPool,
-        variantSeed: Date.now() + nextPool * 1000
-      });
-
-      let suggestions = aiResult.suggestions || [];
-
-      // Enforce word limit (<= 20 words, 1-2 lines) across all suggestions
-      if (Array.isArray(suggestions)) {
-        suggestions = suggestions.map((item, idx) => ({
-          id: item.id || `sugg-${cleanRating}-${nextPool}-${idx + 1}`,
-          theme: item.theme || "Clinical Utility",
-          title: String(item.title || `${cleanRating}-Star Review`).trim(),
-          text: geminiVisionService.enforceWordLimit(String(item.text || "").trim(), 20)
-        }));
-      }
-
-      // Deduplication check across recent batch history (prevent repeating sentences across consecutive refreshes)
-      const recentBatches = existingEntry?.recentBatches || (existingEntry?.lastTexts ? [existingEntry.lastTexts] : []);
-      const newTexts = suggestions.map(s => s.text);
-
-      let isDuplicate = false;
-      for (const oldBatch of recentBatches) {
-        const matchCount = newTexts.filter(t => oldBatch.includes(t)).length;
-        if (matchCount >= 4) {
-          isDuplicate = true;
-          break;
-        }
-      }
-
-      if (isDuplicate) {
-        // Too similar to recent batches: draw fresh deterministic pool
-        const alternateBatch = geminiVisionService.buildThemedSuggestions({
-          rating: cleanRating,
-          productTitle: String(productTitle || "Medical Equipment"),
-          category: String(category || "operating-theater"),
-          poolIndex: nextPool + 1
-        });
-        suggestions = alternateBatch.map((item) => ({
-          ...item,
-          text: geminiVisionService.enforceWordLimit(item.text, 20)
-        }));
-      }
-
-      // Fallback safety to guarantee exactly 6 valid suggestions
-      if (!Array.isArray(suggestions) || suggestions.length < 6) {
-        suggestions = geminiVisionService.buildThemedSuggestions({
-          rating: cleanRating,
-          productTitle: String(productTitle || "Medical Equipment"),
-          category: String(category || "operating-theater"),
-          poolIndex: nextPool
-        });
-      }
-
-      const updatedHistory = [suggestions.map(s => s.text), ...recentBatches].slice(0, 5);
-
-      reviewSuggestionsCache.set(cacheKey, {
-        batch: suggestions,
-        recentBatches: updatedHistory,
-        lastTexts: suggestions.map(s => s.text),
-        poolIndex: nextPool,
-        provider: aiResult.provider || activeProvider,
-        model: aiResult.model,
-        timestamp: Date.now()
-      });
-
-      return {
-        success: true,
-        suggestions,
-        cached: false,
-        provider: aiResult.provider || activeProvider,
-        model: aiResult.model,
-        poolIndex: nextPool,
-        fallbackUsed: Boolean(aiResult.fallbackUsed)
-      };
-    })();
-
-    inFlightSuggestions.set(cacheKey, generationPromise);
-
-    try {
-      const result = await generationPromise;
-      res.json(result);
-    } finally {
-      inFlightSuggestions.delete(cacheKey);
-    }
-  } catch (err) {
-    console.warn("[API] Suggestions generation error:", err.message);
-    const cleanRating = Math.min(5, Math.max(1, Math.round(Number(req.query.rating) || 4)));
-    const fallbackBatch = geminiVisionService.buildThemedSuggestions({
-      rating: cleanRating,
-      productTitle: String(req.query.productTitle || "Medical Equipment"),
-      category: String(req.query.category || "operating-theater"),
-      poolIndex: parseInt(req.query.poolIndex, 10) || 1
-    });
-    res.json({
-      success: true,
-      suggestions: fallbackBatch,
-      cached: false,
-      fallback: true,
-      provider: "deterministic-fallback"
-    });
-  }
-});
 
 // Submit a new review (Anti-spam, forced PENDING, and verifiedPurchase: false)
 router.post("/reviews", async (req, res) => {

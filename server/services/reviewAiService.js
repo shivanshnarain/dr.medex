@@ -31,7 +31,7 @@ function getConfiguredProvider() {
 function getProviderStatus() {
   const configuredProvider = getConfiguredProvider();
   const cfStatus = cloudflareAiService.getStatus();
-  const geminiConfigured = Boolean(process.env.GEMINI_API_KEY);
+  const geminiConfigured = geminiVisionService.isConfigured();
 
   let activeProvider = configuredProvider;
   let fallbackReason = null;

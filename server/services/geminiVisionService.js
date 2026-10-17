@@ -6,6 +6,9 @@
 
 const fs = require("fs");
 const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, "../.env") });
+require("dotenv").config({ path: path.join(__dirname, "../../.env") });
+require("dotenv").config();
 const { GoogleGenAI } = require("@google/genai");
 const catalogueHierarchy = require("../data/catalogueHierarchy");
 
@@ -25,27 +28,63 @@ const CANDIDATE_MODELS = [
   "gemini-3.8-flash"
 ];
 
+// Canonical server-side environment variables supported for Gemini credentials
+const CANONICAL_ENV_VARS = [
+  "GEMINI_API_KEY",
+  "GOOGLE_API_KEY",
+  "GOOGLE_GENAI_API_KEY",
+  "GEMINI_KEY",
+  "GOOGLE_GEMINI_API_KEY",
+  "VITE_GEMINI_API_KEY",
+  "VITE_GOOGLE_API_KEY"
+];
+
+function getDetectedEnvVar() {
+  for (const varName of CANONICAL_ENV_VARS) {
+    const val = process.env[varName];
+    if (val && typeof val === "string" && val.trim().length > 0) {
+      return varName;
+    }
+  }
+  return null;
+}
+
 function isConfigured() {
-  return Boolean(process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY.trim());
+  return Boolean(getDetectedEnvVar());
 }
 
 function getGeminiStatus() {
-  const configured = isConfigured();
+  const detectedVar = getDetectedEnvVar();
   return {
-    configured,
+    configured: Boolean(detectedVar),
     provider: "google-gemini",
     models: CANDIDATE_MODELS,
-    envVarName: "GEMINI_API_KEY",
+    envVarName: detectedVar || "GEMINI_API_KEY",
     activeModel: CANDIDATE_MODELS[0]
   };
 }
 
 function getApiKey() {
-  const key = process.env.GEMINI_API_KEY;
-  if (!key || !key.trim()) {
-    throw new Error("GEMINI_API_KEY is not configured on the server. Please set it in .env file.");
+  const detectedVar = getDetectedEnvVar();
+  if (!detectedVar) {
+    throw new Error(
+      "GEMINI_API_KEY is not configured on this server. Please ensure GEMINI_API_KEY or GOOGLE_API_KEY is configured in your server environment."
+    );
   }
-  return key.trim();
+  return process.env[detectedVar].trim();
+}
+
+// Client singleton instance to reuse across requests
+let cachedGenAiClient = null;
+let cachedKey = null;
+
+function getGenAiClient() {
+  const apiKey = getApiKey();
+  if (!cachedGenAiClient || cachedKey !== apiKey) {
+    cachedGenAiClient = new GoogleGenAI({ apiKey });
+    cachedKey = apiKey;
+  }
+  return cachedGenAiClient;
 }
 
 /**
@@ -303,8 +342,7 @@ async function identifyProductFromPhotos(photos) {
   }
 
   // 2. Prepare SDK and Prompt
-  const apiKey = getApiKey();
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = getGenAiClient();
   const taxonomyText = buildTaxonomyReference();
   const systemPrompt = buildPrompt(taxonomyText);
 
@@ -351,13 +389,19 @@ async function identifyProductFromPhotos(photos) {
 
   if (lastError && !rawText) {
     const msg = lastError.message || String(lastError);
-    if (msg.includes("429") || msg.includes("RESOURCE_EXHAUSTED") || msg.includes("rate limit")) {
-      throw new Error("Gemini API rate limit exceeded. Please wait a moment before trying again.");
+    if (msg.includes("403") || msg.includes("PERMISSION_DENIED") || msg.includes("API_KEY_INVALID") || msg.includes("invalid API key")) {
+      throw new Error("Gemini API key is invalid or lacks necessary permissions. Please check your Google AI credentials.");
     }
-    if (msg.includes("503") || msg.includes("high demand")) {
-      throw new Error("Google Gemini AI services are currently experiencing high demand. Please retry in a few moments.");
+    if (msg.includes("429") || msg.includes("RESOURCE_EXHAUSTED") || msg.includes("quota") || msg.includes("rate limit")) {
+      throw new Error("Gemini API quota or rate limit exceeded. Please wait a moment before trying again.");
     }
-    throw new Error(`Gemini Vision analysis failed: ${msg}`);
+    if (msg.includes("503") || msg.includes("high demand") || msg.includes("temporarily unavailable") || msg.includes("UNAVAILABLE")) {
+      throw new Error("Google Gemini AI services are temporarily experiencing high demand. Please retry in a few moments.");
+    }
+    if (msg.includes("DEADLINE_EXCEEDED") || msg.includes("timeout") || msg.includes("ETIMEDOUT")) {
+      throw new Error("Gemini request timed out while analyzing high-resolution photographs. Please retry.");
+    }
+    throw new Error(`Gemini Vision analysis failed: ${msg.replace(/key=[^&\s]+/gi, "key=[REDACTED]")}`);
   }
 
   // 4. Parse and Validate JSON output
@@ -471,7 +515,7 @@ STRICT GROUNDING & ETHICS RULES:
 }`;
 
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    const ai = getGenAiClient();
     let rawText = "";
     let lastErr = null;
 
@@ -691,7 +735,7 @@ Return ONLY a valid JSON array of 6 objects with this exact structure:
 ]`;
 
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    const ai = getGenAiClient();
     let rawText = "";
 
     for (const model of CANDIDATE_MODELS) {
@@ -870,6 +914,8 @@ function buildThemedSuggestions({ rating, productTitle, category, poolIndex = 0 
 module.exports = {
   isConfigured,
   getGeminiStatus,
+  getApiKey,
+  getGenAiClient,
   identifyProductFromPhotos,
   validateAndSanitizeOutput,
   buildTaxonomyReference,
