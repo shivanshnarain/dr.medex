@@ -1,8 +1,6 @@
-import { createRequire } from 'node:module';
-const require = createRequire(import.meta.url);
-const app = require('../../server/index');
+const app = require("../../server/index");
 
-export default function handler(req, res) {
+module.exports = (req, res) => {
   if (req.query && req.query.path) {
     const rawPath = req.query.path;
     const pathStr = Array.isArray(rawPath) ? rawPath.join("/") : rawPath;
@@ -31,4 +29,4 @@ export default function handler(req, res) {
   }
 
   return app(req, res);
-}
+};
