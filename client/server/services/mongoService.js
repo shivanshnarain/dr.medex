@@ -267,21 +267,23 @@ async function removeApprovedProduct(productId) {
 }
 
 /**
- * Get product by ID from MongoDB
- */
 /**
- * Get product by ID from MongoDB
+ * Get product by ID or slug from MongoDB Atlas
  */
 async function getApprovedProduct(productId) {
   if (!isConfigured()) return null;
   if (Date.now() - lastFailureTime < 15000 && connectionFailureCount > 0) return null;
   try {
     const collection = await getCollection();
-    return await collection.findOne({ id: String(productId) });
+    const pid = String(productId);
+    return await collection.findOne({
+      $or: [{ id: pid }, { slug: pid }]
+    });
   } catch (err) {
     return null;
   }
 }
+
 
 /**
  * Query all products directly from MongoDB collection

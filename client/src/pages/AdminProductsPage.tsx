@@ -627,7 +627,7 @@ export const AdminProductsPage: React.FC = () => {
         const addUrl = (raw: any) => {
           if (!raw) return;
           let u = typeof raw === "string" ? raw.trim() : (raw.url || raw.secureUrl || raw.secure_url || raw.src || "").trim();
-          if (!u || u.startsWith("data:")) return;
+          if (!u || u.startsWith("data:") || u.startsWith("blob:")) return;
           if (u.startsWith("products-catalog/")) u = `/${u}`;
           if (!seen.has(u)) {
             seen.add(u);
@@ -635,14 +635,13 @@ export const AdminProductsPage: React.FC = () => {
           }
         };
 
-        addUrl(product.primaryImage);
-        addUrl((product as any).originalPrimaryImage);
-        if (Array.isArray(product.images)) product.images.forEach(addUrl);
-        if (Array.isArray((product as any).originalImages)) (product as any).originalImages.forEach(addUrl);
-        if (Array.isArray(product.galleryImages)) product.galleryImages.forEach(addUrl);
-        if (Array.isArray((product as any).managedCloudinaryImages)) {
-          (product as any).managedCloudinaryImages.forEach((m: any) => addUrl(m?.secureUrl || m?.secure_url || m?.url));
-        }
+        const currentImages = Array.isArray(product.images) && product.images.length > 0
+          ? product.images
+          : (Array.isArray(product.galleryImages) && product.galleryImages.length > 0
+            ? product.galleryImages
+            : (product.primaryImage ? [product.primaryImage] : []));
+
+        currentImages.forEach(addUrl);
       }
 
       if (urls.length === 0) {

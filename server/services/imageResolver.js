@@ -129,63 +129,74 @@ function normalizeImageRef(rawUrl, baseSku, index, isPrimary = false) {
 }
 
 /**
- * Canonical product image resolver
- * Extracts all legitimate product photos across all historical schemas, formats and arrays
+ * Safely extract Cloudinary public ID from a remote Cloudinary URL
+ */
+function extractCloudinaryPublicId(url) {
+  if (!url || typeof url !== "string") return null;
+  if (!url.includes("cloudinary.com") && !url.includes("res.cloudinary.com")) return null;
+  const parts = url.split(/\/upload\/(?:[a-zA-Z0-9_,]+(?:\/)?)*(?:v\d+\/)?/);
+  if (parts.length > 1) {
+    const afterUpload = parts[1].split("?")[0];
+    return afterUpload.replace(/\.[a-zA-Z0-9]+$/, "");
+  }
+  return null;
+}
+
+/**
+ * Authoritative canonical product image resolver
+ * Resolves the product's single current gallery without unioning historical/deprecated arrays
  */
 function resolveProductImages(product) {
   if (!product) return [];
 
   const baseSku = product.sku || product.SKU || product.id || "product";
+
+  // 1. Establish the single authoritative current gallery array
+  let canonicalList = [];
+  if (Array.isArray(product.images) && product.images.length > 0) {
+    canonicalList = product.images;
+  } else if (Array.isArray(product.galleryImages) && product.galleryImages.length > 0) {
+    canonicalList = product.galleryImages;
+  } else if (product.primaryImage) {
+    canonicalList = [product.primaryImage];
+  }
+
+  // 2. Resolve primary image candidate
   const primaryRaw = extractRawUrl(product.primaryImage) || extractRawUrl(product.originalPrimaryImage);
+  let normPrimary = primaryRaw ? primaryRaw.trim() : "";
+  if (normPrimary.startsWith("products-catalog/")) normPrimary = `/${normPrimary}`;
 
-  const rawCandidates = [];
-  if (primaryRaw) {
-    rawCandidates.push({ raw: primaryRaw, isPrimary: true });
-  }
-
-  // 1. Check images array
-  if (Array.isArray(product.images)) {
-    product.images.forEach(it => {
-      const u = extractRawUrl(it);
-      if (u) rawCandidates.push({ raw: u, isPrimary: Boolean(it && it.isPrimary) });
-    });
-  }
-
-  // 2. Check originalImages array
-  if (Array.isArray(product.originalImages)) {
-    product.originalImages.forEach(it => {
-      const u = extractRawUrl(it);
-      if (u) rawCandidates.push({ raw: u, isPrimary: false });
-    });
-  }
-
-  // 3. Check galleryImages array
-  if (Array.isArray(product.galleryImages)) {
-    product.galleryImages.forEach(it => {
-      const u = extractRawUrl(it);
-      if (u) rawCandidates.push({ raw: u, isPrimary: Boolean(it && it.isPrimary) });
-    });
-  }
-
-  // 4. Check managedCloudinaryImages array
-  if (Array.isArray(product.managedCloudinaryImages)) {
-    product.managedCloudinaryImages.forEach(it => {
-      const u = extractRawUrl(it);
-      if (u) rawCandidates.push({ raw: u, isPrimary: Boolean(it && it.isPrimary) });
-    });
-  }
-
-  // Deduplicate preserving order
+  // 3. Deduplicate genuine duplicate URLs preserving order
   const seenUrls = new Set();
-  const resolved = [];
+  const rawCandidates = [];
 
-  for (const cand of rawCandidates) {
-    let norm = cand.raw.trim();
+  for (const item of canonicalList) {
+    const raw = extractRawUrl(item);
+    if (!raw) continue;
+    let norm = raw.trim();
     if (norm.startsWith("products-catalog/")) norm = `/${norm}`;
     if (!seenUrls.has(norm)) {
       seenUrls.add(norm);
-      resolved.push(normalizeImageRef(norm, baseSku, resolved.length, cand.isPrimary || (resolved.length === 0)));
+      rawCandidates.push(norm);
     }
+  }
+
+  // If primary image exists and is not represented in the list, place it at the front
+  if (normPrimary && !seenUrls.has(normPrimary)) {
+    rawCandidates.unshift(normPrimary);
+    seenUrls.add(normPrimary);
+  }
+
+  // 4. Return normalized representations with primary flag
+  const resolved = [];
+  for (let i = 0; i < rawCandidates.length; i++) {
+    const u = rawCandidates[i];
+    const isPrimary = normPrimary ? (u === normPrimary) : (i === 0);
+    resolved.push(normalizeImageRef(u, baseSku, i, isPrimary));
+  }
+
+  if (resolved.length > 0 && !resolved.some(r => r.isPrimary)) {
+    resolved[0].isPrimary = true;
   }
 
   return resolved;
@@ -195,5 +206,7 @@ module.exports = {
   resolveProductImages,
   resolveLocalImagePath,
   isAllowedRemoteUrl,
-  normalizeImageRef
+  normalizeImageRef,
+  extractCloudinaryPublicId
 };
+

@@ -35,6 +35,8 @@ export interface ProductImageSlot {
   status: "persisted" | "uploading" | "failed";
   errorMessage?: string;
   hasLoadError?: boolean;
+  publicId?: string;
+  storageProvider?: string;
 }
 
 export const AdminProductEditorPage: React.FC = () => {
@@ -83,6 +85,10 @@ export const AdminProductEditorPage: React.FC = () => {
   // ==========================================
 
   const [imageSlots, setImageSlots] = useState<ProductImageSlot[]>([]);
+  const imageSlotsRef = useRef<ProductImageSlot[]>(imageSlots);
+  useEffect(() => {
+    imageSlotsRef.current = imageSlots;
+  }, [imageSlots]);
   const [primaryImageIndex, setPrimaryImageIndex] = useState(0);
   const objectUrlsRef = useRef<string[]>([]);
   const images = useMemo(() => imageSlots.map((s) => s.url), [imageSlots]);
@@ -291,12 +297,31 @@ export const AdminProductEditorPage: React.FC = () => {
           setMinOrderQuantity(p.moq || 1);
           setLeadTimeWeeks(p.leadTimeWeeks || "1–2 Weeks");
 
-          const loadedImgs: string[] = p.images || (p.primaryImage ? [p.primaryImage] : []);
+          const loadedImgs: string[] = (Array.isArray(p.images) && p.images.length > 0)
+            ? p.images
+            : (Array.isArray(p.galleryImages) && p.galleryImages.length > 0
+              ? p.galleryImages
+              : (p.primaryImage ? [p.primaryImage] : []));
+
+          const managedMap = new Map<string, string>();
+          if (Array.isArray(p.managedCloudinaryImages)) {
+            p.managedCloudinaryImages.forEach((m: any) => {
+              const u = m?.secureUrl || m?.secure_url || m?.url;
+              const pid = m?.publicId || m?.public_id;
+              if (u && pid) managedMap.set(u, pid);
+            });
+          }
+
           setImageSlots(loadedImgs.map((u: string, i: number) => ({
             id: `saved-${i}-${Date.now()}`,
             url: u,
-            status: "persisted"
+            status: "persisted" as const,
+            publicId: managedMap.get(u),
+            storageProvider: managedMap.has(u) ? "cloudinary" : undefined
           })));
+
+          const pIdx = p.primaryImage ? loadedImgs.indexOf(p.primaryImage) : 0;
+          setPrimaryImageIndex(pIdx >= 0 ? pIdx : 0);
           setShortDescription(p.shortDescription || p.overview || "");
           setFullDescription(p.fullDescription || p.overview || "");
           setKeyFeatures(p.features || p.keyFeatures || []);
@@ -735,6 +760,9 @@ export const AdminProductEditorPage: React.FC = () => {
               ? {
                   ...s,
                   url: data.url,
+                  previewUrl: undefined,
+                  publicId: data.image?.publicId || data.publicId,
+                  storageProvider: data.image?.storageProvider || "cloudinary",
                   status: "persisted" as const,
                   errorMessage: undefined
                 }
@@ -1114,19 +1142,34 @@ export const AdminProductEditorPage: React.FC = () => {
       return;
     }
 
-    if (imageSlots.some((s) => s.status === "uploading")) {
+    // Wait for in-progress uploads if any are still actively uploading
+    if (imageSlotsRef.current.some((s) => s.status === "uploading")) {
       setStatusBanner({
         type: "warning",
-        text: "Photographs are currently uploading to media storage. Please wait a moment before saving."
+        text: "Photographs are currently uploading to media storage. Waiting for uploads to complete before saving..."
+      });
+      const startWait = Date.now();
+      while (imageSlotsRef.current.some((s) => s.status === "uploading") && Date.now() - startWait < 30000) {
+        await new Promise((r) => setTimeout(r, 400));
+      }
+    }
+
+    if (imageSlotsRef.current.some((s) => s.status === "uploading")) {
+      setStatusBanner({
+        type: "error",
+        text: "Photograph upload timed out. Please retry failed uploads before saving."
       });
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
 
-    if (imageSlots.some((s) => s.status === "failed")) {
+    const currentSlots = imageSlotsRef.current;
+    const failedSlots = currentSlots.filter((s) => s.status === "failed");
+    if (failedSlots.length > 0) {
+      const failedNames = failedSlots.map((s, i) => s.file?.name || `Photograph #${i + 1}`).join(", ");
       setStatusBanner({
-        type: "warning",
-        text: "One or more photographs failed to upload. Please click 'Retry' or remove the failed slot(s) before saving."
+        type: "error",
+        text: `Cannot save product: Upload failed for ${failedNames}. Please retry or remove the failed photograph(s) before saving.`
       });
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
@@ -1142,6 +1185,22 @@ export const AdminProductEditorPage: React.FC = () => {
         technicalSpecifications[s.key.trim()] = valWithUnit;
       }
     });
+
+    const persistedSlots = currentSlots.filter(
+      (s) => s.status === "persisted" && typeof s.url === "string" && !s.url.startsWith("blob:") && !s.url.startsWith("data:")
+    );
+    const savedImages = persistedSlots.map((s) => s.url);
+    const pSlot = currentSlots[primaryImageIndex];
+    const selectedPrimaryUrl = (pSlot && pSlot.status === "persisted" && !pSlot.url.startsWith("blob:") && !pSlot.url.startsWith("data:"))
+      ? pSlot.url
+      : (savedImages[0] || "");
+
+    const managedCloudinaryImages = persistedSlots.map((s) => ({
+      url: s.url,
+      secureUrl: s.url,
+      publicId: s.publicId || undefined,
+      storageProvider: s.storageProvider || "cloudinary"
+    }));
 
     const payload = {
       productName: productName.trim(),
@@ -1174,18 +1233,10 @@ export const AdminProductEditorPage: React.FC = () => {
       moq: Number(minOrderQuantity),
       leadTimeWeeks,
 
-      images: imageSlots
-        .filter((s) => s.status === "persisted" && typeof s.url === "string" && !s.url.startsWith("blob:") && !s.url.startsWith("data:"))
-        .map((s) => s.url),
-      primaryImage: (() => {
-        const persisted = imageSlots
-          .filter((s) => s.status === "persisted" && typeof s.url === "string" && !s.url.startsWith("blob:") && !s.url.startsWith("data:"))
-          .map((s) => s.url);
-        const pSlot = imageSlots[primaryImageIndex];
-        return (pSlot && pSlot.status === "persisted" && !pSlot.url.startsWith("blob:") && !pSlot.url.startsWith("data:"))
-          ? pSlot.url
-          : (persisted[0] || "");
-      })(),
+      images: savedImages,
+      galleryImages: savedImages,
+      primaryImage: selectedPrimaryUrl,
+      managedCloudinaryImages,
 
       shortDescription: shortDescription.trim(),
       fullDescription: fullDescription.trim(),
@@ -1241,6 +1292,17 @@ export const AdminProductEditorPage: React.FC = () => {
       }
 
       if (res.ok && data.success) {
+        const savedProduct = data.product;
+        const savedImgs = Array.isArray(savedProduct?.images) ? savedProduct.images : [];
+        if (payload.images.length > 0 && savedImgs.length < payload.images.length) {
+          setStatusBanner({
+            type: "error",
+            text: `Image persistence verification failed: submitted ${payload.images.length} photographs but server confirmed ${savedImgs.length}. Your changes have been preserved.`
+          });
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+        }
+
         setHasUnsavedChanges(false);
         navigate("/admin/products", {
           state: {

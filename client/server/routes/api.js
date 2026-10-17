@@ -10,6 +10,7 @@ const supabaseService = require("../services/supabaseService");
 const passwordRecoveryService = require("../services/passwordRecoveryService");
 const authService = require("../services/authService");
 const auditService = require("../services/auditService");
+const mongoService = require("../services/mongoService");
 
 // HEALTH
 router.get("/health", (req, res) => {
@@ -17,18 +18,54 @@ router.get("/health", (req, res) => {
 });
 
 // PRODUCTS
-router.get("/products", (req, res) => {
-  const list = store.getProducts(req.query);
-  res.json({ success: true, count: list.length, products: list });
+router.get("/products", async (req, res) => {
+  try {
+    let list = store.getProducts(req.query);
+    if (mongoService.isConfigured()) {
+      try {
+        const mongoList = await mongoService.getProductsFromMongo(req.query);
+        if (Array.isArray(mongoList) && mongoList.length > 0) {
+          const mongoMap = new Map(mongoList.map(m => [m.id, m]));
+          list = list.map(p => {
+            const m = mongoMap.get(p.id);
+            if (m) {
+              return {
+                ...p,
+                ...m
+              };
+            }
+            return p;
+          });
+        }
+      } catch (mErr) {}
+    }
+    res.json({ success: true, count: list.length, products: list });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
-router.get("/products/:slug", (req, res) => {
-  const product = store.getProductBySlug(req.params.slug);
-  if (!product) {
-    return res.status(404).json({ success: false, message: "Product not found" });
+router.get("/products/:slug", async (req, res) => {
+  try {
+    let product = store.getProductBySlug(req.params.slug);
+    if (mongoService.isConfigured()) {
+      try {
+        const mongoProd = await mongoService.getApprovedProduct(req.params.slug);
+        if (mongoProd) {
+          product = product ? { ...product, ...mongoProd } : mongoProd;
+        }
+      } catch (mErr) {}
+    }
+
+    if (!product) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+    res.json({ success: true, product });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
-  res.json({ success: true, product });
 });
+
 
 router.post("/products", (req, res) => {
   const created = store.addProduct(req.body);

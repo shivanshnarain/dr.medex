@@ -469,12 +469,27 @@ router.post("/products/check-duplicate", requireAdmin, (req, res) => {
   });
 });
 
-router.get("/products/:id", requireAdmin, (req, res) => {
-  const product = store.getProductById(req.params.id, true);
-  if (!product) {
-    return res.status(404).json({ success: false, message: "Product not found" });
+router.get("/products/:id", requireAdmin, async (req, res) => {
+  try {
+    let product = store.getProductById(req.params.id, true);
+    if (mongoService.isConfigured()) {
+      try {
+        const mongoProd = await mongoService.getApprovedProduct(req.params.id);
+        if (mongoProd) {
+          product = product ? { ...product, ...mongoProd } : mongoProd;
+        }
+      } catch (mErr) {
+        console.warn("[admin.js] Mongo fetch on getProductById:", mErr.message);
+      }
+    }
+
+    if (!product) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+    res.json({ success: true, product });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
-  res.json({ success: true, product });
 });
 
 /**
@@ -527,9 +542,12 @@ router.get("/products/:id/download-package", requireAdmin, async (req, res) => {
 router.get("/products/:id/images", requireAdmin, async (req, res) => {
   try {
     let product = store.getProductById(req.params.id, true);
-    if (!product && mongoService.isConfigured()) {
+    if (mongoService.isConfigured()) {
       try {
-        product = await mongoService.getApprovedProduct(req.params.id);
+        const mongoProd = await mongoService.getApprovedProduct(req.params.id);
+        if (mongoProd) {
+          product = product ? { ...product, ...mongoProd } : mongoProd;
+        }
       } catch (mErr) {}
     }
 
@@ -950,38 +968,82 @@ router.post("/products", requireAdmin, async (req, res) => {
       });
     }
 
-    // Handle base64 image uploads if present
+    // 1. Process and normalize canonical images array
+    let inputImages = [];
     if (Array.isArray(data.images)) {
-      const processedImages = [];
-      for (let i = 0; i < data.images.length; i++) {
-        const img = data.images[i];
-        if (typeof img === "string" && img.startsWith("data:image/")) {
-          try {
-            const uploadRes = await mediaService.uploadProductImage(
-              img,
-              `img_${i}_${Date.now()}.jpg`,
-              "image/jpeg",
-              "new_product",
-              data.title || data.productName || "Product"
-            );
-            if (uploadRes && uploadRes.url) {
-              processedImages.push(uploadRes.url);
-            } else {
-              processedImages.push(img);
-            }
-          } catch (upErr) {
-            console.warn("[admin.js] Image upload error during product create:", upErr.message);
+      inputImages = data.images
+        .map(img => (typeof img === "string" ? img.trim() : (img?.url || img?.secureUrl || "").trim()))
+        .filter(u => u && !u.startsWith("blob:"));
+    } else if (data.primaryImage) {
+      const p = typeof data.primaryImage === "string" ? data.primaryImage.trim() : "";
+      if (p) inputImages = [p];
+    }
+
+    const processedImages = [];
+    for (let i = 0; i < inputImages.length; i++) {
+      const img = inputImages[i];
+      if (typeof img === "string" && img.startsWith("data:image/")) {
+        try {
+          const uploadRes = await mediaService.uploadProductImage(
+            img,
+            `img_${i}_${Date.now()}.jpg`,
+            "image/jpeg",
+            "new_product",
+            data.title || data.productName || "Product"
+          );
+          if (uploadRes && uploadRes.url) {
+            processedImages.push(uploadRes.url);
+          } else {
             processedImages.push(img);
           }
-        } else if (img) {
+        } catch (upErr) {
+          console.warn("[admin.js] Image upload error during product create:", upErr.message);
           processedImages.push(img);
         }
-      }
-      data.images = processedImages;
-      if (typeof data.primaryImage === "string" && data.primaryImage.startsWith("data:image/")) {
-        data.primaryImage = processedImages[0] || data.primaryImage;
+      } else if (img) {
+        processedImages.push(img);
       }
     }
+    data.images = processedImages;
+
+    if (data.primaryImage && typeof data.primaryImage === "string") {
+      const pRaw = data.primaryImage.trim();
+      if (pRaw && !pRaw.startsWith("blob:") && !pRaw.startsWith("data:")) {
+        data.primaryImage = pRaw;
+        if (data.images.length > 0 && !data.images.includes(data.primaryImage)) {
+          data.images.unshift(data.primaryImage);
+        }
+      } else {
+        data.primaryImage = data.images[0] || "";
+      }
+    } else {
+      data.primaryImage = data.images[0] || "";
+    }
+
+    data.galleryImages = data.images.map((u, idx) => ({
+      id: `new-img-${idx + 1}`,
+      url: u,
+      altText: `${data.title || data.productName || "Product"} - Photo ${idx + 1}`,
+      isPrimary: u === data.primaryImage,
+      status: "active"
+    }));
+
+    const clientManagedOnCreate = Array.isArray(data.managedCloudinaryImages) ? data.managedCloudinaryImages : [];
+    const currentManagedOnCreate = [];
+    data.images.forEach((url, idx) => {
+      if (typeof url === "string" && (url.includes("cloudinary.com") || url.includes("res.cloudinary.com"))) {
+        const matchingClient = clientManagedOnCreate.find(m => (m?.secureUrl === url || m?.url === url) && m?.publicId);
+        const pubId = (matchingClient && matchingClient.publicId) || imageResolver.extractCloudinaryPublicId(url);
+        currentManagedOnCreate.push({
+          publicId: pubId || `cld_new_${idx + 1}`,
+          secureUrl: url,
+          order: idx,
+          isPrimary: url === data.primaryImage,
+          uploadState: "UPLOADED"
+        });
+      }
+    });
+    data.managedCloudinaryImages = currentManagedOnCreate;
 
     const created = store.addProduct({
       ...data,
@@ -1019,7 +1081,18 @@ router.post("/products", requireAdmin, async (req, res) => {
 
 router.put("/products/:id", requireAdmin, async (req, res) => {
   try {
-    const existing = store.getProductById(req.params.id, true);
+    let existing = store.getProductById(req.params.id, true);
+    if (mongoService.isConfigured()) {
+      try {
+        const mongoProd = await mongoService.getApprovedProduct(req.params.id);
+        if (mongoProd) {
+          existing = existing ? { ...existing, ...mongoProd } : mongoProd;
+        }
+      } catch (mErr) {
+        console.warn("[admin.js] Mongo fetch on PUT /products/:id:", mErr.message);
+      }
+    }
+
     if (!existing) {
       return res.status(404).json({ success: false, message: "Product not found" });
     }
@@ -1034,11 +1107,27 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
       updatedAt: new Date().toISOString()
     };
 
-    // Upload any new base64 images to Cloudinary and preserve existing images
-    if (Array.isArray(updates.images)) {
+    // Only process and update gallery images if explicitly included in request body
+    const hasImageUpdates = req.body.images !== undefined || req.body.primaryImage !== undefined || req.body.galleryImages !== undefined;
+    if (hasImageUpdates) {
+      // 1. Process and normalize canonical images array
+      let inputImages = [];
+      if (Array.isArray(updates.images)) {
+        inputImages = updates.images
+          .map(img => (typeof img === "string" ? img.trim() : (img?.url || img?.secureUrl || "").trim()))
+          .filter(u => u && !u.startsWith("blob:"));
+      } else if (updates.primaryImage) {
+        const p = typeof updates.primaryImage === "string" ? updates.primaryImage.trim() : "";
+        if (p) inputImages = [p];
+      } else if (Array.isArray(updates.galleryImages)) {
+        inputImages = updates.galleryImages
+          .map(img => (typeof img === "string" ? img.trim() : (img?.url || img?.secureUrl || "").trim()))
+          .filter(u => u && !u.startsWith("blob:"));
+      }
+
       const processedImages = [];
-      for (let i = 0; i < updates.images.length; i++) {
-        const img = updates.images[i];
+      for (let i = 0; i < inputImages.length; i++) {
+        const img = inputImages[i];
         if (typeof img === "string" && img.startsWith("data:image/")) {
           try {
             const uploadRes = await mediaService.uploadProductImage(
@@ -1062,9 +1151,108 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
         }
       }
       updates.images = processedImages;
-      if (typeof updates.primaryImage === "string" && updates.primaryImage.startsWith("data:image/")) {
-        updates.primaryImage = processedImages[0] || updates.primaryImage;
+
+      // 2. Canonical primary image resolution
+      if (updates.primaryImage && typeof updates.primaryImage === "string") {
+        const pRaw = updates.primaryImage.trim();
+        if (pRaw && !pRaw.startsWith("blob:") && !pRaw.startsWith("data:")) {
+          updates.primaryImage = pRaw;
+          if (updates.images.length > 0 && !updates.images.includes(updates.primaryImage)) {
+            updates.images.unshift(updates.primaryImage);
+          }
+        } else {
+          updates.primaryImage = updates.images[0] || "";
+        }
+      } else {
+        updates.primaryImage = updates.images[0] || "";
       }
+
+      // 3. Keep galleryImages in exact sync with canonical images
+      updates.galleryImages = updates.images.map((u, idx) => ({
+        id: `${existing.id}-img-${idx + 1}`,
+        url: u,
+        altText: `${updates.title || updates.productName || existing.title || "Product"} - Photo ${idx + 1}`,
+        isPrimary: u === updates.primaryImage,
+        status: "active"
+      }));
+
+      // 4. Synchronize managedCloudinaryImages
+      const prevManaged = Array.isArray(existing.managedCloudinaryImages) ? existing.managedCloudinaryImages : [];
+      const clientManaged = Array.isArray(req.body.managedCloudinaryImages) ? req.body.managedCloudinaryImages : [];
+      const currentManaged = [];
+
+      updates.images.forEach((url, idx) => {
+        if (typeof url === "string" && (url.includes("cloudinary.com") || url.includes("res.cloudinary.com"))) {
+          const matchingClient = clientManaged.find(m => (m?.secureUrl === url || m?.url === url) && m?.publicId);
+          const matchingPrev = prevManaged.find(m => (m?.secureUrl === url || m?.url === url) && m?.publicId);
+          const pubId = (matchingClient && matchingClient.publicId) ||
+                        (matchingPrev && matchingPrev.publicId) ||
+                        imageResolver.extractCloudinaryPublicId(url);
+
+          currentManaged.push({
+            publicId: pubId || `cld_${existing.id}_${idx + 1}`,
+            secureUrl: url,
+            order: idx,
+            isPrimary: url === updates.primaryImage,
+            uploadState: "UPLOADED"
+          });
+        }
+      });
+      updates.managedCloudinaryImages = currentManaged;
+
+      // 5. Exclusively owned removed Cloudinary asset cleanup (Issue 3)
+      const currentPublicIds = new Set(currentManaged.map(m => m.publicId).filter(Boolean));
+      const currentUrls = new Set(updates.images);
+      const removedPublicIds = [];
+
+      prevManaged.forEach(m => {
+        if (m && m.publicId && !currentPublicIds.has(m.publicId) && !currentUrls.has(m.secureUrl)) {
+          removedPublicIds.push(m.publicId);
+        }
+      });
+
+      if (removedPublicIds.length > 0) {
+        setImmediate(async () => {
+          try {
+            const allProds = store.getProducts({ includeInactive: true });
+            const allOrders = store.getOrders();
+            for (const pubId of removedPublicIds) {
+              const isShared = allProds.some(other => {
+                if (other.id === existing.id) return false;
+                const oUrls = [other.primaryImage, ...(other.images || [])];
+                return oUrls.some(u => typeof u === "string" && u.includes(pubId));
+              });
+              if (isShared) continue;
+
+              const inOrders = allOrders.some(o =>
+                Array.isArray(o.items) && o.items.some(it => (it.image && it.image.includes(pubId)) || it.publicId === pubId)
+              );
+              if (inOrders) continue;
+
+              if (cloudinaryService && cloudinaryService.isConfigured()) {
+                try {
+                  const cloudinary = require("cloudinary").v2;
+                  await cloudinary.uploader.destroy(pubId, { invalidate: true });
+                  console.log(`[admin.js] Safely cleaned up exclusively owned removed asset: ${pubId}`);
+                } catch (cDelErr) {
+                  console.warn(`[admin.js] Cloudinary cleanup task retry recorded for ${pubId}:`, cDelErr.message);
+                }
+              }
+            }
+          } catch (cleanupErr) {
+            console.warn("[admin.js] Background asset cleanup check error:", cleanupErr.message);
+          }
+        });
+      }
+    } else {
+      // Preserve existing canonical image state
+      const existingImages = Array.isArray(existing.images) && existing.images.length > 0
+        ? existing.images.map(img => (typeof img === "string" ? img : (img?.url || img?.secureUrl || "")).trim()).filter(Boolean)
+        : (existing.primaryImage ? [existing.primaryImage] : []);
+      updates.images = existingImages;
+      updates.primaryImage = existing.primaryImage || (existingImages[0] || "");
+      updates.galleryImages = existing.galleryImages || [];
+      updates.managedCloudinaryImages = existing.managedCloudinaryImages || [];
     }
 
     const updated = store.updateProduct(existing.id, updates);
