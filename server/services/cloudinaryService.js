@@ -689,6 +689,7 @@ module.exports = {
   getAccountUsage,
   resolveImageBuffer,
   optimizeImage,
+  uploadToCloudinary,
   syncProductReviewToCorrect,
   syncProductReviewRemoval,
   deleteProductExclusivelyOwnedMedia,

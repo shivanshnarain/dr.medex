@@ -19,12 +19,23 @@ import {
   MoveRight,
   Camera,
   AlertTriangle,
-  RotateCcw
+  RotateCcw,
+  ImageOff
 } from "lucide-react";
 import { AdminLayout } from "../components/admin/AdminLayout";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { Category } from "../types";
 import { fallbackProducts } from "../services/productService";
+
+export interface ProductImageSlot {
+  id: string;
+  url: string;
+  previewUrl?: string;
+  file?: File;
+  status: "persisted" | "uploading" | "failed";
+  errorMessage?: string;
+  hasLoadError?: boolean;
+}
 
 export const AdminProductEditorPage: React.FC = () => {
   const { productId } = useParams<{ productId?: string }>();
@@ -68,10 +79,22 @@ export const AdminProductEditorPage: React.FC = () => {
   const [rateTimestamp, setRateTimestamp] = useState<string | null>(null);
 
   // ==========================================
-  // STEP 1: PRODUCT PHOTOS & AI IDENTIFICATION
+  // STEP 1: PRODUCT PHOTOS & OPTIONAL AI IDENTIFICATION
   // ==========================================
-  const [images, setImages] = useState<string[]>([]);
+
+  const [imageSlots, setImageSlots] = useState<ProductImageSlot[]>([]);
   const [primaryImageIndex, setPrimaryImageIndex] = useState(0);
+  const objectUrlsRef = useRef<string[]>([]);
+  const images = useMemo(() => imageSlots.map((s) => s.url), [imageSlots]);
+
+  useEffect(() => {
+    return () => {
+      objectUrlsRef.current.forEach((u) => {
+        try { URL.revokeObjectURL(u); } catch {}
+      });
+    };
+  }, []);
+
   const [imageUrlInput, setImageUrlInput] = useState("");
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<{ current: number; total: number } | null>(null);
@@ -81,8 +104,7 @@ export const AdminProductEditorPage: React.FC = () => {
   const replaceFileInputRef = useRef<HTMLInputElement>(null);
   const [replaceTargetIndex, setReplaceTargetIndex] = useState<number | null>(null);
 
-  // Mode A (Automatic) vs Mode B (Manual)
-  const [autoAnalyze, setAutoAnalyze] = useState(true);
+  // Optional AI Assistant (user-initiated only)
   const [isAiIdentifying, setIsAiIdentifying] = useState(false);
   const [aiIdentifyPhase, setAiIdentifyPhase] = useState<
     "idle" | "reading_photos" | "identifying_equipment" | "matching_categories" | "generating_content" | "preparing_fields" | "complete"
@@ -92,6 +114,7 @@ export const AdminProductEditorPage: React.FC = () => {
   const [preserveManualEdits, setPreserveManualEdits] = useState(true);
   const [manuallyEditedFields, setManuallyEditedFields] = useState<Set<string>>(new Set());
   const activeAnalysisIdRef = useRef<number>(0);
+  const [aiAppliedNotification, setAiAppliedNotification] = useState(false);
 
   // Modal view for AI identification (optional alternative popup)
   const [showAiIdentifyModal, setShowAiIdentifyModal] = useState(false);
@@ -268,7 +291,12 @@ export const AdminProductEditorPage: React.FC = () => {
           setMinOrderQuantity(p.moq || 1);
           setLeadTimeWeeks(p.leadTimeWeeks || "1–2 Weeks");
 
-          setImages(p.images || (p.primaryImage ? [p.primaryImage] : []));
+          const loadedImgs: string[] = p.images || (p.primaryImage ? [p.primaryImage] : []);
+          setImageSlots(loadedImgs.map((u: string, i: number) => ({
+            id: `saved-${i}-${Date.now()}`,
+            url: u,
+            status: "persisted"
+          })));
           setShortDescription(p.shortDescription || p.overview || "");
           setFullDescription(p.fullDescription || p.overview || "");
           setKeyFeatures(p.features || p.keyFeatures || []);
@@ -598,14 +626,18 @@ export const AdminProductEditorPage: React.FC = () => {
     }
   };
 
-  const triggerAiIdentification = async (targetImages?: string[]) => {
-    const imagesToUse = targetImages || images;
-    if (!imagesToUse || imagesToUse.length === 0) {
-      setAiIdentifyError("Please upload at least one photograph of the medical equipment to run identification.");
+  const triggerAiIdentification = async () => {
+    // Collect valid persisted photos (max 5)
+    const validPhotos = imageSlots
+      .filter((s) => s.status === "persisted" && !s.url.startsWith("blob:") && !s.url.startsWith("data:"))
+      .map((s) => s.url)
+      .slice(0, 5);
+
+    if (validPhotos.length === 0) {
+      setAiIdentifyError("Please ensure at least one photograph is uploaded to Cloudinary before running AI analysis.");
       return;
     }
 
-    const photosForPayload = imagesToUse.slice(0, 5);
     const thisAnalysisId = Date.now();
     activeAnalysisIdRef.current = thisAnalysisId;
 
@@ -625,7 +657,7 @@ export const AdminProductEditorPage: React.FC = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          photos: photosForPayload.map((url, idx) => ({
+          photos: validPhotos.map((url, idx) => ({
             data: url,
             mimeType: url.endsWith(".png") ? "image/png" : url.endsWith(".webp") ? "image/webp" : "image/jpeg",
             filename: `photo_${idx + 1}.jpg`
@@ -650,23 +682,17 @@ export const AdminProductEditorPage: React.FC = () => {
       await new Promise((r) => setTimeout(r, 100));
       if (activeAnalysisIdRef.current !== thisAnalysisId) return;
 
-      // 5. Preparing editable fields
+      // 5. Presenting suggestions (requires user confirmation before applying)
       setAiIdentifyPhase("preparing_fields");
-      applyAiResultsToForm(data.data);
-
       if (activeAnalysisIdRef.current !== thisAnalysisId) return;
+
       setAiIdentifyResult(data.data);
       setAiIdentifyPhase("complete");
-      setHasUnsavedChanges(true);
-      setStatusBanner({
-        type: "success",
-        text: "Smart Product Assistant successfully analyzed device photographs and populated catalogue fields."
-      });
     } catch (err: any) {
       if (activeAnalysisIdRef.current === thisAnalysisId) {
         console.warn("AI identification error:", err);
         const errMsg = err?.message || "Failed to identify medical equipment.";
-        if (errMsg.includes("GEMINI_API_KEY")) {
+        if (errMsg.includes("GEMINI_API_KEY") || errMsg.includes("not configured")) {
           setAiIdentifyError("Smart Product Assistant: GEMINI_API_KEY is not configured on this server. Please configure it in Vercel Environment Variables. Your original photos are safely preserved.");
         } else {
           setAiIdentifyError(`AI analysis failed: ${errMsg}. Your uploaded photos are preserved and you can continue editing manually.`);
@@ -680,16 +706,79 @@ export const AdminProductEditorPage: React.FC = () => {
     }
   };
 
-  // Step 1: Handling File Uploads
+  // Helper to upload a single slot file to backend
+  const uploadSlotFile = async (slotId: string, file: File) => {
+    try {
+      const base64Data = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+
+      const res = await adminFetch("/api/admin/media/upload", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          data: base64Data,
+          filename: file.name,
+          contentType: file.type,
+          productId: productId || "new-product"
+        })
+      });
+
+      const data = await res.json().catch(() => null);
+      if (res.ok && data?.success && data?.url) {
+        setImageSlots((curr) =>
+          curr.map((s) =>
+            s.id === slotId
+              ? {
+                  ...s,
+                  url: data.url,
+                  status: "persisted" as const,
+                  errorMessage: undefined
+                }
+              : s
+          )
+        );
+      } else {
+        setImageSlots((curr) =>
+          curr.map((s) =>
+            s.id === slotId
+              ? {
+                  ...s,
+                  status: "failed" as const,
+                  errorMessage: data?.message || "Upload failed"
+                }
+              : s
+          )
+        );
+      }
+    } catch (err: any) {
+      setImageSlots((curr) =>
+        curr.map((s) =>
+          s.id === slotId
+            ? {
+                ...s,
+                status: "failed" as const,
+                errorMessage: err?.message || "Network error during upload"
+              }
+            : s
+        )
+      );
+    }
+  };
+
+  // Step 1: Handling File Uploads with Instant Previews & Bounded Concurrency
   const handleStep1PhotosSelected = async (selectedFiles: File[]) => {
     if (!selectedFiles || selectedFiles.length === 0) return;
 
-    if (images.length >= 5) {
+    if (imageSlots.length >= 5) {
       setUploadError("Maximum 5 photographs allowed per product. Please remove an existing photo first.");
       return;
     }
 
-    const availableSlots = 5 - images.length;
+    const availableSlots = 5 - imageSlots.length;
     const filesToProcess = selectedFiles.slice(0, availableSlots);
     if (selectedFiles.length > availableSlots) {
       setUploadError(`Only ${availableSlots} more photo(s) can be added to reach the maximum 5 photographs limit.`);
@@ -707,64 +796,47 @@ export const AdminProductEditorPage: React.FC = () => {
       }
     }
 
-    setIsUploadingImage(true);
     setUploadError(null);
-    setUploadProgress({ current: 0, total: filesToProcess.length });
 
-    const newUploadedUrls: string[] = [];
-    const failedFiles: string[] = [];
+    // 1. Create instant local previews
+    const newSlots: ProductImageSlot[] = filesToProcess.map((file, idx) => {
+      const objUrl = URL.createObjectURL(file);
+      objectUrlsRef.current.push(objUrl);
+      return {
+        id: `upload-${Date.now()}-${idx}-${Math.random().toString(36).slice(2, 7)}`,
+        url: objUrl,
+        previewUrl: objUrl,
+        file,
+        status: "uploading" as const
+      };
+    });
 
-    for (let i = 0; i < filesToProcess.length; i++) {
-      const file = filesToProcess[i];
-      try {
-        const base64Data = await new Promise<string>((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result as string);
-          reader.onerror = reject;
-          reader.readAsDataURL(file);
-        });
+    setImageSlots((prev) => [...prev, ...newSlots].slice(0, 5));
+    setHasUnsavedChanges(true);
 
-        const res = await adminFetch("/api/admin/media/upload", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            data: base64Data,
-            filename: file.name,
-            contentType: file.type,
-            productId: productId || "new-product"
-          })
-        });
+    // 2. Upload with bounded concurrency of 2 parallel uploads
+    setIsUploadingImage(true);
+    setUploadProgress({ current: 0, total: newSlots.length });
 
-        const data = await res.json().catch(() => null);
-        if (res.ok && data && data.success && data.url) {
-          newUploadedUrls.push(data.url);
-        } else {
-          failedFiles.push(file.name);
-        }
-      } catch {
-        failedFiles.push(file.name);
-      }
-      setUploadProgress({ current: i + 1, total: filesToProcess.length });
+    const concurrency = 2;
+    for (let i = 0; i < newSlots.length; i += concurrency) {
+      const batch = newSlots.slice(i, i + concurrency);
+      await Promise.all(batch.map((slot) => uploadSlotFile(slot.id, slot.file!)));
+      setUploadProgress({ current: Math.min(i + batch.length, newSlots.length), total: newSlots.length });
     }
 
     setIsUploadingImage(false);
+  };
 
-    if (failedFiles.length > 0) {
-      setUploadError(`Failed to upload ${failedFiles.join(", ")}. Please check connection and retry.`);
-    }
+  // Retry upload for a specific slot
+  const retrySlotUpload = (slotId: string) => {
+    const slot = imageSlots.find((s) => s.id === slotId);
+    if (!slot || !slot.file) return;
 
-    if (newUploadedUrls.length > 0) {
-      // Invalidate any active analysis
-      activeAnalysisIdRef.current = 0;
-      setImages(prev => {
-        const updated = [...prev, ...newUploadedUrls].slice(0, 5);
-        if (autoAnalyze) {
-          triggerAiIdentification(updated);
-        }
-        return updated;
-      });
-      setHasUnsavedChanges(true);
-    }
+    setImageSlots((curr) =>
+      curr.map((s) => (s.id === slotId ? { ...s, status: "uploading" as const, errorMessage: undefined } : s))
+    );
+    uploadSlotFile(slotId, slot.file);
   };
 
   // Drag & drop handlers
@@ -779,20 +851,26 @@ export const AdminProductEditorPage: React.FC = () => {
   // Move image left / right
   const moveImage = (index: number, direction: "left" | "right") => {
     const target = direction === "left" ? index - 1 : index + 1;
-    if (target < 0 || target >= images.length) return;
-    const copy = [...images];
+    if (target < 0 || target >= imageSlots.length) return;
+    const copy = [...imageSlots];
     const temp = copy[index];
     copy[index] = copy[target];
     copy[target] = temp;
-    setImages(copy);
+    setImageSlots(copy);
     setHasUnsavedChanges(true);
     activeAnalysisIdRef.current = 0;
   };
 
   // Remove image
   const removeImage = (index: number) => {
-    const filtered = images.filter((_, i) => i !== index);
-    setImages(filtered);
+    const targetSlot = imageSlots[index];
+    if (targetSlot?.previewUrl) {
+      try {
+        URL.revokeObjectURL(targetSlot.previewUrl);
+      } catch {}
+    }
+    const filtered = imageSlots.filter((_, i) => i !== index);
+    setImageSlots(filtered);
     if (primaryImageIndex >= filtered.length) {
       setPrimaryImageIndex(Math.max(0, filtered.length - 1));
     }
@@ -811,57 +889,56 @@ export const AdminProductEditorPage: React.FC = () => {
     const file = e.target.files[0];
     e.target.value = "";
 
-    try {
-      const base64Data = await new Promise<string>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result as string);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
+    const objUrl = URL.createObjectURL(file);
+    objectUrlsRef.current.push(objUrl);
+    const targetId = imageSlots[replaceTargetIndex]?.id || `replace-${Date.now()}`;
 
-      const res = await adminFetch("/api/admin/media/upload", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          data: base64Data,
-          filename: file.name,
-          contentType: file.type
-        })
-      });
+    setImageSlots((curr) =>
+      curr.map((s, idx) =>
+        idx === replaceTargetIndex
+          ? {
+              id: targetId,
+              url: objUrl,
+              previewUrl: objUrl,
+              file,
+              status: "uploading" as const,
+              errorMessage: undefined,
+              hasLoadError: false
+            }
+          : s
+      )
+    );
 
-      const data = await res.json();
-      const newUrl = res.ok && data.success && data.url ? data.url : base64Data;
-      const copy = [...images];
-      copy[replaceTargetIndex] = newUrl;
-      setImages(copy);
-      setHasUnsavedChanges(true);
-      activeAnalysisIdRef.current = 0;
-      if (autoAnalyze) {
-        triggerAiIdentification(copy);
-      }
-    } catch (err) {
-      console.error("Failed to replace image:", err);
-    } finally {
-      setReplaceTargetIndex(null);
-    }
+    await uploadSlotFile(targetId, file);
+    setReplaceTargetIndex(null);
+    setHasUnsavedChanges(true);
   };
 
   // Add via direct URL input
   const handleAddImageUrl = () => {
-    if (imageUrlInput.trim()) {
-      if (images.length >= 5) {
+    const trimmed = imageUrlInput.trim();
+    if (trimmed) {
+      if (imageSlots.length >= 5) {
         setUploadError("Maximum 5 photographs allowed per product.");
         return;
       }
-      const updated = [...images, imageUrlInput.trim()];
-      setImages(updated);
+      const newSlot: ProductImageSlot = {
+        id: `url-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+        url: trimmed,
+        status: "persisted"
+      };
+      setImageSlots((prev) => [...prev, newSlot]);
       setImageUrlInput("");
       setHasUnsavedChanges(true);
       activeAnalysisIdRef.current = 0;
-      if (autoAnalyze) {
-        triggerAiIdentification(updated);
-      }
     }
+  };
+
+  // Gracefully handle image load errors without rendering broken question mark
+  const handleSlotLoadError = (slotId: string) => {
+    setImageSlots((curr) =>
+      curr.map((s) => (s.id === slotId ? { ...s, hasLoadError: true } : s))
+    );
   };
 
   // AI Description Assistant handler
@@ -1037,6 +1114,24 @@ export const AdminProductEditorPage: React.FC = () => {
       return;
     }
 
+    if (imageSlots.some((s) => s.status === "uploading")) {
+      setStatusBanner({
+        type: "warning",
+        text: "Photographs are currently uploading to media storage. Please wait a moment before saving."
+      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    if (imageSlots.some((s) => s.status === "failed")) {
+      setStatusBanner({
+        type: "warning",
+        text: "One or more photographs failed to upload. Please click 'Retry' or remove the failed slot(s) before saving."
+      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
     setIsSaving(true);
     setStatusBanner(null);
 
@@ -1079,10 +1174,18 @@ export const AdminProductEditorPage: React.FC = () => {
       moq: Number(minOrderQuantity),
       leadTimeWeeks,
 
-      images: images.filter((img) => typeof img === "string" && !img.startsWith("data:")),
-      primaryImage: (images[primaryImageIndex] && !images[primaryImageIndex].startsWith("data:"))
-        ? images[primaryImageIndex]
-        : (images.find((img) => typeof img === "string" && !img.startsWith("data:")) || ""),
+      images: imageSlots
+        .filter((s) => s.status === "persisted" && typeof s.url === "string" && !s.url.startsWith("blob:") && !s.url.startsWith("data:"))
+        .map((s) => s.url),
+      primaryImage: (() => {
+        const persisted = imageSlots
+          .filter((s) => s.status === "persisted" && typeof s.url === "string" && !s.url.startsWith("blob:") && !s.url.startsWith("data:"))
+          .map((s) => s.url);
+        const pSlot = imageSlots[primaryImageIndex];
+        return (pSlot && pSlot.status === "persisted" && !pSlot.url.startsWith("blob:") && !pSlot.url.startsWith("data:"))
+          ? pSlot.url
+          : (persisted[0] || "");
+      })(),
 
       shortDescription: shortDescription.trim(),
       fullDescription: fullDescription.trim(),
@@ -1389,47 +1492,16 @@ export const AdminProductEditorPage: React.FC = () => {
                 <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                   Step 1 • Starting Workspace
                 </span>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#D92D32] bg-red-50 px-2 py-0.5 rounded border border-red-200">
-                  AI-Assisted Catalogue Entry
+                <span className="text-[10px] font-mono font-bold uppercase text-neutral-600 bg-neutral-100 px-2 py-0.5 rounded border border-neutral-200">
+                  Product Photos
                 </span>
               </div>
               <h3 className="text-base font-bold text-[#171717] mt-1">
-                Product Photographs & AI Identification
+                Product Photographs
               </h3>
               <p className="text-xs text-neutral-500 mt-0.5">
                 Upload 1 to 5 device photographs (overall machine, front/back, control panel, nameplate, labels, accessories).
               </p>
-            </div>
-
-            <div className="flex items-center gap-3 shrink-0 flex-wrap">
-              {/* Mode A Toggle: Automatic Analysis */}
-              <label className="flex items-center gap-2 text-xs font-semibold text-neutral-700 bg-[#F5F5F5] px-3 py-1.5 rounded-lg border border-[#E5E5E5] cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={autoAnalyze}
-                  onChange={(e) => setAutoAnalyze(e.target.checked)}
-                  className="w-4 h-4 rounded border-[#E5E5E5] text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
-                />
-                <span>Auto-Analyze Uploads</span>
-              </label>
-
-              {/* Mode B: Manual Identify Product Action */}
-              <button
-                type="button"
-                onClick={() => triggerAiIdentification()}
-                disabled={isAiIdentifying || images.length === 0}
-                className="flex items-center gap-2 px-4 py-2 bg-[#D92D32] hover:bg-[#b82226] disabled:opacity-50 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer"
-                title="Run Smart Product Assistant to identify equipment and populate all form fields"
-              >
-                {isAiIdentifying ? <RefreshCw size={14} className="animate-spin" /> : <Sparkles size={14} />}
-                <span>
-                  {isAiIdentifying
-                    ? "Analyzing Device..."
-                    : images.length > 0
-                    ? `Identify Product (${images.length} Photo${images.length === 1 ? "" : "s"})`
-                    : "Identify Product"}
-                </span>
-              </button>
             </div>
           </div>
 
@@ -1445,7 +1517,7 @@ export const AdminProductEditorPage: React.FC = () => {
             className={`border-2 border-dashed rounded-xl p-6 text-center transition-all cursor-pointer ${
               isDragging
                 ? "border-[#F2C230] bg-[#F2C230]/10"
-                : images.length >= 5
+                : imageSlots.length >= 5
                 ? "border-neutral-200 bg-neutral-50/60 opacity-70 cursor-not-allowed"
                 : "border-neutral-300 bg-[#F5F5F5]/60 hover:bg-yellow-50/20 hover:border-[#F2C230]"
             }`}
@@ -1454,7 +1526,7 @@ export const AdminProductEditorPage: React.FC = () => {
               <Upload size={20} className="text-[#171717]" />
             </div>
             <h4 className="text-xs font-bold text-[#171717]">
-              {images.length >= 5
+              {imageSlots.length >= 5
                 ? "Maximum 5 device photographs loaded"
                 : "Drag & drop product photographs here, or click to browse files"}
             </h4>
@@ -1463,7 +1535,7 @@ export const AdminProductEditorPage: React.FC = () => {
             </p>
             <div className="mt-2.5 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-white border border-[#E5E5E5] text-neutral-700">
               <Camera size={11} />
-              <span>{images.length} of 5 photographs selected</span>
+              <span>{imageSlots.length} of 5 photographs selected</span>
             </div>
           </div>
 
@@ -1471,7 +1543,7 @@ export const AdminProductEditorPage: React.FC = () => {
           {isUploadingImage && uploadProgress && (
             <div className="p-3 bg-neutral-50 rounded-lg border border-[#E5E5E5] space-y-1.5">
               <div className="flex items-center justify-between text-xs font-bold text-[#171717]">
-                <span>Saving device photographs to media store...</span>
+                <span>Uploading device photographs to media store...</span>
                 <span>{uploadProgress.current} / {uploadProgress.total}</span>
               </div>
               <div className="w-full bg-[#E5E5E5] rounded-full h-2 overflow-hidden">
@@ -1493,177 +1565,63 @@ export const AdminProductEditorPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setUploadError(null)}
-                className="text-xs font-bold hover:underline"
+                className="text-xs font-bold hover:underline cursor-pointer"
               >
                 Dismiss
               </button>
             </div>
           )}
 
-          {/* AI In-Progress Sequence Banner */}
-          {isAiIdentifying && (
-            <div className="p-4 rounded-xl bg-amber-50/70 border border-[#F2C230] space-y-3 shadow-2xs">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-xs font-bold text-[#171717]">
-                  <RefreshCw size={15} className="animate-spin text-[#171717]" />
-                  <span>Smart Product Assistant in progress</span>
-                </div>
-                <span className="text-[10px] font-mono font-semibold text-neutral-600 bg-white px-2 py-0.5 rounded border border-neutral-200">
-                  Multi-Angle Analysis
-                </span>
-              </div>
-
-              {/* Sequential Phase Indicator */}
-              <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 text-[10px] font-mono">
-                {[
-                  { id: "reading_photos", label: "1. Reading Photos" },
-                  { id: "identifying_equipment", label: "2. Identifying Device" },
-                  { id: "matching_categories", label: "3. Matching Taxonomy" },
-                  { id: "generating_content", label: "4. Generating Content" },
-                  { id: "preparing_fields", label: "5. Preparing Fields" }
-                ].map((ph) => {
-                  const isCurrent = aiIdentifyPhase === ph.id;
-                  return (
-                    <div
-                      key={ph.id}
-                      className={`p-2 rounded-lg border text-center transition-all ${
-                        isCurrent
-                          ? "bg-[#F2C230] border-[#F2C230] font-bold text-black ring-2 ring-[#F2C230]/30 animate-pulse"
-                          : "bg-white border-[#E5E5E5] text-neutral-500"
-                      }`}
-                    >
-                      {ph.label}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* AI Analysis Failure Banner with Retry */}
-          {aiIdentifyError && !isAiIdentifying && (
-            <div className="p-3.5 rounded-xl bg-red-50 border border-[#D92D32] text-xs text-[#D92D32] flex items-center justify-between flex-wrap gap-2">
-              <div className="flex items-center gap-2">
-                <AlertCircle size={16} className="shrink-0" />
-                <span>{aiIdentifyError}</span>
-              </div>
-              <button
-                type="button"
-                onClick={() => triggerAiIdentification()}
-                className="px-3 py-1 bg-[#D92D32] text-white rounded font-bold hover:bg-[#b82226] cursor-pointer"
-              >
-                Retry Analysis
-              </button>
-            </div>
-          )}
-
-          {/* AI Analysis Completion Report Card */}
-          {aiIdentifyResult && !isAiIdentifying && (
-            <div className="p-4 rounded-xl bg-[#F5F5F5] border border-[#E5E5E5] space-y-3">
-              <div className="flex items-center justify-between flex-wrap gap-2">
-                <div className="flex items-center gap-2.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#16803D]" />
-                  <span className="text-xs font-bold text-[#171717]">
-                    Analysis Completed: {aiIdentifyResult.productName || aiIdentifyResult.equipmentType}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`text-xs px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1.5 ${
-                      aiIdentifyResult.confidence === "HIGH"
-                        ? "bg-emerald-100 text-[#16803D]"
-                        : aiIdentifyResult.confidence === "MEDIUM"
-                        ? "bg-amber-100 text-amber-800"
-                        : "bg-red-100 text-[#D92D32]"
-                    }`}
-                  >
-                    {aiIdentifyResult.confidence === "HIGH" ? (
-                      <CheckCircle2 size={13} />
-                    ) : (
-                      <AlertTriangle size={13} />
-                    )}
-                    <span>{aiIdentifyResult.confidence} Confidence</span>
-                  </span>
-
-                  <label className="flex items-center gap-1 text-[11px] text-neutral-600 bg-white px-2 py-0.5 rounded border border-[#E5E5E5] cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={preserveManualEdits}
-                      onChange={(e) => setPreserveManualEdits(e.target.checked)}
-                      className="w-3.5 h-3.5 accent-[#16803D]"
-                    />
-                    <span>Preserve manual edits</span>
-                  </label>
-                </div>
-              </div>
-
-              {/* Matched Taxonomy Summary */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] font-mono bg-white p-2.5 rounded-lg border border-[#E5E5E5]">
-                <div>
-                  <span className="text-neutral-400 block text-[9px] uppercase">Matched Category:</span>
-                  <span className="font-semibold text-neutral-800">{aiIdentifyResult.primaryCategory}</span>
-                </div>
-                <div>
-                  <span className="text-neutral-400 block text-[9px] uppercase">Matched Subcategory:</span>
-                  <span className="font-semibold text-neutral-800">{aiIdentifyResult.subcategory}</span>
-                </div>
-                <div>
-                  <span className="text-neutral-400 block text-[9px] uppercase">Equipment Type:</span>
-                  <span className="font-semibold text-neutral-800">{aiIdentifyResult.equipmentType}</span>
-                </div>
-              </div>
-
-              {/* Grounded Visual Evidence */}
-              {aiIdentifyResult.evidenceFromImages && (
-                <div className="text-[11px] text-neutral-600 bg-white p-2.5 rounded-lg border border-[#E5E5E5]">
-                  <span className="font-bold text-neutral-800 block text-[10px] uppercase font-mono mb-0.5">
-                    Visual Evidence Observed:
-                  </span>
-                  {aiIdentifyResult.evidenceFromImages}
-                </div>
-              )}
-
-              {/* Fields Needing Verification Warning */}
-              {aiIdentifyResult.fieldsNeedingVerification && aiIdentifyResult.fieldsNeedingVerification.length > 0 && (
-                <div className="p-2.5 rounded-lg bg-amber-50 border border-amber-300 text-[11px] text-amber-900 flex items-start gap-2">
-                  <AlertTriangle size={14} className="shrink-0 text-amber-600 mt-0.5" />
-                  <div>
-                    <span className="font-bold block">Physical Nameplate Verification Recommended:</span>
-                    <span className="text-amber-800">
-                      {aiIdentifyResult.fieldsNeedingVerification.join("; ")}
-                    </span>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Selected Product Images Grid */}
-          {images.length > 0 && (
+          {/* Selected Product Images Grid (5 slots) */}
+          {imageSlots.length > 0 && (
             <div className="space-y-2 pt-1">
               <div className="flex items-center justify-between text-xs font-bold text-[#171717]">
-                <span>Loaded Photographs ({images.length} of 5)</span>
+                <span>Loaded Photographs ({imageSlots.length} of 5)</span>
                 <span className="text-[11px] text-neutral-400 font-normal">
                   Reorder or set primary image for storefront card
                 </span>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3.5">
-                {images.map((imgUrl, idx) => {
+                {imageSlots.map((slot, idx) => {
                   const isPrimary = idx === primaryImageIndex;
                   return (
                     <div
-                      key={idx}
+                      key={slot.id || idx}
                       className={`relative rounded-xl border p-2 bg-white flex flex-col items-center group transition-all ${
-                        isPrimary ? "border-[#F2C230] ring-2 ring-[#F2C230]/50" : "border-[#E5E5E5]"
+                        slot.status === "failed"
+                          ? "border-red-300 bg-red-50/20"
+                          : isPrimary
+                          ? "border-[#F2C230] ring-2 ring-[#F2C230]/50"
+                          : "border-[#E5E5E5]"
                       }`}
                     >
-                      <div className="w-full aspect-square rounded-lg bg-[#F5F5F5] overflow-hidden flex items-center justify-center mb-2">
-                        <img
-                          src={imgUrl}
-                          alt={`Device view ${idx + 1}`}
-                          className="w-full h-full object-contain"
-                        />
+                      {/* Image Preview Box */}
+                      <div className="w-full aspect-square rounded-lg bg-[#F5F5F5] overflow-hidden flex items-center justify-center mb-2 relative">
+                        {slot.hasLoadError ? (
+                          <div className="w-full h-full flex flex-col items-center justify-center p-2 text-center bg-neutral-100">
+                            <ImageOff size={22} className="text-neutral-400 mb-1" />
+                            <span className="text-[10px] font-semibold text-neutral-600">Failed to render image</span>
+                            <span className="text-[9px] font-mono text-neutral-400 truncate max-w-full px-1">
+                              {slot.url.split("/").pop() || "broken asset"}
+                            </span>
+                          </div>
+                        ) : (
+                          <img
+                            src={slot.previewUrl || slot.url}
+                            alt={`Device view ${idx + 1}`}
+                            className="w-full h-full object-contain"
+                            onError={() => handleSlotLoadError(slot.id)}
+                          />
+                        )}
+
+                        {/* Uploading Overlay */}
+                        {slot.status === "uploading" && (
+                          <div className="absolute inset-0 bg-white/85 backdrop-blur-2xs flex flex-col items-center justify-center p-2 text-center">
+                            <RefreshCw size={20} className="animate-spin text-[#16803D] mb-1" />
+                            <span className="text-[10px] font-bold text-neutral-700">Uploading...</span>
+                          </div>
+                        )}
                       </div>
 
                       {/* Primary Badge */}
@@ -1677,13 +1635,29 @@ export const AdminProductEditorPage: React.FC = () => {
                         #{idx + 1}
                       </span>
 
+                      {/* Failure message & retry button if slot upload failed */}
+                      {slot.status === "failed" && (
+                        <div className="w-full mb-1.5 p-1 bg-red-100 text-red-800 rounded text-[9px] text-center">
+                          <p className="truncate font-medium">{slot.errorMessage || "Upload failed"}</p>
+                          {slot.file && (
+                            <button
+                              type="button"
+                              onClick={() => retrySlotUpload(slot.id)}
+                              className="mt-1 px-2 py-0.5 bg-[#D92D32] text-white rounded text-[9px] font-bold hover:bg-[#b82226] cursor-pointer"
+                            >
+                              Retry
+                            </button>
+                          )}
+                        </div>
+                      )}
+
                       {/* Controls Row */}
                       <div className="w-full flex items-center justify-between text-xs pt-1 border-t border-[#E5E5E5]">
                         <div className="flex items-center gap-0.5">
                           <button
                             type="button"
                             onClick={() => moveImage(idx, "left")}
-                            disabled={idx === 0}
+                            disabled={idx === 0 || slot.status === "uploading"}
                             title="Move left"
                             className="p-1 text-neutral-400 hover:text-black disabled:opacity-20 cursor-pointer"
                           >
@@ -1692,7 +1666,7 @@ export const AdminProductEditorPage: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => moveImage(idx, "right")}
-                            disabled={idx === images.length - 1}
+                            disabled={idx === imageSlots.length - 1 || slot.status === "uploading"}
                             title="Move right"
                             className="p-1 text-neutral-400 hover:text-black disabled:opacity-20 cursor-pointer"
                           >
@@ -1707,7 +1681,8 @@ export const AdminProductEditorPage: React.FC = () => {
                               setPrimaryImageIndex(idx);
                               setHasUnsavedChanges(true);
                             }}
-                            className="text-[10px] font-bold text-neutral-600 hover:text-[#16803D] cursor-pointer"
+                            disabled={slot.status === "uploading"}
+                            className="text-[10px] font-bold text-neutral-600 hover:text-[#16803D] disabled:opacity-50 cursor-pointer"
                           >
                             Set Primary
                           </button>
@@ -1719,16 +1694,18 @@ export const AdminProductEditorPage: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => handleReplaceClick(idx)}
+                            disabled={slot.status === "uploading"}
                             title="Replace photo"
-                            className="p-1 text-neutral-400 hover:text-neutral-700 cursor-pointer"
+                            className="p-1 text-neutral-400 hover:text-neutral-700 disabled:opacity-50 cursor-pointer"
                           >
                             <RotateCcw size={12} />
                           </button>
                           <button
                             type="button"
                             onClick={() => removeImage(idx)}
+                            disabled={slot.status === "uploading"}
                             title="Remove photo"
-                            className="p-1 text-neutral-400 hover:text-[#D92D32] cursor-pointer"
+                            className="p-1 text-neutral-400 hover:text-[#D92D32] disabled:opacity-50 cursor-pointer"
                           >
                             <Trash2 size={12} />
                           </button>
@@ -1740,6 +1717,191 @@ export const AdminProductEditorPage: React.FC = () => {
               </div>
             </div>
           )}
+
+          {/* ============================================================ */}
+          {/* OPTIONAL AI PRODUCT ANALYSIS PANEL (USER-INITIATED ONLY)    */}
+          {/* ============================================================ */}
+          <div className="rounded-xl border border-neutral-200 bg-neutral-50/60 p-4 space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div className="space-y-0.5">
+                <div className="flex items-center gap-1.5">
+                  <Sparkles size={14} className="text-[#D92D32]" />
+                  <h4 className="text-xs font-bold text-[#171717]">
+                    AI Product Analysis (Optional)
+                  </h4>
+                </div>
+                <p className="text-[11px] text-neutral-500">
+                  Use AI to analyze the selected product photos and suggest product details. You can also upload photos and edit every field manually without AI.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => triggerAiIdentification()}
+                disabled={isAiIdentifying || imageSlots.filter((s) => s.status === "persisted").length === 0}
+                className="flex items-center gap-2 px-3.5 py-1.5 bg-[#D92D32] hover:bg-[#b82226] disabled:opacity-50 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer shrink-0"
+                title={
+                  imageSlots.filter((s) => s.status === "persisted").length === 0
+                    ? "Upload at least one photograph to run optional AI analysis"
+                    : "Run optional AI identification on uploaded photos"
+                }
+              >
+                {isAiIdentifying ? <RefreshCw size={13} className="animate-spin" /> : <Sparkles size={13} />}
+                <span>
+                  {isAiIdentifying
+                    ? "Analyzing Device..."
+                    : `Run AI Analysis (Optional)`}
+                </span>
+              </button>
+            </div>
+
+            {/* AI In-Progress Sequence Indicator */}
+            {isAiIdentifying && (
+              <div className="p-3 rounded-lg bg-amber-50/70 border border-[#F2C230] space-y-2 text-xs">
+                <div className="flex items-center justify-between font-bold text-[#171717]">
+                  <div className="flex items-center gap-2">
+                    <RefreshCw size={13} className="animate-spin text-[#171717]" />
+                    <span>Analyzing photographs with Smart Product Assistant...</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-neutral-600 bg-white px-2 py-0.5 rounded border border-neutral-200">
+                    Gemini Vision
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5 text-[9px] font-mono">
+                  {[
+                    { id: "reading_photos", label: "1. Reading Photos" },
+                    { id: "identifying_equipment", label: "2. Identifying Device" },
+                    { id: "matching_categories", label: "3. Matching Taxonomy" },
+                    { id: "generating_content", label: "4. Generating Content" },
+                    { id: "preparing_fields", label: "5. Preparing Fields" }
+                  ].map((ph) => {
+                    const isCurrent = aiIdentifyPhase === ph.id;
+                    return (
+                      <div
+                        key={ph.id}
+                        className={`p-1.5 rounded border text-center transition-all ${
+                          isCurrent
+                            ? "bg-[#F2C230] border-[#F2C230] font-bold text-black ring-1 ring-[#F2C230]/40 animate-pulse"
+                            : "bg-white border-[#E5E5E5] text-neutral-500"
+                        }`}
+                      >
+                        {ph.label}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* In-Panel Non-Blocking AI Diagnostics / Errors */}
+            {aiIdentifyError && !isAiIdentifying && (
+              <div className="p-3 rounded-lg bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start justify-between gap-2">
+                <div className="flex items-start gap-2">
+                  <AlertCircle size={15} className="shrink-0 text-amber-700 mt-0.5" />
+                  <div className="space-y-0.5">
+                    <span className="font-semibold block">{aiIdentifyError}</span>
+                    <span className="text-[10px] text-amber-700 block">
+                      Manual editing and photo uploads remain fully operational.
+                    </span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setAiIdentifyError(null)}
+                  className="text-xs font-bold text-amber-800 hover:underline shrink-0"
+                >
+                  Dismiss
+                </button>
+              </div>
+            )}
+
+            {/* Applied Confirmation Banner */}
+            {aiAppliedNotification && (
+              <div className="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 size={14} className="text-emerald-600" />
+                  <span>AI suggestions applied to form fields below. Review and click "Save Changes" to persist.</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setAiAppliedNotification(false)}
+                  className="text-xs font-bold text-emerald-700 hover:underline"
+                >
+                  Dismiss
+                </button>
+              </div>
+            )}
+
+            {/* AI Analysis Completion Report Card (Review before applying) */}
+            {aiIdentifyResult && !isAiIdentifying && (
+              <div className="p-3.5 rounded-lg bg-white border border-[#E5E5E5] space-y-3 shadow-2xs">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#16803D]" />
+                    <span className="text-xs font-bold text-[#171717]">
+                      AI Suggestions Ready: {aiIdentifyResult.productName || aiIdentifyResult.equipmentType}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`text-[10px] px-2 py-0.5 rounded-full font-bold flex items-center gap-1 ${
+                        aiIdentifyResult.confidence === "HIGH"
+                          ? "bg-emerald-100 text-[#16803D]"
+                          : aiIdentifyResult.confidence === "MEDIUM"
+                          ? "bg-amber-100 text-amber-800"
+                          : "bg-red-100 text-[#D92D32]"
+                      }`}
+                    >
+                      {aiIdentifyResult.confidence === "HIGH" ? (
+                        <CheckCircle2 size={11} />
+                      ) : (
+                        <AlertTriangle size={11} />
+                      )}
+                      <span>{aiIdentifyResult.confidence} Confidence</span>
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        applyAiResultsToForm(aiIdentifyResult);
+                        setAiAppliedNotification(true);
+                      }}
+                      className="px-3 py-1 bg-[#16803D] hover:bg-[#126430] text-white text-xs font-bold rounded shadow-xs cursor-pointer flex items-center gap-1.5"
+                    >
+                      <Check size={12} />
+                      <span>Apply Suggestions to Form Fields</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Matched Taxonomy Summary */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[10px] font-mono bg-neutral-50 p-2 rounded border border-[#E5E5E5]">
+                  <div>
+                    <span className="text-neutral-400 block text-[9px] uppercase">Matched Category:</span>
+                    <span className="font-semibold text-neutral-800">{aiIdentifyResult.primaryCategory}</span>
+                  </div>
+                  <div>
+                    <span className="text-neutral-400 block text-[9px] uppercase">Matched Subcategory:</span>
+                    <span className="font-semibold text-neutral-800">{aiIdentifyResult.subcategory}</span>
+                  </div>
+                  <div>
+                    <span className="text-neutral-400 block text-[9px] uppercase">Equipment Type:</span>
+                    <span className="font-semibold text-neutral-800">{aiIdentifyResult.equipmentType}</span>
+                  </div>
+                </div>
+
+                {/* Grounded Visual Evidence */}
+                {aiIdentifyResult.evidenceFromImages && (
+                  <div className="text-[11px] text-neutral-600 bg-neutral-50 p-2 rounded border border-[#E5E5E5]">
+                    <span className="font-bold text-neutral-800 block text-[9px] uppercase font-mono mb-0.5">
+                      Visual Evidence Observed:
+                    </span>
+                    {aiIdentifyResult.evidenceFromImages}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
 
           {/* Add via direct URL */}
           <div className="pt-2 flex items-center gap-2">

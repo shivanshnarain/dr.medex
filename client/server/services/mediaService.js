@@ -123,10 +123,16 @@ module.exports = {
           publicId: cRes.public_id
         };
       } catch (cErr) {
-        console.warn("[MediaService] Cloudinary upload failed, falling back to local storage:", cErr.message);
+        console.warn("[MediaService] Cloudinary upload failed:", cErr.message);
+        if (process.env.VERCEL) {
+          throw new Error(`Cloudinary upload failed: ${cErr.message}`);
+        }
         uploadResult = await activeProvider.upload(buffer, originalFilename, mimeType, productId);
       }
     } else {
+      if (process.env.VERCEL) {
+        throw new Error("Cloudinary storage is not configured in this serverless environment.");
+      }
       uploadResult = await activeProvider.upload(buffer, originalFilename, mimeType, productId);
     }
 

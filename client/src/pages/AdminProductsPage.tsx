@@ -655,6 +655,7 @@ export const AdminProductsPage: React.FC = () => {
 
       let downloadedCount = 0;
       let failedCount = 0;
+      const failedDetails: string[] = [];
       const baseSku = (product.sku || product.id || "product").replace(/[^a-zA-Z0-9_-]/g, "_");
 
       for (let i = 0; i < urls.length; i++) {
@@ -666,14 +667,45 @@ export const AdminProductsPage: React.FC = () => {
         }
         const filename = `${baseSku}_photo_${i + 1}.${ext}`;
 
+        let blob: Blob | null = null;
+        let lastErrorMsg = "";
+
+        // Strategy 1: Direct browser fetch (fastest for same-origin and CORS-enabled assets)
         try {
-          // Direct photo download via proxy to ensure strict CORS and attachment headers
-          const proxyUrl = `/api/admin/download-image?url=${encodeURIComponent(imgUrl)}&filename=${encodeURIComponent(filename)}`;
-          const res = await adminFetch(proxyUrl);
-          if (!res.ok) {
-            throw new Error(`HTTP ${res.status}`);
+          const directRes = await fetch(imgUrl);
+          if (directRes.ok) {
+            const ct = directRes.headers.get("content-type") || "";
+            if (ct.includes("image/") || ct.includes("octet-stream")) {
+              blob = await directRes.blob();
+            }
           }
-          const blob = await res.blob();
+        } catch {
+          // Direct fetch failed (e.g. cross-origin restrictions); proceed to proxy
+        }
+
+        // Strategy 2: Authenticated backend proxy streaming with SSRF & CDN fallback
+        if (!blob) {
+          try {
+            const proxyUrl = `/api/admin/download-image?url=${encodeURIComponent(imgUrl)}&filename=${encodeURIComponent(filename)}`;
+            const res = await adminFetch(proxyUrl);
+            if (res.ok) {
+              const ct = res.headers.get("content-type") || "";
+              if (ct.includes("image/") || ct.includes("octet-stream")) {
+                blob = await res.blob();
+              } else {
+                const data = await res.json().catch(() => null);
+                lastErrorMsg = data?.message || `Non-image response (${ct})`;
+              }
+            } else {
+              const data = await res.json().catch(() => null);
+              lastErrorMsg = data?.message || `HTTP ${res.status}`;
+            }
+          } catch (pErr: any) {
+            lastErrorMsg = pErr.message || "Proxy connection error";
+          }
+        }
+
+        if (blob && blob.size > 0) {
           const blobUrl = window.URL.createObjectURL(blob);
           const link = document.createElement("a");
           link.href = blobUrl;
@@ -681,32 +713,32 @@ export const AdminProductsPage: React.FC = () => {
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
-          window.URL.revokeObjectURL(blobUrl);
+          setTimeout(() => window.URL.revokeObjectURL(blobUrl), 1000);
           downloadedCount++;
-        } catch (dlErr) {
-          console.warn(`Failed to download photo ${i + 1}:`, dlErr);
+        } else {
           failedCount++;
+          failedDetails.push(`${filename} (${lastErrorMsg || "File not found"})`);
         }
 
-        // Brief delay between downloads to prevent browser suppression
+        // Brief delay between downloads to prevent browser multi-file popup suppression
         if (i < urls.length - 1) {
-          await new Promise(resolve => setTimeout(resolve, 250));
+          await new Promise(resolve => setTimeout(resolve, 200));
         }
       }
 
       if (downloadedCount === urls.length) {
         setBannerMessage({
-          text: `Downloaded ${downloadedCount} product photo${downloadedCount === 1 ? "" : "s"} successfully.`,
+          text: `Downloaded all ${downloadedCount} product photo${downloadedCount === 1 ? "" : "s"} successfully.`,
           type: "success"
         });
       } else if (downloadedCount > 0) {
         setBannerMessage({
-          text: `Downloaded ${downloadedCount} of ${urls.length} product photos (${failedCount} failed).`,
+          text: `Downloaded ${downloadedCount} of ${urls.length} product photos (${failedCount} failed: ${failedDetails.join(", ")}).`,
           type: "warning"
         });
       } else {
         setBannerMessage({
-          text: `Failed to download product photos. Please check your network connection and try again.`,
+          text: `Failed to download photos for "${product.title || product.productName}": ${failedDetails.join("; ") || "Asset unavailable on server"}.`,
           type: "error"
         });
       }

@@ -568,25 +568,48 @@ router.get("/download-image", requireAdmin, async (req, res) => {
     // Case 1: Local catalog image file
     if (rawUrl.startsWith("/products-catalog/") || rawUrl.startsWith("products-catalog/")) {
       const localPath = imageResolver.resolveLocalImagePath(rawUrl);
-      if (!localPath || !fs.existsSync(localPath)) {
-        return res.status(404).json({ success: false, message: "Local photo asset not found on server" });
+      if (localPath && fs.existsSync(localPath)) {
+        const ext = path.extname(localPath).toLowerCase();
+        let contentType = "image/jpeg";
+        if (ext === ".png") contentType = "image/png";
+        else if (ext === ".webp") contentType = "image/webp";
+        else if (ext === ".svg") contentType = "image/svg+xml";
+
+        res.setHeader("Content-Type", contentType);
+        res.setHeader("Content-Disposition", `attachment; filename="${cleanFilename}"`);
+        res.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
+
+        const fileStream = fs.createReadStream(localPath);
+        fileStream.on("error", (sErr) => {
+          if (!res.headersSent) res.status(500).json({ success: false, message: "Failed to stream image" });
+        });
+        return fileStream.pipe(res);
       }
 
-      const ext = path.extname(localPath).toLowerCase();
-      let contentType = "image/jpeg";
-      if (ext === ".png") contentType = "image/png";
-      else if (ext === ".webp") contentType = "image/webp";
-      else if (ext === ".svg") contentType = "image/svg+xml";
+      // Fallback for Vercel Serverless environment where static assets are served from Edge CDN
+      try {
+        const host = req.headers["x-forwarded-host"] || req.get("host") || "dr-medex.vercel.app";
+        const proto = req.headers["x-forwarded-proto"] || "https";
+        const normalizedRel = rawUrl.startsWith("/") ? rawUrl : `/${rawUrl}`;
+        const cdnUrl = `${proto}://${host}${normalizedRel}`;
 
-      res.setHeader("Content-Type", contentType);
-      res.setHeader("Content-Disposition", `attachment; filename="${cleanFilename}"`);
-      res.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
+        const fetchRes = await fetch(cdnUrl);
+        if (fetchRes.ok) {
+          const contentType = fetchRes.headers.get("content-type") || "image/jpeg";
+          if (contentType.includes("image/") || contentType.includes("octet-stream")) {
+            res.setHeader("Content-Type", contentType);
+            res.setHeader("Content-Disposition", `attachment; filename="${cleanFilename}"`);
+            res.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
 
-      const fileStream = fs.createReadStream(localPath);
-      fileStream.on("error", (sErr) => {
-        if (!res.headersSent) res.status(500).json({ success: false, message: "Failed to stream image" });
-      });
-      return fileStream.pipe(res);
+            const buffer = await fetchRes.arrayBuffer();
+            return res.send(Buffer.from(buffer));
+          }
+        }
+      } catch (cdnErr) {
+        console.warn("[download-image] CDN fallback fetch failed:", cdnErr.message);
+      }
+
+      return res.status(404).json({ success: false, message: "Local photo asset not found on server or CDN" });
     }
 
     // Case 2: Remote image (Cloudinary or allowed external URL)

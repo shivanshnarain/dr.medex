@@ -33,11 +33,11 @@ function isPrivateHost(hostname) {
 function isAllowedRemoteUrl(urlString) {
   try {
     const parsed = new URL(urlString);
-    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return false;
-    if (isPrivateHost(parsed.hostname)) return false;
-    if (ALLOWED_REMOTE_HOSTS.has(parsed.hostname.toLowerCase())) return true;
-    // Allow public HTTPS image hosts if verified
-    if (parsed.protocol === "https:" && !isPrivateHost(parsed.hostname)) return true;
+    if (parsed.protocol !== "https:") return false;
+    const hostname = parsed.hostname.toLowerCase();
+    if (isPrivateHost(hostname)) return false;
+    if (ALLOWED_REMOTE_HOSTS.has(hostname)) return true;
+    if (hostname.endsWith(".cloudinary.com") || hostname.endsWith(".vercel.app")) return true;
     return false;
   } catch {
     return false;
