@@ -8,6 +8,7 @@ const currencyService = require("./currencyService");
 
 // File-backed persistence path in server/data/db.json
 const DB_FILE = path.join(__dirname, "../data/db.json");
+const TMP_DB_FILE = path.join(require("os").tmpdir(), "drmedex_db.json");
 
 let state = {
   products: [...initialProducts],
@@ -143,6 +144,21 @@ function ensureUniqueProductIds(products) {
 let lastMtime = 0;
 function checkReload() {
   try {
+    // Check writable TMP_DB_FILE first (has latest runtime updates in serverless)
+    if (fs.existsSync(TMP_DB_FILE)) {
+      const stat = fs.statSync(TMP_DB_FILE);
+      if (stat.mtimeMs > lastMtime) {
+        lastMtime = stat.mtimeMs;
+        const raw = fs.readFileSync(TMP_DB_FILE, "utf-8");
+        const loaded = JSON.parse(raw);
+        if (loaded && loaded.products && loaded.products.length > 0) {
+          state = { ...state, ...loaded };
+          ensureUniqueProductIds(state.products);
+          return;
+        }
+      }
+    }
+
     if (fs.existsSync(DB_FILE)) {
       const stat = fs.statSync(DB_FILE);
       if (stat.mtimeMs > lastMtime) {
@@ -169,7 +185,13 @@ function persist() {
       lastMtime = fs.statSync(DB_FILE).mtimeMs;
     }
   } catch (e) {
-    // Non-fatal if read-only filesystem
+    // Read-only filesystem in Vercel/Lambda serverless: persist to /tmp
+    try {
+      fs.writeFileSync(TMP_DB_FILE, JSON.stringify(state, null, 2), "utf-8");
+      if (fs.existsSync(TMP_DB_FILE)) {
+        lastMtime = fs.statSync(TMP_DB_FILE).mtimeMs;
+      }
+    } catch (tmpErr) {}
   }
 }
 

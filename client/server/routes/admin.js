@@ -511,39 +511,18 @@ router.put("/products/:id/review", requireAdmin, async (req, res) => {
       updatedAt: new Date().toISOString()
     };
 
-    let cloudinaryResult = null;
-
-    // IMAGE LIFECYCLE HOOKS
-    // IMAGE LIFECYCLE HOOKS - Strictly non-destructive preservation
-    if (cloudinaryService.isConfigured()) {
-      if (reviewStatus === "CORRECT") {
-        // Upload / optimize images to Cloudinary
-        try {
-          const syncRes = await cloudinaryService.syncProductReviewToCorrect(existing);
-          cloudinaryResult = syncRes;
-          updates.managedCloudinaryImages = syncRes.managedImages;
-          updates.originalImages = syncRes.originalImages;
-          updates.originalPrimaryImage = syncRes.originalPrimaryImage;
-          updates.images = syncRes.images;
-          updates.primaryImage = syncRes.primaryImage;
-          updates.cloudinarySyncStatus = syncRes.status;
-          updates.cloudinaryLastSyncedAt = new Date().toISOString();
-        } catch (syncErr) {
-          console.error("Cloudinary sync to CORRECT error:", syncErr);
-          cloudinaryResult = { status: "UPLOAD_FAILED", error: syncErr.message };
-          updates.cloudinarySyncStatus = "UPLOAD_FAILED";
-        }
-      }
-      // CRITICAL: When reviewStatus is NEEDS_EDITING or PENDING, preserve all existing Cloudinary images!
-      // Do not delete Cloudinary assets.
-    }
-
-    // MONGODB TEXT-DATA LIFECYCLE HOOKS - Non-destructive persistence
+    // Preserve existing images without triggering Cloudinary uploads on review status change (Rule D)
     let mongoResult = null;
     if (mongoService.isConfigured()) {
       try {
         const candidateProduct = { ...existing, ...updates };
-        const mRes = await mongoService.upsertProduct(candidateProduct, req.admin.email);
+        const mRes = await mongoService.updateProductReviewStatus(
+          existing.id,
+          reviewStatus,
+          updates.reviewNote,
+          req.admin.email,
+          candidateProduct
+        );
         mongoResult = mRes;
         updates.mongoSyncStatus = mRes.status;
         updates.mongoSyncedAt = new Date().toISOString();
@@ -562,7 +541,6 @@ router.put("/products/:id/review", requireAdmin, async (req, res) => {
       fromStatus: previousReviewStatus,
       toStatus: reviewStatus,
       note: updates.reviewNote,
-      cloudinaryStatus: cloudinaryResult ? cloudinaryResult.status : "NOT_CONFIGURED",
       mongoStatus: mongoResult ? mongoResult.status : "NOT_CONFIGURED"
     });
 
@@ -570,7 +548,6 @@ router.put("/products/:id/review", requireAdmin, async (req, res) => {
       success: true,
       message: `Product review status set to ${reviewStatus}`,
       product: updated,
-      cloudinary: cloudinaryResult,
       mongo: mongoResult
     });
   } catch (err) {

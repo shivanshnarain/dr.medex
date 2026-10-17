@@ -4,12 +4,17 @@ const uri = process.env.MONGODB_URI || "mongodb+srv://roshanofficial0009_db_user
 const dbName = process.env.MONGODB_DB || "drmedex";
 const COLLECTION_NAME = "approved_products";
 
-let client = null;
-let clientPromise = null;
 let indexesEnsured = false;
+const COOLDOWN_MS = 30000; // 30 seconds connection failure cooldown to prevent page hang
+let lastFailureTime = 0;
+let lastFailureError = null;
 
 function isConfigured() {
   return Boolean(uri);
+}
+
+function isCoolingDown() {
+  return Date.now() - lastFailureTime < COOLDOWN_MS;
 }
 
 /**
@@ -20,16 +25,35 @@ async function getClient() {
     throw new Error("MONGODB_URI is not configured in server environment.");
   }
 
-  if (!clientPromise) {
-    client = new MongoClient(uri, {
-      maxPoolSize: 10,
-      serverSelectionTimeoutMS: 5000
-    });
-    clientPromise = client.connect();
+  if (isCoolingDown()) {
+    throw new Error(`MongoDB connection in cooldown (${Math.ceil((COOLDOWN_MS - (Date.now() - lastFailureTime)) / 1000)}s remaining): ${lastFailureError}`);
   }
 
-  await clientPromise;
-  return client;
+  // Serverless-safe global singleton
+  if (!global._mongoClientPromise) {
+    global._mongoClient = new MongoClient(uri, {
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 2000,
+      connectTimeoutMS: 2000,
+      socketTimeoutMS: 5000
+    });
+    global._mongoClientPromise = global._mongoClient.connect().catch(err => {
+      lastFailureTime = Date.now();
+      lastFailureError = err.message;
+      global._mongoClientPromise = null;
+      throw err;
+    });
+  }
+
+  try {
+    await global._mongoClientPromise;
+    return global._mongoClient;
+  } catch (err) {
+    lastFailureTime = Date.now();
+    lastFailureError = err.message;
+    global._mongoClientPromise = null;
+    throw err;
+  }
 }
 
 /**
@@ -138,7 +162,7 @@ async function upsertApprovedProduct(product, adminEmail = "admin@drmedex.com") 
 /**
  * Update review status in MongoDB Atlas without deleting any product data or images
  */
-async function updateProductReviewStatus(productId, reviewStatus, reviewNote = null, adminEmail = "admin@drmedex.com") {
+async function updateProductReviewStatus(productId, reviewStatus, reviewNote = null, adminEmail = "admin@drmedex.com", fullProduct = null) {
   if (!isConfigured()) {
     return { success: false, status: "NOT_CONFIGURED", message: "MongoDB Atlas is not configured." };
   }
@@ -159,9 +183,15 @@ async function updateProductReviewStatus(productId, reviewStatus, reviewNote = n
     updates.approvedBy = adminEmail;
   }
 
+  if (fullProduct) {
+    const candidate = { ...fullProduct, ...updates };
+    return await upsertApprovedProduct(candidate, adminEmail);
+  }
+
   const result = await collection.updateOne(
     { id: String(productId) },
-    { $set: updates }
+    { $set: updates },
+    { upsert: true }
   );
 
   return {
@@ -170,7 +200,8 @@ async function updateProductReviewStatus(productId, reviewStatus, reviewNote = n
     id: String(productId),
     reviewStatus,
     modified: Boolean(result.modifiedCount > 0),
-    matched: Boolean(result.matchedCount > 0)
+    matched: Boolean(result.matchedCount > 0),
+    upserted: Boolean(result.upsertedCount > 0)
   };
 }
 
@@ -200,16 +231,20 @@ async function removeApprovedProduct(productId) {
  * Get product by ID from MongoDB
  */
 async function getApprovedProduct(productId) {
-  if (!isConfigured()) return null;
-  const collection = await getCollection();
-  return collection.findOne({ id: String(productId) });
+  if (!isConfigured() || isCoolingDown()) return null;
+  try {
+    const collection = await getCollection();
+    return await collection.findOne({ id: String(productId) });
+  } catch (err) {
+    return null;
+  }
 }
 
 /**
  * Query all products directly from MongoDB collection
  */
 async function getProductsFromMongo(filters = {}) {
-  if (!isConfigured()) return null;
+  if (!isConfigured() || isCoolingDown()) return null;
   try {
     const collection = await getCollection();
     const query = {};
@@ -234,7 +269,7 @@ async function getProductsFromMongo(filters = {}) {
  * Get product count in MongoDB collection
  */
 async function getProductsCount() {
-  if (!isConfigured()) return null;
+  if (!isConfigured() || isCoolingDown()) return null;
   try {
     const collection = await getCollection();
     return await collection.countDocuments();
@@ -249,6 +284,16 @@ async function getProductsCount() {
 async function getMongoStatus() {
   if (!isConfigured()) {
     return { configured: false };
+  }
+
+  if (isCoolingDown()) {
+    return {
+      configured: true,
+      connected: false,
+      coolingDown: true,
+      cooldownSecondsRemaining: Math.ceil((COOLDOWN_MS - (Date.now() - lastFailureTime)) / 1000),
+      error: lastFailureError
+    };
   }
 
   try {

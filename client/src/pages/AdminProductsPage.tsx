@@ -36,8 +36,19 @@ export const AdminProductsPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [products, setProducts] = useState<Product[]>(() => {
+    try {
+      const cached = localStorage.getItem("drmedex_admin_products_cache");
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch {}
+    return fallbackProducts && fallbackProducts.length > 0 ? (fallbackProducts as Product[]) : [];
+  });
+  const [categories, setCategories] = useState<Category[]>(() => {
+    return fallbackCategories && fallbackCategories.length > 0 ? (fallbackCategories as Category[]) : [];
+  });
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const categoryScrollRef = useRef<HTMLDivElement>(null);
@@ -484,53 +495,37 @@ export const AdminProductsPage: React.FC = () => {
       }
 
       if (res.ok && data.success) {
-        // Move updated product to top of list
+        // Move updated product to top of list and update localStorage cache
         setProducts((prev) => {
-          const updated = { ...product, ...data.product };
+          const updated = { ...product, ...data.product, reviewStatus: status };
           const others = prev.filter((p) => p.id !== product.id);
-          return [updated, ...others];
+          const next = [updated, ...others];
+          try {
+            localStorage.setItem("drmedex_admin_products_cache", JSON.stringify(next));
+          } catch {}
+          return next;
         });
 
-        const cld = data.cloudinary;
-        const mongo = data.mongo;
         const prodTitle = product.title || product.productName;
+        const mongo = data.mongo;
+        const statusLabel =
+          status === "CORRECT"
+            ? "Correct"
+            : status === "NEEDS_EDITING"
+            ? "Needs Editing"
+            : "Not Yet Reviewed";
 
-        if (status === "CORRECT") {
-          const cldOk = cld?.status === "IMAGES_UPLOADED" || cld?.status === "ALREADY_UPLOADED";
-          const mongoOk = mongo?.status === "SYNCED" || mongo?.status === "ALREADY_SYNCED";
-
-          if (cldOk && mongoOk) {
-            showToast(
-              "success",
-              `Cloudinary images uploaded & text approved to MongoDB Atlas. Product moved to top.`,
-              `✓ "${prodTitle}" Marked as Correct`
-            );
-          } else if (cldOk && !mongoOk) {
-            showToast(
-              "warning",
-              `Cloudinary images uploaded, but MongoDB Atlas sync reported: ${mongo?.error || mongo?.status || "sync failed"}.`,
-              `⚠ Partial Sync: "${prodTitle}"`
-            );
-          } else if (!cldOk && mongoOk) {
-            showToast(
-              "warning",
-              `MongoDB text synced, but Cloudinary reported: ${cld?.error || cld?.status || "upload failed"}.`,
-              `⚠ Partial Sync: "${prodTitle}"`
-            );
-          } else {
-            showToast(
-              "error",
-              `Cloudinary (${cld?.status || "failed"}) and MongoDB Atlas (${mongo?.status || "failed"}) both reported errors.`,
-              `✕ Sync Failed: "${prodTitle}"`
-            );
-          }
+        if (mongo?.status === "SYNC_FAILED") {
+          showToast(
+            "warning",
+            `Review status saved as "${statusLabel}". MongoDB Atlas update queued: ${mongo.error || "connection in cooldown"}.`,
+            `"${prodTitle}"`
+          );
         } else {
           showToast(
             "success",
-            status === "NEEDS_EDITING"
-              ? `Marked as Needs Editing. All catalogue text & images preserved. Product in review queue.`
-              : `Review status reset to Not Yet Reviewed. All catalogue text & images preserved.`,
-            `"${prodTitle}"`
+            `Review status saved as "${statusLabel}". Catalogue updated.`,
+            `✓ "${prodTitle}"`
           );
         }
       } else {
@@ -1166,7 +1161,16 @@ export const AdminProductsPage: React.FC = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-[#E5E5E5]">
-              {paginatedProducts.length === 0 ? (
+              {isLoading && products.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="py-16 text-center text-neutral-500 text-xs">
+                    <div className="flex flex-col items-center justify-center gap-2">
+                      <RefreshCw size={20} className="animate-spin text-black" />
+                      <span>Loading authoritative product catalogue...</span>
+                    </div>
+                  </td>
+                </tr>
+              ) : paginatedProducts.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="py-12 text-center text-[#666666] text-xs">
                     No products matched your active filters or search terms.
@@ -1359,13 +1363,15 @@ export const AdminProductsPage: React.FC = () => {
                               onClick={async () => {
                                 try {
                                   const res = await adminFetch(`/api/admin/products/${p.id}/sync-mongodb`, { method: "POST" });
-                                  const data = await res.json();
-                                  if (data.success) {
+                                  const data = await res.json().catch(() => ({}));
+                                  if (res.ok && data.success) {
                                     setProducts(prev => prev.map(prod => prod.id === p.id ? { ...prod, ...data.product } : prod));
                                     setBannerMessage({ text: "MongoDB Atlas sync completed successfully.", type: "success" });
+                                  } else {
+                                    setBannerMessage({ text: data.message || "MongoDB Atlas sync failed.", type: "error" });
                                   }
                                 } catch (e: any) {
-                                  setBannerMessage({ text: e.message, type: "error" });
+                                  setBannerMessage({ text: e.message || "Request failed", type: "error" });
                                 }
                               }}
                               title="Click to retry MongoDB Atlas sync"
