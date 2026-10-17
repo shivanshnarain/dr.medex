@@ -47,10 +47,12 @@ router.get("/products", async (req, res) => {
 
 router.get("/products/:slug", async (req, res) => {
   try {
-    let product = store.getProductBySlug(req.params.slug);
+    res.set("Cache-Control", "public, max-age=0, must-revalidate");
+    let product = store.getProductBySlug(req.params.slug) || store.getProductById(req.params.slug, true);
     if (mongoService.isConfigured()) {
       try {
-        const mongoProd = await mongoService.getApprovedProduct(req.params.slug);
+        const lookup = (product && product.id) ? product.id : req.params.slug;
+        const mongoProd = await mongoService.getApprovedProduct(lookup) || await mongoService.getApprovedProduct(req.params.slug);
         if (mongoProd) {
           product = product ? { ...product, ...mongoProd } : mongoProd;
         }

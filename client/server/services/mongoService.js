@@ -98,6 +98,7 @@ async function getCollection() {
   if (!indexesEnsured) {
     try {
       await collection.createIndex({ id: 1 }, { unique: true });
+      await collection.createIndex({ slug: 1 });
       await collection.createIndex({ sku: 1 });
       await collection.createIndex({ category: 1 });
       indexesEnsured = true;
@@ -139,6 +140,7 @@ async function upsertApprovedProduct(product, adminEmail = "admin@drmedex.com") 
   // Extract clean, compact text fields
   const approvedRecord = {
     id: String(product.id),
+    slug: String(product.slug || product.id || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-"),
     title: String(product.title || product.productName).trim(),
     productName: product.productName || product.title,
     sku: String(product.sku || product.SKU || "").trim(),
@@ -172,6 +174,7 @@ async function upsertApprovedProduct(product, adminEmail = "admin@drmedex.com") 
     mongoSyncedAt: new Date().toISOString(),
     // Store only verified image URLs/references — NEVER raw binaries or base64
     images: Array.isArray(product.images) ? product.images.filter(i => typeof i === "string" && !i.startsWith("data:")) : [],
+    galleryImages: Array.isArray(product.galleryImages) ? product.galleryImages : [],
     primaryImage: typeof product.primaryImage === "string" && !product.primaryImage.startsWith("data:") ? product.primaryImage : "",
     managedCloudinaryImages: Array.isArray(product.managedCloudinaryImages) ? product.managedCloudinaryImages : [],
     cloudinarySyncStatus: product.cloudinarySyncStatus || null,
@@ -267,17 +270,22 @@ async function removeApprovedProduct(productId) {
 }
 
 /**
-/**
  * Get product by ID or slug from MongoDB Atlas
  */
 async function getApprovedProduct(productId) {
-  if (!isConfigured()) return null;
+  if (!isConfigured() || !productId) return null;
   if (Date.now() - lastFailureTime < 15000 && connectionFailureCount > 0) return null;
   try {
     const collection = await getCollection();
-    const pid = String(productId);
+    const pid = String(productId).trim();
+    const lowerPid = pid.toLowerCase();
     return await collection.findOne({
-      $or: [{ id: pid }, { slug: pid }]
+      $or: [
+        { id: pid },
+        { id: lowerPid },
+        { slug: pid },
+        { slug: lowerPid }
+      ]
     });
   } catch (err) {
     return null;

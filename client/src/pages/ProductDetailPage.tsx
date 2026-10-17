@@ -637,18 +637,42 @@ export const ProductDetailPage: React.FC = () => {
     );
   }
 
-  const rawImages =
-    product.images && product.images.length > 0
-      ? product.images
-      : product.galleryImages && product.galleryImages.length > 0
-      ? product.galleryImages
-      : product.primaryImage
-      ? [product.primaryImage]
-      : [];
+  // Authoritative canonical current gallery resolution: include every saved photograph preserving order
+  const extractUrl = (item: any): string => {
+    if (!item) return "";
+    if (typeof item === "string") return item.trim();
+    if (typeof item === "object") {
+      const u = item.secureUrl || item.secure_url || item.url || item.src || "";
+      return typeof u === "string" ? u.trim() : "";
+    }
+    return "";
+  };
 
-  const productImages = rawImages
-    .map((img: any) => (typeof img === "string" ? img : img?.url || img?.src || ""))
-    .filter((url: string) => typeof url === "string" && url.trim().length > 0);
+  const seenUrls = new Set<string>();
+  const productImages: string[] = [];
+
+  const addImageUrl = (raw: any) => {
+    const u = extractUrl(raw);
+    if (u && !u.startsWith("blob:") && !u.startsWith("data:") && !seenUrls.has(u)) {
+      seenUrls.add(u);
+      productImages.push(u);
+    }
+  };
+
+  // 1. Primary image candidate first if defined
+  if (product.primaryImage) {
+    addImageUrl(product.primaryImage);
+  }
+
+  // 2. Add all unique photos from current images array
+  if (Array.isArray(product.images)) {
+    product.images.forEach(addImageUrl);
+  }
+
+  // 3. Add any additional current gallery photos preserving order
+  if (Array.isArray(product.galleryImages)) {
+    product.galleryImages.forEach(addImageUrl);
+  }
 
   if (productImages.length === 0) {
     productImages.push("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80");
@@ -759,8 +783,8 @@ export const ProductDetailPage: React.FC = () => {
             {/* Vertical thumbnails on the left on desktop; horizontal scroll on mobile */}
             {productImages.length > 1 && (
               <div
-                style={galleryHeight ? { maxHeight: `${galleryHeight}px` } : undefined}
-                className="flex sm:flex-col items-center gap-2.5 sm:gap-3 overflow-x-auto sm:overflow-y-auto max-h-[580px] shrink-0 w-full sm:w-auto scrollbar-none order-2 sm:order-1 pt-1 pb-1 px-1"
+                style={galleryHeight ? { maxHeight: `${Math.max(galleryHeight, productImages.length * 96, 560)}px` } : undefined}
+                className="flex sm:flex-col items-center gap-2.5 sm:gap-3 overflow-x-auto sm:overflow-y-auto max-h-[640px] shrink-0 w-full sm:w-auto [scrollbar-width:thin] [scrollbar-color:#7AA05A_transparent] order-2 sm:order-1 pt-1 pb-1 px-1"
               >
                 {productImages.map((img, idx) => {
                   const isSelected = activeImageIndex === idx;
@@ -819,7 +843,7 @@ export const ProductDetailPage: React.FC = () => {
           {/* RIGHT 50%: PRODUCT DETAILS & ACTIONS (Bottom Aligned)    */}
           {/* ------------------------------------------------------- */}
           <div
-            style={galleryHeight ? { height: `${galleryHeight}px`, maxHeight: `${galleryHeight}px` } : undefined}
+            style={galleryHeight ? { minHeight: `${galleryHeight}px` } : undefined}
             className="w-full flex flex-col justify-between min-w-0"
           >
             {/* Top Group: Title, Pricing, Description */}
