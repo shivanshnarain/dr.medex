@@ -233,6 +233,27 @@ export const AdminProductsPage: React.FC = () => {
   useEffect(() => {
     if (location.state && (location.state as any).refreshed) {
       const stateMsg = (location.state as any).message;
+      const updatedProduct = (location.state as any).updatedProduct;
+      if (updatedProduct && updatedProduct.id) {
+        setProducts((prev) => {
+          const idx = prev.findIndex((p) => p.id === updatedProduct.id);
+          let nextList;
+          if (idx !== -1) {
+            nextList = [...prev];
+            nextList[idx] = { ...nextList[idx], ...updatedProduct };
+            const [item] = nextList.splice(idx, 1);
+            nextList.unshift(item);
+          } else {
+            nextList = [updatedProduct, ...prev];
+          }
+          try {
+            localStorage.setItem("drmedex_admin_products_cache", JSON.stringify(nextList));
+          } catch (e) {
+            // ignore
+          }
+          return nextList;
+        });
+      }
       if (stateMsg) {
         showToast("success", stateMsg, "Catalogue Updated");
       }
@@ -1308,7 +1329,7 @@ export const AdminProductsPage: React.FC = () => {
                             {reviewUpdatingId === p.id ? (
                               <span className="flex items-center gap-1 font-mono text-[10px]">
                                 <RefreshCw size={10} className="animate-spin text-current" />
-                                {pendingReviewAction === "UPLOADING" ? "Uploading..." : "Removing..."}
+                                Updating...
                               </span>
                             ) : p.reviewStatus === "CORRECT" ? (
                               <Check size={11} className="stroke-[2.5]" />

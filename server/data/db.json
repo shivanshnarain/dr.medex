@@ -159,7 +159,7 @@
         "prod-3-mhz-ultrasound-therapy"
       ],
       "createdAt": "2026-10-03T15:48:11Z",
-      "updatedAt": "2026-10-17T07:01:29.455Z",
+      "updatedAt": "2026-10-17T07:45:35.230Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "roshan.official0009@gmail.com",
       "ribbon": "EX-400",
@@ -201,7 +201,7 @@
       "reviewStatus": "CORRECT",
       "reviewNote": "Test review note for clinical audit",
       "reviewedBy": "roshan.official0009@gmail.com",
-      "reviewedAt": "2026-10-17T07:01:29.391Z",
+      "reviewedAt": "2026-10-17T07:45:35.163Z",
       "managedCloudinaryImages": [
         {
           "publicId": "dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_1_e7d52211",
@@ -278,7 +278,9 @@
       "cloudinarySyncStatus": "IMAGES_UPLOADED",
       "cloudinaryLastSyncedAt": "2026-10-11T14:35:29.697Z",
       "mongoSyncStatus": "SYNC_FAILED",
-      "mongoSyncedAt": "2026-10-11T14:35:30.610Z"
+      "mongoSyncedAt": "2026-10-11T14:35:30.610Z",
+      "approvedAt": "2026-10-17T07:45:35.230Z",
+      "approvedBy": "roshan.official0009@gmail.com"
     },
     {
       "stock": 9,
@@ -42356,6 +42358,158 @@
     "headquarters": "DR.MEDEX Global MedTech Tower, 45 Healthcare Innovation Way, Boston, MA 02115, USA & International Logistics Hub, Dubai Healthcare City, UAE"
   },
   "auditLogs": [
+    {
+      "id": "audit-1792223135247-bcdtt",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T07:45:35.247Z"
+    },
+    {
+      "id": "audit-1792223135180-b2772",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T07:45:35.180Z"
+    },
+    {
+      "id": "audit-1792223135131-aofw7",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T07:45:35.131Z"
+    },
+    {
+      "id": "audit-1792223135079-234o5",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T07:45:35.079Z"
+    },
+    {
+      "id": "audit-1792223130578-sy39m",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-17T07:45:30.578Z"
+    },
+    {
+      "id": "audit-1792223130525-7yzxd",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-17T07:45:30.525Z"
+    },
+    {
+      "id": "audit-1792223130416-t2fsm",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-17T07:45:30.416Z"
+    },
+    {
+      "id": "audit-1792223130306-oxs8n",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-17T07:45:30.306Z"
+    },
+    {
+      "id": "audit-1792223113365-lfnnp",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-17T07:45:13.365Z"
+    },
+    {
+      "id": "audit-1792223113300-1aflq",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T07:45:13.300Z"
+    },
+    {
+      "id": "audit-1792223113250-oy3b6",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T07:45:13.250Z"
+    },
+    {
+      "id": "audit-1792223113202-vx8xu",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-17T07:45:13.202Z"
+    },
     {
       "id": "audit-1792220489470-9fpcj",
       "adminId": "roshan.official0009@gmail.com",

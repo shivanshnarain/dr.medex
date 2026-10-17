@@ -511,6 +511,11 @@ router.put("/products/:id/review", requireAdmin, async (req, res) => {
       updatedAt: new Date().toISOString()
     };
 
+    if (reviewStatus === "CORRECT") {
+      updates.approvedAt = new Date().toISOString();
+      updates.approvedBy = req.admin.email;
+    }
+
     // Preserve existing images without triggering Cloudinary uploads on review status change (Rule D)
     let mongoResult = null;
     if (mongoService.isConfigured()) {
@@ -528,7 +533,7 @@ router.put("/products/:id/review", requireAdmin, async (req, res) => {
         updates.mongoSyncedAt = new Date().toISOString();
       } catch (mErr) {
         console.error("MongoDB Atlas sync error:", mErr.message);
-        mongoResult = { status: "SYNC_FAILED", error: mErr.message };
+        mongoResult = { status: "SYNC_FAILED", error: mongoService.sanitizeMongoError(mErr) };
         updates.mongoSyncStatus = "SYNC_FAILED";
       }
     }
@@ -786,6 +791,9 @@ router.post("/products", requireAdmin, async (req, res) => {
 
     const created = store.addProduct({
       ...data,
+      reviewStatus: data.reviewStatus || "CORRECT",
+      approvedAt: new Date().toISOString(),
+      approvedBy: req.admin.email,
       createdBy: req.admin.email,
       updatedBy: req.admin.email
     });
@@ -824,6 +832,9 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
 
     const updates = {
       ...req.body,
+      reviewStatus: "CORRECT",
+      approvedAt: new Date().toISOString(),
+      approvedBy: req.admin?.email || "SYSTEM_ADMIN",
       updatedBy: req.admin?.email || "SYSTEM_ADMIN",
       updatedAt: new Date().toISOString()
     };
@@ -867,6 +878,7 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
     }
 
     // Persist to MongoDB Atlas if configured
+    let mongoResult = null;
     if (mongoService.isConfigured()) {
       try {
         const mRes = await mongoService.upsertProduct(updated, req.admin?.email || "admin@drmedex.com");
@@ -874,8 +886,10 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
           updated.mongoSyncStatus = "SYNCED";
           store.updateProduct(existing.id, { mongoSyncStatus: "SYNCED", mongoSyncedAt: new Date().toISOString() });
         }
+        mongoResult = mRes;
       } catch (mErr) {
         console.warn("[admin.js] MongoDB Atlas sync on update:", mErr.message);
+        mongoResult = { status: "SYNC_FAILED", error: mongoService.sanitizeMongoError(mErr) };
       }
     }
 
@@ -895,7 +909,7 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
       changes
     });
 
-    res.json({ success: true, product: updated });
+    res.json({ success: true, product: updated, mongo: mongoResult });
   } catch (err) {
     console.error("Update product error:", err);
     res.status(500).json({ success: false, message: err.message });

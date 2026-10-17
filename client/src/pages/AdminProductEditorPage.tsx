@@ -1118,6 +1118,7 @@ export const AdminProductEditorPage: React.FC = () => {
         navigate("/admin/products", {
           state: {
             refreshed: true,
+            updatedProduct: data.product,
             message: isEditMode
               ? `Product "${payload.productName || payload.title}" updated successfully.`
               : `Product "${payload.productName || payload.title}" created successfully.`

@@ -1,11 +1,19 @@
 const { MongoClient } = require("mongodb");
 
-const uri = process.env.MONGODB_URI || "mongodb+srv://roshanofficial0009_db_user:ExUyOvI6KQ5NNJOq@cluster0.7y0dbdy.mongodb.net/?appName=Cluster0";
 const dbName = process.env.MONGODB_DB || "drmedex";
 const COLLECTION_NAME = "approved_products";
 
+function getNormalizedUri() {
+  let raw = process.env.MONGODB_URI || "mongodb+srv://roshanofficial0009_db_user:ExUyOvI6KQ5NNJOq@cluster0.7y0dbdy.mongodb.net/?appName=Cluster0";
+  if ((raw.startsWith("mongodb+srv://") || raw.startsWith("mongodb://")) && !raw.includes(`/${dbName}`)) {
+    raw = raw.replace("/?", `/${dbName}?`);
+  }
+  return raw;
+}
+
+const uri = getNormalizedUri();
 let indexesEnsured = false;
-const COOLDOWN_MS = 30000; // 30 seconds connection failure cooldown to prevent page hang
+let connectionFailureCount = 0;
 let lastFailureTime = 0;
 let lastFailureError = null;
 
@@ -13,45 +21,68 @@ function isConfigured() {
   return Boolean(uri);
 }
 
-function isCoolingDown() {
-  return Date.now() - lastFailureTime < COOLDOWN_MS;
+function sanitizeMongoError(err) {
+  if (!err) return "Unknown database error";
+  const msg = typeof err === "string" ? err : err.message || String(err);
+  if (msg.includes("SSL alert number 80") || msg.includes("tlsv1 alert internal error")) {
+    return "MongoDB Atlas TLS connection rejected (SSL alert 80): Connecting IP address is not whitelisted in MongoDB Atlas Network Access.";
+  }
+  if (msg.includes("Authentication failed") || msg.includes("bad auth")) {
+    return "MongoDB Atlas authentication failed: invalid credentials or authSource.";
+  }
+  if (msg.includes("ETIMEDOUT") || msg.includes("timed out") || msg.includes("ECONNREFUSED")) {
+    return "MongoDB Atlas cluster unreachable (network timeout or connection refused).";
+  }
+  return msg.replace(/mongodb(\+srv)?:\/\/[^@]+@/g, "mongodb$1://***:***@");
 }
 
 /**
  * Get or initialize MongoDB Atlas client singleton
  */
-async function getClient() {
+async function getClient(forceRetry = false) {
   if (!isConfigured()) {
     throw new Error("MONGODB_URI is not configured in server environment.");
   }
 
-  if (isCoolingDown()) {
-    throw new Error(`MongoDB connection in cooldown (${Math.ceil((COOLDOWN_MS - (Date.now() - lastFailureTime)) / 1000)}s remaining): ${lastFailureError}`);
+  // If forceRetry is requested, clear any cached failed state
+  if (forceRetry) {
+    global._mongoClientPromise = null;
+    global._mongoClient = null;
   }
 
   // Serverless-safe global singleton
   if (!global._mongoClientPromise) {
     global._mongoClient = new MongoClient(uri, {
       maxPoolSize: 10,
-      serverSelectionTimeoutMS: 2000,
-      connectTimeoutMS: 2000,
-      socketTimeoutMS: 5000
+      minPoolSize: 1,
+      serverSelectionTimeoutMS: 2500,
+      connectTimeoutMS: 2500,
+      socketTimeoutMS: 10000,
+      retryWrites: true,
+      retryReads: true
     });
-    global._mongoClientPromise = global._mongoClient.connect().catch(err => {
-      lastFailureTime = Date.now();
-      lastFailureError = err.message;
-      global._mongoClientPromise = null;
-      throw err;
-    });
+    global._mongoClientPromise = global._mongoClient.connect()
+      .then(c => {
+        connectionFailureCount = 0;
+        lastFailureError = null;
+        return c;
+      })
+      .catch(err => {
+        connectionFailureCount++;
+        lastFailureTime = Date.now();
+        lastFailureError = sanitizeMongoError(err);
+        global._mongoClientPromise = null;
+        global._mongoClient = null;
+        throw new Error(lastFailureError);
+      });
   }
 
   try {
     await global._mongoClientPromise;
     return global._mongoClient;
   } catch (err) {
-    lastFailureTime = Date.now();
-    lastFailureError = err.message;
     global._mongoClientPromise = null;
+    global._mongoClient = null;
     throw err;
   }
 }
@@ -230,8 +261,12 @@ async function removeApprovedProduct(productId) {
 /**
  * Get product by ID from MongoDB
  */
+/**
+ * Get product by ID from MongoDB
+ */
 async function getApprovedProduct(productId) {
-  if (!isConfigured() || isCoolingDown()) return null;
+  if (!isConfigured()) return null;
+  if (Date.now() - lastFailureTime < 15000 && connectionFailureCount > 0) return null;
   try {
     const collection = await getCollection();
     return await collection.findOne({ id: String(productId) });
@@ -244,7 +279,11 @@ async function getApprovedProduct(productId) {
  * Query all products directly from MongoDB collection
  */
 async function getProductsFromMongo(filters = {}) {
-  if (!isConfigured() || isCoolingDown()) return null;
+  if (!isConfigured()) return null;
+  // If connection failed within last 15s, avoid blocking page load
+  if (Date.now() - lastFailureTime < 15000 && connectionFailureCount > 0) {
+    return null;
+  }
   try {
     const collection = await getCollection();
     const query = {};
@@ -260,7 +299,7 @@ async function getProductsFromMongo(filters = {}) {
     }
     return await collection.find(query).toArray();
   } catch (err) {
-    console.warn("[mongoService] getProductsFromMongo error:", err.message);
+    console.warn("[mongoService] getProductsFromMongo:", sanitizeMongoError(err));
     return null;
   }
 }
@@ -269,7 +308,8 @@ async function getProductsFromMongo(filters = {}) {
  * Get product count in MongoDB collection
  */
 async function getProductsCount() {
-  if (!isConfigured() || isCoolingDown()) return null;
+  if (!isConfigured()) return null;
+  if (Date.now() - lastFailureTime < 15000 && connectionFailureCount > 0) return null;
   try {
     const collection = await getCollection();
     return await collection.countDocuments();
@@ -286,18 +326,8 @@ async function getMongoStatus() {
     return { configured: false };
   }
 
-  if (isCoolingDown()) {
-    return {
-      configured: true,
-      connected: false,
-      coolingDown: true,
-      cooldownSecondsRemaining: Math.ceil((COOLDOWN_MS - (Date.now() - lastFailureTime)) / 1000),
-      error: lastFailureError
-    };
-  }
-
   try {
-    const c = await getClient();
+    const c = await getClient(true);
     const db = c.db(process.env.MONGODB_DB || "drmedex");
     const ping = await db.command({ ping: 1 });
     const collection = db.collection(COLLECTION_NAME);
@@ -314,13 +344,14 @@ async function getMongoStatus() {
     return {
       configured: true,
       connected: false,
-      error: err.message
+      error: sanitizeMongoError(err)
     };
   }
 }
 
 module.exports = {
   isConfigured,
+  sanitizeMongoError,
   upsertApprovedProduct,
   upsertProduct: upsertApprovedProduct,
   updateProductReviewStatus,
