@@ -55,9 +55,9 @@ async function getClient(forceRetry = false) {
     global._mongoClient = new MongoClient(uri, {
       maxPoolSize: 10,
       minPoolSize: 1,
-      serverSelectionTimeoutMS: 2500,
-      connectTimeoutMS: 2500,
-      socketTimeoutMS: 10000,
+      serverSelectionTimeoutMS: 5000,
+      connectTimeoutMS: 5000,
+      socketTimeoutMS: 15000,
       retryWrites: true,
       retryReads: true
     });
@@ -318,6 +318,28 @@ async function getProductsCount() {
   }
 }
 
+function getEgressIp() {
+  return new Promise((resolve) => {
+    const https = require("https");
+    const req = https.get("https://api.ipify.org?format=json", { timeout: 2000 }, (res) => {
+      let data = "";
+      res.on("data", chunk => data += chunk);
+      res.on("end", () => {
+        try {
+          resolve(JSON.parse(data).ip);
+        } catch {
+          resolve(data.trim() || "unknown");
+        }
+      });
+    });
+    req.on("error", () => resolve("unknown"));
+    req.on("timeout", () => {
+      req.destroy();
+      resolve("timeout");
+    });
+  });
+}
+
 /**
  * Get MongoDB Atlas status and collection counts
  */
@@ -325,6 +347,16 @@ async function getMongoStatus() {
   if (!isConfigured()) {
     return { configured: false };
   }
+
+  let clusterHost = "unknown";
+  let hasCustomEnv = Boolean(process.env.MONGODB_URI);
+  try {
+    const raw = getNormalizedUri();
+    const urlObj = new URL(raw.replace(/^mongodb(\+srv)?:\/\//, "http://"));
+    clusterHost = urlObj.host;
+  } catch (e) {}
+
+  const egressIp = await getEgressIp().catch(() => "unknown");
 
   try {
     const c = await getClient(true);
@@ -338,12 +370,18 @@ async function getMongoStatus() {
       connected: Boolean(ping.ok === 1),
       database: process.env.MONGODB_DB || "drmedex",
       collection: COLLECTION_NAME,
-      approvedProductsCount: count
+      approvedProductsCount: count,
+      clusterHost,
+      egressIp,
+      hasCustomEnv
     };
   } catch (err) {
     return {
       configured: true,
       connected: false,
+      clusterHost,
+      egressIp,
+      hasCustomEnv,
       error: sanitizeMongoError(err)
     };
   }
