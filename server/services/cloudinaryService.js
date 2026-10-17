@@ -578,6 +578,94 @@ async function getCatalogueDryRun(products = []) {
   };
 }
 
+/**
+ * Permanently delete exclusively owned Cloudinary images for a product
+ * - Identifies all Cloudinary assets associated with the product
+ * - Strictly verifies that no other product references the publicId or image URL
+ * - Deletes via cloudinary.uploader.destroy(publicId, { invalidate: true })
+ * - Returns structured audit summary
+ */
+async function deleteProductExclusivelyOwnedMedia(product, allProducts = []) {
+  if (!isConfigured()) {
+    return { status: "NOT_CONFIGURED", deletedCount: 0, preservedCount: 0, errorCount: 0 };
+  }
+  if (!product) {
+    return { status: "NO_PRODUCT", deletedCount: 0, preservedCount: 0, errorCount: 0 };
+  }
+
+  const candidates = new Set();
+  if (Array.isArray(product.managedCloudinaryImages)) {
+    product.managedCloudinaryImages.forEach(m => {
+      if (m && m.publicId) candidates.add(m.publicId);
+    });
+  }
+
+  const allProductUrls = [];
+  if (product.primaryImage) allProductUrls.push(product.primaryImage);
+  if (Array.isArray(product.images)) allProductUrls.push(...product.images);
+  if (Array.isArray(product.galleryImages)) {
+    product.galleryImages.forEach(g => {
+      const u = typeof g === "string" ? g : g?.url || g?.secureUrl;
+      if (u) allProductUrls.push(u);
+    });
+  }
+
+  allProductUrls.forEach(url => {
+    if (typeof url === "string" && url.includes("res.cloudinary.com")) {
+      const match = url.match(/\/upload\/(?:v\d+\/)?([^\.]+)/);
+      if (match && match[1]) {
+        candidates.add(match[1]);
+      }
+    }
+  });
+
+  const deleted = [];
+  const preserved = [];
+  const errors = [];
+
+  for (const publicId of candidates) {
+    // Verify no OTHER product references this asset
+    const isShared = allProducts.some(other => {
+      if (other.id === product.id) return false;
+      const otherManaged = Array.isArray(other.managedCloudinaryImages) ? other.managedCloudinaryImages : [];
+      if (otherManaged.some(m => m.publicId === publicId)) return true;
+      const otherUrls = [other.primaryImage, ...(other.images || [])];
+      return otherUrls.some(u => typeof u === "string" && u.includes(publicId));
+    });
+
+    if (isShared) {
+      preserved.push({
+        publicId,
+        reason: "Asset shared with another product. Preserved from deletion."
+      });
+      continue;
+    }
+
+    try {
+      const delRes = await cloudinary.uploader.destroy(publicId, { invalidate: true });
+      if (delRes.result === "ok" || delRes.result === "not found") {
+        deleted.push({ publicId, result: delRes.result });
+      } else {
+        errors.push({ publicId, result: delRes.result });
+      }
+    } catch (err) {
+      console.error(`Error deleting Cloudinary asset ${publicId}:`, err.message);
+      errors.push({ publicId, error: err.message });
+    }
+  }
+
+  const allSuccess = errors.length === 0;
+  return {
+    status: allSuccess ? "MEDIA_DELETED" : "PARTIAL_FAILURE",
+    deletedCount: deleted.length,
+    preservedCount: preserved.length,
+    errorCount: errors.length,
+    deleted,
+    preserved,
+    errors
+  };
+}
+
 module.exports = {
   isConfigured,
   getAccountUsage,
@@ -585,5 +673,6 @@ module.exports = {
   optimizeImage,
   syncProductReviewToCorrect,
   syncProductReviewRemoval,
+  deleteProductExclusivelyOwnedMedia,
   getCatalogueDryRun
 };

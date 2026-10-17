@@ -478,6 +478,31 @@ router.get("/products/:id/download-package", requireAdmin, async (req, res) => {
 });
 
 /**
+ * Direct Product Photo Proxy Download (preserves original content without ZIP packaging)
+ */
+router.get("/download-image", requireAdmin, async (req, res) => {
+  try {
+    const { url, filename } = req.query;
+    if (!url || !String(url).startsWith("http")) {
+      return res.status(400).json({ success: false, message: "Valid HTTP(S) image URL is required" });
+    }
+    const cleanFilename = String(filename || "product-image.jpg").replace(/[^a-zA-Z0-9._-]/g, "_");
+    const fetchRes = await fetch(url);
+    if (!fetchRes.ok) {
+      return res.status(fetchRes.status).json({ success: false, message: `Failed to fetch image: HTTP ${fetchRes.status}` });
+    }
+    const contentType = fetchRes.headers.get("content-type") || "image/jpeg";
+    res.setHeader("Content-Type", contentType);
+    res.setHeader("Content-Disposition", `attachment; filename="${cleanFilename}"`);
+    res.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
+    const buffer = await fetchRes.arrayBuffer();
+    res.send(Buffer.from(buffer));
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+/**
  * Update Admin Review Status (CORRECT, NEEDS_EDITING, PENDING) with optional review note
  */
 router.put("/products/:id/review", requireAdmin, async (req, res) => {
@@ -980,37 +1005,72 @@ router.post("/products/:id/sync-price", requireAdmin, (req, res) => {
   res.json({ success: true, product: updated, referencePricing: refPricing });
 });
 
-router.delete("/products/:id", requireAdmin, (req, res) => {
-  const permanent = req.query.permanent === "true";
-  const existing = store.getProductById(req.params.id, true);
+router.delete("/products/:id", requireAdmin, async (req, res) => {
+  try {
+    const existing = store.getProductById(req.params.id, true);
+    if (!existing) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
 
-  if (!existing) {
-    return res.status(404).json({ success: false, message: "Product not found" });
-  }
-
-  if (permanent) {
-    // Check if in historical orders
+    // 1. Order safety check: do not delete product if part of existing customer orders
     const orders = store.getOrders();
     const hasOrder = orders.some(o => o.items && o.items.some(it => it.productId === existing.id));
     if (hasOrder) {
-      // Prevent corruption of orders: automatically archive instead of raw deletion
-      const archived = store.updateProduct(existing.id, { status: "ARCHIVED", updatedBy: req.admin.email });
-      auditService.logAction(req.admin.email, "PRODUCT_ARCHIVED", existing.id, { reason: "Preserved for historical orders" });
-      return res.json({
-        success: true,
-        message: "Product has associated customer order history. Product archived to protect order records.",
-        product: archived
+      return res.status(400).json({
+        success: false,
+        message: "Cannot permanently delete product with existing customer orders. Product must be retained for business and order history integrity."
       });
     }
 
-    const removed = store.deleteProduct(req.params.id);
-    auditService.logAction(req.admin.email, "PRODUCT_DELETED", existing.id, { title: existing.title || existing.productName });
-    res.json({ success: true, deleted: true, message: "Product permanently deleted", product: removed });
-  } else {
-    // Soft delete / archive
-    const archived = store.updateProduct(existing.id, { status: "ARCHIVED", updatedBy: req.admin.email });
-    auditService.logAction(req.admin.email, "PRODUCT_ARCHIVED", existing.id, { title: existing.title || existing.productName });
-    res.json({ success: true, archived: true, message: "Product archived successfully", product: archived });
+    // 2. Delete exclusively owned Cloudinary assets
+    const allProducts = store.getProducts({ includeInactive: true });
+    let cloudinaryResult = null;
+    try {
+      cloudinaryResult = await cloudinaryService.deleteProductExclusivelyOwnedMedia(existing, allProducts);
+    } catch (cErr) {
+      console.warn("[admin.js] Cloudinary media deletion error:", cErr.message);
+      cloudinaryResult = { status: "ERROR", error: cErr.message };
+    }
+
+    // 3. Delete from MongoDB Atlas if configured
+    let mongoResult = null;
+    if (mongoService.isConfigured()) {
+      try {
+        mongoResult = await mongoService.removeApprovedProduct(existing.id);
+      } catch (mErr) {
+        console.error("MongoDB Atlas deletion error:", mErr);
+        return res.status(500).json({
+          success: false,
+          message: "Failed to delete product from database: " + mongoService.sanitizeMongoError(mErr)
+        });
+      }
+    }
+
+    // 4. Delete from local store & persistence file
+    const removed = store.deleteProduct(existing.id);
+    if (!removed) {
+      return res.status(500).json({ success: false, message: "Failed to remove product from store." });
+    }
+
+    // 5. Audit log
+    auditService.logAction(req.admin.email, "PRODUCT_PERMANENTLY_DELETED", existing.id, {
+      title: existing.title || existing.productName,
+      sku: existing.sku || existing.SKU,
+      cloudinary: cloudinaryResult,
+      mongo: mongoResult
+    });
+
+    res.json({
+      success: true,
+      deleted: true,
+      message: "Product and associated media permanently deleted.",
+      product: removed,
+      cloudinary: cloudinaryResult,
+      mongo: mongoResult
+    });
+  } catch (err) {
+    console.error("Delete product error:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 

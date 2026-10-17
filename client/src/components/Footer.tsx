@@ -269,7 +269,7 @@ export const Footer: React.FC = () => {
             <span className="text-neutral-700">•</span>
             <Link to="/cookie-policy" className="hover:text-white transition-colors">Cookie Policy</Link>
             <span className="text-neutral-700">•</span>
-            <Link to="/admin/login" className="hover:text-neutral-300 transition-colors text-neutral-500">Staff Portal</Link>
+            <Link to="/account/signin?redirect=/admin" className="hover:text-neutral-300 transition-colors text-neutral-500">Staff Portal</Link>
           </div>
 
           <div className="flex items-center gap-2 text-2xs text-neutral-400">

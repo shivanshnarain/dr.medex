@@ -77,10 +77,9 @@ export const AdminProductsPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
 
-  // Delete & Sync Modal State
+  // Delete Modal State
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deletingProduct, setDeletingProduct] = useState<Product | null>(null);
-  const [syncingId, setSyncingId] = useState<string | null>(null);
 
   // Notification Banner (Error is strictly red, warning is amber, success is green)
   const [bannerMessage, setBannerMessage] = useState<{ text: string; type: "success" | "error" | "warning" } | null>(null);
@@ -592,149 +591,125 @@ export const AdminProductsPage: React.FC = () => {
   };
 
   /**
-   * Download real ZIP package containing product information and all associated images
+   * Download only individual original product photos (preserves original content, no ZIP packaging)
    */
-  const handleDownloadPackage = async (product: Product) => {
+  const handleDownloadPhotos = async (product: Product) => {
     if (downloadingId) return;
     setDownloadingId(product.id);
+
     try {
-      const res = await adminFetch(`/api/admin/products/${product.id}/download-package`);
-      if (!res.ok) {
-        let errData: any = {};
-        try { errData = await res.json(); } catch {}
-        throw new Error(errData.message || `Export failed with status ${res.status}`);
-      }
-      const blob = await res.blob();
-      const disposition = res.headers.get("content-disposition");
-      let filename = `DR-MEDEX-${product.slug || product.sku || "product"}.zip`;
-      if (disposition) {
-        const match = disposition.match(/filename=["']?([^"';]+)["']?/i);
-        if (match && match[1]) filename = match[1];
-      }
-      const downloadUrl = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = downloadUrl;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(downloadUrl);
-      setBannerMessage({ text: `Product ZIP package downloaded: ${filename}`, type: "success" });
-    } catch (err: any) {
-      console.error("Export download error, checking fallback asset download:", err);
-      // Fallback: download individual images if server ZIP fails
-      const allImages: string[] = [];
-      if (product.primaryImage) allImages.push(product.primaryImage);
-      if (Array.isArray(product.images)) {
-        product.images.forEach(img => {
-          if (img && !allImages.includes(img)) allImages.push(img);
-        });
-      }
-      if (Array.isArray(product.galleryImages)) {
-        product.galleryImages.forEach((g: any) => {
-          const u = typeof g === "string" ? g : g?.url;
-          if (u && !allImages.includes(u)) allImages.push(u);
-        });
+      // 1. Collect all original image URLs for this product
+      const urls: string[] = [];
+      const seen = new Set<string>();
+      const addUrl = (raw: any) => {
+        if (!raw) return;
+        const u = typeof raw === "string" ? raw.trim() : (raw.url || raw.secureUrl || raw.secure_url || "").trim();
+        if (u && u.startsWith("http") && !seen.has(u)) {
+          seen.add(u);
+          urls.push(u);
+        }
+      };
+
+      addUrl(product.primaryImage);
+      if (Array.isArray(product.images)) product.images.forEach(addUrl);
+      if (Array.isArray(product.galleryImages)) product.galleryImages.forEach(addUrl);
+      if (Array.isArray((product as any).managedCloudinaryImages)) {
+        (product as any).managedCloudinaryImages.forEach((m: any) => addUrl(m?.url || m?.secure_url));
       }
 
-      if (allImages.length > 0) {
-        let downloadedCount = 0;
-        for (let i = 0; i < allImages.length; i++) {
-          try {
-            const imgUrl = allImages[i];
-            const ext = imgUrl.match(/\.(jpg|jpeg|png|webp|gif|svg)/i)?.[1] || "jpg";
-            const imgRes = await fetch(imgUrl);
-            if (imgRes.ok) {
-              const imgBlob = await imgRes.blob();
-              const blobUrl = window.URL.createObjectURL(imgBlob);
-              const imgLink = document.createElement("a");
-              imgLink.href = blobUrl;
-              imgLink.download = `${product.sku || product.id}_img_${i + 1}.${ext}`;
-              document.body.appendChild(imgLink);
-              imgLink.click();
-              document.body.removeChild(imgLink);
-              window.URL.revokeObjectURL(blobUrl);
-              downloadedCount++;
-            }
-          } catch (dlErr) {
-            console.warn("Direct image download error:", dlErr);
+      if (urls.length === 0) {
+        setBannerMessage({
+          text: `No photos available to download for "${product.title || product.productName}".`,
+          type: "warning"
+        });
+        return;
+      }
+
+      let downloadedCount = 0;
+      let failedCount = 0;
+      const baseSku = (product.sku || product.id || "product").replace(/[^a-zA-Z0-9_-]/g, "_");
+
+      for (let i = 0; i < urls.length; i++) {
+        const imgUrl = urls[i];
+        let ext = "jpg";
+        const extMatch = imgUrl.match(/\.(jpg|jpeg|png|webp|gif|svg|avif)(?:\?.*)?$/i);
+        if (extMatch && extMatch[1]) {
+          ext = extMatch[1].toLowerCase();
+        }
+        const filename = `${baseSku}_photo_${i + 1}.${ext}`;
+
+        try {
+          // Direct photo download via proxy to ensure strict CORS and attachment headers
+          const proxyUrl = `/api/admin/download-image?url=${encodeURIComponent(imgUrl)}&filename=${encodeURIComponent(filename)}`;
+          const res = await adminFetch(proxyUrl);
+          if (!res.ok) {
+            throw new Error(`HTTP ${res.status}`);
           }
+          const blob = await res.blob();
+          const blobUrl = window.URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = blobUrl;
+          link.download = filename;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(blobUrl);
+          downloadedCount++;
+        } catch (dlErr) {
+          console.warn(`Failed to download photo ${i + 1}:`, dlErr);
+          failedCount++;
         }
-        if (downloadedCount > 0) {
-          setBannerMessage({
-            text: `Server package unavailable. Downloaded ${downloadedCount}/${allImages.length} product images directly to your computer.`,
-            type: "warning"
-          });
-          return;
+
+        // Brief delay between downloads to prevent browser suppression
+        if (i < urls.length - 1) {
+          await new Promise(resolve => setTimeout(resolve, 250));
         }
       }
 
-      setBannerMessage({ text: err.message || "Failed to download product package.", type: "error" });
+      if (downloadedCount === urls.length) {
+        setBannerMessage({
+          text: `Downloaded ${downloadedCount} product photo${downloadedCount === 1 ? "" : "s"} successfully.`,
+          type: "success"
+        });
+      } else if (downloadedCount > 0) {
+        setBannerMessage({
+          text: `Downloaded ${downloadedCount} of ${urls.length} product photos (${failedCount} failed).`,
+          type: "warning"
+        });
+      } else {
+        setBannerMessage({
+          text: `Failed to download product photos. Please check your network connection and try again.`,
+          type: "error"
+        });
+      }
+    } catch (err: any) {
+      console.error("Photo download error:", err);
+      setBannerMessage({ text: err.message || "Failed to download product photos.", type: "error" });
     } finally {
       setDownloadingId(null);
     }
   };
 
-  const handlePriceSync = async (prod: Product) => {
-    setSyncingId(prod.id);
+  const handleConfirmPermanentDelete = async (prod: Product) => {
     try {
-      const res = await adminFetch(`/api/admin/products/${prod.id}/sync-price`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ applyToSelling: true })
-      });
-      const data = await res.json();
-      if (data.success) {
+      const res = await adminFetch(`/api/admin/products/${prod.id}`, { method: "DELETE" });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.success) {
+        setProducts(prev => prev.filter(p => p.id !== prod.id));
         setBannerMessage({
-          text: `Synchronized price for ${prod.title || prod.productName}: ₹${
-            data.referencePricing?.referenceSaleINR?.toLocaleString("en-IN") ||
-            data.product?.basePrice?.toLocaleString("en-IN")
-          }`,
+          text: `Product "${prod.title || prod.productName}" and associated media permanently deleted.`,
           type: "success"
         });
         fetchProducts();
       } else {
         setBannerMessage({
-          text: data.message || "No verified public reference price available.",
+          text: data.message || "Failed to permanently delete product.",
           type: "error"
         });
       }
-    } catch (e) {
-      console.error("Price sync error:", e);
-      setBannerMessage({ text: "Failed to sync price.", type: "error" });
-    } finally {
-      setSyncingId(null);
-    }
-  };
-
-  const handleConfirmArchive = async (prod: Product) => {
-    try {
-      const res = await adminFetch(`/api/admin/products/${prod.id}`, { method: "DELETE" });
-      const data = await res.json();
-      if (data.success) {
-        setBannerMessage({
-          text: `Product "${prod.title || prod.productName}" archived successfully.`,
-          type: "success"
-        });
-        fetchProducts();
-      }
-    } catch (e) {
-      console.error("Archive error:", e);
-      setBannerMessage({ text: "Failed to archive product.", type: "error" });
-    }
-  };
-
-  const handleConfirmPermanentDelete = async (prod: Product) => {
-    try {
-      const res = await adminFetch(`/api/admin/products/${prod.id}?permanent=true`, { method: "DELETE" });
-      const data = await res.json();
-      if (data.success) {
-        setBannerMessage({ text: `Product permanently removed.`, type: "success" });
-        fetchProducts();
-      }
-    } catch (e) {
+    } catch (e: any) {
       console.error("Permanent delete error:", e);
-      setBannerMessage({ text: "Failed to delete product.", type: "error" });
+      setBannerMessage({ text: e?.message || "Failed to delete product.", type: "error" });
     }
   };
 
@@ -1520,10 +1495,10 @@ export const AdminProductsPage: React.FC = () => {
                           {/* Download — ICON ONLY with Tooltip */}
                           <button
                             type="button"
-                            onClick={() => handleDownloadPackage(p)}
+                            onClick={() => handleDownloadPhotos(p)}
                             disabled={downloadingId === p.id}
-                            title="Download Product"
-                            aria-label={`Download Product Package for ${p.title || p.productName}`}
+                            title="Download Product Photos"
+                            aria-label={`Download Product Photos for ${p.title || p.productName}`}
                             className="p-1.5 bg-white border border-[#E5E5E5] hover:border-black text-black hover:bg-[#FFF8DB] rounded-lg transition-colors cursor-pointer disabled:opacity-50"
                           >
                             <Download
@@ -1568,26 +1543,13 @@ export const AdminProductsPage: React.FC = () => {
                                     type="button"
                                     onClick={() => {
                                       setActiveActionsMenuId(null);
-                                      handlePriceSync(p);
-                                    }}
-                                    disabled={syncingId === p.id}
-                                    className="w-full flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-neutral-700 hover:bg-neutral-50 hover:text-black cursor-pointer"
-                                  >
-                                    <RefreshCw size={12} className={syncingId === p.id ? "animate-spin" : ""} />
-                                    <span>Sync Price</span>
-                                  </button>
-
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      setActiveActionsMenuId(null);
                                       setDeletingProduct(p);
                                       setIsDeleteModalOpen(true);
                                     }}
                                     className="w-full flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-[#B91C1C] hover:bg-[#FEF2F2] cursor-pointer border-t border-neutral-100 mt-0.5"
                                   >
                                     <Trash2 size={12} />
-                                    <span>Archive</span>
+                                    <span>Delete</span>
                                   </button>
                                 </div>
                               </>
@@ -1657,7 +1619,6 @@ export const AdminProductsPage: React.FC = () => {
           setIsDeleteModalOpen(false);
           setDeletingProduct(null);
         }}
-        onConfirmArchive={handleConfirmArchive}
         onConfirmPermanentDelete={handleConfirmPermanentDelete}
       />
 

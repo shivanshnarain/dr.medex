@@ -62,10 +62,11 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   // Section placeholder modal for non-core nav
   const [noticeModal, setNoticeModal] = useState<{ title: string; desc: string } | null>(null);
 
-  // Protected route check
+  // Protected route check: redirect unauthenticated access to standard customer sign-in with safe return URL
   React.useEffect(() => {
     if (!isLoading && !isAuthenticated) {
-      navigate("/admin/login", { state: { from: location }, replace: true });
+      const returnUrl = encodeURIComponent(location.pathname + location.search);
+      navigate(`/account/signin?redirect=${returnUrl}`, { state: { from: location }, replace: true });
     }
   }, [isLoading, isAuthenticated, navigate, location]);
 

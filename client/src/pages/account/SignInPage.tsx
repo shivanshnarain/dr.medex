@@ -24,14 +24,17 @@ export const SignInPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  // If already authenticated, redirect
+  // If already authenticated, redirect safely based on role
   React.useEffect(() => {
     if (isAdminAuthenticated) {
-      navigate("/admin", { replace: true });
+      const target = (redirectTarget && redirectTarget.startsWith("/admin")) ? redirectTarget : "/admin";
+      navigate(target, { replace: true });
       return;
     }
     if (isAuthenticated) {
-      const dest = actionTarget ? `${redirectTarget}?action=${actionTarget}` : redirectTarget;
+      const dest = (redirectTarget && !redirectTarget.startsWith("/admin"))
+        ? (actionTarget ? `${redirectTarget}?action=${actionTarget}` : redirectTarget)
+        : "/account";
       navigate(dest, { replace: true });
     }
   }, [isAuthenticated, isAdminAuthenticated, navigate, redirectTarget, actionTarget]);
@@ -60,11 +63,14 @@ export const SignInPage: React.FC = () => {
           if (res.token && res.user) {
             setAdminSession(res.token, res.user);
           }
-          navigate("/admin", { replace: true });
+          const target = (redirectTarget && redirectTarget.startsWith("/admin")) ? redirectTarget : "/admin";
+          navigate(target, { replace: true });
         } else {
           setSuccessMessage("Signed in successfully! Redirecting...");
           setTimeout(() => {
-            const dest = actionTarget ? `${redirectTarget}?action=${actionTarget}` : redirectTarget;
+            const dest = (redirectTarget && !redirectTarget.startsWith("/admin"))
+              ? (actionTarget ? `${redirectTarget}?action=${actionTarget}` : redirectTarget)
+              : "/account";
             navigate(dest, { replace: true });
           }, 400);
         }

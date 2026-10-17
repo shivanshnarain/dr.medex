@@ -167,12 +167,14 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
     }
   };
 
-  // If administrator session is active, immediately redirect to /admin dashboard
+  // If administrator session is active, redirect to intended admin destination or /admin dashboard
   useEffect(() => {
     if (isAdminAuthenticated) {
-      navigate("/admin", { replace: true });
+      const redirect = searchParams.get("redirect");
+      const target = (redirect && redirect.startsWith("/admin")) ? redirect : "/admin";
+      navigate(target, { replace: true });
     }
-  }, [isAdminAuthenticated, navigate]);
+  }, [isAdminAuthenticated, navigate, searchParams]);
 
   const handleLogout = async () => {
     await logout();
@@ -200,14 +202,19 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
           if (res.token && res.user) {
             setAdminSession(res.token, res.user);
           }
-          navigate("/admin", { replace: true });
+          const redirect = searchParams.get("redirect");
+          const target = (redirect && redirect.startsWith("/admin")) ? redirect : "/admin";
+          navigate(target, { replace: true });
           return;
         }
 
         setLoginSuccess("Signed in successfully!");
         const redirect = searchParams.get("redirect");
-        if (redirect) {
+        // Normal customers must never be redirected to admin destinations
+        if (redirect && !redirect.startsWith("/admin")) {
           navigate(redirect, { replace: true });
+        } else {
+          navigate("/account", { replace: true });
         }
       } else {
         setLoginError(res.error || "Invalid email or password. Please try again.");

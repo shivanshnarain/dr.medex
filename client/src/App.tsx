@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { CurrencyProvider } from "./context/CurrencyContext";
 import { AuthProvider } from "./context/AuthContext";
 import { WishlistProvider } from "./context/WishlistContext";
@@ -46,7 +46,7 @@ function ScrollToTop() {
 }
 
 import { AdminAuthProvider } from "./context/AdminAuthContext";
-import { AdminLoginPage } from "./pages/AdminLoginPage";
+
 import { AdminProductsPage } from "./pages/AdminProductsPage";
 import { AdminProductEditorPage } from "./pages/AdminProductEditorPage";
 import { AdminCategoriesPage } from "./pages/AdminCategoriesPage";
@@ -121,7 +121,7 @@ function AppContent() {
           <Route path="/cookie-policy" element={<PolicyPage />} />
 
           {/* DR.MEDEX Central Operations Administration */}
-          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin/login" element={<Navigate to="/account/signin?redirect=/admin" replace />} />
           <Route path="/admin" element={<AdminDashboardPage />} />
           <Route path="/admin/products" element={<AdminProductsPage />} />
           <Route path="/admin/products/new" element={<AdminProductEditorPage />} />
