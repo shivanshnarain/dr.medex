@@ -3,7 +3,13 @@ const app = require("../../server/index");
 module.exports = (req, res) => {
   if (req.query && req.query.path) {
     const rawPath = req.query.path;
-    const pathStr = Array.isArray(rawPath) ? rawPath.join("/") : rawPath;
+    let pathStr = Array.isArray(rawPath) ? rawPath.join("/") : rawPath;
+    pathStr = String(pathStr || "").replace(/^\/+/, "");
+    if (pathStr.startsWith("api/admin/")) {
+      pathStr = pathStr.substring(10);
+    } else if (pathStr.startsWith("admin/")) {
+      pathStr = pathStr.substring(6);
+    }
     const queryIdx = req.url ? req.url.indexOf("?") : -1;
     let queryString = "";
     if (queryIdx !== -1) {
@@ -21,7 +27,7 @@ module.exports = (req, res) => {
     return app(req, res);
   }
 
-  const forwarded = req.headers["x-forwarded-uri"] || req.headers["x-original-url"] || req.headers["x-vercel-matched-path"];
+  const forwarded = req.headers && (req.headers["x-forwarded-uri"] || req.headers["x-original-url"] || req.headers["x-vercel-matched-path"]);
   if (forwarded && (forwarded.startsWith("/api/admin/") || forwarded.startsWith("/admin/"))) {
     req.url = forwarded;
     req.originalUrl = req.url;

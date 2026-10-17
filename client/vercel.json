@@ -7,6 +7,14 @@
   },
   "rewrites": [
     {
+      "source": "/api/admin/:match*",
+      "destination": "/api/admin/[...path]?path=:match*"
+    },
+    {
+      "source": "/api/:match*",
+      "destination": "/api/[...path]?path=:match*"
+    },
+    {
       "source": "/((?!api(?:/|$)).*)",
       "destination": "/index.html"
     }
