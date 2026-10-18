@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const initialProducts = require("../data/products");
 const initialCategories = require("../data/categories");
+const initialCatalogueHierarchy = require("../data/catalogueHierarchy");
 const initialCountries = require("../data/countries");
 const initialBlogs = require("../data/blogs");
 const currencyService = require("./currencyService");
@@ -13,6 +14,7 @@ const TMP_DB_FILE = path.join(require("os").tmpdir(), "drmedex_db.json");
 let state = {
   products: [...initialProducts],
   categories: [...initialCategories],
+  catalogueHierarchy: JSON.parse(JSON.stringify(initialCatalogueHierarchy)),
   countries: [...initialCountries],
   blogs: [...initialBlogs],
   orders: [
@@ -153,6 +155,11 @@ function checkReload() {
         const loaded = JSON.parse(raw);
         if (loaded && loaded.products && loaded.products.length > 0) {
           state = { ...state, ...loaded };
+          if (loaded.catalogueHierarchy) {
+            Object.assign(initialCatalogueHierarchy, loaded.catalogueHierarchy);
+          } else if (!state.catalogueHierarchy) {
+            state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
+          }
           ensureUniqueProductIds(state.products);
           return;
         }
@@ -167,6 +174,11 @@ function checkReload() {
         const loaded = JSON.parse(raw);
         if (loaded && loaded.products && loaded.products.length > 0) {
           state = { ...state, ...loaded };
+          if (loaded.catalogueHierarchy) {
+            Object.assign(initialCatalogueHierarchy, loaded.catalogueHierarchy);
+          } else if (!state.catalogueHierarchy) {
+            state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
+          }
           ensureUniqueProductIds(state.products);
         }
       }
@@ -510,6 +522,214 @@ module.exports = {
       return state.categories[idx];
     }
     return null;
+  },
+  getCatalogueHierarchy: () => {
+    checkReload();
+    if (!state.catalogueHierarchy) {
+      state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
+    }
+    return state.catalogueHierarchy;
+  },
+  addPrimaryCategory: ({ name, code, shortDescription }) => {
+    checkReload();
+    if (!name || typeof name !== "string" || !name.trim()) {
+      throw new Error("Category name is required.");
+    }
+    const cleanName = name.trim();
+    const cleanLower = cleanName.toLowerCase();
+    const slug = cleanName
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    if (!slug) {
+      throw new Error("Invalid category name.");
+    }
+
+    if (!state.catalogueHierarchy) {
+      state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
+    }
+
+    // Duplicate check
+    const existingCat = state.categories.find(
+      c => c.name.toLowerCase() === cleanLower || c.slug === slug || c.id === slug
+    );
+    const existingHierarchy = state.catalogueHierarchy[slug] || Object.values(state.catalogueHierarchy).find(
+      c => (c.name || "").toLowerCase() === cleanLower
+    );
+
+    if (existingCat || existingHierarchy) {
+      throw new Error(`Primary category "${cleanName}" already exists.`);
+    }
+
+    const catCode = (code && String(code).trim().replace(/[^a-zA-Z0-9]/g, "").slice(0, 4).toUpperCase()) ||
+      cleanName.replace(/[^a-zA-Z]/g, "").slice(0, 3).toUpperCase() ||
+      "MED";
+
+    const newCategory = {
+      id: slug,
+      slug: slug,
+      name: cleanName,
+      status: "ACTIVE",
+      active: true,
+      shortDescription: shortDescription || `${cleanName} medical equipment and clinical solutions.`,
+      icon: "Package",
+      featuredImage: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+      subcategories: []
+    };
+
+    state.categories.push(newCategory);
+    state.catalogueHierarchy[slug] = {
+      id: slug,
+      name: cleanName,
+      code: catCode,
+      status: "ACTIVE",
+      subcategories: []
+    };
+
+    Object.assign(initialCatalogueHierarchy, state.catalogueHierarchy);
+    persist();
+    return { category: newCategory, hierarchyItem: state.catalogueHierarchy[slug] };
+  },
+  addSubcategory: ({ parentCategory, name }) => {
+    checkReload();
+    if (!parentCategory || typeof parentCategory !== "string" || !parentCategory.trim()) {
+      throw new Error("Parent primary category is required.");
+    }
+    if (!name || typeof name !== "string" || !name.trim()) {
+      throw new Error("Subcategory name is required.");
+    }
+    const cleanName = name.trim();
+    const cleanLower = cleanName.toLowerCase();
+    const cleanParent = parentCategory.trim().toLowerCase();
+
+    if (!state.catalogueHierarchy) {
+      state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
+    }
+
+    const cat = state.categories.find(
+      c => c.id.toLowerCase() === cleanParent || c.slug.toLowerCase() === cleanParent || c.name.toLowerCase() === cleanParent
+    );
+    const hierParentKey = Object.keys(state.catalogueHierarchy).find(
+      k => k.toLowerCase() === cleanParent || (state.catalogueHierarchy[k].name || "").toLowerCase() === cleanParent
+    );
+    const hierParent = hierParentKey ? state.catalogueHierarchy[hierParentKey] : null;
+
+    if (!cat && !hierParent) {
+      throw new Error(`Parent category "${parentCategory}" was not found.`);
+    }
+
+    const parentSlug = (cat && (cat.slug || cat.id)) || hierParentKey;
+
+    const subcatsInCat = (cat && Array.isArray(cat.subcategories)) ? cat.subcategories : [];
+    const subcatsInHier = (hierParent && Array.isArray(hierParent.subcategories)) ? hierParent.subcategories : [];
+
+    const isDupCat = subcatsInCat.some(s => (s.name || "").toLowerCase() === cleanLower);
+    const isDupHier = subcatsInHier.some(s => (s.name || "").toLowerCase() === cleanLower);
+
+    if (isDupCat || isDupHier) {
+      throw new Error(`Subcategory "${cleanName}" already exists under "${hierParent?.name || cat?.name || parentCategory}".`);
+    }
+
+    const subSlug = cleanName
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    const newSubItem = {
+      id: subSlug,
+      slug: subSlug,
+      name: cleanName
+    };
+
+    if (cat) {
+      if (!Array.isArray(cat.subcategories)) cat.subcategories = [];
+      cat.subcategories.push(newSubItem);
+    }
+
+    if (hierParent) {
+      if (!Array.isArray(hierParent.subcategories)) hierParent.subcategories = [];
+      hierParent.subcategories.push({
+        id: subSlug,
+        name: cleanName,
+        equipmentTypes: []
+      });
+    }
+
+    Object.assign(initialCatalogueHierarchy, state.catalogueHierarchy);
+    persist();
+    return { subcategory: newSubItem, parentCategory: parentSlug };
+  },
+  addEquipmentType: ({ parentCategory, subcategory, name }) => {
+    checkReload();
+    if (!parentCategory || typeof parentCategory !== "string" || !parentCategory.trim()) {
+      throw new Error("Primary category is required.");
+    }
+    if (!subcategory || typeof subcategory !== "string" || !subcategory.trim()) {
+      throw new Error("Subcategory is required.");
+    }
+    if (!name || typeof name !== "string" || !name.trim()) {
+      throw new Error("Equipment type name is required.");
+    }
+
+    const cleanName = name.trim();
+    const cleanLower = cleanName.toLowerCase();
+    const cleanParent = parentCategory.trim().toLowerCase();
+    const cleanSub = subcategory.trim().toLowerCase();
+
+    if (!state.catalogueHierarchy) {
+      state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
+    }
+
+    const hierParentKey = Object.keys(state.catalogueHierarchy).find(
+      k => k.toLowerCase() === cleanParent || (state.catalogueHierarchy[k].name || "").toLowerCase() === cleanParent
+    );
+    const hierParent = hierParentKey ? state.catalogueHierarchy[hierParentKey] : null;
+
+    if (!hierParent) {
+      throw new Error(`Primary category "${parentCategory}" was not found.`);
+    }
+
+    const sub = (hierParent.subcategories || []).find(
+      s => s.id.toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub
+    );
+
+    if (!sub) {
+      throw new Error(`Subcategory "${subcategory}" was not found under "${hierParent.name}".`);
+    }
+
+    if (!Array.isArray(sub.equipmentTypes)) {
+      sub.equipmentTypes = [];
+    }
+
+    const isDup = sub.equipmentTypes.some(
+      eq => (eq.name || "").toLowerCase() === cleanLower
+    );
+    if (isDup) {
+      throw new Error(`Equipment type "${cleanName}" already exists under "${sub.name}".`);
+    }
+
+    const eqId = cleanName
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    const words = cleanName.split(/[\s-]+/).filter(Boolean);
+    const defaultCode = words.length >= 2
+      ? words.map(w => w[0]).join("").toUpperCase().slice(0, 3)
+      : cleanName.replace(/[^a-z0-9]/gi, "").toUpperCase().slice(0, 3) || "EQP";
+
+    const newEq = {
+      id: eqId,
+      name: cleanName,
+      defaultCode
+    };
+
+    sub.equipmentTypes.push(newEq);
+
+    Object.assign(initialCatalogueHierarchy, state.catalogueHierarchy);
+    persist();
+    return { equipmentType: newEq, parentCategory: hierParentKey, subcategory: sub.id };
   },
   getCountries: () => state.countries,
   getBlogs: () => state.blogs,

@@ -84,6 +84,24 @@ export const AdminProductEditorPage: React.FC = () => {
   const [allCategories, setAllCategories] = useState<Category[]>([]);
   const [catalogueHierarchy, setCatalogueHierarchy] = useState<Record<string, any>>({});
 
+  // Step 2 Classification Add Modal & Menu State
+  const [isAddMenuOpen, setIsAddMenuOpen] = useState(false);
+  const addMenuRef = useRef<HTMLDivElement>(null);
+  const [addModalType, setAddModalType] = useState<"primary" | "subcategory" | "equipment-type" | null>(null);
+  const [isSubmittingAdd, setIsSubmittingAdd] = useState(false);
+  const [addModalError, setAddModalError] = useState<string | null>(null);
+
+  // Form fields for Add modals
+  const [newPrimaryName, setNewPrimaryName] = useState("");
+  const [newPrimaryCode, setNewPrimaryCode] = useState("");
+  const [newSubParentCat, setNewSubParentCat] = useState("");
+  const [newSubName, setNewSubName] = useState("");
+  const [newEqParentCat, setNewEqParentCat] = useState("");
+  const [newEqSubcat, setNewEqSubcat] = useState("");
+  const [newEqName, setNewEqName] = useState("");
+
+  const initialClassificationRef = useRef<{ category: string; subcategory: string } | null>(null);
+
   // Duplicate product detection state
   const [duplicateInfo, setDuplicateInfo] = useState<{
     isDuplicate: boolean;
@@ -343,6 +361,11 @@ export const AdminProductEditorPage: React.FC = () => {
           setSku(p.sku || p.SKU || "");
           setSlug(p.slug || "");
 
+          initialClassificationRef.current = {
+            category: p.category || "ot-lights",
+            subcategory: p.subcategory || ""
+          };
+
           // Step 4: Description
           const mainDesc = p.description || p.fullDescription || p.shortDescription || p.overview || "";
           setDescription(mainDesc);
@@ -528,9 +551,44 @@ export const AdminProductEditorPage: React.FC = () => {
     return sub?.equipmentTypes || [];
   }, [subcategory, availableSubcategories]);
 
+  // Close Add Menu on outside click
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (addMenuRef.current && !addMenuRef.current.contains(e.target as Node)) {
+        setIsAddMenuOpen(false);
+      }
+    };
+    if (isAddMenuOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    }
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [isAddMenuOpen]);
+
+  // Modal subcategories filtered by selected parent in Add Equipment Type modal
+  const modalSubcategories = useMemo(() => {
+    if (!newEqParentCat || !catalogueHierarchy[newEqParentCat]) return [];
+    return catalogueHierarchy[newEqParentCat].subcategories || [];
+  }, [newEqParentCat, catalogueHierarchy]);
+
+  useEffect(() => {
+    if (modalSubcategories.length > 0) {
+      if (!modalSubcategories.some((s: any) => s.id === newEqSubcat)) {
+        setNewEqSubcat(modalSubcategories[0]?.id || "");
+      }
+    } else {
+      setNewEqSubcat("");
+    }
+  }, [modalSubcategories, newEqSubcat]);
+
   // Generate unique SKU conforming to DRM-[PRIMARY]-[SUBCATEGORY]-[NAME]-[UNIQUE-ID]
   const fetchNewSku = async (catSlug?: string, subSlug?: string, prodName?: string, force = false) => {
-    if (!force && manuallyEditedFields.has("sku")) {
+    if (force) {
+      setManuallyEditedFields((prev) => {
+        const next = new Set(prev);
+        next.delete("sku");
+        return next;
+      });
+    } else if (manuallyEditedFields.has("sku")) {
       return; // Respect manual administrator edits unless explicitly regenerating
     }
     const cat = catSlug || category || "ot-lights";
@@ -555,9 +613,15 @@ export const AdminProductEditorPage: React.FC = () => {
 
   // Auto-generate SKU when classification and product name are updated (unless manually edited)
   useEffect(() => {
-    if (isEditMode) return;
     if (manuallyEditedFields.has("sku")) return;
     if (!category && !subcategory && !productName) return;
+
+    if (isEditMode) {
+      const initial = initialClassificationRef.current;
+      if (initial && initial.category === category && initial.subcategory === subcategory) {
+        return; // Preserve existing product's original saved SKU unless classification actually changed
+      }
+    }
 
     const timer = setTimeout(() => {
       fetchNewSku(category, subcategory, productName, false);
@@ -565,6 +629,167 @@ export const AdminProductEditorPage: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, [category, subcategory, productName, isEditMode, manuallyEditedFields]);
+
+  // Handle Add Primary Category
+  const handleAddPrimaryCategory = async () => {
+    if (!newPrimaryName.trim()) {
+      setAddModalError("Category name is required.");
+      return;
+    }
+    const cleanName = newPrimaryName.trim();
+    if (allCategories.some((c) => c.name.toLowerCase() === cleanName.toLowerCase())) {
+      setAddModalError(`Primary category "${cleanName}" already exists.`);
+      return;
+    }
+    setIsSubmittingAdd(true);
+    setAddModalError(null);
+    try {
+      const res = await adminFetch("/api/admin/catalogue/primary-category", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: cleanName, code: newPrimaryCode.trim() })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setAddModalError(data.message || "Failed to create primary category.");
+        setIsSubmittingAdd(false);
+        return;
+      }
+      if (Array.isArray(data.categories)) {
+        setAllCategories(data.categories);
+      }
+      if (data.hierarchy) {
+        setCatalogueHierarchy(data.hierarchy);
+      }
+      const newSlug = data.category?.slug || data.category?.id;
+      if (newSlug) {
+        setCategory(newSlug);
+        setSubcategory("");
+        setEquipmentType("");
+        markFieldEdited("category");
+        if (!manuallyEditedFields.has("sku")) {
+          fetchNewSku(newSlug, "", productName, false);
+        }
+        setHasUnsavedChanges(true);
+      }
+      setAddModalType(null);
+      setNewPrimaryName("");
+      setNewPrimaryCode("");
+    } catch (err: any) {
+      setAddModalError(err.message || "Network error creating primary category.");
+    } finally {
+      setIsSubmittingAdd(false);
+    }
+  };
+
+  // Handle Add Subcategory
+  const handleAddSubcategory = async () => {
+    if (!newSubParentCat) {
+      setAddModalError("Parent category is required.");
+      return;
+    }
+    if (!newSubName.trim()) {
+      setAddModalError("Subcategory name is required.");
+      return;
+    }
+    const cleanName = newSubName.trim();
+    const parentHier = catalogueHierarchy[newSubParentCat];
+    if (parentHier && (parentHier.subcategories || []).some((s: any) => (s.name || "").toLowerCase() === cleanName.toLowerCase())) {
+      setAddModalError(`Subcategory "${cleanName}" already exists under "${parentHier.name}".`);
+      return;
+    }
+    setIsSubmittingAdd(true);
+    setAddModalError(null);
+    try {
+      const res = await adminFetch("/api/admin/catalogue/subcategory", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ parentCategory: newSubParentCat, name: cleanName })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setAddModalError(data.message || "Failed to create subcategory.");
+        setIsSubmittingAdd(false);
+        return;
+      }
+      if (Array.isArray(data.categories)) {
+        setAllCategories(data.categories);
+      }
+      if (data.hierarchy) {
+        setCatalogueHierarchy(data.hierarchy);
+      }
+      const parentSlug = data.parentCategory || newSubParentCat;
+      const subSlug = data.subcategory?.id;
+      if (parentSlug && subSlug) {
+        setCategory(parentSlug);
+        setSubcategory(subSlug);
+        setEquipmentType("");
+        markFieldEdited("subcategory");
+        if (!manuallyEditedFields.has("sku")) {
+          fetchNewSku(parentSlug, subSlug, productName, false);
+        }
+        setHasUnsavedChanges(true);
+      }
+      setAddModalType(null);
+      setNewSubName("");
+    } catch (err: any) {
+      setAddModalError(err.message || "Network error creating subcategory.");
+    } finally {
+      setIsSubmittingAdd(false);
+    }
+  };
+
+  // Handle Add Equipment Type
+  const handleAddEquipmentType = async () => {
+    if (!newEqParentCat) {
+      setAddModalError("Primary category is required.");
+      return;
+    }
+    if (!newEqSubcat) {
+      setAddModalError("Subcategory is required.");
+      return;
+    }
+    if (!newEqName.trim()) {
+      setAddModalError("Equipment type name is required.");
+      return;
+    }
+    const cleanName = newEqName.trim();
+    const parentHier = catalogueHierarchy[newEqParentCat];
+    const subHier = (parentHier?.subcategories || []).find((s: any) => s.id === newEqSubcat || s.slug === newEqSubcat || s.name === newEqSubcat);
+    if (subHier && (subHier.equipmentTypes || []).some((e: any) => (e.name || "").toLowerCase() === cleanName.toLowerCase())) {
+      setAddModalError(`Equipment type "${cleanName}" already exists under "${subHier.name}".`);
+      return;
+    }
+    setIsSubmittingAdd(true);
+    setAddModalError(null);
+    try {
+      const res = await adminFetch("/api/admin/catalogue/equipment-type", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ parentCategory: newEqParentCat, subcategory: newEqSubcat, name: cleanName })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setAddModalError(data.message || "Failed to create equipment type.");
+        setIsSubmittingAdd(false);
+        return;
+      }
+      if (data.hierarchy) {
+        setCatalogueHierarchy(data.hierarchy);
+      }
+      setCategory(newEqParentCat);
+      setSubcategory(newEqSubcat);
+      setEquipmentType(data.equipmentType?.name || cleanName);
+      markFieldEdited("equipmentType");
+      setHasUnsavedChanges(true);
+      setAddModalType(null);
+      setNewEqName("");
+    } catch (err: any) {
+      setAddModalError(err.message || "Network error creating equipment type.");
+    } finally {
+      setIsSubmittingAdd(false);
+    }
+  };
 
   // Validate SKU Uniqueness
   const validateSku = async (skuToTest: string) => {
@@ -2266,13 +2491,83 @@ export const AdminProductEditorPage: React.FC = () => {
           >
             <div>
               {/* Step 2 Header */}
-              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
+              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs relative">
                 <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
                   STEP 2 — PRODUCT CLASSIFICATION
                 </span>
-                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-black/30 border border-white/40 text-white">
-                  L1–L3 Hierarchy
-                </span>
+
+                <div className="relative" ref={addMenuRef}>
+                  <button
+                    type="button"
+                    id="btn-add-classification-menu"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsAddMenuOpen((prev) => !prev);
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-black/40 hover:bg-black/60 border border-white/60 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
+                  >
+                    <Plus size={13} className="stroke-[2.5]" />
+                    <span>Add</span>
+                  </button>
+
+                  {/* Classification Options Dropdown */}
+                  {isAddMenuOpen && (
+                    <div
+                      className="absolute right-0 top-full mt-1.5 w-60 bg-[#0D4C3C] border border-white/60 rounded-xl shadow-2xl py-1.5 z-40 text-white"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <button
+                        type="button"
+                        id="btn-choice-add-primary"
+                        onClick={() => {
+                          setIsAddMenuOpen(false);
+                          setAddModalType("primary");
+                          setAddModalError(null);
+                          setNewPrimaryName("");
+                          setNewPrimaryCode("");
+                        }}
+                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-white/10 transition-colors flex items-center gap-2.5 cursor-pointer"
+                      >
+                        <span className="w-4 h-4 rounded-full bg-[#FFD400] text-black flex items-center justify-center font-black text-[10px] shrink-0">+</span>
+                        <span>Add Primary Category</span>
+                      </button>
+                      <button
+                        type="button"
+                        id="btn-choice-add-subcategory"
+                        onClick={() => {
+                          setIsAddMenuOpen(false);
+                          setAddModalType("subcategory");
+                          setAddModalError(null);
+                          setNewSubParentCat(category || allCategories[0]?.slug || "ot-lights");
+                          setNewSubName("");
+                        }}
+                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-white/10 transition-colors flex items-center gap-2.5 cursor-pointer border-t border-white/15"
+                      >
+                        <span className="w-4 h-4 rounded-full bg-[#FFD400] text-black flex items-center justify-center font-black text-[10px] shrink-0">+</span>
+                        <span>Add Subcategory</span>
+                      </button>
+                      <button
+                        type="button"
+                        id="btn-choice-add-equipment-type"
+                        onClick={() => {
+                          setIsAddMenuOpen(false);
+                          setAddModalType("equipment-type");
+                          setAddModalError(null);
+                          const activeParent = category || allCategories[0]?.slug || "ot-lights";
+                          setNewEqParentCat(activeParent);
+                          const parentSubcats = catalogueHierarchy[activeParent]?.subcategories || [];
+                          const matchingSub = parentSubcats.find((s: any) => s.id === subcategory);
+                          setNewEqSubcat(matchingSub ? matchingSub.id : (parentSubcats[0]?.id || ""));
+                          setNewEqName("");
+                        }}
+                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-white/10 transition-colors flex items-center gap-2.5 cursor-pointer border-t border-white/15"
+                      >
+                        <span className="w-4 h-4 rounded-full bg-[#FFD400] text-black flex items-center justify-center font-black text-[10px] shrink-0">+</span>
+                        <span>Add Verified Equipment Type</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className="space-y-4 mt-4">
@@ -2289,7 +2584,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setSubcategory("");
                       setEquipmentType("");
                       markFieldEdited("category");
-                      if (!isEditMode) {
+                      if (!manuallyEditedFields.has("sku")) {
                         fetchNewSku(newCat, "", productName, false);
                       }
                       setHasUnsavedChanges(true);
@@ -2320,7 +2615,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setSubcategory(newSub);
                       setEquipmentType("");
                       markFieldEdited("subcategory");
-                      if (!isEditMode) {
+                      if (!manuallyEditedFields.has("sku")) {
                         fetchNewSku(category, newSub, productName, false);
                       }
                       setHasUnsavedChanges(true);
@@ -3237,9 +3532,9 @@ export const AdminProductEditorPage: React.FC = () => {
         </div>
 
         {/* ============================================================ */}
-        {/* PERSISTENT STICKY BOTTOM SAVE ACTION BAR                     */}
+        {/* FINAL FORM BOTTOM SAVE ACTION BAR (NATURAL SCROLLING)        */}
         {/* ============================================================ */}
-        <div className="sticky bottom-0 z-20 bg-[#0D4C3C] py-4 px-6 border border-white shadow-2xl rounded-2xl flex items-center justify-between flex-wrap gap-4 text-white">
+        <div className="bg-[#0D4C3C] py-4 px-6 border border-white shadow-xl rounded-2xl flex items-center justify-between flex-wrap gap-4 text-white">
           <div className="flex items-center gap-3">
             <span
               className={`w-3 h-3 rounded-full ${
@@ -3326,6 +3621,248 @@ export const AdminProductEditorPage: React.FC = () => {
             <div className="px-5 py-2.5 bg-[#0D4C3C] border-t border-white/20 flex items-center justify-between text-[11px] text-white/70">
               <span>Press <kbd className="px-1.5 py-0.5 rounded bg-black/40 border border-white/30 font-mono text-white text-[10px]">Esc</kbd> or click backdrop to close</span>
               <span className="font-mono text-[10px]">Full Resolution Preview</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ============================================================ */}
+      {/* ADD CLASSIFICATION MODAL (L1, L2, L3 CREATION)               */}
+      {/* ============================================================ */}
+      {addModalType && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={
+            addModalType === "primary"
+              ? "Add Primary Category"
+              : addModalType === "subcategory"
+              ? "Add Subcategory"
+              : "Add Verified Equipment Type"
+          }
+          onClick={() => {
+            if (!isSubmittingAdd) setAddModalType(null);
+          }}
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative max-w-md w-full bg-[#0D4C3C] border border-white rounded-2xl p-6 shadow-2xl space-y-4 text-white"
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between pb-3 border-b border-white/20">
+              <div className="flex items-center gap-2">
+                <span className="w-6 h-6 rounded-md bg-[#C62828] text-white border border-white text-xs font-bold flex items-center justify-center">
+                  +
+                </span>
+                <h3 className="text-sm sm:text-base font-bold text-white tracking-wide">
+                  {addModalType === "primary" && "Add Primary Category"}
+                  {addModalType === "subcategory" && "Add Subcategory"}
+                  {addModalType === "equipment-type" && "Add Verified Equipment Type"}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  if (!isSubmittingAdd) setAddModalType(null);
+                }}
+                disabled={isSubmittingAdd}
+                aria-label="Close dialog"
+                className="w-7 h-7 rounded-lg bg-black/40 hover:bg-[#C62828] text-white flex items-center justify-center transition-colors border border-white/30 cursor-pointer disabled:opacity-50"
+              >
+                <X size={15} />
+              </button>
+            </div>
+
+            {/* Error Banner */}
+            {addModalError && (
+              <div className="p-3 bg-red-950/80 border border-red-500/80 rounded-xl text-red-200 text-xs font-medium flex items-center gap-2 shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-red-400 shrink-0" />
+                <span>{addModalError}</span>
+              </div>
+            )}
+
+            {/* Modal Body */}
+            {addModalType === "primary" && (
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-xs font-bold text-white mb-1">
+                    Category Name <span className="text-[#C62828] font-bold">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="input-new-primary-name"
+                    value={newPrimaryName}
+                    onChange={(e) => {
+                      setNewPrimaryName(e.target.value);
+                      setAddModalError(null);
+                    }}
+                    placeholder="e.g., Diagnostic Imaging"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    autoFocus
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-white mb-1">
+                    Taxonomy / SKU Code <span className="text-white/60 font-normal">(Optional, 3–4 letters)</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="input-new-primary-code"
+                    value={newPrimaryCode}
+                    onChange={(e) => setNewPrimaryCode(e.target.value.toUpperCase())}
+                    placeholder="e.g., IMG"
+                    maxLength={4}
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none uppercase font-mono"
+                  />
+                  <p className="text-[11px] text-white/70 mt-1">
+                    Auto-generated from name if left blank (used for unique product SKU prefixes).
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {addModalType === "subcategory" && (
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-xs font-bold text-white mb-1">
+                    Parent Primary Category <span className="text-[#C62828] font-bold">*</span>
+                  </label>
+                  <select
+                    id="select-new-sub-parent"
+                    value={newSubParentCat}
+                    onChange={(e) => {
+                      setNewSubParentCat(e.target.value);
+                      setAddModalError(null);
+                    }}
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none cursor-pointer"
+                  >
+                    {allCategories.map((c) => (
+                      <option key={c.id} value={c.slug || c.id}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-white mb-1">
+                    Subcategory Name <span className="text-[#C62828] font-bold">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="input-new-sub-name"
+                    value={newSubName}
+                    onChange={(e) => {
+                      setNewSubName(e.target.value);
+                      setAddModalError(null);
+                    }}
+                    placeholder="e.g., MRI Scanners"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    autoFocus
+                  />
+                </div>
+              </div>
+            )}
+
+            {addModalType === "equipment-type" && (
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-xs font-bold text-white mb-1">
+                    Primary Category <span className="text-[#C62828] font-bold">*</span>
+                  </label>
+                  <select
+                    id="select-new-eq-parent"
+                    value={newEqParentCat}
+                    onChange={(e) => {
+                      setNewEqParentCat(e.target.value);
+                      setAddModalError(null);
+                    }}
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none cursor-pointer"
+                  >
+                    {allCategories.map((c) => (
+                      <option key={c.id} value={c.slug || c.id}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-white mb-1">
+                    Subcategory <span className="text-[#C62828] font-bold">*</span>
+                  </label>
+                  <select
+                    id="select-new-eq-subcat"
+                    value={newEqSubcat}
+                    disabled={modalSubcategories.length === 0}
+                    onChange={(e) => {
+                      setNewEqSubcat(e.target.value);
+                      setAddModalError(null);
+                    }}
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none cursor-pointer disabled:opacity-50"
+                  >
+                    {modalSubcategories.length === 0 && <option value="">No subcategories available</option>}
+                    {modalSubcategories.map((s: any) => (
+                      <option key={s.id} value={s.id}>
+                        {s.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-white mb-1">
+                    Equipment Type Name <span className="text-[#C62828] font-bold">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="input-new-eq-name"
+                    value={newEqName}
+                    onChange={(e) => {
+                      setNewEqName(e.target.value);
+                      setAddModalError(null);
+                    }}
+                    placeholder="e.g., 1.5T Superconducting MRI"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    autoFocus
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Modal Actions */}
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-white/20">
+              <button
+                type="button"
+                onClick={() => {
+                  if (!isSubmittingAdd) setAddModalType(null);
+                }}
+                disabled={isSubmittingAdd}
+                className="px-4 py-2 border border-white/50 text-white rounded-xl text-xs font-bold hover:bg-white/10 transition-colors disabled:opacity-50 cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                id="btn-submit-add-classification"
+                disabled={isSubmittingAdd}
+                onClick={() => {
+                  if (addModalType === "primary") handleAddPrimaryCategory();
+                  else if (addModalType === "subcategory") handleAddSubcategory();
+                  else if (addModalType === "equipment-type") handleAddEquipmentType();
+                }}
+                className="px-5 py-2 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-xl text-xs font-bold transition-all border border-white shadow-md disabled:opacity-50 flex items-center gap-2 cursor-pointer"
+              >
+                {isSubmittingAdd ? (
+                  <>
+                    <RefreshCw size={13} className="animate-spin" />
+                    <span>Saving...</span>
+                  </>
+                ) : (
+                  <>
+                    <Plus size={13} className="stroke-[2.5]" />
+                    <span>Save & Select</span>
+                  </>
+                )}
+              </button>
             </div>
           </div>
         </div>
