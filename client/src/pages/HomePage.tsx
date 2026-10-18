@@ -3,10 +3,8 @@ import { Link } from "react-router-dom";
 import {
   ArrowRight,
   ShieldCheck,
-  Truck,
   CheckCircle2,
   Headphones,
-  Users,
   Sun,
   Zap,
   Activity,
@@ -195,57 +193,6 @@ export const HomePage: React.FC = () => {
           if (match) setQuickViewProduct(match);
         }}
       />
-
-      {/* 2. TRUST / FEATURE STRIP */}
-      <div className="relative z-20 w-full bg-[#111111] border-t border-[#222222] py-6 sm:py-7">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 items-center">
-            {/* Block 1 */}
-            <div className="flex items-center gap-4">
-              <div className="w-11 h-11 rounded-xl bg-[#1c1c1c] border border-[#2a2a2a] flex items-center justify-center shrink-0">
-                <Truck size={20} className="text-[#2D5A4A]" />
-              </div>
-              <div>
-                <div className="text-sm font-bold text-white leading-tight">Worldwide Shipping</div>
-                <div className="text-xs text-neutral-400 mt-0.5">To 100+ Countries Via Air Cargo</div>
-              </div>
-            </div>
-
-            {/* Block 2 */}
-            <div className="flex items-center gap-4 lg:border-l lg:border-[#262626] lg:pl-8">
-              <div className="w-11 h-11 rounded-xl bg-[#1c1c1c] border border-[#2a2a2a] flex items-center justify-center shrink-0">
-                <ShieldCheck size={20} className="text-[#2D5A4A]" />
-              </div>
-              <div>
-                <div className="text-sm font-bold text-white leading-tight">Certified Equipment</div>
-                <div className="text-xs text-neutral-400 mt-0.5">ISO 13485 & CE Verified</div>
-              </div>
-            </div>
-
-            {/* Block 3 */}
-            <div className="flex items-center gap-4 lg:border-l lg:border-[#262626] lg:pl-8">
-              <div className="w-11 h-11 rounded-xl bg-[#1c1c1c] border border-[#2a2a2a] flex items-center justify-center shrink-0">
-                <Headphones size={20} className="text-[#2D5A4A]" />
-              </div>
-              <div>
-                <div className="text-sm font-bold text-white leading-tight">Biomedical Support</div>
-                <div className="text-xs text-neutral-400 mt-0.5">Direct Engineering Assistance</div>
-              </div>
-            </div>
-
-            {/* Block 4 */}
-            <div className="flex items-center gap-4 lg:border-l lg:border-[#262626] lg:pl-8">
-              <div className="w-11 h-11 rounded-xl bg-[#1c1c1c] border border-[#2a2a2a] flex items-center justify-center shrink-0">
-                <Users size={20} className="text-[#2D5A4A]" />
-              </div>
-              <div>
-                <div className="text-sm font-bold text-white leading-tight">Institutional Procurement</div>
-                <div className="text-xs text-neutral-400 mt-0.5">Hospitals • Clinics • Distributors</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* 2.5. EXPLORE MEDICAL EQUIPMENT CATEGORIES (6 ACTIVE CATEGORIES) */}
       <section className="py-14 sm:py-20 bg-white border-b border-[#E8E8E8]">
