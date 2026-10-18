@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const initialProducts = require("../data/products");
 const initialCategories = require("../data/categories");
+const initialCatalogueHierarchy = require("../data/catalogueHierarchy");
 const initialCountries = require("../data/countries");
 const initialBlogs = require("../data/blogs");
 const currencyService = require("./currencyService");
@@ -13,6 +14,7 @@ const TMP_DB_FILE = path.join(require("os").tmpdir(), "drmedex_db.json");
 let state = {
   products: [...initialProducts],
   categories: [...initialCategories],
+  catalogueHierarchy: JSON.parse(JSON.stringify(initialCatalogueHierarchy)),
   countries: [...initialCountries],
   blogs: [...initialBlogs],
   orders: [
@@ -153,6 +155,11 @@ function checkReload() {
         const loaded = JSON.parse(raw);
         if (loaded && loaded.products && loaded.products.length > 0) {
           state = { ...state, ...loaded };
+          if (loaded.catalogueHierarchy) {
+            Object.assign(initialCatalogueHierarchy, loaded.catalogueHierarchy);
+          } else if (!state.catalogueHierarchy) {
+            state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
+          }
           ensureUniqueProductIds(state.products);
           return;
         }
@@ -167,6 +174,11 @@ function checkReload() {
         const loaded = JSON.parse(raw);
         if (loaded && loaded.products && loaded.products.length > 0) {
           state = { ...state, ...loaded };
+          if (loaded.catalogueHierarchy) {
+            Object.assign(initialCatalogueHierarchy, loaded.catalogueHierarchy);
+          } else if (!state.catalogueHierarchy) {
+            state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
+          }
           ensureUniqueProductIds(state.products);
         }
       }
@@ -510,6 +522,432 @@ module.exports = {
       return state.categories[idx];
     }
     return null;
+  },
+  getCatalogueHierarchy: () => {
+    checkReload();
+    if (!state.catalogueHierarchy) {
+      state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
+    }
+    return state.catalogueHierarchy;
+  },
+  addPrimaryCategory: ({ name, code, shortDescription }) => {
+    checkReload();
+    if (!name || typeof name !== "string" || !name.trim()) {
+      throw new Error("Category name is required.");
+    }
+    const cleanName = name.trim();
+    const cleanLower = cleanName.toLowerCase();
+    const slug = cleanName
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    if (!slug) {
+      throw new Error("Invalid category name.");
+    }
+
+    if (!state.catalogueHierarchy) {
+      state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
+    }
+
+    // Duplicate check
+    const existingCat = state.categories.find(
+      c => c.name.toLowerCase() === cleanLower || c.slug === slug || c.id === slug
+    );
+    const existingHierarchy = state.catalogueHierarchy[slug] || Object.values(state.catalogueHierarchy).find(
+      c => (c.name || "").toLowerCase() === cleanLower
+    );
+
+    if (existingCat || existingHierarchy) {
+      throw new Error(`Primary category "${cleanName}" already exists.`);
+    }
+
+    const catCode = (code && String(code).trim().replace(/[^a-zA-Z0-9]/g, "").slice(0, 4).toUpperCase()) ||
+      cleanName.replace(/[^a-zA-Z]/g, "").slice(0, 3).toUpperCase() ||
+      "MED";
+
+    const newCategory = {
+      id: slug,
+      slug: slug,
+      name: cleanName,
+      status: "ACTIVE",
+      active: true,
+      shortDescription: shortDescription || `${cleanName} medical equipment and clinical solutions.`,
+      icon: "Package",
+      featuredImage: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+      subcategories: []
+    };
+
+    state.categories.push(newCategory);
+    state.catalogueHierarchy[slug] = {
+      id: slug,
+      name: cleanName,
+      code: catCode,
+      status: "ACTIVE",
+      subcategories: []
+    };
+
+    Object.assign(initialCatalogueHierarchy, state.catalogueHierarchy);
+    persist();
+    return { category: newCategory, hierarchyItem: state.catalogueHierarchy[slug] };
+  },
+  addSubcategory: ({ parentCategory, name }) => {
+    checkReload();
+    if (!parentCategory || typeof parentCategory !== "string" || !parentCategory.trim()) {
+      throw new Error("Parent primary category is required.");
+    }
+    if (!name || typeof name !== "string" || !name.trim()) {
+      throw new Error("Subcategory name is required.");
+    }
+    const cleanName = name.trim();
+    const cleanLower = cleanName.toLowerCase();
+    const cleanParent = parentCategory.trim().toLowerCase();
+
+    if (!state.catalogueHierarchy) {
+      state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
+    }
+
+    const cat = state.categories.find(
+      c => c.id.toLowerCase() === cleanParent || c.slug.toLowerCase() === cleanParent || c.name.toLowerCase() === cleanParent
+    );
+    const hierParentKey = Object.keys(state.catalogueHierarchy).find(
+      k => k.toLowerCase() === cleanParent || (state.catalogueHierarchy[k].name || "").toLowerCase() === cleanParent
+    );
+    const hierParent = hierParentKey ? state.catalogueHierarchy[hierParentKey] : null;
+
+    if (!cat && !hierParent) {
+      throw new Error(`Parent category "${parentCategory}" was not found.`);
+    }
+
+    const parentSlug = (cat && (cat.slug || cat.id)) || hierParentKey;
+
+    const subcatsInCat = (cat && Array.isArray(cat.subcategories)) ? cat.subcategories : [];
+    const subcatsInHier = (hierParent && Array.isArray(hierParent.subcategories)) ? hierParent.subcategories : [];
+
+    const isDupCat = subcatsInCat.some(s => (s.name || "").toLowerCase() === cleanLower);
+    const isDupHier = subcatsInHier.some(s => (s.name || "").toLowerCase() === cleanLower);
+
+    if (isDupCat || isDupHier) {
+      throw new Error(`Subcategory "${cleanName}" already exists under "${hierParent?.name || cat?.name || parentCategory}".`);
+    }
+
+    const subSlug = cleanName
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    const newSubItem = {
+      id: subSlug,
+      slug: subSlug,
+      name: cleanName
+    };
+
+    if (cat) {
+      if (!Array.isArray(cat.subcategories)) cat.subcategories = [];
+      cat.subcategories.push(newSubItem);
+    }
+
+    if (hierParent) {
+      if (!Array.isArray(hierParent.subcategories)) hierParent.subcategories = [];
+      hierParent.subcategories.push({
+        id: subSlug,
+        name: cleanName,
+        equipmentTypes: []
+      });
+    }
+
+    Object.assign(initialCatalogueHierarchy, state.catalogueHierarchy);
+    persist();
+    return { subcategory: newSubItem, parentCategory: parentSlug };
+  },
+  addEquipmentType: ({ parentCategory, subcategory, name, skuPrefix }) => {
+    checkReload();
+    if (!parentCategory || typeof parentCategory !== "string" || !parentCategory.trim()) {
+      throw new Error("Primary category is required.");
+    }
+    if (!subcategory || typeof subcategory !== "string" || !subcategory.trim()) {
+      throw new Error("Subcategory is required.");
+    }
+    if (!name || typeof name !== "string" || !name.trim()) {
+      throw new Error("Equipment type name is required.");
+    }
+
+    const cleanName = name.trim();
+    const cleanLower = cleanName.toLowerCase();
+    const cleanParent = parentCategory.trim().toLowerCase();
+    const cleanSub = subcategory.trim().toLowerCase();
+
+    if (!state.catalogueHierarchy) {
+      state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
+    }
+
+    const hierParentKey = Object.keys(state.catalogueHierarchy).find(
+      k => k.toLowerCase() === cleanParent || (state.catalogueHierarchy[k].name || "").toLowerCase() === cleanParent
+    );
+    const hierParent = hierParentKey ? state.catalogueHierarchy[hierParentKey] : null;
+
+    if (!hierParent) {
+      throw new Error(`Primary category "${parentCategory}" was not found.`);
+    }
+
+    const sub = (hierParent.subcategories || []).find(
+      s => s.id.toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub
+    );
+
+    if (!sub) {
+      throw new Error(`Subcategory "${subcategory}" was not found under "${hierParent.name}".`);
+    }
+
+    if (!Array.isArray(sub.equipmentTypes)) {
+      sub.equipmentTypes = [];
+    }
+
+    const isDup = sub.equipmentTypes.some(
+      eq => (eq.name || "").toLowerCase() === cleanLower
+    );
+    if (isDup) {
+      throw new Error(`Equipment type "${cleanName}" already exists under "${sub.name}".`);
+    }
+
+    const eqId = cleanName
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    const words = cleanName.split(/[\s-]+/).filter(Boolean);
+    const defaultCode = words.length >= 2
+      ? words.map(w => w[0]).join("").toUpperCase().slice(0, 3)
+      : cleanName.replace(/[^a-z0-9]/gi, "").toUpperCase().slice(0, 3) || "EQP";
+
+    const cleanPrefix = (skuPrefix && String(skuPrefix).trim().replace(/[^a-zA-Z0-9-]/g, "").slice(0, 10).toUpperCase()) || defaultCode;
+
+    const newEq = {
+      id: eqId,
+      name: cleanName,
+      defaultCode,
+      skuPrefix: cleanPrefix
+    };
+
+    sub.equipmentTypes.push(newEq);
+
+    Object.assign(initialCatalogueHierarchy, state.catalogueHierarchy);
+    persist();
+    return { equipmentType: newEq, parentCategory: hierParentKey, subcategory: sub.id };
+  },
+  deletePrimaryCategory: (id) => {
+    checkReload();
+    const cleanId = (id || "").trim().toLowerCase();
+    const cat = state.categories.find(c => c.id.toLowerCase() === cleanId || (c.slug && c.slug.toLowerCase() === cleanId) || c.name.toLowerCase() === cleanId);
+    const hierKey = Object.keys(state.catalogueHierarchy || {}).find(
+      k => k.toLowerCase() === cleanId || (state.catalogueHierarchy[k]?.name || "").toLowerCase() === cleanId
+    );
+    const hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
+
+    if (!cat && !hier) {
+      throw new Error(`Primary category "${id}" was not found.`);
+    }
+
+    const catName = (cat && cat.name) || (hier && hier.name) || id;
+    const catSlug = (cat && (cat.slug || cat.id)) || hierKey;
+
+    // 1. Dependency check: linked products
+    const linkedProducts = (state.products || []).filter(p => {
+      const pCat = (p.category || "").toLowerCase();
+      return pCat === cleanId || pCat === (cat?.slug || "").toLowerCase() || pCat === (cat?.id || "").toLowerCase() || pCat === (cat?.name || "").toLowerCase() || pCat === (hierKey || "").toLowerCase();
+    });
+
+    if (linkedProducts.length > 0) {
+      const sampleTitles = linkedProducts.slice(0, 3).map(p => p.title || p.productName || p.sku);
+      throw new Error(`Cannot delete primary category "${catName}": ${linkedProducts.length} product(s) are assigned to it (e.g. "${sampleTitles.join('", "')}"). Please reassign or remove these products before deleting this category.`);
+    }
+
+    // 2. Dependency check: child subcategories
+    const subcats = (cat && Array.isArray(cat.subcategories) && cat.subcategories.length > 0)
+      ? cat.subcategories
+      : (hier && Array.isArray(hier.subcategories) ? hier.subcategories : []);
+
+    if (subcats.length > 0) {
+      throw new Error(`Cannot delete primary category "${catName}": ${subcats.length} subcategory/subcategories depend on it. Please delete or reassign its child subcategories first.`);
+    }
+
+    // Safe deletion: delete only the selected taxonomy record
+    if (cat) {
+      state.categories = state.categories.filter(c => c.id !== cat.id && c.slug !== cat.slug);
+    }
+    if (hierKey && state.catalogueHierarchy) {
+      delete state.catalogueHierarchy[hierKey];
+      delete initialCatalogueHierarchy[hierKey];
+    }
+
+    persist();
+    return { success: true, message: `Primary category "${catName}" deleted successfully.` };
+  },
+  deleteSubcategory: (parentCategory, subId) => {
+    checkReload();
+    const cleanParent = (parentCategory || "").trim().toLowerCase();
+    const cleanSub = (subId || "").trim().toLowerCase();
+
+    const cat = state.categories.find(c => c.id.toLowerCase() === cleanParent || (c.slug && c.slug.toLowerCase() === cleanParent) || c.name.toLowerCase() === cleanParent);
+    const hierKey = Object.keys(state.catalogueHierarchy || {}).find(
+      k => k.toLowerCase() === cleanParent || (state.catalogueHierarchy[k]?.name || "").toLowerCase() === cleanParent
+    );
+    const hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
+
+    if (!cat && !hier) {
+      throw new Error(`Parent category "${parentCategory}" was not found.`);
+    }
+
+    const subHier = hier && Array.isArray(hier.subcategories)
+      ? hier.subcategories.find(s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub)
+      : null;
+    const subCat = cat && Array.isArray(cat.subcategories)
+      ? cat.subcategories.find(s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub)
+      : null;
+
+    if (!subHier && !subCat) {
+      throw new Error(`Subcategory "${subId}" was not found under "${hier?.name || cat?.name || parentCategory}".`);
+    }
+
+    const subName = subHier?.name || subCat?.name || subId;
+
+    // 1. Dependency check: linked products
+    const linkedProducts = (state.products || []).filter(p => {
+      const pSub = (p.subcategory || "").toLowerCase();
+      return pSub === cleanSub || pSub === (subHier?.name || "").toLowerCase() || pSub === (subCat?.name || "").toLowerCase() || pSub === (subHier?.id || "").toLowerCase();
+    });
+
+    if (linkedProducts.length > 0) {
+      const sampleTitles = linkedProducts.slice(0, 3).map(p => p.title || p.productName || p.sku);
+      throw new Error(`Cannot delete subcategory "${subName}": ${linkedProducts.length} product(s) are assigned to it (e.g. "${sampleTitles.join('", "')}"). Please reassign or remove these products before deleting this subcategory.`);
+    }
+
+    // 2. Dependency check: verified equipment types
+    const eqTypes = subHier && Array.isArray(subHier.equipmentTypes) ? subHier.equipmentTypes : [];
+    if (eqTypes.length > 0) {
+      throw new Error(`Cannot delete subcategory "${subName}": ${eqTypes.length} verified equipment type(s) depend on it. Please delete them first.`);
+    }
+
+    // Safe deletion
+    if (hier && Array.isArray(hier.subcategories)) {
+      hier.subcategories = hier.subcategories.filter(s => (s.id || "").toLowerCase() !== cleanSub && (s.name || "").toLowerCase() !== subName.toLowerCase());
+      if (initialCatalogueHierarchy[hierKey]?.subcategories) {
+        initialCatalogueHierarchy[hierKey].subcategories = hier.subcategories;
+      }
+    }
+    if (cat && Array.isArray(cat.subcategories)) {
+      cat.subcategories = cat.subcategories.filter(s => (s.id || "").toLowerCase() !== cleanSub && (s.name || "").toLowerCase() !== subName.toLowerCase());
+    }
+
+    persist();
+    return { success: true, message: `Subcategory "${subName}" deleted successfully.` };
+  },
+  deleteEquipmentType: (parentCategory, subcategory, eqId) => {
+    checkReload();
+    const cleanParent = (parentCategory || "").trim().toLowerCase();
+    const cleanSub = (subcategory || "").trim().toLowerCase();
+    const cleanEq = (eqId || "").trim().toLowerCase();
+
+    const hierKey = Object.keys(state.catalogueHierarchy || {}).find(
+      k => k.toLowerCase() === cleanParent || (state.catalogueHierarchy[k]?.name || "").toLowerCase() === cleanParent
+    );
+    const hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
+
+    if (!hier) {
+      throw new Error(`Primary category "${parentCategory}" was not found.`);
+    }
+
+    const sub = (hier.subcategories || []).find(
+      s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub
+    );
+
+    if (!sub) {
+      throw new Error(`Subcategory "${subcategory}" was not found under "${hier.name}".`);
+    }
+
+    const eq = (sub.equipmentTypes || []).find(
+      e => (e.id || "").toLowerCase() === cleanEq || (e.name || "").toLowerCase() === cleanEq
+    );
+
+    if (!eq) {
+      throw new Error(`Equipment type "${eqId}" was not found under "${sub.name}".`);
+    }
+
+    const eqName = eq.name;
+
+    // 1. Dependency check: linked products
+    const linkedProducts = (state.products || []).filter(p => {
+      const pEq = (p.equipmentType || "").toLowerCase();
+      return pEq === cleanEq || pEq === eqName.toLowerCase() || pEq === (eq.id || "").toLowerCase();
+    });
+
+    if (linkedProducts.length > 0) {
+      const sampleTitles = linkedProducts.slice(0, 3).map(p => p.title || p.productName || p.sku);
+      throw new Error(`Cannot delete verified equipment type "${eqName}": ${linkedProducts.length} product(s) are assigned to it (e.g. "${sampleTitles.join('", "')}"). Please reassign or remove these products before deleting this equipment type.`);
+    }
+
+    // Safe deletion
+    sub.equipmentTypes = sub.equipmentTypes.filter(e => (e.id || "").toLowerCase() !== cleanEq && (e.name || "").toLowerCase() !== eqName.toLowerCase());
+    if (initialCatalogueHierarchy[hierKey]) {
+      Object.assign(initialCatalogueHierarchy, state.catalogueHierarchy);
+    }
+
+    persist();
+    return { success: true, message: `Verified equipment type "${eqName}" deleted successfully.` };
+  },
+  updateSubcategory: (parentCategory, subId, { name }) => {
+    checkReload();
+    const cleanParent = (parentCategory || "").trim().toLowerCase();
+    const cleanSub = (subId || "").trim().toLowerCase();
+    const cleanName = (name || "").trim();
+    if (!cleanName) throw new Error("Subcategory name is required.");
+
+    const cat = state.categories.find(c => c.id.toLowerCase() === cleanParent || (c.slug && c.slug.toLowerCase() === cleanParent) || c.name.toLowerCase() === cleanParent);
+    const hierKey = Object.keys(state.catalogueHierarchy || {}).find(
+      k => k.toLowerCase() === cleanParent || (state.catalogueHierarchy[k]?.name || "").toLowerCase() === cleanParent
+    );
+    const hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
+
+    if (hier && Array.isArray(hier.subcategories)) {
+      const s = hier.subcategories.find(x => (x.id || "").toLowerCase() === cleanSub || (x.name || "").toLowerCase() === cleanSub);
+      if (s) s.name = cleanName;
+    }
+    if (cat && Array.isArray(cat.subcategories)) {
+      const s = cat.subcategories.find(x => (x.id || "").toLowerCase() === cleanSub || (x.name || "").toLowerCase() === cleanSub);
+      if (s) s.name = cleanName;
+    }
+
+    persist();
+    return { success: true, message: `Subcategory updated to "${cleanName}".` };
+  },
+  updateEquipmentType: (parentCategory, subcategory, eqId, { name, code }) => {
+    checkReload();
+    const cleanParent = (parentCategory || "").trim().toLowerCase();
+    const cleanSub = (subcategory || "").trim().toLowerCase();
+    const cleanEq = (eqId || "").trim().toLowerCase();
+    const cleanName = (name || "").trim();
+    if (!cleanName) throw new Error("Equipment type name is required.");
+
+    const hierKey = Object.keys(state.catalogueHierarchy || {}).find(
+      k => k.toLowerCase() === cleanParent || (state.catalogueHierarchy[k]?.name || "").toLowerCase() === cleanParent
+    );
+    const hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
+    if (!hier) throw new Error("Parent category not found.");
+
+    const sub = (hier.subcategories || []).find(
+      s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub
+    );
+    if (!sub) throw new Error("Subcategory not found.");
+
+    const eq = (sub.equipmentTypes || []).find(
+      e => (e.id || "").toLowerCase() === cleanEq || (e.name || "").toLowerCase() === cleanEq
+    );
+    if (!eq) throw new Error("Equipment type not found.");
+
+    eq.name = cleanName;
+    if (code) eq.defaultCode = String(code).trim().toUpperCase();
+
+    persist();
+    return { success: true, message: `Equipment type updated to "${cleanName}".` };
   },
   getCountries: () => state.countries,
   getBlogs: () => state.blogs,

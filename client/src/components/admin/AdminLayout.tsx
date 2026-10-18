@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -24,7 +24,6 @@ import {
   ShieldCheck
 } from "lucide-react";
 import { useAdminAuth } from "../../context/AdminAuthContext";
-import { Logo } from "../Logo";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -68,13 +67,98 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   // Section placeholder modal for non-core nav
   const [noticeModal, setNoticeModal] = useState<{ title: string; desc: string } | null>(null);
 
+  // Global search state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+
   // Protected route check: redirect unauthenticated access to standard customer sign-in with safe return URL
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       const returnUrl = encodeURIComponent(location.pathname + location.search);
       navigate(`/account/signin?redirect=${returnUrl}`, { state: { from: location }, replace: true });
     }
   }, [isLoading, isAuthenticated, navigate, location]);
+
+  // Debounced real-time global admin search
+  useEffect(() => {
+    const trimmed = searchQuery.trim();
+    if (!trimmed) {
+      setSearchResults([]);
+      setIsSearching(false);
+      return;
+    }
+    setIsSearching(true);
+    const timer = setTimeout(async () => {
+      try {
+        const res = await adminFetch(`/api/admin/search?q=${encodeURIComponent(trimmed)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success) {
+            setSearchResults(data.results || []);
+            setSelectedIndex(0);
+          }
+        }
+      } catch (err) {
+        console.error("Global search error:", err);
+      } finally {
+        setIsSearching(false);
+      }
+    }, 250);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery, adminFetch]);
+
+  // Click outside listener for search dropdown
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
+        setIsSearchOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSelectedIndex((prev) => (searchResults.length > 0 ? (prev + 1) % searchResults.length : 0));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSelectedIndex((prev) => (searchResults.length > 0 ? (prev - 1 + searchResults.length) % searchResults.length : 0));
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      if (searchResults.length > 0 && searchResults[selectedIndex]) {
+        const target = searchResults[selectedIndex];
+        setIsSearchOpen(false);
+        setSearchQuery("");
+        navigate(target.url);
+      } else if (searchQuery.trim()) {
+        setIsSearchOpen(false);
+        navigate(`/admin/products?search=${encodeURIComponent(searchQuery.trim())}`);
+      }
+    } else if (e.key === "Escape") {
+      setIsSearchOpen(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (e) {
+      console.error("Logout error:", e);
+    } finally {
+      localStorage.removeItem("drmedex_admin_session_token");
+      localStorage.removeItem("drmedex_admin_user");
+      localStorage.removeItem("drmedex_admin_token");
+      localStorage.removeItem("drmedex_customer_profile");
+      navigate("/admin/login", { replace: true });
+    }
+  };
 
   const loadAuditLogs = async () => {
     setIsLoadingLogs(true);
@@ -96,10 +180,10 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white flex flex-col items-center justify-center text-black">
-        <div className="w-9 h-9 border-2 border-black border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-xs font-mono font-semibold tracking-wider uppercase text-neutral-500">
-          Loading Admin Platform...
+      <div className="min-h-screen bg-[#7AA05A] flex flex-col items-center justify-center text-white">
+        <div className="w-10 h-10 border-3 border-white border-t-transparent rounded-full animate-spin mb-4" />
+        <p className="text-xs font-mono font-bold tracking-widest uppercase text-white/90">
+          Loading DR.MEDEX Platform...
         </p>
       </div>
     );
@@ -115,21 +199,23 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-white text-black flex antialiased">
+    <div className="min-h-screen bg-[#7AA05A] text-white flex antialiased">
       {/* ============================================================ */}
-      {/* 1. ADRIZO-STYLE MONOCHROME SIDEBAR NAVIGATION                */}
+      {/* 1. DARK EMERALD SIDEBAR NAVIGATION                           */}
       {/* ============================================================ */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#0D4C3C] border-r border-white/15 flex flex-col justify-between transition-transform duration-200 lg:translate-x-0 text-white ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#0D4C3C] border-r border-white/15 flex flex-col justify-between transition-transform duration-200 lg:translate-x-0 text-white shadow-xl ${
           isMobileSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* Sidebar Header / Brand */}
+        {/* Sidebar Header / Brand: Yellow ADMIN badge on top, DR.MEDEX directly underneath, no logo icon */}
         <div className="h-16 px-6 border-b border-white/15 flex items-center justify-between bg-[#0D4C3C]">
-          <div className="flex items-center gap-2.5">
-            <Logo variant="white" showTagline={false} />
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-[#F4C542] text-black border border-white/30 shadow-xs">
+          <div className="flex flex-col items-start justify-center">
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-black uppercase tracking-wider bg-[#FFD400] text-black shadow-xs leading-none">
               ADMIN
+            </span>
+            <span className="text-base font-black tracking-widest text-white uppercase leading-none mt-1">
+              DR.MEDEX
             </span>
           </div>
           <button
@@ -155,7 +241,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                 onClick={() => setIsMobileSidebarOpen(false)}
                 className={`flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
                   isCurrentRoute("/admin")
-                    ? "bg-white/15 text-white font-bold border-l-2 border-[#F4C542]"
+                    ? "bg-white/15 text-white font-bold border-l-2 border-[#FFD400]"
                     : "text-white/80 hover:text-white hover:bg-white/10"
                 }`}
               >
@@ -189,7 +275,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                       onClick={() => setIsMobileSidebarOpen(false)}
                       className={`block px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                         location.pathname === "/admin/products"
-                          ? "bg-white/15 text-white font-bold border-l-2 border-[#F4C542]"
+                          ? "bg-white/15 text-white font-bold border-l-2 border-[#FFD400]"
                           : "text-white/80 hover:text-white hover:bg-white/10"
                       }`}
                     >
@@ -201,12 +287,12 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                       onClick={() => setIsMobileSidebarOpen(false)}
                       className={`flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                         location.pathname === "/admin/products/new"
-                          ? "bg-white/15 text-white font-bold border-l-2 border-[#F4C542]"
+                          ? "bg-white/15 text-white font-bold border-l-2 border-[#FFD400]"
                           : "text-white/80 hover:text-white hover:bg-white/10"
                       }`}
                     >
                       <span>Add Product</span>
-                      <Plus size={12} className="text-[#F4C542]" />
+                      <Plus size={12} className="text-[#FFD400]" />
                     </Link>
 
                     <Link
@@ -214,12 +300,14 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                       onClick={() => setIsMobileSidebarOpen(false)}
                       className={`flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                         location.pathname === "/admin/categories"
-                          ? "bg-white/15 text-white font-bold border-l-2 border-[#F4C542]"
+                          ? "bg-white/15 text-white font-bold border-l-2 border-[#FFD400]"
                           : "text-white/80 hover:text-white hover:bg-white/10"
                       }`}
                     >
                       <span>Categories</span>
-                      <span className="text-[10px] font-mono px-1.5 py-0.2 bg-[#F4C542] text-black border border-white/30 rounded font-bold">7</span>
+                      <span className="text-[10px] font-mono px-1.5 py-0.2 bg-[#FFD400] text-black border border-white/30 rounded font-bold">
+                        Taxonomy
+                      </span>
                     </Link>
 
                     <button
@@ -245,7 +333,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                 onClick={() =>
                   setNoticeModal({
                     title: "Orders Management",
-                    desc: "Live order fulfillment, DHL cargo tracking, and purchase order tracking active. Use the Customer Track Order portal or view orders via store API."
+                    desc: "Live order fulfillment, DHL cargo tracking, and purchase order tracking active. View orders through the Customer Track Order portal or view recent orders on the Dashboard."
                   })
                 }
                 className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-white/80 hover:text-white hover:bg-white/10 transition-colors text-left cursor-pointer"
@@ -257,9 +345,10 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
               {/* Customers */}
               <Link
                 to="/admin/customers"
+                onClick={() => setIsMobileSidebarOpen(false)}
                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
                   location.pathname === "/admin/customers"
-                    ? "bg-white/15 text-white font-bold border-l-2 border-[#F4C542]"
+                    ? "bg-white/15 text-white font-bold border-l-2 border-[#FFD400]"
                     : "text-white/80 hover:text-white hover:bg-white/10"
                 }`}
               >
@@ -288,7 +377,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                 onClick={() => setIsMobileSidebarOpen(false)}
                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
                   location.pathname === "/admin/reviews"
-                    ? "bg-white/15 text-white font-bold border-l-2 border-[#F4C542]"
+                    ? "bg-white/15 text-white font-bold border-l-2 border-[#FFD400]"
                     : "text-white/80 hover:text-white hover:bg-white/10"
                 }`}
               >
@@ -345,17 +434,17 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
           </div>
         </div>
 
-        {/* Sidebar Footer (Profile + External Link) */}
+        {/* Sidebar Footer (Storefront Link + Profile) */}
         <div className="p-4 border-t border-white/15 space-y-3 bg-[#0D4C3C]">
-          <Link
-            to="/shop-all"
+          <a
+            href="https://dr-medex.vercel.app"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-white bg-white/10 border border-white/20 hover:bg-white/20 transition-colors shadow-2xs"
           >
             <span>Live Storefront</span>
             <ExternalLink size={13} className="text-white" />
-          </Link>
+          </a>
 
           <div className="pt-2 border-t border-white/15 flex items-center justify-between">
             <div className="truncate pr-2">
@@ -364,7 +453,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
             </div>
             <button
               type="button"
-              onClick={logout}
+              onClick={handleLogout}
               title="Sign Out"
               className="p-1.5 text-white/70 hover:text-white hover:bg-white/10 rounded-md transition-colors cursor-pointer"
             >
@@ -378,7 +467,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
       {isMobileSidebarOpen && (
         <div
           onClick={() => setIsMobileSidebarOpen(false)}
-          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-2xs lg:hidden"
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-2xs lg:hidden"
         />
       )}
 
@@ -386,8 +475,8 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
       {/* 2. MAIN ADMIN CONTENT CONTAINER                              */}
       {/* ============================================================ */}
       <div className="flex-1 flex flex-col min-w-0 lg:pl-64">
-        {/* Top Header Bar — Slate Green (#2D5A4A) with White Text & Icons */}
-        <header className="h-16 bg-[#2D5A4A] border-b border-black/20 sticky top-0 z-30 flex items-center justify-between px-6 lg:px-8 text-white">
+        {/* Top Header Bar — Dark Emerald (#0D4C3C) with White Text & Outlines */}
+        <header className="h-16 bg-[#0D4C3C] border-b border-white/15 sticky top-0 z-30 flex items-center justify-between px-6 lg:px-8 text-white shadow-md">
           <div className="flex items-center gap-4">
             <button
               type="button"
@@ -418,33 +507,105 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
             </div>
           </div>
 
-          {/* Right Header Actions: Global Search, Storefront, Notifications/Audit, Admin Profile */}
+          {/* Right Header Actions: Functional Global Search, Storefront, Audit Log, Admin Profile */}
           <div className="flex items-center gap-3">
-            {/* Global Search */}
-            <div className="hidden md:flex items-center relative">
-              <Search size={14} className="absolute left-3 text-white/70" />
+            {/* Functional Global Admin Search */}
+            <div ref={searchContainerRef} className="hidden md:flex items-center relative">
+              <Search size={14} className="absolute left-3 text-white/70 z-10" />
               <input
                 type="text"
-                placeholder="Global admin search..."
-                className="pl-9 pr-3 py-1.5 bg-white/10 border border-white/20 rounded-lg text-xs text-white placeholder:text-white/60 focus:outline-none focus:border-[#FFD400] focus:bg-white/15 w-48 lg:w-60 transition-all"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    const val = (e.target as HTMLInputElement).value;
-                    navigate(`/admin/products?search=${encodeURIComponent(val)}`);
-                  }
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setIsSearchOpen(true);
                 }}
+                onFocus={() => {
+                  if (searchQuery.trim()) setIsSearchOpen(true);
+                }}
+                onKeyDown={handleSearchKeyDown}
+                placeholder="Global admin search..."
+                className="pl-9 pr-8 py-1.5 bg-white/10 border border-white/20 rounded-lg text-xs text-white placeholder:text-white/60 focus:outline-none focus:border-[#FFD400] focus:bg-white/15 w-52 lg:w-72 transition-all"
               />
+              {isSearching && (
+                <div className="absolute right-3 w-3 h-3 border-2 border-white/60 border-t-transparent rounded-full animate-spin" />
+              )}
+              {searchQuery && !isSearching && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setSearchResults([]);
+                    setIsSearchOpen(false);
+                  }}
+                  className="absolute right-2.5 text-white/50 hover:text-white p-0.5 cursor-pointer"
+                >
+                  <X size={12} />
+                </button>
+              )}
+
+              {/* Search Results Dropdown */}
+              {isSearchOpen && searchQuery.trim() && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-[#0D4C3C] border border-white/20 rounded-xl shadow-2xl overflow-hidden z-50 max-h-96 overflow-y-auto divide-y divide-white/10">
+                  {isSearching && searchResults.length === 0 ? (
+                    <div className="p-4 text-center text-xs text-white/60 flex items-center justify-center gap-2">
+                      <div className="w-3 h-3 border-2 border-[#FFD400] border-t-transparent rounded-full animate-spin" />
+                      <span>Searching catalogue & system...</span>
+                    </div>
+                  ) : searchResults.length === 0 ? (
+                    <div className="p-4 text-center text-xs text-white/60">
+                      No admin records found matching &ldquo;{searchQuery}&rdquo;
+                    </div>
+                  ) : (
+                    searchResults.map((item, idx) => {
+                      const isSelected = idx === selectedIndex;
+                      return (
+                        <div
+                          key={`${item.type}-${item.id}-${idx}`}
+                          onClick={() => {
+                            setIsSearchOpen(false);
+                            setSearchQuery("");
+                            navigate(item.url);
+                          }}
+                          onMouseEnter={() => setSelectedIndex(idx)}
+                          className={`px-4 py-3 flex items-start gap-3 cursor-pointer transition-colors ${
+                            isSelected ? "bg-white/15 border-l-4 border-[#FFD400]" : "hover:bg-white/10"
+                          }`}
+                        >
+                          <div className="mt-0.5 text-white/80 shrink-0">
+                            {item.type === "product" && <Package size={14} className="text-[#FFD400]" />}
+                            {(item.type === "category" || item.type === "subcategory" || item.type === "equipment-type") && (
+                              <Layers size={14} className="text-emerald-300" />
+                            )}
+                            {item.type === "order" && <ShoppingCart size={14} className="text-amber-300" />}
+                            {item.type === "customer" && <Users size={14} className="text-purple-300" />}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="text-xs font-bold text-white truncate">{item.title}</span>
+                              <span className="text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded bg-white/10 text-white/90 border border-white/20 shrink-0">
+                                {item.type}
+                              </span>
+                            </div>
+                            <div className="text-[11px] text-white/70 truncate mt-0.5">{item.subtitle}</div>
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+              )}
             </div>
 
-            <Link
-              to="/shop-all"
+            {/* Storefront Button */}
+            <a
+              href="https://dr-medex.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-white/10 border border-white/20 hover:bg-white/20 transition-colors"
             >
               <span>Storefront</span>
               <ExternalLink size={12} className="text-white/80" />
-            </Link>
+            </a>
 
             {/* Notifications / Audit Log */}
             <button
@@ -454,7 +615,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
               title="Audit Log & Notifications"
             >
               <Clock size={16} className="text-white" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#FFD400] rounded-full ring-2 ring-[#2D5A4A]" />
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#FFD400] rounded-full ring-2 ring-[#0D4C3C]" />
             </button>
 
             {/* Administrator Profile */}
@@ -468,7 +629,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
               </div>
               <button
                 type="button"
-                onClick={logout}
+                onClick={handleLogout}
                 title="Sign Out"
                 className="p-1.5 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors ml-1 cursor-pointer"
               >
@@ -478,15 +639,15 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
           </div>
         </header>
 
-        {/* Page Heading & Actions Strip */}
-        <div className={`border-b border-[#E5E5E5] px-6 lg:px-8 py-5 ${headerClassName || "bg-white"}`}>
+        {/* Page Heading & Actions Strip — Moss Green (#7AA05A) with White Text */}
+        <div className={`border-b border-black/15 px-6 lg:px-8 py-5 ${headerClassName || "bg-[#7AA05A] text-white"}`}>
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 className={`text-xl sm:text-2xl font-black tracking-tight ${titleClassName || "text-black"}`}>
+              <h1 className={`text-xl sm:text-2xl font-black tracking-tight ${titleClassName || "text-white"}`}>
                 {title}
               </h1>
               {subtitle && (
-                <p className={`text-xs mt-1 ${subtitleClassName || "text-[#666666]"}`}>
+                <p className={`text-xs mt-1 ${subtitleClassName || "text-white/90"}`}>
                   {subtitle}
                 </p>
               )}
@@ -496,8 +657,8 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
           </div>
         </div>
 
-        {/* Main Page Content Body */}
-        <main className={`flex-1 px-6 lg:px-8 py-8 ${mainClassName || "bg-white"}`}>
+        {/* Main Page Content Body — Moss Green (#7AA05A) */}
+        <main className={`flex-1 px-6 lg:px-8 py-8 ${mainClassName || "bg-[#7AA05A]"}`}>
           <div className="max-w-7xl mx-auto">
             {children}
           </div>
@@ -505,42 +666,42 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
       </div>
 
       {/* ============================================================ */}
-      {/* 3. AUDIT TRAIL MODAL (STRICT MONOCHROME THEME)                */}
+      {/* 3. AUDIT TRAIL MODAL (DARK EMERALD THEME)                    */}
       {/* ============================================================ */}
       {isAuditModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-2xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full border border-neutral-300 shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
-            <div className="px-6 py-4 border-b border-neutral-200 flex items-center justify-between bg-white text-black">
+          <div className="bg-[#0D4C3C] text-white rounded-2xl max-w-2xl w-full border border-white/20 shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+            <div className="px-6 py-4 border-b border-white/15 flex items-center justify-between bg-[#0D4C3C]">
               <div className="flex items-center gap-2">
-                <Clock size={16} />
-                <h3 className="font-bold text-sm uppercase tracking-wider font-mono">
+                <Clock size={16} className="text-[#FFD400]" />
+                <h3 className="font-bold text-sm uppercase tracking-wider font-mono text-white">
                   Administrative Audit Trail
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={() => setIsAuditModalOpen(false)}
-                className="text-neutral-400 hover:text-black p-1 rounded"
+                className="text-white/60 hover:text-white p-1 rounded cursor-pointer"
               >
                 <X size={18} />
               </button>
             </div>
 
-            <div className="p-6 overflow-y-auto flex-1 divide-y divide-neutral-100">
+            <div className="p-6 overflow-y-auto flex-1 divide-y divide-white/10">
               {isLoadingLogs ? (
-                <div className="py-12 text-center text-xs text-neutral-400">Loading audit records...</div>
+                <div className="py-12 text-center text-xs text-white/60">Loading audit records...</div>
               ) : auditLogs.length === 0 ? (
-                <div className="py-12 text-center text-xs text-neutral-400">No actions recorded in audit session yet.</div>
+                <div className="py-12 text-center text-xs text-white/60">No actions recorded in audit session yet.</div>
               ) : (
                 auditLogs.map((log: any, idx: number) => (
                   <div key={idx} className="py-3 flex items-start justify-between gap-4 text-xs">
                     <div>
-                      <div className="font-bold text-black font-mono">{log.action}</div>
-                      <div className="text-[11px] text-neutral-500 mt-0.5">
+                      <div className="font-bold text-white font-mono">{log.action}</div>
+                      <div className="text-[11px] text-white/70 mt-0.5">
                         By {log.adminEmail} • Target: {log.targetId || "System"}
                       </div>
                     </div>
-                    <div className="text-[10px] font-mono text-neutral-400 shrink-0">
+                    <div className="text-[10px] font-mono text-white/60 shrink-0">
                       {new Date(log.timestamp).toLocaleString()}
                     </div>
                   </div>
@@ -548,11 +709,11 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
               )}
             </div>
 
-            <div className="px-6 py-3 border-t border-neutral-200 bg-neutral-50 flex justify-end">
+            <div className="px-6 py-3 border-t border-white/15 bg-black/20 flex justify-end">
               <button
                 type="button"
                 onClick={() => setIsAuditModalOpen(false)}
-                className="px-4 py-2 bg-black text-white rounded-lg text-xs font-semibold hover:bg-neutral-800"
+                className="px-4 py-2 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer"
               >
                 Close Audit Log
               </button>
@@ -563,15 +724,15 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
 
       {/* Notice / Placeholder Modal */}
       {noticeModal && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-2xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full border border-neutral-300 shadow-xl p-6 space-y-4">
-            <h3 className="text-base font-bold text-black">{noticeModal.title}</h3>
-            <p className="text-xs text-neutral-600 leading-relaxed">{noticeModal.desc}</p>
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-2xs flex items-center justify-center p-4">
+          <div className="bg-[#0D4C3C] text-white rounded-2xl max-w-md w-full border border-white/20 shadow-xl p-6 space-y-4">
+            <h3 className="text-base font-bold text-white">{noticeModal.title}</h3>
+            <p className="text-xs text-white/80 leading-relaxed">{noticeModal.desc}</p>
             <div className="pt-2 flex justify-end">
               <button
                 type="button"
                 onClick={() => setNoticeModal(null)}
-                className="px-4 py-2 bg-black text-white text-xs font-bold rounded-lg hover:bg-neutral-800"
+                className="px-4 py-2 bg-[#C62828] hover:bg-[#B71C1C] text-white text-xs font-bold rounded-lg transition-colors cursor-pointer"
               >
                 Acknowledge
               </button>

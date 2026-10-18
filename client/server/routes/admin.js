@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 const express = require("express");
 const router = express.Router();
 const authService = require("../services/authService");
@@ -348,7 +349,342 @@ router.get("/products", requireAdmin, async (req, res) => {
 });
 
 router.get("/catalogue/hierarchy", requireAdmin, (req, res) => {
-  res.json({ success: true, hierarchy: catalogueHierarchy });
+  res.json({ success: true, hierarchy: store.getCatalogueHierarchy() });
+});
+
+router.post("/catalogue/primary-category", requireAdmin, (req, res) => {
+  try {
+    const { name, code, shortDescription } = req.body;
+    if (!name || typeof name !== "string" || !name.trim()) {
+      return res.status(400).json({ success: false, message: "Category name is required." });
+    }
+    const result = store.addPrimaryCategory({ name: name.trim(), code, shortDescription });
+    auditService.logAction(req.admin?.email || "ADMIN", "PRIMARY_CATEGORY_CREATED", result.category.id, { name, code });
+    res.json({
+      success: true,
+      message: `Primary category "${result.category.name}" created successfully.`,
+      category: result.category,
+      hierarchy: store.getCatalogueHierarchy(),
+      categories: store.getCategories(true)
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/catalogue/subcategory", requireAdmin, (req, res) => {
+  try {
+    const { parentCategory, name } = req.body;
+    if (!parentCategory || typeof parentCategory !== "string" || !parentCategory.trim()) {
+      return res.status(400).json({ success: false, message: "Parent primary category is required." });
+    }
+    if (!name || typeof name !== "string" || !name.trim()) {
+      return res.status(400).json({ success: false, message: "Subcategory name is required." });
+    }
+    const result = store.addSubcategory({ parentCategory: parentCategory.trim(), name: name.trim() });
+    auditService.logAction(req.admin?.email || "ADMIN", "SUBCATEGORY_CREATED", result.subcategory.id, { parentCategory, name });
+    res.json({
+      success: true,
+      message: `Subcategory "${result.subcategory.name}" created successfully.`,
+      subcategory: result.subcategory,
+      parentCategory: result.parentCategory,
+      hierarchy: store.getCatalogueHierarchy(),
+      categories: store.getCategories(true)
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/catalogue/equipment-type", requireAdmin, (req, res) => {
+  try {
+    const { parentCategory, subcategory, name } = req.body;
+    if (!parentCategory || typeof parentCategory !== "string" || !parentCategory.trim()) {
+      return res.status(400).json({ success: false, message: "Primary category is required." });
+    }
+    if (!subcategory || typeof subcategory !== "string" || !subcategory.trim()) {
+      return res.status(400).json({ success: false, message: "Subcategory is required." });
+    }
+    if (!name || typeof name !== "string" || !name.trim()) {
+      return res.status(400).json({ success: false, message: "Equipment type name is required." });
+    }
+    const result = store.addEquipmentType({
+      parentCategory: parentCategory.trim(),
+      subcategory: subcategory.trim(),
+      name: name.trim()
+    });
+    auditService.logAction(req.admin?.email || "ADMIN", "EQUIPMENT_TYPE_CREATED", result.equipmentType.id, { parentCategory, subcategory, name });
+    res.json({
+      success: true,
+      message: `Verified equipment type "${result.equipmentType.name}" created successfully.`,
+      equipmentType: result.equipmentType,
+      hierarchy: store.getCatalogueHierarchy()
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Also alias POST /categories to primary-category creation for standard REST consistency
+router.post("/categories", requireAdmin, (req, res) => {
+  try {
+    const { name, code, shortDescription } = req.body;
+    if (!name || typeof name !== "string" || !name.trim()) {
+      return res.status(400).json({ success: false, message: "Category name is required." });
+    }
+    const result = store.addPrimaryCategory({ name: name.trim(), code, shortDescription });
+    auditService.logAction(req.admin?.email || "ADMIN", "PRIMARY_CATEGORY_CREATED", result.category.id, { name, code });
+    res.json({
+      success: true,
+      message: `Primary category "${result.category.name}" created successfully.`,
+      category: result.category,
+      hierarchy: store.getCatalogueHierarchy(),
+      categories: store.getCategories(true)
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Update Primary Category
+router.put("/catalogue/primary-category/:id", requireAdmin, (req, res) => {
+  try {
+    const { name, shortDescription, code } = req.body;
+    const cat = store.getAllCategories().find(c => c.id === req.params.id || c.slug === req.params.id);
+    if (!cat) {
+      return res.status(404).json({ success: false, message: "Category not found." });
+    }
+    const updates = {};
+    if (name && typeof name === "string" && name.trim()) updates.name = name.trim();
+    if (shortDescription !== undefined) updates.shortDescription = shortDescription;
+    const updated = store.updateCategory(cat.id, updates);
+    auditService.logAction(req.admin?.email || "ADMIN", "PRIMARY_CATEGORY_UPDATED", cat.id, updates);
+    res.json({
+      success: true,
+      message: `Primary category "${updated.name}" updated successfully.`,
+      category: updated,
+      hierarchy: store.getCatalogueHierarchy(),
+      categories: store.getCategories(true)
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Delete Primary Category
+router.delete("/catalogue/primary-category/:id", requireAdmin, (req, res) => {
+  try {
+    const result = store.deletePrimaryCategory(req.params.id);
+    auditService.logAction(req.admin?.email || "ADMIN", "PRIMARY_CATEGORY_DELETED", req.params.id, {});
+    res.json({
+      success: true,
+      message: result.message,
+      hierarchy: store.getCatalogueHierarchy(),
+      categories: store.getCategories(true)
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Alias DELETE /categories/:id
+router.delete("/categories/:id", requireAdmin, (req, res) => {
+  try {
+    const result = store.deletePrimaryCategory(req.params.id);
+    auditService.logAction(req.admin?.email || "ADMIN", "PRIMARY_CATEGORY_DELETED", req.params.id, {});
+    res.json({
+      success: true,
+      message: result.message,
+      hierarchy: store.getCatalogueHierarchy(),
+      categories: store.getCategories(true)
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Update Subcategory
+router.put("/catalogue/subcategory/:parentCategory/:subId", requireAdmin, (req, res) => {
+  try {
+    const { name } = req.body;
+    const result = store.updateSubcategory(req.params.parentCategory, req.params.subId, { name });
+    auditService.logAction(req.admin?.email || "ADMIN", "SUBCATEGORY_UPDATED", req.params.subId, { parentCategory: req.params.parentCategory, name });
+    res.json({
+      success: true,
+      message: result.message,
+      hierarchy: store.getCatalogueHierarchy()
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Delete Subcategory
+router.delete("/catalogue/subcategory/:parentCategory/:subId", requireAdmin, (req, res) => {
+  try {
+    const result = store.deleteSubcategory(req.params.parentCategory, req.params.subId);
+    auditService.logAction(req.admin?.email || "ADMIN", "SUBCATEGORY_DELETED", req.params.subId, { parentCategory: req.params.parentCategory });
+    res.json({
+      success: true,
+      message: result.message,
+      hierarchy: store.getCatalogueHierarchy()
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Update Equipment Type
+router.put("/catalogue/equipment-type/:parentCategory/:subcategory/:eqId", requireAdmin, (req, res) => {
+  try {
+    const { name, code } = req.body;
+    const result = store.updateEquipmentType(req.params.parentCategory, req.params.subcategory, req.params.eqId, { name, code });
+    auditService.logAction(req.admin?.email || "ADMIN", "EQUIPMENT_TYPE_UPDATED", req.params.eqId, { name, code });
+    res.json({
+      success: true,
+      message: result.message,
+      hierarchy: store.getCatalogueHierarchy()
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Delete Equipment Type
+router.delete("/catalogue/equipment-type/:parentCategory/:subcategory/:eqId", requireAdmin, (req, res) => {
+  try {
+    const result = store.deleteEquipmentType(req.params.parentCategory, req.params.subcategory, req.params.eqId);
+    auditService.logAction(req.admin?.email || "ADMIN", "EQUIPMENT_TYPE_DELETED", req.params.eqId, { parentCategory: req.params.parentCategory, subcategory: req.params.subcategory });
+    res.json({
+      success: true,
+      message: result.message,
+      hierarchy: store.getCatalogueHierarchy()
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Global Admin Search
+router.get("/search", requireAdmin, async (req, res) => {
+  try {
+    const q = (req.query.q || "").trim().toLowerCase();
+    if (!q) {
+      return res.json({ success: true, results: [] });
+    }
+
+    const results = [];
+
+    // 1. Products (title, sku, brand, model)
+    const allProducts = store.getProducts({ includeInactive: true }) || [];
+    for (const p of allProducts) {
+      const title = p.title || p.productName || "";
+      const sku = p.sku || p.SKU || "";
+      const brand = p.brand || "";
+      const model = p.model || "";
+      if (
+        title.toLowerCase().includes(q) ||
+        sku.toLowerCase().includes(q) ||
+        brand.toLowerCase().includes(q) ||
+        model.toLowerCase().includes(q)
+      ) {
+        results.push({
+          type: "product",
+          id: p.id,
+          title: title,
+          subtitle: `SKU: ${sku || "N/A"} • ${brand || "DR.MEDEX"} • ${p.category || ""}`,
+          url: `/admin/products/${p.id}/edit`
+        });
+        if (results.filter(r => r.type === "product").length >= 6) break;
+      }
+    }
+
+    // 2. Categories & Taxonomy (primary, subcategory, equipment type)
+    const hierarchy = store.getCatalogueHierarchy() || {};
+    for (const [catKey, cat] of Object.entries(hierarchy)) {
+      if ((cat.name || "").toLowerCase().includes(q) || catKey.toLowerCase().includes(q)) {
+        results.push({
+          type: "category",
+          id: cat.id || catKey,
+          title: cat.name,
+          subtitle: `Primary Category • ${cat.code || "MED"} • ${cat.subcategories?.length || 0} subcategories`,
+          url: `/admin/categories?tab=primary&search=${encodeURIComponent(cat.name)}`
+        });
+      }
+
+      if (Array.isArray(cat.subcategories)) {
+        for (const sub of cat.subcategories) {
+          if ((sub.name || "").toLowerCase().includes(q) || (sub.id || "").toLowerCase().includes(q)) {
+            results.push({
+              type: "subcategory",
+              id: `${catKey}-${sub.id}`,
+              title: sub.name,
+              subtitle: `Subcategory under ${cat.name}`,
+              url: `/admin/categories?tab=subcategories&search=${encodeURIComponent(sub.name)}`
+            });
+          }
+
+          if (Array.isArray(sub.equipmentTypes)) {
+            for (const eq of sub.equipmentTypes) {
+              if ((eq.name || "").toLowerCase().includes(q) || (eq.id || "").toLowerCase().includes(q)) {
+                results.push({
+                  type: "equipment-type",
+                  id: `${catKey}-${sub.id}-${eq.id || eq.name}`,
+                  title: eq.name,
+                  subtitle: `Verified Equipment Type (${eq.defaultCode || eq.code || "EQP"}) • ${sub.name}`,
+                  url: `/admin/categories?tab=equipment-types&search=${encodeURIComponent(eq.name)}`
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // 3. Orders (order id, orderNumber, customer name)
+    const allOrders = store.getOrders() || [];
+    for (const o of allOrders) {
+      const orderId = o.id || "";
+      const orderNum = o.orderNumber || "";
+      const custName = o.customerName || o.shippingAddress?.fullName || "";
+      if (
+        orderId.toLowerCase().includes(q) ||
+        orderNum.toLowerCase().includes(q) ||
+        custName.toLowerCase().includes(q)
+      ) {
+        results.push({
+          type: "order",
+          id: orderId,
+          title: `Order #${(orderNum || orderId).slice(0, 10).toUpperCase()}`,
+          subtitle: `${custName || "Customer"} • $${Number(o.totalAmount || o.total || 0).toLocaleString()} • ${o.status || "Pending"}`,
+          url: `/admin`
+        });
+        if (results.filter(r => r.type === "order").length >= 4) break;
+      }
+    }
+
+    // 4. Customers
+    try {
+      const custRes = await supabaseService.getCustomers({ search: q, limit: 4 });
+      if (custRes && Array.isArray(custRes.customers)) {
+        for (const c of custRes.customers) {
+          results.push({
+            type: "customer",
+            id: c.id,
+            title: c.fullName || c.name || c.email,
+            subtitle: `Customer • ${c.email} • ${c.institution || "Healthcare Organization"}`,
+            url: `/admin/customers?search=${encodeURIComponent(c.email || c.fullName || "")}`
+          });
+        }
+      }
+    } catch (e) {
+      // Supabase customer search is optional fallback
+    }
+
+    res.json({ success: true, results: results.slice(0, 15) });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message, results: [] });
+  }
 });
 
 router.get("/products/check-sku", requireAdmin, (req, res) => {
@@ -370,50 +706,145 @@ router.get("/products/check-sku", requireAdmin, (req, res) => {
   });
 });
 
-router.get("/products/generate-sku", requireAdmin, (req, res) => {
-  const { category = "ot-lights" } = req.query;
-  const catCodeMap = {
-    "ot-lights": "OTL",
-    "electrosurgical-units": "ESU",
-    "cryo-surgical": "CRY",
-    "examination-ot-tables": "TAB",
-    "obstetrics-and-gynaecology": "OBG",
-    "medical-equipment": "MED",
-    "physiotherapy": "PHY"
-  };
-  const prefix = catCodeMap[category] || "MED";
-  const allProducts = store.getProducts({ includeInactive: true });
+// ==========================================
+// SKU GENERATION TAXONOMY CODES & GENERATOR
+// Format: DRM-[PRIMARY]-[SUBCATEGORY]-[NAME]-[UNIQUE-ID]
+// Example: DRM-OTL-TRC-ADJUSTABLE-7K4P2M
+// ==========================================
+const SKU_CAT_CODES = {
+  "ot-lights": "OTL",
+  "electrosurgical-units": "ESU",
+  "cryo-surgical": "CRY",
+  "examination-ot-tables": "TAB",
+  "obstetrics-and-gynaecology": "OBG",
+  "medical-equipment": "MED",
+  "physiotherapy": "PHY"
+};
 
-  // Find max sequence in this category
-  let maxSeq = 0;
-  const regex = new RegExp(`^DRM-${prefix}-(\\d+)`, "i");
-  allProducts.forEach(p => {
-    const s = p.sku || p.SKU || "";
-    const m = s.match(regex);
-    if (m && m[1]) {
-      const num = parseInt(m[1], 10);
-      if (!isNaN(num) && num > maxSeq) {
-        maxSeq = num;
-      }
+const SKU_SUBCAT_CODES = {
+  "single-dome-ot-lights": "SDL",
+  "ot-surgical-lights-double-dome": "DDL",
+  "mobile-led-ot-lights": "MOB",
+  "ceiling-mounted-systems": "CMS",
+  "examination-lights": "EXL",
+  "electro-surgical-skin-cautery": "ESC",
+  "electrosurgical-generator": "ESG",
+  "surgical-accessories": "ACC",
+  "smoke-evacuation-systems": "SMK",
+  "cryo-gun": "CGN",
+  "cryotherapy-systems": "CTS",
+  "cryo-replacement-nozzles": "NOZ",
+  "operating-tables": "OPT",
+  "examination-tables": "EXT",
+  "treatment-tables": "TRT",
+  "obstetric-tables": "OBT",
+  "gynaecology-examination-tables": "GYN",
+  "fetal-monitoring-equipment": "FME",
+  "diagnostic-equipment": "DIA",
+  "sterilization-autoclaves": "STE",
+  "suction-units": "SUC",
+  "hospital-furniture": "HFN",
+  "physiotherapy-equipment": "PHY",
+  "electrotherapy": "ELT",
+  "traction-units": "TRC",
+  "exercise-therapy": "EXT"
+};
+
+function resolvePrimarySkuCode(cat) {
+  if (!cat) return "MED";
+  const norm = String(cat).trim().toLowerCase();
+  if (SKU_CAT_CODES[norm]) return SKU_CAT_CODES[norm];
+
+  const match = Object.values(catalogueHierarchy).find(c =>
+    c.id.toLowerCase() === norm ||
+    c.name.toLowerCase() === norm ||
+    norm.includes(c.id.toLowerCase()) ||
+    c.name.toLowerCase().includes(norm)
+  );
+  if (match && match.code) return match.code;
+  const clean = norm.replace(/[^a-z]/g, "").toUpperCase();
+  return clean.substring(0, 3) || "MED";
+}
+
+function resolveSubcatSkuCode(sub) {
+  if (!sub) return "GEN";
+  const norm = String(sub).trim().toLowerCase();
+  if (SKU_SUBCAT_CODES[norm]) return SKU_SUBCAT_CODES[norm];
+
+  for (const cat of Object.values(catalogueHierarchy)) {
+    const found = (cat.subcategories || []).find(s =>
+      s.id.toLowerCase() === norm ||
+      s.name.toLowerCase() === norm ||
+      norm.includes(s.id.toLowerCase())
+    );
+    if (found) {
+      if (SKU_SUBCAT_CODES[found.id]) return SKU_SUBCAT_CODES[found.id];
+      const words = found.name.split(/[\s-]+/).filter(Boolean);
+      if (words.length >= 2) return words.map(w => w[0]).join("").toUpperCase().substring(0, 3);
+      return found.id.replace(/[^a-z0-9]/gi, "").toUpperCase().substring(0, 3);
     }
-  });
-
-  let candidateSeq = maxSeq + 1;
-  let candidateSku = `DRM-${prefix}-${String(candidateSeq).padStart(4, "0")}`;
-
-  // Guarantee uniqueness against ANY existing SKU in the entire DB
-  const existingSkus = new Set(allProducts.map(p => (p.sku || p.SKU || "").toLowerCase()));
-  while (existingSkus.has(candidateSku.toLowerCase())) {
-    candidateSeq += 1;
-    candidateSku = `DRM-${prefix}-${String(candidateSeq).padStart(4, "0")}`;
   }
+
+  const words = norm.split(/[\s-]+/).filter(w => w.length > 0 && !["and", "or", "for", "the"].includes(w));
+  if (words.length >= 2) {
+    const acronym = words.map(w => w[0]).join("").toUpperCase();
+    if (acronym.length >= 2) return acronym.padEnd(3, "X").substring(0, 3);
+  }
+  return norm.replace(/[^a-z0-9]/gi, "").toUpperCase().substring(0, 3) || "GEN";
+}
+
+function resolveNameSkuSegment(name) {
+  if (!name) return "EQUIP";
+  const clean = String(name)
+    .replace(/^DR\.?\s*MEDEX/i, "")
+    .replace(/[^a-zA-Z0-9\s]/g, " ")
+    .trim();
+  const stopWords = new Set(["THE", "AND", "WITH", "FOR", "IN", "ON", "AT", "TO", "A", "AN", "OF", "SERIES", "UNIT", "SYSTEM", "GRADE", "DRMEDEX"]);
+  const tokens = clean.split(/\s+/).filter(t => t.length > 2 && !stopWords.has(t.toUpperCase()));
+  if (tokens.length > 0) return tokens[0].toUpperCase().substring(0, 10);
+  return "EQUIP";
+}
+
+function generateCollisionResistantId(length = 6) {
+  const chars = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ"; // exclude ambiguous 0, 1, I, O
+  let result = "";
+  const randomBytes = crypto.randomBytes(length);
+  for (let i = 0; i < length; i++) {
+    result += chars[randomBytes[i] % chars.length];
+  }
+  return result;
+}
+
+function generateProductSku({ category, subcategory, productName }) {
+  const primaryCode = resolvePrimarySkuCode(category);
+  const subcatCode = resolveSubcatSkuCode(subcategory);
+  const nameSegment = resolveNameSkuSegment(productName);
+
+  const allProducts = store.getProducts({ includeInactive: true });
+  const existingSkus = new Set(allProducts.map(p => (p.sku || p.SKU || "").toLowerCase()));
+
+  for (let attempt = 0; attempt < 50; attempt++) {
+    const uniqueId = generateCollisionResistantId(6);
+    const candidateSku = `DRM-${primaryCode}-${subcatCode}-${nameSegment}-${uniqueId}`;
+    if (!existingSkus.has(candidateSku.toLowerCase())) {
+      return candidateSku;
+    }
+  }
+
+  return `DRM-${primaryCode}-${subcatCode}-${nameSegment}-${Date.now().toString(36).toUpperCase()}`;
+}
+
+router.get("/products/generate-sku", requireAdmin, (req, res) => {
+  const { category = "ot-lights", subcategory = "", productName = "" } = req.query;
+
+  const sku = generateProductSku({ category, subcategory, productName });
 
   res.json({
     success: true,
     category,
-    prefix,
-    sku: candidateSku,
-    sequence: candidateSeq
+    subcategory,
+    productName,
+    sku
   });
 });
 
@@ -1133,6 +1564,24 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
       updatedAt: new Date().toISOString()
     };
 
+    // Enforce SKU Uniqueness on update
+    if (updates.sku) {
+      const cleanSku = updates.sku.trim().toLowerCase();
+      const existingClean = (existing.sku || existing.SKU || "").trim().toLowerCase();
+      if (cleanSku !== existingClean) {
+        const allProducts = store.getProducts({ includeInactive: true });
+        const skuConflict = allProducts.find(
+          p => p.id !== existing.id && p.slug !== existing.slug && (p.sku || p.SKU || "").toLowerCase() === cleanSku
+        );
+        if (skuConflict) {
+          return res.status(400).json({
+            success: false,
+            message: `SKU '${updates.sku}' is already assigned to '${skuConflict.title || skuConflict.productName}'. Please provide a unique SKU.`
+          });
+        }
+      }
+    }
+
     // Only process and update gallery images if explicitly included in request body
     const hasImageUpdates = req.body.images !== undefined || req.body.primaryImage !== undefined || req.body.galleryImages !== undefined;
     if (hasImageUpdates) {
@@ -1722,7 +2171,14 @@ router.post("/products/ai-identify", requireAdmin, async (req, res) => {
 
     const namingStyle = req.body.namingStyle || "clinical";
     const preliminaryBrand = req.body.preliminaryBrand || req.body.brand || "DR.MEDEX";
-    const result = await geminiVisionService.identifyProductFromPhotos(photos, { namingStyle, preliminaryBrand });
+    const targetField = req.body.targetField || null;
+    const context = req.body.context || {};
+    const result = await geminiVisionService.identifyProductFromPhotos(photos, {
+      namingStyle,
+      preliminaryBrand,
+      targetField,
+      context
+    });
 
     auditService.logAction(req.admin.email, "AI_PRODUCT_IDENTIFIED", null, {
       photosCount: photos.length,

@@ -59,141 +59,133 @@ export const AdminCustomersPage: React.FC = () => {
   // Active Tab: "directory" vs "activity"
   const [activeTab, setActiveTab] = useState<"directory" | "activity">("activity");
 
-  // Customer Directory State
+  // State: Customers
   const [customers, setCustomers] = useState<CustomerRecord[]>([]);
-  const [totalCustomers, setTotalCustomers] = useState(0);
   const [custPage, setCustPage] = useState(1);
   const [custTotalPages, setCustTotalPages] = useState(1);
+  const [totalCustomers, setTotalCustomers] = useState(0);
   const [custSearch, setCustSearch] = useState("");
   const [activeCustSearch, setActiveCustSearch] = useState("");
   const [isLoadingCustomers, setIsLoadingCustomers] = useState(false);
 
-  // Login Activity State (30-day retention)
+  // State: Login Activity
   const [activities, setActivities] = useState<LoginActivityRecord[]>([]);
-  const [totalActivities, setTotalActivities] = useState(0);
   const [actPage, setActPage] = useState(1);
   const [actTotalPages, setActTotalPages] = useState(1);
+  const [totalActivities, setTotalActivities] = useState(0);
   const [actSearch, setActSearch] = useState("");
   const [activeActSearch, setActiveActSearch] = useState("");
-  const [isLoadingActivities, setIsLoadingActivities] = useState(false);
-  const [actSortBy, setActSortBy] = useState<"date" | "email" | "customerId">("date");
+  const [actSortBy, setActSortBy] = useState<"date" | "name" | "customerId">("date");
   const [actSortOrder, setActSortOrder] = useState<"asc" | "desc">("desc");
+  const [isLoadingActivities, setIsLoadingActivities] = useState(false);
 
-  // Feedback states
+  // Cleanup feedback state
   const [isCleaning, setIsCleaning] = useState(false);
   const [statusNotification, setStatusNotification] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // 1. Load Customer Directory
-  const loadCustomers = useCallback(
-    async (targetPage = 1, search = activeCustSearch) => {
-      setIsLoadingCustomers(true);
-      setErrorMessage(null);
-      try {
-        const queryParams = new URLSearchParams({
-          page: targetPage.toString(),
-          limit: "15",
-          search: search.trim()
-        });
-
-        const res = await adminFetch(`/api/admin/customers?${queryParams.toString()}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data.success) {
-            setCustomers(data.customers || []);
-            setTotalCustomers(data.totalCount || 0);
-            setCustPage(data.page || 1);
-            setCustTotalPages(data.totalPages || 1);
-          } else {
-            setErrorMessage(data.message || "Unable to fetch customers.");
-          }
-        }
-      } catch (err: any) {
-        console.error("Failed to load customers:", err);
-        setErrorMessage(err.message || "An unexpected error occurred.");
-      } finally {
-        setIsLoadingCustomers(false);
+  // Fetch Customers (Registered Accounts)
+  const loadCustomers = useCallback(async (page: number, search: string) => {
+    setIsLoadingCustomers(true);
+    setErrorMessage(null);
+    try {
+      const q = new URLSearchParams({
+        page: page.toString(),
+        limit: "15",
+        ...(search ? { search } : {})
+      });
+      const res = await adminFetch(`/api/admin/customers?${q.toString()}`);
+      if (!res.ok) {
+        throw new Error(`Failed to load customers (HTTP ${res.status})`);
       }
-    },
-    [adminFetch, activeCustSearch]
-  );
-
-  // 2. Load Login Activity (Latest first, 30-day retention)
-  const loadActivities = useCallback(
-    async (targetPage = 1, search = activeActSearch, sortBy = actSortBy, sortOrder = actSortOrder) => {
-      setIsLoadingActivities(true);
-      setErrorMessage(null);
-      try {
-        const queryParams = new URLSearchParams({
-          page: targetPage.toString(),
-          limit: "15",
-          search: search.trim(),
-          sortBy,
-          sortOrder
-        });
-
-        const res = await adminFetch(`/api/admin/customer-activity?${queryParams.toString()}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data.success) {
-            setActivities(data.activities || []);
-            setTotalActivities(data.totalCount || 0);
-            setActPage(data.page || 1);
-            setActTotalPages(data.totalPages || 1);
-          } else {
-            setErrorMessage(data.message || "Unable to fetch login activity.");
-          }
-        }
-      } catch (err: any) {
-        console.error("Failed to load activity:", err);
-        setErrorMessage(err.message || "An unexpected error occurred.");
-      } finally {
-        setIsLoadingActivities(false);
+      const data = await res.json();
+      if (data.success) {
+        setCustomers(data.customers || []);
+        setCustTotalPages(data.totalPages || 1);
+        setTotalCustomers(data.total || 0);
       }
-    },
-    [adminFetch, activeActSearch, actSortBy, actSortOrder]
-  );
+    } catch (err: any) {
+      console.error("Customers load error:", err);
+      setErrorMessage(err.message || "Failed to load customers.");
+    } finally {
+      setIsLoadingCustomers(false);
+    }
+  }, [adminFetch]);
 
+  // Fetch Login Activities (Audited Events)
+  const loadActivities = useCallback(async (page: number, search: string) => {
+    setIsLoadingActivities(true);
+    setErrorMessage(null);
+    try {
+      const q = new URLSearchParams({
+        page: page.toString(),
+        limit: "25",
+        sortBy: actSortBy,
+        order: actSortOrder,
+        ...(search ? { search } : {})
+      });
+      const res = await adminFetch(`/api/admin/login-activity?${q.toString()}`);
+      if (!res.ok) {
+        throw new Error(`Failed to load activity (HTTP ${res.status})`);
+      }
+      const data = await res.json();
+      if (data.success) {
+        setActivities(data.activities || []);
+        setActTotalPages(data.totalPages || 1);
+        setTotalActivities(data.total || 0);
+      }
+    } catch (err: any) {
+      console.error("Activity load error:", err);
+      setErrorMessage(err.message || "Failed to load login activity.");
+    } finally {
+      setIsLoadingActivities(false);
+    }
+  }, [adminFetch, actSortBy, actSortOrder]);
+
+  // Initial and reactive load
   useEffect(() => {
     loadCustomers(custPage, activeCustSearch);
-    loadActivities(actPage, activeActSearch, actSortBy, actSortOrder);
-  }, [loadCustomers, loadActivities, custPage, activeCustSearch, actPage, activeActSearch, actSortBy, actSortOrder]);
+  }, [custPage, activeCustSearch, loadCustomers]);
 
-  // Handle Search Submission
+  useEffect(() => {
+    loadActivities(actPage, activeActSearch);
+  }, [actPage, activeActSearch, actSortBy, actSortOrder, loadActivities]);
+
   const handleCustSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setCustPage(1);
-    setActiveCustSearch(custSearch);
+    setActiveCustSearch(custSearch.trim());
   };
 
   const handleActSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setActPage(1);
-    setActiveActSearch(actSearch);
+    setActiveActSearch(actSearch.trim());
   };
 
-  // Run 30-Day Activity Cleanup
+  // Run 30-day activity cleanup
   const handleRun30DayCleanup = async () => {
+    if (!window.confirm("Clean up login activity older than 30 days? Registered customer accounts will NOT be deleted.")) {
+      return;
+    }
     setIsCleaning(true);
     setStatusNotification(null);
     try {
-      const res = await adminFetch("/api/admin/customer-activity/cleanup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ days: 30 })
+      const res = await adminFetch("/api/admin/cleanup-expired-activity", {
+        method: "POST"
       });
-      if (res.ok) {
-        const data = await res.json();
-        if (data.success) {
-          setStatusNotification({
-            type: "success",
-            text: `30-Day Cleanup complete: ${data.cleanedCount} expired login records removed. All ${data.accountsUntouched} customer accounts remain permanent.`
-          });
-          loadActivities(1, activeActSearch);
-        }
+      const data = await res.json();
+      if (data.success) {
+        setStatusNotification({
+          type: "success",
+          text: `Cleanup finished. Purged ${data.purgedCount || 0} events older than 30 days. Accounts safely retained.`
+        });
+        loadActivities(1, activeActSearch);
+      } else {
+        setStatusNotification({ type: "error", text: data.message || "Cleanup failed." });
       }
-    } catch (err: any) {
-      setStatusNotification({ type: "error", text: "Failed to run activity cleanup task." });
+    } catch (e: any) {
+      setStatusNotification({ type: "error", text: e.message || "Network error during cleanup." });
     } finally {
       setIsCleaning(false);
     }
@@ -204,26 +196,19 @@ export const AdminCustomersPage: React.FC = () => {
     try {
       const d = new Date(isoString);
       return d.toLocaleDateString("en-US", {
+        year: "numeric",
         month: "short",
-        day: "numeric",
-        year: "numeric"
+        day: "numeric"
       });
     } catch {
       return isoString;
     }
   };
 
-  const formatTimestamp = (isoString?: string | null) => {
-    if (!isoString) return "Never";
+  const formatTimestamp = (isoString: string) => {
     try {
       const d = new Date(isoString);
-      return d.toLocaleString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit"
-      });
+      return `${d.toLocaleDateString("en-US", { month: "short", day: "numeric" })} at ${d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}`;
     } catch {
       return isoString;
     }
@@ -232,8 +217,9 @@ export const AdminCustomersPage: React.FC = () => {
   const formatRelativeTime = (isoString?: string | null) => {
     if (!isoString) return "Never";
     try {
-      const d = new Date(isoString);
-      const diffMs = Date.now() - d.getTime();
+      const now = new Date();
+      const past = new Date(isoString);
+      const diffMs = now.getTime() - past.getTime();
       const diffMinutes = Math.floor(diffMs / (1000 * 60));
       if (diffMinutes < 1) return "Just now";
       if (diffMinutes < 60) return `${diffMinutes}m ago`;
@@ -260,7 +246,7 @@ export const AdminCustomersPage: React.FC = () => {
               loadActivities(actPage, activeActSearch);
             }}
             disabled={isLoadingCustomers || isLoadingActivities}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-neutral-200 text-xs font-semibold text-neutral-700 hover:bg-neutral-50 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/20 text-xs font-bold text-white bg-[#0D4C3C] hover:bg-[#0D4C3C]/80 transition-colors cursor-pointer"
           >
             <RefreshCw size={13} className={isLoadingCustomers || isLoadingActivities ? "animate-spin" : ""} />
             <span>Refresh</span>
@@ -268,10 +254,10 @@ export const AdminCustomersPage: React.FC = () => {
           <button
             onClick={handleRun30DayCleanup}
             disabled={isCleaning}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-semibold transition-colors border border-neutral-200"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#C62828] hover:bg-[#B71C1C] text-white text-xs font-bold transition-colors shadow-sm cursor-pointer"
             title="Clean up login activity older than 30 days"
           >
-            <Trash2 size={13} className={isCleaning ? "animate-spin text-amber-600" : "text-neutral-500"} />
+            <Trash2 size={13} className={isCleaning ? "animate-spin" : ""} />
             <span>Clean Expired Activity</span>
           </button>
         </div>
@@ -284,45 +270,45 @@ export const AdminCustomersPage: React.FC = () => {
       <div className="space-y-6">
         {/* Metric Badges */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-xs">
-            <div className="flex items-center justify-between text-neutral-500 mb-1">
-              <span className="text-xs font-semibold uppercase tracking-wider">Permanent Accounts</span>
-              <Users size={16} className="text-[#2D5A4A]" />
+          <div className="bg-[#0D4C3C] p-5 rounded-2xl border border-white/20 shadow-lg text-white">
+            <div className="flex items-center justify-between text-white/70 mb-1">
+              <span className="text-xs font-bold font-mono uppercase tracking-wider">Permanent Accounts</span>
+              <Users size={16} className="text-[#FFD400]" />
             </div>
-            <div className="text-2xl font-bold text-neutral-900">{totalCustomers}</div>
-            <div className="text-[11px] text-neutral-500 mt-1">Stored permanently in Supabase</div>
+            <div className="text-3xl font-black font-mono text-white mt-2">{totalCustomers}</div>
+            <div className="text-[11px] text-white/70 mt-1">Stored permanently in database</div>
           </div>
 
-          <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-xs">
-            <div className="flex items-center justify-between text-neutral-500 mb-1">
-              <span className="text-xs font-semibold uppercase tracking-wider">Recent Login Events</span>
-              <Activity size={16} className="text-[#7AA05A]" />
+          <div className="bg-[#0D4C3C] p-5 rounded-2xl border border-white/20 shadow-lg text-white">
+            <div className="flex items-center justify-between text-white/70 mb-1">
+              <span className="text-xs font-bold font-mono uppercase tracking-wider">Recent Login Events</span>
+              <Activity size={16} className="text-emerald-300" />
             </div>
-            <div className="text-2xl font-bold text-neutral-900">{totalActivities}</div>
-            <div className="text-[11px] text-neutral-500 mt-1">Logged within last 30 days</div>
+            <div className="text-3xl font-black font-mono text-white mt-2">{totalActivities}</div>
+            <div className="text-[11px] text-white/70 mt-1">Logged within last 30 days</div>
           </div>
 
-          <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-xs">
-            <div className="flex items-center justify-between text-neutral-500 mb-1">
-              <span className="text-xs font-semibold uppercase tracking-wider">Retention Policy</span>
-              <ShieldCheck size={16} className="text-blue-600" />
+          <div className="bg-[#0D4C3C] p-5 rounded-2xl border border-white/20 shadow-lg text-white">
+            <div className="flex items-center justify-between text-white/70 mb-1">
+              <span className="text-xs font-bold font-mono uppercase tracking-wider">Retention Policy</span>
+              <ShieldCheck size={16} className="text-[#FFD400]" />
             </div>
-            <div className="text-sm font-bold text-neutral-900 mt-1">30-Day Activity Window</div>
-            <div className="text-[11px] text-neutral-500 mt-1">
+            <div className="text-sm font-bold text-white mt-2">30-Day Activity Window</div>
+            <div className="text-[11px] text-white/70 mt-1">
               Activity auto-purged; Customer profiles never deleted
             </div>
           </div>
         </div>
 
         {/* Tab Selector */}
-        <div className="flex items-center gap-2 border-b border-neutral-200 pb-3">
+        <div className="flex items-center gap-2 border-b border-white/15 pb-3">
           <button
             type="button"
             onClick={() => setActiveTab("activity")}
-            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === "activity"
-                ? "bg-[#2D5A4A] text-white shadow-xs"
-                : "bg-white text-neutral-600 hover:text-black hover:bg-neutral-100 border border-neutral-200"
+                ? "bg-[#FFD400] text-black shadow-sm"
+                : "bg-[#0D4C3C] text-white/80 hover:text-white hover:bg-white/10 border border-white/20"
             }`}
           >
             <Activity size={14} />
@@ -331,10 +317,10 @@ export const AdminCustomersPage: React.FC = () => {
           <button
             type="button"
             onClick={() => setActiveTab("directory")}
-            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === "directory"
-                ? "bg-[#2D5A4A] text-white shadow-xs"
-                : "bg-white text-neutral-600 hover:text-black hover:bg-neutral-100 border border-neutral-200"
+                ? "bg-[#FFD400] text-black shadow-sm"
+                : "bg-[#0D4C3C] text-white/80 hover:text-white hover:bg-white/10 border border-white/20"
             }`}
           >
             <Users size={14} />
@@ -345,19 +331,19 @@ export const AdminCustomersPage: React.FC = () => {
         {/* Status Notification */}
         {statusNotification && (
           <div
-            className={`p-3 rounded-xl text-xs flex items-center justify-between ${
+            className={`p-3.5 rounded-xl text-xs flex items-center justify-between shadow-md ${
               statusNotification.type === "success"
-                ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-                : "bg-rose-50 text-rose-800 border border-rose-200"
+                ? "bg-[#0D4C3C] text-white border border-[#FFD400]"
+                : "bg-[#C62828]/25 text-white border border-[#C62828]"
             }`}
           >
             <div className="flex items-center gap-2">
-              <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
+              <CheckCircle2 size={16} className="text-[#FFD400] shrink-0" />
               <span>{statusNotification.text}</span>
             </div>
             <button
               onClick={() => setStatusNotification(null)}
-              className="text-neutral-500 hover:text-black text-xs font-bold"
+              className="text-white/70 hover:text-white text-xs font-bold cursor-pointer"
             >
               ✕
             </button>
@@ -365,8 +351,8 @@ export const AdminCustomersPage: React.FC = () => {
         )}
 
         {errorMessage && (
-          <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 flex items-center gap-2">
-            <AlertCircle size={15} className="shrink-0 text-red-500" />
+          <div className="p-3.5 bg-[#C62828]/25 border border-[#C62828] rounded-xl text-xs text-white flex items-center gap-2">
+            <AlertCircle size={15} className="shrink-0 text-red-300" />
             <span>{errorMessage}</span>
           </div>
         )}
@@ -375,7 +361,7 @@ export const AdminCustomersPage: React.FC = () => {
         {activeTab === "activity" && (
           <div className="space-y-4">
             {/* Search Bar */}
-            <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-xs">
+            <div className="bg-[#0D4C3C] p-4 rounded-xl border border-white/20 shadow-md">
               <form onSubmit={handleActSearchSubmit} className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1">
                   <Search size={15} className="absolute left-3.5 top-3 text-neutral-400" />
@@ -384,13 +370,13 @@ export const AdminCustomersPage: React.FC = () => {
                     value={actSearch}
                     onChange={(e) => setActSearch(e.target.value)}
                     placeholder="Search activity by customer name, email, IP, or device..."
-                    className="w-full pl-9 pr-3 py-2 text-xs border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D5A4A] text-neutral-900"
+                    className="w-full pl-9 pr-3 py-2 text-xs bg-white text-black placeholder:text-neutral-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFD400]"
                   />
                 </div>
                 <div className="flex items-center gap-2">
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-black hover:bg-neutral-800 text-white rounded-lg text-xs font-semibold transition-colors"
+                    className="px-4 py-2 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer"
                   >
                     Search Activity
                   </button>
@@ -402,7 +388,7 @@ export const AdminCustomersPage: React.FC = () => {
                         setActiveActSearch("");
                         setActPage(1);
                       }}
-                      className="px-3 py-2 border border-neutral-200 hover:bg-neutral-50 text-neutral-700 rounded-lg text-xs font-semibold transition-colors"
+                      className="px-3 py-2 border border-white/20 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-semibold transition-colors cursor-pointer"
                     >
                       Clear
                     </button>
@@ -412,39 +398,39 @@ export const AdminCustomersPage: React.FC = () => {
             </div>
 
             {/* Login Activity Table */}
-            <div className="bg-white rounded-xl border border-neutral-200 shadow-xs overflow-hidden">
-              <div className="px-4 py-3 border-b border-neutral-200 bg-neutral-50/50 flex items-center justify-between">
+            <div className="bg-[#0D4C3C] text-white rounded-2xl border border-white/20 shadow-xl overflow-hidden">
+              <div className="px-5 py-3.5 border-b border-white/15 bg-black/20 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Clock size={15} className="text-[#2D5A4A]" />
-                  <span className="font-bold text-xs text-neutral-800">
+                  <Clock size={15} className="text-[#FFD400]" />
+                  <span className="font-bold text-xs text-white">
                     Recently Logged In (Latest Activity First)
                   </span>
                 </div>
-                <span className="text-[11px] text-neutral-500 font-medium">
+                <span className="text-[11px] text-white/60 font-medium">
                   Retained for latest 30 days
                 </span>
               </div>
 
               {isLoadingActivities ? (
-                <div className="py-20 flex flex-col items-center justify-center text-neutral-500">
-                  <Loader2 size={24} className="animate-spin text-[#2D5A4A] mb-2" />
+                <div className="py-20 flex flex-col items-center justify-center text-white/60">
+                  <Loader2 size={24} className="animate-spin text-[#FFD400] mb-2" />
                   <p className="text-xs font-semibold">Loading login activity...</p>
                 </div>
               ) : activities.length === 0 ? (
-                <div className="py-16 text-center text-neutral-500">
-                  <Activity size={32} className="mx-auto text-neutral-300 mb-2" />
-                  <p className="text-sm font-bold text-neutral-800">No Login Activity Found</p>
-                  <p className="text-xs text-neutral-500 mt-1">
+                <div className="py-16 text-center text-white/70">
+                  <Activity size={32} className="mx-auto text-white/30 mb-2" />
+                  <p className="text-sm font-bold text-white">No Login Activity Found</p>
+                  <p className="text-xs text-white/60 mt-1">
                     {activeActSearch ? `No events matched "${activeActSearch}".` : "No login events recorded within the 30-day window."}
                   </p>
                 </div>
               ) : (
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left text-xs">
+                  <table className="w-full text-left text-xs text-white">
                     <thead>
-                      <tr className="bg-neutral-50 border-b border-neutral-200 text-neutral-500 uppercase tracking-wider text-[11px] font-bold">
+                      <tr className="bg-black/20 border-b border-white/15 text-white/70 uppercase tracking-wider text-[11px] font-bold font-mono">
                         <th
-                          className="py-3 px-4 cursor-pointer hover:text-neutral-900 select-none transition-colors"
+                          className="py-3 px-4 cursor-pointer hover:text-white select-none transition-colors"
                           onClick={() => {
                             if (actSortBy === "customerId") {
                               setActSortOrder((o) => (o === "asc" ? "desc" : "asc"));
@@ -454,38 +440,19 @@ export const AdminCustomersPage: React.FC = () => {
                             }
                           }}
                         >
-                          <div className="flex items-center gap-1.5">
-                            <span>Customer / User ID</span>
+                          <div className="flex items-center gap-1">
+                            <span>Customer</span>
                             {actSortBy === "customerId" ? (
-                              actSortOrder === "asc" ? <ArrowUp size={12} className="text-[#2D5A4A]" /> : <ArrowDown size={12} className="text-[#2D5A4A]" />
+                              actSortOrder === "asc" ? <ArrowUp size={12} className="text-[#FFD400]" /> : <ArrowDown size={12} className="text-[#FFD400]" />
                             ) : (
-                              <ArrowUpDown size={11} className="text-neutral-400" />
+                              <ArrowUpDown size={11} className="text-white/40" />
                             )}
                           </div>
                         </th>
+                        <th className="py-3 px-4">Email</th>
+                        <th className="py-3 px-4">Phone</th>
                         <th
-                          className="py-3 px-4 cursor-pointer hover:text-neutral-900 select-none transition-colors"
-                          onClick={() => {
-                            if (actSortBy === "email") {
-                              setActSortOrder((o) => (o === "asc" ? "desc" : "asc"));
-                            } else {
-                              setActSortBy("email");
-                              setActSortOrder("asc");
-                            }
-                          }}
-                        >
-                          <div className="flex items-center gap-1.5">
-                            <span>Email</span>
-                            {actSortBy === "email" ? (
-                              actSortOrder === "asc" ? <ArrowUp size={12} className="text-[#2D5A4A]" /> : <ArrowDown size={12} className="text-[#2D5A4A]" />
-                            ) : (
-                              <ArrowUpDown size={11} className="text-neutral-400" />
-                            )}
-                          </div>
-                        </th>
-                        <th className="py-3 px-4">Verified Phone</th>
-                        <th
-                          className="py-3 px-4 cursor-pointer hover:text-neutral-900 select-none transition-colors"
+                          className="py-3 px-4 cursor-pointer hover:text-white select-none transition-colors"
                           onClick={() => {
                             if (actSortBy === "date") {
                               setActSortOrder((o) => (o === "asc" ? "desc" : "asc"));
@@ -495,12 +462,12 @@ export const AdminCustomersPage: React.FC = () => {
                             }
                           }}
                         >
-                          <div className="flex items-center gap-1.5">
-                            <span>Login Timestamp (UTC)</span>
+                          <div className="flex items-center gap-1">
+                            <span>Timestamp</span>
                             {actSortBy === "date" ? (
-                              actSortOrder === "asc" ? <ArrowUp size={12} className="text-[#2D5A4A]" /> : <ArrowDown size={12} className="text-[#2D5A4A]" />
+                              actSortOrder === "asc" ? <ArrowUp size={12} className="text-[#FFD400]" /> : <ArrowDown size={12} className="text-[#FFD400]" />
                             ) : (
-                              <ArrowUpDown size={11} className="text-neutral-400" />
+                              <ArrowUpDown size={11} className="text-white/40" />
                             )}
                           </div>
                         </th>
@@ -509,67 +476,67 @@ export const AdminCustomersPage: React.FC = () => {
                         <th className="py-3 px-4">Outcome</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-neutral-100">
+                    <tbody className="divide-y divide-white/10 text-white/90">
                       {activities.map((act) => (
-                        <tr key={act.id} className="hover:bg-neutral-50/70 transition-colors">
+                        <tr key={act.id} className="hover:bg-white/5 transition-colors">
                           <td className="py-3 px-4">
-                            <div className="font-bold text-neutral-900 text-xs">
+                            <div className="font-bold text-white text-xs">
                               {act.fullName}
                             </div>
-                            <div className="text-[10px] text-neutral-400 font-mono mt-0.5">
+                            <div className="text-[10px] text-white/50 font-mono mt-0.5">
                               ID: {act.customerId.substring(0, 16)}...
                             </div>
                           </td>
 
                           <td className="py-3 px-4">
-                            <div className="flex items-center gap-1.5 text-neutral-700 font-mono text-[11px]">
-                              <Mail size={12} className="text-neutral-400 shrink-0" />
+                            <div className="flex items-center gap-1.5 text-white/80 font-mono text-[11px]">
+                              <Mail size={12} className="text-white/40 shrink-0" />
                               <span>{act.email}</span>
                             </div>
                           </td>
 
-                          <td className="py-3 px-4 text-neutral-600 text-xs">
+                          <td className="py-3 px-4 text-white/80 text-xs">
                             {act.phone ? (
-                              <div className="flex items-center gap-1.5 font-mono text-[11px] text-neutral-700">
-                                <Phone size={11} className="text-neutral-400 shrink-0" />
+                              <div className="flex items-center gap-1.5 font-mono text-[11px] text-white/80">
+                                <Phone size={11} className="text-white/40 shrink-0" />
                                 <span>{act.phone}</span>
                               </div>
                             ) : (
-                              <span className="text-neutral-300">—</span>
+                              <span className="text-white/30">—</span>
                             )}
                           </td>
 
-                          <td className="py-3 px-4 text-neutral-700">
-                            <div className="font-semibold text-xs text-neutral-800">
+                          <td className="py-3 px-4 text-white/90">
+                            <div className="font-semibold text-xs text-white">
                               {formatRelativeTime(act.timestamp)}
                             </div>
-                            <div className="text-[10px] text-neutral-400 flex items-center gap-1 mt-0.5">
+                            <div className="text-[10px] text-white/60 flex items-center gap-1 mt-0.5">
                               <Calendar size={11} />
                               <span>{formatTimestamp(act.timestamp)}</span>
                             </div>
                           </td>
 
                           <td className="py-3 px-4">
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-neutral-100 text-neutral-700 border border-neutral-200">
-                              <KeyRound size={10} className="text-neutral-500" />
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-white/10 text-white/90 border border-white/15">
+                              <KeyRound size={10} className="text-white/60" />
                               <span>{act.authMethod === "recovery_reset" ? "Password Recovery" : act.authMethod === "google" ? "Google OAuth" : "Email / Password"}</span>
                             </span>
                           </td>
 
-                          <td className="py-3 px-4 text-neutral-700">
+                          <td className="py-3 px-4 text-white/90">
                             <div className="flex items-center gap-1.5 font-medium text-xs">
-                              <Laptop size={12} className="text-neutral-400 shrink-0" />
+                              <Laptop size={12} className="text-white/50 shrink-0" />
                               <span>{act.device || "Desktop"}</span>
                             </div>
-                            <div className="flex items-center gap-1 text-[10px] text-neutral-400 font-mono mt-0.5">
+                            <div className="flex items-center gap-1 text-[10px] text-white/50 font-mono mt-0.5">
                               <Globe size={10} />
                               <span>{act.ip || "127.0.0.1"}</span>
                             </div>
                           </td>
 
                           <td className="py-3 px-4">
-                            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                               <span>{act.outcome || "SUCCESS"}</span>
                             </span>
                           </td>
@@ -582,16 +549,16 @@ export const AdminCustomersPage: React.FC = () => {
 
               {/* Activity Pagination Footer */}
               {actTotalPages > 1 && (
-                <div className="p-3 bg-neutral-50 border-t border-neutral-200 flex items-center justify-between text-xs text-neutral-600">
+                <div className="p-3.5 bg-black/20 border-t border-white/15 flex items-center justify-between text-xs text-white/70">
                   <div>
-                    Page <span className="font-bold">{actPage}</span> of <span className="font-bold">{actTotalPages}</span> ({totalActivities} events)
+                    Page <span className="font-bold text-white">{actPage}</span> of <span className="font-bold text-white">{actTotalPages}</span> ({totalActivities} events)
                   </div>
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
                       disabled={actPage <= 1}
                       onClick={() => setActPage((p) => Math.max(1, p - 1))}
-                      className="px-2.5 py-1 rounded border border-neutral-200 bg-white hover:bg-neutral-50 disabled:opacity-40 disabled:cursor-not-allowed font-medium transition-colors"
+                      className="px-2.5 py-1 rounded border border-white/20 bg-white/10 hover:bg-white/20 text-white disabled:opacity-30 disabled:cursor-not-allowed font-medium transition-colors cursor-pointer"
                     >
                       <ChevronLeft size={14} />
                     </button>
@@ -599,7 +566,7 @@ export const AdminCustomersPage: React.FC = () => {
                       type="button"
                       disabled={actPage >= actTotalPages}
                       onClick={() => setActPage((p) => Math.min(actTotalPages, p + 1))}
-                      className="px-2.5 py-1 rounded border border-neutral-200 bg-white hover:bg-neutral-50 disabled:opacity-40 disabled:cursor-not-allowed font-medium transition-colors"
+                      className="px-2.5 py-1 rounded border border-white/20 bg-white/10 hover:bg-white/20 text-white disabled:opacity-30 disabled:cursor-not-allowed font-medium transition-colors cursor-pointer"
                     >
                       <ChevronRight size={14} />
                     </button>
@@ -614,7 +581,7 @@ export const AdminCustomersPage: React.FC = () => {
         {activeTab === "directory" && (
           <div className="space-y-4">
             {/* Search Bar */}
-            <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-xs">
+            <div className="bg-[#0D4C3C] p-4 rounded-xl border border-white/20 shadow-md">
               <form onSubmit={handleCustSearchSubmit} className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1">
                   <Search size={15} className="absolute left-3.5 top-3 text-neutral-400" />
@@ -623,13 +590,13 @@ export const AdminCustomersPage: React.FC = () => {
                     value={custSearch}
                     onChange={(e) => setCustSearch(e.target.value)}
                     placeholder="Search by name, email, institution, or phone..."
-                    className="w-full pl-9 pr-3 py-2 text-xs border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2D5A4A] text-neutral-900"
+                    className="w-full pl-9 pr-3 py-2 text-xs bg-white text-black placeholder:text-neutral-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFD400]"
                   />
                 </div>
                 <div className="flex items-center gap-2">
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-black hover:bg-neutral-800 text-white rounded-lg text-xs font-semibold transition-colors"
+                    className="px-4 py-2 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer"
                   >
                     Search Accounts
                   </button>
@@ -641,7 +608,7 @@ export const AdminCustomersPage: React.FC = () => {
                         setActiveCustSearch("");
                         setCustPage(1);
                       }}
-                      className="px-3 py-2 border border-neutral-200 hover:bg-neutral-50 text-neutral-700 rounded-lg text-xs font-semibold transition-colors"
+                      className="px-3 py-2 border border-white/20 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-semibold transition-colors cursor-pointer"
                     >
                       Clear
                     </button>
@@ -651,25 +618,25 @@ export const AdminCustomersPage: React.FC = () => {
             </div>
 
             {/* Customer Directory Table */}
-            <div className="bg-white rounded-xl border border-neutral-200 shadow-xs overflow-hidden">
+            <div className="bg-[#0D4C3C] text-white rounded-2xl border border-white/20 shadow-xl overflow-hidden">
               {isLoadingCustomers ? (
-                <div className="py-20 flex flex-col items-center justify-center text-neutral-500">
-                  <Loader2 size={24} className="animate-spin text-[#2D5A4A] mb-2" />
+                <div className="py-20 flex flex-col items-center justify-center text-white/60">
+                  <Loader2 size={24} className="animate-spin text-[#FFD400] mb-2" />
                   <p className="text-xs font-semibold">Loading customer accounts...</p>
                 </div>
               ) : customers.length === 0 ? (
-                <div className="py-16 text-center text-neutral-500">
-                  <Users size={32} className="mx-auto text-neutral-300 mb-2" />
-                  <p className="text-sm font-bold text-neutral-800">No Customers Found</p>
-                  <p className="text-xs text-neutral-500 mt-1">
+                <div className="py-16 text-center text-white/70">
+                  <Users size={32} className="mx-auto text-white/30 mb-2" />
+                  <p className="text-sm font-bold text-white">No Customers Found</p>
+                  <p className="text-xs text-white/60 mt-1">
                     {activeCustSearch ? `No results matched "${activeCustSearch}".` : "No registered customer accounts yet."}
                   </p>
                 </div>
               ) : (
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left text-xs">
+                  <table className="w-full text-left text-xs text-white">
                     <thead>
-                      <tr className="bg-neutral-50 border-b border-neutral-200 text-neutral-500 uppercase tracking-wider text-[11px] font-bold">
+                      <tr className="bg-black/20 border-b border-white/15 text-white/70 uppercase tracking-wider text-[11px] font-bold font-mono">
                         <th className="py-3 px-4">Customer / Organization</th>
                         <th className="py-3 px-4">Contact</th>
                         <th className="py-3 px-4">Account Status</th>
@@ -677,55 +644,55 @@ export const AdminCustomersPage: React.FC = () => {
                         <th className="py-3 px-4">Last Sign In</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-neutral-100">
+                    <tbody className="divide-y divide-white/10 text-white/90">
                       {customers.map((customer) => (
-                        <tr key={customer.id} className="hover:bg-neutral-50/70 transition-colors">
+                        <tr key={customer.id} className="hover:bg-white/5 transition-colors">
                           <td className="py-3 px-4">
-                            <div className="font-bold text-neutral-900 text-xs">
+                            <div className="font-bold text-white text-xs">
                               {customer.fullName}
                             </div>
-                            <div className="text-[11px] text-neutral-500 flex items-center gap-1.5 mt-0.5">
-                              <Building size={12} className="text-neutral-400 shrink-0" />
+                            <div className="text-[11px] text-white/70 flex items-center gap-1.5 mt-0.5">
+                              <Building size={12} className="text-white/40 shrink-0" />
                               <span>{customer.institution || "Healthcare Professional"}</span>
                             </div>
                           </td>
 
                           <td className="py-3 px-4 space-y-1">
-                            <div className="flex items-center gap-1.5 text-neutral-700 font-mono text-[11px]">
-                              <Mail size={12} className="text-neutral-400 shrink-0" />
+                            <div className="flex items-center gap-1.5 text-white/80 font-mono text-[11px]">
+                              <Mail size={12} className="text-white/40 shrink-0" />
                               <span>{customer.email}</span>
                             </div>
                             {customer.phone && (
-                              <div className="flex items-center gap-1.5 text-neutral-600 font-mono text-[11px]">
-                                <Phone size={12} className="text-neutral-400 shrink-0" />
+                              <div className="flex items-center gap-1.5 text-white/70 font-mono text-[11px]">
+                                <Phone size={12} className="text-white/40 shrink-0" />
                                 <span>{customer.phone}</span>
                               </div>
                             )}
                           </td>
 
                           <td className="py-3 px-4">
-                            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                               <span>Permanent Account</span>
                             </div>
                             {customer.emailConfirmed && (
-                              <div className="mt-1 inline-flex items-center gap-1 text-[10px] text-neutral-500 font-medium">
-                                <ShieldCheck size={11} className="text-emerald-600" />
+                              <div className="mt-1 inline-flex items-center gap-1 text-[10px] text-white/70 font-medium">
+                                <ShieldCheck size={11} className="text-emerald-300" />
                                 <span>Email Verified</span>
                               </div>
                             )}
                           </td>
 
-                          <td className="py-3 px-4 text-neutral-600">
+                          <td className="py-3 px-4 text-white/70">
                             <div className="flex items-center gap-1 text-[11px]">
-                              <Calendar size={12} className="text-neutral-400 shrink-0" />
+                              <Calendar size={12} className="text-white/40 shrink-0" />
                               <span>{formatDate(customer.createdAt)}</span>
                             </div>
                           </td>
 
-                          <td className="py-3 px-4 text-neutral-600">
+                          <td className="py-3 px-4 text-white/70">
                             <div className="flex items-center gap-1 text-[11px]">
-                              <Clock size={12} className="text-neutral-400 shrink-0" />
+                              <Clock size={12} className="text-white/40 shrink-0" />
                               <span>{formatRelativeTime(customer.lastSignInAt)}</span>
                             </div>
                           </td>
@@ -738,16 +705,16 @@ export const AdminCustomersPage: React.FC = () => {
 
               {/* Directory Pagination Footer */}
               {custTotalPages > 1 && (
-                <div className="p-3 bg-neutral-50 border-t border-neutral-200 flex items-center justify-between text-xs text-neutral-600">
+                <div className="p-3.5 bg-black/20 border-t border-white/15 flex items-center justify-between text-xs text-white/70">
                   <div>
-                    Page <span className="font-bold">{custPage}</span> of <span className="font-bold">{custTotalPages}</span> ({totalCustomers} accounts)
+                    Page <span className="font-bold text-white">{custPage}</span> of <span className="font-bold text-white">{custTotalPages}</span> ({totalCustomers} accounts)
                   </div>
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
                       disabled={custPage <= 1}
                       onClick={() => setCustPage((p) => Math.max(1, p - 1))}
-                      className="px-2.5 py-1 rounded border border-neutral-200 bg-white hover:bg-neutral-50 disabled:opacity-40 disabled:cursor-not-allowed font-medium transition-colors"
+                      className="px-2.5 py-1 rounded border border-white/20 bg-white/10 hover:bg-white/20 text-white disabled:opacity-30 disabled:cursor-not-allowed font-medium transition-colors cursor-pointer"
                     >
                       <ChevronLeft size={14} />
                     </button>
@@ -755,7 +722,7 @@ export const AdminCustomersPage: React.FC = () => {
                       type="button"
                       disabled={custPage >= custTotalPages}
                       onClick={() => setCustPage((p) => Math.min(custTotalPages, p + 1))}
-                      className="px-2.5 py-1 rounded border border-neutral-200 bg-white hover:bg-neutral-50 disabled:opacity-40 disabled:cursor-not-allowed font-medium transition-colors"
+                      className="px-2.5 py-1 rounded border border-white/20 bg-white/10 hover:bg-white/20 text-white disabled:opacity-30 disabled:cursor-not-allowed font-medium transition-colors cursor-pointer"
                     >
                       <ChevronRight size={14} />
                     </button>

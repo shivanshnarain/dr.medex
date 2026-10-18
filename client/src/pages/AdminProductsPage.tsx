@@ -833,7 +833,7 @@ export const AdminProductsPage: React.FC = () => {
   return (
     <AdminLayout
       title={currentCategoryObj ? currentCategoryObj.name : "All Products"}
-      titleClassName="text-[#DC2626]"
+      titleClassName="text-white font-black"
       subtitle={
         currentCategoryObj
           ? `${categoryProductCount} products · Manage all products in this category`
@@ -850,7 +850,7 @@ export const AdminProductsPage: React.FC = () => {
             type="button"
             disabled={isRefreshing || isLoading}
             onClick={() => fetchProducts(true)}
-            className="px-3.5 py-1.5 bg-white border border-[#E5E5E5] hover:border-black text-black rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-3.5 py-1.5 bg-[#0D4C3C] border border-white/20 hover:border-white text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             title="Fetch latest products, counts, status values, and review statuses from backend"
           >
             <RefreshCw size={13} className={isRefreshing ? "animate-spin" : ""} />
@@ -859,7 +859,7 @@ export const AdminProductsPage: React.FC = () => {
 
           <Link
             to="/admin/products/new"
-            className="px-4 py-1.5 bg-[#F2C94C] hover:bg-[#E5BE42] text-black rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-colors"
+            className="px-4 py-1.5 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-md transition-colors"
           >
             <Plus size={14} className="stroke-[2.5]" />
             <span>Add Product</span>
@@ -899,17 +899,17 @@ export const AdminProductsPage: React.FC = () => {
       )}
 
       {/* 1. Category Navigation Pills with Bright RED Accent & Horizontal Scrolling Controls */}
-      <div className="bg-white rounded-xl border border-[#E5E5E5] p-3 sm:p-4 mb-4 shadow-2xs">
+      <div className="bg-[#0D4C3C] text-white rounded-xl border border-white/20 p-3 sm:p-4 mb-4 shadow-xl">
         <div className="flex items-center justify-between gap-3 mb-2.5">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold font-mono uppercase text-[#666666]">Category Filter:</span>
-            <span className="text-xs font-bold text-black font-mono">
+            <span className="text-[10px] font-bold font-mono uppercase text-white/70">Category Filter:</span>
+            <span className="text-xs font-bold text-white font-mono">
               {selectedCategory === "all" ? "All Categories" : currentCategoryObj?.name || selectedCategory}
             </span>
           </div>
           <div className="flex items-center gap-3">
-            <div className="text-[11px] text-[#666666] font-mono">
-              <span className="font-bold text-black">{categoryProductCount}</span> products in category
+            <div className="text-[11px] text-white/70 font-mono">
+              <span className="font-bold text-white">{categoryProductCount}</span> products in category
             </div>
             {/* Scroll Navigation Chevrons for Desktop and Mobile */}
             <div className="hidden sm:flex items-center gap-1">
@@ -920,7 +920,7 @@ export const AdminProductsPage: React.FC = () => {
                     categoryScrollRef.current.scrollBy({ left: -220, behavior: "smooth" });
                   }
                 }}
-                className="w-6 h-6 rounded-md bg-neutral-100 hover:bg-neutral-200 border border-[#E5E5E5] flex items-center justify-center text-neutral-700 hover:text-black cursor-pointer transition-colors"
+                className="w-6 h-6 rounded-md bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white cursor-pointer transition-colors"
                 title="Scroll categories left"
                 aria-label="Scroll categories left"
               >
@@ -933,7 +933,7 @@ export const AdminProductsPage: React.FC = () => {
                     categoryScrollRef.current.scrollBy({ left: 220, behavior: "smooth" });
                   }
                 }}
-                className="w-6 h-6 rounded-md bg-neutral-100 hover:bg-neutral-200 border border-[#E5E5E5] flex items-center justify-center text-neutral-700 hover:text-black cursor-pointer transition-colors"
+                className="w-6 h-6 rounded-md bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white cursor-pointer transition-colors"
                 title="Scroll categories right"
                 aria-label="Scroll categories right"
               >
@@ -949,7 +949,7 @@ export const AdminProductsPage: React.FC = () => {
           className="flex items-center gap-2 overflow-x-auto pb-1.5 scroll-smooth select-none"
           style={{
             scrollbarWidth: "thin",
-            scrollbarColor: "#D1D5DB transparent"
+            scrollbarColor: "rgba(255,255,255,0.2) transparent"
           }}
         >
           {/* All Categories Filter */}
@@ -963,15 +963,15 @@ export const AdminProductsPage: React.FC = () => {
             }}
             className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer shrink-0 border ${
               selectedCategory === "all"
-                ? "bg-neutral-900 text-white border-neutral-900 shadow-xs font-bold"
-                : "bg-white text-neutral-700 hover:bg-neutral-100 hover:text-black border-[#E5E5E5]"
+                ? "bg-[#FFD400] text-black border-[#FFD400] shadow-xs font-black"
+                : "bg-white/10 text-white/80 hover:bg-white/20 hover:text-white border-white/20"
             }`}
           >
-            {selectedCategory === "all" && <span className="w-2 h-2 rounded-full bg-amber-400 inline-block shadow-xs" />}
+            {selectedCategory === "all" && <span className="w-2 h-2 rounded-full bg-black inline-block shadow-xs" />}
             <span>All Categories</span>
             <span
               className={`px-1.5 py-0.2 rounded text-[10px] font-mono ${
-                selectedCategory === "all" ? "bg-neutral-800 text-neutral-200 font-bold" : "bg-neutral-100 text-[#666666]"
+                selectedCategory === "all" ? "bg-black/20 text-black font-bold" : "bg-white/10 text-white"
               }`}
             >
               {products.length}
@@ -994,15 +994,15 @@ export const AdminProductsPage: React.FC = () => {
                 }}
                 className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer shrink-0 border ${
                   isSelected
-                    ? "bg-neutral-900 text-white border-neutral-900 shadow-xs font-bold"
-                    : "bg-white text-neutral-700 hover:bg-neutral-100 hover:text-black border-[#E5E5E5]"
+                    ? "bg-[#FFD400] text-black border-[#FFD400] shadow-xs font-black"
+                    : "bg-white/10 text-white/80 hover:bg-white/20 hover:text-white border-white/20"
                 }`}
               >
-                {isSelected && <span className="w-2 h-2 rounded-full bg-amber-400 inline-block shadow-xs" />}
+                {isSelected && <span className="w-2 h-2 rounded-full bg-black inline-block shadow-xs" />}
                 <span>{cat.name}</span>
                 <span
                   className={`px-1.5 py-0.2 rounded text-[10px] font-mono ${
-                    isSelected ? "bg-neutral-800 text-neutral-200 font-bold" : "bg-neutral-100 text-[#666666]"
+                    isSelected ? "bg-black/20 text-black font-bold" : "bg-white/10 text-white"
                   }`}
                 >
                   {count}
@@ -1014,11 +1014,11 @@ export const AdminProductsPage: React.FC = () => {
       </div>
 
       {/* 2. Compact Search & Review Filters Toolbar */}
-      <div className="bg-white p-3.5 sm:p-4 rounded-xl border border-[#E5E5E5] space-y-3 mb-4 shadow-2xs">
+      <div className="bg-[#0D4C3C] text-white p-3.5 sm:p-4 rounded-xl border border-white/20 space-y-3 mb-4 shadow-xl">
         {/* Review Status Filter Buttons */}
-        <div className="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-neutral-100">
+        <div className="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/15">
           <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-[10px] font-bold font-mono uppercase text-[#666666] mr-1">Review:</span>
+            <span className="text-[10px] font-bold font-mono uppercase text-white/70 mr-1">Review:</span>
 
             <button
               type="button"
@@ -1028,14 +1028,14 @@ export const AdminProductsPage: React.FC = () => {
               }}
               className={`px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer ${
                 selectedReviewStatus === "all"
-                  ? "bg-black text-white border-black"
-                  : "bg-white text-neutral-700 border-[#E5E5E5] hover:border-black"
+                  ? "bg-white text-black border-white font-bold"
+                  : "bg-white/10 text-white/80 border-white/20 hover:border-white"
               }`}
             >
               <span>All</span>
               <span
                 className={`px-1 py-0.2 rounded text-[10px] font-mono ${
-                  selectedReviewStatus === "all" ? "bg-neutral-800 text-white" : "bg-neutral-100 text-neutral-700"
+                  selectedReviewStatus === "all" ? "bg-black/20 text-black font-bold" : "bg-white/10 text-white"
                 }`}
               >
                 {reviewCounts.all}
@@ -1050,15 +1050,15 @@ export const AdminProductsPage: React.FC = () => {
               }}
               className={`px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer ${
                 selectedReviewStatus === "CORRECT"
-                  ? "bg-[#DCFCE7] text-[#15803D] border-[#86EFAC] font-bold"
-                  : "bg-white text-neutral-700 border-[#E5E5E5] hover:border-[#15803D]"
+                  ? "bg-emerald-500/30 text-emerald-300 border-emerald-400 font-bold"
+                  : "bg-white/10 text-white/80 border-white/20 hover:border-emerald-400"
               }`}
             >
               <Check size={11} className="stroke-[2.5]" />
               <span>Correct</span>
               <span
                 className={`px-1 py-0.2 rounded text-[10px] font-mono ${
-                  selectedReviewStatus === "CORRECT" ? "bg-[#BBF7D0] text-[#15803D]" : "bg-neutral-100 text-neutral-700"
+                  selectedReviewStatus === "CORRECT" ? "bg-emerald-500/40 text-emerald-200" : "bg-white/10 text-white"
                 }`}
               >
                 {reviewCounts.correct}
@@ -1073,15 +1073,15 @@ export const AdminProductsPage: React.FC = () => {
               }}
               className={`px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer ${
                 selectedReviewStatus === "NEEDS_EDITING"
-                  ? "bg-[#FEE2E2] text-[#B91C1C] border-[#FCA5A5] font-bold"
-                  : "bg-white text-neutral-700 border-[#E5E5E5] hover:border-[#B91C1C]"
+                  ? "bg-red-500/30 text-red-200 border-red-400 font-bold"
+                  : "bg-white/10 text-white/80 border-white/20 hover:border-red-400"
               }`}
             >
               <X size={11} className="stroke-[2.5]" />
               <span>Needs Editing</span>
               <span
                 className={`px-1 py-0.2 rounded text-[10px] font-mono ${
-                  selectedReviewStatus === "NEEDS_EDITING" ? "bg-[#FECACA] text-[#B91C1C]" : "bg-neutral-100 text-neutral-700"
+                  selectedReviewStatus === "NEEDS_EDITING" ? "bg-red-500/40 text-red-200" : "bg-white/10 text-white"
                 }`}
               >
                 {reviewCounts.needsEditing}
@@ -1096,15 +1096,15 @@ export const AdminProductsPage: React.FC = () => {
               }}
               className={`px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer ${
                 selectedReviewStatus === "PENDING"
-                  ? "bg-[#FFF8DB] text-black border-[#F2C94C] font-bold"
-                  : "bg-white text-neutral-700 border-[#E5E5E5] hover:border-black"
+                  ? "bg-[#FFD400] text-black border-[#FFD400] font-bold"
+                  : "bg-white/10 text-white/80 border-white/20 hover:border-[#FFD400]"
               }`}
             >
               <Clock size={11} />
               <span>Not Yet Reviewed</span>
               <span
                 className={`px-1 py-0.2 rounded text-[10px] font-mono ${
-                  selectedReviewStatus === "PENDING" ? "bg-[#F2C94C] text-black" : "bg-neutral-100 text-neutral-700"
+                  selectedReviewStatus === "PENDING" ? "bg-black/20 text-black font-bold" : "bg-white/10 text-white"
                 }`}
               >
                 {reviewCounts.pending}
@@ -1119,7 +1119,7 @@ export const AdminProductsPage: React.FC = () => {
                 setSelectedReviewStatus("all");
                 setCurrentPage(1);
               }}
-              className="text-[11px] text-[#666666] hover:text-black underline font-mono cursor-pointer"
+              className="text-[11px] text-white/70 hover:text-white underline font-mono cursor-pointer"
             >
               Reset
             </button>
@@ -1130,7 +1130,7 @@ export const AdminProductsPage: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
           {/* Search Box */}
           <div className="relative flex-1 max-w-lg">
-            <Search size={14} className="absolute left-3 top-2.5 text-[#666666]" />
+            <Search size={14} className="absolute left-3 top-2.5 text-neutral-400" />
             <input
               type="text"
               value={searchQuery}
@@ -1139,13 +1139,13 @@ export const AdminProductsPage: React.FC = () => {
                 setCurrentPage(1);
               }}
               placeholder="Search by Product Name, Title, SKU, or Model..."
-              className="w-full pl-9 pr-8 py-1.5 bg-neutral-50 border border-[#E5E5E5] rounded-lg text-xs text-black focus:outline-none focus:border-black transition-colors placeholder:text-[#666666]"
+              className="w-full pl-9 pr-8 py-1.5 bg-white text-black border border-white/30 rounded-lg text-xs placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-[#FFD400] transition-colors"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-2.5 top-2 text-[#666666] hover:text-black cursor-pointer"
+                className="absolute right-2.5 top-2 text-neutral-400 hover:text-black cursor-pointer"
               >
                 <X size={13} />
               </button>
@@ -1155,14 +1155,14 @@ export const AdminProductsPage: React.FC = () => {
           <div className="flex flex-wrap items-center gap-2.5">
             {/* Status Filter */}
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-bold font-mono uppercase text-[#666666]">Status:</span>
+              <span className="text-[10px] font-bold font-mono uppercase text-white/70">Status:</span>
               <select
                 value={selectedStatus}
                 onChange={(e) => {
                   setSelectedStatus(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="px-2.5 py-1 bg-white border border-[#E5E5E5] rounded-lg text-xs font-semibold text-black focus:outline-none focus:border-black cursor-pointer"
+                className="px-2.5 py-1 bg-white border border-white/30 rounded-lg text-xs font-semibold text-black focus:outline-none focus:ring-2 focus:ring-[#FFD400] cursor-pointer"
               >
                 <option value="all">All Statuses</option>
                 <option value="ACTIVE">Active</option>
@@ -1174,12 +1174,11 @@ export const AdminProductsPage: React.FC = () => {
 
             {/* Sort Filter */}
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-bold font-mono uppercase text-[#666666]">Sort:</span>
-              {/* Sort Filter: Only useful options including Newest First */}
+              <span className="text-[10px] font-bold font-mono uppercase text-white/70">Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="px-2.5 py-1 bg-white border border-[#E5E5E5] rounded-lg text-xs font-semibold text-black focus:outline-none focus:border-black cursor-pointer"
+                className="px-2.5 py-1 bg-white border border-white/30 rounded-lg text-xs font-semibold text-black focus:outline-none focus:ring-2 focus:ring-[#FFD400] cursor-pointer"
               >
                 <option value="newest">Recently Updated</option>
                 <option value="price_asc">Price: Low to High</option>
@@ -1188,24 +1187,24 @@ export const AdminProductsPage: React.FC = () => {
             </div>
 
             {/* Count Indicator */}
-            <div className="text-xs font-mono text-[#666666] pl-2 border-l border-neutral-200">
-              <span className="font-bold text-black">{filteredProducts.length}</span> listed
+            <div className="text-xs font-mono text-white/70 pl-2 border-l border-white/20">
+              <span className="font-bold text-white">{filteredProducts.length}</span> listed
             </div>
           </div>
         </div>
 
         {/* Bulk Action Strip */}
         {selectedIds.length > 0 && (
-          <div className="p-2.5 bg-neutral-50 rounded-lg border border-[#E5E5E5] flex items-center justify-between text-xs font-semibold">
+          <div className="p-2.5 bg-black/30 rounded-lg border border-white/20 flex items-center justify-between text-xs font-semibold">
             <div className="flex items-center gap-2">
-              <span className="font-bold text-black font-mono">{selectedIds.length}</span> selected
+              <span className="font-bold text-white font-mono">{selectedIds.length}</span> selected
             </div>
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 disabled={isBulkProcessing}
                 onClick={() => handleBulkAction("publish")}
-                className="px-2.5 py-1 bg-black text-white rounded text-xs hover:bg-neutral-800 cursor-pointer"
+                className="px-2.5 py-1 bg-emerald-600 text-white rounded text-xs hover:bg-emerald-700 cursor-pointer font-bold"
               >
                 Set Active
               </button>
@@ -1213,7 +1212,7 @@ export const AdminProductsPage: React.FC = () => {
                 type="button"
                 disabled={isBulkProcessing}
                 onClick={() => handleBulkAction("unpublish")}
-                className="px-2.5 py-1 bg-white border border-neutral-300 text-black rounded text-xs hover:bg-neutral-100 cursor-pointer"
+                className="px-2.5 py-1 bg-white/10 border border-white/20 text-white rounded text-xs hover:bg-white/20 cursor-pointer font-bold"
               >
                 Set Inactive
               </button>
@@ -1221,14 +1220,14 @@ export const AdminProductsPage: React.FC = () => {
                 type="button"
                 disabled={isBulkProcessing}
                 onClick={() => handleBulkAction("archive")}
-                className="px-2.5 py-1 bg-white border border-neutral-300 text-black rounded text-xs hover:bg-neutral-100 cursor-pointer"
+                className="px-2.5 py-1 bg-[#C62828] text-white rounded text-xs hover:bg-[#B71C1C] cursor-pointer font-bold"
               >
                 Archive
               </button>
               <button
                 type="button"
                 onClick={() => setSelectedIds([])}
-                className="text-xs text-[#666666] hover:text-black ml-1.5 cursor-pointer"
+                className="text-xs text-white/70 hover:text-white ml-1.5 cursor-pointer"
               >
                 Clear
               </button>
@@ -1238,10 +1237,10 @@ export const AdminProductsPage: React.FC = () => {
       </div>
 
       {/* 3. Compact Product Table — Exact 6 Columns */}
-      <div className="bg-white rounded-xl border border-[#E5E5E5] overflow-hidden shadow-2xs">
+      <div className="bg-[#0D4C3C] text-white rounded-xl border border-white/20 overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-neutral-50 border-b border-[#E5E5E5] text-[10px] font-bold font-mono uppercase text-[#666666] tracking-wider">
+          <table className="w-full text-left text-xs text-white">
+            <thead className="bg-black/25 border-b border-white/15 text-[10px] font-bold font-mono uppercase text-white/70 tracking-wider">
               <tr>
                 {/* 1. Selection Checkbox */}
                 <th className="py-2.5 px-3 w-10 text-center">
@@ -1269,19 +1268,19 @@ export const AdminProductsPage: React.FC = () => {
                 <th className="py-2.5 px-4 text-right min-w-[130px] whitespace-nowrap">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E5E5E5]">
+            <tbody className="divide-y divide-white/10">
               {isLoading && products.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-16 text-center text-neutral-500 text-xs">
+                  <td colSpan={6} className="py-16 text-center text-white/70 text-xs">
                     <div className="flex flex-col items-center justify-center gap-2">
-                      <RefreshCw size={20} className="animate-spin text-black" />
+                      <RefreshCw size={20} className="animate-spin text-[#FFD400]" />
                       <span>Loading authoritative product catalogue...</span>
                     </div>
                   </td>
                 </tr>
               ) : paginatedProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-[#666666] text-xs">
+                  <td colSpan={6} className="py-12 text-center text-white/70 text-xs">
                     No products matched your active filters or search terms.
                   </td>
                 </tr>
@@ -1294,8 +1293,8 @@ export const AdminProductsPage: React.FC = () => {
                   return (
                     <tr
                       key={p.id}
-                      className={`hover:bg-neutral-50/70 transition-colors ${
-                        isSelected ? "bg-neutral-50" : ""
+                      className={`hover:bg-white/5 transition-colors ${
+                        isSelected ? "bg-white/10" : ""
                       }`}
                       style={{ minHeight: "68px" }}
                     >
@@ -1305,7 +1304,7 @@ export const AdminProductsPage: React.FC = () => {
                           type="checkbox"
                           checked={isSelected}
                           onChange={() => handleSelectOne(p.id)}
-                          className="w-3.5 h-3.5 rounded text-black focus:ring-black accent-black cursor-pointer"
+                          className="w-3.5 h-3.5 rounded text-[#FFD400] focus:ring-[#FFD400] accent-[#FFD400] cursor-pointer"
                         />
                       </td>
 
@@ -1313,7 +1312,7 @@ export const AdminProductsPage: React.FC = () => {
                       <td className="py-2.5 px-4 max-w-lg align-middle">
                         <div className="flex items-center gap-3">
                           {/* Consistent small thumbnail: ~44px */}
-                          <div className="w-11 h-11 rounded-lg bg-neutral-50 border border-[#E5E5E5] shrink-0 overflow-hidden flex items-center justify-center p-0.5">
+                          <div className="w-11 h-11 rounded-lg bg-white/5 border border-white/20 shrink-0 overflow-hidden flex items-center justify-center p-0.5">
                             {img ? (
                               <img
                                 src={img}
@@ -1325,7 +1324,7 @@ export const AdminProductsPage: React.FC = () => {
                                 }}
                               />
                             ) : (
-                              <Package size={18} className="text-[#666666]" />
+                              <Package size={18} className="text-white/60" />
                             )}
                           </div>
 
@@ -1333,18 +1332,18 @@ export const AdminProductsPage: React.FC = () => {
                             {/* Line 1: Complete Product Name */}
                             <Link
                               to={`/admin/products/${p.id}/edit`}
-                              className="font-bold text-black hover:underline text-xs sm:text-[13px] leading-snug line-clamp-2 block"
+                              className="font-bold text-white hover:text-[#FFD400] text-xs sm:text-[13px] leading-snug line-clamp-2 block transition-colors"
                               title={p.title || p.productName}
                             >
                               {p.title || p.productName}
                             </Link>
 
                             {/* Line 2: SKU and Model Number directly underneath */}
-                            <div className="text-[11px] text-[#666666] font-mono mt-0.5 truncate">
-                              SKU: <span className="font-semibold text-neutral-800">{p.sku || (p as any).SKU || "—"}</span>
+                            <div className="text-[11px] text-white/70 font-mono mt-0.5 truncate">
+                              SKU: <span className="font-semibold text-white">{p.sku || (p as any).SKU || "—"}</span>
                               {" · "}
                               Model:{" "}
-                              <span className="text-neutral-700">
+                              <span className="text-white/90">
                                 {p.modelNumber && p.modelNumber !== "—" ? p.modelNumber : "Standard"}
                               </span>
                             </div>
@@ -1354,7 +1353,7 @@ export const AdminProductsPage: React.FC = () => {
 
                       {/* 3. Price (INR) — Placed immediately after Product Details */}
                       <td className="py-2.5 px-4 text-right font-mono whitespace-nowrap align-middle">
-                        <div className="font-bold text-black text-xs sm:text-[13px]">
+                        <div className="font-bold text-white text-xs sm:text-[13px]">
                           ₹
                           {Number(p.basePrice || 0).toLocaleString("en-IN", {
                             minimumFractionDigits: 2,
@@ -1372,10 +1371,10 @@ export const AdminProductsPage: React.FC = () => {
                           onClick={() => handleToggleProductStatus(p)}
                           className={`inline-flex items-center justify-center font-bold text-[10px] sm:text-[11px] tracking-wider rounded-full px-3 py-1 transition-all shadow-2xs cursor-pointer min-w-[88px] ${
                             statusUpdatingId === p.id
-                              ? "bg-neutral-300 text-neutral-600 cursor-not-allowed"
+                              ? "bg-white/20 text-white/50 cursor-not-allowed"
                               : isActive
                               ? "bg-[#15803D] hover:bg-[#166534] text-white"
-                              : "bg-[#E5E5E5] hover:bg-neutral-300 text-neutral-800"
+                              : "bg-white/20 hover:bg-white/30 text-white"
                           }`}
                           title={
                             isActive
@@ -1407,10 +1406,10 @@ export const AdminProductsPage: React.FC = () => {
                             disabled={reviewUpdatingId === p.id}
                             className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold border transition-all cursor-pointer ${
                               p.reviewStatus === "CORRECT"
-                                ? "bg-[#DCFCE7] text-[#15803D] border-[#86EFAC] hover:bg-[#BBF7D0]"
+                                ? "bg-[#15803D]/25 text-[#4ADE80] border-[#15803D]/60 hover:bg-[#15803D]/40"
                                 : p.reviewStatus === "NEEDS_EDITING"
-                                ? "bg-[#FEE2E2] text-[#B91C1C] border-[#FCA5A5] hover:bg-[#FECACA]"
-                                : "bg-[#F5F5F5] text-[#666666] border-[#E5E5E5] hover:bg-neutral-200"
+                                ? "bg-[#C62828]/25 text-[#FF8A80] border-[#C62828]/60 hover:bg-[#C62828]/40"
+                                : "bg-white/15 text-white/80 border-white/20 hover:bg-white/25"
                             }`}
                             title="Click to change review status"
                           >
@@ -1446,7 +1445,7 @@ export const AdminProductsPage: React.FC = () => {
                               onClick={() => handleRetryCloudinarySync(p)}
                               disabled={syncingCloudinaryId === p.id}
                               title="Click to retry Cloudinary upload"
-                              className="mt-0.5 inline-flex items-center gap-1 text-[9px] text-[#B91C1C] font-mono bg-[#FEE2E2] px-1.5 py-0.5 rounded border border-[#FCA5A5] hover:bg-[#FECACA] cursor-pointer"
+                              className="mt-0.5 inline-flex items-center gap-1 text-[9px] text-[#FF8A80] font-mono bg-[#C62828]/30 px-1.5 py-0.5 rounded border border-[#C62828]/60 hover:bg-[#C62828]/50 cursor-pointer"
                             >
                               <RefreshCw size={8} className={syncingCloudinaryId === p.id ? "animate-spin" : ""} />
                               <span>{p.cloudinarySyncStatus === "UPLOAD_INCOMPLETE" ? "Incomplete · Retry" : "Failed · Retry"}</span>
@@ -1459,7 +1458,7 @@ export const AdminProductsPage: React.FC = () => {
                               onClick={() => handleRetryCloudinarySync(p)}
                               disabled={syncingCloudinaryId === p.id}
                               title="Click to retry managed removal"
-                              className="mt-0.5 inline-flex items-center gap-1 text-[9px] text-[#B91C1C] font-mono bg-[#FEE2E2] px-1.5 py-0.5 rounded border border-[#FCA5A5] hover:bg-[#FECACA] cursor-pointer"
+                              className="mt-0.5 inline-flex items-center gap-1 text-[9px] text-[#FF8A80] font-mono bg-[#C62828]/30 px-1.5 py-0.5 rounded border border-[#C62828]/60 hover:bg-[#C62828]/50 cursor-pointer"
                             >
                               <RefreshCw size={8} className={syncingCloudinaryId === p.id ? "animate-spin" : ""} />
                               <span>Removal Incomplete · Retry</span>
@@ -1494,7 +1493,7 @@ export const AdminProductsPage: React.FC = () => {
                                 }
                               }}
                               title="Click to retry MongoDB Atlas sync"
-                              className="mt-0.5 inline-flex items-center gap-1 text-[9px] text-[#B91C1C] font-mono bg-[#FEE2E2] px-1.5 py-0.5 rounded border border-[#FCA5A5] hover:bg-[#FECACA] cursor-pointer disabled:opacity-50"
+                              className="mt-0.5 inline-flex items-center gap-1 text-[9px] text-[#FF8A80] font-mono bg-[#C62828]/30 px-1.5 py-0.5 rounded border border-[#C62828]/60 hover:bg-[#C62828]/50 cursor-pointer disabled:opacity-50"
                             >
                               <RefreshCw size={8} className={syncingMongoId === p.id ? "animate-spin" : ""} />
                               <span>{syncingMongoId === p.id ? "Syncing..." : "MongoDB Failed · Retry"}</span>
@@ -1510,7 +1509,7 @@ export const AdminProductsPage: React.FC = () => {
                                 setReviewNoteInput(p.reviewNote || "");
                               }}
                               title={`Review note: "${p.reviewNote}". Click to edit.`}
-                              className="mt-0.5 block mx-auto max-w-[120px] truncate text-[10px] text-[#B91C1C] font-mono bg-[#FEF2F2] px-1.5 py-0.2 rounded border border-[#FECACA] hover:underline cursor-pointer"
+                              className="mt-0.5 block mx-auto max-w-[120px] truncate text-[10px] text-[#FF8A80] font-mono bg-[#C62828]/25 px-1.5 py-0.2 rounded border border-[#C62828]/50 hover:underline cursor-pointer"
                             >
                               "{p.reviewNote}"
                             </button>
@@ -1523,8 +1522,8 @@ export const AdminProductsPage: React.FC = () => {
                                 className="fixed inset-0 z-40"
                                 onClick={() => setActiveReviewPopoverId(null)}
                               />
-                              <div className="absolute right-0 sm:left-1/2 sm:-translate-x-1/2 mt-1 w-44 bg-white rounded-xl shadow-lg border border-[#E5E5E5] py-1 z-50 animate-in fade-in zoom-in-95">
-                                <div className="px-2.5 py-1 text-[10px] font-bold font-mono uppercase text-[#666666] border-b border-neutral-100 mb-0.5">
+                              <div className="absolute right-0 sm:left-1/2 sm:-translate-x-1/2 mt-1 w-44 bg-[#0D4C3C] rounded-xl shadow-2xl border border-white/20 py-1 z-50 animate-in fade-in zoom-in-95 text-white">
+                                <div className="px-2.5 py-1 text-[10px] font-bold font-mono uppercase text-white/70 border-b border-white/15 mb-0.5">
                                   Review Status
                                 </div>
 
@@ -1532,20 +1531,20 @@ export const AdminProductsPage: React.FC = () => {
                                 <button
                                   type="button"
                                   onClick={() => handleSetReviewStatus(p, "CORRECT")}
-                                  className={`w-full px-2.5 py-1.5 text-left text-xs font-semibold flex items-center justify-between hover:bg-[#F0FDF4] transition-colors cursor-pointer ${
+                                  className={`w-full px-2.5 py-1.5 text-left text-xs font-semibold flex items-center justify-between hover:bg-white/10 transition-colors cursor-pointer ${
                                     p.reviewStatus === "CORRECT"
-                                      ? "text-[#15803D] font-bold bg-[#DCFCE7]/40"
-                                      : "text-neutral-700"
+                                      ? "text-[#4ADE80] font-bold bg-white/15"
+                                      : "text-white/80"
                                   }`}
                                 >
-                                  <div className="flex items-center gap-2 text-[#15803D]">
-                                    <div className="w-4 h-4 rounded-full bg-[#DCFCE7] flex items-center justify-center">
+                                  <div className="flex items-center gap-2 text-[#4ADE80]">
+                                    <div className="w-4 h-4 rounded-full bg-[#15803D]/40 flex items-center justify-center">
                                       <Check size={10} className="stroke-[2.5]" />
                                     </div>
                                     <span>Correct</span>
                                   </div>
                                   {p.reviewStatus === "CORRECT" && (
-                                    <Check size={11} className="text-[#15803D]" />
+                                    <Check size={11} className="text-[#4ADE80]" />
                                   )}
                                 </button>
 
@@ -1553,20 +1552,20 @@ export const AdminProductsPage: React.FC = () => {
                                 <button
                                   type="button"
                                   onClick={() => handleSetReviewStatus(p, "NEEDS_EDITING")}
-                                  className={`w-full px-2.5 py-1.5 text-left text-xs font-semibold flex items-center justify-between hover:bg-[#FEF2F2] transition-colors cursor-pointer ${
+                                  className={`w-full px-2.5 py-1.5 text-left text-xs font-semibold flex items-center justify-between hover:bg-white/10 transition-colors cursor-pointer ${
                                     p.reviewStatus === "NEEDS_EDITING"
-                                      ? "text-[#B91C1C] font-bold bg-[#FEE2E2]/40"
-                                      : "text-neutral-700"
+                                      ? "text-[#FF8A80] font-bold bg-white/15"
+                                      : "text-white/80"
                                   }`}
                                 >
-                                  <div className="flex items-center gap-2 text-[#B91C1C]">
-                                    <div className="w-4 h-4 rounded-full bg-[#FEE2E2] flex items-center justify-center">
+                                  <div className="flex items-center gap-2 text-[#FF8A80]">
+                                    <div className="w-4 h-4 rounded-full bg-[#C62828]/40 flex items-center justify-center">
                                       <X size={10} className="stroke-[2.5]" />
                                     </div>
                                     <span>Needs Editing</span>
                                   </div>
                                   {p.reviewStatus === "NEEDS_EDITING" && (
-                                    <Check size={11} className="text-[#B91C1C]" />
+                                    <Check size={11} className="text-[#FF8A80]" />
                                   )}
                                 </button>
 
@@ -1574,25 +1573,25 @@ export const AdminProductsPage: React.FC = () => {
                                 <button
                                   type="button"
                                   onClick={() => handleSetReviewStatus(p, "PENDING")}
-                                  className={`w-full px-2.5 py-1.5 text-left text-xs font-semibold flex items-center justify-between hover:bg-neutral-50 transition-colors cursor-pointer ${
+                                  className={`w-full px-2.5 py-1.5 text-left text-xs font-semibold flex items-center justify-between hover:bg-white/10 transition-colors cursor-pointer ${
                                     !p.reviewStatus || p.reviewStatus === "PENDING"
-                                      ? "text-black font-bold bg-neutral-100"
-                                      : "text-neutral-600"
+                                      ? "text-white font-bold bg-white/15"
+                                      : "text-white/80"
                                   }`}
                                 >
-                                  <div className="flex items-center gap-2 text-[#666666]">
-                                    <div className="w-4 h-4 rounded-full bg-[#F5F5F5] flex items-center justify-center">
+                                  <div className="flex items-center gap-2 text-white/70">
+                                    <div className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">
                                       <Clock size={10} />
                                     </div>
                                     <span>Not Yet Reviewed</span>
                                   </div>
                                   {(!p.reviewStatus || p.reviewStatus === "PENDING") && (
-                                    <Check size={11} className="text-black" />
+                                    <Check size={11} className="text-white" />
                                   )}
                                 </button>
 
                                 {p.reviewStatus === "NEEDS_EDITING" && (
-                                  <div className="pt-1 mt-0.5 border-t border-neutral-100 px-2.5">
+                                  <div className="pt-1 mt-0.5 border-t border-white/15 px-2.5">
                                     <button
                                       type="button"
                                       onClick={() => {
@@ -1600,7 +1599,7 @@ export const AdminProductsPage: React.FC = () => {
                                         setReviewModalProduct(p);
                                         setReviewNoteInput(p.reviewNote || "");
                                       }}
-                                      className="text-[10px] text-[#B91C1C] hover:underline font-semibold block py-0.5 cursor-pointer"
+                                      className="text-[10px] text-[#FF8A80] hover:underline font-semibold block py-0.5 cursor-pointer"
                                     >
                                       {p.reviewNote ? "✎ Edit review note" : "+ Add review note"}
                                     </button>
@@ -1622,11 +1621,11 @@ export const AdminProductsPage: React.FC = () => {
                             disabled={downloadingId === p.id}
                             title="Download Product Photos"
                             aria-label={`Download Product Photos for ${p.title || p.productName}`}
-                            className="p-1.5 bg-white border border-[#E5E5E5] hover:border-black text-black hover:bg-[#FFF8DB] rounded-lg transition-colors cursor-pointer disabled:opacity-50"
+                            className="p-1.5 bg-white/10 border border-white/20 hover:border-white text-white hover:bg-white/20 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
                           >
                             <Download
                               size={14}
-                              className={downloadingId === p.id ? "animate-bounce text-[#F2C94C]" : "text-black"}
+                              className={downloadingId === p.id ? "animate-bounce text-[#FFD400]" : "text-white"}
                             />
                           </button>
 
@@ -1637,7 +1636,7 @@ export const AdminProductsPage: React.FC = () => {
                               onClick={() =>
                                 setActiveActionsMenuId(activeActionsMenuId === p.id ? null : p.id)
                               }
-                              className="p-1.5 text-[#666666] hover:text-black hover:bg-neutral-100 rounded-lg transition-colors border border-transparent hover:border-[#E5E5E5] cursor-pointer"
+                              className="p-1.5 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors border border-transparent hover:border-white/20 cursor-pointer"
                               title="More Actions"
                               aria-label="More Actions"
                             >
@@ -1650,13 +1649,13 @@ export const AdminProductsPage: React.FC = () => {
                                   className="fixed inset-0 z-40"
                                   onClick={() => setActiveActionsMenuId(null)}
                                 />
-                                <div className="absolute right-0 mt-1 w-36 bg-white rounded-xl shadow-lg border border-[#E5E5E5] py-1 z-50 text-left animate-in fade-in zoom-in-95">
+                                <div className="absolute right-0 mt-1 w-36 bg-[#0D4C3C] text-white rounded-xl shadow-2xl border border-white/20 py-1 z-50 text-left animate-in fade-in zoom-in-95">
                                   <Link
                                     to={`/product/${p.slug}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={() => setActiveActionsMenuId(null)}
-                                    className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-neutral-700 hover:bg-neutral-50 hover:text-black"
+                                    className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-white/80 hover:bg-white/10 hover:text-white"
                                   >
                                     <ExternalLink size={12} />
                                     <span>Storefront</span>
@@ -1669,7 +1668,7 @@ export const AdminProductsPage: React.FC = () => {
                                       setDeletingProduct(p);
                                       setIsDeleteModalOpen(true);
                                     }}
-                                    className="w-full flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-[#B91C1C] hover:bg-[#FEF2F2] cursor-pointer border-t border-neutral-100 mt-0.5"
+                                    className="w-full flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-[#FF8A80] hover:bg-[#C62828]/20 cursor-pointer border-t border-white/15 mt-0.5"
                                   >
                                     <Trash2 size={12} />
                                     <span>Delete</span>
@@ -1679,11 +1678,11 @@ export const AdminProductsPage: React.FC = () => {
                             )}
                           </div>
 
-                          {/* Compact Black Edit Button with pencil icon */}
+                          {/* Compact Red Edit Button with pencil icon */}
                           <Link
                             to={`/admin/products/${p.id}/edit`}
                             title="Edit product"
-                            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-black hover:bg-neutral-800 text-white rounded-lg text-xs font-bold transition-all shadow-2xs"
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-xs font-bold transition-all shadow-2xs"
                           >
                             <Edit2 size={11} />
                             <span>Edit</span>
@@ -1699,8 +1698,8 @@ export const AdminProductsPage: React.FC = () => {
         </div>
 
         {/* Dynamic Pagination Bar */}
-        <div className="px-5 py-3 border-t border-[#E5E5E5] flex flex-col sm:flex-row items-center justify-between gap-2.5 text-xs bg-white">
-          <span className="text-[#666666] font-mono">
+        <div className="px-5 py-3 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-2.5 text-xs bg-black/25 text-white">
+          <span className="text-white/70 font-mono">
             Showing {startProductNumber}–{endProductNumber} of {filteredProducts.length} products
           </span>
 
@@ -1710,13 +1709,13 @@ export const AdminProductsPage: React.FC = () => {
                 type="button"
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                className="px-2.5 py-1 bg-white border border-[#E5E5E5] rounded-lg font-bold text-black hover:bg-neutral-50 disabled:opacity-40 transition-colors flex items-center gap-1 cursor-pointer"
+                className="px-2.5 py-1 bg-white/10 border border-white/20 rounded-lg font-bold text-white hover:bg-white/20 disabled:opacity-40 transition-colors flex items-center gap-1 cursor-pointer"
               >
                 <ChevronLeft size={13} />
                 <span>Previous</span>
               </button>
 
-              <span className="px-2 font-mono font-bold text-black">
+              <span className="px-2 font-mono font-bold text-[#FFD400]">
                 {currentPage} / {totalPages}
               </span>
 
@@ -1724,7 +1723,7 @@ export const AdminProductsPage: React.FC = () => {
                 type="button"
                 disabled={currentPage === totalPages}
                 onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                className="px-2.5 py-1 bg-white border border-[#E5E5E5] rounded-lg font-bold text-black hover:bg-neutral-50 disabled:opacity-40 transition-colors flex items-center gap-1 cursor-pointer"
+                className="px-2.5 py-1 bg-white/10 border border-white/20 rounded-lg font-bold text-white hover:bg-white/20 disabled:opacity-40 transition-colors flex items-center gap-1 cursor-pointer"
               >
                 <span>Next</span>
                 <ChevronRight size={13} />
@@ -1748,15 +1747,15 @@ export const AdminProductsPage: React.FC = () => {
 
       {/* Review Note Modal */}
       {reviewModalProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-2xs animate-in fade-in">
-          <div className="bg-white rounded-2xl max-w-md w-full p-5 border border-[#E5E5E5] shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-2xs animate-in fade-in">
+          <div className="bg-[#0D4C3C] text-white rounded-2xl max-w-md w-full p-5 border border-white/20 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-white/15 pb-3">
               <div>
-                <h3 className="text-sm font-bold text-black flex items-center gap-1.5">
-                  <X size={15} className="text-[#B91C1C]" />
+                <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
+                  <X size={15} className="text-[#FF8A80]" />
                   <span>Review Note for Needs Editing</span>
                 </h3>
-                <p className="text-[11px] text-[#666666] font-mono mt-0.5 truncate max-w-xs">
+                <p className="text-[11px] text-white/70 font-mono mt-0.5 truncate max-w-xs">
                   {reviewModalProduct.title || reviewModalProduct.productName} (
                   {reviewModalProduct.sku || (reviewModalProduct as any).SKU || "SKU"})
                 </p>
@@ -1764,28 +1763,28 @@ export const AdminProductsPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setReviewModalProduct(null)}
-                className="text-[#666666] hover:text-black p-1 cursor-pointer"
+                className="text-white/70 hover:text-white p-1 cursor-pointer"
               >
                 <X size={16} />
               </button>
             </div>
 
             <div className="space-y-2">
-              <label className="block text-xs font-bold text-neutral-800">
+              <label className="block text-xs font-bold text-white/90">
                 Reason / Note for Product Editor{" "}
-                <span className="font-normal text-[#666666]">(Optional)</span>
+                <span className="font-normal text-white/60">(Optional)</span>
               </label>
               <textarea
                 rows={3}
                 value={reviewNoteInput}
                 onChange={(e) => setReviewNoteInput(e.target.value)}
                 placeholder="e.g. Incorrect product image, technical specifications need verification, price requires review..."
-                className="w-full p-2.5 bg-neutral-50 border border-[#E5E5E5] rounded-xl text-xs text-black focus:outline-none focus:border-black font-medium resize-none"
+                className="w-full p-2.5 bg-white text-black border border-white/30 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#FFD400] font-medium resize-none placeholder:text-neutral-500"
               />
 
               {/* Quick suggestions */}
               <div className="pt-1">
-                <span className="text-[10px] font-mono uppercase text-[#666666] block mb-1">
+                <span className="text-[10px] font-mono uppercase text-white/70 block mb-1">
                   Quick suggestions:
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -1800,7 +1799,7 @@ export const AdminProductsPage: React.FC = () => {
                       key={preset}
                       type="button"
                       onClick={() => setReviewNoteInput(preset)}
-                      className="px-2 py-0.5 rounded bg-neutral-100 hover:bg-neutral-200 border border-[#E5E5E5] text-[10px] text-neutral-700 transition-colors cursor-pointer"
+                      className="px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 border border-white/20 text-[10px] text-white/90 transition-colors cursor-pointer"
                     >
                       + {preset}
                     </button>
@@ -1809,14 +1808,14 @@ export const AdminProductsPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-between pt-3 border-t border-neutral-200">
+            <div className="flex items-center justify-between pt-3 border-t border-white/15">
               <button
                 type="button"
                 onClick={() => {
                   handleSetReviewStatus(reviewModalProduct, "PENDING", "");
                   setReviewModalProduct(null);
                 }}
-                className="text-xs text-[#666666] hover:text-black font-semibold cursor-pointer"
+                className="text-xs text-white/70 hover:text-white font-semibold cursor-pointer"
               >
                 Reset to Unreviewed
               </button>
@@ -1825,7 +1824,7 @@ export const AdminProductsPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setReviewModalProduct(null)}
-                  className="px-3 py-1.5 border border-[#E5E5E5] text-neutral-700 rounded-lg text-xs font-bold hover:bg-neutral-50 transition-colors cursor-pointer"
+                  className="px-3 py-1.5 border border-white/20 text-white/80 rounded-lg text-xs font-bold hover:bg-white/10 transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -1836,7 +1835,7 @@ export const AdminProductsPage: React.FC = () => {
                     handleSetReviewStatus(reviewModalProduct, "NEEDS_EDITING", reviewNoteInput);
                     setReviewModalProduct(null);
                   }}
-                  className="px-3.5 py-1.5 bg-black text-white rounded-lg text-xs font-bold hover:bg-neutral-800 transition-colors flex items-center gap-1.5 cursor-pointer"
+                  className="px-3.5 py-1.5 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
                 >
                   {reviewUpdatingId === reviewModalProduct.id ? (
                     <RefreshCw size={12} className="animate-spin" />
@@ -1852,21 +1851,21 @@ export const AdminProductsPage: React.FC = () => {
       )}
       {/* Cloudinary Storage & Quota Analysis Modal */}
       {cloudinaryModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-2xs animate-in fade-in">
-          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 border border-[#E5E5E5] shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-2xs animate-in fade-in">
+          <div className="bg-[#0D4C3C] text-white rounded-2xl max-w-2xl w-full p-6 border border-white/20 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-white/15 pb-3">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-[#FFF8DB] border border-[#F2C94C] flex items-center justify-center">
-                  <Cloud size={18} className="text-black" />
+                <div className="w-8 h-8 rounded-lg bg-[#FFD400]/20 border border-[#FFD400]/40 flex items-center justify-center">
+                  <Cloud size={18} className="text-[#FFD400]" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-black flex items-center gap-2">
+                  <h3 className="text-sm font-bold text-white flex items-center gap-2">
                     <span>Cloudinary Storage & Quota Management</span>
-                    <span className="text-[10px] font-mono font-bold bg-[#DCFCE7] text-[#15803D] px-2 py-0.5 rounded-full border border-[#86EFAC]">
+                    <span className="text-[10px] font-mono font-bold bg-[#15803D]/40 text-[#4ADE80] px-2 py-0.5 rounded-full border border-[#15803D]/60">
                       FREE PLAN ACTIVE
                     </span>
                   </h3>
-                  <p className="text-[11px] text-[#666666] font-mono mt-0.5">
+                  <p className="text-[11px] text-white/70 font-mono mt-0.5">
                     Real-time Cloudinary account usage, Sharp WebP compression & catalogue dry run
                   </p>
                 </div>
@@ -1874,7 +1873,7 @@ export const AdminProductsPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setCloudinaryModalOpen(false)}
-                className="p-1.5 text-[#666666] hover:text-black rounded-lg hover:bg-neutral-100 cursor-pointer"
+                className="p-1.5 text-white/70 hover:text-white rounded-lg hover:bg-white/10 cursor-pointer"
               >
                 <X size={16} />
               </button>
@@ -1882,8 +1881,8 @@ export const AdminProductsPage: React.FC = () => {
 
             {loadingCloudinaryReport ? (
               <div className="py-12 text-center space-y-3">
-                <RefreshCw size={24} className="animate-spin text-black mx-auto" />
-                <p className="text-xs text-[#666666] font-mono">
+                <RefreshCw size={24} className="animate-spin text-[#FFD400] mx-auto" />
+                <p className="text-xs text-white/70 font-mono">
                   Querying Cloudinary Admin API & benchmarking catalogue image assets...
                 </p>
               </div>
@@ -1891,45 +1890,45 @@ export const AdminProductsPage: React.FC = () => {
               <div className="space-y-4">
                 {/* 1. Real-time Account Usage Cards */}
                 <div>
-                  <h4 className="text-[11px] font-mono font-bold uppercase text-[#666666] mb-2 flex items-center gap-1.5">
+                  <h4 className="text-[11px] font-mono font-bold uppercase text-white/70 mb-2 flex items-center gap-1.5">
                     <Database size={12} />
                     <span>Live Cloudinary Account Usage</span>
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div className="p-3 rounded-xl bg-neutral-50 border border-[#E5E5E5]">
-                      <span className="text-[10px] font-mono text-[#666666] uppercase block">Monthly Credits</span>
-                      <div className="text-base font-bold font-mono text-black mt-1">
+                    <div className="p-3 rounded-xl bg-white/10 border border-white/15">
+                      <span className="text-[10px] font-mono text-white/70 uppercase block">Monthly Credits</span>
+                      <div className="text-base font-bold font-mono text-white mt-1">
                         {cloudinaryReport.accountUsage?.credits?.usage ?? 0.17}
-                        <span className="text-xs text-[#666666] font-normal"> / {cloudinaryReport.accountUsage?.credits?.limit ?? 25}</span>
+                        <span className="text-xs text-white/60 font-normal"> / {cloudinaryReport.accountUsage?.credits?.limit ?? 25}</span>
                       </div>
-                      <div className="w-full bg-neutral-200 h-1.5 rounded-full mt-2 overflow-hidden">
+                      <div className="w-full bg-black/30 h-1.5 rounded-full mt-2 overflow-hidden">
                         <div
                           className="bg-[#15803D] h-full rounded-full"
                           style={{ width: `${Math.min(100, Math.max(2, cloudinaryReport.accountUsage?.credits?.usedPercent || 0.68))}%` }}
                         />
                       </div>
-                      <span className="text-[9px] font-mono text-[#15803D] mt-1 block font-semibold">
+                      <span className="text-[9px] font-mono text-[#4ADE80] mt-1 block font-semibold">
                         {cloudinaryReport.accountUsage?.credits?.usedPercent ?? 0.68}% quota consumed
                       </span>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-neutral-50 border border-[#E5E5E5]">
-                      <span className="text-[10px] font-mono text-[#666666] uppercase block">Storage Consumption</span>
-                      <div className="text-base font-bold font-mono text-black mt-1">
-                        {cloudinaryReport.accountUsage?.storage?.mb ?? 169.3} <span className="text-xs text-[#666666] font-normal">MB</span>
+                    <div className="p-3 rounded-xl bg-white/10 border border-white/15">
+                      <span className="text-[10px] font-mono text-white/70 uppercase block">Storage Consumption</span>
+                      <div className="text-base font-bold font-mono text-white mt-1">
+                        {cloudinaryReport.accountUsage?.storage?.mb ?? 169.3} <span className="text-xs text-white/60 font-normal">MB</span>
                       </div>
-                      <span className="text-[10px] font-mono text-[#666666] mt-2 block">
+                      <span className="text-[10px] font-mono text-white/70 mt-2 block">
                         {cloudinaryReport.accountUsage?.objects?.usage ?? 64} total hosted assets
                       </span>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0]">
-                      <span className="text-[10px] font-mono text-[#15803D] uppercase block font-semibold">Plan Compatibility</span>
-                      <div className="text-sm font-bold font-mono text-[#15803D] mt-1 flex items-center gap-1">
+                    <div className="p-3 rounded-xl bg-[#15803D]/20 border border-[#15803D]/50">
+                      <span className="text-[10px] font-mono text-[#4ADE80] uppercase block font-semibold">Plan Compatibility</span>
+                      <div className="text-sm font-bold font-mono text-[#4ADE80] mt-1 flex items-center gap-1">
                         <CheckCircle2 size={14} />
                         <span>100% Fully Compatible</span>
                       </div>
-                      <span className="text-[10px] text-neutral-600 mt-2 block">
+                      <span className="text-[10px] text-white/80 mt-2 block">
                         Full catalogue fits easily within 25 credit free limit
                       </span>
                     </div>
@@ -1938,34 +1937,34 @@ export const AdminProductsPage: React.FC = () => {
 
                 {/* 2. Catalogue Dry Run Analysis */}
                 <div>
-                  <h4 className="text-[11px] font-mono font-bold uppercase text-[#666666] mb-2 flex items-center gap-1.5">
+                  <h4 className="text-[11px] font-mono font-bold uppercase text-white/70 mb-2 flex items-center gap-1.5">
                     <Sparkles size={12} />
                     <span>Catalogue-Wide Optimization Dry Run</span>
                   </h4>
-                  <div className="p-3.5 rounded-xl border border-[#E5E5E5] bg-white space-y-2.5 text-xs">
-                    <div className="flex items-center justify-between py-1 border-b border-neutral-100">
-                      <span className="text-neutral-600">Total Products in Catalogue</span>
-                      <span className="font-bold font-mono text-black">{cloudinaryReport.catalogueStats?.totalProducts ?? 193} products</span>
+                  <div className="p-3.5 rounded-xl border border-white/15 bg-white/10 space-y-2.5 text-xs text-white">
+                    <div className="flex items-center justify-between py-1 border-b border-white/10">
+                      <span className="text-white/80">Total Products in Catalogue</span>
+                      <span className="font-bold font-mono text-white">{cloudinaryReport.catalogueStats?.totalProducts ?? 193} products</span>
                     </div>
-                    <div className="flex items-center justify-between py-1 border-b border-neutral-100">
-                      <span className="text-neutral-600">Total Product Photography Assets</span>
-                      <span className="font-bold font-mono text-black">{cloudinaryReport.catalogueStats?.totalImages ?? 1544} images</span>
+                    <div className="flex items-center justify-between py-1 border-b border-white/10">
+                      <span className="text-white/80">Total Product Photography Assets</span>
+                      <span className="font-bold font-mono text-white">{cloudinaryReport.catalogueStats?.totalImages ?? 1544} images</span>
                     </div>
-                    <div className="flex items-center justify-between py-1 border-b border-neutral-100">
-                      <span className="text-neutral-600">Current Local Storage (Raw PNG / JPEG)</span>
-                      <span className="font-bold font-mono text-[#B91C1C]">
+                    <div className="flex items-center justify-between py-1 border-b border-white/10">
+                      <span className="text-white/80">Current Local Storage (Raw PNG / JPEG)</span>
+                      <span className="font-bold font-mono text-[#FF8A80]">
                         {cloudinaryReport.catalogueStats?.currentLocalStorageMB ?? 350} MB
                       </span>
                     </div>
-                    <div className="flex items-center justify-between py-1 border-b border-neutral-100">
-                      <span className="text-neutral-600">Estimated Optimized Storage (Sharp WebP 80%)</span>
-                      <span className="font-bold font-mono text-[#15803D]">
+                    <div className="flex items-center justify-between py-1 border-b border-white/10">
+                      <span className="text-white/80">Estimated Optimized Storage (Sharp WebP 80%)</span>
+                      <span className="font-bold font-mono text-[#4ADE80]">
                         ~{cloudinaryReport.catalogueStats?.estimatedOptimizedCatalogueMB ?? 108} MB (Saved ~96%)
                       </span>
                     </div>
                     <div className="flex items-center justify-between py-1">
-                      <span className="text-neutral-600">Estimated Cloudinary Credits Required</span>
-                      <span className="font-bold font-mono text-black">
+                      <span className="text-white/80">Estimated Cloudinary Credits Required</span>
+                      <span className="font-bold font-mono text-[#FFD400]">
                         ~{cloudinaryReport.catalogueStats?.estimatedCloudinaryCreditsRequired ?? 0.11} Credits (out of 25.00)
                       </span>
                     </div>
@@ -1973,20 +1972,20 @@ export const AdminProductsPage: React.FC = () => {
                 </div>
 
                 {/* 3. Engineering Guidelines */}
-                <div className="p-3 rounded-xl bg-neutral-50 border border-[#E5E5E5] space-y-1.5 text-[11px] text-[#666666]">
-                  <span className="font-bold text-black font-mono block">Image Lifecycle & Safety Guarantees:</span>
-                  <p>• <strong className="text-neutral-800">Review Status: Correct</strong> — Automatically optimizes images to WebP (max 1200×1200 px, quality 80) and uploads to Cloudinary without creating duplicates.</p>
-                  <p>• <strong className="text-neutral-800">Review Status: Needs Editing / Not Yet Reviewed</strong> — Safely deletes exclusively owned Cloudinary copies and immediately restores local source files.</p>
-                  <p>• <strong className="text-neutral-800">Fail-Safe Safeguard</strong> — Assets are never deleted if no verified source backup exists or if referenced by another product.</p>
+                <div className="p-3 rounded-xl bg-white/10 border border-white/15 space-y-1.5 text-[11px] text-white/80">
+                  <span className="font-bold text-white font-mono block">Image Lifecycle & Safety Guarantees:</span>
+                  <p>• <strong className="text-[#4ADE80]">Review Status: Correct</strong> — Automatically optimizes images to WebP (max 1200×1200 px, quality 80) and uploads to Cloudinary without creating duplicates.</p>
+                  <p>• <strong className="text-[#FF8A80]">Review Status: Needs Editing / Not Yet Reviewed</strong> — Safely deletes exclusively owned Cloudinary copies and immediately restores local source files.</p>
+                  <p>• <strong className="text-[#FFD400]">Fail-Safe Safeguard</strong> — Assets are never deleted if no verified source backup exists or if referenced by another product.</p>
                 </div>
               </div>
             ) : null}
 
-            <div className="flex justify-end pt-2 border-t border-neutral-200">
+            <div className="flex justify-end pt-2 border-t border-white/15">
               <button
                 type="button"
                 onClick={() => setCloudinaryModalOpen(false)}
-                className="px-4 py-1.5 bg-black text-white rounded-lg text-xs font-bold hover:bg-neutral-800 transition-colors cursor-pointer"
+                className="px-4 py-1.5 bg-[#C62828] text-white rounded-lg text-xs font-bold hover:bg-[#B71C1C] transition-colors cursor-pointer"
               >
                 Close
               </button>

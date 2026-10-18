@@ -446,6 +446,247 @@ router.post("/categories", requireAdmin, (req, res) => {
   }
 });
 
+// Update Primary Category
+router.put("/catalogue/primary-category/:id", requireAdmin, (req, res) => {
+  try {
+    const { name, shortDescription, code } = req.body;
+    const cat = store.getAllCategories().find(c => c.id === req.params.id || c.slug === req.params.id);
+    if (!cat) {
+      return res.status(404).json({ success: false, message: "Category not found." });
+    }
+    const updates = {};
+    if (name && typeof name === "string" && name.trim()) updates.name = name.trim();
+    if (shortDescription !== undefined) updates.shortDescription = shortDescription;
+    const updated = store.updateCategory(cat.id, updates);
+    auditService.logAction(req.admin?.email || "ADMIN", "PRIMARY_CATEGORY_UPDATED", cat.id, updates);
+    res.json({
+      success: true,
+      message: `Primary category "${updated.name}" updated successfully.`,
+      category: updated,
+      hierarchy: store.getCatalogueHierarchy(),
+      categories: store.getCategories(true)
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Delete Primary Category
+router.delete("/catalogue/primary-category/:id", requireAdmin, (req, res) => {
+  try {
+    const result = store.deletePrimaryCategory(req.params.id);
+    auditService.logAction(req.admin?.email || "ADMIN", "PRIMARY_CATEGORY_DELETED", req.params.id, {});
+    res.json({
+      success: true,
+      message: result.message,
+      hierarchy: store.getCatalogueHierarchy(),
+      categories: store.getCategories(true)
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Alias DELETE /categories/:id
+router.delete("/categories/:id", requireAdmin, (req, res) => {
+  try {
+    const result = store.deletePrimaryCategory(req.params.id);
+    auditService.logAction(req.admin?.email || "ADMIN", "PRIMARY_CATEGORY_DELETED", req.params.id, {});
+    res.json({
+      success: true,
+      message: result.message,
+      hierarchy: store.getCatalogueHierarchy(),
+      categories: store.getCategories(true)
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Update Subcategory
+router.put("/catalogue/subcategory/:parentCategory/:subId", requireAdmin, (req, res) => {
+  try {
+    const { name } = req.body;
+    const result = store.updateSubcategory(req.params.parentCategory, req.params.subId, { name });
+    auditService.logAction(req.admin?.email || "ADMIN", "SUBCATEGORY_UPDATED", req.params.subId, { parentCategory: req.params.parentCategory, name });
+    res.json({
+      success: true,
+      message: result.message,
+      hierarchy: store.getCatalogueHierarchy()
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Delete Subcategory
+router.delete("/catalogue/subcategory/:parentCategory/:subId", requireAdmin, (req, res) => {
+  try {
+    const result = store.deleteSubcategory(req.params.parentCategory, req.params.subId);
+    auditService.logAction(req.admin?.email || "ADMIN", "SUBCATEGORY_DELETED", req.params.subId, { parentCategory: req.params.parentCategory });
+    res.json({
+      success: true,
+      message: result.message,
+      hierarchy: store.getCatalogueHierarchy()
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Update Equipment Type
+router.put("/catalogue/equipment-type/:parentCategory/:subcategory/:eqId", requireAdmin, (req, res) => {
+  try {
+    const { name, code } = req.body;
+    const result = store.updateEquipmentType(req.params.parentCategory, req.params.subcategory, req.params.eqId, { name, code });
+    auditService.logAction(req.admin?.email || "ADMIN", "EQUIPMENT_TYPE_UPDATED", req.params.eqId, { name, code });
+    res.json({
+      success: true,
+      message: result.message,
+      hierarchy: store.getCatalogueHierarchy()
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Delete Equipment Type
+router.delete("/catalogue/equipment-type/:parentCategory/:subcategory/:eqId", requireAdmin, (req, res) => {
+  try {
+    const result = store.deleteEquipmentType(req.params.parentCategory, req.params.subcategory, req.params.eqId);
+    auditService.logAction(req.admin?.email || "ADMIN", "EQUIPMENT_TYPE_DELETED", req.params.eqId, { parentCategory: req.params.parentCategory, subcategory: req.params.subcategory });
+    res.json({
+      success: true,
+      message: result.message,
+      hierarchy: store.getCatalogueHierarchy()
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Global Admin Search
+router.get("/search", requireAdmin, async (req, res) => {
+  try {
+    const q = (req.query.q || "").trim().toLowerCase();
+    if (!q) {
+      return res.json({ success: true, results: [] });
+    }
+
+    const results = [];
+
+    // 1. Products (title, sku, brand, model)
+    const allProducts = store.getProducts({ includeInactive: true }) || [];
+    for (const p of allProducts) {
+      const title = p.title || p.productName || "";
+      const sku = p.sku || p.SKU || "";
+      const brand = p.brand || "";
+      const model = p.model || "";
+      if (
+        title.toLowerCase().includes(q) ||
+        sku.toLowerCase().includes(q) ||
+        brand.toLowerCase().includes(q) ||
+        model.toLowerCase().includes(q)
+      ) {
+        results.push({
+          type: "product",
+          id: p.id,
+          title: title,
+          subtitle: `SKU: ${sku || "N/A"} • ${brand || "DR.MEDEX"} • ${p.category || ""}`,
+          url: `/admin/products/${p.id}/edit`
+        });
+        if (results.filter(r => r.type === "product").length >= 6) break;
+      }
+    }
+
+    // 2. Categories & Taxonomy (primary, subcategory, equipment type)
+    const hierarchy = store.getCatalogueHierarchy() || {};
+    for (const [catKey, cat] of Object.entries(hierarchy)) {
+      if ((cat.name || "").toLowerCase().includes(q) || catKey.toLowerCase().includes(q)) {
+        results.push({
+          type: "category",
+          id: cat.id || catKey,
+          title: cat.name,
+          subtitle: `Primary Category • ${cat.code || "MED"} • ${cat.subcategories?.length || 0} subcategories`,
+          url: `/admin/categories?tab=primary&search=${encodeURIComponent(cat.name)}`
+        });
+      }
+
+      if (Array.isArray(cat.subcategories)) {
+        for (const sub of cat.subcategories) {
+          if ((sub.name || "").toLowerCase().includes(q) || (sub.id || "").toLowerCase().includes(q)) {
+            results.push({
+              type: "subcategory",
+              id: `${catKey}-${sub.id}`,
+              title: sub.name,
+              subtitle: `Subcategory under ${cat.name}`,
+              url: `/admin/categories?tab=subcategories&search=${encodeURIComponent(sub.name)}`
+            });
+          }
+
+          if (Array.isArray(sub.equipmentTypes)) {
+            for (const eq of sub.equipmentTypes) {
+              if ((eq.name || "").toLowerCase().includes(q) || (eq.id || "").toLowerCase().includes(q)) {
+                results.push({
+                  type: "equipment-type",
+                  id: `${catKey}-${sub.id}-${eq.id || eq.name}`,
+                  title: eq.name,
+                  subtitle: `Verified Equipment Type (${eq.defaultCode || eq.code || "EQP"}) • ${sub.name}`,
+                  url: `/admin/categories?tab=equipment-types&search=${encodeURIComponent(eq.name)}`
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // 3. Orders (order id, orderNumber, customer name)
+    const allOrders = store.getOrders() || [];
+    for (const o of allOrders) {
+      const orderId = o.id || "";
+      const orderNum = o.orderNumber || "";
+      const custName = o.customerName || o.shippingAddress?.fullName || "";
+      if (
+        orderId.toLowerCase().includes(q) ||
+        orderNum.toLowerCase().includes(q) ||
+        custName.toLowerCase().includes(q)
+      ) {
+        results.push({
+          type: "order",
+          id: orderId,
+          title: `Order #${(orderNum || orderId).slice(0, 10).toUpperCase()}`,
+          subtitle: `${custName || "Customer"} • $${Number(o.totalAmount || o.total || 0).toLocaleString()} • ${o.status || "Pending"}`,
+          url: `/admin`
+        });
+        if (results.filter(r => r.type === "order").length >= 4) break;
+      }
+    }
+
+    // 4. Customers
+    try {
+      const custRes = await supabaseService.getCustomers({ search: q, limit: 4 });
+      if (custRes && Array.isArray(custRes.customers)) {
+        for (const c of custRes.customers) {
+          results.push({
+            type: "customer",
+            id: c.id,
+            title: c.fullName || c.name || c.email,
+            subtitle: `Customer • ${c.email} • ${c.institution || "Healthcare Organization"}`,
+            url: `/admin/customers?search=${encodeURIComponent(c.email || c.fullName || "")}`
+          });
+        }
+      }
+    } catch (e) {
+      // Supabase customer search is optional fallback
+    }
+
+    res.json({ success: true, results: results.slice(0, 15) });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message, results: [] });
+  }
+});
+
 router.get("/products/check-sku", requireAdmin, (req, res) => {
   const { sku, excludeId } = req.query;
   if (!sku) {
