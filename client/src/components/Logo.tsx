@@ -5,40 +5,47 @@ interface LogoProps {
   variant?: "dark-bg" | "light-bg" | "monochrome" | "white";
   className?: string;
   showTagline?: boolean;
+  showIcon?: boolean;
 }
 
 export const Logo: React.FC<LogoProps> = ({
   variant = "dark-bg",
   className = "",
   showTagline = true,
+  showIcon = true,
 }) => {
   const isLightBg = variant === "light-bg";
   const isMonochrome = variant === "monochrome";
   const isWhite = variant === "white";
 
   return (
-    <Link to={isMonochrome || isWhite ? "/admin" : "/"} className={`inline-flex items-center gap-3 group select-none ${className}`}>
+    <Link
+      to={isMonochrome || isWhite ? "/admin" : "/"}
+      className={`inline-flex items-center ${showIcon ? "gap-3" : "gap-0"} group select-none ${className}`}
+    >
       {/* Precision Medical Cross Icon */}
-      <div className="relative w-9 h-9 sm:w-10 sm:h-10 shrink-0 flex items-center justify-center rounded-xl overflow-hidden shadow-xs group-hover:scale-105 transition-transform duration-200">
-        <svg viewBox="0 0 40 40" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-          {/* Base rounded square */}
-          <rect width="40" height="40" rx="10" fill="#000000" />
+      {showIcon && (
+        <div className="relative w-9 h-9 sm:w-10 sm:h-10 shrink-0 flex items-center justify-center rounded-xl overflow-hidden shadow-xs group-hover:scale-105 transition-transform duration-200">
+          <svg viewBox="0 0 40 40" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Base rounded square */}
+            <rect width="40" height="40" rx="10" fill="#000000" />
 
-          {/* Symmetrical Layered Medical Cross */}
-          {/* Vertical stem */}
-          <rect x="16" y="7" width="8" height="26" rx="2.5" fill="#FFFFFF" />
-          {/* Horizontal crossbar */}
-          <rect x="7" y="16" width="26" height="8" rx="2.5" fill="#FFFFFF" />
+            {/* Symmetrical Layered Medical Cross */}
+            {/* Vertical stem */}
+            <rect x="16" y="7" width="8" height="26" rx="2.5" fill="#FFFFFF" />
+            {/* Horizontal crossbar */}
+            <rect x="7" y="16" width="26" height="8" rx="2.5" fill="#FFFFFF" />
 
-          {/* Core Cross Accents */}
-          <rect x="17.5" y="8.5" width="5" height="11" rx="1.5" fill={isMonochrome ? "#111111" : "#EF4444"} />
-          <rect x="8.5" y="17.5" width="11" height="5" rx="1.5" fill={isMonochrome ? "#111111" : "#EF4444"} />
+            {/* Core Cross Accents */}
+            <rect x="17.5" y="8.5" width="5" height="11" rx="1.5" fill={isMonochrome ? "#111111" : "#EF4444"} />
+            <rect x="8.5" y="17.5" width="11" height="5" rx="1.5" fill={isMonochrome ? "#111111" : "#EF4444"} />
 
-          {/* Center Accent */}
-          <rect x="17.5" y="17.5" width="5" height="5" rx="1" fill={isMonochrome ? "#444444" : "#1F7A4D"} />
-          <circle cx="20" cy="20" r="1.5" fill="#FFFFFF" />
-        </svg>
-      </div>
+            {/* Center Accent */}
+            <rect x="17.5" y="17.5" width="5" height="5" rx="1" fill={isMonochrome ? "#444444" : "#1F7A4D"} />
+            <circle cx="20" cy="20" r="1.5" fill="#FFFFFF" />
+          </svg>
+        </div>
+      )}
 
       {/* DR.MEDEX Wordmark */}
       <div className="flex flex-col leading-none">

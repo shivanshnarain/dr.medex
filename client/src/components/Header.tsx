@@ -337,7 +337,7 @@ export const Header: React.FC = () => {
               {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
 
-            <Logo variant="light-bg" />
+            <Logo variant="light-bg" showIcon={false} />
           </div>
 
           {/* CENTER: Large Rounded Search Bar with Green Action Button */}
@@ -819,7 +819,7 @@ export const Header: React.FC = () => {
           <div className="w-4/5 max-w-sm bg-white h-full overflow-y-auto p-5 shadow-2xl flex flex-col justify-between border-r border-[#E5E5E5]">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
-                <Logo variant="light-bg" showTagline={false} />
+                <Logo variant="light-bg" showTagline={false} showIcon={false} />
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="p-1.5 text-neutral-500 hover:text-black hover:bg-neutral-100 rounded-lg"
