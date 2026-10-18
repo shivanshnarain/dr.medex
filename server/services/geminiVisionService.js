@@ -150,7 +150,7 @@ function buildTaxonomyReference() {
 /**
  * Build system prompt with strict medical grounding rules and naming style support
  */
-function buildPrompt(taxonomyText, namingStyle = "clinical") {
+function buildPrompt(taxonomyText, namingStyle = "clinical", targetField = null, context = {}) {
   let styleInstruction = "";
   if (namingStyle === "technical") {
     styleInstruction = "Naming style: TECHNICAL / MODEL-FOCUSED. Emphasize model numbers, technical parameters, and physical device specifications in productName and storefrontProductTitle.";
@@ -158,6 +158,29 @@ function buildPrompt(taxonomyText, namingStyle = "clinical") {
     styleInstruction = "Naming style: SHORT / CATALOG-FRIENDLY. Concise, clean catalog naming without overly dense clinical jargon.";
   } else {
     styleInstruction = "Naming style: PROFESSIONAL / CLINICAL. Dignified, authoritative hospital-grade medical equipment naming.";
+  }
+
+  let focusedInstruction = "";
+  if (targetField) {
+    const fieldDescriptions = {
+      productName: "regenerating and perfecting the Product Name (official equipment designation) only",
+      description: "regenerating and perfecting the Clinical & Operational Overview / Product Description only",
+      clinicalIndications: "regenerating and refining the Clinical Indications & Specialty Procedures list only",
+      engineeringHighlights: "regenerating and refining the Key Factors & Engineering Highlights list only",
+      packageItems: "regenerating and refining the Standard Included Package Contents list only",
+      technicalSpecifications: "regenerating and refining the Technical Specifications only"
+    };
+    const desc = fieldDescriptions[targetField] || `regenerating the ${targetField} field only`;
+    focusedInstruction = `\n### FOCUSED REGENERATION GOAL:
+You are requested to focus on ${desc}.
+Existing device context provided by the operator:
+- Equipment Type: ${context.equipmentType || "Medical Equipment"}
+- Primary Category: ${context.category || "Hospital Equipment"}
+- Subcategory: ${context.subcategory || ""}
+- Current Product Name: ${context.productName || ""}
+- Manufacturer / Model: ${context.manufacturerModel || ""}
+- Brand: ${context.brand || "DR.MEDEX"}
+Carefully analyze the photos together with this existing context and produce a grounded, highly accurate result for "${targetField}".\n`;
   }
 
   return `You are the DR.MEDEX Senior Biomedical Equipment Classifier and Technical Analyst.
@@ -553,7 +576,12 @@ async function identifyProductFromPhotos(photos, options = {}) {
   // 2. Prepare SDK and Prompt
   const ai = getGenAiClient();
   const taxonomyText = buildTaxonomyReference();
-  const systemPrompt = buildPrompt(taxonomyText, options.namingStyle || "clinical");
+  const systemPrompt = buildPrompt(
+    taxonomyText,
+    options.namingStyle || "clinical",
+    options.targetField || null,
+    options.context || {}
+  );
 
   parts.push({
     text: `${systemPrompt}\n\nAnalyze all ${photos.length} photograph(s) of this medical equipment submitted above together and output the structured JSON:`

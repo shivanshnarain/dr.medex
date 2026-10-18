@@ -386,34 +386,34 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
       {/* 2. MAIN ADMIN CONTENT CONTAINER                              */}
       {/* ============================================================ */}
       <div className="flex-1 flex flex-col min-w-0 lg:pl-64">
-        {/* Top Header Bar */}
-        <header className="h-16 bg-white border-b border-[#E5E5E5] sticky top-0 z-30 flex items-center justify-between px-6 lg:px-8">
+        {/* Top Header Bar — Slate Green (#2D5A4A) with White Text & Icons */}
+        <header className="h-16 bg-[#2D5A4A] border-b border-black/20 sticky top-0 z-30 flex items-center justify-between px-6 lg:px-8 text-white">
           <div className="flex items-center gap-4">
             <button
               type="button"
               onClick={() => setIsMobileSidebarOpen(true)}
-              className="lg:hidden p-2 text-neutral-600 hover:text-black rounded-lg"
+              className="lg:hidden p-2 text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
             >
-              <Menu size={20} />
+              <Menu size={20} className="text-white" />
             </button>
 
             {/* Breadcrumb Navigation */}
-            <div className="flex items-center gap-2 text-xs text-[#666666] font-medium">
-              <Link to="/admin" className="hover:text-black transition-colors">Admin</Link>
-              <span>/</span>
+            <div className="flex items-center gap-2 text-xs text-white/80 font-medium">
+              <Link to="/admin" className="hover:text-white text-white/80 transition-colors">Admin</Link>
+              <span className="text-white/60">/</span>
               {breadcrumbs && breadcrumbs.length > 0 ? (
                 breadcrumbs.map((b, i) => (
                   <React.Fragment key={i}>
                     {b.href ? (
-                      <Link to={b.href} className="hover:text-black transition-colors">{b.label}</Link>
+                      <Link to={b.href} className="hover:text-white text-white/80 transition-colors">{b.label}</Link>
                     ) : (
-                      <span className="text-black font-semibold">{b.label}</span>
+                      <span className="text-white font-semibold">{b.label}</span>
                     )}
-                    {i < breadcrumbs.length - 1 && <span>/</span>}
+                    {i < breadcrumbs.length - 1 && <span className="text-white/60">/</span>}
                   </React.Fragment>
                 ))
               ) : (
-                <span className="text-black font-semibold">{title}</span>
+                <span className="text-white font-semibold">{title}</span>
               )}
             </div>
           </div>
@@ -422,11 +422,11 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
           <div className="flex items-center gap-3">
             {/* Global Search */}
             <div className="hidden md:flex items-center relative">
-              <Search size={14} className="absolute left-3 text-[#666666]" />
+              <Search size={14} className="absolute left-3 text-white/70" />
               <input
                 type="text"
                 placeholder="Global admin search..."
-                className="pl-9 pr-3 py-1.5 bg-neutral-50 border border-[#E5E5E5] rounded-lg text-xs text-black placeholder:text-[#666666] focus:outline-none focus:border-[#F2C94C] w-48 lg:w-60 transition-all"
+                className="pl-9 pr-3 py-1.5 bg-white/10 border border-white/20 rounded-lg text-xs text-white placeholder:text-white/60 focus:outline-none focus:border-[#FFD400] focus:bg-white/15 w-48 lg:w-60 transition-all"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     const val = (e.target as HTMLInputElement).value;
@@ -440,39 +440,39 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
               to="/shop-all"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-black bg-white border border-[#E5E5E5] hover:bg-neutral-50 transition-colors"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-white/10 border border-white/20 hover:bg-white/20 transition-colors"
             >
               <span>Storefront</span>
-              <ExternalLink size={12} className="text-[#666666]" />
+              <ExternalLink size={12} className="text-white/80" />
             </Link>
 
             {/* Notifications / Audit Log */}
             <button
               type="button"
               onClick={loadAuditLogs}
-              className="p-2 text-[#666666] hover:text-black hover:bg-neutral-100 rounded-lg transition-colors relative cursor-pointer"
+              className="p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors relative cursor-pointer"
               title="Audit Log & Notifications"
             >
-              <Clock size={16} />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#F2C94C] rounded-full ring-2 ring-white" />
+              <Clock size={16} className="text-white" />
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#FFD400] rounded-full ring-2 ring-[#2D5A4A]" />
             </button>
 
             {/* Administrator Profile */}
-            <div className="flex items-center gap-2 pl-3 border-l border-[#E5E5E5]">
-              <div className="w-8 h-8 rounded-full bg-[#FFF8DB] border border-[#F2C94C] flex items-center justify-center font-bold text-xs text-black shadow-2xs">
-                {adminUser?.name ? adminUser.name.charAt(0).toUpperCase() : "A"}
+            <div className="flex items-center gap-2 pl-3 border-l border-white/20">
+              <div className="w-8 h-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center font-bold text-xs text-white shadow-2xs">
+                {adminUser?.name ? adminUser.name.charAt(0).toUpperCase() : "R"}
               </div>
               <div className="hidden xl:block text-left">
-                <div className="text-xs font-bold text-black leading-none">{adminUser?.name || "Administrator"}</div>
-                <div className="text-[10px] text-[#666666] font-mono leading-tight mt-0.5">{adminUser?.role || "Global Admin"}</div>
+                <div className="text-xs font-bold text-white leading-none">{adminUser?.name || "Roshan"}</div>
+                <div className="text-[10px] text-white/80 font-mono leading-tight mt-0.5">{adminUser?.role || "DR.MEDEX Super Admin"}</div>
               </div>
               <button
                 type="button"
                 onClick={logout}
                 title="Sign Out"
-                className="p-1.5 text-[#666666] hover:text-black hover:bg-neutral-100 rounded-lg transition-colors ml-1 cursor-pointer"
+                className="p-1.5 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors ml-1 cursor-pointer"
               >
-                <LogOut size={14} />
+                <LogOut size={14} className="text-white" />
               </button>
             </div>
           </div>

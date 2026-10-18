@@ -458,8 +458,8 @@ export const AdminProductEditorPage: React.FC = () => {
           setCertifications(p.certifications || []);
           setManualUrl(p.manualUrl || "");
           setDatasheetUrl(p.datasheetUrl || "");
-          setMetaTitle(p.metaTitle || p.title || "");
-          setMetaDescription(p.metaDescription || p.shortDescription || "");
+          setMetaTitle(p.metaTitle !== undefined ? p.metaTitle : (p.seoTitle !== undefined ? p.seoTitle : ""));
+          setMetaDescription(p.metaDescription !== undefined ? p.metaDescription : (p.seoDescription !== undefined ? p.seoDescription : ""));
           setIsFeatured(Boolean(p.featured || p.isFeatured));
           setIsBestSeller(Boolean(p.bestseller || p.isBestSeller));
           setCategoryGridVisible(p.categoryGridVisible !== false);
@@ -622,13 +622,8 @@ export const AdminProductEditorPage: React.FC = () => {
     const photosPayload: Array<{ data: string; mimeType: string; filename: string }> = [];
     for (let idx = 0; idx < slotsToProcess.length; idx++) {
       const slot = slotsToProcess[idx];
-      if (slot.status === "persisted" && slot.url && !slot.url.startsWith("blob:") && !slot.url.startsWith("data:")) {
-        photosPayload.push({
-          data: slot.url,
-          mimeType: slot.url.endsWith(".png") ? "image/png" : slot.url.endsWith(".webp") ? "image/webp" : "image/jpeg",
-          filename: `photo_${idx + 1}.jpg`
-        });
-      } else if (slot.file) {
+
+      if (slot.file) {
         try {
           const b64 = await new Promise<string>((resolve, reject) => {
             const reader = new FileReader();
@@ -641,11 +636,42 @@ export const AdminProductEditorPage: React.FC = () => {
             mimeType: slot.file.type || "image/jpeg",
             filename: slot.file.name || `photo_${idx + 1}.jpg`
           });
+          continue;
         } catch {}
-      } else if (slot.url && slot.url.startsWith("data:")) {
+      }
+
+      if (slot.url && slot.url.startsWith("data:")) {
         photosPayload.push({
           data: slot.url,
           mimeType: slot.url.match(/^data:(image\/[a-zA-Z0-9+.-]+);base64,/)?.[1] || "image/jpeg",
+          filename: `photo_${idx + 1}.jpg`
+        });
+        continue;
+      }
+
+      if (slot.url && (slot.url.startsWith("blob:") || slot.url.startsWith("/"))) {
+        try {
+          const blobRes = await fetch(slot.url);
+          const blobData = await blobRes.blob();
+          const b64 = await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result as string);
+            reader.onerror = reject;
+            reader.readAsDataURL(blobData);
+          });
+          photosPayload.push({
+            data: b64,
+            mimeType: blobData.type || "image/jpeg",
+            filename: `photo_${idx + 1}.jpg`
+          });
+          continue;
+        } catch {}
+      }
+
+      if (slot.url && !slot.url.startsWith("blob:")) {
+        photosPayload.push({
+          data: slot.url,
+          mimeType: slot.url.endsWith(".png") ? "image/png" : slot.url.endsWith(".webp") ? "image/webp" : "image/jpeg",
           filename: `photo_${idx + 1}.jpg`
         });
       }
@@ -1080,184 +1106,365 @@ export const AdminProductEditorPage: React.FC = () => {
   };
 
   // ==========================================
-  // REGENERATE HANDLERS
+  // REGENERATE HANDLERS (FIELD-SPECIFIC & GROUNDED)
   // ==========================================
   const handleRegenerateName = async () => {
+    const currentSlots = imageSlotsRef.current;
+    if (currentSlots.length === 0) {
+      setStatusBanner({
+        type: "warning",
+        text: "Please add or select at least one photograph in Step 1 to regenerate the Product Name."
+      });
+      return;
+    }
+
     setIsGeneratingIdentity(true);
+    setStatusBanner(null);
+
     try {
-      const currentSlots = imageSlotsRef.current;
-      if (currentSlots.length > 0) {
-        const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
-        const res = await adminFetch("/api/admin/products/ai-identify", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            photos: photosPayload,
-            namingStyle: "clinical",
-            preliminaryBrand: "DR.MEDEX"
-          })
+      const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
+      if (photosPayload.length === 0) {
+        setStatusBanner({
+          type: "warning",
+          text: "Photos are still processing or invalid. Please check your image uploads before regenerating."
         });
-        if (res.ok) {
-          const data = await res.json();
-          if (data.success && data.data?.productName) {
-            setProductName(data.data.productName);
-            setHasUnsavedChanges(true);
-            return;
-          }
-        }
+        return;
       }
-      const baseModel = manufacturerModel ? ` – ${manufacturerModel}` : "";
-      const baseEq = equipmentType || "Medical Equipment";
-      setProductName(`DR.MEDEX Advanced ${baseEq}${baseModel} Surgical Solution`);
-      setHasUnsavedChanges(true);
-    } catch (err) {
-      console.warn("Name regeneration error:", err);
+
+      const res = await adminFetch("/api/admin/products/ai-identify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          photos: photosPayload,
+          namingStyle: "clinical",
+          preliminaryBrand: brand || "DR.MEDEX",
+          targetField: "productName",
+          context: {
+            category,
+            subcategory,
+            equipmentType,
+            manufacturerModel,
+            brand: brand || "DR.MEDEX",
+            productName
+          }
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || "Failed to regenerate Product Name from Gemini Vision.");
+      }
+
+      if (data.data?.productName && typeof data.data.productName === "string") {
+        setProductName(data.data.productName.trim());
+        markFieldEdited("productName");
+        setHasUnsavedChanges(true);
+        setStatusBanner({
+          type: "success",
+          text: `Product Name successfully regenerated: "${data.data.productName.trim()}"`
+        });
+      } else {
+        throw new Error("AI response did not contain a valid product name.");
+      }
+    } catch (err: any) {
+      console.warn("Product Name regeneration error:", err.message);
+      setStatusBanner({
+        type: "error",
+        text: err.message || "Product Name regeneration failed. Existing name has been preserved."
+      });
     } finally {
       setIsGeneratingIdentity(false);
     }
   };
 
   const handleRegenerateDescription = async () => {
+    const currentSlots = imageSlotsRef.current;
+    if (currentSlots.length === 0) {
+      setStatusBanner({
+        type: "warning",
+        text: "Please add or select at least one photograph in Step 1 to regenerate the Product Description."
+      });
+      return;
+    }
+
     setIsRegeneratingDescription(true);
+    setStatusBanner(null);
+
     try {
-      const currentSlots = imageSlotsRef.current;
-      if (currentSlots.length > 0) {
-        const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
-        const res = await adminFetch("/api/admin/products/ai-identify", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ photos: photosPayload })
+      const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
+      if (photosPayload.length === 0) {
+        setStatusBanner({
+          type: "warning",
+          text: "Photos are still processing or invalid. Please check your image uploads before regenerating."
         });
-        if (res.ok) {
-          const data = await res.json();
-          if (data.success && data.data?.description) {
-            setDescription(data.data.description);
-            setFullDescription(data.data.description);
-            setShortDescription(data.data.description.slice(0, 180));
-            setHasUnsavedChanges(true);
-            return;
-          }
-        }
+        return;
       }
-      const descText = `Engineered for rigorous healthcare and surgical environments, the ${productName || "DR.MEDEX medical device"} integrates high-durability medical-grade construction with refined operational ergonomics. Designed to meet exacting clinical workflow demands, it provides consistent operating reliability, streamlined maintenance protocols, and intuitive handling for clinical specialists.`;
-      setDescription(descText);
-      setFullDescription(descText);
-      setShortDescription(descText.slice(0, 180));
-      setHasUnsavedChanges(true);
-    } catch (err) {
-      console.warn("Description regeneration error:", err);
+
+      const res = await adminFetch("/api/admin/products/ai-identify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          photos: photosPayload,
+          namingStyle: "clinical",
+          preliminaryBrand: brand || "DR.MEDEX",
+          targetField: "description",
+          context: {
+            category,
+            subcategory,
+            equipmentType,
+            manufacturerModel,
+            brand: brand || "DR.MEDEX",
+            productName,
+            description
+          }
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || "Failed to regenerate Product Description from Gemini Vision.");
+      }
+
+      const newDesc = data.data?.description || data.data?.clinicalOverview;
+      if (newDesc && typeof newDesc === "string" && newDesc.trim().length > 0) {
+        const cleanDesc = newDesc.trim();
+        setDescription(cleanDesc);
+        setFullDescription(cleanDesc);
+        markFieldEdited("description");
+        setHasUnsavedChanges(true);
+        setStatusBanner({
+          type: "success",
+          text: "Clinical & Operational Overview successfully regenerated via Gemini AI."
+        });
+      } else {
+        throw new Error("AI response did not contain a valid clinical description.");
+      }
+    } catch (err: any) {
+      console.warn("Product Description regeneration error:", err.message);
+      setStatusBanner({
+        type: "error",
+        text: err.message || "Product Description regeneration failed. Existing description has been preserved."
+      });
     } finally {
       setIsRegeneratingDescription(false);
     }
   };
 
   const handleRegenerateIndications = async () => {
+    const currentSlots = imageSlotsRef.current;
+    if (currentSlots.length === 0) {
+      setStatusBanner({
+        type: "warning",
+        text: "Please add or select at least one photograph in Step 1 to regenerate Clinical Indications."
+      });
+      return;
+    }
+
     setIsRegeneratingIndications(true);
+    setStatusBanner(null);
+
     try {
-      const currentSlots = imageSlotsRef.current;
-      if (currentSlots.length > 0) {
-        const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
-        const res = await adminFetch("/api/admin/products/ai-identify", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ photos: photosPayload })
+      const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
+      if (photosPayload.length === 0) {
+        setStatusBanner({
+          type: "warning",
+          text: "Photos are still processing or invalid. Please check your image uploads before regenerating."
         });
-        if (res.ok) {
-          const data = await res.json();
-          const indications = data.data?.clinicalIndications;
-          if (Array.isArray(indications) && indications.length > 0) {
-            setClinicalIndications(indications);
-            setHasUnsavedChanges(true);
-            return;
+        return;
+      }
+
+      const res = await adminFetch("/api/admin/products/ai-identify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          photos: photosPayload,
+          targetField: "clinicalIndications",
+          context: {
+            category,
+            subcategory,
+            equipmentType,
+            manufacturerModel,
+            productName
           }
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || "Failed to regenerate Clinical Indications from Gemini Vision.");
+      }
+
+      const indications = data.data?.clinicalIndications || data.data?.intendedUses;
+      if (Array.isArray(indications) && indications.length > 0) {
+        const cleanList = indications.map(String).map(s => s.trim()).filter(Boolean);
+        if (cleanList.length > 0) {
+          setClinicalIndications(cleanList);
+          markFieldEdited("clinicalIndications");
+          setHasUnsavedChanges(true);
+          setStatusBanner({
+            type: "success",
+            text: `Successfully regenerated ${cleanList.length} Clinical Indications via Gemini AI.`
+          });
+          return;
         }
       }
-      const defaultList = [
-        "Hospital Operating Theatres & Minor Surgical Suites",
-        "Specialised Outpatient Procedure Rooms",
-        "Critical Care & Trauma Resuscitation Units"
-      ];
-      setClinicalIndications(defaultList);
-      setHasUnsavedChanges(true);
-    } catch (err) {
-      console.warn("Indications regeneration error:", err);
+      throw new Error("AI response did not contain valid clinical indications.");
+    } catch (err: any) {
+      console.warn("Indications regeneration error:", err.message);
+      setStatusBanner({
+        type: "error",
+        text: err.message || "Clinical Indications regeneration failed. Existing indications preserved."
+      });
     } finally {
       setIsRegeneratingIndications(false);
     }
   };
 
   const handleRegenerateHighlights = async () => {
+    const currentSlots = imageSlotsRef.current;
+    if (currentSlots.length === 0) {
+      setStatusBanner({
+        type: "warning",
+        text: "Please add or select at least one photograph in Step 1 to regenerate Engineering Highlights."
+      });
+      return;
+    }
+
     setIsRegeneratingHighlights(true);
+    setStatusBanner(null);
+
     try {
-      const currentSlots = imageSlotsRef.current;
-      if (currentSlots.length > 0) {
-        const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
-        const res = await adminFetch("/api/admin/products/ai-identify", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ photos: photosPayload })
+      const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
+      if (photosPayload.length === 0) {
+        setStatusBanner({
+          type: "warning",
+          text: "Photos are still processing or invalid. Please check your image uploads before regenerating."
         });
-        if (res.ok) {
-          const data = await res.json();
-          const highlights = data.data?.engineeringHighlights;
-          if (Array.isArray(highlights) && highlights.length > 0) {
-            setEngineeringHighlights(highlights);
-            setHasUnsavedChanges(true);
-            return;
+        return;
+      }
+
+      const res = await adminFetch("/api/admin/products/ai-identify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          photos: photosPayload,
+          targetField: "engineeringHighlights",
+          context: {
+            category,
+            subcategory,
+            equipmentType,
+            manufacturerModel,
+            productName
           }
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || "Failed to regenerate Engineering Highlights from Gemini Vision.");
+      }
+
+      const highlights = data.data?.engineeringHighlights || data.data?.keyFeatures;
+      if (Array.isArray(highlights) && highlights.length > 0) {
+        const cleanList = highlights.map(String).map(s => s.trim()).filter(Boolean);
+        if (cleanList.length > 0) {
+          setEngineeringHighlights(cleanList);
+          markFieldEdited("engineeringHighlights");
+          setHasUnsavedChanges(true);
+          setStatusBanner({
+            type: "success",
+            text: `Successfully regenerated ${cleanList.length} Engineering Highlights via Gemini AI.`
+          });
+          return;
         }
       }
-      const defaultList = [
-        "Precision-engineered articulating suspension with smooth balanced counterbalance",
-        "Hospital-grade antimicrobial surface coating resistant to standard hospital disinfectants",
-        "Low heat dissipation architecture for enhanced practitioner comfort during extended procedures"
-      ];
-      setEngineeringHighlights(defaultList);
-      setHasUnsavedChanges(true);
-    } catch (err) {
-      console.warn("Highlights regeneration error:", err);
+      throw new Error("AI response did not contain valid engineering highlights.");
+    } catch (err: any) {
+      console.warn("Highlights regeneration error:", err.message);
+      setStatusBanner({
+        type: "error",
+        text: err.message || "Engineering Highlights regeneration failed. Existing highlights preserved."
+      });
     } finally {
       setIsRegeneratingHighlights(false);
     }
   };
 
   const handleRegeneratePackage = async () => {
+    const currentSlots = imageSlotsRef.current;
+    if (currentSlots.length === 0) {
+      setStatusBanner({
+        type: "warning",
+        text: "Please add or select at least one photograph in Step 1 to regenerate Package Contents."
+      });
+      return;
+    }
+
     setIsRegeneratingPackage(true);
+    setStatusBanner(null);
+
     try {
-      const currentSlots = imageSlotsRef.current;
-      if (currentSlots.length > 0) {
-        const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
-        const res = await adminFetch("/api/admin/products/ai-identify", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ photos: photosPayload })
+      const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
+      if (photosPayload.length === 0) {
+        setStatusBanner({
+          type: "warning",
+          text: "Photos are still processing or invalid. Please check your image uploads before regenerating."
         });
-        if (res.ok) {
-          const data = await res.json();
-          const items = data.data?.packageItems;
-          if (Array.isArray(items) && items.length > 0) {
-            setPackageItems(items.map((it: any, idx: number) => ({
-              id: it.id || `pkg-${idx}-${Date.now()}`,
-              name: typeof it === "string" ? it : (it.name || it.item || ""),
-              type: (it.type?.toLowerCase() === "optional" || it.type?.toLowerCase() === "confirmation")
-                ? it.type.toLowerCase() as any
-                : "standard"
-            })));
-            setHasUnsavedChanges(true);
-            return;
+        return;
+      }
+
+      const res = await adminFetch("/api/admin/products/ai-identify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          photos: photosPayload,
+          targetField: "packageItems",
+          context: {
+            category,
+            subcategory,
+            equipmentType,
+            manufacturerModel,
+            productName
           }
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || "Failed to regenerate Package Contents from Gemini Vision.");
+      }
+
+      const items = data.data?.packageItems || data.data?.packageContents;
+      if (Array.isArray(items) && items.length > 0) {
+        const normalized = items.map((it: any, idx: number) => {
+          const rawName = typeof it === "string" ? it : (it.name || it.item || "");
+          const rawType = String(it.type || "standard").toLowerCase();
+          const cleanType = (rawType === "optional" || rawType === "confirmation") ? rawType : "standard";
+          return {
+            id: it.id || `pkg-${idx + 1}-${Date.now()}`,
+            name: String(rawName).trim(),
+            type: cleanType as any
+          };
+        }).filter((it: any) => it.name.length > 0);
+
+        if (normalized.length > 0) {
+          setPackageItems(normalized);
+          markFieldEdited("packageItems");
+          setHasUnsavedChanges(true);
+          setStatusBanner({
+            type: "success",
+            text: `Successfully regenerated ${normalized.length} Package Items via Gemini AI.`
+          });
+          return;
         }
       }
-      const defaultItems: PackageItem[] = [
-        { id: "1", name: `${productName || "Core Medical Unit"} Main Body Assembly`, type: "standard" },
-        { id: "2", name: "Standard Mounting Hardware & Anchor Kit", type: "standard" },
-        { id: "3", name: "Comprehensive Clinical Operation Manual", type: "standard" },
-        { id: "4", name: "Extended Auxiliary Cable Harness", type: "optional" }
-      ];
-      setPackageItems(defaultItems);
-      setHasUnsavedChanges(true);
-    } catch (err) {
-      console.warn("Package regeneration error:", err);
+      throw new Error("AI response did not contain valid package items.");
+    } catch (err: any) {
+      console.warn("Package regeneration error:", err.message);
+      setStatusBanner({
+        type: "error",
+        text: err.message || "Package Contents regeneration failed. Existing items preserved."
+      });
     } finally {
       setIsRegeneratingPackage(false);
     }
@@ -1518,8 +1725,10 @@ export const AdminProductEditorPage: React.FC = () => {
       bestseller: isBestSeller,
       isBestSeller,
       categoryGridVisible,
-      metaTitle: metaTitle.trim() || productName.trim(),
-      metaDescription: metaDescription.trim() || mainDescription.slice(0, 160).trim(),
+      metaTitle: metaTitle.trim(),
+      seoTitle: metaTitle.trim(),
+      metaDescription: metaDescription.trim(),
+      seoDescription: metaDescription.trim(),
 
       // Legacy documentation fields
       certificationStatus,
@@ -1715,14 +1924,12 @@ export const AdminProductEditorPage: React.FC = () => {
                 }`}
               >
                 <div
-                  className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all border ${
+                  className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
                     step.isDone
-                      ? isActive
-                        ? "bg-[#F4C542] text-black ring-2 ring-white border-white shadow-xs"
-                        : "bg-[#F4C542] text-black border-white shadow-xs"
+                      ? "bg-[#FFD400] text-black border-0 shadow-xs ring-0"
                       : isActive
-                      ? "bg-[#C62828] text-white ring-2 ring-white border-white"
-                      : "border-white/40 text-white/70 bg-white/10"
+                      ? "border border-white bg-[#C62828] text-white ring-2 ring-white"
+                      : "border border-white/40 text-white/70 bg-white/10"
                   }`}
                 >
                   {step.isDone ? <Check size={14} strokeWidth={3} className="text-black" /> : step.id}
@@ -2224,7 +2431,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   Clinical & Operational Overview <span className="text-[#C62828] font-bold">*</span>
                 </label>
                 <textarea
-                  rows={8}
+                  rows={12}
                   value={description}
                   onChange={(e) => {
                     setDescription(e.target.value);
@@ -2233,7 +2440,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     setHasUnsavedChanges(true);
                   }}
                   placeholder="Enter product description explaining purpose, design, intended surgical workflow, and clinical advantages..."
-                  className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none leading-relaxed"
+                  className="w-full min-h-[220px] resize-y px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none leading-relaxed"
                 />
                 <div className="flex items-center justify-between text-[11px] text-white/80 font-mono">
                   <span>Main description only. Specs and package lists are managed in their own cards.</span>

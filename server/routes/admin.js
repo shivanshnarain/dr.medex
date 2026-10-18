@@ -1722,7 +1722,14 @@ router.post("/products/ai-identify", requireAdmin, async (req, res) => {
 
     const namingStyle = req.body.namingStyle || "clinical";
     const preliminaryBrand = req.body.preliminaryBrand || req.body.brand || "DR.MEDEX";
-    const result = await geminiVisionService.identifyProductFromPhotos(photos, { namingStyle, preliminaryBrand });
+    const targetField = req.body.targetField || null;
+    const context = req.body.context || {};
+    const result = await geminiVisionService.identifyProductFromPhotos(photos, {
+      namingStyle,
+      preliminaryBrand,
+      targetField,
+      context
+    });
 
     auditService.logAction(req.admin.email, "AI_PRODUCT_IDENTIFIED", null, {
       photosCount: photos.length,

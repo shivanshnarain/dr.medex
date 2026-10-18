@@ -533,6 +533,95 @@ export const ProductDetailPage: React.FC = () => {
     };
   }, []);
 
+  // Dynamic SEO Metadata Management (Meta Title & Description with fallback hierarchy and stale cleanup)
+  useEffect(() => {
+    if (!product) return;
+
+    // 1. Resolve SEO Meta Title with safe fallback hierarchy:
+    // metaTitle -> seoTitle -> storefrontProductTitle -> title -> productName -> fallback
+    const customTitle = (product.metaTitle || product.seoTitle || "").trim();
+    const fallbackTitle = (
+      product.storefrontProductTitle ||
+      product.title ||
+      product.productName ||
+      "Medical Equipment"
+    ).trim();
+
+    const baseTitle = customTitle || fallbackTitle;
+    const documentTitle = baseTitle.toLowerCase().includes("dr.medex")
+      ? baseTitle
+      : `${baseTitle} | DR.MEDEX Global`;
+
+    const previousTitle = document.title;
+    document.title = documentTitle;
+
+    // 2. Resolve SEO Meta Description with safe fallback hierarchy:
+    // metaDescription -> seoDescription -> shortDescription -> overview -> fullDescription -> fallback
+    const customDesc = (product.metaDescription || product.seoDescription || "").trim();
+    const fallbackDesc = (
+      product.shortDescription ||
+      product.overview ||
+      product.fullDescription ||
+      "Certified hospital-grade medical equipment and specialized surgical technology from DR.MEDEX Global."
+    ).trim();
+
+    const rawDesc = customDesc || fallbackDesc;
+    // Strip HTML tags and normalize whitespace to prevent raw HTML injection
+    const cleanDesc = rawDesc
+      .replace(/<[^>]*>?/gm, "")
+      .replace(/\s+/g, " ")
+      .slice(0, 320)
+      .trim();
+
+    // 3. Update or inject <meta name="description">
+    let descMeta = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
+    let createdDescMeta = false;
+    let prevDescContent = "";
+
+    if (!descMeta) {
+      descMeta = document.createElement("meta");
+      descMeta.name = "description";
+      document.head.appendChild(descMeta);
+      createdDescMeta = true;
+    } else {
+      prevDescContent = descMeta.getAttribute("content") || "";
+    }
+    descMeta.setAttribute("content", cleanDesc);
+
+    // 4. Update OpenGraph tags
+    const ogTitle = document.querySelector('meta[property="og:title"]') as HTMLMetaElement | null;
+    let prevOgTitle = "";
+    if (ogTitle) {
+      prevOgTitle = ogTitle.getAttribute("content") || "";
+      ogTitle.setAttribute("content", documentTitle);
+    }
+
+    const ogDesc = document.querySelector('meta[property="og:description"]') as HTMLMetaElement | null;
+    let prevOgDesc = "";
+    if (ogDesc) {
+      prevOgDesc = ogDesc.getAttribute("content") || "";
+      ogDesc.setAttribute("content", cleanDesc);
+    }
+
+    // 5. Cleanup on unmount or product transition so metadata from product A does NOT leak into product B
+    return () => {
+      document.title = previousTitle || "DR.MEDEX — Medical Equipment";
+      if (descMeta) {
+        if (createdDescMeta && descMeta.parentNode) {
+          descMeta.parentNode.removeChild(descMeta);
+        } else if (prevDescContent) {
+          descMeta.setAttribute("content", prevDescContent);
+        }
+      }
+      if (ogTitle && prevOgTitle) {
+        ogTitle.setAttribute("content", prevOgTitle);
+      }
+      if (ogDesc && prevOgDesc) {
+        ogDesc.setAttribute("content", prevOgDesc);
+      }
+    };
+  }, [product]);
+
   // Gallery autoplay timer (~4.5 seconds), pauses on user interaction or background tab
   const imagesCount = product?.images?.length || 0;
   useEffect(() => {

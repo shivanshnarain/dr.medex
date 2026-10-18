@@ -62,6 +62,8 @@ export interface Product {
   maintenanceInformation?: string;
   metaTitle?: string;
   metaDescription?: string;
+  seoTitle?: string;
+  seoDescription?: string;
   keywords?: string[];
   canonicalSlug?: string;
   relatedProducts?: string[];
