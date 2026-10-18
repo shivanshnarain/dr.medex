@@ -533,45 +533,54 @@ export const AdminProductEditorPage: React.FC = () => {
     // All uploaded photographs, persistent URLs, and current slot ordering remain untouched
 
     // Step 2: Product Classification
-    if (result.primaryCategory) {
+    let targetCatKey = result.primaryCategoryId;
+    if (!targetCatKey && result.primaryCategory) {
       const suggestedCat = String(result.primaryCategory).toLowerCase();
       const catEntry = Object.entries(catalogueHierarchy).find(
-        ([k, v]: [string, any]) => v.name.toLowerCase() === suggestedCat || k.toLowerCase() === suggestedCat
+        ([k, v]: [string, any]) => v.name.toLowerCase() === suggestedCat || k.toLowerCase() === suggestedCat || suggestedCat.includes(k) || v.name.toLowerCase().includes(suggestedCat)
       );
-      if (catEntry) {
-        const [catKey, catVal] = catEntry;
-        if (!preserveManualEdits || !manuallyEditedFields.has("category")) {
-          setCategory(catKey);
-          populated.add("category");
-        }
+      if (catEntry) targetCatKey = catEntry[0];
+    }
 
-        if (result.subcategory && catVal.subcategories) {
+    if (targetCatKey) {
+      if (!preserveManualEdits || !manuallyEditedFields.has("category")) {
+        setCategory(targetCatKey);
+        populated.add("category");
+      }
+
+      const catVal = (catalogueHierarchy as any)[targetCatKey];
+      if (catVal && catVal.subcategories) {
+        let targetSubId = result.subcategoryId;
+        if (!targetSubId && result.subcategory) {
           const suggestedSub = String(result.subcategory).toLowerCase();
           const subEntry = catVal.subcategories.find(
-            (s: any) => s.name.toLowerCase() === suggestedSub || s.id.toLowerCase() === suggestedSub
+            (s: any) => s.name.toLowerCase() === suggestedSub || s.id.toLowerCase() === suggestedSub || suggestedSub.includes(s.name.toLowerCase()) || s.name.toLowerCase().includes(suggestedSub)
           );
-          if (subEntry) {
-            if (!preserveManualEdits || !manuallyEditedFields.has("subcategory")) {
-              setSubcategory(subEntry.id || subEntry.name);
-              populated.add("subcategory");
+          if (subEntry) targetSubId = subEntry.id;
+        }
+
+        if (targetSubId) {
+          if (!preserveManualEdits || !manuallyEditedFields.has("subcategory")) {
+            setSubcategory(targetSubId);
+            populated.add("subcategory");
+          }
+
+          const subVal = catVal.subcategories.find((s: any) => s.id === targetSubId);
+          if (subVal && subVal.equipmentTypes) {
+            let targetEqName = "";
+            const suggestedEq = String(result.equipmentType || "").toLowerCase();
+            const eqEntry = subVal.equipmentTypes.find(
+              (e: any) => e.name.toLowerCase() === suggestedEq || e.id.toLowerCase() === suggestedEq || suggestedEq.includes(e.name.toLowerCase()) || e.name.toLowerCase().includes(suggestedEq)
+            );
+            if (eqEntry) {
+              targetEqName = eqEntry.name;
+            } else if (result.equipmentType) {
+              targetEqName = result.equipmentType;
             }
 
-            if (result.equipmentType && subEntry.equipmentTypes) {
-              const suggestedEq = String(result.equipmentType).toLowerCase();
-              const eqEntry = subEntry.equipmentTypes.find(
-                (e: any) => e.name.toLowerCase() === suggestedEq || e.id.toLowerCase() === suggestedEq
-              );
-              if (eqEntry) {
-                if (!preserveManualEdits || !manuallyEditedFields.has("equipmentType")) {
-                  setEquipmentType(eqEntry.name);
-                  populated.add("equipmentType");
-                }
-              } else {
-                if (!preserveManualEdits || !manuallyEditedFields.has("equipmentType")) {
-                  setEquipmentType(result.equipmentType);
-                  populated.add("equipmentType");
-                }
-              }
+            if (targetEqName && (!preserveManualEdits || !manuallyEditedFields.has("equipmentType"))) {
+              setEquipmentType(targetEqName);
+              populated.add("equipmentType");
             }
           }
         }
@@ -600,7 +609,9 @@ export const AdminProductEditorPage: React.FC = () => {
       }
     }
     if (!preserveManualEdits || !manuallyEditedFields.has("internalModelId")) {
-      if (result.manufacturerModel) {
+      if (result.internalModelId) {
+        setInternalModelId(result.internalModelId);
+      } else if (result.manufacturerModel) {
         setInternalModelId(result.manufacturerModel);
       } else if (result.productName) {
         const cleanSlug = result.productName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -609,7 +620,7 @@ export const AdminProductEditorPage: React.FC = () => {
       populated.add("internalModelId");
     }
     if (!isEditMode && (!sku || !manuallyEditedFields.has("sku"))) {
-      fetchNewSku(category);
+      fetchNewSku(targetCatKey || category);
       populated.add("sku");
     }
     if (!preserveManualEdits || !manuallyEditedFields.has("slug")) {
@@ -677,7 +688,7 @@ export const AdminProductEditorPage: React.FC = () => {
     if (!preserveManualEdits || !manuallyEditedFields.has("specList")) {
       if (Array.isArray(result.technicalSpecifications) && result.technicalSpecifications.length > 0) {
         const newSpecs = result.technicalSpecifications.map((s: any) => ({
-          key: s.parameter || "",
+          key: s.parameter || s.key || "",
           value: s.value || "",
           unit: s.unit || "",
           note: s.note || ""
@@ -695,8 +706,9 @@ export const AdminProductEditorPage: React.FC = () => {
 
     // Step 6: Documentation & SEO
     if (!preserveManualEdits || !manuallyEditedFields.has("regulatoryClass")) {
-      if (result.regulatoryClassification) {
-        setRegulatoryClass(result.regulatoryClassification);
+      const regClass = result.regulatoryClass || result.regulatoryClassification;
+      if (regClass) {
+        setRegulatoryClass(regClass);
         populated.add("regulatoryClass");
       }
     }
@@ -705,14 +717,16 @@ export const AdminProductEditorPage: React.FC = () => {
       populated.add("certificationStatus");
     }
     if (!preserveManualEdits || !manuallyEditedFields.has("metaTitle")) {
-      if (result.seoTitle) {
-        setMetaTitle(result.seoTitle);
+      const mTitle = result.seoTitle || result.metaTitle;
+      if (mTitle) {
+        setMetaTitle(mTitle);
         populated.add("metaTitle");
       }
     }
     if (!preserveManualEdits || !manuallyEditedFields.has("metaDescription")) {
-      if (result.seoDescription) {
-        setMetaDescription(result.seoDescription);
+      const mDesc = result.seoDescription || result.metaDescription;
+      if (mDesc) {
+        setMetaDescription(mDesc);
         populated.add("metaDescription");
       }
     }
@@ -727,14 +741,18 @@ export const AdminProductEditorPage: React.FC = () => {
   };
 
   const triggerAiIdentification = async () => {
-    // Collect valid persisted photos (max 5)
-    const validPhotos = imageSlots
-      .filter((s) => s.status === "persisted" && !s.url.startsWith("blob:") && !s.url.startsWith("data:"))
-      .map((s) => s.url)
-      .slice(0, 5);
+    // Check if slots are currently uploading; wait briefly for active uploads to finish
+    if (imageSlotsRef.current.some((s) => s.status === "uploading")) {
+      setAiIdentifyPhase("reading_photos");
+      const startWait = Date.now();
+      while (imageSlotsRef.current.some((s) => s.status === "uploading") && Date.now() - startWait < 15000) {
+        await new Promise((r) => setTimeout(r, 300));
+      }
+    }
 
-    if (validPhotos.length === 0) {
-      setAiIdentifyError("Please ensure at least one photograph is uploaded to Cloudinary before running AI analysis.");
+    const currentSlots = imageSlotsRef.current;
+    if (currentSlots.length === 0) {
+      setAiIdentifyError("Please upload at least one photograph of the medical equipment before running AI analysis.");
       return;
     }
 
@@ -746,8 +764,45 @@ export const AdminProductEditorPage: React.FC = () => {
     setAiIdentifyPhase("reading_photos");
 
     try {
-      // 1. Reading product photographs
-      await new Promise((r) => setTimeout(r, 100));
+      // Build photos payload: prefer persisted URL, or convert File to base64 if upload is pending/local
+      const photosPayload: Array<{ data: string; mimeType: string; filename: string }> = [];
+      const slotsToProcess = currentSlots.slice(0, 5);
+
+      for (let idx = 0; idx < slotsToProcess.length; idx++) {
+        const slot = slotsToProcess[idx];
+        if (slot.status === "persisted" && slot.url && !slot.url.startsWith("blob:") && !slot.url.startsWith("data:")) {
+          photosPayload.push({
+            data: slot.url,
+            mimeType: slot.url.endsWith(".png") ? "image/png" : slot.url.endsWith(".webp") ? "image/webp" : "image/jpeg",
+            filename: `photo_${idx + 1}.jpg`
+          });
+        } else if (slot.file) {
+          try {
+            const b64 = await new Promise<string>((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => resolve(reader.result as string);
+              reader.onerror = reject;
+              reader.readAsDataURL(slot.file!);
+            });
+            photosPayload.push({
+              data: b64,
+              mimeType: slot.file.type || "image/jpeg",
+              filename: slot.file.name || `photo_${idx + 1}.jpg`
+            });
+          } catch {}
+        } else if (slot.url && slot.url.startsWith("data:")) {
+          photosPayload.push({
+            data: slot.url,
+            mimeType: slot.url.match(/^data:(image\/[a-zA-Z0-9+.-]+);base64,/)?.[1] || "image/jpeg",
+            filename: `photo_${idx + 1}.jpg`
+          });
+        }
+      }
+
+      if (photosPayload.length === 0) {
+        throw new Error("No readable photographs found. Please ensure at least one valid image is selected.");
+      }
+
       if (activeAnalysisIdRef.current !== thisAnalysisId) return;
 
       // 2. Identifying equipment
@@ -756,13 +811,7 @@ export const AdminProductEditorPage: React.FC = () => {
       const res = await adminFetch("/api/admin/products/ai-identify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          photos: validPhotos.map((url, idx) => ({
-            data: url,
-            mimeType: url.endsWith(".png") ? "image/png" : url.endsWith(".webp") ? "image/webp" : "image/jpeg",
-            filename: `photo_${idx + 1}.jpg`
-          }))
-        })
+        body: JSON.stringify({ photos: photosPayload })
       });
 
       if (activeAnalysisIdRef.current !== thisAnalysisId) return;
@@ -796,10 +845,14 @@ export const AdminProductEditorPage: React.FC = () => {
         const errMsg = err?.message || "Failed to identify medical equipment.";
         if (errMsg.includes("GEMINI_API_KEY") || errMsg.includes("not configured")) {
           setAiIdentifyError("Smart Product Assistant: GEMINI_API_KEY is not configured on this server. Please ensure GEMINI_API_KEY or GOOGLE_API_KEY is configured in Vercel Environment Variables and redeployed. Your original photos are safely preserved.");
+        } else if (errMsg.includes("invalid") || errMsg.includes("PERMISSION_DENIED") || errMsg.includes("credentials")) {
+          setAiIdentifyError("Smart Product Assistant: Gemini API credentials are invalid or lack vision permissions. Please verify the API key. Your original photos are safely preserved.");
         } else if (errMsg.includes("rate limit") || errMsg.includes("quota") || errMsg.includes("RESOURCE_EXHAUSTED")) {
           setAiIdentifyError("Smart Product Assistant: Gemini API quota or rate limit exceeded. Please retry in a few moments. Your original photos are safely preserved.");
-        } else if (errMsg.includes("timed out") || errMsg.includes("timeout")) {
+        } else if (errMsg.includes("timed out") || errMsg.includes("timeout") || errMsg.includes("DEADLINE_EXCEEDED")) {
           setAiIdentifyError("Smart Product Assistant: Request timed out while analyzing photographs. Please retry. Your original photos are safely preserved.");
+        } else if (errMsg.includes("high demand") || errMsg.includes("503") || errMsg.includes("temporarily unavailable")) {
+          setAiIdentifyError("Smart Product Assistant: Google Gemini AI services are temporarily experiencing high demand. Please retry in a few moments. Your original photos are safely preserved.");
         } else {
           setAiIdentifyError(`AI analysis failed: ${errMsg}. Your uploaded photos are preserved and you can continue editing manually.`);
         }
@@ -1881,10 +1934,10 @@ export const AdminProductEditorPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => triggerAiIdentification()}
-                disabled={isAiIdentifying || imageSlots.filter((s) => s.status === "persisted").length === 0}
+                disabled={isAiIdentifying || imageSlots.length === 0}
                 className="flex items-center gap-2 px-3.5 py-1.5 bg-[#D92D32] hover:bg-[#b82226] disabled:opacity-50 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer shrink-0"
                 title={
-                  imageSlots.filter((s) => s.status === "persisted").length === 0
+                  imageSlots.length === 0
                     ? "Upload at least one photograph to run optional AI analysis"
                     : "Run optional AI identification on uploaded photos"
                 }

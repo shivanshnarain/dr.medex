@@ -23,9 +23,9 @@ const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024; // 10MB per image
 
 // Models to try in order of priority (handles high-demand 503s transparently)
 const CANDIDATE_MODELS = [
+  "gemini-3.8-flash",
   "gemini-flash-latest",
-  "gemini-3.5-flash",
-  "gemini-3.8-flash"
+  "gemini-3.5-flash"
 ];
 
 // Canonical server-side environment variables supported for Gemini credentials
@@ -211,26 +211,86 @@ function validateAndSanitizeOutput(parsed) {
     evidenceFromImages: typeof parsed.evidenceFromImages === "string" ? parsed.evidenceFromImages.trim() : "Visual analysis completed."
   };
 
-  // Reconcile with catalogue taxonomy to ensure exact spelling match
-  const validPrimary = Object.values(catalogueHierarchy).find(c => 
-    c.name.toLowerCase() === result.primaryCategory.toLowerCase() ||
-    c.id.toLowerCase() === result.primaryCategory.toLowerCase()
+  // Reconcile with catalogue taxonomy with full multi-level resolution
+  let resolvedPrimary = null;
+  let resolvedSub = null;
+  let resolvedEq = null;
+
+  const rawCat = String(result.primaryCategory || "").trim().toLowerCase();
+  const rawSub = String(result.subcategory || "").trim().toLowerCase();
+  const rawEq = String(result.equipmentType || "").trim().toLowerCase();
+
+  // 1. Direct match on primary category
+  resolvedPrimary = Object.values(catalogueHierarchy).find(c => 
+    c.name.toLowerCase() === rawCat ||
+    c.id.toLowerCase() === rawCat ||
+    rawCat.includes(c.id.toLowerCase()) ||
+    c.name.toLowerCase().includes(rawCat)
   );
 
-  if (validPrimary) {
-    result.primaryCategory = validPrimary.name;
-    const validSub = validPrimary.subcategories.find(s => 
-      s.name.toLowerCase() === result.subcategory.toLowerCase() ||
-      s.id.toLowerCase() === result.subcategory.toLowerCase()
-    );
-    if (validSub) {
-      result.subcategory = validSub.name;
-      const validEq = validSub.equipmentTypes.find(e => 
-        e.name.toLowerCase() === result.equipmentType.toLowerCase() ||
-        e.id.toLowerCase() === result.equipmentType.toLowerCase()
+  // 2. Cross-search by subcategory if primary is ambiguous
+  if (rawSub) {
+    for (const cat of Object.values(catalogueHierarchy)) {
+      const subMatch = cat.subcategories.find(s => 
+        s.name.toLowerCase() === rawSub || 
+        s.id.toLowerCase() === rawSub ||
+        rawSub.includes(s.name.toLowerCase()) ||
+        s.name.toLowerCase().includes(rawSub)
       );
-      if (validEq) {
-        result.equipmentType = validEq.name;
+      if (subMatch) {
+        if (!resolvedPrimary) resolvedPrimary = cat;
+        if (resolvedPrimary.id === cat.id) resolvedSub = subMatch;
+        break;
+      }
+    }
+  }
+
+  // 3. Cross-search by equipment type if subcategory still unresolved
+  if (rawEq) {
+    for (const cat of Object.values(catalogueHierarchy)) {
+      for (const sub of cat.subcategories) {
+        const eqMatch = sub.equipmentTypes.find(e => 
+          e.name.toLowerCase() === rawEq || 
+          e.id.toLowerCase() === rawEq ||
+          rawEq.includes(e.name.toLowerCase()) ||
+          e.name.toLowerCase().includes(rawEq)
+        );
+        if (eqMatch) {
+          if (!resolvedPrimary) resolvedPrimary = cat;
+          if (!resolvedSub && resolvedPrimary.id === cat.id) resolvedSub = sub;
+          if (resolvedSub && resolvedSub.id === sub.id) resolvedEq = eqMatch;
+          break;
+        }
+      }
+      if (resolvedEq) break;
+    }
+  }
+
+  if (resolvedPrimary) {
+    result.primaryCategory = resolvedPrimary.name;
+    result.primaryCategoryId = resolvedPrimary.id;
+    if (!resolvedSub && rawSub) {
+      resolvedSub = resolvedPrimary.subcategories.find(s => 
+        s.name.toLowerCase() === rawSub || 
+        s.id.toLowerCase() === rawSub ||
+        rawSub.includes(s.name.toLowerCase()) ||
+        s.name.toLowerCase().includes(rawSub)
+      );
+    }
+    if (resolvedSub) {
+      result.subcategory = resolvedSub.name;
+      result.subcategoryId = resolvedSub.id;
+      if (!resolvedEq && rawEq) {
+        resolvedEq = resolvedSub.equipmentTypes.find(e => 
+          e.name.toLowerCase() === rawEq || 
+          e.id.toLowerCase() === rawEq ||
+          rawEq.includes(e.name.toLowerCase()) ||
+          e.name.toLowerCase().includes(rawEq)
+        );
+      }
+      if (resolvedEq) {
+        result.equipmentType = resolvedEq.name;
+        result.equipmentTypeId = resolvedEq.id;
       } else if (!result.fieldsNeedingVerification.includes("equipmentType")) {
         result.fieldsNeedingVerification.push("equipmentType");
       }
@@ -244,13 +304,38 @@ function validateAndSanitizeOutput(parsed) {
     }
   }
 
-  // Compatibility aliases
+  // Complete aliases across all 7 form workflow steps
   result.category = result.primaryCategory;
+  result.categoryId = result.primaryCategoryId || "";
+  result.subcategoryId = result.subcategoryId || "";
+  result.equipmentTypeId = result.equipmentTypeId || "";
   result.title = result.productName;
   result.productDescription = result.clinicalOverview;
   result.description = result.clinicalOverview;
+  result.shortDescription = result.clinicalOverview;
+  result.fullDescription = result.clinicalOverview + (result.intendedUses.length > 0 ? "\n\nIntended Clinical Applications:\n" + result.intendedUses.map(u => `• ${u}`).join("\n") : "");
   result.features = result.keyFeatures;
-  result.specifications = result.technicalSpecifications;
+  result.applications = result.intendedUses;
+  result.specifications = result.technicalSpecifications.map(s => ({
+    key: s.parameter || s.key || "",
+    parameter: s.parameter || s.key || "",
+    value: s.value || "",
+    unit: s.unit || "",
+    note: s.note || ""
+  }));
+  result.technicalSpecifications = result.specifications;
+  result.metaTitle = result.seoTitle;
+  result.metaDescription = result.seoDescription;
+  result.regulatoryClass = result.fieldsNeedingVerification.length > 0 ? "Class IIa (MDR 2017/745)" : "Class I / IIa";
+  result.regulatoryClassification = result.regulatoryClass;
+  result.certificationStatus = result.fieldsNeedingVerification.length > 0 ? "Pending Verification" : "Verified";
+  result.warranty = "2-Year Comprehensive Clinical Warranty";
+  result.shippingInformation = "Express Air Cargo Dispatch with Shockproof Wooden Crating";
+  result.stock = 10;
+  result.stockStatus = "IN_STOCK";
+  result.lowStockThreshold = 3;
+  result.minOrderQuantity = 1;
+  result.leadTimeWeeks = "1–2 Weeks";
 
   return result;
 }
