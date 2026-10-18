@@ -21,21 +21,31 @@ function buildProductFilter(identifier) {
 }
 
 function getNormalizedUri() {
-  let raw = process.env.MONGODB_URI || "mongodb+srv://roshanofficial0009_db_user:ExUyOvI6KQ5NNJOq@cluster0.7y0dbdy.mongodb.net/?appName=Cluster0";
-  if ((raw.startsWith("mongodb+srv://") || raw.startsWith("mongodb://")) && !raw.includes(`/${dbName}`)) {
-    raw = raw.replace("/?", `/${dbName}?`);
+  const currentDb = (process.env.MONGODB_DB || "drmedex").trim().replace(/^["']|["']$/g, "");
+  let raw = (process.env.MONGODB_URI || "").trim().replace(/^["']|["']$/g, "");
+  if (!raw) {
+    raw = "mongodb+srv://roshanofficial0009_db_user:ExUyOvI6KQ5NNJOq@cluster0.7y0dbdy.mongodb.net/?appName=Cluster0";
+  }
+  if ((raw.startsWith("mongodb+srv://") || raw.startsWith("mongodb://")) && !raw.includes(`/${currentDb}`)) {
+    if (raw.includes("/?")) {
+      raw = raw.replace("/?", `/${currentDb}?`);
+    } else if (raw.endsWith("/")) {
+      raw = `${raw}${currentDb}`;
+    } else if (!raw.split("?")[0].split("/")[3]) {
+      const [base, query] = raw.split("?");
+      raw = `${base}/${currentDb}${query ? `?${query}` : ""}`;
+    }
   }
   return raw;
 }
 
-const uri = getNormalizedUri();
 let indexesEnsured = false;
 let connectionFailureCount = 0;
 let lastFailureTime = 0;
 let lastFailureError = null;
 
 function isConfigured() {
-  return Boolean(uri);
+  return Boolean(getNormalizedUri());
 }
 
 function sanitizeMongoError(err) {
@@ -57,7 +67,8 @@ function sanitizeMongoError(err) {
  * Get or initialize MongoDB Atlas client singleton
  */
 async function getClient(forceRetry = false) {
-  if (!isConfigured()) {
+  const activeUri = getNormalizedUri();
+  if (!activeUri) {
     throw new Error("MONGODB_URI is not configured in server environment.");
   }
 
@@ -69,7 +80,7 @@ async function getClient(forceRetry = false) {
 
   // Serverless-safe global singleton
   if (!global._mongoClientPromise) {
-    global._mongoClient = new MongoClient(uri, {
+    global._mongoClient = new MongoClient(activeUri, {
       maxPoolSize: 10,
       minPoolSize: 1,
       serverSelectionTimeoutMS: 5000,

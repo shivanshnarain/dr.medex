@@ -11,21 +11,48 @@ try {
   // sharp native module not available in current runtime (e.g. Vercel serverless)
 }
 
-// Configure Cloudinary from server environment
-const cloudName = process.env.CLOUDINARY_CLOUD_NAME || "mjqna8qi";
-const apiKey = process.env.CLOUDINARY_API_KEY || "975956791511158";
-const apiSecret = process.env.CLOUDINARY_API_SECRET || "4ZHTxXDbL1vweJ_oADvPa0wRxqE";
+// Configure Cloudinary dynamically from server environment with quote and URL parsing support
+function getCredentials() {
+  let cloudName = (process.env.CLOUDINARY_CLOUD_NAME || "").trim().replace(/^["']|["']$/g, "");
+  let apiKey = (process.env.CLOUDINARY_API_KEY || "").trim().replace(/^["']|["']$/g, "");
+  let apiSecret = (process.env.CLOUDINARY_API_SECRET || "").trim().replace(/^["']|["']$/g, "");
+  const cloudinaryUrl = (process.env.CLOUDINARY_URL || "").trim().replace(/^["']|["']$/g, "");
 
-if (cloudName && apiKey && apiSecret) {
-  cloudinary.config({
-    cloud_name: cloudName,
-    api_key: apiKey,
-    api_secret: apiSecret,
-    secure: true
-  });
+  if ((!cloudName || !apiKey || !apiSecret) && cloudinaryUrl) {
+    const match = cloudinaryUrl.match(/^cloudinary:\/\/([^:]+):([^@]+)@([^/?]+)/i);
+    if (match) {
+      apiKey = apiKey || match[1];
+      apiSecret = apiSecret || match[2];
+      cloudName = cloudName || match[3];
+    }
+  }
+
+  // Resilient defaults
+  cloudName = cloudName || "mjqna8qi";
+  apiKey = apiKey || "975956791511158";
+  apiSecret = apiSecret || "4ZHTxXDbL1vweJ_oADvPa0wRxqE";
+
+  return { cloudName, apiKey, apiSecret };
 }
 
+function ensureConfigured() {
+  const { cloudName, apiKey, apiSecret } = getCredentials();
+  if (cloudName && apiKey && apiSecret) {
+    cloudinary.config({
+      cloud_name: cloudName,
+      api_key: apiKey,
+      api_secret: apiSecret,
+      secure: true
+    });
+    return true;
+  }
+  return false;
+}
+
+ensureConfigured();
+
 function isConfigured() {
+  const { cloudName, apiKey, apiSecret } = getCredentials();
   return Boolean(cloudName && apiKey && apiSecret);
 }
 

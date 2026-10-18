@@ -9,7 +9,9 @@ require("dotenv").config();
 const sessions = new Map();
 const revokedTokens = new Set();
 
-const SESSION_SECRET = process.env.SESSION_SECRET || "82b38e552f117f57ef2ed3aa6bc3f693697d3ad196534aa0bfdd2cff7af34b95";
+function getSessionSecret() {
+  return (process.env.SESSION_SECRET || "").trim().replace(/^["']|["']$/g, "") || "82b38e552f117f57ef2ed3aa6bc3f693697d3ad196534aa0bfdd2cff7af34b95";
+}
 
 // Rate limiting: ip/email -> { attempts, lockedUntil }
 const loginAttempts = new Map();
@@ -31,7 +33,7 @@ function verifyPassword(password, salt, expectedHash) {
 
 function createSignedAdminToken(payload) {
   const payloadStr = Buffer.from(JSON.stringify(payload)).toString("base64url");
-  const signature = crypto.createHmac("sha256", SESSION_SECRET).update(payloadStr).digest("hex");
+  const signature = crypto.createHmac("sha256", getSessionSecret()).update(payloadStr).digest("hex");
   return `${payloadStr}.${signature}`;
 }
 
@@ -46,8 +48,8 @@ module.exports = {
     const attemptRecord = loginAttempts.get(key) || { attempts: 0, lockedUntil: 0 };
 
     const targetEmail = (process.env.ADMIN_EMAIL || "roshan.official0009@gmail.com").toLowerCase().trim();
-    const currentSalt = (process.env.ADMIN_PASSWORD_SALT || "fab0708d13f9adebbfb634773a90fd90").trim() || "fab0708d13f9adebbfb634773a90fd90";
-    const currentHash = (process.env.ADMIN_PASSWORD_HASH || "356b38dc8851f031184bf00b980031ee13e9bfab3cfd377a20dd3d221b5b4ca47938341d56807c5ddfc5060f4489c6fd1c45f99645d08a8810b05b2e3d6c2204").trim() || "356b38dc8851f031184bf00b980031ee13e9bfab3cfd377a20dd3d221b5b4ca47938341d56807c5ddfc5060f4489c6fd1c45f99645d08a8810b05b2e3d6c2204";
+    const currentSalt = (process.env.ADMIN_PASSWORD_SALT || "").trim().replace(/^["']|["']$/g, "") || "fab0708d13f9adebbfb634773a90fd90";
+    const currentHash = (process.env.ADMIN_PASSWORD_HASH || "").trim().replace(/^["']|["']$/g, "") || "356b38dc8851f031184bf00b980031ee13e9bfab3cfd377a20dd3d221b5b4ca47938341d56807c5ddfc5060f4489c6fd1c45f99645d08a8810b05b2e3d6c2204";
 
     let isValid = false;
     let adminName = "DR.MEDEX Super Admin";
@@ -160,7 +162,7 @@ module.exports = {
     if (!payloadStr || !signature) return null;
 
     try {
-      const expectedSig = crypto.createHmac("sha256", SESSION_SECRET).update(payloadStr).digest("hex");
+      const expectedSig = crypto.createHmac("sha256", getSessionSecret()).update(payloadStr).digest("hex");
       let isValidSig = false;
       if (signature.length === expectedSig.length) {
         try {
