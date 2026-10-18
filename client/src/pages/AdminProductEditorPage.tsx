@@ -24,7 +24,8 @@ import {
   ArrowUp,
   ArrowDown,
   Globe,
-  ShieldCheck
+  ShieldCheck,
+  X
 } from "lucide-react";
 import { AdminLayout } from "../components/admin/AdminLayout";
 import { useAdminAuth } from "../context/AdminAuthContext";
@@ -71,12 +72,12 @@ export const AdminProductEditorPage: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(1);
   const [selectedCard, setSelectedCard] = useState<string>("step-1");
 
-  // Helper for dynamic card styling: default white/light grey, selected light yellow with gold/yellow outline
+  // Exact DR.MEDEX Dark Emerald Palette (#0D4C3C) with solid White Outline (#FFFFFF) and White Text
   const getCardStyle = (cardId: string) => {
     const isSelected = selectedCard === cardId;
     return isSelected
-      ? "bg-[#FEFCE8] border-[#EAB308] ring-2 ring-[#EAB308]/40 shadow-xs"
-      : "bg-white border-[#E5E7EB] hover:border-neutral-300";
+      ? "bg-[#0D4C3C] border-white ring-2 ring-white/70 shadow-lg text-white"
+      : "bg-[#0D4C3C] border-white shadow-md text-white";
   };
 
   // Categories & Catalogue Hierarchy
@@ -214,13 +215,14 @@ export const AdminProductEditorPage: React.FC = () => {
   const [leadTimeWeeks, setLeadTimeWeeks] = useState("1–2 Weeks");
   const [shippingInformation, setShippingInformation] = useState("Express Air Cargo Dispatch with Shockproof Wooden Crating");
 
-  const { discountPercentage, calculatedSavings } = useMemo(() => {
-    if (originalPrice > 0 && basePrice > 0 && originalPrice >= basePrice) {
-      const pct = Math.round(((originalPrice - basePrice) / originalPrice) * 100);
+  const { discountPercentage, calculatedSavings, discountFormatted } = useMemo(() => {
+    if (originalPrice > 0 && basePrice > 0 && originalPrice > basePrice) {
+      const rawPct = ((originalPrice - basePrice) / originalPrice) * 100;
+      const formatted = (Math.round(rawPct * 100) / 100).toFixed(2).replace(/\.00$/, "");
       const savings = originalPrice - basePrice;
-      return { discountPercentage: pct, calculatedSavings: savings };
+      return { discountPercentage: rawPct, calculatedSavings: savings, discountFormatted: formatted };
     }
-    return { discountPercentage: 0, calculatedSavings: 0 };
+    return { discountPercentage: 0, calculatedSavings: 0, discountFormatted: "0" };
   }, [originalPrice, basePrice]);
 
   // ==========================================
@@ -1543,7 +1545,10 @@ export const AdminProductEditorPage: React.FC = () => {
 
   return (
     <AdminLayout
-      mainClassName="bg-[#7A805A] min-h-screen"
+      mainClassName="bg-[#7AA05A] min-h-screen"
+      headerClassName="bg-[#7AA05A] border-b border-black/15 text-white"
+      titleClassName="text-white font-black"
+      subtitleClassName="text-white/80"
       title={isEditMode ? `Edit: ${productName || "Medical Equipment"}` : "Add New Medical Equipment"}
       subtitle={
         isEditMode
@@ -1555,7 +1560,7 @@ export const AdminProductEditorPage: React.FC = () => {
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <Link
           to="/admin/products"
-          className="inline-flex items-center gap-2 text-xs font-bold text-white/90 hover:text-white transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-bold text-white hover:text-white/80 transition-colors"
         >
           <ArrowLeft size={14} />
           <span>Back to Products Catalogue</span>
@@ -1567,7 +1572,7 @@ export const AdminProductEditorPage: React.FC = () => {
               href={`/products/${slug}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-white/30 rounded-lg text-xs font-bold text-white bg-white/10 hover:bg-white/20 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-white rounded-lg text-xs font-bold text-white bg-white/10 hover:bg-white/20 transition-colors"
             >
               <Eye size={13} />
               <span>View on Storefront</span>
@@ -1578,7 +1583,7 @@ export const AdminProductEditorPage: React.FC = () => {
             type="button"
             onClick={handleSaveProduct}
             disabled={isSaving}
-            className="flex items-center gap-2 px-6 py-2 bg-[#171717] hover:bg-black text-white rounded-lg text-xs font-bold transition-all shadow-md disabled:opacity-50 cursor-pointer"
+            className="flex items-center gap-2 px-6 py-2 bg-[#C62828] hover:bg-[#B71C1C] text-white border border-white rounded-lg text-xs font-bold transition-all shadow-md disabled:opacity-50 cursor-pointer"
           >
             {isSaving ? <RefreshCw size={13} className="animate-spin" /> : <Save size={13} />}
             <span>{isSaving ? "Saving..." : isEditMode ? "Save Changes" : "Save Product"}</span>
@@ -1591,20 +1596,20 @@ export const AdminProductEditorPage: React.FC = () => {
         <div
           className={`mb-6 p-4 rounded-2xl border flex items-start justify-between gap-3 shadow-md ${
             statusBanner.type === "error"
-              ? "bg-red-50 border-[#D92D32] text-[#D92D32]"
+              ? "bg-[#C62828] border-white text-white"
               : statusBanner.type === "warning"
-              ? "bg-amber-50 border-amber-300 text-amber-900"
-              : "bg-emerald-50 border-emerald-300 text-[#16803D]"
+              ? "bg-amber-800 border-white text-white"
+              : "bg-[#0D4C3C] border-white text-white"
           }`}
         >
           <div className="flex items-start gap-2.5">
-            <AlertCircle size={16} className="mt-0.5 shrink-0" />
-            <p className="text-xs font-semibold leading-relaxed">{statusBanner.text}</p>
+            <AlertCircle size={16} className="mt-0.5 shrink-0 text-white" />
+            <p className="text-xs font-semibold leading-relaxed text-white">{statusBanner.text}</p>
           </div>
           <button
             type="button"
             onClick={() => setStatusBanner(null)}
-            className="text-xs font-bold hover:underline cursor-pointer"
+            className="text-xs font-bold text-white underline hover:no-underline cursor-pointer"
           >
             Dismiss
           </button>
@@ -1613,15 +1618,15 @@ export const AdminProductEditorPage: React.FC = () => {
 
       {/* Duplicate Product Detection Banner */}
       {duplicateInfo.isDuplicate && duplicateInfo.duplicateProduct && (
-        <div className="mb-6 p-4 rounded-2xl border border-amber-300 bg-amber-50 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-md">
+        <div className="mb-6 p-4 rounded-2xl border border-white bg-[#0D4C3C] flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-md text-white">
           <div className="flex items-start gap-3">
-            <AlertTriangle size={18} className="text-amber-600 mt-0.5 shrink-0" />
+            <AlertTriangle size={18} className="text-[#EAB308] mt-0.5 shrink-0" />
             <div>
-              <h4 className="text-xs font-bold text-amber-900">
+              <h4 className="text-xs font-bold text-white">
                 Potential Duplicate Product Detected in Category
               </h4>
-              <p className="text-xs text-neutral-600 mt-0.5">
-                Existing item: <strong className="text-black">{duplicateInfo.duplicateProduct.title}</strong> (SKU: {duplicateInfo.duplicateProduct.sku})
+              <p className="text-xs text-white/80 mt-0.5">
+                Existing item: <strong className="text-white underline">{duplicateInfo.duplicateProduct.title}</strong> (SKU: {duplicateInfo.duplicateProduct.sku})
               </p>
             </div>
           </div>
@@ -1629,17 +1634,17 @@ export const AdminProductEditorPage: React.FC = () => {
           <div className="flex items-center gap-3 shrink-0">
             <Link
               to={`/admin/products/${duplicateInfo.duplicateProduct.id}/edit`}
-              className="px-3 py-1.5 bg-[#171717] hover:bg-black text-white rounded-lg text-xs font-bold transition-colors inline-flex items-center gap-1.5"
+              className="px-3 py-1.5 bg-black/40 hover:bg-black/60 border border-white text-white rounded-lg text-xs font-bold transition-colors inline-flex items-center gap-1.5"
             >
               <ExternalLink size={13} />
               <span>Open Existing</span>
             </Link>
-            <label className="flex items-center gap-1.5 text-xs text-neutral-700 cursor-pointer">
+            <label className="flex items-center gap-1.5 text-xs text-white cursor-pointer">
               <input
                 type="checkbox"
                 checked={allowDuplicateOverride}
                 onChange={(e) => setAllowDuplicateOverride(e.target.checked)}
-                className="w-4 h-4 rounded border-[#E5E5E5] text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
+                className="w-4 h-4 rounded border-white text-[#C62828] focus:ring-[#C62828] accent-[#C62828]"
               />
               <span>Allow intentional variant</span>
             </label>
@@ -1650,7 +1655,7 @@ export const AdminProductEditorPage: React.FC = () => {
       {/* ============================================================ */}
       {/* COMPACT HORIZONTAL NINE-STEP PROGRESS TRACKER                */}
       {/* ============================================================ */}
-      <div className="mb-8 bg-white border border-[#E5E7EB] rounded-2xl p-4 shadow-sm">
+      <div className="mb-8 bg-[#0D4C3C] border border-white rounded-2xl p-4 shadow-md">
         <div className="flex items-center justify-between overflow-x-auto pb-1 scrollbar-none gap-3">
           {stepStatus.map((step, idx) => {
             const isActive = activeStep === step.id;
@@ -1660,36 +1665,32 @@ export const AdminProductEditorPage: React.FC = () => {
                 type="button"
                 onClick={() => scrollToAnchor(step.anchor, step.id)}
                 className={`flex items-center gap-2 text-left shrink-0 transition-all cursor-pointer group ${
-                  isActive ? "opacity-100" : "opacity-75 hover:opacity-100"
+                  isActive ? "opacity-100" : "opacity-80 hover:opacity-100"
                 }`}
               >
                 <div
-                  className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+                  className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all border ${
                     step.isDone
-                      ? "bg-[#16803D] text-white"
+                      ? "bg-[#16803D] text-white border-white"
                       : isActive
-                      ? "bg-[#F2C230] text-[#171717] ring-2 ring-[#F2C230]/40"
-                      : "border border-[#E5E7EB] text-neutral-400 bg-white"
+                      ? "bg-[#C62828] text-white ring-2 ring-white border-white"
+                      : "border-white/40 text-white/70 bg-white/10"
                   }`}
                 >
                   {step.isDone ? <Check size={14} strokeWidth={3} /> : step.id}
                 </div>
 
                 <div className="flex flex-col">
-                  <span
-                    className={`text-xs font-bold transition-colors ${
-                      isActive ? "text-[#171717]" : "text-neutral-600 group-hover:text-black"
-                    }`}
-                  >
+                  <span className="text-xs font-bold text-white group-hover:text-white/90">
                     {step.name}
                   </span>
-                  <span className="text-[10px] text-neutral-400 font-medium">
+                  <span className="text-[10px] text-white/60 font-medium">
                     {step.isDone ? "Completed" : isActive ? "Current" : `Step ${step.id}`}
                   </span>
                 </div>
 
                 {idx < stepStatus.length - 1 && (
-                  <div className="hidden xl:block w-3 h-px bg-[#E5E7EB] ml-1" />
+                  <div className="hidden xl:block w-3 h-px bg-white/30 ml-1" />
                 )}
               </button>
             );
@@ -1740,8 +1741,18 @@ export const AdminProductEditorPage: React.FC = () => {
           onFocusCapture={() => setSelectedCard("step-1")}
           className={`rounded-2xl p-6 transition-all duration-200 border ${getCardStyle("step-1")}`}
         >
-          <div className="flex flex-col lg:flex-row gap-6 items-stretch">
-            {/* Left side — Upload Product Images */}
+          {/* Step 1 Header */}
+          <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-5 shadow-xs">
+            <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+              STEP 1 — PRODUCT IMAGES
+            </span>
+            <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-black/30 border border-white/40 text-white">
+              {imageSlots.length} of 5 Photos
+            </span>
+          </div>
+
+          <div className="flex flex-col lg:flex-row gap-4 items-stretch">
+            {/* Left side — Upload Product Images (same height as photo tiles: h-44 sm:h-48) */}
             <div
               onDragOver={(e) => {
                 e.preventDefault();
@@ -1750,145 +1761,143 @@ export const AdminProductEditorPage: React.FC = () => {
               onDragLeave={() => setIsDragging(false)}
               onDrop={handleDrop}
               onClick={() => fileInputRef.current?.click()}
-              className={`lg:w-80 shrink-0 border-2 border-dashed rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all ${
+              className={`h-44 sm:h-48 lg:w-72 shrink-0 border-2 border-dashed rounded-xl p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all ${
                 isDragging
-                  ? "border-[#EAB308] bg-[#FEFCE8]"
+                  ? "border-white bg-black/40"
                   : imageSlots.length >= 5
-                  ? "border-neutral-200 bg-neutral-50/60 opacity-60 cursor-not-allowed"
-                  : "border-neutral-300 bg-[#F8F9FA] hover:bg-yellow-50/20 hover:border-[#EAB308]"
+                  ? "border-white/30 bg-black/20 opacity-50 cursor-not-allowed"
+                  : "border-white/60 hover:border-white bg-black/25 hover:bg-black/35"
               }`}
             >
-              <div className="w-12 h-12 rounded-full bg-white shadow-xs mx-auto flex items-center justify-center text-neutral-700 mb-3 border border-[#E5E7EB]">
-                <Upload size={22} className="text-[#171717]" />
+              <div className="w-10 h-10 rounded-full bg-black/40 border border-white/60 mx-auto flex items-center justify-center text-white mb-2 shadow-xs">
+                <Upload size={20} className="text-white" />
               </div>
-              <h4 className="text-sm font-bold text-[#171717]">Upload Product Images</h4>
-              <p className="text-xs text-neutral-500 mt-1">Upload multiple product images at once</p>
-              <p className="text-[11px] text-neutral-400 mt-2 font-mono">
+              <h4 className="text-xs sm:text-sm font-bold text-white">Upload Product Images</h4>
+              <p className="text-[11px] text-white/80 mt-0.5">Upload multiple product images at once</p>
+              <p className="text-[10px] text-white/60 font-mono mt-1">
                 JPEG, PNG, WebP up to 10MB (Max 5 photos)
               </p>
-              <span className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-white border border-[#E5E7EB] text-neutral-700">
-                <Camera size={11} />
-                <span>{imageSlots.length} of 5 photos</span>
-              </span>
             </div>
 
-            {/* Right side — Uploaded photographs */}
-            <div className="flex-1 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between text-xs font-bold text-[#171717] mb-3">
-                  <span>Uploaded Photographs ({imageSlots.length})</span>
-                  <span className="text-[11px] text-neutral-500 font-normal">
-                    Click thumbnail to set as primary • Drag or use arrows to reorder
-                  </span>
+            {/* Right side — Uploaded photographs horizontally */}
+            <div className="flex-1 min-w-0 flex items-center gap-3 overflow-x-auto pb-1 scrollbar-thin">
+              {imageSlots.length === 0 ? (
+                <div className="h-44 sm:h-48 w-full rounded-xl border border-dashed border-white/40 bg-black/20 flex flex-col items-center justify-center text-white/60 text-xs px-4 text-center">
+                  <ImageIcon size={26} className="mb-1 text-white/40" />
+                  <span>No photographs uploaded yet. Click or drop images on the left tile.</span>
                 </div>
+              ) : (
+                imageSlots.map((slot, idx) => {
+                  const isPrimary = idx === primaryImageIndex;
+                  return (
+                    <div
+                      key={slot.id || idx}
+                      className="h-44 sm:h-48 w-36 sm:w-40 rounded-xl border border-white bg-black/30 p-2 flex flex-col justify-between shrink-0 relative group"
+                    >
+                      {/* Top Bar: Order number, primary badge, delete control */}
+                      <div className="flex items-center justify-between gap-1">
+                        <span className="w-5 h-5 rounded bg-black/80 border border-white/40 text-white font-mono text-[10px] font-bold flex items-center justify-center shrink-0">
+                          {idx + 1}
+                        </span>
 
-                {imageSlots.length === 0 ? (
-                  <div className="h-36 rounded-xl border border-dashed border-[#E5E7EB] bg-[#F8F9FA]/60 flex flex-col items-center justify-center text-neutral-400 text-xs">
-                    <ImageIcon size={28} className="mb-1 text-neutral-300" />
-                    <span>No photographs uploaded yet. Click or drop images on the left.</span>
-                  </div>
-                ) : (
-                  <div className="flex flex-wrap gap-3 items-center">
-                    {imageSlots.map((slot, idx) => {
-                      const isPrimary = idx === primaryImageIndex;
-                      return (
-                        <div
-                          key={slot.id || idx}
-                          className={`w-28 h-32 rounded-xl border p-1.5 bg-white flex flex-col justify-between relative transition-all group shrink-0 ${
-                            isPrimary
-                              ? "border-[#EAB308] ring-2 ring-[#EAB308]/50"
-                              : "border-[#E5E7EB] hover:border-neutral-300"
-                          }`}
+                        {isPrimary && (
+                          <span className="bg-[#C62828] text-white text-[8px] font-black px-1.5 py-0.5 rounded border border-white shadow-xs tracking-wider">
+                            PRIMARY
+                          </span>
+                        )}
+
+                        <button
+                          type="button"
+                          onClick={() => removeImage(idx)}
+                          disabled={slot.status === "uploading"}
+                          className="w-5 h-5 rounded-full bg-black/70 hover:bg-[#C62828] text-white flex items-center justify-center transition-colors cursor-pointer shrink-0 disabled:opacity-40"
+                          title="Remove image"
                         >
-                          {/* Thumbnail */}
-                          <div
+                          <X size={11} strokeWidth={2.5} />
+                        </button>
+                      </div>
+
+                      {/* Thumbnail frame (object-contain, full picture visible, clicking sets primary) */}
+                      <div
+                        onClick={() => {
+                          setPrimaryImageIndex(idx);
+                          setHasUnsavedChanges(true);
+                        }}
+                        className="flex-1 w-full my-1 rounded-lg bg-black/50 overflow-hidden flex items-center justify-center relative cursor-pointer border border-white/20"
+                        title="Click to set as primary photograph"
+                      >
+                        {slot.hasLoadError ? (
+                          <ImageOff size={18} className="text-white/40" />
+                        ) : (
+                          <img
+                            src={slot.previewUrl || slot.url}
+                            alt={`Device view ${idx + 1}`}
+                            className="w-full h-full object-contain"
+                            onError={() => handleSlotLoadError(slot.id)}
+                          />
+                        )}
+
+                        {slot.status === "uploading" && (
+                          <div className="absolute inset-0 bg-black/80 flex items-center justify-center">
+                            <RefreshCw size={14} className="animate-spin text-white" />
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Bottom Controls: arrows & primary action */}
+                      <div className="flex items-center justify-between text-xs pt-1 border-t border-white/20">
+                        <div className="flex items-center gap-0.5">
+                          <button
+                            type="button"
+                            onClick={() => moveImage(idx, "left")}
+                            disabled={idx === 0 || slot.status === "uploading"}
+                            className="p-1 text-white/70 hover:text-white disabled:opacity-20 cursor-pointer"
+                            title="Move left"
+                          >
+                            <MoveLeft size={11} />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => moveImage(idx, "right")}
+                            disabled={idx === imageSlots.length - 1 || slot.status === "uploading"}
+                            className="p-1 text-white/70 hover:text-white disabled:opacity-20 cursor-pointer"
+                            title="Move right"
+                          >
+                            <MoveRight size={11} />
+                          </button>
+                        </div>
+
+                        {!isPrimary ? (
+                          <button
+                            type="button"
                             onClick={() => {
                               setPrimaryImageIndex(idx);
                               setHasUnsavedChanges(true);
                             }}
-                            className="w-full h-20 rounded-lg bg-[#F8F9FA] overflow-hidden flex items-center justify-center relative cursor-pointer"
+                            className="text-[9px] font-bold text-white/80 hover:text-white underline cursor-pointer"
                           >
-                            {slot.hasLoadError ? (
-                              <ImageOff size={18} className="text-neutral-400" />
-                            ) : (
-                              <img
-                                src={slot.previewUrl || slot.url}
-                                alt={`Device view ${idx + 1}`}
-                                className="w-full h-full object-contain"
-                                onError={() => handleSlotLoadError(slot.id)}
-                              />
-                            )}
+                            Set Main
+                          </button>
+                        ) : (
+                          <span className="text-[9px] font-bold text-emerald-300">Main Photo</span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })
+              )}
 
-                            {isPrimary && (
-                              <span className="absolute top-1 left-1 bg-[#F2C230] text-black text-[8px] font-extrabold px-1.5 py-0.5 rounded shadow-xs">
-                                PRIMARY
-                              </span>
-                            )}
-
-                            {slot.status === "uploading" && (
-                              <div className="absolute inset-0 bg-white/85 flex items-center justify-center">
-                                <RefreshCw size={14} className="animate-spin text-[#16803D]" />
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Controls */}
-                          <div className="flex items-center justify-between text-xs pt-1 border-t border-[#E5E7EB]">
-                            <div className="flex items-center gap-0.5">
-                              <button
-                                type="button"
-                                onClick={() => moveImage(idx, "left")}
-                                disabled={idx === 0 || slot.status === "uploading"}
-                                className="p-0.5 text-neutral-400 hover:text-black disabled:opacity-20 cursor-pointer"
-                                title="Move left"
-                              >
-                                <MoveLeft size={11} />
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => moveImage(idx, "right")}
-                                disabled={idx === imageSlots.length - 1 || slot.status === "uploading"}
-                                className="p-0.5 text-neutral-400 hover:text-black disabled:opacity-20 cursor-pointer"
-                                title="Move right"
-                              >
-                                <MoveRight size={11} />
-                              </button>
-                            </div>
-
-                            <button
-                              type="button"
-                              onClick={() => removeImage(idx)}
-                              disabled={slot.status === "uploading"}
-                              className="p-0.5 text-neutral-400 hover:text-[#D92D32] disabled:opacity-50 cursor-pointer"
-                              title="Remove image"
-                            >
-                              <Trash2 size={11} />
-                            </button>
-                          </div>
-                        </div>
-                      );
-                    })}
-
-                    {/* Add More slot if < 5 */}
-                    {imageSlots.length < 5 && (
-                      <button
-                        type="button"
-                        onClick={() => fileInputRef.current?.click()}
-                        className="w-28 h-32 rounded-xl border-2 border-dashed border-neutral-300 hover:border-[#EAB308] bg-neutral-50/50 hover:bg-yellow-50/20 flex flex-col items-center justify-center text-neutral-400 hover:text-black transition-all cursor-pointer shrink-0"
-                      >
-                        <Plus size={20} className="mb-1" />
-                        <span className="text-[11px] font-bold">Add Photo</span>
-                      </button>
-                    )}
-                  </div>
-                )}
-              </div>
-
-              {uploadProgress && isUploadingImage && (
-                <div className="mt-3 p-2 bg-neutral-50 rounded-lg border border-[#E5E7EB] text-xs flex items-center justify-between">
-                  <span>Uploading photos...</span>
-                  <span className="font-mono">{uploadProgress.current}/{uploadProgress.total}</span>
-                </div>
+              {/* Add More Tile (same outer height: h-44 sm:h-48, w-36 sm:w-40) */}
+              {imageSlots.length > 0 && imageSlots.length < 5 && (
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="h-44 sm:h-48 w-36 sm:w-40 rounded-xl border-2 border-dashed border-white/60 hover:border-white bg-black/25 hover:bg-black/35 flex flex-col items-center justify-center text-white transition-all cursor-pointer shrink-0"
+                >
+                  <Plus size={22} className="mb-1 text-white" />
+                  <span className="text-xs font-bold text-white">Add More</span>
+                  <span className="text-[9px] text-white/60 font-mono mt-0.5">{5 - imageSlots.length} left</span>
+                </button>
               )}
             </div>
           </div>
@@ -1902,22 +1911,22 @@ export const AdminProductEditorPage: React.FC = () => {
             type="button"
             onClick={() => triggerAiIdentification()}
             disabled={isAiIdentifying || imageSlots.length === 0}
-            className="px-4 py-2 bg-[#D92D32] hover:bg-[#B91C1C] disabled:opacity-50 text-white rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer inline-flex items-center gap-2"
+            className="px-5 py-2.5 bg-[#C62828] hover:bg-[#B71C1C] disabled:opacity-50 text-white border border-white rounded-xl text-xs font-bold transition-all shadow-md cursor-pointer inline-flex items-center gap-2"
           >
             {isAiIdentifying ? <RefreshCw size={13} className="animate-spin" /> : <Sparkles size={13} />}
             <span>{isAiIdentifying ? "Analyzing Photographs..." : "Run AI Analysis"}</span>
           </button>
 
           {aiIdentifyError && (
-            <div className="p-2.5 rounded-xl bg-red-50 border border-[#D92D32] text-xs text-[#D92D32] flex items-center justify-between gap-2">
+            <div className="p-2.5 rounded-xl bg-[#C62828] border border-white text-xs text-white flex items-center justify-between gap-2 shadow-sm">
               <div className="flex items-center gap-2">
-                <AlertCircle size={14} className="shrink-0" />
+                <AlertCircle size={14} className="shrink-0 text-white" />
                 <span>{aiIdentifyError}</span>
               </div>
               <button
                 type="button"
                 onClick={() => setAiIdentifyError(null)}
-                className="font-bold hover:underline cursor-pointer text-xs"
+                className="font-bold underline cursor-pointer text-xs text-white"
               >
                 Dismiss
               </button>
@@ -1940,16 +1949,12 @@ export const AdminProductEditorPage: React.FC = () => {
             className={`rounded-2xl p-6 space-y-4 transition-all duration-200 border flex flex-col justify-between ${getCardStyle("step-2")}`}
           >
             <div>
-              <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                    Step 2
-                  </span>
-                  <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                    Product Classification
-                  </h3>
-                </div>
-                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 border border-[#E5E7EB]">
+              {/* Step 2 Header */}
+              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+                  STEP 2 — PRODUCT CLASSIFICATION
+                </span>
+                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-black/30 border border-white/40 text-white">
                   L1–L3 Hierarchy
                 </span>
               </div>
@@ -1957,8 +1962,8 @@ export const AdminProductEditorPage: React.FC = () => {
               <div className="space-y-4 mt-4">
                 {/* Primary Category */}
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
-                    Primary Category <span className="text-rose-500">*</span>
+                  <label className="block text-xs font-bold text-white mb-1">
+                    Primary Category <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <select
                     value={category}
@@ -1973,7 +1978,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       }
                       setHasUnsavedChanges(true);
                     }}
-                    className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#171717] focus:outline-none focus:border-[#EAB308] cursor-pointer"
+                    className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none cursor-pointer"
                   >
                     {allCategories.map((c) => {
                       const isInactive = c.status === "INACTIVE" || c.active === false;
@@ -1988,8 +1993,8 @@ export const AdminProductEditorPage: React.FC = () => {
 
                 {/* Subcategory */}
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
-                    Subcategory <span className="text-rose-500">*</span>
+                  <label className="block text-xs font-bold text-white mb-1">
+                    Subcategory <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <select
                     value={subcategory}
@@ -2001,7 +2006,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       markFieldEdited("subcategory");
                       setHasUnsavedChanges(true);
                     }}
-                    className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#171717] focus:outline-none focus:border-[#EAB308] disabled:opacity-50 disabled:bg-[#F8F9FA] cursor-pointer"
+                    className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none disabled:opacity-50 disabled:bg-neutral-200 cursor-pointer"
                   >
                     <option value="">— Select Subcategory —</option>
                     {availableSubcategories.map((s: any) => (
@@ -2014,8 +2019,8 @@ export const AdminProductEditorPage: React.FC = () => {
 
                 {/* Verified Equipment Type */}
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
-                    Verified Equipment Type <span className="text-rose-500">*</span>
+                  <label className="block text-xs font-bold text-white mb-1">
+                    Verified Equipment Type <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <select
                     value={equipmentType}
@@ -2026,7 +2031,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       markFieldEdited("equipmentType");
                       setHasUnsavedChanges(true);
                     }}
-                    className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#171717] focus:outline-none focus:border-[#EAB308] disabled:opacity-50 disabled:bg-[#F8F9FA] cursor-pointer"
+                    className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none disabled:opacity-50 disabled:bg-neutral-200 cursor-pointer"
                   >
                     <option value="">— Select Equipment Type —</option>
                     {availableEquipmentTypes.map((eq: any) => (
@@ -2035,7 +2040,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       </option>
                     ))}
                   </select>
-                  <p className="text-[11px] text-neutral-500 mt-1.5">
+                  <p className="text-[11px] text-white/80 mt-1.5">
                     Filtered based on verified DR.MEDEX catalogue taxonomy.
                   </p>
                 </div>
@@ -2053,23 +2058,19 @@ export const AdminProductEditorPage: React.FC = () => {
             className={`rounded-2xl p-6 space-y-4 transition-all duration-200 border flex flex-col justify-between ${getCardStyle("step-3")}`}
           >
             <div>
-              <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                    Step 3
-                  </span>
-                  <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                    Product Identity
-                  </h3>
-                </div>
+              {/* Step 3 Header */}
+              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+                  STEP 3 — PRODUCT IDENTITY
+                </span>
 
                 <button
                   type="button"
                   onClick={handleRegenerateName}
                   disabled={isGeneratingIdentity}
-                  className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
+                  className="flex items-center gap-1.5 px-2.5 py-1 bg-black/30 hover:bg-black/50 text-white rounded-lg text-xs font-bold transition-colors border border-white/40 cursor-pointer disabled:opacity-50"
                 >
-                  {isGeneratingIdentity ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
+                  {isGeneratingIdentity ? <RefreshCw size={11} className="animate-spin" /> : <Sparkles size={11} />}
                   <span>Regenerate Name</span>
                 </button>
               </div>
@@ -2077,8 +2078,8 @@ export const AdminProductEditorPage: React.FC = () => {
               <div className="space-y-4 mt-4">
                 {/* 1. Product Name */}
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
-                    1. Product Name <span className="text-rose-500">*</span>
+                  <label className="block text-xs font-bold text-white mb-1">
+                    1. Product Name <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <input
                     type="text"
@@ -2089,13 +2090,13 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. DR.MEDEX Ceiling-Mounted Double Dome LED OT Light – DL80"
-                    className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#EAB308]"
+                    className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
                   />
                 </div>
 
                 {/* 2. Manufacturer Model */}
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     2. Manufacturer Model
                   </label>
                   <input
@@ -2107,21 +2108,21 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. DL-80 or Std Unit"
-                    className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#EAB308]"
+                    className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
                   />
                 </div>
 
                 {/* 3. SKU */}
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1 flex items-center justify-between">
-                    <span>3. SKU <span className="text-rose-500">*</span></span>
+                  <label className="block text-xs font-bold text-white mb-1 flex items-center justify-between">
+                    <span>3. SKU <span className="text-[#C62828] font-bold">*</span></span>
                     {sku && (
                       <button
                         type="button"
                         onClick={handleCopySku}
-                        className="text-[10px] text-neutral-500 hover:text-black flex items-center gap-1 cursor-pointer"
+                        className="text-[10px] text-white/80 hover:text-white flex items-center gap-1 cursor-pointer underline"
                       >
-                        {copiedSku ? <Check size={10} className="text-[#16803D]" /> : <Copy size={10} />}
+                        {copiedSku ? <Check size={10} className="text-emerald-300" /> : <Copy size={10} />}
                         <span>{copiedSku ? "Copied" : "Copy"}</span>
                       </button>
                     )}
@@ -2136,11 +2137,11 @@ export const AdminProductEditorPage: React.FC = () => {
                       markFieldEdited("sku");
                       setHasUnsavedChanges(true);
                     }}
-                    className={`w-full px-3.5 py-2.5 bg-white border rounded-xl text-xs font-mono font-bold text-[#171717] focus:outline-none ${
-                      skuError ? "border-[#D92D32]" : "border-[#E5E7EB] focus:border-[#EAB308]"
+                    className={`w-full px-3.5 py-2.5 bg-white text-[#171717] border rounded-xl text-xs font-mono font-bold focus:bg-[#FEFCE8] focus:outline-none ${
+                      skuError ? "border-[#C62828] ring-1 ring-[#C62828]" : "border-white/40 focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308]"
                     }`}
                   />
-                  {skuError && <p className="text-[10px] text-[#D92D32] mt-1 font-semibold">{skuError}</p>}
+                  {skuError && <p className="text-[10px] text-white font-bold bg-[#C62828] px-2 py-0.5 rounded mt-1">{skuError}</p>}
                 </div>
               </div>
             </div>
@@ -2156,29 +2157,25 @@ export const AdminProductEditorPage: React.FC = () => {
             className={`rounded-2xl p-6 space-y-4 transition-all duration-200 border flex flex-col justify-between ${getCardStyle("step-4")}`}
           >
             <div>
-              <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                    Step 4
-                  </span>
-                  <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                    Product Description
-                  </h3>
-                </div>
+              {/* Step 4 Header */}
+              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+                  STEP 4 — PRODUCT DESCRIPTION
+                </span>
                 <button
                   type="button"
                   onClick={handleRegenerateDescription}
                   disabled={isRegeneratingDescription}
-                  className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
+                  className="flex items-center gap-1.5 px-2.5 py-1 bg-black/30 hover:bg-black/50 text-white rounded-lg text-xs font-bold transition-colors border border-white/40 cursor-pointer disabled:opacity-50"
                 >
-                  {isRegeneratingDescription ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
+                  {isRegeneratingDescription ? <RefreshCw size={11} className="animate-spin" /> : <Sparkles size={11} />}
                   <span>Regenerate Description</span>
                 </button>
               </div>
 
               <div className="space-y-2 mt-4">
-                <label className="block text-xs font-bold text-[#171717]">
-                  Clinical & Operational Overview <span className="text-rose-500">*</span>
+                <label className="block text-xs font-bold text-white mb-1">
+                  Clinical & Operational Overview <span className="text-[#C62828] font-bold">*</span>
                 </label>
                 <textarea
                   rows={8}
@@ -2190,9 +2187,9 @@ export const AdminProductEditorPage: React.FC = () => {
                     setHasUnsavedChanges(true);
                   }}
                   placeholder="Enter product description explaining purpose, design, intended surgical workflow, and clinical advantages..."
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#EAB308] leading-relaxed"
+                  className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none leading-relaxed"
                 />
-                <div className="flex items-center justify-between text-[11px] text-neutral-400 font-mono">
+                <div className="flex items-center justify-between text-[11px] text-white/80 font-mono">
                   <span>Main description only. Specs and package lists are managed in their own cards.</span>
                   <span>{description.length} chars • {description.trim().split(/\s+/).filter(Boolean).length} words</span>
                 </div>
@@ -2210,22 +2207,18 @@ export const AdminProductEditorPage: React.FC = () => {
             className={`rounded-2xl p-6 space-y-4 transition-all duration-200 border flex flex-col justify-between ${getCardStyle("step-5")}`}
           >
             <div>
-              <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                    Step 5
-                  </span>
-                  <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                    Technical Specifications
-                  </h3>
-                </div>
-                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 border border-[#E5E7EB]">
+              {/* Step 5 Header */}
+              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+                  STEP 5 — TECHNICAL SPECIFICATIONS
+                </span>
+                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-black/30 border border-white/40 text-white">
                   4 Core Fields
                 </span>
               </div>
 
-              <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200 text-xs text-amber-900 flex items-center gap-2 mt-4">
-                <ShieldCheck size={14} className="shrink-0 text-amber-600" />
+              <div className="p-2.5 rounded-xl bg-black/30 border border-white/40 text-white flex items-center gap-2 mt-4 text-xs">
+                <ShieldCheck size={14} className="shrink-0 text-[#EAB308]" />
                 <span>
                   Unverified parameters remain blank or &quot;Needs verification&quot;.
                 </span>
@@ -2234,7 +2227,7 @@ export const AdminProductEditorPage: React.FC = () => {
               <div className="space-y-3 mt-3">
                 {/* 1. Power Supply */}
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     1. Power Supply
                   </label>
                   <input
@@ -2246,13 +2239,13 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. 220–240 V AC, 50/60 Hz, 80 VA (or leave blank)"
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#EAB308]"
+                    className="w-full px-3.5 py-2 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
                   />
                 </div>
 
                 {/* 2. Quality Standards */}
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     2. Quality Standards
                   </label>
                   <input
@@ -2264,13 +2257,13 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. ISO 13485:2016 Certified Facility (or leave blank)"
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#EAB308]"
+                    className="w-full px-3.5 py-2 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
                   />
                 </div>
 
                 {/* 3. Regulatory Status */}
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     3. Regulatory Status
                   </label>
                   <input
@@ -2282,13 +2275,13 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. CE Marking (EU MDR 2017/745) / CDSCO (or leave blank)"
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#EAB308]"
+                    className="w-full px-3.5 py-2 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
                   />
                 </div>
 
                 {/* 4. Warranty */}
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     4. Warranty
                   </label>
                   <input
@@ -2300,7 +2293,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. 2-Year Comprehensive Clinical Warranty"
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#EAB308]"
+                    className="w-full px-3.5 py-2 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
                   />
                 </div>
               </div>
@@ -2317,27 +2310,23 @@ export const AdminProductEditorPage: React.FC = () => {
             className={`rounded-2xl p-6 space-y-4 transition-all duration-200 border flex flex-col justify-between ${getCardStyle("step-6")}`}
           >
             <div>
-              <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                    Step 6
-                  </span>
-                  <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                    Clinical Indications
-                  </h3>
-                </div>
+              {/* Step 6 Header */}
+              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+                  STEP 6 — CLINICAL INDICATIONS & SPECIALTY PROCEDURES
+                </span>
                 <button
                   type="button"
                   onClick={handleRegenerateIndications}
                   disabled={isRegeneratingIndications}
-                  className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
+                  className="flex items-center gap-1.5 px-2.5 py-1 bg-black/30 hover:bg-black/50 text-white rounded-lg text-xs font-bold transition-colors border border-white/40 cursor-pointer disabled:opacity-50"
                 >
-                  {isRegeneratingIndications ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
+                  {isRegeneratingIndications ? <RefreshCw size={11} className="animate-spin" /> : <Sparkles size={11} />}
                   <span>Regenerate</span>
                 </button>
               </div>
 
-              <p className="text-xs text-neutral-500 mt-3">
+              <p className="text-xs text-white/80 mt-2 mb-3">
                 Intended clinical departments, surgical workflows, and validated procedures.
               </p>
 
@@ -2358,7 +2347,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     }
                   }}
                   placeholder="Add clinical indication..."
-                  className="flex-1 px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
+                  className="flex-1 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
                 />
                 <button
                   type="button"
@@ -2370,7 +2359,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }
                   }}
-                  className="px-4 py-2 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold cursor-pointer"
+                  className="px-4 py-2.5 bg-black/30 hover:bg-black/50 text-white rounded-xl text-xs font-bold border border-white/40 cursor-pointer transition-colors"
                 >
                   Add
                 </button>
@@ -2378,13 +2367,13 @@ export const AdminProductEditorPage: React.FC = () => {
 
               <div className="space-y-1.5 max-h-48 overflow-y-auto mt-3">
                 {clinicalIndications.length === 0 ? (
-                  <div className="p-3 text-center text-xs text-neutral-400 bg-[#F8F9FA] rounded-xl border border-dashed border-[#E5E7EB]">
+                  <div className="p-3 text-center text-xs text-white/70 bg-black/20 rounded-xl border border-dashed border-white/30">
                     No clinical indications specified yet. Use AI Analysis or add above.
                   </div>
                 ) : (
                   clinicalIndications.map((ind, i) => (
-                    <div key={i} className="flex items-center justify-between text-xs bg-[#F8F9FA] p-2.5 rounded-xl border border-[#E5E7EB]">
-                      <span className="flex-1 pr-2 text-neutral-800 font-medium">• {ind}</span>
+                    <div key={i} className="flex items-center justify-between text-xs bg-white text-[#171717] p-2.5 rounded-xl border border-white/40 shadow-2xs">
+                      <span className="flex-1 pr-2 font-medium">• {ind}</span>
                       <button
                         type="button"
                         onClick={() => {
@@ -2392,7 +2381,7 @@ export const AdminProductEditorPage: React.FC = () => {
                           markFieldEdited("clinicalIndications");
                           setHasUnsavedChanges(true);
                         }}
-                        className="text-neutral-400 hover:text-[#D92D32] cursor-pointer"
+                        className="text-neutral-400 hover:text-[#C62828] cursor-pointer transition-colors"
                       >
                         <Trash2 size={13} />
                       </button>
@@ -2413,27 +2402,23 @@ export const AdminProductEditorPage: React.FC = () => {
             className={`rounded-2xl p-6 space-y-4 transition-all duration-200 border flex flex-col justify-between ${getCardStyle("step-7")}`}
           >
             <div>
-              <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                    Step 7
-                  </span>
-                  <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                    Key Factors & Highlights
-                  </h3>
-                </div>
+              {/* Step 7 Header */}
+              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+                  STEP 7 — KEY FACTORS & ENGINEERING HIGHLIGHTS
+                </span>
                 <button
                   type="button"
                   onClick={handleRegenerateHighlights}
                   disabled={isRegeneratingHighlights}
-                  className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
+                  className="flex items-center gap-1.5 px-2.5 py-1 bg-black/30 hover:bg-black/50 text-white rounded-lg text-xs font-bold transition-colors border border-white/40 cursor-pointer disabled:opacity-50"
                 >
-                  {isRegeneratingHighlights ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
+                  {isRegeneratingHighlights ? <RefreshCw size={11} className="animate-spin" /> : <Sparkles size={11} />}
                   <span>Regenerate</span>
                 </button>
               </div>
 
-              <p className="text-xs text-neutral-500 mt-3">
+              <p className="text-xs text-white/80 mt-2 mb-3">
                 Concise engineering, performance, mechanical design, and safety highlights.
               </p>
 
@@ -2454,7 +2439,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     }
                   }}
                   placeholder="Add engineering highlight..."
-                  className="flex-1 px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
+                  className="flex-1 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
                 />
                 <button
                   type="button"
@@ -2466,7 +2451,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }
                   }}
-                  className="px-4 py-2 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold cursor-pointer"
+                  className="px-4 py-2.5 bg-black/30 hover:bg-black/50 text-white rounded-xl text-xs font-bold border border-white/40 cursor-pointer transition-colors"
                 >
                   Add
                 </button>
@@ -2474,13 +2459,13 @@ export const AdminProductEditorPage: React.FC = () => {
 
               <div className="space-y-1.5 max-h-48 overflow-y-auto mt-3">
                 {engineeringHighlights.length === 0 ? (
-                  <div className="p-3 text-center text-xs text-neutral-400 bg-[#F8F9FA] rounded-xl border border-dashed border-[#E5E7EB]">
+                  <div className="p-3 text-center text-xs text-white/70 bg-black/20 rounded-xl border border-dashed border-white/30">
                     No engineering highlights added yet. Use AI Analysis or add above.
                   </div>
                 ) : (
                   engineeringHighlights.map((hl, i) => (
-                    <div key={i} className="flex items-center justify-between text-xs bg-[#F8F9FA] p-2.5 rounded-xl border border-[#E5E7EB]">
-                      <span className="flex-1 pr-2 text-neutral-800 font-medium">• {hl}</span>
+                    <div key={i} className="flex items-center justify-between text-xs bg-white text-[#171717] p-2.5 rounded-xl border border-white/40 shadow-2xs">
+                      <span className="flex-1 pr-2 font-medium">• {hl}</span>
                       <button
                         type="button"
                         onClick={() => {
@@ -2488,7 +2473,7 @@ export const AdminProductEditorPage: React.FC = () => {
                           markFieldEdited("engineeringHighlights");
                           setHasUnsavedChanges(true);
                         }}
-                        className="text-neutral-400 hover:text-[#D92D32] cursor-pointer"
+                        className="text-neutral-400 hover:text-[#C62828] cursor-pointer transition-colors"
                       >
                         <Trash2 size={13} />
                       </button>
@@ -2509,27 +2494,23 @@ export const AdminProductEditorPage: React.FC = () => {
             className={`rounded-2xl p-6 space-y-4 transition-all duration-200 border flex flex-col justify-between ${getCardStyle("step-8")}`}
           >
             <div>
-              <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                    Step 8
-                  </span>
-                  <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                    Standard Package Contents
-                  </h3>
-                </div>
+              {/* Step 8 Header */}
+              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+                  STEP 8 — STANDARD INCLUDED PACKAGE CONTENTS
+                </span>
                 <button
                   type="button"
                   onClick={handleRegeneratePackage}
                   disabled={isRegeneratingPackage}
-                  className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
+                  className="flex items-center gap-1.5 px-2.5 py-1 bg-black/30 hover:bg-black/50 text-white rounded-lg text-xs font-bold transition-colors border border-white/40 cursor-pointer disabled:opacity-50"
                 >
-                  {isRegeneratingPackage ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
+                  {isRegeneratingPackage ? <RefreshCw size={11} className="animate-spin" /> : <Sparkles size={11} />}
                   <span>Regenerate</span>
                 </button>
               </div>
 
-              <p className="text-xs text-neutral-500 mt-3">
+              <p className="text-xs text-white/80 mt-2 mb-3">
                 Verified components, cables, modules, and standard hardware included in shipment.
               </p>
 
@@ -2539,12 +2520,12 @@ export const AdminProductEditorPage: React.FC = () => {
                   value={newPackageItemName}
                   onChange={(e) => setNewPackageItemName(e.target.value)}
                   placeholder="Component name..."
-                  className="col-span-7 px-3 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
+                  className="col-span-7 px-3 py-2 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
                 />
                 <select
                   value={newPackageItemType}
                   onChange={(e) => setNewPackageItemType(e.target.value as any)}
-                  className="col-span-3 px-2 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
+                  className="col-span-3 px-2 py-2 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none cursor-pointer"
                 >
                   <option value="standard">Standard</option>
                   <option value="optional">Optional</option>
@@ -2553,7 +2534,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={addPackageItem}
-                  className="col-span-2 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold flex items-center justify-center cursor-pointer"
+                  className="col-span-2 bg-black/30 hover:bg-black/50 text-white rounded-xl text-xs font-bold flex items-center justify-center border border-white/40 cursor-pointer transition-colors"
                 >
                   Add
                 </button>
@@ -2561,12 +2542,12 @@ export const AdminProductEditorPage: React.FC = () => {
 
               <div className="space-y-1.5 max-h-56 overflow-y-auto mt-3">
                 {packageItems.length === 0 ? (
-                  <div className="p-3 text-center text-xs text-neutral-400 bg-[#F8F9FA] rounded-xl border border-dashed border-[#E5E7EB]">
+                  <div className="p-3 text-center text-xs text-white/70 bg-black/20 rounded-xl border border-dashed border-white/30">
                     No package components added yet.
                   </div>
                 ) : (
                   packageItems.map((item, i) => (
-                    <div key={item.id || i} className="flex items-center justify-between text-xs bg-[#F8F9FA] p-2.5 rounded-xl border border-[#E5E7EB]">
+                    <div key={item.id || i} className="flex items-center justify-between text-xs bg-white text-[#171717] p-2.5 rounded-xl border border-white/40 shadow-2xs">
                       <div className="flex items-center gap-2 flex-1 pr-2 truncate">
                         <span
                           className={`text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded ${
@@ -2605,7 +2586,7 @@ export const AdminProductEditorPage: React.FC = () => {
                           type="button"
                           onClick={() => removePackageItem(i)}
                           title="Remove component"
-                          className="p-1 text-neutral-400 hover:text-[#D92D32] cursor-pointer"
+                          className="p-1 text-neutral-400 hover:text-[#C62828] cursor-pointer"
                         >
                           <Trash2 size={12} />
                         </button>
@@ -2627,16 +2608,12 @@ export const AdminProductEditorPage: React.FC = () => {
             className={`rounded-2xl p-6 space-y-4 transition-all duration-200 border flex flex-col justify-between ${getCardStyle("step-9")}`}
           >
             <div>
-              <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                    Step 9
-                  </span>
-                  <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                    Commercial Pricing & Inventory
-                  </h3>
-                </div>
-                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 border border-[#E5E7EB]">
+              {/* Step 9 Header */}
+              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+                  STEP 9 — PRICING
+                </span>
+                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-black/30 border border-white/40 text-white">
                   Base: ₹ INR
                 </span>
               </div>
@@ -2644,8 +2621,8 @@ export const AdminProductEditorPage: React.FC = () => {
               <div className="space-y-4 mt-4">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-bold text-[#171717] mb-1">
-                      Original MRP (₹ INR) <span className="text-rose-500">*</span>
+                    <label className="block text-xs font-bold text-white mb-1">
+                      Original MRP (₹ INR) <span className="text-[#C62828] font-bold">*</span>
                     </label>
                     <input
                       type="number"
@@ -2658,13 +2635,13 @@ export const AdminProductEditorPage: React.FC = () => {
                         setHasUnsavedChanges(true);
                       }}
                       placeholder="e.g. 175000"
-                      className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono text-[#171717] focus:outline-none focus:border-[#EAB308]"
+                      className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-mono font-bold focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-[#171717] mb-1">
-                      Selling Price (₹ INR) <span className="text-rose-500">*</span>
+                    <label className="block text-xs font-bold text-white mb-1">
+                      Selling Price (₹ INR) <span className="text-[#C62828] font-bold">*</span>
                     </label>
                     <input
                       type="number"
@@ -2677,61 +2654,65 @@ export const AdminProductEditorPage: React.FC = () => {
                         setHasUnsavedChanges(true);
                       }}
                       placeholder="e.g. 150000"
-                      className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono font-bold text-[#171717] focus:outline-none focus:border-[#EAB308]"
+                      className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-mono font-bold focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
                     />
                   </div>
                 </div>
 
-                {/* Automatic Calculated Discount Card */}
-                <div className="p-3 rounded-xl border border-[#E5E7EB] bg-[#F8F9FA] flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] text-neutral-400 block uppercase font-mono">
-                      Calculated Discount:
+                {/* Automatic Calculated Discount & Savings Card */}
+                <div className="p-3.5 rounded-xl border border-white/40 bg-black/25 flex flex-col justify-center space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] text-white/80 uppercase font-mono tracking-wider">
+                      Calculated Discount
                     </span>
-                    <span className="text-xs font-bold text-neutral-800">
-                      {discountPercentage > 0 ? `${discountPercentage}% OFF` : "No discount applied"}
-                    </span>
+                    {discountPercentage > 0 ? (
+                      <span className="text-sm font-black text-[#C62828] bg-white px-2.5 py-0.5 rounded-md border border-white shadow-xs">
+                        {discountFormatted}% OFF
+                      </span>
+                    ) : (
+                      <span className="text-xs font-semibold text-white/70">No discount applied</span>
+                    )}
                   </div>
-                  {calculatedSavings > 0 && (
-                    <span className="text-xs font-bold text-[#16803D] bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-                      Saves ₹{calculatedSavings.toLocaleString("en-IN")}
-                    </span>
-                  )}
+                  {calculatedSavings > 0 ? (
+                    <div className="text-xs font-bold text-white pt-1">
+                      You Save: ₹{calculatedSavings.toLocaleString("en-IN")}
+                    </div>
+                  ) : null}
                 </div>
 
                 {/* Live International FX Currency Preview */}
-                <div className="p-3 rounded-xl border border-[#E5E7EB] bg-[#F8F9FA] space-y-2">
+                <div className="p-3.5 rounded-xl border border-white/40 bg-black/25 space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-neutral-700 flex items-center gap-1.5">
-                      <Globe size={13} />
-                      <span>Live FX Conversion</span>
+                    <span className="font-bold text-white flex items-center gap-1.5">
+                      <Globe size={13} className="text-[#EAB308]" />
+                      <span>International Pricing</span>
                     </span>
-                    <span className="text-[10px] text-neutral-400 font-mono">
+                    <span className="text-[10px] text-white/70 font-mono">
                       {rateTimestamp ? new Date(rateTimestamp).toLocaleTimeString() : "Live FX"}
                     </span>
                   </div>
 
                   <div className="grid grid-cols-4 gap-2 text-center">
-                    <div className="p-2 bg-white rounded-lg border border-[#E5E7EB]">
-                      <span className="text-[10px] text-neutral-400 block font-mono">USD</span>
+                    <div className="p-2 bg-white rounded-lg border border-white/40">
+                      <span className="text-[10px] text-neutral-500 block font-mono font-bold">USD</span>
                       <span className="text-xs font-bold text-[#171717]">
                         ${(basePrice * (exchangeRates.USD || 0.010379)).toFixed(2)}
                       </span>
                     </div>
-                    <div className="p-2 bg-white rounded-lg border border-[#E5E7EB]">
-                      <span className="text-[10px] text-neutral-400 block font-mono">EUR</span>
+                    <div className="p-2 bg-white rounded-lg border border-white/40">
+                      <span className="text-[10px] text-neutral-500 block font-mono font-bold">EUR</span>
                       <span className="text-xs font-bold text-[#171717]">
                         €{(basePrice * (exchangeRates.EUR || 0.009228)).toFixed(2)}
                       </span>
                     </div>
-                    <div className="p-2 bg-white rounded-lg border border-[#E5E7EB]">
-                      <span className="text-[10px] text-neutral-400 block font-mono">GBP</span>
+                    <div className="p-2 bg-white rounded-lg border border-white/40">
+                      <span className="text-[10px] text-neutral-500 block font-mono font-bold">GBP</span>
                       <span className="text-xs font-bold text-[#171717]">
                         £{(basePrice * (exchangeRates.GBP || 0.007854)).toFixed(2)}
                       </span>
                     </div>
-                    <div className="p-2 bg-white rounded-lg border border-[#E5E7EB]">
-                      <span className="text-[10px] text-neutral-400 block font-mono">AED</span>
+                    <div className="p-2 bg-white rounded-lg border border-white/40">
+                      <span className="text-[10px] text-neutral-500 block font-mono font-bold">AED</span>
                       <span className="text-xs font-bold text-[#171717]">
                         {(basePrice * (exchangeRates.AED || 0.038116)).toFixed(2)}
                       </span>
@@ -2739,67 +2720,63 @@ export const AdminProductEditorPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Stock Quantity & Status */}
-                <div className="grid grid-cols-2 gap-3">
+                {/* Stock Quantity & Status Toggle (Strictly only these 2 fields) */}
+                <div className="grid grid-cols-2 gap-3 items-end">
                   <div>
-                    <label className="block text-xs font-bold text-[#171717] mb-1">Stock Quantity</label>
+                    <label className="block text-xs font-bold text-white mb-1">
+                      1. Stock Quantity
+                    </label>
                     <input
                       type="number"
                       min="0"
                       value={stock}
                       onChange={(e) => {
-                        setStock(parseInt(e.target.value) || 0);
+                        const val = Math.max(0, parseInt(e.target.value) || 0);
+                        setStock(val);
+                        if (val === 0) {
+                          setStockStatus("OUT_OF_STOCK");
+                        } else if (stockStatus === "OUT_OF_STOCK") {
+                          setStockStatus("IN_STOCK");
+                        }
                         markFieldEdited("stock");
-                        setHasUnsavedChanges(true);
-                      }}
-                      className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono text-[#171717]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-[#171717] mb-1">Stock Status</label>
-                    <select
-                      value={stockStatus}
-                      onChange={(e) => {
-                        setStockStatus(e.target.value as any);
                         markFieldEdited("stockStatus");
                         setHasUnsavedChanges(true);
                       }}
-                      className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs font-bold text-[#171717]"
+                      className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-mono font-bold focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-white mb-1">
+                      2. In-Stock Status
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const isCurrentlyInStock = stockStatus !== "OUT_OF_STOCK";
+                        if (isCurrentlyInStock) {
+                          setStockStatus("OUT_OF_STOCK");
+                          setStock(0);
+                        } else {
+                          setStockStatus("IN_STOCK");
+                          if (stock <= 0) setStock(10);
+                        }
+                        markFieldEdited("stockStatus");
+                        markFieldEdited("stock");
+                        setHasUnsavedChanges(true);
+                      }}
+                      className={`w-full py-2.5 px-3.5 rounded-xl border border-white/40 text-xs font-bold flex items-center justify-between cursor-pointer transition-colors ${
+                        stockStatus !== "OUT_OF_STOCK"
+                          ? "bg-white text-[#0D4C3C]"
+                          : "bg-black/30 text-white"
+                      }`}
                     >
-                      <option value="IN_STOCK">In Stock (Available)</option>
-                      <option value="LOW_STOCK">Low Stock (Replenishing)</option>
-                      <option value="OUT_OF_STOCK">Out of Stock</option>
-                    </select>
-                  </div>
-                </div>
-
-                {/* Lead Time & MOQ */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-xs font-bold text-[#171717] mb-1">Minimum Order Qty</label>
-                    <input
-                      type="number"
-                      min="1"
-                      value={minOrderQuantity}
-                      onChange={(e) => {
-                        setMinOrderQuantity(parseInt(e.target.value) || 1);
-                        setHasUnsavedChanges(true);
-                      }}
-                      className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono text-[#171717]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-[#171717] mb-1">Dispatch Lead Time</label>
-                    <input
-                      type="text"
-                      value={leadTimeWeeks}
-                      onChange={(e) => {
-                        setLeadTimeWeeks(e.target.value);
-                        setHasUnsavedChanges(true);
-                      }}
-                      placeholder="e.g. 1–2 Weeks"
-                      className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
-                    />
+                      <span>{stockStatus !== "OUT_OF_STOCK" ? "In Stock (Available)" : "Out of Stock"}</span>
+                      <span
+                        className={`w-3.5 h-3.5 rounded-full ${
+                          stockStatus !== "OUT_OF_STOCK" ? "bg-[#16803D]" : "bg-[#C62828]"
+                        }`}
+                      />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -2815,23 +2792,19 @@ export const AdminProductEditorPage: React.FC = () => {
             onFocusCapture={() => setSelectedCard("settings")}
             className={`col-span-1 lg:col-span-2 rounded-2xl p-6 space-y-4 transition-all duration-200 border ${getCardStyle("settings")}`}
           >
-            <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  Settings & Metadata
-                </span>
-                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                  Publication & Storefront Visibility
-                </h3>
-              </div>
-              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 border border-[#E5E7EB]">
-                Storefront Controls
+            {/* Settings Header */}
+            <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
+              <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+                SETTINGS & METADATA
+              </span>
+              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-black/30 border border-white/40 text-white">
+                Storefront Visibility
               </span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               <div>
-                <label className="block text-xs font-bold text-[#171717] mb-1">
+                <label className="block text-xs font-bold text-white mb-1">
                   Publication Status
                 </label>
                 <select
@@ -2841,7 +2814,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     markFieldEdited("status");
                     setHasUnsavedChanges(true);
                   }}
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-bold text-[#171717] focus:outline-none focus:border-[#EAB308] cursor-pointer"
+                  className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-bold focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none cursor-pointer"
                 >
                   <option value="DRAFT">Draft (Internal Only, Hidden from Public)</option>
                   <option value="ACTIVE">Active (Live in Storefront)</option>
@@ -2849,8 +2822,8 @@ export const AdminProductEditorPage: React.FC = () => {
                   <option value="ARCHIVED">Archived (Historical Record)</option>
                 </select>
 
-                <div className="space-y-2.5 pt-3 mt-3 border-t border-[#E5E7EB]">
-                  <label className="flex items-center gap-2.5 text-xs text-[#171717] cursor-pointer">
+                <div className="space-y-2.5 pt-3 mt-3 border-t border-white/20">
+                  <label className="flex items-center gap-2.5 text-xs text-white cursor-pointer">
                     <input
                       type="checkbox"
                       checked={isFeatured}
@@ -2859,12 +2832,12 @@ export const AdminProductEditorPage: React.FC = () => {
                         markFieldEdited("isFeatured");
                         setHasUnsavedChanges(true);
                       }}
-                      className="w-4 h-4 rounded border-[#E5E7EB] text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
+                      className="w-4 h-4 rounded border-white/40 text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
                     />
                     <span className="font-semibold">Featured on Homepage Clinical Grid</span>
                   </label>
 
-                  <label className="flex items-center gap-2.5 text-xs text-[#171717] cursor-pointer">
+                  <label className="flex items-center gap-2.5 text-xs text-white cursor-pointer">
                     <input
                       type="checkbox"
                       checked={isBestSeller}
@@ -2873,12 +2846,12 @@ export const AdminProductEditorPage: React.FC = () => {
                         markFieldEdited("isBestSeller");
                         setHasUnsavedChanges(true);
                       }}
-                      className="w-4 h-4 rounded border-[#E5E7EB] text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
+                      className="w-4 h-4 rounded border-white/40 text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
                     />
                     <span className="font-semibold">Bestseller Ribbon Badge</span>
                   </label>
 
-                  <label className="flex items-center gap-2.5 text-xs text-[#171717] cursor-pointer">
+                  <label className="flex items-center gap-2.5 text-xs text-white cursor-pointer">
                     <input
                       type="checkbox"
                       checked={categoryGridVisible}
@@ -2887,7 +2860,7 @@ export const AdminProductEditorPage: React.FC = () => {
                         markFieldEdited("categoryGridVisible");
                         setHasUnsavedChanges(true);
                       }}
-                      className="w-4 h-4 rounded border-[#E5E7EB] text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
+                      className="w-4 h-4 rounded border-white/40 text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
                     />
                     <span className="font-semibold">Category Grid Visibility</span>
                   </label>
@@ -2896,7 +2869,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
               <div className="md:col-span-2 space-y-3">
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     Storefront SEO Meta Title
                   </label>
                   <input
@@ -2908,12 +2881,12 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. DR.MEDEX LED OT Light | Surgical Ceiling Luminaire"
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
+                    className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     Storefront SEO Meta Description
                   </label>
                   <textarea
@@ -2925,7 +2898,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="High-intent search description for Google index..."
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
+                    className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
                   />
                 </div>
               </div>
@@ -2936,14 +2909,14 @@ export const AdminProductEditorPage: React.FC = () => {
         {/* ============================================================ */}
         {/* PERSISTENT STICKY BOTTOM SAVE ACTION BAR                     */}
         {/* ============================================================ */}
-        <div className="sticky bottom-0 z-20 bg-white/95 backdrop-blur-xs py-4 px-6 border border-[#E5E7EB] shadow-lg rounded-2xl flex items-center justify-between flex-wrap gap-4">
+        <div className="sticky bottom-0 z-20 bg-[#0D4C3C] py-4 px-6 border border-white shadow-2xl rounded-2xl flex items-center justify-between flex-wrap gap-4 text-white">
           <div className="flex items-center gap-3">
             <span
-              className={`w-2.5 h-2.5 rounded-full ${
-                hasUnsavedChanges ? "bg-[#F2C230] animate-pulse" : "bg-[#16803D]"
+              className={`w-3 h-3 rounded-full ${
+                hasUnsavedChanges ? "bg-[#EAB308] animate-pulse" : "bg-emerald-400"
               }`}
             />
-            <span className="text-xs font-bold text-[#171717]">
+            <span className="text-xs font-bold text-white">
               {hasUnsavedChanges ? "Unsaved changes detected" : "All fields synchronized"}
             </span>
           </div>
@@ -2951,7 +2924,7 @@ export const AdminProductEditorPage: React.FC = () => {
           <div className="flex items-center gap-3">
             <Link
               to="/admin/products"
-              className="px-4 py-2 border border-[#E5E7EB] rounded-xl text-xs font-bold text-neutral-700 bg-white hover:bg-[#F8F9FA] transition-colors"
+              className="px-5 py-2.5 border border-white rounded-xl text-xs font-bold text-white bg-transparent hover:bg-white/10 transition-colors"
             >
               Discard Changes
             </Link>
@@ -2959,7 +2932,7 @@ export const AdminProductEditorPage: React.FC = () => {
             <button
               type="submit"
               disabled={isSaving}
-              className="flex items-center gap-2 px-8 py-2.5 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer"
+              className="flex items-center gap-2 px-8 py-2.5 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-xl text-xs font-bold transition-all border border-white shadow-md disabled:opacity-50 cursor-pointer"
             >
               {isSaving ? <RefreshCw size={14} className="animate-spin" /> : <Save size={14} />}
               <span>{isSaving ? "Saving Product..." : isEditMode ? "Save Changes" : "Save Product"}</span>

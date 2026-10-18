@@ -33,7 +33,9 @@ interface AdminLayoutProps {
   actions?: React.ReactNode;
   breadcrumbs?: { label: string; href?: string }[];
   titleClassName?: string;
+  subtitleClassName?: string;
   mainClassName?: string;
+  headerClassName?: string;
 }
 
 export const AdminLayout: React.FC<AdminLayoutProps> = ({
@@ -43,7 +45,9 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   actions,
   breadcrumbs,
   titleClassName,
-  mainClassName
+  subtitleClassName,
+  mainClassName,
+  headerClassName
 }) => {
   const { adminUser, isAuthenticated, isLoading, logout, adminFetch } = useAdminAuth();
   const location = useLocation();
@@ -475,14 +479,14 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
         </header>
 
         {/* Page Heading & Actions Strip */}
-        <div className="border-b border-[#E5E5E5] bg-white px-6 lg:px-8 py-5">
+        <div className={`border-b border-[#E5E5E5] px-6 lg:px-8 py-5 ${headerClassName || "bg-white"}`}>
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <h1 className={`text-xl sm:text-2xl font-black tracking-tight ${titleClassName || "text-black"}`}>
                 {title}
               </h1>
               {subtitle && (
-                <p className="text-xs text-[#666666] mt-1">
+                <p className={`text-xs mt-1 ${subtitleClassName || "text-[#666666]"}`}>
                   {subtitle}
                 </p>
               )}
