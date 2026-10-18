@@ -56,6 +56,7 @@ export const AdminProductsPage: React.FC = () => {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const isFetchingProductsRef = useRef(false);
   const categoryScrollRef = useRef<HTMLDivElement>(null);
 
   // Search & Filter State
@@ -133,18 +134,23 @@ export const AdminProductsPage: React.FC = () => {
   const [loadingCloudinaryReport, setLoadingCloudinaryReport] = useState(false);
 
   const fetchProducts = async (isManualRefresh = false) => {
-    if (isRefreshing) return;
+    if (isFetchingProductsRef.current || isRefreshing) return;
+    isFetchingProductsRef.current = true;
     setIsLoading(true);
     setIsRefreshing(true);
     try {
-      const url = `/api/admin/products?limit=1000${selectedStatus === "ARCHIVED" ? "&status=ARCHIVED" : ""}`;
+      const cacheBuster = `_t=${Date.now()}`;
+      const statusParam = selectedStatus === "ARCHIVED" ? "&status=ARCHIVED" : "";
+      const url = `/api/admin/products?limit=1000${statusParam}&${cacheBuster}`;
+      const catUrl = getApiUrl(`/api/categories?includeInactive=true&${cacheBuster}`);
+
       const [prodRes, catRes] = await Promise.all([
         adminFetch(url),
-        fetch(getApiUrl("/api/categories?includeInactive=true"))
+        fetch(catUrl)
       ]);
 
-      let loadedProducts: Product[] = [];
       let loadedFromLive = false;
+      let loadedProducts: Product[] = [];
 
       if (prodRes.ok) {
         try {
@@ -161,76 +167,81 @@ export const AdminProductsPage: React.FC = () => {
         }
       }
 
-      if (!loadedFromLive) {
-        // Fallback to local cache or verified catalogue ONLY if network/backend failed
-        try {
-          const cached = localStorage.getItem("drmedex_admin_products_cache");
-          if (cached) {
-            const parsed = JSON.parse(cached);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-              loadedProducts = parsed.map((p: any) => ({
-                ...p,
-                mongoSyncStatus: p.mongoSyncStatus === "SYNC_FAILED" ? "PENDING" : p.mongoSyncStatus
-              }));
-            }
-          }
-        } catch {}
-
-        if (!loadedProducts.length && fallbackProducts && fallbackProducts.length > 0) {
-          loadedProducts = fallbackProducts;
-        }
-
-        const statusMsg = !prodRes.ok ? `HTTP ${prodRes.status}` : "network synchronization";
-        setBannerMessage({
-          text: `Backend product service synchronizing (${statusMsg}). Displaying ${loadedProducts.length} verified catalogue products from local store.`,
-          type: "warning"
-        });
-      } else {
-        setBannerMessage(null);
+      if (loadedFromLive) {
+        setProducts(loadedProducts);
         if (isManualRefresh) {
           setBannerMessage({
             text: `Refreshed catalogue: ${loadedProducts.length} products synced from backend.`,
             type: "success"
           });
+        } else {
+          setBannerMessage(null);
         }
-      }
-
-      if (loadedFromLive || loadedProducts.length > 0) {
-        setProducts(loadedProducts);
+      } else {
+        // Fallback ONLY if no products currently exist in memory
+        if (products.length === 0) {
+          try {
+            const cached = localStorage.getItem("drmedex_admin_products_cache");
+            if (cached) {
+              const parsed = JSON.parse(cached);
+              if (Array.isArray(parsed) && parsed.length > 0) {
+                loadedProducts = parsed;
+              }
+            }
+          } catch {}
+          if (!loadedProducts.length && fallbackProducts && fallbackProducts.length > 0) {
+            loadedProducts = fallbackProducts;
+          }
+          if (loadedProducts.length > 0) {
+            setProducts(loadedProducts);
+          }
+        }
+        const statusMsg = !prodRes.ok ? `HTTP ${prodRes.status}` : "network synchronization";
+        setBannerMessage({
+          text: isManualRefresh
+            ? `Refresh request encountered an issue (${statusMsg}). Existing catalogue data preserved.`
+            : `Backend product service synchronizing (${statusMsg}). Displaying verified catalogue products.`,
+          type: isManualRefresh ? "error" : "warning"
+        });
       }
 
       if (catRes.ok) {
-        const cData = await catRes.json();
-        if (cData && cData.success && Array.isArray(cData.categories)) {
-          setCategories(cData.categories);
-        }
-      } else if (fallbackCategories && fallbackCategories.length > 0) {
+        try {
+          const cData = await catRes.json();
+          if (cData && cData.success && Array.isArray(cData.categories)) {
+            setCategories(cData.categories);
+          }
+        } catch {}
+      } else if (categories.length === 0 && fallbackCategories && fallbackCategories.length > 0) {
         setCategories(fallbackCategories);
       }
     } catch (e: any) {
       console.error("Products load error:", e);
-      let loadedProducts: Product[] = [];
-      try {
-        const cached = localStorage.getItem("drmedex_admin_products_cache");
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          if (Array.isArray(parsed) && parsed.length > 0) loadedProducts = parsed;
+      // DO NOT silently wipe or replace existing valid products on error!
+      if (products.length === 0) {
+        let loadedProducts: Product[] = [];
+        try {
+          const cached = localStorage.getItem("drmedex_admin_products_cache");
+          if (cached) {
+            const parsed = JSON.parse(cached);
+            if (Array.isArray(parsed) && parsed.length > 0) loadedProducts = parsed;
+          }
+        } catch {}
+        if (!loadedProducts.length && fallbackProducts) {
+          loadedProducts = fallbackProducts;
         }
-      } catch {}
-      if (!loadedProducts.length && fallbackProducts) {
-        loadedProducts = fallbackProducts;
+        if (loadedProducts.length > 0) {
+          setProducts(loadedProducts);
+        }
       }
-      if (loadedProducts.length > 0) {
-        setProducts(loadedProducts);
-      }
-      setCategories(fallbackCategories);
       setBannerMessage({
-        text: `Error contacting server: ${e.message || "Failed to load"}. Displaying ${loadedProducts.length} verified catalogue products.`,
+        text: `Error contacting server: ${e.message || "Failed to load"}. Existing catalogue data preserved.`,
         type: "error"
       });
     } finally {
       setIsLoading(false);
       setIsRefreshing(false);
+      isFetchingProductsRef.current = false;
     }
   };
 
@@ -1050,15 +1061,15 @@ export const AdminProductsPage: React.FC = () => {
               }}
               className={`px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer ${
                 selectedReviewStatus === "CORRECT"
-                  ? "bg-emerald-500/30 text-emerald-300 border-emerald-400 font-bold"
-                  : "bg-white/10 text-white/80 border-white/20 hover:border-emerald-400"
+                  ? "bg-white text-[#15803D] border-[#15803D] font-bold shadow-2xs"
+                  : "bg-white/10 text-white/80 border-white/20 hover:border-[#15803D] hover:text-white"
               }`}
             >
               <Check size={11} className="stroke-[2.5]" />
               <span>Correct</span>
               <span
                 className={`px-1 py-0.2 rounded text-[10px] font-mono ${
-                  selectedReviewStatus === "CORRECT" ? "bg-emerald-500/40 text-emerald-200" : "bg-white/10 text-white"
+                  selectedReviewStatus === "CORRECT" ? "bg-[#15803D]/10 text-[#15803D] font-bold" : "bg-white/10 text-white"
                 }`}
               >
                 {reviewCounts.correct}
@@ -1073,15 +1084,15 @@ export const AdminProductsPage: React.FC = () => {
               }}
               className={`px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer ${
                 selectedReviewStatus === "NEEDS_EDITING"
-                  ? "bg-red-500/30 text-red-200 border-red-400 font-bold"
-                  : "bg-white/10 text-white/80 border-white/20 hover:border-red-400"
+                  ? "bg-[#FEE2E2] text-[#B91C1C] border-[#FCA5A5] font-bold shadow-2xs"
+                  : "bg-white/10 text-white/80 border-white/20 hover:border-[#FCA5A5] hover:text-white"
               }`}
             >
               <X size={11} className="stroke-[2.5]" />
               <span>Needs Editing</span>
               <span
                 className={`px-1 py-0.2 rounded text-[10px] font-mono ${
-                  selectedReviewStatus === "NEEDS_EDITING" ? "bg-red-500/40 text-red-200" : "bg-white/10 text-white"
+                  selectedReviewStatus === "NEEDS_EDITING" ? "bg-[#B91C1C]/10 text-[#B91C1C] font-bold" : "bg-white/10 text-white"
                 }`}
               >
                 {reviewCounts.needsEditing}
@@ -1096,15 +1107,15 @@ export const AdminProductsPage: React.FC = () => {
               }}
               className={`px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer ${
                 selectedReviewStatus === "PENDING"
-                  ? "bg-[#FFD400] text-black border-[#FFD400] font-bold"
-                  : "bg-white/10 text-white/80 border-white/20 hover:border-[#FFD400]"
+                  ? "bg-white text-black border-[#D4D4D4] font-bold shadow-2xs"
+                  : "bg-white/10 text-white/80 border-white/20 hover:border-[#D4D4D4] hover:text-white"
               }`}
             >
               <Clock size={11} />
               <span>Not Yet Reviewed</span>
               <span
                 className={`px-1 py-0.2 rounded text-[10px] font-mono ${
-                  selectedReviewStatus === "PENDING" ? "bg-black/20 text-black font-bold" : "bg-white/10 text-white"
+                  selectedReviewStatus === "PENDING" ? "bg-black/10 text-black font-bold" : "bg-white/10 text-white"
                 }`}
               >
                 {reviewCounts.pending}
@@ -1332,6 +1343,7 @@ export const AdminProductsPage: React.FC = () => {
                             {/* Line 1: Complete Product Name */}
                             <Link
                               to={`/admin/products/${p.id}/edit`}
+                              state={{ product: p }}
                               className="font-bold text-white hover:text-[#FFD400] text-xs sm:text-[13px] leading-snug line-clamp-2 block transition-colors"
                               title={p.title || p.productName}
                             >
@@ -1406,10 +1418,10 @@ export const AdminProductsPage: React.FC = () => {
                             disabled={reviewUpdatingId === p.id}
                             className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold border transition-all cursor-pointer ${
                               p.reviewStatus === "CORRECT"
-                                ? "bg-[#15803D]/25 text-[#4ADE80] border-[#15803D]/60 hover:bg-[#15803D]/40"
+                                ? "bg-white text-[#15803D] border-[#15803D] hover:bg-emerald-50"
                                 : p.reviewStatus === "NEEDS_EDITING"
-                                ? "bg-[#C62828]/25 text-[#FF8A80] border-[#C62828]/60 hover:bg-[#C62828]/40"
-                                : "bg-white/15 text-white/80 border-white/20 hover:bg-white/25"
+                                ? "bg-[#FEE2E2] text-[#B91C1C] border-[#FCA5A5] hover:bg-[#FEE2E2]/90"
+                                : "bg-white text-black border-[#D4D4D4] hover:bg-gray-50"
                             }`}
                             title="Click to change review status"
                           >
@@ -1419,11 +1431,11 @@ export const AdminProductsPage: React.FC = () => {
                                 Updating...
                               </span>
                             ) : p.reviewStatus === "CORRECT" ? (
-                              <Check size={11} className="stroke-[2.5]" />
+                              <Check size={11} className="stroke-[2.5] text-[#15803D]" />
                             ) : p.reviewStatus === "NEEDS_EDITING" ? (
-                              <X size={11} className="stroke-[2.5]" />
+                              <X size={11} className="stroke-[2.5] text-[#B91C1C]" />
                             ) : (
-                              <Clock size={11} />
+                              <Clock size={11} className="text-black" />
                             )}
 
                             {reviewUpdatingId !== p.id && (
@@ -1435,7 +1447,7 @@ export const AdminProductsPage: React.FC = () => {
                                   : "Not Yet Reviewed"}
                               </span>
                             )}
-                            <ChevronDown size={10} className="opacity-60" />
+                            <ChevronDown size={10} className={p.reviewStatus === "CORRECT" ? "text-[#15803D] opacity-70" : p.reviewStatus === "NEEDS_EDITING" ? "text-[#B91C1C] opacity-70" : "text-black opacity-70"} />
                           </button>
 
                           {/* Retry Buttons shown strictly on failure */}
@@ -1522,8 +1534,8 @@ export const AdminProductsPage: React.FC = () => {
                                 className="fixed inset-0 z-40"
                                 onClick={() => setActiveReviewPopoverId(null)}
                               />
-                              <div className="absolute right-0 sm:left-1/2 sm:-translate-x-1/2 mt-1 w-44 bg-[#0D4C3C] rounded-xl shadow-2xl border border-white/20 py-1 z-50 animate-in fade-in zoom-in-95 text-white">
-                                <div className="px-2.5 py-1 text-[10px] font-bold font-mono uppercase text-white/70 border-b border-white/15 mb-0.5">
+                              <div className="absolute right-0 sm:left-1/2 sm:-translate-x-1/2 mt-1 w-48 bg-white rounded-xl shadow-2xl border border-gray-200 py-1.5 px-1.5 z-50 animate-in fade-in zoom-in-95 text-[#171717]">
+                                <div className="px-2.5 py-1 text-[10px] font-bold font-mono uppercase text-gray-500 border-b border-gray-100 mb-1.5">
                                   Review Status
                                 </div>
 
@@ -1531,20 +1543,20 @@ export const AdminProductsPage: React.FC = () => {
                                 <button
                                   type="button"
                                   onClick={() => handleSetReviewStatus(p, "CORRECT")}
-                                  className={`w-full px-2.5 py-1.5 text-left text-xs font-semibold flex items-center justify-between hover:bg-white/10 transition-colors cursor-pointer ${
+                                  className={`w-full px-2.5 py-1.5 mb-1 text-left text-xs font-semibold rounded-lg flex items-center justify-between transition-colors cursor-pointer border ${
                                     p.reviewStatus === "CORRECT"
-                                      ? "text-[#4ADE80] font-bold bg-white/15"
-                                      : "text-white/80"
+                                      ? "bg-white text-[#15803D] border-[#15803D] font-bold shadow-2xs"
+                                      : "bg-white hover:bg-emerald-50 text-[#15803D] border-[#15803D]/40"
                                   }`}
                                 >
-                                  <div className="flex items-center gap-2 text-[#4ADE80]">
-                                    <div className="w-4 h-4 rounded-full bg-[#15803D]/40 flex items-center justify-center">
+                                  <div className="flex items-center gap-2 text-[#15803D]">
+                                    <div className="w-4 h-4 rounded-full bg-[#15803D]/10 flex items-center justify-center">
                                       <Check size={10} className="stroke-[2.5]" />
                                     </div>
                                     <span>Correct</span>
                                   </div>
                                   {p.reviewStatus === "CORRECT" && (
-                                    <Check size={11} className="text-[#4ADE80]" />
+                                    <Check size={12} className="text-[#15803D] stroke-[2.5]" />
                                   )}
                                 </button>
 
@@ -1552,20 +1564,20 @@ export const AdminProductsPage: React.FC = () => {
                                 <button
                                   type="button"
                                   onClick={() => handleSetReviewStatus(p, "NEEDS_EDITING")}
-                                  className={`w-full px-2.5 py-1.5 text-left text-xs font-semibold flex items-center justify-between hover:bg-white/10 transition-colors cursor-pointer ${
+                                  className={`w-full px-2.5 py-1.5 mb-1 text-left text-xs font-semibold rounded-lg flex items-center justify-between transition-colors cursor-pointer border ${
                                     p.reviewStatus === "NEEDS_EDITING"
-                                      ? "text-[#FF8A80] font-bold bg-white/15"
-                                      : "text-white/80"
+                                      ? "bg-[#FEE2E2] text-[#B91C1C] border-[#FCA5A5] font-bold shadow-2xs"
+                                      : "bg-[#FEE2E2]/60 hover:bg-[#FEE2E2] text-[#B91C1C] border-[#FCA5A5]/60"
                                   }`}
                                 >
-                                  <div className="flex items-center gap-2 text-[#FF8A80]">
-                                    <div className="w-4 h-4 rounded-full bg-[#C62828]/40 flex items-center justify-center">
+                                  <div className="flex items-center gap-2 text-[#B91C1C]">
+                                    <div className="w-4 h-4 rounded-full bg-[#B91C1C]/10 flex items-center justify-center">
                                       <X size={10} className="stroke-[2.5]" />
                                     </div>
                                     <span>Needs Editing</span>
                                   </div>
                                   {p.reviewStatus === "NEEDS_EDITING" && (
-                                    <Check size={11} className="text-[#FF8A80]" />
+                                    <Check size={12} className="text-[#B91C1C] stroke-[2.5]" />
                                   )}
                                 </button>
 
@@ -1573,25 +1585,25 @@ export const AdminProductsPage: React.FC = () => {
                                 <button
                                   type="button"
                                   onClick={() => handleSetReviewStatus(p, "PENDING")}
-                                  className={`w-full px-2.5 py-1.5 text-left text-xs font-semibold flex items-center justify-between hover:bg-white/10 transition-colors cursor-pointer ${
+                                  className={`w-full px-2.5 py-1.5 text-left text-xs font-semibold rounded-lg flex items-center justify-between transition-colors cursor-pointer border ${
                                     !p.reviewStatus || p.reviewStatus === "PENDING"
-                                      ? "text-white font-bold bg-white/15"
-                                      : "text-white/80"
+                                      ? "bg-white text-black border-[#D4D4D4] font-bold shadow-2xs"
+                                      : "bg-white hover:bg-gray-50 text-black/80 border-gray-200"
                                   }`}
                                 >
-                                  <div className="flex items-center gap-2 text-white/70">
-                                    <div className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">
+                                  <div className="flex items-center gap-2 text-black">
+                                    <div className="w-4 h-4 rounded-full bg-black/5 flex items-center justify-center">
                                       <Clock size={10} />
                                     </div>
                                     <span>Not Yet Reviewed</span>
                                   </div>
                                   {(!p.reviewStatus || p.reviewStatus === "PENDING") && (
-                                    <Check size={11} className="text-white" />
+                                    <Check size={12} className="text-black stroke-[2.5]" />
                                   )}
                                 </button>
 
                                 {p.reviewStatus === "NEEDS_EDITING" && (
-                                  <div className="pt-1 mt-0.5 border-t border-white/15 px-2.5">
+                                  <div className="pt-1 mt-1 border-t border-gray-100 px-2.5">
                                     <button
                                       type="button"
                                       onClick={() => {
@@ -1599,7 +1611,7 @@ export const AdminProductsPage: React.FC = () => {
                                         setReviewModalProduct(p);
                                         setReviewNoteInput(p.reviewNote || "");
                                       }}
-                                      className="text-[10px] text-[#FF8A80] hover:underline font-semibold block py-0.5 cursor-pointer"
+                                      className="text-[10px] text-[#B91C1C] hover:underline font-semibold block py-0.5 cursor-pointer"
                                     >
                                       {p.reviewNote ? "✎ Edit review note" : "+ Add review note"}
                                     </button>
@@ -1681,6 +1693,7 @@ export const AdminProductsPage: React.FC = () => {
                           {/* Compact Red Edit Button with pencil icon */}
                           <Link
                             to={`/admin/products/${p.id}/edit`}
+                            state={{ product: p }}
                             title="Edit product"
                             className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-xs font-bold transition-all shadow-2xs"
                           >

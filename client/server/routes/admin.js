@@ -1554,10 +1554,17 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
       return res.status(404).json({ success: false, message: "Product not found" });
     }
 
+    // Preserve existing Active/Inactive status unless explicitly changed to a permitted valid status
+    const validStatuses = ["ACTIVE", "INACTIVE", "DRAFT", "ARCHIVED"];
+    let finalStatus = existing.status || "ACTIVE";
+    if (req.body.status && validStatuses.includes(String(req.body.status).toUpperCase().trim())) {
+      finalStatus = String(req.body.status).toUpperCase().trim();
+    }
+
     const updates = {
       ...req.body,
-      status: req.body.status || existing.status || "ACTIVE",
-      reviewStatus: "CORRECT",
+      status: finalStatus,
+      reviewStatus: req.body.reviewStatus || existing.reviewStatus || "CORRECT",
       approvedAt: new Date().toISOString(),
       approvedBy: req.admin?.email || "SYSTEM_ADMIN",
       updatedBy: req.admin?.email || "SYSTEM_ADMIN",

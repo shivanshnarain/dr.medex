@@ -459,6 +459,7 @@ module.exports = {
       ],
       createdAt: (productData && productData.createdAt) || now,
       updatedAt: now,
+      status: (productData && productData.status) || "ACTIVE",
       ...productData,
       id: assignedId,
       slug: (productData && productData.slug) || (productData && productData.title ? productData.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") : assignedId)
@@ -472,10 +473,23 @@ module.exports = {
     const idx = state.products.findIndex(p => p.id === id || p.slug === id);
     if (idx !== -1) {
       const now = new Date().toISOString();
+      const current = state.products[idx];
+
+      // Sanitize status so partial updates, omitted fields, undefined/null/empty/invalid status NEVER overwrite existing status
+      const validStatuses = ["ACTIVE", "INACTIVE", "DRAFT", "ARCHIVED"];
+      let safeStatus = current.status || "ACTIVE";
+      if (updates && updates.status !== undefined && updates.status !== null && updates.status !== "") {
+        const candidate = String(updates.status).toUpperCase().trim();
+        if (validStatuses.includes(candidate)) {
+          safeStatus = candidate;
+        }
+      }
+
       const updated = {
-        ...state.products[idx],
+        ...current,
         ...updates,
-        updatedAt: updates.updatedAt || now
+        status: safeStatus,
+        updatedAt: (updates && updates.updatedAt) || now
       };
       // Shift updated product to beginning of array so recently updated product appears first
       state.products.splice(idx, 1);

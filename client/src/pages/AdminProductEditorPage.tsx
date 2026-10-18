@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import {
   Save,
   ArrowLeft,
@@ -51,15 +51,110 @@ export interface PackageItem {
   type: "standard" | "optional" | "confirmation";
 }
 
+function findInitialProduct(productId?: string, locationState?: any): any {
+  if (!productId || productId === "new") return null;
+  // 1. Direct pass-through from All Products table
+  if (locationState && locationState.product && (locationState.product.id === productId || locationState.product.slug === productId)) {
+    return locationState.product;
+  }
+  // 2. Verified local catalogue cache
+  try {
+    const cached = localStorage.getItem("drmedex_admin_products_cache");
+    if (cached) {
+      const list = JSON.parse(cached);
+      if (Array.isArray(list)) {
+        const found = list.find((p: any) => p.id === productId || p.slug === productId || p.sku === productId);
+        if (found) return found;
+      }
+    }
+  } catch {}
+  // 3. Fallback verified catalogue data
+  return fallbackProducts.find((p: any) => p.id === productId || p.slug === productId || p.sku === productId) || null;
+}
+
+function parseInitialSpecs(p: any) {
+  if (!p) return [];
+  if (Array.isArray(p.technicalSpecifications)) {
+    return p.technicalSpecifications.map((s: any) => ({
+      key: s.parameter || s.key || "",
+      value: s.specification || s.value || "",
+      unit: s.unit || "",
+      note: s.note || ""
+    }));
+  } else if (typeof p.technicalSpecifications === "object" && p.technicalSpecifications !== null) {
+    return Object.entries(p.technicalSpecifications).map(([k, v]) => ({
+      key: k,
+      value: typeof v === "object" ? JSON.stringify(v) : String(v),
+      unit: "",
+      note: ""
+    }));
+  } else if (typeof p.specifications === "object" && p.specifications !== null) {
+    return Object.entries(p.specifications).map(([k, v]) => ({
+      key: k,
+      value: typeof v === "object" ? JSON.stringify(v) : String(v),
+      unit: "",
+      note: ""
+    }));
+  }
+  return [];
+}
+
+function parseInitialPackageItems(p: any): PackageItem[] {
+  if (!p) return [];
+  if (Array.isArray(p.packageItems) && p.packageItems.length > 0) {
+    return p.packageItems.map((item: any, idx: number) => ({
+      id: item.id || `saved-pkg-${idx}`,
+      name: item.name || item.item || String(item),
+      type: (item.type?.toLowerCase() === "optional" || item.type?.toLowerCase() === "confirmation")
+        ? item.type.toLowerCase() as any
+        : "standard"
+    }));
+  } else if (Array.isArray(p.packageContents) && p.packageContents.length > 0) {
+    return p.packageContents.map((name: string, idx: number) => ({
+      id: `saved-pkg-${idx}`,
+      name: String(name),
+      type: "standard"
+    }));
+  }
+  return [];
+}
+
+function parseInitialImageSlots(p: any): ProductImageSlot[] {
+  if (!p) return [];
+  const loadedImgs: string[] = (Array.isArray(p.images) && p.images.length > 0)
+    ? p.images
+    : (Array.isArray(p.galleryImages) && p.galleryImages.length > 0
+      ? p.galleryImages
+      : (p.primaryImage ? [p.primaryImage] : []));
+  const managedMap = new Map<string, string>();
+  if (Array.isArray(p.managedCloudinaryImages)) {
+    p.managedCloudinaryImages.forEach((m: any) => {
+      const u = m?.secureUrl || m?.secure_url || m?.url;
+      const pid = m?.publicId || m?.public_id;
+      if (u && pid) managedMap.set(u, pid);
+    });
+  }
+  return loadedImgs.map((u: string, i: number) => ({
+    id: `saved-${i}-${Date.now()}`,
+    url: u,
+    status: "persisted" as const,
+    publicId: managedMap.get(u),
+    storageProvider: managedMap.has(u) ? "cloudinary" : undefined
+  }));
+}
+
 export const AdminProductEditorPage: React.FC = () => {
   const { productId } = useParams<{ productId?: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const { adminFetch } = useAdminAuth();
 
   const isEditMode = Boolean(productId && productId !== "new");
+  const initialProduct = useMemo(() => findInitialProduct(productId, location.state), [productId]);
+  const hasInitialProduct = Boolean(initialProduct);
 
-  // Loading & submission state
-  const [isLoading, setIsLoading] = useState(false);
+  // Loading & submission state - ONLY true if editing an existing product whose details are NOT available locally
+  const [isLoading, setIsLoading] = useState(isEditMode && !hasInitialProduct);
   const [isSaving, setIsSaving] = useState(false);
   const [isGeneratingIdentity, setIsGeneratingIdentity] = useState(false);
   const [isCheckingSku, setIsCheckingSku] = useState(false);
@@ -121,12 +216,24 @@ export const AdminProductEditorPage: React.FC = () => {
   // ==========================================
   // STEP 1: PRODUCT IMAGES
   // ==========================================
-  const [imageSlots, setImageSlots] = useState<ProductImageSlot[]>([]);
+  const [imageSlots, setImageSlots] = useState<ProductImageSlot[]>(() => parseInitialImageSlots(initialProduct));
   const imageSlotsRef = useRef<ProductImageSlot[]>(imageSlots);
   useEffect(() => {
     imageSlotsRef.current = imageSlots;
   }, [imageSlots]);
-  const [primaryImageIndex, setPrimaryImageIndex] = useState(0);
+
+  const initialPrimaryIdx = useMemo(() => {
+    if (!initialProduct) return 0;
+    const imgs: string[] = (Array.isArray(initialProduct.images) && initialProduct.images.length > 0)
+      ? initialProduct.images
+      : (Array.isArray(initialProduct.galleryImages) && initialProduct.galleryImages.length > 0
+        ? initialProduct.galleryImages
+        : (initialProduct.primaryImage ? [initialProduct.primaryImage] : []));
+    const pIdx = initialProduct.primaryImage ? imgs.indexOf(initialProduct.primaryImage) : 0;
+    return pIdx >= 0 ? pIdx : 0;
+  }, [initialProduct]);
+
+  const [primaryImageIndex, setPrimaryImageIndex] = useState(initialPrimaryIdx);
   const objectUrlsRef = useRef<string[]>([]);
   const images = useMemo(() => imageSlots.map((s) => s.url), [imageSlots]);
 
@@ -217,64 +324,77 @@ export const AdminProductEditorPage: React.FC = () => {
       return updated;
     });
   };
+  const manuallyEditedFieldsRef = useRef<Set<string>>(manuallyEditedFields);
+  useEffect(() => {
+    manuallyEditedFieldsRef.current = manuallyEditedFields;
+  }, [manuallyEditedFields]);
 
   // ==========================================
   // STEP 2: PRODUCT CLASSIFICATION
   // ==========================================
-  const [category, setCategory] = useState("ot-lights");
-  const [subcategory, setSubcategory] = useState("");
-  const [equipmentType, setEquipmentType] = useState("");
+  const [category, setCategory] = useState(initialProduct?.category || "ot-lights");
+  const [subcategory, setSubcategory] = useState(initialProduct?.subcategory || "");
+  const [equipmentType, setEquipmentType] = useState(initialProduct?.equipmentType || "");
 
   // ==========================================
   // STEP 3: PRODUCT IDENTITY (EXACTLY 3 FIELDS)
   // ==========================================
-  const [productName, setProductName] = useState("");
-  const [manufacturerModel, setManufacturerModel] = useState("");
-  const [sku, setSku] = useState("");
-  const [slug, setSlug] = useState("");
+  const [productName, setProductName] = useState(initialProduct?.productName || initialProduct?.title || "");
+  const [manufacturerModel, setManufacturerModel] = useState(initialProduct?.modelNumber || "");
+  const [sku, setSku] = useState(initialProduct?.sku || initialProduct?.SKU || "");
+  const [slug, setSlug] = useState(initialProduct?.slug || "");
   const [brand] = useState("DR.MEDEX"); // Internal constant brand
 
   // ==========================================
   // STEP 4: PRODUCT DESCRIPTION
   // ==========================================
-  const [description, setDescription] = useState("");
-  const [fullDescription, setFullDescription] = useState("");
-  const [shortDescription, setShortDescription] = useState("");
+  const initDesc = initialProduct?.description || initialProduct?.fullDescription || initialProduct?.shortDescription || initialProduct?.overview || "";
+  const [description, setDescription] = useState(initDesc);
+  const [fullDescription, setFullDescription] = useState(initialProduct?.fullDescription || initDesc);
+  const [shortDescription, setShortDescription] = useState(initialProduct?.shortDescription || initDesc.slice(0, 180));
   const [isRegeneratingDescription, setIsRegeneratingDescription] = useState(false);
 
   // ==========================================
   // STEP 5: TECHNICAL SPECIFICATIONS (4 INDEPENDENT FIELDS)
   // ==========================================
-  const [powerSupply, setPowerSupply] = useState("");
-  const [qualityStandards, setQualityStandards] = useState("");
-  const [regulatoryStatus, setRegulatoryStatus] = useState("");
-  const [warranty, setWarranty] = useState("2-Year Comprehensive Clinical Warranty");
+  const [powerSupply, setPowerSupply] = useState(initialProduct?.powerSupply || initialProduct?.powerRequirements || "");
+  const [qualityStandards, setQualityStandards] = useState(initialProduct?.qualityStandards || "");
+  const [regulatoryStatus, setRegulatoryStatus] = useState(initialProduct?.regulatoryStatus || initialProduct?.regulatoryClassification || "");
+  const [warranty, setWarranty] = useState(initialProduct?.warranty || "2-Year Comprehensive Clinical Warranty");
 
   // Optional detailed technical specs table
-  const [specList, setSpecList] = useState<{ key: string; value: string; unit?: string; note?: string }[]>([]);
+  const [specList, setSpecList] = useState<{ key: string; value: string; unit?: string; note?: string }[]>(() => parseInitialSpecs(initialProduct));
   const [newSpecKey, setNewSpecKey] = useState("");
   const [newSpecVal, setNewSpecVal] = useState("");
   const [newSpecUnit, setNewSpecUnit] = useState("");
-  const [showDetailedSpecsTable, setShowDetailedSpecsTable] = useState(false);
+  const [showDetailedSpecsTable, setShowDetailedSpecsTable] = useState(Boolean(initialProduct && parseInitialSpecs(initialProduct).length > 0));
 
   // ==========================================
   // STEP 6: CLINICAL INDICATIONS & SPECIALTY PROCEDURES
   // ==========================================
-  const [clinicalIndications, setClinicalIndications] = useState<string[]>([]);
+  const initIndications = Array.isArray(initialProduct?.clinicalIndications) && initialProduct.clinicalIndications.length > 0
+    ? initialProduct.clinicalIndications
+    : (Array.isArray(initialProduct?.applications) ? initialProduct.applications : []);
+  const [clinicalIndications, setClinicalIndications] = useState<string[]>(initIndications);
   const [newIndicationText, setNewIndicationText] = useState("");
   const [isRegeneratingIndications, setIsRegeneratingIndications] = useState(false);
 
   // ==========================================
   // STEP 7: KEY FACTORS & ENGINEERING HIGHLIGHTS
   // ==========================================
-  const [engineeringHighlights, setEngineeringHighlights] = useState<string[]>([]);
+  const initHighlights = Array.isArray(initialProduct?.engineeringHighlights) && initialProduct.engineeringHighlights.length > 0
+    ? initialProduct.engineeringHighlights
+    : (Array.isArray(initialProduct?.keyFeatures) && initialProduct.keyFeatures.length > 0
+      ? initialProduct.keyFeatures
+      : (Array.isArray(initialProduct?.features) ? initialProduct.features : []));
+  const [engineeringHighlights, setEngineeringHighlights] = useState<string[]>(initHighlights);
   const [newHighlightText, setNewHighlightText] = useState("");
   const [isRegeneratingHighlights, setIsRegeneratingHighlights] = useState(false);
 
   // ==========================================
   // STEP 8: STANDARD INCLUDED PACKAGE CONTENTS
   // ==========================================
-  const [packageItems, setPackageItems] = useState<PackageItem[]>([]);
+  const [packageItems, setPackageItems] = useState<PackageItem[]>(() => parseInitialPackageItems(initialProduct));
   const [newPackageItemName, setNewPackageItemName] = useState("");
   const [newPackageItemType, setNewPackageItemType] = useState<"standard" | "optional" | "confirmation">("standard");
   const [isRegeneratingPackage, setIsRegeneratingPackage] = useState(false);
@@ -282,14 +402,17 @@ export const AdminProductEditorPage: React.FC = () => {
   // ==========================================
   // STEP 9: PRICING & INVENTORY
   // ==========================================
-  const [originalPrice, setOriginalPrice] = useState<number>(0); // MRP in INR
-  const [basePrice, setBasePrice] = useState<number>(0); // Selling price in INR
-  const [stock, setStock] = useState<number>(10);
-  const [stockStatus, setStockStatus] = useState<"IN_STOCK" | "LOW_STOCK" | "OUT_OF_STOCK">("IN_STOCK");
-  const [lowStockThreshold, setLowStockThreshold] = useState<number>(3);
-  const [minOrderQuantity, setMinOrderQuantity] = useState<number>(1);
-  const [leadTimeWeeks, setLeadTimeWeeks] = useState("1–2 Weeks");
-  const [shippingInformation, setShippingInformation] = useState("Express Air Cargo Dispatch with Shockproof Wooden Crating");
+  const [originalPrice, setOriginalPrice] = useState<number>(initialProduct?.originalPrice || initialProduct?.regularPrice || initialProduct?.basePrice || 0);
+  const [basePrice, setBasePrice] = useState<number>(initialProduct?.basePrice || initialProduct?.salePrice || 0);
+  const initStock = initialProduct?.stock !== undefined ? initialProduct.stock : (initialProduct?.stockQuantity !== undefined ? initialProduct.stockQuantity : 10);
+  const [stock, setStock] = useState<number>(initStock);
+  const [stockStatus, setStockStatus] = useState<"IN_STOCK" | "LOW_STOCK" | "OUT_OF_STOCK">(
+    initialProduct?.stockStatus || (initStock > 0 ? (initStock <= 5 ? "LOW_STOCK" : "IN_STOCK") : "OUT_OF_STOCK")
+  );
+  const [lowStockThreshold, setLowStockThreshold] = useState<number>(initialProduct?.lowStockThreshold || 3);
+  const [minOrderQuantity, setMinOrderQuantity] = useState<number>(initialProduct?.moq || 1);
+  const [leadTimeWeeks, setLeadTimeWeeks] = useState(initialProduct?.leadTimeWeeks || "1–2 Weeks");
+  const [shippingInformation, setShippingInformation] = useState(initialProduct?.shippingInformation || "Express Air Cargo Dispatch with Shockproof Wooden Crating");
 
   const { discountPercentage, calculatedSavings, discountFormatted } = useMemo(() => {
     if (originalPrice > 0 && basePrice > 0 && originalPrice > basePrice) {
@@ -304,207 +427,238 @@ export const AdminProductEditorPage: React.FC = () => {
   // ==========================================
   // SETTINGS & METADATA — FINAL SECTION
   // ==========================================
-  const [status, setStatus] = useState<"ACTIVE" | "INACTIVE" | "DRAFT" | "ARCHIVED">("DRAFT");
-  const [isFeatured, setIsFeatured] = useState(false);
-  const [isBestSeller, setIsBestSeller] = useState(false);
-  const [categoryGridVisible, setCategoryGridVisible] = useState(true);
-  const [metaTitle, setMetaTitle] = useState("");
-  const [metaDescription, setMetaDescription] = useState("");
+  const [status, setStatus] = useState<"ACTIVE" | "INACTIVE" | "DRAFT" | "ARCHIVED">(initialProduct?.status || "ACTIVE");
+  const originalStatusRef = useRef<string>(initialProduct?.status || "ACTIVE");
+  const [isFeatured, setIsFeatured] = useState(Boolean(initialProduct?.featured || initialProduct?.isFeatured));
+  const [isBestSeller, setIsBestSeller] = useState(Boolean(initialProduct?.bestseller || initialProduct?.isBestSeller));
+  const [categoryGridVisible, setCategoryGridVisible] = useState(initialProduct?.categoryGridVisible !== false);
+  const [metaTitle, setMetaTitle] = useState(initialProduct?.metaTitle !== undefined ? initialProduct.metaTitle : (initialProduct?.seoTitle !== undefined ? initialProduct.seoTitle : ""));
+  const [metaDescription, setMetaDescription] = useState(initialProduct?.metaDescription !== undefined ? initialProduct.metaDescription : (initialProduct?.seoDescription !== undefined ? initialProduct.seoDescription : ""));
 
   // Legacy compatibility fields
-  const [regulatoryClass, setRegulatoryClass] = useState("Class IIa (MDR 2017/745)");
-  const [certificationStatus, setCertificationStatus] = useState("Claimed");
-  const [certificateNumber, setCertificateNumber] = useState("");
-  const [issuingOrg, setIssuingOrg] = useState("");
-  const [certifications, setCertifications] = useState<string[]>([]);
-  const [manualUrl, setManualUrl] = useState("");
-  const [datasheetUrl, setDatasheetUrl] = useState("");
+  const [regulatoryClass, setRegulatoryClass] = useState(initialProduct?.regulatoryClassification || "Class IIa (MDR 2017/745)");
+  const [certificationStatus, setCertificationStatus] = useState(initialProduct?.certificationStatus || "Claimed");
+  const [certificateNumber, setCertificateNumber] = useState(initialProduct?.certificateNumber || "");
+  const [issuingOrg, setIssuingOrg] = useState(initialProduct?.issuingOrg || "");
+  const [certifications, setCertifications] = useState<string[]>(initialProduct?.certifications || []);
+  const [manualUrl, setManualUrl] = useState(initialProduct?.manualUrl || "");
+  const [datasheetUrl, setDatasheetUrl] = useState(initialProduct?.datasheetUrl || "");
 
-  // Fetch initial hierarchy, rates, and product details (if editing)
+  // Populate helper used when loading from scratch (uncached)
+  const populateProductFields = (p: any) => {
+    setCategory(p.category || "ot-lights");
+    setSubcategory(p.subcategory || "");
+    setEquipmentType(p.equipmentType || "");
+    setProductName(p.productName || p.title || "");
+    setManufacturerModel(p.modelNumber || "");
+    setSku(p.sku || p.SKU || "");
+    setSlug(p.slug || "");
+
+    initialClassificationRef.current = {
+      category: p.category || "ot-lights",
+      subcategory: p.subcategory || ""
+    };
+
+    const mainDesc = p.description || p.fullDescription || p.shortDescription || p.overview || "";
+    setDescription(mainDesc);
+    setFullDescription(mainDesc);
+    setShortDescription(p.shortDescription || mainDesc.slice(0, 180));
+
+    setPowerSupply(p.powerSupply || p.powerRequirements || "");
+    setQualityStandards(p.qualityStandards || "");
+    setRegulatoryStatus(p.regulatoryStatus || p.regulatoryClassification || "");
+    if (p.warranty) setWarranty(p.warranty);
+
+    const loadedIndications = Array.isArray(p.clinicalIndications) && p.clinicalIndications.length > 0
+      ? p.clinicalIndications
+      : (Array.isArray(p.applications) ? p.applications : []);
+    setClinicalIndications(loadedIndications);
+
+    const loadedHighlights = Array.isArray(p.engineeringHighlights) && p.engineeringHighlights.length > 0
+      ? p.engineeringHighlights
+      : (Array.isArray(p.keyFeatures) && p.keyFeatures.length > 0
+        ? p.keyFeatures
+        : (Array.isArray(p.features) ? p.features : []));
+    setEngineeringHighlights(loadedHighlights);
+
+    setPackageItems(parseInitialPackageItems(p));
+
+    setOriginalPrice(p.originalPrice || p.regularPrice || p.basePrice || 0);
+    setBasePrice(p.basePrice || p.salePrice || 0);
+    const pStock = p.stock !== undefined ? p.stock : (p.stockQuantity !== undefined ? p.stockQuantity : 10);
+    setStock(pStock);
+    setLowStockThreshold(p.lowStockThreshold || 3);
+    setStockStatus(p.stockStatus || (pStock > 0 ? (pStock <= 5 ? "LOW_STOCK" : "IN_STOCK") : "OUT_OF_STOCK"));
+    setMinOrderQuantity(p.moq || 1);
+    setLeadTimeWeeks(p.leadTimeWeeks || "1–2 Weeks");
+    if (p.shippingInformation) setShippingInformation(p.shippingInformation);
+
+    const loadedSlots = parseInitialImageSlots(p);
+    setImageSlots(loadedSlots);
+
+    const loadedImgs = (Array.isArray(p.images) && p.images.length > 0)
+      ? p.images
+      : (Array.isArray(p.galleryImages) && p.galleryImages.length > 0
+        ? p.galleryImages
+        : (p.primaryImage ? [p.primaryImage] : []));
+    const pIdx = p.primaryImage ? loadedImgs.indexOf(p.primaryImage) : 0;
+    setPrimaryImageIndex(pIdx >= 0 ? pIdx : 0);
+
+    setSpecList(parseInitialSpecs(p));
+
+    setRegulatoryClass(p.regulatoryClassification || "Class IIa (MDR 2017/745)");
+    setCertificationStatus(p.certificationStatus || "Claimed");
+    setCertificateNumber(p.certificateNumber || "");
+    setIssuingOrg(p.issuingOrg || "");
+    originalStatusRef.current = p.status || "ACTIVE";
+    setStatus(p.status || "ACTIVE");
+    setCertifications(p.certifications || []);
+    setManualUrl(p.manualUrl || "");
+    setDatasheetUrl(p.datasheetUrl || "");
+    setMetaTitle(p.metaTitle !== undefined ? p.metaTitle : (p.seoTitle !== undefined ? p.seoTitle : ""));
+    setMetaDescription(p.metaDescription !== undefined ? p.metaDescription : (p.seoDescription !== undefined ? p.seoDescription : ""));
+    setIsFeatured(Boolean(p.featured || p.isFeatured));
+    setIsBestSeller(Boolean(p.bestseller || p.isBestSeller));
+    setCategoryGridVisible(p.categoryGridVisible !== false);
+  };
+
+  // Reconcile background fetched fields without overwriting unsaved edits
+  const reconcileProductFields = (fresh: any) => {
+    if (!fresh) return;
+    const edited = manuallyEditedFieldsRef.current;
+
+    // Preserve status unless admin explicitly edited it
+    if (fresh.status) {
+      originalStatusRef.current = fresh.status;
+      if (!edited.has("status")) {
+        setStatus(fresh.status);
+      }
+    }
+
+    if (!edited.has("category") && fresh.category) setCategory(fresh.category);
+    if (!edited.has("subcategory") && fresh.subcategory !== undefined) setSubcategory(fresh.subcategory);
+    if (!edited.has("equipmentType") && fresh.equipmentType !== undefined) setEquipmentType(fresh.equipmentType);
+    if (!edited.has("productName") && (fresh.productName || fresh.title)) setProductName(fresh.productName || fresh.title);
+    if (!edited.has("manufacturerModel") && fresh.modelNumber !== undefined) setManufacturerModel(fresh.modelNumber);
+    if (!edited.has("sku") && (fresh.sku || fresh.SKU)) setSku(fresh.sku || fresh.SKU);
+    if (!edited.has("slug") && fresh.slug) setSlug(fresh.slug);
+
+    const freshDesc = fresh.description || fresh.fullDescription || fresh.shortDescription || fresh.overview || "";
+    if (!edited.has("description") && freshDesc) {
+      setDescription(freshDesc);
+      setFullDescription(freshDesc);
+      setShortDescription(fresh.shortDescription || freshDesc.slice(0, 180));
+    }
+
+    if (!edited.has("powerSupply") && (fresh.powerSupply || fresh.powerRequirements)) {
+      setPowerSupply(fresh.powerSupply || fresh.powerRequirements);
+    }
+    if (!edited.has("qualityStandards") && fresh.qualityStandards) {
+      setQualityStandards(fresh.qualityStandards);
+    }
+    if (!edited.has("regulatoryStatus") && (fresh.regulatoryStatus || fresh.regulatoryClassification)) {
+      setRegulatoryStatus(fresh.regulatoryStatus || fresh.regulatoryClassification);
+    }
+    if (!edited.has("warranty") && fresh.warranty) {
+      setWarranty(fresh.warranty);
+    }
+
+    if (!edited.has("clinicalIndications") && (fresh.clinicalIndications || fresh.applications)) {
+      const inds = Array.isArray(fresh.clinicalIndications) && fresh.clinicalIndications.length > 0
+        ? fresh.clinicalIndications
+        : (Array.isArray(fresh.applications) ? fresh.applications : []);
+      if (inds.length > 0) setClinicalIndications(inds);
+    }
+
+    if (!edited.has("engineeringHighlights") && (fresh.engineeringHighlights || fresh.keyFeatures || fresh.features)) {
+      const hls = Array.isArray(fresh.engineeringHighlights) && fresh.engineeringHighlights.length > 0
+        ? fresh.engineeringHighlights
+        : (Array.isArray(fresh.keyFeatures) && fresh.keyFeatures.length > 0
+          ? fresh.keyFeatures
+          : (Array.isArray(fresh.features) ? fresh.features : []));
+      if (hls.length > 0) setEngineeringHighlights(hls);
+    }
+
+    if (!edited.has("packageItems") && (fresh.packageItems || fresh.packageContents)) {
+      const items = parseInitialPackageItems(fresh);
+      if (items.length > 0) setPackageItems(items);
+    }
+
+    if (!edited.has("basePrice") && fresh.basePrice !== undefined) {
+      setBasePrice(fresh.basePrice);
+    }
+    if (!edited.has("originalPrice") && (fresh.originalPrice || fresh.regularPrice)) {
+      setOriginalPrice(fresh.originalPrice || fresh.regularPrice);
+    }
+    if (!edited.has("stock") && fresh.stock !== undefined) {
+      setStock(fresh.stock);
+    }
+
+    // If initial images were empty or fresh has more, update image slots
+    const freshSlots = parseInitialImageSlots(fresh);
+    if (freshSlots.length > 0 && imageSlotsRef.current.length === 0) {
+      setImageSlots(freshSlots);
+    }
+  };
+
+  // Fetch initial hierarchy, rates, and product details in PARALLEL
   useEffect(() => {
+    let isCancelled = false;
+
     async function initData() {
       try {
-        const [catRes, hierRes, rateRes] = await Promise.all([
-          fetch("/api/categories?includeInactive=true"),
-          adminFetch("/api/admin/catalogue/hierarchy"),
-          fetch("/api/currency/rates")
+        const [catRes, hierRes, rateRes, prodRes] = await Promise.all([
+          fetch("/api/categories?includeInactive=true").catch(() => null),
+          adminFetch("/api/admin/catalogue/hierarchy").catch(() => null),
+          fetch("/api/currency/rates").catch(() => null),
+          isEditMode && productId ? adminFetch(`/api/admin/products/${productId}`).catch(() => null) : Promise.resolve(null)
         ]);
 
-        if (catRes.ok) {
-          const catData = await catRes.json();
-          if (catData.success && Array.isArray(catData.categories)) {
+        if (isCancelled) return;
+
+        if (catRes && catRes.ok) {
+          const catData = await catRes.json().catch(() => null);
+          if (catData && catData.success && Array.isArray(catData.categories)) {
             setAllCategories(catData.categories);
           }
         }
 
-        if (hierRes.ok) {
-          const hData = await hierRes.json();
-          if (hData.success && hData.hierarchy) {
+        if (hierRes && hierRes.ok) {
+          const hData = await hierRes.json().catch(() => null);
+          if (hData && hData.success && hData.hierarchy) {
             setCatalogueHierarchy(hData.hierarchy);
           }
         }
 
-        if (rateRes.ok) {
-          const rData = await rateRes.json();
-          if (rData.success && rData.rates) {
+        if (rateRes && rateRes.ok) {
+          const rData = await rateRes.json().catch(() => null);
+          if (rData && rData.success && rData.rates) {
             setExchangeRates(rData.rates);
             if (rData.lastFetchedAt) setRateTimestamp(rData.lastFetchedAt);
           }
         }
 
-        const populateProductFields = (p: any) => {
-          setCategory(p.category || "ot-lights");
-          setSubcategory(p.subcategory || "");
-          setEquipmentType(p.equipmentType || "");
-          setProductName(p.productName || p.title || "");
-          setManufacturerModel(p.modelNumber || "");
-          setSku(p.sku || p.SKU || "");
-          setSlug(p.slug || "");
-
-          initialClassificationRef.current = {
-            category: p.category || "ot-lights",
-            subcategory: p.subcategory || ""
-          };
-
-          // Step 4: Description
-          const mainDesc = p.description || p.fullDescription || p.shortDescription || p.overview || "";
-          setDescription(mainDesc);
-          setFullDescription(mainDesc);
-          setShortDescription(p.shortDescription || mainDesc.slice(0, 180));
-
-          // Step 5: Technical Specifications
-          setPowerSupply(p.powerSupply || p.powerRequirements || "");
-          setQualityStandards(p.qualityStandards || "");
-          setRegulatoryStatus(p.regulatoryStatus || p.regulatoryClassification || "");
-          if (p.warranty) setWarranty(p.warranty);
-
-          // Step 6: Clinical Indications
-          const loadedIndications = Array.isArray(p.clinicalIndications) && p.clinicalIndications.length > 0
-            ? p.clinicalIndications
-            : (Array.isArray(p.applications) ? p.applications : []);
-          setClinicalIndications(loadedIndications);
-
-          // Step 7: Engineering Highlights
-          const loadedHighlights = Array.isArray(p.engineeringHighlights) && p.engineeringHighlights.length > 0
-            ? p.engineeringHighlights
-            : (Array.isArray(p.keyFeatures) && p.keyFeatures.length > 0
-              ? p.keyFeatures
-              : (Array.isArray(p.features) ? p.features : []));
-          setEngineeringHighlights(loadedHighlights);
-
-          // Step 8: Package Contents
-          if (Array.isArray(p.packageItems) && p.packageItems.length > 0) {
-            setPackageItems(p.packageItems.map((item: any, idx: number) => ({
-              id: item.id || `saved-pkg-${idx}`,
-              name: item.name || item.item || String(item),
-              type: (item.type?.toLowerCase() === "optional" || item.type?.toLowerCase() === "confirmation")
-                ? item.type.toLowerCase() as any
-                : "standard"
-            })));
-          } else if (Array.isArray(p.packageContents) && p.packageContents.length > 0) {
-            setPackageItems(p.packageContents.map((name: string, idx: number) => ({
-              id: `saved-pkg-${idx}`,
-              name: String(name),
-              type: "standard"
-            })));
-          }
-
-          // Step 9: Prices in INR
-          setOriginalPrice(p.originalPrice || p.regularPrice || p.basePrice || 0);
-          setBasePrice(p.basePrice || p.salePrice || 0);
-          const pStock = p.stock !== undefined ? p.stock : (p.stockQuantity !== undefined ? p.stockQuantity : 10);
-          setStock(pStock);
-          setLowStockThreshold(p.lowStockThreshold || 3);
-          setStockStatus(p.stockStatus || (pStock > 0 ? (pStock <= 5 ? "LOW_STOCK" : "IN_STOCK") : "OUT_OF_STOCK"));
-          setMinOrderQuantity(p.moq || 1);
-          setLeadTimeWeeks(p.leadTimeWeeks || "1–2 Weeks");
-          if (p.shippingInformation) setShippingInformation(p.shippingInformation);
-
-          // Step 1: Photos
-          const loadedImgs: string[] = (Array.isArray(p.images) && p.images.length > 0)
-            ? p.images
-            : (Array.isArray(p.galleryImages) && p.galleryImages.length > 0
-              ? p.galleryImages
-              : (p.primaryImage ? [p.primaryImage] : []));
-
-          const managedMap = new Map<string, string>();
-          if (Array.isArray(p.managedCloudinaryImages)) {
-            p.managedCloudinaryImages.forEach((m: any) => {
-              const u = m?.secureUrl || m?.secure_url || m?.url;
-              const pid = m?.publicId || m?.public_id;
-              if (u && pid) managedMap.set(u, pid);
-            });
-          }
-
-          setImageSlots(loadedImgs.map((u: string, i: number) => ({
-            id: `saved-${i}-${Date.now()}`,
-            url: u,
-            status: "persisted" as const,
-            publicId: managedMap.get(u),
-            storageProvider: managedMap.has(u) ? "cloudinary" : undefined
-          })));
-
-          const pIdx = p.primaryImage ? loadedImgs.indexOf(p.primaryImage) : 0;
-          setPrimaryImageIndex(pIdx >= 0 ? pIdx : 0);
-
-          // Normalize additional detailed specifications
-          let initialSpecs: { key: string; value: string; unit?: string; note?: string }[] = [];
-          if (Array.isArray(p.technicalSpecifications)) {
-            initialSpecs = p.technicalSpecifications.map((s: any) => ({
-              key: s.parameter || s.key || "",
-              value: s.specification || s.value || "",
-              unit: s.unit || "",
-              note: s.note || ""
-            }));
-          } else if (typeof p.technicalSpecifications === "object" && p.technicalSpecifications !== null) {
-            initialSpecs = Object.entries(p.technicalSpecifications).map(([k, v]) => ({
-              key: k,
-              value: typeof v === "object" ? JSON.stringify(v) : String(v),
-              unit: "",
-              note: ""
-            }));
-          } else if (typeof p.specifications === "object" && p.specifications !== null) {
-            initialSpecs = Object.entries(p.specifications).map(([k, v]) => ({
-              key: k,
-              value: typeof v === "object" ? JSON.stringify(v) : String(v),
-              unit: "",
-              note: ""
-            }));
-          }
-          setSpecList(initialSpecs);
-
-          setRegulatoryClass(p.regulatoryClassification || "Class IIa (MDR 2017/745)");
-          setCertificationStatus(p.certificationStatus || "Claimed");
-          setCertificateNumber(p.certificateNumber || "");
-          setIssuingOrg(p.issuingOrg || "");
-          setStatus(p.status || "ACTIVE");
-          setCertifications(p.certifications || []);
-          setManualUrl(p.manualUrl || "");
-          setDatasheetUrl(p.datasheetUrl || "");
-          setMetaTitle(p.metaTitle !== undefined ? p.metaTitle : (p.seoTitle !== undefined ? p.seoTitle : ""));
-          setMetaDescription(p.metaDescription !== undefined ? p.metaDescription : (p.seoDescription !== undefined ? p.seoDescription : ""));
-          setIsFeatured(Boolean(p.featured || p.isFeatured));
-          setIsBestSeller(Boolean(p.bestseller || p.isBestSeller));
-          setCategoryGridVisible(p.categoryGridVisible !== false);
-        };
-
         if (isEditMode && productId) {
-          setIsLoading(true);
-          let loaded = false;
-          try {
-            const pRes = await adminFetch(`/api/admin/products/${productId}`);
-            if (pRes.ok) {
-              const pData = await pRes.json();
-              if (pData.success && pData.product) {
-                populateProductFields(pData.product);
-                loaded = true;
+          let liveProduct: any = null;
+          if (prodRes && prodRes.ok) {
+            try {
+              const pData = await prodRes.json();
+              if (pData && pData.success && pData.product) {
+                liveProduct = pData.product;
               }
-            }
-          } catch (fetchErr) {
-            console.warn("Product live fetch failed, activating fallback lookup:", fetchErr);
+            } catch {}
           }
 
-          if (!loaded) {
+          if (isCancelled) return;
+
+          if (liveProduct) {
+            if (!hasInitialProduct) {
+              populateProductFields(liveProduct);
+            } else {
+              reconcileProductFields(liveProduct);
+            }
+          } else if (!hasInitialProduct) {
+            // Fallback lookup if live request failed and no initial product
             let fallbackP: any = null;
             try {
               const cached = localStorage.getItem("drmedex_admin_products_cache");
@@ -531,10 +685,16 @@ export const AdminProductEditorPage: React.FC = () => {
         }
       } catch (err) {
         console.error("Initialization error:", err);
-        setIsLoading(false);
+        if (!isCancelled) {
+          setIsLoading(false);
+        }
       }
     }
+
     initData();
+    return () => {
+      isCancelled = true;
+    };
   }, [productId, isEditMode]);
 
   // Available subcategories and equipment types
@@ -2005,7 +2165,9 @@ export const AdminProductEditorPage: React.FC = () => {
       managedCloudinaryImages,
 
       // Settings & Metadata
-      status,
+      status: isEditMode && !manuallyEditedFields.has("status")
+        ? (originalStatusRef.current || status || "ACTIVE")
+        : (status || "ACTIVE"),
       featured: isFeatured,
       isFeatured,
       bestseller: isBestSeller,
@@ -2244,13 +2406,22 @@ export const AdminProductEditorPage: React.FC = () => {
       {/* ============================================================ */}
       {/* 9-STEP ENTERPRISE FORM WORKSPACE                             */}
       {/* ============================================================ */}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSaveProduct();
-        }}
-        className="space-y-6"
-      >
+      {isLoading ? (
+        <div className="bg-[#0D4C3C] border border-white/20 rounded-2xl p-12 text-center text-white shadow-xl flex flex-col items-center justify-center space-y-4 min-h-[360px]">
+          <RefreshCw size={36} className="animate-spin text-white/80" />
+          <h3 className="text-lg font-bold">Loading Product Details...</h3>
+          <p className="text-sm text-gray-300 max-w-md">
+            Retrieving complete product specifications, pricing, and high-resolution clinical photographs.
+          </p>
+        </div>
+      ) : (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSaveProduct();
+          }}
+          className="space-y-6"
+        >
         {/* Hidden replacement file input */}
         <input
           type="file"
@@ -3565,6 +3736,7 @@ export const AdminProductEditorPage: React.FC = () => {
           </div>
         </div>
       </form>
+      )}
 
       {/* ============================================================ */}
       {/* ENLARGED PRODUCT IMAGE PREVIEW MODAL (DOUBLE-CLICK VIEWER)   */}
