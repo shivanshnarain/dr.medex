@@ -7,110 +7,63 @@ interface HeroSectionProps {
   onQuickView?: (productId?: string) => void;
 }
 
-interface HeroCategoryCard {
-  id: string;
-  name: string;
-  description: string;
-  image: string;
-  link: string;
-}
-
-const HERO_CATEGORY_CARDS: HeroCategoryCard[] = [
-  {
-    id: "electrosurgical",
-    name: "Electrosurgical Units",
-    description: "High-performance electrosurgical solutions for safe procedures.",
-    image: "/products-hero/electrosurgical_generator.jpg",
-    link: "/category/electrosurgical-units"
-  },
-  {
-    id: "cryo-surgical",
-    name: "Cryo Surgical",
-    description: "Liquid nitrogen sprayers & precision cryo equipment.",
-    image: "/products-hero/cryo_surgical_gun.jpg",
-    link: "/category/cryo-surgical"
-  },
-  {
-    id: "ot-lights",
-    name: "OT Lights",
-    description: "Advanced LED OT lights for precise and shadow-free illumination.",
-    image: "/products-hero/ot_light_petal.jpg",
-    link: "/category/ot-lights"
-  },
-  {
-    id: "ot-tables",
-    name: "OT Tables",
-    description: "Durable and ergonomic tables for modern surgical & clinical needs.",
-    image: "/products-hero/ot_surgical_table.jpg",
-    link: "/category/examination-ot-tables"
-  },
-  {
-    id: "obstetrics",
-    name: "Obstetrics & Gynae",
-    description: "Maternal delivery tables, examination beds and monitoring.",
-    image: "/products-hero/examination_table.jpg",
-    link: "/category/obstetrics-and-gynaecology"
-  }
-];
-
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
   const navigate = useNavigate();
 
   return (
-    <section className="relative w-full overflow-hidden select-none bg-neutral-900" aria-label="DR.MEDEX Hero Showcase">
+    <section
+      className="relative w-full overflow-hidden select-none bg-[#0D4C3C] m-0 p-0 border-0"
+      aria-label="DR.MEDEX Hero Showcase"
+    >
       {/* 
-        HERO CONTAINER WITH 16:9 COMPOSITION AND PROVIDED HOSPITAL IMAGE
-        Using the full authentic provided image without distortion.
+        HERO CONTAINER WITH SUPPLIED MEDICAL EQUIPMENT BACKGROUND IMAGE
+        Using cover layout, sensible background position to preserve the visible medical equipment on the right.
       */}
       <div
-        className="relative w-full bg-cover bg-center overflow-hidden flex flex-col justify-between"
+        className="relative w-full bg-cover bg-[center_right] sm:bg-center overflow-hidden flex items-center min-h-[580px] sm:min-h-[640px] lg:min-h-[700px] xl:min-h-[720px]"
         style={{
-          backgroundImage: `url('/hero-bg.png')`,
-          minHeight: "clamp(560px, 56.25vw, 760px)"
+          backgroundImage: `url('/hero-bg.jpg')`
         }}
       >
         {/* 
-          CINEMATIC GRADIENT / FILM OVERLAY
-          Strongest on left (100% intensity ~ 0.72 alpha), smoothly reducing towards center/right.
-          Zero blue, clean neutral tone.
+          SUBTLE READABILITY OVERLAY
+          Gentle dark gradient on the left ensuring the content card integrates smoothly
+          without washing out, brightening, recoloring, or obscuring the background image.
         */}
         <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.60) 28%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.00) 80%)"
-          }}
+          className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/45 via-black/20 to-transparent"
         />
 
-        {/* TOP / MAIN CONTENT ROW (LEFT SIDE ALIGNED) */}
-        <div className="relative z-10 max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 lg:pt-20">
-          <div className="max-w-xl lg:max-w-2xl space-y-4 sm:space-y-5">
-            {/* Small Eyebrow */}
-            <div className="inline-flex items-center gap-2 text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-neutral-300">
-              <span className="w-2 h-2 rounded-full bg-[#2D5A4A]" />
-              <span>Trusted Medical Equipment Partner</span>
+        {/* HERO CONTENT: EXACTLY ONE LEFT-ALIGNED CARD (FOLLOWING TRAVEL INSURANCE REFERENCE) */}
+        <div className="relative z-10 max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+          <div className="w-full max-w-xl bg-[#0D4C3C]/85 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl border border-white/10 text-white">
+            
+            {/* Small eyebrow text */}
+            <div className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#7AA05A] mb-3 sm:mb-4">
+              <span className="w-2 h-2 rounded-full bg-[#7AA05A]" />
+              <span>TRUSTED MEDICAL EQUIPMENT PARTNER</span>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-black tracking-tight leading-[1.08] text-white">
-              Advanced Medical <br />
-              Technology for <br />
+            {/* Main heading: Balanced lines with bold, premium typography */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-[1.12]">
+              Advanced Medical<br />
+              Technology for<br />
               Better Care
             </h1>
 
-            {/* Supporting Text */}
-            <p className="text-xs sm:text-sm md:text-base text-neutral-200/90 max-w-lg leading-relaxed font-normal">
+            {/* Supporting paragraph */}
+            <p className="text-xs sm:text-sm md:text-base text-white/90 leading-relaxed font-normal mt-4 sm:mt-5 max-w-md">
               Precision-engineered medical equipment for hospitals, clinics and healthcare professionals worldwide.
             </p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            {/* CTA Buttons: Primary (Explore Products →) and Secondary (Request a Quote) */}
+            <div className="flex flex-wrap items-center gap-3 pt-6 sm:pt-7">
               <Link
                 to="/shop-all"
-                className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-[#111111] hover:bg-black text-white text-xs sm:text-sm font-bold shadow-lg transition-all duration-200 group border border-white/20 hover:scale-[1.02]"
+                className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-white hover:bg-neutral-100 text-[#111111] text-xs sm:text-sm font-bold shadow-md transition-all duration-200 hover:scale-[1.02] cursor-pointer"
               >
                 <span>Explore Products</span>
-                <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
+                <ArrowRight size={15} />
               </Link>
 
               <button
@@ -122,74 +75,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
                     navigate("/request-quote");
                   }
                 }}
-                className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-white hover:bg-neutral-100 text-neutral-900 border border-neutral-200 text-xs sm:text-sm font-bold shadow-xs transition-all duration-200 hover:scale-[1.02] cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-[#7AA05A] hover:bg-[#6e9250] text-white text-xs sm:text-sm font-bold shadow-md transition-all duration-200 hover:scale-[1.02] cursor-pointer border border-[#7AA05A]"
               >
                 <span>Request a Quote</span>
               </button>
             </div>
 
-            {/* Trust Badges matching reference layout */}
-            <div className="flex flex-wrap items-center gap-5 sm:gap-7 pt-4 text-xs font-semibold text-neutral-300">
+            {/* Trust indicators: Reliable Performance, Global Standards, Expert Support */}
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-6 sm:pt-7 mt-6 sm:mt-7 border-t border-white/15 text-xs font-semibold text-white/90">
               <div className="flex items-center gap-2">
-                <ShieldCheck size={18} className="text-[#2D5A4A] shrink-0" />
+                <ShieldCheck size={16} className="text-[#7AA05A] shrink-0" />
                 <span>Reliable Performance</span>
               </div>
               <div className="flex items-center gap-2">
-                <Globe size={18} className="text-[#2D5A4A] shrink-0" />
+                <Globe size={16} className="text-[#7AA05A] shrink-0" />
                 <span>Global Standards</span>
               </div>
               <div className="flex items-center gap-2">
-                <Headphones size={18} className="text-[#2D5A4A] shrink-0" />
+                <Headphones size={16} className="text-[#7AA05A] shrink-0" />
                 <span>Expert Support</span>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* 
-          EXACTLY 5 PRODUCT CATEGORY CARDS
-          Positioned resting at the lower section of the hero.
-          Desktop: Single horizontal row of 5 cards with equal height and spacing.
-          Tablet/Mobile: Clean responsive horizontal scroll or grid.
-        */}
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-6 sm:pb-8 pt-10">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 xl:gap-4">
-            {HERO_CATEGORY_CARDS.map((card) => (
-              <Link
-                key={card.id}
-                to={card.link}
-                className="group bg-white rounded-2xl p-4 border border-[#E5E5E5] shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between min-h-[145px] hover:-translate-y-1 hover:border-[#2D5A4A]/40"
-              >
-                {/* Upper row: Title + Description */}
-                <div>
-                  <h3 className="text-xs sm:text-sm font-bold text-neutral-900 leading-snug group-hover:text-[#2D5A4A] transition-colors">
-                    {card.name}
-                  </h3>
-                  <p className="text-[11px] text-neutral-500 mt-1 line-clamp-2 leading-relaxed">
-                    {card.description}
-                  </p>
-                </div>
-
-                {/* Lower row: Green Arrow Icon + Real Product Image */}
-                <div className="flex items-end justify-between gap-2 mt-3 pt-2">
-                  <div className="w-7 h-7 rounded-full bg-[#2D5A4A] group-hover:bg-[#13673e] text-white flex items-center justify-center shrink-0 shadow-xs transition-all duration-200 group-hover:scale-105">
-                    <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
-                  </div>
-
-                  <div className="w-16 h-14 sm:w-20 sm:h-16 shrink-0 flex items-center justify-center overflow-hidden">
-                    <img
-                      src={card.image}
-                      alt={card.name}
-                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src =
-                          "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=300&q=80";
-                      }}
-                    />
-                  </div>
-                </div>
-              </Link>
-            ))}
           </div>
         </div>
       </div>

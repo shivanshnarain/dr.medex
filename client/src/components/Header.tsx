@@ -317,7 +317,7 @@ export const Header: React.FC = () => {
 
   return (
     <header
-      className={`w-full z-40 sticky top-0 bg-white border-b border-[#E5E5E5] shadow-xs select-none transition-transform duration-300 ease-in-out will-change-transform ${
+      className={`w-full z-40 sticky top-0 bg-white select-none transition-transform duration-300 ease-in-out will-change-transform ${
         shouldHideHeader ? "-translate-y-full pointer-events-none" : "translate-y-0"
       }`}
     >
@@ -741,7 +741,7 @@ export const Header: React.FC = () => {
       {/* ==============================================================
           SECOND ROW: HORIZONTALLY CENTERED CATEGORY NAVIGATION + MEGA MENUS
       ============================================================== */}
-      <div className="border-t border-[#7AA05A] bg-[#7AA05A] relative shadow-xs overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="bg-[#7AA05A] relative overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <nav
             className="flex items-center justify-start lg:justify-center gap-1 xl:gap-2 py-1 whitespace-nowrap min-w-max lg:min-w-0"
@@ -762,7 +762,7 @@ export const Header: React.FC = () => {
                     to={item.to}
                     className={`relative inline-flex items-center gap-1.5 px-3 py-1.5 text-xs tracking-normal transition-all rounded-lg ${
                       active
-                        ? "text-white font-bold bg-white/20 shadow-2xs"
+                        ? "text-white font-bold bg-white/20"
                         : "text-white/95 hover:text-white hover:bg-white/15 font-medium"
                     }`}
                   >
