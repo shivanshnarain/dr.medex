@@ -12,6 +12,13 @@ require("dotenv").config();
 const { GoogleGenAI } = require("@google/genai");
 const catalogueHierarchy = require("../data/catalogueHierarchy");
 
+let sharp = null;
+try {
+  sharp = require("sharp");
+} catch (e) {
+  // Graceful fallback if sharp fails to load
+}
+
 // Allowed MIME types & constraints
 const ALLOWED_MIME_TYPES = new Set([
   "image/jpeg",
@@ -21,11 +28,36 @@ const ALLOWED_MIME_TYPES = new Set([
 const MAX_PHOTOS = 5;
 const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024; // 10MB per image
 
-// Models to try in order of priority (handles high-demand 503s transparently)
+/**
+ * Server-side image optimization: resize and compress buffer with sharp to minimize upload size & inference latency
+ */
+async function optimizeImageBuffer(inputBuffer, maxDim = 1200) {
+  if (!sharp || !Buffer.isBuffer(inputBuffer)) return inputBuffer;
+  try {
+    const meta = await sharp(inputBuffer).metadata();
+    if (meta.width && meta.height && (meta.width > maxDim || meta.height > maxDim || inputBuffer.length > 300 * 1024)) {
+      return await sharp(inputBuffer)
+        .resize({
+          width: maxDim,
+          height: maxDim,
+          fit: "inside",
+          withoutEnlargement: true
+        })
+        .jpeg({ quality: 82, progressive: true })
+        .toBuffer();
+    }
+  } catch (err) {
+    // If sharp resize fails, return inputBuffer safely
+  }
+  return inputBuffer;
+}
+
+// Supported models in order of priority: gemini-3.5-flash-lite (~1s) -> gemini-3.5-flash (~2s) -> gemini-flash-latest -> gemini-3.8-flash
 const CANDIDATE_MODELS = [
-  "gemini-3.8-flash",
+  "gemini-3.5-flash-lite",
+  "gemini-3.5-flash",
   "gemini-flash-latest",
-  "gemini-3.5-flash"
+  "gemini-3.8-flash"
 ];
 
 // Canonical server-side environment variables supported for Gemini credentials
@@ -160,27 +192,99 @@ function buildPrompt(taxonomyText, namingStyle = "clinical", targetField = null,
     styleInstruction = "Naming style: PROFESSIONAL / CLINICAL. Dignified, authoritative hospital-grade medical equipment naming.";
   }
 
-  let focusedInstruction = "";
+  // ULTRA-FAST TARGETED REGENERATION PROMPTS (Targeted tokens: ~15-60 tokens vs 600+)
   if (targetField) {
-    const fieldDescriptions = {
-      productName: "regenerating and perfecting the Product Name (official equipment designation) only",
-      description: "regenerating and perfecting the Clinical & Operational Overview / Product Description only",
-      clinicalIndications: "regenerating and refining the Clinical Indications & Specialty Procedures list only",
-      engineeringHighlights: "regenerating and refining the Key Factors & Engineering Highlights list only",
-      packageItems: "regenerating and refining the Standard Included Package Contents list only",
-      technicalSpecifications: "regenerating and refining the Technical Specifications only"
-    };
-    const desc = fieldDescriptions[targetField] || `regenerating the ${targetField} field only`;
-    focusedInstruction = `\n### FOCUSED REGENERATION GOAL:
-You are requested to focus on ${desc}.
-Existing device context provided by the operator:
-- Equipment Type: ${context.equipmentType || "Medical Equipment"}
-- Primary Category: ${context.category || "Hospital Equipment"}
-- Subcategory: ${context.subcategory || ""}
-- Current Product Name: ${context.productName || ""}
-- Manufacturer / Model: ${context.manufacturerModel || ""}
-- Brand: ${context.brand || "DR.MEDEX"}
-Carefully analyze the photos together with this existing context and produce a grounded, highly accurate result for "${targetField}".\n`;
+    const eq = context.equipmentType || "Medical Equipment";
+    const cat = context.category || "Hospital Equipment";
+    const sub = context.subcategory || "";
+    const currentName = context.productName || "";
+    const model = context.manufacturerModel || "";
+    const brand = context.brand || "DR.MEDEX";
+
+    const baseContext = `You are the DR.MEDEX Senior Biomedical Equipment Analyst.
+### FOCUSED REGENERATION GOAL:
+Analyzing photograph(s) of this medical equipment:
+- Primary Category: ${cat}
+- Subcategory: ${sub}
+- Equipment Type: ${eq}
+- Brand / Model: ${brand} ${model}
+- Current Name: ${currentName}`;
+
+    if (targetField === "productName") {
+      return `${baseContext}
+${styleInstruction}
+TASK: Regenerate and perfect the official DR.MEDEX Product Name based on physical visual cues from the photos and classification.
+Format: DR.MEDEX [Equipment Type] – [Key Feature / Verified Model Descriptor].
+
+Output ONLY a valid JSON object:
+{
+  "productName": "DR.MEDEX ...",
+  "storefrontProductTitle": "DR.MEDEX ..."
+}`;
+    }
+
+    if (targetField === "description") {
+      return `${baseContext}
+TASK: Regenerate a concise, high-standard Clinical & Operational Overview / Product Description for this medical device (2-3 sentences explaining purpose, design, clinical applications, and features). Do not invent false certifications or specs.
+
+Output ONLY a valid JSON object:
+{
+  "description": "..."
+}`;
+    }
+
+    if (targetField === "clinicalIndications") {
+      return `${baseContext}
+TASK: Generate 3-5 authentic clinical indications and surgical/hospital procedures for which this equipment class is standardly used.
+
+Output ONLY a valid JSON object:
+{
+  "clinicalIndications": [
+    "Procedure 1",
+    "Procedure 2",
+    "Procedure 3"
+  ]
+}`;
+    }
+
+    if (targetField === "engineeringHighlights") {
+      return `${baseContext}
+TASK: Generate 3-5 grounded engineering highlights based on visible physical construction, ergonomics, optical or electronic design of this device.
+
+Output ONLY a valid JSON object:
+{
+  "engineeringHighlights": [
+    "Highlight 1",
+    "Highlight 2",
+    "Highlight 3"
+  ]
+}`;
+    }
+
+    if (targetField === "packageItems") {
+      return `${baseContext}
+TASK: Generate standard included package contents for this equipment class.
+
+Output ONLY a valid JSON object:
+{
+  "packageContents": [
+    { "item": "Main Unit", "type": "STANDARD" },
+    { "item": "Power Cable / Accessories", "type": "STANDARD" }
+  ]
+}`;
+    }
+
+    if (targetField === "technicalSpecifications") {
+      return `${baseContext}
+TASK: Generate technical specifications verified from visible rating labels or standard hospital configuration.
+
+Output ONLY a valid JSON object:
+{
+  "technicalSpecifications": [
+    { "parameter": "Power Supply", "value": "220-240V AC, 50/60 Hz", "unit": "V / Hz", "note": "" }
+  ]
+}`;
+    }
   }
 
   return `You are the DR.MEDEX Senior Biomedical Equipment Classifier and Technical Analyst.
@@ -252,9 +356,77 @@ You MUST respond with a single valid JSON object containing the exact structure 
 /**
  * Validate and sanitize JSON response against the required schema
  */
-function validateAndSanitizeOutput(parsed) {
+function validateAndSanitizeOutput(parsed, targetField = null) {
   if (!parsed || typeof parsed !== "object") {
     throw new Error("Invalid response format: AI output is not a JSON object.");
+  }
+
+  // Handle single-field targeted regeneration cleanly
+  if (targetField) {
+    if (targetField === "productName") {
+      const name = String(parsed.productName || parsed.title || "").trim();
+      const title = String(parsed.storefrontProductTitle || parsed.productName || parsed.title || "").trim();
+      return {
+        productName: name || "DR.MEDEX Medical Equipment",
+        storefrontProductTitle: title || name || "DR.MEDEX Medical Equipment"
+      };
+    }
+    if (targetField === "description") {
+      const desc = String(parsed.description || parsed.clinicalOverview || parsed.fullDescription || "").trim();
+      return {
+        description: desc,
+        clinicalOverview: desc,
+        shortDescription: desc,
+        fullDescription: desc
+      };
+    }
+    if (targetField === "clinicalIndications") {
+      const indications = Array.isArray(parsed.clinicalIndications) ? parsed.clinicalIndications : (Array.isArray(parsed.intendedUses) ? parsed.intendedUses : []);
+      const clean = indications.map(s => String(s).trim()).filter(Boolean);
+      return {
+        clinicalIndications: clean,
+        intendedUses: clean,
+        applications: clean
+      };
+    }
+    if (targetField === "engineeringHighlights") {
+      const highlights = Array.isArray(parsed.engineeringHighlights) ? parsed.engineeringHighlights : (Array.isArray(parsed.keyFeatures) ? parsed.keyFeatures : []);
+      const clean = highlights.map(s => String(s).trim()).filter(Boolean);
+      return {
+        engineeringHighlights: clean,
+        keyFeatures: clean,
+        features: clean,
+        keyFactors: clean
+      };
+    }
+    if (targetField === "packageItems") {
+      const raw = Array.isArray(parsed.packageItems) ? parsed.packageItems : (Array.isArray(parsed.packageContents) ? parsed.packageContents : []);
+      const normalized = raw.map((item, idx) => {
+        if (typeof item === "string") return { id: `pkg-${idx + 1}`, name: item.trim(), item: item.trim(), type: "standard" };
+        if (item && typeof item === "object") {
+          const itemName = String(item.name || item.item || "").trim();
+          return { id: item.id || `pkg-${idx + 1}`, name: itemName, item: itemName, type: item.type || "standard" };
+        }
+        return null;
+      }).filter(Boolean);
+      return {
+        packageContents: normalized.map(p => p.item),
+        packageItems: normalized
+      };
+    }
+    if (targetField === "technicalSpecifications") {
+      const specs = Array.isArray(parsed.technicalSpecifications) ? parsed.technicalSpecifications : [];
+      const clean = specs.map(s => ({
+        parameter: String(s.parameter || s.key || "").trim(),
+        value: String(s.value || "").trim(),
+        unit: String(s.unit || "").trim(),
+        note: String(s.note || "").trim()
+      })).filter(s => s.parameter);
+      return {
+        technicalSpecifications: clean,
+        specifications: clean
+      };
+    }
   }
 
   const clinicalOverview = typeof parsed.description === "string" && parsed.description.trim()
@@ -488,6 +660,7 @@ function validateAndSanitizeOutput(parsed) {
  * @returns {Promise<{ success: boolean, data: object, modelUsed: string }>}
  */
 async function identifyProductFromPhotos(photos, options = {}) {
+  const startTime = Date.now();
   // 1. Validation
   if (!Array.isArray(photos) || photos.length === 0) {
     throw new Error("No photographs provided. Please upload at least one image of the medical device.");
@@ -496,9 +669,12 @@ async function identifyProductFromPhotos(photos, options = {}) {
     throw new Error(`Maximum ${MAX_PHOTOS} photos allowed per identification request. Received ${photos.length}.`);
   }
 
+  // Optimize payload: When regenerating a specific field, 1 photo is sufficient
+  const photosToAnalyze = options.targetField ? photos.slice(0, 1) : photos.slice(0, MAX_PHOTOS);
+
   const parts = [];
-  for (let i = 0; i < photos.length; i++) {
-    const p = photos[i];
+  for (let i = 0; i < photosToAnalyze.length; i++) {
+    const p = photosToAnalyze[i];
     let mimeType = (p.mimeType || "image/jpeg").toLowerCase();
     if (mimeType === "image/jpg") mimeType = "image/jpeg";
 
@@ -565,6 +741,20 @@ async function identifyProductFromPhotos(photos, options = {}) {
       throw new Error(`Invalid data format for photo #${i + 1}.`);
     }
 
+    // Optimize buffer server-side with sharp if buffer exceeds 200KB or has large dimensions
+    if (sharp) {
+      try {
+        const rawBuf = Buffer.from(base64Data, "base64");
+        if (rawBuf.length > 200 * 1024) {
+          const optBuf = await optimizeImageBuffer(rawBuf, 1200);
+          base64Data = optBuf.toString("base64");
+          mimeType = "image/jpeg";
+        }
+      } catch (optErr) {
+        // Fall back gracefully to original base64
+      }
+    }
+
     parts.push({
       inlineData: {
         mimeType,
@@ -575,7 +765,7 @@ async function identifyProductFromPhotos(photos, options = {}) {
 
   // 2. Prepare SDK and Prompt
   const ai = getGenAiClient();
-  const taxonomyText = buildTaxonomyReference();
+  const taxonomyText = options.targetField ? "" : buildTaxonomyReference();
   const systemPrompt = buildPrompt(
     taxonomyText,
     options.namingStyle || "clinical",
@@ -584,7 +774,9 @@ async function identifyProductFromPhotos(photos, options = {}) {
   );
 
   parts.push({
-    text: `${systemPrompt}\n\nAnalyze all ${photos.length} photograph(s) of this medical equipment submitted above together and output the structured JSON:`
+    text: options.targetField 
+      ? `${systemPrompt}\n\nAnalyze the photograph above and return valid JSON:`
+      : `${systemPrompt}\n\nAnalyze all ${photosToAnalyze.length} photograph(s) of this medical equipment submitted above together and output the structured JSON:`
   });
 
   // 3. Model execution with resilient fallback for high-demand spikes
@@ -654,13 +846,16 @@ async function identifyProductFromPhotos(photos, options = {}) {
     throw new Error(`AI generated a malformed response: ${parseErr.message}. Please retry with clearer photographs.`);
   }
 
-  const validatedData = validateAndSanitizeOutput(parsed);
+  const validatedData = validateAndSanitizeOutput(parsed, options.targetField || null);
+  const elapsedMs = Date.now() - startTime;
+  console.log(`[GeminiVision] Analysis (${options.targetField ? `target: ${options.targetField}` : "full-identification"}) completed in ${elapsedMs}ms via ${modelUsed}`);
 
   return {
     success: true,
     data: validatedData,
     modelUsed,
-    photosAnalyzed: photos.length
+    photosAnalyzed: photosToAnalyze.length,
+    elapsedMs
   };
 }
 

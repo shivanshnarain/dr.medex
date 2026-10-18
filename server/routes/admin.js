@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 const express = require("express");
 const router = express.Router();
 const authService = require("../services/authService");
@@ -370,50 +371,145 @@ router.get("/products/check-sku", requireAdmin, (req, res) => {
   });
 });
 
-router.get("/products/generate-sku", requireAdmin, (req, res) => {
-  const { category = "ot-lights" } = req.query;
-  const catCodeMap = {
-    "ot-lights": "OTL",
-    "electrosurgical-units": "ESU",
-    "cryo-surgical": "CRY",
-    "examination-ot-tables": "TAB",
-    "obstetrics-and-gynaecology": "OBG",
-    "medical-equipment": "MED",
-    "physiotherapy": "PHY"
-  };
-  const prefix = catCodeMap[category] || "MED";
-  const allProducts = store.getProducts({ includeInactive: true });
+// ==========================================
+// SKU GENERATION TAXONOMY CODES & GENERATOR
+// Format: DRM-[PRIMARY]-[SUBCATEGORY]-[NAME]-[UNIQUE-ID]
+// Example: DRM-OTL-TRC-ADJUSTABLE-7K4P2M
+// ==========================================
+const SKU_CAT_CODES = {
+  "ot-lights": "OTL",
+  "electrosurgical-units": "ESU",
+  "cryo-surgical": "CRY",
+  "examination-ot-tables": "TAB",
+  "obstetrics-and-gynaecology": "OBG",
+  "medical-equipment": "MED",
+  "physiotherapy": "PHY"
+};
 
-  // Find max sequence in this category
-  let maxSeq = 0;
-  const regex = new RegExp(`^DRM-${prefix}-(\\d+)`, "i");
-  allProducts.forEach(p => {
-    const s = p.sku || p.SKU || "";
-    const m = s.match(regex);
-    if (m && m[1]) {
-      const num = parseInt(m[1], 10);
-      if (!isNaN(num) && num > maxSeq) {
-        maxSeq = num;
-      }
+const SKU_SUBCAT_CODES = {
+  "single-dome-ot-lights": "SDL",
+  "ot-surgical-lights-double-dome": "DDL",
+  "mobile-led-ot-lights": "MOB",
+  "ceiling-mounted-systems": "CMS",
+  "examination-lights": "EXL",
+  "electro-surgical-skin-cautery": "ESC",
+  "electrosurgical-generator": "ESG",
+  "surgical-accessories": "ACC",
+  "smoke-evacuation-systems": "SMK",
+  "cryo-gun": "CGN",
+  "cryotherapy-systems": "CTS",
+  "cryo-replacement-nozzles": "NOZ",
+  "operating-tables": "OPT",
+  "examination-tables": "EXT",
+  "treatment-tables": "TRT",
+  "obstetric-tables": "OBT",
+  "gynaecology-examination-tables": "GYN",
+  "fetal-monitoring-equipment": "FME",
+  "diagnostic-equipment": "DIA",
+  "sterilization-autoclaves": "STE",
+  "suction-units": "SUC",
+  "hospital-furniture": "HFN",
+  "physiotherapy-equipment": "PHY",
+  "electrotherapy": "ELT",
+  "traction-units": "TRC",
+  "exercise-therapy": "EXT"
+};
+
+function resolvePrimarySkuCode(cat) {
+  if (!cat) return "MED";
+  const norm = String(cat).trim().toLowerCase();
+  if (SKU_CAT_CODES[norm]) return SKU_CAT_CODES[norm];
+
+  const match = Object.values(catalogueHierarchy).find(c =>
+    c.id.toLowerCase() === norm ||
+    c.name.toLowerCase() === norm ||
+    norm.includes(c.id.toLowerCase()) ||
+    c.name.toLowerCase().includes(norm)
+  );
+  if (match && match.code) return match.code;
+  const clean = norm.replace(/[^a-z]/g, "").toUpperCase();
+  return clean.substring(0, 3) || "MED";
+}
+
+function resolveSubcatSkuCode(sub) {
+  if (!sub) return "GEN";
+  const norm = String(sub).trim().toLowerCase();
+  if (SKU_SUBCAT_CODES[norm]) return SKU_SUBCAT_CODES[norm];
+
+  for (const cat of Object.values(catalogueHierarchy)) {
+    const found = (cat.subcategories || []).find(s =>
+      s.id.toLowerCase() === norm ||
+      s.name.toLowerCase() === norm ||
+      norm.includes(s.id.toLowerCase())
+    );
+    if (found) {
+      if (SKU_SUBCAT_CODES[found.id]) return SKU_SUBCAT_CODES[found.id];
+      const words = found.name.split(/[\s-]+/).filter(Boolean);
+      if (words.length >= 2) return words.map(w => w[0]).join("").toUpperCase().substring(0, 3);
+      return found.id.replace(/[^a-z0-9]/gi, "").toUpperCase().substring(0, 3);
     }
-  });
-
-  let candidateSeq = maxSeq + 1;
-  let candidateSku = `DRM-${prefix}-${String(candidateSeq).padStart(4, "0")}`;
-
-  // Guarantee uniqueness against ANY existing SKU in the entire DB
-  const existingSkus = new Set(allProducts.map(p => (p.sku || p.SKU || "").toLowerCase()));
-  while (existingSkus.has(candidateSku.toLowerCase())) {
-    candidateSeq += 1;
-    candidateSku = `DRM-${prefix}-${String(candidateSeq).padStart(4, "0")}`;
   }
+
+  const words = norm.split(/[\s-]+/).filter(w => w.length > 0 && !["and", "or", "for", "the"].includes(w));
+  if (words.length >= 2) {
+    const acronym = words.map(w => w[0]).join("").toUpperCase();
+    if (acronym.length >= 2) return acronym.padEnd(3, "X").substring(0, 3);
+  }
+  return norm.replace(/[^a-z0-9]/gi, "").toUpperCase().substring(0, 3) || "GEN";
+}
+
+function resolveNameSkuSegment(name) {
+  if (!name) return "EQUIP";
+  const clean = String(name)
+    .replace(/^DR\.?\s*MEDEX/i, "")
+    .replace(/[^a-zA-Z0-9\s]/g, " ")
+    .trim();
+  const stopWords = new Set(["THE", "AND", "WITH", "FOR", "IN", "ON", "AT", "TO", "A", "AN", "OF", "SERIES", "UNIT", "SYSTEM", "GRADE", "DRMEDEX"]);
+  const tokens = clean.split(/\s+/).filter(t => t.length > 2 && !stopWords.has(t.toUpperCase()));
+  if (tokens.length > 0) return tokens[0].toUpperCase().substring(0, 10);
+  return "EQUIP";
+}
+
+function generateCollisionResistantId(length = 6) {
+  const chars = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ"; // exclude ambiguous 0, 1, I, O
+  let result = "";
+  const randomBytes = crypto.randomBytes(length);
+  for (let i = 0; i < length; i++) {
+    result += chars[randomBytes[i] % chars.length];
+  }
+  return result;
+}
+
+function generateProductSku({ category, subcategory, productName }) {
+  const primaryCode = resolvePrimarySkuCode(category);
+  const subcatCode = resolveSubcatSkuCode(subcategory);
+  const nameSegment = resolveNameSkuSegment(productName);
+
+  const allProducts = store.getProducts({ includeInactive: true });
+  const existingSkus = new Set(allProducts.map(p => (p.sku || p.SKU || "").toLowerCase()));
+
+  for (let attempt = 0; attempt < 50; attempt++) {
+    const uniqueId = generateCollisionResistantId(6);
+    const candidateSku = `DRM-${primaryCode}-${subcatCode}-${nameSegment}-${uniqueId}`;
+    if (!existingSkus.has(candidateSku.toLowerCase())) {
+      return candidateSku;
+    }
+  }
+
+  return `DRM-${primaryCode}-${subcatCode}-${nameSegment}-${Date.now().toString(36).toUpperCase()}`;
+}
+
+router.get("/products/generate-sku", requireAdmin, (req, res) => {
+  const { category = "ot-lights", subcategory = "", productName = "" } = req.query;
+
+  const sku = generateProductSku({ category, subcategory, productName });
 
   res.json({
     success: true,
     category,
-    prefix,
-    sku: candidateSku,
-    sequence: candidateSeq
+    subcategory,
+    productName,
+    sku
   });
 });
 

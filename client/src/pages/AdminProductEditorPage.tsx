@@ -528,20 +528,43 @@ export const AdminProductEditorPage: React.FC = () => {
     return sub?.equipmentTypes || [];
   }, [subcategory, availableSubcategories]);
 
-  // Generate unique SKU
-  const fetchNewSku = async (catSlug: string) => {
+  // Generate unique SKU conforming to DRM-[PRIMARY]-[SUBCATEGORY]-[NAME]-[UNIQUE-ID]
+  const fetchNewSku = async (catSlug?: string, subSlug?: string, prodName?: string, force = false) => {
+    if (!force && manuallyEditedFields.has("sku")) {
+      return; // Respect manual administrator edits unless explicitly regenerating
+    }
+    const cat = catSlug || category || "ot-lights";
+    const sub = subSlug !== undefined ? subSlug : subcategory;
+    const name = prodName !== undefined ? prodName : productName;
     try {
-      const res = await adminFetch(`/api/admin/products/generate-sku?category=${catSlug}`);
+      const res = await adminFetch(
+        `/api/admin/products/generate-sku?category=${encodeURIComponent(cat)}&subcategory=${encodeURIComponent(sub)}&productName=${encodeURIComponent(name)}`
+      );
       if (res.ok) {
         const data = await res.json();
         if (data.success && data.sku) {
           setSku(data.sku);
+          setSkuError(null);
+          setHasUnsavedChanges(true);
         }
       }
     } catch (err) {
       console.error("Failed to fetch new SKU:", err);
     }
   };
+
+  // Auto-generate SKU when classification and product name are updated (unless manually edited)
+  useEffect(() => {
+    if (isEditMode) return;
+    if (manuallyEditedFields.has("sku")) return;
+    if (!category && !subcategory && !productName) return;
+
+    const timer = setTimeout(() => {
+      fetchNewSku(category, subcategory, productName, false);
+    }, 450);
+
+    return () => clearTimeout(timer);
+  }, [category, subcategory, productName, isEditMode, manuallyEditedFields]);
 
   // Validate SKU Uniqueness
   const validateSku = async (skuToTest: string) => {
@@ -617,7 +640,45 @@ export const AdminProductEditorPage: React.FC = () => {
     return () => clearTimeout(timer);
   }, [category, subcategory, equipmentType, manufacturerModel, productName, productId]);
 
-  // Helper to convert slots into payload for AI analysis
+  // Client-side image compression helper to avoid sending massive 10MB base64 camera strings
+  const compressImageFileToDataUrl = (fileOrBlob: File | Blob, maxDim = 1200, quality = 0.82): Promise<string> => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const rawSrc = e.target?.result as string;
+        const img = new Image();
+        img.onload = () => {
+          let width = img.width;
+          let height = img.height;
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          if (!ctx) {
+            resolve(rawSrc);
+            return;
+          }
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL("image/jpeg", quality));
+        };
+        img.onerror = () => resolve(rawSrc);
+        img.src = rawSrc;
+      };
+      reader.onerror = () => resolve("");
+      reader.readAsDataURL(fileOrBlob);
+    });
+  };
+
+  // Helper to convert slots into optimized payload for AI analysis
   const preparePhotosPayload = async (slotsToProcess: ProductImageSlot[]) => {
     const photosPayload: Array<{ data: string; mimeType: string; filename: string }> = [];
     for (let idx = 0; idx < slotsToProcess.length; idx++) {
@@ -625,18 +686,15 @@ export const AdminProductEditorPage: React.FC = () => {
 
       if (slot.file) {
         try {
-          const b64 = await new Promise<string>((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result as string);
-            reader.onerror = reject;
-            reader.readAsDataURL(slot.file!);
-          });
-          photosPayload.push({
-            data: b64,
-            mimeType: slot.file.type || "image/jpeg",
-            filename: slot.file.name || `photo_${idx + 1}.jpg`
-          });
-          continue;
+          const b64 = await compressImageFileToDataUrl(slot.file, 1200, 0.82);
+          if (b64) {
+            photosPayload.push({
+              data: b64,
+              mimeType: "image/jpeg",
+              filename: slot.file.name || `photo_${idx + 1}.jpg`
+            });
+            continue;
+          }
         } catch {}
       }
 
@@ -653,18 +711,15 @@ export const AdminProductEditorPage: React.FC = () => {
         try {
           const blobRes = await fetch(slot.url);
           const blobData = await blobRes.blob();
-          const b64 = await new Promise<string>((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result as string);
-            reader.onerror = reject;
-            reader.readAsDataURL(blobData);
-          });
-          photosPayload.push({
-            data: b64,
-            mimeType: blobData.type || "image/jpeg",
-            filename: `photo_${idx + 1}.jpg`
-          });
-          continue;
+          const b64 = await compressImageFileToDataUrl(blobData, 1200, 0.82);
+          if (b64) {
+            photosPayload.push({
+              data: b64,
+              mimeType: "image/jpeg",
+              filename: `photo_${idx + 1}.jpg`
+            });
+            continue;
+          }
         } catch {}
       }
 
@@ -845,6 +900,7 @@ export const AdminProductEditorPage: React.FC = () => {
   };
 
   const triggerAiIdentification = async () => {
+    if (isAiIdentifying) return; // Prevent duplicate requests
     if (imageSlotsRef.current.some((s) => s.status === "uploading")) {
       const startWait = Date.now();
       while (imageSlotsRef.current.some((s) => s.status === "uploading") && Date.now() - startWait < 15000) {
@@ -1109,6 +1165,7 @@ export const AdminProductEditorPage: React.FC = () => {
   // REGENERATE HANDLERS (FIELD-SPECIFIC & GROUNDED)
   // ==========================================
   const handleRegenerateName = async () => {
+    if (isGeneratingIdentity) return;
     const currentSlots = imageSlotsRef.current;
     if (currentSlots.length === 0) {
       setStatusBanner({
@@ -1122,7 +1179,7 @@ export const AdminProductEditorPage: React.FC = () => {
     setStatusBanner(null);
 
     try {
-      const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
+      const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 1));
       if (photosPayload.length === 0) {
         setStatusBanner({
           type: "warning",
@@ -1178,6 +1235,7 @@ export const AdminProductEditorPage: React.FC = () => {
   };
 
   const handleRegenerateDescription = async () => {
+    if (isRegeneratingDescription) return;
     const currentSlots = imageSlotsRef.current;
     if (currentSlots.length === 0) {
       setStatusBanner({
@@ -1191,7 +1249,7 @@ export const AdminProductEditorPage: React.FC = () => {
     setStatusBanner(null);
 
     try {
-      const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
+      const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 1));
       if (photosPayload.length === 0) {
         setStatusBanner({
           type: "warning",
@@ -1251,6 +1309,7 @@ export const AdminProductEditorPage: React.FC = () => {
   };
 
   const handleRegenerateIndications = async () => {
+    if (isRegeneratingIndications) return;
     const currentSlots = imageSlotsRef.current;
     if (currentSlots.length === 0) {
       setStatusBanner({
@@ -1264,7 +1323,7 @@ export const AdminProductEditorPage: React.FC = () => {
     setStatusBanner(null);
 
     try {
-      const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
+      const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 1));
       if (photosPayload.length === 0) {
         setStatusBanner({
           type: "warning",
@@ -1321,6 +1380,7 @@ export const AdminProductEditorPage: React.FC = () => {
   };
 
   const handleRegenerateHighlights = async () => {
+    if (isRegeneratingHighlights) return;
     const currentSlots = imageSlotsRef.current;
     if (currentSlots.length === 0) {
       setStatusBanner({
@@ -1334,7 +1394,7 @@ export const AdminProductEditorPage: React.FC = () => {
     setStatusBanner(null);
 
     try {
-      const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
+      const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 1));
       if (photosPayload.length === 0) {
         setStatusBanner({
           type: "warning",
@@ -1391,6 +1451,7 @@ export const AdminProductEditorPage: React.FC = () => {
   };
 
   const handleRegeneratePackage = async () => {
+    if (isRegeneratingPackage) return;
     const currentSlots = imageSlotsRef.current;
     if (currentSlots.length === 0) {
       setStatusBanner({
@@ -1404,7 +1465,7 @@ export const AdminProductEditorPage: React.FC = () => {
     setStatusBanner(null);
 
     try {
-      const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
+      const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 1));
       if (photosPayload.length === 0) {
         setStatusBanner({
           type: "warning",
@@ -1914,13 +1975,14 @@ export const AdminProductEditorPage: React.FC = () => {
         <div className="flex items-center justify-between overflow-x-auto pb-1 scrollbar-none gap-3">
           {stepStatus.map((step, idx) => {
             const isActive = activeStep === step.id;
+            const isCompleted = step.isDone;
             return (
               <button
                 key={step.id}
                 type="button"
                 onClick={() => scrollToAnchor(step.anchor, step.id)}
                 className={`flex items-center gap-2 text-left shrink-0 transition-all cursor-pointer group ${
-                  isActive ? "opacity-100" : "opacity-80 hover:opacity-100"
+                  isCompleted || isActive ? "opacity-100" : "opacity-75 hover:opacity-100"
                 }`}
               >
                 <div
@@ -1931,6 +1993,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       ? "border border-white bg-[#C62828] text-white ring-2 ring-white"
                       : "border border-white/40 text-white/70 bg-white/10"
                   }`}
+                  style={step.isDone ? { backgroundColor: "#FFD400", border: "none", outline: "none" } : undefined}
                 >
                   {step.isDone ? <Check size={14} strokeWidth={3} className="text-black" /> : step.id}
                 </div>
@@ -2227,11 +2290,11 @@ export const AdminProductEditorPage: React.FC = () => {
                       setEquipmentType("");
                       markFieldEdited("category");
                       if (!isEditMode) {
-                        fetchNewSku(newCat);
+                        fetchNewSku(newCat, "", productName, false);
                       }
                       setHasUnsavedChanges(true);
                     }}
-                    className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none cursor-pointer"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none cursor-pointer"
                   >
                     {allCategories.map((c) => {
                       const isInactive = c.status === "INACTIVE" || c.active === false;
@@ -2257,9 +2320,12 @@ export const AdminProductEditorPage: React.FC = () => {
                       setSubcategory(newSub);
                       setEquipmentType("");
                       markFieldEdited("subcategory");
+                      if (!isEditMode) {
+                        fetchNewSku(category, newSub, productName, false);
+                      }
                       setHasUnsavedChanges(true);
                     }}
-                    className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none disabled:opacity-50 disabled:bg-neutral-200 cursor-pointer"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none disabled:opacity-50 disabled:bg-neutral-200 cursor-pointer"
                   >
                     <option value="">— Select Subcategory —</option>
                     {availableSubcategories.map((s: any) => (
@@ -2284,7 +2350,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       markFieldEdited("equipmentType");
                       setHasUnsavedChanges(true);
                     }}
-                    className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none disabled:opacity-50 disabled:bg-neutral-200 cursor-pointer"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none disabled:opacity-50 disabled:bg-neutral-200 cursor-pointer"
                   >
                     <option value="">— Select Equipment Type —</option>
                     {availableEquipmentTypes.map((eq: any) => (
@@ -2343,7 +2409,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. DR.MEDEX Ceiling-Mounted Double Dome LED OT Light – DL80"
-                    className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
                   />
                 </div>
 
@@ -2361,7 +2427,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. DL-80 or Std Unit"
-                    className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
                   />
                 </div>
 
@@ -2369,16 +2435,27 @@ export const AdminProductEditorPage: React.FC = () => {
                 <div>
                   <label className="block text-xs font-bold text-white mb-1 flex items-center justify-between">
                     <span>3. SKU <span className="text-[#C62828] font-bold">*</span></span>
-                    {sku && (
+                    <div className="flex items-center gap-2.5">
                       <button
                         type="button"
-                        onClick={handleCopySku}
-                        className="text-[10px] text-white/80 hover:text-white flex items-center gap-1 cursor-pointer underline"
+                        onClick={() => fetchNewSku(category, subcategory, productName, true)}
+                        title="Regenerate unique SKU based on current classification & product name"
+                        className="text-[10px] text-white/90 hover:text-white flex items-center gap-1 cursor-pointer underline transition-colors"
                       >
-                        {copiedSku ? <Check size={10} className="text-emerald-300" /> : <Copy size={10} />}
-                        <span>{copiedSku ? "Copied" : "Copy"}</span>
+                        <RefreshCw size={10} />
+                        <span>Regenerate</span>
                       </button>
-                    )}
+                      {sku && (
+                        <button
+                          type="button"
+                          onClick={handleCopySku}
+                          className="text-[10px] text-white/90 hover:text-white flex items-center gap-1 cursor-pointer underline transition-colors"
+                        >
+                          {copiedSku ? <Check size={10} className="text-emerald-300" /> : <Copy size={10} />}
+                          <span>{copiedSku ? "Copied" : "Copy"}</span>
+                        </button>
+                      )}
+                    </div>
                   </label>
                   <input
                     type="text"
@@ -2390,7 +2467,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       markFieldEdited("sku");
                       setHasUnsavedChanges(true);
                     }}
-                    className={`w-full px-3.5 py-2.5 bg-white text-[#171717] border rounded-xl text-xs font-mono font-bold focus:bg-[#FEFCE8] focus:outline-none ${
+                    className={`w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border rounded-xl text-xs font-mono font-bold focus:bg-[#FEFCE8] focus:outline-none ${
                       skuError ? "border-[#C62828] ring-1 ring-[#C62828]" : "border-white/40 focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308]"
                     }`}
                   />
