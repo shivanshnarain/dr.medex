@@ -45,12 +45,44 @@ const CANONICAL_ENV_VARS = [
 ];
 
 function getDetectedEnvVar() {
+  // 1. Direct canonical check
   for (const varName of CANONICAL_ENV_VARS) {
     const val = process.env[varName];
     if (val && typeof val === "string" && val.trim().length > 0) {
       return varName;
     }
   }
+
+  // 2. Case-insensitive & trimmed match across all process.env keys
+  const allKeys = Object.keys(process.env);
+  for (const canonical of CANONICAL_ENV_VARS) {
+    const canonicalNorm = canonical.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const matchingKey = allKeys.find(k => {
+      const kNorm = k.trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+      return kNorm === canonicalNorm;
+    });
+    if (matchingKey) {
+      const val = process.env[matchingKey];
+      if (val && typeof val === "string" && val.trim().length > 0) {
+        return matchingKey;
+      }
+    }
+  }
+
+  // 3. Fallback: Any key containing gemini or genai that has key/token/secret/api
+  for (const k of allKeys) {
+    const lower = k.toLowerCase().trim();
+    if (
+      (lower.includes("gemini") || lower.includes("genai")) &&
+      (lower.includes("key") || lower.includes("token") || lower.includes("secret") || lower.includes("api"))
+    ) {
+      const val = process.env[k];
+      if (val && typeof val === "string" && val.trim().length > 0) {
+        return k;
+      }
+    }
+  }
+
   return null;
 }
 
@@ -60,12 +92,19 @@ function isConfigured() {
 
 function getGeminiStatus() {
   const detectedVar = getDetectedEnvVar();
+  // Safe diagnostic: collect variable names only (never expose values)
+  const matchingKeyNames = Object.keys(process.env)
+    .filter(k => /gemini|genai|google.*api/i.test(k))
+    .map(k => k.trim());
+
   return {
     configured: Boolean(detectedVar),
     provider: "google-gemini",
     models: CANDIDATE_MODELS,
     envVarName: detectedVar || "GEMINI_API_KEY",
-    activeModel: CANDIDATE_MODELS[0]
+    activeModel: CANDIDATE_MODELS[0],
+    detectedKeyNames: matchingKeyNames,
+    totalEnvKeysCount: Object.keys(process.env).length
   };
 }
 
@@ -76,7 +115,8 @@ function getApiKey() {
       "GEMINI_API_KEY is not configured on this server. Please ensure GEMINI_API_KEY or GOOGLE_API_KEY is configured in your server environment."
     );
   }
-  return process.env[detectedVar].trim();
+  const raw = String(process.env[detectedVar] || "").trim();
+  return raw.replace(/^["']|["']$/g, "").trim();
 }
 
 // Client singleton instance to reuse across requests
