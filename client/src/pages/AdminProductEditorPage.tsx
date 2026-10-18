@@ -23,17 +23,8 @@ import {
   ImageOff,
   ArrowUp,
   ArrowDown,
-  Tag,
-  FileText,
-  Cpu,
-  Activity,
-  Wrench,
-  Package,
-  DollarSign,
   Globe,
-  Settings,
-  ShieldCheck,
-  CheckCheck
+  ShieldCheck
 } from "lucide-react";
 import { AdminLayout } from "../components/admin/AdminLayout";
 import { useAdminAuth } from "../context/AdminAuthContext";
@@ -70,15 +61,23 @@ export const AdminProductEditorPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isGeneratingIdentity, setIsGeneratingIdentity] = useState(false);
-  const [isAiGenerating, setIsAiGenerating] = useState(false);
   const [isCheckingSku, setIsCheckingSku] = useState(false);
   const [skuError, setSkuError] = useState<string | null>(null);
   const [copiedSku, setCopiedSku] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [statusBanner, setStatusBanner] = useState<{ type: "success" | "error" | "warning"; text: string } | null>(null);
 
-  // Active step in 8-step tracker
+  // Active step & selected card state
   const [activeStep, setActiveStep] = useState<number>(1);
+  const [selectedCard, setSelectedCard] = useState<string>("step-1");
+
+  // Helper for dynamic card styling: default white/light grey, selected light yellow with gold/yellow outline
+  const getCardStyle = (cardId: string) => {
+    const isSelected = selectedCard === cardId;
+    return isSelected
+      ? "bg-[#FEFCE8] border-[#EAB308] ring-2 ring-[#EAB308]/40 shadow-xs"
+      : "bg-white border-[#E5E7EB] hover:border-neutral-300";
+  };
 
   // Categories & Catalogue Hierarchy
   const [allCategories, setAllCategories] = useState<Category[]>([]);
@@ -101,7 +100,7 @@ export const AdminProductEditorPage: React.FC = () => {
   const [rateTimestamp, setRateTimestamp] = useState<string | null>(null);
 
   // ==========================================
-  // STEP 1: PRODUCT PHOTOS & AI IMAGE ANALYSIS
+  // STEP 1: PRODUCT IMAGES
   // ==========================================
   const [imageSlots, setImageSlots] = useState<ProductImageSlot[]>([]);
   const imageSlotsRef = useRef<ProductImageSlot[]>(imageSlots);
@@ -120,7 +119,6 @@ export const AdminProductEditorPage: React.FC = () => {
     };
   }, []);
 
-  const [imageUrlInput, setImageUrlInput] = useState("");
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<{ current: number; total: number } | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -131,18 +129,10 @@ export const AdminProductEditorPage: React.FC = () => {
 
   // AI Assistant Analysis State
   const [isAiIdentifying, setIsAiIdentifying] = useState(false);
-  const [aiIdentifyPhase, setAiIdentifyPhase] = useState<
-    "idle" | "reading_photos" | "identifying_equipment" | "matching_categories" | "generating_content" | "preparing_fields" | "complete"
-  >("idle");
   const [aiIdentifyError, setAiIdentifyError] = useState<string | null>(null);
-  const [aiIdentifyResult, setAiIdentifyResult] = useState<any | null>(null);
-  const [preserveManualEdits, setPreserveManualEdits] = useState(true);
   const [manuallyEditedFields, setManuallyEditedFields] = useState<Set<string>>(new Set());
   const activeAnalysisIdRef = useRef<number>(0);
-  const [aiAppliedNotification, setAiAppliedNotification] = useState(false);
-  const [aiPopulatedFields, setAiPopulatedFields] = useState<Set<string>>(new Set());
 
-  // Helper to mark a field as edited by the administrator
   const markFieldEdited = (fieldName: string) => {
     setManuallyEditedFields((prev) => {
       const updated = new Set(prev);
@@ -159,24 +149,20 @@ export const AdminProductEditorPage: React.FC = () => {
   const [equipmentType, setEquipmentType] = useState("");
 
   // ==========================================
-  // STEP 3: PRODUCT IDENTITY AND NAMING
+  // STEP 3: PRODUCT IDENTITY (EXACTLY 3 FIELDS)
   // ==========================================
   const [productName, setProductName] = useState("");
-  const [title, setTitle] = useState("");
   const [manufacturerModel, setManufacturerModel] = useState("");
-  const [internalModelId, setInternalModelId] = useState("");
   const [sku, setSku] = useState("");
   const [slug, setSlug] = useState("");
-  const [brand, setBrand] = useState("DR.MEDEX");
-  const [namingStyle, setNamingStyle] = useState<"clinical" | "technical" | "catalog">("clinical");
-  const suggestedIdentityRef = useRef<{ productName: string; title: string; brand: string; manufacturerModel: string } | null>(null);
+  const [brand] = useState("DR.MEDEX"); // Internal constant brand
 
   // ==========================================
   // STEP 4: PRODUCT DESCRIPTION
   // ==========================================
   const [description, setDescription] = useState("");
-  const [shortDescription, setShortDescription] = useState("");
   const [fullDescription, setFullDescription] = useState("");
+  const [shortDescription, setShortDescription] = useState("");
   const [isRegeneratingDescription, setIsRegeneratingDescription] = useState(false);
 
   // ==========================================
@@ -186,7 +172,6 @@ export const AdminProductEditorPage: React.FC = () => {
   const [qualityStandards, setQualityStandards] = useState("");
   const [regulatoryStatus, setRegulatoryStatus] = useState("");
   const [warranty, setWarranty] = useState("2-Year Comprehensive Clinical Warranty");
-  const [isRegeneratingSpecs, setIsRegeneratingSpecs] = useState(false);
 
   // Optional detailed technical specs table
   const [specList, setSpecList] = useState<{ key: string; value: string; unit?: string; note?: string }[]>([]);
@@ -218,7 +203,7 @@ export const AdminProductEditorPage: React.FC = () => {
   const [isRegeneratingPackage, setIsRegeneratingPackage] = useState(false);
 
   // ==========================================
-  // PRICING & COMMERCIAL TERMS (ASSOCIATED WITH STEP 8)
+  // STEP 9: PRICING & INVENTORY
   // ==========================================
   const [originalPrice, setOriginalPrice] = useState<number>(0); // MRP in INR
   const [basePrice, setBasePrice] = useState<number>(0); // Selling price in INR
@@ -239,7 +224,7 @@ export const AdminProductEditorPage: React.FC = () => {
   }, [originalPrice, basePrice]);
 
   // ==========================================
-  // PUBLICATION & SEO SETTINGS
+  // SETTINGS & METADATA — FINAL SECTION
   // ==========================================
   const [status, setStatus] = useState<"ACTIVE" | "INACTIVE" | "DRAFT" | "ARCHIVED">("DRAFT");
   const [isFeatured, setIsFeatured] = useState(false);
@@ -294,20 +279,9 @@ export const AdminProductEditorPage: React.FC = () => {
           setSubcategory(p.subcategory || "");
           setEquipmentType(p.equipmentType || "");
           setProductName(p.productName || p.title || "");
-          setTitle(p.title || p.storefrontProductTitle || p.productName || "");
           setManufacturerModel(p.modelNumber || "");
-          setInternalModelId(p.internalModelId || `DM-${p.sku || p.id}`);
           setSku(p.sku || p.SKU || "");
           setSlug(p.slug || "");
-          setBrand(p.brand || "DR.MEDEX");
-          if (p.namingStyle) setNamingStyle(p.namingStyle);
-
-          suggestedIdentityRef.current = {
-            productName: p.productName || p.title || "",
-            title: p.storefrontProductTitle || p.title || p.productName || "",
-            brand: p.brand || "DR.MEDEX",
-            manufacturerModel: p.modelNumber || ""
-          };
 
           // Step 4: Description
           const mainDesc = p.description || p.fullDescription || p.shortDescription || p.overview || "";
@@ -352,7 +326,7 @@ export const AdminProductEditorPage: React.FC = () => {
             })));
           }
 
-          // Prices in INR
+          // Step 9: Prices in INR
           setOriginalPrice(p.originalPrice || p.regularPrice || p.basePrice || 0);
           setBasePrice(p.basePrice || p.salePrice || 0);
           const pStock = p.stock !== undefined ? p.stock : (p.stockQuantity !== undefined ? p.stockQuantity : 10);
@@ -363,7 +337,7 @@ export const AdminProductEditorPage: React.FC = () => {
           setLeadTimeWeeks(p.leadTimeWeeks || "1–2 Weeks");
           if (p.shippingInformation) setShippingInformation(p.shippingInformation);
 
-          // Photos
+          // Step 1: Photos
           const loadedImgs: string[] = (Array.isArray(p.images) && p.images.length > 0)
             ? p.images
             : (Array.isArray(p.galleryImages) && p.galleryImages.length > 0
@@ -543,7 +517,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
   // Duplicate Check
   useEffect(() => {
-    if (!category || (!productName && !title && !equipmentType)) {
+    if (!category || (!productName && !equipmentType)) {
       setDuplicateInfo({ isDuplicate: false, duplicateProduct: null });
       return;
     }
@@ -558,7 +532,7 @@ export const AdminProductEditorPage: React.FC = () => {
             subcategory,
             equipmentType,
             modelNumber: manufacturerModel,
-            title: title || productName,
+            title: productName,
             productName,
             excludeId: productId || undefined
           })
@@ -581,7 +555,7 @@ export const AdminProductEditorPage: React.FC = () => {
     }, 400);
 
     return () => clearTimeout(timer);
-  }, [category, subcategory, equipmentType, manufacturerModel, title, productName, productId]);
+  }, [category, subcategory, equipmentType, manufacturerModel, productName, productId]);
 
   // Helper to convert slots into payload for AI analysis
   const preparePhotosPayload = async (slotsToProcess: ProductImageSlot[]) => {
@@ -620,11 +594,10 @@ export const AdminProductEditorPage: React.FC = () => {
   };
 
   // ============================================================
-  // ONE COORDINATED AI IDENTIFICATION WORKFLOW (STEPS 1 TO 8)
+  // ONE COORDINATED AI IDENTIFICATION WORKFLOW
   // ============================================================
   const applyAiResultsToForm = (result: any) => {
     if (!result) return;
-    const populated = new Set<string>();
 
     // Step 2: Product Classification
     let targetCatKey = result.classification?.primaryCategoryId || result.primaryCategoryId;
@@ -637,9 +610,8 @@ export const AdminProductEditorPage: React.FC = () => {
     }
 
     if (targetCatKey) {
-      if (!preserveManualEdits || !manuallyEditedFields.has("category")) {
+      if (!manuallyEditedFields.has("category")) {
         setCategory(targetCatKey);
-        populated.add("category");
       }
 
       const catVal = (catalogueHierarchy as any)[targetCatKey];
@@ -654,9 +626,8 @@ export const AdminProductEditorPage: React.FC = () => {
         }
 
         if (targetSubId) {
-          if (!preserveManualEdits || !manuallyEditedFields.has("subcategory")) {
+          if (!manuallyEditedFields.has("subcategory")) {
             setSubcategory(targetSubId);
-            populated.add("subcategory");
           }
 
           const subVal = catVal.subcategories.find((s: any) => s.id === targetSubId);
@@ -672,62 +643,23 @@ export const AdminProductEditorPage: React.FC = () => {
               targetEqName = result.equipmentType;
             }
 
-            if (targetEqName && (!preserveManualEdits || !manuallyEditedFields.has("equipmentType"))) {
+            if (targetEqName && !manuallyEditedFields.has("equipmentType")) {
               setEquipmentType(targetEqName);
-              populated.add("equipmentType");
             }
           }
         }
       }
     }
 
-    // Step 3: Product Identity
+    // Step 3: Product Identity (Only Product Name, Model, SKU)
     const pName = result.productName || "";
-    const sTitle = result.storefrontProductTitle || result.title || pName;
-    const brnd = result.brand || "DR.MEDEX";
     const mModel = result.manufacturerModel || "";
 
-    suggestedIdentityRef.current = {
-      productName: pName,
-      title: sTitle,
-      brand: brnd,
-      manufacturerModel: mModel
-    };
-
-    if (!preserveManualEdits || !manuallyEditedFields.has("productName")) {
-      if (pName) {
-        setProductName(pName);
-        populated.add("productName");
-      }
+    if (!manuallyEditedFields.has("productName") && pName) {
+      setProductName(pName);
     }
-    if (!preserveManualEdits || !manuallyEditedFields.has("title")) {
-      if (sTitle) {
-        setTitle(sTitle);
-        populated.add("title");
-      }
-    }
-    if (!preserveManualEdits || !manuallyEditedFields.has("brand")) {
-      if (brnd) {
-        setBrand(brnd);
-        populated.add("brand");
-      }
-    }
-    if (!preserveManualEdits || !manuallyEditedFields.has("manufacturerModel")) {
-      if (mModel) {
-        setManufacturerModel(mModel);
-        populated.add("manufacturerModel");
-      }
-    }
-    if (!preserveManualEdits || !manuallyEditedFields.has("internalModelId")) {
-      if (result.internalModelId) {
-        setInternalModelId(result.internalModelId);
-      } else if (mModel) {
-        setInternalModelId(mModel);
-      } else if (pName) {
-        const cleanSlug = pName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-        setInternalModelId(`DM-${cleanSlug.slice(0, 10).toUpperCase()}`);
-      }
-      populated.add("internalModelId");
+    if (!manuallyEditedFields.has("manufacturerModel") && mModel) {
+      setManufacturerModel(mModel);
     }
     if (!isEditMode && (!sku || !manuallyEditedFields.has("sku"))) {
       if (result.skuSuggestion) {
@@ -735,64 +667,53 @@ export const AdminProductEditorPage: React.FC = () => {
       } else {
         fetchNewSku(targetCatKey || category);
       }
-      populated.add("sku");
     }
-    if (!preserveManualEdits || !manuallyEditedFields.has("slug")) {
-      if (pName) {
-        setSlug(pName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""));
-        populated.add("slug");
-      }
+    if (!manuallyEditedFields.has("slug") && pName) {
+      setSlug(pName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""));
     }
 
     // Step 4: Description (PURE main description ONLY)
     const mainDesc = result.description || result.clinicalOverview || "";
-    if (mainDesc && (!preserveManualEdits || !manuallyEditedFields.has("description"))) {
+    if (mainDesc && !manuallyEditedFields.has("description")) {
       setDescription(mainDesc);
       setFullDescription(mainDesc);
       setShortDescription(mainDesc.slice(0, 180));
-      populated.add("description");
     }
 
     // Step 5: Technical Specifications (4 independent fields)
-    if (result.powerSupply && (!preserveManualEdits || !manuallyEditedFields.has("powerSupply"))) {
+    if (result.powerSupply && !manuallyEditedFields.has("powerSupply")) {
       setPowerSupply(result.powerSupply);
-      populated.add("powerSupply");
     }
-    if (result.qualityStandards && (!preserveManualEdits || !manuallyEditedFields.has("qualityStandards"))) {
+    if (result.qualityStandards && !manuallyEditedFields.has("qualityStandards")) {
       setQualityStandards(result.qualityStandards);
-      populated.add("qualityStandards");
     }
-    if (result.regulatoryStatus && (!preserveManualEdits || !manuallyEditedFields.has("regulatoryStatus"))) {
+    if (result.regulatoryStatus && !manuallyEditedFields.has("regulatoryStatus")) {
       setRegulatoryStatus(result.regulatoryStatus);
       setRegulatoryClass(result.regulatoryStatus);
-      populated.add("regulatoryStatus");
     }
-    if (result.warranty && (!preserveManualEdits || !manuallyEditedFields.has("warranty"))) {
+    if (result.warranty && !manuallyEditedFields.has("warranty")) {
       setWarranty(result.warranty);
-      populated.add("warranty");
     }
 
     // Step 6: Clinical Indications
     const rawIndications = Array.isArray(result.clinicalIndications) && result.clinicalIndications.length > 0
       ? result.clinicalIndications
       : (Array.isArray(result.intendedUses) ? result.intendedUses : []);
-    if (rawIndications.length > 0 && (!preserveManualEdits || !manuallyEditedFields.has("clinicalIndications"))) {
+    if (rawIndications.length > 0 && !manuallyEditedFields.has("clinicalIndications")) {
       setClinicalIndications(rawIndications);
-      populated.add("clinicalIndications");
     }
 
     // Step 7: Key Factors & Engineering Highlights
     const rawHighlights = Array.isArray(result.engineeringHighlights) && result.engineeringHighlights.length > 0
       ? result.engineeringHighlights
       : (Array.isArray(result.keyFeatures) ? result.keyFeatures : []);
-    if (rawHighlights.length > 0 && (!preserveManualEdits || !manuallyEditedFields.has("engineeringHighlights"))) {
+    if (rawHighlights.length > 0 && !manuallyEditedFields.has("engineeringHighlights")) {
       setEngineeringHighlights(rawHighlights);
-      populated.add("engineeringHighlights");
     }
 
     // Step 8: Standard Package Contents
     if (Array.isArray(result.packageItems) && result.packageItems.length > 0) {
-      if (!preserveManualEdits || !manuallyEditedFields.has("packageItems")) {
+      if (!manuallyEditedFields.has("packageItems")) {
         const items: PackageItem[] = result.packageItems.map((item: any, idx: number) => ({
           id: item.id || `ai-pkg-${idx}-${Date.now()}`,
           name: typeof item === "string" ? item : (item.name || item.item || ""),
@@ -801,56 +722,44 @@ export const AdminProductEditorPage: React.FC = () => {
             : "standard"
         }));
         setPackageItems(items);
-        populated.add("packageItems");
       }
     } else if (Array.isArray(result.packageContents) && result.packageContents.length > 0) {
-      if (!preserveManualEdits || !manuallyEditedFields.has("packageItems")) {
+      if (!manuallyEditedFields.has("packageItems")) {
         const items: PackageItem[] = result.packageContents.map((name: string, idx: number) => ({
           id: `ai-pkg-${idx}-${Date.now()}`,
           name,
           type: "standard"
         }));
         setPackageItems(items);
-        populated.add("packageItems");
       }
     }
 
-    // Inventory & Operational Defaults (Never invent selling price from photographs)
-    if (!preserveManualEdits || !manuallyEditedFields.has("stock")) {
-      if (!stock || stock === 0) setStock(10);
-      populated.add("stock");
+    // Step 9: Operational Defaults (Never invent selling price from photographs)
+    if (!manuallyEditedFields.has("stock") && (!stock || stock === 0)) {
+      setStock(10);
     }
-    if (!preserveManualEdits || !manuallyEditedFields.has("stockStatus")) {
+    if (!manuallyEditedFields.has("stockStatus")) {
       setStockStatus("IN_STOCK");
-      populated.add("stockStatus");
     }
-    if (!preserveManualEdits || !manuallyEditedFields.has("leadTimeWeeks")) {
-      if (!leadTimeWeeks) setLeadTimeWeeks("1–2 Weeks");
-      populated.add("leadTimeWeeks");
+    if (!manuallyEditedFields.has("leadTimeWeeks") && !leadTimeWeeks) {
+      setLeadTimeWeeks("1–2 Weeks");
     }
 
-    // Publishing & SEO
-    if (!preserveManualEdits || !manuallyEditedFields.has("metaTitle")) {
-      const mTitle = result.seoTitle || result.metaTitle || sTitle;
-      if (mTitle) {
-        setMetaTitle(mTitle);
-        populated.add("metaTitle");
-      }
+    // Settings & Metadata
+    if (!manuallyEditedFields.has("metaTitle")) {
+      const mTitle = result.seoTitle || result.metaTitle || pName;
+      if (mTitle) setMetaTitle(mTitle);
     }
-    if (!preserveManualEdits || !manuallyEditedFields.has("metaDescription")) {
+    if (!manuallyEditedFields.has("metaDescription")) {
       const mDesc = result.seoDescription || result.metaDescription || mainDesc.slice(0, 160);
-      if (mDesc) {
-        setMetaDescription(mDesc);
-        populated.add("metaDescription");
-      }
+      if (mDesc) setMetaDescription(mDesc);
     }
 
-    setAiPopulatedFields(populated);
+    setHasUnsavedChanges(true);
   };
 
   const triggerAiIdentification = async () => {
     if (imageSlotsRef.current.some((s) => s.status === "uploading")) {
-      setAiIdentifyPhase("reading_photos");
       const startWait = Date.now();
       while (imageSlotsRef.current.some((s) => s.status === "uploading") && Date.now() - startWait < 15000) {
         await new Promise((r) => setTimeout(r, 300));
@@ -868,7 +777,6 @@ export const AdminProductEditorPage: React.FC = () => {
 
     setIsAiIdentifying(true);
     setAiIdentifyError(null);
-    setAiIdentifyPhase("reading_photos");
 
     try {
       const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 5));
@@ -877,15 +785,14 @@ export const AdminProductEditorPage: React.FC = () => {
       }
 
       if (activeAnalysisIdRef.current !== thisAnalysisId) return;
-      setAiIdentifyPhase("identifying_equipment");
 
       const res = await adminFetch("/api/admin/products/ai-identify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           photos: photosPayload,
-          namingStyle,
-          preliminaryBrand: brand || "DR.MEDEX"
+          namingStyle: "clinical",
+          preliminaryBrand: "DR.MEDEX"
         })
       });
 
@@ -896,39 +803,22 @@ export const AdminProductEditorPage: React.FC = () => {
         throw new Error((data && data.message) || `AI service returned HTTP ${res.status}`);
       }
 
-      setAiIdentifyPhase("matching_categories");
-      await new Promise((r) => setTimeout(r, 100));
-      if (activeAnalysisIdRef.current !== thisAnalysisId) return;
-
-      setAiIdentifyPhase("generating_content");
-      await new Promise((r) => setTimeout(r, 100));
-      if (activeAnalysisIdRef.current !== thisAnalysisId) return;
-
-      setAiIdentifyPhase("preparing_fields");
-      if (activeAnalysisIdRef.current !== thisAnalysisId) return;
-
-      setAiIdentifyResult(data.data);
       applyAiResultsToForm(data.data);
-      setAiAppliedNotification(true);
-      setAiIdentifyPhase("complete");
     } catch (err: any) {
       if (activeAnalysisIdRef.current === thisAnalysisId) {
         console.warn("AI identification error:", err);
         const errMsg = err?.message || "Failed to identify medical equipment.";
         if (errMsg.includes("GEMINI_API_KEY") || errMsg.includes("not configured")) {
-          setAiIdentifyError("Smart Product Assistant: GEMINI_API_KEY is not configured on this server. Please ensure GEMINI_API_KEY or GOOGLE_API_KEY is configured in Vercel Environment Variables and redeployed. Your original photos are safely preserved.");
+          setAiIdentifyError("GEMINI_API_KEY is not configured on this server. Please ensure GEMINI_API_KEY is set in Vercel Environment Variables. Your original photos are safely preserved.");
         } else if (errMsg.includes("invalid") || errMsg.includes("PERMISSION_DENIED") || errMsg.includes("credentials")) {
-          setAiIdentifyError("Smart Product Assistant: Gemini API credentials are invalid or lack vision permissions. Please verify the API key. Your original photos are safely preserved.");
+          setAiIdentifyError("Gemini API credentials are invalid or lack vision permissions. Your original photos are safely preserved.");
         } else if (errMsg.includes("rate limit") || errMsg.includes("quota") || errMsg.includes("RESOURCE_EXHAUSTED")) {
-          setAiIdentifyError("Smart Product Assistant: Gemini API quota or rate limit exceeded. Please retry in a few moments. Your original photos are safely preserved.");
-        } else if (errMsg.includes("timed out") || errMsg.includes("timeout") || errMsg.includes("DEADLINE_EXCEEDED")) {
-          setAiIdentifyError("Smart Product Assistant: Request timed out while analyzing photographs. Please retry. Your original photos are safely preserved.");
-        } else if (errMsg.includes("high demand") || errMsg.includes("503") || errMsg.includes("temporarily unavailable")) {
-          setAiIdentifyError("Smart Product Assistant: Google Gemini AI services are temporarily experiencing high demand. Please retry in a few moments. Your original photos are safely preserved.");
+          setAiIdentifyError("Gemini API quota or rate limit exceeded. Please retry in a few moments. Your original photos are safely preserved.");
+        } else if (errMsg.includes("timed out") || errMsg.includes("timeout")) {
+          setAiIdentifyError("Request timed out while analyzing photographs. Please retry. Your original photos are safely preserved.");
         } else {
-          setAiIdentifyError(`AI analysis failed: ${errMsg}. Your uploaded photos are preserved and you can continue editing manually.`);
+          setAiIdentifyError(`AI analysis failed: ${errMsg}. Uploaded photos and entered data are preserved.`);
         }
-        setAiIdentifyPhase("idle");
       }
     } finally {
       if (activeAnalysisIdRef.current === thisAnalysisId) {
@@ -1003,7 +893,6 @@ export const AdminProductEditorPage: React.FC = () => {
     }
   };
 
-  // Handling File Uploads with Instant Previews & Bounded Concurrency
   const handleStep1PhotosSelected = async (selectedFiles: File[]) => {
     if (!selectedFiles || selectedFiles.length === 0) return;
 
@@ -1060,16 +949,6 @@ export const AdminProductEditorPage: React.FC = () => {
     setIsUploadingImage(false);
   };
 
-  const retrySlotUpload = (slotId: string) => {
-    const slot = imageSlots.find((s) => s.id === slotId);
-    if (!slot || !slot.file) return;
-
-    setImageSlots((curr) =>
-      curr.map((s) => (s.id === slotId ? { ...s, status: "uploading" as const, errorMessage: undefined } : s))
-    );
-    uploadSlotFile(slotId, slot.file);
-  };
-
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
@@ -1087,7 +966,6 @@ export const AdminProductEditorPage: React.FC = () => {
     copy[target] = temp;
     setImageSlots(copy);
     setHasUnsavedChanges(true);
-    activeAnalysisIdRef.current = 0;
   };
 
   const removeImage = (index: number) => {
@@ -1103,12 +981,6 @@ export const AdminProductEditorPage: React.FC = () => {
       setPrimaryImageIndex(Math.max(0, filtered.length - 1));
     }
     setHasUnsavedChanges(true);
-    activeAnalysisIdRef.current = 0;
-  };
-
-  const handleReplaceClick = (index: number) => {
-    setReplaceTargetIndex(index);
-    replaceFileInputRef.current?.click();
   };
 
   const handleReplaceFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -1141,25 +1013,6 @@ export const AdminProductEditorPage: React.FC = () => {
     setHasUnsavedChanges(true);
   };
 
-  const handleAddImageUrl = () => {
-    const trimmed = imageUrlInput.trim();
-    if (trimmed) {
-      if (imageSlots.length >= 5) {
-        setUploadError("Maximum 5 photographs allowed per product.");
-        return;
-      }
-      const newSlot: ProductImageSlot = {
-        id: `url-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
-        url: trimmed,
-        status: "persisted"
-      };
-      setImageSlots((prev) => [...prev, newSlot]);
-      setImageUrlInput("");
-      setHasUnsavedChanges(true);
-      activeAnalysisIdRef.current = 0;
-    }
-  };
-
   const handleSlotLoadError = (slotId: string) => {
     setImageSlots((curr) =>
       curr.map((s) => (s.id === slotId ? { ...s, hasLoadError: true } : s))
@@ -1169,7 +1022,7 @@ export const AdminProductEditorPage: React.FC = () => {
   // ==========================================
   // REGENERATE HANDLERS
   // ==========================================
-  const handleRegenerateName = async (selectedStyle: "clinical" | "technical" | "catalog") => {
+  const handleRegenerateName = async () => {
     setIsGeneratingIdentity(true);
     try {
       const currentSlots = imageSlotsRef.current;
@@ -1180,15 +1033,14 @@ export const AdminProductEditorPage: React.FC = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             photos: photosPayload,
-            namingStyle: selectedStyle,
-            preliminaryBrand: brand || "DR.MEDEX"
+            namingStyle: "clinical",
+            preliminaryBrand: "DR.MEDEX"
           })
         });
         if (res.ok) {
           const data = await res.json();
-          if (data.success && data.data) {
-            if (data.data.productName) setProductName(data.data.productName);
-            if (data.data.storefrontProductTitle) setTitle(data.data.storefrontProductTitle);
+          if (data.success && data.data?.productName) {
+            setProductName(data.data.productName);
             setHasUnsavedChanges(true);
             return;
           }
@@ -1196,31 +1048,12 @@ export const AdminProductEditorPage: React.FC = () => {
       }
       const baseModel = manufacturerModel ? ` – ${manufacturerModel}` : "";
       const baseEq = equipmentType || "Medical Equipment";
-      if (selectedStyle === "technical") {
-        setProductName(`${brand || "DR.MEDEX"} ${baseEq}${baseModel} Clinical Precision System`);
-        setTitle(`${brand || "DR.MEDEX"} ${baseEq}${baseModel}`);
-      } else if (selectedStyle === "catalog") {
-        setProductName(`${brand || "DR.MEDEX"} ${baseEq}${baseModel}`);
-        setTitle(`${baseEq}${baseModel}`);
-      } else {
-        setProductName(`${brand || "DR.MEDEX"} Advanced ${baseEq}${baseModel} Surgical Solution`);
-        setTitle(`${brand || "DR.MEDEX"} ${baseEq}${baseModel}`);
-      }
+      setProductName(`DR.MEDEX Advanced ${baseEq}${baseModel} Surgical Solution`);
       setHasUnsavedChanges(true);
     } catch (err) {
       console.warn("Name regeneration error:", err);
     } finally {
       setIsGeneratingIdentity(false);
-    }
-  };
-
-  const handleRestoreSuggestedName = () => {
-    if (suggestedIdentityRef.current) {
-      if (suggestedIdentityRef.current.productName) setProductName(suggestedIdentityRef.current.productName);
-      if (suggestedIdentityRef.current.title) setTitle(suggestedIdentityRef.current.title);
-      if (suggestedIdentityRef.current.brand) setBrand(suggestedIdentityRef.current.brand);
-      if (suggestedIdentityRef.current.manufacturerModel) setManufacturerModel(suggestedIdentityRef.current.manufacturerModel);
-      setHasUnsavedChanges(true);
     }
   };
 
@@ -1233,11 +1066,7 @@ export const AdminProductEditorPage: React.FC = () => {
         const res = await adminFetch("/api/admin/products/ai-identify", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            photos: photosPayload,
-            namingStyle,
-            preliminaryBrand: brand || "DR.MEDEX"
-          })
+          body: JSON.stringify({ photos: photosPayload })
         });
         if (res.ok) {
           const data = await res.json();
@@ -1250,7 +1079,7 @@ export const AdminProductEditorPage: React.FC = () => {
           }
         }
       }
-      const descText = `Engineered for rigorous healthcare and surgical environments, the ${productName || title || "DR.MEDEX medical device"} integrates high-durability medical-grade construction with refined operational ergonomics. Designed to meet exacting clinical workflow demands, it provides consistent operating reliability, streamlined maintenance protocols, and intuitive handling for clinical specialists.`;
+      const descText = `Engineered for rigorous healthcare and surgical environments, the ${productName || "DR.MEDEX medical device"} integrates high-durability medical-grade construction with refined operational ergonomics. Designed to meet exacting clinical workflow demands, it provides consistent operating reliability, streamlined maintenance protocols, and intuitive handling for clinical specialists.`;
       setDescription(descText);
       setFullDescription(descText);
       setShortDescription(descText.slice(0, 180));
@@ -1374,7 +1203,6 @@ export const AdminProductEditorPage: React.FC = () => {
     }
   };
 
-  // Package Item Management Controls
   const movePackageItem = (index: number, direction: "up" | "down") => {
     const target = direction === "up" ? index - 1 : index + 1;
     if (target < 0 || target >= packageItems.length) return;
@@ -1407,27 +1235,29 @@ export const AdminProductEditorPage: React.FC = () => {
   };
 
   // ==========================================
-  // EIGHT-STEP PROGRESS VALIDATION
+  // NINE-STEP PROGRESS VALIDATION
   // ==========================================
   const stepStatus = useMemo(() => {
     const isStep1Done = Boolean(images.length > 0);
     const isStep2Done = Boolean(category && subcategory && equipmentType);
-    const isStep3Done = Boolean((productName.trim() || title.trim()) && sku.trim());
+    const isStep3Done = Boolean(productName.trim() && sku.trim());
     const isStep4Done = Boolean(description.trim() || fullDescription.trim());
     const isStep5Done = Boolean(powerSupply.trim() || qualityStandards.trim() || regulatoryStatus.trim() || warranty.trim());
     const isStep6Done = Boolean(clinicalIndications.length > 0);
     const isStep7Done = Boolean(engineeringHighlights.length > 0);
     const isStep8Done = Boolean(packageItems.length > 0);
+    const isStep9Done = Boolean(basePrice > 0);
 
     return [
-      { id: 1, name: "Photos & AI", isDone: isStep1Done, anchor: "card-step-1" },
+      { id: 1, name: "Photos", isDone: isStep1Done, anchor: "card-step-1" },
       { id: 2, name: "Classification", isDone: isStep2Done, anchor: "card-step-2" },
-      { id: 3, name: "Identity & Naming", isDone: isStep3Done, anchor: "card-step-3" },
+      { id: 3, name: "Identity", isDone: isStep3Done, anchor: "card-step-3" },
       { id: 4, name: "Description", isDone: isStep4Done, anchor: "card-step-4" },
       { id: 5, name: "Specifications", isDone: isStep5Done, anchor: "card-step-5" },
       { id: 6, name: "Indications", isDone: isStep6Done, anchor: "card-step-6" },
       { id: 7, name: "Highlights", isDone: isStep7Done, anchor: "card-step-7" },
-      { id: 8, name: "Package Contents", isDone: isStep8Done, anchor: "card-step-8" }
+      { id: 8, name: "Package", isDone: isStep8Done, anchor: "card-step-8" },
+      { id: 9, name: "Pricing", isDone: isStep9Done, anchor: "card-step-9" }
     ];
   }, [
     images.length,
@@ -1435,7 +1265,6 @@ export const AdminProductEditorPage: React.FC = () => {
     subcategory,
     equipmentType,
     productName,
-    title,
     sku,
     description,
     fullDescription,
@@ -1445,11 +1274,13 @@ export const AdminProductEditorPage: React.FC = () => {
     warranty,
     clinicalIndications.length,
     engineeringHighlights.length,
-    packageItems.length
+    packageItems.length,
+    basePrice
   ]);
 
   const scrollToAnchor = (anchor: string, stepId: number) => {
     setActiveStep(stepId);
+    setSelectedCard(anchor.replace("card-", ""));
     const el = document.getElementById(anchor);
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1471,8 +1302,8 @@ export const AdminProductEditorPage: React.FC = () => {
       return;
     }
 
-    if (!productName.trim() && !title.trim()) {
-      setStatusBanner({ type: "error", text: "Product Name or Title is required." });
+    if (!productName.trim()) {
+      setStatusBanner({ type: "error", text: "Product Name is required." });
       return;
     }
 
@@ -1554,17 +1385,16 @@ export const AdminProductEditorPage: React.FC = () => {
 
     const payload = {
       productName: productName.trim(),
-      title: (title || productName).trim(),
-      storefrontProductTitle: (title || productName).trim(),
+      title: productName.trim(), // Derived safely from Product Name without exposing separate input
+      storefrontProductTitle: productName.trim(),
       category,
       subcategory,
       equipmentType,
       modelNumber: manufacturerModel.trim() || undefined,
-      internalModelId: internalModelId.trim() || undefined,
+      internalModelId: `DM-${sku.trim()}`,
       sku: sku.trim(),
-      slug: (slug || title || productName).trim().toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+      slug: (slug || productName).trim().toLowerCase().replace(/[^a-z0-9]+/g, "-"),
       brand: brand.trim(),
-      namingStyle,
 
       // Step 4: Description
       shortDescription: shortDescription.trim() || mainDescription.slice(0, 180).trim(),
@@ -1600,7 +1430,7 @@ export const AdminProductEditorPage: React.FC = () => {
       })),
       packageContents: packageItems.map((p) => p.name),
 
-      // Pricing & Inventory
+      // Step 9: Pricing & Inventory
       basePrice: Number(basePrice),
       salePrice: Number(basePrice),
       regularPrice: Number(originalPrice || basePrice),
@@ -1621,14 +1451,14 @@ export const AdminProductEditorPage: React.FC = () => {
       primaryImage: selectedPrimaryUrl,
       managedCloudinaryImages,
 
-      // Publishing & Status
+      // Settings & Metadata
       status,
       featured: isFeatured,
       isFeatured,
       bestseller: isBestSeller,
       isBestSeller,
       categoryGridVisible,
-      metaTitle: metaTitle.trim() || (title || productName).trim(),
+      metaTitle: metaTitle.trim() || productName.trim(),
       metaDescription: metaDescription.trim() || mainDescription.slice(0, 160).trim(),
 
       // Legacy documentation fields
@@ -1687,8 +1517,8 @@ export const AdminProductEditorPage: React.FC = () => {
             refreshed: true,
             updatedProduct: data.product,
             message: isEditMode
-              ? `Product "${payload.productName || payload.title}" updated successfully.`
-              : `Product "${payload.productName || payload.title}" created successfully.`
+              ? `Product "${payload.productName}" updated successfully.`
+              : `Product "${payload.productName}" created successfully.`
           }
         });
         return;
@@ -1713,18 +1543,19 @@ export const AdminProductEditorPage: React.FC = () => {
 
   return (
     <AdminLayout
-      title={isEditMode ? `Edit: ${productName || title || "Medical Equipment"}` : "Add New Medical Equipment"}
+      mainClassName="bg-[#7A805A] min-h-screen"
+      title={isEditMode ? `Edit: ${productName || "Medical Equipment"}` : "Add New Medical Equipment"}
       subtitle={
         isEditMode
           ? "Modify clinical specifications, pricing, imagery, and regulatory standards."
-          : "Enterprise 8-step medical equipment registration with Gemini AI auto-population."
+          : "Enterprise medical equipment registration with Gemini AI auto-fill."
       }
     >
       {/* Top action bar */}
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <Link
           to="/admin/products"
-          className="inline-flex items-center gap-2 text-xs font-bold text-neutral-600 hover:text-black transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-bold text-white/90 hover:text-white transition-colors"
         >
           <ArrowLeft size={14} />
           <span>Back to Products Catalogue</span>
@@ -1736,7 +1567,7 @@ export const AdminProductEditorPage: React.FC = () => {
               href={`/products/${slug}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-[#E5E5E5] rounded-lg text-xs font-bold text-neutral-700 bg-white hover:bg-[#F5F5F5] transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-white/30 rounded-lg text-xs font-bold text-white bg-white/10 hover:bg-white/20 transition-colors"
             >
               <Eye size={13} />
               <span>View on Storefront</span>
@@ -1747,7 +1578,7 @@ export const AdminProductEditorPage: React.FC = () => {
             type="button"
             onClick={handleSaveProduct}
             disabled={isSaving}
-            className="flex items-center gap-2 px-6 py-2 bg-[#171717] hover:bg-black text-white rounded-lg text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer"
+            className="flex items-center gap-2 px-6 py-2 bg-[#171717] hover:bg-black text-white rounded-lg text-xs font-bold transition-all shadow-md disabled:opacity-50 cursor-pointer"
           >
             {isSaving ? <RefreshCw size={13} className="animate-spin" /> : <Save size={13} />}
             <span>{isSaving ? "Saving..." : isEditMode ? "Save Changes" : "Save Product"}</span>
@@ -1758,7 +1589,7 @@ export const AdminProductEditorPage: React.FC = () => {
       {/* Global Status Banner */}
       {statusBanner && (
         <div
-          className={`mb-6 p-4 rounded-xl border flex items-start justify-between gap-3 ${
+          className={`mb-6 p-4 rounded-2xl border flex items-start justify-between gap-3 shadow-md ${
             statusBanner.type === "error"
               ? "bg-red-50 border-[#D92D32] text-[#D92D32]"
               : statusBanner.type === "warning"
@@ -1782,7 +1613,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
       {/* Duplicate Product Detection Banner */}
       {duplicateInfo.isDuplicate && duplicateInfo.duplicateProduct && (
-        <div className="mb-6 p-4 rounded-xl border border-amber-300 bg-amber-50/80 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-2xs">
+        <div className="mb-6 p-4 rounded-2xl border border-amber-300 bg-amber-50 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-md">
           <div className="flex items-start gap-3">
             <AlertTriangle size={18} className="text-amber-600 mt-0.5 shrink-0" />
             <div>
@@ -1817,10 +1648,10 @@ export const AdminProductEditorPage: React.FC = () => {
       )}
 
       {/* ============================================================ */}
-      {/* COMPACT HORIZONTAL EIGHT-STEP PROGRESS TRACKER               */}
+      {/* COMPACT HORIZONTAL NINE-STEP PROGRESS TRACKER                */}
       {/* ============================================================ */}
-      <div className="mb-8 bg-white border border-[#E5E7EB] rounded-2xl p-4 shadow-2xs">
-        <div className="flex items-center justify-between overflow-x-auto pb-1 scrollbar-none gap-4">
+      <div className="mb-8 bg-white border border-[#E5E7EB] rounded-2xl p-4 shadow-sm">
+        <div className="flex items-center justify-between overflow-x-auto pb-1 scrollbar-none gap-3">
           {stepStatus.map((step, idx) => {
             const isActive = activeStep === step.id;
             return (
@@ -1828,7 +1659,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 key={step.id}
                 type="button"
                 onClick={() => scrollToAnchor(step.anchor, step.id)}
-                className={`flex items-center gap-2.5 text-left shrink-0 transition-all cursor-pointer group ${
+                className={`flex items-center gap-2 text-left shrink-0 transition-all cursor-pointer group ${
                   isActive ? "opacity-100" : "opacity-75 hover:opacity-100"
                 }`}
               >
@@ -1858,7 +1689,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 </div>
 
                 {idx < stepStatus.length - 1 && (
-                  <div className="hidden xl:block w-4 h-px bg-[#E5E7EB] ml-2" />
+                  <div className="hidden xl:block w-3 h-px bg-[#E5E7EB] ml-1" />
                 )}
               </button>
             );
@@ -1867,7 +1698,7 @@ export const AdminProductEditorPage: React.FC = () => {
       </div>
 
       {/* ============================================================ */}
-      {/* 8-STEP ENTERPRISE FORM WORKSPACE                             */}
+      {/* 9-STEP ENTERPRISE FORM WORKSPACE                             */}
       {/* ============================================================ */}
       <form
         onSubmit={(e) => {
@@ -1901,504 +1732,340 @@ export const AdminProductEditorPage: React.FC = () => {
         />
 
         {/* ============================================================ */}
-        {/* STEP 1: PRODUCT PHOTOS & AI IMAGE ANALYSIS (FULL WIDTH)       */}
+        {/* STEP 1: PRODUCT IMAGES (FULL WIDTH — ADRIZO LAYOUT)          */}
         {/* ============================================================ */}
-        <div id="card-step-1" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-5 shadow-2xs">
-          <div className="border-b border-[#E5E7EB] pb-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                  Step 1 • Full Width
-                </span>
-                <span className="text-[10px] font-mono font-bold uppercase text-neutral-600 bg-neutral-100 px-2.5 py-0.5 rounded-full border border-neutral-200">
-                  Photos & AI Vision
-                </span>
+        <div
+          id="card-step-1"
+          onClick={() => setSelectedCard("step-1")}
+          onFocusCapture={() => setSelectedCard("step-1")}
+          className={`rounded-2xl p-6 transition-all duration-200 border ${getCardStyle("step-1")}`}
+        >
+          <div className="flex flex-col lg:flex-row gap-6 items-stretch">
+            {/* Left side — Upload Product Images */}
+            <div
+              onDragOver={(e) => {
+                e.preventDefault();
+                setIsDragging(true);
+              }}
+              onDragLeave={() => setIsDragging(false)}
+              onDrop={handleDrop}
+              onClick={() => fileInputRef.current?.click()}
+              className={`lg:w-80 shrink-0 border-2 border-dashed rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all ${
+                isDragging
+                  ? "border-[#EAB308] bg-[#FEFCE8]"
+                  : imageSlots.length >= 5
+                  ? "border-neutral-200 bg-neutral-50/60 opacity-60 cursor-not-allowed"
+                  : "border-neutral-300 bg-[#F8F9FA] hover:bg-yellow-50/20 hover:border-[#EAB308]"
+              }`}
+            >
+              <div className="w-12 h-12 rounded-full bg-white shadow-xs mx-auto flex items-center justify-center text-neutral-700 mb-3 border border-[#E5E7EB]">
+                <Upload size={22} className="text-[#171717]" />
               </div>
-              <h3 className="text-base font-bold text-[#171717] mt-1.5">
-                Product Photos & AI Image Analysis
-              </h3>
-              <p className="text-xs text-neutral-500 mt-0.5">
-                Upload 1 to 5 device photographs (overall machine, front/back, control panel, nameplate, labels, accessories).
+              <h4 className="text-sm font-bold text-[#171717]">Upload Product Images</h4>
+              <p className="text-xs text-neutral-500 mt-1">Upload multiple product images at once</p>
+              <p className="text-[11px] text-neutral-400 mt-2 font-mono">
+                JPEG, PNG, WebP up to 10MB (Max 5 photos)
               </p>
+              <span className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-white border border-[#E5E7EB] text-neutral-700">
+                <Camera size={11} />
+                <span>{imageSlots.length} of 5 photos</span>
+              </span>
+            </div>
+
+            {/* Right side — Uploaded photographs */}
+            <div className="flex-1 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between text-xs font-bold text-[#171717] mb-3">
+                  <span>Uploaded Photographs ({imageSlots.length})</span>
+                  <span className="text-[11px] text-neutral-500 font-normal">
+                    Click thumbnail to set as primary • Drag or use arrows to reorder
+                  </span>
+                </div>
+
+                {imageSlots.length === 0 ? (
+                  <div className="h-36 rounded-xl border border-dashed border-[#E5E7EB] bg-[#F8F9FA]/60 flex flex-col items-center justify-center text-neutral-400 text-xs">
+                    <ImageIcon size={28} className="mb-1 text-neutral-300" />
+                    <span>No photographs uploaded yet. Click or drop images on the left.</span>
+                  </div>
+                ) : (
+                  <div className="flex flex-wrap gap-3 items-center">
+                    {imageSlots.map((slot, idx) => {
+                      const isPrimary = idx === primaryImageIndex;
+                      return (
+                        <div
+                          key={slot.id || idx}
+                          className={`w-28 h-32 rounded-xl border p-1.5 bg-white flex flex-col justify-between relative transition-all group shrink-0 ${
+                            isPrimary
+                              ? "border-[#EAB308] ring-2 ring-[#EAB308]/50"
+                              : "border-[#E5E7EB] hover:border-neutral-300"
+                          }`}
+                        >
+                          {/* Thumbnail */}
+                          <div
+                            onClick={() => {
+                              setPrimaryImageIndex(idx);
+                              setHasUnsavedChanges(true);
+                            }}
+                            className="w-full h-20 rounded-lg bg-[#F8F9FA] overflow-hidden flex items-center justify-center relative cursor-pointer"
+                          >
+                            {slot.hasLoadError ? (
+                              <ImageOff size={18} className="text-neutral-400" />
+                            ) : (
+                              <img
+                                src={slot.previewUrl || slot.url}
+                                alt={`Device view ${idx + 1}`}
+                                className="w-full h-full object-contain"
+                                onError={() => handleSlotLoadError(slot.id)}
+                              />
+                            )}
+
+                            {isPrimary && (
+                              <span className="absolute top-1 left-1 bg-[#F2C230] text-black text-[8px] font-extrabold px-1.5 py-0.5 rounded shadow-xs">
+                                PRIMARY
+                              </span>
+                            )}
+
+                            {slot.status === "uploading" && (
+                              <div className="absolute inset-0 bg-white/85 flex items-center justify-center">
+                                <RefreshCw size={14} className="animate-spin text-[#16803D]" />
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Controls */}
+                          <div className="flex items-center justify-between text-xs pt-1 border-t border-[#E5E7EB]">
+                            <div className="flex items-center gap-0.5">
+                              <button
+                                type="button"
+                                onClick={() => moveImage(idx, "left")}
+                                disabled={idx === 0 || slot.status === "uploading"}
+                                className="p-0.5 text-neutral-400 hover:text-black disabled:opacity-20 cursor-pointer"
+                                title="Move left"
+                              >
+                                <MoveLeft size={11} />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => moveImage(idx, "right")}
+                                disabled={idx === imageSlots.length - 1 || slot.status === "uploading"}
+                                className="p-0.5 text-neutral-400 hover:text-black disabled:opacity-20 cursor-pointer"
+                                title="Move right"
+                              >
+                                <MoveRight size={11} />
+                              </button>
+                            </div>
+
+                            <button
+                              type="button"
+                              onClick={() => removeImage(idx)}
+                              disabled={slot.status === "uploading"}
+                              className="p-0.5 text-neutral-400 hover:text-[#D92D32] disabled:opacity-50 cursor-pointer"
+                              title="Remove image"
+                            >
+                              <Trash2 size={11} />
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+
+                    {/* Add More slot if < 5 */}
+                    {imageSlots.length < 5 && (
+                      <button
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        className="w-28 h-32 rounded-xl border-2 border-dashed border-neutral-300 hover:border-[#EAB308] bg-neutral-50/50 hover:bg-yellow-50/20 flex flex-col items-center justify-center text-neutral-400 hover:text-black transition-all cursor-pointer shrink-0"
+                      >
+                        <Plus size={20} className="mb-1" />
+                        <span className="text-[11px] font-bold">Add Photo</span>
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {uploadProgress && isUploadingImage && (
+                <div className="mt-3 p-2 bg-neutral-50 rounded-lg border border-[#E5E7EB] text-xs flex items-center justify-between">
+                  <span>Uploading photos...</span>
+                  <span className="font-mono">{uploadProgress.current}/{uploadProgress.total}</span>
+                </div>
+              )}
             </div>
           </div>
+        </div>
 
-          {/* Upload Dropzone */}
-          <div
-            onDragOver={(e) => {
-              e.preventDefault();
-              setIsDragging(true);
-            }}
-            onDragLeave={() => setIsDragging(false)}
-            onDrop={handleDrop}
-            onClick={() => fileInputRef.current?.click()}
-            className={`border-2 border-dashed rounded-2xl p-6 text-center transition-all cursor-pointer ${
-              isDragging
-                ? "border-[#F2C230] bg-[#F2C230]/10"
-                : imageSlots.length >= 5
-                ? "border-neutral-200 bg-neutral-50/60 opacity-70 cursor-not-allowed"
-                : "border-neutral-300 bg-[#F8F9FA] hover:bg-yellow-50/20 hover:border-[#F2C230]"
-            }`}
+        {/* ============================================================ */}
+        {/* COMPACT RED BUTTON: RUN AI ANALYSIS (DIRECTLY BELOW STEP 1)  */}
+        {/* ============================================================ */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <button
+            type="button"
+            onClick={() => triggerAiIdentification()}
+            disabled={isAiIdentifying || imageSlots.length === 0}
+            className="px-4 py-2 bg-[#D92D32] hover:bg-[#B91C1C] disabled:opacity-50 text-white rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer inline-flex items-center gap-2"
           >
-            <div className="w-12 h-12 rounded-full bg-white shadow-xs mx-auto flex items-center justify-center text-neutral-700 mb-2 border border-[#E5E7EB]">
-              <Upload size={20} className="text-[#171717]" />
-            </div>
-            <h4 className="text-xs font-bold text-[#171717]">
-              {imageSlots.length >= 5
-                ? "Maximum 5 device photographs loaded"
-                : "Drag & drop product photographs here, or click to browse files"}
-            </h4>
-            <p className="text-[11px] text-neutral-500 mt-1">
-              Supports 1 to 5 photographs (JPEG, PNG, WebP up to 10MB each).
-            </p>
-            <div className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-white border border-[#E5E7EB] text-neutral-700">
-              <Camera size={12} />
-              <span>{imageSlots.length} of 5 photographs selected</span>
-            </div>
-          </div>
+            {isAiIdentifying ? <RefreshCw size={13} className="animate-spin" /> : <Sparkles size={13} />}
+            <span>{isAiIdentifying ? "Analyzing Photographs..." : "Run AI Analysis"}</span>
+          </button>
 
-          {/* Upload Progress Bar */}
-          {isUploadingImage && uploadProgress && (
-            <div className="p-3 bg-neutral-50 rounded-xl border border-[#E5E7EB] space-y-1.5">
-              <div className="flex items-center justify-between text-xs font-bold text-[#171717]">
-                <span>Uploading device photographs to media store...</span>
-                <span>{uploadProgress.current} / {uploadProgress.total}</span>
-              </div>
-              <div className="w-full bg-[#E5E7EB] rounded-full h-2 overflow-hidden">
-                <div
-                  className="bg-[#16803D] h-full transition-all duration-300"
-                  style={{ width: `${(uploadProgress.current / uploadProgress.total) * 100}%` }}
-                />
-              </div>
-            </div>
-          )}
-
-          {/* Upload / Validation Errors */}
-          {uploadError && (
-            <div className="p-3 bg-red-50 text-[#D92D32] rounded-xl border border-[#D92D32] text-xs flex items-center justify-between">
+          {aiIdentifyError && (
+            <div className="p-2.5 rounded-xl bg-red-50 border border-[#D92D32] text-xs text-[#D92D32] flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                <AlertCircle size={15} />
-                <span>{uploadError}</span>
+                <AlertCircle size={14} className="shrink-0" />
+                <span>{aiIdentifyError}</span>
               </div>
               <button
                 type="button"
-                onClick={() => setUploadError(null)}
-                className="text-xs font-bold hover:underline cursor-pointer"
+                onClick={() => setAiIdentifyError(null)}
+                className="font-bold hover:underline cursor-pointer text-xs"
               >
                 Dismiss
               </button>
             </div>
           )}
-
-          {/* Selected Product Images Grid (Thumbnails directly inside image section) */}
-          {imageSlots.length > 0 && (
-            <div className="space-y-2.5 pt-1">
-              <div className="flex items-center justify-between text-xs font-bold text-[#171717]">
-                <span>Loaded Photographs ({imageSlots.length} of 5)</span>
-                <span className="text-[11px] text-neutral-400 font-normal">
-                  Reorder or set primary image for storefront card
-                </span>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3.5">
-                {imageSlots.map((slot, idx) => {
-                  const isPrimary = idx === primaryImageIndex;
-                  return (
-                    <div
-                      key={slot.id || idx}
-                      className={`relative rounded-xl border p-2 bg-white flex flex-col items-center group transition-all ${
-                        slot.status === "failed"
-                          ? "border-red-300 bg-red-50/20"
-                          : isPrimary
-                          ? "border-[#F2C230] ring-2 ring-[#F2C230]/50"
-                          : "border-[#E5E7EB]"
-                      }`}
-                    >
-                      {/* Image Preview Box preserving aspect ratio */}
-                      <div className="w-full aspect-square rounded-lg bg-[#F8F9FA] overflow-hidden flex items-center justify-center mb-2 relative">
-                        {slot.hasLoadError ? (
-                          <div className="w-full h-full flex flex-col items-center justify-center p-2 text-center bg-neutral-100">
-                            <ImageOff size={22} className="text-neutral-400 mb-1" />
-                            <span className="text-[10px] font-semibold text-neutral-600">Failed to render image</span>
-                            <span className="text-[9px] font-mono text-neutral-400 truncate max-w-full px-1">
-                              {slot.url.split("/").pop() || "broken asset"}
-                            </span>
-                          </div>
-                        ) : (
-                          <img
-                            src={slot.previewUrl || slot.url}
-                            alt={`Device view ${idx + 1}`}
-                            className="w-full h-full object-contain"
-                            onError={() => handleSlotLoadError(slot.id)}
-                          />
-                        )}
-
-                        {/* Uploading Overlay */}
-                        {slot.status === "uploading" && (
-                          <div className="absolute inset-0 bg-white/85 backdrop-blur-2xs flex flex-col items-center justify-center p-2 text-center">
-                            <RefreshCw size={20} className="animate-spin text-[#16803D] mb-1" />
-                            <span className="text-[10px] font-bold text-neutral-700">Uploading...</span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Primary Badge */}
-                      {isPrimary && (
-                        <span className="absolute top-3 left-3 bg-[#F2C230] text-black text-[9px] font-extrabold px-1.5 py-0.5 rounded shadow-xs">
-                          PRIMARY
-                        </span>
-                      )}
-
-                      <span className="absolute top-3 right-3 bg-black/60 text-white text-[9px] font-mono px-1 rounded">
-                        #{idx + 1}
-                      </span>
-
-                      {/* Failure message & retry button */}
-                      {slot.status === "failed" && (
-                        <div className="w-full mb-1.5 p-1 bg-red-100 text-red-800 rounded text-[9px] text-center">
-                          <p className="truncate font-medium">{slot.errorMessage || "Upload failed"}</p>
-                          {slot.file && (
-                            <button
-                              type="button"
-                              onClick={() => retrySlotUpload(slot.id)}
-                              className="mt-1 px-2 py-0.5 bg-[#D92D32] text-white rounded text-[9px] font-bold hover:bg-[#b82226] cursor-pointer"
-                            >
-                              Retry
-                            </button>
-                          )}
-                        </div>
-                      )}
-
-                      {/* Controls Row */}
-                      <div className="w-full flex items-center justify-between text-xs pt-1 border-t border-[#E5E7EB]">
-                        <div className="flex items-center gap-0.5">
-                          <button
-                            type="button"
-                            onClick={() => moveImage(idx, "left")}
-                            disabled={idx === 0 || slot.status === "uploading"}
-                            title="Move left"
-                            className="p-1 text-neutral-400 hover:text-black disabled:opacity-20 cursor-pointer"
-                          >
-                            <MoveLeft size={12} />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => moveImage(idx, "right")}
-                            disabled={idx === imageSlots.length - 1 || slot.status === "uploading"}
-                            title="Move right"
-                            className="p-1 text-neutral-400 hover:text-black disabled:opacity-20 cursor-pointer"
-                          >
-                            <MoveRight size={12} />
-                          </button>
-                        </div>
-
-                        {!isPrimary ? (
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setPrimaryImageIndex(idx);
-                              setHasUnsavedChanges(true);
-                            }}
-                            disabled={slot.status === "uploading"}
-                            className="text-[10px] font-bold text-neutral-600 hover:text-[#16803D] disabled:opacity-50 cursor-pointer"
-                          >
-                            Set Primary
-                          </button>
-                        ) : (
-                          <span className="text-[10px] font-bold text-[#16803D]">Primary</span>
-                        )}
-
-                        <div className="flex items-center gap-0.5">
-                          <button
-                            type="button"
-                            onClick={() => handleReplaceClick(idx)}
-                            disabled={slot.status === "uploading"}
-                            title="Replace photo"
-                            className="p-1 text-neutral-400 hover:text-neutral-700 disabled:opacity-50 cursor-pointer"
-                          >
-                            <RotateCcw size={12} />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => removeImage(idx)}
-                            disabled={slot.status === "uploading"}
-                            title="Remove photo"
-                            className="p-1 text-neutral-400 hover:text-[#D92D32] disabled:opacity-50 cursor-pointer"
-                          >
-                            <Trash2 size={12} />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* ============================================================ */}
-          {/* OPTIONAL RED-ACCENTED RUN AI ANALYSIS BUTTON (STEP 1 FOOTER) */}
-          {/* ============================================================ */}
-          <div className="rounded-2xl border border-[#E5E7EB] bg-[#F8F9FA] p-4 space-y-3">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="space-y-0.5">
-                <div className="flex items-center gap-2">
-                  <Sparkles size={15} className="text-[#D92D32]" />
-                  <h4 className="text-xs font-bold text-[#171717]">
-                    Gemini AI Vision Assistant (Optional)
-                  </h4>
-                  <span className="text-[10px] font-mono px-2 py-0.5 bg-neutral-200/60 rounded text-neutral-600 font-bold">
-                    Steps 2–8 Auto-Fill
-                  </span>
-                </div>
-                <p className="text-[11px] text-neutral-500">
-                  Analyzes uploaded medical photos to extract structured clinical classifications, specs, indications, and package contents.
-                </p>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => triggerAiIdentification()}
-                disabled={isAiIdentifying || imageSlots.length === 0}
-                className="flex items-center gap-2 px-4 py-2 bg-[#D92D32] hover:bg-[#b82226] disabled:opacity-50 text-white rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer shrink-0"
-              >
-                {isAiIdentifying ? <RefreshCw size={13} className="animate-spin" /> : <Sparkles size={13} />}
-                <span>
-                  {isAiIdentifying ? "Analyzing Photographs..." : "Run AI Analysis (Optional)"}
-                </span>
-              </button>
-            </div>
-
-            {/* AI Status / Phase Tracker */}
-            {isAiIdentifying && (
-              <div className="p-3 bg-white rounded-xl border border-[#E5E7EB] space-y-2">
-                <div className="flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2">
-                    <RefreshCw size={13} className="animate-spin text-[#D92D32]" />
-                    <span className="font-bold text-[#171717]">
-                      {aiIdentifyPhase === "reading_photos" && "Phase 1: Reading uploaded device photographs..."}
-                      {aiIdentifyPhase === "identifying_equipment" && "Phase 2: Identifying device architecture & clinical modality..."}
-                      {aiIdentifyPhase === "matching_categories" && "Phase 3: Matching DR.MEDEX taxonomy hierarchy..."}
-                      {aiIdentifyPhase === "generating_content" && "Phase 4: Synthesizing specifications, indications & highlights..."}
-                      {aiIdentifyPhase === "preparing_fields" && "Phase 5: Mapping structured JSON to form fields..."}
-                    </span>
-                  </div>
-                </div>
-                <div className="grid grid-cols-4 gap-1.5 text-[10px] font-mono">
-                  <div className={`p-1 text-center rounded ${aiIdentifyPhase !== "idle" ? "bg-amber-100 text-amber-900 font-bold" : "bg-neutral-100 text-neutral-400"}`}>1. Photos</div>
-                  <div className={`p-1 text-center rounded ${aiIdentifyPhase === "identifying_equipment" || aiIdentifyPhase === "matching_categories" || aiIdentifyPhase === "generating_content" || aiIdentifyPhase === "preparing_fields" ? "bg-amber-100 text-amber-900 font-bold" : "bg-neutral-100 text-neutral-400"}`}>2. Vision</div>
-                  <div className={`p-1 text-center rounded ${aiIdentifyPhase === "generating_content" || aiIdentifyPhase === "preparing_fields" ? "bg-amber-100 text-amber-900 font-bold" : "bg-neutral-100 text-neutral-400"}`}>3. Specs</div>
-                  <div className={`p-1 text-center rounded ${aiIdentifyPhase === "preparing_fields" ? "bg-emerald-100 text-[#16803D] font-bold" : "bg-neutral-100 text-neutral-400"}`}>4. Map Form</div>
-                </div>
-              </div>
-            )}
-
-            {/* Error Banner */}
-            {aiIdentifyError && (
-              <div className="p-3 rounded-xl bg-red-50 border border-[#D92D32] text-xs text-[#D92D32] flex items-start justify-between gap-2">
-                <div className="flex items-start gap-2">
-                  <AlertCircle size={15} className="mt-0.5 shrink-0" />
-                  <span className="leading-relaxed">{aiIdentifyError}</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setAiIdentifyError(null)}
-                  className="font-bold hover:underline cursor-pointer shrink-0"
-                >
-                  Dismiss
-                </button>
-              </div>
-            )}
-
-            {/* AI Results Notification Banner */}
-            {aiAppliedNotification && aiIdentifyResult && (
-              <div className="p-3.5 bg-emerald-50/70 border border-emerald-300 rounded-xl space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-[#16803D]" />
-                    <span className="text-xs font-bold text-emerald-950">
-                      AI Analysis Complete • Fields Successfully Auto-Populated across Steps 2–8
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setAiAppliedNotification(false)}
-                    className="text-xs font-bold text-emerald-800 hover:underline cursor-pointer"
-                  >
-                    Dismiss
-                  </button>
-                </div>
-
-                <div className="p-2 rounded bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-center gap-2">
-                  <AlertCircle size={14} className="shrink-0 text-amber-600" />
-                  <span>
-                    Pricing requires manual confirmation in Commercial Terms. All generated details remain 100% editable before saving.
-                  </span>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Direct URL input fallback */}
-          <div className="pt-1 flex items-center gap-2">
-            <input
-              type="url"
-              value={imageUrlInput}
-              onChange={(e) => setImageUrlInput(e.target.value)}
-              placeholder="Or paste direct image URL (https://...)..."
-              className="flex-1 px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs"
-            />
-            <button
-              type="button"
-              onClick={handleAddImageUrl}
-              className="px-4 py-2 bg-white border border-[#E5E7EB] hover:bg-[#F8F9FA] text-[#171717] rounded-xl text-xs font-bold cursor-pointer"
-            >
-              Add URL
-            </button>
-          </div>
         </div>
 
         {/* ============================================================ */}
-        {/* RESPONSIVE TWO-COLUMN GRID FOR STEPS 2–8 & PRICING           */}
+        {/* RESPONSIVE TWO-COLUMN GRID: STEPS 2 TO 9                     */}
         {/* ============================================================ */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
 
           {/* ========================================================== */}
-          {/* STEP 2: PRODUCT CLASSIFICATION                             */}
+          {/* STEP 2: PRODUCT CLASSIFICATION (ROW 1 - LEFT)              */}
           {/* ========================================================== */}
-          <div id="card-step-2" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
-            <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  Step 2
+          <div
+            id="card-step-2"
+            onClick={() => setSelectedCard("step-2")}
+            onFocusCapture={() => setSelectedCard("step-2")}
+            className={`rounded-2xl p-6 space-y-4 transition-all duration-200 border flex flex-col justify-between ${getCardStyle("step-2")}`}
+          >
+            <div>
+              <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    Step 2
+                  </span>
+                  <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
+                    Product Classification
+                  </h3>
+                </div>
+                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 border border-[#E5E7EB]">
+                  L1–L3 Hierarchy
                 </span>
-                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                  Product Classification
-                </h3>
               </div>
-              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#F8F9FA] text-neutral-600 border border-[#E5E7EB]">
-                L1–L3 Hierarchy
-              </span>
-            </div>
 
-            <div className="space-y-4">
-              {/* Primary Category */}
-              <div>
-                <label className="block text-xs font-bold text-[#171717] mb-1">
-                  Primary Category <span className="text-rose-500">*</span>
-                </label>
-                <select
-                  value={category}
-                  onChange={(e) => {
-                    const newCat = e.target.value;
-                    setCategory(newCat);
-                    setSubcategory("");
-                    setEquipmentType("");
-                    markFieldEdited("category");
-                    if (!isEditMode) {
-                      fetchNewSku(newCat);
-                    }
-                    setHasUnsavedChanges(true);
-                  }}
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#171717] focus:outline-none focus:border-[#F2C230] cursor-pointer"
-                >
-                  {allCategories.map((c) => {
-                    const isInactive = c.status === "INACTIVE" || c.active === false;
-                    return (
-                      <option key={c.id} value={c.slug}>
-                        {c.name} {isInactive ? "(Inactive Storefront)" : ""}
+              <div className="space-y-4 mt-4">
+                {/* Primary Category */}
+                <div>
+                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                    Primary Category <span className="text-rose-500">*</span>
+                  </label>
+                  <select
+                    value={category}
+                    onChange={(e) => {
+                      const newCat = e.target.value;
+                      setCategory(newCat);
+                      setSubcategory("");
+                      setEquipmentType("");
+                      markFieldEdited("category");
+                      if (!isEditMode) {
+                        fetchNewSku(newCat);
+                      }
+                      setHasUnsavedChanges(true);
+                    }}
+                    className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#171717] focus:outline-none focus:border-[#EAB308] cursor-pointer"
+                  >
+                    {allCategories.map((c) => {
+                      const isInactive = c.status === "INACTIVE" || c.active === false;
+                      return (
+                        <option key={c.id} value={c.slug}>
+                          {c.name} {isInactive ? "(Inactive Storefront)" : ""}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+
+                {/* Subcategory */}
+                <div>
+                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                    Subcategory <span className="text-rose-500">*</span>
+                  </label>
+                  <select
+                    value={subcategory}
+                    disabled={!category || availableSubcategories.length === 0}
+                    onChange={(e) => {
+                      const newSub = e.target.value;
+                      setSubcategory(newSub);
+                      setEquipmentType("");
+                      markFieldEdited("subcategory");
+                      setHasUnsavedChanges(true);
+                    }}
+                    className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#171717] focus:outline-none focus:border-[#EAB308] disabled:opacity-50 disabled:bg-[#F8F9FA] cursor-pointer"
+                  >
+                    <option value="">— Select Subcategory —</option>
+                    {availableSubcategories.map((s: any) => (
+                      <option key={s.id} value={s.id}>
+                        {s.name}
                       </option>
-                    );
-                  })}
-                </select>
-              </div>
+                    ))}
+                  </select>
+                </div>
 
-              {/* Subcategory */}
-              <div>
-                <label className="block text-xs font-bold text-[#171717] mb-1">
-                  Subcategory <span className="text-rose-500">*</span>
-                </label>
-                <select
-                  value={subcategory}
-                  disabled={!category || availableSubcategories.length === 0}
-                  onChange={(e) => {
-                    const newSub = e.target.value;
-                    setSubcategory(newSub);
-                    setEquipmentType("");
-                    markFieldEdited("subcategory");
-                    setHasUnsavedChanges(true);
-                  }}
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#171717] focus:outline-none focus:border-[#F2C230] disabled:opacity-50 disabled:bg-[#F8F9FA] cursor-pointer"
-                >
-                  <option value="">— Select Subcategory —</option>
-                  {availableSubcategories.map((s: any) => (
-                    <option key={s.id} value={s.id}>
-                      {s.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Verified Equipment Type */}
-              <div>
-                <label className="block text-xs font-bold text-[#171717] mb-1">
-                  Verified Equipment Type <span className="text-rose-500">*</span>
-                </label>
-                <select
-                  value={equipmentType}
-                  disabled={!subcategory || availableEquipmentTypes.length === 0}
-                  onChange={(e) => {
-                    const newEq = e.target.value;
-                    setEquipmentType(newEq);
-                    markFieldEdited("equipmentType");
-                    setHasUnsavedChanges(true);
-                  }}
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#171717] focus:outline-none focus:border-[#F2C230] disabled:opacity-50 disabled:bg-[#F8F9FA] cursor-pointer"
-                >
-                  <option value="">— Select Equipment Type —</option>
-                  {availableEquipmentTypes.map((eq: any) => (
-                    <option key={eq.id} value={eq.name}>
-                      {eq.name}
-                    </option>
-                  ))}
-                </select>
-                <p className="text-[11px] text-neutral-500 mt-1.5">
-                  Filtered based on verified DR.MEDEX catalogue taxonomy.
-                </p>
+                {/* Verified Equipment Type */}
+                <div>
+                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                    Verified Equipment Type <span className="text-rose-500">*</span>
+                  </label>
+                  <select
+                    value={equipmentType}
+                    disabled={!subcategory || availableEquipmentTypes.length === 0}
+                    onChange={(e) => {
+                      const newEq = e.target.value;
+                      setEquipmentType(newEq);
+                      markFieldEdited("equipmentType");
+                      setHasUnsavedChanges(true);
+                    }}
+                    className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#171717] focus:outline-none focus:border-[#EAB308] disabled:opacity-50 disabled:bg-[#F8F9FA] cursor-pointer"
+                  >
+                    <option value="">— Select Equipment Type —</option>
+                    {availableEquipmentTypes.map((eq: any) => (
+                      <option key={eq.id} value={eq.name}>
+                        {eq.name}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="text-[11px] text-neutral-500 mt-1.5">
+                    Filtered based on verified DR.MEDEX catalogue taxonomy.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
           {/* ========================================================== */}
-          {/* STEP 3: PRODUCT IDENTITY AND NAMING                        */}
+          {/* STEP 3: PRODUCT IDENTITY (ROW 1 - RIGHT — EXACTLY 3 FIELDS)*/}
           {/* ========================================================== */}
-          <div id="card-step-3" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
-            <div className="border-b border-[#E5E7EB] pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  Step 3
-                </span>
-                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                  Product Identity & Naming
-                </h3>
-              </div>
+          <div
+            id="card-step-3"
+            onClick={() => setSelectedCard("step-3")}
+            onFocusCapture={() => setSelectedCard("step-3")}
+            className={`rounded-2xl p-6 space-y-4 transition-all duration-200 border flex flex-col justify-between ${getCardStyle("step-3")}`}
+          >
+            <div>
+              <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    Step 3
+                  </span>
+                  <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
+                    Product Identity
+                  </h3>
+                </div>
 
-              {/* Action Controls: Restore & Regenerate */}
-              <div className="flex items-center gap-2">
-                {suggestedIdentityRef.current && (
-                  <button
-                    type="button"
-                    onClick={handleRestoreSuggestedName}
-                    title="Restore original AI suggested name"
-                    className="flex items-center gap-1 px-2.5 py-1 border border-[#E5E7EB] bg-white hover:bg-[#F8F9FA] text-[#171717] rounded-lg text-xs font-bold transition-colors cursor-pointer"
-                  >
-                    <RotateCcw size={11} />
-                    <span>Restore</span>
-                  </button>
-                )}
                 <button
                   type="button"
-                  onClick={() => handleRegenerateName(namingStyle)}
+                  onClick={handleRegenerateName}
                   disabled={isGeneratingIdentity}
                   className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
                 >
@@ -2406,92 +2073,31 @@ export const AdminProductEditorPage: React.FC = () => {
                   <span>Regenerate Name</span>
                 </button>
               </div>
-            </div>
 
-            {/* Choose Naming Style Selector */}
-            <div className="p-3 bg-[#F8F9FA] rounded-xl border border-[#E5E7EB] space-y-1.5">
-              <label className="block text-[11px] font-bold text-neutral-600 uppercase tracking-wide">
-                Choose Naming Style:
-              </label>
-              <div className="grid grid-cols-3 gap-2">
-                {[
-                  { id: "clinical", label: "Professional / Clinical" },
-                  { id: "technical", label: "Technical / Model" },
-                  { id: "catalog", label: "Short / Catalog" }
-                ].map((s) => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    onClick={() => {
-                      setNamingStyle(s.id as any);
-                      handleRegenerateName(s.id as any);
-                    }}
-                    className={`py-1.5 px-2 rounded-lg text-xs font-bold transition-all text-center cursor-pointer ${
-                      namingStyle === s.id
-                        ? "bg-[#171717] text-white shadow-xs"
-                        : "bg-white border border-[#E5E7EB] text-neutral-700 hover:bg-neutral-100"
-                    }`}
-                  >
-                    {s.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-3.5">
-              {/* Product Name */}
-              <div>
-                <label className="block text-xs font-bold text-[#171717] mb-1">
-                  Product Name <span className="text-rose-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={productName}
-                  onChange={(e) => {
-                    setProductName(e.target.value);
-                    markFieldEdited("productName");
-                    setHasUnsavedChanges(true);
-                  }}
-                  placeholder="e.g. DR.MEDEX Ceiling-Mounted Double Dome LED OT Light – LED 80"
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
-                />
-              </div>
-
-              {/* Storefront Product Title */}
-              <div>
-                <label className="block text-xs font-bold text-[#171717] mb-1">
-                  Storefront Product Title <span className="text-rose-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={title}
-                  onChange={(e) => {
-                    setTitle(e.target.value);
-                    markFieldEdited("title");
-                    setHasUnsavedChanges(true);
-                  }}
-                  placeholder="e.g. DR.MEDEX Double Dome Surgical OT Light"
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
-                />
-              </div>
-
-              {/* Brand & Model */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-4 mt-4">
+                {/* 1. Product Name */}
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">Brand</label>
+                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                    1. Product Name <span className="text-rose-500">*</span>
+                  </label>
                   <input
                     type="text"
-                    value={brand}
+                    value={productName}
                     onChange={(e) => {
-                      setBrand(e.target.value);
-                      markFieldEdited("brand");
+                      setProductName(e.target.value);
+                      markFieldEdited("productName");
                       setHasUnsavedChanges(true);
                     }}
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
+                    placeholder="e.g. DR.MEDEX Ceiling-Mounted Double Dome LED OT Light – DL80"
+                    className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#EAB308]"
                   />
                 </div>
+
+                {/* 2. Manufacturer Model */}
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">Manufacturer Model</label>
+                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                    2. Manufacturer Model
+                  </label>
                   <input
                     type="text"
                     value={manufacturerModel}
@@ -2500,30 +2106,15 @@ export const AdminProductEditorPage: React.FC = () => {
                       markFieldEdited("manufacturerModel");
                       setHasUnsavedChanges(true);
                     }}
-                    placeholder="e.g. LED-80 or Std Unit"
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
+                    placeholder="e.g. DL-80 or Std Unit"
+                    className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#EAB308]"
                   />
                 </div>
-              </div>
 
-              {/* SKU & Internal ID */}
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">Internal Identifier</label>
-                  <input
-                    type="text"
-                    value={internalModelId}
-                    onChange={(e) => {
-                      setInternalModelId(e.target.value);
-                      markFieldEdited("internalModelId");
-                      setHasUnsavedChanges(true);
-                    }}
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono text-[#171717] focus:outline-none focus:border-[#F2C230]"
-                  />
-                </div>
+                {/* 3. SKU */}
                 <div>
                   <label className="block text-xs font-bold text-[#171717] mb-1 flex items-center justify-between">
-                    <span>SKU <span className="text-rose-500">*</span></span>
+                    <span>3. SKU <span className="text-rose-500">*</span></span>
                     {sku && (
                       <button
                         type="button"
@@ -2545,8 +2136,8 @@ export const AdminProductEditorPage: React.FC = () => {
                       markFieldEdited("sku");
                       setHasUnsavedChanges(true);
                     }}
-                    className={`w-full px-3.5 py-2 bg-white border rounded-xl text-xs font-mono font-bold text-[#171717] focus:outline-none ${
-                      skuError ? "border-[#D92D32]" : "border-[#E5E7EB] focus:border-[#F2C230]"
+                    className={`w-full px-3.5 py-2.5 bg-white border rounded-xl text-xs font-mono font-bold text-[#171717] focus:outline-none ${
+                      skuError ? "border-[#D92D32]" : "border-[#E5E7EB] focus:border-[#EAB308]"
                     }`}
                   />
                   {skuError && <p className="text-[10px] text-[#D92D32] mt-1 font-semibold">{skuError}</p>}
@@ -2556,706 +2147,674 @@ export const AdminProductEditorPage: React.FC = () => {
           </div>
 
           {/* ========================================================== */}
-          {/* STEP 4: PRODUCT DESCRIPTION                                */}
+          {/* STEP 4: PRODUCT DESCRIPTION (ROW 2 - LEFT)                 */}
           {/* ========================================================== */}
-          <div id="card-step-4" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
-            <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  Step 4
-                </span>
-                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                  Product Description
-                </h3>
-              </div>
-              <button
-                type="button"
-                onClick={handleRegenerateDescription}
-                disabled={isRegeneratingDescription}
-                className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
-              >
-                {isRegeneratingDescription ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
-                <span>Regenerate Description</span>
-              </button>
-            </div>
-
-            <div className="space-y-2">
-              <label className="block text-xs font-bold text-[#171717]">
-                Product Description (Clinical & Operational Overview) <span className="text-rose-500">*</span>
-              </label>
-              <textarea
-                rows={8}
-                value={description}
-                onChange={(e) => {
-                  setDescription(e.target.value);
-                  setFullDescription(e.target.value);
-                  markFieldEdited("description");
-                  setHasUnsavedChanges(true);
-                }}
-                placeholder="Enter pure product description explaining purpose, medical engineering, intended applications, and benefits..."
-                className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230] leading-relaxed"
-              />
-              <div className="flex items-center justify-between text-[11px] text-neutral-400 font-mono">
-                <span>Clinical summary only (do not append specs or package lists here).</span>
-                <span>{description.length} chars • {description.trim().split(/\s+/).filter(Boolean).length} words</span>
-              </div>
-            </div>
-          </div>
-
-          {/* ========================================================== */}
-          {/* STEP 5: TECHNICAL SPECIFICATIONS (4 INDEPENDENT FIELDS)    */}
-          {/* ========================================================== */}
-          <div id="card-step-5" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
-            <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  Step 5
-                </span>
-                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                  Technical Specifications
-                </h3>
-              </div>
-              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#F8F9FA] text-neutral-600 border border-[#E5E7EB]">
-                4 Core Cards
-              </span>
-            </div>
-
-            <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200 text-xs text-amber-900 flex items-center gap-2">
-              <ShieldCheck size={14} className="shrink-0 text-amber-600" />
-              <span>
-                Anti-Fabrication Rule: Unverified parameters remain blank or "Not specified".
-              </span>
-            </div>
-
-            <div className="space-y-3.5">
-              {/* Field 1: Power Supply */}
-              <div>
-                <label className="block text-xs font-bold text-[#171717] mb-1">
-                  1. Power Supply
-                </label>
-                <input
-                  type="text"
-                  value={powerSupply}
-                  onChange={(e) => {
-                    setPowerSupply(e.target.value);
-                    markFieldEdited("powerSupply");
-                    setHasUnsavedChanges(true);
-                  }}
-                  placeholder="e.g. 220–240 V AC, 50/60 Hz, 80 VA (or Not specified)"
-                  className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
-                />
-              </div>
-
-              {/* Field 2: Quality Standards */}
-              <div>
-                <label className="block text-xs font-bold text-[#171717] mb-1">
-                  2. Quality Standards
-                </label>
-                <input
-                  type="text"
-                  value={qualityStandards}
-                  onChange={(e) => {
-                    setQualityStandards(e.target.value);
-                    markFieldEdited("qualityStandards");
-                    setHasUnsavedChanges(true);
-                  }}
-                  placeholder="e.g. ISO 13485:2016 Certified Facility (or Not specified)"
-                  className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
-                />
-              </div>
-
-              {/* Field 3: Regulatory Status */}
-              <div>
-                <label className="block text-xs font-bold text-[#171717] mb-1">
-                  3. Regulatory Status
-                </label>
-                <input
-                  type="text"
-                  value={regulatoryStatus}
-                  onChange={(e) => {
-                    setRegulatoryStatus(e.target.value);
-                    markFieldEdited("regulatoryStatus");
-                    setHasUnsavedChanges(true);
-                  }}
-                  placeholder="e.g. CE Marking (EU MDR 2017/745) / CDSCO (or Not specified)"
-                  className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
-                />
-              </div>
-
-              {/* Field 4: Warranty */}
-              <div>
-                <label className="block text-xs font-bold text-[#171717] mb-1">
-                  4. Warranty
-                </label>
-                <input
-                  type="text"
-                  value={warranty}
-                  onChange={(e) => {
-                    setWarranty(e.target.value);
-                    markFieldEdited("warranty");
-                    setHasUnsavedChanges(true);
-                  }}
-                  placeholder="e.g. 2-Year Comprehensive Clinical Warranty"
-                  className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
-                />
-              </div>
-            </div>
-
-            {/* Optional Detailed Specs Table Toggle */}
-            <div className="pt-2 border-t border-[#E5E7EB]">
-              <button
-                type="button"
-                onClick={() => setShowDetailedSpecsTable(!showDetailedSpecsTable)}
-                className="text-xs font-bold text-neutral-600 hover:text-black flex items-center gap-1.5 cursor-pointer"
-              >
-                <span>{showDetailedSpecsTable ? "Hide" : "Show"} Additional Technical Table ({specList.length})</span>
-              </button>
-
-              {showDetailedSpecsTable && (
-                <div className="mt-3 space-y-3 pt-2">
-                  <div className="grid grid-cols-12 gap-2">
-                    <input
-                      type="text"
-                      placeholder="Parameter (e.g. Lux Rating)"
-                      value={newSpecKey}
-                      onChange={(e) => setNewSpecKey(e.target.value)}
-                      className="col-span-5 px-2.5 py-1.5 bg-white border border-[#E5E7EB] rounded-lg text-xs"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Value (e.g. 160,000)"
-                      value={newSpecVal}
-                      onChange={(e) => setNewSpecVal(e.target.value)}
-                      className="col-span-4 px-2.5 py-1.5 bg-white border border-[#E5E7EB] rounded-lg text-xs"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Unit"
-                      value={newSpecUnit}
-                      onChange={(e) => setNewSpecUnit(e.target.value)}
-                      className="col-span-2 px-2.5 py-1.5 bg-white border border-[#E5E7EB] rounded-lg text-xs"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (newSpecKey.trim()) {
-                          setSpecList([...specList, { key: newSpecKey.trim(), value: newSpecVal.trim(), unit: newSpecUnit.trim() }]);
-                          setNewSpecKey("");
-                          setNewSpecVal("");
-                          setNewSpecUnit("");
-                          setHasUnsavedChanges(true);
-                        }
-                      }}
-                      className="col-span-1 bg-[#171717] hover:bg-black text-white rounded-lg flex items-center justify-center cursor-pointer"
-                    >
-                      <Plus size={14} />
-                    </button>
-                  </div>
-
-                  <div className="space-y-1 max-h-32 overflow-y-auto">
-                    {specList.map((s, i) => (
-                      <div key={i} className="flex items-center justify-between text-xs bg-[#F8F9FA] p-1.5 rounded-lg border border-[#E5E7EB]">
-                        <span className="font-bold text-neutral-800">{s.key}:</span>
-                        <span className="text-neutral-600">{s.value} {s.unit}</span>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setSpecList(specList.filter((_, idx) => idx !== i));
-                            setHasUnsavedChanges(true);
-                          }}
-                          className="text-neutral-400 hover:text-[#D92D32]"
-                        >
-                          <Trash2 size={12} />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
+          <div
+            id="card-step-4"
+            onClick={() => setSelectedCard("step-4")}
+            onFocusCapture={() => setSelectedCard("step-4")}
+            className={`rounded-2xl p-6 space-y-4 transition-all duration-200 border flex flex-col justify-between ${getCardStyle("step-4")}`}
+          >
+            <div>
+              <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    Step 4
+                  </span>
+                  <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
+                    Product Description
+                  </h3>
                 </div>
-              )}
+                <button
+                  type="button"
+                  onClick={handleRegenerateDescription}
+                  disabled={isRegeneratingDescription}
+                  className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
+                >
+                  {isRegeneratingDescription ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
+                  <span>Regenerate Description</span>
+                </button>
+              </div>
+
+              <div className="space-y-2 mt-4">
+                <label className="block text-xs font-bold text-[#171717]">
+                  Clinical & Operational Overview <span className="text-rose-500">*</span>
+                </label>
+                <textarea
+                  rows={8}
+                  value={description}
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                    setFullDescription(e.target.value);
+                    markFieldEdited("description");
+                    setHasUnsavedChanges(true);
+                  }}
+                  placeholder="Enter product description explaining purpose, design, intended surgical workflow, and clinical advantages..."
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#EAB308] leading-relaxed"
+                />
+                <div className="flex items-center justify-between text-[11px] text-neutral-400 font-mono">
+                  <span>Main description only. Specs and package lists are managed in their own cards.</span>
+                  <span>{description.length} chars • {description.trim().split(/\s+/).filter(Boolean).length} words</span>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* ========================================================== */}
-          {/* STEP 6: CLINICAL INDICATIONS & SPECIALTY PROCEDURES        */}
+          {/* STEP 5: TECHNICAL SPECIFICATIONS (ROW 2 - RIGHT)           */}
           {/* ========================================================== */}
-          <div id="card-step-6" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
-            <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  Step 6
+          <div
+            id="card-step-5"
+            onClick={() => setSelectedCard("step-5")}
+            onFocusCapture={() => setSelectedCard("step-5")}
+            className={`rounded-2xl p-6 space-y-4 transition-all duration-200 border flex flex-col justify-between ${getCardStyle("step-5")}`}
+          >
+            <div>
+              <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    Step 5
+                  </span>
+                  <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
+                    Technical Specifications
+                  </h3>
+                </div>
+                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 border border-[#E5E7EB]">
+                  4 Core Fields
                 </span>
-                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                  Clinical Indications
-                </h3>
               </div>
-              <button
-                type="button"
-                onClick={handleRegenerateIndications}
-                disabled={isRegeneratingIndications}
-                className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
-              >
-                {isRegeneratingIndications ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
-                <span>Regenerate</span>
-              </button>
+
+              <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200 text-xs text-amber-900 flex items-center gap-2 mt-4">
+                <ShieldCheck size={14} className="shrink-0 text-amber-600" />
+                <span>
+                  Unverified parameters remain blank or &quot;Needs verification&quot;.
+                </span>
+              </div>
+
+              <div className="space-y-3 mt-3">
+                {/* 1. Power Supply */}
+                <div>
+                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                    1. Power Supply
+                  </label>
+                  <input
+                    type="text"
+                    value={powerSupply}
+                    onChange={(e) => {
+                      setPowerSupply(e.target.value);
+                      markFieldEdited("powerSupply");
+                      setHasUnsavedChanges(true);
+                    }}
+                    placeholder="e.g. 220–240 V AC, 50/60 Hz, 80 VA (or leave blank)"
+                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#EAB308]"
+                  />
+                </div>
+
+                {/* 2. Quality Standards */}
+                <div>
+                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                    2. Quality Standards
+                  </label>
+                  <input
+                    type="text"
+                    value={qualityStandards}
+                    onChange={(e) => {
+                      setQualityStandards(e.target.value);
+                      markFieldEdited("qualityStandards");
+                      setHasUnsavedChanges(true);
+                    }}
+                    placeholder="e.g. ISO 13485:2016 Certified Facility (or leave blank)"
+                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#EAB308]"
+                  />
+                </div>
+
+                {/* 3. Regulatory Status */}
+                <div>
+                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                    3. Regulatory Status
+                  </label>
+                  <input
+                    type="text"
+                    value={regulatoryStatus}
+                    onChange={(e) => {
+                      setRegulatoryStatus(e.target.value);
+                      markFieldEdited("regulatoryStatus");
+                      setHasUnsavedChanges(true);
+                    }}
+                    placeholder="e.g. CE Marking (EU MDR 2017/745) / CDSCO (or leave blank)"
+                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#EAB308]"
+                  />
+                </div>
+
+                {/* 4. Warranty */}
+                <div>
+                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                    4. Warranty
+                  </label>
+                  <input
+                    type="text"
+                    value={warranty}
+                    onChange={(e) => {
+                      setWarranty(e.target.value);
+                      markFieldEdited("warranty");
+                      setHasUnsavedChanges(true);
+                    }}
+                    placeholder="e.g. 2-Year Comprehensive Clinical Warranty"
+                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#EAB308]"
+                  />
+                </div>
+              </div>
             </div>
+          </div>
 
-            <p className="text-xs text-neutral-500">
-              Intended clinical departments, surgical workflows, and validated medical procedures.
-            </p>
+          {/* ========================================================== */}
+          {/* STEP 6: CLINICAL INDICATIONS (ROW 3 - LEFT)                */}
+          {/* ========================================================== */}
+          <div
+            id="card-step-6"
+            onClick={() => setSelectedCard("step-6")}
+            onFocusCapture={() => setSelectedCard("step-6")}
+            className={`rounded-2xl p-6 space-y-4 transition-all duration-200 border flex flex-col justify-between ${getCardStyle("step-6")}`}
+          >
+            <div>
+              <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    Step 6
+                  </span>
+                  <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
+                    Clinical Indications
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleRegenerateIndications}
+                  disabled={isRegeneratingIndications}
+                  className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
+                >
+                  {isRegeneratingIndications ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
+                  <span>Regenerate</span>
+                </button>
+              </div>
 
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={newIndicationText}
-                onChange={(e) => setNewIndicationText(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
+              <p className="text-xs text-neutral-500 mt-3">
+                Intended clinical departments, surgical workflows, and validated procedures.
+              </p>
+
+              <div className="flex gap-2 mt-3">
+                <input
+                  type="text"
+                  value={newIndicationText}
+                  onChange={(e) => setNewIndicationText(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      if (newIndicationText.trim()) {
+                        setClinicalIndications([...clinicalIndications, newIndicationText.trim()]);
+                        setNewIndicationText("");
+                        markFieldEdited("clinicalIndications");
+                        setHasUnsavedChanges(true);
+                      }
+                    }
+                  }}
+                  placeholder="Add clinical indication..."
+                  className="flex-1 px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
                     if (newIndicationText.trim()) {
                       setClinicalIndications([...clinicalIndications, newIndicationText.trim()]);
                       setNewIndicationText("");
                       markFieldEdited("clinicalIndications");
                       setHasUnsavedChanges(true);
                     }
-                  }
-                }}
-                placeholder="Add clinical indication (e.g. Laparoscopic Surgery)..."
-                className="flex-1 px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  if (newIndicationText.trim()) {
-                    setClinicalIndications([...clinicalIndications, newIndicationText.trim()]);
-                    setNewIndicationText("");
-                    markFieldEdited("clinicalIndications");
-                    setHasUnsavedChanges(true);
-                  }
-                }}
-                className="px-4 py-2 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold cursor-pointer"
-              >
-                Add
-              </button>
-            </div>
+                  }}
+                  className="px-4 py-2 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold cursor-pointer"
+                >
+                  Add
+                </button>
+              </div>
 
-            <div className="space-y-1.5 max-h-48 overflow-y-auto">
-              {clinicalIndications.length === 0 ? (
-                <div className="p-3 text-center text-xs text-neutral-400 bg-[#F8F9FA] rounded-xl border border-dashed border-[#E5E7EB]">
-                  No clinical indications specified yet. Use AI Analysis or add manually above.
-                </div>
-              ) : (
-                clinicalIndications.map((ind, i) => (
-                  <div key={i} className="flex items-center justify-between text-xs bg-[#F8F9FA] p-2.5 rounded-xl border border-[#E5E7EB]">
-                    <span className="flex-1 pr-2 text-neutral-800 font-medium">
-                      • {ind}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setClinicalIndications(clinicalIndications.filter((_, idx) => idx !== i));
-                        markFieldEdited("clinicalIndications");
-                        setHasUnsavedChanges(true);
-                      }}
-                      className="text-neutral-400 hover:text-[#D92D32] cursor-pointer"
-                    >
-                      <Trash2 size={13} />
-                    </button>
+              <div className="space-y-1.5 max-h-48 overflow-y-auto mt-3">
+                {clinicalIndications.length === 0 ? (
+                  <div className="p-3 text-center text-xs text-neutral-400 bg-[#F8F9FA] rounded-xl border border-dashed border-[#E5E7EB]">
+                    No clinical indications specified yet. Use AI Analysis or add above.
                   </div>
-                ))
-              )}
+                ) : (
+                  clinicalIndications.map((ind, i) => (
+                    <div key={i} className="flex items-center justify-between text-xs bg-[#F8F9FA] p-2.5 rounded-xl border border-[#E5E7EB]">
+                      <span className="flex-1 pr-2 text-neutral-800 font-medium">• {ind}</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setClinicalIndications(clinicalIndications.filter((_, idx) => idx !== i));
+                          markFieldEdited("clinicalIndications");
+                          setHasUnsavedChanges(true);
+                        }}
+                        className="text-neutral-400 hover:text-[#D92D32] cursor-pointer"
+                      >
+                        <Trash2 size={13} />
+                      </button>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
           </div>
 
           {/* ========================================================== */}
-          {/* STEP 7: KEY FACTORS & ENGINEERING HIGHLIGHTS               */}
+          {/* STEP 7: KEY FACTORS & HIGHLIGHTS (ROW 3 - RIGHT)           */}
           {/* ========================================================== */}
-          <div id="card-step-7" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
-            <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  Step 7
-                </span>
-                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                  Key Factors & Highlights
-                </h3>
+          <div
+            id="card-step-7"
+            onClick={() => setSelectedCard("step-7")}
+            onFocusCapture={() => setSelectedCard("step-7")}
+            className={`rounded-2xl p-6 space-y-4 transition-all duration-200 border flex flex-col justify-between ${getCardStyle("step-7")}`}
+          >
+            <div>
+              <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    Step 7
+                  </span>
+                  <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
+                    Key Factors & Highlights
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleRegenerateHighlights}
+                  disabled={isRegeneratingHighlights}
+                  className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
+                >
+                  {isRegeneratingHighlights ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
+                  <span>Regenerate</span>
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={handleRegenerateHighlights}
-                disabled={isRegeneratingHighlights}
-                className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
-              >
-                {isRegeneratingHighlights ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
-                <span>Regenerate</span>
-              </button>
-            </div>
 
-            <p className="text-xs text-neutral-500">
-              Product-specific engineering, ergonomics, mechanical design, and safety highlights.
-            </p>
+              <p className="text-xs text-neutral-500 mt-3">
+                Concise engineering, performance, mechanical design, and safety highlights.
+              </p>
 
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={newHighlightText}
-                onChange={(e) => setNewHighlightText(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
+              <div className="flex gap-2 mt-3">
+                <input
+                  type="text"
+                  value={newHighlightText}
+                  onChange={(e) => setNewHighlightText(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      if (newHighlightText.trim()) {
+                        setEngineeringHighlights([...engineeringHighlights, newHighlightText.trim()]);
+                        setNewHighlightText("");
+                        markFieldEdited("engineeringHighlights");
+                        setHasUnsavedChanges(true);
+                      }
+                    }
+                  }}
+                  placeholder="Add engineering highlight..."
+                  className="flex-1 px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
                     if (newHighlightText.trim()) {
                       setEngineeringHighlights([...engineeringHighlights, newHighlightText.trim()]);
                       setNewHighlightText("");
                       markFieldEdited("engineeringHighlights");
                       setHasUnsavedChanges(true);
                     }
-                  }
-                }}
-                placeholder="Add engineering highlight..."
-                className="flex-1 px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  if (newHighlightText.trim()) {
-                    setEngineeringHighlights([...engineeringHighlights, newHighlightText.trim()]);
-                    setNewHighlightText("");
-                    markFieldEdited("engineeringHighlights");
-                    setHasUnsavedChanges(true);
-                  }
-                }}
-                className="px-4 py-2 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold cursor-pointer"
-              >
-                Add
-              </button>
-            </div>
-
-            <div className="space-y-1.5 max-h-48 overflow-y-auto">
-              {engineeringHighlights.length === 0 ? (
-                <div className="p-3 text-center text-xs text-neutral-400 bg-[#F8F9FA] rounded-xl border border-dashed border-[#E5E7EB]">
-                  No engineering highlights added yet. Use AI Analysis or add manually above.
-                </div>
-              ) : (
-                engineeringHighlights.map((hl, i) => (
-                  <div key={i} className="flex items-center justify-between text-xs bg-[#F8F9FA] p-2.5 rounded-xl border border-[#E5E7EB]">
-                    <span className="flex-1 pr-2 text-neutral-800 font-medium">
-                      • {hl}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setEngineeringHighlights(engineeringHighlights.filter((_, idx) => idx !== i));
-                        markFieldEdited("engineeringHighlights");
-                        setHasUnsavedChanges(true);
-                      }}
-                      className="text-neutral-400 hover:text-[#D92D32] cursor-pointer"
-                    >
-                      <Trash2 size={13} />
-                    </button>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-
-          {/* ========================================================== */}
-          {/* STEP 8: STANDARD INCLUDED PACKAGE CONTENTS                 */}
-          {/* ========================================================== */}
-          <div id="card-step-8" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
-            <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  Step 8
-                </span>
-                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                  Standard Included Package Contents
-                </h3>
+                  }}
+                  className="px-4 py-2 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold cursor-pointer"
+                >
+                  Add
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={handleRegeneratePackage}
-                disabled={isRegeneratingPackage}
-                className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
-              >
-                {isRegeneratingPackage ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
-                <span>Regenerate</span>
-              </button>
-            </div>
 
-            <p className="text-xs text-neutral-500">
-              Verified components, modules, cables, and hardware included in the shipment.
-            </p>
-
-            {/* Add Item Row with Type */}
-            <div className="grid grid-cols-12 gap-2">
-              <input
-                type="text"
-                value={newPackageItemName}
-                onChange={(e) => setNewPackageItemName(e.target.value)}
-                placeholder="Component name (e.g. Autoclavable Handle)..."
-                className="col-span-7 px-3 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
-              />
-              <select
-                value={newPackageItemType}
-                onChange={(e) => setNewPackageItemType(e.target.value as any)}
-                className="col-span-3 px-2 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
-              >
-                <option value="standard">Standard</option>
-                <option value="optional">Optional</option>
-                <option value="confirmation">To Confirm</option>
-              </select>
-              <button
-                type="button"
-                onClick={addPackageItem}
-                className="col-span-2 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold flex items-center justify-center cursor-pointer"
-              >
-                Add
-              </button>
-            </div>
-
-            {/* List with Reordering Controls */}
-            <div className="space-y-1.5 max-h-56 overflow-y-auto">
-              {packageItems.length === 0 ? (
-                <div className="p-3 text-center text-xs text-neutral-400 bg-[#F8F9FA] rounded-xl border border-dashed border-[#E5E7EB]">
-                  No package components added yet.
-                </div>
-              ) : (
-                packageItems.map((item, i) => (
-                  <div key={item.id || i} className="flex items-center justify-between text-xs bg-[#F8F9FA] p-2.5 rounded-xl border border-[#E5E7EB]">
-                    <div className="flex items-center gap-2 flex-1 pr-2 truncate">
-                      <span
-                        className={`text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded ${
-                          item.type === "standard"
-                            ? "bg-emerald-100 text-[#16803D]"
-                            : item.type === "optional"
-                            ? "bg-blue-100 text-blue-800"
-                            : "bg-amber-100 text-amber-800"
-                        }`}
-                      >
-                        {item.type}
-                      </span>
-                      <span className="font-medium text-neutral-800 truncate">{item.name}</span>
-                    </div>
-
-                    <div className="flex items-center gap-1 shrink-0">
+              <div className="space-y-1.5 max-h-48 overflow-y-auto mt-3">
+                {engineeringHighlights.length === 0 ? (
+                  <div className="p-3 text-center text-xs text-neutral-400 bg-[#F8F9FA] rounded-xl border border-dashed border-[#E5E7EB]">
+                    No engineering highlights added yet. Use AI Analysis or add above.
+                  </div>
+                ) : (
+                  engineeringHighlights.map((hl, i) => (
+                    <div key={i} className="flex items-center justify-between text-xs bg-[#F8F9FA] p-2.5 rounded-xl border border-[#E5E7EB]">
+                      <span className="flex-1 pr-2 text-neutral-800 font-medium">• {hl}</span>
                       <button
                         type="button"
-                        onClick={() => movePackageItem(i, "up")}
-                        disabled={i === 0}
-                        title="Move up"
-                        className="p-1 text-neutral-400 hover:text-black disabled:opacity-20 cursor-pointer"
+                        onClick={() => {
+                          setEngineeringHighlights(engineeringHighlights.filter((_, idx) => idx !== i));
+                          markFieldEdited("engineeringHighlights");
+                          setHasUnsavedChanges(true);
+                        }}
+                        className="text-neutral-400 hover:text-[#D92D32] cursor-pointer"
                       >
-                        <ArrowUp size={12} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => movePackageItem(i, "down")}
-                        disabled={i === packageItems.length - 1}
-                        title="Move down"
-                        className="p-1 text-neutral-400 hover:text-black disabled:opacity-20 cursor-pointer"
-                      >
-                        <ArrowDown size={12} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => removePackageItem(i)}
-                        title="Remove component"
-                        className="p-1 text-neutral-400 hover:text-[#D92D32] cursor-pointer"
-                      >
-                        <Trash2 size={12} />
+                        <Trash2 size={13} />
                       </button>
                     </div>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-
-          {/* ========================================================== */}
-          {/* COMMERCIAL TERMS & PRICING CARD                            */}
-          {/* ========================================================== */}
-          <div id="card-pricing" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
-            <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  Commercial Terms
-                </span>
-                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
-                  Pricing & Inventory
-                </h3>
-              </div>
-              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#F8F9FA] text-neutral-600 border border-[#E5E7EB]">
-                Base: ₹ INR
-              </span>
-            </div>
-
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
-                    Original MRP (₹ INR) <span className="text-rose-500">*</span>
-                  </label>
-                  <input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value={originalPrice || ""}
-                    onChange={(e) => {
-                      setOriginalPrice(parseFloat(e.target.value) || 0);
-                      markFieldEdited("originalPrice");
-                      setHasUnsavedChanges(true);
-                    }}
-                    placeholder="e.g. 175000"
-                    className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono text-[#171717] focus:outline-none focus:border-[#F2C230]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
-                    Selling Price (₹ INR) <span className="text-rose-500">*</span>
-                  </label>
-                  <input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value={basePrice || ""}
-                    onChange={(e) => {
-                      setBasePrice(parseFloat(e.target.value) || 0);
-                      markFieldEdited("basePrice");
-                      setHasUnsavedChanges(true);
-                    }}
-                    placeholder="e.g. 150000"
-                    className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono font-bold text-[#171717] focus:outline-none focus:border-[#F2C230]"
-                  />
-                </div>
-              </div>
-
-              {/* Automatic Calculated Discount Card */}
-              <div className="p-3 rounded-xl border border-[#E5E7EB] bg-[#F8F9FA] flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] text-neutral-400 block uppercase font-mono">
-                    Calculated Discount:
-                  </span>
-                  <span className="text-xs font-bold text-neutral-800">
-                    {discountPercentage > 0 ? `${discountPercentage}% OFF` : "No discount applied"}
-                  </span>
-                </div>
-                {calculatedSavings > 0 && (
-                  <span className="text-xs font-bold text-[#16803D] bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-                    Saves ₹{calculatedSavings.toLocaleString("en-IN")}
-                  </span>
+                  ))
                 )}
               </div>
+            </div>
+          </div>
 
-              {/* Live International FX Currency Preview */}
-              <div className="p-3 rounded-xl border border-[#E5E7EB] bg-[#F8F9FA] space-y-2">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-neutral-700 flex items-center gap-1.5">
-                    <Globe size={13} />
-                    <span>Live International FX Conversion</span>
+          {/* ========================================================== */}
+          {/* STEP 8: STANDARD PACKAGE CONTENTS (ROW 4 - LEFT)           */}
+          {/* ========================================================== */}
+          <div
+            id="card-step-8"
+            onClick={() => setSelectedCard("step-8")}
+            onFocusCapture={() => setSelectedCard("step-8")}
+            className={`rounded-2xl p-6 space-y-4 transition-all duration-200 border flex flex-col justify-between ${getCardStyle("step-8")}`}
+          >
+            <div>
+              <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    Step 8
                   </span>
-                  <span className="text-[10px] text-neutral-400 font-mono">
-                    {rateTimestamp ? new Date(rateTimestamp).toLocaleTimeString() : "Live FX"}
-                  </span>
+                  <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
+                    Standard Package Contents
+                  </h3>
                 </div>
-
-                <div className="grid grid-cols-4 gap-2 text-center">
-                  <div className="p-2 bg-white rounded-lg border border-[#E5E7EB]">
-                    <span className="text-[10px] text-neutral-400 block font-mono">USD</span>
-                    <span className="text-xs font-bold text-[#171717]">
-                      ${(basePrice * (exchangeRates.USD || 0.010379)).toFixed(2)}
-                    </span>
-                  </div>
-                  <div className="p-2 bg-white rounded-lg border border-[#E5E7EB]">
-                    <span className="text-[10px] text-neutral-400 block font-mono">EUR</span>
-                    <span className="text-xs font-bold text-[#171717]">
-                      €{(basePrice * (exchangeRates.EUR || 0.009228)).toFixed(2)}
-                    </span>
-                  </div>
-                  <div className="p-2 bg-white rounded-lg border border-[#E5E7EB]">
-                    <span className="text-[10px] text-neutral-400 block font-mono">GBP</span>
-                    <span className="text-xs font-bold text-[#171717]">
-                      £{(basePrice * (exchangeRates.GBP || 0.007854)).toFixed(2)}
-                    </span>
-                  </div>
-                  <div className="p-2 bg-white rounded-lg border border-[#E5E7EB]">
-                    <span className="text-[10px] text-neutral-400 block font-mono">AED</span>
-                    <span className="text-xs font-bold text-[#171717]">
-                      {(basePrice * (exchangeRates.AED || 0.038116)).toFixed(2)}
-                    </span>
-                  </div>
-                </div>
+                <button
+                  type="button"
+                  onClick={handleRegeneratePackage}
+                  disabled={isRegeneratingPackage}
+                  className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
+                >
+                  {isRegeneratingPackage ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
+                  <span>Regenerate</span>
+                </button>
               </div>
 
-              {/* Stock Quantity & Status */}
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">Stock Quantity</label>
-                  <input
-                    type="number"
-                    min="0"
-                    value={stock}
-                    onChange={(e) => {
-                      setStock(parseInt(e.target.value) || 0);
-                      markFieldEdited("stock");
-                      setHasUnsavedChanges(true);
-                    }}
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono text-[#171717]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">Stock Status</label>
-                  <select
-                    value={stockStatus}
-                    onChange={(e) => {
-                      setStockStatus(e.target.value as any);
-                      markFieldEdited("stockStatus");
-                      setHasUnsavedChanges(true);
-                    }}
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs font-bold text-[#171717]"
-                  >
-                    <option value="IN_STOCK">In Stock (Available)</option>
-                    <option value="LOW_STOCK">Low Stock (Replenishing)</option>
-                    <option value="OUT_OF_STOCK">Out of Stock</option>
-                  </select>
-                </div>
+              <p className="text-xs text-neutral-500 mt-3">
+                Verified components, cables, modules, and standard hardware included in shipment.
+              </p>
+
+              <div className="grid grid-cols-12 gap-2 mt-3">
+                <input
+                  type="text"
+                  value={newPackageItemName}
+                  onChange={(e) => setNewPackageItemName(e.target.value)}
+                  placeholder="Component name..."
+                  className="col-span-7 px-3 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
+                />
+                <select
+                  value={newPackageItemType}
+                  onChange={(e) => setNewPackageItemType(e.target.value as any)}
+                  className="col-span-3 px-2 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
+                >
+                  <option value="standard">Standard</option>
+                  <option value="optional">Optional</option>
+                  <option value="confirmation">To Confirm</option>
+                </select>
+                <button
+                  type="button"
+                  onClick={addPackageItem}
+                  className="col-span-2 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold flex items-center justify-center cursor-pointer"
+                >
+                  Add
+                </button>
               </div>
 
-              {/* Lead Time & MOQ */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5 max-h-56 overflow-y-auto mt-3">
+                {packageItems.length === 0 ? (
+                  <div className="p-3 text-center text-xs text-neutral-400 bg-[#F8F9FA] rounded-xl border border-dashed border-[#E5E7EB]">
+                    No package components added yet.
+                  </div>
+                ) : (
+                  packageItems.map((item, i) => (
+                    <div key={item.id || i} className="flex items-center justify-between text-xs bg-[#F8F9FA] p-2.5 rounded-xl border border-[#E5E7EB]">
+                      <div className="flex items-center gap-2 flex-1 pr-2 truncate">
+                        <span
+                          className={`text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded ${
+                            item.type === "standard"
+                              ? "bg-emerald-100 text-[#16803D]"
+                              : item.type === "optional"
+                              ? "bg-blue-100 text-blue-800"
+                              : "bg-amber-100 text-amber-800"
+                          }`}
+                        >
+                          {item.type}
+                        </span>
+                        <span className="font-medium text-neutral-800 truncate">{item.name}</span>
+                      </div>
+
+                      <div className="flex items-center gap-1 shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => movePackageItem(i, "up")}
+                          disabled={i === 0}
+                          title="Move up"
+                          className="p-1 text-neutral-400 hover:text-black disabled:opacity-20 cursor-pointer"
+                        >
+                          <ArrowUp size={12} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => movePackageItem(i, "down")}
+                          disabled={i === packageItems.length - 1}
+                          title="Move down"
+                          className="p-1 text-neutral-400 hover:text-black disabled:opacity-20 cursor-pointer"
+                        >
+                          <ArrowDown size={12} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => removePackageItem(i)}
+                          title="Remove component"
+                          className="p-1 text-neutral-400 hover:text-[#D92D32] cursor-pointer"
+                        >
+                          <Trash2 size={12} />
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* ========================================================== */}
+          {/* STEP 9: PRICING (ROW 4 - RIGHT)                             */}
+          {/* ========================================================== */}
+          <div
+            id="card-step-9"
+            onClick={() => setSelectedCard("step-9")}
+            onFocusCapture={() => setSelectedCard("step-9")}
+            className={`rounded-2xl p-6 space-y-4 transition-all duration-200 border flex flex-col justify-between ${getCardStyle("step-9")}`}
+          >
+            <div>
+              <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">Minimum Order Qty</label>
-                  <input
-                    type="number"
-                    min="1"
-                    value={minOrderQuantity}
-                    onChange={(e) => {
-                      setMinOrderQuantity(parseInt(e.target.value) || 1);
-                      setHasUnsavedChanges(true);
-                    }}
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono text-[#171717]"
-                  />
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    Step 9
+                  </span>
+                  <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
+                    Commercial Pricing & Inventory
+                  </h3>
                 </div>
-                <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">Dispatch Lead Time</label>
-                  <input
-                    type="text"
-                    value={leadTimeWeeks}
-                    onChange={(e) => {
-                      setLeadTimeWeeks(e.target.value);
-                      setHasUnsavedChanges(true);
-                    }}
-                    placeholder="e.g. 1–2 Weeks"
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
-                  />
+                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 border border-[#E5E7EB]">
+                  Base: ₹ INR
+                </span>
+              </div>
+
+              <div className="space-y-4 mt-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-bold text-[#171717] mb-1">
+                      Original MRP (₹ INR) <span className="text-rose-500">*</span>
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      value={originalPrice || ""}
+                      onChange={(e) => {
+                        setOriginalPrice(parseFloat(e.target.value) || 0);
+                        markFieldEdited("originalPrice");
+                        setHasUnsavedChanges(true);
+                      }}
+                      placeholder="e.g. 175000"
+                      className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono text-[#171717] focus:outline-none focus:border-[#EAB308]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#171717] mb-1">
+                      Selling Price (₹ INR) <span className="text-rose-500">*</span>
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      value={basePrice || ""}
+                      onChange={(e) => {
+                        setBasePrice(parseFloat(e.target.value) || 0);
+                        markFieldEdited("basePrice");
+                        setHasUnsavedChanges(true);
+                      }}
+                      placeholder="e.g. 150000"
+                      className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono font-bold text-[#171717] focus:outline-none focus:border-[#EAB308]"
+                    />
+                  </div>
+                </div>
+
+                {/* Automatic Calculated Discount Card */}
+                <div className="p-3 rounded-xl border border-[#E5E7EB] bg-[#F8F9FA] flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] text-neutral-400 block uppercase font-mono">
+                      Calculated Discount:
+                    </span>
+                    <span className="text-xs font-bold text-neutral-800">
+                      {discountPercentage > 0 ? `${discountPercentage}% OFF` : "No discount applied"}
+                    </span>
+                  </div>
+                  {calculatedSavings > 0 && (
+                    <span className="text-xs font-bold text-[#16803D] bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                      Saves ₹{calculatedSavings.toLocaleString("en-IN")}
+                    </span>
+                  )}
+                </div>
+
+                {/* Live International FX Currency Preview */}
+                <div className="p-3 rounded-xl border border-[#E5E7EB] bg-[#F8F9FA] space-y-2">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-neutral-700 flex items-center gap-1.5">
+                      <Globe size={13} />
+                      <span>Live FX Conversion</span>
+                    </span>
+                    <span className="text-[10px] text-neutral-400 font-mono">
+                      {rateTimestamp ? new Date(rateTimestamp).toLocaleTimeString() : "Live FX"}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-4 gap-2 text-center">
+                    <div className="p-2 bg-white rounded-lg border border-[#E5E7EB]">
+                      <span className="text-[10px] text-neutral-400 block font-mono">USD</span>
+                      <span className="text-xs font-bold text-[#171717]">
+                        ${(basePrice * (exchangeRates.USD || 0.010379)).toFixed(2)}
+                      </span>
+                    </div>
+                    <div className="p-2 bg-white rounded-lg border border-[#E5E7EB]">
+                      <span className="text-[10px] text-neutral-400 block font-mono">EUR</span>
+                      <span className="text-xs font-bold text-[#171717]">
+                        €{(basePrice * (exchangeRates.EUR || 0.009228)).toFixed(2)}
+                      </span>
+                    </div>
+                    <div className="p-2 bg-white rounded-lg border border-[#E5E7EB]">
+                      <span className="text-[10px] text-neutral-400 block font-mono">GBP</span>
+                      <span className="text-xs font-bold text-[#171717]">
+                        £{(basePrice * (exchangeRates.GBP || 0.007854)).toFixed(2)}
+                      </span>
+                    </div>
+                    <div className="p-2 bg-white rounded-lg border border-[#E5E7EB]">
+                      <span className="text-[10px] text-neutral-400 block font-mono">AED</span>
+                      <span className="text-xs font-bold text-[#171717]">
+                        {(basePrice * (exchangeRates.AED || 0.038116)).toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Stock Quantity & Status */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-bold text-[#171717] mb-1">Stock Quantity</label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={stock}
+                      onChange={(e) => {
+                        setStock(parseInt(e.target.value) || 0);
+                        markFieldEdited("stock");
+                        setHasUnsavedChanges(true);
+                      }}
+                      className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono text-[#171717]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-[#171717] mb-1">Stock Status</label>
+                    <select
+                      value={stockStatus}
+                      onChange={(e) => {
+                        setStockStatus(e.target.value as any);
+                        markFieldEdited("stockStatus");
+                        setHasUnsavedChanges(true);
+                      }}
+                      className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs font-bold text-[#171717]"
+                    >
+                      <option value="IN_STOCK">In Stock (Available)</option>
+                      <option value="LOW_STOCK">Low Stock (Replenishing)</option>
+                      <option value="OUT_OF_STOCK">Out of Stock</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Lead Time & MOQ */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-bold text-[#171717] mb-1">Minimum Order Qty</label>
+                    <input
+                      type="number"
+                      min="1"
+                      value={minOrderQuantity}
+                      onChange={(e) => {
+                        setMinOrderQuantity(parseInt(e.target.value) || 1);
+                        setHasUnsavedChanges(true);
+                      }}
+                      className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono text-[#171717]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-[#171717] mb-1">Dispatch Lead Time</label>
+                    <input
+                      type="text"
+                      value={leadTimeWeeks}
+                      onChange={(e) => {
+                        setLeadTimeWeeks(e.target.value);
+                        setHasUnsavedChanges(true);
+                      }}
+                      placeholder="e.g. 1–2 Weeks"
+                      className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* ========================================================== */}
-          {/* PUBLICATION & SEO SETTINGS (SPANS BOTH COLUMNS)           */}
+          {/* SETTINGS & METADATA — FINAL SECTION (FULL WIDTH)           */}
           {/* ========================================================== */}
-          <div id="card-publication" className="col-span-1 lg:col-span-2 bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
+          <div
+            id="card-settings"
+            onClick={() => setSelectedCard("settings")}
+            onFocusCapture={() => setSelectedCard("settings")}
+            className={`col-span-1 lg:col-span-2 rounded-2xl p-6 space-y-4 transition-all duration-200 border ${getCardStyle("settings")}`}
+          >
             <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
@@ -3265,7 +2824,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   Publication & Storefront Visibility
                 </h3>
               </div>
-              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#F8F9FA] text-neutral-600 border border-[#E5E7EB]">
+              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 border border-[#E5E7EB]">
                 Storefront Controls
               </span>
             </div>
@@ -3282,7 +2841,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     markFieldEdited("status");
                     setHasUnsavedChanges(true);
                   }}
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-bold text-[#171717] focus:outline-none focus:border-[#F2C230] cursor-pointer"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-bold text-[#171717] focus:outline-none focus:border-[#EAB308] cursor-pointer"
                 >
                   <option value="DRAFT">Draft (Internal Only, Hidden from Public)</option>
                   <option value="ACTIVE">Active (Live in Storefront)</option>

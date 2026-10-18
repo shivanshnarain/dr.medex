@@ -33,6 +33,7 @@ interface AdminLayoutProps {
   actions?: React.ReactNode;
   breadcrumbs?: { label: string; href?: string }[];
   titleClassName?: string;
+  mainClassName?: string;
 }
 
 export const AdminLayout: React.FC<AdminLayoutProps> = ({
@@ -41,7 +42,8 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   subtitle,
   actions,
   breadcrumbs,
-  titleClassName
+  titleClassName,
+  mainClassName
 }) => {
   const { adminUser, isAuthenticated, isLoading, logout, adminFetch } = useAdminAuth();
   const location = useLocation();
@@ -491,7 +493,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
         </div>
 
         {/* Main Page Content Body */}
-        <main className="flex-1 px-6 lg:px-8 py-8 bg-white">
+        <main className={`flex-1 px-6 lg:px-8 py-8 ${mainClassName || "bg-white"}`}>
           <div className="max-w-7xl mx-auto">
             {children}
           </div>
