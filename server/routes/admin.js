@@ -1720,7 +1720,9 @@ router.post("/products/ai-identify", requireAdmin, async (req, res) => {
       };
     });
 
-    const result = await geminiVisionService.identifyProductFromPhotos(photos);
+    const namingStyle = req.body.namingStyle || "clinical";
+    const preliminaryBrand = req.body.preliminaryBrand || req.body.brand || "DR.MEDEX";
+    const result = await geminiVisionService.identifyProductFromPhotos(photos, { namingStyle, preliminaryBrand });
 
     auditService.logAction(req.admin.email, "AI_PRODUCT_IDENTIFIED", null, {
       photosCount: photos.length,

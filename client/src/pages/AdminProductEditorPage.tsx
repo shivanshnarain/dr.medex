@@ -20,7 +20,20 @@ import {
   Camera,
   AlertTriangle,
   RotateCcw,
-  ImageOff
+  ImageOff,
+  ArrowUp,
+  ArrowDown,
+  Tag,
+  FileText,
+  Cpu,
+  Activity,
+  Wrench,
+  Package,
+  DollarSign,
+  Globe,
+  Settings,
+  ShieldCheck,
+  CheckCheck
 } from "lucide-react";
 import { AdminLayout } from "../components/admin/AdminLayout";
 import { useAdminAuth } from "../context/AdminAuthContext";
@@ -37,6 +50,13 @@ export interface ProductImageSlot {
   hasLoadError?: boolean;
   publicId?: string;
   storageProvider?: string;
+}
+
+export interface PackageItem {
+  id: string;
+  name: string;
+  item?: string;
+  type: "standard" | "optional" | "confirmation";
 }
 
 export const AdminProductEditorPage: React.FC = () => {
@@ -57,7 +77,7 @@ export const AdminProductEditorPage: React.FC = () => {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [statusBanner, setStatusBanner] = useState<{ type: "success" | "error" | "warning"; text: string } | null>(null);
 
-  // Active step in 7-step tracker
+  // Active step in 8-step tracker
   const [activeStep, setActiveStep] = useState<number>(1);
 
   // Categories & Catalogue Hierarchy
@@ -81,9 +101,8 @@ export const AdminProductEditorPage: React.FC = () => {
   const [rateTimestamp, setRateTimestamp] = useState<string | null>(null);
 
   // ==========================================
-  // STEP 1: PRODUCT PHOTOS & OPTIONAL AI IDENTIFICATION
+  // STEP 1: PRODUCT PHOTOS & AI IMAGE ANALYSIS
   // ==========================================
-
   const [imageSlots, setImageSlots] = useState<ProductImageSlot[]>([]);
   const imageSlotsRef = useRef<ProductImageSlot[]>(imageSlots);
   useEffect(() => {
@@ -110,7 +129,7 @@ export const AdminProductEditorPage: React.FC = () => {
   const replaceFileInputRef = useRef<HTMLInputElement>(null);
   const [replaceTargetIndex, setReplaceTargetIndex] = useState<number | null>(null);
 
-  // Optional AI Assistant (user-initiated only)
+  // AI Assistant Analysis State
   const [isAiIdentifying, setIsAiIdentifying] = useState(false);
   const [aiIdentifyPhase, setAiIdentifyPhase] = useState<
     "idle" | "reading_photos" | "identifying_equipment" | "matching_categories" | "generating_content" | "preparing_fields" | "complete"
@@ -122,16 +141,6 @@ export const AdminProductEditorPage: React.FC = () => {
   const activeAnalysisIdRef = useRef<number>(0);
   const [aiAppliedNotification, setAiAppliedNotification] = useState(false);
   const [aiPopulatedFields, setAiPopulatedFields] = useState<Set<string>>(new Set());
-
-  // Modal view for AI identification (optional alternative popup)
-  const [showAiIdentifyModal, setShowAiIdentifyModal] = useState(false);
-  const [aiIdentifyFiles, setAiIdentifyFiles] = useState<{
-    file: File;
-    preview: string;
-    name: string;
-    size: number;
-  }[]>([]);
-  const aiIdentifyModalFileInputRef = useRef<HTMLInputElement>(null);
 
   // Helper to mark a field as edited by the administrator
   const markFieldEdited = (fieldName: string) => {
@@ -150,7 +159,7 @@ export const AdminProductEditorPage: React.FC = () => {
   const [equipmentType, setEquipmentType] = useState("");
 
   // ==========================================
-  // STEP 3: PRODUCT IDENTITY
+  // STEP 3: PRODUCT IDENTITY AND NAMING
   // ==========================================
   const [productName, setProductName] = useState("");
   const [title, setTitle] = useState("");
@@ -159,17 +168,57 @@ export const AdminProductEditorPage: React.FC = () => {
   const [sku, setSku] = useState("");
   const [slug, setSlug] = useState("");
   const [brand, setBrand] = useState("DR.MEDEX");
-  const [showIdentityModal, setShowIdentityModal] = useState(false);
-  const [proposedIdentity, setProposedIdentity] = useState<{
-    productName: string;
-    title: string;
-    brand: string;
-    internalModelId: string;
-    slug: string;
-  } | null>(null);
+  const [namingStyle, setNamingStyle] = useState<"clinical" | "technical" | "catalog">("clinical");
+  const suggestedIdentityRef = useRef<{ productName: string; title: string; brand: string; manufacturerModel: string } | null>(null);
 
   // ==========================================
-  // STEP 4: PRICING & INVENTORY
+  // STEP 4: PRODUCT DESCRIPTION
+  // ==========================================
+  const [description, setDescription] = useState("");
+  const [shortDescription, setShortDescription] = useState("");
+  const [fullDescription, setFullDescription] = useState("");
+  const [isRegeneratingDescription, setIsRegeneratingDescription] = useState(false);
+
+  // ==========================================
+  // STEP 5: TECHNICAL SPECIFICATIONS (4 INDEPENDENT FIELDS)
+  // ==========================================
+  const [powerSupply, setPowerSupply] = useState("");
+  const [qualityStandards, setQualityStandards] = useState("");
+  const [regulatoryStatus, setRegulatoryStatus] = useState("");
+  const [warranty, setWarranty] = useState("2-Year Comprehensive Clinical Warranty");
+  const [isRegeneratingSpecs, setIsRegeneratingSpecs] = useState(false);
+
+  // Optional detailed technical specs table
+  const [specList, setSpecList] = useState<{ key: string; value: string; unit?: string; note?: string }[]>([]);
+  const [newSpecKey, setNewSpecKey] = useState("");
+  const [newSpecVal, setNewSpecVal] = useState("");
+  const [newSpecUnit, setNewSpecUnit] = useState("");
+  const [showDetailedSpecsTable, setShowDetailedSpecsTable] = useState(false);
+
+  // ==========================================
+  // STEP 6: CLINICAL INDICATIONS & SPECIALTY PROCEDURES
+  // ==========================================
+  const [clinicalIndications, setClinicalIndications] = useState<string[]>([]);
+  const [newIndicationText, setNewIndicationText] = useState("");
+  const [isRegeneratingIndications, setIsRegeneratingIndications] = useState(false);
+
+  // ==========================================
+  // STEP 7: KEY FACTORS & ENGINEERING HIGHLIGHTS
+  // ==========================================
+  const [engineeringHighlights, setEngineeringHighlights] = useState<string[]>([]);
+  const [newHighlightText, setNewHighlightText] = useState("");
+  const [isRegeneratingHighlights, setIsRegeneratingHighlights] = useState(false);
+
+  // ==========================================
+  // STEP 8: STANDARD INCLUDED PACKAGE CONTENTS
+  // ==========================================
+  const [packageItems, setPackageItems] = useState<PackageItem[]>([]);
+  const [newPackageItemName, setNewPackageItemName] = useState("");
+  const [newPackageItemType, setNewPackageItemType] = useState<"standard" | "optional" | "confirmation">("standard");
+  const [isRegeneratingPackage, setIsRegeneratingPackage] = useState(false);
+
+  // ==========================================
+  // PRICING & COMMERCIAL TERMS (ASSOCIATED WITH STEP 8)
   // ==========================================
   const [originalPrice, setOriginalPrice] = useState<number>(0); // MRP in INR
   const [basePrice, setBasePrice] = useState<number>(0); // Selling price in INR
@@ -178,6 +227,7 @@ export const AdminProductEditorPage: React.FC = () => {
   const [lowStockThreshold, setLowStockThreshold] = useState<number>(3);
   const [minOrderQuantity, setMinOrderQuantity] = useState<number>(1);
   const [leadTimeWeeks, setLeadTimeWeeks] = useState("1–2 Weeks");
+  const [shippingInformation, setShippingInformation] = useState("Express Air Cargo Dispatch with Shockproof Wooden Crating");
 
   const { discountPercentage, calculatedSavings } = useMemo(() => {
     if (originalPrice > 0 && basePrice > 0 && originalPrice >= basePrice) {
@@ -189,55 +239,23 @@ export const AdminProductEditorPage: React.FC = () => {
   }, [originalPrice, basePrice]);
 
   // ==========================================
-  // STEP 5: DESCRIPTION & TECHNICAL SPECS
-  // ==========================================
-  const [shortDescription, setShortDescription] = useState("");
-  const [fullDescription, setFullDescription] = useState("");
-  const [keyFeatures, setKeyFeatures] = useState<string[]>([]);
-  const [newFeatureText, setNewFeatureText] = useState("");
-  const [applications, setApplications] = useState<string[]>([]);
-  const [newAppText, setNewAppText] = useState("");
-  const [packageContents, setPackageContents] = useState<string[]>([]);
-  const [newPackageText, setNewPackageText] = useState("");
-  const [warranty, setWarranty] = useState("2-Year Comprehensive Clinical Warranty");
-  const [shippingInformation, setShippingInformation] = useState("Express Air Cargo Dispatch with Shockproof Wooden Crating");
-
-  const [specList, setSpecList] = useState<{ key: string; value: string; unit?: string; note?: string }[]>([]);
-  const [newSpecKey, setNewSpecKey] = useState("");
-  const [newSpecVal, setNewSpecVal] = useState("");
-  const [newSpecUnit, setNewSpecUnit] = useState("");
-  const [newSpecNote, setNewSpecNote] = useState("");
-
-  const [aiTone, setAiTone] = useState<"CLINICAL" | "TECHNICAL" | "COMMERCIAL" | "TENDER" | "SEO">("CLINICAL");
-  const [aiCustomPrompt, setAiCustomPrompt] = useState("");
-  const [aiGeneratedPreview, setAiGeneratedPreview] = useState<{
-    shortDescription?: string;
-    fullDescription?: string;
-    keyFeatures?: string[];
-    metaDescription?: string;
-  } | null>(null);
-
-  // ==========================================
-  // STEP 6: DOCUMENTATION & SEO
-  // ==========================================
-  const [regulatoryClass, setRegulatoryClass] = useState("Class IIa (MDR 2017/745)");
-  const [certificationStatus, setCertificationStatus] = useState("Claimed");
-  const [certificateNumber, setCertificateNumber] = useState("");
-  const [issuingOrg, setIssuingOrg] = useState("");
-  const [certifications, setCertifications] = useState<string[]>([]);
-  const [newCertText, setNewCertText] = useState("");
-  const [manualUrl, setManualUrl] = useState("");
-  const [datasheetUrl, setDatasheetUrl] = useState("");
-  const [metaTitle, setMetaTitle] = useState("");
-  const [metaDescription, setMetaDescription] = useState("");
-
-  // ==========================================
-  // STEP 7: PUBLISHING & VISIBILITY
+  // PUBLICATION & SEO SETTINGS
   // ==========================================
   const [status, setStatus] = useState<"ACTIVE" | "INACTIVE" | "DRAFT" | "ARCHIVED">("DRAFT");
   const [isFeatured, setIsFeatured] = useState(false);
   const [isBestSeller, setIsBestSeller] = useState(false);
   const [categoryGridVisible, setCategoryGridVisible] = useState(true);
+  const [metaTitle, setMetaTitle] = useState("");
+  const [metaDescription, setMetaDescription] = useState("");
+
+  // Legacy compatibility fields
+  const [regulatoryClass, setRegulatoryClass] = useState("Class IIa (MDR 2017/745)");
+  const [certificationStatus, setCertificationStatus] = useState("Claimed");
+  const [certificateNumber, setCertificateNumber] = useState("");
+  const [issuingOrg, setIssuingOrg] = useState("");
+  const [certifications, setCertifications] = useState<string[]>([]);
+  const [manualUrl, setManualUrl] = useState("");
+  const [datasheetUrl, setDatasheetUrl] = useState("");
 
   // Fetch initial hierarchy, rates, and product details (if editing)
   useEffect(() => {
@@ -250,9 +268,9 @@ export const AdminProductEditorPage: React.FC = () => {
         ]);
 
         if (catRes.ok) {
-          const cData = await catRes.json();
-          if (cData.success && Array.isArray(cData.categories)) {
-            setAllCategories(cData.categories);
+          const catData = await catRes.json();
+          if (catData.success && Array.isArray(catData.categories)) {
+            setAllCategories(catData.categories);
           }
         }
 
@@ -276,17 +294,63 @@ export const AdminProductEditorPage: React.FC = () => {
           setSubcategory(p.subcategory || "");
           setEquipmentType(p.equipmentType || "");
           setProductName(p.productName || p.title || "");
-          setTitle(p.title || p.productName || "");
+          setTitle(p.title || p.storefrontProductTitle || p.productName || "");
           setManufacturerModel(p.modelNumber || "");
           setInternalModelId(p.internalModelId || `DM-${p.sku || p.id}`);
           setSku(p.sku || p.SKU || "");
           setSlug(p.slug || "");
           setBrand(p.brand || "DR.MEDEX");
-          setRegulatoryClass(p.regulatoryClassification || "Class IIa (MDR 2017/745)");
-          setCertificationStatus(p.certificationStatus || "Claimed");
-          setCertificateNumber(p.certificateNumber || "");
-          setIssuingOrg(p.issuingOrg || "");
-          setStatus(p.status || "ACTIVE");
+          if (p.namingStyle) setNamingStyle(p.namingStyle);
+
+          suggestedIdentityRef.current = {
+            productName: p.productName || p.title || "",
+            title: p.storefrontProductTitle || p.title || p.productName || "",
+            brand: p.brand || "DR.MEDEX",
+            manufacturerModel: p.modelNumber || ""
+          };
+
+          // Step 4: Description
+          const mainDesc = p.description || p.fullDescription || p.shortDescription || p.overview || "";
+          setDescription(mainDesc);
+          setFullDescription(mainDesc);
+          setShortDescription(p.shortDescription || mainDesc.slice(0, 180));
+
+          // Step 5: Technical Specifications
+          setPowerSupply(p.powerSupply || p.powerRequirements || "");
+          setQualityStandards(p.qualityStandards || "");
+          setRegulatoryStatus(p.regulatoryStatus || p.regulatoryClassification || "");
+          if (p.warranty) setWarranty(p.warranty);
+
+          // Step 6: Clinical Indications
+          const loadedIndications = Array.isArray(p.clinicalIndications) && p.clinicalIndications.length > 0
+            ? p.clinicalIndications
+            : (Array.isArray(p.applications) ? p.applications : []);
+          setClinicalIndications(loadedIndications);
+
+          // Step 7: Engineering Highlights
+          const loadedHighlights = Array.isArray(p.engineeringHighlights) && p.engineeringHighlights.length > 0
+            ? p.engineeringHighlights
+            : (Array.isArray(p.keyFeatures) && p.keyFeatures.length > 0
+              ? p.keyFeatures
+              : (Array.isArray(p.features) ? p.features : []));
+          setEngineeringHighlights(loadedHighlights);
+
+          // Step 8: Package Contents
+          if (Array.isArray(p.packageItems) && p.packageItems.length > 0) {
+            setPackageItems(p.packageItems.map((item: any, idx: number) => ({
+              id: item.id || `saved-pkg-${idx}`,
+              name: item.name || item.item || String(item),
+              type: (item.type?.toLowerCase() === "optional" || item.type?.toLowerCase() === "confirmation")
+                ? item.type.toLowerCase() as any
+                : "standard"
+            })));
+          } else if (Array.isArray(p.packageContents) && p.packageContents.length > 0) {
+            setPackageItems(p.packageContents.map((name: string, idx: number) => ({
+              id: `saved-pkg-${idx}`,
+              name: String(name),
+              type: "standard"
+            })));
+          }
 
           // Prices in INR
           setOriginalPrice(p.originalPrice || p.regularPrice || p.basePrice || 0);
@@ -297,7 +361,9 @@ export const AdminProductEditorPage: React.FC = () => {
           setStockStatus(p.stockStatus || (pStock > 0 ? (pStock <= 5 ? "LOW_STOCK" : "IN_STOCK") : "OUT_OF_STOCK"));
           setMinOrderQuantity(p.moq || 1);
           setLeadTimeWeeks(p.leadTimeWeeks || "1–2 Weeks");
+          if (p.shippingInformation) setShippingInformation(p.shippingInformation);
 
+          // Photos
           const loadedImgs: string[] = (Array.isArray(p.images) && p.images.length > 0)
             ? p.images
             : (Array.isArray(p.galleryImages) && p.galleryImages.length > 0
@@ -323,15 +389,8 @@ export const AdminProductEditorPage: React.FC = () => {
 
           const pIdx = p.primaryImage ? loadedImgs.indexOf(p.primaryImage) : 0;
           setPrimaryImageIndex(pIdx >= 0 ? pIdx : 0);
-          setShortDescription(p.shortDescription || p.overview || "");
-          setFullDescription(p.fullDescription || p.overview || "");
-          setKeyFeatures(p.features || p.keyFeatures || []);
-          setApplications(p.applications || []);
-          setPackageContents(p.packageContents || []);
-          if (p.warranty) setWarranty(p.warranty);
-          if (p.shippingInformation) setShippingInformation(p.shippingInformation);
 
-          // Normalize specifications
+          // Normalize additional detailed specifications
           let initialSpecs: { key: string; value: string; unit?: string; note?: string }[] = [];
           if (Array.isArray(p.technicalSpecifications)) {
             initialSpecs = p.technicalSpecifications.map((s: any) => ({
@@ -357,6 +416,11 @@ export const AdminProductEditorPage: React.FC = () => {
           }
           setSpecList(initialSpecs);
 
+          setRegulatoryClass(p.regulatoryClassification || "Class IIa (MDR 2017/745)");
+          setCertificationStatus(p.certificationStatus || "Claimed");
+          setCertificateNumber(p.certificateNumber || "");
+          setIssuingOrg(p.issuingOrg || "");
+          setStatus(p.status || "ACTIVE");
           setCertifications(p.certifications || []);
           setManualUrl(p.manualUrl || "");
           setDatasheetUrl(p.datasheetUrl || "");
@@ -453,25 +517,22 @@ export const AdminProductEditorPage: React.FC = () => {
     }
     setIsCheckingSku(true);
     try {
-      const res = await adminFetch(
-        `/api/admin/products/check-sku?sku=${encodeURIComponent(skuToTest)}&excludeId=${productId || ""}`
-      );
+      const res = await adminFetch(`/api/admin/products/validate-sku?sku=${encodeURIComponent(skuToTest)}&excludeId=${productId || ""}`);
       if (res.ok) {
         const data = await res.json();
         if (data.success && !data.isUnique) {
-          setSkuError(`SKU already assigned to "${data.conflictingProduct?.title || "another product"}"`);
+          setSkuError(`SKU "${skuToTest}" is already assigned to: ${data.existingProduct?.title || "another product"}`);
         } else {
           setSkuError(null);
         }
       }
-    } catch {
-      setSkuError(null);
+    } catch (err) {
+      console.error("SKU check error:", err);
     } finally {
       setIsCheckingSku(false);
     }
   };
 
-  // Copy SKU action
   const handleCopySku = () => {
     if (sku) {
       navigator.clipboard.writeText(sku);
@@ -522,20 +583,53 @@ export const AdminProductEditorPage: React.FC = () => {
     return () => clearTimeout(timer);
   }, [category, subcategory, equipmentType, manufacturerModel, title, productName, productId]);
 
+  // Helper to convert slots into payload for AI analysis
+  const preparePhotosPayload = async (slotsToProcess: ProductImageSlot[]) => {
+    const photosPayload: Array<{ data: string; mimeType: string; filename: string }> = [];
+    for (let idx = 0; idx < slotsToProcess.length; idx++) {
+      const slot = slotsToProcess[idx];
+      if (slot.status === "persisted" && slot.url && !slot.url.startsWith("blob:") && !slot.url.startsWith("data:")) {
+        photosPayload.push({
+          data: slot.url,
+          mimeType: slot.url.endsWith(".png") ? "image/png" : slot.url.endsWith(".webp") ? "image/webp" : "image/jpeg",
+          filename: `photo_${idx + 1}.jpg`
+        });
+      } else if (slot.file) {
+        try {
+          const b64 = await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result as string);
+            reader.onerror = reject;
+            reader.readAsDataURL(slot.file!);
+          });
+          photosPayload.push({
+            data: b64,
+            mimeType: slot.file.type || "image/jpeg",
+            filename: slot.file.name || `photo_${idx + 1}.jpg`
+          });
+        } catch {}
+      } else if (slot.url && slot.url.startsWith("data:")) {
+        photosPayload.push({
+          data: slot.url,
+          mimeType: slot.url.match(/^data:(image\/[a-zA-Z0-9+.-]+);base64,/)?.[1] || "image/jpeg",
+          filename: `photo_${idx + 1}.jpg`
+        });
+      }
+    }
+    return photosPayload;
+  };
+
   // ============================================================
-  // ONE COORDINATED AI IDENTIFICATION WORKFLOW (STEPS 1 TO 7)
+  // ONE COORDINATED AI IDENTIFICATION WORKFLOW (STEPS 1 TO 8)
   // ============================================================
   const applyAiResultsToForm = (result: any) => {
     if (!result) return;
     const populated = new Set<string>();
 
-    // Step 1: Product Photographs
-    // All uploaded photographs, persistent URLs, and current slot ordering remain untouched
-
     // Step 2: Product Classification
-    let targetCatKey = result.primaryCategoryId;
-    if (!targetCatKey && result.primaryCategory) {
-      const suggestedCat = String(result.primaryCategory).toLowerCase();
+    let targetCatKey = result.classification?.primaryCategoryId || result.primaryCategoryId;
+    if (!targetCatKey && (result.classification?.primaryCategory || result.primaryCategory)) {
+      const suggestedCat = String(result.classification?.primaryCategory || result.primaryCategory).toLowerCase();
       const catEntry = Object.entries(catalogueHierarchy).find(
         ([k, v]: [string, any]) => v.name.toLowerCase() === suggestedCat || k.toLowerCase() === suggestedCat || suggestedCat.includes(k) || v.name.toLowerCase().includes(suggestedCat)
       );
@@ -550,9 +644,9 @@ export const AdminProductEditorPage: React.FC = () => {
 
       const catVal = (catalogueHierarchy as any)[targetCatKey];
       if (catVal && catVal.subcategories) {
-        let targetSubId = result.subcategoryId;
-        if (!targetSubId && result.subcategory) {
-          const suggestedSub = String(result.subcategory).toLowerCase();
+        let targetSubId = result.classification?.subcategoryId || result.subcategoryId;
+        if (!targetSubId && (result.classification?.subcategory || result.subcategory)) {
+          const suggestedSub = String(result.classification?.subcategory || result.subcategory).toLowerCase();
           const subEntry = catVal.subcategories.find(
             (s: any) => s.name.toLowerCase() === suggestedSub || s.id.toLowerCase() === suggestedSub || suggestedSub.includes(s.name.toLowerCase()) || s.name.toLowerCase().includes(suggestedSub)
           );
@@ -568,7 +662,7 @@ export const AdminProductEditorPage: React.FC = () => {
           const subVal = catVal.subcategories.find((s: any) => s.id === targetSubId);
           if (subVal && subVal.equipmentTypes) {
             let targetEqName = "";
-            const suggestedEq = String(result.equipmentType || "").toLowerCase();
+            const suggestedEq = String(result.classification?.equipmentType || result.equipmentType || "").toLowerCase();
             const eqEntry = subVal.equipmentTypes.find(
               (e: any) => e.name.toLowerCase() === suggestedEq || e.id.toLowerCase() === suggestedEq || suggestedEq.includes(e.name.toLowerCase()) || e.name.toLowerCase().includes(suggestedEq)
             );
@@ -588,49 +682,140 @@ export const AdminProductEditorPage: React.FC = () => {
     }
 
     // Step 3: Product Identity
+    const pName = result.productName || "";
+    const sTitle = result.storefrontProductTitle || result.title || pName;
+    const brnd = result.brand || "DR.MEDEX";
+    const mModel = result.manufacturerModel || "";
+
+    suggestedIdentityRef.current = {
+      productName: pName,
+      title: sTitle,
+      brand: brnd,
+      manufacturerModel: mModel
+    };
+
     if (!preserveManualEdits || !manuallyEditedFields.has("productName")) {
-      if (result.productName) {
-        setProductName(result.productName);
-        setTitle(result.productName);
+      if (pName) {
+        setProductName(pName);
         populated.add("productName");
+      }
+    }
+    if (!preserveManualEdits || !manuallyEditedFields.has("title")) {
+      if (sTitle) {
+        setTitle(sTitle);
         populated.add("title");
       }
     }
     if (!preserveManualEdits || !manuallyEditedFields.has("brand")) {
-      if (result.brand) {
-        setBrand(result.brand);
+      if (brnd) {
+        setBrand(brnd);
         populated.add("brand");
       }
     }
     if (!preserveManualEdits || !manuallyEditedFields.has("manufacturerModel")) {
-      if (result.manufacturerModel) {
-        setManufacturerModel(result.manufacturerModel);
+      if (mModel) {
+        setManufacturerModel(mModel);
         populated.add("manufacturerModel");
       }
     }
     if (!preserveManualEdits || !manuallyEditedFields.has("internalModelId")) {
       if (result.internalModelId) {
         setInternalModelId(result.internalModelId);
-      } else if (result.manufacturerModel) {
-        setInternalModelId(result.manufacturerModel);
-      } else if (result.productName) {
-        const cleanSlug = result.productName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+      } else if (mModel) {
+        setInternalModelId(mModel);
+      } else if (pName) {
+        const cleanSlug = pName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
         setInternalModelId(`DM-${cleanSlug.slice(0, 10).toUpperCase()}`);
       }
       populated.add("internalModelId");
     }
     if (!isEditMode && (!sku || !manuallyEditedFields.has("sku"))) {
-      fetchNewSku(targetCatKey || category);
+      if (result.skuSuggestion) {
+        setSku(result.skuSuggestion);
+      } else {
+        fetchNewSku(targetCatKey || category);
+      }
       populated.add("sku");
     }
     if (!preserveManualEdits || !manuallyEditedFields.has("slug")) {
-      if (result.productName) {
-        setSlug(result.productName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""));
+      if (pName) {
+        setSlug(pName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""));
         populated.add("slug");
       }
     }
 
-    // Step 4: Pricing & Inventory Defaults (Never invent selling price from photographs)
+    // Step 4: Description (PURE main description ONLY)
+    const mainDesc = result.description || result.clinicalOverview || "";
+    if (mainDesc && (!preserveManualEdits || !manuallyEditedFields.has("description"))) {
+      setDescription(mainDesc);
+      setFullDescription(mainDesc);
+      setShortDescription(mainDesc.slice(0, 180));
+      populated.add("description");
+    }
+
+    // Step 5: Technical Specifications (4 independent fields)
+    if (result.powerSupply && (!preserveManualEdits || !manuallyEditedFields.has("powerSupply"))) {
+      setPowerSupply(result.powerSupply);
+      populated.add("powerSupply");
+    }
+    if (result.qualityStandards && (!preserveManualEdits || !manuallyEditedFields.has("qualityStandards"))) {
+      setQualityStandards(result.qualityStandards);
+      populated.add("qualityStandards");
+    }
+    if (result.regulatoryStatus && (!preserveManualEdits || !manuallyEditedFields.has("regulatoryStatus"))) {
+      setRegulatoryStatus(result.regulatoryStatus);
+      setRegulatoryClass(result.regulatoryStatus);
+      populated.add("regulatoryStatus");
+    }
+    if (result.warranty && (!preserveManualEdits || !manuallyEditedFields.has("warranty"))) {
+      setWarranty(result.warranty);
+      populated.add("warranty");
+    }
+
+    // Step 6: Clinical Indications
+    const rawIndications = Array.isArray(result.clinicalIndications) && result.clinicalIndications.length > 0
+      ? result.clinicalIndications
+      : (Array.isArray(result.intendedUses) ? result.intendedUses : []);
+    if (rawIndications.length > 0 && (!preserveManualEdits || !manuallyEditedFields.has("clinicalIndications"))) {
+      setClinicalIndications(rawIndications);
+      populated.add("clinicalIndications");
+    }
+
+    // Step 7: Key Factors & Engineering Highlights
+    const rawHighlights = Array.isArray(result.engineeringHighlights) && result.engineeringHighlights.length > 0
+      ? result.engineeringHighlights
+      : (Array.isArray(result.keyFeatures) ? result.keyFeatures : []);
+    if (rawHighlights.length > 0 && (!preserveManualEdits || !manuallyEditedFields.has("engineeringHighlights"))) {
+      setEngineeringHighlights(rawHighlights);
+      populated.add("engineeringHighlights");
+    }
+
+    // Step 8: Standard Package Contents
+    if (Array.isArray(result.packageItems) && result.packageItems.length > 0) {
+      if (!preserveManualEdits || !manuallyEditedFields.has("packageItems")) {
+        const items: PackageItem[] = result.packageItems.map((item: any, idx: number) => ({
+          id: item.id || `ai-pkg-${idx}-${Date.now()}`,
+          name: typeof item === "string" ? item : (item.name || item.item || ""),
+          type: (item.type?.toLowerCase() === "optional" || item.type?.toLowerCase() === "confirmation")
+            ? item.type.toLowerCase() as any
+            : "standard"
+        }));
+        setPackageItems(items);
+        populated.add("packageItems");
+      }
+    } else if (Array.isArray(result.packageContents) && result.packageContents.length > 0) {
+      if (!preserveManualEdits || !manuallyEditedFields.has("packageItems")) {
+        const items: PackageItem[] = result.packageContents.map((name: string, idx: number) => ({
+          id: `ai-pkg-${idx}-${Date.now()}`,
+          name,
+          type: "standard"
+        }));
+        setPackageItems(items);
+        populated.add("packageItems");
+      }
+    }
+
+    // Inventory & Operational Defaults (Never invent selling price from photographs)
     if (!preserveManualEdits || !manuallyEditedFields.has("stock")) {
       if (!stock || stock === 0) setStock(10);
       populated.add("stock");
@@ -639,109 +824,31 @@ export const AdminProductEditorPage: React.FC = () => {
       setStockStatus("IN_STOCK");
       populated.add("stockStatus");
     }
-    if (!preserveManualEdits || !manuallyEditedFields.has("lowStockThreshold")) {
-      if (!lowStockThreshold) setLowStockThreshold(3);
-    }
-    if (!preserveManualEdits || !manuallyEditedFields.has("minOrderQuantity")) {
-      if (!minOrderQuantity) setMinOrderQuantity(1);
-    }
     if (!preserveManualEdits || !manuallyEditedFields.has("leadTimeWeeks")) {
       if (!leadTimeWeeks) setLeadTimeWeeks("1–2 Weeks");
       populated.add("leadTimeWeeks");
     }
 
-    // Step 5: Description & Technical Specifications
-    if (!preserveManualEdits || !manuallyEditedFields.has("shortDescription")) {
-      if (result.clinicalOverview) {
-        setShortDescription(result.clinicalOverview);
-        populated.add("shortDescription");
-      }
-    }
-    if (!preserveManualEdits || !manuallyEditedFields.has("fullDescription")) {
-      if (result.clinicalOverview) {
-        let full = result.clinicalOverview;
-        if (result.intendedUses && result.intendedUses.length > 0) {
-          full += "\n\nIntended Clinical Applications:\n" + result.intendedUses.map((u: string) => `• ${u}`).join("\n");
-        }
-        setFullDescription(full);
-        populated.add("fullDescription");
-      }
-    }
-    if (!preserveManualEdits || !manuallyEditedFields.has("keyFeatures")) {
-      if (Array.isArray(result.keyFeatures) && result.keyFeatures.length > 0) {
-        setKeyFeatures(result.keyFeatures);
-        populated.add("keyFeatures");
-      }
-    }
-    if (!preserveManualEdits || !manuallyEditedFields.has("applications")) {
-      if (Array.isArray(result.intendedUses) && result.intendedUses.length > 0) {
-        setApplications(result.intendedUses);
-        populated.add("applications");
-      }
-    }
-    if (!preserveManualEdits || !manuallyEditedFields.has("packageContents")) {
-      if (Array.isArray(result.packageContents) && result.packageContents.length > 0) {
-        setPackageContents(result.packageContents);
-        populated.add("packageContents");
-      }
-    }
-    if (!preserveManualEdits || !manuallyEditedFields.has("specList")) {
-      if (Array.isArray(result.technicalSpecifications) && result.technicalSpecifications.length > 0) {
-        const newSpecs = result.technicalSpecifications.map((s: any) => ({
-          key: s.parameter || s.key || "",
-          value: s.value || "",
-          unit: s.unit || "",
-          note: s.note || ""
-        }));
-        setSpecList(newSpecs);
-        populated.add("specList");
-      }
-    }
-    if (!preserveManualEdits || !manuallyEditedFields.has("warranty")) {
-      if (!warranty) setWarranty("2-Year Comprehensive Clinical Warranty");
-    }
-    if (!preserveManualEdits || !manuallyEditedFields.has("shippingInformation")) {
-      if (!shippingInformation) setShippingInformation("Express Air Cargo Dispatch with Shockproof Wooden Crating");
-    }
-
-    // Step 6: Documentation & SEO
-    if (!preserveManualEdits || !manuallyEditedFields.has("regulatoryClass")) {
-      const regClass = result.regulatoryClass || result.regulatoryClassification;
-      if (regClass) {
-        setRegulatoryClass(regClass);
-        populated.add("regulatoryClass");
-      }
-    }
-    if (!preserveManualEdits || !manuallyEditedFields.has("certificationStatus")) {
-      setCertificationStatus(result.fieldsNeedingVerification?.length > 0 ? "Pending Verification" : "Verified");
-      populated.add("certificationStatus");
-    }
+    // Publishing & SEO
     if (!preserveManualEdits || !manuallyEditedFields.has("metaTitle")) {
-      const mTitle = result.seoTitle || result.metaTitle;
+      const mTitle = result.seoTitle || result.metaTitle || sTitle;
       if (mTitle) {
         setMetaTitle(mTitle);
         populated.add("metaTitle");
       }
     }
     if (!preserveManualEdits || !manuallyEditedFields.has("metaDescription")) {
-      const mDesc = result.seoDescription || result.metaDescription;
+      const mDesc = result.seoDescription || result.metaDescription || mainDesc.slice(0, 160);
       if (mDesc) {
         setMetaDescription(mDesc);
         populated.add("metaDescription");
       }
     }
 
-    // Step 7: Publishing & Visibility (Draft status for new creations)
-    if (!isEditMode && (!preserveManualEdits || !manuallyEditedFields.has("status"))) {
-      setStatus("DRAFT");
-      populated.add("status");
-    }
-
     setAiPopulatedFields(populated);
   };
 
   const triggerAiIdentification = async () => {
-    // Check if slots are currently uploading; wait briefly for active uploads to finish
     if (imageSlotsRef.current.some((s) => s.status === "uploading")) {
       setAiIdentifyPhase("reading_photos");
       const startWait = Date.now();
@@ -764,54 +871,22 @@ export const AdminProductEditorPage: React.FC = () => {
     setAiIdentifyPhase("reading_photos");
 
     try {
-      // Build photos payload: prefer persisted URL, or convert File to base64 if upload is pending/local
-      const photosPayload: Array<{ data: string; mimeType: string; filename: string }> = [];
-      const slotsToProcess = currentSlots.slice(0, 5);
-
-      for (let idx = 0; idx < slotsToProcess.length; idx++) {
-        const slot = slotsToProcess[idx];
-        if (slot.status === "persisted" && slot.url && !slot.url.startsWith("blob:") && !slot.url.startsWith("data:")) {
-          photosPayload.push({
-            data: slot.url,
-            mimeType: slot.url.endsWith(".png") ? "image/png" : slot.url.endsWith(".webp") ? "image/webp" : "image/jpeg",
-            filename: `photo_${idx + 1}.jpg`
-          });
-        } else if (slot.file) {
-          try {
-            const b64 = await new Promise<string>((resolve, reject) => {
-              const reader = new FileReader();
-              reader.onload = () => resolve(reader.result as string);
-              reader.onerror = reject;
-              reader.readAsDataURL(slot.file!);
-            });
-            photosPayload.push({
-              data: b64,
-              mimeType: slot.file.type || "image/jpeg",
-              filename: slot.file.name || `photo_${idx + 1}.jpg`
-            });
-          } catch {}
-        } else if (slot.url && slot.url.startsWith("data:")) {
-          photosPayload.push({
-            data: slot.url,
-            mimeType: slot.url.match(/^data:(image\/[a-zA-Z0-9+.-]+);base64,/)?.[1] || "image/jpeg",
-            filename: `photo_${idx + 1}.jpg`
-          });
-        }
-      }
-
+      const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 5));
       if (photosPayload.length === 0) {
         throw new Error("No readable photographs found. Please ensure at least one valid image is selected.");
       }
 
       if (activeAnalysisIdRef.current !== thisAnalysisId) return;
-
-      // 2. Identifying equipment
       setAiIdentifyPhase("identifying_equipment");
 
       const res = await adminFetch("/api/admin/products/ai-identify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ photos: photosPayload })
+        body: JSON.stringify({
+          photos: photosPayload,
+          namingStyle,
+          preliminaryBrand: brand || "DR.MEDEX"
+        })
       });
 
       if (activeAnalysisIdRef.current !== thisAnalysisId) return;
@@ -821,17 +896,14 @@ export const AdminProductEditorPage: React.FC = () => {
         throw new Error((data && data.message) || `AI service returned HTTP ${res.status}`);
       }
 
-      // 3. Matching catalogue categories
       setAiIdentifyPhase("matching_categories");
       await new Promise((r) => setTimeout(r, 100));
       if (activeAnalysisIdRef.current !== thisAnalysisId) return;
 
-      // 4. Generating product content
       setAiIdentifyPhase("generating_content");
       await new Promise((r) => setTimeout(r, 100));
       if (activeAnalysisIdRef.current !== thisAnalysisId) return;
 
-      // 5. Automatically populate applicable form fields across all 7 steps
       setAiIdentifyPhase("preparing_fields");
       if (activeAnalysisIdRef.current !== thisAnalysisId) return;
 
@@ -931,7 +1003,7 @@ export const AdminProductEditorPage: React.FC = () => {
     }
   };
 
-  // Step 1: Handling File Uploads with Instant Previews & Bounded Concurrency
+  // Handling File Uploads with Instant Previews & Bounded Concurrency
   const handleStep1PhotosSelected = async (selectedFiles: File[]) => {
     if (!selectedFiles || selectedFiles.length === 0) return;
 
@@ -960,7 +1032,6 @@ export const AdminProductEditorPage: React.FC = () => {
 
     setUploadError(null);
 
-    // 1. Create instant local previews
     const newSlots: ProductImageSlot[] = filesToProcess.map((file, idx) => {
       const objUrl = URL.createObjectURL(file);
       objectUrlsRef.current.push(objUrl);
@@ -976,7 +1047,6 @@ export const AdminProductEditorPage: React.FC = () => {
     setImageSlots((prev) => [...prev, ...newSlots].slice(0, 5));
     setHasUnsavedChanges(true);
 
-    // 2. Upload with bounded concurrency of 2 parallel uploads
     setIsUploadingImage(true);
     setUploadProgress({ current: 0, total: newSlots.length });
 
@@ -990,7 +1060,6 @@ export const AdminProductEditorPage: React.FC = () => {
     setIsUploadingImage(false);
   };
 
-  // Retry upload for a specific slot
   const retrySlotUpload = (slotId: string) => {
     const slot = imageSlots.find((s) => s.id === slotId);
     if (!slot || !slot.file) return;
@@ -1001,7 +1070,6 @@ export const AdminProductEditorPage: React.FC = () => {
     uploadSlotFile(slotId, slot.file);
   };
 
-  // Drag & drop handlers
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
@@ -1010,7 +1078,6 @@ export const AdminProductEditorPage: React.FC = () => {
     }
   };
 
-  // Move image left / right
   const moveImage = (index: number, direction: "left" | "right") => {
     const target = direction === "left" ? index - 1 : index + 1;
     if (target < 0 || target >= imageSlots.length) return;
@@ -1023,7 +1090,6 @@ export const AdminProductEditorPage: React.FC = () => {
     activeAnalysisIdRef.current = 0;
   };
 
-  // Remove image
   const removeImage = (index: number) => {
     const targetSlot = imageSlots[index];
     if (targetSlot?.previewUrl) {
@@ -1040,7 +1106,6 @@ export const AdminProductEditorPage: React.FC = () => {
     activeAnalysisIdRef.current = 0;
   };
 
-  // Replace image trigger
   const handleReplaceClick = (index: number) => {
     setReplaceTargetIndex(index);
     replaceFileInputRef.current?.click();
@@ -1076,7 +1141,6 @@ export const AdminProductEditorPage: React.FC = () => {
     setHasUnsavedChanges(true);
   };
 
-  // Add via direct URL input
   const handleAddImageUrl = () => {
     const trimmed = imageUrlInput.trim();
     if (trimmed) {
@@ -1096,129 +1160,274 @@ export const AdminProductEditorPage: React.FC = () => {
     }
   };
 
-  // Gracefully handle image load errors without rendering broken question mark
   const handleSlotLoadError = (slotId: string) => {
     setImageSlots((curr) =>
       curr.map((s) => (s.id === slotId ? { ...s, hasLoadError: true } : s))
     );
   };
 
-  // AI Description Assistant handler
-  const handleGenerateAiDescription = async () => {
-    setIsAiGenerating(true);
-    try {
-      const res = await adminFetch("/api/admin/products/ai-generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          tone: aiTone,
-          customPrompt: aiCustomPrompt,
-          currentProduct: {
-            title,
-            productName,
-            category,
-            subcategory,
-            equipmentType,
-            modelNumber: manufacturerModel,
-            brand,
-            specifications: specList,
-            features: keyFeatures,
-            intendedUses: applications
-          }
-        })
-      });
-
-      const data = await res.json();
-      if (data.success && data.generated) {
-        setAiGeneratedPreview(data.generated);
-      }
-    } catch (err) {
-      console.error("AI copy generation failed:", err);
-    } finally {
-      setIsAiGenerating(false);
-    }
-  };
-
-  const handleApplyAiGenerated = () => {
-    if (!aiGeneratedPreview) return;
-    if (aiGeneratedPreview.shortDescription) {
-      setShortDescription(aiGeneratedPreview.shortDescription);
-      markFieldEdited("shortDescription");
-    }
-    if (aiGeneratedPreview.fullDescription) {
-      setFullDescription(aiGeneratedPreview.fullDescription);
-      markFieldEdited("fullDescription");
-    }
-    if (aiGeneratedPreview.keyFeatures && aiGeneratedPreview.keyFeatures.length > 0) {
-      setKeyFeatures(aiGeneratedPreview.keyFeatures);
-      markFieldEdited("keyFeatures");
-    }
-    if (aiGeneratedPreview.metaDescription) {
-      setMetaDescription(aiGeneratedPreview.metaDescription);
-      markFieldEdited("metaDescription");
-    }
-    setAiGeneratedPreview(null);
-    setHasUnsavedChanges(true);
-  };
-
-  // Regenerate suggestions action
-  const handleRegenerateSuggestions = async () => {
+  // ==========================================
+  // REGENERATE HANDLERS
+  // ==========================================
+  const handleRegenerateName = async (selectedStyle: "clinical" | "technical" | "catalog") => {
     setIsGeneratingIdentity(true);
     try {
-      const res = await adminFetch("/api/admin/products/generate-identity", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          category,
-          subcategory,
-          equipmentType,
-          currentProduct: { productName, title, brand, manufacturerModel }
-        })
-      });
-
-      const data = await res.json();
-      if (data.success && data.suggestions) {
-        setProposedIdentity(data.suggestions);
-        setShowIdentityModal(true);
+      const currentSlots = imageSlotsRef.current;
+      if (currentSlots.length > 0) {
+        const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
+        const res = await adminFetch("/api/admin/products/ai-identify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            photos: photosPayload,
+            namingStyle: selectedStyle,
+            preliminaryBrand: brand || "DR.MEDEX"
+          })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.data) {
+            if (data.data.productName) setProductName(data.data.productName);
+            if (data.data.storefrontProductTitle) setTitle(data.data.storefrontProductTitle);
+            setHasUnsavedChanges(true);
+            return;
+          }
+        }
       }
+      const baseModel = manufacturerModel ? ` – ${manufacturerModel}` : "";
+      const baseEq = equipmentType || "Medical Equipment";
+      if (selectedStyle === "technical") {
+        setProductName(`${brand || "DR.MEDEX"} ${baseEq}${baseModel} Clinical Precision System`);
+        setTitle(`${brand || "DR.MEDEX"} ${baseEq}${baseModel}`);
+      } else if (selectedStyle === "catalog") {
+        setProductName(`${brand || "DR.MEDEX"} ${baseEq}${baseModel}`);
+        setTitle(`${baseEq}${baseModel}`);
+      } else {
+        setProductName(`${brand || "DR.MEDEX"} Advanced ${baseEq}${baseModel} Surgical Solution`);
+        setTitle(`${brand || "DR.MEDEX"} ${baseEq}${baseModel}`);
+      }
+      setHasUnsavedChanges(true);
     } catch (err) {
-      console.error("Failed to generate identity suggestions:", err);
+      console.warn("Name regeneration error:", err);
     } finally {
       setIsGeneratingIdentity(false);
     }
   };
 
-  const handleApplyProposedIdentity = () => {
-    if (!proposedIdentity) return;
-    setProductName(proposedIdentity.productName);
-    setTitle(proposedIdentity.title);
-    setBrand(proposedIdentity.brand);
-    if (proposedIdentity.internalModelId) setInternalModelId(proposedIdentity.internalModelId);
-    if (proposedIdentity.slug) setSlug(proposedIdentity.slug);
-    setShowIdentityModal(false);
+  const handleRestoreSuggestedName = () => {
+    if (suggestedIdentityRef.current) {
+      if (suggestedIdentityRef.current.productName) setProductName(suggestedIdentityRef.current.productName);
+      if (suggestedIdentityRef.current.title) setTitle(suggestedIdentityRef.current.title);
+      if (suggestedIdentityRef.current.brand) setBrand(suggestedIdentityRef.current.brand);
+      if (suggestedIdentityRef.current.manufacturerModel) setManufacturerModel(suggestedIdentityRef.current.manufacturerModel);
+      setHasUnsavedChanges(true);
+    }
+  };
+
+  const handleRegenerateDescription = async () => {
+    setIsRegeneratingDescription(true);
+    try {
+      const currentSlots = imageSlotsRef.current;
+      if (currentSlots.length > 0) {
+        const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
+        const res = await adminFetch("/api/admin/products/ai-identify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            photos: photosPayload,
+            namingStyle,
+            preliminaryBrand: brand || "DR.MEDEX"
+          })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.data?.description) {
+            setDescription(data.data.description);
+            setFullDescription(data.data.description);
+            setShortDescription(data.data.description.slice(0, 180));
+            setHasUnsavedChanges(true);
+            return;
+          }
+        }
+      }
+      const descText = `Engineered for rigorous healthcare and surgical environments, the ${productName || title || "DR.MEDEX medical device"} integrates high-durability medical-grade construction with refined operational ergonomics. Designed to meet exacting clinical workflow demands, it provides consistent operating reliability, streamlined maintenance protocols, and intuitive handling for clinical specialists.`;
+      setDescription(descText);
+      setFullDescription(descText);
+      setShortDescription(descText.slice(0, 180));
+      setHasUnsavedChanges(true);
+    } catch (err) {
+      console.warn("Description regeneration error:", err);
+    } finally {
+      setIsRegeneratingDescription(false);
+    }
+  };
+
+  const handleRegenerateIndications = async () => {
+    setIsRegeneratingIndications(true);
+    try {
+      const currentSlots = imageSlotsRef.current;
+      if (currentSlots.length > 0) {
+        const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
+        const res = await adminFetch("/api/admin/products/ai-identify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ photos: photosPayload })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          const indications = data.data?.clinicalIndications;
+          if (Array.isArray(indications) && indications.length > 0) {
+            setClinicalIndications(indications);
+            setHasUnsavedChanges(true);
+            return;
+          }
+        }
+      }
+      const defaultList = [
+        "Hospital Operating Theatres & Minor Surgical Suites",
+        "Specialised Outpatient Procedure Rooms",
+        "Critical Care & Trauma Resuscitation Units"
+      ];
+      setClinicalIndications(defaultList);
+      setHasUnsavedChanges(true);
+    } catch (err) {
+      console.warn("Indications regeneration error:", err);
+    } finally {
+      setIsRegeneratingIndications(false);
+    }
+  };
+
+  const handleRegenerateHighlights = async () => {
+    setIsRegeneratingHighlights(true);
+    try {
+      const currentSlots = imageSlotsRef.current;
+      if (currentSlots.length > 0) {
+        const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
+        const res = await adminFetch("/api/admin/products/ai-identify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ photos: photosPayload })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          const highlights = data.data?.engineeringHighlights;
+          if (Array.isArray(highlights) && highlights.length > 0) {
+            setEngineeringHighlights(highlights);
+            setHasUnsavedChanges(true);
+            return;
+          }
+        }
+      }
+      const defaultList = [
+        "Precision-engineered articulating suspension with smooth balanced counterbalance",
+        "Hospital-grade antimicrobial surface coating resistant to standard hospital disinfectants",
+        "Low heat dissipation architecture for enhanced practitioner comfort during extended procedures"
+      ];
+      setEngineeringHighlights(defaultList);
+      setHasUnsavedChanges(true);
+    } catch (err) {
+      console.warn("Highlights regeneration error:", err);
+    } finally {
+      setIsRegeneratingHighlights(false);
+    }
+  };
+
+  const handleRegeneratePackage = async () => {
+    setIsRegeneratingPackage(true);
+    try {
+      const currentSlots = imageSlotsRef.current;
+      if (currentSlots.length > 0) {
+        const photosPayload = await preparePhotosPayload(currentSlots.slice(0, 3));
+        const res = await adminFetch("/api/admin/products/ai-identify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ photos: photosPayload })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          const items = data.data?.packageItems;
+          if (Array.isArray(items) && items.length > 0) {
+            setPackageItems(items.map((it: any, idx: number) => ({
+              id: it.id || `pkg-${idx}-${Date.now()}`,
+              name: typeof it === "string" ? it : (it.name || it.item || ""),
+              type: (it.type?.toLowerCase() === "optional" || it.type?.toLowerCase() === "confirmation")
+                ? it.type.toLowerCase() as any
+                : "standard"
+            })));
+            setHasUnsavedChanges(true);
+            return;
+          }
+        }
+      }
+      const defaultItems: PackageItem[] = [
+        { id: "1", name: `${productName || "Core Medical Unit"} Main Body Assembly`, type: "standard" },
+        { id: "2", name: "Standard Mounting Hardware & Anchor Kit", type: "standard" },
+        { id: "3", name: "Comprehensive Clinical Operation Manual", type: "standard" },
+        { id: "4", name: "Extended Auxiliary Cable Harness", type: "optional" }
+      ];
+      setPackageItems(defaultItems);
+      setHasUnsavedChanges(true);
+    } catch (err) {
+      console.warn("Package regeneration error:", err);
+    } finally {
+      setIsRegeneratingPackage(false);
+    }
+  };
+
+  // Package Item Management Controls
+  const movePackageItem = (index: number, direction: "up" | "down") => {
+    const target = direction === "up" ? index - 1 : index + 1;
+    if (target < 0 || target >= packageItems.length) return;
+    const copy = [...packageItems];
+    const temp = copy[index];
+    copy[index] = copy[target];
+    copy[target] = temp;
+    setPackageItems(copy);
     setHasUnsavedChanges(true);
   };
 
+  const removePackageItem = (index: number) => {
+    setPackageItems(packageItems.filter((_, i) => i !== index));
+    setHasUnsavedChanges(true);
+  };
+
+  const addPackageItem = () => {
+    if (newPackageItemName.trim()) {
+      setPackageItems([
+        ...packageItems,
+        {
+          id: `pkg-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+          name: newPackageItemName.trim(),
+          type: newPackageItemType
+        }
+      ]);
+      setNewPackageItemName("");
+      setHasUnsavedChanges(true);
+    }
+  };
+
   // ==========================================
-  // SEVEN-STEP PROGRESS VALIDATION
+  // EIGHT-STEP PROGRESS VALIDATION
   // ==========================================
   const stepStatus = useMemo(() => {
     const isStep1Done = Boolean(images.length > 0);
     const isStep2Done = Boolean(category && subcategory && equipmentType);
     const isStep3Done = Boolean((productName.trim() || title.trim()) && sku.trim());
-    const isStep4Done = Boolean(basePrice > 0 && stock >= 0);
-    const isStep5Done = Boolean((shortDescription.trim() || fullDescription.trim()) && specList.length > 0);
-    const isStep6Done = Boolean(slug.trim() && metaTitle.trim());
-    const isStep7Done = Boolean(status);
+    const isStep4Done = Boolean(description.trim() || fullDescription.trim());
+    const isStep5Done = Boolean(powerSupply.trim() || qualityStandards.trim() || regulatoryStatus.trim() || warranty.trim());
+    const isStep6Done = Boolean(clinicalIndications.length > 0);
+    const isStep7Done = Boolean(engineeringHighlights.length > 0);
+    const isStep8Done = Boolean(packageItems.length > 0);
 
     return [
-      { id: 1, name: "Product Photos & AI", isDone: isStep1Done, anchor: "card-photos-ai" },
-      { id: 2, name: "Classification", isDone: isStep2Done, anchor: "card-classification" },
-      { id: 3, name: "Product Identity", isDone: isStep3Done, anchor: "card-product-identity" },
-      { id: 4, name: "Pricing & Inventory", isDone: isStep4Done, anchor: "card-pricing-inventory" },
-      { id: 5, name: "Description & Specs", isDone: isStep5Done, anchor: "card-description-specs" },
-      { id: 6, name: "Documentation & SEO", isDone: isStep6Done, anchor: "card-documentation-seo" },
-      { id: 7, name: "Publishing & Visibility", isDone: isStep7Done, anchor: "card-publishing-visibility" }
+      { id: 1, name: "Photos & AI", isDone: isStep1Done, anchor: "card-step-1" },
+      { id: 2, name: "Classification", isDone: isStep2Done, anchor: "card-step-2" },
+      { id: 3, name: "Identity & Naming", isDone: isStep3Done, anchor: "card-step-3" },
+      { id: 4, name: "Description", isDone: isStep4Done, anchor: "card-step-4" },
+      { id: 5, name: "Specifications", isDone: isStep5Done, anchor: "card-step-5" },
+      { id: 6, name: "Indications", isDone: isStep6Done, anchor: "card-step-6" },
+      { id: 7, name: "Highlights", isDone: isStep7Done, anchor: "card-step-7" },
+      { id: 8, name: "Package Contents", isDone: isStep8Done, anchor: "card-step-8" }
     ];
   }, [
     images.length,
@@ -1228,14 +1437,15 @@ export const AdminProductEditorPage: React.FC = () => {
     productName,
     title,
     sku,
-    basePrice,
-    stock,
-    shortDescription,
+    description,
     fullDescription,
-    specList.length,
-    slug,
-    metaTitle,
-    status
+    powerSupply,
+    qualityStandards,
+    regulatoryStatus,
+    warranty,
+    clinicalIndications.length,
+    engineeringHighlights.length,
+    packageItems.length
   ]);
 
   const scrollToAnchor = (anchor: string, stepId: number) => {
@@ -1276,7 +1486,6 @@ export const AdminProductEditorPage: React.FC = () => {
       return;
     }
 
-    // Wait for in-progress uploads if any are still actively uploading
     if (imageSlotsRef.current.some((s) => s.status === "uploading")) {
       setStatusBanner({
         type: "warning",
@@ -1313,6 +1522,11 @@ export const AdminProductEditorPage: React.FC = () => {
     setStatusBanner(null);
 
     const technicalSpecifications: Record<string, string> = {};
+    if (powerSupply.trim()) technicalSpecifications["Power Supply"] = powerSupply.trim();
+    if (qualityStandards.trim()) technicalSpecifications["Quality Standards"] = qualityStandards.trim();
+    if (regulatoryStatus.trim()) technicalSpecifications["Regulatory Status"] = regulatoryStatus.trim();
+    if (warranty.trim()) technicalSpecifications["Warranty"] = warranty.trim();
+
     specList.forEach((s) => {
       if (s.key.trim()) {
         const valWithUnit = s.unit ? `${s.value} ${s.unit}`.trim() : s.value;
@@ -1336,23 +1550,57 @@ export const AdminProductEditorPage: React.FC = () => {
       storageProvider: s.storageProvider || "cloudinary"
     }));
 
+    const mainDescription = description.trim() || fullDescription.trim();
+
     const payload = {
       productName: productName.trim(),
       title: (title || productName).trim(),
+      storefrontProductTitle: (title || productName).trim(),
       category,
       subcategory,
       equipmentType,
       modelNumber: manufacturerModel.trim() || undefined,
       internalModelId: internalModelId.trim() || undefined,
       sku: sku.trim(),
-      slug: (slug || title).trim().toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+      slug: (slug || title || productName).trim().toLowerCase().replace(/[^a-z0-9]+/g, "-"),
       brand: brand.trim(),
-      regulatoryClassification: regulatoryClass,
-      certificationStatus,
-      certificateNumber: certificateNumber.trim() || undefined,
-      issuingOrg: issuingOrg.trim() || undefined,
-      status,
+      namingStyle,
 
+      // Step 4: Description
+      shortDescription: shortDescription.trim() || mainDescription.slice(0, 180).trim(),
+      fullDescription: mainDescription,
+      description: mainDescription,
+      overview: mainDescription,
+
+      // Step 5: Technical Specifications
+      powerSupply: powerSupply.trim(),
+      powerRequirements: powerSupply.trim(),
+      qualityStandards: qualityStandards.trim(),
+      regulatoryStatus: regulatoryStatus.trim(),
+      regulatoryClassification: regulatoryStatus.trim() || regulatoryClass,
+      warranty: warranty.trim(),
+      technicalSpecifications,
+      specifications: technicalSpecifications,
+
+      // Step 6: Clinical Indications
+      clinicalIndications,
+      applications: clinicalIndications,
+
+      // Step 7: Key Factors & Engineering Highlights
+      engineeringHighlights,
+      features: engineeringHighlights,
+      keyFeatures: engineeringHighlights,
+
+      // Step 8: Standard Package Contents
+      packageItems: packageItems.map((p) => ({
+        id: p.id,
+        name: p.name,
+        item: p.name,
+        type: p.type.toUpperCase()
+      })),
+      packageContents: packageItems.map((p) => p.name),
+
+      // Pricing & Inventory
       basePrice: Number(basePrice),
       salePrice: Number(basePrice),
       regularPrice: Number(originalPrice || basePrice),
@@ -1366,34 +1614,30 @@ export const AdminProductEditorPage: React.FC = () => {
       stockStatus: stock <= 0 ? "OUT_OF_STOCK" : stock <= 5 ? "LOW_STOCK" : "IN_STOCK",
       moq: Number(minOrderQuantity),
       leadTimeWeeks,
+      shippingInformation,
 
       images: savedImages,
       galleryImages: savedImages,
       primaryImage: selectedPrimaryUrl,
       managedCloudinaryImages,
 
-      shortDescription: shortDescription.trim(),
-      fullDescription: fullDescription.trim(),
-      features: keyFeatures,
-      keyFeatures,
-      applications,
-      packageContents,
-      warranty,
-      shippingInformation,
-
-      technicalSpecifications,
-      specifications: technicalSpecifications,
-      certifications,
-      manualUrl: manualUrl.trim() || undefined,
-      datasheetUrl: datasheetUrl.trim() || undefined,
-
-      metaTitle: metaTitle.trim(),
-      metaDescription: metaDescription.trim(),
+      // Publishing & Status
+      status,
       featured: isFeatured,
       isFeatured,
       bestseller: isBestSeller,
       isBestSeller,
       categoryGridVisible,
+      metaTitle: metaTitle.trim() || (title || productName).trim(),
+      metaDescription: metaDescription.trim() || mainDescription.slice(0, 160).trim(),
+
+      // Legacy documentation fields
+      certificationStatus,
+      certificateNumber: certificateNumber.trim() || undefined,
+      issuingOrg: issuingOrg.trim() || undefined,
+      certifications,
+      manualUrl: manualUrl.trim() || undefined,
+      datasheetUrl: datasheetUrl.trim() || undefined,
 
       forceCreate: allowDuplicateOverride
     };
@@ -1448,20 +1692,18 @@ export const AdminProductEditorPage: React.FC = () => {
           }
         });
         return;
-      } else {
-        setStatusBanner({
-          type: "error",
-          text: data.message || `Failed to save product (HTTP ${res.status}). Form data has been preserved.`
-        });
-        window.scrollTo({ top: 0, behavior: "smooth" });
       }
-    } catch (err: any) {
-      console.error("Save error:", err);
+
       setStatusBanner({
         type: "error",
-        text: err?.message
-          ? `Failed to save product: ${err.message}. Your form changes have been preserved.`
-          : "Network error occurred while saving product. Your form data has been retained."
+        text: data.message || `Failed to save product (HTTP ${res.status}). All entered fields have been safely preserved.`
+      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (err: any) {
+      console.error("Save product network error:", err);
+      setStatusBanner({
+        type: "error",
+        text: `Network failure: ${err?.message || "Could not reach server"}. Your entered data is preserved locally.`
       });
       window.scrollTo({ top: 0, behavior: "smooth" });
     } finally {
@@ -1469,56 +1711,36 @@ export const AdminProductEditorPage: React.FC = () => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <AdminLayout title="Medical Equipment Editor" subtitle="Loading catalogue record...">
-        <div className="py-24 text-center space-y-4">
-          <RefreshCw size={28} className="animate-spin text-black mx-auto" />
-          <p className="text-xs font-mono text-neutral-500">Accessing central clinical inventory database...</p>
-        </div>
-      </AdminLayout>
-    );
-  }
-
   return (
     <AdminLayout
       title={isEditMode ? `Edit: ${productName || title || "Medical Equipment"}` : "Add New Medical Equipment"}
       subtitle={
         isEditMode
-          ? `SKU: ${sku || "—"} | Category: ${category} | Authoritative INR Base Pricing`
-          : "Systematic Catalogue Builder & Production-Ready Medical Equipment Management"
+          ? "Modify clinical specifications, pricing, imagery, and regulatory standards."
+          : "Enterprise 8-step medical equipment registration with Gemini AI auto-population."
       }
-      actions={
+    >
+      {/* Top action bar */}
+      <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <Link
+          to="/admin/products"
+          className="inline-flex items-center gap-2 text-xs font-bold text-neutral-600 hover:text-black transition-colors"
+        >
+          <ArrowLeft size={14} />
+          <span>Back to Products Catalogue</span>
+        </Link>
+
         <div className="flex items-center gap-3">
-          <Link
-            to="/admin/products"
-            className="flex items-center gap-1.5 px-3.5 py-2 border border-[#E5E5E5] rounded-lg text-xs font-semibold text-[#171717] bg-white hover:bg-[#F5F5F5] transition-colors"
-          >
-            <ArrowLeft size={14} />
-            <span>All Products</span>
-          </Link>
-
-          {/* Neutral AI Product Identification Action */}
-          <button
-            type="button"
-            onClick={() => scrollToAnchor("card-photos-ai", 1)}
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-[#D92D32] hover:bg-[#b82226] text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer"
-            title="Upload device photographs to automatically identify equipment and generate catalogue specifications"
-          >
-            <Sparkles size={14} />
-            <span>Smart Product Assistant</span>
-          </button>
-
           {isEditMode && slug && (
-            <Link
-              to={`/product/${slug}`}
+            <a
+              href={`/products/${slug}`}
               target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1.5 px-3.5 py-2 border border-[#E5E5E5] rounded-lg text-xs font-semibold text-[#171717] bg-white hover:bg-[#F5F5F5] transition-colors"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-[#E5E5E5] rounded-lg text-xs font-bold text-neutral-700 bg-white hover:bg-[#F5F5F5] transition-colors"
             >
-              <Eye size={14} />
-              <span>Preview</span>
-            </Link>
+              <Eye size={13} />
+              <span>View on Storefront</span>
+            </a>
           )}
 
           <button
@@ -1527,45 +1749,45 @@ export const AdminProductEditorPage: React.FC = () => {
             disabled={isSaving}
             className="flex items-center gap-2 px-6 py-2 bg-[#171717] hover:bg-black text-white rounded-lg text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer"
           >
-            {isSaving ? <RefreshCw size={14} className="animate-spin" /> : <Save size={14} />}
+            {isSaving ? <RefreshCw size={13} className="animate-spin" /> : <Save size={13} />}
             <span>{isSaving ? "Saving..." : isEditMode ? "Save Changes" : "Save Product"}</span>
           </button>
         </div>
-      }
-    >
-      {/* STATUS NOTIFICATION BANNER */}
+      </div>
+
+      {/* Global Status Banner */}
       {statusBanner && (
         <div
-          className={`mb-6 p-4 rounded-xl border text-xs font-semibold flex items-center justify-between ${
-            statusBanner.type === "success"
-              ? "bg-emerald-50 border-[#16803D] text-[#16803D]"
-              : "bg-red-50 border-[#D92D32] text-[#D92D32]"
+          className={`mb-6 p-4 rounded-xl border flex items-start justify-between gap-3 ${
+            statusBanner.type === "error"
+              ? "bg-red-50 border-[#D92D32] text-[#D92D32]"
+              : statusBanner.type === "warning"
+              ? "bg-amber-50 border-amber-300 text-amber-900"
+              : "bg-emerald-50 border-emerald-300 text-[#16803D]"
           }`}
         >
-          <div className="flex items-center gap-2.5">
-            {statusBanner.type === "success" ? (
-              <CheckCircle2 size={16} className="text-[#16803D] shrink-0" />
-            ) : (
-              <AlertCircle size={16} className="text-[#D92D32] shrink-0" />
-            )}
-            <span>{statusBanner.text}</span>
+          <div className="flex items-start gap-2.5">
+            <AlertCircle size={16} className="mt-0.5 shrink-0" />
+            <p className="text-xs font-semibold leading-relaxed">{statusBanner.text}</p>
           </div>
-          <button type="button" onClick={() => setStatusBanner(null)} className="text-neutral-500 hover:text-black">
-            ✕
+          <button
+            type="button"
+            onClick={() => setStatusBanner(null)}
+            className="text-xs font-bold hover:underline cursor-pointer"
+          >
+            Dismiss
           </button>
         </div>
       )}
 
-      {/* DUPLICATE PRODUCT WARNING BANNER */}
+      {/* Duplicate Product Detection Banner */}
       {duplicateInfo.isDuplicate && duplicateInfo.duplicateProduct && (
-        <div className="mb-6 p-4 rounded-xl border-2 border-[#D92D32] bg-rose-50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="mb-6 p-4 rounded-xl border border-amber-300 bg-amber-50/80 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-2xs">
           <div className="flex items-start gap-3">
-            <div className="w-8 h-8 rounded-lg bg-[#D92D32] text-white flex items-center justify-center shrink-0 mt-0.5">
-              <AlertCircle size={18} />
-            </div>
+            <AlertTriangle size={18} className="text-amber-600 mt-0.5 shrink-0" />
             <div>
-              <h4 className="text-xs font-bold text-[#171717]">
-                A matching product already exists in this category.
+              <h4 className="text-xs font-bold text-amber-900">
+                Potential Duplicate Product Detected in Category
               </h4>
               <p className="text-xs text-neutral-600 mt-0.5">
                 Existing item: <strong className="text-black">{duplicateInfo.duplicateProduct.title}</strong> (SKU: {duplicateInfo.duplicateProduct.sku})
@@ -1595,9 +1817,9 @@ export const AdminProductEditorPage: React.FC = () => {
       )}
 
       {/* ============================================================ */}
-      {/* 2. COMPACT HORIZONTAL SEVEN-STEP PROGRESS TRACKER            */}
+      {/* COMPACT HORIZONTAL EIGHT-STEP PROGRESS TRACKER               */}
       {/* ============================================================ */}
-      <div className="mb-8 bg-white border border-[#E5E5E5] rounded-xl p-4 shadow-2xs">
+      <div className="mb-8 bg-white border border-[#E5E7EB] rounded-2xl p-4 shadow-2xs">
         <div className="flex items-center justify-between overflow-x-auto pb-1 scrollbar-none gap-4">
           {stepStatus.map((step, idx) => {
             const isActive = activeStep === step.id;
@@ -1607,7 +1829,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 type="button"
                 onClick={() => scrollToAnchor(step.anchor, step.id)}
                 className={`flex items-center gap-2.5 text-left shrink-0 transition-all cursor-pointer group ${
-                  isActive ? "opacity-100" : "opacity-80 hover:opacity-100"
+                  isActive ? "opacity-100" : "opacity-75 hover:opacity-100"
                 }`}
               >
                 <div
@@ -1616,7 +1838,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       ? "bg-[#16803D] text-white"
                       : isActive
                       ? "bg-[#F2C230] text-[#171717] ring-2 ring-[#F2C230]/40"
-                      : "border border-[#E5E5E5] text-neutral-400 bg-white"
+                      : "border border-[#E5E7EB] text-neutral-400 bg-white"
                   }`}
                 >
                   {step.isDone ? <Check size={14} strokeWidth={3} /> : step.id}
@@ -1630,13 +1852,13 @@ export const AdminProductEditorPage: React.FC = () => {
                   >
                     {step.name}
                   </span>
-                  <span className="text-[10px] text-neutral-400">
-                    {step.isDone ? "Completed" : isActive ? "Current" : "Upcoming"}
+                  <span className="text-[10px] text-neutral-400 font-medium">
+                    {step.isDone ? "Completed" : isActive ? "Current" : `Step ${step.id}`}
                   </span>
                 </div>
 
                 {idx < stepStatus.length - 1 && (
-                  <div className="hidden lg:block w-6 h-px bg-[#E5E5E5] ml-2" />
+                  <div className="hidden xl:block w-4 h-px bg-[#E5E7EB] ml-2" />
                 )}
               </button>
             );
@@ -1645,7 +1867,7 @@ export const AdminProductEditorPage: React.FC = () => {
       </div>
 
       {/* ============================================================ */}
-      {/* 3. ENTERPRISE SEVEN-STEP PRODUCT EDITOR FORM                 */}
+      {/* 8-STEP ENTERPRISE FORM WORKSPACE                             */}
       {/* ============================================================ */}
       <form
         onSubmit={(e) => {
@@ -1679,21 +1901,21 @@ export const AdminProductEditorPage: React.FC = () => {
         />
 
         {/* ============================================================ */}
-        {/* STEP 1: PRODUCT PHOTOS & AI IDENTIFICATION WORKSPACE          */}
+        {/* STEP 1: PRODUCT PHOTOS & AI IMAGE ANALYSIS (FULL WIDTH)       */}
         {/* ============================================================ */}
-        <div id="card-photos-ai" className="bg-white rounded-2xl border border-[#E5E5E5] p-6 space-y-5 shadow-2xs">
-          <div className="border-b border-[#E5E5E5] pb-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div id="card-step-1" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-5 shadow-2xs">
+          <div className="border-b border-[#E5E7EB] pb-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  Step 1 • Starting Workspace
+                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                  Step 1 • Full Width
                 </span>
-                <span className="text-[10px] font-mono font-bold uppercase text-neutral-600 bg-neutral-100 px-2 py-0.5 rounded border border-neutral-200">
-                  Product Photos
+                <span className="text-[10px] font-mono font-bold uppercase text-neutral-600 bg-neutral-100 px-2.5 py-0.5 rounded-full border border-neutral-200">
+                  Photos & AI Vision
                 </span>
               </div>
-              <h3 className="text-base font-bold text-[#171717] mt-1">
-                Product Photographs
+              <h3 className="text-base font-bold text-[#171717] mt-1.5">
+                Product Photos & AI Image Analysis
               </h3>
               <p className="text-xs text-neutral-500 mt-0.5">
                 Upload 1 to 5 device photographs (overall machine, front/back, control panel, nameplate, labels, accessories).
@@ -1710,15 +1932,15 @@ export const AdminProductEditorPage: React.FC = () => {
             onDragLeave={() => setIsDragging(false)}
             onDrop={handleDrop}
             onClick={() => fileInputRef.current?.click()}
-            className={`border-2 border-dashed rounded-xl p-6 text-center transition-all cursor-pointer ${
+            className={`border-2 border-dashed rounded-2xl p-6 text-center transition-all cursor-pointer ${
               isDragging
                 ? "border-[#F2C230] bg-[#F2C230]/10"
                 : imageSlots.length >= 5
                 ? "border-neutral-200 bg-neutral-50/60 opacity-70 cursor-not-allowed"
-                : "border-neutral-300 bg-[#F5F5F5]/60 hover:bg-yellow-50/20 hover:border-[#F2C230]"
+                : "border-neutral-300 bg-[#F8F9FA] hover:bg-yellow-50/20 hover:border-[#F2C230]"
             }`}
           >
-            <div className="w-12 h-12 rounded-full bg-white shadow-xs mx-auto flex items-center justify-center text-neutral-700 mb-2 border border-[#E5E5E5]">
+            <div className="w-12 h-12 rounded-full bg-white shadow-xs mx-auto flex items-center justify-center text-neutral-700 mb-2 border border-[#E5E7EB]">
               <Upload size={20} className="text-[#171717]" />
             </div>
             <h4 className="text-xs font-bold text-[#171717]">
@@ -1727,22 +1949,22 @@ export const AdminProductEditorPage: React.FC = () => {
                 : "Drag & drop product photographs here, or click to browse files"}
             </h4>
             <p className="text-[11px] text-neutral-500 mt-1">
-              Supports 1 to 5 photographs in one operation (JPEG, PNG, WebP up to 10MB each).
+              Supports 1 to 5 photographs (JPEG, PNG, WebP up to 10MB each).
             </p>
-            <div className="mt-2.5 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-white border border-[#E5E5E5] text-neutral-700">
-              <Camera size={11} />
+            <div className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-white border border-[#E5E7EB] text-neutral-700">
+              <Camera size={12} />
               <span>{imageSlots.length} of 5 photographs selected</span>
             </div>
           </div>
 
           {/* Upload Progress Bar */}
           {isUploadingImage && uploadProgress && (
-            <div className="p-3 bg-neutral-50 rounded-lg border border-[#E5E5E5] space-y-1.5">
+            <div className="p-3 bg-neutral-50 rounded-xl border border-[#E5E7EB] space-y-1.5">
               <div className="flex items-center justify-between text-xs font-bold text-[#171717]">
                 <span>Uploading device photographs to media store...</span>
                 <span>{uploadProgress.current} / {uploadProgress.total}</span>
               </div>
-              <div className="w-full bg-[#E5E5E5] rounded-full h-2 overflow-hidden">
+              <div className="w-full bg-[#E5E7EB] rounded-full h-2 overflow-hidden">
                 <div
                   className="bg-[#16803D] h-full transition-all duration-300"
                   style={{ width: `${(uploadProgress.current / uploadProgress.total) * 100}%` }}
@@ -1753,7 +1975,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
           {/* Upload / Validation Errors */}
           {uploadError && (
-            <div className="p-3 bg-red-50 text-[#D92D32] rounded-lg border border-[#D92D32] text-xs flex items-center justify-between">
+            <div className="p-3 bg-red-50 text-[#D92D32] rounded-xl border border-[#D92D32] text-xs flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <AlertCircle size={15} />
                 <span>{uploadError}</span>
@@ -1768,9 +1990,9 @@ export const AdminProductEditorPage: React.FC = () => {
             </div>
           )}
 
-          {/* Selected Product Images Grid (5 slots) */}
+          {/* Selected Product Images Grid (Thumbnails directly inside image section) */}
           {imageSlots.length > 0 && (
-            <div className="space-y-2 pt-1">
+            <div className="space-y-2.5 pt-1">
               <div className="flex items-center justify-between text-xs font-bold text-[#171717]">
                 <span>Loaded Photographs ({imageSlots.length} of 5)</span>
                 <span className="text-[11px] text-neutral-400 font-normal">
@@ -1789,11 +2011,11 @@ export const AdminProductEditorPage: React.FC = () => {
                           ? "border-red-300 bg-red-50/20"
                           : isPrimary
                           ? "border-[#F2C230] ring-2 ring-[#F2C230]/50"
-                          : "border-[#E5E5E5]"
+                          : "border-[#E5E7EB]"
                       }`}
                     >
-                      {/* Image Preview Box */}
-                      <div className="w-full aspect-square rounded-lg bg-[#F5F5F5] overflow-hidden flex items-center justify-center mb-2 relative">
+                      {/* Image Preview Box preserving aspect ratio */}
+                      <div className="w-full aspect-square rounded-lg bg-[#F8F9FA] overflow-hidden flex items-center justify-center mb-2 relative">
                         {slot.hasLoadError ? (
                           <div className="w-full h-full flex flex-col items-center justify-center p-2 text-center bg-neutral-100">
                             <ImageOff size={22} className="text-neutral-400 mb-1" />
@@ -1831,7 +2053,7 @@ export const AdminProductEditorPage: React.FC = () => {
                         #{idx + 1}
                       </span>
 
-                      {/* Failure message & retry button if slot upload failed */}
+                      {/* Failure message & retry button */}
                       {slot.status === "failed" && (
                         <div className="w-full mb-1.5 p-1 bg-red-100 text-red-800 rounded text-[9px] text-center">
                           <p className="truncate font-medium">{slot.errorMessage || "Upload failed"}</p>
@@ -1848,7 +2070,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       )}
 
                       {/* Controls Row */}
-                      <div className="w-full flex items-center justify-between text-xs pt-1 border-t border-[#E5E5E5]">
+                      <div className="w-full flex items-center justify-between text-xs pt-1 border-t border-[#E5E7EB]">
                         <div className="flex items-center gap-0.5">
                           <button
                             type="button"
@@ -1915,19 +2137,22 @@ export const AdminProductEditorPage: React.FC = () => {
           )}
 
           {/* ============================================================ */}
-          {/* OPTIONAL AI PRODUCT ANALYSIS PANEL (USER-INITIATED ONLY)    */}
+          {/* OPTIONAL RED-ACCENTED RUN AI ANALYSIS BUTTON (STEP 1 FOOTER) */}
           {/* ============================================================ */}
-          <div className="rounded-xl border border-neutral-200 bg-neutral-50/60 p-4 space-y-3">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div className="rounded-2xl border border-[#E5E7EB] bg-[#F8F9FA] p-4 space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="space-y-0.5">
-                <div className="flex items-center gap-1.5">
-                  <Sparkles size={14} className="text-[#D92D32]" />
+                <div className="flex items-center gap-2">
+                  <Sparkles size={15} className="text-[#D92D32]" />
                   <h4 className="text-xs font-bold text-[#171717]">
-                    AI Product Analysis (Optional)
+                    Gemini AI Vision Assistant (Optional)
                   </h4>
+                  <span className="text-[10px] font-mono px-2 py-0.5 bg-neutral-200/60 rounded text-neutral-600 font-bold">
+                    Steps 2–8 Auto-Fill
+                  </span>
                 </div>
                 <p className="text-[11px] text-neutral-500">
-                  Use AI to analyze the selected product photos and suggest product details. You can also upload photos and edit every field manually without AI.
+                  Analyzes uploaded medical photos to extract structured clinical classifications, specs, indications, and package contents.
                 </p>
               </div>
 
@@ -1935,241 +2160,132 @@ export const AdminProductEditorPage: React.FC = () => {
                 type="button"
                 onClick={() => triggerAiIdentification()}
                 disabled={isAiIdentifying || imageSlots.length === 0}
-                className="flex items-center gap-2 px-3.5 py-1.5 bg-[#D92D32] hover:bg-[#b82226] disabled:opacity-50 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer shrink-0"
-                title={
-                  imageSlots.length === 0
-                    ? "Upload at least one photograph to run optional AI analysis"
-                    : "Run optional AI identification on uploaded photos"
-                }
+                className="flex items-center gap-2 px-4 py-2 bg-[#D92D32] hover:bg-[#b82226] disabled:opacity-50 text-white rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer shrink-0"
               >
                 {isAiIdentifying ? <RefreshCw size={13} className="animate-spin" /> : <Sparkles size={13} />}
                 <span>
-                  {isAiIdentifying
-                    ? "Analyzing Device..."
-                    : `Run AI Analysis (Optional)`}
+                  {isAiIdentifying ? "Analyzing Photographs..." : "Run AI Analysis (Optional)"}
                 </span>
               </button>
             </div>
 
-            {/* AI In-Progress Sequence Indicator */}
+            {/* AI Status / Phase Tracker */}
             {isAiIdentifying && (
-              <div className="p-3 rounded-lg bg-amber-50/70 border border-[#F2C230] space-y-2 text-xs">
-                <div className="flex items-center justify-between font-bold text-[#171717]">
+              <div className="p-3 bg-white rounded-xl border border-[#E5E7EB] space-y-2">
+                <div className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2">
-                    <RefreshCw size={13} className="animate-spin text-[#171717]" />
-                    <span>Analyzing photographs with Smart Product Assistant...</span>
+                    <RefreshCw size={13} className="animate-spin text-[#D92D32]" />
+                    <span className="font-bold text-[#171717]">
+                      {aiIdentifyPhase === "reading_photos" && "Phase 1: Reading uploaded device photographs..."}
+                      {aiIdentifyPhase === "identifying_equipment" && "Phase 2: Identifying device architecture & clinical modality..."}
+                      {aiIdentifyPhase === "matching_categories" && "Phase 3: Matching DR.MEDEX taxonomy hierarchy..."}
+                      {aiIdentifyPhase === "generating_content" && "Phase 4: Synthesizing specifications, indications & highlights..."}
+                      {aiIdentifyPhase === "preparing_fields" && "Phase 5: Mapping structured JSON to form fields..."}
+                    </span>
                   </div>
-                  <span className="text-[10px] font-mono text-neutral-600 bg-white px-2 py-0.5 rounded border border-neutral-200">
-                    Gemini Vision
-                  </span>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5 text-[9px] font-mono">
-                  {[
-                    { id: "reading_photos", label: "1. Reading Photos" },
-                    { id: "identifying_equipment", label: "2. Identifying Device" },
-                    { id: "matching_categories", label: "3. Matching Taxonomy" },
-                    { id: "generating_content", label: "4. Generating Content" },
-                    { id: "preparing_fields", label: "5. Preparing Fields" }
-                  ].map((ph) => {
-                    const isCurrent = aiIdentifyPhase === ph.id;
-                    return (
-                      <div
-                        key={ph.id}
-                        className={`p-1.5 rounded border text-center transition-all ${
-                          isCurrent
-                            ? "bg-[#F2C230] border-[#F2C230] font-bold text-black ring-1 ring-[#F2C230]/40 animate-pulse"
-                            : "bg-white border-[#E5E5E5] text-neutral-500"
-                        }`}
-                      >
-                        {ph.label}
-                      </div>
-                    );
-                  })}
+                <div className="grid grid-cols-4 gap-1.5 text-[10px] font-mono">
+                  <div className={`p-1 text-center rounded ${aiIdentifyPhase !== "idle" ? "bg-amber-100 text-amber-900 font-bold" : "bg-neutral-100 text-neutral-400"}`}>1. Photos</div>
+                  <div className={`p-1 text-center rounded ${aiIdentifyPhase === "identifying_equipment" || aiIdentifyPhase === "matching_categories" || aiIdentifyPhase === "generating_content" || aiIdentifyPhase === "preparing_fields" ? "bg-amber-100 text-amber-900 font-bold" : "bg-neutral-100 text-neutral-400"}`}>2. Vision</div>
+                  <div className={`p-1 text-center rounded ${aiIdentifyPhase === "generating_content" || aiIdentifyPhase === "preparing_fields" ? "bg-amber-100 text-amber-900 font-bold" : "bg-neutral-100 text-neutral-400"}`}>3. Specs</div>
+                  <div className={`p-1 text-center rounded ${aiIdentifyPhase === "preparing_fields" ? "bg-emerald-100 text-[#16803D] font-bold" : "bg-neutral-100 text-neutral-400"}`}>4. Map Form</div>
                 </div>
               </div>
             )}
 
-            {/* In-Panel Non-Blocking AI Diagnostics / Errors */}
-            {aiIdentifyError && !isAiIdentifying && (
-              <div className="p-3 rounded-lg bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start justify-between gap-2">
+            {/* Error Banner */}
+            {aiIdentifyError && (
+              <div className="p-3 rounded-xl bg-red-50 border border-[#D92D32] text-xs text-[#D92D32] flex items-start justify-between gap-2">
                 <div className="flex items-start gap-2">
-                  <AlertCircle size={15} className="shrink-0 text-amber-700 mt-0.5" />
-                  <div className="space-y-0.5">
-                    <span className="font-semibold block">{aiIdentifyError}</span>
-                    <span className="text-[10px] text-amber-700 block">
-                      Manual editing and photo uploads remain fully operational.
-                    </span>
-                  </div>
+                  <AlertCircle size={15} className="mt-0.5 shrink-0" />
+                  <span className="leading-relaxed">{aiIdentifyError}</span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setAiIdentifyError(null)}
-                  className="text-xs font-bold text-amber-800 hover:underline shrink-0"
+                  className="font-bold hover:underline cursor-pointer shrink-0"
                 >
                   Dismiss
                 </button>
               </div>
             )}
 
-            {/* Applied Confirmation Banner */}
-            {aiAppliedNotification && (
-              <div className="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={14} className="text-emerald-600" />
-                  <span>AI suggestions applied to form fields below. Review and click "Save Changes" to persist.</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setAiAppliedNotification(false)}
-                  className="text-xs font-bold text-emerald-700 hover:underline"
-                >
-                  Dismiss
-                </button>
-              </div>
-            )}
-
-            {/* AI Analysis Completion Report Card (Review before applying) */}
-            {aiIdentifyResult && !isAiIdentifying && (
-              <div className="p-3.5 rounded-lg bg-white border border-[#E5E5E5] space-y-3 shadow-2xs">
-                <div className="flex items-center justify-between flex-wrap gap-2">
+            {/* AI Results Notification Banner */}
+            {aiAppliedNotification && aiIdentifyResult && (
+              <div className="p-3.5 bg-emerald-50/70 border border-emerald-300 rounded-xl space-y-2">
+                <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#16803D]" />
-                    <span className="text-xs font-bold text-[#171717]">
-                      AI Suggestions Applied: {aiIdentifyResult.productName || aiIdentifyResult.equipmentType}
+                    <CheckCircle2 size={16} className="text-[#16803D]" />
+                    <span className="text-xs font-bold text-emerald-950">
+                      AI Analysis Complete • Fields Successfully Auto-Populated across Steps 2–8
                     </span>
-                    {aiPopulatedFields.size > 0 && (
-                      <span className="text-[10px] px-2 py-0.5 rounded-full font-mono bg-emerald-100 text-[#16803D] font-bold">
-                        {aiPopulatedFields.size} fields auto-populated
-                      </span>
-                    )}
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`text-[10px] px-2 py-0.5 rounded-full font-bold flex items-center gap-1 ${
-                        aiIdentifyResult.confidence === "HIGH"
-                          ? "bg-emerald-100 text-[#16803D]"
-                          : aiIdentifyResult.confidence === "MEDIUM"
-                          ? "bg-amber-100 text-amber-800"
-                          : "bg-red-100 text-[#D92D32]"
-                      }`}
-                    >
-                      {aiIdentifyResult.confidence === "HIGH" ? (
-                        <CheckCircle2 size={11} />
-                      ) : (
-                        <AlertTriangle size={11} />
-                      )}
-                      <span>{aiIdentifyResult.confidence} Confidence</span>
-                    </span>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        applyAiResultsToForm(aiIdentifyResult);
-                        setAiAppliedNotification(true);
-                      }}
-                      className="px-3 py-1 bg-[#16803D] hover:bg-[#126430] text-white text-xs font-bold rounded shadow-xs cursor-pointer flex items-center gap-1.5"
-                    >
-                      <Check size={12} />
-                      <span>Re-apply AI Suggestions</span>
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setAiAppliedNotification(false)}
+                    className="text-xs font-bold text-emerald-800 hover:underline cursor-pointer"
+                  >
+                    Dismiss
+                  </button>
                 </div>
 
-                {/* Selling Price / Manual Input Reminder */}
                 <div className="p-2 rounded bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-center gap-2">
                   <AlertCircle size={14} className="shrink-0 text-amber-600" />
                   <span>
-                    Selling Price (₹) requires manual confirmation in Step 4. All generated details remain 100% editable before saving.
+                    Pricing requires manual confirmation in Commercial Terms. All generated details remain 100% editable before saving.
                   </span>
                 </div>
-
-                {/* Matched Taxonomy Summary */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[10px] font-mono bg-neutral-50 p-2 rounded border border-[#E5E5E5]">
-                  <div>
-                    <span className="text-neutral-400 block text-[9px] uppercase">Matched Category:</span>
-                    <span className="font-semibold text-neutral-800">{aiIdentifyResult.primaryCategory}</span>
-                  </div>
-                  <div>
-                    <span className="text-neutral-400 block text-[9px] uppercase">Matched Subcategory:</span>
-                    <span className="font-semibold text-neutral-800">{aiIdentifyResult.subcategory}</span>
-                  </div>
-                  <div>
-                    <span className="text-neutral-400 block text-[9px] uppercase">Equipment Type:</span>
-                    <span className="font-semibold text-neutral-800">{aiIdentifyResult.equipmentType}</span>
-                  </div>
-                </div>
-
-                {/* Fields Needing Verification */}
-                {Array.isArray(aiIdentifyResult.fieldsNeedingVerification) && aiIdentifyResult.fieldsNeedingVerification.length > 0 && (
-                  <div className="p-2 rounded bg-neutral-50 border border-[#E5E5E5] text-[11px] space-y-1">
-                    <span className="font-bold text-neutral-700 block text-[9px] uppercase font-mono">
-                      Specs Requiring Physical Rating Plate Check:
-                    </span>
-                    <div className="flex flex-wrap gap-1">
-                      {aiIdentifyResult.fieldsNeedingVerification.map((f: string, i: number) => (
-                        <span key={i} className="px-1.5 py-0.5 bg-neutral-200 text-neutral-800 rounded text-[10px] font-mono">
-                          {f}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Grounded Visual Evidence */}
-                {aiIdentifyResult.evidenceFromImages && (
-                  <div className="text-[11px] text-neutral-600 bg-neutral-50 p-2 rounded border border-[#E5E5E5]">
-                    <span className="font-bold text-neutral-800 block text-[9px] uppercase font-mono mb-0.5">
-                      Visual Evidence Observed:
-                    </span>
-                    {aiIdentifyResult.evidenceFromImages}
-                  </div>
-                )}
               </div>
             )}
           </div>
 
-          {/* Add via direct URL */}
-          <div className="pt-2 flex items-center gap-2">
+          {/* Direct URL input fallback */}
+          <div className="pt-1 flex items-center gap-2">
             <input
               type="url"
               value={imageUrlInput}
               onChange={(e) => setImageUrlInput(e.target.value)}
-              placeholder="Or paste image URL (https://...)..."
-              className="flex-1 px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs"
+              placeholder="Or paste direct image URL (https://...)..."
+              className="flex-1 px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs"
             />
             <button
               type="button"
               onClick={handleAddImageUrl}
-              className="px-4 py-2 bg-white border border-[#E5E5E5] hover:bg-[#F5F5F5] text-[#171717] rounded-lg text-xs font-bold cursor-pointer"
+              className="px-4 py-2 bg-white border border-[#E5E7EB] hover:bg-[#F8F9FA] text-[#171717] rounded-xl text-xs font-bold cursor-pointer"
             >
               Add URL
             </button>
           </div>
         </div>
 
-        {/* 2-COLUMN LAYOUT FOR PRODUCT EDITING */}
+        {/* ============================================================ */}
+        {/* RESPONSIVE TWO-COLUMN GRID FOR STEPS 2–8 & PRICING           */}
+        {/* ============================================================ */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+
           {/* ========================================================== */}
           {/* STEP 2: PRODUCT CLASSIFICATION                             */}
           {/* ========================================================== */}
-          <div id="card-classification" className="bg-white rounded-xl border border-[#E5E5E5] p-5 space-y-4 shadow-2xs">
-            <div className="border-b border-[#E5E5E5] pb-3 flex items-center justify-between">
+          <div id="card-step-2" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
+            <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
               <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D]">Step 2</span>
-                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider">
+                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  Step 2
+                </span>
+                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
                   Product Classification
                 </h3>
               </div>
-              <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[#F5F5F5] text-neutral-600 border border-[#E5E5E5]">
-                Hierarchy L1–L3
+              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#F8F9FA] text-neutral-600 border border-[#E5E7EB]">
+                L1–L3 Hierarchy
               </span>
             </div>
 
-            <div className="space-y-3.5">
+            <div className="space-y-4">
               {/* Primary Category */}
               <div>
                 <label className="block text-xs font-bold text-[#171717] mb-1">
-                  1. Primary Category <span className="text-rose-500">*</span>
+                  Primary Category <span className="text-rose-500">*</span>
                 </label>
                 <select
                   value={category}
@@ -2184,7 +2300,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     }
                     setHasUnsavedChanges(true);
                   }}
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E5E5] rounded-lg text-xs font-medium text-[#171717] focus:outline-none focus:border-[#F2C230] cursor-pointer"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#171717] focus:outline-none focus:border-[#F2C230] cursor-pointer"
                 >
                   {allCategories.map((c) => {
                     const isInactive = c.status === "INACTIVE" || c.active === false;
@@ -2200,7 +2316,7 @@ export const AdminProductEditorPage: React.FC = () => {
               {/* Subcategory */}
               <div>
                 <label className="block text-xs font-bold text-[#171717] mb-1">
-                  2. Subcategory <span className="text-rose-500">*</span>
+                  Subcategory <span className="text-rose-500">*</span>
                 </label>
                 <select
                   value={subcategory}
@@ -2212,7 +2328,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     markFieldEdited("subcategory");
                     setHasUnsavedChanges(true);
                   }}
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E5E5] rounded-lg text-xs font-medium text-[#171717] focus:outline-none focus:border-[#F2C230] disabled:opacity-50 disabled:bg-[#F5F5F5] cursor-pointer"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#171717] focus:outline-none focus:border-[#F2C230] disabled:opacity-50 disabled:bg-[#F8F9FA] cursor-pointer"
                 >
                   <option value="">— Select Subcategory —</option>
                   {availableSubcategories.map((s: any) => (
@@ -2223,10 +2339,10 @@ export const AdminProductEditorPage: React.FC = () => {
                 </select>
               </div>
 
-              {/* Equipment Type */}
+              {/* Verified Equipment Type */}
               <div>
                 <label className="block text-xs font-bold text-[#171717] mb-1">
-                  3. Verified Equipment Type <span className="text-rose-500">*</span>
+                  Verified Equipment Type <span className="text-rose-500">*</span>
                 </label>
                 <select
                   value={equipmentType}
@@ -2237,7 +2353,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     markFieldEdited("equipmentType");
                     setHasUnsavedChanges(true);
                   }}
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E5E5] rounded-lg text-xs font-medium text-[#171717] focus:outline-none focus:border-[#F2C230] disabled:opacity-50 disabled:bg-[#F5F5F5] cursor-pointer"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#171717] focus:outline-none focus:border-[#F2C230] disabled:opacity-50 disabled:bg-[#F8F9FA] cursor-pointer"
                 >
                   <option value="">— Select Equipment Type —</option>
                   {availableEquipmentTypes.map((eq: any) => (
@@ -2247,35 +2363,83 @@ export const AdminProductEditorPage: React.FC = () => {
                   ))}
                 </select>
                 <p className="text-[11px] text-neutral-500 mt-1.5">
-                  Filtered based on DR.MEDEX catalogue taxonomy.
+                  Filtered based on verified DR.MEDEX catalogue taxonomy.
                 </p>
               </div>
             </div>
           </div>
 
           {/* ========================================================== */}
-          {/* STEP 3: PRODUCT IDENTITY                                   */}
+          {/* STEP 3: PRODUCT IDENTITY AND NAMING                        */}
           {/* ========================================================== */}
-          <div id="card-product-identity" className="bg-white rounded-xl border border-[#E5E5E5] p-5 space-y-4 shadow-2xs">
-            <div className="border-b border-[#E5E5E5] pb-3 flex items-center justify-between">
+          <div id="card-step-3" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
+            <div className="border-b border-[#E5E7EB] pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D]">Step 3</span>
-                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider">
-                  Product Identity
+                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  Step 3
+                </span>
+                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
+                  Product Identity & Naming
                 </h3>
               </div>
-              <button
-                type="button"
-                onClick={handleRegenerateSuggestions}
-                disabled={isGeneratingIdentity}
-                className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
-              >
-                {isGeneratingIdentity ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
-                <span>Regenerate Suggestions</span>
-              </button>
+
+              {/* Action Controls: Restore & Regenerate */}
+              <div className="flex items-center gap-2">
+                {suggestedIdentityRef.current && (
+                  <button
+                    type="button"
+                    onClick={handleRestoreSuggestedName}
+                    title="Restore original AI suggested name"
+                    className="flex items-center gap-1 px-2.5 py-1 border border-[#E5E7EB] bg-white hover:bg-[#F8F9FA] text-[#171717] rounded-lg text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    <RotateCcw size={11} />
+                    <span>Restore</span>
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => handleRegenerateName(namingStyle)}
+                  disabled={isGeneratingIdentity}
+                  className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
+                >
+                  {isGeneratingIdentity ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
+                  <span>Regenerate Name</span>
+                </button>
+              </div>
             </div>
 
-            <div className="space-y-3">
+            {/* Choose Naming Style Selector */}
+            <div className="p-3 bg-[#F8F9FA] rounded-xl border border-[#E5E7EB] space-y-1.5">
+              <label className="block text-[11px] font-bold text-neutral-600 uppercase tracking-wide">
+                Choose Naming Style:
+              </label>
+              <div className="grid grid-cols-3 gap-2">
+                {[
+                  { id: "clinical", label: "Professional / Clinical" },
+                  { id: "technical", label: "Technical / Model" },
+                  { id: "catalog", label: "Short / Catalog" }
+                ].map((s) => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => {
+                      setNamingStyle(s.id as any);
+                      handleRegenerateName(s.id as any);
+                    }}
+                    className={`py-1.5 px-2 rounded-lg text-xs font-bold transition-all text-center cursor-pointer ${
+                      namingStyle === s.id
+                        ? "bg-[#171717] text-white shadow-xs"
+                        : "bg-white border border-[#E5E7EB] text-neutral-700 hover:bg-neutral-100"
+                    }`}
+                  >
+                    {s.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-3.5">
+              {/* Product Name */}
               <div>
                 <label className="block text-xs font-bold text-[#171717] mb-1">
                   Product Name <span className="text-rose-500">*</span>
@@ -2289,10 +2453,11 @@ export const AdminProductEditorPage: React.FC = () => {
                     setHasUnsavedChanges(true);
                   }}
                   placeholder="e.g. DR.MEDEX Ceiling-Mounted Double Dome LED OT Light – LED 80"
-                  className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
                 />
               </div>
 
+              {/* Storefront Product Title */}
               <div>
                 <label className="block text-xs font-bold text-[#171717] mb-1">
                   Storefront Product Title <span className="text-rose-500">*</span>
@@ -2306,10 +2471,11 @@ export const AdminProductEditorPage: React.FC = () => {
                     setHasUnsavedChanges(true);
                   }}
                   placeholder="e.g. DR.MEDEX Double Dome Surgical OT Light"
-                  className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
                 />
               </div>
 
+              {/* Brand & Model */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-[#171717] mb-1">Brand</label>
@@ -2321,7 +2487,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       markFieldEdited("brand");
                       setHasUnsavedChanges(true);
                     }}
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
+                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
                   />
                 </div>
                 <div>
@@ -2335,11 +2501,12 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. LED-80 or Std Unit"
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
+                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
                   />
                 </div>
               </div>
 
+              {/* SKU & Internal ID */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-[#171717] mb-1">Internal Identifier</label>
@@ -2351,7 +2518,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       markFieldEdited("internalModelId");
                       setHasUnsavedChanges(true);
                     }}
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs font-mono text-[#171717] focus:outline-none focus:border-[#F2C230]"
+                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono text-[#171717] focus:outline-none focus:border-[#F2C230]"
                   />
                 </div>
                 <div>
@@ -2378,8 +2545,8 @@ export const AdminProductEditorPage: React.FC = () => {
                       markFieldEdited("sku");
                       setHasUnsavedChanges(true);
                     }}
-                    className={`w-full px-3.5 py-2 bg-white border rounded-lg text-xs font-mono font-bold text-[#171717] focus:outline-none ${
-                      skuError ? "border-[#D92D32]" : "border-[#E5E5E5] focus:border-[#F2C230]"
+                    className={`w-full px-3.5 py-2 bg-white border rounded-xl text-xs font-mono font-bold text-[#171717] focus:outline-none ${
+                      skuError ? "border-[#D92D32]" : "border-[#E5E7EB] focus:border-[#F2C230]"
                     }`}
                   />
                   {skuError && <p className="text-[10px] text-[#D92D32] mt-1 font-semibold">{skuError}</p>}
@@ -2389,17 +2556,534 @@ export const AdminProductEditorPage: React.FC = () => {
           </div>
 
           {/* ========================================================== */}
-          {/* STEP 4: PRICING & INVENTORY                                */}
+          {/* STEP 4: PRODUCT DESCRIPTION                                */}
           {/* ========================================================== */}
-          <div id="card-pricing-inventory" className="bg-white rounded-xl border border-[#E5E5E5] p-5 space-y-4 shadow-2xs">
-            <div className="border-b border-[#E5E5E5] pb-3 flex items-center justify-between">
+          <div id="card-step-4" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
+            <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
               <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D]">Step 4</span>
-                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider">
+                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  Step 4
+                </span>
+                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
+                  Product Description
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={handleRegenerateDescription}
+                disabled={isRegeneratingDescription}
+                className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
+              >
+                {isRegeneratingDescription ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
+                <span>Regenerate Description</span>
+              </button>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-xs font-bold text-[#171717]">
+                Product Description (Clinical & Operational Overview) <span className="text-rose-500">*</span>
+              </label>
+              <textarea
+                rows={8}
+                value={description}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                  setFullDescription(e.target.value);
+                  markFieldEdited("description");
+                  setHasUnsavedChanges(true);
+                }}
+                placeholder="Enter pure product description explaining purpose, medical engineering, intended applications, and benefits..."
+                className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230] leading-relaxed"
+              />
+              <div className="flex items-center justify-between text-[11px] text-neutral-400 font-mono">
+                <span>Clinical summary only (do not append specs or package lists here).</span>
+                <span>{description.length} chars • {description.trim().split(/\s+/).filter(Boolean).length} words</span>
+              </div>
+            </div>
+          </div>
+
+          {/* ========================================================== */}
+          {/* STEP 5: TECHNICAL SPECIFICATIONS (4 INDEPENDENT FIELDS)    */}
+          {/* ========================================================== */}
+          <div id="card-step-5" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
+            <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
+              <div>
+                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  Step 5
+                </span>
+                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
+                  Technical Specifications
+                </h3>
+              </div>
+              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#F8F9FA] text-neutral-600 border border-[#E5E7EB]">
+                4 Core Cards
+              </span>
+            </div>
+
+            <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200 text-xs text-amber-900 flex items-center gap-2">
+              <ShieldCheck size={14} className="shrink-0 text-amber-600" />
+              <span>
+                Anti-Fabrication Rule: Unverified parameters remain blank or "Not specified".
+              </span>
+            </div>
+
+            <div className="space-y-3.5">
+              {/* Field 1: Power Supply */}
+              <div>
+                <label className="block text-xs font-bold text-[#171717] mb-1">
+                  1. Power Supply
+                </label>
+                <input
+                  type="text"
+                  value={powerSupply}
+                  onChange={(e) => {
+                    setPowerSupply(e.target.value);
+                    markFieldEdited("powerSupply");
+                    setHasUnsavedChanges(true);
+                  }}
+                  placeholder="e.g. 220–240 V AC, 50/60 Hz, 80 VA (or Not specified)"
+                  className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
+                />
+              </div>
+
+              {/* Field 2: Quality Standards */}
+              <div>
+                <label className="block text-xs font-bold text-[#171717] mb-1">
+                  2. Quality Standards
+                </label>
+                <input
+                  type="text"
+                  value={qualityStandards}
+                  onChange={(e) => {
+                    setQualityStandards(e.target.value);
+                    markFieldEdited("qualityStandards");
+                    setHasUnsavedChanges(true);
+                  }}
+                  placeholder="e.g. ISO 13485:2016 Certified Facility (or Not specified)"
+                  className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
+                />
+              </div>
+
+              {/* Field 3: Regulatory Status */}
+              <div>
+                <label className="block text-xs font-bold text-[#171717] mb-1">
+                  3. Regulatory Status
+                </label>
+                <input
+                  type="text"
+                  value={regulatoryStatus}
+                  onChange={(e) => {
+                    setRegulatoryStatus(e.target.value);
+                    markFieldEdited("regulatoryStatus");
+                    setHasUnsavedChanges(true);
+                  }}
+                  placeholder="e.g. CE Marking (EU MDR 2017/745) / CDSCO (or Not specified)"
+                  className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
+                />
+              </div>
+
+              {/* Field 4: Warranty */}
+              <div>
+                <label className="block text-xs font-bold text-[#171717] mb-1">
+                  4. Warranty
+                </label>
+                <input
+                  type="text"
+                  value={warranty}
+                  onChange={(e) => {
+                    setWarranty(e.target.value);
+                    markFieldEdited("warranty");
+                    setHasUnsavedChanges(true);
+                  }}
+                  placeholder="e.g. 2-Year Comprehensive Clinical Warranty"
+                  className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
+                />
+              </div>
+            </div>
+
+            {/* Optional Detailed Specs Table Toggle */}
+            <div className="pt-2 border-t border-[#E5E7EB]">
+              <button
+                type="button"
+                onClick={() => setShowDetailedSpecsTable(!showDetailedSpecsTable)}
+                className="text-xs font-bold text-neutral-600 hover:text-black flex items-center gap-1.5 cursor-pointer"
+              >
+                <span>{showDetailedSpecsTable ? "Hide" : "Show"} Additional Technical Table ({specList.length})</span>
+              </button>
+
+              {showDetailedSpecsTable && (
+                <div className="mt-3 space-y-3 pt-2">
+                  <div className="grid grid-cols-12 gap-2">
+                    <input
+                      type="text"
+                      placeholder="Parameter (e.g. Lux Rating)"
+                      value={newSpecKey}
+                      onChange={(e) => setNewSpecKey(e.target.value)}
+                      className="col-span-5 px-2.5 py-1.5 bg-white border border-[#E5E7EB] rounded-lg text-xs"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Value (e.g. 160,000)"
+                      value={newSpecVal}
+                      onChange={(e) => setNewSpecVal(e.target.value)}
+                      className="col-span-4 px-2.5 py-1.5 bg-white border border-[#E5E7EB] rounded-lg text-xs"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Unit"
+                      value={newSpecUnit}
+                      onChange={(e) => setNewSpecUnit(e.target.value)}
+                      className="col-span-2 px-2.5 py-1.5 bg-white border border-[#E5E7EB] rounded-lg text-xs"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (newSpecKey.trim()) {
+                          setSpecList([...specList, { key: newSpecKey.trim(), value: newSpecVal.trim(), unit: newSpecUnit.trim() }]);
+                          setNewSpecKey("");
+                          setNewSpecVal("");
+                          setNewSpecUnit("");
+                          setHasUnsavedChanges(true);
+                        }
+                      }}
+                      className="col-span-1 bg-[#171717] hover:bg-black text-white rounded-lg flex items-center justify-center cursor-pointer"
+                    >
+                      <Plus size={14} />
+                    </button>
+                  </div>
+
+                  <div className="space-y-1 max-h-32 overflow-y-auto">
+                    {specList.map((s, i) => (
+                      <div key={i} className="flex items-center justify-between text-xs bg-[#F8F9FA] p-1.5 rounded-lg border border-[#E5E7EB]">
+                        <span className="font-bold text-neutral-800">{s.key}:</span>
+                        <span className="text-neutral-600">{s.value} {s.unit}</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSpecList(specList.filter((_, idx) => idx !== i));
+                            setHasUnsavedChanges(true);
+                          }}
+                          className="text-neutral-400 hover:text-[#D92D32]"
+                        >
+                          <Trash2 size={12} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* ========================================================== */}
+          {/* STEP 6: CLINICAL INDICATIONS & SPECIALTY PROCEDURES        */}
+          {/* ========================================================== */}
+          <div id="card-step-6" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
+            <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
+              <div>
+                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  Step 6
+                </span>
+                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
+                  Clinical Indications
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={handleRegenerateIndications}
+                disabled={isRegeneratingIndications}
+                className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
+              >
+                {isRegeneratingIndications ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
+                <span>Regenerate</span>
+              </button>
+            </div>
+
+            <p className="text-xs text-neutral-500">
+              Intended clinical departments, surgical workflows, and validated medical procedures.
+            </p>
+
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={newIndicationText}
+                onChange={(e) => setNewIndicationText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    if (newIndicationText.trim()) {
+                      setClinicalIndications([...clinicalIndications, newIndicationText.trim()]);
+                      setNewIndicationText("");
+                      markFieldEdited("clinicalIndications");
+                      setHasUnsavedChanges(true);
+                    }
+                  }
+                }}
+                placeholder="Add clinical indication (e.g. Laparoscopic Surgery)..."
+                className="flex-1 px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  if (newIndicationText.trim()) {
+                    setClinicalIndications([...clinicalIndications, newIndicationText.trim()]);
+                    setNewIndicationText("");
+                    markFieldEdited("clinicalIndications");
+                    setHasUnsavedChanges(true);
+                  }
+                }}
+                className="px-4 py-2 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold cursor-pointer"
+              >
+                Add
+              </button>
+            </div>
+
+            <div className="space-y-1.5 max-h-48 overflow-y-auto">
+              {clinicalIndications.length === 0 ? (
+                <div className="p-3 text-center text-xs text-neutral-400 bg-[#F8F9FA] rounded-xl border border-dashed border-[#E5E7EB]">
+                  No clinical indications specified yet. Use AI Analysis or add manually above.
+                </div>
+              ) : (
+                clinicalIndications.map((ind, i) => (
+                  <div key={i} className="flex items-center justify-between text-xs bg-[#F8F9FA] p-2.5 rounded-xl border border-[#E5E7EB]">
+                    <span className="flex-1 pr-2 text-neutral-800 font-medium">
+                      • {ind}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setClinicalIndications(clinicalIndications.filter((_, idx) => idx !== i));
+                        markFieldEdited("clinicalIndications");
+                        setHasUnsavedChanges(true);
+                      }}
+                      className="text-neutral-400 hover:text-[#D92D32] cursor-pointer"
+                    >
+                      <Trash2 size={13} />
+                    </button>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+
+          {/* ========================================================== */}
+          {/* STEP 7: KEY FACTORS & ENGINEERING HIGHLIGHTS               */}
+          {/* ========================================================== */}
+          <div id="card-step-7" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
+            <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
+              <div>
+                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  Step 7
+                </span>
+                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
+                  Key Factors & Highlights
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={handleRegenerateHighlights}
+                disabled={isRegeneratingHighlights}
+                className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
+              >
+                {isRegeneratingHighlights ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
+                <span>Regenerate</span>
+              </button>
+            </div>
+
+            <p className="text-xs text-neutral-500">
+              Product-specific engineering, ergonomics, mechanical design, and safety highlights.
+            </p>
+
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={newHighlightText}
+                onChange={(e) => setNewHighlightText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    if (newHighlightText.trim()) {
+                      setEngineeringHighlights([...engineeringHighlights, newHighlightText.trim()]);
+                      setNewHighlightText("");
+                      markFieldEdited("engineeringHighlights");
+                      setHasUnsavedChanges(true);
+                    }
+                  }
+                }}
+                placeholder="Add engineering highlight..."
+                className="flex-1 px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  if (newHighlightText.trim()) {
+                    setEngineeringHighlights([...engineeringHighlights, newHighlightText.trim()]);
+                    setNewHighlightText("");
+                    markFieldEdited("engineeringHighlights");
+                    setHasUnsavedChanges(true);
+                  }
+                }}
+                className="px-4 py-2 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold cursor-pointer"
+              >
+                Add
+              </button>
+            </div>
+
+            <div className="space-y-1.5 max-h-48 overflow-y-auto">
+              {engineeringHighlights.length === 0 ? (
+                <div className="p-3 text-center text-xs text-neutral-400 bg-[#F8F9FA] rounded-xl border border-dashed border-[#E5E7EB]">
+                  No engineering highlights added yet. Use AI Analysis or add manually above.
+                </div>
+              ) : (
+                engineeringHighlights.map((hl, i) => (
+                  <div key={i} className="flex items-center justify-between text-xs bg-[#F8F9FA] p-2.5 rounded-xl border border-[#E5E7EB]">
+                    <span className="flex-1 pr-2 text-neutral-800 font-medium">
+                      • {hl}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEngineeringHighlights(engineeringHighlights.filter((_, idx) => idx !== i));
+                        markFieldEdited("engineeringHighlights");
+                        setHasUnsavedChanges(true);
+                      }}
+                      className="text-neutral-400 hover:text-[#D92D32] cursor-pointer"
+                    >
+                      <Trash2 size={13} />
+                    </button>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+
+          {/* ========================================================== */}
+          {/* STEP 8: STANDARD INCLUDED PACKAGE CONTENTS                 */}
+          {/* ========================================================== */}
+          <div id="card-step-8" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
+            <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
+              <div>
+                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  Step 8
+                </span>
+                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
+                  Standard Included Package Contents
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={handleRegeneratePackage}
+                disabled={isRegeneratingPackage}
+                className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
+              >
+                {isRegeneratingPackage ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
+                <span>Regenerate</span>
+              </button>
+            </div>
+
+            <p className="text-xs text-neutral-500">
+              Verified components, modules, cables, and hardware included in the shipment.
+            </p>
+
+            {/* Add Item Row with Type */}
+            <div className="grid grid-cols-12 gap-2">
+              <input
+                type="text"
+                value={newPackageItemName}
+                onChange={(e) => setNewPackageItemName(e.target.value)}
+                placeholder="Component name (e.g. Autoclavable Handle)..."
+                className="col-span-7 px-3 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
+              />
+              <select
+                value={newPackageItemType}
+                onChange={(e) => setNewPackageItemType(e.target.value as any)}
+                className="col-span-3 px-2 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
+              >
+                <option value="standard">Standard</option>
+                <option value="optional">Optional</option>
+                <option value="confirmation">To Confirm</option>
+              </select>
+              <button
+                type="button"
+                onClick={addPackageItem}
+                className="col-span-2 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold flex items-center justify-center cursor-pointer"
+              >
+                Add
+              </button>
+            </div>
+
+            {/* List with Reordering Controls */}
+            <div className="space-y-1.5 max-h-56 overflow-y-auto">
+              {packageItems.length === 0 ? (
+                <div className="p-3 text-center text-xs text-neutral-400 bg-[#F8F9FA] rounded-xl border border-dashed border-[#E5E7EB]">
+                  No package components added yet.
+                </div>
+              ) : (
+                packageItems.map((item, i) => (
+                  <div key={item.id || i} className="flex items-center justify-between text-xs bg-[#F8F9FA] p-2.5 rounded-xl border border-[#E5E7EB]">
+                    <div className="flex items-center gap-2 flex-1 pr-2 truncate">
+                      <span
+                        className={`text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded ${
+                          item.type === "standard"
+                            ? "bg-emerald-100 text-[#16803D]"
+                            : item.type === "optional"
+                            ? "bg-blue-100 text-blue-800"
+                            : "bg-amber-100 text-amber-800"
+                        }`}
+                      >
+                        {item.type}
+                      </span>
+                      <span className="font-medium text-neutral-800 truncate">{item.name}</span>
+                    </div>
+
+                    <div className="flex items-center gap-1 shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => movePackageItem(i, "up")}
+                        disabled={i === 0}
+                        title="Move up"
+                        className="p-1 text-neutral-400 hover:text-black disabled:opacity-20 cursor-pointer"
+                      >
+                        <ArrowUp size={12} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => movePackageItem(i, "down")}
+                        disabled={i === packageItems.length - 1}
+                        title="Move down"
+                        className="p-1 text-neutral-400 hover:text-black disabled:opacity-20 cursor-pointer"
+                      >
+                        <ArrowDown size={12} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => removePackageItem(i)}
+                        title="Remove component"
+                        className="p-1 text-neutral-400 hover:text-[#D92D32] cursor-pointer"
+                      >
+                        <Trash2 size={12} />
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+
+          {/* ========================================================== */}
+          {/* COMMERCIAL TERMS & PRICING CARD                            */}
+          {/* ========================================================== */}
+          <div id="card-pricing" className="bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
+            <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
+              <div>
+                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  Commercial Terms
+                </span>
+                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
                   Pricing & Inventory
                 </h3>
               </div>
-              <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[#F5F5F5] text-neutral-600 border border-[#E5E5E5]">
+              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#F8F9FA] text-neutral-600 border border-[#E5E7EB]">
                 Base: ₹ INR
               </span>
             </div>
@@ -2420,8 +3104,8 @@ export const AdminProductEditorPage: React.FC = () => {
                       markFieldEdited("originalPrice");
                       setHasUnsavedChanges(true);
                     }}
-                    placeholder="e.g. 173020.32"
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs font-mono text-[#171717] focus:outline-none focus:border-[#F2C230]"
+                    placeholder="e.g. 175000"
+                    className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono text-[#171717] focus:outline-none focus:border-[#F2C230]"
                   />
                 </div>
 
@@ -2439,54 +3123,87 @@ export const AdminProductEditorPage: React.FC = () => {
                       markFieldEdited("basePrice");
                       setHasUnsavedChanges(true);
                     }}
-                    placeholder="e.g. 152257.89"
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs font-mono font-bold text-[#171717] focus:outline-none focus:border-[#F2C230]"
+                    placeholder="e.g. 150000"
+                    className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono font-bold text-[#171717] focus:outline-none focus:border-[#F2C230]"
                   />
                 </div>
               </div>
 
               {/* Automatic Calculated Discount Card */}
-              <div className="p-3 rounded-lg border border-[#E5E5E5] bg-[#F5F5F5] flex items-center justify-between">
+              <div className="p-3 rounded-xl border border-[#E5E7EB] bg-[#F8F9FA] flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] font-bold uppercase text-neutral-500 block">
-                    Calculated Discount
+                  <span className="text-[10px] text-neutral-400 block uppercase font-mono">
+                    Calculated Discount:
                   </span>
-                  <span className="text-base font-extrabold text-[#171717] font-mono">
-                    {discountPercentage > 0 ? `${discountPercentage}% OFF` : "No Discount"}
+                  <span className="text-xs font-bold text-neutral-800">
+                    {discountPercentage > 0 ? `${discountPercentage}% OFF` : "No discount applied"}
                   </span>
                 </div>
-                {discountPercentage > 0 && (
-                  <span className="px-2.5 py-1 text-xs font-bold bg-[#D92D32] text-white rounded">
-                    SAVE ₹{calculatedSavings.toFixed(2)}
+                {calculatedSavings > 0 && (
+                  <span className="text-xs font-bold text-[#16803D] bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                    Saves ₹{calculatedSavings.toLocaleString("en-IN")}
                   </span>
                 )}
+              </div>
+
+              {/* Live International FX Currency Preview */}
+              <div className="p-3 rounded-xl border border-[#E5E7EB] bg-[#F8F9FA] space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold text-neutral-700 flex items-center gap-1.5">
+                    <Globe size={13} />
+                    <span>Live International FX Conversion</span>
+                  </span>
+                  <span className="text-[10px] text-neutral-400 font-mono">
+                    {rateTimestamp ? new Date(rateTimestamp).toLocaleTimeString() : "Live FX"}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-4 gap-2 text-center">
+                  <div className="p-2 bg-white rounded-lg border border-[#E5E7EB]">
+                    <span className="text-[10px] text-neutral-400 block font-mono">USD</span>
+                    <span className="text-xs font-bold text-[#171717]">
+                      ${(basePrice * (exchangeRates.USD || 0.010379)).toFixed(2)}
+                    </span>
+                  </div>
+                  <div className="p-2 bg-white rounded-lg border border-[#E5E7EB]">
+                    <span className="text-[10px] text-neutral-400 block font-mono">EUR</span>
+                    <span className="text-xs font-bold text-[#171717]">
+                      €{(basePrice * (exchangeRates.EUR || 0.009228)).toFixed(2)}
+                    </span>
+                  </div>
+                  <div className="p-2 bg-white rounded-lg border border-[#E5E7EB]">
+                    <span className="text-[10px] text-neutral-400 block font-mono">GBP</span>
+                    <span className="text-xs font-bold text-[#171717]">
+                      £{(basePrice * (exchangeRates.GBP || 0.007854)).toFixed(2)}
+                    </span>
+                  </div>
+                  <div className="p-2 bg-white rounded-lg border border-[#E5E7EB]">
+                    <span className="text-[10px] text-neutral-400 block font-mono">AED</span>
+                    <span className="text-xs font-bold text-[#171717]">
+                      {(basePrice * (exchangeRates.AED || 0.038116)).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
               </div>
 
               {/* Stock Quantity & Status */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
-                    Stock Quantity (Units) <span className="text-rose-500">*</span>
-                  </label>
+                  <label className="block text-xs font-bold text-[#171717] mb-1">Stock Quantity</label>
                   <input
                     type="number"
                     min="0"
                     value={stock}
                     onChange={(e) => {
-                      const s = parseInt(e.target.value, 10) || 0;
-                      setStock(s);
-                      setStockStatus(s <= 0 ? "OUT_OF_STOCK" : s <= 5 ? "LOW_STOCK" : "IN_STOCK");
+                      setStock(parseInt(e.target.value) || 0);
                       markFieldEdited("stock");
                       setHasUnsavedChanges(true);
                     }}
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs font-mono font-bold text-[#171717] focus:outline-none focus:border-[#F2C230]"
+                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono text-[#171717]"
                   />
                 </div>
-
                 <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
-                    Stock Status
-                  </label>
+                  <label className="block text-xs font-bold text-[#171717] mb-1">Stock Status</label>
                   <select
                     value={stockStatus}
                     onChange={(e) => {
@@ -2494,557 +3211,66 @@ export const AdminProductEditorPage: React.FC = () => {
                       markFieldEdited("stockStatus");
                       setHasUnsavedChanges(true);
                     }}
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs font-bold text-[#171717] focus:outline-none focus:border-[#F2C230] cursor-pointer"
+                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs font-bold text-[#171717]"
                   >
-                    <option value="IN_STOCK">In Stock</option>
-                    <option value="LOW_STOCK">Low Stock</option>
+                    <option value="IN_STOCK">In Stock (Available)</option>
+                    <option value="LOW_STOCK">Low Stock (Replenishing)</option>
                     <option value="OUT_OF_STOCK">Out of Stock</option>
                   </select>
                 </div>
               </div>
 
-              {/* Live FX Currency Preview */}
-              <div className="p-3 bg-white rounded-lg border border-[#E5E5E5] space-y-2">
-                <div className="flex items-center justify-between text-[11px] font-bold text-neutral-600">
-                  <span>International Currency Preview</span>
-                  <span className="font-mono text-[10px] text-neutral-400">
-                    {rateTimestamp ? new Date(rateTimestamp).toLocaleTimeString() : "Live FX"}
-                  </span>
+              {/* Lead Time & MOQ */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-[#171717] mb-1">Minimum Order Qty</label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={minOrderQuantity}
+                    onChange={(e) => {
+                      setMinOrderQuantity(parseInt(e.target.value) || 1);
+                      setHasUnsavedChanges(true);
+                    }}
+                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs font-mono text-[#171717]"
+                  />
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-                  {[
-                    { code: "USD", symbol: "$", rate: exchangeRates.USD || 0.010379 },
-                    { code: "EUR", symbol: "€", rate: exchangeRates.EUR || 0.009228 },
-                    { code: "GBP", symbol: "£", rate: exchangeRates.GBP || 0.007854 },
-                    { code: "AED", symbol: "AED ", rate: exchangeRates.AED || 0.038116 }
-                  ].map((fx) => (
-                    <div key={fx.code} className="p-1.5 bg-[#F5F5F5] rounded border border-neutral-200">
-                      <span className="text-[9px] text-neutral-500 block">{fx.code}</span>
-                      <span className="font-bold text-[#171717]">
-                        {fx.symbol}{basePrice > 0 ? (basePrice * fx.rate).toFixed(2) : "0.00"}
-                      </span>
-                    </div>
-                  ))}
+                <div>
+                  <label className="block text-xs font-bold text-[#171717] mb-1">Dispatch Lead Time</label>
+                  <input
+                    type="text"
+                    value={leadTimeWeeks}
+                    onChange={(e) => {
+                      setLeadTimeWeeks(e.target.value);
+                      setHasUnsavedChanges(true);
+                    }}
+                    placeholder="e.g. 1–2 Weeks"
+                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
+                  />
                 </div>
               </div>
             </div>
           </div>
 
           {/* ========================================================== */}
-          {/* STEP 5: DESCRIPTION & TECHNICAL SPECIFICATIONS             */}
+          {/* PUBLICATION & SEO SETTINGS (SPANS BOTH COLUMNS)           */}
           {/* ========================================================== */}
-          <div id="card-description-specs" className="bg-white rounded-xl border border-[#E5E5E5] p-5 space-y-4 shadow-2xs lg:col-span-2">
-            <div className="border-b border-[#E5E5E5] pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div id="card-publication" className="col-span-1 lg:col-span-2 bg-white rounded-2xl border border-[#E5E7EB] p-6 space-y-4 shadow-2xs">
+            <div className="border-b border-[#E5E7EB] pb-3 flex items-center justify-between">
               <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D]">Step 5</span>
-                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider">
-                  Description & Technical Specifications
+                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  Settings & Metadata
+                </span>
+                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider mt-1">
+                  Publication & Storefront Visibility
                 </h3>
               </div>
-              <div className="flex items-center gap-2">
-                <select
-                  value={aiTone}
-                  onChange={(e) => setAiTone(e.target.value as any)}
-                  className="px-2.5 py-1 bg-white border border-[#E5E5E5] rounded-lg text-xs font-medium text-[#171717] cursor-pointer"
-                >
-                  <option value="CLINICAL">Clinical & Academic</option>
-                  <option value="TECHNICAL">Professional Technical</option>
-                  <option value="COMMERCIAL">Concise Commercial</option>
-                  <option value="TENDER">Tender & Hospital OR</option>
-                  <option value="SEO">High-Intent SEO</option>
-                </select>
-                <button
-                  type="button"
-                  onClick={handleGenerateAiDescription}
-                  disabled={isAiGenerating}
-                  className="flex items-center gap-1.5 px-3 py-1 bg-[#D92D32] hover:bg-[#B91C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
-                >
-                  {isAiGenerating ? <RefreshCw size={12} className="animate-spin" /> : <Sparkles size={12} />}
-                  <span>Generate Copy</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Generated copy preview banner */}
-            {aiGeneratedPreview && (
-              <div className="p-3 bg-amber-50 rounded-xl border border-[#F2C230] space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-[#171717]">Assistant Generated Copy Ready</span>
-                  <button
-                    type="button"
-                    onClick={handleApplyAiGenerated}
-                    className="px-3 py-1 bg-[#171717] text-white rounded text-xs font-bold hover:bg-black cursor-pointer"
-                  >
-                    Apply Generated Copy
-                  </button>
-                </div>
-                <p className="text-xs text-neutral-700">{aiGeneratedPreview.shortDescription}</p>
-              </div>
-            )}
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-              {/* Left: Descriptions & Lists */}
-              <div className="space-y-3.5">
-                <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
-                    Short Description / Executive Summary
-                  </label>
-                  <textarea
-                    rows={2}
-                    value={shortDescription}
-                    onChange={(e) => {
-                      setShortDescription(e.target.value);
-                      markFieldEdited("shortDescription");
-                      setHasUnsavedChanges(true);
-                    }}
-                    placeholder="Concise clinical summary..."
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
-                    Full Product Description / Clinical Overview
-                  </label>
-                  <textarea
-                    rows={6}
-                    value={fullDescription}
-                    onChange={(e) => {
-                      setFullDescription(e.target.value);
-                      markFieldEdited("fullDescription");
-                      setHasUnsavedChanges(true);
-                    }}
-                    placeholder="Detailed clinical specifications, medical ergonomics..."
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
-                  />
-                </div>
-
-                {/* Key Features */}
-                <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
-                    Key Features & Benefits ({keyFeatures.length})
-                  </label>
-                  <div className="flex gap-2 mb-2">
-                    <input
-                      type="text"
-                      value={newFeatureText}
-                      onChange={(e) => setNewFeatureText(e.target.value)}
-                      placeholder="Add key feature..."
-                      className="flex-1 px-3 py-1.5 bg-white border border-[#E5E5E5] rounded-lg text-xs text-[#171717]"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (newFeatureText.trim()) {
-                          setKeyFeatures([...keyFeatures, newFeatureText.trim()]);
-                          setNewFeatureText("");
-                          markFieldEdited("keyFeatures");
-                          setHasUnsavedChanges(true);
-                        }
-                      }}
-                      className="px-3 py-1.5 bg-[#171717] hover:bg-black text-white rounded-lg text-xs font-bold cursor-pointer"
-                    >
-                      Add
-                    </button>
-                  </div>
-                  <div className="space-y-1 max-h-32 overflow-y-auto">
-                    {keyFeatures.map((f, i) => (
-                      <div key={i} className="flex items-center justify-between text-xs bg-[#F5F5F5] p-1.5 rounded border border-[#E5E5E5]">
-                        <span className="truncate flex-1 pr-2 text-neutral-800">{f}</span>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setKeyFeatures(keyFeatures.filter((_, idx) => idx !== i));
-                            markFieldEdited("keyFeatures");
-                            setHasUnsavedChanges(true);
-                          }}
-                          className="text-neutral-400 hover:text-[#D92D32]"
-                        >
-                          <Trash2 size={12} />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Applications & Intended Uses */}
-                <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
-                    Intended Uses / Applications ({applications.length})
-                  </label>
-                  <div className="flex gap-2 mb-2">
-                    <input
-                      type="text"
-                      value={newAppText}
-                      onChange={(e) => setNewAppText(e.target.value)}
-                      placeholder="e.g. Multi-speciality surgical operating theatre..."
-                      className="flex-1 px-3 py-1.5 bg-white border border-[#E5E5E5] rounded-lg text-xs text-[#171717]"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (newAppText.trim()) {
-                          setApplications([...applications, newAppText.trim()]);
-                          setNewAppText("");
-                          markFieldEdited("applications");
-                          setHasUnsavedChanges(true);
-                        }
-                      }}
-                      className="px-3 py-1.5 bg-[#171717] hover:bg-black text-white rounded-lg text-xs font-bold cursor-pointer"
-                    >
-                      Add
-                    </button>
-                  </div>
-                  <div className="space-y-1 max-h-28 overflow-y-auto">
-                    {applications.map((app, i) => (
-                      <div key={i} className="flex items-center justify-between text-xs bg-[#F5F5F5] p-1.5 rounded border border-[#E5E5E5]">
-                        <span className="truncate flex-1 pr-2 text-neutral-800">{app}</span>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setApplications(applications.filter((_, idx) => idx !== i));
-                            markFieldEdited("applications");
-                            setHasUnsavedChanges(true);
-                          }}
-                          className="text-neutral-400 hover:text-[#D92D32]"
-                        >
-                          <Trash2 size={12} />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Right: Technical Specifications Table */}
-              <div className="space-y-3.5">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-bold text-[#171717]">
-                    Technical Specifications Table ({specList.length})
-                  </label>
-                  <span className="text-[10px] text-neutral-400 font-mono">Structured Parameters</span>
-                </div>
-
-                {/* Add Spec Row */}
-                <div className="grid grid-cols-12 gap-2">
-                  <input
-                    type="text"
-                    placeholder="Parameter (e.g. Input Voltage)"
-                    value={newSpecKey}
-                    onChange={(e) => setNewSpecKey(e.target.value)}
-                    className="col-span-5 px-2.5 py-1.5 bg-white border border-[#E5E5E5] rounded-lg text-xs"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Value (e.g. 220)"
-                    value={newSpecVal}
-                    onChange={(e) => setNewSpecVal(e.target.value)}
-                    className="col-span-4 px-2.5 py-1.5 bg-white border border-[#E5E5E5] rounded-lg text-xs"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Unit"
-                    value={newSpecUnit}
-                    onChange={(e) => setNewSpecUnit(e.target.value)}
-                    className="col-span-2 px-2.5 py-1.5 bg-white border border-[#E5E5E5] rounded-lg text-xs"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (newSpecKey.trim() && newSpecVal.trim()) {
-                        setSpecList([
-                          ...specList,
-                          {
-                            key: newSpecKey.trim(),
-                            value: newSpecVal.trim(),
-                            unit: newSpecUnit.trim() || undefined,
-                            note: newSpecNote.trim() || undefined
-                          }
-                        ]);
-                        setNewSpecKey("");
-                        setNewSpecVal("");
-                        setNewSpecUnit("");
-                        setNewSpecNote("");
-                        markFieldEdited("specList");
-                        setHasUnsavedChanges(true);
-                      }
-                    }}
-                    className="col-span-1 flex items-center justify-center bg-[#171717] hover:bg-black text-white rounded-lg cursor-pointer"
-                  >
-                    <Plus size={14} />
-                  </button>
-                </div>
-
-                {/* Specs Table */}
-                <div className="border border-[#E5E5E5] rounded-lg overflow-hidden max-h-72 overflow-y-auto">
-                  <table className="w-full text-left text-xs border-collapse">
-                    <thead className="bg-[#F5F5F5] border-b border-[#E5E5E5] text-neutral-600 font-bold uppercase text-[10px]">
-                      <tr>
-                        <th className="p-2.5 w-5/12">Parameter</th>
-                        <th className="p-2.5 w-4/12">Value</th>
-                        <th className="p-2.5 w-2/12">Unit</th>
-                        <th className="p-2.5 w-1/12 text-center">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-[#E5E5E5]">
-                      {specList.length === 0 ? (
-                        <tr>
-                          <td colSpan={4} className="p-4 text-center text-neutral-400">
-                            No specifications populated yet. Add parameter-value pairs or use Smart Product Assistant.
-                          </td>
-                        </tr>
-                      ) : (
-                        specList.map((s, idx) => (
-                          <tr key={idx} className="hover:bg-[#F5F5F5]/50">
-                            <td className="p-2.5 font-bold text-[#171717]">{s.key}</td>
-                            <td className="p-2.5 font-mono text-neutral-800">{s.value}</td>
-                            <td className="p-2.5 text-neutral-500">{s.unit || "—"}</td>
-                            <td className="p-2.5 text-center">
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setSpecList(specList.filter((_, i) => i !== idx));
-                                  markFieldEdited("specList");
-                                  setHasUnsavedChanges(true);
-                                }}
-                                className="text-neutral-400 hover:text-[#D92D32]"
-                              >
-                                <Trash2 size={13} />
-                              </button>
-                            </td>
-                          </tr>
-                        ))
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-
-                {/* Package Contents */}
-                <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
-                    Package Contents / Accessories ({packageContents.length})
-                  </label>
-                  <div className="flex gap-2 mb-2">
-                    <input
-                      type="text"
-                      value={newPackageText}
-                      onChange={(e) => setNewPackageText(e.target.value)}
-                      placeholder="e.g. Sterilizable handle core, power cable..."
-                      className="flex-1 px-3 py-1.5 bg-white border border-[#E5E5E5] rounded-lg text-xs text-[#171717]"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (newPackageText.trim()) {
-                          setPackageContents([...packageContents, newPackageText.trim()]);
-                          setNewPackageText("");
-                          markFieldEdited("packageContents");
-                          setHasUnsavedChanges(true);
-                        }
-                      }}
-                      className="px-3 py-1.5 bg-[#171717] hover:bg-black text-white rounded-lg text-xs font-bold cursor-pointer"
-                    >
-                      Add
-                    </button>
-                  </div>
-                  <div className="space-y-1 max-h-24 overflow-y-auto">
-                    {packageContents.map((pkg, i) => (
-                      <div key={i} className="flex items-center justify-between text-xs bg-[#F5F5F5] p-1.5 rounded border border-[#E5E5E5]">
-                        <span className="truncate flex-1 pr-2 text-neutral-800">{pkg}</span>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setPackageContents(packageContents.filter((_, idx) => idx !== i));
-                            markFieldEdited("packageContents");
-                            setHasUnsavedChanges(true);
-                          }}
-                          className="text-neutral-400 hover:text-[#D92D32]"
-                        >
-                          <Trash2 size={12} />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* ========================================================== */}
-          {/* STEP 6: CLASSIFICATION, DOCUMENTATION & SEO                */}
-          {/* ========================================================== */}
-          <div id="card-documentation-seo" className="bg-white rounded-xl border border-[#E5E5E5] p-5 space-y-4 shadow-2xs">
-            <div className="border-b border-[#E5E5E5] pb-3 flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D]">Step 6</span>
-                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider">
-                  Documentation & SEO
-                </h3>
-              </div>
-              <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[#F5F5F5] text-neutral-600 border border-[#E5E5E5]">
-                Regulatory & Search
+              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#F8F9FA] text-neutral-600 border border-[#E5E7EB]">
+                Storefront Controls
               </span>
             </div>
 
-            <div className="space-y-3.5">
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
-                    Regulatory Classification
-                  </label>
-                  <select
-                    value={regulatoryClass}
-                    onChange={(e) => {
-                      setRegulatoryClass(e.target.value);
-                      markFieldEdited("regulatoryClass");
-                      setHasUnsavedChanges(true);
-                    }}
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs font-medium text-[#171717] focus:outline-none focus:border-[#F2C230] cursor-pointer"
-                  >
-                    <option value="Class I (General Medical)">Class I (General Medical)</option>
-                    <option value="Class IIa (MDR 2017/745)">Class IIa (MDR 2017/745)</option>
-                    <option value="Class IIb (High-Risk Surgical)">Class IIb (High-Risk Surgical)</option>
-                    <option value="Class III (Critical Life-Support)">Class III (Critical Life-Support)</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">
-                    Verification Status
-                  </label>
-                  <select
-                    value={certificationStatus}
-                    onChange={(e) => {
-                      setCertificationStatus(e.target.value);
-                      markFieldEdited("certificationStatus");
-                      setHasUnsavedChanges(true);
-                    }}
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs font-bold text-[#171717] focus:outline-none focus:border-[#F2C230] cursor-pointer"
-                  >
-                    <option value="Claimed">Claimed (Self-Declared)</option>
-                    <option value="Pending Verification">Pending Document Audit</option>
-                    <option value="Verified">Verified by Quality Team</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">Certificate Number</label>
-                  <input
-                    type="text"
-                    value={certificateNumber}
-                    onChange={(e) => {
-                      setCertificateNumber(e.target.value);
-                      markFieldEdited("certificateNumber");
-                      setHasUnsavedChanges(true);
-                    }}
-                    placeholder="e.g. MED-ISO-9948201"
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs font-mono text-[#171717] focus:outline-none focus:border-[#F2C230]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-[#171717] mb-1">Issuing Body</label>
-                  <input
-                    type="text"
-                    value={issuingOrg}
-                    onChange={(e) => {
-                      setIssuingOrg(e.target.value);
-                      markFieldEdited("issuingOrg");
-                      setHasUnsavedChanges(true);
-                    }}
-                    placeholder="e.g. TÜV SÜD Medical Compliance"
-                    className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
-                  />
-                </div>
-              </div>
-
-              {/* URL Slug */}
-              <div>
-                <label className="block text-xs font-bold text-[#171717] mb-1">
-                  URL Slug <span className="text-rose-500">*</span>
-                </label>
-                <div className="flex items-center">
-                  <span className="px-3 py-2 bg-[#F5F5F5] border border-r-0 border-[#E5E5E5] rounded-l-lg text-xs text-neutral-500 font-mono">
-                    /product/
-                  </span>
-                  <input
-                    type="text"
-                    value={slug}
-                    onChange={(e) => {
-                      setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]+/g, "-"));
-                      markFieldEdited("slug");
-                      setHasUnsavedChanges(true);
-                    }}
-                    className="flex-1 px-3 py-2 bg-white border border-[#E5E5E5] rounded-r-lg text-xs font-mono text-[#171717] focus:outline-none focus:border-[#F2C230]"
-                  />
-                </div>
-              </div>
-
-              {/* Meta Title & Description */}
-              <div>
-                <label className="block text-xs font-bold text-[#171717] mb-1">Meta Title</label>
-                <input
-                  type="text"
-                  value={metaTitle}
-                  onChange={(e) => {
-                    setMetaTitle(e.target.value);
-                    markFieldEdited("metaTitle");
-                    setHasUnsavedChanges(true);
-                  }}
-                  className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-[#171717] mb-1">Meta Description</label>
-                <textarea
-                  rows={2}
-                  value={metaDescription}
-                  onChange={(e) => {
-                    setMetaDescription(e.target.value);
-                    markFieldEdited("metaDescription");
-                    setHasUnsavedChanges(true);
-                  }}
-                  className="w-full px-3.5 py-2 bg-white border border-[#E5E5E5] rounded-lg text-xs text-[#171717] focus:outline-none focus:border-[#F2C230]"
-                />
-              </div>
-
-              {/* Search Result Snippet Preview */}
-              <div className="p-3 bg-[#F5F5F5] rounded-lg border border-[#E5E5E5] space-y-1">
-                <span className="text-[10px] font-bold uppercase text-neutral-500 block">Search Snippet Preview</span>
-                <div className="text-xs font-semibold text-blue-700 truncate">
-                  {metaTitle || title || "Product Title"}
-                </div>
-                <div className="text-[11px] font-mono text-emerald-700 truncate">
-                  https://www.drmedex.com/product/{slug || "url-slug"}
-                </div>
-                <div className="text-[11px] text-neutral-600 line-clamp-2">
-                  {metaDescription || shortDescription || "Discover medical equipment engineered for hospital and surgical excellence."}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* ========================================================== */}
-          {/* STEP 7: PUBLISHING & VISIBILITY                            */}
-          {/* ========================================================== */}
-          <div id="card-publishing-visibility" className="bg-white rounded-xl border border-[#E5E5E5] p-5 space-y-4 shadow-2xs">
-            <div className="border-b border-[#E5E5E5] pb-3 flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#16803D]">Step 7</span>
-                <h3 className="text-sm font-bold text-[#171717] uppercase tracking-wider">
-                  Publishing & Visibility
-                </h3>
-              </div>
-              <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${
-                status === "ACTIVE" ? "bg-emerald-50 text-[#16803D]" : status === "DRAFT" ? "bg-amber-50 text-amber-700" : "bg-neutral-100 text-neutral-700"
-              }`}>
-                {status}
-              </span>
-            </div>
-
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               <div>
                 <label className="block text-xs font-bold text-[#171717] mb-1">
                   Publication Status
@@ -3056,61 +3282,93 @@ export const AdminProductEditorPage: React.FC = () => {
                     markFieldEdited("status");
                     setHasUnsavedChanges(true);
                   }}
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E5E5] rounded-lg text-xs font-bold text-[#171717] focus:outline-none focus:border-[#F2C230] cursor-pointer"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs font-bold text-[#171717] focus:outline-none focus:border-[#F2C230] cursor-pointer"
                 >
                   <option value="DRAFT">Draft (Internal Only, Hidden from Public)</option>
                   <option value="ACTIVE">Active (Live in Storefront)</option>
                   <option value="INACTIVE">Inactive (Hidden from Storefront)</option>
                   <option value="ARCHIVED">Archived (Historical Record)</option>
                 </select>
+
+                <div className="space-y-2.5 pt-3 mt-3 border-t border-[#E5E7EB]">
+                  <label className="flex items-center gap-2.5 text-xs text-[#171717] cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={isFeatured}
+                      onChange={(e) => {
+                        setIsFeatured(e.target.checked);
+                        markFieldEdited("isFeatured");
+                        setHasUnsavedChanges(true);
+                      }}
+                      className="w-4 h-4 rounded border-[#E5E7EB] text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
+                    />
+                    <span className="font-semibold">Featured on Homepage Clinical Grid</span>
+                  </label>
+
+                  <label className="flex items-center gap-2.5 text-xs text-[#171717] cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={isBestSeller}
+                      onChange={(e) => {
+                        setIsBestSeller(e.target.checked);
+                        markFieldEdited("isBestSeller");
+                        setHasUnsavedChanges(true);
+                      }}
+                      className="w-4 h-4 rounded border-[#E5E7EB] text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
+                    />
+                    <span className="font-semibold">Bestseller Ribbon Badge</span>
+                  </label>
+
+                  <label className="flex items-center gap-2.5 text-xs text-[#171717] cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={categoryGridVisible}
+                      onChange={(e) => {
+                        setCategoryGridVisible(e.target.checked);
+                        markFieldEdited("categoryGridVisible");
+                        setHasUnsavedChanges(true);
+                      }}
+                      className="w-4 h-4 rounded border-[#E5E7EB] text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
+                    />
+                    <span className="font-semibold">Category Grid Visibility</span>
+                  </label>
+                </div>
               </div>
 
-              <div className="space-y-2.5 pt-2 border-t border-[#E5E5E5]">
-                <label className="flex items-center gap-2.5 text-xs text-[#171717] cursor-pointer">
+              <div className="md:col-span-2 space-y-3">
+                <div>
+                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                    Storefront SEO Meta Title
+                  </label>
                   <input
-                    type="checkbox"
-                    checked={isFeatured}
+                    type="text"
+                    value={metaTitle}
                     onChange={(e) => {
-                      setIsFeatured(e.target.checked);
-                      markFieldEdited("isFeatured");
+                      setMetaTitle(e.target.value);
+                      markFieldEdited("metaTitle");
                       setHasUnsavedChanges(true);
                     }}
-                    className="w-4 h-4 rounded border-[#E5E5E5] text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
+                    placeholder="e.g. DR.MEDEX LED OT Light | Surgical Ceiling Luminaire"
+                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
                   />
-                  <span className="font-semibold">Featured on Homepage Clinical Grid</span>
-                </label>
+                </div>
 
-                <label className="flex items-center gap-2.5 text-xs text-[#171717] cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={isBestSeller}
+                <div>
+                  <label className="block text-xs font-bold text-[#171717] mb-1">
+                    Storefront SEO Meta Description
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={metaDescription}
                     onChange={(e) => {
-                      setIsBestSeller(e.target.checked);
-                      markFieldEdited("isBestSeller");
+                      setMetaDescription(e.target.value);
+                      markFieldEdited("metaDescription");
                       setHasUnsavedChanges(true);
                     }}
-                    className="w-4 h-4 rounded border-[#E5E5E5] text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
+                    placeholder="High-intent search description for Google index..."
+                    className="w-full px-3.5 py-2 bg-white border border-[#E5E7EB] rounded-xl text-xs text-[#171717]"
                   />
-                  <span className="font-semibold">Bestseller Ribbon Badge</span>
-                </label>
-
-                <label className="flex items-center gap-2.5 text-xs text-[#171717] cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={categoryGridVisible}
-                    onChange={(e) => {
-                      setCategoryGridVisible(e.target.checked);
-                      markFieldEdited("categoryGridVisible");
-                      setHasUnsavedChanges(true);
-                    }}
-                    className="w-4 h-4 rounded border-[#E5E5E5] text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
-                  />
-                  <span className="font-semibold">Category Grid Visibility</span>
-                </label>
-              </div>
-
-              <div className="p-3 bg-[#F5F5F5] rounded-lg border border-[#E5E5E5] text-xs text-neutral-600">
-                DR.MEDEX catalogue safety: AI analysis populates suggestions without automatically publishing or saving to the storefront.
+                </div>
               </div>
             </div>
           </div>
@@ -3119,7 +3377,7 @@ export const AdminProductEditorPage: React.FC = () => {
         {/* ============================================================ */}
         {/* PERSISTENT STICKY BOTTOM SAVE ACTION BAR                     */}
         {/* ============================================================ */}
-        <div className="sticky bottom-0 z-20 bg-white/95 backdrop-blur-xs py-4 px-6 border-t border-[#E5E5E5] shadow-lg rounded-xl flex items-center justify-between flex-wrap gap-4">
+        <div className="sticky bottom-0 z-20 bg-white/95 backdrop-blur-xs py-4 px-6 border border-[#E5E7EB] shadow-lg rounded-2xl flex items-center justify-between flex-wrap gap-4">
           <div className="flex items-center gap-3">
             <span
               className={`w-2.5 h-2.5 rounded-full ${
@@ -3134,7 +3392,7 @@ export const AdminProductEditorPage: React.FC = () => {
           <div className="flex items-center gap-3">
             <Link
               to="/admin/products"
-              className="px-4 py-2 border border-[#E5E5E5] rounded-lg text-xs font-bold text-neutral-700 bg-white hover:bg-[#F5F5F5] transition-colors"
+              className="px-4 py-2 border border-[#E5E7EB] rounded-xl text-xs font-bold text-neutral-700 bg-white hover:bg-[#F8F9FA] transition-colors"
             >
               Discard Changes
             </Link>
@@ -3142,7 +3400,7 @@ export const AdminProductEditorPage: React.FC = () => {
             <button
               type="submit"
               disabled={isSaving}
-              className="flex items-center gap-2 px-8 py-2.5 bg-[#171717] hover:bg-black text-white rounded-lg text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer"
+              className="flex items-center gap-2 px-8 py-2.5 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer"
             >
               {isSaving ? <RefreshCw size={14} className="animate-spin" /> : <Save size={14} />}
               <span>{isSaving ? "Saving Product..." : isEditMode ? "Save Changes" : "Save Product"}</span>
@@ -3150,62 +3408,8 @@ export const AdminProductEditorPage: React.FC = () => {
           </div>
         </div>
       </form>
-
-      {/* ============================================================ */}
-      {/* REGENERATE IDENTITY SUGGESTIONS MODAL                        */}
-      {/* ============================================================ */}
-      {showIdentityModal && proposedIdentity && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 space-y-5 border border-[#E5E5E5] shadow-2xl">
-            <div className="flex items-center justify-between border-b border-[#E5E5E5] pb-3">
-              <div className="flex items-center gap-2">
-                <Sparkles size={18} className="text-[#D92D32]" />
-                <h3 className="text-sm font-bold text-[#171717]">Proposed Product Identity</h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowIdentityModal(false)}
-                className="w-7 h-7 rounded-lg hover:bg-[#F5F5F5] text-neutral-400 hover:text-black flex items-center justify-center text-sm font-bold cursor-pointer"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="space-y-3 text-xs">
-              <div>
-                <span className="font-bold text-neutral-500 block text-[10px] uppercase font-mono">Product Name:</span>
-                <span className="font-bold text-neutral-900">{proposedIdentity.productName}</span>
-              </div>
-              <div>
-                <span className="font-bold text-neutral-500 block text-[10px] uppercase font-mono">Storefront Title:</span>
-                <span className="text-neutral-900">{proposedIdentity.title}</span>
-              </div>
-              <div>
-                <span className="font-bold text-neutral-500 block text-[10px] uppercase font-mono">Brand:</span>
-                <span className="text-neutral-900">{proposedIdentity.brand}</span>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-end gap-3 pt-2">
-              <button
-                type="button"
-                onClick={() => setShowIdentityModal(false)}
-                className="px-4 py-2 border border-[#E5E5E5] rounded-lg text-xs font-bold text-neutral-700 bg-white hover:bg-[#F5F5F5] cursor-pointer"
-              >
-                Cancel / Reject
-              </button>
-              <button
-                type="button"
-                onClick={handleApplyProposedIdentity}
-                className="px-6 py-2 bg-[#171717] hover:bg-black text-white rounded-lg text-xs font-bold cursor-pointer shadow-xs"
-              >
-                Apply Suggestions
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </AdminLayout>
   );
 };
+
 export default AdminProductEditorPage;

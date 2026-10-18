@@ -148,9 +148,18 @@ function buildTaxonomyReference() {
 }
 
 /**
- * Build system prompt with strict medical grounding rules
+ * Build system prompt with strict medical grounding rules and naming style support
  */
-function buildPrompt(taxonomyText) {
+function buildPrompt(taxonomyText, namingStyle = "clinical") {
+  let styleInstruction = "";
+  if (namingStyle === "technical") {
+    styleInstruction = "Naming style: TECHNICAL / MODEL-FOCUSED. Emphasize model numbers, technical parameters, and physical device specifications in productName and storefrontProductTitle.";
+  } else if (namingStyle === "catalog") {
+    styleInstruction = "Naming style: SHORT / CATALOG-FRIENDLY. Concise, clean catalog naming without overly dense clinical jargon.";
+  } else {
+    styleInstruction = "Naming style: PROFESSIONAL / CLINICAL. Dignified, authoritative hospital-grade medical equipment naming.";
+  }
+
   return `You are the DR.MEDEX Senior Biomedical Equipment Classifier and Technical Analyst.
 You are analyzing photograph(s) of a medical device to accurately identify and classify it for the DR.MEDEX international catalogue.
 
@@ -163,16 +172,19 @@ ${taxonomyText}
    - Identify what is physically visible: casing shape, LED dome configuration, front panel layout, displays, adjustment knobs, footswitch ports, electrode sockets, labels, or nameplates.
    - If the manufacturer brand or model number is visibly printed, extract it verbatim. If not visible, set brand to "DR.MEDEX" and leave manufacturerModel as "" (empty string).
 2. NEVER FABRICATE OR HALLUCINATE:
-   - DO NOT fabricate electrical parameters (e.g., exact voltage, Hz, wattage, frequency) unless a nameplate or label is clearly legible in the image.
-   - If specifications (like input voltage or RF power) are not visible on the device rating plate, leave the value empty or explicitly note "Needs Verification on Physical Rating Plate".
-   - DO NOT invent regulatory certifications (ISO, CE, FDA) or certificate numbers.
+   - DO NOT fabricate electrical parameters (e.g., exact voltage, Hz, wattage, frequency) unless a nameplate or label is clearly legible in the image. If not visible, leave powerSupply empty or "Needs verification on physical rating plate".
+   - DO NOT invent certifications (ISO, CE, FDA), quality standards, or certificate numbers. DO NOT invent CE certifications or ISO compliance without physical proof. If unverified, leave qualityStandards and regulatoryStatus empty or "Needs verification".
    - DO NOT fabricate package contents or accessories that are not visible in the photographs.
-3. TAXONOMY MATCHING:
+3. NAMING:
+   - ${styleInstruction}
+   - productName: Official equipment designation (e.g., "DR.MEDEX [Equipment Type] – [Key Feature]").
+   - storefrontProductTitle: Consumer-facing catalog title (e.g., "[Brand] [Equipment Type] with [Key Highlight]").
+4. TAXONOMY MATCHING:
    - primaryCategory: MUST match one of the exact primary category names from the taxonomy list above.
    - subcategory: MUST match one of the exact subcategory names within that primary category.
    - equipmentType: MUST match one of the exact equipment type names in that subcategory.
    - If the device is ambiguous or cannot be matched with high confidence, set confidence to "LOW" or "MEDIUM" and flag "primaryCategory" or "equipmentType" in fieldsNeedingVerification.
-4. CONFIDENCE & EVIDENCE:
+5. CONFIDENCE & EVIDENCE:
    - Set confidence to "HIGH", "MEDIUM", or "LOW".
    - List every uncertain field in fieldsNeedingVerification.
    - Provide concrete evidence in evidenceFromImages describing what physical features in the photos justify your identification.
@@ -182,30 +194,27 @@ You MUST respond with a single valid JSON object containing the exact structure 
 
 {
   "productName": "DR.MEDEX [Equipment Type] – [Verified Descriptor]",
+  "storefrontProductTitle": "DR.MEDEX [Equipment Type] with [Verified Feature]",
   "brand": "Visible brand name or DR.MEDEX",
   "manufacturerModel": "Model printed on device or empty string",
   "primaryCategory": "Exact primary category from taxonomy",
   "subcategory": "Exact subcategory from taxonomy",
   "equipmentType": "Exact equipment type from taxonomy",
-  "clinicalOverview": "Concise professional clinical description of this device class (2-3 sentences)",
-  "intendedUses": [
-    "Clinical application 1",
-    "Clinical application 2"
+  "description": "Concise professional clinical description of this device class (2-3 sentences explaining purpose, design, applications, and features). Do not append lists or specs here.",
+  "powerSupply": "Observed power text (e.g., '220-240V AC, 50/60 Hz') if legible on nameplate; otherwise '' or 'Needs verification on physical rating plate'",
+  "qualityStandards": "Observed standard (e.g., 'ISO 13485:2016') if visible; otherwise ''",
+  "regulatoryStatus": "Observed regulatory mark (e.g., 'Class IIa Medical Device') if visible; otherwise ''",
+  "warranty": "2-Year Comprehensive Clinical Warranty",
+  "clinicalIndications": [
+    "Clinical application or procedure 1",
+    "Clinical application or procedure 2"
   ],
-  "keyFeatures": [
-    "Observed physical/functional feature 1",
-    "Observed physical/functional feature 2"
-  ],
-  "technicalSpecifications": [
-    {
-      "parameter": "Parameter name (e.g., Number of LEDs, Caster Mobility, Display Type)",
-      "value": "Observed value or empty if unverified",
-      "unit": "Unit if applicable",
-      "note": "Visual observation note or 'Unverified - check rating plate'"
-    }
+  "engineeringHighlights": [
+    "Observed physical/functional engineering highlight 1",
+    "Observed physical/functional engineering highlight 2"
   ],
   "packageContents": [
-    "Item visible in photo (leave empty list [] if only bare device is shown)"
+    { "item": "Main Unit", "type": "STANDARD" }
   ],
   "seoTitle": "DR.MEDEX [Equipment Type] | Hospital-Grade Medical Equipment",
   "seoDescription": "Procure the DR.MEDEX [Equipment Type]. Professional medical equipment with certified clinical ergonomics and international delivery.",
@@ -214,7 +223,8 @@ You MUST respond with a single valid JSON object containing the exact structure 
     "List of field names that require physical verification"
   ],
   "evidenceFromImages": "Detailed description of physical cues, labels, connectors, and structural details observed across the submitted photographs."
-}`;
+}
+`;
 }
 
 /**
@@ -225,16 +235,62 @@ function validateAndSanitizeOutput(parsed) {
     throw new Error("Invalid response format: AI output is not a JSON object.");
   }
 
+  const clinicalOverview = typeof parsed.description === "string" && parsed.description.trim()
+    ? parsed.description.trim()
+    : (typeof parsed.clinicalOverview === "string" ? parsed.clinicalOverview.trim() : "");
+
+  const rawPackage = Array.isArray(parsed.packageItems) && parsed.packageItems.length > 0
+    ? parsed.packageItems
+    : (Array.isArray(parsed.packageContents) ? parsed.packageContents : []);
+
+  const normalizedPackage = rawPackage.map((item, idx) => {
+    if (typeof item === "string") return { id: `pkg-${idx + 1}`, name: item.trim(), item: item.trim(), type: "standard" };
+    if (item && typeof item === "object") {
+      const itemName = String(item.name || item.item || item.title || "").trim();
+      const rawType = String(item.type || "standard").toLowerCase();
+      const type = ["standard", "optional", "confirmation"].includes(rawType) ? rawType : "standard";
+      return {
+        id: item.id || `pkg-${idx + 1}`,
+        name: itemName,
+        item: itemName,
+        type
+      };
+    }
+    return null;
+  }).filter(Boolean);
+
+  const clinicalIndications = Array.isArray(parsed.clinicalIndications) && parsed.clinicalIndications.length > 0
+    ? parsed.clinicalIndications.map(s => String(s).trim()).filter(Boolean)
+    : (Array.isArray(parsed.intendedUses) ? parsed.intendedUses.map(s => String(s).trim()).filter(Boolean) : []);
+
+  const engineeringHighlights = Array.isArray(parsed.engineeringHighlights) && parsed.engineeringHighlights.length > 0
+    ? parsed.engineeringHighlights.map(s => String(s).trim()).filter(Boolean)
+    : (Array.isArray(parsed.keyFeatures) ? parsed.keyFeatures.map(s => String(s).trim()).filter(Boolean) : []);
+
   const result = {
-    productName: typeof parsed.productName === "string" ? parsed.productName.trim() : "DR.MEDEX Medical Equipment",
-    brand: typeof parsed.brand === "string" ? parsed.brand.trim() : "DR.MEDEX",
+    productName: typeof parsed.productName === "string" && parsed.productName.trim() ? parsed.productName.trim() : "DR.MEDEX Medical Equipment",
+    storefrontProductTitle: typeof parsed.storefrontProductTitle === "string" && parsed.storefrontProductTitle.trim() ? parsed.storefrontProductTitle.trim() : (parsed.productName || "DR.MEDEX Medical Equipment"),
+    brand: typeof parsed.brand === "string" && parsed.brand.trim() ? parsed.brand.trim() : "DR.MEDEX",
     manufacturerModel: typeof parsed.manufacturerModel === "string" ? parsed.manufacturerModel.trim() : "",
-    primaryCategory: typeof parsed.primaryCategory === "string" ? parsed.primaryCategory.trim() : "General Medical Equipment",
-    subcategory: typeof parsed.subcategory === "string" ? parsed.subcategory.trim() : "Diagnostic Instruments",
-    equipmentType: typeof parsed.equipmentType === "string" ? parsed.equipmentType.trim() : "Digital Diagnostic Station",
-    clinicalOverview: typeof parsed.clinicalOverview === "string" ? parsed.clinicalOverview.trim() : "",
-    intendedUses: Array.isArray(parsed.intendedUses) ? parsed.intendedUses.map(s => String(s).trim()).filter(Boolean) : [],
-    keyFeatures: Array.isArray(parsed.keyFeatures) ? parsed.keyFeatures.map(s => String(s).trim()).filter(Boolean) : [],
+    primaryCategory: typeof parsed.primaryCategory === "string" && parsed.primaryCategory.trim() 
+      ? parsed.primaryCategory.trim() 
+      : (parsed.classification?.primaryCategory || parsed.classification?.primaryCategoryId || "General Medical Equipment"),
+    subcategory: typeof parsed.subcategory === "string" && parsed.subcategory.trim() 
+      ? parsed.subcategory.trim() 
+      : (parsed.classification?.subcategory || parsed.classification?.subcategoryId || "Diagnostic Instruments"),
+    equipmentType: typeof parsed.equipmentType === "string" && parsed.equipmentType.trim() 
+      ? parsed.equipmentType.trim() 
+      : (parsed.classification?.equipmentType || "Digital Diagnostic Station"),
+    description: clinicalOverview,
+    clinicalOverview,
+    powerSupply: typeof parsed.powerSupply === "string" ? parsed.powerSupply.trim() : "",
+    qualityStandards: typeof parsed.qualityStandards === "string" ? parsed.qualityStandards.trim() : "",
+    regulatoryStatus: typeof parsed.regulatoryStatus === "string" ? parsed.regulatoryStatus.trim() : "",
+    warranty: typeof parsed.warranty === "string" && parsed.warranty.trim() ? parsed.warranty.trim() : "2-Year Comprehensive Clinical Warranty",
+    clinicalIndications,
+    intendedUses: clinicalIndications,
+    engineeringHighlights,
+    keyFeatures: engineeringHighlights,
     technicalSpecifications: Array.isArray(parsed.technicalSpecifications) 
       ? parsed.technicalSpecifications.map(spec => ({
           parameter: String(spec.parameter || "").trim(),
@@ -243,12 +299,12 @@ function validateAndSanitizeOutput(parsed) {
           note: String(spec.note || "").trim()
         })).filter(s => s.parameter)
       : [],
-    packageContents: Array.isArray(parsed.packageContents) ? parsed.packageContents.map(s => String(s).trim()).filter(Boolean) : [],
+    packageContents: normalizedPackage.length > 0 ? normalizedPackage.map(p => p.item) : [],
+    packageItems: normalizedPackage,
     seoTitle: typeof parsed.seoTitle === "string" ? parsed.seoTitle.trim() : "",
     seoDescription: typeof parsed.seoDescription === "string" ? parsed.seoDescription.trim() : "",
     confidence: ["HIGH", "MEDIUM", "LOW"].includes(String(parsed.confidence).toUpperCase()) ? String(parsed.confidence).toUpperCase() : "MEDIUM",
     fieldsNeedingVerification: Array.isArray(parsed.fieldsNeedingVerification) ? parsed.fieldsNeedingVerification.map(s => String(s).trim()).filter(Boolean) : [],
-    evidenceFromImages: typeof parsed.evidenceFromImages === "string" ? parsed.evidenceFromImages.trim() : "Visual analysis completed."
   };
 
   // Reconcile with catalogue taxonomy with full multi-level resolution
@@ -344,18 +400,41 @@ function validateAndSanitizeOutput(parsed) {
     }
   }
 
-  // Complete aliases across all 7 form workflow steps
+  // 8-Step structured mapping
+  result.classification = {
+    primaryCategory: result.primaryCategory,
+    subcategory: result.subcategory,
+    equipmentType: result.equipmentType,
+    primaryCategoryId: result.primaryCategoryId || "",
+    subcategoryId: result.subcategoryId || "",
+    equipmentTypeId: result.equipmentTypeId || ""
+  };
+
+  const catCodeMap = {
+    "ot-lights": "OTL",
+    "electrosurgical-units": "ESU",
+    "cryo-surgical": "CRY",
+    "examination-ot-tables": "TAB",
+    "obstetrics-and-gynaecology": "OBG",
+    "medical-equipment": "MED",
+    "physiotherapy": "PHY"
+  };
+  const skuPrefix = catCodeMap[result.primaryCategoryId] || "DRM";
+  const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+  result.skuSuggestion = `DRM-${skuPrefix}-${randomSuffix}`;
+
+  // Complete aliases across all form workflow steps
   result.category = result.primaryCategory;
   result.categoryId = result.primaryCategoryId || "";
   result.subcategoryId = result.subcategoryId || "";
   result.equipmentTypeId = result.equipmentTypeId || "";
-  result.title = result.productName;
-  result.productDescription = result.clinicalOverview;
-  result.description = result.clinicalOverview;
-  result.shortDescription = result.clinicalOverview;
-  result.fullDescription = result.clinicalOverview + (result.intendedUses.length > 0 ? "\n\nIntended Clinical Applications:\n" + result.intendedUses.map(u => `• ${u}`).join("\n") : "");
-  result.features = result.keyFeatures;
-  result.applications = result.intendedUses;
+  result.title = result.storefrontProductTitle || result.productName;
+  result.productDescription = result.description || result.clinicalOverview;
+  result.shortDescription = result.description || result.clinicalOverview;
+  result.fullDescription = result.description || result.clinicalOverview;
+  result.features = result.engineeringHighlights;
+  result.applications = result.clinicalIndications;
+  result.keyFactors = result.engineeringHighlights;
   result.specifications = result.technicalSpecifications.map(s => ({
     key: s.parameter || s.key || "",
     parameter: s.parameter || s.key || "",
@@ -366,10 +445,10 @@ function validateAndSanitizeOutput(parsed) {
   result.technicalSpecifications = result.specifications;
   result.metaTitle = result.seoTitle;
   result.metaDescription = result.seoDescription;
-  result.regulatoryClass = result.fieldsNeedingVerification.length > 0 ? "Class IIa (MDR 2017/745)" : "Class I / IIa";
+  result.regulatoryClass = result.regulatoryStatus || (result.fieldsNeedingVerification.length > 0 ? "Class IIa (MDR 2017/745)" : "Class I / IIa");
   result.regulatoryClassification = result.regulatoryClass;
   result.certificationStatus = result.fieldsNeedingVerification.length > 0 ? "Pending Verification" : "Verified";
-  result.warranty = "2-Year Comprehensive Clinical Warranty";
+  result.warranty = result.warranty || "2-Year Comprehensive Clinical Warranty";
   result.shippingInformation = "Express Air Cargo Dispatch with Shockproof Wooden Crating";
   result.stock = 10;
   result.stockStatus = "IN_STOCK";
@@ -383,9 +462,10 @@ function validateAndSanitizeOutput(parsed) {
 /**
  * Main identification function: analyzes up to 5 photos with Gemini Vision
  * @param {Array<{ data: string|Buffer, mimeType: string, filename?: string }>} photos
+ * @param {object} options Optional configuration (namingStyle, preliminaryBrand)
  * @returns {Promise<{ success: boolean, data: object, modelUsed: string }>}
  */
-async function identifyProductFromPhotos(photos) {
+async function identifyProductFromPhotos(photos, options = {}) {
   // 1. Validation
   if (!Array.isArray(photos) || photos.length === 0) {
     throw new Error("No photographs provided. Please upload at least one image of the medical device.");
@@ -474,7 +554,7 @@ async function identifyProductFromPhotos(photos) {
   // 2. Prepare SDK and Prompt
   const ai = getGenAiClient();
   const taxonomyText = buildTaxonomyReference();
-  const systemPrompt = buildPrompt(taxonomyText);
+  const systemPrompt = buildPrompt(taxonomyText, options.namingStyle || "clinical");
 
   parts.push({
     text: `${systemPrompt}\n\nAnalyze all ${photos.length} photograph(s) of this medical equipment submitted above together and output the structured JSON:`
@@ -1048,6 +1128,7 @@ module.exports = {
   getGenAiClient,
   identifyProductFromPhotos,
   validateAndSanitizeOutput,
+  buildPrompt,
   buildTaxonomyReference,
   generateReviewDraft,
   generateProductReviewSuggestions,
