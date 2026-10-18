@@ -120,32 +120,32 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
       {/* 1. ADRIZO-STYLE MONOCHROME SIDEBAR NAVIGATION                */}
       {/* ============================================================ */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-[#E5E5E5] flex flex-col justify-between transition-transform duration-200 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#0D4C3C] border-r border-white/15 flex flex-col justify-between transition-transform duration-200 lg:translate-x-0 text-white ${
           isMobileSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Sidebar Header / Brand */}
-        <div className="h-16 px-6 border-b border-[#E5E5E5] flex items-center justify-between">
+        <div className="h-16 px-6 border-b border-white/15 flex items-center justify-between bg-[#0D4C3C]">
           <div className="flex items-center gap-2.5">
-            <Logo variant="monochrome" showTagline={false} />
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-[#FFF8DB] text-black border border-[#F2C94C]/60">
+            <Logo variant="white" showTagline={false} />
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-[#F4C542] text-black border border-white/30 shadow-xs">
               ADMIN
             </span>
           </div>
           <button
             type="button"
             onClick={() => setIsMobileSidebarOpen(false)}
-            className="lg:hidden p-1.5 text-neutral-500 hover:text-black rounded-md"
+            className="lg:hidden p-1.5 text-white/70 hover:text-white rounded-md transition-colors cursor-pointer"
           >
             <X size={18} />
           </button>
         </div>
 
         {/* Navigation Items (Scrollable) */}
-        <div className="flex-1 overflow-y-auto px-4 py-5 space-y-6">
+        <div className="flex-1 overflow-y-auto px-4 py-5 space-y-6 bg-[#0D4C3C]">
           {/* Main Group */}
           <div>
-            <div className="text-[10px] font-bold font-mono tracking-widest uppercase text-[#666666] px-3 mb-2">
+            <div className="text-[10px] font-bold font-mono tracking-widest uppercase text-white/70 px-3 mb-2">
               Management
             </div>
             <nav className="space-y-1">
@@ -155,11 +155,11 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                 onClick={() => setIsMobileSidebarOpen(false)}
                 className={`flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
                   isCurrentRoute("/admin")
-                    ? "bg-[#FFF8DB] text-black font-bold border-l-2 border-[#F2C94C]"
-                    : "text-[#666666] hover:text-black hover:bg-neutral-50"
+                    ? "bg-white/15 text-white font-bold border-l-2 border-[#F4C542]"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
                 }`}
               >
-                <LayoutDashboard size={16} />
+                <LayoutDashboard size={16} className="text-white shrink-0" />
                 <span>Dashboard</span>
               </Link>
 
@@ -168,29 +168,29 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                 <button
                   type="button"
                   onClick={() => setIsProductsExpanded(!isProductsExpanded)}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
                     isProductsActive
-                      ? "text-black font-bold"
-                      : "text-[#666666] hover:text-black hover:bg-neutral-50"
+                      ? "bg-white/10 text-white font-bold"
+                      : "text-white/80 hover:text-white hover:bg-white/10"
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <Package size={16} />
+                    <Package size={16} className="text-white shrink-0" />
                     <span>Products</span>
                   </div>
-                  {isProductsExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+                  {isProductsExpanded ? <ChevronDown size={14} className="text-white" /> : <ChevronRight size={14} className="text-white" />}
                 </button>
 
                 {/* Submenu */}
                 {isProductsExpanded && (
-                  <div className="mt-1 ml-5 pl-3 border-l border-neutral-200 space-y-1">
+                  <div className="mt-1 ml-5 pl-3 border-l border-white/20 space-y-1">
                     <Link
                       to="/admin/products"
                       onClick={() => setIsMobileSidebarOpen(false)}
                       className={`block px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                         location.pathname === "/admin/products"
-                          ? "bg-[#FFF8DB] text-black font-bold border-l-2 border-[#F2C94C]"
-                          : "text-[#666666] hover:text-black hover:bg-neutral-50"
+                          ? "bg-white/15 text-white font-bold border-l-2 border-[#F4C542]"
+                          : "text-white/80 hover:text-white hover:bg-white/10"
                       }`}
                     >
                       All Products
@@ -201,12 +201,12 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                       onClick={() => setIsMobileSidebarOpen(false)}
                       className={`flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                         location.pathname === "/admin/products/new"
-                          ? "bg-[#FFF8DB] text-black font-bold"
-                          : "text-[#666666] hover:text-black hover:bg-neutral-50"
+                          ? "bg-white/15 text-white font-bold border-l-2 border-[#F4C542]"
+                          : "text-white/80 hover:text-white hover:bg-white/10"
                       }`}
                     >
                       <span>Add Product</span>
-                      <Plus size={12} className="text-[#F2C94C]" />
+                      <Plus size={12} className="text-[#F4C542]" />
                     </Link>
 
                     <Link
@@ -214,12 +214,12 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                       onClick={() => setIsMobileSidebarOpen(false)}
                       className={`flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                         location.pathname === "/admin/categories"
-                          ? "bg-[#FFF8DB] text-black font-bold"
-                          : "text-[#666666] hover:text-black hover:bg-neutral-50"
+                          ? "bg-white/15 text-white font-bold border-l-2 border-[#F4C542]"
+                          : "text-white/80 hover:text-white hover:bg-white/10"
                       }`}
                     >
                       <span>Categories</span>
-                      <span className="text-[10px] font-mono px-1.5 py-0.2 bg-[#FFF8DB] text-black border border-[#F2C94C]/40 rounded font-bold">7</span>
+                      <span className="text-[10px] font-mono px-1.5 py-0.2 bg-[#F4C542] text-black border border-white/30 rounded font-bold">7</span>
                     </Link>
 
                     <button
@@ -231,7 +231,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                           desc: "Catalogue taxonomies, attributes, and custom specifications are synchronized with DR.MEDEX international schema."
                         });
                       }}
-                      className="w-full text-left px-3 py-1.5 rounded-md text-xs font-medium text-[#666666] hover:text-black hover:bg-neutral-50 transition-colors"
+                      className="w-full text-left px-3 py-1.5 rounded-md text-xs font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                     >
                       Product Configuration
                     </button>
@@ -248,9 +248,9 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                     desc: "Live order fulfillment, DHL cargo tracking, and purchase order tracking active. Use the Customer Track Order portal or view orders via store API."
                   })
                 }
-                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-neutral-600 hover:text-black hover:bg-neutral-50 transition-colors text-left"
+                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-white/80 hover:text-white hover:bg-white/10 transition-colors text-left cursor-pointer"
               >
-                <ShoppingCart size={16} />
+                <ShoppingCart size={16} className="text-white shrink-0" />
                 <span>Orders</span>
               </button>
 
@@ -259,11 +259,11 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                 to="/admin/customers"
                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
                   location.pathname === "/admin/customers"
-                    ? "bg-black text-white"
-                    : "text-neutral-600 hover:text-black hover:bg-neutral-50"
+                    ? "bg-white/15 text-white font-bold border-l-2 border-[#F4C542]"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
                 }`}
               >
-                <Users size={16} />
+                <Users size={16} className="text-white shrink-0" />
                 <span>Customers</span>
               </Link>
 
@@ -276,9 +276,9 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                     desc: "965 high-resolution medical photography assets stored locally and prepared for Cloudinary synchronization. Upload or replace media within the Add/Edit Product form."
                   })
                 }
-                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-neutral-600 hover:text-black hover:bg-neutral-50 transition-colors text-left"
+                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-white/80 hover:text-white hover:bg-white/10 transition-colors text-left cursor-pointer"
               >
-                <ImageIcon size={16} />
+                <ImageIcon size={16} className="text-white shrink-0" />
                 <span>Media Library</span>
               </button>
 
@@ -288,11 +288,11 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                 onClick={() => setIsMobileSidebarOpen(false)}
                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
                   location.pathname === "/admin/reviews"
-                    ? "bg-[#FFF8DB] text-black font-bold border-l-2 border-[#F2C94C]"
-                    : "text-[#666666] hover:text-black hover:bg-neutral-50"
+                    ? "bg-white/15 text-white font-bold border-l-2 border-[#F4C542]"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
                 }`}
               >
-                <Star size={16} />
+                <Star size={16} className="text-white shrink-0" />
                 <span>Reviews</span>
               </Link>
             </nav>
@@ -300,7 +300,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
 
           {/* System Group */}
           <div>
-            <div className="text-[10px] font-bold font-mono tracking-widest uppercase text-neutral-400 px-3 mb-2">
+            <div className="text-[10px] font-bold font-mono tracking-widest uppercase text-white/70 px-3 mb-2">
               System
             </div>
             <nav className="space-y-1">
@@ -312,9 +312,9 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                     desc: "Storefront policy compliance, announcement banner, and medical blog management."
                   })
                 }
-                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-neutral-600 hover:text-black hover:bg-neutral-50 transition-colors text-left"
+                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-white/80 hover:text-white hover:bg-white/10 transition-colors text-left cursor-pointer"
               >
-                <FileText size={16} />
+                <FileText size={16} className="text-white shrink-0" />
                 <span>Website Content</span>
               </button>
 
@@ -326,9 +326,9 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                     desc: "International currency exchange rates, API security, and ISO compliance settings."
                   })
                 }
-                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-neutral-600 hover:text-black hover:bg-neutral-50 transition-colors text-left"
+                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-white/80 hover:text-white hover:bg-white/10 transition-colors text-left cursor-pointer"
               >
-                <Settings size={16} />
+                <Settings size={16} className="text-white shrink-0" />
                 <span>Settings</span>
               </button>
 
@@ -336,9 +336,9 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
               <button
                 type="button"
                 onClick={loadAuditLogs}
-                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-neutral-600 hover:text-black hover:bg-neutral-50 transition-colors text-left"
+                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-white/80 hover:text-white hover:bg-white/10 transition-colors text-left cursor-pointer"
               >
-                <Clock size={16} />
+                <Clock size={16} className="text-white shrink-0" />
                 <span>Audit Trail</span>
               </button>
             </nav>
@@ -346,29 +346,29 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
         </div>
 
         {/* Sidebar Footer (Profile + External Link) */}
-        <div className="p-4 border-t border-[#E5E5E5] space-y-3 bg-[#FAFAFA]">
+        <div className="p-4 border-t border-white/15 space-y-3 bg-[#0D4C3C]">
           <Link
             to="/shop-all"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-black bg-white border border-neutral-300 hover:bg-neutral-100 transition-colors shadow-2xs"
+            className="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-white bg-white/10 border border-white/20 hover:bg-white/20 transition-colors shadow-2xs"
           >
             <span>Live Storefront</span>
-            <ExternalLink size={13} className="text-neutral-500" />
+            <ExternalLink size={13} className="text-white" />
           </Link>
 
-          <div className="pt-2 border-t border-neutral-200 flex items-center justify-between">
+          <div className="pt-2 border-t border-white/15 flex items-center justify-between">
             <div className="truncate pr-2">
-              <div className="text-xs font-bold text-black truncate">{adminUser?.name || "Admin"}</div>
-              <div className="text-[10px] text-neutral-500 font-mono truncate">{adminUser?.email}</div>
+              <div className="text-xs font-bold text-white truncate">{adminUser?.name || "Admin"}</div>
+              <div className="text-[10px] text-white/70 font-mono truncate">{adminUser?.email}</div>
             </div>
             <button
               type="button"
               onClick={logout}
               title="Sign Out"
-              className="p-1.5 text-neutral-400 hover:text-black hover:bg-neutral-200 rounded-md transition-colors"
+              className="p-1.5 text-white/70 hover:text-white hover:bg-white/10 rounded-md transition-colors cursor-pointer"
             >
-              <LogOut size={15} />
+              <LogOut size={15} className="text-white" />
             </button>
           </div>
         </div>

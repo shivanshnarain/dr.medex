@@ -134,6 +134,64 @@ export const AdminProductEditorPage: React.FC = () => {
   const [manuallyEditedFields, setManuallyEditedFields] = useState<Set<string>>(new Set());
   const activeAnalysisIdRef = useRef<number>(0);
 
+  // Enlarged photo preview modal state & double-click isolation
+  const [enlargedImage, setEnlargedImage] = useState<{ url: string; title: string; index: number } | null>(null);
+  const clickTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (enlargedImage) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          setEnlargedImage(null);
+        }
+      };
+
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+  }, [enlargedImage]);
+
+  useEffect(() => {
+    return () => {
+      if (clickTimeoutRef.current) {
+        clearTimeout(clickTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleThumbnailClick = (e: React.MouseEvent, idx: number) => {
+    e.stopPropagation();
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current);
+      clickTimeoutRef.current = null;
+    }
+    // Delay single-click primary assignment slightly to allow double-click cancellation
+    clickTimeoutRef.current = setTimeout(() => {
+      setPrimaryImageIndex(idx);
+      setHasUnsavedChanges(true);
+    }, 250);
+  };
+
+  const handleThumbnailDoubleClick = (e: React.MouseEvent, slot: ProductImageSlot, idx: number) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current);
+      clickTimeoutRef.current = null;
+    }
+    setEnlargedImage({
+      url: slot.previewUrl || slot.url,
+      title: `Product Photograph ${idx + 1}`,
+      index: idx
+    });
+  };
+
   const markFieldEdited = (fieldName: string) => {
     setManuallyEditedFields((prev) => {
       const updated = new Set(prev);
@@ -1567,18 +1625,6 @@ export const AdminProductEditorPage: React.FC = () => {
         </Link>
 
         <div className="flex items-center gap-3">
-          {isEditMode && slug && (
-            <a
-              href={`/products/${slug}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-white rounded-lg text-xs font-bold text-white bg-white/10 hover:bg-white/20 transition-colors"
-            >
-              <Eye size={13} />
-              <span>View on Storefront</span>
-            </a>
-          )}
-
           <button
             type="button"
             onClick={handleSaveProduct}
@@ -1671,20 +1717,22 @@ export const AdminProductEditorPage: React.FC = () => {
                 <div
                   className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all border ${
                     step.isDone
-                      ? "bg-[#16803D] text-white border-white"
+                      ? isActive
+                        ? "bg-[#F4C542] text-black ring-2 ring-white border-white shadow-xs"
+                        : "bg-[#F4C542] text-black border-white shadow-xs"
                       : isActive
                       ? "bg-[#C62828] text-white ring-2 ring-white border-white"
                       : "border-white/40 text-white/70 bg-white/10"
                   }`}
                 >
-                  {step.isDone ? <Check size={14} strokeWidth={3} /> : step.id}
+                  {step.isDone ? <Check size={14} strokeWidth={3} className="text-black" /> : step.id}
                 </div>
 
                 <div className="flex flex-col">
                   <span className="text-xs font-bold text-white group-hover:text-white/90">
                     {step.name}
                   </span>
-                  <span className="text-[10px] text-white/60 font-medium">
+                  <span className="text-[10px] text-white/70 font-medium">
                     {step.isDone ? "Completed" : isActive ? "Current" : `Step ${step.id}`}
                   </span>
                 </div>
@@ -1817,14 +1865,12 @@ export const AdminProductEditorPage: React.FC = () => {
                         </button>
                       </div>
 
-                      {/* Thumbnail frame (object-contain, full picture visible, clicking sets primary) */}
+                      {/* Thumbnail frame (object-contain, full picture visible, clicking sets primary, double clicking opens enlarged preview) */}
                       <div
-                        onClick={() => {
-                          setPrimaryImageIndex(idx);
-                          setHasUnsavedChanges(true);
-                        }}
-                        className="flex-1 w-full my-1 rounded-lg bg-black/50 overflow-hidden flex items-center justify-center relative cursor-pointer border border-white/20"
-                        title="Click to set as primary photograph"
+                        onClick={(e) => handleThumbnailClick(e, idx)}
+                        onDoubleClick={(e) => handleThumbnailDoubleClick(e, slot, idx)}
+                        className="flex-1 w-full my-1 rounded-lg bg-black/50 overflow-hidden flex items-center justify-center relative cursor-pointer border border-white/20 hover:border-white/60 transition-colors"
+                        title="Click to set main • Double-click to enlarge preview"
                       >
                         {slot.hasLoadError ? (
                           <ImageOff size={18} className="text-white/40" />
@@ -1832,7 +1878,7 @@ export const AdminProductEditorPage: React.FC = () => {
                           <img
                             src={slot.previewUrl || slot.url}
                             alt={`Device view ${idx + 1}`}
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-contain select-none"
                             onError={() => handleSlotLoadError(slot.id)}
                           />
                         )}
@@ -2940,6 +2986,66 @@ export const AdminProductEditorPage: React.FC = () => {
           </div>
         </div>
       </form>
+
+      {/* ============================================================ */}
+      {/* ENLARGED PRODUCT IMAGE PREVIEW MODAL (DOUBLE-CLICK VIEWER)   */}
+      {/* ============================================================ */}
+      {enlargedImage && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={enlargedImage.title || "Enlarged product image preview"}
+          onClick={() => setEnlargedImage(null)}
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6"
+        >
+          {/* Modal Container */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative max-w-4xl max-h-[90vh] w-full bg-[#0D4C3C] border border-white rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+          >
+            {/* Top Modal Header */}
+            <div className="px-5 py-3.5 bg-[#0D4C3C] border-b border-white/20 flex items-center justify-between text-white">
+              <div className="flex items-center gap-2.5">
+                <span className="w-6 h-6 rounded-md bg-[#C62828] text-white border border-white text-xs font-bold flex items-center justify-center">
+                  {enlargedImage.index + 1}
+                </span>
+                <span className="text-xs sm:text-sm font-bold tracking-wide">
+                  {enlargedImage.title}
+                </span>
+                {enlargedImage.index === primaryImageIndex && (
+                  <span className="bg-[#C62828] text-white text-[9px] font-black px-2 py-0.5 rounded border border-white tracking-wider">
+                    PRIMARY
+                  </span>
+                )}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setEnlargedImage(null)}
+                aria-label="Close enlarged preview"
+                className="w-8 h-8 rounded-lg bg-black/40 hover:bg-[#C62828] text-white flex items-center justify-center transition-colors border border-white/30 cursor-pointer"
+              >
+                <X size={16} strokeWidth={2.5} />
+              </button>
+            </div>
+
+            {/* Complete Image without Stretching or Cropping */}
+            <div className="p-4 sm:p-6 flex-1 flex items-center justify-center bg-black/60 overflow-hidden min-h-[300px] max-h-[75vh]">
+              <img
+                src={enlargedImage.url}
+                alt={enlargedImage.title}
+                className="max-h-[70vh] max-w-full w-auto h-auto object-contain rounded-lg shadow-md select-none"
+              />
+            </div>
+
+            {/* Bottom Modal Hint Bar */}
+            <div className="px-5 py-2.5 bg-[#0D4C3C] border-t border-white/20 flex items-center justify-between text-[11px] text-white/70">
+              <span>Press <kbd className="px-1.5 py-0.5 rounded bg-black/40 border border-white/30 font-mono text-white text-[10px]">Esc</kbd> or click backdrop to close</span>
+              <span className="font-mono text-[10px]">Full Resolution Preview</span>
+            </div>
+          </div>
+        </div>
+      )}
     </AdminLayout>
   );
 };

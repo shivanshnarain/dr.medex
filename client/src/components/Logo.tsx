@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 interface LogoProps {
-  variant?: "dark-bg" | "light-bg" | "monochrome";
+  variant?: "dark-bg" | "light-bg" | "monochrome" | "white";
   className?: string;
   showTagline?: boolean;
 }
@@ -14,9 +14,10 @@ export const Logo: React.FC<LogoProps> = ({
 }) => {
   const isLightBg = variant === "light-bg";
   const isMonochrome = variant === "monochrome";
+  const isWhite = variant === "white";
 
   return (
-    <Link to={isMonochrome ? "/admin" : "/"} className={`inline-flex items-center gap-3 group select-none ${className}`}>
+    <Link to={isMonochrome || isWhite ? "/admin" : "/"} className={`inline-flex items-center gap-3 group select-none ${className}`}>
       {/* Precision Medical Cross Icon */}
       <div className="relative w-9 h-9 sm:w-10 sm:h-10 shrink-0 flex items-center justify-center rounded-xl overflow-hidden shadow-xs group-hover:scale-105 transition-transform duration-200">
         <svg viewBox="0 0 40 40" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,18 +43,18 @@ export const Logo: React.FC<LogoProps> = ({
       {/* DR.MEDEX Wordmark */}
       <div className="flex flex-col leading-none">
         <div className="flex items-baseline tracking-tight font-black text-xl sm:text-2xl">
-          <span className={`${isMonochrome ? "text-black" : "text-[#2D5A4A]"} transition-colors`}>DR.</span>
-          <span className={`${isMonochrome ? "text-black" : "text-[#7AA05A]"} transition-colors tracking-wide ml-0.5`}>
+          <span className={`${isWhite ? "text-white" : isMonochrome ? "text-black" : "text-[#2D5A4A]"} transition-colors`}>DR.</span>
+          <span className={`${isWhite ? "text-white" : isMonochrome ? "text-black" : "text-[#7AA05A]"} transition-colors tracking-wide ml-0.5`}>
             MEDEX
           </span>
         </div>
         {showTagline && (
           <span
             className={`text-[8px] sm:text-[9px] font-bold tracking-[0.18em] uppercase mt-1 ${
-              isMonochrome ? "text-neutral-500" : isLightBg ? "text-neutral-500" : "text-neutral-400"
+              isWhite ? "text-white/70" : isMonochrome ? "text-neutral-500" : isLightBg ? "text-neutral-500" : "text-neutral-400"
             }`}
           >
-            {isMonochrome ? "ADMIN OPERATIONS CONSOLE" : "ADVANCING HEALTHCARE GLOBALLY"}
+            {isMonochrome || isWhite ? "ADMIN OPERATIONS CONSOLE" : "ADVANCING HEALTHCARE GLOBALLY"}
           </span>
         )}
       </div>
