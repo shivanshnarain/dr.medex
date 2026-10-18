@@ -218,51 +218,68 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
-          {/* Grid: Desktop 3 cards per row (2 rows), Tablet 2 cards per row, Mobile 1-2 cards per row */}
+          {/* Grid: Desktop 3 cards per row (2 rows), Tablet 2 cards per row, Mobile 1 card per row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {SIX_ACTIVE_CATEGORIES.map((cat) => {
+            {SIX_ACTIVE_CATEGORIES.map((cat, idx) => {
               const count = productsByCategory[cat.slug]?.length || 0;
+              // Card colors: Index 1 & 4 (center cards in each row) are Dark Emerald #0D4C3C, others Moss Green #7AA05A
+              const bgColor = idx === 1 || idx === 4 ? "#0D4C3C" : "#7AA05A";
+
               return (
                 <Link
                   key={cat.id}
                   to={`/category/${cat.slug}`}
-                  className="group bg-white rounded-2xl border border-[#E8E8E8] hover:border-[#2D5A4A]/60 hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden hover:-translate-y-1"
+                  className="group relative rounded-2xl border border-white/15 hover:border-white/35 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden hover:-translate-y-1 p-6 sm:p-7 text-white"
+                  style={{ backgroundColor: bgColor }}
                 >
-                  {/* Category Image Box with consistent dimension */}
-                  <div className="relative aspect-16/10 bg-[#FAFAFA] overflow-hidden flex items-center justify-center p-6 border-b border-[#F0F0F0]">
-                    <img
-                      src={cat.image}
-                      alt={cat.name}
-                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src =
-                          "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80";
-                      }}
-                    />
-                    <div className="absolute top-3.5 right-3.5">
-                      <span className="px-2.5 py-1 rounded-full text-3xs font-bold bg-white/95 backdrop-blur-xs text-[#111111] border border-neutral-200 shadow-2xs font-mono">
-                        {count > 0 ? `${count} Units Available` : "Catalogue Certified"}
-                      </span>
-                    </div>
-                  </div>
+                  {/* Subtle white translucent gradient overlay (strongest at right edge, fading to 0% around midpoint) */}
+                  <div
+                    className="absolute inset-0 pointer-events-none z-0"
+                    style={{
+                      background:
+                        "linear-gradient(to left, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 25%, rgba(255, 255, 255, 0) 55%)"
+                    }}
+                  />
 
-                  {/* Category Content Box */}
-                  <div className="p-6 flex-1 flex flex-col justify-between">
+                  {/* Foreground Content Layer */}
+                  <div className="relative z-10 flex flex-col flex-1 justify-between">
                     <div>
-                      <h3 className="text-base sm:text-lg font-bold text-[#111111] group-hover:text-[#2D5A4A] transition-colors tracking-tight">
+                      {/* Consistent Category Image Container */}
+                      <div className="relative w-full h-48 sm:h-52 bg-white/95 rounded-xl overflow-hidden p-4 flex items-center justify-center border border-white/20 mb-5 shadow-xs group-hover:bg-white transition-colors">
+                        <img
+                          src={cat.image}
+                          alt={cat.name}
+                          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src =
+                              "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80";
+                          }}
+                        />
+                        <div className="absolute top-2.5 right-2.5">
+                          <span className="px-2.5 py-1 rounded-full text-3xs font-bold bg-[#111111]/85 backdrop-blur-xs text-white border border-white/20 font-mono shadow-xs">
+                            {count > 0 ? `${count} Units Available` : "Catalogue Certified"}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Category Heading in White */}
+                      <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight leading-snug">
                         {cat.name}
                       </h3>
-                      <p className="text-xs text-neutral-500 mt-2 line-clamp-2 leading-relaxed">
+
+                      {/* Category Description in High-Contrast White */}
+                      <p className="text-xs sm:text-sm text-white/90 mt-2 line-clamp-2 leading-relaxed font-normal">
                         {cat.description}
                       </p>
                     </div>
 
-                    <div className="mt-5 pt-4 border-t border-[#F0F0F0] flex items-center justify-between">
-                      <span className="text-xs font-bold text-[#111111] group-hover:text-[#2D5A4A] transition-colors flex items-center gap-1.5 uppercase tracking-wider">
+                    {/* Bottom Action: Explore Products → & ISO 13485 */}
+                    <div className="mt-6 pt-4 border-t border-white/15 flex items-center justify-between">
+                      <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-white group-hover:underline">
                         <span>Explore Products</span>
-                        <ArrowRight size={13} className="text-[#2D5A4A] group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform text-white" />
                       </span>
-                      <span className="text-3xs font-semibold text-neutral-400 uppercase tracking-widest font-mono">
+                      <span className="px-2 py-0.5 rounded-full text-3xs font-semibold text-white/90 uppercase tracking-widest font-mono border border-white/20 bg-white/10">
                         ISO 13485
                       </span>
                     </div>
