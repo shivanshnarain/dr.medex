@@ -41,42 +41,42 @@ const SIX_ACTIVE_CATEGORIES: ActiveCategoryCard[] = [
     slug: "electrosurgical-units",
     name: "Electrosurgical Units",
     description: "High-frequency precision electrosurgical generators, RF cautery units and smoke evacuation systems.",
-    image: "/products-hero/electrosurgical_generator.jpg"
+    image: "/category-cards/card-1-electrosurgical.png"
   },
   {
     id: "cryo-surgical",
     slug: "cryo-surgical",
     name: "Cryosurgical Equipment",
     description: "Liquid nitrogen cryotherapy guns, multi-nozzle spray sets, and surgical cryo systems.",
-    image: "/products-hero/cryo_surgical_gun.jpg"
+    image: "/category-cards/card-2-cryosurgical.png"
   },
   {
     id: "ot-lights",
     slug: "ot-lights",
-    name: "OT / Surgical Lights",
+    name: "OT Surgical Lights",
     description: "Shadowless LED surgical illumination systems engineered with high CRI and cold-light optics.",
-    image: "/products-hero/ot_light_petal.jpg"
+    image: "/category-cards/card-3-ot-lights.png"
   },
   {
     id: "examination-ot-tables",
     slug: "examination-ot-tables",
     name: "Examination & OT Tables",
     description: "Heavy-duty electric operating theatre tables, hydraulic surgical couches, and clinical examination beds.",
-    image: "/products-hero/ot_surgical_table.jpg"
+    image: "/category-cards/card-4-examination-tables.png"
   },
   {
     id: "obstetrics-and-gynaecology",
     slug: "obstetrics-and-gynaecology",
     name: "Obstetrics & Gynaecology",
     description: "Specialized maternal delivery tables, gynaecological examination beds, and fetal monitoring instruments.",
-    image: "/products-hero/examination_table.jpg"
+    image: "/category-cards/card-5-obstetrics.png"
   },
   {
     id: "medical-equipment",
     slug: "medical-equipment",
     name: "General Medical Equipment",
     description: "Hospital diagnostic instruments, surgical headlights, medical equipment trolleys, and emergency systems.",
-    image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80"
+    image: "/category-cards/card-6-general-medical.png"
   }
 ];
 
@@ -218,34 +218,41 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
-          {/* Grid: Desktop 3 narrow cards per row (2 rows), Tablet 2 cards per row, Mobile 1 card per row */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-[1080px] mx-auto">
-            {SIX_ACTIVE_CATEGORIES.map((cat, idx) => {
-              // Card colors: Index 1 & 4 (center cards in each row) are Dark Emerald #0D4C3C, others Moss Green #7AA05A
-              const baseGreen = idx === 1 || idx === 4 ? "#0D4C3C" : "#7AA05A";
-
-              return (
-                <Link
-                  key={cat.id}
-                  to={`/category/${cat.slug}`}
-                  className="group relative rounded-lg border border-[#E5E5E5] hover:border-neutral-300 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-start overflow-hidden hover:-translate-y-1 min-h-[480px] sm:min-h-[520px] lg:min-h-[540px] p-7 sm:p-8 pt-20 sm:pt-24 lg:pt-28 text-left w-full max-w-[330px] mx-auto"
-                  style={{
-                    background: `linear-gradient(to right, ${baseGreen} 0%, ${baseGreen} 45%, #FFFFFF 100%)`
-                  }}
-                >
-                  {/* Category Heading on the left near upper-middle */}
-                  <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-black text-white tracking-tight leading-[1.18] max-w-[210px] sm:max-w-[220px]">
+          {/* Grid: Desktop 3 wide cards in first row & 3 in second row (2:1 ratio); Tablet 2 columns; Mobile 1 column */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-7">
+            {SIX_ACTIVE_CATEGORIES.map((cat) => (
+              <Link
+                key={cat.id}
+                to={`/category/${cat.slug}`}
+                className="group relative bg-[#DCE8D2] hover:bg-[#D5E2CB] rounded-2xl border border-[#C8D7BC] shadow-xs hover:shadow-md transition-all duration-300 flex overflow-hidden min-h-[200px] sm:min-h-[215px] lg:min-h-[225px] xl:min-h-[235px] aspect-[2/1] select-none hover:-translate-y-0.5"
+              >
+                {/* Left Content Area: Heading at top-left, Explore Products CTA at bottom-left */}
+                <div className="w-[56%] sm:w-[58%] flex flex-col justify-between p-5 sm:p-6 lg:p-7 z-10 text-left">
+                  {/* Category Heading (Top-left, near-black #111111, wrapped naturally) */}
+                  <h3 className="text-lg sm:text-xl lg:text-[22px] font-black text-[#111111] tracking-tight leading-snug">
                     {cat.name}
                   </h3>
 
-                  {/* Explore Product Action Link */}
-                  <div className="mt-4 sm:mt-5 flex items-center gap-1.5 text-xs sm:text-sm font-bold text-white group-hover:text-white/90 transition-colors">
-                    <span>Explore Product</span>
-                    <ArrowRight size={14} className="group-hover:translate-x-1.5 transition-transform shrink-0" />
+                  {/* Explore Products CTA */}
+                  <div className="pt-3">
+                    <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0D4C3C] group-hover:text-[#167A4A] transition-colors">
+                      <span>Explore Products</span>
+                      <ArrowRight size={14} className="group-hover:translate-x-1.5 transition-transform text-[#0D4C3C]" />
+                    </span>
                   </div>
-                </Link>
-              );
-            })}
+                </div>
+
+                {/* Right Image Area: Attached flush to the bottom-right corner, 44-46% width */}
+                <div className="absolute right-0 bottom-0 w-[45%] sm:w-[46%] h-[82%] sm:h-[88%] lg:h-[92%] flex items-end justify-end pointer-events-none overflow-hidden">
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="w-full h-full object-contain object-right-bottom group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
