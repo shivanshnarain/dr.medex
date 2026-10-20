@@ -218,111 +218,49 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
-          {/* Grid: Desktop 3 wide cards in first row & 3 in second row; Tablet 2 columns; Mobile 1 column. Equal 16-20px gaps */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-5">
-            {SIX_ACTIVE_CATEGORIES.map((cat) => {
-              // Image alignment rules per category
-              const getImageStyle = (id: string) => {
-                switch (id) {
-                  // 1: Electrosurgical Units - Clean, unshadowed enlarged image inside right area
-                  case "electrosurgical-units":
-                    return {
-                      container: "absolute right-0 top-0 bottom-0 w-[54%] sm:w-[52%] h-full flex items-center justify-center p-2 sm:p-2.5 lg:p-3 pointer-events-none overflow-hidden z-10",
-                      img: "w-full h-full max-w-full max-h-full object-contain object-center scale-[1.15] group-hover:scale-[1.20] transition-transform duration-300",
-                      style: undefined
-                    };
-
-                  // 4: Examination & OT Tables - Noticeably enlarged by ~20%
-                  case "examination-ot-tables":
-                    return {
-                      container: "absolute right-0 top-0 bottom-0 w-[54%] sm:w-[52%] h-full flex items-center justify-center p-1.5 sm:p-2.5 lg:p-3 pointer-events-none overflow-hidden z-10",
-                      img: "w-full h-full max-w-full max-h-full object-contain object-center scale-[1.18] group-hover:scale-[1.24] transition-transform duration-300",
-                      style: undefined
-                    };
-
-                  // 6: General Medical Equipment - Moderately enlarged by ~20%
-                  case "medical-equipment":
-                    return {
-                      container: "absolute right-0 top-0 bottom-0 w-[54%] sm:w-[52%] h-full flex items-center justify-center p-1.5 sm:p-2.5 lg:p-3 pointer-events-none overflow-hidden z-10",
-                      img: "w-full h-full max-w-full max-h-full object-contain object-center scale-[1.18] group-hover:scale-[1.24] transition-transform duration-300",
-                      style: undefined
-                    };
-
-                  // 2, 5: Cryosurgical Equipment, Obstetrics & Gynaecology
-                  // Align right boundary flush to card right boundary, no gaps or overflow at right edge
-                  case "cryo-surgical":
-                  case "obstetrics-and-gynaecology":
-                    return {
-                      container: "absolute right-0 top-0 bottom-0 w-1/2 h-full flex items-end justify-end pointer-events-none overflow-hidden pr-0 pb-1.5 pt-1.5 z-10",
-                      img: "w-full h-full max-w-full max-h-full object-contain object-right-bottom group-hover:scale-105 transition-transform duration-300",
-                      style: undefined
-                    };
-
-                  // 3: OT Surgical Lights
-                  // Top alignment: align top edge with top of allocated image area, aligned to right side, not vertically centered
-                  case "ot-lights":
-                    return {
-                      container: "absolute right-0 top-0 bottom-0 w-1/2 h-full flex items-start justify-end pointer-events-none overflow-hidden pt-3 sm:pt-4 pr-3 sm:pr-4 pb-2 z-10",
-                      img: "w-full h-full max-w-full max-h-full object-contain object-right-top group-hover:scale-105 transition-transform duration-300",
-                      style: undefined
-                    };
-
-                  default:
-                    return {
-                      container: "absolute right-0 top-0 bottom-0 w-1/2 h-full flex items-center justify-center p-4 pointer-events-none overflow-hidden z-10",
-                      img: "w-full h-full max-w-full max-h-full object-contain object-center group-hover:scale-105 transition-transform duration-300",
-                      style: undefined
-                    };
-                }
-              };
-
-              const imgStyle = getImageStyle(cat.id);
-
-              return (
-                <Link
-                  key={cat.id}
-                  to={`/category/${cat.slug}`}
-                  className="group relative bg-[#658848] hover:bg-[#5A7A40] rounded-2xl border border-[#55753C]/40 shadow-xs hover:shadow-md transition-all duration-300 flex overflow-hidden min-h-[225px] sm:min-h-[240px] lg:min-h-[255px] xl:min-h-[265px] aspect-[1.7/1] select-none hover:-translate-y-0.5"
-                  style={{ backgroundColor: "#658848" }}
+          {/* Grid: Desktop 3 cards per row (2 rows), Tablet 2 cards per row, Mobile 1 card per row */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8">
+            {SIX_ACTIVE_CATEGORIES.map((cat) => (
+              <Link
+                key={cat.id}
+                to={`/category/${cat.slug}`}
+                className="group bg-white border border-[#E5E5E5] hover:border-[#111111] hover:shadow-lg transition-all duration-300 flex flex-col overflow-hidden text-left rounded-none select-none"
+                style={{ borderRadius: 0 }}
+              >
+                {/* 1. Large product image at very top, spanning full card width with preserved natural proportions */}
+                <div
+                  className="w-full aspect-[1.75/1] bg-[#F7F7F7] overflow-hidden flex items-center justify-center border-b border-[#EAEAEA] rounded-none"
+                  style={{ borderRadius: 0 }}
                 >
-                  {/* Subtle White-to-Green Gradient: Clean white on far left, smoothly reducing intensity to display the rich moss-green base */}
-                  <div
-                    className="absolute inset-0 pointer-events-none z-0"
-                    style={{
-                      background:
-                        "linear-gradient(to right, #FFFFFF 0%, rgba(255, 255, 255, 0.88) 16%, rgba(255, 255, 255, 0.45) 38%, rgba(255, 255, 255, 0.1) 60%, rgba(255, 255, 255, 0) 75%)"
-                    }}
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-none"
+                    style={{ borderRadius: 0 }}
+                    loading="lazy"
                   />
+                </div>
 
-                  {/* Left Content Area: Heading at top-left, Explore Products CTA at bottom-left */}
-                  <div className="w-1/2 flex flex-col justify-between px-5 sm:px-6 lg:px-7 py-5 sm:py-5.5 lg:py-6.5 z-10 text-left">
-                    {/* Category Heading (Top-left, near-black #111111, wrapped naturally) */}
-                    <h3 className="text-base sm:text-lg lg:text-[19px] xl:text-[20px] font-black text-[#111111] tracking-tight leading-snug">
-                      {cat.name}
-                    </h3>
+                {/* 2. Clean white information section directly beneath each image, aligned edge-to-edge */}
+                <div
+                  className="bg-white p-5 sm:p-6 flex-1 flex flex-col justify-between rounded-none"
+                  style={{ borderRadius: 0 }}
+                >
+                  {/* Category Title */}
+                  <h3 className="text-base sm:text-lg lg:text-xl font-bold text-[#111111] group-hover:text-[#2D5A4A] transition-colors tracking-tight leading-snug">
+                    {cat.name}
+                  </h3>
 
-                    {/* Explore Products CTA */}
-                    <div className="pt-2">
-                      <span className="inline-flex items-center gap-1.5 text-xs sm:text-xs lg:text-sm font-bold text-[#0D4C3C] group-hover:text-[#111111] transition-colors">
-                        <span>Explore Products</span>
-                        <ArrowRight size={14} className="group-hover:translate-x-1.5 transition-transform text-[#0D4C3C] group-hover:text-[#111111]" />
-                      </span>
-                    </div>
+                  {/* Circular Explore Products Action */}
+                  <div className="mt-5 pt-1">
+                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-neutral-300 group-hover:border-[#111111] group-hover:bg-[#111111] group-hover:text-white text-[#111111] text-xs sm:text-sm font-semibold transition-all duration-200">
+                      <span>Explore Products</span>
+                      <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
+                    </span>
                   </div>
-
-                  {/* Right Image Area (Right-hand 50% of card) */}
-                  <div className={imgStyle.container}>
-                    <img
-                      src={cat.image}
-                      alt={cat.name}
-                      className={imgStyle.img}
-                      style={imgStyle.style}
-                      loading="lazy"
-                    />
-                  </div>
-                </Link>
-              );
-            })}
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
