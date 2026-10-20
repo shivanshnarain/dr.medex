@@ -19,10 +19,41 @@ function osEnsureDir(dirPath) {
 // Allowed MIME types
 const ALLOWED_MIME_TYPES = new Set([
   "image/jpeg",
+  "image/jpg",
+  "image/pjpeg",
   "image/png",
+  "image/x-png",
   "image/webp",
   "image/svg+xml"
 ]);
+
+function normalizeFilenameAndMime(originalFilename = "image.jpg", rawMime = "image/jpeg") {
+  let cleanName = String(originalFilename || "image.jpg").trim().replace(/[/\\?%*:|"<>]/g, "");
+
+  // Collapse duplicate extensions e.g. "dr_medex_table_2.jpg.jpeg" -> "dr_medex_table_2.jpg"
+  cleanName = cleanName.replace(/(\.(jpe?g|png|webp))+\.(jpe?g|png|webp)$/i, (m, p1, p2, lastExt) => {
+    const normExt = lastExt.toLowerCase() === "jpeg" ? "jpg" : lastExt.toLowerCase();
+    return `.${normExt}`;
+  });
+
+  const extMatch = cleanName.match(/\.([a-zA-Z0-9]+)$/);
+  let ext = extMatch ? extMatch[1].toLowerCase() : "jpg";
+  if (ext === "jpeg") ext = "jpg";
+
+  let mimeType = (rawMime || "").toLowerCase().trim();
+  if (!mimeType || mimeType === "application/octet-stream") {
+    if (ext === "png") mimeType = "image/png";
+    else if (ext === "webp") mimeType = "image/webp";
+    else if (ext === "svg") mimeType = "image/svg+xml";
+    else mimeType = "image/jpeg";
+  } else if (mimeType === "image/jpg" || mimeType === "image/pjpeg") {
+    mimeType = "image/jpeg";
+  } else if (mimeType === "image/x-png") {
+    mimeType = "image/png";
+  }
+
+  return { cleanName, mimeType, ext };
+}
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
@@ -34,7 +65,8 @@ class LocalMediaProvider {
     const prodDir = path.join(LOCAL_STORAGE_DIR, productId.replace(/[^a-zA-Z0-9_-]/g, "_"));
     osEnsureDir(prodDir);
 
-    const ext = path.extname(filename) || (mimeType === "image/png" ? ".png" : ".jpg");
+    let ext = path.extname(filename) || (mimeType === "image/png" ? ".png" : (mimeType === "image/webp" ? ".webp" : ".jpg"));
+    if (ext.toLowerCase() === ".jpeg") ext = ".jpg";
     const safeName = `img_${Date.now()}_${crypto.randomBytes(4).toString("hex")}${ext}`;
     const targetPath = path.join(prodDir, safeName);
 
@@ -88,23 +120,32 @@ module.exports = {
    * Upload image for a product
    */
   uploadProductImage: async (base64OrBuffer, originalFilename = "image.jpg", mimeType = "image/jpeg", productId = "general", altText = "") => {
+    const { cleanName, mimeType: finalMime } = normalizeFilenameAndMime(originalFilename, mimeType);
+
     let buffer;
     if (Buffer.isBuffer(base64OrBuffer)) {
       buffer = base64OrBuffer;
     } else if (typeof base64OrBuffer === "string") {
-      // Handle data URI or raw base64
-      const base64Data = base64OrBuffer.replace(/^data:image\/\w+;base64,/, "");
-      buffer = Buffer.from(base64Data, "base64");
+      // Handle data URI or raw base64 safely
+      const commaIdx = base64OrBuffer.indexOf(",");
+      const base64Data = commaIdx !== -1 && base64OrBuffer.startsWith("data:")
+        ? base64OrBuffer.substring(commaIdx + 1)
+        : base64OrBuffer;
+      buffer = Buffer.from(base64Data.trim(), "base64");
     } else {
       throw new Error("Invalid image data provided");
+    }
+
+    if (!buffer || buffer.length === 0) {
+      throw new Error("Image data is empty (0 bytes)");
     }
 
     if (buffer.length > MAX_FILE_SIZE) {
       throw new Error(`Image exceeds maximum allowed size of 10MB (actual: ${(buffer.length / 1024 / 1024).toFixed(1)}MB)`);
     }
 
-    if (mimeType && !ALLOWED_MIME_TYPES.has(mimeType)) {
-      throw new Error(`Unsupported image MIME type: ${mimeType}. Allowed types: JPEG, PNG, WEBP, SVG`);
+    if (finalMime && !ALLOWED_MIME_TYPES.has(finalMime)) {
+      throw new Error(`Unsupported image MIME type: ${finalMime}. Allowed types: JPEG, PNG, WEBP, SVG`);
     }
 
     let uploadResult;
@@ -127,19 +168,19 @@ module.exports = {
         if (process.env.VERCEL) {
           throw new Error(`Cloudinary upload failed: ${cErr.message}`);
         }
-        uploadResult = await activeProvider.upload(buffer, originalFilename, mimeType, productId);
+        uploadResult = await activeProvider.upload(buffer, cleanName, finalMime, productId);
       }
     } else {
       if (process.env.VERCEL) {
         throw new Error("Cloudinary storage is not configured in this serverless environment.");
       }
-      uploadResult = await activeProvider.upload(buffer, originalFilename, mimeType, productId);
+      uploadResult = await activeProvider.upload(buffer, cleanName, finalMime, productId);
     }
 
     return {
       id: `img-${Date.now()}-${crypto.randomBytes(3).toString("hex")}`,
       url: uploadResult.url,
-      altText: altText || originalFilename,
+      altText: altText || cleanName,
       sourceUrl: uploadResult.sourceUrl,
       isPrimary: false,
       importedAt: new Date().toISOString(),
@@ -149,6 +190,7 @@ module.exports = {
       status: "READY"
     };
   },
+
 
   /**
    * Delete image file from storage
@@ -163,5 +205,7 @@ module.exports = {
     const pid = (typeof opts === "object" && opts.productId) || "general";
     const alt = (typeof opts === "object" && opts.altText) || filename;
     return await module.exports.uploadProductImage(base64OrBuffer, filename, mime, pid, alt);
-  }
+  },
+
+  normalizeFilenameAndMime
 };

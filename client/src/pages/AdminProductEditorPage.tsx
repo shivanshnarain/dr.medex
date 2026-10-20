@@ -143,6 +143,110 @@ function parseInitialImageSlots(p: any): ProductImageSlot[] {
   }));
 }
 
+function normalizeImageFile(file: File): { normalizedFile: File; cleanName: string; mimeType: string } {
+  let name = (file.name || "product_image.jpg").trim();
+  let type = (file.type || "").toLowerCase().trim();
+
+  // 1. Remove duplicate or chained extensions (e.g. .jpg.jpeg -> .jpg, .jpeg.jpeg -> .jpeg, .png.png -> .png)
+  name = name.replace(/\.(jpg|jpeg|png|webp)\.(jpg|jpeg|png|webp)$/i, ".$1");
+  name = name.replace(/(\.(jpg|jpeg|png|webp))+$/i, (match) => {
+    const parts = match.split(".").filter(Boolean);
+    return parts.length > 0 ? `.${parts[0]}` : match;
+  });
+
+  // 2. Extract clean extension and base name
+  const extMatch = name.match(/\.([a-zA-Z0-9]+)$/);
+  let ext = extMatch ? extMatch[1].toLowerCase() : "jpg";
+  if (ext === "jpeg") ext = "jpg";
+
+  const baseName = name.replace(/\.[a-zA-Z0-9]+$/, "");
+  const cleanBase = baseName.replace(/[^a-zA-Z0-9_-]/g, "_").replace(/_+/g, "_").slice(0, 80);
+  const cleanName = `${cleanBase || "product_image"}.${ext}`;
+
+  // 3. Normalize MIME type
+  let mimeType = type;
+  if (!mimeType || mimeType === "application/octet-stream") {
+    if (ext === "png") mimeType = "image/png";
+    else if (ext === "webp") mimeType = "image/webp";
+    else mimeType = "image/jpeg";
+  } else if (mimeType === "image/jpg" || mimeType === "image/pjpeg") {
+    mimeType = "image/jpeg";
+  } else if (mimeType === "image/x-png") {
+    mimeType = "image/png";
+  }
+
+  let normalizedFile: File;
+  try {
+    normalizedFile = new File([file], cleanName, { type: mimeType, lastModified: file.lastModified || Date.now() });
+  } catch {
+    normalizedFile = file;
+  }
+
+  return { normalizedFile, cleanName, mimeType };
+}
+
+async function prepareImageBase64(file: File): Promise<{ base64: string; size: number }> {
+  // If the file is reasonably sized (<= 1.5MB), read directly
+  if (file.size <= 1.5 * 1024 * 1024) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve({ base64: reader.result as string, size: file.size });
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // For larger images (> 1.5MB), optimize via Canvas to prevent Vercel 4.5MB request limit
+  return new Promise((resolve) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      try {
+        let { width, height } = img;
+        const maxDim = 1920;
+        if (width > maxDim || height > maxDim) {
+          if (width > height) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          const reader = new FileReader();
+          reader.onload = () => resolve({ base64: reader.result as string, size: file.size });
+          reader.onerror = () => resolve({ base64: "", size: 0 });
+          reader.readAsDataURL(file);
+          return;
+        }
+        ctx.drawImage(img, 0, 0, width, height);
+        const outputMime = file.type === "image/png" ? "image/png" : file.type === "image/webp" ? "image/webp" : "image/jpeg";
+        const base64 = canvas.toDataURL(outputMime, 0.88);
+        resolve({ base64, size: Math.round((base64.length * 3) / 4) });
+      } catch {
+        const reader = new FileReader();
+        reader.onload = () => resolve({ base64: reader.result as string, size: file.size });
+        reader.onerror = () => resolve({ base64: "", size: 0 });
+        reader.readAsDataURL(file);
+      }
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      const reader = new FileReader();
+      reader.onload = () => resolve({ base64: reader.result as string, size: file.size });
+      reader.onerror = () => resolve({ base64: "", size: 0 });
+      reader.readAsDataURL(file);
+    };
+    img.src = url;
+  });
+}
+
 export const AdminProductEditorPage: React.FC = () => {
   const { productId } = useParams<{ productId?: string }>();
   const navigate = useNavigate();
@@ -1357,20 +1461,20 @@ export const AdminProductEditorPage: React.FC = () => {
   // Helper to upload a single slot file to backend
   const uploadSlotFile = async (slotId: string, file: File) => {
     try {
-      const base64Data = await new Promise<string>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result as string);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
+      const { normalizedFile, cleanName, mimeType } = normalizeImageFile(file);
+      const { base64 } = await prepareImageBase64(normalizedFile);
+
+      if (!base64) {
+        throw new Error("Unable to encode image payload for storage");
+      }
 
       const res = await adminFetch("/api/admin/media/upload", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          data: base64Data,
-          filename: file.name,
-          contentType: file.type,
+          data: base64,
+          filename: cleanName,
+          contentType: mimeType,
           productId: productId || "new-product"
         })
       });
@@ -1384,6 +1488,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   ...s,
                   url: data.url,
                   previewUrl: undefined,
+                  file: normalizedFile,
                   publicId: data.image?.publicId || data.publicId,
                   storageProvider: data.image?.storageProvider || "cloudinary",
                   status: "persisted" as const,
@@ -1393,13 +1498,15 @@ export const AdminProductEditorPage: React.FC = () => {
           )
         );
       } else {
+        const errorDetail = data?.message || data?.error || `Upload rejected by server (HTTP ${res.status})`;
         setImageSlots((curr) =>
           curr.map((s) =>
             s.id === slotId
               ? {
                   ...s,
+                  file: normalizedFile,
                   status: "failed" as const,
-                  errorMessage: data?.message || "Upload failed"
+                  errorMessage: errorDetail
                 }
               : s
           )
@@ -1411,6 +1518,7 @@ export const AdminProductEditorPage: React.FC = () => {
           s.id === slotId
             ? {
                 ...s,
+                file,
                 status: "failed" as const,
                 errorMessage: err?.message || "Network error during upload"
               }
@@ -1418,6 +1526,27 @@ export const AdminProductEditorPage: React.FC = () => {
         )
       );
     }
+  };
+
+  const handleRetryUpload = async (slotId: string) => {
+    const slot = imageSlotsRef.current.find((s) => s.id === slotId);
+    if (!slot) return;
+
+    if (!slot.file) {
+      setUploadError("Image source file is not in browser memory. Please use Replace to reselect this photo.");
+      return;
+    }
+
+    setUploadError(null);
+    setImageSlots((curr) =>
+      curr.map((s) =>
+        s.id === slotId
+          ? { ...s, status: "uploading" as const, errorMessage: undefined }
+          : s
+      )
+    );
+
+    await uploadSlotFile(slotId, slot.file);
   };
 
   const handleStep1PhotosSelected = async (selectedFiles: File[]) => {
@@ -1434,28 +1563,43 @@ export const AdminProductEditorPage: React.FC = () => {
       setUploadError(`Only ${availableSlots} more photo(s) can be added to reach the maximum 5 photographs limit.`);
     }
 
-    const validTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
-    for (const f of filesToProcess) {
-      if (!validTypes.has(f.type)) {
-        setUploadError(`File "${f.name}" has an unsupported format (${f.type}). Supported formats: JPEG, PNG, WebP.`);
+    const allowedMimes = new Set([
+      "image/jpeg",
+      "image/jpg",
+      "image/pjpeg",
+      "image/png",
+      "image/x-png",
+      "image/webp"
+    ]);
+
+    const normalizedBatch: { file: File; cleanName: string; mimeType: string }[] = [];
+    for (const rawFile of filesToProcess) {
+      const normalized = normalizeImageFile(rawFile);
+      if (!allowedMimes.has(rawFile.type) && !allowedMimes.has(normalized.mimeType)) {
+        setUploadError(`File "${rawFile.name}" has an unsupported format (${rawFile.type || "unknown"}). Supported formats: JPEG, PNG, WebP.`);
         return;
       }
-      if (f.size > 10 * 1024 * 1024) {
-        setUploadError(`File "${f.name}" exceeds the 10MB limit.`);
+      if (rawFile.size > 15 * 1024 * 1024) {
+        setUploadError(`File "${rawFile.name}" exceeds the 15MB limit.`);
         return;
       }
+      normalizedBatch.push({
+        file: normalized.normalizedFile,
+        cleanName: normalized.cleanName,
+        mimeType: normalized.mimeType
+      });
     }
 
     setUploadError(null);
 
-    const newSlots: ProductImageSlot[] = filesToProcess.map((file, idx) => {
-      const objUrl = URL.createObjectURL(file);
+    const newSlots: ProductImageSlot[] = normalizedBatch.map((item, idx) => {
+      const objUrl = URL.createObjectURL(item.file);
       objectUrlsRef.current.push(objUrl);
       return {
         id: `upload-${Date.now()}-${idx}-${Math.random().toString(36).slice(2, 7)}`,
         url: objUrl,
         previewUrl: objUrl,
-        file,
+        file: item.file,
         status: "uploading" as const
       };
     });
@@ -1512,10 +1656,24 @@ export const AdminProductEditorPage: React.FC = () => {
 
   const handleReplaceFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0 || replaceTargetIndex === null) return;
-    const file = e.target.files[0];
+    const rawFile = e.target.files[0];
     e.target.value = "";
 
-    const objUrl = URL.createObjectURL(file);
+    const { normalizedFile, mimeType } = normalizeImageFile(rawFile);
+    const allowedMimes = new Set([
+      "image/jpeg",
+      "image/jpg",
+      "image/pjpeg",
+      "image/png",
+      "image/x-png",
+      "image/webp"
+    ]);
+    if (!allowedMimes.has(rawFile.type) && !allowedMimes.has(mimeType)) {
+      setUploadError(`File "${rawFile.name}" has an unsupported format. Supported formats: JPEG, PNG, WebP.`);
+      return;
+    }
+
+    const objUrl = URL.createObjectURL(normalizedFile);
     objectUrlsRef.current.push(objUrl);
     const targetId = imageSlots[replaceTargetIndex]?.id || `replace-${Date.now()}`;
 
@@ -1526,7 +1684,7 @@ export const AdminProductEditorPage: React.FC = () => {
               id: targetId,
               url: objUrl,
               previewUrl: objUrl,
-              file,
+              file: normalizedFile,
               status: "uploading" as const,
               errorMessage: undefined,
               hasLoadError: false
@@ -1535,7 +1693,7 @@ export const AdminProductEditorPage: React.FC = () => {
       )
     );
 
-    await uploadSlotFile(targetId, file);
+    await uploadSlotFile(targetId, normalizedFile);
     setReplaceTargetIndex(null);
     setHasUnsavedChanges(true);
   };
@@ -2297,22 +2455,34 @@ export const AdminProductEditorPage: React.FC = () => {
       {/* Global Status Banner */}
       {statusBanner && (
         <div
-          className={`mb-6 p-4 rounded-2xl border flex items-start justify-between gap-3 shadow-md ${
+          role={statusBanner.type === "error" ? "alert" : undefined}
+          className={`mb-6 p-4 rounded-2xl border-2 flex items-start justify-between gap-3 shadow-md ${
             statusBanner.type === "error"
-              ? "bg-[#C62828] border-white text-white"
+              ? "bg-[#FFFFFF] border-[#D32F2F] text-[#D32F2F]"
               : statusBanner.type === "warning"
               ? "bg-amber-800 border-white text-white"
               : "bg-[#0D4C3C] border-white text-white"
           }`}
         >
           <div className="flex items-start gap-2.5">
-            <AlertCircle size={16} className="mt-0.5 shrink-0 text-white" />
-            <p className="text-xs font-semibold leading-relaxed text-white">{statusBanner.text}</p>
+            <AlertCircle
+              size={18}
+              className={`mt-0.5 shrink-0 ${statusBanner.type === "error" ? "text-[#D32F2F]" : "text-white"}`}
+            />
+            <p
+              className={`text-xs font-semibold leading-relaxed ${
+                statusBanner.type === "error" ? "text-[#D32F2F]" : "text-white"
+              }`}
+            >
+              {statusBanner.text}
+            </p>
           </div>
           <button
             type="button"
             onClick={() => setStatusBanner(null)}
-            className="text-xs font-bold text-white underline hover:no-underline cursor-pointer"
+            className={`text-xs font-bold underline hover:no-underline cursor-pointer shrink-0 ${
+              statusBanner.type === "error" ? "text-[#D32F2F] hover:opacity-80" : "text-white"
+            }`}
           >
             Dismiss
           </button>
@@ -2465,6 +2635,26 @@ export const AdminProductEditorPage: React.FC = () => {
             </span>
           </div>
 
+          {/* Upload Error Banner */}
+          {uploadError && (
+            <div
+              role="alert"
+              className="mb-4 p-3 rounded-xl bg-[#FFFFFF] border-2 border-[#D32F2F] text-xs text-[#D32F2F] flex items-center justify-between gap-2 shadow-sm"
+            >
+              <div className="flex items-center gap-2">
+                <AlertCircle size={16} className="shrink-0 text-[#D32F2F]" />
+                <span className="font-semibold text-[#D32F2F]">{uploadError}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setUploadError(null)}
+                className="font-bold underline cursor-pointer text-xs text-[#D32F2F] hover:opacity-80 shrink-0"
+              >
+                Dismiss
+              </button>
+            </div>
+          )}
+
           <div className="flex flex-col lg:flex-row gap-4 items-stretch">
             {/* Left side — Upload Product Images (same height as photo tiles: h-44 sm:h-48) */}
             <div
@@ -2489,7 +2679,7 @@ export const AdminProductEditorPage: React.FC = () => {
               <h4 className="text-xs sm:text-sm font-bold text-white">Upload Product Images</h4>
               <p className="text-[11px] text-white/80 mt-0.5">Upload multiple product images at once</p>
               <p className="text-[10px] text-white/60 font-mono mt-1">
-                JPEG, PNG, WebP up to 10MB (Max 5 photos)
+                JPEG, PNG, WebP up to 15MB (Max 5 photos)
               </p>
             </div>
 
@@ -2503,27 +2693,38 @@ export const AdminProductEditorPage: React.FC = () => {
               ) : (
                 imageSlots.map((slot, idx) => {
                   const isPrimary = idx === primaryImageIndex;
+                  const isFailed = slot.status === "failed";
+                  const isUploading = slot.status === "uploading";
+
                   return (
                     <div
                       key={slot.id || idx}
-                      className="h-44 sm:h-48 w-36 sm:w-40 rounded-xl border border-white bg-black/30 p-2 flex flex-col justify-between shrink-0 relative group"
+                      className={`h-44 sm:h-48 w-36 sm:w-40 rounded-xl bg-black/30 p-2 flex flex-col justify-between shrink-0 relative group transition-colors ${
+                        isFailed
+                          ? "border-2 border-[#D32F2F] shadow-sm"
+                          : "border border-white"
+                      }`}
                     >
-                      {/* Top Bar: Order number, primary badge, delete control */}
+                      {/* Top Bar: Order number, primary / failed badge, delete control */}
                       <div className="flex items-center justify-between gap-1">
                         <span className="w-5 h-5 rounded bg-black/80 border border-white/40 text-white font-mono text-[10px] font-bold flex items-center justify-center shrink-0">
                           {idx + 1}
                         </span>
 
-                        {isPrimary && (
+                        {isFailed ? (
+                          <span className="bg-[#D32F2F] text-white text-[8px] font-black px-1.5 py-0.5 rounded border border-white shadow-xs tracking-wider">
+                            FAILED
+                          </span>
+                        ) : isPrimary ? (
                           <span className="bg-[#C62828] text-white text-[8px] font-black px-1.5 py-0.5 rounded border border-white shadow-xs tracking-wider">
                             PRIMARY
                           </span>
-                        )}
+                        ) : null}
 
                         <button
                           type="button"
                           onClick={() => removeImage(idx)}
-                          disabled={slot.status === "uploading"}
+                          disabled={isUploading}
                           className="w-5 h-5 rounded-full bg-black/70 hover:bg-[#C62828] text-white flex items-center justify-center transition-colors cursor-pointer shrink-0 disabled:opacity-40"
                           title="Remove image"
                         >
@@ -2531,12 +2732,12 @@ export const AdminProductEditorPage: React.FC = () => {
                         </button>
                       </div>
 
-                      {/* Thumbnail frame (object-contain, full picture visible, clicking sets primary, double clicking opens enlarged preview) */}
+                      {/* Thumbnail frame */}
                       <div
-                        onClick={(e) => handleThumbnailClick(e, idx)}
-                        onDoubleClick={(e) => handleThumbnailDoubleClick(e, slot, idx)}
-                        className="flex-1 w-full my-1 rounded-lg bg-black/50 overflow-hidden flex items-center justify-center relative cursor-pointer border border-white/20 hover:border-white/60 transition-colors"
-                        title="Click to set main • Double-click to enlarge preview"
+                        onClick={(e) => !isFailed && handleThumbnailClick(e, idx)}
+                        onDoubleClick={(e) => !isFailed && handleThumbnailDoubleClick(e, slot, idx)}
+                        className="flex-1 w-full my-1 rounded-lg bg-black/50 overflow-hidden flex items-center justify-center relative border border-white/20 hover:border-white/60 transition-colors"
+                        title={isFailed ? slot.errorMessage || "Upload failed. Click Retry below." : "Click to set main • Double-click to enlarge preview"}
                       >
                         {slot.hasLoadError ? (
                           <ImageOff size={18} className="text-white/40" />
@@ -2549,20 +2750,42 @@ export const AdminProductEditorPage: React.FC = () => {
                           />
                         )}
 
-                        {slot.status === "uploading" && (
+                        {isUploading && (
                           <div className="absolute inset-0 bg-black/80 flex items-center justify-center">
                             <RefreshCw size={14} className="animate-spin text-white" />
                           </div>
                         )}
+
+                        {isFailed && (
+                          <div className="absolute inset-0 bg-black/85 p-2 flex flex-col items-center justify-center text-center gap-1 z-10">
+                            <AlertCircle size={18} className="text-[#D32F2F] shrink-0" />
+                            <span className="text-[10px] text-white font-medium line-clamp-2 px-1">
+                              {slot.errorMessage || "Upload failed"}
+                            </span>
+                            {slot.file && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleRetryUpload(slot.id);
+                                }}
+                                className="mt-1 px-2 py-0.5 bg-white hover:bg-neutral-100 text-[#D32F2F] border border-[#D32F2F] rounded text-[10px] font-bold inline-flex items-center gap-1 cursor-pointer shadow-xs"
+                              >
+                                <RotateCcw size={10} />
+                                Retry
+                              </button>
+                            )}
+                          </div>
+                        )}
                       </div>
 
-                      {/* Bottom Controls: arrows & primary action */}
+                      {/* Bottom Controls: arrows & retry/primary action */}
                       <div className="flex items-center justify-between text-xs pt-1 border-t border-white/20">
                         <div className="flex items-center gap-0.5">
                           <button
                             type="button"
                             onClick={() => moveImage(idx, "left")}
-                            disabled={idx === 0 || slot.status === "uploading"}
+                            disabled={idx === 0 || isUploading}
                             className="p-1 text-white/70 hover:text-white disabled:opacity-20 cursor-pointer"
                             title="Move left"
                           >
@@ -2571,7 +2794,7 @@ export const AdminProductEditorPage: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => moveImage(idx, "right")}
-                            disabled={idx === imageSlots.length - 1 || slot.status === "uploading"}
+                            disabled={idx === imageSlots.length - 1 || isUploading}
                             className="p-1 text-white/70 hover:text-white disabled:opacity-20 cursor-pointer"
                             title="Move right"
                           >
@@ -2579,7 +2802,16 @@ export const AdminProductEditorPage: React.FC = () => {
                           </button>
                         </div>
 
-                        {!isPrimary ? (
+                        {isFailed && slot.file ? (
+                          <button
+                            type="button"
+                            onClick={() => handleRetryUpload(slot.id)}
+                            className="text-[9px] font-bold text-[#FF8A80] hover:text-white underline cursor-pointer inline-flex items-center gap-1"
+                          >
+                            <RotateCcw size={10} />
+                            Retry
+                          </button>
+                        ) : !isPrimary ? (
                           <button
                             type="button"
                             onClick={() => {
@@ -2630,15 +2862,18 @@ export const AdminProductEditorPage: React.FC = () => {
           </button>
 
           {aiIdentifyError && (
-            <div className="p-2.5 rounded-xl bg-[#C62828] border border-white text-xs text-white flex items-center justify-between gap-2 shadow-sm">
+            <div
+              role="alert"
+              className="p-3 rounded-xl bg-[#FFFFFF] border-2 border-[#D32F2F] text-xs text-[#D32F2F] flex items-center justify-between gap-2 shadow-sm"
+            >
               <div className="flex items-center gap-2">
-                <AlertCircle size={14} className="shrink-0 text-white" />
-                <span>{aiIdentifyError}</span>
+                <AlertCircle size={16} className="shrink-0 text-[#D32F2F]" />
+                <span className="font-semibold text-[#D32F2F]">{aiIdentifyError}</span>
               </div>
               <button
                 type="button"
                 onClick={() => setAiIdentifyError(null)}
-                className="font-bold underline cursor-pointer text-xs text-white"
+                className="font-bold underline cursor-pointer text-xs text-[#D32F2F] hover:opacity-80 shrink-0"
               >
                 Dismiss
               </button>

@@ -246,13 +246,17 @@ async function optimizeImage(inputBuffer) {
  * Upload an optimized product image stream to Cloudinary
  */
 async function uploadToCloudinary(buffer, publicId, options = {}) {
+  ensureConfigured();
+  if (!buffer || buffer.length === 0) {
+    throw new Error("Image buffer is empty");
+  }
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
       {
         public_id: publicId,
         overwrite: true,
         resource_type: "image",
-        tags: options.tags || ["dr-medex", "reviewed-product"],
+        tags: options.tags || ["dr-medex", "admin-upload"],
         context: options.context || {}
       },
       (error, result) => {
