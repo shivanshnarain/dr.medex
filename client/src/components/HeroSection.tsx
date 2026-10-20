@@ -36,12 +36,15 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
 
       {/* HERO CONTENT: FOREGROUND CARD SCROLLS UPWARD NATURALLY WITH PAGE */}
       <div className="relative z-10 max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 lg:pt-20 pb-0 flex items-end">
-        <div className="relative overflow-hidden w-full max-w-[440px] sm:max-w-[470px] lg:max-w-[490px] min-h-[500px] sm:min-h-[540px] lg:min-h-[580px] xl:min-h-[600px] flex flex-col justify-center bg-[#0D4C3C]/90 backdrop-blur-md rounded-xl sm:rounded-2xl p-6 sm:p-8 lg:p-10 xl:p-11 pb-8 sm:pb-10 lg:pb-12 xl:pb-14 shadow-2xl border border-white/10 border-b-0 text-white">
+        <div
+          className="relative overflow-hidden w-full max-w-[440px] sm:max-w-[470px] lg:max-w-[490px] min-h-[500px] sm:min-h-[540px] lg:min-h-[580px] xl:min-h-[600px] flex flex-col justify-center bg-[#0D4C3C]/90 backdrop-blur-md rounded-none p-6 sm:p-8 lg:p-10 xl:p-11 pb-8 sm:pb-10 lg:pb-12 xl:pb-14 shadow-2xl border border-white/10 border-b-0 text-white"
+          style={{ borderRadius: 0 }}
+        >
           
-          {/* Subtle premium glossy highlight gradient on the upper portion with restrained rounding */}
+          {/* Subtle premium glossy highlight gradient on the upper portion with square edges */}
           <div
-            className="absolute inset-x-0 top-0 pointer-events-none bg-gradient-to-b from-white/[0.12] via-white/[0.04] to-transparent border-t border-white/25 rounded-t-xl sm:rounded-t-2xl"
-            style={{ height: "42%" }}
+            className="absolute inset-x-0 top-0 pointer-events-none bg-gradient-to-b from-white/[0.12] via-white/[0.04] to-transparent border-t border-white/25 rounded-none"
+            style={{ height: "42%", borderRadius: 0 }}
           />
 
           {/* Inner Content with Consistent Vertical Spacing */}
@@ -60,7 +63,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               <br />
               <span>Technology for</span>
               <br />
-              <span className="text-[#7AA05A]">Better Care</span>
+              <span className="text-[#7AA05A]" style={{ color: "#7AA05A" }}>Better Care</span>
             </h1>
 
             {/* 3. Supporting 3-line Description on desktop */}
