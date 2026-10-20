@@ -80,6 +80,15 @@ const SIX_ACTIVE_CATEGORIES: ActiveCategoryCard[] = [
   }
 ];
 
+const CATEGORY_BG_COLORS: string[] = [
+  "#7AA05A", // 1. Electrosurgical Units — Moss Green #7AA05A
+  "#2D5A4A", // 2. Cryosurgical Equipment — Slate Green #2D5A4A
+  "#7AA05A", // 3. OT Surgical Lights — Moss Green #7AA05A
+  "#2D5A4A", // 4. Examination & OT Tables — Slate Green #2D5A4A
+  "#7AA05A", // 5. Obstetrics & Gynaecology — Moss Green #7AA05A
+  "#2D5A4A"  // 6. General Medical Equipment — Slate Green #2D5A4A
+];
+
 const CATEGORY_SECTIONS: CategorySectionDef[] = [
   {
     id: "electrosurgical-units",
@@ -220,47 +229,57 @@ export const HomePage: React.FC = () => {
 
           {/* Grid: Desktop 3 cards per row (2 rows), Tablet 2 cards per row, Mobile 1 card per row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8">
-            {SIX_ACTIVE_CATEGORIES.map((cat) => (
-              <Link
-                key={cat.id}
-                to={`/category/${cat.slug}`}
-                className="group bg-white border border-[#E5E5E5] hover:border-[#111111] hover:shadow-lg transition-all duration-300 flex flex-col overflow-hidden text-left rounded-none select-none"
-                style={{ borderRadius: 0 }}
-              >
-                {/* 1. Large product image at very top, spanning full card width with preserved natural proportions */}
-                <div
-                  className="w-full aspect-[1.75/1] bg-[#F7F7F7] overflow-hidden flex items-center justify-center border-b border-[#EAEAEA] rounded-none"
-                  style={{ borderRadius: 0 }}
-                >
-                  <img
-                    src={cat.image}
-                    alt={cat.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-none"
-                    style={{ borderRadius: 0 }}
-                    loading="lazy"
-                  />
-                </div>
+            {SIX_ACTIVE_CATEGORIES.map((cat, index) => {
+              const contentBg = CATEGORY_BG_COLORS[index] || (index % 2 === 0 ? "#7AA05A" : "#2D5A4A");
 
-                {/* 2. Clean white information section directly beneath each image, aligned edge-to-edge */}
-                <div
-                  className="bg-white p-5 sm:p-6 flex-1 flex flex-col justify-between rounded-none"
-                  style={{ borderRadius: 0 }}
+              return (
+                <Link
+                  key={cat.id}
+                  to={`/category/${cat.slug}`}
+                  className="group flex flex-col overflow-hidden text-left rounded-[20px] shadow-sm hover:shadow-xl transition-all duration-300 select-none hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2D5A4A] focus-visible:ring-offset-2"
+                  style={{ borderRadius: "20px" }}
                 >
-                  {/* Category Title */}
-                  <h3 className="text-base sm:text-lg lg:text-xl font-bold text-[#111111] group-hover:text-[#2D5A4A] transition-colors tracking-tight leading-snug">
-                    {cat.name}
-                  </h3>
-
-                  {/* Circular Explore Products Action */}
-                  <div className="mt-5 pt-1">
-                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-neutral-300 group-hover:border-[#111111] group-hover:bg-[#111111] group-hover:text-white text-[#111111] text-xs sm:text-sm font-semibold transition-all duration-200">
-                      <span>Explore Products</span>
-                      <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
-                    </span>
+                  {/* 1. Large product image at very top, spanning full card width with preserved natural proportions */}
+                  <div className="w-full aspect-[1.75/1] bg-[#F7F7F7] overflow-hidden flex items-center justify-center">
+                    <img
+                      src={cat.image}
+                      alt={cat.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
                   </div>
-                </div>
-              </Link>
-            ))}
+
+                  {/* 2. Alternating Moss Green (#7AA05A) and Slate Green (#2D5A4A) lower content section */}
+                  <div
+                    className="p-5 sm:p-6 flex-1 flex flex-col justify-between"
+                    style={{ backgroundColor: contentBg }}
+                  >
+                    {/* Category Title — Pure White #FFFFFF */}
+                    <h3
+                      className="text-base sm:text-lg lg:text-xl font-bold tracking-tight leading-snug text-white"
+                      style={{ color: "#FFFFFF" }}
+                    >
+                      {cat.name}
+                    </h3>
+
+                    {/* Explore Products Button — Pure Red #D32F2F with White Text & White Border */}
+                    <div className="mt-5 pt-1">
+                      <span
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm hover:brightness-110 group-hover:brightness-110 group-hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
+                        style={{
+                          backgroundColor: "#D32F2F",
+                          color: "#FFFFFF",
+                          border: "1px solid #FFFFFF"
+                        }}
+                      >
+                        <span>Explore Products</span>
+                        <ArrowRight size={14} className="text-white group-hover:translate-x-1 transition-transform" />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
