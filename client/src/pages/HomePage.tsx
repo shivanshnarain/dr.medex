@@ -33,60 +33,58 @@ interface ActiveCategoryCard {
   name: string;
   description: string;
   image: string;
+  textPosition: "top" | "bottom";
 }
 
 const SIX_ACTIVE_CATEGORIES: ActiveCategoryCard[] = [
   {
     id: "electrosurgical-units",
     slug: "electrosurgical-units",
-    name: "Electrosurgical Units",
+    name: "Electro Surgical Unit",
     description: "High-frequency precision electrosurgical generators, RF cautery units and smoke evacuation systems.",
-    image: "/category-cards/card-1-electrosurgical.png"
+    image: "/category-cards/card-1-electrosurgical.png",
+    textPosition: "top"
   },
   {
     id: "cryo-surgical",
     slug: "cryo-surgical",
-    name: "Cryosurgical Equipment",
+    name: "Cryo Surgical Equipment",
     description: "Liquid nitrogen cryotherapy guns, multi-nozzle spray sets, and surgical cryo systems.",
-    image: "/category-cards/card-2-cryosurgical.png"
+    image: "/category-cards/card-2-cryosurgical.png",
+    textPosition: "bottom"
   },
   {
     id: "ot-lights",
     slug: "ot-lights",
     name: "OT Surgical Lights",
     description: "Shadowless LED surgical illumination systems engineered with high CRI and cold-light optics.",
-    image: "/category-cards/card-3-ot-lights.png"
+    image: "/category-cards/card-3-ot-lights.png",
+    textPosition: "bottom"
   },
   {
     id: "examination-ot-tables",
     slug: "examination-ot-tables",
-    name: "Examination & OT Tables",
+    name: "Examination and OT Tables",
     description: "Heavy-duty electric operating theatre tables, hydraulic surgical couches, and clinical examination beds.",
-    image: "/category-cards/card-4-examination-tables.png"
+    image: "/category-cards/card-4-examination-tables.png",
+    textPosition: "top"
   },
   {
     id: "obstetrics-and-gynaecology",
     slug: "obstetrics-and-gynaecology",
-    name: "Obstetrics & Gynaecology",
+    name: "Obstetric and Gynecologist",
     description: "Specialized maternal delivery tables, gynaecological examination beds, and fetal monitoring instruments.",
-    image: "/category-cards/card-5-obstetrics.png"
+    image: "/category-cards/card-5-obstetrics.png",
+    textPosition: "bottom"
   },
   {
     id: "medical-equipment",
     slug: "medical-equipment",
     name: "General Medical Equipment",
     description: "Hospital diagnostic instruments, surgical headlights, medical equipment trolleys, and emergency systems.",
-    image: "/category-cards/card-6-general-medical.png"
+    image: "/category-cards/card-6-general-medical.png",
+    textPosition: "bottom"
   }
-];
-
-const CATEGORY_BG_COLORS: string[] = [
-  "#7AA05A", // 1. Electrosurgical Units — Moss Green #7AA05A
-  "#2D5A4A", // 2. Cryosurgical Equipment — Slate Green #2D5A4A
-  "#7AA05A", // 3. OT Surgical Lights — Moss Green #7AA05A
-  "#2D5A4A", // 4. Examination & OT Tables — Slate Green #2D5A4A
-  "#7AA05A", // 5. Obstetrics & Gynaecology — Moss Green #7AA05A
-  "#2D5A4A"  // 6. General Medical Equipment — Slate Green #2D5A4A
 ];
 
 const CATEGORY_SECTIONS: CategorySectionDef[] = [
@@ -229,57 +227,51 @@ export const HomePage: React.FC = () => {
 
           {/* Grid: Desktop 3 cards per row (2 rows), Tablet 2 cards per row, Mobile 1 card per row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8">
-            {SIX_ACTIVE_CATEGORIES.map((cat, index) => {
-              const contentBg = CATEGORY_BG_COLORS[index] || (index % 2 === 0 ? "#7AA05A" : "#2D5A4A");
+            {SIX_ACTIVE_CATEGORIES.map((cat) => (
+              <Link
+                key={cat.id}
+                to={`/category/${cat.slug}`}
+                className={`group relative flex flex-col ${
+                  cat.textPosition === "top" ? "justify-start" : "justify-end"
+                } overflow-hidden rounded-[20px] aspect-[2/3] bg-[#F4F1EB] shadow-xs hover:shadow-xl transition-all duration-300 select-none hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7AA05A] focus-visible:ring-offset-2`}
+                style={{ borderRadius: "20px" }}
+              >
+                {/* 1. Original category product image filling the full card */}
+                <img
+                  src={cat.image}
+                  alt={cat.name}
+                  className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 pointer-events-none"
+                  loading="lazy"
+                />
 
-              return (
-                <Link
-                  key={cat.id}
-                  to={`/category/${cat.slug}`}
-                  className="group flex flex-col overflow-hidden text-left rounded-[20px] shadow-sm hover:shadow-xl transition-all duration-300 select-none hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2D5A4A] focus-visible:ring-offset-2"
-                  style={{ borderRadius: "20px" }}
-                >
-                  {/* 1. Large product image at very top, spanning full card width with preserved natural proportions */}
-                  <div className="w-full aspect-[1.75/1] bg-[#F7F7F7] overflow-hidden flex items-center justify-center">
-                    <img
-                      src={cat.image}
-                      alt={cat.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                  </div>
-
-                  {/* 2. Alternating Moss Green (#7AA05A) and Slate Green (#2D5A4A) lower content section */}
-                  <div
-                    className="p-5 sm:p-6 flex-1 flex flex-col justify-between"
-                    style={{ backgroundColor: contentBg }}
+                {/* 2. Positioned heading and outlined Explore Product button in negative space */}
+                <div className="relative z-10 p-6 sm:p-7 lg:p-8 flex flex-col items-start gap-3 sm:gap-3.5">
+                  <h3
+                    className="text-xl sm:text-2xl lg:text-[24px] font-bold tracking-tight leading-snug"
+                    style={{ color: "#7AA05A" }}
                   >
-                    {/* Category Title — Pure White #FFFFFF */}
-                    <h3
-                      className="text-base sm:text-lg lg:text-xl font-bold tracking-tight leading-snug text-white"
-                      style={{ color: "#FFFFFF" }}
-                    >
-                      {cat.name}
-                    </h3>
+                    {cat.name}
+                  </h3>
 
-                    {/* Explore Products Button — Pure Red #D32F2F with White Text & White Border */}
-                    <div className="mt-5 pt-1">
-                      <span
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm hover:brightness-110 group-hover:brightness-110 group-hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
-                        style={{
-                          backgroundColor: "#D32F2F",
-                          color: "#FFFFFF",
-                          border: "1px solid #FFFFFF"
-                        }}
-                      >
-                        <span>Explore Products</span>
-                        <ArrowRight size={14} className="text-white group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
+                  <span
+                    className="inline-flex items-center gap-2 px-4 py-2 sm:px-4.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 border group-hover:bg-[#7AA05A]/10"
+                    style={{
+                      borderColor: "#7AA05A",
+                      color: "#7AA05A",
+                      backgroundColor: "transparent"
+                    }}
+                  >
+                    <span>Explore Product</span>
+                    <ArrowRight
+                      size={14}
+                      strokeWidth={2.2}
+                      style={{ color: "#7AA05A" }}
+                      className="group-hover:translate-x-1 transition-transform"
+                    />
+                  </span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
