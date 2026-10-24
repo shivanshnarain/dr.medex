@@ -457,7 +457,8 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
       slug: slug || title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
       metaTitle,
       metaDescription,
-      keywords
+      keywords,
+      reviewStatus: "CORRECT"
     };
 
     try {

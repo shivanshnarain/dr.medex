@@ -2567,64 +2567,6 @@ export const AdminProductEditorPage: React.FC = () => {
         </Link>
 
         <div className="flex flex-wrap items-center gap-3">
-          {/* Review Status Quick Selector */}
-          <div className="flex items-center gap-2 bg-black/25 px-3 py-1.5 rounded-xl border border-white/20">
-            <span className="text-xs font-bold text-white/90">Review Status:</span>
-            <div className="inline-flex rounded-lg p-0.5 bg-black/30 border border-white/30 text-xs">
-              <button
-                type="button"
-                onClick={() => {
-                  setReviewStatus("CORRECT");
-                  markFieldEdited("reviewStatus");
-                  setHasUnsavedChanges(true);
-                }}
-                className={`px-2.5 py-1 rounded-md font-bold transition-all flex items-center gap-1 cursor-pointer ${
-                  reviewStatus === "CORRECT"
-                    ? "bg-[#15803D] text-white shadow-xs"
-                    : "text-white/70 hover:text-white"
-                }`}
-                title="Mark product review as Correct"
-              >
-                <Check size={12} className={reviewStatus === "CORRECT" ? "stroke-[3]" : ""} />
-                <span>Correct</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setReviewStatus("NEEDS_EDITING");
-                  markFieldEdited("reviewStatus");
-                  setHasUnsavedChanges(true);
-                }}
-                className={`px-2.5 py-1 rounded-md font-bold transition-all flex items-center gap-1 cursor-pointer ${
-                  reviewStatus === "NEEDS_EDITING"
-                    ? "bg-[#B91C1C] text-white shadow-xs"
-                    : "text-white/70 hover:text-white"
-                }`}
-                title="Mark product review as Needs Editing"
-              >
-                <X size={12} className={reviewStatus === "NEEDS_EDITING" ? "stroke-[3]" : ""} />
-                <span>Needs Editing</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setReviewStatus("PENDING");
-                  markFieldEdited("reviewStatus");
-                  setHasUnsavedChanges(true);
-                }}
-                className={`px-2.5 py-1 rounded-md font-bold transition-all flex items-center gap-1 cursor-pointer ${
-                  reviewStatus === "PENDING"
-                    ? "bg-white text-black shadow-xs"
-                    : "text-white/70 hover:text-white"
-                }`}
-                title="Mark product review as Not Yet Reviewed"
-              >
-                <Clock size={12} />
-                <span>Not Yet Reviewed</span>
-              </button>
-            </div>
-          </div>
-
           <button
             type="button"
             onClick={handleSaveProduct}
@@ -4036,49 +3978,6 @@ export const AdminProductEditorPage: React.FC = () => {
                   <option value="ARCHIVED">Archived (Historical Record)</option>
                 </select>
 
-                <div className="mt-4">
-                  <label className="block text-xs font-bold text-white mb-1">
-                    Review Status
-                  </label>
-                  <select
-                    value={reviewStatus}
-                    onChange={(e) => {
-                      setReviewStatus(e.target.value as any);
-                      markFieldEdited("reviewStatus");
-                      setHasUnsavedChanges(true);
-                    }}
-                    className={`w-full px-3.5 py-2.5 bg-white border border-white/40 rounded-xl text-xs font-bold focus:outline-none cursor-pointer ${
-                      reviewStatus === "CORRECT"
-                        ? "text-[#15803D]"
-                        : reviewStatus === "NEEDS_EDITING"
-                        ? "text-[#B91C1C]"
-                        : "text-[#171717]"
-                    }`}
-                  >
-                    <option value="CORRECT">Correct (Verified & Approved)</option>
-                    <option value="NEEDS_EDITING">Needs Editing</option>
-                    <option value="PENDING">Not Yet Reviewed</option>
-                  </select>
-                  {reviewStatus === "NEEDS_EDITING" && (
-                    <div className="mt-2">
-                      <label className="block text-[11px] font-bold text-white mb-1">
-                        Editing Note / Reasons
-                      </label>
-                      <input
-                        type="text"
-                        value={reviewNote}
-                        onChange={(e) => {
-                          setReviewNote(e.target.value);
-                          markFieldEdited("reviewNote");
-                          setHasUnsavedChanges(true);
-                        }}
-                        placeholder="e.g. Missing technical specs, check pricing"
-                        className="w-full px-3 py-1.5 bg-white text-[#171717] border border-white/40 rounded-lg text-xs"
-                      />
-                    </div>
-                  )}
-                </div>
-
                 <div className="space-y-2.5 pt-3 mt-3 border-t border-white/20">
                   <label className="flex items-center gap-2.5 text-xs text-white cursor-pointer">
                     <input
@@ -4176,19 +4075,6 @@ export const AdminProductEditorPage: React.FC = () => {
             <span className="text-xs font-bold text-white">
               {hasUnsavedChanges ? "Unsaved changes detected" : "All fields synchronized"}
             </span>
-            <div className="hidden sm:flex items-center gap-1.5 ml-2 pl-3 border-l border-white/30">
-              <span className="text-[11px] text-white/80">Review:</span>
-              <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold ${
-                reviewStatus === "CORRECT"
-                  ? "bg-[#15803D] text-white"
-                  : reviewStatus === "NEEDS_EDITING"
-                  ? "bg-[#B91C1C] text-white"
-                  : "bg-white text-black"
-              }`}>
-                {reviewStatus === "CORRECT" ? <Check size={11} className="stroke-[3]" /> : reviewStatus === "NEEDS_EDITING" ? <X size={11} className="stroke-[3]" /> : <Clock size={11} />}
-                <span>{reviewStatus === "CORRECT" ? "Correct" : reviewStatus === "NEEDS_EDITING" ? "Needs Editing" : "Not Yet Reviewed"}</span>
-              </span>
-            </div>
           </div>
 
           <div className="flex items-center gap-3">
