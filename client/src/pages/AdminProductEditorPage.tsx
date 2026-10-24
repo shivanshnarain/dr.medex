@@ -361,6 +361,7 @@ export const AdminProductEditorPage: React.FC = () => {
   const isEditMode = Boolean(productId && productId !== "new");
   const initialProduct = useMemo(() => findInitialProduct(productId, location.state), [productId]);
   const hasInitialProduct = Boolean(initialProduct);
+  const resolvedProductRef = useRef<any>(initialProduct || null);
 
   // Loading & submission state - ONLY true if editing an existing product whose details are NOT available locally
   const [isLoading, setIsLoading] = useState(isEditMode && !hasInitialProduct);
@@ -409,7 +410,7 @@ export const AdminProductEditorPage: React.FC = () => {
   // Duplicate product detection state
   const [duplicateInfo, setDuplicateInfo] = useState<{
     isDuplicate: boolean;
-    duplicateProduct?: { id: string; title: string; sku: string; modelNumber?: string; slug?: string } | null;
+    duplicateProduct?: { id: string; _id?: string; title: string; sku: string; modelNumber?: string; slug?: string } | null;
   }>({ isDuplicate: false, duplicateProduct: null });
   const [allowDuplicateOverride, setAllowDuplicateOverride] = useState(false);
 
@@ -741,11 +742,13 @@ export const AdminProductEditorPage: React.FC = () => {
     setIsFeatured(Boolean(p.featured || p.isFeatured));
     setIsBestSeller(Boolean(p.bestseller || p.isBestSeller));
     setCategoryGridVisible(p.categoryGridVisible !== false);
+    resolvedProductRef.current = p;
   };
 
   // Reconcile background fetched fields without overwriting unsaved edits
   const reconcileProductFields = (fresh: any) => {
     if (!fresh) return;
+    resolvedProductRef.current = { ...(resolvedProductRef.current || {}), ...fresh };
     const edited = manuallyEditedFieldsRef.current;
 
     // Preserve status unless admin explicitly edited it
@@ -1221,6 +1224,19 @@ export const AdminProductEditorPage: React.FC = () => {
 
     const timer = setTimeout(async () => {
       try {
+        const excludeCandidates = [
+          productId,
+          initialProduct?.id,
+          initialProduct?._id,
+          initialProduct?.slug,
+          initialProduct?.sku,
+          resolvedProductRef.current?.id,
+          resolvedProductRef.current?._id,
+          resolvedProductRef.current?.slug,
+          resolvedProductRef.current?.sku,
+          sku
+        ].filter(Boolean);
+
         const res = await adminFetch("/api/admin/products/check-duplicate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -1231,17 +1247,30 @@ export const AdminProductEditorPage: React.FC = () => {
             modelNumber: manufacturerModel,
             title: productName,
             productName,
-            excludeId: productId || undefined
+            excludeId: productId || initialProduct?.id || initialProduct?._id || resolvedProductRef.current?.id || resolvedProductRef.current?._id || undefined,
+            excludeIds: excludeCandidates
           })
         });
 
         if (res.ok) {
           const data = await res.json();
-          if (data.success && data.isDuplicate) {
-            setDuplicateInfo({
-              isDuplicate: true,
-              duplicateProduct: data.duplicateProduct
-            });
+          if (data.success && data.isDuplicate && data.duplicateProduct) {
+            // Confirm matched duplicate is genuinely another product, not self
+            const dup = data.duplicateProduct;
+            const dupIds = [dup.id, dup._id, dup.slug, dup.sku]
+              .filter(Boolean)
+              .map((s: any) => String(s).toLowerCase().trim());
+            const currentIds = excludeCandidates.map((s: any) => String(s).toLowerCase().trim());
+
+            const isSelf = isEditMode && dupIds.some((id: string) => currentIds.includes(id));
+            if (!isSelf) {
+              setDuplicateInfo({
+                isDuplicate: true,
+                duplicateProduct: data.duplicateProduct
+              });
+            } else {
+              setDuplicateInfo({ isDuplicate: false, duplicateProduct: null });
+            }
           } else {
             setDuplicateInfo({ isDuplicate: false, duplicateProduct: null });
           }
@@ -1252,7 +1281,7 @@ export const AdminProductEditorPage: React.FC = () => {
     }, 400);
 
     return () => clearTimeout(timer);
-  }, [category, subcategory, equipmentType, manufacturerModel, productName, productId]);
+  }, [category, subcategory, equipmentType, manufacturerModel, productName, productId, isEditMode, sku]);
 
   // Client-side image compression helper to avoid sending massive 10MB base64 camera strings
   const compressImageFileToDataUrl = (fileOrBlob: File | Blob, maxDim = 1200, quality = 0.82): Promise<string> => {
@@ -2281,12 +2310,36 @@ export const AdminProductEditorPage: React.FC = () => {
     if (isSaving) return;
 
     if (duplicateInfo.isDuplicate && !allowDuplicateOverride) {
-      setStatusBanner({
-        type: "error",
-        text: "Cannot save: A matching product already exists in this category. Please review or check allow intentional variant."
-      });
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
+      // Re-verify that duplicateProduct is genuinely another product, not self
+      const dup = duplicateInfo.duplicateProduct;
+      const dupIds = dup
+        ? [dup.id, dup._id, dup.slug, dup.sku].filter(Boolean).map((s: any) => String(s).toLowerCase().trim())
+        : [];
+      const currentIds = [
+        productId,
+        initialProduct?.id,
+        initialProduct?._id,
+        initialProduct?.slug,
+        initialProduct?.sku,
+        resolvedProductRef.current?.id,
+        resolvedProductRef.current?._id,
+        resolvedProductRef.current?.slug,
+        resolvedProductRef.current?.sku,
+        sku
+      ]
+        .filter(Boolean)
+        .map((s: any) => String(s).toLowerCase().trim());
+
+      const isSelf = isEditMode && dupIds.some((id: string) => currentIds.includes(id));
+
+      if (!isSelf) {
+        setStatusBanner({
+          type: "error",
+          text: "Cannot save: A matching product already exists in this category. Please review or check allow intentional variant."
+        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
     }
 
     if (!productName.trim()) {

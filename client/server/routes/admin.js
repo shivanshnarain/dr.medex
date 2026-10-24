@@ -852,7 +852,7 @@ router.get("/products/generate-sku", requireAdmin, (req, res) => {
   });
 });
 
-router.post("/products/check-duplicate", requireAdmin, (req, res) => {
+router.post("/products/check-duplicate", requireAdmin, async (req, res) => {
   const {
     category,
     subcategory,
@@ -860,7 +860,8 @@ router.post("/products/check-duplicate", requireAdmin, (req, res) => {
     modelNumber,
     title,
     productName,
-    excludeId
+    excludeId,
+    excludeIds
   } = req.body;
 
   const allProducts = store.getProducts({ includeInactive: true });
@@ -868,8 +869,69 @@ router.post("/products/check-duplicate", requireAdmin, (req, res) => {
   const normModel = norm(modelNumber);
   const normTitle = norm(title || productName);
 
+  // Collect all normalized representations of IDs / slugs / SKUs identifying the current product being edited
+  const excludedSet = new Set();
+  const addExclude = (val) => {
+    if (val === undefined || val === null) return;
+    const s = String(val).trim().toLowerCase();
+    if (s && s !== "new" && s !== "undefined" && s !== "null") {
+      excludedSet.add(s);
+    }
+  };
+
+  if (Array.isArray(excludeIds)) {
+    excludeIds.forEach(addExclude);
+  }
+  addExclude(excludeId);
+
+  // If excludeId was provided, resolve additional aliases from store and MongoDB
+  const rawExclude = excludeId ? String(excludeId).trim() : null;
+  if (rawExclude && rawExclude !== "new") {
+    const fromStore = store.getProductById(rawExclude, true) ||
+      allProducts.find(p => {
+        const pid = String(p.id || "").toLowerCase();
+        const p_id = String(p._id || "").toLowerCase();
+        const pslug = String(p.slug || "").toLowerCase();
+        const target = rawExclude.toLowerCase();
+        return pid === target || p_id === target || pslug === target;
+      });
+
+    if (fromStore) {
+      addExclude(fromStore.id);
+      addExclude(fromStore._id);
+      addExclude(fromStore.slug);
+      addExclude(fromStore.sku);
+      addExclude(fromStore.SKU);
+    }
+
+    if (mongoService.isConfigured()) {
+      try {
+        const fromMongo = await mongoService.getApprovedProduct(rawExclude);
+        if (fromMongo) {
+          addExclude(fromMongo.id);
+          addExclude(fromMongo._id);
+          addExclude(fromMongo.slug);
+          addExclude(fromMongo.sku);
+          addExclude(fromMongo.SKU);
+        }
+      } catch {}
+    }
+  }
+
+  const isCurrentProduct = (p) => {
+    if (excludedSet.size === 0) return false;
+    const candidates = [p.id, p._id, p.slug, p.sku, p.SKU];
+    for (const c of candidates) {
+      if (c !== undefined && c !== null) {
+        const s = String(c).trim().toLowerCase();
+        if (s && excludedSet.has(s)) return true;
+      }
+    }
+    return false;
+  };
+
   const matched = allProducts.find(p => {
-    if (excludeId && (p.id === excludeId || p.slug === excludeId)) return false;
+    if (isCurrentProduct(p)) return false;
 
     // Check same category
     const catMatch = p.category === category || norm(p.category) === norm(category);
@@ -907,6 +969,7 @@ router.post("/products/check-duplicate", requireAdmin, (req, res) => {
       message: "A matching product already exists in this category. Please open the existing product instead of creating a duplicate.",
       duplicateProduct: {
         id: matched.id,
+        _id: matched._id,
         title: matched.title || matched.productName,
         sku: matched.sku || matched.SKU,
         modelNumber: matched.modelNumber,
