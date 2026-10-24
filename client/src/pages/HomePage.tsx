@@ -34,6 +34,7 @@ interface ActiveCategoryCard {
   description: string;
   image: string;
   textPosition: "top" | "bottom";
+  objectPosition: string;
 }
 
 const SIX_ACTIVE_CATEGORIES: ActiveCategoryCard[] = [
@@ -43,7 +44,8 @@ const SIX_ACTIVE_CATEGORIES: ActiveCategoryCard[] = [
     name: "Electro Surgical Unit",
     description: "High-frequency precision electrosurgical generators, RF cautery units and smoke evacuation systems.",
     image: "/category-cards/card-1-electrosurgical.png",
-    textPosition: "top"
+    textPosition: "top",
+    objectPosition: "center 67%"
   },
   {
     id: "cryo-surgical",
@@ -51,7 +53,8 @@ const SIX_ACTIVE_CATEGORIES: ActiveCategoryCard[] = [
     name: "Cryo Surgical Equipment",
     description: "Liquid nitrogen cryotherapy guns, multi-nozzle spray sets, and surgical cryo systems.",
     image: "/category-cards/card-2-cryosurgical.png",
-    textPosition: "bottom"
+    textPosition: "bottom",
+    objectPosition: "center top"
   },
   {
     id: "ot-lights",
@@ -59,7 +62,8 @@ const SIX_ACTIVE_CATEGORIES: ActiveCategoryCard[] = [
     name: "OT Surgical Lights",
     description: "Shadowless LED surgical illumination systems engineered with high CRI and cold-light optics.",
     image: "/category-cards/card-3-ot-lights.png",
-    textPosition: "bottom"
+    textPosition: "bottom",
+    objectPosition: "center top"
   },
   {
     id: "examination-ot-tables",
@@ -67,7 +71,8 @@ const SIX_ACTIVE_CATEGORIES: ActiveCategoryCard[] = [
     name: "Examination and OT Tables",
     description: "Heavy-duty electric operating theatre tables, hydraulic surgical couches, and clinical examination beds.",
     image: "/category-cards/card-4-examination-tables.png",
-    textPosition: "top"
+    textPosition: "top",
+    objectPosition: "center bottom"
   },
   {
     id: "obstetrics-and-gynaecology",
@@ -75,7 +80,8 @@ const SIX_ACTIVE_CATEGORIES: ActiveCategoryCard[] = [
     name: "Obstetric and Gynecologist",
     description: "Specialized maternal delivery tables, gynaecological examination beds, and fetal monitoring instruments.",
     image: "/category-cards/card-5-obstetrics.png",
-    textPosition: "bottom"
+    textPosition: "bottom",
+    objectPosition: "center top"
   },
   {
     id: "medical-equipment",
@@ -83,7 +89,8 @@ const SIX_ACTIVE_CATEGORIES: ActiveCategoryCard[] = [
     name: "General Medical Equipment",
     description: "Hospital diagnostic instruments, surgical headlights, medical equipment trolleys, and emergency systems.",
     image: "/category-cards/card-6-general-medical.png",
-    textPosition: "bottom"
+    textPosition: "bottom",
+    objectPosition: "center top"
   }
 ];
 
@@ -226,35 +233,36 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Grid: Desktop 3 cards per row (2 rows), Tablet 2 cards per row, Mobile 1 card per row */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-7">
             {SIX_ACTIVE_CATEGORIES.map((cat) => (
               <Link
                 key={cat.id}
                 to={`/category/${cat.slug}`}
                 className={`group relative flex flex-col ${
                   cat.textPosition === "top" ? "justify-start" : "justify-end"
-                } overflow-hidden rounded-[20px] aspect-[2/3] bg-[#F4F1EB] shadow-xs hover:shadow-xl transition-all duration-300 select-none hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7AA05A] focus-visible:ring-offset-2`}
-                style={{ borderRadius: "20px" }}
+                } overflow-hidden rounded-[20px] aspect-[20/21] bg-[#F4F1EB] shadow-xs hover:shadow-xl transition-all duration-300 select-none hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7AA05A] focus-visible:ring-offset-2`}
+                style={{ borderRadius: "20px", aspectRatio: "20 / 21" }}
               >
-                {/* 1. Original category product image filling the full card */}
+                {/* 1. Original category product image filling the card with proportional vertical alignment */}
                 <img
                   src={cat.image}
                   alt={cat.name}
-                  className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 pointer-events-none"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none"
+                  style={{ objectPosition: cat.objectPosition }}
                   loading="lazy"
                 />
 
                 {/* 2. Positioned heading and outlined Explore Product button in negative space */}
-                <div className="relative z-10 p-6 sm:p-7 lg:p-8 flex flex-col items-start gap-3 sm:gap-3.5">
+                <div className="relative z-10 p-4 sm:p-5 lg:p-5.5 flex flex-col items-start gap-2 sm:gap-2.5">
                   <h3
-                    className="text-xl sm:text-2xl lg:text-[24px] font-bold tracking-tight leading-snug"
+                    className="text-sm sm:text-base lg:text-[17px] font-bold tracking-tight leading-snug"
                     style={{ color: "#7AA05A" }}
                   >
                     {cat.name}
                   </h3>
 
                   <span
-                    className="inline-flex items-center gap-2 px-4 py-2 sm:px-4.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 border group-hover:bg-[#7AA05A]/10"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-semibold tracking-wide transition-all duration-200 border group-hover:bg-[#7AA05A]/10"
                     style={{
                       borderColor: "#7AA05A",
                       color: "#7AA05A",
@@ -263,8 +271,8 @@ export const HomePage: React.FC = () => {
                   >
                     <span>Explore Product</span>
                     <ArrowRight
-                      size={14}
-                      strokeWidth={2.2}
+                      size={10}
+                      strokeWidth={2.4}
                       style={{ color: "#7AA05A" }}
                       className="group-hover:translate-x-1 transition-transform"
                     />
