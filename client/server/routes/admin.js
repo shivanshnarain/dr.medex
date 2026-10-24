@@ -2232,7 +2232,7 @@ router.post("/products/ai-identify", requireAdmin, async (req, res) => {
 
 router.post("/media/upload", requireAdmin, async (req, res) => {
   try {
-    const rawImage = req.body.imageBase64 || req.body.data || req.body.file || req.body.image;
+    const rawImage = req.body.imageBase64 || req.body.data || req.body.dataUrl || req.body.file || req.body.image;
     const { filename = "image.jpg", mimeType, contentType, productId = "general", altText = "" } = req.body;
     const finalMime = mimeType || contentType || "image/jpeg";
 
@@ -2272,7 +2272,7 @@ router.post("/media/upload-batch", requireAdmin, async (req, res) => {
 
     for (let i = 0; i < filesToUpload.length; i++) {
       const item = filesToUpload[i];
-      const rawImage = item.imageBase64 || item.data || item.file || item.image;
+      const rawImage = item.imageBase64 || item.data || item.dataUrl || item.file || item.image;
       const filename = item.filename || `image_${i + 1}.jpg`;
       const mimeType = item.mimeType || item.contentType || "image/jpeg";
       const altText = item.altText || filename;

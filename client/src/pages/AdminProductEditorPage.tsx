@@ -143,9 +143,110 @@ function parseInitialImageSlots(p: any): ProductImageSlot[] {
   }));
 }
 
-function normalizeImageFile(file: File): { normalizedFile: File; cleanName: string; mimeType: string } {
+async function detectClientImageFormat(file: File): Promise<{
+  isValid: boolean;
+  mimeType: string;
+  ext: string;
+}> {
+  if (!file || file.size === 0) {
+    return { isValid: false, mimeType: "", ext: "" };
+  }
+
+  try {
+    const slice = await file.slice(0, 32).arrayBuffer();
+    const bytes = new Uint8Array(slice);
+
+    // 1. JPEG: FF D8 FF
+    if (bytes[0] === 0xFF && bytes[1] === 0xD8 && bytes[2] === 0xFF) {
+      return { isValid: true, mimeType: "image/jpeg", ext: "jpg" };
+    }
+
+    // 2. PNG: 89 50 4E 47 0D 0A 1A 0A
+    if (
+      bytes.length >= 8 &&
+      bytes[0] === 0x89 &&
+      bytes[1] === 0x50 &&
+      bytes[2] === 0x4E &&
+      bytes[3] === 0x47 &&
+      bytes[4] === 0x0D &&
+      bytes[5] === 0x0A &&
+      bytes[6] === 0x1A &&
+      bytes[7] === 0x0A
+    ) {
+      return { isValid: true, mimeType: "image/png", ext: "png" };
+    }
+
+    // 3. WebP: RIFF (bytes 0-3) and WEBP (bytes 8-11)
+    if (
+      bytes.length >= 12 &&
+      bytes[0] === 0x52 && bytes[1] === 0x49 && bytes[2] === 0x46 && bytes[3] === 0x46 &&
+      bytes[8] === 0x57 && bytes[9] === 0x42 && bytes[10] === 0x45 && bytes[11] === 0x50
+    ) {
+      return { isValid: true, mimeType: "image/webp", ext: "webp" };
+    }
+
+    // 4. GIF: GIF87a or GIF89a
+    if (
+      bytes.length >= 6 &&
+      bytes[0] === 0x47 && bytes[1] === 0x49 && bytes[2] === 0x46 &&
+      bytes[3] === 0x38 && (bytes[4] === 0x37 || bytes[4] === 0x39) && bytes[5] === 0x61
+    ) {
+      return { isValid: true, mimeType: "image/gif", ext: "gif" };
+    }
+
+    // 5. SVG: check text snippet
+    const decoder = new TextDecoder("utf-8");
+    const snippet = decoder.decode(bytes).toLowerCase().trim();
+    if (snippet.startsWith("<svg") || snippet.startsWith("<?xml")) {
+      return { isValid: true, mimeType: "image/svg+xml", ext: "svg" };
+    }
+
+    // 6. AVIF: offset 4 ftyp, offset 8 avif/avis/heic/mif1
+    if (
+      bytes.length >= 12 &&
+      bytes[4] === 0x66 && bytes[5] === 0x74 && bytes[6] === 0x79 && bytes[7] === 0x70
+    ) {
+      return { isValid: true, mimeType: "image/avif", ext: "avif" };
+    }
+
+    // 7. BMP: BM (0x42, 0x4D)
+    if (bytes.length >= 2 && bytes[0] === 0x42 && bytes[1] === 0x4D) {
+      return { isValid: true, mimeType: "image/bmp", ext: "bmp" };
+    }
+
+    // 8. TIFF: II*. or MM.*
+    if (
+      bytes.length >= 4 &&
+      ((bytes[0] === 0x49 && bytes[1] === 0x49 && bytes[2] === 0x2A && bytes[3] === 0x00) ||
+       (bytes[0] === 0x4D && bytes[1] === 0x4D && bytes[2] === 0x00 && bytes[3] === 0x2A))
+    ) {
+      return { isValid: true, mimeType: "image/tiff", ext: "tiff" };
+    }
+
+    // Fallback: If browser already recognized valid image mime type
+    if (file.type && file.type.startsWith("image/")) {
+      const sub = file.type.split("/")[1] || "jpg";
+      return { isValid: true, mimeType: file.type, ext: sub === "jpeg" ? "jpg" : sub };
+    }
+  } catch {
+    if (file.type && file.type.startsWith("image/")) {
+      return { isValid: true, mimeType: file.type, ext: "jpg" };
+    }
+  }
+
+  return { isValid: false, mimeType: "", ext: "" };
+}
+
+async function normalizeImageFile(file: File): Promise<{
+  normalizedFile: File;
+  cleanName: string;
+  mimeType: string;
+  isValid: boolean;
+}> {
+  const detected = await detectClientImageFormat(file);
+
   let name = (file.name || "product_image.jpg").trim();
-  let type = (file.type || "").toLowerCase().trim();
+  let type = detected.mimeType || (file.type || "").toLowerCase().trim();
 
   // 1. Remove duplicate or chained extensions (e.g. .jpg.jpeg -> .jpg, .jpeg.jpeg -> .jpeg, .png.png -> .png)
   name = name.replace(/\.(jpg|jpeg|png|webp)\.(jpg|jpeg|png|webp)$/i, ".$1");
@@ -156,18 +257,21 @@ function normalizeImageFile(file: File): { normalizedFile: File; cleanName: stri
 
   // 2. Extract clean extension and base name
   const extMatch = name.match(/\.([a-zA-Z0-9]+)$/);
-  let ext = extMatch ? extMatch[1].toLowerCase() : "jpg";
+  let ext = extMatch ? extMatch[1].toLowerCase() : (detected.ext || "jpg");
   if (ext === "jpeg") ext = "jpg";
 
-  const baseName = name.replace(/\.[a-zA-Z0-9]+$/, "");
+  const baseName = extMatch ? name.replace(/\.[a-zA-Z0-9]+$/, "") : name;
   const cleanBase = baseName.replace(/[^a-zA-Z0-9_-]/g, "_").replace(/_+/g, "_").slice(0, 80);
-  const cleanName = `${cleanBase || "product_image"}.${ext}`;
+  const cleanName = `${cleanBase || "product_image"}.${detected.ext || ext}`;
 
   // 3. Normalize MIME type
   let mimeType = type;
   if (!mimeType || mimeType === "application/octet-stream") {
     if (ext === "png") mimeType = "image/png";
     else if (ext === "webp") mimeType = "image/webp";
+    else if (ext === "svg") mimeType = "image/svg+xml";
+    else if (ext === "gif") mimeType = "image/gif";
+    else if (ext === "avif") mimeType = "image/avif";
     else mimeType = "image/jpeg";
   } else if (mimeType === "image/jpg" || mimeType === "image/pjpeg") {
     mimeType = "image/jpeg";
@@ -182,7 +286,7 @@ function normalizeImageFile(file: File): { normalizedFile: File; cleanName: stri
     normalizedFile = file;
   }
 
-  return { normalizedFile, cleanName, mimeType };
+  return { normalizedFile, cleanName, mimeType, isValid: detected.isValid };
 }
 
 async function prepareImageBase64(file: File): Promise<{ base64: string; size: number }> {
@@ -1461,7 +1565,10 @@ export const AdminProductEditorPage: React.FC = () => {
   // Helper to upload a single slot file to backend
   const uploadSlotFile = async (slotId: string, file: File) => {
     try {
-      const { normalizedFile, cleanName, mimeType } = normalizeImageFile(file);
+      const { normalizedFile, cleanName, mimeType, isValid } = await normalizeImageFile(file);
+      if (!isValid) {
+        throw new Error(`File "${file.name}" is not a valid or supported image.`);
+      }
       const { base64 } = await prepareImageBase64(normalizedFile);
 
       if (!base64) {
@@ -1563,24 +1670,15 @@ export const AdminProductEditorPage: React.FC = () => {
       setUploadError(`Only ${availableSlots} more photo(s) can be added to reach the maximum 5 photographs limit.`);
     }
 
-    const allowedMimes = new Set([
-      "image/jpeg",
-      "image/jpg",
-      "image/pjpeg",
-      "image/png",
-      "image/x-png",
-      "image/webp"
-    ]);
-
     const normalizedBatch: { file: File; cleanName: string; mimeType: string }[] = [];
     for (const rawFile of filesToProcess) {
-      const normalized = normalizeImageFile(rawFile);
-      if (!allowedMimes.has(rawFile.type) && !allowedMimes.has(normalized.mimeType)) {
-        setUploadError(`File "${rawFile.name}" has an unsupported format (${rawFile.type || "unknown"}). Supported formats: JPEG, PNG, WebP.`);
-        return;
-      }
       if (rawFile.size > 15 * 1024 * 1024) {
         setUploadError(`File "${rawFile.name}" exceeds the 15MB limit.`);
+        return;
+      }
+      const normalized = await normalizeImageFile(rawFile);
+      if (!normalized.isValid) {
+        setUploadError(`File "${rawFile.name}" is not a valid or supported image.`);
         return;
       }
       normalizedBatch.push({
@@ -1659,17 +1757,14 @@ export const AdminProductEditorPage: React.FC = () => {
     const rawFile = e.target.files[0];
     e.target.value = "";
 
-    const { normalizedFile, mimeType } = normalizeImageFile(rawFile);
-    const allowedMimes = new Set([
-      "image/jpeg",
-      "image/jpg",
-      "image/pjpeg",
-      "image/png",
-      "image/x-png",
-      "image/webp"
-    ]);
-    if (!allowedMimes.has(rawFile.type) && !allowedMimes.has(mimeType)) {
-      setUploadError(`File "${rawFile.name}" has an unsupported format. Supported formats: JPEG, PNG, WebP.`);
+    if (rawFile.size > 15 * 1024 * 1024) {
+      setUploadError(`File "${rawFile.name}" exceeds the 15MB limit.`);
+      return;
+    }
+
+    const { normalizedFile, mimeType, isValid } = await normalizeImageFile(rawFile);
+    if (!isValid) {
+      setUploadError(`File "${rawFile.name}" is not a valid or supported image.`);
       return;
     }
 
@@ -2596,7 +2691,6 @@ export const AdminProductEditorPage: React.FC = () => {
         <input
           type="file"
           ref={replaceFileInputRef}
-          accept="image/jpeg,image/png,image/webp"
           className="hidden"
           onChange={handleReplaceFile}
         />
@@ -2606,7 +2700,6 @@ export const AdminProductEditorPage: React.FC = () => {
           type="file"
           ref={fileInputRef}
           multiple
-          accept="image/jpeg,image/png,image/webp"
           className="hidden"
           onChange={(e) => {
             if (e.target.files) {
@@ -2679,7 +2772,7 @@ export const AdminProductEditorPage: React.FC = () => {
               <h4 className="text-xs sm:text-sm font-bold text-white">Upload Product Images</h4>
               <p className="text-[11px] text-neutral-600 mt-0.5">Upload multiple product images at once</p>
               <p className="text-[10px] text-neutral-400 font-mono mt-1">
-                JPEG, PNG, WebP up to 15MB (Max 5 photos)
+                Up to 15MB each (Max 5 photos)
               </p>
             </div>
 

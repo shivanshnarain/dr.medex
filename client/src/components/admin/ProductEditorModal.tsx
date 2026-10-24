@@ -286,8 +286,8 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
     setIsUploadingImage(true);
     try {
       const file = files[0];
-      if (file.size > 10 * 1024 * 1024) {
-        alert("Image exceeds maximum 10MB limit.");
+      if (file.size > 15 * 1024 * 1024) {
+        alert("Image exceeds maximum 15MB limit.");
         setIsUploadingImage(false);
         return;
       }
@@ -1349,7 +1349,6 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
                   <span>{isUploadingImage ? "Processing..." : "Upload New Image"}</span>
                   <input
                     type="file"
-                    accept="image/*"
                     onChange={handleImageUpload}
                     disabled={isUploadingImage}
                     className="hidden"
