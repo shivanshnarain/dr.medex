@@ -246,7 +246,7 @@ export const AdminCustomersPage: React.FC = () => {
               loadActivities(actPage, activeActSearch);
             }}
             disabled={isLoadingCustomers || isLoadingActivities}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#CCD1D8] text-xs font-bold text-white bg-white hover:bg-white/80 transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/20 text-xs font-bold text-white bg-[#0D4C3C] hover:bg-[#0D4C3C]/80 transition-colors cursor-pointer"
           >
             <RefreshCw size={13} className={isLoadingCustomers || isLoadingActivities ? "animate-spin" : ""} />
             <span>Refresh</span>
@@ -270,45 +270,45 @@ export const AdminCustomersPage: React.FC = () => {
       <div className="space-y-6">
         {/* Metric Badges */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-white p-5 rounded-2xl border border-[#CCD1D8] shadow-lg text-white">
-            <div className="flex items-center justify-between text-neutral-500 mb-1">
+          <div className="bg-[#0D4C3C] p-5 rounded-2xl border border-white/20 shadow-lg text-white">
+            <div className="flex items-center justify-between text-white/70 mb-1">
               <span className="text-xs font-bold font-mono uppercase tracking-wider">Permanent Accounts</span>
-              <Users size={16} className="text-[#627188]" />
+              <Users size={16} className="text-[#FFD400]" />
             </div>
             <div className="text-3xl font-black font-mono text-white mt-2">{totalCustomers}</div>
-            <div className="text-[11px] text-neutral-500 mt-1">Stored permanently in database</div>
+            <div className="text-[11px] text-white/70 mt-1">Stored permanently in database</div>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl border border-[#CCD1D8] shadow-lg text-white">
-            <div className="flex items-center justify-between text-neutral-500 mb-1">
+          <div className="bg-[#0D4C3C] p-5 rounded-2xl border border-white/20 shadow-lg text-white">
+            <div className="flex items-center justify-between text-white/70 mb-1">
               <span className="text-xs font-bold font-mono uppercase tracking-wider">Recent Login Events</span>
               <Activity size={16} className="text-emerald-300" />
             </div>
             <div className="text-3xl font-black font-mono text-white mt-2">{totalActivities}</div>
-            <div className="text-[11px] text-neutral-500 mt-1">Logged within last 30 days</div>
+            <div className="text-[11px] text-white/70 mt-1">Logged within last 30 days</div>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl border border-[#CCD1D8] shadow-lg text-white">
-            <div className="flex items-center justify-between text-neutral-500 mb-1">
+          <div className="bg-[#0D4C3C] p-5 rounded-2xl border border-white/20 shadow-lg text-white">
+            <div className="flex items-center justify-between text-white/70 mb-1">
               <span className="text-xs font-bold font-mono uppercase tracking-wider">Retention Policy</span>
-              <ShieldCheck size={16} className="text-[#627188]" />
+              <ShieldCheck size={16} className="text-[#FFD400]" />
             </div>
             <div className="text-sm font-bold text-white mt-2">30-Day Activity Window</div>
-            <div className="text-[11px] text-neutral-500 mt-1">
+            <div className="text-[11px] text-white/70 mt-1">
               Activity auto-purged; Customer profiles never deleted
             </div>
           </div>
         </div>
 
         {/* Tab Selector */}
-        <div className="flex items-center gap-2 border-b border-[#CCD1D8] pb-3">
+        <div className="flex items-center gap-2 border-b border-white/15 pb-3">
           <button
             type="button"
             onClick={() => setActiveTab("activity")}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === "activity"
-                ? "bg-[#627188] text-black shadow-sm"
-                : "bg-white text-neutral-600 hover:text-white hover:bg-[#EFF1F3] border border-[#CCD1D8]"
+                ? "bg-[#FFD400] text-black shadow-sm"
+                : "bg-[#0D4C3C] text-white/80 hover:text-white hover:bg-white/10 border border-white/20"
             }`}
           >
             <Activity size={14} />
@@ -319,8 +319,8 @@ export const AdminCustomersPage: React.FC = () => {
             onClick={() => setActiveTab("directory")}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === "directory"
-                ? "bg-[#627188] text-black shadow-sm"
-                : "bg-white text-neutral-600 hover:text-white hover:bg-[#EFF1F3] border border-[#CCD1D8]"
+                ? "bg-[#FFD400] text-black shadow-sm"
+                : "bg-[#0D4C3C] text-white/80 hover:text-white hover:bg-white/10 border border-white/20"
             }`}
           >
             <Users size={14} />
@@ -333,17 +333,17 @@ export const AdminCustomersPage: React.FC = () => {
           <div
             className={`p-3.5 rounded-xl text-xs flex items-center justify-between shadow-md ${
               statusNotification.type === "success"
-                ? "bg-white text-neutral-900 border border-[#627188]"
+                ? "bg-[#0D4C3C] text-white border border-[#FFD400]"
                 : "bg-[#C62828]/25 text-white border border-[#C62828]"
             }`}
           >
             <div className="flex items-center gap-2">
-              <CheckCircle2 size={16} className="text-[#627188] shrink-0" />
+              <CheckCircle2 size={16} className="text-[#FFD400] shrink-0" />
               <span>{statusNotification.text}</span>
             </div>
             <button
               onClick={() => setStatusNotification(null)}
-              className="text-neutral-500 hover:text-white text-xs font-bold cursor-pointer"
+              className="text-white/70 hover:text-white text-xs font-bold cursor-pointer"
             >
               ✕
             </button>
@@ -361,7 +361,7 @@ export const AdminCustomersPage: React.FC = () => {
         {activeTab === "activity" && (
           <div className="space-y-4">
             {/* Search Bar */}
-            <div className="bg-white p-4 rounded-xl border border-[#CCD1D8] shadow-md">
+            <div className="bg-[#0D4C3C] p-4 rounded-xl border border-white/20 shadow-md">
               <form onSubmit={handleActSearchSubmit} className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1">
                   <Search size={15} className="absolute left-3.5 top-3 text-neutral-400" />
@@ -370,7 +370,7 @@ export const AdminCustomersPage: React.FC = () => {
                     value={actSearch}
                     onChange={(e) => setActSearch(e.target.value)}
                     placeholder="Search activity by customer name, email, IP, or device..."
-                    className="w-full pl-9 pr-3 py-2 text-xs bg-white text-black placeholder:text-neutral-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#627188]"
+                    className="w-full pl-9 pr-3 py-2 text-xs bg-white text-black placeholder:text-neutral-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFD400]"
                   />
                 </div>
                 <div className="flex items-center gap-2">
@@ -388,7 +388,7 @@ export const AdminCustomersPage: React.FC = () => {
                         setActiveActSearch("");
                         setActPage(1);
                       }}
-                      className="px-3 py-2 border border-[#CCD1D8] bg-[#EFF1F3] hover:bg-[#EFF1F3] text-white rounded-lg text-xs font-semibold transition-colors cursor-pointer"
+                      className="px-3 py-2 border border-white/20 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-semibold transition-colors cursor-pointer"
                     >
                       Clear
                     </button>
@@ -398,29 +398,29 @@ export const AdminCustomersPage: React.FC = () => {
             </div>
 
             {/* Login Activity Table */}
-            <div className="bg-white text-neutral-900 rounded-2xl border border-[#CCD1D8] shadow-xl overflow-hidden">
-              <div className="px-5 py-3.5 border-b border-[#CCD1D8] bg-black/20 flex items-center justify-between">
+            <div className="bg-[#0D4C3C] text-white rounded-2xl border border-white/20 shadow-xl overflow-hidden">
+              <div className="px-5 py-3.5 border-b border-white/15 bg-black/20 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Clock size={15} className="text-[#627188]" />
+                  <Clock size={15} className="text-[#FFD400]" />
                   <span className="font-bold text-xs text-white">
                     Recently Logged In (Latest Activity First)
                   </span>
                 </div>
-                <span className="text-[11px] text-neutral-400 font-medium">
+                <span className="text-[11px] text-white/60 font-medium">
                   Retained for latest 30 days
                 </span>
               </div>
 
               {isLoadingActivities ? (
-                <div className="py-20 flex flex-col items-center justify-center text-neutral-400">
-                  <Loader2 size={24} className="animate-spin text-[#627188] mb-2" />
+                <div className="py-20 flex flex-col items-center justify-center text-white/60">
+                  <Loader2 size={24} className="animate-spin text-[#FFD400] mb-2" />
                   <p className="text-xs font-semibold">Loading login activity...</p>
                 </div>
               ) : activities.length === 0 ? (
-                <div className="py-16 text-center text-neutral-500">
+                <div className="py-16 text-center text-white/70">
                   <Activity size={32} className="mx-auto text-white/30 mb-2" />
                   <p className="text-sm font-bold text-white">No Login Activity Found</p>
-                  <p className="text-xs text-neutral-400 mt-1">
+                  <p className="text-xs text-white/60 mt-1">
                     {activeActSearch ? `No events matched "${activeActSearch}".` : "No login events recorded within the 30-day window."}
                   </p>
                 </div>
@@ -428,7 +428,7 @@ export const AdminCustomersPage: React.FC = () => {
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs text-white">
                     <thead>
-                      <tr className="bg-black/20 border-b border-[#CCD1D8] text-neutral-500 uppercase tracking-wider text-[11px] font-bold font-mono">
+                      <tr className="bg-black/20 border-b border-white/15 text-white/70 uppercase tracking-wider text-[11px] font-bold font-mono">
                         <th
                           className="py-3 px-4 cursor-pointer hover:text-white select-none transition-colors"
                           onClick={() => {
@@ -443,7 +443,7 @@ export const AdminCustomersPage: React.FC = () => {
                           <div className="flex items-center gap-1">
                             <span>Customer</span>
                             {actSortBy === "customerId" ? (
-                              actSortOrder === "asc" ? <ArrowUp size={12} className="text-[#627188]" /> : <ArrowDown size={12} className="text-[#627188]" />
+                              actSortOrder === "asc" ? <ArrowUp size={12} className="text-[#FFD400]" /> : <ArrowDown size={12} className="text-[#FFD400]" />
                             ) : (
                               <ArrowUpDown size={11} className="text-white/40" />
                             )}
@@ -465,7 +465,7 @@ export const AdminCustomersPage: React.FC = () => {
                           <div className="flex items-center gap-1">
                             <span>Timestamp</span>
                             {actSortBy === "date" ? (
-                              actSortOrder === "asc" ? <ArrowUp size={12} className="text-[#627188]" /> : <ArrowDown size={12} className="text-[#627188]" />
+                              actSortOrder === "asc" ? <ArrowUp size={12} className="text-[#FFD400]" /> : <ArrowDown size={12} className="text-[#FFD400]" />
                             ) : (
                               <ArrowUpDown size={11} className="text-white/40" />
                             )}
@@ -476,9 +476,9 @@ export const AdminCustomersPage: React.FC = () => {
                         <th className="py-3 px-4">Outcome</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#CCD1D8] text-white/90">
+                    <tbody className="divide-y divide-white/10 text-white/90">
                       {activities.map((act) => (
-                        <tr key={act.id} className="hover:bg-[#EFF1F3]/50 transition-colors">
+                        <tr key={act.id} className="hover:bg-white/5 transition-colors">
                           <td className="py-3 px-4">
                             <div className="font-bold text-white text-xs">
                               {act.fullName}
@@ -489,15 +489,15 @@ export const AdminCustomersPage: React.FC = () => {
                           </td>
 
                           <td className="py-3 px-4">
-                            <div className="flex items-center gap-1.5 text-neutral-600 font-mono text-[11px]">
+                            <div className="flex items-center gap-1.5 text-white/80 font-mono text-[11px]">
                               <Mail size={12} className="text-white/40 shrink-0" />
                               <span>{act.email}</span>
                             </div>
                           </td>
 
-                          <td className="py-3 px-4 text-neutral-600 text-xs">
+                          <td className="py-3 px-4 text-white/80 text-xs">
                             {act.phone ? (
-                              <div className="flex items-center gap-1.5 font-mono text-[11px] text-neutral-600">
+                              <div className="flex items-center gap-1.5 font-mono text-[11px] text-white/80">
                                 <Phone size={11} className="text-white/40 shrink-0" />
                                 <span>{act.phone}</span>
                               </div>
@@ -510,15 +510,15 @@ export const AdminCustomersPage: React.FC = () => {
                             <div className="font-semibold text-xs text-white">
                               {formatRelativeTime(act.timestamp)}
                             </div>
-                            <div className="text-[10px] text-neutral-400 flex items-center gap-1 mt-0.5">
+                            <div className="text-[10px] text-white/60 flex items-center gap-1 mt-0.5">
                               <Calendar size={11} />
                               <span>{formatTimestamp(act.timestamp)}</span>
                             </div>
                           </td>
 
                           <td className="py-3 px-4">
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-[#EFF1F3] text-white/90 border border-[#CCD1D8]">
-                              <KeyRound size={10} className="text-neutral-400" />
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-white/10 text-white/90 border border-white/15">
+                              <KeyRound size={10} className="text-white/60" />
                               <span>{act.authMethod === "recovery_reset" ? "Password Recovery" : act.authMethod === "google" ? "Google OAuth" : "Email / Password"}</span>
                             </span>
                           </td>
@@ -549,7 +549,7 @@ export const AdminCustomersPage: React.FC = () => {
 
               {/* Activity Pagination Footer */}
               {actTotalPages > 1 && (
-                <div className="p-3.5 bg-black/20 border-t border-[#CCD1D8] flex items-center justify-between text-xs text-neutral-500">
+                <div className="p-3.5 bg-black/20 border-t border-white/15 flex items-center justify-between text-xs text-white/70">
                   <div>
                     Page <span className="font-bold text-white">{actPage}</span> of <span className="font-bold text-white">{actTotalPages}</span> ({totalActivities} events)
                   </div>
@@ -558,7 +558,7 @@ export const AdminCustomersPage: React.FC = () => {
                       type="button"
                       disabled={actPage <= 1}
                       onClick={() => setActPage((p) => Math.max(1, p - 1))}
-                      className="px-2.5 py-1 rounded border border-[#CCD1D8] bg-[#EFF1F3] hover:bg-[#EFF1F3] text-white disabled:opacity-30 disabled:cursor-not-allowed font-medium transition-colors cursor-pointer"
+                      className="px-2.5 py-1 rounded border border-white/20 bg-white/10 hover:bg-white/20 text-white disabled:opacity-30 disabled:cursor-not-allowed font-medium transition-colors cursor-pointer"
                     >
                       <ChevronLeft size={14} />
                     </button>
@@ -566,7 +566,7 @@ export const AdminCustomersPage: React.FC = () => {
                       type="button"
                       disabled={actPage >= actTotalPages}
                       onClick={() => setActPage((p) => Math.min(actTotalPages, p + 1))}
-                      className="px-2.5 py-1 rounded border border-[#CCD1D8] bg-[#EFF1F3] hover:bg-[#EFF1F3] text-white disabled:opacity-30 disabled:cursor-not-allowed font-medium transition-colors cursor-pointer"
+                      className="px-2.5 py-1 rounded border border-white/20 bg-white/10 hover:bg-white/20 text-white disabled:opacity-30 disabled:cursor-not-allowed font-medium transition-colors cursor-pointer"
                     >
                       <ChevronRight size={14} />
                     </button>
@@ -581,7 +581,7 @@ export const AdminCustomersPage: React.FC = () => {
         {activeTab === "directory" && (
           <div className="space-y-4">
             {/* Search Bar */}
-            <div className="bg-white p-4 rounded-xl border border-[#CCD1D8] shadow-md">
+            <div className="bg-[#0D4C3C] p-4 rounded-xl border border-white/20 shadow-md">
               <form onSubmit={handleCustSearchSubmit} className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1">
                   <Search size={15} className="absolute left-3.5 top-3 text-neutral-400" />
@@ -590,7 +590,7 @@ export const AdminCustomersPage: React.FC = () => {
                     value={custSearch}
                     onChange={(e) => setCustSearch(e.target.value)}
                     placeholder="Search by name, email, institution, or phone..."
-                    className="w-full pl-9 pr-3 py-2 text-xs bg-white text-black placeholder:text-neutral-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#627188]"
+                    className="w-full pl-9 pr-3 py-2 text-xs bg-white text-black placeholder:text-neutral-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFD400]"
                   />
                 </div>
                 <div className="flex items-center gap-2">
@@ -608,7 +608,7 @@ export const AdminCustomersPage: React.FC = () => {
                         setActiveCustSearch("");
                         setCustPage(1);
                       }}
-                      className="px-3 py-2 border border-[#CCD1D8] bg-[#EFF1F3] hover:bg-[#EFF1F3] text-white rounded-lg text-xs font-semibold transition-colors cursor-pointer"
+                      className="px-3 py-2 border border-white/20 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-semibold transition-colors cursor-pointer"
                     >
                       Clear
                     </button>
@@ -618,17 +618,17 @@ export const AdminCustomersPage: React.FC = () => {
             </div>
 
             {/* Customer Directory Table */}
-            <div className="bg-white text-neutral-900 rounded-2xl border border-[#CCD1D8] shadow-xl overflow-hidden">
+            <div className="bg-[#0D4C3C] text-white rounded-2xl border border-white/20 shadow-xl overflow-hidden">
               {isLoadingCustomers ? (
-                <div className="py-20 flex flex-col items-center justify-center text-neutral-400">
-                  <Loader2 size={24} className="animate-spin text-[#627188] mb-2" />
+                <div className="py-20 flex flex-col items-center justify-center text-white/60">
+                  <Loader2 size={24} className="animate-spin text-[#FFD400] mb-2" />
                   <p className="text-xs font-semibold">Loading customer accounts...</p>
                 </div>
               ) : customers.length === 0 ? (
-                <div className="py-16 text-center text-neutral-500">
+                <div className="py-16 text-center text-white/70">
                   <Users size={32} className="mx-auto text-white/30 mb-2" />
                   <p className="text-sm font-bold text-white">No Customers Found</p>
-                  <p className="text-xs text-neutral-400 mt-1">
+                  <p className="text-xs text-white/60 mt-1">
                     {activeCustSearch ? `No results matched "${activeCustSearch}".` : "No registered customer accounts yet."}
                   </p>
                 </div>
@@ -636,7 +636,7 @@ export const AdminCustomersPage: React.FC = () => {
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs text-white">
                     <thead>
-                      <tr className="bg-black/20 border-b border-[#CCD1D8] text-neutral-500 uppercase tracking-wider text-[11px] font-bold font-mono">
+                      <tr className="bg-black/20 border-b border-white/15 text-white/70 uppercase tracking-wider text-[11px] font-bold font-mono">
                         <th className="py-3 px-4">Customer / Organization</th>
                         <th className="py-3 px-4">Contact</th>
                         <th className="py-3 px-4">Account Status</th>
@@ -644,26 +644,26 @@ export const AdminCustomersPage: React.FC = () => {
                         <th className="py-3 px-4">Last Sign In</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#CCD1D8] text-white/90">
+                    <tbody className="divide-y divide-white/10 text-white/90">
                       {customers.map((customer) => (
-                        <tr key={customer.id} className="hover:bg-[#EFF1F3]/50 transition-colors">
+                        <tr key={customer.id} className="hover:bg-white/5 transition-colors">
                           <td className="py-3 px-4">
                             <div className="font-bold text-white text-xs">
                               {customer.fullName}
                             </div>
-                            <div className="text-[11px] text-neutral-500 flex items-center gap-1.5 mt-0.5">
+                            <div className="text-[11px] text-white/70 flex items-center gap-1.5 mt-0.5">
                               <Building size={12} className="text-white/40 shrink-0" />
                               <span>{customer.institution || "Healthcare Professional"}</span>
                             </div>
                           </td>
 
                           <td className="py-3 px-4 space-y-1">
-                            <div className="flex items-center gap-1.5 text-neutral-600 font-mono text-[11px]">
+                            <div className="flex items-center gap-1.5 text-white/80 font-mono text-[11px]">
                               <Mail size={12} className="text-white/40 shrink-0" />
                               <span>{customer.email}</span>
                             </div>
                             {customer.phone && (
-                              <div className="flex items-center gap-1.5 text-neutral-500 font-mono text-[11px]">
+                              <div className="flex items-center gap-1.5 text-white/70 font-mono text-[11px]">
                                 <Phone size={12} className="text-white/40 shrink-0" />
                                 <span>{customer.phone}</span>
                               </div>
@@ -676,21 +676,21 @@ export const AdminCustomersPage: React.FC = () => {
                               <span>Permanent Account</span>
                             </div>
                             {customer.emailConfirmed && (
-                              <div className="mt-1 inline-flex items-center gap-1 text-[10px] text-neutral-500 font-medium">
+                              <div className="mt-1 inline-flex items-center gap-1 text-[10px] text-white/70 font-medium">
                                 <ShieldCheck size={11} className="text-emerald-300" />
                                 <span>Email Verified</span>
                               </div>
                             )}
                           </td>
 
-                          <td className="py-3 px-4 text-neutral-500">
+                          <td className="py-3 px-4 text-white/70">
                             <div className="flex items-center gap-1 text-[11px]">
                               <Calendar size={12} className="text-white/40 shrink-0" />
                               <span>{formatDate(customer.createdAt)}</span>
                             </div>
                           </td>
 
-                          <td className="py-3 px-4 text-neutral-500">
+                          <td className="py-3 px-4 text-white/70">
                             <div className="flex items-center gap-1 text-[11px]">
                               <Clock size={12} className="text-white/40 shrink-0" />
                               <span>{formatRelativeTime(customer.lastSignInAt)}</span>
@@ -705,7 +705,7 @@ export const AdminCustomersPage: React.FC = () => {
 
               {/* Directory Pagination Footer */}
               {custTotalPages > 1 && (
-                <div className="p-3.5 bg-black/20 border-t border-[#CCD1D8] flex items-center justify-between text-xs text-neutral-500">
+                <div className="p-3.5 bg-black/20 border-t border-white/15 flex items-center justify-between text-xs text-white/70">
                   <div>
                     Page <span className="font-bold text-white">{custPage}</span> of <span className="font-bold text-white">{custTotalPages}</span> ({totalCustomers} accounts)
                   </div>
@@ -714,7 +714,7 @@ export const AdminCustomersPage: React.FC = () => {
                       type="button"
                       disabled={custPage <= 1}
                       onClick={() => setCustPage((p) => Math.max(1, p - 1))}
-                      className="px-2.5 py-1 rounded border border-[#CCD1D8] bg-[#EFF1F3] hover:bg-[#EFF1F3] text-white disabled:opacity-30 disabled:cursor-not-allowed font-medium transition-colors cursor-pointer"
+                      className="px-2.5 py-1 rounded border border-white/20 bg-white/10 hover:bg-white/20 text-white disabled:opacity-30 disabled:cursor-not-allowed font-medium transition-colors cursor-pointer"
                     >
                       <ChevronLeft size={14} />
                     </button>
@@ -722,7 +722,7 @@ export const AdminCustomersPage: React.FC = () => {
                       type="button"
                       disabled={custPage >= custTotalPages}
                       onClick={() => setCustPage((p) => Math.min(custTotalPages, p + 1))}
-                      className="px-2.5 py-1 rounded border border-[#CCD1D8] bg-[#EFF1F3] hover:bg-[#EFF1F3] text-white disabled:opacity-30 disabled:cursor-not-allowed font-medium transition-colors cursor-pointer"
+                      className="px-2.5 py-1 rounded border border-white/20 bg-white/10 hover:bg-white/20 text-white disabled:opacity-30 disabled:cursor-not-allowed font-medium transition-colors cursor-pointer"
                     >
                       <ChevronRight size={14} />
                     </button>

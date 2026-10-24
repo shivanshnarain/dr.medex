@@ -289,7 +289,7 @@ export const ProductReviewsSection: React.FC<ProductReviewsSectionProps> = ({
   }, [reviews]);
 
   return (
-    <section className="mt-14 sm:mt-20 border-t border-[#CCD1D8] pt-10" id="product-reviews-section">
+    <section className="mt-14 sm:mt-20 border-t border-[#E5E1DD] pt-10" id="product-reviews-section">
       {/* Section Header */}
       <div className="flex items-center justify-between flex-wrap gap-4 mb-8">
         <div>
@@ -306,7 +306,7 @@ export const ProductReviewsSection: React.FC<ProductReviewsSectionProps> = ({
             type="button"
             id="write-review-button"
             onClick={handleWriteReviewClick}
-            className="px-5 py-2.5 bg-[#627188] hover:bg-[#4D596B] text-white rounded-xl text-xs font-bold transition-all shadow-xs hover:shadow-md cursor-pointer flex items-center gap-2"
+            className="px-5 py-2.5 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs font-bold transition-all shadow-xs hover:shadow-md cursor-pointer flex items-center gap-2"
           >
             <Plus size={15} />
             <span>Write a Review</span>
@@ -342,7 +342,7 @@ export const ProductReviewsSection: React.FC<ProductReviewsSectionProps> = ({
 
       {/* Review Summary & Rating Distribution (Inspired by Reference Image 2) */}
       {reviews.length > 0 ? (
-        <div className="mb-10 p-6 sm:p-8 bg-[#EFF1F3] border border-[#CCD1D8] rounded-2xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <div className="mb-10 p-6 sm:p-8 bg-[#FAF9F7] border border-[#E5E1DD] rounded-2xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
           {/* Average Rating Block */}
           <div className="md:col-span-5 flex flex-col items-center sm:items-start text-center sm:text-left border-b md:border-b-0 md:border-r border-neutral-200 pb-6 md:pb-0 md:pr-8">
             <div className="flex items-baseline gap-2">
@@ -399,7 +399,7 @@ export const ProductReviewsSection: React.FC<ProductReviewsSectionProps> = ({
         </div>
       ) : (
         /* Clean Empty State when no approved reviews exist */
-        <div className="mb-10 p-8 sm:p-10 bg-[#EFF1F3] border border-[#CCD1D8] rounded-2xl text-center">
+        <div className="mb-10 p-8 sm:p-10 bg-[#FAF9F7] border border-[#E5E1DD] rounded-2xl text-center">
           <div className="inline-flex p-3 rounded-full bg-amber-50 text-[#F59E0B] mb-3">
             <Star size={24} className="fill-[#F59E0B]" />
           </div>
@@ -413,7 +413,7 @@ export const ProductReviewsSection: React.FC<ProductReviewsSectionProps> = ({
             <button
               type="button"
               onClick={handleWriteReviewClick}
-              className="px-5 py-2.5 bg-[#627188] hover:bg-[#4D596B] text-white rounded-xl text-xs font-bold transition-colors cursor-pointer inline-flex items-center gap-2"
+              className="px-5 py-2.5 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs font-bold transition-colors cursor-pointer inline-flex items-center gap-2"
             >
               <Plus size={14} />
               <span>Write the First Review</span>
@@ -539,13 +539,13 @@ export const ProductReviewsSection: React.FC<ProductReviewsSectionProps> = ({
                     <div
                       key={suggestion.id}
                       onClick={() => handleAddSuggestion(suggestion)}
-                      className={`relative overflow-hidden rounded-xl p-2.5 sm:p-3 text-left transition-all duration-200 hover:shadow-md cursor-pointer flex flex-col justify-between min-h-[66px] sm:min-h-[70px] select-none border border-[#627188] ${
+                      className={`relative overflow-hidden rounded-xl p-2.5 sm:p-3 text-left transition-all duration-200 hover:shadow-md cursor-pointer flex flex-col justify-between min-h-[66px] sm:min-h-[70px] select-none border border-[#0D4C3C] ${
                         isSelected
-                          ? "ring-2 ring-[#627188] shadow-md"
-                          : "hover:border-[#627188]"
+                          ? "ring-2 ring-[#0D4C3C] shadow-md"
+                          : "hover:border-[#0D4C3C]"
                       }`}
                       style={{
-                        backgroundColor: "#627188"
+                        backgroundColor: "#7AA05A"
                       }}
                       role="button"
                       aria-pressed={isSelected}
@@ -566,7 +566,7 @@ export const ProductReviewsSection: React.FC<ProductReviewsSectionProps> = ({
                           }}
                           className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors cursor-pointer shrink-0 ${
                             isSelected
-                              ? "bg-[#627188] text-white shadow-xs"
+                              ? "bg-[#0D4C3C] text-white shadow-xs"
                               : "bg-white/25 hover:bg-white/35 text-white"
                           }`}
                           aria-label={isSelected ? "Selected suggestion" : "Select suggestion"}
@@ -678,7 +678,7 @@ export const ProductReviewsSection: React.FC<ProductReviewsSectionProps> = ({
       <div className="space-y-4" id="reviews-list">
         {isLoading ? (
           <div className="p-10 text-center text-neutral-400 flex flex-col items-center justify-center gap-2">
-            <Loader2 size={24} className="animate-spin text-[#627188]" />
+            <Loader2 size={24} className="animate-spin text-[#2D5A4A]" />
             <span className="text-xs">Loading approved customer reviews...</span>
           </div>
         ) : reviews.length === 0 ? null : (
@@ -693,7 +693,7 @@ export const ProductReviewsSection: React.FC<ProductReviewsSectionProps> = ({
             return (
               <div
                 key={rev.id}
-                className="p-5 sm:p-6 bg-[#EFF1F3] border border-[#CCD1D8] rounded-2xl space-y-3 transition-colors hover:border-[#627188]/30"
+                className="p-5 sm:p-6 bg-[#FAF9F7] border border-[#E5E1DD] rounded-2xl space-y-3 transition-colors hover:border-[#2D5A4A]/30"
               >
                 {/* Header: Stars + Date */}
                 <div className="flex items-start justify-between flex-wrap gap-2">
@@ -726,7 +726,7 @@ export const ProductReviewsSection: React.FC<ProductReviewsSectionProps> = ({
 
                 {/* Author Info & Badges */}
                 <div className="flex items-center gap-2 flex-wrap text-2xs">
-                  <span className="font-bold text-[#627188]">{authorDisplay}</span>
+                  <span className="font-bold text-[#2D5A4A]">{authorDisplay}</span>
                   {rev.facility && (
                     <span className="text-neutral-500 font-medium">• {rev.facility}</span>
                   )}
@@ -754,9 +754,9 @@ export const ProductReviewsSection: React.FC<ProductReviewsSectionProps> = ({
               type="button"
               onClick={handleLoadMore}
               disabled={isLoadingMore}
-              className="px-6 py-2.5 bg-white border border-[#E5E7EB] text-[#627188] hover:bg-neutral-50 rounded-xl text-xs font-bold transition-colors shadow-2xs cursor-pointer disabled:opacity-50 inline-flex items-center gap-2"
+              className="px-6 py-2.5 bg-white border border-[#E5E7EB] text-[#2D5A4A] hover:bg-neutral-50 rounded-xl text-xs font-bold transition-colors shadow-2xs cursor-pointer disabled:opacity-50 inline-flex items-center gap-2"
             >
-              {isLoadingMore && <Loader2 size={13} className="animate-spin text-[#627188]" />}
+              {isLoadingMore && <Loader2 size={13} className="animate-spin text-[#2D5A4A]" />}
               <span>Load More Reviews</span>
             </button>
           </div>

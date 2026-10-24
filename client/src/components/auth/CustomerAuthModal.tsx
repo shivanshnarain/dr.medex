@@ -205,8 +205,8 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
         <div className="p-6 pb-4 border-b border-neutral-100 flex items-start justify-between">
           <div className="pr-4">
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#627188]" />
-              <span className="text-2xs font-extrabold uppercase tracking-wider text-[#627188]">
+              <span className="w-2 h-2 rounded-full bg-[#7AA05A]" />
+              <span className="text-2xs font-extrabold uppercase tracking-wider text-[#7AA05A]">
                 DR.MEDEX Customer Portal
               </span>
             </div>
@@ -245,7 +245,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                 setErrorMessage(null);
                 setSuccessMessage(null);
               }}
-              className="inline-flex items-center gap-1.5 text-xs text-neutral-600 hover:text-[#627188] font-semibold cursor-pointer mb-1 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs text-neutral-600 hover:text-[#2D5A4A] font-semibold cursor-pointer mb-1 transition-colors"
             >
               <ArrowLeft size={14} />
               <span>Back to Sign In</span>
@@ -307,7 +307,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                       onSuccess?.({ email: testEmail });
                       onClose();
                     }}
-                    className="w-full py-2 px-3 bg-[#627188] hover:bg-[#4D596B] text-white rounded-lg text-2xs font-bold transition-colors cursor-pointer flex items-center justify-center gap-1.5 shadow-xs"
+                    className="w-full py-2 px-3 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-lg text-2xs font-bold transition-colors cursor-pointer flex items-center justify-center gap-1.5 shadow-xs"
                   >
                     <span>Continue with this email (Testing Mode)</span>
                     <ArrowRight size={12} />
@@ -337,7 +337,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="e.g. Dr. Shivansh Narain"
-                  className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#627188]"
+                  className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                 />
               </div>
             </div>
@@ -357,7 +357,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@hospital.org"
                 autoComplete="email"
-                className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#627188]"
+                className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
               />
             </div>
           </div>
@@ -377,7 +377,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                       setErrorMessage(null);
                       setSuccessMessage(null);
                     }}
-                    className="text-2xs text-[#627188] hover:underline font-semibold cursor-pointer"
+                    className="text-2xs text-[#2D5A4A] hover:underline font-semibold cursor-pointer"
                   >
                     Forgot password?
                   </button>
@@ -392,7 +392,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   autoComplete={mode === "signin" ? "current-password" : "new-password"}
-                  className="w-full pl-9 pr-10 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#627188]"
+                  className="w-full pl-9 pr-10 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                 />
                 <button
                   type="button"
@@ -421,7 +421,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
                   autoComplete="new-password"
-                  className="w-full pl-9 pr-10 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#627188]"
+                  className="w-full pl-9 pr-10 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                 />
                 <button
                   type="button"
@@ -439,7 +439,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-2.5 px-4 bg-[#627188] hover:bg-[#4D596B] text-white rounded-xl text-xs font-bold transition-colors shadow-2xs cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 mt-2"
+            className="w-full py-2.5 px-4 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs font-bold transition-colors shadow-2xs cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 mt-2"
           >
             {isLoading ? (
               <>
@@ -476,7 +476,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                     setErrorMessage(null);
                     setSuccessMessage(null);
                   }}
-                  className="text-[#627188] font-bold hover:underline cursor-pointer"
+                  className="text-[#2D5A4A] font-bold hover:underline cursor-pointer"
                 >
                   Create one now
                 </button>
@@ -493,7 +493,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                     setErrorMessage(null);
                     setSuccessMessage(null);
                   }}
-                  className="text-[#627188] font-bold hover:underline cursor-pointer"
+                  className="text-[#2D5A4A] font-bold hover:underline cursor-pointer"
                 >
                   Sign In
                 </button>
@@ -510,7 +510,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
                     setErrorMessage(null);
                     setSuccessMessage(null);
                   }}
-                  className="text-[#627188] font-bold hover:underline cursor-pointer"
+                  className="text-[#2D5A4A] font-bold hover:underline cursor-pointer"
                 >
                   Return to Sign In
                 </button>

@@ -132,7 +132,7 @@ export const SignInPage: React.FC = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@hospital.org"
                   autoComplete="email"
-                  className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#627188]"
+                  className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                 />
               </div>
             </div>
@@ -145,7 +145,7 @@ export const SignInPage: React.FC = () => {
                 </label>
                 <Link
                   to={forgotPasswordUrl}
-                  className="text-2xs text-[#627188] hover:underline font-semibold"
+                  className="text-2xs text-[#2D5A4A] hover:underline font-semibold"
                 >
                   Forgot password?
                 </Link>
@@ -159,7 +159,7 @@ export const SignInPage: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   autoComplete="current-password"
-                  className="w-full pl-9 pr-10 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#627188]"
+                  className="w-full pl-9 pr-10 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                 />
                 <button
                   type="button"
@@ -179,7 +179,7 @@ export const SignInPage: React.FC = () => {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="h-4 w-4 rounded border-neutral-300 text-[#627188] focus:ring-[#627188]"
+                  className="h-4 w-4 rounded border-neutral-300 text-[#2D5A4A] focus:ring-[#2D5A4A]"
                 />
                 <span>Remember this device</span>
               </label>
@@ -189,7 +189,7 @@ export const SignInPage: React.FC = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-2 py-2.5 px-4 bg-[#627188] hover:bg-[#4D596B] text-white rounded-xl text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+              className="w-full mt-2 py-2.5 px-4 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
             >
               {isLoading ? (
                 <>
@@ -209,7 +209,7 @@ export const SignInPage: React.FC = () => {
           <div className="mt-6 pt-4 border-t border-neutral-100 text-center">
             <p className="text-xs text-neutral-600">
               Don't have an account?{" "}
-              <Link to={signUpUrl} className="text-[#627188] font-bold hover:underline">
+              <Link to={signUpUrl} className="text-[#2D5A4A] font-bold hover:underline">
                 Create Account
               </Link>
             </p>

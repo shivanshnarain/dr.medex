@@ -289,7 +289,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
   if (isAuthLoading) {
     return (
       <div className="min-h-[75vh] flex flex-col items-center justify-center py-16 px-4 bg-[#FAF9F7]">
-        <Loader2 size={36} className="animate-spin text-[#627188] mb-3" />
+        <Loader2 size={36} className="animate-spin text-[#2D5A4A] mb-3" />
         <p className="text-xs font-semibold text-neutral-500">Checking customer account session...</p>
       </div>
     );
@@ -376,7 +376,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
                       onChange={(e) => setLoginEmail(e.target.value)}
                       placeholder="name@hospital.org"
                       autoComplete="email"
-                      className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#627188]"
+                      className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                     />
                   </div>
                 </div>
@@ -388,7 +388,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
                     </label>
                     <Link
                       to="/account/forgot-password"
-                      className="text-2xs text-[#627188] hover:underline font-semibold"
+                      className="text-2xs text-[#2D5A4A] hover:underline font-semibold"
                     >
                       Forgot password?
                     </Link>
@@ -402,7 +402,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
                       onChange={(e) => setLoginPassword(e.target.value)}
                       placeholder="••••••••"
                       autoComplete="current-password"
-                      className="w-full pl-9 pr-10 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#627188]"
+                      className="w-full pl-9 pr-10 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                     />
                     <button
                       type="button"
@@ -418,7 +418,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
                 <button
                   type="submit"
                   disabled={isLoggingIn}
-                  className="w-full mt-2 py-2.5 px-4 bg-[#627188] hover:bg-[#4D596B] text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="w-full mt-2 py-2.5 px-4 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                 >
                   {isLoggingIn ? (
                     <>
@@ -463,7 +463,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
                       value={signupFullName}
                       onChange={(e) => setSignupFullName(e.target.value)}
                       placeholder="e.g. Dr. Shivansh Narain"
-                      className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#627188]"
+                      className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                     />
                   </div>
                 </div>
@@ -480,7 +480,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
                       value={signupEmail}
                       onChange={(e) => setSignupEmail(e.target.value)}
                       placeholder="name@hospital.org"
-                      className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#627188]"
+                      className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                     />
                   </div>
                 </div>
@@ -494,7 +494,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
                     value={signupPhone}
                     onChange={(e) => setSignupPhone(e.target.value)}
                     placeholder="+1 (555) 000-0000"
-                    className="w-full px-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#627188]"
+                    className="w-full px-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                   />
                 </div>
 
@@ -510,7 +510,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
                       value={signupPassword}
                       onChange={(e) => setSignupPassword(e.target.value)}
                       placeholder="Minimum 6 characters"
-                      className="w-full pl-9 pr-10 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#627188]"
+                      className="w-full pl-9 pr-10 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                     />
                     <button
                       type="button"
@@ -533,7 +533,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
                     value={signupConfirmPassword}
                     onChange={(e) => setSignupConfirmPassword(e.target.value)}
                     placeholder="Repeat password"
-                    className="w-full px-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#627188]"
+                    className="w-full px-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                   />
                 </div>
 
@@ -544,15 +544,15 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
                     required
                     checked={signupAcceptedTerms}
                     onChange={(e) => setSignupAcceptedTerms(e.target.checked)}
-                    className="mt-0.5 rounded-sm border-neutral-300 text-[#627188] focus:ring-[#627188]"
+                    className="mt-0.5 rounded-sm border-neutral-300 text-[#2D5A4A] focus:ring-[#2D5A4A]"
                   />
                   <label htmlFor="account-terms" className="text-3xs text-neutral-600 leading-normal">
                     I agree to the{" "}
-                    <Link to="/terms-conditions" className="text-[#627188] underline font-semibold" target="_blank">
+                    <Link to="/terms-conditions" className="text-[#2D5A4A] underline font-semibold" target="_blank">
                       Terms & Conditions
                     </Link>{" "}
                     and{" "}
-                    <Link to="/privacy-policy" className="text-[#627188] underline font-semibold" target="_blank">
+                    <Link to="/privacy-policy" className="text-[#2D5A4A] underline font-semibold" target="_blank">
                       Privacy Policy
                     </Link>
                     .
@@ -562,7 +562,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
                 <button
                   type="submit"
                   disabled={isSigningUp}
-                  className="w-full mt-2 py-2.5 px-4 bg-[#627188] hover:bg-[#4D596B] text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="w-full mt-2 py-2.5 px-4 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                 >
                   {isSigningUp ? (
                     <>
@@ -656,11 +656,11 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
         <div className="bg-white rounded-2xl border border-[#EAEAEA] p-6 sm:p-8 shadow-2xs mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-2xl bg-[#627188] text-white flex items-center justify-center font-bold text-2xl shadow-xs">
+              <div className="w-16 h-16 rounded-2xl bg-[#2D5A4A] text-white flex items-center justify-center font-bold text-2xl shadow-xs">
                 {user?.fullName ? user.fullName.charAt(0).toUpperCase() : "C"}
               </div>
               <div>
-                <div className="text-2xs font-extrabold uppercase tracking-wider text-[#627188]">
+                <div className="text-2xs font-extrabold uppercase tracking-wider text-[#7AA05A]">
                   Welcome Back
                 </div>
                 <h1 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
@@ -1078,7 +1078,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
                 <div className="p-6 bg-[#FAFAFA] rounded-2xl border border-[#EAEAEA] space-y-4">
                   <div className="flex items-center justify-between flex-wrap gap-2 pb-3.5 border-b border-[#EAEAEA]">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-lg bg-[#627188]/10 text-[#627188] flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-lg bg-[#2D5A4A]/10 text-[#2D5A4A] flex items-center justify-center">
                         <Mail size={16} />
                       </div>
                       <div>
@@ -1125,7 +1125,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
                         <div className="text-3xs font-semibold uppercase text-neutral-400">Current Login Email</div>
                         <div className="text-sm font-bold text-[#111111] font-mono mt-0.5">{user?.email}</div>
                       </div>
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#627188]/10 text-[#627188] rounded-md text-3xs font-bold">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#2D5A4A]/10 text-[#2D5A4A] rounded-md text-3xs font-bold">
                         <ShieldCheck size={12} />
                         <span>Verified Account</span>
                       </span>
@@ -1142,7 +1142,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
                           value={editEmail}
                           onChange={(e) => setEditEmail(e.target.value)}
                           placeholder="doctor@institution.org"
-                          className="w-full p-2.5 border border-[#EAEAEA] rounded-lg bg-white text-[#111111] focus:outline-none focus:border-[#627188]"
+                          className="w-full p-2.5 border border-[#EAEAEA] rounded-lg bg-white text-[#111111] focus:outline-none focus:border-[#2D5A4A]"
                         />
                         <p className="text-2xs text-neutral-500 mt-1">
                           A confirmation link will be dispatched if email verification is active. Your displayed login email synchronizes upon verification.
@@ -1164,7 +1164,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
                         <button
                           type="submit"
                           disabled={isUpdatingEmail}
-                          className="px-5 py-2 bg-[#627188] hover:bg-[#4D596B] text-white font-bold rounded-lg transition-colors flex items-center gap-1.5 shadow-xs disabled:opacity-50 cursor-pointer"
+                          className="px-5 py-2 bg-[#2D5A4A] hover:bg-[#23473a] text-white font-bold rounded-lg transition-colors flex items-center gap-1.5 shadow-xs disabled:opacity-50 cursor-pointer"
                         >
                           {isUpdatingEmail ? (
                             <>

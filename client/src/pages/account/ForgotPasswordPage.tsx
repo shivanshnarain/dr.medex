@@ -91,7 +91,7 @@ export const ForgotPasswordPage: React.FC = () => {
 
                 <Link
                   to="/account/signin"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#627188] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2D5A4A] hover:underline"
                 >
                   <ArrowLeft size={14} />
                   <span>Return to Sign In</span>
@@ -122,7 +122,7 @@ export const ForgotPasswordPage: React.FC = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="name@hospital.org"
-                    className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#627188]"
+                    className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                   />
                 </div>
               </div>
@@ -130,7 +130,7 @@ export const ForgotPasswordPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full mt-2 py-2.5 px-4 bg-[#627188] hover:bg-[#4D596B] text-white rounded-xl text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+                className="w-full mt-2 py-2.5 px-4 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
               >
                 {isLoading ? (
                   <>
@@ -145,7 +145,7 @@ export const ForgotPasswordPage: React.FC = () => {
               <div className="mt-6 pt-4 border-t border-neutral-100 text-center">
                 <Link
                   to="/account/signin"
-                  className="inline-flex items-center gap-1.5 text-xs text-neutral-600 hover:text-[#627188] font-semibold"
+                  className="inline-flex items-center gap-1.5 text-xs text-neutral-600 hover:text-[#2D5A4A] font-semibold"
                 >
                   <ArrowLeft size={13} />
                   <span>Back to Sign In</span>

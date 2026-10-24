@@ -135,7 +135,7 @@ export const AdminReviewsPage: React.FC = () => {
           type="button"
           onClick={loadReviews}
           disabled={isLoading}
-          className="px-3.5 py-2 bg-white border border-[#CCD1D8] hover:border-white text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
+          className="px-3.5 py-2 bg-[#0D4C3C] border border-white/20 hover:border-white text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
         >
           <RefreshCw size={14} className={isLoading ? "animate-spin" : ""} />
           <span>Refresh</span>
@@ -148,7 +148,7 @@ export const AdminReviewsPage: React.FC = () => {
           <div
             className={`p-3.5 rounded-xl text-xs font-semibold flex items-center justify-between shadow-md ${
               statusMessage.type === "success"
-                ? "bg-white text-neutral-900 border border-[#627188]"
+                ? "bg-[#0D4C3C] text-white border border-[#FFD400]"
                 : "bg-[#C62828]/25 text-white border border-[#C62828]"
             }`}
           >
@@ -156,7 +156,7 @@ export const AdminReviewsPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setStatusMessage(null)}
-              className="text-2xs uppercase font-bold text-neutral-500 hover:text-white"
+              className="text-2xs uppercase font-bold text-white/70 hover:text-white"
             >
               Dismiss
             </button>
@@ -167,7 +167,7 @@ export const AdminReviewsPage: React.FC = () => {
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
           {[
             { label: "All Reviews", statusKey: "ALL", count: counts.total, color: "text-white" },
-            { label: "Pending", statusKey: "PENDING", count: counts.pending, color: "text-[#627188]" },
+            { label: "Pending", statusKey: "PENDING", count: counts.pending, color: "text-[#FFD400]" },
             { label: "Quarantined", statusKey: "QUARANTINED", count: counts.quarantined || 0, color: "text-orange-400" },
             { label: "Approved Public", statusKey: "APPROVED", count: counts.approved, color: "text-emerald-400" },
             { label: "Rejected", statusKey: "REJECTED", count: counts.rejected, color: "text-red-400" }
@@ -178,58 +178,58 @@ export const AdminReviewsPage: React.FC = () => {
               onClick={() => setFilterStatus(item.statusKey)}
               className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
                 filterStatus === item.statusKey
-                  ? "bg-white border-[#627188] shadow-md ring-1 ring-[#627188]"
-                  : "bg-white border-[#CCD1D8] hover:border-[#CCD1D8] text-white"
+                  ? "bg-[#0D4C3C] border-[#FFD400] shadow-md ring-1 ring-[#FFD400]"
+                  : "bg-[#0D4C3C] border-white/15 hover:border-white/30 text-white"
               }`}
             >
-              <div className="text-2xs text-neutral-500 font-bold uppercase tracking-wider">{item.label}</div>
+              <div className="text-2xs text-white/70 font-bold uppercase tracking-wider">{item.label}</div>
               <div className={`text-2xl font-black mt-1 font-mono ${item.color}`}>{item.count}</div>
             </button>
           ))}
         </div>
 
         {/* Reviews Table / Card List */}
-        <div className="bg-white text-neutral-900 rounded-2xl border border-[#CCD1D8] shadow-xl overflow-hidden">
-          <div className="p-5 border-b border-[#CCD1D8] flex items-center justify-between flex-wrap gap-3 bg-black/20">
+        <div className="bg-[#0D4C3C] text-white rounded-2xl border border-white/20 shadow-xl overflow-hidden">
+          <div className="p-5 border-b border-white/15 flex items-center justify-between flex-wrap gap-3 bg-black/20">
             <div className="flex items-center gap-2">
-              <Filter size={16} className="text-[#627188]" />
+              <Filter size={16} className="text-[#FFD400]" />
               <h3 className="text-xs font-bold uppercase text-white tracking-tight">
                 Showing: {filterStatus} Reviews ({reviews.length})
               </h3>
             </div>
-            <span className="text-2xs text-neutral-400 font-mono">
+            <span className="text-2xs text-white/60 font-mono">
               Database: Cloud Firestore (default) • Collection: reviews
             </span>
           </div>
 
           {isLoading ? (
-            <div className="p-12 text-center text-neutral-400 flex flex-col items-center justify-center gap-2">
-              <Loader2 size={24} className="animate-spin text-[#627188]" />
+            <div className="p-12 text-center text-white/60 flex flex-col items-center justify-center gap-2">
+              <Loader2 size={24} className="animate-spin text-[#FFD400]" />
               <span className="text-xs">Loading reviews...</span>
             </div>
           ) : reviews.length === 0 ? (
-            <div className="p-12 text-center text-neutral-500 space-y-1">
+            <div className="p-12 text-center text-white/70 space-y-1">
               <div className="font-bold text-sm text-white">No reviews found for status: {filterStatus}</div>
-              <p className="text-xs text-neutral-400">
+              <p className="text-xs text-white/60">
                 Customer evaluations submitted through the product detail page will appear here for verification.
               </p>
             </div>
           ) : (
-            <div className="divide-y divide-[#CCD1D8]">
+            <div className="divide-y divide-white/10">
               {reviews.map((rev) => {
                 const isActionBusy = actionLoadingId === rev.id;
                 const authorDisplay = rev.customerName || rev.author || "Practitioner";
                 const commentDisplay = rev.reviewText || rev.comment || "";
 
                 return (
-                  <div key={rev.id} className="p-6 space-y-3 hover:bg-[#EFF1F3]/50 transition-colors">
+                  <div key={rev.id} className="p-6 space-y-3 hover:bg-white/5 transition-colors">
                     {/* Top Row: Author, Status Badge, Star Rating, Actions */}
                     <div className="flex items-start justify-between flex-wrap gap-4">
                       <div>
                         <div className="flex items-center gap-2 flex-wrap">
                           <span className="font-bold text-sm text-white">{authorDisplay}</span>
                           {rev.facility && (
-                            <span className="text-xs text-neutral-500">({rev.facility})</span>
+                            <span className="text-xs text-white/70">({rev.facility})</span>
                           )}
 
                           {/* Status Pill */}
@@ -255,7 +255,7 @@ export const AdminReviewsPage: React.FC = () => {
                             className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-3xs font-bold cursor-pointer transition-colors ${
                               rev.verifiedPurchase
                                 ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
-                                : "bg-[#EFF1F3] text-neutral-400 border border-[#CCD1D8] hover:border-[#CCD1D8]"
+                                : "bg-white/10 text-white/60 border border-white/15 hover:border-white/30"
                             }`}
                             title="Click to toggle Verified Purchase status"
                           >
@@ -265,21 +265,21 @@ export const AdminReviewsPage: React.FC = () => {
 
                           {/* AI Assisted Tag */}
                           {rev.aiAssisted && (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#EFF1F3] text-neutral-600 rounded-md text-3xs font-medium">
-                              <Sparkles size={10} className="text-[#627188]" />
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-white/10 text-white/80 rounded-md text-3xs font-medium">
+                              <Sparkles size={10} className="text-[#FFD400]" />
                               <span>AI Assisted Draft</span>
                             </span>
                           )}
                         </div>
 
                         {/* Product Title Link */}
-                        <div className="text-2xs text-neutral-400 font-mono mt-1 flex items-center gap-1.5">
+                        <div className="text-2xs text-white/60 font-mono mt-1 flex items-center gap-1.5">
                           <span>Product ID: {rev.productId}</span>
                           {rev.productSlug && (
                             <Link
                               to={`/product/${rev.productSlug}`}
                               target="_blank"
-                              className="text-[#627188] hover:underline inline-flex items-center gap-0.5 font-medium"
+                              className="text-[#FFD400] hover:underline inline-flex items-center gap-0.5 font-medium"
                             >
                               <span>View Product</span>
                               <ExternalLink size={10} />
@@ -290,13 +290,13 @@ export const AdminReviewsPage: React.FC = () => {
 
                       {/* Right Side: Rating & Moderate Actions */}
                       <div className="flex items-center gap-3">
-                        <div className="flex text-[#627188]">
+                        <div className="flex text-[#FFD400]">
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
                               size={14}
                               fill={i < rev.rating ? "currentColor" : "none"}
-                              className={i < rev.rating ? "text-[#627188]" : "text-white/20"}
+                              className={i < rev.rating ? "text-[#FFD400]" : "text-white/20"}
                             />
                           ))}
                         </div>
@@ -351,7 +351,7 @@ export const AdminReviewsPage: React.FC = () => {
                         {rev.customerFeedbackPoints.map((pt, idx) => (
                           <span
                             key={idx}
-                            className="px-2 py-0.5 bg-[#EFF1F3] text-neutral-600 rounded-md text-3xs font-medium"
+                            className="px-2 py-0.5 bg-white/10 text-white/80 rounded-md text-3xs font-medium"
                           >
                             {pt}
                           </span>
@@ -360,7 +360,7 @@ export const AdminReviewsPage: React.FC = () => {
                     )}
 
                     {/* Review Feedback Text */}
-                    <p className="text-xs text-white/90 leading-relaxed italic bg-black/20 p-3 rounded-xl border border-[#CCD1D8]">
+                    <p className="text-xs text-white/90 leading-relaxed italic bg-black/20 p-3 rounded-xl border border-white/10">
                       &ldquo;{commentDisplay}&rdquo;
                     </p>
 

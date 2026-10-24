@@ -41,7 +41,7 @@ export const Logo: React.FC<LogoProps> = ({
             <rect x="8.5" y="17.5" width="11" height="5" rx="1.5" fill={isMonochrome ? "#111111" : "#EF4444"} />
 
             {/* Center Accent */}
-            <rect x="17.5" y="17.5" width="5" height="5" rx="1" fill={isMonochrome ? "#444444" : "#627188"} />
+            <rect x="17.5" y="17.5" width="5" height="5" rx="1" fill={isMonochrome ? "#444444" : "#1F7A4D"} />
             <circle cx="20" cy="20" r="1.5" fill="#FFFFFF" />
           </svg>
         </div>
@@ -50,8 +50,8 @@ export const Logo: React.FC<LogoProps> = ({
       {/* DR.MEDEX Wordmark */}
       <div className="flex flex-col leading-none">
         <div className="flex items-baseline tracking-tight font-black text-xl sm:text-2xl">
-          <span className={`${isWhite ? "text-white" : isMonochrome ? "text-black" : "text-[#4D596B]"} transition-colors`}>DR.</span>
-          <span className={`${isWhite ? "text-white" : isMonochrome ? "text-black" : "text-[#627188]"} transition-colors tracking-wide ml-0.5`}>
+          <span className={`${isWhite ? "text-white" : isMonochrome ? "text-black" : "text-[#2D5A4A]"} transition-colors`}>DR.</span>
+          <span className={`${isWhite ? "text-white" : isMonochrome ? "text-black" : "text-[#7AA05A]"} transition-colors tracking-wide ml-0.5`}>
             MEDEX
           </span>
         </div>

@@ -48,10 +48,10 @@ export const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-white text-neutral-900 rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-[#CCD1D8] animate-in fade-in zoom-in-95 duration-200">
-        <div className="px-6 py-4 border-b border-[#CCD1D8] flex items-center justify-between bg-black/20 text-white">
+      <div className="bg-[#0D4C3C] text-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-white/20 animate-in fade-in zoom-in-95 duration-200">
+        <div className="px-6 py-4 border-b border-white/15 flex items-center justify-between bg-black/20 text-white">
           <div className="flex items-center gap-2.5">
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${hasOrders ? "bg-[#627188]/20 text-[#627188]" : "bg-[#C62828]/20 text-[#FF8A80]"}`}>
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${hasOrders ? "bg-[#FFD400]/20 text-[#FFD400]" : "bg-[#C62828]/20 text-[#FF8A80]"}`}>
               {hasOrders ? <Archive size={16} /> : <Trash2 size={16} />}
             </div>
             <h3 className="font-bold text-sm sm:text-base font-mono uppercase tracking-wider text-white">
@@ -62,7 +62,7 @@ export const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
             type="button"
             onClick={onClose}
             disabled={isProcessing}
-            className="text-neutral-400 hover:text-white hover:bg-[#EFF1F3] p-1.5 rounded-lg transition-colors cursor-pointer disabled:opacity-40"
+            className="text-white/60 hover:text-white hover:bg-white/10 p-1.5 rounded-lg transition-colors cursor-pointer disabled:opacity-40"
             aria-label="Close dialog"
           >
             <X size={18} />
@@ -70,27 +70,27 @@ export const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
         </div>
 
         <div className="p-6 space-y-4">
-          <div className="p-4 bg-[#EFF1F3] border border-[#CCD1D8] rounded-xl">
-            <span className="text-3xs uppercase font-bold text-neutral-500 font-mono block">
+          <div className="p-4 bg-white/10 border border-white/15 rounded-xl">
+            <span className="text-3xs uppercase font-bold text-white/70 font-mono block">
               {hasOrders ? "Product To Be Retired from Catalogue:" : "Product To Be Deleted:"}
             </span>
             <p className="text-sm font-bold text-white mt-1">
               {product.title || product.productName}
             </p>
-            <p className="text-3xs font-mono text-neutral-500 mt-1">
-              SKU: <span className="text-[#627188] font-semibold">{product.sku || (product as any).SKU || "N/A"}</span> | ID: {product.id}
+            <p className="text-3xs font-mono text-white/70 mt-1">
+              SKU: <span className="text-[#FFD400] font-semibold">{product.sku || (product as any).SKU || "N/A"}</span> | ID: {product.id}
             </p>
           </div>
 
           {hasOrders ? (
-            <div className="p-4 bg-[#627188]/10 border border-[#627188]/30 rounded-xl flex items-start gap-3">
-              <ShieldCheck size={18} className="text-[#627188] shrink-0 mt-0.5" />
+            <div className="p-4 bg-[#FFD400]/10 border border-[#FFD400]/30 rounded-xl flex items-start gap-3">
+              <ShieldCheck size={18} className="text-[#FFD400] shrink-0 mt-0.5" />
               <div className="text-xs text-white leading-relaxed">
-                <p className="font-bold text-[#627188]">Customer Order History Protected</p>
+                <p className="font-bold text-[#FFD400]">Customer Order History Protected</p>
                 <p className="mt-1 text-white/90">
                   This product is referenced in existing customer orders. To preserve business records, payment compliance, and order tracking history, it will be <strong>safely retired and removed from the active catalogue</strong>.
                 </p>
-                <div className="mt-2 text-[11px] text-neutral-600 space-y-0.5 font-mono">
+                <div className="mt-2 text-[11px] text-white/80 space-y-0.5 font-mono">
                   <p>• Removed from active storefront, search, and category listings.</p>
                   <p>• Cannot be purchased as a new product.</p>
                   <p>• All historical customer orders, payments, and receipt snapshots remain 100% intact.</p>
@@ -116,12 +116,12 @@ export const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
           )}
         </div>
 
-        <div className="px-6 py-4 border-t border-[#CCD1D8] bg-black/20 flex items-center justify-end gap-3">
+        <div className="px-6 py-4 border-t border-white/15 bg-black/20 flex items-center justify-end gap-3">
           <button
             type="button"
             disabled={isProcessing}
             onClick={onClose}
-            className="px-4 py-2 border border-[#CCD1D8] rounded-xl text-xs font-semibold text-neutral-600 hover:text-white hover:bg-[#EFF1F3] transition-colors cursor-pointer disabled:opacity-50"
+            className="px-4 py-2 border border-white/20 rounded-xl text-xs font-semibold text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer disabled:opacity-50"
           >
             Cancel
           </button>
@@ -130,7 +130,7 @@ export const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
             disabled={isProcessing}
             onClick={handleAction}
             className={`px-5 py-2 rounded-xl text-xs font-bold text-white transition-colors cursor-pointer flex items-center gap-2 shadow-xs ${
-              hasOrders ? "bg-[#627188] text-black hover:bg-[#FFE04D]" : "bg-[#C62828] hover:bg-[#B71C1C]"
+              hasOrders ? "bg-[#FFD400] text-black hover:bg-[#FFE04D]" : "bg-[#C62828] hover:bg-[#B71C1C]"
             } disabled:opacity-50`}
           >
             {isProcessing ? (

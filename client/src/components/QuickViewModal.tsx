@@ -77,7 +77,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, onClose
                         }}
                         onMouseEnter={() => setHoveredThumbnailIndex(idx)}
                         onMouseLeave={() => setHoveredThumbnailIndex(null)}
-                        className="p-1 m-0 border-0 bg-transparent cursor-pointer shrink-0 inline-flex items-center justify-center focus:outline-none focus-visible:ring-1 focus-visible:ring-[#627188] rounded-[10px]"
+                        className="p-1 m-0 border-0 bg-transparent cursor-pointer shrink-0 inline-flex items-center justify-center focus:outline-none focus-visible:ring-1 focus-visible:ring-[#7AA05A] rounded-[10px]"
                         aria-label={`View angle ${idx + 1}`}
                       >
                         <img
@@ -85,7 +85,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, onClose
                           alt={`Angle ${idx + 1}`}
                           className={`block max-w-[56px] max-h-[56px] w-auto h-auto object-contain rounded-[8px] select-none opacity-100 transition-all duration-200 ease-out ${
                             showShade
-                              ? "border-[2px] border-[#627188] shadow-[0_2px_6px_rgba(0,0,0,0.08)] scale-[1.05]"
+                              ? "border-[2px] border-[#7AA05A] shadow-[0_2px_6px_rgba(0,0,0,0.08)] scale-[1.05]"
                               : "border border-[#D9D9D9] shadow-[0_1px_3px_rgba(0,0,0,0.06)] scale-100"
                           }`}
                         />

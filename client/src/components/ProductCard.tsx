@@ -69,7 +69,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenQuote }
 
   return (
     <div
-      className="group relative bg-white rounded-xl border border-[#CCD1D8] hover:border-neutral-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between overflow-hidden hover:-translate-y-1 h-full"
+      className="group relative bg-white rounded-xl border border-[#E5E0D8] hover:border-neutral-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between overflow-hidden hover:-translate-y-1 h-full"
     >
       {/* 1. PRODUCT IMAGE AREA */}
       <div className="relative w-full aspect-square bg-[#FAFAFA] flex items-center justify-center p-4 overflow-hidden border-b border-[#F0F0F0]">
@@ -98,14 +98,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenQuote }
           aria-label={isSaved ? "Remove from wishlist" : "Add to wishlist"}
           className={`absolute top-2.5 right-2.5 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 z-10 ${
             isSaved
-              ? "bg-white text-[#627188] shadow-xs border border-[#627188]/20 scale-105"
-              : "bg-white/90 text-neutral-400 hover:text-[#627188] hover:bg-white border border-[#CCD1D8] shadow-2xs hover:scale-105"
+              ? "bg-white text-[#2D5A4A] shadow-xs border border-[#2D5A4A]/20 scale-105"
+              : "bg-white/90 text-neutral-400 hover:text-[#2D5A4A] hover:bg-white border border-[#E5E0D8] shadow-2xs hover:scale-105"
           }`}
         >
           <Heart
             size={15}
             strokeWidth={1.8}
-            className={`transition-colors ${isSaved ? "fill-[#627188] text-[#627188]" : "text-neutral-500 hover:text-[#627188]"}`}
+            className={`transition-colors ${isSaved ? "fill-[#2D5A4A] text-[#2D5A4A]" : "text-neutral-500 hover:text-[#2D5A4A]"}`}
           />
         </button>
 
@@ -128,7 +128,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenQuote }
           </div>
 
           {/* PRODUCT NAME (2-line clamped with fixed minimum height for row alignment) */}
-          <h3 className="text-xs sm:text-sm font-semibold text-[#111111] leading-snug line-clamp-2 min-h-[2.5rem] hover:text-[#627188] transition-colors mb-2.5">
+          <h3 className="text-xs sm:text-sm font-semibold text-[#111111] leading-snug line-clamp-2 min-h-[2.5rem] hover:text-[#2D5A4A] transition-colors mb-2.5">
             <Link to={`/product/${product.slug}`}>{displayTitle}</Link>
           </h3>
         </div>
@@ -153,7 +153,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenQuote }
                   <span className="text-3xs sm:text-2xs text-neutral-400 line-through">
                     {regularPriceStr}
                   </span>
-                  <span className="text-3xs font-bold text-[#627188] tracking-wider uppercase">
+                  <span className="text-3xs font-bold text-[#2D5A4A] tracking-wider uppercase">
                     SAVE {discountPct}%
                   </span>
                 </div>
@@ -172,7 +172,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenQuote }
           <button
             type="button"
             onClick={handleBuyNow}
-            className="w-full py-2.5 px-4 bg-[#111111] hover:bg-[#627188] active:bg-[#4D596B] text-white rounded-lg text-2xs sm:text-xs font-bold tracking-wider uppercase transition-colors duration-200 flex items-center justify-center gap-1.5 shadow-2xs"
+            className="w-full py-2.5 px-4 bg-[#111111] hover:bg-[#2D5A4A] active:bg-[#0D4C3C] text-white rounded-lg text-2xs sm:text-xs font-bold tracking-wider uppercase transition-colors duration-200 flex items-center justify-center gap-1.5 shadow-2xs"
           >
             {isUnpriced ? "Request Quote" : "Buy Now"}
           </button>

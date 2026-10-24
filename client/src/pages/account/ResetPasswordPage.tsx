@@ -157,7 +157,7 @@ export const ResetPasswordPage: React.FC = () => {
           {/* Loading verification state */}
           {isVerifyingToken ? (
             <div className="py-8 text-center space-y-3">
-              <Loader2 size={24} className="animate-spin text-[#627188] mx-auto" />
+              <Loader2 size={24} className="animate-spin text-[#2D5A4A] mx-auto" />
               <p className="text-xs text-neutral-600 font-medium">Verifying recovery token...</p>
             </div>
           ) : isTokenInvalid ? (
@@ -176,7 +176,7 @@ export const ResetPasswordPage: React.FC = () => {
               <div className="pt-2 text-center space-y-3">
                 <Link
                   to="/account/forgot-password"
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 bg-[#627188] hover:bg-[#4D596B] text-white rounded-xl text-xs font-bold transition-all shadow-xs"
+                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs font-bold transition-all shadow-xs"
                 >
                   <span>Request a New Recovery Link</span>
                   <ArrowRight size={14} />
@@ -185,7 +185,7 @@ export const ResetPasswordPage: React.FC = () => {
                 <div>
                   <Link
                     to="/account/signin"
-                    className="inline-flex items-center gap-1.5 text-xs text-neutral-600 hover:text-[#627188] font-semibold"
+                    className="inline-flex items-center gap-1.5 text-xs text-neutral-600 hover:text-[#2D5A4A] font-semibold"
                   >
                     <ArrowLeft size={13} />
                     <span>Return to Sign In</span>
@@ -207,7 +207,7 @@ export const ResetPasswordPage: React.FC = () => {
               <div className="pt-2 text-center">
                 <Link
                   to="/account/signin"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#627188] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2D5A4A] hover:underline"
                 >
                   <span>Proceed to Sign In</span>
                   <ArrowRight size={14} />
@@ -243,7 +243,7 @@ export const ResetPasswordPage: React.FC = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Minimum 6 characters"
-                    className="w-full pl-9 pr-10 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#627188]"
+                    className="w-full pl-9 pr-10 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                   />
                   <button
                     type="button"
@@ -269,7 +269,7 @@ export const ResetPasswordPage: React.FC = () => {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Re-enter your new password"
-                    className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#627188]"
+                    className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                   />
                 </div>
               </div>
@@ -277,7 +277,7 @@ export const ResetPasswordPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full mt-2 py-2.5 px-4 bg-[#627188] hover:bg-[#4D596B] text-white rounded-xl text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+                className="w-full mt-2 py-2.5 px-4 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
               >
                 {isLoading ? (
                   <>
@@ -292,7 +292,7 @@ export const ResetPasswordPage: React.FC = () => {
               <div className="mt-6 pt-4 border-t border-neutral-100 text-center">
                 <Link
                   to="/account/signin"
-                  className="text-xs text-neutral-600 hover:text-[#627188] font-semibold inline-flex items-center gap-1"
+                  className="text-xs text-neutral-600 hover:text-[#2D5A4A] font-semibold inline-flex items-center gap-1"
                 >
                   <ArrowLeft size={12} />
                   <span>Cancel & Back to Sign In</span>
