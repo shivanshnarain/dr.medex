@@ -219,7 +219,11 @@ router.get("/products", requireAdmin, async (req, res) => {
               hasOrders,
               mongoSyncStatus: "SYNCED",
               mongoSyncedAt: m.mongoSyncedAt || p.mongoSyncedAt || new Date().toISOString(),
-              reviewStatus: m.reviewStatus || p.reviewStatus || "PENDING",
+              reviewStatus: (m.reviewStatus === "CORRECT" || p.reviewStatus === "CORRECT")
+                ? "CORRECT"
+                : (m.reviewStatus === "NEEDS_EDITING" || p.reviewStatus === "NEEDS_EDITING")
+                ? "NEEDS_EDITING"
+                : (m.reviewStatus || p.reviewStatus || "PENDING"),
               reviewNote: m.reviewNote !== undefined ? m.reviewNote : p.reviewNote
             };
           }
@@ -1561,12 +1565,28 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
       finalStatus = String(req.body.status).toUpperCase().trim();
     }
 
+    let finalReviewStatus = existing.reviewStatus || "PENDING";
+    if (req.body.reviewStatus !== undefined && req.body.reviewStatus !== null) {
+      const rawRS = String(req.body.reviewStatus).toUpperCase().trim();
+      if (rawRS === "CORRECT" || rawRS === "APPROVED") {
+        finalReviewStatus = "CORRECT";
+      } else if (rawRS === "NEEDS_EDITING" || rawRS === "NEEDS-EDITING") {
+        finalReviewStatus = "NEEDS_EDITING";
+      } else if (rawRS === "PENDING" || rawRS === "NOT_YET_REVIEWED" || rawRS === "NOT_REVIEWED") {
+        finalReviewStatus = "PENDING";
+      }
+    }
+
+    const isNowCorrect = finalReviewStatus === "CORRECT";
     const updates = {
       ...req.body,
       status: finalStatus,
-      reviewStatus: req.body.reviewStatus || existing.reviewStatus || "CORRECT",
-      approvedAt: new Date().toISOString(),
-      approvedBy: req.admin?.email || "SYSTEM_ADMIN",
+      reviewStatus: finalReviewStatus,
+      reviewNote: req.body.reviewNote !== undefined ? (req.body.reviewNote ? String(req.body.reviewNote).trim() : null) : (isNowCorrect ? null : existing.reviewNote || null),
+      approvedAt: isNowCorrect ? (existing.approvedAt || new Date().toISOString()) : (existing.approvedAt || null),
+      approvedBy: isNowCorrect ? (req.admin?.email || "SYSTEM_ADMIN") : (existing.approvedBy || null),
+      reviewedAt: new Date().toISOString(),
+      reviewedBy: req.admin?.email || "SYSTEM_ADMIN",
       updatedBy: req.admin?.email || "SYSTEM_ADMIN",
       updatedAt: new Date().toISOString()
     };

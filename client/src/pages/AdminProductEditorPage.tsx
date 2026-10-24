@@ -25,6 +25,7 @@ import {
   ArrowDown,
   Globe,
   ShieldCheck,
+  Clock,
   X
 } from "lucide-react";
 import { AdminLayout } from "../components/admin/AdminLayout";
@@ -643,6 +644,15 @@ export const AdminProductEditorPage: React.FC = () => {
   const [metaTitle, setMetaTitle] = useState(initialProduct?.metaTitle !== undefined ? initialProduct.metaTitle : (initialProduct?.seoTitle !== undefined ? initialProduct.seoTitle : ""));
   const [metaDescription, setMetaDescription] = useState(initialProduct?.metaDescription !== undefined ? initialProduct.metaDescription : (initialProduct?.seoDescription !== undefined ? initialProduct.seoDescription : ""));
 
+  // Review Status & Audit State
+  const [reviewStatus, setReviewStatus] = useState<"CORRECT" | "NEEDS_EDITING" | "PENDING">(() => {
+    const raw = initialProduct?.reviewStatus;
+    if (raw === "CORRECT") return "CORRECT";
+    if (raw === "NEEDS_EDITING") return "NEEDS_EDITING";
+    return "PENDING";
+  });
+  const [reviewNote, setReviewNote] = useState<string>(initialProduct?.reviewNote || "");
+
   // Legacy compatibility fields
   const [regulatoryClass, setRegulatoryClass] = useState(initialProduct?.regulatoryClassification || "Class IIa (MDR 2017/745)");
   const [certificationStatus, setCertificationStatus] = useState(initialProduct?.certificationStatus || "Claimed");
@@ -720,6 +730,9 @@ export const AdminProductEditorPage: React.FC = () => {
     setIssuingOrg(p.issuingOrg || "");
     originalStatusRef.current = p.status || "ACTIVE";
     setStatus(p.status || "ACTIVE");
+    const rawRS = p.reviewStatus;
+    setReviewStatus(rawRS === "CORRECT" ? "CORRECT" : rawRS === "NEEDS_EDITING" ? "NEEDS_EDITING" : "PENDING");
+    setReviewNote(p.reviewNote || "");
     setCertifications(p.certifications || []);
     setManualUrl(p.manualUrl || "");
     setDatasheetUrl(p.datasheetUrl || "");
@@ -741,6 +754,14 @@ export const AdminProductEditorPage: React.FC = () => {
       if (!edited.has("status")) {
         setStatus(fresh.status);
       }
+    }
+
+    if (!edited.has("reviewStatus") && fresh.reviewStatus !== undefined) {
+      const freshRS = fresh.reviewStatus;
+      setReviewStatus(freshRS === "CORRECT" ? "CORRECT" : freshRS === "NEEDS_EDITING" ? "NEEDS_EDITING" : "PENDING");
+    }
+    if (!edited.has("reviewNote") && fresh.reviewNote !== undefined) {
+      setReviewNote(fresh.reviewNote || "");
     }
 
     if (!edited.has("category") && fresh.category) setCategory(fresh.category);
@@ -2421,6 +2442,8 @@ export const AdminProductEditorPage: React.FC = () => {
       status: isEditMode && !manuallyEditedFields.has("status")
         ? (originalStatusRef.current || status || "ACTIVE")
         : (status || "ACTIVE"),
+      reviewStatus,
+      reviewNote: reviewNote.trim() || undefined,
       featured: isFeatured,
       isFeatured,
       bestseller: isBestSeller,
@@ -2470,6 +2493,15 @@ export const AdminProductEditorPage: React.FC = () => {
       }
 
       if (res.ok && data.success) {
+        if (data.mongo && data.mongo.status === "SYNC_FAILED") {
+          setStatusBanner({
+            type: "error",
+            text: `Failed to persist update to MongoDB: ${data.mongo.error || "Database synchronization failed"}. Your entered data has been preserved.`
+          });
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+        }
+
         const savedProduct = data.product;
         const savedImgs = Array.isArray(savedProduct?.images) ? savedProduct.images : [];
         if (payload.images.length > 0 && savedImgs.length < payload.images.length) {
@@ -2534,7 +2566,65 @@ export const AdminProductEditorPage: React.FC = () => {
           <span>Back to Products Catalogue</span>
         </Link>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          {/* Review Status Quick Selector */}
+          <div className="flex items-center gap-2 bg-black/25 px-3 py-1.5 rounded-xl border border-white/20">
+            <span className="text-xs font-bold text-white/90">Review Status:</span>
+            <div className="inline-flex rounded-lg p-0.5 bg-black/30 border border-white/30 text-xs">
+              <button
+                type="button"
+                onClick={() => {
+                  setReviewStatus("CORRECT");
+                  markFieldEdited("reviewStatus");
+                  setHasUnsavedChanges(true);
+                }}
+                className={`px-2.5 py-1 rounded-md font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                  reviewStatus === "CORRECT"
+                    ? "bg-[#15803D] text-white shadow-xs"
+                    : "text-white/70 hover:text-white"
+                }`}
+                title="Mark product review as Correct"
+              >
+                <Check size={12} className={reviewStatus === "CORRECT" ? "stroke-[3]" : ""} />
+                <span>Correct</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setReviewStatus("NEEDS_EDITING");
+                  markFieldEdited("reviewStatus");
+                  setHasUnsavedChanges(true);
+                }}
+                className={`px-2.5 py-1 rounded-md font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                  reviewStatus === "NEEDS_EDITING"
+                    ? "bg-[#B91C1C] text-white shadow-xs"
+                    : "text-white/70 hover:text-white"
+                }`}
+                title="Mark product review as Needs Editing"
+              >
+                <X size={12} className={reviewStatus === "NEEDS_EDITING" ? "stroke-[3]" : ""} />
+                <span>Needs Editing</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setReviewStatus("PENDING");
+                  markFieldEdited("reviewStatus");
+                  setHasUnsavedChanges(true);
+                }}
+                className={`px-2.5 py-1 rounded-md font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                  reviewStatus === "PENDING"
+                    ? "bg-white text-black shadow-xs"
+                    : "text-white/70 hover:text-white"
+                }`}
+                title="Mark product review as Not Yet Reviewed"
+              >
+                <Clock size={12} />
+                <span>Not Yet Reviewed</span>
+              </button>
+            </div>
+          </div>
+
           <button
             type="button"
             onClick={handleSaveProduct}
@@ -3946,6 +4036,49 @@ export const AdminProductEditorPage: React.FC = () => {
                   <option value="ARCHIVED">Archived (Historical Record)</option>
                 </select>
 
+                <div className="mt-4">
+                  <label className="block text-xs font-bold text-white mb-1">
+                    Review Status
+                  </label>
+                  <select
+                    value={reviewStatus}
+                    onChange={(e) => {
+                      setReviewStatus(e.target.value as any);
+                      markFieldEdited("reviewStatus");
+                      setHasUnsavedChanges(true);
+                    }}
+                    className={`w-full px-3.5 py-2.5 bg-white border border-white/40 rounded-xl text-xs font-bold focus:outline-none cursor-pointer ${
+                      reviewStatus === "CORRECT"
+                        ? "text-[#15803D]"
+                        : reviewStatus === "NEEDS_EDITING"
+                        ? "text-[#B91C1C]"
+                        : "text-[#171717]"
+                    }`}
+                  >
+                    <option value="CORRECT">Correct (Verified & Approved)</option>
+                    <option value="NEEDS_EDITING">Needs Editing</option>
+                    <option value="PENDING">Not Yet Reviewed</option>
+                  </select>
+                  {reviewStatus === "NEEDS_EDITING" && (
+                    <div className="mt-2">
+                      <label className="block text-[11px] font-bold text-white mb-1">
+                        Editing Note / Reasons
+                      </label>
+                      <input
+                        type="text"
+                        value={reviewNote}
+                        onChange={(e) => {
+                          setReviewNote(e.target.value);
+                          markFieldEdited("reviewNote");
+                          setHasUnsavedChanges(true);
+                        }}
+                        placeholder="e.g. Missing technical specs, check pricing"
+                        className="w-full px-3 py-1.5 bg-white text-[#171717] border border-white/40 rounded-lg text-xs"
+                      />
+                    </div>
+                  )}
+                </div>
+
                 <div className="space-y-2.5 pt-3 mt-3 border-t border-white/20">
                   <label className="flex items-center gap-2.5 text-xs text-white cursor-pointer">
                     <input
@@ -4043,6 +4176,19 @@ export const AdminProductEditorPage: React.FC = () => {
             <span className="text-xs font-bold text-white">
               {hasUnsavedChanges ? "Unsaved changes detected" : "All fields synchronized"}
             </span>
+            <div className="hidden sm:flex items-center gap-1.5 ml-2 pl-3 border-l border-white/30">
+              <span className="text-[11px] text-white/80">Review:</span>
+              <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold ${
+                reviewStatus === "CORRECT"
+                  ? "bg-[#15803D] text-white"
+                  : reviewStatus === "NEEDS_EDITING"
+                  ? "bg-[#B91C1C] text-white"
+                  : "bg-white text-black"
+              }`}>
+                {reviewStatus === "CORRECT" ? <Check size={11} className="stroke-[3]" /> : reviewStatus === "NEEDS_EDITING" ? <X size={11} className="stroke-[3]" /> : <Clock size={11} />}
+                <span>{reviewStatus === "CORRECT" ? "Correct" : reviewStatus === "NEEDS_EDITING" ? "Needs Editing" : "Not Yet Reviewed"}</span>
+              </span>
+            </div>
           </div>
 
           <div className="flex items-center gap-3">
