@@ -209,11 +209,11 @@ export const HomePage: React.FC = () => {
       />
 
       {/* 2.5. EXPLORE MEDICAL EQUIPMENT CATEGORIES (6 ACTIVE CATEGORIES) */}
-      <section className="py-14 sm:py-20 bg-white border-b border-[#E8E8E8]">
+      <section className="py-14 sm:py-20 bg-white border-b border-[#CCD1D8]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-[#E8E8E8] gap-3">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-[#CCD1D8] gap-3">
             <div>
-              <span className="text-3xs font-extrabold uppercase tracking-widest text-[#2D5A4A] block mb-2">
+              <span className="text-3xs font-extrabold uppercase tracking-widest text-[#627188] block mb-2">
                 Certified Healthcare Technology
               </span>
               <h2 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
@@ -225,10 +225,10 @@ export const HomePage: React.FC = () => {
             </div>
             <Link
               to="/shop-all"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#111111] hover:text-[#2D5A4A] transition-colors shrink-0 group uppercase tracking-wider"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#111111] hover:text-[#627188] transition-colors shrink-0 group uppercase tracking-wider"
             >
               <span>View All Products</span>
-              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform text-[#2D5A4A]" />
+              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform text-[#627188]" />
             </Link>
           </div>
 
@@ -240,7 +240,7 @@ export const HomePage: React.FC = () => {
                 to={`/category/${cat.slug}`}
                 className={`group relative flex flex-col ${
                   cat.textPosition === "top" ? "justify-start" : "justify-end"
-                } overflow-hidden rounded-[20px] aspect-[20/23] bg-[#F4F1EB] shadow-xs hover:shadow-xl transition-all duration-300 select-none hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7AA05A] focus-visible:ring-offset-2`}
+                } overflow-hidden rounded-[20px] aspect-[20/23] bg-[#EFF1F3] shadow-xs hover:shadow-xl transition-all duration-300 select-none hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#627188] focus-visible:ring-offset-2`}
                 style={{ borderRadius: "20px", aspectRatio: "20 / 23" }}
               >
                 {/* 1. Original category product image filling the card with proportional vertical alignment */}
@@ -256,16 +256,16 @@ export const HomePage: React.FC = () => {
                 <div className="relative z-10 p-4 sm:p-5 lg:p-5.5 flex flex-col items-start gap-2 sm:gap-2.5">
                   <h3
                     className="text-sm sm:text-base lg:text-[17px] font-bold tracking-tight leading-snug"
-                    style={{ color: "#7AA05A" }}
+                    style={{ color: "#627188" }}
                   >
                     {cat.name}
                   </h3>
 
                   <span
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-semibold tracking-wide transition-all duration-200 border group-hover:bg-[#7AA05A]/10"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-semibold tracking-wide transition-all duration-200 border group-hover:bg-[#627188]/10"
                     style={{
-                      borderColor: "#7AA05A",
-                      color: "#7AA05A",
+                      borderColor: "#627188",
+                      color: "#627188",
                       backgroundColor: "transparent"
                     }}
                   >
@@ -273,7 +273,7 @@ export const HomePage: React.FC = () => {
                     <ArrowRight
                       size={10}
                       strokeWidth={2.4}
-                      style={{ color: "#7AA05A" }}
+                      style={{ color: "#627188" }}
                       className="group-hover:translate-x-1 transition-transform"
                     />
                   </span>
@@ -297,7 +297,7 @@ export const HomePage: React.FC = () => {
             <section key={section.id} className="py-12 sm:py-16">
               <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
                 {/* CATEGORY SECTION HEADER */}
-                <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-[#E8E8E8] gap-3">
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-[#CCD1D8] gap-3">
                   <div>
                     <h2 className="text-lg sm:text-xl font-bold text-[#111111] uppercase tracking-wider">
                       {section.title}
@@ -308,12 +308,12 @@ export const HomePage: React.FC = () => {
                   </div>
                   <Link
                     to={section.viewAllLink}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#111111] hover:text-[#2D5A4A] transition-colors shrink-0 group uppercase tracking-wider"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#111111] hover:text-[#627188] transition-colors shrink-0 group uppercase tracking-wider"
                   >
                     <span>View All {section.title}</span>
                     <ArrowRight
                       size={14}
-                      className="group-hover:translate-x-1 transition-transform text-[#2D5A4A]"
+                      className="group-hover:translate-x-1 transition-transform text-[#627188]"
                     />
                   </Link>
                 </div>
@@ -336,10 +336,10 @@ export const HomePage: React.FC = () => {
       </div>
 
       {/* 4. CLINICAL TECHNOLOGY & INNOVATION PILLARS */}
-      <section className="py-20 sm:py-24 bg-[#FAFAFA] border-t border-[#E8E8E8]">
+      <section className="py-20 sm:py-24 bg-[#FAFAFA] border-t border-[#CCD1D8]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="text-3xs font-extrabold uppercase tracking-widest text-[#2D5A4A] block mb-2">
+            <span className="text-3xs font-extrabold uppercase tracking-widest text-[#627188] block mb-2">
               Engineering Architecture
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
@@ -351,9 +351,9 @@ export const HomePage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-7 rounded-xl border border-[#E8E8E8] shadow-2xs">
-              <div className="w-12 h-12 rounded-xl bg-[#FAFAFA] border border-[#E8E8E8] text-[#111111] flex items-center justify-center mb-5">
-                <Sun size={22} className="text-[#2D5A4A]" />
+            <div className="bg-white p-7 rounded-xl border border-[#CCD1D8] shadow-2xs">
+              <div className="w-12 h-12 rounded-xl bg-[#FAFAFA] border border-[#CCD1D8] text-[#111111] flex items-center justify-center mb-5">
+                <Sun size={22} className="text-[#627188]" />
               </div>
               <h3 className="text-sm font-bold text-[#111111] uppercase tracking-wider">
                 Shadowless Optical Design
@@ -363,9 +363,9 @@ export const HomePage: React.FC = () => {
               </p>
             </div>
 
-            <div className="bg-white p-7 rounded-xl border border-[#E8E8E8] shadow-2xs">
-              <div className="w-12 h-12 rounded-xl bg-[#FAFAFA] border border-[#E8E8E8] text-[#111111] flex items-center justify-center mb-5">
-                <Zap size={22} className="text-[#2D5A4A]" />
+            <div className="bg-white p-7 rounded-xl border border-[#CCD1D8] shadow-2xs">
+              <div className="w-12 h-12 rounded-xl bg-[#FAFAFA] border border-[#CCD1D8] text-[#111111] flex items-center justify-center mb-5">
+                <Zap size={22} className="text-[#627188]" />
               </div>
               <h3 className="text-sm font-bold text-[#111111] uppercase tracking-wider">
                 Microprocessor High-Frequency HF
@@ -375,9 +375,9 @@ export const HomePage: React.FC = () => {
               </p>
             </div>
 
-            <div className="bg-white p-7 rounded-xl border border-[#E8E8E8] shadow-2xs">
-              <div className="w-12 h-12 rounded-xl bg-[#FAFAFA] border border-[#E8E8E8] text-[#111111] flex items-center justify-center mb-5">
-                <Activity size={22} className="text-[#2D5A4A]" />
+            <div className="bg-white p-7 rounded-xl border border-[#CCD1D8] shadow-2xs">
+              <div className="w-12 h-12 rounded-xl bg-[#FAFAFA] border border-[#CCD1D8] text-[#111111] flex items-center justify-center mb-5">
+                <Activity size={22} className="text-[#627188]" />
               </div>
               <h3 className="text-sm font-bold text-[#111111] uppercase tracking-wider">
                 Biomedical Safety Isolation
@@ -392,11 +392,11 @@ export const HomePage: React.FC = () => {
 
       {/* 5. CLINICAL BLOG & EDUCATIONAL GUIDES */}
       {blogs.length > 0 && (
-        <section className="py-20 sm:py-24 bg-white border-t border-[#E8E8E8]">
+        <section className="py-20 sm:py-24 bg-white border-t border-[#CCD1D8]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12">
               <div>
-                <span className="text-3xs font-extrabold uppercase tracking-widest text-[#2D5A4A] block mb-2">
+                <span className="text-3xs font-extrabold uppercase tracking-widest text-[#627188] block mb-2">
                   Medical Knowledge
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
@@ -405,10 +405,10 @@ export const HomePage: React.FC = () => {
               </div>
               <Link
                 to="/blog"
-                className="mt-2 sm:mt-0 text-xs font-bold text-[#111111] hover:text-[#2D5A4A] flex items-center gap-1.5 transition-colors uppercase tracking-wider"
+                className="mt-2 sm:mt-0 text-xs font-bold text-[#111111] hover:text-[#627188] flex items-center gap-1.5 transition-colors uppercase tracking-wider"
               >
                 <span>View All Articles</span>
-                <ArrowRight size={14} className="text-[#2D5A4A]" />
+                <ArrowRight size={14} className="text-[#627188]" />
               </Link>
             </div>
 
@@ -416,7 +416,7 @@ export const HomePage: React.FC = () => {
               {blogs.map((b) => (
                 <div
                   key={b.id}
-                  className="group bg-white rounded-xl border border-[#E8E8E8] overflow-hidden hover:border-[#111111] hover:shadow-md transition-all duration-200 flex flex-col justify-between"
+                  className="group bg-white rounded-xl border border-[#CCD1D8] overflow-hidden hover:border-[#111111] hover:shadow-md transition-all duration-200 flex flex-col justify-between"
                 >
                   <div>
                     <div className="aspect-video bg-[#FAFAFA] overflow-hidden">
@@ -427,10 +427,10 @@ export const HomePage: React.FC = () => {
                       />
                     </div>
                     <div className="p-6">
-                      <div className="text-3xs font-bold uppercase tracking-wider text-[#2D5A4A] mb-2">
+                      <div className="text-3xs font-bold uppercase tracking-wider text-[#627188] mb-2">
                         {b.category} • {b.readTime}
                       </div>
-                      <h3 className="text-xs font-bold text-[#111111] leading-snug line-clamp-2 group-hover:text-[#2D5A4A] transition-colors">
+                      <h3 className="text-xs font-bold text-[#111111] leading-snug line-clamp-2 group-hover:text-[#627188] transition-colors">
                         <Link to={`/blog/${b.slug}`}>{b.title}</Link>
                       </h3>
                       <p className="text-2xs text-neutral-500 mt-2.5 line-clamp-2 leading-relaxed">
@@ -442,10 +442,10 @@ export const HomePage: React.FC = () => {
                   <div className="px-6 pb-6 pt-0">
                     <Link
                       to={`/blog/${b.slug}`}
-                      className="text-xs font-bold text-[#111111] hover:text-[#2D5A4A] flex items-center gap-1.5 transition-colors uppercase tracking-wider"
+                      className="text-xs font-bold text-[#111111] hover:text-[#627188] flex items-center gap-1.5 transition-colors uppercase tracking-wider"
                     >
                       <span>Read Guide</span>
-                      <ArrowRight size={13} className="text-[#2D5A4A]" />
+                      <ArrowRight size={13} className="text-[#627188]" />
                     </Link>
                   </div>
                 </div>

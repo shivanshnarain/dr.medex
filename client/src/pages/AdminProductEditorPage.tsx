@@ -271,12 +271,12 @@ export const AdminProductEditorPage: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(1);
   const [selectedCard, setSelectedCard] = useState<string>("step-1");
 
-  // Exact DR.MEDEX Dark Emerald Palette (#0D4C3C) with solid White Outline (#FFFFFF) and White Text
+  // Exact DR.MEDEX Dark Emerald Palette (#627188) with solid White Outline (#FFFFFF) and White Text
   const getCardStyle = (cardId: string) => {
     const isSelected = selectedCard === cardId;
     return isSelected
-      ? "bg-[#0D4C3C] border-white ring-2 ring-white/70 shadow-lg text-white"
-      : "bg-[#0D4C3C] border-white shadow-md text-white";
+      ? "bg-white border-white ring-2 ring-white/70 shadow-lg text-white"
+      : "bg-white border-white shadow-md text-white";
   };
 
   // Categories & Catalogue Hierarchy
@@ -2418,10 +2418,10 @@ export const AdminProductEditorPage: React.FC = () => {
 
   return (
     <AdminLayout
-      mainClassName="bg-[#7AA05A] min-h-screen"
-      headerClassName="bg-[#7AA05A] border-b border-black/15 text-white"
+      mainClassName="bg-[#EFF1F3] min-h-screen"
+      headerClassName="bg-[#EFF1F3] border-b border-black/15 text-white"
       titleClassName="text-white font-black"
-      subtitleClassName="text-white/80"
+      subtitleClassName="text-neutral-600"
       title={isEditMode ? `Edit: ${productName || "Medical Equipment"}` : "Add New Medical Equipment"}
       subtitle={
         isEditMode
@@ -2433,7 +2433,7 @@ export const AdminProductEditorPage: React.FC = () => {
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <Link
           to="/admin/products"
-          className="inline-flex items-center gap-2 text-xs font-bold text-white hover:text-white/80 transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-bold text-white hover:text-neutral-600 transition-colors"
         >
           <ArrowLeft size={14} />
           <span>Back to Products Catalogue</span>
@@ -2461,7 +2461,7 @@ export const AdminProductEditorPage: React.FC = () => {
               ? "bg-[#FFFFFF] border-[#D32F2F] text-[#D32F2F]"
               : statusBanner.type === "warning"
               ? "bg-amber-800 border-white text-white"
-              : "bg-[#0D4C3C] border-white text-white"
+              : "bg-white border-white text-white"
           }`}
         >
           <div className="flex items-start gap-2.5">
@@ -2491,14 +2491,14 @@ export const AdminProductEditorPage: React.FC = () => {
 
       {/* Duplicate Product Detection Banner */}
       {duplicateInfo.isDuplicate && duplicateInfo.duplicateProduct && (
-        <div className="mb-6 p-4 rounded-2xl border border-white bg-[#0D4C3C] flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-md text-white">
+        <div className="mb-6 p-4 rounded-2xl border border-white bg-white flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-md text-white">
           <div className="flex items-start gap-3">
             <AlertTriangle size={18} className="text-[#EAB308] mt-0.5 shrink-0" />
             <div>
               <h4 className="text-xs font-bold text-white">
                 Potential Duplicate Product Detected in Category
               </h4>
-              <p className="text-xs text-white/80 mt-0.5">
+              <p className="text-xs text-neutral-600 mt-0.5">
                 Existing item: <strong className="text-white underline">{duplicateInfo.duplicateProduct.title}</strong> (SKU: {duplicateInfo.duplicateProduct.sku})
               </p>
             </div>
@@ -2528,7 +2528,7 @@ export const AdminProductEditorPage: React.FC = () => {
       {/* ============================================================ */}
       {/* COMPACT HORIZONTAL NINE-STEP PROGRESS TRACKER                */}
       {/* ============================================================ */}
-      <div className="mb-8 bg-[#0D4C3C] border border-white rounded-2xl p-4 shadow-md">
+      <div className="mb-8 bg-white border border-white rounded-2xl p-4 shadow-md">
         <div className="flex items-center justify-between overflow-x-auto pb-1 scrollbar-none gap-3">
           {stepStatus.map((step, idx) => {
             const isActive = activeStep === step.id;
@@ -2545,12 +2545,12 @@ export const AdminProductEditorPage: React.FC = () => {
                 <div
                   className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
                     step.isDone
-                      ? "bg-[#FFD400] text-black border-0 shadow-xs ring-0"
+                      ? "bg-[#627188] text-black border-0 shadow-xs ring-0"
                       : isActive
                       ? "border border-white bg-[#C62828] text-white ring-2 ring-white"
-                      : "border border-white/40 text-white/70 bg-white/10"
+                      : "border border-white/40 text-neutral-500 bg-[#EFF1F3]"
                   }`}
-                  style={step.isDone ? { backgroundColor: "#FFD400", border: "none", outline: "none" } : undefined}
+                  style={step.isDone ? { backgroundColor: "#627188", border: "none", outline: "none" } : undefined}
                 >
                   {step.isDone ? <Check size={14} strokeWidth={3} className="text-black" /> : step.id}
                 </div>
@@ -2559,7 +2559,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   <span className="text-xs font-bold text-white group-hover:text-white/90">
                     {step.name}
                   </span>
-                  <span className="text-[10px] text-white/70 font-medium">
+                  <span className="text-[10px] text-neutral-500 font-medium">
                     {step.isDone ? "Completed" : isActive ? "Current" : `Step ${step.id}`}
                   </span>
                 </div>
@@ -2577,8 +2577,8 @@ export const AdminProductEditorPage: React.FC = () => {
       {/* 9-STEP ENTERPRISE FORM WORKSPACE                             */}
       {/* ============================================================ */}
       {isLoading ? (
-        <div className="bg-[#0D4C3C] border border-white/20 rounded-2xl p-12 text-center text-white shadow-xl flex flex-col items-center justify-center space-y-4 min-h-[360px]">
-          <RefreshCw size={36} className="animate-spin text-white/80" />
+        <div className="bg-white border border-[#CCD1D8] rounded-2xl p-12 text-center text-neutral-900 shadow-xs flex flex-col items-center justify-center space-y-4 min-h-[360px]">
+          <RefreshCw size={36} className="animate-spin text-neutral-600" />
           <h3 className="text-lg font-bold">Loading Product Details...</h3>
           <p className="text-sm text-gray-300 max-w-md">
             Retrieving complete product specifications, pricing, and high-resolution clinical photographs.
@@ -2669,16 +2669,16 @@ export const AdminProductEditorPage: React.FC = () => {
                 isDragging
                   ? "border-white bg-black/40"
                   : imageSlots.length >= 5
-                  ? "border-white/30 bg-black/20 opacity-50 cursor-not-allowed"
-                  : "border-white/60 hover:border-white bg-black/25 hover:bg-black/35"
+                  ? "border-[#CCD1D8] bg-black/20 opacity-50 cursor-not-allowed"
+                  : "border-[#CCD1D8] hover:border-white bg-black/25 hover:bg-black/35"
               }`}
             >
-              <div className="w-10 h-10 rounded-full bg-black/40 border border-white/60 mx-auto flex items-center justify-center text-white mb-2 shadow-xs">
+              <div className="w-10 h-10 rounded-full bg-black/40 border border-[#CCD1D8] mx-auto flex items-center justify-center text-white mb-2 shadow-xs">
                 <Upload size={20} className="text-white" />
               </div>
               <h4 className="text-xs sm:text-sm font-bold text-white">Upload Product Images</h4>
-              <p className="text-[11px] text-white/80 mt-0.5">Upload multiple product images at once</p>
-              <p className="text-[10px] text-white/60 font-mono mt-1">
+              <p className="text-[11px] text-neutral-600 mt-0.5">Upload multiple product images at once</p>
+              <p className="text-[10px] text-neutral-400 font-mono mt-1">
                 JPEG, PNG, WebP up to 15MB (Max 5 photos)
               </p>
             </div>
@@ -2686,7 +2686,7 @@ export const AdminProductEditorPage: React.FC = () => {
             {/* Right side — Uploaded photographs horizontally */}
             <div className="flex-1 min-w-0 flex items-center gap-3 overflow-x-auto pb-1 scrollbar-thin">
               {imageSlots.length === 0 ? (
-                <div className="h-44 sm:h-48 w-full rounded-xl border border-dashed border-white/40 bg-black/20 flex flex-col items-center justify-center text-white/60 text-xs px-4 text-center">
+                <div className="h-44 sm:h-48 w-full rounded-xl border border-dashed border-white/40 bg-black/20 flex flex-col items-center justify-center text-neutral-400 text-xs px-4 text-center">
                   <ImageIcon size={26} className="mb-1 text-white/40" />
                   <span>No photographs uploaded yet. Click or drop images on the left tile.</span>
                 </div>
@@ -2707,7 +2707,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     >
                       {/* Top Bar: Order number, primary / failed badge, delete control */}
                       <div className="flex items-center justify-between gap-1">
-                        <span className="w-5 h-5 rounded bg-black/80 border border-white/40 text-white font-mono text-[10px] font-bold flex items-center justify-center shrink-0">
+                        <span className="w-5 h-5 rounded bg-black/80 border border-white/40 text-neutral-900 font-mono text-[10px] font-bold flex items-center justify-center shrink-0">
                           {idx + 1}
                         </span>
 
@@ -2736,7 +2736,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       <div
                         onClick={(e) => !isFailed && handleThumbnailClick(e, idx)}
                         onDoubleClick={(e) => !isFailed && handleThumbnailDoubleClick(e, slot, idx)}
-                        className="flex-1 w-full my-1 rounded-lg bg-black/50 overflow-hidden flex items-center justify-center relative border border-white/20 hover:border-white/60 transition-colors"
+                        className="flex-1 w-full my-1 rounded-lg bg-black/50 overflow-hidden flex items-center justify-center relative border border-[#CCD1D8] hover:border-[#CCD1D8] transition-colors"
                         title={isFailed ? slot.errorMessage || "Upload failed. Click Retry below." : "Click to set main • Double-click to enlarge preview"}
                       >
                         {slot.hasLoadError ? (
@@ -2780,13 +2780,13 @@ export const AdminProductEditorPage: React.FC = () => {
                       </div>
 
                       {/* Bottom Controls: arrows & retry/primary action */}
-                      <div className="flex items-center justify-between text-xs pt-1 border-t border-white/20">
+                      <div className="flex items-center justify-between text-xs pt-1 border-t border-[#CCD1D8]">
                         <div className="flex items-center gap-0.5">
                           <button
                             type="button"
                             onClick={() => moveImage(idx, "left")}
                             disabled={idx === 0 || isUploading}
-                            className="p-1 text-white/70 hover:text-white disabled:opacity-20 cursor-pointer"
+                            className="p-1 text-neutral-500 hover:text-white disabled:opacity-20 cursor-pointer"
                             title="Move left"
                           >
                             <MoveLeft size={11} />
@@ -2795,7 +2795,7 @@ export const AdminProductEditorPage: React.FC = () => {
                             type="button"
                             onClick={() => moveImage(idx, "right")}
                             disabled={idx === imageSlots.length - 1 || isUploading}
-                            className="p-1 text-white/70 hover:text-white disabled:opacity-20 cursor-pointer"
+                            className="p-1 text-neutral-500 hover:text-white disabled:opacity-20 cursor-pointer"
                             title="Move right"
                           >
                             <MoveRight size={11} />
@@ -2818,7 +2818,7 @@ export const AdminProductEditorPage: React.FC = () => {
                               setPrimaryImageIndex(idx);
                               setHasUnsavedChanges(true);
                             }}
-                            className="text-[9px] font-bold text-white/80 hover:text-white underline cursor-pointer"
+                            className="text-[9px] font-bold text-neutral-600 hover:text-white underline cursor-pointer"
                           >
                             Set Main
                           </button>
@@ -2836,11 +2836,11 @@ export const AdminProductEditorPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="h-44 sm:h-48 w-36 sm:w-40 rounded-xl border-2 border-dashed border-white/60 hover:border-white bg-black/25 hover:bg-black/35 flex flex-col items-center justify-center text-white transition-all cursor-pointer shrink-0"
+                  className="h-44 sm:h-48 w-36 sm:w-40 rounded-xl border-2 border-dashed border-[#CCD1D8] hover:border-white bg-black/25 hover:bg-black/35 flex flex-col items-center justify-center text-white transition-all cursor-pointer shrink-0"
                 >
                   <Plus size={22} className="mb-1 text-white" />
                   <span className="text-xs font-bold text-white">Add More</span>
-                  <span className="text-[9px] text-white/60 font-mono mt-0.5">{5 - imageSlots.length} left</span>
+                  <span className="text-[9px] text-neutral-400 font-mono mt-0.5">{5 - imageSlots.length} left</span>
                 </button>
               )}
             </div>
@@ -2910,7 +2910,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       e.stopPropagation();
                       setIsAddMenuOpen((prev) => !prev);
                     }}
-                    className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-black/40 hover:bg-black/60 border border-white/60 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-black/40 hover:bg-black/60 border border-[#CCD1D8] text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
                   >
                     <Plus size={13} className="stroke-[2.5]" />
                     <span>Add</span>
@@ -2919,7 +2919,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   {/* Classification Options Dropdown */}
                   {isAddMenuOpen && (
                     <div
-                      className="absolute right-0 top-full mt-1.5 w-60 bg-[#0D4C3C] border border-white/60 rounded-xl shadow-2xl py-1.5 z-40 text-white"
+                      className="absolute right-0 top-full mt-1.5 w-60 bg-white border border-[#CCD1D8] rounded-xl shadow-2xl py-1.5 z-40 text-white"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <button
@@ -2932,9 +2932,9 @@ export const AdminProductEditorPage: React.FC = () => {
                           setNewPrimaryName("");
                           setNewPrimaryCode("");
                         }}
-                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-white/10 transition-colors flex items-center gap-2.5 cursor-pointer"
+                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-[#EFF1F3] transition-colors flex items-center gap-2.5 cursor-pointer"
                       >
-                        <span className="w-4 h-4 rounded-full bg-[#FFD400] text-black flex items-center justify-center font-black text-[10px] shrink-0">+</span>
+                        <span className="w-4 h-4 rounded-full bg-[#627188] text-black flex items-center justify-center font-black text-[10px] shrink-0">+</span>
                         <span>Add Primary Category</span>
                       </button>
                       <button
@@ -2947,9 +2947,9 @@ export const AdminProductEditorPage: React.FC = () => {
                           setNewSubParentCat(category || allCategories[0]?.slug || "ot-lights");
                           setNewSubName("");
                         }}
-                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-white/10 transition-colors flex items-center gap-2.5 cursor-pointer border-t border-white/15"
+                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-[#EFF1F3] transition-colors flex items-center gap-2.5 cursor-pointer border-t border-[#CCD1D8]"
                       >
-                        <span className="w-4 h-4 rounded-full bg-[#FFD400] text-black flex items-center justify-center font-black text-[10px] shrink-0">+</span>
+                        <span className="w-4 h-4 rounded-full bg-[#627188] text-black flex items-center justify-center font-black text-[10px] shrink-0">+</span>
                         <span>Add Subcategory</span>
                       </button>
                       <button
@@ -2966,9 +2966,9 @@ export const AdminProductEditorPage: React.FC = () => {
                           setNewEqSubcat(matchingSub ? matchingSub.id : (parentSubcats[0]?.id || ""));
                           setNewEqName("");
                         }}
-                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-white/10 transition-colors flex items-center gap-2.5 cursor-pointer border-t border-white/15"
+                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-[#EFF1F3] transition-colors flex items-center gap-2.5 cursor-pointer border-t border-[#CCD1D8]"
                       >
-                        <span className="w-4 h-4 rounded-full bg-[#FFD400] text-black flex items-center justify-center font-black text-[10px] shrink-0">+</span>
+                        <span className="w-4 h-4 rounded-full bg-[#627188] text-black flex items-center justify-center font-black text-[10px] shrink-0">+</span>
                         <span>Add Verified Equipment Type</span>
                       </button>
                     </div>
@@ -3060,7 +3060,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       </option>
                     ))}
                   </select>
-                  <p className="text-[11px] text-white/80 mt-1.5">
+                  <p className="text-[11px] text-neutral-600 mt-1.5">
                     Filtered based on verified DR.MEDEX catalogue taxonomy.
                   </p>
                 </div>
@@ -3220,7 +3220,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   placeholder="Enter product description explaining purpose, design, intended surgical workflow, and clinical advantages..."
                   className="w-full min-h-[220px] resize-y px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none leading-relaxed"
                 />
-                <div className="flex items-center justify-between text-[11px] text-white/80 font-mono">
+                <div className="flex items-center justify-between text-[11px] text-neutral-600 font-mono">
                   <span>Main description only. Specs and package lists are managed in their own cards.</span>
                   <span>{description.length} chars • {description.trim().split(/\s+/).filter(Boolean).length} words</span>
                 </div>
@@ -3357,7 +3357,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 </button>
               </div>
 
-              <p className="text-xs text-white/80 mt-2 mb-3">
+              <p className="text-xs text-neutral-600 mt-2 mb-3">
                 Intended clinical departments, surgical workflows, and validated procedures.
               </p>
 
@@ -3398,7 +3398,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
               <div className="space-y-1.5 max-h-48 overflow-y-auto mt-3">
                 {clinicalIndications.length === 0 ? (
-                  <div className="p-3 text-center text-xs text-white/70 bg-black/20 rounded-xl border border-dashed border-white/30">
+                  <div className="p-3 text-center text-xs text-neutral-500 bg-black/20 rounded-xl border border-dashed border-[#CCD1D8]">
                     No clinical indications specified yet. Use AI Analysis or add above.
                   </div>
                 ) : (
@@ -3449,7 +3449,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 </button>
               </div>
 
-              <p className="text-xs text-white/80 mt-2 mb-3">
+              <p className="text-xs text-neutral-600 mt-2 mb-3">
                 Concise engineering, performance, mechanical design, and safety highlights.
               </p>
 
@@ -3490,7 +3490,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
               <div className="space-y-1.5 max-h-48 overflow-y-auto mt-3">
                 {engineeringHighlights.length === 0 ? (
-                  <div className="p-3 text-center text-xs text-white/70 bg-black/20 rounded-xl border border-dashed border-white/30">
+                  <div className="p-3 text-center text-xs text-neutral-500 bg-black/20 rounded-xl border border-dashed border-[#CCD1D8]">
                     No engineering highlights added yet. Use AI Analysis or add above.
                   </div>
                 ) : (
@@ -3541,7 +3541,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 </button>
               </div>
 
-              <p className="text-xs text-white/80 mt-2 mb-3">
+              <p className="text-xs text-neutral-600 mt-2 mb-3">
                 Verified components, cables, modules, and standard hardware included in shipment.
               </p>
 
@@ -3573,7 +3573,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
               <div className="space-y-1.5 max-h-56 overflow-y-auto mt-3">
                 {packageItems.length === 0 ? (
-                  <div className="p-3 text-center text-xs text-white/70 bg-black/20 rounded-xl border border-dashed border-white/30">
+                  <div className="p-3 text-center text-xs text-neutral-500 bg-black/20 rounded-xl border border-dashed border-[#CCD1D8]">
                     No package components added yet.
                   </div>
                 ) : (
@@ -3693,7 +3693,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 {/* Automatic Calculated Discount & Savings Card */}
                 <div className="p-3.5 rounded-xl border border-white/40 bg-black/25 flex flex-col justify-center space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] text-white/80 uppercase font-mono tracking-wider">
+                    <span className="text-[10px] text-neutral-600 uppercase font-mono tracking-wider">
                       Calculated Discount
                     </span>
                     {discountPercentage > 0 ? (
@@ -3701,7 +3701,7 @@ export const AdminProductEditorPage: React.FC = () => {
                         {discountFormatted}% OFF
                       </span>
                     ) : (
-                      <span className="text-xs font-semibold text-white/70">No discount applied</span>
+                      <span className="text-xs font-semibold text-neutral-500">No discount applied</span>
                     )}
                   </div>
                   {calculatedSavings > 0 ? (
@@ -3718,7 +3718,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       <Globe size={13} className="text-[#EAB308]" />
                       <span>International Pricing</span>
                     </span>
-                    <span className="text-[10px] text-white/70 font-mono">
+                    <span className="text-[10px] text-neutral-500 font-mono">
                       {rateTimestamp ? new Date(rateTimestamp).toLocaleTimeString() : "Live FX"}
                     </span>
                   </div>
@@ -3797,7 +3797,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       }}
                       className={`w-full py-2.5 px-3.5 rounded-xl border border-white/40 text-xs font-bold flex items-center justify-between cursor-pointer transition-colors ${
                         stockStatus !== "OUT_OF_STOCK"
-                          ? "bg-white text-[#0D4C3C]"
+                          ? "bg-white text-[#627188]"
                           : "bg-black/30 text-white"
                       }`}
                     >
@@ -3853,7 +3853,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   <option value="ARCHIVED">Archived (Historical Record)</option>
                 </select>
 
-                <div className="space-y-2.5 pt-3 mt-3 border-t border-white/20">
+                <div className="space-y-2.5 pt-3 mt-3 border-t border-[#CCD1D8]">
                   <label className="flex items-center gap-2.5 text-xs text-white cursor-pointer">
                     <input
                       type="checkbox"
@@ -3940,7 +3940,7 @@ export const AdminProductEditorPage: React.FC = () => {
         {/* ============================================================ */}
         {/* FINAL FORM BOTTOM SAVE ACTION BAR (NATURAL SCROLLING)        */}
         {/* ============================================================ */}
-        <div className="bg-[#0D4C3C] py-4 px-6 border border-white shadow-xl rounded-2xl flex items-center justify-between flex-wrap gap-4 text-white">
+        <div className="bg-white py-4 px-6 border border-white shadow-xl rounded-2xl flex items-center justify-between flex-wrap gap-4 text-white">
           <div className="flex items-center gap-3">
             <span
               className={`w-3 h-3 rounded-full ${
@@ -3955,7 +3955,7 @@ export const AdminProductEditorPage: React.FC = () => {
           <div className="flex items-center gap-3">
             <Link
               to="/admin/products"
-              className="px-5 py-2.5 border border-white rounded-xl text-xs font-bold text-white bg-transparent hover:bg-white/10 transition-colors"
+              className="px-5 py-2.5 border border-white rounded-xl text-xs font-bold text-white bg-transparent hover:bg-[#EFF1F3] transition-colors"
             >
               Discard Changes
             </Link>
@@ -3987,10 +3987,10 @@ export const AdminProductEditorPage: React.FC = () => {
           {/* Modal Container */}
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-w-4xl max-h-[90vh] w-full bg-[#0D4C3C] border border-white rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+            className="relative max-w-4xl max-h-[90vh] w-full bg-white border border-white rounded-2xl overflow-hidden shadow-2xl flex flex-col"
           >
             {/* Top Modal Header */}
-            <div className="px-5 py-3.5 bg-[#0D4C3C] border-b border-white/20 flex items-center justify-between text-white">
+            <div className="px-5 py-3.5 bg-white border-b border-[#CCD1D8] flex items-center justify-between text-white">
               <div className="flex items-center gap-2.5">
                 <span className="w-6 h-6 rounded-md bg-[#C62828] text-white border border-white text-xs font-bold flex items-center justify-center">
                   {enlargedImage.index + 1}
@@ -4009,7 +4009,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 type="button"
                 onClick={() => setEnlargedImage(null)}
                 aria-label="Close enlarged preview"
-                className="w-8 h-8 rounded-lg bg-black/40 hover:bg-[#C62828] text-white flex items-center justify-center transition-colors border border-white/30 cursor-pointer"
+                className="w-8 h-8 rounded-lg bg-black/40 hover:bg-[#C62828] text-white flex items-center justify-center transition-colors border border-[#CCD1D8] cursor-pointer"
               >
                 <X size={16} strokeWidth={2.5} />
               </button>
@@ -4025,8 +4025,8 @@ export const AdminProductEditorPage: React.FC = () => {
             </div>
 
             {/* Bottom Modal Hint Bar */}
-            <div className="px-5 py-2.5 bg-[#0D4C3C] border-t border-white/20 flex items-center justify-between text-[11px] text-white/70">
-              <span>Press <kbd className="px-1.5 py-0.5 rounded bg-black/40 border border-white/30 font-mono text-white text-[10px]">Esc</kbd> or click backdrop to close</span>
+            <div className="px-5 py-2.5 bg-white border-t border-[#CCD1D8] flex items-center justify-between text-[11px] text-neutral-500">
+              <span>Press <kbd className="px-1.5 py-0.5 rounded bg-black/40 border border-[#CCD1D8] font-mono text-white text-[10px]">Esc</kbd> or click backdrop to close</span>
               <span className="font-mono text-[10px]">Full Resolution Preview</span>
             </div>
           </div>
@@ -4054,10 +4054,10 @@ export const AdminProductEditorPage: React.FC = () => {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-w-md w-full bg-[#0D4C3C] border border-white rounded-2xl p-6 shadow-2xl space-y-4 text-white"
+            className="relative max-w-md w-full bg-white border border-white rounded-2xl p-6 shadow-2xl space-y-4 text-white"
           >
             {/* Modal Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-white/20">
+            <div className="flex items-center justify-between pb-3 border-b border-[#CCD1D8]">
               <div className="flex items-center gap-2">
                 <span className="w-6 h-6 rounded-md bg-[#C62828] text-white border border-white text-xs font-bold flex items-center justify-center">
                   +
@@ -4075,7 +4075,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 }}
                 disabled={isSubmittingAdd}
                 aria-label="Close dialog"
-                className="w-7 h-7 rounded-lg bg-black/40 hover:bg-[#C62828] text-white flex items-center justify-center transition-colors border border-white/30 cursor-pointer disabled:opacity-50"
+                className="w-7 h-7 rounded-lg bg-black/40 hover:bg-[#C62828] text-white flex items-center justify-center transition-colors border border-[#CCD1D8] cursor-pointer disabled:opacity-50"
               >
                 <X size={15} />
               </button>
@@ -4111,7 +4111,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-white mb-1">
-                    Taxonomy / SKU Code <span className="text-white/60 font-normal">(Optional, 3–4 letters)</span>
+                    Taxonomy / SKU Code <span className="text-neutral-400 font-normal">(Optional, 3–4 letters)</span>
                   </label>
                   <input
                     type="text"
@@ -4122,7 +4122,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     maxLength={4}
                     className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none uppercase font-mono"
                   />
-                  <p className="text-[11px] text-white/70 mt-1">
+                  <p className="text-[11px] text-neutral-500 mt-1">
                     Auto-generated from name if left blank (used for unique product SKU prefixes).
                   </p>
                 </div>
@@ -4236,14 +4236,14 @@ export const AdminProductEditorPage: React.FC = () => {
             )}
 
             {/* Modal Actions */}
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-white/20">
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#CCD1D8]">
               <button
                 type="button"
                 onClick={() => {
                   if (!isSubmittingAdd) setAddModalType(null);
                 }}
                 disabled={isSubmittingAdd}
-                className="px-4 py-2 border border-white/50 text-white rounded-xl text-xs font-bold hover:bg-white/10 transition-colors disabled:opacity-50 cursor-pointer"
+                className="px-4 py-2 border border-white/50 text-white rounded-xl text-xs font-bold hover:bg-[#EFF1F3] transition-colors disabled:opacity-50 cursor-pointer"
               >
                 Cancel
               </button>

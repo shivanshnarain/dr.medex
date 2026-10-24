@@ -1,57 +1,76 @@
 @import "tailwindcss";
 
 @theme {
-  --color-alabaster: #F4F1EB;
-  --color-moss-green: #7AA05A;
-  --color-slate-green: #2D5A4A;
-  --color-dark-emerald: #0D4C3C;
+  --color-primary: #627188;
+  --color-tint-90: #EFF1F3;
+  --color-tint-68: #CCD1D8;
+  --color-tint-45: #A9B1BE;
+  --color-tint-22: #8591A3;
+  --color-base: #627188;
+  --color-shade-21: #4D596B;
+
+  /* Theme tokens mapped to Blue Cloud design system */
+  --color-blue-cloud: #627188;
+  --color-alabaster: #EFF1F3;
+  --color-moss-green: #627188;
+  --color-slate-green: #627188;
+  --color-dark-emerald: #4D596B;
   --color-charcoal: #1F2421;
 }
 
 @layer base {
   :root {
-    /* Exact DR.MEDEX Master Palette */
-    --color-alabaster: #F4F1EB;
-    --color-moss-green: #7AA05A;
-    --color-slate-green: #2D5A4A;
-    --color-dark-emerald: #0D4C3C;
+    /* Exact Blue Cloud Master Palette Tokens */
+    --color-primary: #627188;
+    --color-tint-90: #EFF1F3;
+    --color-tint-68: #CCD1D8;
+    --color-tint-45: #A9B1BE;
+    --color-tint-22: #8591A3;
+    --color-base: #627188;
+    --color-shade-21: #4D596B;
+
+    /* Semantic Mappings */
+    --color-alabaster: #EFF1F3;
+    --color-moss-green: #627188;
+    --color-slate-green: #627188;
+    --color-dark-emerald: #4D596B;
 
     /* Foundation & Backgrounds */
     --color-medex-white: #ffffff;
-    --color-medex-alabaster: #F4F1EB;
+    --color-medex-alabaster: #EFF1F3;
     --color-medex-black: #111111;
     --color-medex-charcoal: #1F2421;
-    --color-medex-border: #E5E0D8;
-    --color-medex-border-subtle: #ECE8E1;
+    --color-medex-border: #CCD1D8;
+    --color-medex-border-subtle: #EFF1F3;
 
     /* Text Colors */
     --color-text-primary: #111111;
-    --color-text-secondary: #4A4A4A;
-    --color-text-muted: #737373;
+    --color-text-secondary: #4D596B;
+    --color-text-muted: #8591A3;
 
-    /* Brand Green Accents */
-    --color-accent-green: #2D5A4A;
-    --color-accent-green-hover: #0D4C3C;
-    --color-accent-green-secondary: #7AA05A;
-    --color-accent-green-light: #F4F1EB;
-    --color-accent-green-dark: #0D4C3C;
+    /* Brand Accents */
+    --color-accent-green: #627188;
+    --color-accent-green-hover: #4D596B;
+    --color-accent-green-secondary: #8591A3;
+    --color-accent-green-light: #EFF1F3;
+    --color-accent-green-dark: #4D596B;
 
-    /* DR.MEDEX Admin Panel — Premium White, Black & Yellow Design Tokens */
+    /* DR.MEDEX Admin Panel — Clean White, Light-Gray & Blue Cloud Tokens */
     --admin-white: #FFFFFF;
-    --admin-black: #000000;
-    --admin-yellow: #F2C94C;
-    --admin-yellow-light: #FFF8DB;
-    --admin-border-gray: #E5E5E5;
-    --admin-secondary-text: #666666;
-    --admin-status-correct-text: #15803D;
-    --admin-status-correct-bg: #DCFCE7;
-    --admin-status-correct-border: #86EFAC;
-    --admin-status-editing-text: #B91C1C;
-    --admin-status-editing-bg: #FEE2E2;
-    --admin-status-editing-border: #FCA5A5;
-    --admin-status-unreviewed-text: #666666;
-    --admin-status-unreviewed-bg: #F5F5F5;
-    --admin-status-unreviewed-border: #E5E5E5;
+    --admin-black: #111111;
+    --admin-yellow: #627188;
+    --admin-yellow-light: #EFF1F3;
+    --admin-border-gray: #CCD1D8;
+    --admin-secondary-text: #4D596B;
+    --admin-status-correct-text: #4D596B;
+    --admin-status-correct-bg: #EFF1F3;
+    --admin-status-correct-border: #CCD1D8;
+    --admin-status-editing-text: #627188;
+    --admin-status-editing-bg: #EFF1F3;
+    --admin-status-editing-border: #A9B1BE;
+    --admin-status-unreviewed-text: #8591A3;
+    --admin-status-unreviewed-bg: #EFF1F3;
+    --admin-status-unreviewed-border: #CCD1D8;
   }
 
   body {
@@ -66,121 +85,165 @@
   }
 }
 
-/* Custom smooth scrollbar in neutral tones */
+/* Custom smooth scrollbar in Blue Cloud neutral tones */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #F4F1EB;
+  background: #EFF1F3;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D1CBC1;
+  background: #CCD1D8;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #7AA05A;
+  background: #627188;
 }
 
-/* Product description scrollbar with Moss Green thumb */
+/* Product description scrollbar with Blue Cloud thumb */
 .product-description-scrollbar {
-  scrollbar-color: #7AA05A #F3F4F6;
+  scrollbar-color: #627188 #EFF1F3;
   scrollbar-width: thin;
 }
 .product-description-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
 .product-description-scrollbar::-webkit-scrollbar-track {
-  background: #F3F4F6;
+  background: #EFF1F3;
   border-radius: 9999px;
 }
 .product-description-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #7AA05A;
+  background-color: #627188;
   border-radius: 9999px;
 }
 .product-description-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: #6B8F4E;
+  background-color: #4D596B;
 }
 
-/* Subtle neutral medical grid background */
+/* Subtle neutral medical grid background with Blue Cloud tint */
 .bg-medical-grid {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(45, 90, 74, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(45, 90, 74, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(98, 113, 136, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(98, 113, 136, 0.05) 1px, transparent 1px);
 }
 
-/* Design System Utilities */
+/* Design System Utilities — Blue Cloud Palette */
+.bg-primary {
+  background-color: #627188;
+}
+.text-primary {
+  color: #627188;
+}
+.border-primary {
+  border-color: #627188;
+}
+
+.bg-tint-90 {
+  background-color: #EFF1F3;
+}
+.text-tint-90 {
+  color: #EFF1F3;
+}
+.border-tint-90 {
+  border-color: #EFF1F3;
+}
+
+.bg-tint-68 {
+  background-color: #CCD1D8;
+}
+.text-tint-68 {
+  color: #CCD1D8;
+}
+.border-tint-68 {
+  border-color: #CCD1D8;
+}
+
+.bg-tint-45 {
+  background-color: #A9B1BE;
+}
+.text-tint-45 {
+  color: #A9B1BE;
+}
+.border-tint-45 {
+  border-color: #A9B1BE;
+}
+
+.bg-tint-22 {
+  background-color: #8591A3;
+}
+.text-tint-22 {
+  color: #8591A3;
+}
+.border-tint-22 {
+  border-color: #8591A3;
+}
+
+.bg-shade-21 {
+  background-color: #4D596B;
+}
+.text-shade-21 {
+  color: #4D596B;
+}
+.border-shade-21 {
+  border-color: #4D596B;
+}
+
+/* Compatibility utility aliases */
 .bg-alabaster {
-  background-color: #F4F1EB;
+  background-color: #EFF1F3;
 }
-
 .text-alabaster {
-  color: #F4F1EB;
+  color: #EFF1F3;
 }
-
 .bg-moss-green {
-  background-color: #7AA05A;
+  background-color: #627188;
 }
-
 .text-moss-green {
-  color: #7AA05A;
+  color: #627188;
 }
-
 .border-moss-green {
-  border-color: #7AA05A;
+  border-color: #627188;
 }
-
 .bg-slate-green {
-  background-color: #2D5A4A;
+  background-color: #627188;
 }
-
 .text-slate-green {
-  color: #2D5A4A;
+  color: #627188;
 }
-
 .border-slate-green {
-  border-color: #2D5A4A;
+  border-color: #627188;
 }
-
 .bg-dark-emerald {
-  background-color: #0D4C3C;
+  background-color: #4D596B;
 }
-
 .text-dark-emerald {
-  color: #0D4C3C;
+  color: #4D596B;
 }
-
 .border-dark-emerald {
-  border-color: #0D4C3C;
+  border-color: #4D596B;
 }
-
 .text-medex-primary {
   color: #111111;
 }
-
 .text-medex-secondary {
-  color: #4A4A4A;
+  color: #4D596B;
 }
-
 .text-medex-muted {
-  color: #737373;
+  color: #8591A3;
 }
-
 .text-medex-green {
-  color: #2D5A4A;
+  color: #627188;
 }
-
 .bg-medex-green {
-  background-color: #2D5A4A;
+  background-color: #627188;
 }
-
 .bg-medex-green-light {
-  background-color: #F4F1EB;
+  background-color: #EFF1F3;
 }
-
 .border-medex-light {
-  border-color: #E5E0D8;
+  border-color: #CCD1D8;
 }
 
 /* Fixed Parallax Background for Hero (Desktop & Tablet) */

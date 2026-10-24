@@ -674,7 +674,7 @@ export const ProductDetailPage: React.FC = () => {
         <div className="w-12 h-12 mx-auto rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600">
           <AlertCircle size={24} />
         </div>
-        <h2 className="text-2xl font-extrabold text-[#2D5A4A]">Catalogue Connection Interrupted</h2>
+        <h2 className="text-2xl font-extrabold text-[#627188]">Catalogue Connection Interrupted</h2>
         <p className="text-sm text-neutral-600 leading-relaxed">
           A temporary network error prevented retrieval of this medical equipment record.
         </p>
@@ -682,14 +682,14 @@ export const ProductDetailPage: React.FC = () => {
           <button
             type="button"
             onClick={loadProduct}
-            className="px-6 py-3 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs font-bold transition-colors shadow-2xs cursor-pointer flex items-center gap-2"
+            className="px-6 py-3 bg-[#627188] hover:bg-[#4D596B] text-white rounded-xl text-xs font-bold transition-colors shadow-2xs cursor-pointer flex items-center gap-2"
           >
             <RotateCcw size={14} />
             <span>Retry Connection</span>
           </button>
           <Link
             to="/shop-all"
-            className="px-6 py-3 bg-white border border-[#E5E7EB] text-[#2D5A4A] rounded-xl text-xs font-bold hover:bg-[#F3F4F6] transition-colors shadow-2xs"
+            className="px-6 py-3 bg-white border border-[#E5E7EB] text-[#627188] rounded-xl text-xs font-bold hover:bg-[#F3F4F6] transition-colors shadow-2xs"
           >
             Explore Active Catalogue
           </Link>
@@ -701,23 +701,23 @@ export const ProductDetailPage: React.FC = () => {
   if (!product) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-28 text-center space-y-5">
-        <div className="w-12 h-12 mx-auto rounded-full bg-white border border-[#E5E7EB] flex items-center justify-center text-[#2D5A4A]">
+        <div className="w-12 h-12 mx-auto rounded-full bg-white border border-[#E5E7EB] flex items-center justify-center text-[#627188]">
           <Package size={24} />
         </div>
-        <h2 className="text-2xl font-extrabold text-[#2D5A4A]">Equipment Currently Unavailable</h2>
+        <h2 className="text-2xl font-extrabold text-[#627188]">Equipment Currently Unavailable</h2>
         <p className="text-sm text-neutral-600 leading-relaxed">
           The requested medical device could not be found or belongs to a catalogue category currently reserved for direct institutional requisition.
         </p>
         <div className="pt-2 flex items-center justify-center gap-3">
           <Link
             to="/shop-all"
-            className="inline-block px-6 py-3 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs font-bold transition-colors shadow-2xs"
+            className="inline-block px-6 py-3 bg-[#627188] hover:bg-[#4D596B] text-white rounded-xl text-xs font-bold transition-colors shadow-2xs"
           >
             Explore Active Catalogue
           </Link>
           <Link
             to="/request-quote"
-            className="inline-block px-6 py-3 bg-white border border-[#E5E7EB] text-[#2D5A4A] rounded-xl text-xs font-bold hover:bg-[#F3F4F6] transition-colors shadow-2xs"
+            className="inline-block px-6 py-3 bg-white border border-[#E5E7EB] text-[#627188] rounded-xl text-xs font-bold hover:bg-[#F3F4F6] transition-colors shadow-2xs"
           >
             Request Institutional RFQ
           </Link>
@@ -873,7 +873,7 @@ export const ProductDetailPage: React.FC = () => {
             {productImages.length > 1 && (
               <div
                 style={galleryHeight ? { maxHeight: `${Math.max(galleryHeight, productImages.length * 96, 560)}px` } : undefined}
-                className="flex sm:flex-col items-center gap-2.5 sm:gap-3 overflow-x-auto sm:overflow-y-auto max-h-[640px] shrink-0 w-full sm:w-auto [scrollbar-width:thin] [scrollbar-color:#7AA05A_transparent] order-2 sm:order-1 pt-1 pb-1 px-1"
+                className="flex sm:flex-col items-center gap-2.5 sm:gap-3 overflow-x-auto sm:overflow-y-auto max-h-[640px] shrink-0 w-full sm:w-auto [scrollbar-width:thin] [scrollbar-color:#627188_transparent] order-2 sm:order-1 pt-1 pb-1 px-1"
               >
                 {productImages.map((img, idx) => {
                   const isSelected = activeImageIndex === idx;
@@ -891,7 +891,7 @@ export const ProductDetailPage: React.FC = () => {
                       }}
                       onMouseEnter={() => setHoveredThumbnailIndex(idx)}
                       onMouseLeave={() => setHoveredThumbnailIndex(null)}
-                      className="p-1 m-0 border-0 bg-transparent cursor-pointer shrink-0 inline-flex items-center justify-center focus:outline-none focus-visible:ring-1 focus-visible:ring-[#7AA05A] rounded-[10px]"
+                      className="p-1 m-0 border-0 bg-transparent cursor-pointer shrink-0 inline-flex items-center justify-center focus:outline-none focus-visible:ring-1 focus-visible:ring-[#627188] rounded-[10px]"
                       aria-label={`View angle ${idx + 1}`}
                     >
                       <img
@@ -899,7 +899,7 @@ export const ProductDetailPage: React.FC = () => {
                         alt={`${productTitle} angle ${idx + 1}`}
                         className={`block max-w-[56px] max-h-[56px] sm:max-w-[68px] sm:max-h-[68px] lg:max-w-[76px] lg:max-h-[76px] w-auto h-auto object-contain rounded-[8px] select-none opacity-100 transition-all duration-200 ease-out ${
                           isHighlighted
-                            ? "border-[2px] border-[#7AA05A] shadow-[0_2px_6px_rgba(0,0,0,0.08)] scale-[1.05]"
+                            ? "border-[2px] border-[#627188] shadow-[0_2px_6px_rgba(0,0,0,0.08)] scale-[1.05]"
                             : "border border-[#D9D9D9] shadow-[0_1px_3px_rgba(0,0,0,0.06)] scale-100"
                         }`}
                         loading="lazy"
@@ -940,8 +940,8 @@ export const ProductDetailPage: React.FC = () => {
               {/* 1. Brand and Product Title */}
               <div className="shrink-0">
                 <h1 className="text-xl sm:text-2xl lg:text-[1.65rem] tracking-tight leading-snug">
-                  <span className="font-extrabold text-[#2D5A4A]">{titleParts.dr}</span>
-                  <span className="font-extrabold text-[#7AA05A] ml-0.5">{titleParts.medex}</span>{" "}
+                  <span className="font-extrabold text-[#627188]">{titleParts.dr}</span>
+                  <span className="font-extrabold text-[#627188] ml-0.5">{titleParts.medex}</span>{" "}
                   <span className="font-normal text-[#171717]">{titleParts.descriptiveName}</span>
                 </h1>
               </div>
@@ -968,10 +968,10 @@ export const ProductDetailPage: React.FC = () => {
 
               {/* 4. Description Section - Fills available vertical space naturally */}
               <div className="flex-1 min-h-[60px] flex flex-col my-0.5">
-                <h2 className="text-sm font-bold text-[#2D5A4A] tracking-tight mb-1.5 shrink-0">
+                <h2 className="text-sm font-bold text-[#627188] tracking-tight mb-1.5 shrink-0">
                   Description
                 </h2>
-                <div className="flex-1 min-h-0 max-h-[220px] lg:max-h-none overflow-y-auto pr-3 text-xs sm:text-[13px] text-neutral-600 leading-relaxed product-description-scrollbar [scrollbar-color:#7AA05A_#F3F4F6] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-[#F3F4F6] [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#7AA05A] hover:[&::-webkit-scrollbar-thumb]:bg-[#6B8F4E] [&::-webkit-scrollbar-thumb]:rounded-full">
+                <div className="flex-1 min-h-0 max-h-[220px] lg:max-h-none overflow-y-auto pr-3 text-xs sm:text-[13px] text-neutral-600 leading-relaxed product-description-scrollbar [scrollbar-color:#627188_#F3F4F6] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-[#F3F4F6] [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#627188] hover:[&::-webkit-scrollbar-thumb]:bg-[#4D596B] [&::-webkit-scrollbar-thumb]:rounded-full">
                   {productOverview ? (
                     <p className="whitespace-pre-line pb-2">{productOverview}</p>
                   ) : (
@@ -988,11 +988,11 @@ export const ProductDetailPage: React.FC = () => {
             <div className="mt-auto pt-2 shrink-0 space-y-3.5">
               {/* Purchase Buttons */}
               <div className="flex flex-col sm:flex-row items-center gap-3 w-full">
-                {/* Add to Cart button: Filled Moss Green #7AA05A bg, white text & cart icon */}
+                {/* Add to Cart button: Filled Moss Green #627188 bg, white text & cart icon */}
                 <button
                   type="button"
                   onClick={handleAddToCart}
-                  className="w-full sm:flex-1 h-11 sm:h-12 px-4 bg-[#7AA05A] hover:bg-[#6b8f4e] text-white border border-[#7AA05A] rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-colors duration-200 shadow-2xs cursor-pointer select-none"
+                  className="w-full sm:flex-1 h-11 sm:h-12 px-4 bg-[#627188] hover:bg-[#4D596B] text-white border border-[#627188] rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-colors duration-200 shadow-2xs cursor-pointer select-none"
                 >
                   {isAdded ? (
                     <Check size={18} className="text-white" />
@@ -1002,12 +1002,12 @@ export const ProductDetailPage: React.FC = () => {
                   <span>{isAdded ? "Added to Cart" : "Add to Cart"}</span>
                 </button>
 
-                {/* Buy Now button: Solid Slate Green #2D5A4A bg, white text */}
+                {/* Buy Now button: Solid Slate Green #627188 bg, white text */}
                 <button
                   type="button"
                   onClick={handleBuyNow}
                   disabled={isSubmittingBuy}
-                  className="w-full sm:flex-1 h-11 sm:h-12 px-4 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center transition-colors duration-200 shadow-2xs cursor-pointer select-none disabled:opacity-50"
+                  className="w-full sm:flex-1 h-11 sm:h-12 px-4 bg-[#627188] hover:bg-[#4D596B] text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center transition-colors duration-200 shadow-2xs cursor-pointer select-none disabled:opacity-50"
                 >
                   {isSubmittingBuy ? "Processing..." : "Buy Now"}
                 </button>
@@ -1029,15 +1029,15 @@ export const ProductDetailPage: React.FC = () => {
                           !isLastMobile ? "border-b border-neutral-100 pb-3" : "pb-0"
                         } ${
                           isLeftCol
-                            ? "sm:border-r sm:border-[#7AA05A]/50 sm:pr-4"
+                            ? "sm:border-r sm:border-[#627188]/50 sm:pr-4"
                             : "sm:border-r-0 sm:pl-4"
                         } ${
                           isTopRow
-                            ? "sm:border-b sm:border-[#7AA05A]/50 sm:pb-3.5 sm:pt-0"
+                            ? "sm:border-b sm:border-[#627188]/50 sm:pb-3.5 sm:pt-0"
                             : "sm:border-b-0 sm:pt-3.5 sm:pb-0"
                         }`}
                       >
-                        <div className="w-10 h-10 rounded-full bg-[#2D5A4A] flex items-center justify-center text-white shrink-0 shadow-2xs mt-0.5">
+                        <div className="w-10 h-10 rounded-full bg-[#627188] flex items-center justify-center text-white shrink-0 shadow-2xs mt-0.5">
                           <IconComponent size={20} strokeWidth={2} />
                         </div>
                         <div className="min-w-0 flex-1">
@@ -1069,12 +1069,12 @@ export const ProductDetailPage: React.FC = () => {
           <section className="w-full lg:max-w-2xl lg:mr-auto">
             <div className="mb-3.5">
               <div className="flex items-center gap-2 mb-1">
-                <div className="w-2 h-2 rounded-full bg-[#2D5A4A] shrink-0" />
-                <h3 className="text-base sm:text-lg font-bold text-[#2D5A4A] tracking-tight">
+                <div className="w-2 h-2 rounded-full bg-[#627188] shrink-0" />
+                <h3 className="text-base sm:text-lg font-bold text-[#627188] tracking-tight">
                   Clinical Indications & Specialty Procedures
                 </h3>
               </div>
-              <p className="text-xs sm:text-[13px] text-[#7AA05A] ml-4">
+              <p className="text-xs sm:text-[13px] text-[#627188] ml-4">
                 Verified clinical indications, departmental applications, and specialty procedure protocols.
               </p>
             </div>
@@ -1083,7 +1083,7 @@ export const ProductDetailPage: React.FC = () => {
               <ul className="ml-4 space-y-2.5">
                 {productApplications.map((app, idx) => (
                   <li key={`app-${idx}`} className="flex items-start gap-2.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#7AA05A] shrink-0 mt-2" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#627188] shrink-0 mt-2" />
                     <span className="text-xs sm:text-[13px] leading-relaxed text-[#171717]">
                       {app}
                     </span>
@@ -1104,12 +1104,12 @@ export const ProductDetailPage: React.FC = () => {
           <section className="w-full lg:max-w-2xl lg:ml-auto">
             <div className="mb-3.5">
               <div className="flex items-center gap-2 mb-1">
-                <div className="w-2 h-2 rounded-full bg-[#2D5A4A] shrink-0" />
-                <h3 className="text-base sm:text-lg font-bold text-[#2D5A4A] tracking-tight">
+                <div className="w-2 h-2 rounded-full bg-[#627188] shrink-0" />
+                <h3 className="text-base sm:text-lg font-bold text-[#627188] tracking-tight">
                   Standard Included Package Contents
                 </h3>
               </div>
-              <p className="text-xs sm:text-[13px] text-[#7AA05A] ml-4">
+              <p className="text-xs sm:text-[13px] text-[#627188] ml-4">
                 Standard accessories, documentation, and included assemblies.
               </p>
             </div>
@@ -1118,7 +1118,7 @@ export const ProductDetailPage: React.FC = () => {
               <ul className="ml-4 space-y-2.5">
                 {productPackage.map((item, idx) => (
                   <li key={`pkg-${idx}`} className="flex items-start gap-2.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#7AA05A] shrink-0 mt-2" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#627188] shrink-0 mt-2" />
                     <span className="text-xs sm:text-[13px] leading-relaxed text-[#171717]">
                       {item}
                     </span>
@@ -1139,12 +1139,12 @@ export const ProductDetailPage: React.FC = () => {
           <section className="w-full lg:max-w-2xl lg:mr-auto">
             <div className="mb-3.5">
               <div className="flex items-center gap-2 mb-1">
-                <div className="w-2 h-2 rounded-full bg-[#2D5A4A] shrink-0" />
-                <h3 className="text-base sm:text-lg font-bold text-[#2D5A4A] tracking-tight">
+                <div className="w-2 h-2 rounded-full bg-[#627188] shrink-0" />
+                <h3 className="text-base sm:text-lg font-bold text-[#627188] tracking-tight">
                   Key Factors & Engineering Highlights
                 </h3>
               </div>
-              <p className="text-xs sm:text-[13px] text-[#7AA05A] ml-4">
+              <p className="text-xs sm:text-[13px] text-[#627188] ml-4">
                 Verified operational capabilities, safety mechanisms, and performance highlights.
               </p>
             </div>
@@ -1155,9 +1155,9 @@ export const ProductDetailPage: React.FC = () => {
                   const parsed = parseKeyFactor(item);
                   return (
                     <li key={`kf-${idx}`} className="flex items-start gap-2.5">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#7AA05A] shrink-0 mt-2" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#627188] shrink-0 mt-2" />
                       <div className="text-xs sm:text-[13px] leading-relaxed text-[#171717]">
-                        <span className="font-bold text-[#2D5A4A]">{parsed.title} </span>
+                        <span className="font-bold text-[#627188]">{parsed.title} </span>
                         {parsed.detail && (
                           <span className="font-normal text-[#171717]">{parsed.detail}</span>
                         )}
@@ -1193,14 +1193,14 @@ export const ProductDetailPage: React.FC = () => {
           <div className="mt-14 sm:mt-20 border-t border-[#E5E1DD] pt-10">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <span className="text-2xs font-bold uppercase tracking-wider text-[#7AA05A]">Clinical Complement</span>
-                <h3 className="text-lg sm:text-xl font-extrabold text-[#2D5A4A] tracking-tight">
+                <span className="text-2xs font-bold uppercase tracking-wider text-[#627188]">Clinical Complement</span>
+                <h3 className="text-lg sm:text-xl font-extrabold text-[#627188] tracking-tight">
                   Related Medical Equipment
                 </h3>
               </div>
               <Link
                 to={`/shop-all?category=${product.category}`}
-                className="text-xs font-bold text-[#2D5A4A] hover:text-[#7AA05A] transition-colors"
+                className="text-xs font-bold text-[#627188] hover:text-[#627188] transition-colors"
               >
                 View Category →
               </Link>

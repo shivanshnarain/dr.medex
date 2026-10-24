@@ -487,7 +487,7 @@ export const AdminCategoriesPage: React.FC = () => {
             type="button"
             onClick={fetchData}
             disabled={isLoading}
-            className="px-3.5 py-2 bg-[#0D4C3C] border border-white/20 hover:border-white text-white rounded-lg text-xs font-bold flex items-center gap-2 transition-colors cursor-pointer"
+            className="px-3.5 py-2 bg-white border border-[#CCD1D8] hover:border-white text-white rounded-lg text-xs font-bold flex items-center gap-2 transition-colors cursor-pointer"
           >
             <RefreshCw size={13} className={isLoading ? "animate-spin" : ""} />
             <span>Refresh</span>
@@ -518,21 +518,21 @@ export const AdminCategoriesPage: React.FC = () => {
           className={`mb-6 p-4 rounded-xl border text-xs font-semibold flex items-center justify-between shadow-md ${
             banner.type === "error"
               ? "bg-[#C62828]/20 text-white border-[#C62828]"
-              : "bg-[#0D4C3C] text-white border-[#FFD400]"
+              : "bg-white text-neutral-900 border-[#627188]"
           }`}
         >
           <div className="flex items-center gap-2.5">
             {banner.type === "error" ? (
               <AlertCircle size={16} className="text-[#FF6B6B] shrink-0" />
             ) : (
-              <CheckCircle2 size={16} className="text-[#FFD400] shrink-0" />
+              <CheckCircle2 size={16} className="text-[#627188] shrink-0" />
             )}
             <span>{banner.text}</span>
           </div>
           <button
             type="button"
             onClick={() => setBanner(null)}
-            className="text-white/70 hover:text-white p-1 cursor-pointer"
+            className="text-neutral-500 hover:text-white p-1 cursor-pointer"
           >
             <X size={14} />
           </button>
@@ -545,22 +545,22 @@ export const AdminCategoriesPage: React.FC = () => {
           onClick={() => handleTabChange("primary")}
           className={`p-5 rounded-2xl border transition-all cursor-pointer ${
             activeTab === "primary"
-              ? "bg-[#0D4C3C] border-[#FFD400] shadow-lg ring-1 ring-[#FFD400]"
-              : "bg-[#0D4C3C] border-white/15 hover:border-white/30"
+              ? "bg-white border-[#627188] shadow-lg ring-1 ring-[#627188]"
+              : "bg-white border-[#CCD1D8] hover:border-[#CCD1D8]"
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-white/70">
+            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-500">
               Primary Categories (L1)
             </span>
-            <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-[#FFD400]">
+            <div className="w-8 h-8 rounded-lg bg-[#EFF1F3] flex items-center justify-center text-[#627188]">
               <Layers size={16} />
             </div>
           </div>
-          <div className="text-3xl font-black text-white font-mono mt-3">
+          <div className="text-3xl font-black text-neutral-900 font-mono mt-3">
             {categories.length}
           </div>
-          <div className="text-[11px] text-white/70 mt-1">
+          <div className="text-[11px] text-neutral-500 mt-1">
             {categories.filter(c => c.status !== "INACTIVE" && c.active !== false).length} active on storefront
           </div>
         </div>
@@ -569,22 +569,22 @@ export const AdminCategoriesPage: React.FC = () => {
           onClick={() => handleTabChange("subcategories")}
           className={`p-5 rounded-2xl border transition-all cursor-pointer ${
             activeTab === "subcategories"
-              ? "bg-[#0D4C3C] border-[#FFD400] shadow-lg ring-1 ring-[#FFD400]"
-              : "bg-[#0D4C3C] border-white/15 hover:border-white/30"
+              ? "bg-white border-[#627188] shadow-lg ring-1 ring-[#627188]"
+              : "bg-white border-[#CCD1D8] hover:border-[#CCD1D8]"
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-white/70">
+            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-500">
               Subcategories (L2)
             </span>
-            <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-emerald-300">
+            <div className="w-8 h-8 rounded-lg bg-[#EFF1F3] flex items-center justify-center text-emerald-300">
               <FolderTree size={16} />
             </div>
           </div>
-          <div className="text-3xl font-black text-white font-mono mt-3">
+          <div className="text-3xl font-black text-neutral-900 font-mono mt-3">
             {flatSubcategories.length}
           </div>
-          <div className="text-[11px] text-white/70 mt-1">
+          <div className="text-[11px] text-neutral-500 mt-1">
             Grouped across {categories.length} primary divisions
           </div>
         </div>
@@ -593,31 +593,31 @@ export const AdminCategoriesPage: React.FC = () => {
           onClick={() => handleTabChange("equipment-types")}
           className={`p-5 rounded-2xl border transition-all cursor-pointer ${
             activeTab === "equipment-types"
-              ? "bg-[#0D4C3C] border-[#FFD400] shadow-lg ring-1 ring-[#FFD400]"
-              : "bg-[#0D4C3C] border-white/15 hover:border-white/30"
+              ? "bg-white border-[#627188] shadow-lg ring-1 ring-[#627188]"
+              : "bg-white border-[#CCD1D8] hover:border-[#CCD1D8]"
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-white/70">
+            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-500">
               Equipment Types (L3)
             </span>
-            <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-amber-300">
+            <div className="w-8 h-8 rounded-lg bg-[#EFF1F3] flex items-center justify-center text-amber-300">
               <Stethoscope size={16} />
             </div>
           </div>
-          <div className="text-3xl font-black text-white font-mono mt-3">
+          <div className="text-3xl font-black text-neutral-900 font-mono mt-3">
             {flatEquipmentTypes.length}
           </div>
-          <div className="text-[11px] text-white/70 mt-1">
+          <div className="text-[11px] text-neutral-500 mt-1">
             Verified equipment classifications with SKU prefixes
           </div>
         </div>
       </div>
 
       {/* Main Taxonomy Management Card */}
-      <div className="bg-[#0D4C3C] rounded-2xl border border-white/20 shadow-xl overflow-hidden">
+      <div className="bg-white rounded-2xl border border-[#CCD1D8] shadow-xl overflow-hidden">
         {/* Navigation Tabs Bar & Filter Search */}
-        <div className="p-4 sm:p-5 border-b border-white/15 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#0D4C3C]">
+        <div className="p-4 sm:p-5 border-b border-[#CCD1D8] flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white">
           {/* Tab Buttons */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0">
             <button
@@ -625,14 +625,14 @@ export const AdminCategoriesPage: React.FC = () => {
               onClick={() => handleTabChange("primary")}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap ${
                 activeTab === "primary"
-                  ? "bg-[#FFD400] text-black shadow-sm"
-                  : "bg-white/10 text-white/80 hover:text-white hover:bg-white/15"
+                  ? "bg-[#627188] text-black shadow-sm"
+                  : "bg-[#EFF1F3] text-neutral-600 hover:text-white hover:bg-white/15"
               }`}
             >
               <Layers size={14} />
               <span>1. Primary Categories</span>
               <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded font-black ${
-                activeTab === "primary" ? "bg-black/20 text-black" : "bg-white/10 text-white"
+                activeTab === "primary" ? "bg-black/20 text-black" : "bg-[#EFF1F3] text-white"
               }`}>
                 {categories.length}
               </span>
@@ -643,14 +643,14 @@ export const AdminCategoriesPage: React.FC = () => {
               onClick={() => handleTabChange("subcategories")}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap ${
                 activeTab === "subcategories"
-                  ? "bg-[#FFD400] text-black shadow-sm"
-                  : "bg-white/10 text-white/80 hover:text-white hover:bg-white/15"
+                  ? "bg-[#627188] text-black shadow-sm"
+                  : "bg-[#EFF1F3] text-neutral-600 hover:text-white hover:bg-white/15"
               }`}
             >
               <FolderTree size={14} />
               <span>2. Subcategories</span>
               <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded font-black ${
-                activeTab === "subcategories" ? "bg-black/20 text-black" : "bg-white/10 text-white"
+                activeTab === "subcategories" ? "bg-black/20 text-black" : "bg-[#EFF1F3] text-white"
               }`}>
                 {flatSubcategories.length}
               </span>
@@ -661,14 +661,14 @@ export const AdminCategoriesPage: React.FC = () => {
               onClick={() => handleTabChange("equipment-types")}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap ${
                 activeTab === "equipment-types"
-                  ? "bg-[#FFD400] text-black shadow-sm"
-                  : "bg-white/10 text-white/80 hover:text-white hover:bg-white/15"
+                  ? "bg-[#627188] text-black shadow-sm"
+                  : "bg-[#EFF1F3] text-neutral-600 hover:text-white hover:bg-white/15"
               }`}
             >
               <Stethoscope size={14} />
               <span>3. Verified Equipment Types</span>
               <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded font-black ${
-                activeTab === "equipment-types" ? "bg-black/20 text-black" : "bg-white/10 text-white"
+                activeTab === "equipment-types" ? "bg-black/20 text-black" : "bg-[#EFF1F3] text-white"
               }`}>
                 {flatEquipmentTypes.length}
               </span>
@@ -677,7 +677,7 @@ export const AdminCategoriesPage: React.FC = () => {
 
           {/* Search Filter input */}
           <div className="relative w-full md:w-64">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/60" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
             <input
               type="text"
               value={filterQuery}
@@ -689,7 +689,7 @@ export const AdminCategoriesPage: React.FC = () => {
                   ? "subcategories..."
                   : "equipment types..."
               }`}
-              className="w-full pl-9 pr-8 py-1.5 bg-white text-black placeholder:text-neutral-500 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-[#FFD400]"
+              className="w-full pl-9 pr-8 py-1.5 bg-white text-black placeholder:text-neutral-500 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-[#627188]"
             />
             {filterQuery && (
               <button
@@ -707,7 +707,7 @@ export const AdminCategoriesPage: React.FC = () => {
         {activeTab === "primary" && (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-white">
-              <thead className="bg-black/20 border-b border-white/15 text-[10px] font-bold font-mono uppercase text-white/70 tracking-wider">
+              <thead className="bg-black/20 border-b border-[#CCD1D8] text-[10px] font-bold font-mono uppercase text-neutral-500 tracking-wider">
                 <tr>
                   <th className="py-3.5 px-6">Category Name</th>
                   <th className="py-3.5 px-4">Database Slug / ID</th>
@@ -717,19 +717,19 @@ export const AdminCategoriesPage: React.FC = () => {
                   <th className="py-3.5 px-6 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/10">
+              <tbody className="divide-y divide-[#CCD1D8]">
                 {isLoading ? (
                   <tr>
-                    <td colSpan={6} className="py-12 text-center text-white/60">
+                    <td colSpan={6} className="py-12 text-center text-neutral-400">
                       <div className="flex items-center justify-center gap-2">
-                        <div className="w-4 h-4 border-2 border-[#FFD400] border-t-transparent rounded-full animate-spin" />
+                        <div className="w-4 h-4 border-2 border-[#627188] border-t-transparent rounded-full animate-spin" />
                         <span>Loading primary categories...</span>
                       </div>
                     </td>
                   </tr>
                 ) : filteredPrimaryCategories.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="py-12 text-center text-white/60">
+                    <td colSpan={6} className="py-12 text-center text-neutral-400">
                       No primary categories match &ldquo;{filterQuery}&rdquo;.
                     </td>
                   </tr>
@@ -742,27 +742,27 @@ export const AdminCategoriesPage: React.FC = () => {
                     const subCount = hierItem.subcategories?.length || cat.subcategories?.length || 0;
 
                     return (
-                      <tr key={cat.id} className="hover:bg-white/5 transition-colors">
+                      <tr key={cat.id} className="hover:bg-[#EFF1F3]/50 transition-colors">
                         <td className="py-4 px-6 font-semibold">
                           <div className="flex items-center gap-2.5">
-                            <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-[#FFD400] shrink-0">
+                            <div className="w-7 h-7 rounded-lg bg-[#EFF1F3] flex items-center justify-center text-[#627188] shrink-0">
                               <Layers size={14} />
                             </div>
                             <div>
                               <div className="font-bold text-white text-sm">{cat.name}</div>
                               {cat.shortDescription && (
-                                <div className="text-[11px] text-white/70 line-clamp-1 max-w-sm mt-0.5">
+                                <div className="text-[11px] text-neutral-500 line-clamp-1 max-w-sm mt-0.5">
                                   {cat.shortDescription}
                                 </div>
                               )}
                             </div>
                           </div>
                         </td>
-                        <td className="py-4 px-4 font-mono text-[11px] text-white/80">
+                        <td className="py-4 px-4 font-mono text-[11px] text-neutral-600">
                           {cat.slug || cat.id}
                         </td>
                         <td className="py-4 px-4 text-center">
-                          <span className="font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-white/10 text-[#FFD400] border border-white/20">
+                          <span className="font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-[#EFF1F3] text-[#627188] border border-[#CCD1D8]">
                             {code}
                           </span>
                         </td>
@@ -773,7 +773,7 @@ export const AdminCategoriesPage: React.FC = () => {
                               handleTabChange("subcategories");
                               setFilterQuery(cat.name);
                             }}
-                            className="hover:text-[#FFD400] hover:underline cursor-pointer"
+                            className="hover:text-[#627188] hover:underline cursor-pointer"
                             title="View subcategories under this primary category"
                           >
                             {subCount}
@@ -800,7 +800,7 @@ export const AdminCategoriesPage: React.FC = () => {
                               title={isActive ? "Deactivate storefront visibility" : "Activate storefront visibility"}
                               className={`p-1.5 rounded-md border text-xs font-semibold transition-colors cursor-pointer ${
                                 isActive
-                                  ? "border-white/20 text-white/70 hover:text-white hover:bg-white/10"
+                                  ? "border-[#CCD1D8] text-neutral-500 hover:text-white hover:bg-[#EFF1F3]"
                                   : "border-emerald-500/30 bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30"
                               }`}
                             >
@@ -816,7 +816,7 @@ export const AdminCategoriesPage: React.FC = () => {
                                 code
                               })}
                               title="Edit Category Details"
-                              className="p-1.5 text-white/80 hover:text-white hover:bg-white/10 rounded-md border border-white/20 transition-colors cursor-pointer"
+                              className="p-1.5 text-neutral-600 hover:text-white hover:bg-[#EFF1F3] rounded-md border border-[#CCD1D8] transition-colors cursor-pointer"
                             >
                               <Edit2 size={13} />
                             </button>
@@ -847,7 +847,7 @@ export const AdminCategoriesPage: React.FC = () => {
         {activeTab === "subcategories" && (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-white">
-              <thead className="bg-black/20 border-b border-white/15 text-[10px] font-bold font-mono uppercase text-white/70 tracking-wider">
+              <thead className="bg-black/20 border-b border-[#CCD1D8] text-[10px] font-bold font-mono uppercase text-neutral-500 tracking-wider">
                 <tr>
                   <th className="py-3.5 px-6">Subcategory Name</th>
                   <th className="py-3.5 px-4">Parent Primary Category</th>
@@ -856,28 +856,28 @@ export const AdminCategoriesPage: React.FC = () => {
                   <th className="py-3.5 px-6 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/10">
+              <tbody className="divide-y divide-[#CCD1D8]">
                 {isLoading ? (
                   <tr>
-                    <td colSpan={5} className="py-12 text-center text-white/60">
+                    <td colSpan={5} className="py-12 text-center text-neutral-400">
                       <div className="flex items-center justify-center gap-2">
-                        <div className="w-4 h-4 border-2 border-[#FFD400] border-t-transparent rounded-full animate-spin" />
+                        <div className="w-4 h-4 border-2 border-[#627188] border-t-transparent rounded-full animate-spin" />
                         <span>Loading subcategories...</span>
                       </div>
                     </td>
                   </tr>
                 ) : filteredSubcategories.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="py-12 text-center text-white/60">
+                    <td colSpan={5} className="py-12 text-center text-neutral-400">
                       No subcategories match &ldquo;{filterQuery}&rdquo;.
                     </td>
                   </tr>
                 ) : (
                   filteredSubcategories.map((sub) => (
-                    <tr key={`${sub.parentCategoryId}-${sub.id}`} className="hover:bg-white/5 transition-colors">
+                    <tr key={`${sub.parentCategoryId}-${sub.id}`} className="hover:bg-[#EFF1F3]/50 transition-colors">
                       <td className="py-4 px-6 font-semibold">
                         <div className="flex items-center gap-2.5">
-                          <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-emerald-300 shrink-0">
+                          <div className="w-7 h-7 rounded-lg bg-[#EFF1F3] flex items-center justify-center text-emerald-300 shrink-0">
                             <FolderTree size={14} />
                           </div>
                           <div>
@@ -886,12 +886,12 @@ export const AdminCategoriesPage: React.FC = () => {
                         </div>
                       </td>
                       <td className="py-4 px-4 font-semibold">
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 text-white text-xs border border-white/15">
-                          <Layers size={11} className="text-[#FFD400]" />
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#EFF1F3] text-white text-xs border border-[#CCD1D8]">
+                          <Layers size={11} className="text-[#627188]" />
                           <span>{sub.parentCategoryName}</span>
                         </span>
                       </td>
-                      <td className="py-4 px-4 font-mono text-[11px] text-white/80">
+                      <td className="py-4 px-4 font-mono text-[11px] text-neutral-600">
                         {sub.id}
                       </td>
                       <td className="py-4 px-4 text-center font-mono font-bold text-white">
@@ -901,7 +901,7 @@ export const AdminCategoriesPage: React.FC = () => {
                             handleTabChange("equipment-types");
                             setFilterQuery(sub.name);
                           }}
-                          className="hover:text-[#FFD400] hover:underline cursor-pointer"
+                          className="hover:text-[#627188] hover:underline cursor-pointer"
                           title="View verified equipment types under this subcategory"
                         >
                           {sub.equipmentTypesCount}
@@ -913,7 +913,7 @@ export const AdminCategoriesPage: React.FC = () => {
                             type="button"
                             onClick={() => handleOpenAdd("equipment", sub.parentCategoryId, sub.id)}
                             title="Add Equipment Type under this subcategory"
-                            className="p-1.5 text-[#FFD400] hover:bg-white/10 rounded-md border border-[#FFD400]/40 transition-colors cursor-pointer"
+                            className="p-1.5 text-[#627188] hover:bg-[#EFF1F3] rounded-md border border-[#627188]/40 transition-colors cursor-pointer"
                           >
                             <Plus size={13} />
                           </button>
@@ -926,7 +926,7 @@ export const AdminCategoriesPage: React.FC = () => {
                               parentCategory: sub.parentCategoryId
                             })}
                             title="Edit Subcategory"
-                            className="p-1.5 text-white/80 hover:text-white hover:bg-white/10 rounded-md border border-white/20 transition-colors cursor-pointer"
+                            className="p-1.5 text-neutral-600 hover:text-white hover:bg-[#EFF1F3] rounded-md border border-[#CCD1D8] transition-colors cursor-pointer"
                           >
                             <Edit2 size={13} />
                           </button>
@@ -957,7 +957,7 @@ export const AdminCategoriesPage: React.FC = () => {
         {activeTab === "equipment-types" && (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-white">
-              <thead className="bg-black/20 border-b border-white/15 text-[10px] font-bold font-mono uppercase text-white/70 tracking-wider">
+              <thead className="bg-black/20 border-b border-[#CCD1D8] text-[10px] font-bold font-mono uppercase text-neutral-500 tracking-wider">
                 <tr>
                   <th className="py-3.5 px-6">Equipment Type</th>
                   <th className="py-3.5 px-4 text-center">SKU Prefix</th>
@@ -966,28 +966,28 @@ export const AdminCategoriesPage: React.FC = () => {
                   <th className="py-3.5 px-6 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/10">
+              <tbody className="divide-y divide-[#CCD1D8]">
                 {isLoading ? (
                   <tr>
-                    <td colSpan={5} className="py-12 text-center text-white/60">
+                    <td colSpan={5} className="py-12 text-center text-neutral-400">
                       <div className="flex items-center justify-center gap-2">
-                        <div className="w-4 h-4 border-2 border-[#FFD400] border-t-transparent rounded-full animate-spin" />
+                        <div className="w-4 h-4 border-2 border-[#627188] border-t-transparent rounded-full animate-spin" />
                         <span>Loading verified equipment types...</span>
                       </div>
                     </td>
                   </tr>
                 ) : filteredEquipmentTypes.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="py-12 text-center text-white/60">
+                    <td colSpan={5} className="py-12 text-center text-neutral-400">
                       No verified equipment types match &ldquo;{filterQuery}&rdquo;.
                     </td>
                   </tr>
                 ) : (
                   filteredEquipmentTypes.map((eq) => (
-                    <tr key={`${eq.parentCategoryId}-${eq.parentSubcategoryId}-${eq.id}`} className="hover:bg-white/5 transition-colors">
+                    <tr key={`${eq.parentCategoryId}-${eq.parentSubcategoryId}-${eq.id}`} className="hover:bg-[#EFF1F3]/50 transition-colors">
                       <td className="py-4 px-6 font-semibold">
                         <div className="flex items-center gap-2.5">
-                          <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-amber-300 shrink-0">
+                          <div className="w-7 h-7 rounded-lg bg-[#EFF1F3] flex items-center justify-center text-amber-300 shrink-0">
                             <Stethoscope size={14} />
                           </div>
                           <div>
@@ -996,7 +996,7 @@ export const AdminCategoriesPage: React.FC = () => {
                         </div>
                       </td>
                       <td className="py-4 px-4 text-center">
-                        <span className="font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-white/10 text-[#FFD400] border border-white/20">
+                        <span className="font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-[#EFF1F3] text-[#627188] border border-[#CCD1D8]">
                           {eq.defaultCode || "EQP"}
                         </span>
                       </td>
@@ -1004,7 +1004,7 @@ export const AdminCategoriesPage: React.FC = () => {
                         {eq.parentSubcategoryName}
                       </td>
                       <td className="py-4 px-4">
-                        <span className="text-[11px] text-white/70 font-mono">
+                        <span className="text-[11px] text-neutral-500 font-mono">
                           {eq.parentCategoryName}
                         </span>
                       </td>
@@ -1021,7 +1021,7 @@ export const AdminCategoriesPage: React.FC = () => {
                               parentSubcategory: eq.parentSubcategoryId
                             })}
                             title="Edit Equipment Type"
-                            className="p-1.5 text-white/80 hover:text-white hover:bg-white/10 rounded-md border border-white/20 transition-colors cursor-pointer"
+                            className="p-1.5 text-neutral-600 hover:text-white hover:bg-[#EFF1F3] rounded-md border border-[#CCD1D8] transition-colors cursor-pointer"
                           >
                             <Edit2 size={13} />
                           </button>
@@ -1055,10 +1055,10 @@ export const AdminCategoriesPage: React.FC = () => {
       {/* ============================================================ */}
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-2xs flex items-center justify-center p-4">
-          <div className="bg-[#0D4C3C] text-white rounded-2xl max-w-lg w-full border border-white/20 shadow-2xl overflow-hidden flex flex-col">
-            <div className="px-6 py-4 border-b border-white/15 flex items-center justify-between bg-[#0D4C3C]">
+          <div className="bg-white text-neutral-900 rounded-2xl max-w-lg w-full border border-[#CCD1D8] shadow-2xl overflow-hidden flex flex-col">
+            <div className="px-6 py-4 border-b border-[#CCD1D8] flex items-center justify-between bg-white">
               <div className="flex items-center gap-2">
-                <Plus size={16} className="text-[#FFD400]" />
+                <Plus size={16} className="text-[#627188]" />
                 <h3 className="font-bold text-sm uppercase tracking-wider font-mono text-white">
                   {addType === "primary"
                     ? "Add New Primary Category (L1)"
@@ -1070,7 +1070,7 @@ export const AdminCategoriesPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsAddModalOpen(false)}
-                className="text-white/60 hover:text-white p-1 rounded cursor-pointer"
+                className="text-neutral-400 hover:text-white p-1 rounded cursor-pointer"
               >
                 <X size={18} />
               </button>
@@ -1087,7 +1087,7 @@ export const AdminCategoriesPage: React.FC = () => {
               {/* Subcategory & Equipment Type: Parent Primary Category Selector */}
               {(addType === "subcategory" || addType === "equipment") && (
                 <div>
-                  <label className="block text-[11px] font-bold font-mono uppercase text-white/80 mb-1.5">
+                  <label className="block text-[11px] font-bold font-mono uppercase text-neutral-600 mb-1.5">
                     Parent Primary Category *
                   </label>
                   <select
@@ -1097,7 +1097,7 @@ export const AdminCategoriesPage: React.FC = () => {
                       setAddParentSubcategory("");
                     }}
                     required
-                    className="w-full px-3 py-2 bg-white text-black text-xs rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#FFD400]"
+                    className="w-full px-3 py-2 bg-white text-black text-xs rounded-lg border border-[#CCD1D8] focus:outline-none focus:ring-2 focus:ring-[#627188]"
                   >
                     <option value="" disabled>Select Primary Category</option>
                     {categories.map((c) => (
@@ -1112,14 +1112,14 @@ export const AdminCategoriesPage: React.FC = () => {
               {/* Equipment Type: Parent Subcategory Selector */}
               {addType === "equipment" && (
                 <div>
-                  <label className="block text-[11px] font-bold font-mono uppercase text-white/80 mb-1.5">
+                  <label className="block text-[11px] font-bold font-mono uppercase text-neutral-600 mb-1.5">
                     Parent Subcategory *
                   </label>
                   <select
                     value={addParentSubcategory}
                     onChange={(e) => setAddParentSubcategory(e.target.value)}
                     required
-                    className="w-full px-3 py-2 bg-white text-black text-xs rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#FFD400]"
+                    className="w-full px-3 py-2 bg-white text-black text-xs rounded-lg border border-[#CCD1D8] focus:outline-none focus:ring-2 focus:ring-[#627188]"
                   >
                     <option value="" disabled>Select Subcategory</option>
                     {availableSubcategoriesForSelectedCat.map((s: any) => (
@@ -1133,7 +1133,7 @@ export const AdminCategoriesPage: React.FC = () => {
 
               {/* Name Input */}
               <div>
-                <label className="block text-[11px] font-bold font-mono uppercase text-white/80 mb-1.5">
+                <label className="block text-[11px] font-bold font-mono uppercase text-neutral-600 mb-1.5">
                   {addType === "primary" ? "Category Name *" : addType === "subcategory" ? "Subcategory Name *" : "Equipment Type Name *"}
                 </label>
                 <input
@@ -1148,14 +1148,14 @@ export const AdminCategoriesPage: React.FC = () => {
                       : "e.g. Color 4D Doppler Ultrasound"
                   }
                   required
-                  className="w-full px-3 py-2 bg-white text-black placeholder:text-neutral-400 text-xs rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#FFD400]"
+                  className="w-full px-3 py-2 bg-white text-black placeholder:text-neutral-400 text-xs rounded-lg border border-[#CCD1D8] focus:outline-none focus:ring-2 focus:ring-[#627188]"
                 />
               </div>
 
               {/* Primary: Optional SKU prefix code */}
               {addType === "primary" && (
                 <div>
-                  <label className="block text-[11px] font-bold font-mono uppercase text-white/80 mb-1.5">
+                  <label className="block text-[11px] font-bold font-mono uppercase text-neutral-600 mb-1.5">
                     Taxonomy / SKU Prefix Code (Optional, e.g. DUS)
                   </label>
                   <input
@@ -1164,9 +1164,9 @@ export const AdminCategoriesPage: React.FC = () => {
                     onChange={(e) => setAddCode(e.target.value.toUpperCase())}
                     maxLength={4}
                     placeholder="e.g. DUS"
-                    className="w-full px-3 py-2 bg-white text-black placeholder:text-neutral-400 font-mono text-xs rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#FFD400]"
+                    className="w-full px-3 py-2 bg-white text-black placeholder:text-neutral-400 font-mono text-xs rounded-lg border border-[#CCD1D8] focus:outline-none focus:ring-2 focus:ring-[#627188]"
                   />
-                  <p className="text-[10px] text-white/60 mt-1">
+                  <p className="text-[10px] text-neutral-400 mt-1">
                     Auto-generated from name if left empty. Used for SKU sequencing.
                   </p>
                 </div>
@@ -1175,7 +1175,7 @@ export const AdminCategoriesPage: React.FC = () => {
               {/* Primary: Short description */}
               {addType === "primary" && (
                 <div>
-                  <label className="block text-[11px] font-bold font-mono uppercase text-white/80 mb-1.5">
+                  <label className="block text-[11px] font-bold font-mono uppercase text-neutral-600 mb-1.5">
                     Short Description (Optional)
                   </label>
                   <textarea
@@ -1183,16 +1183,16 @@ export const AdminCategoriesPage: React.FC = () => {
                     onChange={(e) => setAddDescription(e.target.value)}
                     rows={2}
                     placeholder="Clinical equipment description for catalog browsing..."
-                    className="w-full px-3 py-2 bg-white text-black placeholder:text-neutral-400 text-xs rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#FFD400]"
+                    className="w-full px-3 py-2 bg-white text-black placeholder:text-neutral-400 text-xs rounded-lg border border-[#CCD1D8] focus:outline-none focus:ring-2 focus:ring-[#627188]"
                   />
                 </div>
               )}
 
-              <div className="pt-3 border-t border-white/15 flex items-center justify-end gap-3">
+              <div className="pt-3 border-t border-[#CCD1D8] flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setIsAddModalOpen(false)}
-                  className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-semibold cursor-pointer"
+                  className="px-4 py-2 bg-[#EFF1F3] hover:bg-[#EFF1F3] text-white rounded-lg text-xs font-semibold cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -1215,10 +1215,10 @@ export const AdminCategoriesPage: React.FC = () => {
       {/* ============================================================ */}
       {editingItem && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-2xs flex items-center justify-center p-4">
-          <div className="bg-[#0D4C3C] text-white rounded-2xl max-w-lg w-full border border-white/20 shadow-2xl overflow-hidden flex flex-col">
-            <div className="px-6 py-4 border-b border-white/15 flex items-center justify-between bg-[#0D4C3C]">
+          <div className="bg-white text-neutral-900 rounded-2xl max-w-lg w-full border border-[#CCD1D8] shadow-2xl overflow-hidden flex flex-col">
+            <div className="px-6 py-4 border-b border-[#CCD1D8] flex items-center justify-between bg-white">
               <div className="flex items-center gap-2">
-                <Edit2 size={16} className="text-[#FFD400]" />
+                <Edit2 size={16} className="text-[#627188]" />
                 <h3 className="font-bold text-sm uppercase tracking-wider font-mono text-white">
                   Edit {editingItem.type === "primary" ? "Primary Category" : editingItem.type === "subcategory" ? "Subcategory" : "Equipment Type"}
                 </h3>
@@ -1226,7 +1226,7 @@ export const AdminCategoriesPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setEditingItem(null)}
-                className="text-white/60 hover:text-white p-1 rounded cursor-pointer"
+                className="text-neutral-400 hover:text-white p-1 rounded cursor-pointer"
               >
                 <X size={18} />
               </button>
@@ -1241,7 +1241,7 @@ export const AdminCategoriesPage: React.FC = () => {
               )}
 
               <div>
-                <label className="block text-[11px] font-bold font-mono uppercase text-white/80 mb-1.5">
+                <label className="block text-[11px] font-bold font-mono uppercase text-neutral-600 mb-1.5">
                   Record Name *
                 </label>
                 <input
@@ -1249,27 +1249,27 @@ export const AdminCategoriesPage: React.FC = () => {
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
                   required
-                  className="w-full px-3 py-2 bg-white text-black text-xs rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#FFD400]"
+                  className="w-full px-3 py-2 bg-white text-black text-xs rounded-lg border border-[#CCD1D8] focus:outline-none focus:ring-2 focus:ring-[#627188]"
                 />
               </div>
 
               {editingItem.type === "primary" && (
                 <div>
-                  <label className="block text-[11px] font-bold font-mono uppercase text-white/80 mb-1.5">
+                  <label className="block text-[11px] font-bold font-mono uppercase text-neutral-600 mb-1.5">
                     Short Description
                   </label>
                   <textarea
                     value={editDescription}
                     onChange={(e) => setEditDescription(e.target.value)}
                     rows={3}
-                    className="w-full px-3 py-2 bg-white text-black text-xs rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#FFD400]"
+                    className="w-full px-3 py-2 bg-white text-black text-xs rounded-lg border border-[#CCD1D8] focus:outline-none focus:ring-2 focus:ring-[#627188]"
                   />
                 </div>
               )}
 
               {editingItem.type === "equipment" && (
                 <div>
-                  <label className="block text-[11px] font-bold font-mono uppercase text-white/80 mb-1.5">
+                  <label className="block text-[11px] font-bold font-mono uppercase text-neutral-600 mb-1.5">
                     Default SKU Prefix / Code
                   </label>
                   <input
@@ -1277,16 +1277,16 @@ export const AdminCategoriesPage: React.FC = () => {
                     value={editCode}
                     onChange={(e) => setEditCode(e.target.value.toUpperCase())}
                     maxLength={4}
-                    className="w-full px-3 py-2 bg-white text-black font-mono text-xs rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#FFD400]"
+                    className="w-full px-3 py-2 bg-white text-black font-mono text-xs rounded-lg border border-[#CCD1D8] focus:outline-none focus:ring-2 focus:ring-[#627188]"
                   />
                 </div>
               )}
 
-              <div className="pt-3 border-t border-white/15 flex items-center justify-end gap-3">
+              <div className="pt-3 border-t border-[#CCD1D8] flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setEditingItem(null)}
-                  className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-semibold cursor-pointer"
+                  className="px-4 py-2 bg-[#EFF1F3] hover:bg-[#EFF1F3] text-white rounded-lg text-xs font-semibold cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -1309,10 +1309,10 @@ export const AdminCategoriesPage: React.FC = () => {
       {/* ============================================================ */}
       {deletingItem && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-2xs flex items-center justify-center p-4">
-          <div className="bg-[#0D4C3C] text-white rounded-2xl max-w-md w-full border border-white/20 shadow-2xl overflow-hidden flex flex-col">
-            <div className="px-6 py-4 border-b border-white/15 flex items-center justify-between bg-black/20">
+          <div className="bg-white text-neutral-900 rounded-2xl max-w-md w-full border border-[#CCD1D8] shadow-2xl overflow-hidden flex flex-col">
+            <div className="px-6 py-4 border-b border-[#CCD1D8] flex items-center justify-between bg-black/20">
               <div className="flex items-center gap-2">
-                <AlertTriangle size={18} className="text-[#FFD400]" />
+                <AlertTriangle size={18} className="text-[#627188]" />
                 <h3 className="font-bold text-sm uppercase tracking-wider font-mono text-white">
                   Confirm Taxonomy Deletion
                 </h3>
@@ -1320,7 +1320,7 @@ export const AdminCategoriesPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setDeletingItem(null)}
-                className="text-white/60 hover:text-white p-1 rounded cursor-pointer"
+                className="text-neutral-400 hover:text-white p-1 rounded cursor-pointer"
               >
                 <X size={18} />
               </button>
@@ -1336,8 +1336,8 @@ export const AdminCategoriesPage: React.FC = () => {
               </p>
 
               {/* Safety notice */}
-              <div className="p-3 bg-white/5 border border-white/15 rounded-xl text-[11px] text-white/80 space-y-1">
-                <div className="font-bold text-[#FFD400] flex items-center gap-1.5">
+              <div className="p-3 bg-[#EFF1F3]/50 border border-[#CCD1D8] rounded-xl text-[11px] text-neutral-600 space-y-1">
+                <div className="font-bold text-[#627188] flex items-center gap-1.5">
                   <ShieldCheck size={14} />
                   <span>Database Dependency Guard Active</span>
                 </div>
@@ -1361,7 +1361,7 @@ export const AdminCategoriesPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setDeletingItem(null)}
-                  className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-semibold cursor-pointer"
+                  className="px-4 py-2 bg-[#EFF1F3] hover:bg-[#EFF1F3] text-white rounded-lg text-xs font-semibold cursor-pointer"
                 >
                   Cancel
                 </button>

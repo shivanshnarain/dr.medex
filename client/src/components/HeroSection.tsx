@@ -9,7 +9,7 @@ interface HeroSectionProps {
 export const HeroSection: React.FC<HeroSectionProps> = () => {
   return (
     <section
-      className="relative w-full overflow-hidden select-none bg-[#0D4C3C] m-0 p-0 border-0 min-h-[600px] sm:min-h-[660px] lg:min-h-[720px] xl:min-h-[740px] flex items-end"
+      className="relative w-full overflow-hidden select-none bg-[#4D596B] m-0 p-0 border-0 min-h-[600px] sm:min-h-[660px] lg:min-h-[720px] xl:min-h-[740px] flex items-end"
       aria-label="DR.MEDEX Hero Showcase"
     >
       {/* 
@@ -37,7 +37,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
       {/* HERO CONTENT: FOREGROUND CARD SCROLLS UPWARD NATURALLY WITH PAGE */}
       <div className="relative z-10 max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 lg:pt-20 pb-0 flex items-end">
         <div
-          className="relative overflow-hidden w-full max-w-[440px] sm:max-w-[470px] lg:max-w-[490px] min-h-[500px] sm:min-h-[540px] lg:min-h-[580px] xl:min-h-[600px] flex flex-col justify-center bg-[#0D4C3C]/90 backdrop-blur-md rounded-none p-6 sm:p-8 lg:p-10 xl:p-11 pb-8 sm:pb-10 lg:pb-12 xl:pb-14 shadow-2xl border border-white/10 border-b-0 text-white"
+          className="relative overflow-hidden w-full max-w-[440px] sm:max-w-[470px] lg:max-w-[490px] min-h-[500px] sm:min-h-[540px] lg:min-h-[580px] xl:min-h-[600px] flex flex-col justify-center bg-[#4D596B]/90 backdrop-blur-md rounded-none p-6 sm:p-8 lg:p-10 xl:p-11 pb-8 sm:pb-10 lg:pb-12 xl:pb-14 shadow-2xl border border-white/10 border-b-0 text-white"
           style={{ borderRadius: 0 }}
         >
           
@@ -50,8 +50,8 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
           {/* Inner Content with Consistent Vertical Spacing */}
           <div className="relative z-10 flex flex-col items-start gap-5 sm:gap-6 lg:gap-6">
             {/* 1. Eyebrow text at the top */}
-            <div className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#7AA05A]">
-              <span className="w-2 h-2 rounded-full bg-[#7AA05A]" />
+            <div className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#CCD1D8]">
+              <span className="w-2 h-2 rounded-full bg-[#CCD1D8]" />
               <span>TRUSTED MEDICAL EQUIPMENT PARTNER</span>
             </div>
 
@@ -63,7 +63,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               <br />
               <span>Technology for</span>
               <br />
-              <span className="text-[#7AA05A]" style={{ color: "#7AA05A" }}>Better Care</span>
+              <span className="text-[#CCD1D8]" style={{ color: "#CCD1D8" }}>Better Care</span>
             </h1>
 
             {/* 3. Supporting 3-line Description on desktop */}
@@ -79,7 +79,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
             <div className="pt-1 sm:pt-2">
               <Link
                 to="/shop-all"
-                className="group inline-flex items-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-bold border border-white shadow-lg transition-all duration-200 cursor-pointer"
+                className="group inline-flex items-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full bg-[#627188] hover:bg-[#4D596B] text-white text-xs sm:text-sm font-bold border border-white shadow-lg transition-all duration-200 cursor-pointer"
               >
                 <span>Explore Products</span>
                 <ArrowRight

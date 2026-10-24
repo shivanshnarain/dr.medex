@@ -482,8 +482,8 @@ export const Header: React.FC = () => {
                 aria-label="Country and Currency Selector"
                 aria-expanded={isCountryModalOpen}
               >
-                <Globe size={16} className="text-[#2D5A4A] group-hover:text-[#0D4C3C] transition-colors" />
-                <span className="tracking-wide font-mono text-xs font-bold text-[#2D5A4A]">{currentCurrency}</span>
+                <Globe size={16} className="text-[#627188] group-hover:text-[#4D596B] transition-colors" />
+                <span className="tracking-wide font-mono text-xs font-bold text-[#627188]">{currentCurrency}</span>
                 <ChevronDown size={13} className={`text-neutral-400 group-hover:text-neutral-700 transition-transform ${isCountryModalOpen ? "rotate-180" : ""}`} />
               </button>
 
@@ -497,7 +497,7 @@ export const Header: React.FC = () => {
                   <div className="flex items-center justify-between pb-3.5 border-b border-neutral-100">
                     <div>
                       <h3 className="text-sm font-black text-neutral-900 flex items-center gap-2">
-                        <Globe size={16} className="text-[#2D5A4A]" />
+                        <Globe size={16} className="text-[#627188]" />
                         <span>Select Country & Currency</span>
                       </h3>
                       <p className="text-[11px] text-neutral-500 mt-0.5">
@@ -520,13 +520,13 @@ export const Header: React.FC = () => {
                       value={countrySearch}
                       onChange={(e) => setCountrySearch(e.target.value)}
                       placeholder="Search country or currency..."
-                      className="w-full pl-8 pr-3 py-1.5 text-xs bg-neutral-50 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#7AA05A] text-neutral-900"
+                      className="w-full pl-8 pr-3 py-1.5 text-xs bg-neutral-50 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#627188] text-neutral-900"
                     />
                     <Search size={14} className="absolute left-2.5 top-2.5 text-neutral-400" />
                   </div>
 
                   {/* Country List with Moss Green scrollbar */}
-                  <div className="flex-1 overflow-y-auto space-y-1.5 pr-1 min-h-0 [scrollbar-color:#7AA05A_#F3F4F6] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-[#F3F4F6] [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#7AA05A] hover:[&::-webkit-scrollbar-thumb]:bg-[#688a4c] [&::-webkit-scrollbar-thumb]:rounded-full">
+                  <div className="flex-1 overflow-y-auto space-y-1.5 pr-1 min-h-0 [scrollbar-color:#627188_#F3F4F6] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-[#F3F4F6] [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#627188] hover:[&::-webkit-scrollbar-thumb]:bg-[#4D596B] [&::-webkit-scrollbar-thumb]:rounded-full">
                     {filteredCountries.map((c) => {
                       const isSelected = currentCountry.code === c.code;
                       return (
@@ -539,7 +539,7 @@ export const Header: React.FC = () => {
                           }}
                           className={`w-full p-2.5 rounded-xl flex items-center justify-between text-left transition-all cursor-pointer ${
                             isSelected
-                              ? "bg-[#7AA05A]/15 border border-[#7AA05A]/30 text-[#2D5A4A]"
+                              ? "bg-[#627188]/15 border border-[#627188]/30 text-[#627188]"
                               : "hover:bg-neutral-50 border border-transparent text-neutral-800"
                           }`}
                         >
@@ -552,7 +552,7 @@ export const Header: React.FC = () => {
                               </div>
                             </div>
                           </div>
-                          {isSelected && <Check size={15} className="text-[#0D4C3C] shrink-0" />}
+                          {isSelected && <Check size={15} className="text-[#4D596B] shrink-0" />}
                         </button>
                       );
                     })}
@@ -564,7 +564,7 @@ export const Header: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setIsCountryModalOpen(false)}
-                      className="px-4 py-1.5 rounded-lg bg-[#7AA05A] hover:bg-[#688a4c] text-white font-bold text-xs shadow-xs transition-colors cursor-pointer"
+                      className="px-4 py-1.5 rounded-lg bg-[#627188] hover:bg-[#4D596B] text-white font-bold text-xs shadow-xs transition-colors cursor-pointer"
                     >
                       Done
                     </button>
@@ -587,10 +587,10 @@ export const Header: React.FC = () => {
                   aria-label="Customer Account Menu"
                   aria-expanded={isUserMenuOpen}
                 >
-                  <div className="w-5 h-5 rounded-full bg-[#2D5A4A]/10 text-[#2D5A4A] flex items-center justify-center">
+                  <div className="w-5 h-5 rounded-full bg-[#627188]/10 text-[#627188] flex items-center justify-center">
                     <User size={13} />
                   </div>
-                  <span className="hidden md:inline text-neutral-700 group-hover:text-[#2D5A4A] font-medium max-w-[130px] truncate">
+                  <span className="hidden md:inline text-neutral-700 group-hover:text-[#627188] font-medium max-w-[130px] truncate">
                     Hi, {user.fullName ? user.fullName.split(" ")[0].replace(/^Dr\.?\s*/i, "") : user.email?.split("@")[0]}
                   </span>
                   <ChevronDown
@@ -605,7 +605,7 @@ export const Header: React.FC = () => {
                 {isUserMenuOpen && (
                   <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-2xl shadow-xl border border-neutral-200 py-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
                     <div className="px-4 py-2.5 border-b border-neutral-100">
-                      <div className="text-3xs font-extrabold uppercase tracking-wider text-[#7AA05A] mb-0.5">
+                      <div className="text-3xs font-extrabold uppercase tracking-wider text-[#627188] mb-0.5">
                         Verified Customer
                       </div>
                       <p className="text-xs font-bold text-neutral-900 truncate">
@@ -618,7 +618,7 @@ export const Header: React.FC = () => {
                       <Link
                         to="/account"
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-4 py-2 text-xs text-neutral-700 hover:bg-neutral-50 hover:text-[#2D5A4A] font-medium transition-colors"
+                        className="flex items-center gap-2.5 px-4 py-2 text-xs text-neutral-700 hover:bg-neutral-50 hover:text-[#627188] font-medium transition-colors"
                       >
                         <User size={14} className="text-neutral-400" />
                         <span>Account Dashboard</span>
@@ -626,7 +626,7 @@ export const Header: React.FC = () => {
                       <Link
                         to="/account?tab=orders"
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-4 py-2 text-xs text-neutral-700 hover:bg-neutral-50 hover:text-[#2D5A4A] font-medium transition-colors"
+                        className="flex items-center gap-2.5 px-4 py-2 text-xs text-neutral-700 hover:bg-neutral-50 hover:text-[#627188] font-medium transition-colors"
                       >
                         <Package size={14} className="text-neutral-400" />
                         <span>Orders & RFQ Quotes</span>
@@ -634,7 +634,7 @@ export const Header: React.FC = () => {
                       <Link
                         to="/wishlist"
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-4 py-2 text-xs text-neutral-700 hover:bg-neutral-50 hover:text-[#2D5A4A] font-medium transition-colors"
+                        className="flex items-center gap-2.5 px-4 py-2 text-xs text-neutral-700 hover:bg-neutral-50 hover:text-[#627188] font-medium transition-colors"
                       >
                         <Heart size={14} className="text-neutral-400" />
                         <span>Saved Equipment</span>
@@ -673,7 +673,7 @@ export const Header: React.FC = () => {
                   setAuthModalTab("signin");
                   setIsAuthModalOpen(true);
                 }}
-                className="p-2 rounded-full hover:bg-neutral-100 text-neutral-800 hover:text-[#2D5A4A] transition-all cursor-pointer"
+                className="p-2 rounded-full hover:bg-neutral-100 text-neutral-800 hover:text-[#627188] transition-all cursor-pointer"
                 title="Sign In / Customer Account"
                 aria-label="Sign In or Register"
               >
@@ -685,14 +685,14 @@ export const Header: React.FC = () => {
             <Link
               to="/wishlist"
               className={`relative p-2 rounded-full hover:bg-neutral-100 transition-all ${
-                location.pathname === "/wishlist" ? "text-[#2D5A4A]" : "text-neutral-800 hover:text-[#2D5A4A]"
+                location.pathname === "/wishlist" ? "text-[#627188]" : "text-neutral-800 hover:text-[#627188]"
               }`}
               title="Saved Equipment (Wishlist)"
               aria-label="Wishlist"
             >
               <Heart size={18} />
               {wishlistCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 min-w-[17px] h-[17px] px-1 rounded-full bg-[#7AA05A] text-white text-[10px] font-black flex items-center justify-center shadow-xs">
+                <span className="absolute -top-0.5 -right-0.5 min-w-[17px] h-[17px] px-1 rounded-full bg-[#627188] text-white text-[10px] font-black flex items-center justify-center shadow-xs">
                   {wishlistCount}
                 </span>
               )}
@@ -701,13 +701,13 @@ export const Header: React.FC = () => {
             {/* Shopping Cart Icon with Circular Quantity Badge */}
             <button
               onClick={openDrawer}
-              className="relative p-2 rounded-full hover:bg-neutral-100 text-neutral-800 hover:text-[#2D5A4A] transition-all cursor-pointer"
+              className="relative p-2 rounded-full hover:bg-neutral-100 text-neutral-800 hover:text-[#627188] transition-all cursor-pointer"
               title="Shopping Cart"
               aria-label="Shopping Cart"
             >
               <ShoppingCart size={19} />
               {itemCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 min-w-[17px] h-[17px] px-1 rounded-full bg-[#7AA05A] text-white text-[10px] font-black flex items-center justify-center shadow-xs">
+                <span className="absolute -top-0.5 -right-0.5 min-w-[17px] h-[17px] px-1 rounded-full bg-[#627188] text-white text-[10px] font-black flex items-center justify-center shadow-xs">
                   {itemCount}
                 </span>
               )}
@@ -741,7 +741,7 @@ export const Header: React.FC = () => {
       {/* ==============================================================
           SECOND ROW: HORIZONTALLY CENTERED CATEGORY NAVIGATION + MEGA MENUS
       ============================================================== */}
-      <div className="bg-[#7AA05A] relative overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="bg-[#627188] relative overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <nav
             className="flex items-center justify-start lg:justify-center gap-1 xl:gap-2 py-1 whitespace-nowrap min-w-max lg:min-w-0"
@@ -794,10 +794,10 @@ export const Header: React.FC = () => {
                               key={sub.to}
                               to={sub.to}
                               onClick={() => setActiveMegaMenu(null)}
-                              className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-[#171717] hover:text-[#2D5A4A] hover:bg-[#7AA05A]/10 transition-colors group"
+                              className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-[#171717] hover:text-[#627188] hover:bg-[#627188]/10 transition-colors group"
                             >
                               <span>{sub.label}</span>
-                              <ChevronRight size={13} className="text-[#6B7280] group-hover:text-[#2D5A4A] transition-colors" />
+                              <ChevronRight size={13} className="text-[#6B7280] group-hover:text-[#627188] transition-colors" />
                             </Link>
                           ))}
                         </div>
@@ -843,7 +843,7 @@ export const Header: React.FC = () => {
                           onClick={() => setIsMobileMenuOpen(false)}
                           className={`flex-1 py-2 px-3 rounded-xl transition-colors ${
                             active
-                              ? "bg-[#7AA05A]/15 text-[#7AA05A] font-bold"
+                              ? "bg-[#627188]/15 text-[#627188] font-bold"
                               : "hover:bg-neutral-50 text-neutral-800"
                           }`}
                         >
@@ -858,7 +858,7 @@ export const Header: React.FC = () => {
                           >
                             <ChevronDown
                               size={16}
-                              className={`transition-transform duration-200 ${isExpanded ? "rotate-180 text-[#7AA05A]" : ""}`}
+                              className={`transition-transform duration-200 ${isExpanded ? "rotate-180 text-[#627188]" : ""}`}
                             />
                           </button>
                         )}
@@ -872,7 +872,7 @@ export const Header: React.FC = () => {
                               key={sub.to}
                               to={sub.to}
                               onClick={() => setIsMobileMenuOpen(false)}
-                              className="block py-1.5 px-2 text-[11px] font-medium text-neutral-700 hover:text-[#7AA05A] transition-colors"
+                              className="block py-1.5 px-2 text-[11px] font-medium text-neutral-700 hover:text-[#627188] transition-colors"
                             >
                               • {sub.label}
                             </Link>
@@ -923,7 +923,7 @@ export const Header: React.FC = () => {
               {user ? (
                 <div className="space-y-2">
                   <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200">
-                    <div className="text-3xs font-extrabold uppercase tracking-wider text-[#7AA05A]">
+                    <div className="text-3xs font-extrabold uppercase tracking-wider text-[#627188]">
                       Verified Customer
                     </div>
                     <div className="text-xs font-bold text-neutral-900 truncate mt-0.5">
