@@ -1565,7 +1565,7 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
       finalStatus = String(req.body.status).toUpperCase().trim();
     }
 
-    let finalReviewStatus = existing.reviewStatus || "PENDING";
+    let finalReviewStatus = "CORRECT";
     if (req.body.reviewStatus !== undefined && req.body.reviewStatus !== null) {
       const rawRS = String(req.body.reviewStatus).toUpperCase().trim();
       if (rawRS === "CORRECT" || rawRS === "APPROVED") {

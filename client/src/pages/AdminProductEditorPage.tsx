@@ -2442,8 +2442,8 @@ export const AdminProductEditorPage: React.FC = () => {
       status: isEditMode && !manuallyEditedFields.has("status")
         ? (originalStatusRef.current || status || "ACTIVE")
         : (status || "ACTIVE"),
-      reviewStatus,
-      reviewNote: reviewNote.trim() || undefined,
+      reviewStatus: "CORRECT",
+      reviewNote: undefined,
       featured: isFeatured,
       isFeatured,
       bestseller: isBestSeller,
