@@ -45,7 +45,7 @@ const SIX_ACTIVE_CATEGORIES: ActiveCategoryCard[] = [
     description: "High-frequency precision electrosurgical generators, RF cautery units and smoke evacuation systems.",
     image: "/category-cards/card-1-electrosurgical.png",
     textPosition: "top",
-    objectPosition: "center 67%"
+    objectPosition: "center 86%"
   },
   {
     id: "cryo-surgical",
@@ -240,8 +240,8 @@ export const HomePage: React.FC = () => {
                 to={`/category/${cat.slug}`}
                 className={`group relative flex flex-col ${
                   cat.textPosition === "top" ? "justify-start" : "justify-end"
-                } overflow-hidden rounded-[20px] aspect-[20/21] bg-[#F4F1EB] shadow-xs hover:shadow-xl transition-all duration-300 select-none hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7AA05A] focus-visible:ring-offset-2`}
-                style={{ borderRadius: "20px", aspectRatio: "20 / 21" }}
+                } overflow-hidden rounded-[20px] aspect-[20/23] bg-[#F4F1EB] shadow-xs hover:shadow-xl transition-all duration-300 select-none hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7AA05A] focus-visible:ring-offset-2`}
+                style={{ borderRadius: "20px", aspectRatio: "20 / 23" }}
               >
                 {/* 1. Original category product image filling the card with proportional vertical alignment */}
                 <img
