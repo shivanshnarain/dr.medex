@@ -1009,10 +1009,7 @@ export const AdminProductEditorPage: React.FC = () => {
     if (!category && !subcategory && !productName) return;
 
     if (isEditMode) {
-      const initial = initialClassificationRef.current;
-      if (initial && initial.category === category && initial.subcategory === subcategory) {
-        return; // Preserve existing product's original saved SKU unless classification actually changed
-      }
+      return; // Preserve existing product's original saved SKU unless user explicitly clicks Regenerate SKU or edits it
     }
 
     const timer = setTimeout(() => {
@@ -1234,6 +1231,7 @@ export const AdminProductEditorPage: React.FC = () => {
           resolvedProductRef.current?._id,
           resolvedProductRef.current?.slug,
           resolvedProductRef.current?.sku,
+          slug,
           sku
         ].filter(Boolean);
 
@@ -1247,6 +1245,8 @@ export const AdminProductEditorPage: React.FC = () => {
             modelNumber: manufacturerModel,
             title: productName,
             productName,
+            id: productId || initialProduct?.id || initialProduct?._id || resolvedProductRef.current?.id || resolvedProductRef.current?._id || undefined,
+            sku,
             excludeId: productId || initialProduct?.id || initialProduct?._id || resolvedProductRef.current?.id || resolvedProductRef.current?._id || undefined,
             excludeIds: excludeCandidates
           })
@@ -1262,7 +1262,10 @@ export const AdminProductEditorPage: React.FC = () => {
               .map((s: any) => String(s).toLowerCase().trim());
             const currentIds = excludeCandidates.map((s: any) => String(s).toLowerCase().trim());
 
-            const isSelf = isEditMode && dupIds.some((id: string) => currentIds.includes(id));
+            const isSelf = isEditMode && (
+              dupIds.some((id: string) => currentIds.includes(id)) ||
+              (dup?.sku && (sku || "").trim().toLowerCase() === dup.sku.trim().toLowerCase() && (initialProduct?.sku || resolvedProductRef.current?.sku || "").trim().toLowerCase() === dup.sku.trim().toLowerCase())
+            );
             if (!isSelf) {
               setDuplicateInfo({
                 isDuplicate: true,
@@ -2325,17 +2328,25 @@ export const AdminProductEditorPage: React.FC = () => {
         resolvedProductRef.current?._id,
         resolvedProductRef.current?.slug,
         resolvedProductRef.current?.sku,
+        slug,
         sku
       ]
         .filter(Boolean)
         .map((s: any) => String(s).toLowerCase().trim());
 
-      const isSelf = isEditMode && dupIds.some((id: string) => currentIds.includes(id));
+      const isSelf = isEditMode && (
+        dupIds.some((id: string) => currentIds.includes(id)) ||
+        (dup?.sku && (sku || "").trim().toLowerCase() === dup.sku.trim().toLowerCase() && (initialProduct?.sku || resolvedProductRef.current?.sku || "").trim().toLowerCase() === dup.sku.trim().toLowerCase())
+      );
 
-      if (!isSelf) {
+      if (isSelf) {
+        setDuplicateInfo({ isDuplicate: false, duplicateProduct: null });
+      } else {
+        const conflictingTitle = dup?.title || (dup as any)?.productName || "existing product";
+        const conflictingSku = dup?.sku ? ` (SKU: ${dup.sku})` : "";
         setStatusBanner({
           type: "error",
-          text: "Cannot save: A matching product already exists in this category. Please review or check allow intentional variant."
+          text: `Cannot save: A matching product already exists in this category ('${conflictingTitle}'${conflictingSku}). Please review or check allow intentional variant.`
         });
         window.scrollTo({ top: 0, behavior: "smooth" });
         return;

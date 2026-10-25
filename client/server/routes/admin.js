@@ -838,10 +838,23 @@ function generateProductSku({ category, subcategory, productName }) {
   return `DRM-${primaryCode}-${subcatCode}-${nameSegment}-${Date.now().toString(36).toUpperCase()}`;
 }
 
-router.get("/products/generate-sku", requireAdmin, (req, res) => {
+router.get("/products/generate-sku", requireAdmin, async (req, res) => {
   const { category = "ot-lights", subcategory = "", productName = "" } = req.query;
 
-  const sku = generateProductSku({ category, subcategory, productName });
+  let sku = generateProductSku({ category, subcategory, productName });
+
+  if (mongoService.isConfigured()) {
+    try {
+      const col = await mongoService.getCollection();
+      let exists = await col.findOne({ $or: [{ sku: sku }, { SKU: sku }] });
+      let attempts = 0;
+      while (exists && attempts < 20) {
+        sku = generateProductSku({ category, subcategory, productName });
+        exists = await col.findOne({ $or: [{ sku: sku }, { SKU: sku }] });
+        attempts++;
+      }
+    } catch {}
+  }
 
   res.json({
     success: true,
@@ -860,6 +873,7 @@ router.post("/products/check-duplicate", requireAdmin, async (req, res) => {
     modelNumber,
     title,
     productName,
+    sku,
     excludeId,
     excludeIds
   } = req.body;
@@ -868,6 +882,7 @@ router.post("/products/check-duplicate", requireAdmin, async (req, res) => {
   const norm = (str) => (str || "").toLowerCase().replace(/[^a-z0-9]/g, "").trim();
   const normModel = norm(modelNumber);
   const normTitle = norm(title || productName);
+  const reqSku = norm(sku);
 
   // Collect all normalized representations of IDs / slugs / SKUs identifying the current product being edited
   const excludedSet = new Set();
@@ -883,17 +898,20 @@ router.post("/products/check-duplicate", requireAdmin, async (req, res) => {
     excludeIds.forEach(addExclude);
   }
   addExclude(excludeId);
+  addExclude(req.body.id);
+  addExclude(req.body._id);
+  addExclude(req.body.productId);
+  addExclude(req.body.currentId);
 
-  // If excludeId was provided, resolve additional aliases from store and MongoDB
-  const rawExclude = excludeId ? String(excludeId).trim() : null;
-  if (rawExclude && rawExclude !== "new") {
-    const fromStore = store.getProductById(rawExclude, true) ||
+  // If candidate identifiers provided, resolve additional aliases from store and MongoDB
+  for (const raw of Array.from(excludedSet)) {
+    const fromStore = store.getProductById(raw, true) ||
       allProducts.find(p => {
         const pid = String(p.id || "").toLowerCase();
         const p_id = String(p._id || "").toLowerCase();
         const pslug = String(p.slug || "").toLowerCase();
-        const target = rawExclude.toLowerCase();
-        return pid === target || p_id === target || pslug === target;
+        const psku = String(p.sku || p.SKU || "").toLowerCase();
+        return pid === raw || p_id === raw || pslug === raw || (raw.length > 5 && psku === raw);
       });
 
     if (fromStore) {
@@ -906,7 +924,7 @@ router.post("/products/check-duplicate", requireAdmin, async (req, res) => {
 
     if (mongoService.isConfigured()) {
       try {
-        const fromMongo = await mongoService.getApprovedProduct(rawExclude);
+        const fromMongo = await mongoService.getApprovedProduct(raw);
         if (fromMongo) {
           addExclude(fromMongo.id);
           addExclude(fromMongo._id);
@@ -930,32 +948,33 @@ router.post("/products/check-duplicate", requireAdmin, async (req, res) => {
     return false;
   };
 
+  const genericModels = ["stdunit", "standard", "unit", "na", "none", "tbd", ""];
+
   const matched = allProducts.find(p => {
+    // Current product being edited is never a duplicate of itself
     if (isCurrentProduct(p)) return false;
 
     // Check same category
     const catMatch = p.category === category || norm(p.category) === norm(category);
     if (!catMatch) return false;
 
-    // 1. If manufacturer model number is provided and matches an existing model number
-    if (normModel && p.modelNumber) {
-      if (norm(p.modelNumber) === normModel) return true;
+    // 1. Check SKU collision (SKUs must be unique)
+    const pSku = norm(p.sku || p.SKU);
+    if (reqSku && pSku && reqSku === pSku) {
+      return true;
     }
 
-    // 2. If exact title or normalized identity matches in the same category
-    if (normTitle && p.title) {
-      if (norm(p.title) === normTitle) return true;
+    // 2. Exact Title / Product Name match in the same category
+    const pTitle = norm(p.title || p.productName);
+    if (normTitle && pTitle && normTitle === pTitle && normTitle.length >= 3) {
+      return true;
     }
 
-    // 3. If category + subcategory + equipmentType match, and models match or both lack a specific distinct model
-    if (equipmentType && p.equipmentType) {
-      if (norm(p.equipmentType) === norm(equipmentType)) {
-        if (normModel && p.modelNumber) {
-          return norm(p.modelNumber) === normModel;
-        }
-        if (!normModel && (!p.modelNumber || p.modelNumber === "—" || p.modelNumber === "Std Unit")) {
-          return true;
-        }
+    // 3. Specific manufacturer model number match in the same category
+    if (normModel && !genericModels.includes(normModel)) {
+      const pModel = norm(p.modelNumber);
+      if (pModel && !genericModels.includes(pModel) && pModel === normModel) {
+        return true;
       }
     }
 

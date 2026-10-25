@@ -378,6 +378,7 @@ module.exports = {
         prod.id === raw ||
         prod.id === decoded ||
         prod.id?.toLowerCase() === lower ||
+        (prod._id && (prod._id === raw || String(prod._id) === raw || String(prod._id) === decoded)) ||
         prod.canonicalSlug === raw ||
         prod.canonicalSlug === decoded ||
         prod.canonicalSlug?.toLowerCase() === lower
@@ -470,13 +471,20 @@ module.exports = {
   },
   updateProduct: (id, updates) => {
     checkReload();
-    const idx = state.products.findIndex(p => p.id === id || p.slug === id);
+    const cleanId = id ? String(id).trim() : "";
+    const idx = state.products.findIndex(p =>
+      p.id === id ||
+      p.slug === id ||
+      (cleanId && (p.id === cleanId || p.slug === cleanId)) ||
+      (p._id && (p._id === id || String(p._id) === id || String(p._id) === cleanId))
+    );
+    const now = new Date().toISOString();
+    const validStatuses = ["ACTIVE", "INACTIVE", "DRAFT", "ARCHIVED"];
+
     if (idx !== -1) {
-      const now = new Date().toISOString();
       const current = state.products[idx];
 
       // Sanitize status so partial updates, omitted fields, undefined/null/empty/invalid status NEVER overwrite existing status
-      const validStatuses = ["ACTIVE", "INACTIVE", "DRAFT", "ARCHIVED"];
       let safeStatus = current.status || "ACTIVE";
       if (updates && updates.status !== undefined && updates.status !== null && updates.status !== "") {
         const candidate = String(updates.status).toUpperCase().trim();
@@ -493,6 +501,24 @@ module.exports = {
       };
       // Shift updated product to beginning of array so recently updated product appears first
       state.products.splice(idx, 1);
+      state.products.unshift(updated);
+      persist();
+      return updated;
+    } else if (updates) {
+      // Product was fetched from MongoDB Atlas or external and not yet in memory store, persist into store
+      let safeStatus = "ACTIVE";
+      if (updates.status !== undefined && updates.status !== null && updates.status !== "") {
+        const candidate = String(updates.status).toUpperCase().trim();
+        if (validStatuses.includes(candidate)) {
+          safeStatus = candidate;
+        }
+      }
+      const updated = {
+        id: (updates && updates.id) || id || cleanId,
+        ...updates,
+        status: safeStatus,
+        updatedAt: (updates && updates.updatedAt) || now
+      };
       state.products.unshift(updated);
       persist();
       return updated;
