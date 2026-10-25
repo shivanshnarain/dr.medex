@@ -377,12 +377,12 @@ export const AdminProductEditorPage: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(1);
   const [selectedCard, setSelectedCard] = useState<string>("step-1");
 
-  // Exact DR.MEDEX Moss Green Palette (#7AA05A) with solid White Outline (#FFFFFF) and Black Text
-  const getCardStyle = (_cardId: string) => {
-    const isSelected = selectedCard === _cardId;
+  // Exact DR.MEDEX Dark Emerald Palette (#0D4C3C) with solid White Outline (#FFFFFF) and White Text
+  const getCardStyle = (cardId: string) => {
+    const isSelected = selectedCard === cardId;
     return isSelected
-      ? "bg-[#7AA05A] border-white ring-2 ring-white/70 shadow-lg text-black"
-      : "bg-[#7AA05A] border-white shadow-md text-black";
+      ? "bg-[#0D4C3C] border-white ring-2 ring-white/70 shadow-lg text-white"
+      : "bg-[#0D4C3C] border-white shadow-md text-white";
   };
 
   // Categories & Catalogue Hierarchy
@@ -2598,10 +2598,10 @@ export const AdminProductEditorPage: React.FC = () => {
 
   return (
     <AdminLayout
-      mainClassName="bg-[#FFFFFF] min-h-screen"
-      headerClassName="bg-[#FFFFFF] border-b border-black/10 text-black"
-      titleClassName="text-black font-black"
-      subtitleClassName="text-black/70"
+      mainClassName="bg-[#7AA05A] min-h-screen"
+      headerClassName="bg-[#7AA05A] border-b border-black/15 text-white"
+      titleClassName="text-white font-black"
+      subtitleClassName="text-white/80"
       title={isEditMode ? `Edit: ${productName || "Medical Equipment"}` : "Add New Medical Equipment"}
       subtitle={
         isEditMode
@@ -2613,7 +2613,7 @@ export const AdminProductEditorPage: React.FC = () => {
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <Link
           to="/admin/products"
-          className="inline-flex items-center gap-2 text-xs font-bold text-black hover:text-black/70 transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-bold text-white hover:text-white/80 transition-colors"
         >
           <ArrowLeft size={14} />
           <span>Back to Products Catalogue</span>
@@ -2641,17 +2641,17 @@ export const AdminProductEditorPage: React.FC = () => {
               ? "bg-[#FFFFFF] border-[#D32F2F] text-[#D32F2F]"
               : statusBanner.type === "warning"
               ? "bg-amber-800 border-white text-white"
-              : "bg-[#7AA05A] border border-white text-black font-medium"
+              : "bg-[#0D4C3C] border-white text-white"
           }`}
         >
           <div className="flex items-start gap-2.5">
             <AlertCircle
               size={18}
-              className={`mt-0.5 shrink-0 ${statusBanner.type === "error" ? "text-[#D32F2F]" : "text-black"}`}
+              className={`mt-0.5 shrink-0 ${statusBanner.type === "error" ? "text-[#D32F2F]" : "text-white"}`}
             />
             <p
               className={`text-xs font-semibold leading-relaxed ${
-                statusBanner.type === "error" ? "text-[#D32F2F]" : "text-black"
+                statusBanner.type === "error" ? "text-[#D32F2F]" : "text-white"
               }`}
             >
               {statusBanner.text}
@@ -2661,7 +2661,7 @@ export const AdminProductEditorPage: React.FC = () => {
             type="button"
             onClick={() => setStatusBanner(null)}
             className={`text-xs font-bold underline hover:no-underline cursor-pointer shrink-0 ${
-              statusBanner.type === "error" ? "text-[#D32F2F] hover:opacity-80" : "text-black"
+              statusBanner.type === "error" ? "text-[#D32F2F] hover:opacity-80" : "text-white"
             }`}
           >
             Dismiss
@@ -2671,15 +2671,15 @@ export const AdminProductEditorPage: React.FC = () => {
 
       {/* Duplicate Product Detection Banner */}
       {duplicateInfo.isDuplicate && duplicateInfo.duplicateProduct && (
-        <div className="mb-6 p-4 rounded-2xl border border-white bg-[#7AA05A] flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-md text-black">
+        <div className="mb-6 p-4 rounded-2xl border border-white bg-[#0D4C3C] flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-md text-white">
           <div className="flex items-start gap-3">
-            <AlertTriangle size={18} className="text-[#854D0E] mt-0.5 shrink-0" />
+            <AlertTriangle size={18} className="text-[#EAB308] mt-0.5 shrink-0" />
             <div>
-              <h4 className="text-xs font-bold text-black">
+              <h4 className="text-xs font-bold text-white">
                 Potential Duplicate Product Detected in Category
               </h4>
-              <p className="text-xs text-black/80 mt-0.5">
-                Existing item: <strong className="text-black underline">{duplicateInfo.duplicateProduct.title}</strong> (SKU: {duplicateInfo.duplicateProduct.sku})
+              <p className="text-xs text-white/80 mt-0.5">
+                Existing item: <strong className="text-white underline">{duplicateInfo.duplicateProduct.title}</strong> (SKU: {duplicateInfo.duplicateProduct.sku})
               </p>
             </div>
           </div>
@@ -2687,12 +2687,12 @@ export const AdminProductEditorPage: React.FC = () => {
           <div className="flex items-center gap-3 shrink-0">
             <Link
               to={`/admin/products/${duplicateInfo.duplicateProduct.id}/edit`}
-              className="px-3 py-1.5 bg-black/80 hover:bg-black border border-white text-white rounded-lg text-xs font-bold transition-colors inline-flex items-center gap-1.5"
+              className="px-3 py-1.5 bg-black/40 hover:bg-black/60 border border-white text-white rounded-lg text-xs font-bold transition-colors inline-flex items-center gap-1.5"
             >
               <ExternalLink size={13} />
               <span>Open Existing</span>
             </Link>
-            <label className="flex items-center gap-1.5 text-xs text-black cursor-pointer font-medium">
+            <label className="flex items-center gap-1.5 text-xs text-white cursor-pointer">
               <input
                 type="checkbox"
                 checked={allowDuplicateOverride}
@@ -2708,7 +2708,7 @@ export const AdminProductEditorPage: React.FC = () => {
       {/* ============================================================ */}
       {/* COMPACT HORIZONTAL NINE-STEP PROGRESS TRACKER                */}
       {/* ============================================================ */}
-      <div className="mb-8 bg-[#7AA05A] border border-white rounded-2xl p-4 shadow-md">
+      <div className="mb-8 bg-[#0D4C3C] border border-white rounded-2xl p-4 shadow-md">
         <div className="flex items-center justify-between overflow-x-auto pb-1 scrollbar-none gap-3">
           {stepStatus.map((step, idx) => {
             const isActive = activeStep === step.id;
@@ -2728,7 +2728,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       ? "bg-[#FFD400] text-black border-0 shadow-xs ring-0"
                       : isActive
                       ? "border border-white bg-[#C62828] text-white ring-2 ring-white"
-                      : "border border-black/30 text-black/70 bg-black/5"
+                      : "border border-white/40 text-white/70 bg-white/10"
                   }`}
                   style={step.isDone ? { backgroundColor: "#FFD400", border: "none", outline: "none" } : undefined}
                 >
@@ -2736,16 +2736,16 @@ export const AdminProductEditorPage: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col">
-                  <span className="text-xs font-bold text-black group-hover:text-black/80">
+                  <span className="text-xs font-bold text-white group-hover:text-white/90">
                     {step.name}
                   </span>
-                  <span className="text-[10px] text-black/70 font-medium">
+                  <span className="text-[10px] text-white/70 font-medium">
                     {step.isDone ? "Completed" : isActive ? "Current" : `Step ${step.id}`}
                   </span>
                 </div>
 
                 {idx < stepStatus.length - 1 && (
-                  <div className="hidden xl:block w-3 h-px bg-black/20 ml-1" />
+                  <div className="hidden xl:block w-3 h-px bg-white/30 ml-1" />
                 )}
               </button>
             );
@@ -2757,10 +2757,10 @@ export const AdminProductEditorPage: React.FC = () => {
       {/* 9-STEP ENTERPRISE FORM WORKSPACE                             */}
       {/* ============================================================ */}
       {isLoading ? (
-        <div className="bg-[#7AA05A] border border-white rounded-2xl p-12 text-center text-black shadow-xl flex flex-col items-center justify-center space-y-4 min-h-[360px]">
-          <RefreshCw size={36} className="animate-spin text-black/80" />
-          <h3 className="text-lg font-bold text-black">Loading Product Details...</h3>
-          <p className="text-sm text-black/80 max-w-md">
+        <div className="bg-[#0D4C3C] border border-white/20 rounded-2xl p-12 text-center text-white shadow-xl flex flex-col items-center justify-center space-y-4 min-h-[360px]">
+          <RefreshCw size={36} className="animate-spin text-white/80" />
+          <h3 className="text-lg font-bold">Loading Product Details...</h3>
+          <p className="text-sm text-gray-300 max-w-md">
             Retrieving complete product specifications, pricing, and high-resolution clinical photographs.
           </p>
         </div>
@@ -3097,7 +3097,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   {/* Classification Options Dropdown */}
                   {isAddMenuOpen && (
                     <div
-                      className="absolute right-0 top-full mt-1.5 w-60 bg-[#7AA05A] border border-white/60 rounded-xl shadow-2xl py-1.5 z-40 text-black"
+                      className="absolute right-0 top-full mt-1.5 w-60 bg-[#0D4C3C] border border-white/60 rounded-xl shadow-2xl py-1.5 z-40 text-white"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <button
@@ -3110,7 +3110,7 @@ export const AdminProductEditorPage: React.FC = () => {
                           setNewPrimaryName("");
                           setNewPrimaryCode("");
                         }}
-                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-black/10 transition-colors flex items-center gap-2.5 cursor-pointer text-black"
+                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-white/10 transition-colors flex items-center gap-2.5 cursor-pointer"
                       >
                         <span className="w-4 h-4 rounded-full bg-[#FFD400] text-black flex items-center justify-center font-black text-[10px] shrink-0">+</span>
                         <span>Add Primary Category</span>
@@ -3125,7 +3125,7 @@ export const AdminProductEditorPage: React.FC = () => {
                           setNewSubParentCat(category || allCategories[0]?.slug || "ot-lights");
                           setNewSubName("");
                         }}
-                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-black/10 transition-colors flex items-center gap-2.5 cursor-pointer border-t border-black/10 text-black"
+                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-white/10 transition-colors flex items-center gap-2.5 cursor-pointer border-t border-white/15"
                       >
                         <span className="w-4 h-4 rounded-full bg-[#FFD400] text-black flex items-center justify-center font-black text-[10px] shrink-0">+</span>
                         <span>Add Subcategory</span>
@@ -3144,7 +3144,7 @@ export const AdminProductEditorPage: React.FC = () => {
                           setNewEqSubcat(matchingSub ? matchingSub.id : (parentSubcats[0]?.id || ""));
                           setNewEqName("");
                         }}
-                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-black/10 transition-colors flex items-center gap-2.5 cursor-pointer border-t border-black/10 text-black"
+                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-white/10 transition-colors flex items-center gap-2.5 cursor-pointer border-t border-white/15"
                       >
                         <span className="w-4 h-4 rounded-full bg-[#FFD400] text-black flex items-center justify-center font-black text-[10px] shrink-0">+</span>
                         <span>Add Verified Equipment Type</span>
@@ -3157,7 +3157,7 @@ export const AdminProductEditorPage: React.FC = () => {
               <div className="space-y-4 mt-4">
                 {/* Primary Category */}
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     Primary Category <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <select
@@ -3188,7 +3188,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
                 {/* Subcategory */}
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     Subcategory <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <select
@@ -3217,7 +3217,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
                 {/* Verified Equipment Type */}
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     Verified Equipment Type <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <select
@@ -3276,7 +3276,7 @@ export const AdminProductEditorPage: React.FC = () => {
               <div className="space-y-4 mt-4">
                 {/* 1. Product Name */}
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     1. Product Name <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <input
@@ -3294,7 +3294,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
                 {/* 2. Manufacturer Model */}
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     2. Manufacturer Model
                   </label>
                   <input
@@ -3312,14 +3312,14 @@ export const AdminProductEditorPage: React.FC = () => {
 
                 {/* 3. SKU */}
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1 flex items-center justify-between">
+                  <label className="block text-xs font-bold text-white mb-1 flex items-center justify-between">
                     <span>3. SKU <span className="text-[#C62828] font-bold">*</span></span>
                     <div className="flex items-center gap-2.5">
                       <button
                         type="button"
                         onClick={() => fetchNewSku(category, subcategory, productName, true)}
                         title="Regenerate unique SKU based on current classification & product name"
-                        className="text-[10px] text-black/80 hover:text-black flex items-center gap-1 cursor-pointer underline transition-colors"
+                        className="text-[10px] text-white/90 hover:text-white flex items-center gap-1 cursor-pointer underline transition-colors"
                       >
                         <RefreshCw size={10} />
                         <span>Regenerate</span>
@@ -3328,9 +3328,9 @@ export const AdminProductEditorPage: React.FC = () => {
                         <button
                           type="button"
                           onClick={handleCopySku}
-                          className="text-[10px] text-black/80 hover:text-black flex items-center gap-1 cursor-pointer underline transition-colors"
+                          className="text-[10px] text-white/90 hover:text-white flex items-center gap-1 cursor-pointer underline transition-colors"
                         >
-                          {copiedSku ? <Check size={10} className="text-emerald-800" /> : <Copy size={10} />}
+                          {copiedSku ? <Check size={10} className="text-emerald-300" /> : <Copy size={10} />}
                           <span>{copiedSku ? "Copied" : "Copy"}</span>
                         </button>
                       )}
@@ -3383,7 +3383,7 @@ export const AdminProductEditorPage: React.FC = () => {
               </div>
 
               <div className="space-y-2 mt-4">
-                <label className="block text-xs font-bold text-black mb-1">
+                <label className="block text-xs font-bold text-white mb-1">
                   Clinical & Operational Overview <span className="text-[#C62828] font-bold">*</span>
                 </label>
                 <textarea
@@ -3398,7 +3398,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   placeholder="Enter product description explaining purpose, design, intended surgical workflow, and clinical advantages..."
                   className="w-full min-h-[220px] resize-y px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none leading-relaxed"
                 />
-                <div className="flex items-center justify-between text-[11px] text-black/80 font-mono">
+                <div className="flex items-center justify-between text-[11px] text-white/80 font-mono">
                   <span>Main description only. Specs and package lists are managed in their own cards.</span>
                   <span>{description.length} chars • {description.trim().split(/\s+/).filter(Boolean).length} words</span>
                 </div>
@@ -3436,7 +3436,7 @@ export const AdminProductEditorPage: React.FC = () => {
               <div className="space-y-3 mt-3">
                 {/* 1. Power Supply */}
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     1. Power Supply
                   </label>
                   <input
@@ -3454,7 +3454,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
                 {/* 2. Quality Standards */}
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     2. Quality Standards
                   </label>
                   <input
@@ -3472,7 +3472,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
                 {/* 3. Regulatory Status */}
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     3. Regulatory Status
                   </label>
                   <input
@@ -3490,7 +3490,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
                 {/* 4. Warranty */}
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     4. Warranty
                   </label>
                   <input
@@ -3535,7 +3535,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 </button>
               </div>
 
-              <p className="text-xs text-black/80 mt-2 mb-3">
+              <p className="text-xs text-white/80 mt-2 mb-3">
                 Intended clinical departments, surgical workflows, and validated procedures.
               </p>
 
@@ -3719,7 +3719,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 </button>
               </div>
 
-              <p className="text-xs text-black/80 mt-2 mb-3">
+              <p className="text-xs text-white/80 mt-2 mb-3">
                 Verified components, cables, modules, and standard hardware included in shipment.
               </p>
 
@@ -3830,7 +3830,7 @@ export const AdminProductEditorPage: React.FC = () => {
               <div className="space-y-4 mt-4">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-bold text-black mb-1">
+                    <label className="block text-xs font-bold text-white mb-1">
                       Original MRP (₹ INR) <span className="text-[#C62828] font-bold">*</span>
                     </label>
                     <input
@@ -3849,7 +3849,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-black mb-1">
+                    <label className="block text-xs font-bold text-white mb-1">
                       Selling Price (₹ INR) <span className="text-[#C62828] font-bold">*</span>
                     </label>
                     <input
@@ -3932,7 +3932,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 {/* Stock Quantity & Status Toggle (Strictly only these 2 fields) */}
                 <div className="grid grid-cols-2 gap-3 items-end">
                   <div>
-                    <label className="block text-xs font-bold text-black mb-1">
+                    <label className="block text-xs font-bold text-white mb-1">
                       1. Stock Quantity
                     </label>
                     <input
@@ -3955,7 +3955,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-black mb-1">
+                    <label className="block text-xs font-bold text-white mb-1">
                       2. In-Stock Status
                     </label>
                     <button
@@ -3975,7 +3975,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       }}
                       className={`w-full py-2.5 px-3.5 rounded-xl border border-white/40 text-xs font-bold flex items-center justify-between cursor-pointer transition-colors ${
                         stockStatus !== "OUT_OF_STOCK"
-                          ? "bg-white text-[#7AA05A]"
+                          ? "bg-white text-[#0D4C3C]"
                           : "bg-black/30 text-white"
                       }`}
                     >
@@ -4013,7 +4013,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               <div>
-                <label className="block text-xs font-bold text-black mb-1">
+                <label className="block text-xs font-bold text-white mb-1">
                   Publication Status
                 </label>
                 <select
@@ -4032,7 +4032,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 </select>
 
                 <div className="space-y-2.5 pt-3 mt-3 border-t border-white/20">
-                  <label className="flex items-center gap-2.5 text-xs text-black cursor-pointer">
+                  <label className="flex items-center gap-2.5 text-xs text-white cursor-pointer">
                     <input
                       type="checkbox"
                       checked={isFeatured}
@@ -4046,7 +4046,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     <span className="font-semibold">Featured on Homepage Clinical Grid</span>
                   </label>
 
-                  <label className="flex items-center gap-2.5 text-xs text-black cursor-pointer">
+                  <label className="flex items-center gap-2.5 text-xs text-white cursor-pointer">
                     <input
                       type="checkbox"
                       checked={isBestSeller}
@@ -4060,7 +4060,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     <span className="font-semibold">Bestseller Ribbon Badge</span>
                   </label>
 
-                  <label className="flex items-center gap-2.5 text-xs text-black cursor-pointer">
+                  <label className="flex items-center gap-2.5 text-xs text-white cursor-pointer">
                     <input
                       type="checkbox"
                       checked={categoryGridVisible}
@@ -4078,7 +4078,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
               <div className="md:col-span-2 space-y-3">
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     Storefront SEO Meta Title
                   </label>
                   <input
@@ -4095,7 +4095,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     Storefront SEO Meta Description
                   </label>
                   <textarea
@@ -4118,14 +4118,14 @@ export const AdminProductEditorPage: React.FC = () => {
         {/* ============================================================ */}
         {/* FINAL FORM BOTTOM SAVE ACTION BAR (NATURAL SCROLLING)        */}
         {/* ============================================================ */}
-        <div className="bg-[#7AA05A] py-4 px-6 border border-white shadow-xl rounded-2xl flex items-center justify-between flex-wrap gap-4 text-black">
+        <div className="bg-[#0D4C3C] py-4 px-6 border border-white shadow-xl rounded-2xl flex items-center justify-between flex-wrap gap-4 text-white">
           <div className="flex items-center gap-3">
             <span
               className={`w-3 h-3 rounded-full ${
-                hasUnsavedChanges ? "bg-[#EAB308] animate-pulse" : "bg-emerald-900"
+                hasUnsavedChanges ? "bg-[#EAB308] animate-pulse" : "bg-emerald-400"
               }`}
             />
-            <span className="text-xs font-bold text-black">
+            <span className="text-xs font-bold text-white">
               {hasUnsavedChanges ? "Unsaved changes detected" : "All fields synchronized"}
             </span>
           </div>
@@ -4133,7 +4133,7 @@ export const AdminProductEditorPage: React.FC = () => {
           <div className="flex items-center gap-3">
             <Link
               to="/admin/products"
-              className="px-5 py-2.5 border border-black/30 rounded-xl text-xs font-bold text-black bg-white/20 hover:bg-white/40 transition-colors"
+              className="px-5 py-2.5 border border-white rounded-xl text-xs font-bold text-white bg-transparent hover:bg-white/10 transition-colors"
             >
               Discard Changes
             </Link>
@@ -4165,10 +4165,10 @@ export const AdminProductEditorPage: React.FC = () => {
           {/* Modal Container */}
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-w-4xl max-h-[90vh] w-full bg-[#7AA05A] border border-white rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+            className="relative max-w-4xl max-h-[90vh] w-full bg-[#0D4C3C] border border-white rounded-2xl overflow-hidden shadow-2xl flex flex-col"
           >
             {/* Top Modal Header */}
-            <div className="px-5 py-3.5 bg-[#7AA05A] border-b border-white/20 flex items-center justify-between text-white">
+            <div className="px-5 py-3.5 bg-[#0D4C3C] border-b border-white/20 flex items-center justify-between text-white">
               <div className="flex items-center gap-2.5">
                 <span className="w-6 h-6 rounded-md bg-[#C62828] text-white border border-white text-xs font-bold flex items-center justify-center">
                   {enlargedImage.index + 1}
@@ -4203,7 +4203,7 @@ export const AdminProductEditorPage: React.FC = () => {
             </div>
 
             {/* Bottom Modal Hint Bar */}
-            <div className="px-5 py-2.5 bg-[#7AA05A] border-t border-white/20 flex items-center justify-between text-[11px] text-white/90">
+            <div className="px-5 py-2.5 bg-[#0D4C3C] border-t border-white/20 flex items-center justify-between text-[11px] text-white/70">
               <span>Press <kbd className="px-1.5 py-0.5 rounded bg-black/40 border border-white/30 font-mono text-white text-[10px]">Esc</kbd> or click backdrop to close</span>
               <span className="font-mono text-[10px]">Full Resolution Preview</span>
             </div>
@@ -4232,7 +4232,7 @@ export const AdminProductEditorPage: React.FC = () => {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-w-md w-full bg-[#7AA05A] border border-white rounded-2xl p-6 shadow-2xl space-y-4 text-black"
+            className="relative max-w-md w-full bg-[#0D4C3C] border border-white rounded-2xl p-6 shadow-2xl space-y-4 text-white"
           >
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-3 border-b border-white/20">
@@ -4240,7 +4240,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 <span className="w-6 h-6 rounded-md bg-[#C62828] text-white border border-white text-xs font-bold flex items-center justify-center">
                   +
                 </span>
-                <h3 className="text-sm sm:text-base font-bold text-black tracking-wide">
+                <h3 className="text-sm sm:text-base font-bold text-white tracking-wide">
                   {addModalType === "primary" && "Add Primary Category"}
                   {addModalType === "subcategory" && "Add Subcategory"}
                   {addModalType === "equipment-type" && "Add Verified Equipment Type"}
@@ -4271,7 +4271,7 @@ export const AdminProductEditorPage: React.FC = () => {
             {addModalType === "primary" && (
               <div className="space-y-3">
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     Category Name <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <input
@@ -4288,8 +4288,8 @@ export const AdminProductEditorPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
-                    Taxonomy / SKU Code <span className="text-black/60 font-normal">(Optional, 3–4 letters)</span>
+                  <label className="block text-xs font-bold text-white mb-1">
+                    Taxonomy / SKU Code <span className="text-white/60 font-normal">(Optional, 3–4 letters)</span>
                   </label>
                   <input
                     type="text"
@@ -4300,7 +4300,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     maxLength={4}
                     className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none uppercase font-mono"
                   />
-                  <p className="text-[11px] text-black/70 mt-1">
+                  <p className="text-[11px] text-white/70 mt-1">
                     Auto-generated from name if left blank (used for unique product SKU prefixes).
                   </p>
                 </div>
@@ -4310,7 +4310,7 @@ export const AdminProductEditorPage: React.FC = () => {
             {addModalType === "subcategory" && (
               <div className="space-y-3">
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     Parent Primary Category <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <select
@@ -4330,7 +4330,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     Subcategory Name <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <input
@@ -4352,7 +4352,7 @@ export const AdminProductEditorPage: React.FC = () => {
             {addModalType === "equipment-type" && (
               <div className="space-y-3">
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     Primary Category <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <select
@@ -4372,7 +4372,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     Subcategory <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <select
@@ -4394,7 +4394,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     Equipment Type Name <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <input
@@ -4421,7 +4421,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   if (!isSubmittingAdd) setAddModalType(null);
                 }}
                 disabled={isSubmittingAdd}
-                className="px-4 py-2 border border-black/30 text-black rounded-xl text-xs font-bold hover:bg-black/10 transition-colors disabled:opacity-50 cursor-pointer"
+                className="px-4 py-2 border border-white/50 text-white rounded-xl text-xs font-bold hover:bg-white/10 transition-colors disabled:opacity-50 cursor-pointer"
               >
                 Cancel
               </button>
