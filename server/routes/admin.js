@@ -378,14 +378,19 @@ router.post("/catalogue/primary-category", requireAdmin, (req, res) => {
 
 router.post("/catalogue/subcategory", requireAdmin, (req, res) => {
   try {
-    const { parentCategory, name } = req.body;
+    const { parentCategory, name, description, shortDescription, displayOrder, order } = req.body;
     if (!parentCategory || typeof parentCategory !== "string" || !parentCategory.trim()) {
       return res.status(400).json({ success: false, message: "Parent primary category is required." });
     }
     if (!name || typeof name !== "string" || !name.trim()) {
       return res.status(400).json({ success: false, message: "Subcategory name is required." });
     }
-    const result = store.addSubcategory({ parentCategory: parentCategory.trim(), name: name.trim() });
+    const result = store.addSubcategory({
+      parentCategory: parentCategory.trim(),
+      name: name.trim(),
+      description: description || shortDescription,
+      order: displayOrder !== undefined ? Number(displayOrder) : (order !== undefined ? Number(order) : undefined)
+    });
     auditService.logAction(req.admin?.email || "ADMIN", "SUBCATEGORY_CREATED", result.subcategory.id, { parentCategory, name });
     res.json({
       success: true,
@@ -510,13 +515,20 @@ router.delete("/categories/:id", requireAdmin, (req, res) => {
 // Update Subcategory
 router.put("/catalogue/subcategory/:parentCategory/:subId", requireAdmin, (req, res) => {
   try {
-    const { name } = req.body;
-    const result = store.updateSubcategory(req.params.parentCategory, req.params.subId, { name });
+    const { name, description, shortDescription, displayOrder, order } = req.body;
+    const result = store.updateSubcategory(req.params.parentCategory, req.params.subId, {
+      name,
+      description,
+      shortDescription,
+      displayOrder,
+      order
+    });
     auditService.logAction(req.admin?.email || "ADMIN", "SUBCATEGORY_UPDATED", req.params.subId, { parentCategory: req.params.parentCategory, name });
     res.json({
       success: true,
       message: result.message,
-      hierarchy: store.getCatalogueHierarchy()
+      hierarchy: store.getCatalogueHierarchy(),
+      categories: store.getCategories(true)
     });
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
@@ -531,7 +543,8 @@ router.delete("/catalogue/subcategory/:parentCategory/:subId", requireAdmin, (re
     res.json({
       success: true,
       message: result.message,
-      hierarchy: store.getCatalogueHierarchy()
+      hierarchy: store.getCatalogueHierarchy(),
+      categories: store.getCategories(true)
     });
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });

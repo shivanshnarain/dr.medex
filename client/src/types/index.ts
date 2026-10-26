@@ -129,6 +129,11 @@ export interface Subcategory {
   id: string;
   slug: string;
   name: string;
+  description?: string;
+  shortDescription?: string;
+  displayOrder?: number;
+  order?: number;
+  targetCount?: number;
 }
 
 export interface Category {

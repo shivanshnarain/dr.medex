@@ -633,7 +633,7 @@ module.exports = {
     persist();
     return { category: newCategory, hierarchyItem: state.catalogueHierarchy[slug] };
   },
-  addSubcategory: ({ parentCategory, name }) => {
+  addSubcategory: ({ parentCategory, name, shortDescription, description, displayOrder, order }) => {
     checkReload();
     if (!parentCategory || typeof parentCategory !== "string" || !parentCategory.trim()) {
       throw new Error("Parent primary category is required.");
@@ -678,15 +678,23 @@ module.exports = {
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "");
 
+    const desc = (shortDescription || description || "").trim();
+    const subOrder = typeof displayOrder === "number" ? displayOrder : (typeof order === "number" ? order : undefined);
+
     const newSubItem = {
       id: subSlug,
       slug: subSlug,
-      name: cleanName
+      name: cleanName,
+      ...(desc ? { description: desc, shortDescription: desc } : {}),
+      ...(subOrder !== undefined ? { order: subOrder } : {})
     };
 
     if (cat) {
       if (!Array.isArray(cat.subcategories)) cat.subcategories = [];
       cat.subcategories.push(newSubItem);
+      if (subOrder !== undefined) {
+        cat.subcategories.sort((a, b) => (a.order || 0) - (b.order || 0));
+      }
     }
 
     if (hierParent) {
@@ -694,8 +702,13 @@ module.exports = {
       hierParent.subcategories.push({
         id: subSlug,
         name: cleanName,
+        ...(desc ? { description: desc } : {}),
+        ...(subOrder !== undefined ? { order: subOrder } : {}),
         equipmentTypes: []
       });
+      if (subOrder !== undefined) {
+        hierParent.subcategories.sort((a, b) => (a.order || 0) - (b.order || 0));
+      }
     }
 
     Object.assign(initialCatalogueHierarchy, state.catalogueHierarchy);
@@ -936,7 +949,7 @@ module.exports = {
     persist();
     return { success: true, message: `Verified equipment type "${eqName}" deleted successfully.` };
   },
-  updateSubcategory: (parentCategory, subId, { name }) => {
+  updateSubcategory: (parentCategory, subId, { name, description, shortDescription, displayOrder, order }) => {
     checkReload();
     const cleanParent = (parentCategory || "").trim().toLowerCase();
     const cleanSub = (subId || "").trim().toLowerCase();
@@ -949,13 +962,33 @@ module.exports = {
     );
     const hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
 
+    const desc = (shortDescription !== undefined || description !== undefined) ? (shortDescription || description || "").trim() : undefined;
+    const subOrder = typeof displayOrder === "number" ? displayOrder : (typeof order === "number" ? order : undefined);
+
     if (hier && Array.isArray(hier.subcategories)) {
-      const s = hier.subcategories.find(x => (x.id || "").toLowerCase() === cleanSub || (x.name || "").toLowerCase() === cleanSub);
-      if (s) s.name = cleanName;
+      const s = hier.subcategories.find(x => (x.id || "").toLowerCase() === cleanSub || (x.slug || "").toLowerCase() === cleanSub || (x.name || "").toLowerCase() === cleanSub);
+      if (s) {
+        s.name = cleanName;
+        if (desc !== undefined) s.description = desc;
+        if (subOrder !== undefined) s.order = subOrder;
+      }
+      if (subOrder !== undefined) {
+        hier.subcategories.sort((a, b) => (a.order || 0) - (b.order || 0));
+      }
     }
     if (cat && Array.isArray(cat.subcategories)) {
-      const s = cat.subcategories.find(x => (x.id || "").toLowerCase() === cleanSub || (x.name || "").toLowerCase() === cleanSub);
-      if (s) s.name = cleanName;
+      const s = cat.subcategories.find(x => (x.id || "").toLowerCase() === cleanSub || (x.slug || "").toLowerCase() === cleanSub || (x.name || "").toLowerCase() === cleanSub);
+      if (s) {
+        s.name = cleanName;
+        if (desc !== undefined) {
+          s.description = desc;
+          s.shortDescription = desc;
+        }
+        if (subOrder !== undefined) s.order = subOrder;
+      }
+      if (subOrder !== undefined) {
+        cat.subcategories.sort((a, b) => (a.order || 0) - (b.order || 0));
+      }
     }
 
     persist();

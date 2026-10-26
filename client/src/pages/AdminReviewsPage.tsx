@@ -135,7 +135,7 @@ export const AdminReviewsPage: React.FC = () => {
           type="button"
           onClick={loadReviews}
           disabled={isLoading}
-          className="px-3.5 py-2 bg-[#0D4C3C] border border-white/20 hover:border-white text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
+          className="px-3.5 py-2 bg-neutral-100 border border-neutral-300 hover:border-black text-neutral-800 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
         >
           <RefreshCw size={14} className={isLoading ? "animate-spin" : ""} />
           <span>Refresh</span>
@@ -146,17 +146,17 @@ export const AdminReviewsPage: React.FC = () => {
         {/* Status Message */}
         {statusMessage && (
           <div
-            className={`p-3.5 rounded-xl text-xs font-semibold flex items-center justify-between shadow-md ${
+            className={`p-3.5 rounded-xl text-xs font-semibold flex items-center justify-between shadow-xs ${
               statusMessage.type === "success"
-                ? "bg-[#0D4C3C] text-white border border-[#FFD400]"
-                : "bg-[#C62828]/25 text-white border border-[#C62828]"
+                ? "bg-emerald-50 text-emerald-900 border border-emerald-300"
+                : "bg-red-50 text-red-900 border border-red-300"
             }`}
           >
             <span>{statusMessage.text}</span>
             <button
               type="button"
               onClick={() => setStatusMessage(null)}
-              className="text-2xs uppercase font-bold text-white/70 hover:text-white"
+              className="text-2xs uppercase font-bold text-neutral-600 hover:text-black cursor-pointer"
             >
               Dismiss
             </button>
@@ -166,11 +166,11 @@ export const AdminReviewsPage: React.FC = () => {
         {/* Stats & Filters Row */}
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
           {[
-            { label: "All Reviews", statusKey: "ALL", count: counts.total, color: "text-white" },
-            { label: "Pending", statusKey: "PENDING", count: counts.pending, color: "text-[#FFD400]" },
-            { label: "Quarantined", statusKey: "QUARANTINED", count: counts.quarantined || 0, color: "text-orange-400" },
-            { label: "Approved Public", statusKey: "APPROVED", count: counts.approved, color: "text-emerald-400" },
-            { label: "Rejected", statusKey: "REJECTED", count: counts.rejected, color: "text-red-400" }
+            { label: "All Reviews", statusKey: "ALL", count: counts.total, color: "text-neutral-900" },
+            { label: "Pending", statusKey: "PENDING", count: counts.pending, color: "text-[#D97706]" },
+            { label: "Quarantined", statusKey: "QUARANTINED", count: counts.quarantined || 0, color: "text-orange-600" },
+            { label: "Approved Public", statusKey: "APPROVED", count: counts.approved, color: "text-emerald-700" },
+            { label: "Rejected", statusKey: "REJECTED", count: counts.rejected, color: "text-red-700" }
           ].map((item) => (
             <button
               key={item.statusKey}
@@ -178,70 +178,70 @@ export const AdminReviewsPage: React.FC = () => {
               onClick={() => setFilterStatus(item.statusKey)}
               className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
                 filterStatus === item.statusKey
-                  ? "bg-[#0D4C3C] border-[#FFD400] shadow-md ring-1 ring-[#FFD400]"
-                  : "bg-[#0D4C3C] border-white/15 hover:border-white/30 text-white"
+                  ? "bg-white border-black shadow-xs ring-1 ring-black text-neutral-900"
+                  : "bg-white border-neutral-300 hover:border-black text-neutral-900"
               }`}
             >
-              <div className="text-2xs text-white/70 font-bold uppercase tracking-wider">{item.label}</div>
+              <div className="text-2xs text-neutral-500 font-bold uppercase tracking-wider">{item.label}</div>
               <div className={`text-2xl font-black mt-1 font-mono ${item.color}`}>{item.count}</div>
             </button>
           ))}
         </div>
 
         {/* Reviews Table / Card List */}
-        <div className="bg-[#0D4C3C] text-white rounded-2xl border border-white/20 shadow-xl overflow-hidden">
-          <div className="p-5 border-b border-white/15 flex items-center justify-between flex-wrap gap-3 bg-black/20">
+        <div className="bg-white text-neutral-900 rounded-2xl border border-neutral-300 shadow-xs overflow-hidden">
+          <div className="p-5 border-b border-neutral-200 flex items-center justify-between flex-wrap gap-3 bg-neutral-50">
             <div className="flex items-center gap-2">
-              <Filter size={16} className="text-[#FFD400]" />
-              <h3 className="text-xs font-bold uppercase text-white tracking-tight">
+              <Filter size={16} className="text-neutral-700" />
+              <h3 className="text-xs font-bold uppercase text-neutral-900 tracking-tight">
                 Showing: {filterStatus} Reviews ({reviews.length})
               </h3>
             </div>
-            <span className="text-2xs text-white/60 font-mono">
+            <span className="text-2xs text-neutral-500 font-mono">
               Database: Cloud Firestore (default) • Collection: reviews
             </span>
           </div>
 
           {isLoading ? (
-            <div className="p-12 text-center text-white/60 flex flex-col items-center justify-center gap-2">
+            <div className="p-12 text-center text-neutral-500 flex flex-col items-center justify-center gap-2">
               <Loader2 size={24} className="animate-spin text-[#FFD400]" />
               <span className="text-xs">Loading reviews...</span>
             </div>
           ) : reviews.length === 0 ? (
-            <div className="p-12 text-center text-white/70 space-y-1">
-              <div className="font-bold text-sm text-white">No reviews found for status: {filterStatus}</div>
-              <p className="text-xs text-white/60">
+            <div className="p-12 text-center text-neutral-600 space-y-1">
+              <div className="font-bold text-sm text-neutral-900">No reviews found for status: {filterStatus}</div>
+              <p className="text-xs text-neutral-500">
                 Customer evaluations submitted through the product detail page will appear here for verification.
               </p>
             </div>
           ) : (
-            <div className="divide-y divide-white/10">
+            <div className="divide-y divide-neutral-200">
               {reviews.map((rev) => {
                 const isActionBusy = actionLoadingId === rev.id;
                 const authorDisplay = rev.customerName || rev.author || "Practitioner";
                 const commentDisplay = rev.reviewText || rev.comment || "";
 
                 return (
-                  <div key={rev.id} className="p-6 space-y-3 hover:bg-white/5 transition-colors">
+                  <div key={rev.id} className="p-6 space-y-3 hover:bg-neutral-50 transition-colors">
                     {/* Top Row: Author, Status Badge, Star Rating, Actions */}
                     <div className="flex items-start justify-between flex-wrap gap-4">
                       <div>
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-bold text-sm text-white">{authorDisplay}</span>
+                          <span className="font-bold text-sm text-neutral-900">{authorDisplay}</span>
                           {rev.facility && (
-                            <span className="text-xs text-white/70">({rev.facility})</span>
+                            <span className="text-xs text-neutral-500">({rev.facility})</span>
                           )}
 
                           {/* Status Pill */}
                           <span
                             className={`px-2.5 py-0.5 rounded-full text-3xs font-extrabold uppercase tracking-wider ${
                               rev.status === "APPROVED"
-                                ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
+                                ? "bg-emerald-50 text-emerald-800 border border-emerald-300"
                                 : rev.status === "REJECTED"
-                                ? "bg-red-500/20 text-red-300 border border-red-500/30"
+                                ? "bg-red-50 text-red-800 border border-red-300"
                                 : rev.status === "QUARANTINED"
-                                ? "bg-orange-500/20 text-orange-300 border border-orange-500/30"
-                                : "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                                ? "bg-orange-50 text-orange-800 border border-orange-300"
+                                : "bg-amber-50 text-amber-800 border border-amber-300"
                             }`}
                           >
                             {rev.status}
@@ -254,8 +254,8 @@ export const AdminReviewsPage: React.FC = () => {
                             disabled={isActionBusy}
                             className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-3xs font-bold cursor-pointer transition-colors ${
                               rev.verifiedPurchase
-                                ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
-                                : "bg-white/10 text-white/60 border border-white/15 hover:border-white/30"
+                                ? "bg-emerald-50 text-emerald-800 border border-emerald-300"
+                                : "bg-neutral-100 text-neutral-600 border border-neutral-300 hover:border-black"
                             }`}
                             title="Click to toggle Verified Purchase status"
                           >
@@ -265,21 +265,21 @@ export const AdminReviewsPage: React.FC = () => {
 
                           {/* AI Assisted Tag */}
                           {rev.aiAssisted && (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-white/10 text-white/80 rounded-md text-3xs font-medium">
-                              <Sparkles size={10} className="text-[#FFD400]" />
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-neutral-100 text-neutral-700 rounded-md text-3xs font-medium border border-neutral-200">
+                              <Sparkles size={10} className="text-[#D97706]" />
                               <span>AI Assisted Draft</span>
                             </span>
                           )}
                         </div>
 
                         {/* Product Title Link */}
-                        <div className="text-2xs text-white/60 font-mono mt-1 flex items-center gap-1.5">
+                        <div className="text-2xs text-neutral-500 font-mono mt-1 flex items-center gap-1.5">
                           <span>Product ID: {rev.productId}</span>
                           {rev.productSlug && (
                             <Link
                               to={`/product/${rev.productSlug}`}
                               target="_blank"
-                              className="text-[#FFD400] hover:underline inline-flex items-center gap-0.5 font-medium"
+                              className="text-neutral-900 hover:underline inline-flex items-center gap-0.5 font-medium"
                             >
                               <span>View Product</span>
                               <ExternalLink size={10} />
@@ -296,7 +296,7 @@ export const AdminReviewsPage: React.FC = () => {
                               key={i}
                               size={14}
                               fill={i < rev.rating ? "currentColor" : "none"}
-                              className={i < rev.rating ? "text-[#FFD400]" : "text-white/20"}
+                              className={i < rev.rating ? "text-[#FFD400]" : "text-neutral-300"}
                             />
                           ))}
                         </div>
@@ -308,7 +308,7 @@ export const AdminReviewsPage: React.FC = () => {
                               type="button"
                               onClick={() => handleUpdateStatus(rev.id, "APPROVED")}
                               disabled={isActionBusy}
-                              className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-2xs font-bold flex items-center gap-1 transition-colors cursor-pointer disabled:opacity-50"
+                              className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-2xs font-bold flex items-center gap-1 transition-colors cursor-pointer disabled:opacity-50 shadow-2xs"
                             >
                               <CheckCircle size={12} />
                               <span>Approve</span>
@@ -320,7 +320,7 @@ export const AdminReviewsPage: React.FC = () => {
                               type="button"
                               onClick={() => handleUpdateStatus(rev.id, "REJECTED")}
                               disabled={isActionBusy}
-                              className="px-3 py-1.5 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-2xs font-bold flex items-center gap-1 transition-colors cursor-pointer disabled:opacity-50"
+                              className="px-3 py-1.5 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-2xs font-bold flex items-center gap-1 transition-colors cursor-pointer disabled:opacity-50 shadow-2xs"
                             >
                               <XCircle size={12} />
                               <span>Reject</span>
@@ -331,7 +331,7 @@ export const AdminReviewsPage: React.FC = () => {
                             type="button"
                             onClick={() => handleDelete(rev.id)}
                             disabled={isActionBusy}
-                            className="p-1.5 text-white/50 hover:text-red-400 rounded-lg transition-colors cursor-pointer"
+                            className="p-1.5 text-neutral-400 hover:text-[#DC2626] rounded-lg transition-colors cursor-pointer"
                             title="Delete review"
                           >
                             <Trash2 size={14} />
@@ -342,7 +342,7 @@ export const AdminReviewsPage: React.FC = () => {
 
                     {/* Headline */}
                     {rev.reviewTitle && (
-                      <h4 className="text-xs font-bold text-white">{rev.reviewTitle}</h4>
+                      <h4 className="text-xs font-bold text-neutral-900">{rev.reviewTitle}</h4>
                     )}
 
                     {/* Feedback Tags */}
@@ -351,7 +351,7 @@ export const AdminReviewsPage: React.FC = () => {
                         {rev.customerFeedbackPoints.map((pt, idx) => (
                           <span
                             key={idx}
-                            className="px-2 py-0.5 bg-white/10 text-white/80 rounded-md text-3xs font-medium"
+                            className="px-2 py-0.5 bg-neutral-100 text-neutral-700 rounded-md text-3xs font-medium border border-neutral-200"
                           >
                             {pt}
                           </span>
@@ -360,11 +360,11 @@ export const AdminReviewsPage: React.FC = () => {
                     )}
 
                     {/* Review Feedback Text */}
-                    <p className="text-xs text-white/90 leading-relaxed italic bg-black/20 p-3 rounded-xl border border-white/10">
+                    <p className="text-xs text-neutral-800 leading-relaxed italic bg-neutral-50 p-3 rounded-xl border border-neutral-200">
                       &ldquo;{commentDisplay}&rdquo;
                     </p>
 
-                    <div className="text-3xs text-white/50 font-mono">
+                    <div className="text-3xs text-neutral-500 font-mono">
                       Created: {rev.createdAt || rev.date} • Document ID: {rev.id}
                     </div>
                   </div>

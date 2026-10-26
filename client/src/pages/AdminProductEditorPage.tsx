@@ -377,12 +377,12 @@ export const AdminProductEditorPage: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(1);
   const [selectedCard, setSelectedCard] = useState<string>("step-1");
 
-  // Exact DR.MEDEX Dark Emerald Palette (#0D4C3C) with solid White Outline (#FFFFFF) and White Text
+  // Minimal White & Black Palette with Preserved Accents
   const getCardStyle = (cardId: string) => {
     const isSelected = selectedCard === cardId;
     return isSelected
-      ? "bg-[#0D4C3C] border-white ring-2 ring-white/70 shadow-lg text-white"
-      : "bg-[#0D4C3C] border-white shadow-md text-white";
+      ? "bg-white border-black ring-2 ring-black/40 shadow-md text-black"
+      : "bg-white border-neutral-300 shadow-xs text-black";
   };
 
   // Categories & Catalogue Hierarchy
@@ -539,11 +539,19 @@ export const AdminProductEditorPage: React.FC = () => {
     manuallyEditedFieldsRef.current = manuallyEditedFields;
   }, [manuallyEditedFields]);
 
+  const queryParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
+  const paramCategory = queryParams.get("category");
+  const paramSubcategory = queryParams.get("subcategory");
+
   // ==========================================
   // STEP 2: PRODUCT CLASSIFICATION
   // ==========================================
-  const [category, setCategory] = useState(initialProduct?.category || "ot-lights");
-  const [subcategory, setSubcategory] = useState(initialProduct?.subcategory || "");
+  const [category, setCategory] = useState(
+    (!isEditMode && paramCategory) ? paramCategory : (initialProduct?.category || "ot-lights")
+  );
+  const [subcategory, setSubcategory] = useState(
+    (!isEditMode && paramSubcategory) ? paramSubcategory : (initialProduct?.subcategory || "")
+  );
   const [equipmentType, setEquipmentType] = useState(initialProduct?.equipmentType || "");
 
   // ==========================================
@@ -2577,8 +2585,9 @@ export const AdminProductEditorPage: React.FC = () => {
           return;
         }
 
+        const targetCategory = payload.category || category || "all";
         setHasUnsavedChanges(false);
-        navigate("/admin/products", {
+        navigate(`/admin/products?category=${encodeURIComponent(targetCategory)}`, {
           state: {
             refreshed: true,
             updatedProduct: data.product,
@@ -2652,17 +2661,17 @@ export const AdminProductEditorPage: React.FC = () => {
               ? "bg-[#FFFFFF] border-[#D32F2F] text-[#D32F2F]"
               : statusBanner.type === "warning"
               ? "bg-amber-800 border-white text-white"
-              : "bg-[#0D4C3C] border-white text-white"
+              : "bg-emerald-50 border-emerald-300 text-emerald-900"
           }`}
         >
           <div className="flex items-start gap-2.5">
             <AlertCircle
               size={18}
-              className={`mt-0.5 shrink-0 ${statusBanner.type === "error" ? "text-[#D32F2F]" : "text-white"}`}
+              className={`mt-0.5 shrink-0 ${statusBanner.type === "error" ? "text-[#D32F2F]" : statusBanner.type === "warning" ? "text-white" : "text-emerald-700"}`}
             />
             <p
               className={`text-xs font-semibold leading-relaxed ${
-                statusBanner.type === "error" ? "text-[#D32F2F]" : "text-white"
+                statusBanner.type === "error" ? "text-[#D32F2F]" : statusBanner.type === "warning" ? "text-white" : "text-emerald-900"
               }`}
             >
               {statusBanner.text}
@@ -2682,15 +2691,15 @@ export const AdminProductEditorPage: React.FC = () => {
 
       {/* Duplicate Product Detection Banner */}
       {duplicateInfo.isDuplicate && duplicateInfo.duplicateProduct && (
-        <div className="mb-6 p-4 rounded-2xl border border-white bg-[#0D4C3C] flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-md text-white">
+        <div className="mb-6 p-4 rounded-2xl border border-neutral-300 bg-white flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-xs text-neutral-900">
           <div className="flex items-start gap-3">
             <AlertTriangle size={18} className="text-[#EAB308] mt-0.5 shrink-0" />
             <div>
-              <h4 className="text-xs font-bold text-white">
+              <h4 className="text-xs font-bold text-neutral-900">
                 Potential Duplicate Product Detected in Category
               </h4>
-              <p className="text-xs text-white/80 mt-0.5">
-                Existing item: <strong className="text-white underline">{duplicateInfo.duplicateProduct.title}</strong> (SKU: {duplicateInfo.duplicateProduct.sku})
+              <p className="text-xs text-neutral-600 mt-0.5">
+                Existing item: <strong className="text-neutral-900 underline">{duplicateInfo.duplicateProduct.title}</strong> (SKU: {duplicateInfo.duplicateProduct.sku})
               </p>
             </div>
           </div>
@@ -2698,17 +2707,17 @@ export const AdminProductEditorPage: React.FC = () => {
           <div className="flex items-center gap-3 shrink-0">
             <Link
               to={`/admin/products/${duplicateInfo.duplicateProduct.id}/edit`}
-              className="px-3 py-1.5 bg-black/40 hover:bg-black/60 border border-white text-white rounded-lg text-xs font-bold transition-colors inline-flex items-center gap-1.5"
+              className="px-3 py-1.5 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 text-neutral-900 rounded-lg text-xs font-bold transition-colors inline-flex items-center gap-1.5"
             >
               <ExternalLink size={13} />
               <span>Open Existing</span>
             </Link>
-            <label className="flex items-center gap-1.5 text-xs text-white cursor-pointer">
+            <label className="flex items-center gap-1.5 text-xs text-neutral-800 cursor-pointer">
               <input
                 type="checkbox"
                 checked={allowDuplicateOverride}
                 onChange={(e) => setAllowDuplicateOverride(e.target.checked)}
-                className="w-4 h-4 rounded border-white text-[#C62828] focus:ring-[#C62828] accent-[#C62828]"
+                className="w-4 h-4 rounded border-neutral-300 text-[#C62828] focus:ring-[#C62828] accent-[#C62828]"
               />
               <span>Allow intentional variant</span>
             </label>
@@ -2719,7 +2728,7 @@ export const AdminProductEditorPage: React.FC = () => {
       {/* ============================================================ */}
       {/* COMPACT HORIZONTAL NINE-STEP PROGRESS TRACKER                */}
       {/* ============================================================ */}
-      <div className="mb-8 bg-[#0D4C3C] border border-white rounded-2xl p-4 shadow-md">
+      <div className="mb-8 bg-white border border-neutral-300 rounded-2xl p-4 shadow-xs">
         <div className="flex items-center justify-between overflow-x-auto pb-1 scrollbar-none gap-3">
           {stepStatus.map((step, idx) => {
             const isActive = activeStep === step.id;
@@ -2738,8 +2747,8 @@ export const AdminProductEditorPage: React.FC = () => {
                     step.isDone
                       ? "bg-[#FFD400] text-black border-0 shadow-xs ring-0"
                       : isActive
-                      ? "border border-white bg-[#C62828] text-white ring-2 ring-white"
-                      : "border border-white/40 text-white/70 bg-white/10"
+                      ? "border border-neutral-900 bg-[#C62828] text-white ring-2 ring-neutral-400"
+                      : "border border-neutral-300 text-neutral-600 bg-neutral-100"
                   }`}
                   style={step.isDone ? { backgroundColor: "#FFD400", border: "none", outline: "none" } : undefined}
                 >
@@ -2747,16 +2756,16 @@ export const AdminProductEditorPage: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col">
-                  <span className="text-xs font-bold text-white group-hover:text-white/90">
+                  <span className="text-xs font-bold text-neutral-900 group-hover:text-black">
                     {step.name}
                   </span>
-                  <span className="text-[10px] text-white/70 font-medium">
+                  <span className="text-[10px] text-neutral-500 font-medium">
                     {step.isDone ? "Completed" : isActive ? "Current" : `Step ${step.id}`}
                   </span>
                 </div>
 
                 {idx < stepStatus.length - 1 && (
-                  <div className="hidden xl:block w-3 h-px bg-white/30 ml-1" />
+                  <div className="hidden xl:block w-3 h-px bg-neutral-200 ml-1" />
                 )}
               </button>
             );
@@ -2768,10 +2777,10 @@ export const AdminProductEditorPage: React.FC = () => {
       {/* 9-STEP ENTERPRISE FORM WORKSPACE                             */}
       {/* ============================================================ */}
       {isLoading ? (
-        <div className="bg-[#0D4C3C] border border-white/20 rounded-2xl p-12 text-center text-white shadow-xl flex flex-col items-center justify-center space-y-4 min-h-[360px]">
-          <RefreshCw size={36} className="animate-spin text-white/80" />
+        <div className="bg-white border border-neutral-300 rounded-2xl p-12 text-center text-neutral-900 shadow-xs flex flex-col items-center justify-center space-y-4 min-h-[360px]">
+          <RefreshCw size={36} className="animate-spin text-neutral-400" />
           <h3 className="text-lg font-bold">Loading Product Details...</h3>
-          <p className="text-sm text-gray-300 max-w-md">
+          <p className="text-sm text-neutral-600 max-w-md">
             Retrieving complete product specifications, pricing, and high-resolution clinical photographs.
           </p>
         </div>
@@ -3108,7 +3117,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   {/* Classification Options Dropdown */}
                   {isAddMenuOpen && (
                     <div
-                      className="absolute right-0 top-full mt-1.5 w-60 bg-[#0D4C3C] border border-white/60 rounded-xl shadow-2xl py-1.5 z-40 text-white"
+                      className="absolute right-0 top-full mt-1.5 w-60 bg-white border border-neutral-300 rounded-xl shadow-2xl py-1.5 z-40 text-neutral-900"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <button
@@ -4129,14 +4138,16 @@ export const AdminProductEditorPage: React.FC = () => {
         {/* ============================================================ */}
         {/* FINAL FORM BOTTOM SAVE ACTION BAR (NATURAL SCROLLING)        */}
         {/* ============================================================ */}
-        <div className="bg-[#0D4C3C] py-4 px-6 border border-white shadow-xl rounded-2xl flex items-center justify-between flex-wrap gap-4 text-white">
+        {/* FINAL FORM BOTTOM SAVE ACTION BAR (NATURAL SCROLLING)        */}
+        {/* ============================================================ */}
+        <div className="bg-white py-4 px-6 border border-neutral-300 shadow-md rounded-2xl flex items-center justify-between flex-wrap gap-4 text-neutral-900">
           <div className="flex items-center gap-3">
             <span
               className={`w-3 h-3 rounded-full ${
-                hasUnsavedChanges ? "bg-[#EAB308] animate-pulse" : "bg-emerald-400"
+                hasUnsavedChanges ? "bg-[#EAB308] animate-pulse" : "bg-emerald-500"
               }`}
             />
-            <span className="text-xs font-bold text-white">
+            <span className="text-xs font-bold text-neutral-900">
               {hasUnsavedChanges ? "Unsaved changes detected" : "All fields synchronized"}
             </span>
           </div>
@@ -4144,7 +4155,7 @@ export const AdminProductEditorPage: React.FC = () => {
           <div className="flex items-center gap-3">
             <Link
               to="/admin/products"
-              className="px-5 py-2.5 border border-white rounded-xl text-xs font-bold text-white bg-transparent hover:bg-white/10 transition-colors"
+              className="px-5 py-2.5 border border-neutral-300 rounded-xl text-xs font-bold text-neutral-700 bg-transparent hover:bg-neutral-100 transition-colors"
             >
               Discard Changes
             </Link>
@@ -4152,7 +4163,7 @@ export const AdminProductEditorPage: React.FC = () => {
             <button
               type="submit"
               disabled={isSaving}
-              className="flex items-center gap-2 px-8 py-2.5 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-xl text-xs font-bold transition-all border border-white shadow-md disabled:opacity-50 cursor-pointer"
+              className="flex items-center gap-2 px-8 py-2.5 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-xl text-xs font-bold transition-all shadow-md disabled:opacity-50 cursor-pointer"
             >
               {isSaving ? <RefreshCw size={14} className="animate-spin" /> : <Save size={14} />}
               <span>{isSaving ? "Saving Product..." : isEditMode ? "Save Changes" : "Save Product"}</span>
@@ -4171,24 +4182,24 @@ export const AdminProductEditorPage: React.FC = () => {
           aria-modal="true"
           aria-label={enlargedImage.title || "Enlarged product image preview"}
           onClick={() => setEnlargedImage(null)}
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6"
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6"
         >
           {/* Modal Container */}
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-w-4xl max-h-[90vh] w-full bg-[#0D4C3C] border border-white rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+            className="relative max-w-4xl max-h-[90vh] w-full bg-white border border-neutral-300 rounded-2xl overflow-hidden shadow-2xl flex flex-col"
           >
             {/* Top Modal Header */}
-            <div className="px-5 py-3.5 bg-[#0D4C3C] border-b border-white/20 flex items-center justify-between text-white">
+            <div className="px-5 py-3.5 bg-neutral-50 border-b border-neutral-200 flex items-center justify-between text-neutral-900">
               <div className="flex items-center gap-2.5">
-                <span className="w-6 h-6 rounded-md bg-[#C62828] text-white border border-white text-xs font-bold flex items-center justify-center">
+                <span className="w-6 h-6 rounded-md bg-[#C62828] text-white text-xs font-bold flex items-center justify-center">
                   {enlargedImage.index + 1}
                 </span>
-                <span className="text-xs sm:text-sm font-bold tracking-wide">
+                <span className="text-xs sm:text-sm font-bold tracking-wide text-neutral-900">
                   {enlargedImage.title}
                 </span>
                 {enlargedImage.index === primaryImageIndex && (
-                  <span className="bg-[#C62828] text-white text-[9px] font-black px-2 py-0.5 rounded border border-white tracking-wider">
+                  <span className="bg-[#C62828] text-white text-[9px] font-black px-2 py-0.5 rounded tracking-wider">
                     PRIMARY
                   </span>
                 )}
@@ -4198,14 +4209,14 @@ export const AdminProductEditorPage: React.FC = () => {
                 type="button"
                 onClick={() => setEnlargedImage(null)}
                 aria-label="Close enlarged preview"
-                className="w-8 h-8 rounded-lg bg-black/40 hover:bg-[#C62828] text-white flex items-center justify-center transition-colors border border-white/30 cursor-pointer"
+                className="w-8 h-8 rounded-lg bg-neutral-100 hover:bg-[#C62828] hover:text-white text-neutral-700 flex items-center justify-center transition-colors border border-neutral-300 cursor-pointer"
               >
                 <X size={16} strokeWidth={2.5} />
               </button>
             </div>
 
             {/* Complete Image without Stretching or Cropping */}
-            <div className="p-4 sm:p-6 flex-1 flex items-center justify-center bg-black/60 overflow-hidden min-h-[300px] max-h-[75vh]">
+            <div className="p-4 sm:p-6 flex-1 flex items-center justify-center bg-neutral-100 overflow-hidden min-h-[300px] max-h-[75vh]">
               <img
                 src={enlargedImage.url}
                 alt={enlargedImage.title}
@@ -4214,8 +4225,8 @@ export const AdminProductEditorPage: React.FC = () => {
             </div>
 
             {/* Bottom Modal Hint Bar */}
-            <div className="px-5 py-2.5 bg-[#0D4C3C] border-t border-white/20 flex items-center justify-between text-[11px] text-white/70">
-              <span>Press <kbd className="px-1.5 py-0.5 rounded bg-black/40 border border-white/30 font-mono text-white text-[10px]">Esc</kbd> or click backdrop to close</span>
+            <div className="px-5 py-2.5 bg-neutral-50 border-t border-neutral-200 flex items-center justify-between text-[11px] text-neutral-600">
+              <span>Press <kbd className="px-1.5 py-0.5 rounded bg-neutral-200 border border-neutral-300 font-mono text-neutral-800 text-[10px]">Esc</kbd> or click backdrop to close</span>
               <span className="font-mono text-[10px]">Full Resolution Preview</span>
             </div>
           </div>
@@ -4239,19 +4250,19 @@ export const AdminProductEditorPage: React.FC = () => {
           onClick={() => {
             if (!isSubmittingAdd) setAddModalType(null);
           }}
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-w-md w-full bg-[#0D4C3C] border border-white rounded-2xl p-6 shadow-2xl space-y-4 text-white"
+            className="relative max-w-md w-full bg-white border border-neutral-300 rounded-2xl p-6 shadow-2xl space-y-4 text-neutral-900"
           >
             {/* Modal Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-white/20">
+            <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
               <div className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded-md bg-[#C62828] text-white border border-white text-xs font-bold flex items-center justify-center">
+                <span className="w-6 h-6 rounded-md bg-[#C62828] text-white text-xs font-bold flex items-center justify-center">
                   +
                 </span>
-                <h3 className="text-sm sm:text-base font-bold text-white tracking-wide">
+                <h3 className="text-sm sm:text-base font-bold text-neutral-900 tracking-wide">
                   {addModalType === "primary" && "Add Primary Category"}
                   {addModalType === "subcategory" && "Add Subcategory"}
                   {addModalType === "equipment-type" && "Add Verified Equipment Type"}
@@ -4264,7 +4275,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 }}
                 disabled={isSubmittingAdd}
                 aria-label="Close dialog"
-                className="w-7 h-7 rounded-lg bg-black/40 hover:bg-[#C62828] text-white flex items-center justify-center transition-colors border border-white/30 cursor-pointer disabled:opacity-50"
+                className="w-7 h-7 rounded-lg bg-neutral-100 hover:bg-[#C62828] hover:text-white text-neutral-600 flex items-center justify-center transition-colors border border-neutral-300 cursor-pointer disabled:opacity-50"
               >
                 <X size={15} />
               </button>
@@ -4272,8 +4283,8 @@ export const AdminProductEditorPage: React.FC = () => {
 
             {/* Error Banner */}
             {addModalError && (
-              <div className="p-3 bg-red-950/80 border border-red-500/80 rounded-xl text-red-200 text-xs font-medium flex items-center gap-2 shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-red-400 shrink-0" />
+              <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-[#C62828] text-xs font-medium flex items-center gap-2 shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-[#C62828] shrink-0" />
                 <span>{addModalError}</span>
               </div>
             )}
@@ -4282,7 +4293,7 @@ export const AdminProductEditorPage: React.FC = () => {
             {addModalType === "primary" && (
               <div className="space-y-3">
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-800 mb-1">
                     Category Name <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <input
@@ -4294,13 +4305,13 @@ export const AdminProductEditorPage: React.FC = () => {
                       setAddModalError(null);
                     }}
                     placeholder="e.g., Diagnostic Imaging"
-                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-medium focus:border-black focus:ring-1 focus:ring-black focus:outline-none"
                     autoFocus
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
-                    Taxonomy / SKU Code <span className="text-white/60 font-normal">(Optional, 3–4 letters)</span>
+                  <label className="block text-xs font-bold text-neutral-800 mb-1">
+                    Taxonomy / SKU Code <span className="text-neutral-500 font-normal">(Optional, 3–4 letters)</span>
                   </label>
                   <input
                     type="text"
@@ -4309,9 +4320,9 @@ export const AdminProductEditorPage: React.FC = () => {
                     onChange={(e) => setNewPrimaryCode(e.target.value.toUpperCase())}
                     placeholder="e.g., IMG"
                     maxLength={4}
-                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none uppercase font-mono"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-medium focus:border-black focus:ring-1 focus:ring-black focus:outline-none uppercase font-mono"
                   />
-                  <p className="text-[11px] text-white/70 mt-1">
+                  <p className="text-[11px] text-neutral-500 mt-1">
                     Auto-generated from name if left blank (used for unique product SKU prefixes).
                   </p>
                 </div>
@@ -4321,7 +4332,7 @@ export const AdminProductEditorPage: React.FC = () => {
             {addModalType === "subcategory" && (
               <div className="space-y-3">
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-800 mb-1">
                     Parent Primary Category <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <select
@@ -4331,7 +4342,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setNewSubParentCat(e.target.value);
                       setAddModalError(null);
                     }}
-                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none cursor-pointer"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-medium focus:border-black focus:ring-1 focus:ring-black focus:outline-none cursor-pointer"
                   >
                     {allCategories.map((c) => (
                       <option key={c.id} value={c.slug || c.id}>
@@ -4341,7 +4352,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-800 mb-1">
                     Subcategory Name <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <input
@@ -4353,7 +4364,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setAddModalError(null);
                     }}
                     placeholder="e.g., MRI Scanners"
-                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-medium focus:border-black focus:ring-1 focus:ring-black focus:outline-none"
                     autoFocus
                   />
                 </div>
@@ -4363,7 +4374,7 @@ export const AdminProductEditorPage: React.FC = () => {
             {addModalType === "equipment-type" && (
               <div className="space-y-3">
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-800 mb-1">
                     Primary Category <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <select
@@ -4373,7 +4384,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setNewEqParentCat(e.target.value);
                       setAddModalError(null);
                     }}
-                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none cursor-pointer"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-medium focus:border-black focus:ring-1 focus:ring-black focus:outline-none cursor-pointer"
                   >
                     {allCategories.map((c) => (
                       <option key={c.id} value={c.slug || c.id}>
@@ -4383,7 +4394,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-800 mb-1">
                     Subcategory <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <select
@@ -4394,7 +4405,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setNewEqSubcat(e.target.value);
                       setAddModalError(null);
                     }}
-                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none cursor-pointer disabled:opacity-50"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-medium focus:border-black focus:ring-1 focus:ring-black focus:outline-none cursor-pointer disabled:opacity-50"
                   >
                     {modalSubcategories.length === 0 && <option value="">No subcategories available</option>}
                     {modalSubcategories.map((s: any) => (
@@ -4405,7 +4416,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-800 mb-1">
                     Equipment Type Name <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <input
@@ -4417,7 +4428,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setAddModalError(null);
                     }}
                     placeholder="e.g., 1.5T Superconducting MRI"
-                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-medium focus:border-black focus:ring-1 focus:ring-black focus:outline-none"
                     autoFocus
                   />
                 </div>
@@ -4425,14 +4436,14 @@ export const AdminProductEditorPage: React.FC = () => {
             )}
 
             {/* Modal Actions */}
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-white/20">
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-neutral-200">
               <button
                 type="button"
                 onClick={() => {
                   if (!isSubmittingAdd) setAddModalType(null);
                 }}
                 disabled={isSubmittingAdd}
-                className="px-4 py-2 border border-white/50 text-white rounded-xl text-xs font-bold hover:bg-white/10 transition-colors disabled:opacity-50 cursor-pointer"
+                className="px-4 py-2 border border-neutral-300 text-neutral-700 rounded-xl text-xs font-bold hover:bg-neutral-100 transition-colors disabled:opacity-50 cursor-pointer"
               >
                 Cancel
               </button>
@@ -4445,7 +4456,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   else if (addModalType === "subcategory") handleAddSubcategory();
                   else if (addModalType === "equipment-type") handleAddEquipmentType();
                 }}
-                className="px-5 py-2 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-xl text-xs font-bold transition-all border border-white shadow-md disabled:opacity-50 flex items-center gap-2 cursor-pointer"
+                className="px-5 py-2 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-xl text-xs font-bold transition-all shadow-md disabled:opacity-50 flex items-center gap-2 cursor-pointer"
               >
                 {isSubmittingAdd ? (
                   <>
