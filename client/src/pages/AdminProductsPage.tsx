@@ -381,6 +381,36 @@ export const AdminProductsPage: React.FC = () => {
     return result;
   }, [categoryScopedProducts, searchQuery, selectedStatus, selectedReviewStatus, sortBy]);
 
+  // Section filter and per-section pagination for OT & Surgical Lights (Target: 72 = 25 + 29 + 18)
+  const [activeOtSectionFilter, setActiveOtSectionFilter] = useState<string>("all");
+  const [sectionPages, setSectionPages] = useState<Record<string, number>>({
+    "single-dome-ot-lights": 1,
+    "ot-surgical-lights-double-dome": 1,
+    "mobile-led-ot-lights": 1
+  });
+
+  const otSectionCounts = useMemo(() => {
+    const ot = products.filter((p) => p.category === "ot-lights");
+    return {
+      total: ot.length,
+      singleDome: ot.filter((p) => p.subcategory === "single-dome-ot-lights").length,
+      doubleDome: ot.filter((p) => p.subcategory === "ot-surgical-lights-double-dome").length,
+      mobileOt: ot.filter((p) => p.subcategory === "mobile-led-ot-lights").length
+    };
+  }, [products]);
+
+  const singleDomeProducts = useMemo(() => {
+    return filteredProducts.filter((p) => p.subcategory === "single-dome-ot-lights");
+  }, [filteredProducts]);
+
+  const doubleDomeProducts = useMemo(() => {
+    return filteredProducts.filter((p) => p.subcategory === "ot-surgical-lights-double-dome");
+  }, [filteredProducts]);
+
+  const mobileOtProducts = useMemo(() => {
+    return filteredProducts.filter((p) => p.subcategory === "mobile-led-ot-lights");
+  }, [filteredProducts]);
+
   // Paginated Products
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / itemsPerPage));
   const paginatedProducts = useMemo(() => {
@@ -393,6 +423,16 @@ export const AdminProductsPage: React.FC = () => {
       setSelectedIds(paginatedProducts.map((p) => p.id));
     } else {
       setSelectedIds([]);
+    }
+  };
+
+  const handleToggleSelectSection = (checked: boolean, listToSelect: Product[]) => {
+    if (checked) {
+      const ids = listToSelect.map((p) => p.id);
+      setSelectedIds((prev) => Array.from(new Set([...prev, ...ids])));
+    } else {
+      const idsToRemove = new Set(listToSelect.map((p) => p.id));
+      setSelectedIds((prev) => prev.filter((id) => !idsToRemove.has(id)));
     }
   };
 
@@ -837,6 +877,584 @@ export const AdminProductsPage: React.FC = () => {
     }
   };
 
+  // Helper to render table rows for any product list
+  const renderProductRows = (productList: Product[]) => {
+    if (isLoading && products.length === 0) {
+      return (
+        <tr>
+          <td colSpan={6} className="py-16 text-center text-white/70 text-xs">
+            <div className="flex flex-col items-center justify-center gap-2">
+              <RefreshCw size={20} className="animate-spin text-[#FFD400]" />
+              <span>Loading authoritative product catalogue...</span>
+            </div>
+          </td>
+        </tr>
+      );
+    }
+
+    if (productList.length === 0) {
+      return (
+        <tr>
+          <td colSpan={6} className="py-12 text-center text-white/70 text-xs">
+            No products matched your active filters or search terms.
+          </td>
+        </tr>
+      );
+    }
+
+    return productList.map((p) => {
+      const img = (p.images && p.images[0]) || p.primaryImage || "";
+      const isSelected = selectedIds.includes(p.id);
+      const isActive = (p.status || "ACTIVE") === "ACTIVE";
+
+      return (
+        <tr
+          key={p.id}
+          className={`hover:bg-white/5 transition-colors ${
+            isSelected ? "bg-white/10" : ""
+          }`}
+          style={{ minHeight: "68px" }}
+        >
+          {/* 1. Selection Checkbox */}
+          <td className="py-2.5 px-3 text-center align-middle">
+            <input
+              type="checkbox"
+              checked={isSelected}
+              onChange={() => handleSelectOne(p.id)}
+              className="w-3.5 h-3.5 rounded text-[#FFD400] focus:ring-[#FFD400] accent-[#FFD400] cursor-pointer"
+            />
+          </td>
+
+          {/* 2. Product Details: Small Thumbnail, Full Name First, SKU & Model Below */}
+          <td className="py-2.5 px-4 max-w-lg align-middle">
+            <div className="flex items-center gap-3">
+              {/* Consistent small thumbnail: ~44px */}
+              <div className="w-11 h-11 rounded-lg bg-white/5 border border-white/20 shrink-0 overflow-hidden flex items-center justify-center p-0.5">
+                {img ? (
+                  <img
+                    src={img}
+                    alt={p.title || p.productName}
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src =
+                        "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=150&q=80";
+                    }}
+                  />
+                ) : (
+                  <Package size={18} className="text-white/60" />
+                )}
+              </div>
+
+              <div className="min-w-0 flex-1">
+                {/* Line 1: Complete Product Name */}
+                <Link
+                  to={`/admin/products/${p.id}/edit`}
+                  state={{ product: p }}
+                  className="font-bold text-white hover:text-[#FFD400] text-xs sm:text-[13px] leading-snug line-clamp-2 block transition-colors"
+                  title={p.title || p.productName}
+                >
+                  {p.title || p.productName}
+                </Link>
+
+                {/* Line 2: SKU and Model Number directly underneath */}
+                <div className="text-[11px] text-white/70 font-mono mt-0.5 truncate">
+                  SKU: <span className="font-semibold text-white">{p.sku || (p as any).SKU || "—"}</span>
+                  {" · "}
+                  Model:{" "}
+                  <span className="text-white/90">
+                    {p.modelNumber && p.modelNumber !== "—" ? p.modelNumber : "Standard"}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </td>
+
+          {/* 3. Price (INR) — Placed immediately after Product Details */}
+          <td className="py-2.5 px-4 text-right font-mono whitespace-nowrap align-middle">
+            <div className="font-bold text-white text-xs sm:text-[13px]">
+              ₹
+              {Number(p.basePrice || 0).toLocaleString("en-IN", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })}
+            </div>
+          </td>
+
+          {/* 4. Status: Functional Pill-Shaped Button (ACTIVE / INACTIVE) */}
+          <td className="py-2.5 px-4 text-center whitespace-nowrap align-middle">
+            <button
+              type="button"
+              disabled={statusUpdatingId === p.id}
+              onClick={() => handleToggleProductStatus(p)}
+              className={`inline-flex items-center justify-center font-bold text-[10px] sm:text-[11px] tracking-wider rounded-full px-3 py-1 transition-all shadow-2xs cursor-pointer min-w-[88px] ${
+                statusUpdatingId === p.id
+                  ? "bg-white/20 text-white/50 cursor-not-allowed"
+                  : isActive
+                  ? "bg-[#15803D] hover:bg-[#166534] text-white"
+                  : "bg-white/20 hover:bg-white/30 text-white"
+              }`}
+              title={
+                isActive
+                  ? "Currently ACTIVE. Click to set INACTIVE."
+                  : "Currently INACTIVE. Click to set ACTIVE."
+              }
+            >
+              {statusUpdatingId === p.id ? (
+                <span className="flex items-center gap-1 font-mono text-[10px]">
+                  <RefreshCw size={10} className="animate-spin" />
+                  SAVING...
+                </span>
+              ) : isActive ? (
+                "ACTIVE"
+              ) : (
+                "INACTIVE"
+              )}
+            </button>
+          </td>
+
+          {/* 5. Review Status: Clickable Badge with Popover */}
+          <td className="py-2.5 px-4 text-center whitespace-nowrap align-middle relative">
+            <div className="relative inline-block text-left">
+              <button
+                type="button"
+                onClick={() =>
+                  setActiveReviewPopoverId(activeReviewPopoverId === p.id ? null : p.id)
+                }
+                disabled={reviewUpdatingId === p.id}
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold border transition-all cursor-pointer ${
+                  p.reviewStatus === "CORRECT"
+                    ? "bg-white text-[#15803D] border-[#15803D] hover:bg-emerald-50"
+                    : p.reviewStatus === "NEEDS_EDITING"
+                    ? "bg-[#FEE2E2] text-[#B91C1C] border-[#FCA5A5] hover:bg-[#FEE2E2]/90"
+                    : "bg-white text-black border-[#D4D4D4] hover:bg-gray-50"
+                }`}
+                title="Click to change review status"
+              >
+                {reviewUpdatingId === p.id ? (
+                  <span className="flex items-center gap-1 font-mono text-[10px]">
+                    <RefreshCw size={10} className="animate-spin text-current" />
+                    Updating...
+                  </span>
+                ) : p.reviewStatus === "CORRECT" ? (
+                  <Check size={11} className="stroke-[2.5] text-[#15803D]" />
+                ) : p.reviewStatus === "NEEDS_EDITING" ? (
+                  <X size={11} className="stroke-[2.5] text-[#B91C1C]" />
+                ) : (
+                  <Clock size={11} className="text-black" />
+                )}
+
+                {reviewUpdatingId !== p.id && (
+                  <span>
+                    {p.reviewStatus === "CORRECT"
+                      ? "Correct"
+                      : p.reviewStatus === "NEEDS_EDITING"
+                      ? "Needs Editing"
+                      : "Not Yet Reviewed"}
+                  </span>
+                )}
+                <ChevronDown size={10} className={p.reviewStatus === "CORRECT" ? "text-[#15803D] opacity-70" : p.reviewStatus === "NEEDS_EDITING" ? "text-[#B91C1C] opacity-70" : "text-black opacity-70"} />
+              </button>
+
+              {/* Retry Buttons shown strictly on failure */}
+              {(p.cloudinarySyncStatus === "UPLOAD_FAILED" || p.cloudinarySyncStatus === "UPLOAD_INCOMPLETE") && (
+                <button
+                  type="button"
+                  onClick={() => handleRetryCloudinarySync(p)}
+                  disabled={syncingCloudinaryId === p.id}
+                  title="Click to retry Cloudinary upload"
+                  className="mt-0.5 inline-flex items-center gap-1 text-[9px] text-[#FF8A80] font-mono bg-[#C62828]/30 px-1.5 py-0.5 rounded border border-[#C62828]/60 hover:bg-[#C62828]/50 cursor-pointer"
+                >
+                  <RefreshCw size={8} className={syncingCloudinaryId === p.id ? "animate-spin" : ""} />
+                  <span>{p.cloudinarySyncStatus === "UPLOAD_INCOMPLETE" ? "Incomplete · Retry" : "Failed · Retry"}</span>
+                </button>
+              )}
+
+              {(p.cloudinarySyncStatus === "REMOVAL_FAILED" || p.cloudinarySyncStatus === "REMOVAL_INCOMPLETE") && (
+                <button
+                  type="button"
+                  onClick={() => handleRetryCloudinarySync(p)}
+                  disabled={syncingCloudinaryId === p.id}
+                  title="Click to retry managed removal"
+                  className="mt-0.5 inline-flex items-center gap-1 text-[9px] text-[#FF8A80] font-mono bg-[#C62828]/30 px-1.5 py-0.5 rounded border border-[#C62828]/60 hover:bg-[#C62828]/50 cursor-pointer"
+                >
+                  <RefreshCw size={8} className={syncingCloudinaryId === p.id ? "animate-spin" : ""} />
+                  <span>Removal Incomplete · Retry</span>
+                </button>
+              )}
+
+              {p.mongoSyncStatus === "SYNC_FAILED" && (
+                <button
+                  type="button"
+                  disabled={syncingMongoId === p.id}
+                  onClick={async () => {
+                    setSyncingMongoId(p.id);
+                    try {
+                      const res = await adminFetch(`/api/admin/products/${p.id}/sync-mongodb`, { method: "POST" });
+                      const data = await res.json().catch(() => ({}));
+                      if (res.ok && data.success) {
+                        setProducts(prev => {
+                          const next = prev.map(prod => prod.id === p.id ? { ...prod, ...data.product, mongoSyncStatus: "SYNCED" } : prod);
+                          try {
+                            localStorage.setItem("drmedex_admin_products_cache", JSON.stringify(next));
+                          } catch {}
+                          return next;
+                        });
+                        setBannerMessage({ text: `MongoDB Atlas sync completed for "${p.title || p.productName}".`, type: "success" });
+                      } else {
+                        setBannerMessage({ text: data.message || "MongoDB Atlas sync failed.", type: "error" });
+                      }
+                    } catch (e: any) {
+                      setBannerMessage({ text: e.message || "Request failed", type: "error" });
+                    } finally {
+                      setSyncingMongoId(null);
+                    }
+                  }}
+                  title="Click to retry MongoDB Atlas sync"
+                  className="mt-0.5 inline-flex items-center gap-1 text-[9px] text-[#FF8A80] font-mono bg-[#C62828]/30 px-1.5 py-0.5 rounded border border-[#C62828]/60 hover:bg-[#C62828]/50 cursor-pointer disabled:opacity-50"
+                >
+                  <RefreshCw size={8} className={syncingMongoId === p.id ? "animate-spin" : ""} />
+                  <span>{syncingMongoId === p.id ? "Syncing..." : "MongoDB Failed · Retry"}</span>
+                </button>
+              )}
+
+              {/* Review Note preview if present */}
+              {p.reviewStatus === "NEEDS_EDITING" && p.reviewNote && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setReviewModalProduct(p);
+                    setReviewNoteInput(p.reviewNote || "");
+                  }}
+                  title={`Review note: "${p.reviewNote}". Click to edit.`}
+                  className="mt-0.5 block mx-auto max-w-[120px] truncate text-[10px] text-[#FF8A80] font-mono bg-[#C62828]/25 px-1.5 py-0.2 rounded border border-[#C62828]/50 hover:underline cursor-pointer"
+                >
+                  "{p.reviewNote}"
+                </button>
+              )}
+
+              {/* Popover containing all three options */}
+              {activeReviewPopoverId === p.id && (
+                <>
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setActiveReviewPopoverId(null)}
+                  />
+                  <div className="absolute right-0 sm:left-1/2 sm:-translate-x-1/2 mt-1 w-48 bg-white rounded-xl shadow-2xl border border-gray-200 py-1.5 px-1.5 z-50 animate-in fade-in zoom-in-95 text-[#171717]">
+                    <div className="px-2.5 py-1 text-[10px] font-bold font-mono uppercase text-gray-500 border-b border-gray-100 mb-1.5">
+                      Review Status
+                    </div>
+
+                    {/* Option 1: Correct */}
+                    <button
+                      type="button"
+                      onClick={() => handleSetReviewStatus(p, "CORRECT")}
+                      className={`w-full px-2.5 py-1.5 mb-1 text-left text-xs font-semibold rounded-lg flex items-center justify-between transition-colors cursor-pointer border ${
+                        p.reviewStatus === "CORRECT"
+                          ? "bg-white text-[#15803D] border-[#15803D] font-bold shadow-2xs"
+                          : "bg-white hover:bg-emerald-50 text-[#15803D] border-[#15803D]/40"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 text-[#15803D]">
+                        <div className="w-4 h-4 rounded-full bg-[#15803D]/10 flex items-center justify-center">
+                          <Check size={10} className="stroke-[2.5]" />
+                        </div>
+                        <span>Correct</span>
+                      </div>
+                      {p.reviewStatus === "CORRECT" && (
+                        <Check size={12} className="text-[#15803D] stroke-[2.5]" />
+                      )}
+                    </button>
+
+                    {/* Option 2: Needs Editing */}
+                    <button
+                      type="button"
+                      onClick={() => handleSetReviewStatus(p, "NEEDS_EDITING")}
+                      className={`w-full px-2.5 py-1.5 mb-1 text-left text-xs font-semibold rounded-lg flex items-center justify-between transition-colors cursor-pointer border ${
+                        p.reviewStatus === "NEEDS_EDITING"
+                          ? "bg-[#FEE2E2] text-[#B91C1C] border-[#FCA5A5] font-bold shadow-2xs"
+                          : "bg-[#FEE2E2]/60 hover:bg-[#FEE2E2] text-[#B91C1C] border-[#FCA5A5]/60"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 text-[#B91C1C]">
+                        <div className="w-4 h-4 rounded-full bg-[#B91C1C]/10 flex items-center justify-center">
+                          <X size={10} className="stroke-[2.5]" />
+                        </div>
+                        <span>Needs Editing</span>
+                      </div>
+                      {p.reviewStatus === "NEEDS_EDITING" && (
+                        <Check size={12} className="text-[#B91C1C] stroke-[2.5]" />
+                      )}
+                    </button>
+
+                    {/* Option 3: Not Yet Reviewed */}
+                    <button
+                      type="button"
+                      onClick={() => handleSetReviewStatus(p, "PENDING")}
+                      className={`w-full px-2.5 py-1.5 text-left text-xs font-semibold rounded-lg flex items-center justify-between transition-colors cursor-pointer border ${
+                        !p.reviewStatus || p.reviewStatus === "PENDING"
+                          ? "bg-white text-black border-[#D4D4D4] font-bold shadow-2xs"
+                          : "bg-white hover:bg-gray-50 text-black/80 border-gray-200"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 text-black">
+                        <div className="w-4 h-4 rounded-full bg-black/5 flex items-center justify-center">
+                          <Clock size={10} />
+                        </div>
+                        <span>Not Yet Reviewed</span>
+                      </div>
+                      {(!p.reviewStatus || p.reviewStatus === "PENDING") && (
+                        <Check size={12} className="text-black stroke-[2.5]" />
+                      )}
+                    </button>
+
+                    {p.reviewStatus === "NEEDS_EDITING" && (
+                      <div className="pt-1 mt-1 border-t border-gray-100 px-2.5">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setActiveReviewPopoverId(null);
+                            setReviewModalProduct(p);
+                            setReviewNoteInput(p.reviewNote || "");
+                          }}
+                          className="text-[10px] text-[#B91C1C] hover:underline font-semibold block py-0.5 cursor-pointer"
+                        >
+                          {p.reviewNote ? "✎ Edit review note" : "+ Add review note"}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+          </td>
+
+          {/* 6. Actions: Download (icon only), Edit (compact button), More Actions */}
+          <td className="py-2.5 px-4 text-right whitespace-nowrap align-middle">
+            <div className="flex items-center justify-end gap-1.5">
+              {/* Download — ICON ONLY with Tooltip */}
+              <button
+                type="button"
+                onClick={() => handleDownloadPhotos(p)}
+                disabled={downloadingId === p.id}
+                title="Download Product Photos"
+                aria-label={`Download Product Photos for ${p.title || p.productName}`}
+                className="p-1.5 bg-white/10 border border-white/20 hover:border-white text-white hover:bg-white/20 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
+              >
+                <Download
+                  size={14}
+                  className={downloadingId === p.id ? "animate-bounce text-[#FFD400]" : "text-white"}
+                />
+              </button>
+
+              {/* More Actions Menu */}
+              <div className="relative inline-block text-left">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setActiveActionsMenuId(activeActionsMenuId === p.id ? null : p.id)
+                  }
+                  className="p-1.5 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors border border-transparent hover:border-white/20 cursor-pointer"
+                  title="More Actions"
+                  aria-label="More Actions"
+                >
+                  <SlidersHorizontal size={13} />
+                </button>
+
+                {activeActionsMenuId === p.id && (
+                  <>
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setActiveActionsMenuId(null)}
+                    />
+                    <div className="absolute right-0 mt-1 w-36 bg-[#0D4C3C] text-white rounded-xl shadow-2xl border border-white/20 py-1 z-50 text-left animate-in fade-in zoom-in-95">
+                      <Link
+                        to={`/product/${p.slug}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setActiveActionsMenuId(null)}
+                        className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-white/80 hover:bg-white/10 hover:text-white"
+                      >
+                        <ExternalLink size={12} />
+                        <span>Storefront</span>
+                      </Link>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setActiveActionsMenuId(null);
+                          setDeletingProduct(p);
+                          setIsDeleteModalOpen(true);
+                        }}
+                        className="w-full flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-[#FF8A80] hover:bg-[#C62828]/20 cursor-pointer border-t border-white/15 mt-0.5"
+                      >
+                        <Trash2 size={12} />
+                        <span>Delete</span>
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Compact Red Edit Button with pencil icon */}
+              <Link
+                to={`/admin/products/${p.id}/edit`}
+                state={{ product: p }}
+                title="Edit product"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-xs font-bold transition-all shadow-2xs"
+              >
+                <Edit2 size={11} />
+                <span>Edit</span>
+              </Link>
+            </div>
+          </td>
+        </tr>
+      );
+    });
+  };
+
+  // Helper to render an OT & Surgical Lights subcategory section table
+  const renderOtSection = (
+    sectionKey: string,
+    letter: string,
+    title: string,
+    subcategoryId: string,
+    targetCount: number,
+    sectionProducts: Product[],
+    anchorId: string
+  ) => {
+    const page = sectionPages[subcategoryId] || 1;
+    const perPage = 25;
+    const totalPagesForSection = Math.max(1, Math.ceil(sectionProducts.length / perPage));
+    const pageClamped = Math.min(page, totalPagesForSection);
+    const startIdx = (pageClamped - 1) * perPage;
+    const paginatedSection = sectionProducts.slice(startIdx, startIdx + perPage);
+
+    const startNum = sectionProducts.length === 0 ? 0 : startIdx + 1;
+    const endNum = Math.min(startIdx + perPage, sectionProducts.length);
+
+    const isAllSectionSelected =
+      paginatedSection.length > 0 &&
+      paginatedSection.every((p) => selectedIds.includes(p.id));
+
+    const isTargetMatched = sectionProducts.length === targetCount;
+
+    return (
+      <div
+        id={anchorId}
+        key={sectionKey}
+        className="bg-[#0D4C3C] text-white rounded-xl border border-white/20 overflow-hidden shadow-xl mb-6 scroll-mt-20"
+      >
+        {/* Section Header */}
+        <div className="bg-black/35 px-4 sm:px-6 py-3.5 border-b border-white/15 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <span className="w-8 h-8 rounded-lg bg-[#FFD400] text-black font-black font-mono text-base flex items-center justify-center shadow-xs">
+              {letter}
+            </span>
+            <div>
+              <h3 className="font-bold text-sm sm:text-base text-white flex items-center gap-2 flex-wrap">
+                <span>{title}</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-black/30 text-white/90 border border-white/20">
+                  Target: {targetCount}
+                </span>
+                <span
+                  className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border flex items-center gap-1 ${
+                    isTargetMatched
+                      ? "bg-[#15803D]/30 text-[#86EFAC] border-[#15803D]"
+                      : "bg-[#B91C1C]/30 text-[#FCA5A5] border-[#B91C1C]"
+                  }`}
+                >
+                  <CheckCircle2 size={10} />
+                  {sectionProducts.length} in Catalogue
+                </span>
+              </h3>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 text-xs font-mono">
+            <span className="text-white/70">
+              Active: <strong className="text-white">{sectionProducts.filter((p) => (p.status || "ACTIVE") === "ACTIVE").length}</strong>
+            </span>
+            <span className="text-white/40">·</span>
+            <span className="text-emerald-300">
+              Correct: <strong>{sectionProducts.filter((p) => p.reviewStatus === "CORRECT").length}</strong>
+            </span>
+          </div>
+        </div>
+
+        {/* Section Table */}
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs text-white">
+            <thead className="bg-black/25 border-b border-white/15 text-[10px] font-bold font-mono uppercase text-white/70 tracking-wider">
+              <tr>
+                <th className="py-2.5 px-3 w-10 text-center">
+                  <input
+                    type="checkbox"
+                    checked={isAllSectionSelected}
+                    onChange={(e) => handleToggleSelectSection(e.target.checked, paginatedSection)}
+                    className="w-3.5 h-3.5 rounded text-black focus:ring-black accent-black cursor-pointer"
+                  />
+                </th>
+                <th className="py-2.5 px-4 min-w-[280px]">Product Details</th>
+                <th className="py-2.5 px-4 text-right min-w-[110px] whitespace-nowrap">Price (INR)</th>
+                <th className="py-2.5 px-4 text-center min-w-[110px] whitespace-nowrap">Status</th>
+                <th className="py-2.5 px-4 text-center min-w-[140px] whitespace-nowrap">Review Status</th>
+                <th className="py-2.5 px-4 text-right min-w-[130px] whitespace-nowrap">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/10">
+              {renderProductRows(paginatedSection)}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Section Pagination Bar */}
+        <div className="px-5 py-3 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-2.5 text-xs bg-black/25 text-white">
+          <span className="text-white/70 font-mono">
+            Showing {startNum}–{endNum} of {sectionProducts.length} products in {title}
+          </span>
+
+          {totalPagesForSection > 1 && (
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                disabled={pageClamped === 1}
+                onClick={() =>
+                  setSectionPages((prev) => ({
+                    ...prev,
+                    [subcategoryId]: Math.max(1, pageClamped - 1)
+                  }))
+                }
+                className="px-2.5 py-1 bg-white/10 border border-white/20 rounded-lg font-bold text-white hover:bg-white/20 disabled:opacity-40 transition-colors flex items-center gap-1 cursor-pointer"
+              >
+                <ChevronLeft size={13} />
+                <span>Previous</span>
+              </button>
+
+              <span className="px-2 font-mono font-bold text-[#FFD400]">
+                {pageClamped} / {totalPagesForSection}
+              </span>
+
+              <button
+                type="button"
+                disabled={pageClamped === totalPagesForSection}
+                onClick={() =>
+                  setSectionPages((prev) => ({
+                    ...prev,
+                    [subcategoryId]: Math.min(totalPagesForSection, pageClamped + 1)
+                  }))
+                }
+                className="px-2.5 py-1 bg-white/10 border border-white/20 rounded-lg font-bold text-white hover:bg-white/20 disabled:opacity-40 transition-colors flex items-center gap-1 cursor-pointer"
+              >
+                <span>Next</span>
+                <ChevronRight size={13} />
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   // Pagination display calculation
   const startProductNumber = filteredProducts.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
   const endProductNumber = Math.min(currentPage * itemsPerPage, filteredProducts.length);
@@ -1247,504 +1865,328 @@ export const AdminProductsPage: React.FC = () => {
         )}
       </div>
 
-      {/* 3. Compact Product Table — Exact 6 Columns */}
-      <div className="bg-[#0D4C3C] text-white rounded-xl border border-white/20 overflow-hidden shadow-xl">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs text-white">
-            <thead className="bg-black/25 border-b border-white/15 text-[10px] font-bold font-mono uppercase text-white/70 tracking-wider">
-              <tr>
-                {/* 1. Selection Checkbox */}
-                <th className="py-2.5 px-3 w-10 text-center">
-                  <input
-                    type="checkbox"
-                    checked={selectedIds.length === paginatedProducts.length && paginatedProducts.length > 0}
-                    onChange={handleSelectAll}
-                    className="w-3.5 h-3.5 rounded text-black focus:ring-black accent-black cursor-pointer"
-                  />
-                </th>
-
-                {/* 2. Product Details */}
-                <th className="py-2.5 px-4 min-w-[280px]">Product Details</th>
-
-                {/* 3. Price (INR) — Placed immediately after Product Details */}
-                <th className="py-2.5 px-4 text-right min-w-[110px] whitespace-nowrap">Price (INR)</th>
-
-                {/* 4. Status — Active / Inactive Pill Button */}
-                <th className="py-2.5 px-4 text-center min-w-[110px] whitespace-nowrap">Status</th>
-
-                {/* 5. Review Status — 3-State Dropdown */}
-                <th className="py-2.5 px-4 text-center min-w-[140px] whitespace-nowrap">Review Status</th>
-
-                {/* 6. Actions — Download Icon & Compact Edit Button */}
-                <th className="py-2.5 px-4 text-right min-w-[130px] whitespace-nowrap">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-white/10">
-              {isLoading && products.length === 0 ? (
-                <tr>
-                  <td colSpan={6} className="py-16 text-center text-white/70 text-xs">
-                    <div className="flex flex-col items-center justify-center gap-2">
-                      <RefreshCw size={20} className="animate-spin text-[#FFD400]" />
-                      <span>Loading authoritative product catalogue...</span>
-                    </div>
-                  </td>
-                </tr>
-              ) : paginatedProducts.length === 0 ? (
-                <tr>
-                  <td colSpan={6} className="py-12 text-center text-white/70 text-xs">
-                    No products matched your active filters or search terms.
-                  </td>
-                </tr>
-              ) : (
-                paginatedProducts.map((p) => {
-                  const img = (p.images && p.images[0]) || p.primaryImage || "";
-                  const isSelected = selectedIds.includes(p.id);
-                  const isActive = (p.status || "ACTIVE") === "ACTIVE";
-
-                  return (
-                    <tr
-                      key={p.id}
-                      className={`hover:bg-white/5 transition-colors ${
-                        isSelected ? "bg-white/10" : ""
-                      }`}
-                      style={{ minHeight: "68px" }}
-                    >
-                      {/* 1. Selection Checkbox */}
-                      <td className="py-2.5 px-3 text-center align-middle">
-                        <input
-                          type="checkbox"
-                          checked={isSelected}
-                          onChange={() => handleSelectOne(p.id)}
-                          className="w-3.5 h-3.5 rounded text-[#FFD400] focus:ring-[#FFD400] accent-[#FFD400] cursor-pointer"
-                        />
-                      </td>
-
-                      {/* 2. Product Details: Small Thumbnail, Full Name First, SKU & Model Below */}
-                      <td className="py-2.5 px-4 max-w-lg align-middle">
-                        <div className="flex items-center gap-3">
-                          {/* Consistent small thumbnail: ~44px */}
-                          <div className="w-11 h-11 rounded-lg bg-white/5 border border-white/20 shrink-0 overflow-hidden flex items-center justify-center p-0.5">
-                            {img ? (
-                              <img
-                                src={img}
-                                alt={p.title || p.productName}
-                                className="w-full h-full object-contain"
-                                onError={(e) => {
-                                  (e.target as HTMLImageElement).src =
-                                    "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=150&q=80";
-                                }}
-                              />
-                            ) : (
-                              <Package size={18} className="text-white/60" />
-                            )}
-                          </div>
-
-                          <div className="min-w-0 flex-1">
-                            {/* Line 1: Complete Product Name */}
-                            <Link
-                              to={`/admin/products/${p.id}/edit`}
-                              state={{ product: p }}
-                              className="font-bold text-white hover:text-[#FFD400] text-xs sm:text-[13px] leading-snug line-clamp-2 block transition-colors"
-                              title={p.title || p.productName}
-                            >
-                              {p.title || p.productName}
-                            </Link>
-
-                            {/* Line 2: SKU and Model Number directly underneath */}
-                            <div className="text-[11px] text-white/70 font-mono mt-0.5 truncate">
-                              SKU: <span className="font-semibold text-white">{p.sku || (p as any).SKU || "—"}</span>
-                              {" · "}
-                              Model:{" "}
-                              <span className="text-white/90">
-                                {p.modelNumber && p.modelNumber !== "—" ? p.modelNumber : "Standard"}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-
-                      {/* 3. Price (INR) — Placed immediately after Product Details */}
-                      <td className="py-2.5 px-4 text-right font-mono whitespace-nowrap align-middle">
-                        <div className="font-bold text-white text-xs sm:text-[13px]">
-                          ₹
-                          {Number(p.basePrice || 0).toLocaleString("en-IN", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                          })}
-                        </div>
-
-                      </td>
-
-                      {/* 4. Status: Functional Pill-Shaped Button (ACTIVE / INACTIVE) */}
-                      <td className="py-2.5 px-4 text-center whitespace-nowrap align-middle">
-                        <button
-                          type="button"
-                          disabled={statusUpdatingId === p.id}
-                          onClick={() => handleToggleProductStatus(p)}
-                          className={`inline-flex items-center justify-center font-bold text-[10px] sm:text-[11px] tracking-wider rounded-full px-3 py-1 transition-all shadow-2xs cursor-pointer min-w-[88px] ${
-                            statusUpdatingId === p.id
-                              ? "bg-white/20 text-white/50 cursor-not-allowed"
-                              : isActive
-                              ? "bg-[#15803D] hover:bg-[#166534] text-white"
-                              : "bg-white/20 hover:bg-white/30 text-white"
-                          }`}
-                          title={
-                            isActive
-                              ? "Currently ACTIVE. Click to set INACTIVE."
-                              : "Currently INACTIVE. Click to set ACTIVE."
-                          }
-                        >
-                          {statusUpdatingId === p.id ? (
-                            <span className="flex items-center gap-1 font-mono text-[10px]">
-                              <RefreshCw size={10} className="animate-spin" />
-                              SAVING...
-                            </span>
-                          ) : isActive ? (
-                            "ACTIVE"
-                          ) : (
-                            "INACTIVE"
-                          )}
-                        </button>
-                      </td>
-
-                      {/* 5. Review Status: Clickable Badge with Popover */}
-                      <td className="py-2.5 px-4 text-center whitespace-nowrap align-middle relative">
-                        <div className="relative inline-block text-left">
-                          <button
-                            type="button"
-                            onClick={() =>
-                              setActiveReviewPopoverId(activeReviewPopoverId === p.id ? null : p.id)
-                            }
-                            disabled={reviewUpdatingId === p.id}
-                            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold border transition-all cursor-pointer ${
-                              p.reviewStatus === "CORRECT"
-                                ? "bg-white text-[#15803D] border-[#15803D] hover:bg-emerald-50"
-                                : p.reviewStatus === "NEEDS_EDITING"
-                                ? "bg-[#FEE2E2] text-[#B91C1C] border-[#FCA5A5] hover:bg-[#FEE2E2]/90"
-                                : "bg-white text-black border-[#D4D4D4] hover:bg-gray-50"
-                            }`}
-                            title="Click to change review status"
-                          >
-                            {reviewUpdatingId === p.id ? (
-                              <span className="flex items-center gap-1 font-mono text-[10px]">
-                                <RefreshCw size={10} className="animate-spin text-current" />
-                                Updating...
-                              </span>
-                            ) : p.reviewStatus === "CORRECT" ? (
-                              <Check size={11} className="stroke-[2.5] text-[#15803D]" />
-                            ) : p.reviewStatus === "NEEDS_EDITING" ? (
-                              <X size={11} className="stroke-[2.5] text-[#B91C1C]" />
-                            ) : (
-                              <Clock size={11} className="text-black" />
-                            )}
-
-                            {reviewUpdatingId !== p.id && (
-                              <span>
-                                {p.reviewStatus === "CORRECT"
-                                  ? "Correct"
-                                  : p.reviewStatus === "NEEDS_EDITING"
-                                  ? "Needs Editing"
-                                  : "Not Yet Reviewed"}
-                              </span>
-                            )}
-                            <ChevronDown size={10} className={p.reviewStatus === "CORRECT" ? "text-[#15803D] opacity-70" : p.reviewStatus === "NEEDS_EDITING" ? "text-[#B91C1C] opacity-70" : "text-black opacity-70"} />
-                          </button>
-
-                          {/* Retry Buttons shown strictly on failure */}
-                          {(p.cloudinarySyncStatus === "UPLOAD_FAILED" || p.cloudinarySyncStatus === "UPLOAD_INCOMPLETE") && (
-                            <button
-                              type="button"
-                              onClick={() => handleRetryCloudinarySync(p)}
-                              disabled={syncingCloudinaryId === p.id}
-                              title="Click to retry Cloudinary upload"
-                              className="mt-0.5 inline-flex items-center gap-1 text-[9px] text-[#FF8A80] font-mono bg-[#C62828]/30 px-1.5 py-0.5 rounded border border-[#C62828]/60 hover:bg-[#C62828]/50 cursor-pointer"
-                            >
-                              <RefreshCw size={8} className={syncingCloudinaryId === p.id ? "animate-spin" : ""} />
-                              <span>{p.cloudinarySyncStatus === "UPLOAD_INCOMPLETE" ? "Incomplete · Retry" : "Failed · Retry"}</span>
-                            </button>
-                          )}
-
-                          {(p.cloudinarySyncStatus === "REMOVAL_FAILED" || p.cloudinarySyncStatus === "REMOVAL_INCOMPLETE") && (
-                            <button
-                              type="button"
-                              onClick={() => handleRetryCloudinarySync(p)}
-                              disabled={syncingCloudinaryId === p.id}
-                              title="Click to retry managed removal"
-                              className="mt-0.5 inline-flex items-center gap-1 text-[9px] text-[#FF8A80] font-mono bg-[#C62828]/30 px-1.5 py-0.5 rounded border border-[#C62828]/60 hover:bg-[#C62828]/50 cursor-pointer"
-                            >
-                              <RefreshCw size={8} className={syncingCloudinaryId === p.id ? "animate-spin" : ""} />
-                              <span>Removal Incomplete · Retry</span>
-                            </button>
-                          )}
-
-                          {p.mongoSyncStatus === "SYNC_FAILED" && (
-                            <button
-                              type="button"
-                              disabled={syncingMongoId === p.id}
-                              onClick={async () => {
-                                setSyncingMongoId(p.id);
-                                try {
-                                  const res = await adminFetch(`/api/admin/products/${p.id}/sync-mongodb`, { method: "POST" });
-                                  const data = await res.json().catch(() => ({}));
-                                  if (res.ok && data.success) {
-                                    setProducts(prev => {
-                                      const next = prev.map(prod => prod.id === p.id ? { ...prod, ...data.product, mongoSyncStatus: "SYNCED" } : prod);
-                                      try {
-                                        localStorage.setItem("drmedex_admin_products_cache", JSON.stringify(next));
-                                      } catch {}
-                                      return next;
-                                    });
-                                    setBannerMessage({ text: `MongoDB Atlas sync completed for "${p.title || p.productName}".`, type: "success" });
-                                  } else {
-                                    setBannerMessage({ text: data.message || "MongoDB Atlas sync failed.", type: "error" });
-                                  }
-                                } catch (e: any) {
-                                  setBannerMessage({ text: e.message || "Request failed", type: "error" });
-                                } finally {
-                                  setSyncingMongoId(null);
-                                }
-                              }}
-                              title="Click to retry MongoDB Atlas sync"
-                              className="mt-0.5 inline-flex items-center gap-1 text-[9px] text-[#FF8A80] font-mono bg-[#C62828]/30 px-1.5 py-0.5 rounded border border-[#C62828]/60 hover:bg-[#C62828]/50 cursor-pointer disabled:opacity-50"
-                            >
-                              <RefreshCw size={8} className={syncingMongoId === p.id ? "animate-spin" : ""} />
-                              <span>{syncingMongoId === p.id ? "Syncing..." : "MongoDB Failed · Retry"}</span>
-                            </button>
-                          )}
-
-                          {/* Review Note preview if present */}
-                          {p.reviewStatus === "NEEDS_EDITING" && p.reviewNote && (
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setReviewModalProduct(p);
-                                setReviewNoteInput(p.reviewNote || "");
-                              }}
-                              title={`Review note: "${p.reviewNote}". Click to edit.`}
-                              className="mt-0.5 block mx-auto max-w-[120px] truncate text-[10px] text-[#FF8A80] font-mono bg-[#C62828]/25 px-1.5 py-0.2 rounded border border-[#C62828]/50 hover:underline cursor-pointer"
-                            >
-                              "{p.reviewNote}"
-                            </button>
-                          )}
-
-                          {/* Popover containing all three options */}
-                          {activeReviewPopoverId === p.id && (
-                            <>
-                              <div
-                                className="fixed inset-0 z-40"
-                                onClick={() => setActiveReviewPopoverId(null)}
-                              />
-                              <div className="absolute right-0 sm:left-1/2 sm:-translate-x-1/2 mt-1 w-48 bg-white rounded-xl shadow-2xl border border-gray-200 py-1.5 px-1.5 z-50 animate-in fade-in zoom-in-95 text-[#171717]">
-                                <div className="px-2.5 py-1 text-[10px] font-bold font-mono uppercase text-gray-500 border-b border-gray-100 mb-1.5">
-                                  Review Status
-                                </div>
-
-                                {/* Option 1: Correct */}
-                                <button
-                                  type="button"
-                                  onClick={() => handleSetReviewStatus(p, "CORRECT")}
-                                  className={`w-full px-2.5 py-1.5 mb-1 text-left text-xs font-semibold rounded-lg flex items-center justify-between transition-colors cursor-pointer border ${
-                                    p.reviewStatus === "CORRECT"
-                                      ? "bg-white text-[#15803D] border-[#15803D] font-bold shadow-2xs"
-                                      : "bg-white hover:bg-emerald-50 text-[#15803D] border-[#15803D]/40"
-                                  }`}
-                                >
-                                  <div className="flex items-center gap-2 text-[#15803D]">
-                                    <div className="w-4 h-4 rounded-full bg-[#15803D]/10 flex items-center justify-center">
-                                      <Check size={10} className="stroke-[2.5]" />
-                                    </div>
-                                    <span>Correct</span>
-                                  </div>
-                                  {p.reviewStatus === "CORRECT" && (
-                                    <Check size={12} className="text-[#15803D] stroke-[2.5]" />
-                                  )}
-                                </button>
-
-                                {/* Option 2: Needs Editing */}
-                                <button
-                                  type="button"
-                                  onClick={() => handleSetReviewStatus(p, "NEEDS_EDITING")}
-                                  className={`w-full px-2.5 py-1.5 mb-1 text-left text-xs font-semibold rounded-lg flex items-center justify-between transition-colors cursor-pointer border ${
-                                    p.reviewStatus === "NEEDS_EDITING"
-                                      ? "bg-[#FEE2E2] text-[#B91C1C] border-[#FCA5A5] font-bold shadow-2xs"
-                                      : "bg-[#FEE2E2]/60 hover:bg-[#FEE2E2] text-[#B91C1C] border-[#FCA5A5]/60"
-                                  }`}
-                                >
-                                  <div className="flex items-center gap-2 text-[#B91C1C]">
-                                    <div className="w-4 h-4 rounded-full bg-[#B91C1C]/10 flex items-center justify-center">
-                                      <X size={10} className="stroke-[2.5]" />
-                                    </div>
-                                    <span>Needs Editing</span>
-                                  </div>
-                                  {p.reviewStatus === "NEEDS_EDITING" && (
-                                    <Check size={12} className="text-[#B91C1C] stroke-[2.5]" />
-                                  )}
-                                </button>
-
-                                {/* Option 3: Not Yet Reviewed */}
-                                <button
-                                  type="button"
-                                  onClick={() => handleSetReviewStatus(p, "PENDING")}
-                                  className={`w-full px-2.5 py-1.5 text-left text-xs font-semibold rounded-lg flex items-center justify-between transition-colors cursor-pointer border ${
-                                    !p.reviewStatus || p.reviewStatus === "PENDING"
-                                      ? "bg-white text-black border-[#D4D4D4] font-bold shadow-2xs"
-                                      : "bg-white hover:bg-gray-50 text-black/80 border-gray-200"
-                                  }`}
-                                >
-                                  <div className="flex items-center gap-2 text-black">
-                                    <div className="w-4 h-4 rounded-full bg-black/5 flex items-center justify-center">
-                                      <Clock size={10} />
-                                    </div>
-                                    <span>Not Yet Reviewed</span>
-                                  </div>
-                                  {(!p.reviewStatus || p.reviewStatus === "PENDING") && (
-                                    <Check size={12} className="text-black stroke-[2.5]" />
-                                  )}
-                                </button>
-
-                                {p.reviewStatus === "NEEDS_EDITING" && (
-                                  <div className="pt-1 mt-1 border-t border-gray-100 px-2.5">
-                                    <button
-                                      type="button"
-                                      onClick={() => {
-                                        setActiveReviewPopoverId(null);
-                                        setReviewModalProduct(p);
-                                        setReviewNoteInput(p.reviewNote || "");
-                                      }}
-                                      className="text-[10px] text-[#B91C1C] hover:underline font-semibold block py-0.5 cursor-pointer"
-                                    >
-                                      {p.reviewNote ? "✎ Edit review note" : "+ Add review note"}
-                                    </button>
-                                  </div>
-                                )}
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      </td>
-
-                      {/* 6. Actions: Download (icon only), Edit (compact button), More Actions */}
-                      <td className="py-2.5 px-4 text-right whitespace-nowrap align-middle">
-                        <div className="flex items-center justify-end gap-1.5">
-                          {/* Download — ICON ONLY with Tooltip */}
-                          <button
-                            type="button"
-                            onClick={() => handleDownloadPhotos(p)}
-                            disabled={downloadingId === p.id}
-                            title="Download Product Photos"
-                            aria-label={`Download Product Photos for ${p.title || p.productName}`}
-                            className="p-1.5 bg-white/10 border border-white/20 hover:border-white text-white hover:bg-white/20 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
-                          >
-                            <Download
-                              size={14}
-                              className={downloadingId === p.id ? "animate-bounce text-[#FFD400]" : "text-white"}
-                            />
-                          </button>
-
-                          {/* More Actions Menu */}
-                          <div className="relative inline-block text-left">
-                            <button
-                              type="button"
-                              onClick={() =>
-                                setActiveActionsMenuId(activeActionsMenuId === p.id ? null : p.id)
-                              }
-                              className="p-1.5 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors border border-transparent hover:border-white/20 cursor-pointer"
-                              title="More Actions"
-                              aria-label="More Actions"
-                            >
-                              <SlidersHorizontal size={13} />
-                            </button>
-
-                            {activeActionsMenuId === p.id && (
-                              <>
-                                <div
-                                  className="fixed inset-0 z-40"
-                                  onClick={() => setActiveActionsMenuId(null)}
-                                />
-                                <div className="absolute right-0 mt-1 w-36 bg-[#0D4C3C] text-white rounded-xl shadow-2xl border border-white/20 py-1 z-50 text-left animate-in fade-in zoom-in-95">
-                                  <Link
-                                    to={`/product/${p.slug}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={() => setActiveActionsMenuId(null)}
-                                    className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-white/80 hover:bg-white/10 hover:text-white"
-                                  >
-                                    <ExternalLink size={12} />
-                                    <span>Storefront</span>
-                                  </Link>
-
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      setActiveActionsMenuId(null);
-                                      setDeletingProduct(p);
-                                      setIsDeleteModalOpen(true);
-                                    }}
-                                    className="w-full flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-[#FF8A80] hover:bg-[#C62828]/20 cursor-pointer border-t border-white/15 mt-0.5"
-                                  >
-                                    <Trash2 size={12} />
-                                    <span>Delete</span>
-                                  </button>
-                                </div>
-                              </>
-                            )}
-                          </div>
-
-                          {/* Compact Red Edit Button with pencil icon */}
-                          <Link
-                            to={`/admin/products/${p.id}/edit`}
-                            state={{ product: p }}
-                            title="Edit product"
-                            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-xs font-bold transition-all shadow-2xs"
-                          >
-                            <Edit2 size={11} />
-                            <span>Edit</span>
-                          </Link>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Dynamic Pagination Bar */}
-        <div className="px-5 py-3 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-2.5 text-xs bg-black/25 text-white">
-          <span className="text-white/70 font-mono">
-            Showing {startProductNumber}–{endProductNumber} of {filteredProducts.length} products
-          </span>
-
-          {totalPages > 1 && (
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                disabled={currentPage === 1}
-                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                className="px-2.5 py-1 bg-white/10 border border-white/20 rounded-lg font-bold text-white hover:bg-white/20 disabled:opacity-40 transition-colors flex items-center gap-1 cursor-pointer"
-              >
-                <ChevronLeft size={13} />
-                <span>Previous</span>
-              </button>
-
-              <span className="px-2 font-mono font-bold text-[#FFD400]">
-                {currentPage} / {totalPages}
+      {/* OT & Surgical Lights: Three distinct, vertically stacked sections ABOVE product list */}
+      {selectedCategory === "ot-lights" && (
+        <div className="space-y-3 mb-6">
+          <div className="flex flex-wrap items-center justify-between gap-2 px-1">
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-bold font-mono uppercase text-white/70">
+                OT &amp; Surgical Lights Catalogue Overview
               </span>
+              <span className="text-xs font-mono font-bold bg-[#FFD400] text-black px-2 py-0.5 rounded shadow-2xs">
+                Parent Total: {otSectionCounts.total} Products
+              </span>
+            </div>
 
+            {/* Quick Section Filter Pill Buttons */}
+            <div className="flex items-center gap-1.5 bg-black/25 p-1 rounded-lg border border-white/15">
               <button
                 type="button"
-                disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                className="px-2.5 py-1 bg-white/10 border border-white/20 rounded-lg font-bold text-white hover:bg-white/20 disabled:opacity-40 transition-colors flex items-center gap-1 cursor-pointer"
+                onClick={() => setActiveOtSectionFilter("all")}
+                className={`px-2.5 py-1 rounded text-xs font-semibold transition-colors cursor-pointer ${
+                  activeOtSectionFilter === "all"
+                    ? "bg-[#FFD400] text-black font-bold"
+                    : "text-white/80 hover:text-white"
+                }`}
               >
-                <span>Next</span>
-                <ChevronRight size={13} />
+                All 3 Sections ({otSectionCounts.total})
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveOtSectionFilter("single-dome-ot-lights")}
+                className={`px-2.5 py-1 rounded text-xs font-semibold transition-colors cursor-pointer ${
+                  activeOtSectionFilter === "single-dome-ot-lights"
+                    ? "bg-[#FFD400] text-black font-bold"
+                    : "text-white/80 hover:text-white"
+                }`}
+              >
+                Section A ({otSectionCounts.singleDome})
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveOtSectionFilter("ot-surgical-lights-double-dome")}
+                className={`px-2.5 py-1 rounded text-xs font-semibold transition-colors cursor-pointer ${
+                  activeOtSectionFilter === "ot-surgical-lights-double-dome"
+                    ? "bg-[#FFD400] text-black font-bold"
+                    : "text-white/80 hover:text-white"
+                }`}
+              >
+                Section B ({otSectionCounts.doubleDome})
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveOtSectionFilter("mobile-led-ot-lights")}
+                className={`px-2.5 py-1 rounded text-xs font-semibold transition-colors cursor-pointer ${
+                  activeOtSectionFilter === "mobile-led-ot-lights"
+                    ? "bg-[#FFD400] text-black font-bold"
+                    : "text-white/80 hover:text-white"
+                }`}
+              >
+                Section C ({otSectionCounts.mobileOt})
               </button>
             </div>
-          )}
+          </div>
+
+          {/* Three Distinct, Vertically Stacked Summary Cards ABOVE Product Details */}
+          <div className="flex flex-col gap-3">
+            {/* Section A Card */}
+            <div className="bg-[#0D4C3C] text-white rounded-xl border border-white/20 p-4 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div className="flex items-start sm:items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-black/30 border border-white/20 flex items-center justify-center font-black font-mono text-base text-[#FFD400] shrink-0">
+                  A
+                </div>
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h4 className="font-bold text-sm sm:text-base text-white">
+                      Section A: Single Dome OT Lights
+                    </h4>
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-black/30 text-white/90 border border-white/20">
+                      Target Count: 25
+                    </span>
+                    <span
+                      className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border flex items-center gap-1 ${
+                        otSectionCounts.singleDome === 25
+                          ? "bg-[#15803D]/30 text-[#86EFAC] border-[#15803D]"
+                          : "bg-[#B91C1C]/30 text-[#FCA5A5] border-[#B91C1C]"
+                      }`}
+                    >
+                      <CheckCircle2 size={10} />
+                      Database Count: {otSectionCounts.singleDome}
+                    </span>
+                  </div>
+                  <p className="text-xs text-white/70 mt-0.5">
+                    Ceiling-mounted single dome surgical lights with precision shadowless illumination.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 self-end md:self-center shrink-0">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveOtSectionFilter("all");
+                    setTimeout(() => {
+                      const el = document.getElementById("admin-section-single-dome");
+                      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }, 50);
+                  }}
+                  className="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <span>Scroll to Section A</span>
+                  <ChevronDown size={12} />
+                </button>
+              </div>
+            </div>
+
+            {/* Section B Card */}
+            <div className="bg-[#0D4C3C] text-white rounded-xl border border-white/20 p-4 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div className="flex items-start sm:items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-black/30 border border-white/20 flex items-center justify-center font-black font-mono text-base text-[#FFD400] shrink-0">
+                  B
+                </div>
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h4 className="font-bold text-sm sm:text-base text-white">
+                      Section B: Double Dome OT Lights
+                    </h4>
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-black/30 text-white/90 border border-white/20">
+                      Target Count: 29
+                    </span>
+                    <span
+                      className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border flex items-center gap-1 ${
+                        otSectionCounts.doubleDome === 29
+                          ? "bg-[#15803D]/30 text-[#86EFAC] border-[#15803D]"
+                          : "bg-[#B91C1C]/30 text-[#FCA5A5] border-[#B91C1C]"
+                      }`}
+                    >
+                      <CheckCircle2 size={10} />
+                      Database Count: {otSectionCounts.doubleDome}
+                    </span>
+                  </div>
+                  <p className="text-xs text-white/70 mt-0.5">
+                    Dual-dome ceiling-mounted surgical lights for multi-angle shadowless illumination across operating theatres.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 self-end md:self-center shrink-0">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveOtSectionFilter("all");
+                    setTimeout(() => {
+                      const el = document.getElementById("admin-section-double-dome");
+                      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }, 50);
+                  }}
+                  className="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <span>Scroll to Section B</span>
+                  <ChevronDown size={12} />
+                </button>
+              </div>
+            </div>
+
+            {/* Section C Card */}
+            <div className="bg-[#0D4C3C] text-white rounded-xl border border-white/20 p-4 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div className="flex items-start sm:items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-black/30 border border-white/20 flex items-center justify-center font-black font-mono text-base text-[#FFD400] shrink-0">
+                  C
+                </div>
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h4 className="font-bold text-sm sm:text-base text-white">
+                      Section C: Mobile OT Lights
+                    </h4>
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-black/30 text-white/90 border border-white/20">
+                      Target Count: 18
+                    </span>
+                    <span
+                      className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border flex items-center gap-1 ${
+                        otSectionCounts.mobileOt === 18
+                          ? "bg-[#15803D]/30 text-[#86EFAC] border-[#15803D]"
+                          : "bg-[#B91C1C]/30 text-[#FCA5A5] border-[#B91C1C]"
+                      }`}
+                    >
+                      <CheckCircle2 size={10} />
+                      Database Count: {otSectionCounts.mobileOt}
+                    </span>
+                  </div>
+                  <p className="text-xs text-white/70 mt-0.5">
+                    Floor stand mobile surgical and examination lights with heavy-duty castor wheels and battery backup options.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 self-end md:self-center shrink-0">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveOtSectionFilter("all");
+                    setTimeout(() => {
+                      const el = document.getElementById("admin-section-mobile-ot");
+                      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }, 50);
+                  }}
+                  className="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <span>Scroll to Section C</span>
+                  <ChevronDown size={12} />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Render Product Tables: 3 Vertically Stacked Sections for OT Lights, or Standard Table for other categories */}
+      {selectedCategory === "ot-lights" ? (
+        <div className="space-y-6">
+          {(activeOtSectionFilter === "all" || activeOtSectionFilter === "single-dome-ot-lights") &&
+            renderOtSection(
+              "sec-a",
+              "A",
+              "Section A: Single Dome OT Lights",
+              "single-dome-ot-lights",
+              25,
+              singleDomeProducts,
+              "admin-section-single-dome"
+            )}
+
+          {(activeOtSectionFilter === "all" || activeOtSectionFilter === "ot-surgical-lights-double-dome") &&
+            renderOtSection(
+              "sec-b",
+              "B",
+              "Section B: Double Dome OT Lights",
+              "ot-surgical-lights-double-dome",
+              29,
+              doubleDomeProducts,
+              "admin-section-double-dome"
+            )}
+
+          {(activeOtSectionFilter === "all" || activeOtSectionFilter === "mobile-led-ot-lights") &&
+            renderOtSection(
+              "sec-c",
+              "C",
+              "Section C: Mobile OT Lights",
+              "mobile-led-ot-lights",
+              18,
+              mobileOtProducts,
+              "admin-section-mobile-ot"
+            )}
+        </div>
+      ) : (
+        /* 3. Compact Product Table — Exact 6 Columns (Default for all other categories) */
+        <div className="bg-[#0D4C3C] text-white rounded-xl border border-white/20 overflow-hidden shadow-xl">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs text-white">
+              <thead className="bg-black/25 border-b border-white/15 text-[10px] font-bold font-mono uppercase text-white/70 tracking-wider">
+                <tr>
+                  {/* 1. Selection Checkbox */}
+                  <th className="py-2.5 px-3 w-10 text-center">
+                    <input
+                      type="checkbox"
+                      checked={selectedIds.length === paginatedProducts.length && paginatedProducts.length > 0}
+                      onChange={handleSelectAll}
+                      className="w-3.5 h-3.5 rounded text-black focus:ring-black accent-black cursor-pointer"
+                    />
+                  </th>
+
+                  {/* 2. Product Details */}
+                  <th className="py-2.5 px-4 min-w-[280px]">Product Details</th>
+
+                  {/* 3. Price (INR) — Placed immediately after Product Details */}
+                  <th className="py-2.5 px-4 text-right min-w-[110px] whitespace-nowrap">Price (INR)</th>
+
+                  {/* 4. Status — Active / Inactive Pill Button */}
+                  <th className="py-2.5 px-4 text-center min-w-[110px] whitespace-nowrap">Status</th>
+
+                  {/* 5. Review Status — 3-State Dropdown */}
+                  <th className="py-2.5 px-4 text-center min-w-[140px] whitespace-nowrap">Review Status</th>
+
+                  {/* 6. Actions — Download Icon & Compact Edit Button */}
+                  <th className="py-2.5 px-4 text-right min-w-[130px] whitespace-nowrap">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/10">
+                {renderProductRows(paginatedProducts)}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Dynamic Pagination Bar */}
+          <div className="px-5 py-3 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-2.5 text-xs bg-black/25 text-white">
+            <span className="text-white/70 font-mono">
+              Showing {startProductNumber}–{endProductNumber} of {filteredProducts.length} products
+            </span>
+
+            {totalPages > 1 && (
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  className="px-2.5 py-1 bg-white/10 border border-white/20 rounded-lg font-bold text-white hover:bg-white/20 disabled:opacity-40 transition-colors flex items-center gap-1 cursor-pointer"
+                >
+                  <ChevronLeft size={13} />
+                  <span>Previous</span>
+                </button>
+
+                <span className="px-2 font-mono font-bold text-[#FFD400]">
+                  {currentPage} / {totalPages}
+                </span>
+
+                <button
+                  type="button"
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  className="px-2.5 py-1 bg-white/10 border border-white/20 rounded-lg font-bold text-white hover:bg-white/20 disabled:opacity-40 transition-colors flex items-center gap-1 cursor-pointer"
+                >
+                  <span>Next</span>
+                  <ChevronRight size={13} />
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Delete Product Confirmation Modal */}
       <DeleteProductModal

@@ -159,7 +159,7 @@
         "prod-3-mhz-ultrasound-therapy"
       ],
       "createdAt": "2026-10-03T15:48:11Z",
-      "updatedAt": "2026-10-17T17:49:32.241Z",
+      "updatedAt": "2026-10-26T18:43:02.297Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "roshan.official0009@gmail.com",
       "ribbon": "EX-400",
@@ -199,9 +199,9 @@
       "showOnHomepage": true,
       "forceCreate": false,
       "reviewStatus": "CORRECT",
-      "reviewNote": "Test review note for clinical audit",
+      "reviewNote": null,
       "reviewedBy": "roshan.official0009@gmail.com",
-      "reviewedAt": "2026-10-17T17:49:28.440Z",
+      "reviewedAt": "2026-10-26T18:43:02.247Z",
       "managedCloudinaryImages": [
         {
           "publicId": "dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_1_e7d52211",
@@ -278,8 +278,8 @@
       "cloudinarySyncStatus": "IMAGES_UPLOADED",
       "cloudinaryLastSyncedAt": "2026-10-11T14:35:29.697Z",
       "mongoSyncStatus": "SYNCED",
-      "mongoSyncedAt": "2026-10-17T17:49:29.860Z",
-      "approvedAt": "2026-10-17T17:49:32.192Z",
+      "mongoSyncedAt": "2026-10-26T18:42:59.936Z",
+      "approvedAt": "2026-10-26T18:42:58.418Z",
       "approvedBy": "roshan.official0009@gmail.com",
       "mongoSyncError": null
     },
@@ -8201,9 +8201,9 @@
       "sku": "DRM-OT-468B",
       "modelNumber": "Add-On",
       "brand": "DR.MEDEX",
-      "category": "ot-lights",
+      "category": "medical-equipment",
       "categoryName": "OT Lights",
-      "subcategory": "single-dome-ot-lights",
+      "subcategory": "diagnostic",
       "subcategoryName": "Single Dome OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -8308,7 +8308,7 @@
         "prod-double-dome-led-ot-surgi"
       ],
       "createdAt": "2026-10-03T15:45:18Z",
-      "updatedAt": "2026-10-11T13:42:18.296Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "roshan.official0009@gmail.com",
       "ribbon": "Add-On",
@@ -9227,7 +9227,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "ot-surgical-lights-double-dome",
+      "subcategory": "single-dome-ot-lights",
       "subcategoryName": "Double Dome OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -9446,7 +9446,7 @@
         "prod-double-dome-led-ot-surgi"
       ],
       "createdAt": "2026-10-03T15:45:23Z",
-      "updatedAt": "2026-10-03T16:07:53.711Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "admin@drmedex.com",
       "isFeatured": true,
@@ -9880,7 +9880,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "mobile-led-ot-lights",
+      "subcategory": "single-dome-ot-lights",
       "subcategoryName": "Mobile LED OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -10041,7 +10041,7 @@
         "prod-double-dome-led-ot-surgi"
       ],
       "createdAt": "2026-10-03T15:45:27Z",
-      "updatedAt": "2026-10-03T15:45:27Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "Star 84",
@@ -12871,7 +12871,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "single-dome-ot-lights",
+      "subcategory": "ot-surgical-lights-double-dome",
       "subcategoryName": "Single Dome OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -13020,7 +13020,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:45:44Z",
-      "updatedAt": "2026-10-03T15:45:44Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "LED 48+48 Pro",
@@ -18225,7 +18225,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "ot-surgical-lights-double-dome",
+      "subcategory": "single-dome-ot-lights",
       "subcategoryName": "Double Dome OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -18422,7 +18422,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:46:23Z",
-      "updatedAt": "2026-10-03T15:46:23Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "referencePricing": {
@@ -19663,7 +19663,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "mobile-led-ot-lights",
+      "subcategory": "ot-surgical-lights-double-dome",
       "subcategoryName": "Mobile LED OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -19852,7 +19852,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:46:27Z",
-      "updatedAt": "2026-10-03T15:46:27Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "Mars 48+48",
@@ -19885,7 +19885,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "mobile-led-ot-lights",
+      "subcategory": "single-dome-ot-lights",
       "subcategoryName": "Mobile LED OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -20082,7 +20082,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:46:31Z",
-      "updatedAt": "2026-10-03T15:46:31Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "S-105",
@@ -20115,7 +20115,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "mobile-led-ot-lights",
+      "subcategory": "ot-surgical-lights-double-dome",
       "subcategoryName": "Mobile LED OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -20313,7 +20313,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:46:31Z",
-      "updatedAt": "2026-10-03T15:46:31Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "referencePricing": {
@@ -20573,7 +20573,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "mobile-led-ot-lights",
+      "subcategory": "single-dome-ot-lights",
       "subcategoryName": "Mobile LED OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -20740,7 +20740,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:46:34Z",
-      "updatedAt": "2026-10-03T15:46:34Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "Omex 48",
@@ -21054,7 +21054,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "single-dome-ot-lights",
+      "subcategory": "ot-surgical-lights-double-dome",
       "subcategoryName": "Single Dome OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -21298,7 +21298,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:46:35Z",
-      "updatedAt": "2026-10-03T15:46:35Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "RISH 500",
@@ -21331,7 +21331,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "ot-surgical-lights-double-dome",
+      "subcategory": "mobile-led-ot-lights",
       "subcategoryName": "Double Dome OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -21521,7 +21521,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:46:36Z",
-      "updatedAt": "2026-10-03T15:46:36Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "WING 60 MOBILE",
@@ -21742,7 +21742,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "mobile-led-ot-lights",
+      "subcategory": "single-dome-ot-lights",
       "subcategoryName": "Mobile LED OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -21901,7 +21901,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:46:37Z",
-      "updatedAt": "2026-10-03T15:46:37Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "RISH 72",
@@ -21934,7 +21934,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "mobile-led-ot-lights",
+      "subcategory": "single-dome-ot-lights",
       "subcategoryName": "Mobile LED OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -22095,7 +22095,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:46:38Z",
-      "updatedAt": "2026-10-03T15:46:38Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "RISH 42",
@@ -24004,7 +24004,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "ot-surgical-lights-double-dome",
+      "subcategory": "mobile-led-ot-lights",
       "subcategoryName": "Double Dome OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -24240,7 +24240,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:46:50Z",
-      "updatedAt": "2026-10-03T15:46:50Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "Lunar 54 Mobile",
@@ -26421,7 +26421,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "ot-surgical-lights-double-dome",
+      "subcategory": "mobile-led-ot-lights",
       "subcategoryName": "Double Dome OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -26615,7 +26615,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:47:02Z",
-      "updatedAt": "2026-10-03T15:47:02Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "OMEGA 500 Mobile",
@@ -27663,9 +27663,9 @@
       "sku": "DRM-OT-9B56",
       "modelNumber": "ALO-5",
       "brand": "DR.MEDEX",
-      "category": "ot-lights",
+      "category": "medical-equipment",
       "categoryName": "OT Lights",
-      "subcategory": "single-dome-ot-lights",
+      "subcategory": "general-medical",
       "subcategoryName": "Single Dome OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -27820,7 +27820,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:47:11Z",
-      "updatedAt": "2026-10-03T15:47:11Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "ALO-5",
@@ -27853,7 +27853,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "mobile-led-ot-lights",
+      "subcategory": "single-dome-ot-lights",
       "subcategoryName": "Mobile LED OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -28054,7 +28054,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:47:13Z",
-      "updatedAt": "2026-10-03T15:47:13Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "referencePricing": {
@@ -28702,7 +28702,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "mobile-led-ot-lights",
+      "subcategory": "single-dome-ot-lights",
       "subcategoryName": "Mobile LED OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -28910,7 +28910,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:47:19Z",
-      "updatedAt": "2026-10-03T15:47:19Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "referencePricing": {
@@ -30322,7 +30322,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "mobile-led-ot-lights",
+      "subcategory": "ot-surgical-lights-double-dome",
       "subcategoryName": "Mobile LED OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -30471,7 +30471,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:47:30Z",
-      "updatedAt": "2026-10-03T15:47:30Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "S21+S21",
@@ -30888,9 +30888,9 @@
       "sku": "DRM-OT-1544",
       "modelNumber": "MD-21",
       "brand": "DR.MEDEX",
-      "category": "ot-lights",
+      "category": "medical-equipment",
       "categoryName": "OT Lights",
-      "subcategory": "mobile-led-ot-lights",
+      "subcategory": "diagnostic",
       "subcategoryName": "Mobile LED OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -31049,7 +31049,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:47:35Z",
-      "updatedAt": "2026-10-03T15:47:35Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "MD-21",
@@ -34839,7 +34839,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "mobile-led-ot-lights",
+      "subcategory": "single-dome-ot-lights",
       "subcategoryName": "Mobile LED OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -34994,7 +34994,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:48:03Z",
-      "updatedAt": "2026-10-03T15:48:03Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "NOVA 6",
@@ -36846,7 +36846,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "single-dome-ot-lights",
+      "subcategory": "ot-surgical-lights-double-dome",
       "subcategoryName": "Single Dome OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -37007,7 +37007,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:48:20Z",
-      "updatedAt": "2026-10-03T15:48:20Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "ULTRA 48+48",
@@ -37844,7 +37844,7 @@
       "brand": "DR.MEDEX",
       "category": "ot-lights",
       "categoryName": "OT Lights",
-      "subcategory": "single-dome-ot-lights",
+      "subcategory": "ot-surgical-lights-double-dome",
       "subcategoryName": "Single Dome OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -37999,7 +37999,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:48:22Z",
-      "updatedAt": "2026-10-03T15:48:22Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "Mars 48+48 Pro",
@@ -39498,9 +39498,9 @@
       "sku": "DRM-OT-0DE8",
       "modelNumber": "Latest",
       "brand": "DR.MEDEX",
-      "category": "ot-lights",
+      "category": "medical-equipment",
       "categoryName": "OT Lights",
-      "subcategory": "mobile-led-ot-lights",
+      "subcategory": "headlights",
       "subcategoryName": "Mobile LED OT Lights",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -39691,7 +39691,7 @@
         "prod-ceiling-mounted-single-d"
       ],
       "createdAt": "2026-10-03T15:48:34Z",
-      "updatedAt": "2026-10-03T15:48:34Z",
+      "updatedAt": "2026-10-26T18:27:26.046Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "SYSTEM_IMPORT",
       "ribbon": "Latest",
@@ -41999,6 +41999,766 @@
     "headquarters": "DR.MEDEX Global MedTech Tower, 45 Healthcare Innovation Way, Boston, MA 02115, USA & International Logistics Hub, Dubai Healthcare City, UAE"
   },
   "auditLogs": [
+    {
+      "id": "audit-1793040182264-isgc4",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-26T18:43:02.264Z"
+    },
+    {
+      "id": "audit-1793040182213-3ejkt",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-db-fail-1793040182182",
+      "details": {
+        "title": "TEST DB FAILURE PRODUCT",
+        "sku": "TEST-DBF-1793040182182",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-db-fail-1793040182182",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-26T18:43:02.213Z"
+    },
+    {
+      "id": "audit-1793040182134-3bis6",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ord-prod-1793040182101",
+      "details": {
+        "title": "TEST ORDER-LINKED ICU VENTILATOR",
+        "sku": "TEST-ORD-SKU-1793040182101",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-26T18:43:02.134Z"
+    },
+    {
+      "id": "audit-1793040182064-euo3s",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-prod-1793040181994",
+      "details": {
+        "title": "TEST TEMPORARY ELECTROSURGICAL GENERATOR",
+        "sku": "TEST-E2E-DEL-1793040181994",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 2,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_1"
+            },
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_2"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-prod-1793040181994",
+          "deletedCount": 1,
+          "adminEmail": "roshan.official0009@gmail.com"
+        }
+      },
+      "timestamp": "2026-10-26T18:43:02.064Z"
+    },
+    {
+      "id": "audit-1793040181966-a1php",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-26T18:43:01.966Z"
+    },
+    {
+      "id": "audit-1793040181375-0dcr9",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-hotfix-1793040181216",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "changes": {}
+      },
+      "timestamp": "2026-10-26T18:43:01.375Z"
+    },
+    {
+      "id": "audit-1793040181294-mfygw",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-hotfix-1793040181216",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "changes": {}
+      },
+      "timestamp": "2026-10-26T18:43:01.294Z"
+    },
+    {
+      "id": "audit-1793040181242-ddgcw",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CREATED",
+      "productId": "test-hotfix-1793040181216",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "basePrice": 450000,
+        "sku": "TEST-HF-77403B"
+      },
+      "timestamp": "2026-10-26T18:43:01.243Z"
+    },
+    {
+      "id": "audit-1793040180722-9znq3",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1793040180543",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-26T18:43:00.722Z"
+    },
+    {
+      "id": "audit-1793040180674-4bhpb",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1793040180543",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-26T18:43:00.674Z"
+    },
+    {
+      "id": "audit-1793040180620-xcdcv",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1793040180543",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-26T18:43:00.620Z"
+    },
+    {
+      "id": "audit-1793040180569-2da0l",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CREATED",
+      "productId": "test-e2e-prod-1793040180543",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "basePrice": 185000,
+        "sku": "TEST-E2E-1793040180543"
+      },
+      "timestamp": "2026-10-26T18:43:00.569Z"
+    },
+    {
+      "id": "audit-1793040180068-hke2d",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-unref-1793040180034",
+      "details": {
+        "title": "TEST DISPOSABLE FORCEPS",
+        "sku": "TEST-FOR-1793040180034",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-unref-1793040180034",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-26T18:43:00.068Z"
+    },
+    {
+      "id": "audit-1793040179985-p4evg",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ret-prod-1793040179952",
+      "details": {
+        "title": "TEST SURGICAL CO2 LASER SYSTEM",
+        "sku": "TEST-LAS-1793040179952",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-26T18:42:59.985Z"
+    },
+    {
+      "id": "audit-1793040179893-8hduq",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-26T18:42:59.893Z"
+    },
+    {
+      "id": "audit-1793040179345-pl6xl",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1793040179283",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1793040179283",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 1,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "test_asset_exclusive_delete"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1793040179283",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-26T18:42:59.345Z"
+    },
+    {
+      "id": "audit-1793040179238-bv15i",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1793040179196",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1793040179196",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-26T18:42:59.238Z"
+    },
+    {
+      "id": "audit-1793040179166-hqj9l",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-26T18:42:59.166Z"
+    },
+    {
+      "id": "audit-1793040178603-57fqx",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-26T18:42:58.603Z"
+    },
+    {
+      "id": "audit-1793040178536-m5zmr",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-26T18:42:58.536Z"
+    },
+    {
+      "id": "audit-1793040178486-oaoat",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-26T18:42:58.486Z"
+    },
+    {
+      "id": "audit-1793040178437-xddt2",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-26T18:42:58.437Z"
+    },
+    {
+      "id": "audit-1793040173669-9fsbz",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-26T18:42:53.669Z"
+    },
+    {
+      "id": "audit-1793040173615-hrvoi",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-26T18:42:53.615Z"
+    },
+    {
+      "id": "audit-1793040173502-uk8xt",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-26T18:42:53.502Z"
+    },
+    {
+      "id": "audit-1793040173395-mgjik",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-26T18:42:53.395Z"
+    },
+    {
+      "id": "audit-1793039452151-naag6",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-26T18:30:52.151Z"
+    },
+    {
+      "id": "audit-1793039452064-4ilx4",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-db-fail-1793039452023",
+      "details": {
+        "title": "TEST DB FAILURE PRODUCT",
+        "sku": "TEST-DBF-1793039452023",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-db-fail-1793039452023",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-26T18:30:52.064Z"
+    },
+    {
+      "id": "audit-1793039451960-aedqt",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ord-prod-1793039451919",
+      "details": {
+        "title": "TEST ORDER-LINKED ICU VENTILATOR",
+        "sku": "TEST-ORD-SKU-1793039451919",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-26T18:30:51.960Z"
+    },
+    {
+      "id": "audit-1793039451878-c8jih",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-prod-1793039451798",
+      "details": {
+        "title": "TEST TEMPORARY ELECTROSURGICAL GENERATOR",
+        "sku": "TEST-E2E-DEL-1793039451798",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 2,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_1"
+            },
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_2"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-prod-1793039451798",
+          "deletedCount": 1,
+          "adminEmail": "roshan.official0009@gmail.com"
+        }
+      },
+      "timestamp": "2026-10-26T18:30:51.878Z"
+    },
+    {
+      "id": "audit-1793039451754-mrkyi",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-26T18:30:51.754Z"
+    },
+    {
+      "id": "audit-1793039450716-lqoht",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-hotfix-1793039450528",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "changes": {}
+      },
+      "timestamp": "2026-10-26T18:30:50.716Z"
+    },
+    {
+      "id": "audit-1793039450613-coj4y",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-hotfix-1793039450528",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "changes": {}
+      },
+      "timestamp": "2026-10-26T18:30:50.613Z"
+    },
+    {
+      "id": "audit-1793039450559-igcpl",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CREATED",
+      "productId": "test-hotfix-1793039450528",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "basePrice": 450000,
+        "sku": "TEST-HF-907777"
+      },
+      "timestamp": "2026-10-26T18:30:50.559Z"
+    },
+    {
+      "id": "audit-1793039449301-wijbq",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1793039448965",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-26T18:30:49.301Z"
+    },
+    {
+      "id": "audit-1793039449158-hls6k",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1793039448965",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-26T18:30:49.158Z"
+    },
+    {
+      "id": "audit-1793039449072-yh3k9",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1793039448965",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-26T18:30:49.072Z"
+    },
+    {
+      "id": "audit-1793039449001-pnyij",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CREATED",
+      "productId": "test-e2e-prod-1793039448965",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "basePrice": 185000,
+        "sku": "TEST-E2E-1793039448965"
+      },
+      "timestamp": "2026-10-26T18:30:49.001Z"
+    },
+    {
+      "id": "audit-1793039447909-yuj00",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-unref-1793039447833",
+      "details": {
+        "title": "TEST DISPOSABLE FORCEPS",
+        "sku": "TEST-FOR-1793039447836",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-unref-1793039447833",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-26T18:30:47.909Z"
+    },
+    {
+      "id": "audit-1793039447765-ccpgi",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ret-prod-1793039447730",
+      "details": {
+        "title": "TEST SURGICAL CO2 LASER SYSTEM",
+        "sku": "TEST-LAS-1793039447730",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-26T18:30:47.765Z"
+    },
+    {
+      "id": "audit-1793039447667-p0l3p",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-26T18:30:47.667Z"
+    },
+    {
+      "id": "audit-1793039447115-a1ahb",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1793039447052",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1793039447052",
+        "cloudinary": {
+          "status": "PARTIAL_FAILURE",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 1,
+          "deleted": [],
+          "preserved": [],
+          "errors": [
+            {
+              "publicId": "test_asset_exclusive_delete"
+            }
+          ]
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1793039447052",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-26T18:30:47.115Z"
+    },
+    {
+      "id": "audit-1793039447007-gbnsy",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1793039446958",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1793039446958",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "status": "SYNC_FAILED",
+          "error": "MongoDB Atlas cluster unreachable (network timeout or connection refused)."
+        }
+      },
+      "timestamp": "2026-10-26T18:30:47.007Z"
+    },
+    {
+      "id": "audit-1793039446927-bjehi",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-26T18:30:46.927Z"
+    },
+    {
+      "id": "audit-1793039446372-zpdv6",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-26T18:30:46.372Z"
+    },
+    {
+      "id": "audit-1793039446303-njj9r",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-26T18:30:46.303Z"
+    },
+    {
+      "id": "audit-1793039446254-qs7a8",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-26T18:30:46.254Z"
+    },
+    {
+      "id": "audit-1793039446206-m9pgc",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNC_FAILED"
+      },
+      "timestamp": "2026-10-26T18:30:46.206Z"
+    },
+    {
+      "id": "audit-1793039441681-x0sku",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-26T18:30:41.681Z"
+    },
+    {
+      "id": "audit-1793039441623-nvohu",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-26T18:30:41.623Z"
+    },
+    {
+      "id": "audit-1793039441512-vigsl",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-26T18:30:41.512Z"
+    },
+    {
+      "id": "audit-1793039441409-2rklr",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-26T18:30:41.409Z"
+    },
     {
       "id": "audit-1792259372208-7g6zo",
       "adminId": "roshan.official0009@gmail.com",

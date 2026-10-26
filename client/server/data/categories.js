@@ -64,9 +64,7 @@ const categories = [
     subcategories: [
       { id: "single-dome", slug: "single-dome-ot-lights", name: "Single Dome OT Lights" },
       { id: "double-dome", slug: "ot-surgical-lights-double-dome", name: "Double Dome OT Lights" },
-      { id: "mobile-lights", slug: "mobile-led-ot-lights", name: "Mobile OT Lights" },
-      { id: "ceiling-lights", slug: "ceiling-mounted-systems", name: "Ceiling-Mounted Systems" },
-      { id: "examination-lights", slug: "examination-lights", name: "Examination Lights & Lamps" }
+      { id: "mobile-lights", slug: "mobile-led-ot-lights", name: "Mobile OT Lights" }
     ]
   },
   {

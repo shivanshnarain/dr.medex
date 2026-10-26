@@ -476,6 +476,113 @@ export const ShopPage: React.FC = () => {
                   Reset All Filters
                 </button>
               </div>
+            ) : selectedCategory === "ot-lights" && !selectedSubcategory ? (
+              <div className="space-y-12">
+                {/* Quick Anchor Navigation */}
+                <div className="p-4 bg-white rounded-xl border border-[#EAEAEA] shadow-2xs flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-2xs font-extrabold uppercase tracking-wider text-neutral-400">
+                      Sections:
+                    </span>
+                    {[
+                      { id: "single-dome-ot-lights", slug: "single-dome-ot-lights", name: "Single Dome OT Lights" },
+                      { id: "ot-surgical-lights-double-dome", slug: "ot-surgical-lights-double-dome", name: "Double Dome OT Lights" },
+                      { id: "mobile-led-ot-lights", slug: "mobile-led-ot-lights", name: "Mobile OT Lights" }
+                    ].map((sec) => {
+                      const count = products.filter(
+                        (p) => (p.category === "ot-lights" || p.category === "OT / Surgical Lights") && p.subcategory === sec.slug
+                      ).length;
+                      return (
+                        <a
+                          key={sec.id}
+                          href={`#${sec.id}`}
+                          className="px-3 py-1.5 rounded-lg bg-[#FAFAFA] hover:bg-[#111111] text-[#111111] hover:text-white border border-[#EAEAEA] text-xs font-semibold transition-all flex items-center gap-1.5 shadow-2xs"
+                        >
+                          <span>{sec.name}</span>
+                          <span className="text-3xs font-mono px-1.5 py-0.2 rounded bg-neutral-200 text-neutral-800">
+                            {count}
+                          </span>
+                        </a>
+                      );
+                    })}
+                  </div>
+                  <div className="text-xs font-mono text-neutral-500">
+                    <span className="font-bold text-[#111111]">
+                      {products.filter((p) => p.category === "ot-lights" || p.category === "OT / Surgical Lights").length}
+                    </span>{" "}
+                    Total Products
+                  </div>
+                </div>
+
+                {/* 3 Distinct Vertically Stacked Sections */}
+                {[
+                  {
+                    id: "single-dome-ot-lights",
+                    slug: "single-dome-ot-lights",
+                    title: "Single Dome OT Lights",
+                    description: "Ceiling and wall-mounted single dome shadowless surgical lighting systems engineered for focused operating theatre visibility."
+                  },
+                  {
+                    id: "ot-surgical-lights-double-dome",
+                    slug: "ot-surgical-lights-double-dome",
+                    title: "Double Dome OT Lights",
+                    description: "Dual-head and twin dome surgical illumination systems with balanced articulated suspension for advanced operating suites."
+                  },
+                  {
+                    id: "mobile-led-ot-lights",
+                    slug: "mobile-led-ot-lights",
+                    title: "Mobile OT Lights",
+                    description: "Floor-standing mobile LED operating theatre lights with smooth castors and optional emergency battery backup."
+                  }
+                ].map((sec) => {
+                  const secProducts = filteredProducts.filter((p) => p.subcategory === sec.slug);
+                  const dbTotal = products.filter(
+                    (p) => (p.category === "ot-lights" || p.category === "OT / Surgical Lights") && p.subcategory === sec.slug
+                  ).length;
+
+                  return (
+                    <section key={sec.id} id={sec.id} className="scroll-mt-24 space-y-5">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3.5 border-b border-[#EAEAEA] gap-2">
+                        <div>
+                          <div className="flex items-center gap-2.5">
+                            <h2 className="text-xl sm:text-2xl font-black text-[#111111] tracking-tight">
+                              {sec.title}
+                            </h2>
+                            <span className="px-2.5 py-0.5 rounded-full text-2xs font-mono font-bold bg-[#EAF5EF] text-[#145A38] border border-[#1F7A4D]/20">
+                              {dbTotal} Certified Products
+                            </span>
+                          </div>
+                          <p className="text-xs text-neutral-500 mt-1 max-w-2xl leading-relaxed">
+                            {sec.description}
+                          </p>
+                        </div>
+                        {secProducts.length !== dbTotal && (
+                          <span className="text-2xs font-mono text-neutral-400">
+                            Showing {secProducts.length} of {dbTotal}
+                          </span>
+                        )}
+                      </div>
+
+                      {secProducts.length === 0 ? (
+                        <div className="p-8 bg-white rounded-xl border border-dashed border-[#EAEAEA] text-center text-xs text-neutral-500">
+                          No products match active filters in {sec.title}.
+                        </div>
+                      ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                          {secProducts.map((p) => (
+                            <ProductCard
+                              key={p.id}
+                              product={p}
+                              onQuickView={setQuickViewProduct}
+                              onOpenQuote={handleOpenQuote}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </section>
+                  );
+                })}
+              </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredProducts.map((p) => (

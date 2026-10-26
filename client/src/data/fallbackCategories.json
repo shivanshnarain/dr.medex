@@ -144,16 +144,6 @@
         "id": "mobile-lights",
         "slug": "mobile-led-ot-lights",
         "name": "Mobile OT Lights"
-      },
-      {
-        "id": "ceiling-lights",
-        "slug": "ceiling-mounted-systems",
-        "name": "Ceiling-Mounted Systems"
-      },
-      {
-        "id": "examination-lights",
-        "slug": "examination-lights",
-        "name": "Examination Lights & Lamps"
       }
     ]
   },

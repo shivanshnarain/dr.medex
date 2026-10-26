@@ -46,25 +46,6 @@ const catalogueHierarchy = {
           { id: "portable-emergency-floor", name: "Portable Emergency Floor Operating Light", defaultCode: "PEF" },
           { id: "mobile-standby-minor", name: "Mobile Standby Minor Surgery Light", defaultCode: "MSM" }
         ]
-      },
-      {
-        id: "ceiling-mounted-systems",
-        name: "Ceiling-Mounted Systems",
-        equipmentTypes: [
-          { id: "ceiling-track-system", name: "Central Ceiling Track Mounting System", defaultCode: "CTS" },
-          { id: "spring-arm-suspension", name: "Heavy-Duty Spring Arm Ceiling Suspension", defaultCode: "SAS" },
-          { id: "low-ceiling-assembly", name: "Low-Ceiling Surgical Light Assembly", defaultCode: "LCA" }
-        ]
-      },
-      {
-        id: "examination-lights",
-        name: "Examination Lights & Lamps",
-        equipmentTypes: [
-          { id: "gooseneck-led-exam", name: "Flexible Gooseneck LED Examination Light", defaultCode: "GEL" },
-          { id: "wall-mounted-shadowless", name: "Wall-Mounted Shadowless Examination Lamp", defaultCode: "WSL" },
-          { id: "ceiling-minor-procedure", name: "Ceiling-Suspended Minor Procedure Light", defaultCode: "CMP" },
-          { id: "table-clamp-exam-light", name: "Table-Clamp Clinical Examination Lamp", defaultCode: "TCE" }
-        ]
       }
     ]
   },
