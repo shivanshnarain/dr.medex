@@ -383,10 +383,21 @@ export const AdminProductsPage: React.FC = () => {
 
   // Section filter and per-section pagination for OT & Surgical Lights (Target: 72 = 25 + 29 + 18)
   const [activeOtSectionFilter, setActiveOtSectionFilter] = useState<string>("all");
+  // Section filter and per-section pagination for Physiotherapy (Target: 76 across 9 sections)
+  const [activePhysioSectionFilter, setActivePhysioSectionFilter] = useState<string>("all");
   const [sectionPages, setSectionPages] = useState<Record<string, number>>({
     "single-dome-ot-lights": 1,
     "ot-surgical-lights-double-dome": 1,
-    "mobile-led-ot-lights": 1
+    "mobile-led-ot-lights": 1,
+    "ultrasound-therapy-machines": 1,
+    "tens-machines": 1,
+    "laser-therapy-machine": 1,
+    "cpm": 1,
+    "shortwave-diathermy-machine": 1,
+    "longwave-diathermy-machine": 1,
+    "shockwave-therapy-machine": 1,
+    "electronic-traction-machine": 1,
+    "electric-muscle-stimulator": 1
   });
 
   const otSectionCounts = useMemo(() => {
@@ -410,6 +421,125 @@ export const AdminProductsPage: React.FC = () => {
   const mobileOtProducts = useMemo(() => {
     return filteredProducts.filter((p) => p.subcategory === "mobile-led-ot-lights");
   }, [filteredProducts]);
+
+  // Physiotherapy 9 Subcategory Sections (1..9)
+  interface PhysioSectionDef {
+    key: string;
+    badge: string;
+    title: string;
+    subcategoryId: string;
+    targetCount: number;
+    description: string;
+    anchorId: string;
+  }
+
+  const physioSections: PhysioSectionDef[] = useMemo(() => [
+    {
+      key: "sec-1",
+      badge: "1",
+      title: "1. Ultrasound Therapy Machines",
+      subcategoryId: "ultrasound-therapy-machines",
+      targetCount: 33,
+      description: "Therapeutic ultrasound machines for deep tissue healing, phonophoresis, and musculoskeletal pain management.",
+      anchorId: "admin-section-ultrasound"
+    },
+    {
+      key: "sec-2",
+      badge: "2",
+      title: "2. TENS Machines",
+      subcategoryId: "tens-machines",
+      targetCount: 11,
+      description: "Transcutaneous electrical nerve stimulation units for targeted non-invasive pain relief and nerve stimulation.",
+      anchorId: "admin-section-tens"
+    },
+    {
+      key: "sec-3",
+      badge: "3",
+      title: "3. Laser Therapy Machines",
+      subcategoryId: "laser-therapy-machine",
+      targetCount: 5,
+      description: "Low-level and high-intensity therapeutic laser units for cellular biostimulation and tissue repair.",
+      anchorId: "admin-section-laser"
+    },
+    {
+      key: "sec-4",
+      badge: "4",
+      title: "4. CPM Machines",
+      subcategoryId: "cpm",
+      targetCount: 7,
+      description: "Continuous passive motion machines for postoperative knee, hip, and ankle rehabilitation.",
+      anchorId: "admin-section-cpm"
+    },
+    {
+      key: "sec-5",
+      badge: "5",
+      title: "5. Short Wave Diathermy Machines",
+      subcategoryId: "shortwave-diathermy-machine",
+      targetCount: 2,
+      description: "Continuous and pulsed high-frequency shortwave diathermy units for deep thermal therapy.",
+      anchorId: "admin-section-swd"
+    },
+    {
+      key: "sec-6",
+      badge: "6",
+      title: "6. Long Wave Diathermy Machines",
+      subcategoryId: "longwave-diathermy-machine",
+      targetCount: 2,
+      description: "Longwave capacitance and resonance diathermy units for targeted deep joint therapy.",
+      anchorId: "admin-section-lwd"
+    },
+    {
+      key: "sec-7",
+      badge: "7",
+      title: "7. Shock Wave Therapy Machines",
+      subcategoryId: "shockwave-therapy-machine",
+      targetCount: 3,
+      description: "Extracorporeal shockwave therapy (ESWT) units for chronic tendinopathies, heel spurs, and myofascial trigger points.",
+      anchorId: "admin-section-eswt"
+    },
+    {
+      key: "sec-8",
+      badge: "8",
+      title: "8. Electronic Traction Machines",
+      subcategoryId: "electronic-traction-machine",
+      targetCount: 2,
+      description: "Digital micro-controlled cervical and lumbar electronic traction systems.",
+      anchorId: "admin-section-traction"
+    },
+    {
+      key: "sec-9",
+      badge: "9",
+      title: "9. Electric Muscle Stimulators",
+      subcategoryId: "electric-muscle-stimulator",
+      targetCount: 11,
+      description: "Galvanic, faradic, and neuromuscular electrical stimulation (NMES) units for muscle re-education and rehabilitation.",
+      anchorId: "admin-section-ems"
+    }
+  ], []);
+
+  const physioSectionCounts = useMemo(() => {
+    const physio = products.filter((p) => p.category === "physiotherapy");
+    const counts: Record<string, number> = {};
+    let sumSubcategories = 0;
+    physioSections.forEach((sec) => {
+      const cnt = physio.filter(
+        (p) => p.subcategory === sec.subcategoryId || (Array.isArray(p.subcategories) && p.subcategories.includes(sec.subcategoryId))
+      ).length;
+      counts[sec.subcategoryId] = cnt;
+      sumSubcategories += cnt;
+    });
+    return {
+      total: physio.length,
+      sumSubcategories,
+      counts
+    };
+  }, [products, physioSections]);
+
+  const getFilteredPhysioSectionProducts = (subcategoryId: string) => {
+    return filteredProducts.filter(
+      (p) => p.subcategory === subcategoryId || (Array.isArray(p.subcategories) && p.subcategories.includes(subcategoryId))
+    );
+  };
 
   // Paginated Products
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / itemsPerPage));
@@ -2076,7 +2206,121 @@ export const AdminProductsPage: React.FC = () => {
         </div>
       )}
 
-      {/* Render Product Tables: 3 Vertically Stacked Sections for OT Lights, or Standard Table for other categories */}
+      {/* Physiotherapy Machines: Nine distinct, vertically stacked sections */}
+      {selectedCategory === "physiotherapy" && (
+        <div className="space-y-3 mb-6">
+          <div className="flex flex-wrap items-center justify-between gap-2 px-1">
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-bold font-mono uppercase text-white/70">
+                Physiotherapy Machines Catalogue Overview
+              </span>
+              <span className="text-xs font-mono font-bold bg-[#FFD400] text-black px-2 py-0.5 rounded shadow-2xs">
+                Parent Total: {physioSectionCounts.total} Products
+              </span>
+              <span className="text-xs font-mono font-bold bg-white/10 text-white border border-white/20 px-2 py-0.5 rounded">
+                Sum of 9 Sections: {physioSectionCounts.sumSubcategories} / 76
+              </span>
+            </div>
+
+            {/* Quick Section Filter Pill Buttons */}
+            <div className="flex items-center gap-1.5 bg-black/25 p-1 rounded-lg border border-white/15 overflow-x-auto max-w-full">
+              <button
+                type="button"
+                onClick={() => setActivePhysioSectionFilter("all")}
+                className={`px-2.5 py-1 rounded text-xs font-semibold transition-colors cursor-pointer shrink-0 ${
+                  activePhysioSectionFilter === "all"
+                    ? "bg-[#FFD400] text-black font-bold"
+                    : "text-white/80 hover:text-white"
+                }`}
+              >
+                All 9 Sections ({physioSectionCounts.sumSubcategories})
+              </button>
+              {physioSections.map((sec) => {
+                const count = physioSectionCounts.counts[sec.subcategoryId] || 0;
+                const isSelected = activePhysioSectionFilter === sec.subcategoryId;
+                const shortLabel = sec.title.split(". ")[1]?.replace(" Machines", "").replace(" Therapy", "") || sec.title;
+                return (
+                  <button
+                    key={sec.key}
+                    type="button"
+                    onClick={() => setActivePhysioSectionFilter(sec.subcategoryId)}
+                    className={`px-2.5 py-1 rounded text-xs font-semibold transition-colors cursor-pointer shrink-0 ${
+                      isSelected
+                        ? "bg-[#FFD400] text-black font-bold"
+                        : "text-white/80 hover:text-white"
+                    }`}
+                  >
+                    {sec.badge}. {shortLabel} ({count})
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 9 Vertically Stacked Summary Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {physioSections.map((sec) => {
+              const count = physioSectionCounts.counts[sec.subcategoryId] || 0;
+              const isTargetMatched = count === sec.targetCount;
+              return (
+                <div
+                  key={sec.key}
+                  className="bg-[#0D4C3C] text-white rounded-xl border border-white/20 p-3.5 shadow-xl flex flex-col justify-between gap-2.5"
+                >
+                  <div className="flex items-start gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-black/30 border border-white/20 flex items-center justify-center font-black font-mono text-sm text-[#FFD400] shrink-0">
+                      {sec.badge}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-1.5">
+                        <h4 className="font-bold text-xs sm:text-sm text-white truncate">
+                          {sec.title}
+                        </h4>
+                      </div>
+                      <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/30 text-white/90 border border-white/20">
+                          Target: {sec.targetCount}
+                        </span>
+                        <span
+                          className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border flex items-center gap-1 ${
+                            isTargetMatched
+                              ? "bg-[#15803D]/30 text-[#86EFAC] border-[#15803D]"
+                              : "bg-[#B91C1C]/30 text-[#FCA5A5] border-[#B91C1C]"
+                          }`}
+                        >
+                          <CheckCircle2 size={10} />
+                          {count} in DB
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-white/70 mt-1 line-clamp-2">
+                        {sec.description}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-end pt-1 border-t border-white/10">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActivePhysioSectionFilter("all");
+                        setTimeout(() => {
+                          const el = document.getElementById(sec.anchorId);
+                          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }, 50);
+                      }}
+                      className="px-2.5 py-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-md text-[11px] font-semibold flex items-center gap-1 transition-colors cursor-pointer"
+                    >
+                      <span>Scroll to Section {sec.badge}</span>
+                      <ChevronDown size={11} />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Render Product Tables: Stacked Sections for OT Lights or Physiotherapy, or Standard Table for other categories */}
       {selectedCategory === "ot-lights" ? (
         <div className="space-y-6">
           {(activeOtSectionFilter === "all" || activeOtSectionFilter === "single-dome-ot-lights") &&
@@ -2111,6 +2355,24 @@ export const AdminProductsPage: React.FC = () => {
               mobileOtProducts,
               "admin-section-mobile-ot"
             )}
+        </div>
+      ) : selectedCategory === "physiotherapy" ? (
+        <div className="space-y-6">
+          {physioSections.map((sec) => {
+            if (activePhysioSectionFilter !== "all" && activePhysioSectionFilter !== sec.subcategoryId) {
+              return null;
+            }
+            const secProducts = getFilteredPhysioSectionProducts(sec.subcategoryId);
+            return renderOtSection(
+              sec.key,
+              sec.badge,
+              sec.title,
+              sec.subcategoryId,
+              sec.targetCount,
+              secProducts,
+              sec.anchorId
+            );
+          })}
         </div>
       ) : (
         /* 3. Compact Product Table — Exact 6 Columns (Default for all other categories) */

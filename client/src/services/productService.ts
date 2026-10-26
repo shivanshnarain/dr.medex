@@ -23,7 +23,11 @@ export async function getProducts(): Promise<{ products: Product[]; isFallback: 
   }
 
   // Graceful fallback: return verified active products preserving exact prices, images, specs, SKUs
-  const activeFallback = fallbackProducts.filter((p) => (p.status || "ACTIVE") === "ACTIVE");
+  const activeFallback = fallbackProducts.filter((p) => {
+    if ((p.status || "ACTIVE") !== "ACTIVE") return false;
+    if (p.category === "physiotherapy" && p.reviewStatus !== "CORRECT") return false;
+    return true;
+  });
   return {
     products: activeFallback.length > 0 ? activeFallback : fallbackProducts,
     isFallback: true,

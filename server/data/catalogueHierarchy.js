@@ -274,7 +274,7 @@ const catalogueHierarchy = {
     id: "physiotherapy",
     name: "Physiotherapy Machines",
     code: "PHY",
-    status: "INACTIVE",
+    status: "ACTIVE",
     subcategories: [
       {
         id: "ultrasound-therapy-machines",
@@ -306,7 +306,7 @@ const catalogueHierarchy = {
       },
       {
         id: "cpm",
-        name: "Continuous Passive Motion (CPM)",
+        name: "CPM Machines",
         equipmentTypes: [
           { id: "cpm-lower-limb", name: "Lower Limb Knee & Hip CPM Machine", defaultCode: "LLC" },
           { id: "cpm-upper-limb", name: "Upper Limb Shoulder CPM Device", defaultCode: "ULC" },
@@ -315,7 +315,7 @@ const catalogueHierarchy = {
       },
       {
         id: "shortwave-diathermy-machine",
-        name: "Shortwave Diathermy Machine",
+        name: "Short Wave Diathermy Machines",
         equipmentTypes: [
           { id: "swd-continuous-300w", name: "300W Continuous Shortwave Diathermy", defaultCode: "S30" },
           { id: "swd-pulsed-500w", name: "500W Pulsed & Continuous Diathermy", defaultCode: "S50" }
@@ -323,14 +323,14 @@ const catalogueHierarchy = {
       },
       {
         id: "longwave-diathermy-machine",
-        name: "Longwave Diathermy Machine",
+        name: "Long Wave Diathermy Machines",
         equipmentTypes: [
           { id: "lwd-rf-deep-heat", name: "Longwave RF Deep Heat Therapy Unit", defaultCode: "LRF" }
         ]
       },
       {
         id: "shockwave-therapy-machine",
-        name: "Shockwave Therapy Machine",
+        name: "Shock Wave Therapy Machines",
         equipmentTypes: [
           { id: "eswt-radial", name: "Radial Extracorporeal Shockwave Therapy (ESWT)", defaultCode: "RST" },
           { id: "eswt-ballistic", name: "Ballistic Shockwave Pain Therapy System", defaultCode: "BST" }
@@ -338,7 +338,7 @@ const catalogueHierarchy = {
       },
       {
         id: "electronic-traction-machine",
-        name: "Electronic Traction Machine",
+        name: "Electronic Traction Machines",
         equipmentTypes: [
           { id: "traction-cervical-lumbar", name: "Microprocessor Cervical & Lumbar Traction", defaultCode: "CLT" },
           { id: "traction-bed-assembly", name: "Static & Intermittent Traction Bed", defaultCode: "SIT" }
@@ -346,19 +346,11 @@ const catalogueHierarchy = {
       },
       {
         id: "electric-muscle-stimulator",
-        name: "Electric Muscle Stimulator",
+        name: "Electric Muscle Stimulators",
         equipmentTypes: [
           { id: "muscle-stimulator-galvanic", name: "Diagnostic Muscle Stimulator with Galvanic/Faradic", defaultCode: "MGF" },
           { id: "muscle-stimulator-nmse", name: "Digital Neuromuscular Stimulation Unit", defaultCode: "NMS" },
           { id: "russian-current-stimulator", name: "Clinical Russian Current Muscle Stimulator", defaultCode: "RMS" }
-        ]
-      },
-      {
-        id: "combination-therapy-machines",
-        name: "Combination Electrotherapy Systems",
-        equipmentTypes: [
-          { id: "combo-ift-us-tens-ems", name: "4-in-1 Combination Therapy (IFT/Ultrasound/TENS/EMS)", defaultCode: "CMB" },
-          { id: "interferential-ift-unit", name: "Dual-Channel Clinical Interferential Therapy (IFT) Unit", defaultCode: "IFT" }
         ]
       }
     ]

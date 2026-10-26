@@ -224,7 +224,10 @@ module.exports = [
     ],
     "originalPrimaryImage": "/products-catalog/1-3-mhz-ultrasound-therapy-with-dynamic-mode/img_1.png",
     "cloudinarySyncStatus": "IMAGES_REMOVED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-1-mhz-ultrasound-therapy",
@@ -430,7 +433,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:24.337592+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-1-mhz-3-mhz-compatible-t",
@@ -844,7 +850,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:14.088336+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-1-mhz-ultrasound-therapy-machine-for-home-use-convenient-effective-pain-relief",
@@ -1036,7 +1045,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:23.347683+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-1-3-mhz-ultrasound-therapy-machine",
@@ -1256,7 +1268,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:39:42.951859+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-1-and-3-mhz-ultrasound-t",
@@ -1268,8 +1283,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "electro-surgical-skin-cautery",
-    "subcategoryName": "Electrosurgical Cautery",
+    "subcategory": "ultrasound-therapy-machines",
+    "subcategoryName": "Ultrasound Therapy Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": true,
@@ -1446,7 +1461,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:39:40.208746+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-1-mhz-ultrasound-therapy-for-physical-therapy-machine",
@@ -1640,7 +1658,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:09.802113+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-1-mhz-ultrasound-therapy-machine",
@@ -1854,7 +1875,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:39:59.845965+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-1-mhz-ultrasound-therapy-machine-precision-and-effectiveness-for-advanced-pain",
@@ -2056,7 +2080,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:23.618436+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-1mhz-ultrasound-therapy-",
@@ -2068,8 +2095,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "electrosurgical-generator",
-    "subcategoryName": "Electrosurgical Generators",
+    "subcategory": "ultrasound-therapy-machines",
+    "subcategoryName": "Ultrasound Therapy Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": true,
@@ -2282,7 +2309,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:27.839849+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-2-channel-mini-tens",
@@ -2480,7 +2510,11 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:29.220004+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "tens-machines",
+      "electric-muscle-stimulator"
+    ]
   },
   {
     "id": "prod-1-3-mhz-ultrasound-therapy-machine-with-27-preset-programs",
@@ -2694,7 +2728,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:39:36.111271+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-3-5-mhz-rf-cautery-preci",
@@ -3314,7 +3351,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:34.437563+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-1-mhz-ultrasound-therapy-machine-skrilix-pain-management-system-for-pain-relief",
@@ -3506,7 +3546,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:23.727861+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-1-mhz-ultrasound-therapy-machine-for-pain-relief",
@@ -3716,7 +3759,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:24.621079+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-2-channel-mini-tenswith-",
@@ -3914,7 +3960,11 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:29.479117+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "tens-machines",
+      "electric-muscle-stimulator"
+    ]
   },
   {
     "id": "prod-3-mhz-ultrasound-therapy-machine-1",
@@ -4140,7 +4190,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:36.873763+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-3-mhz-ultrasound-therapy-machine-for-home-therapy-precision-and-relief-at-home",
@@ -4340,7 +4393,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:36.529415+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-3-mhz-ultrasound-therapy-machine-with-lcd-display-home-use-for-pain-reief-unit",
@@ -4352,8 +4408,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "electro-surgical-skin-cautery",
-    "subcategoryName": "Electrosurgical Cautery",
+    "subcategory": "ultrasound-therapy-machines",
+    "subcategoryName": "Ultrasound Therapy Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": true,
@@ -4552,7 +4608,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:40.493757+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-3-mhz-ultrasound-therapy-machine-special-edition",
@@ -4564,8 +4623,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "electrosurgical-generator",
-    "subcategoryName": "Electrosurgical Generators",
+    "subcategory": "ultrasound-therapy-machines",
+    "subcategoryName": "Ultrasound Therapy Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": true,
@@ -4780,7 +4839,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:37.115958+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-4-channel-tens-unit-with",
@@ -4980,7 +5042,12 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:45.799902+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines",
+      "tens-machines",
+      "electric-muscle-stimulator"
+    ]
   },
   {
     "id": "prod-300-w-electrosurgical-ge",
@@ -5411,7 +5478,11 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:46.268186+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "tens-machines",
+      "electric-muscle-stimulator"
+    ]
   },
   {
     "id": "prod-3mhz-ultrasound-therapy-",
@@ -5593,7 +5664,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:42.437360+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-4-channel-automode-tnes",
@@ -5791,7 +5865,11 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:43.664875+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "tens-machines",
+      "electric-muscle-stimulator"
+    ]
   },
   {
     "id": "prod-4-channel-tens-machine-m",
@@ -5979,7 +6057,11 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:44.148501+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "tens-machines",
+      "electric-muscle-stimulator"
+    ]
   },
   {
     "id": "prod-4-channeltensmachine",
@@ -6177,7 +6259,11 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:50.080217+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "tens-machines",
+      "electric-muscle-stimulator"
+    ]
   },
   {
     "id": "prod-84-led-mobile-ot-light",
@@ -6589,7 +6675,11 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:51.672937+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "tens-machines",
+      "electric-muscle-stimulator"
+    ]
   },
   {
     "id": "prod-advance-laser-therapy-lo",
@@ -6601,8 +6691,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "electro-surgical-skin-cautery",
-    "subcategoryName": "Electrosurgical Cautery",
+    "subcategory": "laser-therapy-machine",
+    "subcategoryName": "Laser Therapy Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": false,
@@ -6831,7 +6921,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:50.740804+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "laser-therapy-machine"
+    ]
   },
   {
     "id": "prod-advanced-laparoscopic-el",
@@ -7521,7 +7614,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:52.601055+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "cpm"
+    ]
   },
   {
     "id": "prod-arthritis-pain-relief-jo",
@@ -7709,7 +7805,11 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:59.291201+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "tens-machines",
+      "electric-muscle-stimulator"
+    ]
   },
   {
     "id": "prod-advanced-shoulder-and-el",
@@ -7901,7 +8001,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:40:58.498595+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "cpm"
+    ]
   },
   {
     "id": "prod-battery-backup-for-ot-li",
@@ -8438,7 +8541,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:41:05.306766+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-cervical-thermal-ablatio",
@@ -8925,7 +9031,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:41:07.416697+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-ceiling-mounted-led-ot-l",
@@ -9402,8 +9511,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "tens-machines",
-    "subcategoryName": "TENS Machines",
+    "subcategory": "electronic-traction-machine",
+    "subcategoryName": "Electronic Traction Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": false,
@@ -9578,7 +9687,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:41:11.741184+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "electronic-traction-machine"
+    ]
   },
   {
     "id": "prod-ceiling-mounted-single-d",
@@ -9956,7 +10068,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:41:12.016544+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-cpm-machine-for-knee-reh",
@@ -10152,7 +10267,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:41:13.994737+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "cpm"
+    ]
   },
   {
     "id": "prod-continuous-passive-motio",
@@ -10342,7 +10460,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:41:13.195829+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "cpm"
+    ]
   },
   {
     "id": "prod-cpm-therapy-machine-cont",
@@ -10532,7 +10653,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:41:16.003215+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "cpm"
+    ]
   },
   {
     "id": "prod-cryogenic-gloves-high-pe",
@@ -11122,8 +11246,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "electrosurgical-generator",
-    "subcategoryName": "Electrosurgical Generators",
+    "subcategory": "ultrasound-therapy-machines",
+    "subcategoryName": "Ultrasound Therapy Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": true,
@@ -11308,7 +11432,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:41:22.729899+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-digital-cautery-400w-ele",
@@ -13355,8 +13482,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "electrosurgical-generator",
-    "subcategoryName": "Electrosurgical Generators",
+    "subcategory": "ultrasound-therapy-machines",
+    "subcategoryName": "Ultrasound Therapy Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": true,
@@ -13533,7 +13660,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:41:44.208361+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-double-dome-led-surgical",
@@ -15587,7 +15717,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:41:47.707595+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "electronic-traction-machine"
+    ]
   },
   {
     "id": "prod-electrosurgical-cautery-",
@@ -16037,10 +16170,10 @@ module.exports = [
     "sku": "DRM-ELE-2678",
     "modelNumber": "Latest",
     "brand": "DR.MEDEX",
-    "category": "medical-equipment",
-    "categoryName": "Medical Equipment",
-    "subcategory": "electro-surgical-skin-cautery",
-    "subcategoryName": "Electrosurgical Cautery",
+    "category": "physiotherapy",
+    "categoryName": "Physiotherapy Machines",
+    "subcategory": "shockwave-therapy-machine",
+    "subcategoryName": "Shock Wave Therapy Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": false,
@@ -16209,7 +16342,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:41:55.030465+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "shockwave-therapy-machine"
+    ]
   },
   {
     "id": "prod-ems-digital-therapy-mach",
@@ -16464,7 +16600,11 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:41:55.706164+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "tens-machines",
+      "electric-muscle-stimulator"
+    ]
   },
   {
     "id": "prod-electrosurgical-skin-cau",
@@ -17717,8 +17857,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "electro-surgical-skin-cautery",
-    "subcategoryName": "Electrosurgical Cautery",
+    "subcategory": "shockwave-therapy-machine",
+    "subcategoryName": "Shock Wave Therapy Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": true,
@@ -17918,7 +18058,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:42:01.601013+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "shockwave-therapy-machine"
+    ]
   },
   {
     "id": "prod-hospital-ot-light-surgic",
@@ -18367,8 +18510,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "electro-surgical-skin-cautery",
-    "subcategoryName": "Electrosurgical Cautery",
+    "subcategory": "ultrasound-therapy-machines",
+    "subcategoryName": "Ultrasound Therapy Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": true,
@@ -18567,7 +18710,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:42:11.916495+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-high-performance-led-mob",
@@ -18953,7 +19099,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:42:11.932930+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "laser-therapy-machine"
+    ]
   },
   {
     "id": "prod-led-double-dome-surgical",
@@ -22295,8 +22444,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "electro-surgical-skin-cautery",
-    "subcategoryName": "Electrosurgical Cautery",
+    "subcategory": "longwave-diathermy-machine",
+    "subcategoryName": "Long Wave Diathermy Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": false,
@@ -22487,7 +22636,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:43:16.562620+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "longwave-diathermy-machine"
+    ]
   },
   {
     "id": "prod-massage-table-spa-bed-ro",
@@ -26533,7 +26685,13 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:44:14.633010+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines",
+      "tens-machines",
+      "longwave-diathermy-machine",
+      "electric-muscle-stimulator"
+    ]
   },
   {
     "id": "prod-omega-led-ot-lights-doub",
@@ -29221,7 +29379,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:44:35.389172+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "laser-therapy-machine"
+    ]
   },
   {
     "id": "prod-portable-smoke-evacuator",
@@ -29627,7 +29788,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:44:38.588586+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-portable-thermal-cautery",
@@ -30957,7 +31121,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:44:47.794175+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "laser-therapy-machine"
+    ]
   },
   {
     "id": "prod-premium-replacement-prob",
@@ -30969,8 +31136,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "electro-surgical-skin-cautery",
-    "subcategoryName": "Electrosurgical Cautery",
+    "subcategory": "ultrasound-therapy-machines",
+    "subcategoryName": "Ultrasound Therapy Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": true,
@@ -31145,7 +31312,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:44:46.785506+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-professional-1-mhz-3-mhz",
@@ -31337,7 +31507,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:44:52.474568+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-professional-mini-cryo-g",
@@ -31567,8 +31740,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "electro-surgical-skin-cautery",
-    "subcategoryName": "Electrosurgical Cautery",
+    "subcategory": "shortwave-diathermy-machine",
+    "subcategoryName": "Short Wave Diathermy Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": false,
@@ -31763,7 +31936,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:44:49.593272+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "shortwave-diathermy-machine"
+    ]
   },
   {
     "id": "prod-professional-thermal-cau",
@@ -32153,7 +32329,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:44:59.091226+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "cpm"
+    ]
   },
   {
     "id": "prod-rehabilitation-therapy-a",
@@ -32349,7 +32528,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:45:14.541665+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "physiotherapy-general"
+    ]
   },
   {
     "id": "prod-replacement-laser-therap",
@@ -32361,8 +32543,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "electro-surgical-skin-cautery",
-    "subcategoryName": "Electrosurgical Cautery",
+    "subcategory": "physiotherapy-general",
+    "subcategoryName": "Physiotherapy Accessories",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": false,
@@ -32536,7 +32718,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:45:03.688717+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "physiotherapy-general"
+    ]
   },
   {
     "id": "prod-s21-ot-light-fixed-focus",
@@ -34034,7 +34219,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:45:11.621729+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "shockwave-therapy-machine"
+    ]
   },
   {
     "id": "prod-skrilix-g-combo-400w-ele",
@@ -34918,8 +35106,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "electro-surgical-skin-cautery",
-    "subcategoryName": "Electrosurgical Cautery",
+    "subcategory": "shortwave-diathermy-machine",
+    "subcategoryName": "Short Wave Diathermy Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": false,
@@ -35114,7 +35302,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:45:32.624723+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "shortwave-diathermy-machine"
+    ]
   },
   {
     "id": "prod-skrilix-sigma-4-led-surg",
@@ -36056,8 +36247,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "electrosurgical-generator",
-    "subcategoryName": "Electrosurgical Generators",
+    "subcategory": "ultrasound-therapy-machines",
+    "subcategoryName": "Ultrasound Therapy Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": true,
@@ -36236,7 +36427,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:45:32.586740+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-surgical-ot-light-double",
@@ -37811,7 +38005,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:46:23.894683+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-twin-ot-light-surgical-o",
@@ -38213,8 +38410,8 @@ module.exports = [
     "brand": "DR.MEDEX",
     "category": "physiotherapy",
     "categoryName": "Physiotherapy",
-    "subcategory": "ultrasound-therapy-machines",
-    "subcategoryName": "Ultrasound Therapy Machines",
+    "subcategory": "physiotherapy-general",
+    "subcategoryName": "Physiotherapy Accessories",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": true,
@@ -38393,7 +38590,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:46:23.769324+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "physiotherapy-general"
+    ]
   },
   {
     "id": "prod-uro-bitur-advance-bipola",
@@ -38887,7 +39087,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:46:21.156183+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "ultrasound-therapy-machines"
+    ]
   },
   {
     "id": "prod-wall-mounted-led-ot-surg",
@@ -39877,7 +40080,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:46:29.832960+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "laser-therapy-machine"
+    ]
   },
   {
     "id": "prod-wireless-remote-control-",
@@ -39887,10 +40093,10 @@ module.exports = [
     "sku": "DRM-PHY-9BDB",
     "modelNumber": "SKANCKE PRO",
     "brand": "DR.MEDEX",
-    "category": "medical-equipment",
-    "categoryName": "Medical Equipment",
-    "subcategory": "physiotherapy-general",
-    "subcategoryName": "Rehabilitation & Physiotherapy",
+    "category": "physiotherapy",
+    "categoryName": "Physiotherapy Machines",
+    "subcategory": "cpm",
+    "subcategoryName": "CPM Machines",
     "productType": "Medical Equipment",
     "status": "ACTIVE",
     "featured": false,
@@ -40069,7 +40275,10 @@ module.exports = [
     },
     "lastPriceSync": "2026-10-04T18:46:44.409369+00:00",
     "priceSyncStatus": "SYNCED",
-    "stock": 25
+    "stock": 25,
+    "subcategories": [
+      "cpm"
+    ]
   },
   {
     "id": "prod-wet-field-cautery",

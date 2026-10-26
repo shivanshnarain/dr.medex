@@ -1228,6 +1228,18 @@ router.put("/products/:id/review", requireAdmin, async (req, res) => {
     };
 
     if (reviewStatus === "CORRECT") {
+      const missing = [];
+      if (!existing.title && !existing.productName) missing.push("title/name");
+      if (!existing.sku && !existing.SKU) missing.push("sku");
+      if (!existing.category) missing.push("category");
+      if (!existing.subcategory) missing.push("subcategory");
+      if (!existing.images || existing.images.length === 0) missing.push("images");
+      if (missing.length > 0) {
+        return res.status(400).json({
+          success: false,
+          message: `Cannot approve product: missing required fields (${missing.join(", ")})`
+        });
+      }
       updates.approvedAt = new Date().toISOString();
       updates.approvedBy = req.admin.email;
     }

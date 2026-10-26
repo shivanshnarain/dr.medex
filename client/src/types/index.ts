@@ -10,6 +10,7 @@ export interface Product {
   categoryName?: string;
   subcategory: string;
   subcategoryName?: string;
+  subcategories?: string[];
   productType?: string;
   status?: "ACTIVE" | "INACTIVE" | "DRAFT" | "ARCHIVED";
   basePrice: number;

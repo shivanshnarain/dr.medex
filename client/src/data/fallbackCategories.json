@@ -3,61 +3,57 @@
     "id": "physiotherapy",
     "slug": "physiotherapy",
     "name": "Physiotherapy Machines",
-    "status": "INACTIVE",
-    "active": false,
+    "status": "ACTIVE",
+    "active": true,
+    "reviewGated": true,
     "shortDescription": "Advanced electrotherapy and physical rehabilitation systems engineered for clinics and hospitals.",
     "icon": "Activity",
     "featuredImage": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80",
     "subcategories": [
       {
-        "id": "ultrasound",
+        "id": "ultrasound-therapy-machines",
         "slug": "ultrasound-therapy-machines",
         "name": "Ultrasound Therapy Machines"
       },
       {
-        "id": "tens",
+        "id": "tens-machines",
         "slug": "tens-machines",
         "name": "TENS Machines"
       },
       {
-        "id": "laser",
+        "id": "laser-therapy-machine",
         "slug": "laser-therapy-machine",
         "name": "Laser Therapy Machines"
       },
       {
         "id": "cpm",
         "slug": "cpm",
-        "name": "Continuous Passive Motion (CPM)"
+        "name": "CPM Machines"
       },
       {
-        "id": "shortwave-diathermy",
+        "id": "shortwave-diathermy-machine",
         "slug": "shortwave-diathermy-machine",
-        "name": "Shortwave Diathermy Machine"
+        "name": "Short Wave Diathermy Machines"
       },
       {
-        "id": "longwave-diathermy",
+        "id": "longwave-diathermy-machine",
         "slug": "longwave-diathermy-machine",
-        "name": "Longwave Diathermy Machine"
+        "name": "Long Wave Diathermy Machines"
       },
       {
-        "id": "shockwave",
+        "id": "shockwave-therapy-machine",
         "slug": "shockwave-therapy-machine",
-        "name": "Shockwave Therapy Machine"
+        "name": "Shock Wave Therapy Machines"
       },
       {
-        "id": "traction",
+        "id": "electronic-traction-machine",
         "slug": "electronic-traction-machine",
-        "name": "Electronic Traction Machine"
+        "name": "Electronic Traction Machines"
       },
       {
-        "id": "muscle-stimulator",
+        "id": "electric-muscle-stimulator",
         "slug": "electric-muscle-stimulator",
-        "name": "Electric Muscle Stimulator"
-      },
-      {
-        "id": "combination-therapy",
-        "slug": "combination-therapy-machines",
-        "name": "Combination Electrotherapy Systems"
+        "name": "Electric Muscle Stimulators"
       }
     ]
   },

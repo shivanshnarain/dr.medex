@@ -27,8 +27,7 @@ export const ShopPage: React.FC = () => {
 
   // Active filters from URL or local state
   const rawCategory = categorySlug || searchParams.get("category") || "";
-  const isPhysioInactiveRequested = rawCategory === "physiotherapy";
-  const selectedCategory = isPhysioInactiveRequested ? "" : rawCategory;
+  const selectedCategory = rawCategory;
   const selectedSubcategory = searchParams.get("subcategory") || "";
   const searchQuery = searchParams.get("search") || "";
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
@@ -92,6 +91,14 @@ export const ShopPage: React.FC = () => {
   const filteredProducts = useMemo(() => {
     let list = [...products];
 
+    // Review-gated publishing rule: unreviewed products in physiotherapy remain unpublished from customer storefront
+    list = list.filter((p) => {
+      if (p.category === "physiotherapy" && p.reviewStatus !== "CORRECT") {
+        return false;
+      }
+      return true;
+    });
+
     if (selectedCategory) {
       const activeCat = categories.find(
         (c) => c.slug === selectedCategory || c.id === selectedCategory
@@ -102,7 +109,11 @@ export const ShopPage: React.FC = () => {
     }
 
     if (selectedSubcategory) {
-      const directMatches = list.filter((p) => p.subcategory === selectedSubcategory);
+      const directMatches = list.filter(
+        (p) =>
+          p.subcategory === selectedSubcategory ||
+          (Array.isArray(p.subcategories) && p.subcategories.includes(selectedSubcategory))
+      );
       if (directMatches.length > 0) {
         list = directMatches;
       } else {
@@ -259,36 +270,7 @@ export const ShopPage: React.FC = () => {
           </div>
         </div>
 
-        {isPhysioInactiveRequested && (
-          <div className="mb-10 p-8 bg-white border border-[#E8E8E8] rounded-2xl shadow-sm">
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-3xs font-bold uppercase tracking-wider bg-neutral-100 text-neutral-800 border border-neutral-300 mb-4">
-                <span>Catalogue Status: Temporarily Inactive</span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-bold text-[#111111]">
-                Physiotherapy Machines Category Temporarily Inactive
-              </h2>
-              <p className="text-xs sm:text-sm text-neutral-600 mt-2 leading-relaxed">
-                The Physiotherapy Machines equipment catalogue is temporarily inactive for customer-facing online browsing during this phase. All product specifications, clinical assets, and institutional pricing records remain safely preserved in our central medical system.
-              </p>
-              <div className="mt-6 flex flex-wrap items-center gap-3">
-                <Link
-                  to="/"
-                  className="px-5 py-2.5 bg-[#111111] hover:bg-black text-white text-xs font-bold rounded-lg transition-colors flex items-center gap-2"
-                >
-                  <span>Explore 6 Active Categories</span>
-                  <ArrowRight size={14} className="text-[#167A4A]" />
-                </Link>
-                <Link
-                  to="/request-quote"
-                  className="px-5 py-2.5 bg-white border border-neutral-300 hover:bg-neutral-50 text-neutral-900 text-xs font-bold rounded-lg transition-colors"
-                >
-                  <span>Institutional Procurement Inquiry</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        )}
+
 
         {/* Main 2-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-10">
@@ -566,6 +548,161 @@ export const ShopPage: React.FC = () => {
                       {secProducts.length === 0 ? (
                         <div className="p-8 bg-white rounded-xl border border-dashed border-[#EAEAEA] text-center text-xs text-neutral-500">
                           No products match active filters in {sec.title}.
+                        </div>
+                      ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                          {secProducts.map((p) => (
+                            <ProductCard
+                              key={p.id}
+                              product={p}
+                              onQuickView={setQuickViewProduct}
+                              onOpenQuote={handleOpenQuote}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </section>
+                  );
+                })}
+              </div>
+            ) : selectedCategory === "physiotherapy" && !selectedSubcategory ? (
+              <div className="space-y-12">
+                {/* Quick Anchor Navigation */}
+                <div className="p-4 bg-white rounded-xl border border-[#EAEAEA] shadow-2xs flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-2xs font-extrabold uppercase tracking-wider text-neutral-400">
+                      Sections:
+                    </span>
+                    {[
+                      { id: "ultrasound-therapy-machines", slug: "ultrasound-therapy-machines", name: "Ultrasound Therapy Machines" },
+                      { id: "tens-machines", slug: "tens-machines", name: "TENS Machines" },
+                      { id: "laser-therapy-machine", slug: "laser-therapy-machine", name: "Laser Therapy Machines" },
+                      { id: "cpm", slug: "cpm", name: "CPM Machines" },
+                      { id: "shortwave-diathermy-machine", slug: "shortwave-diathermy-machine", name: "Short Wave Diathermy Machines" },
+                      { id: "longwave-diathermy-machine", slug: "longwave-diathermy-machine", name: "Long Wave Diathermy Machines" },
+                      { id: "shockwave-therapy-machine", slug: "shockwave-therapy-machine", name: "Shock Wave Therapy Machines" },
+                      { id: "electronic-traction-machine", slug: "electronic-traction-machine", name: "Electronic Traction Machines" },
+                      { id: "electric-muscle-stimulator", slug: "electric-muscle-stimulator", name: "Electric Muscle Stimulators" }
+                    ].map((sec) => {
+                      const count = products.filter(
+                        (p) =>
+                          (p.category === "physiotherapy" || p.category === "Physiotherapy Machines") &&
+                          (p.subcategory === sec.slug || (Array.isArray(p.subcategories) && p.subcategories.includes(sec.slug))) &&
+                          p.reviewStatus === "CORRECT"
+                      ).length;
+                      return (
+                        <a
+                          key={sec.id}
+                          href={`#${sec.id}`}
+                          className="px-3 py-1.5 rounded-lg bg-[#FAFAFA] hover:bg-[#111111] text-[#111111] hover:text-white border border-[#EAEAEA] text-xs font-semibold transition-all flex items-center gap-1.5 shadow-2xs"
+                        >
+                          <span>{sec.name}</span>
+                          <span className="text-3xs font-mono px-1.5 py-0.2 rounded bg-neutral-200 text-neutral-800">
+                            {count}
+                          </span>
+                        </a>
+                      );
+                    })}
+                  </div>
+                  <div className="text-xs font-mono text-neutral-500">
+                    <span className="font-bold text-[#111111]">
+                      {products.filter((p) => (p.category === "physiotherapy" || p.category === "Physiotherapy Machines") && p.reviewStatus === "CORRECT").length}
+                    </span>{" "}
+                    Published Products
+                  </div>
+                </div>
+
+                {/* 9 Distinct Vertically Stacked Sections in Exact Order */}
+                {[
+                  {
+                    id: "ultrasound-therapy-machines",
+                    slug: "ultrasound-therapy-machines",
+                    title: "1. Ultrasound Therapy Machines",
+                    description: "High-frequency therapeutic ultrasound systems engineered for deep-tissue heating, soft tissue rehabilitation, and pain management."
+                  },
+                  {
+                    id: "tens-machines",
+                    slug: "tens-machines",
+                    title: "2. TENS Machines",
+                    description: "Transcutaneous Electrical Nerve Stimulation devices for effective non-invasive electro-analgesia and chronic pain relief."
+                  },
+                  {
+                    id: "laser-therapy-machine",
+                    slug: "laser-therapy-machine",
+                    title: "3. Laser Therapy Machines",
+                    description: "Clinical cold laser and photobiomodulation therapy units for accelerated tissue healing, anti-inflammatory therapy, and rehabilitation."
+                  },
+                  {
+                    id: "cpm",
+                    slug: "cpm",
+                    title: "4. CPM Machines",
+                    description: "Continuous Passive Motion rehabilitation equipment for post-operative joint recovery of knee, hip, shoulder, and ankle joints."
+                  },
+                  {
+                    id: "shortwave-diathermy-machine",
+                    slug: "shortwave-diathermy-machine",
+                    title: "5. Short Wave Diathermy Machines",
+                    description: "High-frequency solid-state 500W shortwave diathermy generators delivering deep heating for extensive muscle and tendon conditions."
+                  },
+                  {
+                    id: "longwave-diathermy-machine",
+                    slug: "longwave-diathermy-machine",
+                    title: "6. Long Wave Diathermy Machines",
+                    description: "Targeted longwave RF capacitive/resistive diathermy systems designed for deep pain relief and localized physiological recovery."
+                  },
+                  {
+                    id: "shockwave-therapy-machine",
+                    slug: "shockwave-therapy-machine",
+                    title: "7. Shock Wave Therapy Machines",
+                    description: "Extracorporeal Shock Wave Therapy (ESWT) ballistic and radial devices for musculoskeletal conditions and plantar fasciitis."
+                  },
+                  {
+                    id: "electronic-traction-machine",
+                    slug: "electronic-traction-machine",
+                    title: "8. Electronic Traction Machines",
+                    description: "Microprocessor-controlled decompression and electronic traction systems for cervical and lumbar spinal rehabilitation."
+                  },
+                  {
+                    id: "electric-muscle-stimulator",
+                    slug: "electric-muscle-stimulator",
+                    title: "9. Electric Muscle Stimulators",
+                    description: "Neuromuscular electrical stimulation (NMES), galvanic, and faradic current units for muscle re-education and atrophy prevention."
+                  }
+                ].map((sec) => {
+                  const secProducts = filteredProducts.filter((p) => p.subcategory === sec.slug || (Array.isArray(p.subcategories) && p.subcategories.includes(sec.slug)));
+                  const dbTotal = products.filter(
+                    (p) =>
+                      (p.category === "physiotherapy" || p.category === "Physiotherapy Machines") &&
+                      (p.subcategory === sec.slug || (Array.isArray(p.subcategories) && p.subcategories.includes(sec.slug))) &&
+                      p.reviewStatus === "CORRECT"
+                  ).length;
+
+                  return (
+                    <section key={sec.id} id={sec.id} className="scroll-mt-24 space-y-5">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3.5 border-b border-[#EAEAEA] gap-2">
+                        <div>
+                          <div className="flex items-center gap-2.5">
+                            <h2 className="text-xl sm:text-2xl font-black text-[#111111] tracking-tight">
+                              {sec.title}
+                            </h2>
+                            <span className="px-2.5 py-0.5 rounded-full text-2xs font-mono font-bold bg-[#EAF5EF] text-[#145A38] border border-[#1F7A4D]/20">
+                              {dbTotal} Verified Products
+                            </span>
+                          </div>
+                          <p className="text-xs text-neutral-500 mt-1 max-w-2xl leading-relaxed">
+                            {sec.description}
+                          </p>
+                        </div>
+                        {secProducts.length !== dbTotal && (
+                          <span className="text-2xs font-mono text-neutral-400">
+                            Showing {secProducts.length} of {dbTotal}
+                          </span>
+                        )}
+                      </div>
+
+                      {secProducts.length === 0 ? (
+                        <div className="p-8 bg-white rounded-xl border border-dashed border-[#EAEAEA] text-center text-xs text-neutral-500">
+                          No reviewed products are currently published in {sec.title}.
                         </div>
                       ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

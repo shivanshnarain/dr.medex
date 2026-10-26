@@ -222,6 +222,8 @@ module.exports = {
       list = list.filter(p => {
         const cat = state.categories.find(c => c.id === p.category || c.slug === p.category);
         if (cat && (cat.status === "INACTIVE" || cat.active === false)) return false;
+        // Review-gated publishing rule: unreviewed products in review-gated categories (e.g. physiotherapy) remain unpublished from customer storefront
+        if (p.category === "physiotherapy" && p.reviewStatus !== "CORRECT") return false;
         return true;
       });
     }
@@ -229,7 +231,7 @@ module.exports = {
       list = list.filter(p => p.category === filters.category);
     }
     if (filters.subcategory && filters.subcategory !== "ALL") {
-      list = list.filter(p => p.subcategory === filters.subcategory);
+      list = list.filter(p => p.subcategory === filters.subcategory || (Array.isArray(p.subcategories) && p.subcategories.includes(filters.subcategory)));
     }
     if (filters.search) {
       const q = filters.search.toLowerCase().trim();
