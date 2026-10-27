@@ -456,6 +456,19 @@ export const AdminProductsPage: React.FC = () => {
     return categories.find((c) => c.slug === selectedCategory || c.id === selectedCategory) || null;
   }, [categories, selectedCategory]);
 
+  // STRICT SCOPE: Only OT / Surgical Lights and Physiotherapy Machines may use the custom section UI
+  const isSectionedCategory = useMemo(() => {
+    if (!currentCategoryObj && (!selectedCategory || selectedCategory === "all")) return false;
+    const catSlug = currentCategoryObj?.slug || selectedCategory;
+    const catId = currentCategoryObj?.id || selectedCategory;
+    return (
+      catSlug === "ot-lights" ||
+      catId === "ot-lights" ||
+      catSlug === "physiotherapy" ||
+      catId === "physiotherapy"
+    );
+  }, [currentCategoryObj, selectedCategory]);
+
   // Products belonging to the selected category (handling slug and id mapping)
   const categoryScopedProducts = useMemo(() => {
     if (!selectedCategory || selectedCategory === "all") {
@@ -2073,13 +2086,13 @@ export const AdminProductsPage: React.FC = () => {
       </div>
 
       {/* Render Product Sections or Standard Table */}
-      {currentCategoryObj && currentCategoryObj.subcategories && currentCategoryObj.subcategories.length > 0 ? (
+      {isSectionedCategory && currentCategoryObj && currentCategoryObj.subcategories && currentCategoryObj.subcategories.length > 0 ? (
         <div className="space-y-6">
           {currentCategoryObj.subcategories.map((sub, idx) =>
             renderDynamicSection(sub, idx, currentCategoryObj)
           )}
 
-          {/* PART 2.A: Add New Section Control at the end of section list */}
+          {/* Add New Section Control (restricted to sectioned categories) */}
           <div className="bg-white rounded-xl border-2 border-dashed border-neutral-300 hover:border-black p-6 text-center transition-all shadow-xs mb-8">
             <button
               type="button"
@@ -2164,28 +2177,6 @@ export const AdminProductsPage: React.FC = () => {
               )}
             </div>
           </div>
-
-          {currentCategoryObj && (
-            <div className="bg-white rounded-xl border-2 border-dashed border-neutral-300 hover:border-black p-6 text-center transition-all shadow-xs mb-8">
-              <button
-                type="button"
-                onClick={() => {
-                  setSectionFormName("");
-                  setSectionFormDesc("");
-                  setSectionFormOrder(String((currentCategoryObj.subcategories?.length || 0) + 1));
-                  setSectionFormError("");
-                  setIsAddSectionModalOpen(true);
-                }}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-black hover:bg-neutral-800 text-white rounded-xl text-sm font-bold transition-all shadow-sm cursor-pointer"
-              >
-                <Plus size={16} />
-                <span>+ Add New Section</span>
-              </button>
-              <p className="text-xs text-neutral-500 mt-2 font-medium">
-                Create a new database-backed subcategory section under {currentCategoryObj.name}
-              </p>
-            </div>
-          )}
         </div>
       )}
 
@@ -2452,7 +2443,7 @@ export const AdminProductsPage: React.FC = () => {
       )}
 
       {/* Add New Section Modal */}
-      {isAddSectionModalOpen && currentCategoryObj && (
+      {isAddSectionModalOpen && isSectionedCategory && currentCategoryObj && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-2xs animate-in fade-in">
           <div className="bg-white text-neutral-900 rounded-2xl max-w-md w-full p-5 border border-neutral-300 shadow-2xl space-y-4">
             <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
@@ -2550,7 +2541,7 @@ export const AdminProductsPage: React.FC = () => {
       )}
 
       {/* Edit Section Modal */}
-      {editingSection && currentCategoryObj && (
+      {editingSection && isSectionedCategory && currentCategoryObj && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-2xs animate-in fade-in">
           <div className="bg-white text-neutral-900 rounded-2xl max-w-md w-full p-5 border border-neutral-300 shadow-2xl space-y-4">
             <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
@@ -2647,7 +2638,7 @@ export const AdminProductsPage: React.FC = () => {
       )}
 
       {/* Delete Section Modal with Product Safety Guard */}
-      {deletingSection && currentCategoryObj && (() => {
+      {deletingSection && isSectionedCategory && currentCategoryObj && (() => {
         const linkedCount = getSectionTotalProducts(deletingSection).length;
         return (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-2xs animate-in fade-in">
