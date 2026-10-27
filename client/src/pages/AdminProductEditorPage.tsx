@@ -377,12 +377,12 @@ export const AdminProductEditorPage: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(1);
   const [selectedCard, setSelectedCard] = useState<string>("step-1");
 
-  // Minimal White & Black Palette with Preserved Accents
+  // Minimal White & Black Palette with Preserved Yellow & Controlled Accents
   const getCardStyle = (cardId: string) => {
     const isSelected = selectedCard === cardId;
     return isSelected
-      ? "bg-white border-black ring-2 ring-black/40 shadow-md text-black"
-      : "bg-white border-neutral-300 shadow-xs text-black";
+      ? "bg-white border-[#FFD400] ring-1 ring-[#FFD400]/50 shadow-xs text-neutral-900"
+      : "bg-white border-neutral-200 shadow-xs text-neutral-900";
   };
 
   // Categories & Catalogue Hierarchy
@@ -2618,10 +2618,10 @@ export const AdminProductEditorPage: React.FC = () => {
 
   return (
     <AdminLayout
-      mainClassName="bg-[#7AA05A] min-h-screen"
-      headerClassName="bg-[#7AA05A] border-b border-black/15 text-white"
-      titleClassName="text-white font-black"
-      subtitleClassName="text-white/80"
+      mainClassName="bg-white min-h-screen"
+      headerClassName="bg-white border-b border-neutral-200 text-neutral-900"
+      titleClassName="text-neutral-900 font-black"
+      subtitleClassName="text-neutral-600"
       title={isEditMode ? `Edit: ${productName || "Medical Equipment"}` : "Add New Medical Equipment"}
       subtitle={
         isEditMode
@@ -2633,7 +2633,7 @@ export const AdminProductEditorPage: React.FC = () => {
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <Link
           to="/admin/products"
-          className="inline-flex items-center gap-2 text-xs font-bold text-white hover:text-white/80 transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-bold text-neutral-900 hover:text-neutral-700 transition-colors"
         >
           <ArrowLeft size={14} />
           <span>Back to Products Catalogue</span>
@@ -2644,7 +2644,7 @@ export const AdminProductEditorPage: React.FC = () => {
             type="button"
             onClick={handleSaveProduct}
             disabled={isSaving}
-            className="flex items-center gap-2 px-6 py-2 bg-[#C62828] hover:bg-[#B71C1C] text-white border border-white rounded-lg text-xs font-bold transition-all shadow-md disabled:opacity-50 cursor-pointer"
+            className="flex items-center gap-2 px-6 py-2 bg-[#15803D] hover:bg-[#166534] text-white border border-neutral-900/10 rounded-lg text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer"
           >
             {isSaving ? <RefreshCw size={13} className="animate-spin" /> : <Save size={13} />}
             <span>{isSaving ? "Saving..." : isEditMode ? "Save Changes" : "Save Product"}</span>
@@ -2824,11 +2824,11 @@ export const AdminProductEditorPage: React.FC = () => {
           className={`rounded-2xl p-6 transition-all duration-200 border ${getCardStyle("step-1")}`}
         >
           {/* Step 1 Header */}
-          <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-5 shadow-xs">
-            <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+          <div className="bg-[#FFD400] border border-neutral-900/10 rounded-xl px-4 py-2.5 text-black flex items-center justify-between mb-5 shadow-xs">
+            <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-black">
               STEP 1 — PRODUCT IMAGES
             </span>
-            <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-black/30 border border-white/40 text-white">
+            <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-black/10 border border-black/20 text-black">
               {imageSlots.length} of 5 Photos
             </span>
           </div>
@@ -2854,7 +2854,7 @@ export const AdminProductEditorPage: React.FC = () => {
           )}
 
           <div className="flex flex-col lg:flex-row gap-4 items-stretch">
-            {/* Left side — Upload Product Images (same height as photo tiles: h-44 sm:h-48) */}
+            {/* Left side — Upload Product Images (light yellow background, yellow outline, black text) */}
             <div
               onDragOver={(e) => {
                 e.preventDefault();
@@ -2865,18 +2865,18 @@ export const AdminProductEditorPage: React.FC = () => {
               onClick={() => fileInputRef.current?.click()}
               className={`h-44 sm:h-48 lg:w-72 shrink-0 border-2 border-dashed rounded-xl p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all ${
                 isDragging
-                  ? "border-white bg-black/40"
+                  ? "border-[#FFD400] bg-[#FEF08A]/40"
                   : imageSlots.length >= 5
-                  ? "border-white/30 bg-black/20 opacity-50 cursor-not-allowed"
-                  : "border-white/60 hover:border-white bg-black/25 hover:bg-black/35"
+                  ? "border-neutral-300 bg-neutral-100 opacity-60 cursor-not-allowed"
+                  : "border-[#FFD400] hover:border-yellow-500 bg-[#FFFBEB] hover:bg-[#FEF9C3]"
               }`}
             >
-              <div className="w-10 h-10 rounded-full bg-black/40 border border-white/60 mx-auto flex items-center justify-center text-white mb-2 shadow-xs">
-                <Upload size={20} className="text-white" />
+              <div className="w-10 h-10 rounded-full bg-white border border-[#FFD400] mx-auto flex items-center justify-center text-black mb-2 shadow-xs">
+                <Upload size={20} className="text-black" />
               </div>
-              <h4 className="text-xs sm:text-sm font-bold text-white">Upload Product Images</h4>
-              <p className="text-[11px] text-white/80 mt-0.5">Upload multiple product images at once</p>
-              <p className="text-[10px] text-white/60 font-mono mt-1">
+              <h4 className="text-xs sm:text-sm font-bold text-black">Upload Product Images</h4>
+              <p className="text-[11px] text-neutral-800 mt-0.5">Upload multiple product images at once</p>
+              <p className="text-[10px] text-neutral-700 font-mono mt-1">
                 Up to 15MB each (Max 5 photos)
               </p>
             </div>
@@ -2884,8 +2884,8 @@ export const AdminProductEditorPage: React.FC = () => {
             {/* Right side — Uploaded photographs horizontally */}
             <div className="flex-1 min-w-0 flex items-center gap-3 overflow-x-auto pb-1 scrollbar-thin">
               {imageSlots.length === 0 ? (
-                <div className="h-44 sm:h-48 w-full rounded-xl border border-dashed border-white/40 bg-black/20 flex flex-col items-center justify-center text-white/60 text-xs px-4 text-center">
-                  <ImageIcon size={26} className="mb-1 text-white/40" />
+                <div className="h-44 sm:h-48 w-full rounded-xl border border-dashed border-neutral-300 bg-neutral-50 flex flex-col items-center justify-center text-neutral-600 text-xs px-4 text-center">
+                  <ImageIcon size={26} className="mb-1 text-neutral-400" />
                   <span>No photographs uploaded yet. Click or drop images on the left tile.</span>
                 </div>
               ) : (
@@ -2897,15 +2897,15 @@ export const AdminProductEditorPage: React.FC = () => {
                   return (
                     <div
                       key={slot.id || idx}
-                      className={`h-44 sm:h-48 w-36 sm:w-40 rounded-xl bg-black/30 p-2 flex flex-col justify-between shrink-0 relative group transition-colors ${
+                      className={`h-44 sm:h-48 w-36 sm:w-40 rounded-xl bg-white p-2 flex flex-col justify-between shrink-0 relative group transition-colors ${
                         isFailed
-                          ? "border-2 border-[#D32F2F] shadow-sm"
-                          : "border border-white"
+                          ? "border-2 border-[#D32F2F] shadow-xs"
+                          : "border border-neutral-200"
                       }`}
                     >
                       {/* Top Bar: Order number, primary / failed badge, delete control */}
                       <div className="flex items-center justify-between gap-1">
-                        <span className="w-5 h-5 rounded bg-black/80 border border-white/40 text-white font-mono text-[10px] font-bold flex items-center justify-center shrink-0">
+                        <span className="w-5 h-5 rounded bg-neutral-100 border border-neutral-300 text-neutral-900 font-mono text-[10px] font-bold flex items-center justify-center shrink-0">
                           {idx + 1}
                         </span>
 
@@ -2923,7 +2923,7 @@ export const AdminProductEditorPage: React.FC = () => {
                           type="button"
                           onClick={() => removeImage(idx)}
                           disabled={isUploading}
-                          className="w-5 h-5 rounded-full bg-black/70 hover:bg-[#C62828] text-white flex items-center justify-center transition-colors cursor-pointer shrink-0 disabled:opacity-40"
+                          className="w-5 h-5 rounded-full bg-neutral-100 hover:bg-[#C62828] text-neutral-700 hover:text-white border border-neutral-300 flex items-center justify-center transition-colors cursor-pointer shrink-0 disabled:opacity-40"
                           title="Remove image"
                         >
                           <X size={11} strokeWidth={2.5} />
@@ -2934,11 +2934,11 @@ export const AdminProductEditorPage: React.FC = () => {
                       <div
                         onClick={(e) => !isFailed && handleThumbnailClick(e, idx)}
                         onDoubleClick={(e) => !isFailed && handleThumbnailDoubleClick(e, slot, idx)}
-                        className="flex-1 w-full my-1 rounded-lg bg-black/50 overflow-hidden flex items-center justify-center relative border border-white/20 hover:border-white/60 transition-colors"
+                        className="flex-1 w-full my-1 rounded-lg bg-neutral-50 overflow-hidden flex items-center justify-center relative border border-neutral-200 hover:border-neutral-400 transition-colors"
                         title={isFailed ? slot.errorMessage || "Upload failed. Click Retry below." : "Click to set main • Double-click to enlarge preview"}
                       >
                         {slot.hasLoadError ? (
-                          <ImageOff size={18} className="text-white/40" />
+                          <ImageOff size={18} className="text-neutral-400" />
                         ) : (
                           <img
                             src={slot.previewUrl || slot.url}
@@ -2949,15 +2949,15 @@ export const AdminProductEditorPage: React.FC = () => {
                         )}
 
                         {isUploading && (
-                          <div className="absolute inset-0 bg-black/80 flex items-center justify-center">
-                            <RefreshCw size={14} className="animate-spin text-white" />
+                          <div className="absolute inset-0 bg-white/80 flex items-center justify-center">
+                            <RefreshCw size={14} className="animate-spin text-neutral-800" />
                           </div>
                         )}
 
                         {isFailed && (
-                          <div className="absolute inset-0 bg-black/85 p-2 flex flex-col items-center justify-center text-center gap-1 z-10">
+                          <div className="absolute inset-0 bg-white/90 p-2 flex flex-col items-center justify-center text-center gap-1 z-10">
                             <AlertCircle size={18} className="text-[#D32F2F] shrink-0" />
-                            <span className="text-[10px] text-white font-medium line-clamp-2 px-1">
+                            <span className="text-[10px] text-neutral-900 font-medium line-clamp-2 px-1">
                               {slot.errorMessage || "Upload failed"}
                             </span>
                             {slot.file && (
@@ -2978,13 +2978,13 @@ export const AdminProductEditorPage: React.FC = () => {
                       </div>
 
                       {/* Bottom Controls: arrows & retry/primary action */}
-                      <div className="flex items-center justify-between text-xs pt-1 border-t border-white/20">
+                      <div className="flex items-center justify-between text-xs pt-1 border-t border-neutral-200">
                         <div className="flex items-center gap-0.5">
                           <button
                             type="button"
                             onClick={() => moveImage(idx, "left")}
                             disabled={idx === 0 || isUploading}
-                            className="p-1 text-white/70 hover:text-white disabled:opacity-20 cursor-pointer"
+                            className="p-1 text-neutral-600 hover:text-black disabled:opacity-20 cursor-pointer"
                             title="Move left"
                           >
                             <MoveLeft size={11} />
@@ -2993,7 +2993,7 @@ export const AdminProductEditorPage: React.FC = () => {
                             type="button"
                             onClick={() => moveImage(idx, "right")}
                             disabled={idx === imageSlots.length - 1 || isUploading}
-                            className="p-1 text-white/70 hover:text-white disabled:opacity-20 cursor-pointer"
+                            className="p-1 text-neutral-600 hover:text-black disabled:opacity-20 cursor-pointer"
                             title="Move right"
                           >
                             <MoveRight size={11} />
@@ -3004,7 +3004,7 @@ export const AdminProductEditorPage: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => handleRetryUpload(slot.id)}
-                            className="text-[9px] font-bold text-[#FF8A80] hover:text-white underline cursor-pointer inline-flex items-center gap-1"
+                            className="text-[9px] font-bold text-[#D32F2F] hover:text-[#B71C1C] underline cursor-pointer inline-flex items-center gap-1"
                           >
                             <RotateCcw size={10} />
                             Retry
@@ -3016,12 +3016,12 @@ export const AdminProductEditorPage: React.FC = () => {
                               setPrimaryImageIndex(idx);
                               setHasUnsavedChanges(true);
                             }}
-                            className="text-[9px] font-bold text-white/80 hover:text-white underline cursor-pointer"
+                            className="text-[9px] font-bold text-neutral-700 hover:text-black underline cursor-pointer"
                           >
                             Set Main
                           </button>
                         ) : (
-                          <span className="text-[9px] font-bold text-emerald-300">Main Photo</span>
+                          <span className="text-[9px] font-bold text-emerald-700">Main Photo</span>
                         )}
                       </div>
                     </div>
@@ -3034,11 +3034,11 @@ export const AdminProductEditorPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="h-44 sm:h-48 w-36 sm:w-40 rounded-xl border-2 border-dashed border-white/60 hover:border-white bg-black/25 hover:bg-black/35 flex flex-col items-center justify-center text-white transition-all cursor-pointer shrink-0"
+                  className="h-44 sm:h-48 w-36 sm:w-40 rounded-xl border-2 border-dashed border-[#FFD400] hover:border-yellow-500 bg-[#FFFBEB] hover:bg-[#FEF9C3] flex flex-col items-center justify-center text-black transition-all cursor-pointer shrink-0"
                 >
-                  <Plus size={22} className="mb-1 text-white" />
-                  <span className="text-xs font-bold text-white">Add More</span>
-                  <span className="text-[9px] text-white/60 font-mono mt-0.5">{5 - imageSlots.length} left</span>
+                  <Plus size={22} className="mb-1 text-black" />
+                  <span className="text-xs font-bold text-black">Add More</span>
+                  <span className="text-[9px] text-neutral-700 font-mono mt-0.5">{5 - imageSlots.length} left</span>
                 </button>
               )}
             </div>
@@ -3053,7 +3053,7 @@ export const AdminProductEditorPage: React.FC = () => {
             type="button"
             onClick={() => triggerAiIdentification()}
             disabled={isAiIdentifying || imageSlots.length === 0}
-            className="px-5 py-2.5 bg-[#C62828] hover:bg-[#B71C1C] disabled:opacity-50 text-white border border-white rounded-xl text-xs font-bold transition-all shadow-md cursor-pointer inline-flex items-center gap-2"
+            className="px-5 py-2.5 bg-[#C62828] hover:bg-[#B71C1C] disabled:opacity-50 text-white border border-black rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer inline-flex items-center gap-2"
           >
             {isAiIdentifying ? <RefreshCw size={13} className="animate-spin" /> : <Sparkles size={13} />}
             <span>{isAiIdentifying ? "Analyzing Photographs..." : "Run AI Analysis"}</span>
@@ -3095,8 +3095,8 @@ export const AdminProductEditorPage: React.FC = () => {
           >
             <div>
               {/* Step 2 Header */}
-              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs relative">
-                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+              <div className="bg-[#FFD400] border border-neutral-900/10 rounded-xl px-4 py-2.5 text-black flex items-center justify-between mb-4 shadow-xs relative">
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-black">
                   STEP 2 — PRODUCT CLASSIFICATION
                 </span>
 
@@ -3108,9 +3108,9 @@ export const AdminProductEditorPage: React.FC = () => {
                       e.stopPropagation();
                       setIsAddMenuOpen((prev) => !prev);
                     }}
-                    className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-black/40 hover:bg-black/60 border border-white/60 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/90 hover:bg-white border border-neutral-900/20 text-black text-xs font-bold transition-all shadow-xs cursor-pointer"
                   >
-                    <Plus size={13} className="stroke-[2.5]" />
+                    <Plus size={13} className="stroke-[2.5] text-black" />
                     <span>Add</span>
                   </button>
 
@@ -3130,7 +3130,7 @@ export const AdminProductEditorPage: React.FC = () => {
                           setNewPrimaryName("");
                           setNewPrimaryCode("");
                         }}
-                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-white/10 transition-colors flex items-center gap-2.5 cursor-pointer"
+                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-neutral-100 transition-colors flex items-center gap-2.5 cursor-pointer"
                       >
                         <span className="w-4 h-4 rounded-full bg-[#FFD400] text-black flex items-center justify-center font-black text-[10px] shrink-0">+</span>
                         <span>Add Primary Category</span>
@@ -3145,7 +3145,7 @@ export const AdminProductEditorPage: React.FC = () => {
                           setNewSubParentCat(category || allCategories[0]?.slug || "ot-lights");
                           setNewSubName("");
                         }}
-                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-white/10 transition-colors flex items-center gap-2.5 cursor-pointer border-t border-white/15"
+                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-neutral-100 transition-colors flex items-center gap-2.5 cursor-pointer border-t border-neutral-200"
                       >
                         <span className="w-4 h-4 rounded-full bg-[#FFD400] text-black flex items-center justify-center font-black text-[10px] shrink-0">+</span>
                         <span>Add Subcategory</span>
@@ -3164,7 +3164,7 @@ export const AdminProductEditorPage: React.FC = () => {
                           setNewEqSubcat(matchingSub ? matchingSub.id : (parentSubcats[0]?.id || ""));
                           setNewEqName("");
                         }}
-                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-white/10 transition-colors flex items-center gap-2.5 cursor-pointer border-t border-white/15"
+                        className="w-full text-left px-3.5 py-2.5 text-xs font-semibold hover:bg-neutral-100 transition-colors flex items-center gap-2.5 cursor-pointer border-t border-neutral-200"
                       >
                         <span className="w-4 h-4 rounded-full bg-[#FFD400] text-black flex items-center justify-center font-black text-[10px] shrink-0">+</span>
                         <span>Add Verified Equipment Type</span>
@@ -3177,7 +3177,7 @@ export const AdminProductEditorPage: React.FC = () => {
               <div className="space-y-4 mt-4">
                 {/* Primary Category */}
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">
                     Primary Category <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <select
@@ -3193,7 +3193,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       }
                       setHasUnsavedChanges(true);
                     }}
-                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none cursor-pointer"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none cursor-pointer"
                   >
                     {allCategories.map((c) => {
                       const isInactive = c.status === "INACTIVE" || c.active === false;
@@ -3208,7 +3208,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
                 {/* Subcategory */}
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">
                     Subcategory <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <select
@@ -3224,7 +3224,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       }
                       setHasUnsavedChanges(true);
                     }}
-                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none disabled:opacity-50 disabled:bg-neutral-200 cursor-pointer"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none disabled:opacity-50 disabled:bg-neutral-200 cursor-pointer"
                   >
                     <option value="">— Select Subcategory —</option>
                     {availableSubcategories.map((s: any) => (
@@ -3237,7 +3237,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
                 {/* Verified Equipment Type */}
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">
                     Verified Equipment Type <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <select
@@ -3249,7 +3249,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       markFieldEdited("equipmentType");
                       setHasUnsavedChanges(true);
                     }}
-                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none disabled:opacity-50 disabled:bg-neutral-200 cursor-pointer"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none disabled:opacity-50 disabled:bg-neutral-200 cursor-pointer"
                   >
                     <option value="">— Select Equipment Type —</option>
                     {availableEquipmentTypes.map((eq: any) => (
@@ -3258,7 +3258,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       </option>
                     ))}
                   </select>
-                  <p className="text-[11px] text-white/80 mt-1.5">
+                  <p className="text-[11px] text-neutral-600 mt-1.5">
                     Filtered based on verified DR.MEDEX catalogue taxonomy.
                   </p>
                 </div>
@@ -3277,8 +3277,8 @@ export const AdminProductEditorPage: React.FC = () => {
           >
             <div>
               {/* Step 3 Header */}
-              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
-                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+              <div className="bg-[#FFD400] border border-neutral-900/10 rounded-xl px-4 py-2.5 text-black flex items-center justify-between mb-4 shadow-xs">
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-black">
                   STEP 3 — PRODUCT IDENTITY
                 </span>
 
@@ -3286,17 +3286,17 @@ export const AdminProductEditorPage: React.FC = () => {
                   type="button"
                   onClick={handleRegenerateName}
                   disabled={isGeneratingIdentity}
-                  className="flex items-center gap-1.5 px-2.5 py-1 bg-black/30 hover:bg-black/50 text-white rounded-lg text-xs font-bold transition-colors border border-white/40 cursor-pointer disabled:opacity-50"
+                  className="flex items-center gap-1.5 px-2.5 py-1 bg-white/90 hover:bg-white text-black rounded-lg text-xs font-bold transition-colors border border-neutral-900/20 cursor-pointer disabled:opacity-50"
                 >
-                  {isGeneratingIdentity ? <RefreshCw size={11} className="animate-spin" /> : <Sparkles size={11} />}
-                  <span>Regenerate Name</span>
+                  {isGeneratingIdentity ? <RefreshCw size={11} className="animate-spin text-black" /> : <Sparkles size={11} className="text-black" />}
+                  <span className="text-black">Regenerate Name</span>
                 </button>
               </div>
 
               <div className="space-y-4 mt-4">
                 {/* 1. Product Name */}
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">
                     1. Product Name <span className="text-[#C62828] font-bold">*</span>
                   </label>
                   <input
@@ -3308,13 +3308,13 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. DR.MEDEX Ceiling-Mounted Double Dome LED OT Light – DL80"
-                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none"
                   />
                 </div>
 
                 {/* 2. Manufacturer Model */}
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">
                     2. Manufacturer Model
                   </label>
                   <input
@@ -3326,20 +3326,20 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. DL-80 or Std Unit"
-                    className="w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    className="w-full h-11 px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none"
                   />
                 </div>
 
                 {/* 3. SKU */}
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1 flex items-center justify-between">
+                  <label className="block text-xs font-bold text-neutral-900 mb-1 flex items-center justify-between">
                     <span>3. SKU <span className="text-[#C62828] font-bold">*</span></span>
                     <div className="flex items-center gap-2.5">
                       <button
                         type="button"
                         onClick={() => fetchNewSku(category, subcategory, productName, true)}
                         title="Regenerate unique SKU based on current classification & product name"
-                        className="text-[10px] text-white/90 hover:text-white flex items-center gap-1 cursor-pointer underline transition-colors"
+                        className="text-[10px] text-neutral-600 hover:text-black flex items-center gap-1 cursor-pointer underline transition-colors"
                       >
                         <RefreshCw size={10} />
                         <span>Regenerate</span>
@@ -3348,9 +3348,9 @@ export const AdminProductEditorPage: React.FC = () => {
                         <button
                           type="button"
                           onClick={handleCopySku}
-                          className="text-[10px] text-white/90 hover:text-white flex items-center gap-1 cursor-pointer underline transition-colors"
+                          className="text-[10px] text-neutral-600 hover:text-black flex items-center gap-1 cursor-pointer underline transition-colors"
                         >
-                          {copiedSku ? <Check size={10} className="text-emerald-300" /> : <Copy size={10} />}
+                          {copiedSku ? <Check size={10} className="text-emerald-700" /> : <Copy size={10} />}
                           <span>{copiedSku ? "Copied" : "Copy"}</span>
                         </button>
                       )}
@@ -3366,8 +3366,8 @@ export const AdminProductEditorPage: React.FC = () => {
                       markFieldEdited("sku");
                       setHasUnsavedChanges(true);
                     }}
-                    className={`w-full h-11 px-3.5 py-2.5 bg-white text-[#171717] border rounded-xl text-xs font-mono font-bold focus:bg-[#FEFCE8] focus:outline-none ${
-                      skuError ? "border-[#C62828] ring-1 ring-[#C62828]" : "border-white/40 focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308]"
+                    className={`w-full h-11 px-3.5 py-2.5 bg-white text-neutral-900 border rounded-xl text-xs font-mono font-bold focus:bg-[#FEFCE8] focus:outline-none ${
+                      skuError ? "border-[#C62828] ring-1 ring-[#C62828]" : "border-neutral-300 focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400]"
                     }`}
                   />
                   {skuError && <p className="text-[10px] text-white font-bold bg-[#C62828] px-2 py-0.5 rounded mt-1">{skuError}</p>}
@@ -3387,23 +3387,23 @@ export const AdminProductEditorPage: React.FC = () => {
           >
             <div>
               {/* Step 4 Header */}
-              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
-                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+              <div className="bg-[#FFD400] border border-neutral-900/10 rounded-xl px-4 py-2.5 text-black flex items-center justify-between mb-4 shadow-xs">
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-black">
                   STEP 4 — PRODUCT DESCRIPTION
                 </span>
                 <button
                   type="button"
                   onClick={handleRegenerateDescription}
                   disabled={isRegeneratingDescription}
-                  className="flex items-center gap-1.5 px-2.5 py-1 bg-black/30 hover:bg-black/50 text-white rounded-lg text-xs font-bold transition-colors border border-white/40 cursor-pointer disabled:opacity-50"
+                  className="flex items-center gap-1.5 px-2.5 py-1 bg-white/90 hover:bg-white text-black rounded-lg text-xs font-bold transition-colors border border-neutral-900/20 cursor-pointer disabled:opacity-50"
                 >
-                  {isRegeneratingDescription ? <RefreshCw size={11} className="animate-spin" /> : <Sparkles size={11} />}
-                  <span>Regenerate Description</span>
+                  {isRegeneratingDescription ? <RefreshCw size={11} className="animate-spin text-black" /> : <Sparkles size={11} className="text-black" />}
+                  <span className="text-black">Regenerate Description</span>
                 </button>
               </div>
 
               <div className="space-y-2 mt-4">
-                <label className="block text-xs font-bold text-white mb-1">
+                <label className="block text-xs font-bold text-neutral-900 mb-1">
                   Clinical & Operational Overview <span className="text-[#C62828] font-bold">*</span>
                 </label>
                 <textarea
@@ -3416,9 +3416,9 @@ export const AdminProductEditorPage: React.FC = () => {
                     setHasUnsavedChanges(true);
                   }}
                   placeholder="Enter product description explaining purpose, design, intended surgical workflow, and clinical advantages..."
-                  className="w-full min-h-[220px] resize-y px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none leading-relaxed"
+                  className="w-full min-h-[220px] resize-y px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none leading-relaxed"
                 />
-                <div className="flex items-center justify-between text-[11px] text-white/80 font-mono">
+                <div className="flex items-center justify-between text-[11px] text-neutral-600 font-mono">
                   <span>Main description only. Specs and package lists are managed in their own cards.</span>
                   <span>{description.length} chars • {description.trim().split(/\s+/).filter(Boolean).length} words</span>
                 </div>
@@ -3437,16 +3437,16 @@ export const AdminProductEditorPage: React.FC = () => {
           >
             <div>
               {/* Step 5 Header */}
-              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
-                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+              <div className="bg-[#FFD400] border border-neutral-900/10 rounded-xl px-4 py-2.5 text-black flex items-center justify-between mb-4 shadow-xs">
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-black">
                   STEP 5 — TECHNICAL SPECIFICATIONS
                 </span>
-                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-black/30 border border-white/40 text-white">
+                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-black/10 border border-black/20 text-black">
                   4 Core Fields
                 </span>
               </div>
 
-              <div className="p-2.5 rounded-xl bg-black/30 border border-white/40 text-white flex items-center gap-2 mt-4 text-xs">
+              <div className="p-2.5 rounded-xl bg-neutral-50 border border-neutral-200 text-neutral-800 flex items-center gap-2 mt-4 text-xs">
                 <ShieldCheck size={14} className="shrink-0 text-[#EAB308]" />
                 <span>
                   Unverified parameters remain blank or &quot;Needs verification&quot;.
@@ -3456,7 +3456,7 @@ export const AdminProductEditorPage: React.FC = () => {
               <div className="space-y-3 mt-3">
                 {/* 1. Power Supply */}
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">
                     1. Power Supply
                   </label>
                   <input
@@ -3468,13 +3468,13 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. 220–240 V AC, 50/60 Hz, 80 VA (or leave blank)"
-                    className="w-full px-3.5 py-2 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    className="w-full px-3.5 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none"
                   />
                 </div>
 
                 {/* 2. Quality Standards */}
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">
                     2. Quality Standards
                   </label>
                   <input
@@ -3486,13 +3486,13 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. ISO 13485:2016 Certified Facility (or leave blank)"
-                    className="w-full px-3.5 py-2 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    className="w-full px-3.5 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none"
                   />
                 </div>
 
                 {/* 3. Regulatory Status */}
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">
                     3. Regulatory Status
                   </label>
                   <input
@@ -3504,13 +3504,13 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. CE Marking (EU MDR 2017/745) / CDSCO (or leave blank)"
-                    className="w-full px-3.5 py-2 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    className="w-full px-3.5 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none"
                   />
                 </div>
 
                 {/* 4. Warranty */}
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">
                     4. Warranty
                   </label>
                   <input
@@ -3522,7 +3522,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. 2-Year Comprehensive Clinical Warranty"
-                    className="w-full px-3.5 py-2 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    className="w-full px-3.5 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none"
                   />
                 </div>
               </div>
@@ -3540,22 +3540,22 @@ export const AdminProductEditorPage: React.FC = () => {
           >
             <div>
               {/* Step 6 Header */}
-              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
-                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+              <div className="bg-[#FFD400] border border-neutral-900/10 rounded-xl px-4 py-2.5 text-black flex items-center justify-between mb-4 shadow-xs">
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-black">
                   STEP 6 — CLINICAL INDICATIONS & SPECIALTY PROCEDURES
                 </span>
                 <button
                   type="button"
                   onClick={handleRegenerateIndications}
                   disabled={isRegeneratingIndications}
-                  className="flex items-center gap-1.5 px-2.5 py-1 bg-black/30 hover:bg-black/50 text-white rounded-lg text-xs font-bold transition-colors border border-white/40 cursor-pointer disabled:opacity-50"
+                  className="flex items-center gap-1.5 px-2.5 py-1 bg-white/90 hover:bg-white text-black rounded-lg text-xs font-bold transition-colors border border-neutral-900/20 cursor-pointer disabled:opacity-50"
                 >
-                  {isRegeneratingIndications ? <RefreshCw size={11} className="animate-spin" /> : <Sparkles size={11} />}
-                  <span>Regenerate</span>
+                  {isRegeneratingIndications ? <RefreshCw size={11} className="animate-spin text-black" /> : <Sparkles size={11} className="text-black" />}
+                  <span className="text-black">Regenerate</span>
                 </button>
               </div>
 
-              <p className="text-xs text-white/80 mt-2 mb-3">
+              <p className="text-xs text-neutral-600 mt-2 mb-3">
                 Intended clinical departments, surgical workflows, and validated procedures.
               </p>
 
@@ -3576,7 +3576,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     }
                   }}
                   placeholder="Add clinical indication..."
-                  className="flex-1 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                  className="flex-1 px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none"
                 />
                 <button
                   type="button"
@@ -3588,7 +3588,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }
                   }}
-                  className="px-4 py-2.5 bg-black/30 hover:bg-black/50 text-white rounded-xl text-xs font-bold border border-white/40 cursor-pointer transition-colors"
+                  className="px-4 py-2.5 bg-white hover:bg-yellow-50 text-black rounded-xl text-xs font-bold border border-neutral-300 hover:border-[#FFD400] cursor-pointer transition-colors"
                 >
                   Add
                 </button>
@@ -3596,12 +3596,12 @@ export const AdminProductEditorPage: React.FC = () => {
 
               <div className="space-y-1.5 max-h-48 overflow-y-auto mt-3">
                 {clinicalIndications.length === 0 ? (
-                  <div className="p-3 text-center text-xs text-white/70 bg-black/20 rounded-xl border border-dashed border-white/30">
+                  <div className="p-3 text-center text-xs text-neutral-500 bg-neutral-50 rounded-xl border border-dashed border-neutral-200">
                     No clinical indications specified yet. Use AI Analysis or add above.
                   </div>
                 ) : (
                   clinicalIndications.map((ind, i) => (
-                    <div key={i} className="flex items-center justify-between text-xs bg-white text-[#171717] p-2.5 rounded-xl border border-white/40 shadow-2xs">
+                    <div key={i} className="flex items-center justify-between text-xs bg-white text-neutral-900 p-2.5 rounded-xl border border-neutral-200 shadow-2xs">
                       <span className="flex-1 pr-2 font-medium">• {ind}</span>
                       <button
                         type="button"
@@ -3632,22 +3632,22 @@ export const AdminProductEditorPage: React.FC = () => {
           >
             <div>
               {/* Step 7 Header */}
-              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
-                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+              <div className="bg-[#FFD400] border border-neutral-900/10 rounded-xl px-4 py-2.5 text-black flex items-center justify-between mb-4 shadow-xs">
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-black">
                   STEP 7 — KEY FACTORS & ENGINEERING HIGHLIGHTS
                 </span>
                 <button
                   type="button"
                   onClick={handleRegenerateHighlights}
                   disabled={isRegeneratingHighlights}
-                  className="flex items-center gap-1.5 px-2.5 py-1 bg-black/30 hover:bg-black/50 text-white rounded-lg text-xs font-bold transition-colors border border-white/40 cursor-pointer disabled:opacity-50"
+                  className="flex items-center gap-1.5 px-2.5 py-1 bg-white/90 hover:bg-white text-black rounded-lg text-xs font-bold transition-colors border border-neutral-900/20 cursor-pointer disabled:opacity-50"
                 >
-                  {isRegeneratingHighlights ? <RefreshCw size={11} className="animate-spin" /> : <Sparkles size={11} />}
-                  <span>Regenerate</span>
+                  {isRegeneratingHighlights ? <RefreshCw size={11} className="animate-spin text-black" /> : <Sparkles size={11} className="text-black" />}
+                  <span className="text-black">Regenerate</span>
                 </button>
               </div>
 
-              <p className="text-xs text-white/80 mt-2 mb-3">
+              <p className="text-xs text-neutral-600 mt-2 mb-3">
                 Concise engineering, performance, mechanical design, and safety highlights.
               </p>
 
@@ -3668,7 +3668,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     }
                   }}
                   placeholder="Add engineering highlight..."
-                  className="flex-1 px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                  className="flex-1 px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none"
                 />
                 <button
                   type="button"
@@ -3680,7 +3680,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }
                   }}
-                  className="px-4 py-2.5 bg-black/30 hover:bg-black/50 text-white rounded-xl text-xs font-bold border border-white/40 cursor-pointer transition-colors"
+                  className="px-4 py-2.5 bg-white hover:bg-yellow-50 text-black rounded-xl text-xs font-bold border border-neutral-300 hover:border-[#FFD400] cursor-pointer transition-colors"
                 >
                   Add
                 </button>
@@ -3688,12 +3688,12 @@ export const AdminProductEditorPage: React.FC = () => {
 
               <div className="space-y-1.5 max-h-48 overflow-y-auto mt-3">
                 {engineeringHighlights.length === 0 ? (
-                  <div className="p-3 text-center text-xs text-white/70 bg-black/20 rounded-xl border border-dashed border-white/30">
+                  <div className="p-3 text-center text-xs text-neutral-500 bg-neutral-50 rounded-xl border border-dashed border-neutral-200">
                     No engineering highlights added yet. Use AI Analysis or add above.
                   </div>
                 ) : (
                   engineeringHighlights.map((hl, i) => (
-                    <div key={i} className="flex items-center justify-between text-xs bg-white text-[#171717] p-2.5 rounded-xl border border-white/40 shadow-2xs">
+                    <div key={i} className="flex items-center justify-between text-xs bg-white text-neutral-900 p-2.5 rounded-xl border border-neutral-200 shadow-2xs">
                       <span className="flex-1 pr-2 font-medium">• {hl}</span>
                       <button
                         type="button"
@@ -3724,22 +3724,22 @@ export const AdminProductEditorPage: React.FC = () => {
           >
             <div>
               {/* Step 8 Header */}
-              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
-                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+              <div className="bg-[#FFD400] border border-neutral-900/10 rounded-xl px-4 py-2.5 text-black flex items-center justify-between mb-4 shadow-xs">
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-black">
                   STEP 8 — STANDARD INCLUDED PACKAGE CONTENTS
                 </span>
                 <button
                   type="button"
                   onClick={handleRegeneratePackage}
                   disabled={isRegeneratingPackage}
-                  className="flex items-center gap-1.5 px-2.5 py-1 bg-black/30 hover:bg-black/50 text-white rounded-lg text-xs font-bold transition-colors border border-white/40 cursor-pointer disabled:opacity-50"
+                  className="flex items-center gap-1.5 px-2.5 py-1 bg-white/90 hover:bg-white text-black rounded-lg text-xs font-bold transition-colors border border-neutral-900/20 cursor-pointer disabled:opacity-50"
                 >
-                  {isRegeneratingPackage ? <RefreshCw size={11} className="animate-spin" /> : <Sparkles size={11} />}
-                  <span>Regenerate</span>
+                  {isRegeneratingPackage ? <RefreshCw size={11} className="animate-spin text-black" /> : <Sparkles size={11} className="text-black" />}
+                  <span className="text-black">Regenerate</span>
                 </button>
               </div>
 
-              <p className="text-xs text-white/80 mt-2 mb-3">
+              <p className="text-xs text-neutral-600 mt-2 mb-3">
                 Verified components, cables, modules, and standard hardware included in shipment.
               </p>
 
@@ -3749,12 +3749,12 @@ export const AdminProductEditorPage: React.FC = () => {
                   value={newPackageItemName}
                   onChange={(e) => setNewPackageItemName(e.target.value)}
                   placeholder="Component name..."
-                  className="col-span-7 px-3 py-2 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                  className="col-span-7 px-3 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none"
                 />
                 <select
                   value={newPackageItemType}
                   onChange={(e) => setNewPackageItemType(e.target.value as any)}
-                  className="col-span-3 px-2 py-2 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none cursor-pointer"
+                  className="col-span-3 px-2 py-2 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none cursor-pointer"
                 >
                   <option value="standard">Standard</option>
                   <option value="optional">Optional</option>
@@ -3763,7 +3763,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={addPackageItem}
-                  className="col-span-2 bg-black/30 hover:bg-black/50 text-white rounded-xl text-xs font-bold flex items-center justify-center border border-white/40 cursor-pointer transition-colors"
+                  className="col-span-2 bg-white hover:bg-yellow-50 text-black rounded-xl text-xs font-bold flex items-center justify-center border border-neutral-300 hover:border-[#FFD400] cursor-pointer transition-colors"
                 >
                   Add
                 </button>
@@ -3771,12 +3771,12 @@ export const AdminProductEditorPage: React.FC = () => {
 
               <div className="space-y-1.5 max-h-56 overflow-y-auto mt-3">
                 {packageItems.length === 0 ? (
-                  <div className="p-3 text-center text-xs text-white/70 bg-black/20 rounded-xl border border-dashed border-white/30">
+                  <div className="p-3 text-center text-xs text-neutral-500 bg-neutral-50 rounded-xl border border-dashed border-neutral-200">
                     No package components added yet.
                   </div>
                 ) : (
                   packageItems.map((item, i) => (
-                    <div key={item.id || i} className="flex items-center justify-between text-xs bg-white text-[#171717] p-2.5 rounded-xl border border-white/40 shadow-2xs">
+                    <div key={item.id || i} className="flex items-center justify-between text-xs bg-white text-neutral-900 p-2.5 rounded-xl border border-neutral-200 shadow-2xs">
                       <div className="flex items-center gap-2 flex-1 pr-2 truncate">
                         <span
                           className={`text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded ${
@@ -3838,11 +3838,11 @@ export const AdminProductEditorPage: React.FC = () => {
           >
             <div>
               {/* Step 9 Header */}
-              <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
-                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+              <div className="bg-[#FFD400] border border-neutral-900/10 rounded-xl px-4 py-2.5 text-black flex items-center justify-between mb-4 shadow-xs">
+                <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-black">
                   STEP 9 — PRICING
                 </span>
-                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-black/30 border border-white/40 text-white">
+                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-black/10 border border-black/20 text-black">
                   Base: ₹ INR
                 </span>
               </div>
@@ -3850,7 +3850,7 @@ export const AdminProductEditorPage: React.FC = () => {
               <div className="space-y-4 mt-4">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-bold text-white mb-1">
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">
                       Original MRP (₹ INR) <span className="text-[#C62828] font-bold">*</span>
                     </label>
                     <input
@@ -3864,12 +3864,12 @@ export const AdminProductEditorPage: React.FC = () => {
                         setHasUnsavedChanges(true);
                       }}
                       placeholder="e.g. 175000"
-                      className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-mono font-bold focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                      className="w-full px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-mono font-bold focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-white mb-1">
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">
                       Selling Price (₹ INR) <span className="text-[#C62828] font-bold">*</span>
                     </label>
                     <input
@@ -3883,66 +3883,66 @@ export const AdminProductEditorPage: React.FC = () => {
                         setHasUnsavedChanges(true);
                       }}
                       placeholder="e.g. 150000"
-                      className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-mono font-bold focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                      className="w-full px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-mono font-bold focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none"
                     />
                   </div>
                 </div>
 
                 {/* Automatic Calculated Discount & Savings Card */}
-                <div className="p-3.5 rounded-xl border border-white/40 bg-black/25 flex flex-col justify-center space-y-1">
+                <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 flex flex-col justify-center space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] text-white/80 uppercase font-mono tracking-wider">
+                    <span className="text-[10px] text-neutral-600 uppercase font-mono tracking-wider">
                       Calculated Discount
                     </span>
                     {discountPercentage > 0 ? (
-                      <span className="text-sm font-black text-[#C62828] bg-white px-2.5 py-0.5 rounded-md border border-white shadow-xs">
+                      <span className="text-sm font-black text-[#C62828] bg-white px-2.5 py-0.5 rounded-md border border-neutral-200 shadow-xs">
                         {discountFormatted}% OFF
                       </span>
                     ) : (
-                      <span className="text-xs font-semibold text-white/70">No discount applied</span>
+                      <span className="text-xs font-semibold text-neutral-500">No discount applied</span>
                     )}
                   </div>
                   {calculatedSavings > 0 ? (
-                    <div className="text-xs font-bold text-white pt-1">
+                    <div className="text-xs font-bold text-neutral-900 pt-1">
                       You Save: ₹{calculatedSavings.toLocaleString("en-IN")}
                     </div>
                   ) : null}
                 </div>
 
                 {/* Live International FX Currency Preview */}
-                <div className="p-3.5 rounded-xl border border-white/40 bg-black/25 space-y-2">
+                <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-white flex items-center gap-1.5">
+                    <span className="font-bold text-neutral-900 flex items-center gap-1.5">
                       <Globe size={13} className="text-[#EAB308]" />
                       <span>International Pricing</span>
                     </span>
-                    <span className="text-[10px] text-white/70 font-mono">
+                    <span className="text-[10px] text-neutral-500 font-mono">
                       {rateTimestamp ? new Date(rateTimestamp).toLocaleTimeString() : "Live FX"}
                     </span>
                   </div>
 
                   <div className="grid grid-cols-4 gap-2 text-center">
-                    <div className="p-2 bg-white rounded-lg border border-white/40">
+                    <div className="p-2 bg-white rounded-lg border border-neutral-200">
                       <span className="text-[10px] text-neutral-500 block font-mono font-bold">USD</span>
-                      <span className="text-xs font-bold text-[#171717]">
+                      <span className="text-xs font-bold text-neutral-900">
                         ${(basePrice * (exchangeRates.USD || 0.010379)).toFixed(2)}
                       </span>
                     </div>
-                    <div className="p-2 bg-white rounded-lg border border-white/40">
+                    <div className="p-2 bg-white rounded-lg border border-neutral-200">
                       <span className="text-[10px] text-neutral-500 block font-mono font-bold">EUR</span>
-                      <span className="text-xs font-bold text-[#171717]">
+                      <span className="text-xs font-bold text-neutral-900">
                         €{(basePrice * (exchangeRates.EUR || 0.009228)).toFixed(2)}
                       </span>
                     </div>
-                    <div className="p-2 bg-white rounded-lg border border-white/40">
+                    <div className="p-2 bg-white rounded-lg border border-neutral-200">
                       <span className="text-[10px] text-neutral-500 block font-mono font-bold">GBP</span>
-                      <span className="text-xs font-bold text-[#171717]">
+                      <span className="text-xs font-bold text-neutral-900">
                         £{(basePrice * (exchangeRates.GBP || 0.007854)).toFixed(2)}
                       </span>
                     </div>
-                    <div className="p-2 bg-white rounded-lg border border-white/40">
+                    <div className="p-2 bg-white rounded-lg border border-neutral-200">
                       <span className="text-[10px] text-neutral-500 block font-mono font-bold">AED</span>
-                      <span className="text-xs font-bold text-[#171717]">
+                      <span className="text-xs font-bold text-neutral-900">
                         {(basePrice * (exchangeRates.AED || 0.038116)).toFixed(2)}
                       </span>
                     </div>
@@ -3952,7 +3952,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 {/* Stock Quantity & Status Toggle (Strictly only these 2 fields) */}
                 <div className="grid grid-cols-2 gap-3 items-end">
                   <div>
-                    <label className="block text-xs font-bold text-white mb-1">
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">
                       1. Stock Quantity
                     </label>
                     <input
@@ -3971,11 +3971,11 @@ export const AdminProductEditorPage: React.FC = () => {
                         markFieldEdited("stockStatus");
                         setHasUnsavedChanges(true);
                       }}
-                      className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-mono font-bold focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                      className="w-full px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-mono font-bold focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-white mb-1">
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">
                       2. In-Stock Status
                     </label>
                     <button
@@ -3993,10 +3993,10 @@ export const AdminProductEditorPage: React.FC = () => {
                         markFieldEdited("stock");
                         setHasUnsavedChanges(true);
                       }}
-                      className={`w-full py-2.5 px-3.5 rounded-xl border border-white/40 text-xs font-bold flex items-center justify-between cursor-pointer transition-colors ${
+                      className={`w-full py-2.5 px-3.5 rounded-xl border border-neutral-300 text-xs font-bold flex items-center justify-between cursor-pointer transition-colors ${
                         stockStatus !== "OUT_OF_STOCK"
-                          ? "bg-white text-[#0D4C3C]"
-                          : "bg-black/30 text-white"
+                          ? "bg-white text-neutral-900 hover:bg-neutral-50"
+                          : "bg-neutral-100 text-neutral-600"
                       }`}
                     >
                       <span>{stockStatus !== "OUT_OF_STOCK" ? "In Stock (Available)" : "Out of Stock"}</span>
@@ -4022,18 +4022,18 @@ export const AdminProductEditorPage: React.FC = () => {
             className={`col-span-1 lg:col-span-2 rounded-2xl p-6 space-y-4 transition-all duration-200 border ${getCardStyle("settings")}`}
           >
             {/* Settings Header */}
-            <div className="bg-[#C62828] border border-white rounded-xl px-4 py-2.5 text-white flex items-center justify-between mb-4 shadow-xs">
-              <span className="text-xs sm:text-sm font-bold tracking-wider uppercase">
+            <div className="bg-[#FFD400] border border-neutral-900/10 rounded-xl px-4 py-2.5 text-black flex items-center justify-between mb-4 shadow-xs">
+              <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-black">
                 SETTINGS & METADATA
               </span>
-              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-black/30 border border-white/40 text-white">
+              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-black/10 border border-black/20 text-black">
                 Storefront Visibility
               </span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               <div>
-                <label className="block text-xs font-bold text-white mb-1">
+                <label className="block text-xs font-bold text-neutral-900 mb-1">
                   Publication Status
                 </label>
                 <select
@@ -4043,7 +4043,7 @@ export const AdminProductEditorPage: React.FC = () => {
                     markFieldEdited("status");
                     setHasUnsavedChanges(true);
                   }}
-                  className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs font-bold focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none cursor-pointer"
+                  className="w-full px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-bold focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none cursor-pointer"
                 >
                   <option value="DRAFT">Draft (Internal Only, Hidden from Public)</option>
                   <option value="ACTIVE">Active (Live in Storefront)</option>
@@ -4051,8 +4051,8 @@ export const AdminProductEditorPage: React.FC = () => {
                   <option value="ARCHIVED">Archived (Historical Record)</option>
                 </select>
 
-                <div className="space-y-2.5 pt-3 mt-3 border-t border-white/20">
-                  <label className="flex items-center gap-2.5 text-xs text-white cursor-pointer">
+                <div className="space-y-2.5 pt-3 mt-3 border-t border-neutral-200">
+                  <label className="flex items-center gap-2.5 text-xs text-neutral-900 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={isFeatured}
@@ -4061,12 +4061,12 @@ export const AdminProductEditorPage: React.FC = () => {
                         markFieldEdited("isFeatured");
                         setHasUnsavedChanges(true);
                       }}
-                      className="w-4 h-4 rounded border-white/40 text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
+                      className="w-4 h-4 rounded border-neutral-300 text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
                     />
                     <span className="font-semibold">Featured on Homepage Clinical Grid</span>
                   </label>
 
-                  <label className="flex items-center gap-2.5 text-xs text-white cursor-pointer">
+                  <label className="flex items-center gap-2.5 text-xs text-neutral-900 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={isBestSeller}
@@ -4075,12 +4075,12 @@ export const AdminProductEditorPage: React.FC = () => {
                         markFieldEdited("isBestSeller");
                         setHasUnsavedChanges(true);
                       }}
-                      className="w-4 h-4 rounded border-white/40 text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
+                      className="w-4 h-4 rounded border-neutral-300 text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
                     />
                     <span className="font-semibold">Bestseller Ribbon Badge</span>
                   </label>
 
-                  <label className="flex items-center gap-2.5 text-xs text-white cursor-pointer">
+                  <label className="flex items-center gap-2.5 text-xs text-neutral-900 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={categoryGridVisible}
@@ -4089,7 +4089,7 @@ export const AdminProductEditorPage: React.FC = () => {
                         markFieldEdited("categoryGridVisible");
                         setHasUnsavedChanges(true);
                       }}
-                      className="w-4 h-4 rounded border-white/40 text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
+                      className="w-4 h-4 rounded border-neutral-300 text-[#16803D] focus:ring-[#16803D] accent-[#16803D]"
                     />
                     <span className="font-semibold">Category Grid Visibility</span>
                   </label>
@@ -4098,7 +4098,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
               <div className="md:col-span-2 space-y-3">
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">
                     Storefront SEO Meta Title
                   </label>
                   <input
@@ -4110,12 +4110,12 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="e.g. DR.MEDEX LED OT Light | Surgical Ceiling Luminaire"
-                    className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    className="w-full px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1">
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">
                     Storefront SEO Meta Description
                   </label>
                   <textarea
@@ -4127,7 +4127,7 @@ export const AdminProductEditorPage: React.FC = () => {
                       setHasUnsavedChanges(true);
                     }}
                     placeholder="High-intent search description for Google index..."
-                    className="w-full px-3.5 py-2.5 bg-white text-[#171717] border border-white/40 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#EAB308] focus:ring-1 focus:ring-[#EAB308] focus:outline-none"
+                    className="w-full px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none"
                   />
                 </div>
               </div>
@@ -4135,8 +4135,6 @@ export const AdminProductEditorPage: React.FC = () => {
           </div>
         </div>
 
-        {/* ============================================================ */}
-        {/* FINAL FORM BOTTOM SAVE ACTION BAR (NATURAL SCROLLING)        */}
         {/* ============================================================ */}
         {/* FINAL FORM BOTTOM SAVE ACTION BAR (NATURAL SCROLLING)        */}
         {/* ============================================================ */}
@@ -4163,7 +4161,7 @@ export const AdminProductEditorPage: React.FC = () => {
             <button
               type="submit"
               disabled={isSaving}
-              className="flex items-center gap-2 px-8 py-2.5 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-xl text-xs font-bold transition-all shadow-md disabled:opacity-50 cursor-pointer"
+              className="flex items-center gap-2 px-8 py-2.5 bg-[#15803D] hover:bg-[#166534] text-white border border-neutral-900/10 rounded-xl text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer"
             >
               {isSaving ? <RefreshCw size={14} className="animate-spin" /> : <Save size={14} />}
               <span>{isSaving ? "Saving Product..." : isEditMode ? "Save Changes" : "Save Product"}</span>
