@@ -62,22 +62,22 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const productUrl = `/product/${product.slug || product.id}`;
 
   return (
-    <div className="group relative bg-white rounded-2xl border border-neutral-200 hover:border-neutral-300 hover:shadow-sm transition-all duration-200 flex flex-col justify-between overflow-hidden h-full">
-      {/* 1. SQUARE PRODUCT IMAGE AREA (1:1 aspect ratio, edge-to-edge of card width, no side panels) */}
+    <div className="group relative bg-white rounded-2xl border border-neutral-200 hover:border-neutral-300 hover:shadow-sm transition-all duration-200 flex flex-col justify-between overflow-hidden h-full p-2.5 sm:p-3">
+      {/* 1. SQUARE PRODUCT IMAGE AREA (1:1 aspect ratio, rounded bezel, zoomed object-fit: cover, equal 10-12px breathing room) */}
       <div
-        className="relative w-full aspect-square bg-white flex items-center justify-center overflow-hidden"
+        className="relative w-full aspect-square rounded-xl overflow-hidden bg-neutral-50 border border-neutral-200/90 flex items-center justify-center"
         style={{ aspectRatio: "1 / 1" }}
       >
         <Link
           to={productUrl}
-          className="w-full h-full flex items-center justify-center p-2.5 sm:p-3"
+          className="w-full h-full block overflow-hidden"
           aria-label={displayTitle}
         >
           <img
             src={primaryImage}
             alt={displayTitle}
-            className="w-full h-full object-contain object-center transition-transform duration-250 ease-out group-hover:scale-[1.02]"
-            style={{ objectFit: "contain", objectPosition: "center" }}
+            className="w-full h-full object-cover object-center transition-transform duration-300 ease-out group-hover:scale-105"
+            style={{ objectFit: "cover", objectPosition: "center" }}
             loading="lazy"
             onError={(e) => {
               // Graceful fallback to approved medical asset placeholder
@@ -108,8 +108,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </button>
       </div>
 
-      {/* 3. PRODUCT INFORMATION & ACTION */}
-      <div className="p-3.5 sm:p-4 pt-3 flex-1 flex flex-col justify-between gap-3">
+      {/* 3. PRODUCT INFORMATION & ACTION (10-12px spacing from image bottom) */}
+      <div className="pt-2.5 sm:pt-3 px-1 pb-1 flex-1 flex flex-col justify-between gap-3">
         <div>
           {/* Category / Subcategory Label in Dark Green */}
           <div className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#1F7A4D] mb-1 line-clamp-1">
