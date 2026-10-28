@@ -456,7 +456,7 @@ export const AdminProductsPage: React.FC = () => {
     return categories.find((c) => c.slug === selectedCategory || c.id === selectedCategory) || null;
   }, [categories, selectedCategory]);
 
-  // STRICT SCOPE: Only OT / Surgical Lights and Physiotherapy Machines may use the custom section UI
+  // STRICT SCOPE: OT Lights, Physiotherapy, and Electrosurgical Units use the sectioned category UI
   const isSectionedCategory = useMemo(() => {
     if (!currentCategoryObj && (!selectedCategory || selectedCategory === "all")) return false;
     const catSlug = currentCategoryObj?.slug || selectedCategory;
@@ -465,7 +465,9 @@ export const AdminProductsPage: React.FC = () => {
       catSlug === "ot-lights" ||
       catId === "ot-lights" ||
       catSlug === "physiotherapy" ||
-      catId === "physiotherapy"
+      catId === "physiotherapy" ||
+      catSlug === "electrosurgical-units" ||
+      catId === "electrosurgical-units"
     );
   }, [currentCategoryObj, selectedCategory]);
 
@@ -560,7 +562,15 @@ export const AdminProductsPage: React.FC = () => {
   const getSectionFilteredProducts = (sub: any) => {
     const subKey = sub.slug || sub.id;
     const subName = sub.name;
+    const isEsuSurgery = subKey === "electrosurgical-surgery" || subKey === "electro-surgical-skin-cautery";
+    const isEsuGen = subKey === "electrosurgical-generator" || subKey === "generators";
     return filteredProducts.filter((p) => {
+      if (isEsuSurgery && (p.subcategory === "electrosurgical-surgery" || p.subcategory === "electro-surgical-skin-cautery" || p.subcategory === "cautery")) {
+        return true;
+      }
+      if (isEsuGen && (p.subcategory === "electrosurgical-generator" || p.subcategory === "generators" || p.subcategory === "electrosurgical-generators")) {
+        return true;
+      }
       return (
         p.subcategory === subKey ||
         p.subcategory === sub.id ||
@@ -575,7 +585,15 @@ export const AdminProductsPage: React.FC = () => {
   const getSectionTotalProducts = (sub: any) => {
     const subKey = sub.slug || sub.id;
     const subName = sub.name;
+    const isEsuSurgery = subKey === "electrosurgical-surgery" || subKey === "electro-surgical-skin-cautery";
+    const isEsuGen = subKey === "electrosurgical-generator" || subKey === "generators";
     return categoryScopedProducts.filter((p) => {
+      if (isEsuSurgery && (p.subcategory === "electrosurgical-surgery" || p.subcategory === "electro-surgical-skin-cautery" || p.subcategory === "cautery")) {
+        return true;
+      }
+      if (isEsuGen && (p.subcategory === "electrosurgical-generator" || p.subcategory === "generators" || p.subcategory === "electrosurgical-generators")) {
+        return true;
+      }
       return (
         p.subcategory === subKey ||
         p.subcategory === sub.id ||

@@ -253,7 +253,7 @@ async function runRetentionAndTrackingSuite() {
 }
 
 if (require.main === module) {
-  runRetentionAndTrackingSuite().catch((err) => {
+  runRetentionAndTrackingSuite().then(() => process.exit(0)).catch((err) => {
     console.error("❌ Test suite failed:", err);
     process.exit(1);
   });

@@ -217,7 +217,7 @@ async function runRecoveryVerification() {
   console.log("==========================================================================\n");
 }
 
-runRecoveryVerification().catch((err) => {
+runRecoveryVerification().then(() => process.exit(0)).catch((err) => {
   console.error("Test failure:", err);
   process.exit(1);
 });

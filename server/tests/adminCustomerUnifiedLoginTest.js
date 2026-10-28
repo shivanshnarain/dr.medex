@@ -240,7 +240,7 @@ async function runUnifiedAuthSuite() {
 }
 
 if (require.main === module) {
-  runUnifiedAuthSuite().catch((err) => {
+  runUnifiedAuthSuite().then(() => process.exit(0)).catch((err) => {
     console.error("❌ Test suite failed:", err);
     process.exit(1);
   });

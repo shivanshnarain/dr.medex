@@ -54,30 +54,53 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   // Clean title display
   const displayTitle = product.title || product.productName || "Medical Equipment";
-  const primaryImage =
-    (product.images && product.images.length > 0 && product.images[0]) ||
-    product.primaryImage ||
-    "/placeholder-medical.png";
+
+  // Authoritative Primary Image selection (prioritize admin-selected primaryImage flag / field)
+  const resolvePrimaryImage = (): string => {
+    if (product.primaryImage && typeof product.primaryImage === "string" && product.primaryImage.trim()) {
+      return product.primaryImage;
+    }
+    if (Array.isArray(product.images) && product.images.length > 0) {
+      // Check for object format with isPrimary flag
+      for (const img of product.images) {
+        if (typeof img === "object" && img !== null && (img as any).isPrimary && (img as any).url) {
+          return (img as any).url;
+        }
+      }
+      // Fallback to first image item
+      const first = product.images[0];
+      if (typeof first === "string" && first.trim()) return first;
+      if (typeof first === "object" && first !== null && (first as any).url) return (first as any).url;
+    }
+    if (Array.isArray(product.galleryImages) && product.galleryImages.length > 0) {
+      const first = product.galleryImages[0];
+      if (typeof first === "string" && first.trim()) return first;
+      if (typeof first === "object" && first !== null && (first as any).url) return (first as any).url;
+    }
+    return "/placeholder-medical.png";
+  };
+
+  const primaryImage = resolvePrimaryImage();
 
   const productUrl = `/product/${product.slug || product.id}`;
 
   return (
-    <div className="group relative bg-white rounded-2xl border border-neutral-200 hover:border-neutral-300 hover:shadow-sm transition-all duration-200 flex flex-col justify-between overflow-hidden h-full p-2.5 sm:p-3">
-      {/* 1. SQUARE PRODUCT IMAGE AREA (1:1 aspect ratio, rounded bezel, zoomed object-fit: cover, equal 10-12px breathing room) */}
+    <div className="group relative bg-white rounded-2xl border border-neutral-200/90 hover:border-neutral-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between overflow-hidden h-full p-3 sm:p-4">
+      {/* 1. SQUARE PRODUCT IMAGE AREA (1:1 aspect ratio, clean rounded container WITHOUT grey inner border, object-contain for distortion-free medical equipment) */}
       <div
-        className="relative w-full aspect-square rounded-xl overflow-hidden bg-neutral-50 border border-neutral-200/90 flex items-center justify-center"
+        className="relative w-full aspect-square rounded-xl overflow-hidden bg-[#FBFBFB] flex items-center justify-center p-2.5 sm:p-3"
         style={{ aspectRatio: "1 / 1" }}
       >
         <Link
           to={productUrl}
-          className="w-full h-full block overflow-hidden"
+          className="w-full h-full flex items-center justify-center overflow-hidden"
           aria-label={displayTitle}
         >
           <img
             src={primaryImage}
             alt={displayTitle}
-            className="w-full h-full object-cover object-center transition-transform duration-300 ease-out group-hover:scale-105"
-            style={{ objectFit: "cover", objectPosition: "center" }}
+            className="w-full h-full object-contain object-center transition-transform duration-300 ease-out group-hover:scale-105"
+            style={{ objectFit: "contain", objectPosition: "center" }}
             loading="lazy"
             onError={(e) => {
               // Graceful fallback to approved medical asset placeholder
@@ -92,10 +115,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           type="button"
           onClick={handleWishlist}
           aria-label={isSaved ? "Remove from wishlist" : "Add to wishlist"}
-          className={`absolute top-2.5 right-2.5 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 z-10 cursor-pointer ${
+          className={`absolute top-2 right-2 sm:top-2.5 sm:right-2.5 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center transition-all duration-200 z-10 cursor-pointer ${
             isSaved
               ? "bg-white text-[#7AA05A] shadow-xs border border-[#7AA05A]/30 scale-105"
-              : "bg-white/90 backdrop-blur-xs text-neutral-600 hover:text-[#7AA05A] border border-neutral-200/90 shadow-2xs hover:scale-105"
+              : "bg-white/95 backdrop-blur-xs text-neutral-600 hover:text-[#7AA05A] border border-neutral-200/80 shadow-2xs hover:scale-105"
           }`}
         >
           <Heart
@@ -108,27 +131,27 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </button>
       </div>
 
-      {/* 3. PRODUCT INFORMATION & ACTION (10-12px spacing from image bottom) */}
-      <div className="pt-2.5 sm:pt-3 px-1 pb-1 flex-1 flex flex-col justify-between gap-3">
+      {/* 3. PRODUCT INFORMATION & ACTION (dark moss green category, black name, moss-green button) */}
+      <div className="pt-3 sm:pt-3.5 px-0.5 pb-0.5 flex-1 flex flex-col justify-between gap-3">
         <div>
-          {/* Category / Subcategory Label in Dark Green */}
-          <div className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#1F7A4D] mb-1 line-clamp-1">
+          {/* Category / Subcategory Label in Dark Moss Green (#7AA05A) */}
+          <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#7AA05A] mb-1 line-clamp-1">
             {categoryLabel}
           </div>
 
-          {/* Product Name */}
-          <h3 className="text-xs sm:text-sm font-bold text-neutral-900 leading-snug line-clamp-2 min-h-[2.5rem] hover:text-[#7AA05A] transition-colors">
+          {/* Product Name in Solid Black */}
+          <h3 className="text-xs sm:text-sm md:text-[14px] font-bold text-black leading-snug line-clamp-2 min-h-[2.5rem] hover:text-[#7AA05A] transition-colors">
             <Link to={productUrl} title={displayTitle}>
               {displayTitle}
             </Link>
           </h3>
         </div>
 
-        {/* 4. SINGLE PROMINENT SHOW DETAILS BUTTON */}
+        {/* 4. SINGLE PROMINENT MOSS-GREEN SHOW DETAILS BUTTON */}
         <div>
           <Link
             to={productUrl}
-            className="w-full py-2.5 sm:py-3 px-4 bg-[#7AA05A] hover:bg-[#6C8F4E] active:bg-[#5E7E43] focus:outline-none focus:ring-2 focus:ring-[#7AA05A]/40 text-white rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-colors duration-200 flex items-center justify-center text-center shadow-2xs cursor-pointer block"
+            className="w-full py-2.5 sm:py-3 px-4 bg-[#7AA05A] hover:bg-[#688a4c] active:bg-[#5a7842] focus:outline-none focus:ring-2 focus:ring-[#7AA05A]/40 text-white rounded-full text-xs sm:text-sm font-bold tracking-wide transition-colors duration-200 flex items-center justify-center text-center shadow-2xs cursor-pointer block"
           >
             Show Details
           </Link>

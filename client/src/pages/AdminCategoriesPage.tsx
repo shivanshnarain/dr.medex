@@ -495,6 +495,16 @@ export const AdminCategoriesPage: React.FC = () => {
 
           <button
             type="button"
+            onClick={() => handleOpenAdd("subcategory")}
+            className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 border border-white/20 transition-colors cursor-pointer"
+            title="Create a new subcategory under an existing primary category"
+          >
+            <Plus size={14} className="stroke-[2.5]" />
+            <span>Add Subcategory</span>
+          </button>
+
+          <button
+            type="button"
             onClick={() => handleOpenAdd(
               activeTab === "equipment-types" ? "equipment" : activeTab === "subcategories" ? "subcategory" : "primary"
             )}
@@ -793,6 +803,15 @@ export const AdminCategoriesPage: React.FC = () => {
                         </td>
                         <td className="py-4 px-6 text-right">
                           <div className="flex items-center justify-end gap-2">
+                            <button
+                              type="button"
+                              onClick={() => handleOpenAdd("subcategory", cat.id)}
+                              title={`Add Subcategory under ${cat.name}`}
+                              className="px-2.5 py-1 text-2xs font-bold text-black bg-[#FFD400] hover:bg-[#ffe033] rounded-md transition-colors flex items-center gap-1 cursor-pointer"
+                            >
+                              <Plus size={11} className="stroke-[3]" />
+                              <span>Add Subcategory</span>
+                            </button>
                             <button
                               type="button"
                               onClick={() => handleToggleStatus(cat)}

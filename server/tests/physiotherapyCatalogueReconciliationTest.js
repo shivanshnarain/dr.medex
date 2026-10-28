@@ -55,25 +55,18 @@ async function runTest() {
   console.log(`[Check 1] Total catalogue size: ${list.length} (Expected: 193)`);
   assert.strictEqual(list.length, 193, `Catalogue size must be preserved at 193, got ${list.length}`);
 
-  // 2. Total Physiotherapy Products count
+  // 2. Total Physiotherapy Products count (64 active physiotherapy devices after electrosurgical reconciliation)
   const physioProducts = list.filter(p => p.category === "physiotherapy");
-  console.log(`[Check 2] Total Physiotherapy products count: ${physioProducts.length} (Expected: 65)`);
-  assert.strictEqual(physioProducts.length, 65, `Expected exactly 65 physiotherapy products, got ${physioProducts.length}`);
+  console.log(`[Check 2] Total Physiotherapy products count: ${physioProducts.length} (Expected: 64)`);
+  assert.strictEqual(physioProducts.length, 64, `Expected exactly 64 physiotherapy products, got ${physioProducts.length}`);
 
-  // 3. Verify relocated products from medical-equipment to physiotherapy
-  const relocatedEswt = list.find(p => p.id === "prod-extracorporeal-shock-wav");
-  assert.ok(relocatedEswt, "prod-extracorporeal-shock-wav must exist");
-  assert.strictEqual(relocatedEswt.category, "physiotherapy", "prod-extracorporeal-shock-wav must be in physiotherapy");
-  assert.strictEqual(relocatedEswt.subcategory, "shockwave-therapy-machine", "prod-extracorporeal-shock-wav subcategory must be shockwave-therapy-machine");
-  assert.ok(Array.isArray(relocatedEswt.images) && relocatedEswt.images.length > 0, "Images must be preserved for prod-extracorporeal-shock-wav");
-  console.log(`[Check 3a] Verified relocated shockwave machine: ${relocatedEswt.id} -> ${relocatedEswt.category}/${relocatedEswt.subcategory} (${relocatedEswt.images.length} images)`);
-
+  // 3. Verify CPM machine relocation to physiotherapy
   const relocatedCpm = list.find(p => p.id === "prod-wireless-remote-control-");
   assert.ok(relocatedCpm, "prod-wireless-remote-control- must exist");
   assert.strictEqual(relocatedCpm.category, "physiotherapy", "prod-wireless-remote-control- must be in physiotherapy");
   assert.strictEqual(relocatedCpm.subcategory, "cpm", "prod-wireless-remote-control- subcategory must be cpm");
   assert.ok(Array.isArray(relocatedCpm.images) && relocatedCpm.images.length > 0, "Images must be preserved for prod-wireless-remote-control-");
-  console.log(`[Check 3b] Verified relocated CPM machine: ${relocatedCpm.id} -> ${relocatedCpm.category}/${relocatedCpm.subcategory} (${relocatedCpm.images.length} images)`);
+  console.log(`[Check 3] Verified relocated CPM machine: ${relocatedCpm.id} -> ${relocatedCpm.category}/${relocatedCpm.subcategory} (${relocatedCpm.images.length} images)`);
 
   // 4. Verify all 9 subcategory counts
   const isInSubcategory = (p, subcat) => {
@@ -87,7 +80,7 @@ async function runTest() {
     { name: "CPM Machines", subcat: "cpm", target: 7 },
     { name: "Short Wave Diathermy Machines", subcat: "shortwave-diathermy-machine", target: 2 },
     { name: "Long Wave Diathermy Machines", subcat: "longwave-diathermy-machine", target: 2 },
-    { name: "Shock Wave Therapy Machines", subcat: "shockwave-therapy-machine", target: 3 },
+    { name: "Shock Wave Therapy Machines", subcat: "shockwave-therapy-machine", target: 2 },
     { name: "Electronic Traction Machines", subcat: "electronic-traction-machine", target: 2 },
     { name: "Electric Muscle Stimulators", subcat: "electric-muscle-stimulator", target: 11 }
   ];
@@ -108,8 +101,8 @@ async function runTest() {
     sumSections += matching.length;
   });
 
-  console.log(`[Check 5] Sum of all 9 sections: ${sumSections} (Expected: 76)`);
-  assert.strictEqual(sumSections, 76, `Sum of 9 sections must equal 76, got ${sumSections}`);
+  console.log(`[Check 5] Sum of all 9 sections: ${sumSections} (Expected: 75)`);
+  assert.strictEqual(sumSections, 75, `Sum of 9 sections must equal 75, got ${sumSections}`);
 
   // 6. Verify multi-category overlap assignments
   const comboMachine = physioProducts.find(p => p.id === "prod-ombination-therapy-machi");

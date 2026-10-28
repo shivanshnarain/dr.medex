@@ -125,7 +125,7 @@ async function runVerification() {
   console.log("===============================================================\n");
 }
 
-runVerification().catch((err) => {
+runVerification().then(() => process.exit(0)).catch((err) => {
   console.error("Verification failed:", err);
   process.exit(1);
 });

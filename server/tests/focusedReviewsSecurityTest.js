@@ -374,7 +374,7 @@ function mockDelete(app, url) {
   });
 }
 
-runTestSuite().catch(err => {
+runTestSuite().then(() => process.exit(0)).catch(err => {
   console.error("Test execution failed:", err);
   process.exit(1);
 });

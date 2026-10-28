@@ -14,7 +14,8 @@ import {
   ChevronRight,
   Package,
   LogOut,
-  ShieldCheck
+  ShieldCheck,
+  MoreVertical
 } from "lucide-react";
 import { useCurrency } from "../context/CurrencyContext";
 import { useCart } from "../context/CartContext";
@@ -53,6 +54,10 @@ export const Header: React.FC = () => {
   const [authModalTab, setAuthModalTab] = useState<"signin" | "signup">("signin");
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
+
+  // Mobile Three-dot / Overflow Menu State
+  const [isOverflowMenuOpen, setIsOverflowMenuOpen] = useState(false);
+  const overflowMenuRef = useRef<HTMLDivElement>(null);
 
   // Search state
   const [searchQuery, setSearchQuery] = useState("");
@@ -159,7 +164,7 @@ export const Header: React.FC = () => {
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  // Click outside to close search and country modal
+  // Click outside and keydown to close dropdowns
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
@@ -171,9 +176,24 @@ export const Header: React.FC = () => {
       if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
         setIsUserMenuOpen(false);
       }
+      if (overflowMenuRef.current && !overflowMenuRef.current.contains(e.target as Node)) {
+        setIsOverflowMenuOpen(false);
+      }
+    }
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setShowSearchDropdown(false);
+        setIsCountryModalOpen(false);
+        setIsUserMenuOpen(false);
+        setIsOverflowMenuOpen(false);
+      }
     }
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -219,7 +239,7 @@ export const Header: React.FC = () => {
       categorySlug: "electrosurgical-units",
       hasSubmenu: true,
       subcategories: [
-        { label: "Electrosurgical Cautery", to: "/shop-all?category=electrosurgical-units&subcategory=electro-surgical-skin-cautery" },
+        { label: "Electrosurgical Surgery", to: "/shop-all?category=electrosurgical-units&subcategory=electrosurgical-surgery" },
         { label: "Electrosurgical Generators", to: "/shop-all?category=electrosurgical-units&subcategory=electrosurgical-generator" }
       ]
     },
@@ -324,11 +344,11 @@ export const Header: React.FC = () => {
       {/* ==============================================================
           TOP ROW: LOGO (LEFT) | CENTERED SEARCH BAR | UTILITY ICONS (RIGHT)
       ============================================================== */}
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <div className="flex items-center justify-between gap-4 lg:gap-8">
+      <div className="max-w-[1400px] mx-auto px-2.5 sm:px-6 lg:px-8 py-2.5 sm:py-3">
+        <div className="flex items-center justify-between gap-2 sm:gap-4 lg:gap-8 min-w-0">
           
           {/* LEFT: DR.MEDEX Logo & Mobile Hamburger */}
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0 min-w-0">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="lg:hidden p-2 text-neutral-700 hover:text-black hover:bg-neutral-100 rounded-xl transition-colors focus:outline-none"
@@ -712,6 +732,132 @@ export const Header: React.FC = () => {
                 </span>
               )}
             </button>
+
+            {/* Three-Dot / Overflow Menu Button (Header Quick Access) */}
+            <div className="relative" ref={overflowMenuRef}>
+              <button
+                type="button"
+                onClick={() => setIsOverflowMenuOpen(!isOverflowMenuOpen)}
+                className={`p-2 rounded-full transition-all cursor-pointer ${
+                  isOverflowMenuOpen
+                    ? "bg-neutral-100 text-[#2D5A4A]"
+                    : "hover:bg-neutral-100 text-neutral-700 hover:text-black"
+                }`}
+                title="Quick navigation & preferences"
+                aria-label="More navigation actions"
+                aria-expanded={isOverflowMenuOpen}
+              >
+                <MoreVertical size={19} />
+              </button>
+
+              {/* Overflow Menu Dropdown */}
+              {isOverflowMenuOpen && (
+                <div
+                  className="absolute right-0 top-full mt-2 w-64 max-w-[calc(100vw-1.5rem)] bg-white rounded-2xl shadow-2xl border border-neutral-200 py-2.5 z-50 animate-in fade-in slide-in-from-top-1 duration-150 text-neutral-900"
+                  role="menu"
+                  aria-label="Header Menu"
+                >
+                  {/* 1. Login / Account */}
+                  <div className="px-3 pb-2.5 border-b border-neutral-100">
+                    <div className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-1.5 px-1 flex items-center justify-between">
+                      <span>1. Account</span>
+                      {user && (
+                        <span className="text-3xs text-[#7AA05A] font-extrabold uppercase">Verified</span>
+                      )}
+                    </div>
+                    {user ? (
+                      <div className="space-y-1">
+                        <div className="px-2.5 py-1.5 bg-neutral-50 rounded-xl border border-neutral-100">
+                          <p className="text-xs font-bold text-neutral-900 truncate">
+                            {user.fullName || "Customer"}
+                          </p>
+                          <p className="text-[10px] text-neutral-500 truncate">{user.email}</p>
+                        </div>
+                        <Link
+                          to="/account"
+                          onClick={() => setIsOverflowMenuOpen(false)}
+                          className="flex items-center gap-2 px-2.5 py-1.5 text-xs text-neutral-700 hover:text-[#2D5A4A] hover:bg-neutral-50 rounded-lg font-semibold transition-colors"
+                        >
+                          <User size={14} className="text-[#2D5A4A]" />
+                          <span>Account Dashboard</span>
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            setIsOverflowMenuOpen(false);
+                            await logout();
+                          }}
+                          className="w-full flex items-center gap-2 px-2.5 py-1.5 text-xs text-rose-600 hover:bg-rose-50 rounded-lg font-semibold transition-colors cursor-pointer"
+                        >
+                          <LogOut size={14} />
+                          <span>Sign Out</span>
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsOverflowMenuOpen(false);
+                          setAuthModalTab("signin");
+                          setIsAuthModalOpen(true);
+                        }}
+                        className="w-full flex items-center justify-center gap-2 px-3 py-2 text-xs font-bold text-white bg-[#111111] hover:bg-black rounded-xl transition-colors cursor-pointer shadow-xs"
+                      >
+                        <User size={14} />
+                        <span>Login / Account</span>
+                      </button>
+                    )}
+                  </div>
+
+                  {/* 2. Currency Selector */}
+                  <div className="px-3 py-2.5 border-b border-neutral-100">
+                    <div className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-1.5 px-1">
+                      2. Currency Selector
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsOverflowMenuOpen(false);
+                        setIsCountryModalOpen(true);
+                      }}
+                      className="w-full flex items-center justify-between px-2.5 py-2 rounded-xl bg-neutral-50 hover:bg-[#7AA05A]/10 text-xs font-semibold text-neutral-800 transition-colors border border-neutral-200/80 cursor-pointer group"
+                    >
+                      <span className="flex items-center gap-2 min-w-0">
+                        <Globe size={15} className="text-[#2D5A4A] shrink-0" />
+                        <span className="truncate">{currentCountry.name}</span>
+                      </span>
+                      <span className="font-mono font-bold text-[#2D5A4A] shrink-0 ml-1">
+                        {currentCountry.flag} {currentCurrency}
+                      </span>
+                    </button>
+                  </div>
+
+                  {/* 3. Wishlist / Favourites */}
+                  <div className="px-3 pt-2.5">
+                    <div className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-1.5 px-1">
+                      3. Wishlist / Favourites
+                    </div>
+                    <Link
+                      to="/wishlist"
+                      onClick={() => setIsOverflowMenuOpen(false)}
+                      className="flex items-center justify-between px-2.5 py-2 rounded-xl hover:bg-neutral-50 text-xs font-semibold text-neutral-800 transition-colors"
+                    >
+                      <span className="flex items-center gap-2">
+                        <Heart size={15} className="text-[#7AA05A]" />
+                        <span>Saved Equipment</span>
+                      </span>
+                      {wishlistCount > 0 ? (
+                        <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-[#7AA05A] text-white">
+                          {wishlistCount}
+                        </span>
+                      ) : (
+                        <span className="text-[10px] text-neutral-400">0 items</span>
+                      )}
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

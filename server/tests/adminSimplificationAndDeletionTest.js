@@ -7,6 +7,7 @@ require("dotenv").config({ path: path.join(__dirname, "../../.env") });
 const app = require("../index");
 const store = require("../services/store");
 const authService = require("../services/authService");
+const mongoService = require("../services/mongoService");
 const cloudinaryService = require("../services/cloudinaryService");
 
 // Helper to simulate requests without loopback network socket
@@ -212,6 +213,9 @@ async function runTestSuite() {
     const orderIdx = store.getOrders().findIndex(o => o.id === tempOrder.id);
     if (orderIdx !== -1) store.getOrders().splice(orderIdx, 1);
     store.deleteProduct(retirementTestId);
+    if (mongoService.isConfigured()) {
+      await mongoService.removeApprovedProduct(retirementTestId).catch(() => {});
+    }
   }
 
   console.log("\n--- 5. Testing Isolated Test Product Permanent Deletion ---");
@@ -234,11 +238,13 @@ async function runTestSuite() {
   const afterAdd = store.getProductById(isolatedTestId, true);
   assert.ok(afterAdd, "Isolated test product must be present in store before deletion");
 
-  const mongoService = require("../services/mongoService");
   const originalRemove = mongoService.removeApprovedProduct;
 
   try {
     // A. When MongoDB Atlas connection fails, verify that server rejects with 500 and does NOT report false success
+    mongoService.removeApprovedProduct = async () => {
+      throw new Error("Simulated MongoDB Atlas disconnect during delete");
+    };
     const failRes = await makeRequest(`/api/admin/products/${isolatedTestId}`, "DELETE", {
       headers: { authorization: `Bearer ${adminToken}` }
     });
@@ -302,7 +308,7 @@ async function runTestSuite() {
   console.log("==========================================================================\n");
 }
 
-runTestSuite().catch((err) => {
+runTestSuite().then(() => process.exit(0)).catch((err) => {
   console.error("Test execution failed:", err);
   process.exit(1);
 });

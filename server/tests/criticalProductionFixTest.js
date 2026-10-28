@@ -223,6 +223,9 @@ async function runTests() {
     const oIdx = store.getOrders().findIndex(o => o.id === testOrder.id);
     if (oIdx !== -1) store.getOrders().splice(oIdx, 1);
     store.deleteProduct(retiredTestId);
+    if (mongoService.isConfigured()) {
+      await mongoService.removeApprovedProduct(retiredTestId).catch(() => {});
+    }
   }
 
   // --- PART B: Test 4: Physical Deletion for Products Without Orders ---

@@ -318,8 +318,8 @@ export const HomePage: React.FC = () => {
                   </Link>
                 </div>
 
-                {/* PRODUCT GRID: 4 cards per row */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* PRODUCT GRID: 2 cards per row on mobile, 4 on desktop */}
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
                   {displayProducts.map((prod) => (
                     <ProductCard
                       key={prod.id}

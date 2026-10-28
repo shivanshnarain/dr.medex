@@ -283,6 +283,9 @@ async function runProductionFixVerification() {
     const oIdx = store.getOrders().findIndex(o => o.id === testCustomerOrder.id);
     if (oIdx !== -1) store.getOrders().splice(oIdx, 1);
     store.deleteProduct(orderLinkedId);
+    if (mongoService.isConfigured()) {
+      await mongoService.removeApprovedProduct(orderLinkedId).catch(() => {});
+    }
   }
 
   // --------------------------------------------------------------------------
@@ -427,7 +430,7 @@ async function runProductionFixVerification() {
   console.log("==========================================================================\n");
 }
 
-runProductionFixVerification().catch(err => {
+runProductionFixVerification().then(() => process.exit(0)).catch(err => {
   console.error("Test execution failed:", err);
   process.exit(1);
 });

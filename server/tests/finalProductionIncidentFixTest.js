@@ -248,7 +248,7 @@ async function runTestMatrix() {
   console.log("==========================================================================");
 }
 
-runTestMatrix().catch((err) => {
+runTestMatrix().then(() => process.exit(0)).catch((err) => {
   console.error("Test failed:", err);
   process.exit(1);
 });

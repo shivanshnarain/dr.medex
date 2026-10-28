@@ -204,7 +204,7 @@ async function runPasswordResetSuite() {
   console.log("==========================================================================");
 }
 
-runPasswordResetSuite().catch((err) => {
+runPasswordResetSuite().then(() => process.exit(0)).catch((err) => {
   console.error("\n❌ Test failure in passwordResetFlowTest:", err);
   process.exit(1);
 });

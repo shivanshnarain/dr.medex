@@ -398,7 +398,7 @@ async function runTests() {
   firestoreService.resetFirestoreAdmin();
 }
 
-runTests().catch(err => {
+runTests().then(() => process.exit(0)).catch(err => {
   console.error("Test execution failed:", err);
   process.exit(1);
 });

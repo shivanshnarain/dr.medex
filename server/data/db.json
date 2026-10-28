@@ -159,7 +159,7 @@
         "prod-3-mhz-ultrasound-therapy"
       ],
       "createdAt": "2026-10-03T15:48:11Z",
-      "updatedAt": "2026-10-26T19:34:36.858Z",
+      "updatedAt": "2026-10-28T18:11:19.505Z",
       "createdBy": "SYSTEM_IMPORT",
       "updatedBy": "roshan.official0009@gmail.com",
       "ribbon": "EX-400",
@@ -201,7 +201,7 @@
       "reviewStatus": "CORRECT",
       "reviewNote": null,
       "reviewedBy": "roshan.official0009@gmail.com",
-      "reviewedAt": "2026-10-26T19:34:36.810Z",
+      "reviewedAt": "2026-10-28T18:11:19.355Z",
       "managedCloudinaryImages": [
         {
           "publicId": "dr-medex/reviewed-products/prod-surgical-cautery-400-wat/img_1_e7d52211",
@@ -278,8 +278,8 @@
       "cloudinarySyncStatus": "IMAGES_UPLOADED",
       "cloudinaryLastSyncedAt": "2026-10-11T14:35:29.697Z",
       "mongoSyncStatus": "SYNCED",
-      "mongoSyncedAt": "2026-10-26T19:34:34.538Z",
-      "approvedAt": "2026-10-26T19:34:33.007Z",
+      "mongoSyncedAt": "2026-10-28T18:11:19.451Z",
+      "approvedAt": "2026-10-28T18:10:58.457Z",
       "approvedBy": "roshan.official0009@gmail.com",
       "mongoSyncError": null
     },
@@ -293,7 +293,7 @@
       "brand": "DR.MEDEX",
       "category": "electrosurgical-units",
       "categoryName": "Electrosurgical Units",
-      "subcategory": "electro-surgical-skin-cautery",
+      "subcategory": "electrosurgical-surgery",
       "subcategoryName": "Electrosurgical Cautery",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -8451,7 +8451,7 @@
       "brand": "DR.MEDEX",
       "category": "electrosurgical-units",
       "categoryName": "Electrosurgical Units",
-      "subcategory": "electro-surgical-skin-cautery",
+      "subcategory": "electrosurgical-surgery",
       "subcategoryName": "Electrosurgical Cautery",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -8844,7 +8844,7 @@
       "sku": "DRM-ELE-457C",
       "modelNumber": "Thermal Ablation",
       "brand": "DR.MEDEX",
-      "category": "obstetrics-and-gynaecology",
+      "category": "electrosurgical-units",
       "categoryName": "Obstetrics & Gynaecology",
       "subcategory": "electrosurgical-generator",
       "subcategoryName": "Electrosurgical Generators",
@@ -11148,9 +11148,9 @@
       "sku": "DRM-ELE-4738",
       "modelNumber": "RED CRYO",
       "brand": "DR.MEDEX",
-      "category": "cryo-surgical",
+      "category": "electrosurgical-units",
       "categoryName": "Cryo Surgical",
-      "subcategory": "electro-surgical-skin-cautery",
+      "subcategory": "electrosurgical-surgery",
       "subcategoryName": "Electrosurgical Cautery",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -15179,7 +15179,7 @@
       "brand": "DR.MEDEX",
       "category": "electrosurgical-units",
       "categoryName": "Electrosurgical Units",
-      "subcategory": "electro-surgical-skin-cautery",
+      "subcategory": "electrosurgical-surgery",
       "subcategoryName": "Electrosurgical Cautery",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -15605,7 +15605,7 @@
       "brand": "DR.MEDEX",
       "category": "electrosurgical-units",
       "categoryName": "Electrosurgical Units",
-      "subcategory": "electro-surgical-skin-cautery",
+      "subcategory": "electrosurgical-surgery",
       "subcategoryName": "Electrosurgical Cautery",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -16465,9 +16465,9 @@
       "sku": "DRM-ELE-2678",
       "modelNumber": "Latest",
       "brand": "DR.MEDEX",
-      "category": "physiotherapy",
+      "category": "electrosurgical-units",
       "categoryName": "Physiotherapy Machines",
-      "subcategory": "shockwave-therapy-machine",
+      "subcategory": "electrosurgical-surgery",
       "subcategoryName": "Shock Wave Therapy Machines",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -23348,9 +23348,9 @@
       "sku": "DRM-ELE-C89B",
       "modelNumber": "Skyro CR-Pro",
       "brand": "DR.MEDEX",
-      "category": "cryo-surgical",
+      "category": "electrosurgical-units",
       "categoryName": "Cryo Surgical",
-      "subcategory": "electro-surgical-skin-cautery",
+      "subcategory": "electrosurgical-surgery",
       "subcategoryName": "Electrosurgical Cautery",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -29695,7 +29695,7 @@
       "brand": "DR.MEDEX",
       "category": "electrosurgical-units",
       "categoryName": "Electrosurgical Units",
-      "subcategory": "electro-surgical-skin-cautery",
+      "subcategory": "electrosurgical-surgery",
       "subcategoryName": "Electrosurgical Cautery",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -30104,7 +30104,7 @@
       "brand": "DR.MEDEX",
       "category": "electrosurgical-units",
       "categoryName": "Electrosurgical Units",
-      "subcategory": "electro-surgical-skin-cautery",
+      "subcategory": "electrosurgical-surgery",
       "subcategoryName": "Electrosurgical Cautery",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -31821,9 +31821,9 @@
       "sku": "DRM-ELE-66D9",
       "modelNumber": "CR-PRO BLUE",
       "brand": "DR.MEDEX",
-      "category": "cryo-surgical",
+      "category": "electrosurgical-units",
       "categoryName": "Cryo Surgical",
-      "subcategory": "electro-surgical-skin-cautery",
+      "subcategory": "electrosurgical-surgery",
       "subcategoryName": "Electrosurgical Cautery",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -32252,7 +32252,7 @@
       "brand": "DR.MEDEX",
       "category": "electrosurgical-units",
       "categoryName": "Electrosurgical Units",
-      "subcategory": "electro-surgical-skin-cautery",
+      "subcategory": "electrosurgical-surgery",
       "subcategoryName": "Electrosurgical Cautery",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -36645,9 +36645,9 @@
       "sku": "DRM-ELE-6C0D",
       "modelNumber": "",
       "brand": "DR.MEDEX",
-      "category": "obstetrics-and-gynaecology",
+      "category": "electrosurgical-units",
       "categoryName": "Obstetrics & Gynaecology",
-      "subcategory": "electro-surgical-skin-cautery",
+      "subcategory": "electrosurgical-generator",
       "subcategoryName": "Electrosurgical Cautery",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -37456,7 +37456,7 @@
       "brand": "DR.MEDEX",
       "category": "electrosurgical-units",
       "categoryName": "Electrosurgical Units",
-      "subcategory": "electro-surgical-skin-cautery",
+      "subcategory": "electrosurgical-surgery",
       "subcategoryName": "Electrosurgical Cautery",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -40311,7 +40311,7 @@
       "brand": "DR.MEDEX",
       "category": "electrosurgical-units",
       "categoryName": "Electrosurgical Units",
-      "subcategory": "electro-surgical-skin-cautery",
+      "subcategory": "electrosurgical-surgery",
       "subcategoryName": "Electrosurgical Cautery",
       "productType": "Medical Equipment",
       "status": "ACTIVE",
@@ -40568,24 +40568,14 @@
       "featuredImage": "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
       "subcategories": [
         {
-          "id": "cautery",
-          "slug": "electro-surgical-skin-cautery",
-          "name": "Electrosurgical Cautery"
+          "id": "electrosurgical-surgery",
+          "slug": "electrosurgical-surgery",
+          "name": "Electrosurgical Surgery"
         },
         {
-          "id": "generators",
+          "id": "electrosurgical-generator",
           "slug": "electrosurgical-generator",
           "name": "Electrosurgical Generators"
-        },
-        {
-          "id": "accessories",
-          "slug": "surgical-accessories",
-          "name": "Surgical Electrodes & Accessories"
-        },
-        {
-          "id": "smoke-evacuators",
-          "slug": "smoke-evacuation-systems",
-          "name": "Surgical Smoke Evacuators"
         }
       ]
     },
@@ -42208,6 +42198,2543 @@
     "headquarters": "DR.MEDEX Global MedTech Tower, 45 Healthcare Innovation Way, Boston, MA 02115, USA & International Logistics Hub, Dubai Healthcare City, UAE"
   },
   "auditLogs": [
+    {
+      "id": "audit-1793211079471-2w2c3",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:11:19.471Z"
+    },
+    {
+      "id": "audit-1793211079148-nke5h",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-db-fail-1793211079040",
+      "details": {
+        "title": "TEST DB FAILURE PRODUCT",
+        "sku": "TEST-DBF-1793211079040",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-db-fail-1793211079040",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-28T18:11:19.148Z"
+    },
+    {
+      "id": "audit-1793211078873-llbmr",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ord-prod-1793211078592",
+      "details": {
+        "title": "TEST ORDER-LINKED ICU VENTILATOR",
+        "sku": "TEST-ORD-SKU-1793211078592",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "success": true,
+          "status": "SYNCED",
+          "id": "test-ord-prod-1793211078592",
+          "upserted": true,
+          "modified": false,
+          "matched": false
+        }
+      },
+      "timestamp": "2026-10-28T18:11:18.873Z"
+    },
+    {
+      "id": "audit-1793211078079-wxgho",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-prod-1793211075349",
+      "details": {
+        "title": "TEST TEMPORARY ELECTROSURGICAL GENERATOR",
+        "sku": "TEST-E2E-DEL-1793211075349",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 2,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_1",
+              "result": "not found"
+            },
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_2",
+              "result": "not found"
+            }
+          ],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-prod-1793211075349",
+          "deletedCount": 1,
+          "adminEmail": "roshan.official0009@gmail.com"
+        }
+      },
+      "timestamp": "2026-10-28T18:11:18.079Z"
+    },
+    {
+      "id": "audit-1793211075319-8lg1u",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T18:11:15.319Z"
+    },
+    {
+      "id": "audit-1793211074644-8rn05",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-hotfix-1793211068600",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "sku": "TEST-HF-ED134A",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 8,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [
+            {
+              "publicId": "-medex/products/hf_test/angle_1",
+              "result": "not found"
+            },
+            {
+              "publicId": "-medex/products/hf_test/angle_2",
+              "result": "not found"
+            },
+            {
+              "publicId": "-medex/products/hf_test/angle_3",
+              "result": "not found"
+            },
+            {
+              "publicId": "-medex/products/hf_test/angle_4",
+              "result": "not found"
+            },
+            {
+              "publicId": "dr-medex/products/hf_test/angle_1",
+              "result": "not found"
+            },
+            {
+              "publicId": "dr-medex/products/hf_test/angle_2",
+              "result": "not found"
+            },
+            {
+              "publicId": "dr-medex/products/hf_test/angle_3",
+              "result": "not found"
+            },
+            {
+              "publicId": "dr-medex/products/hf_test/angle_4",
+              "result": "not found"
+            }
+          ],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-hotfix-1793211068600",
+          "deletedCount": 1,
+          "document": {
+            "_id": "6ae23abd6a1d80b347397c1f",
+            "id": "test-hotfix-1793211068600",
+            "applications": [],
+            "approvedAt": "2026-10-28T18:11:08.603Z",
+            "approvedBy": "roshan.official0009@gmail.com",
+            "archivedAt": null,
+            "archivedBy": null,
+            "baseCurrency": "INR",
+            "basePrice": 450000,
+            "bestseller": false,
+            "brand": "DR.MEDEX Global",
+            "category": "electrosurgical-units",
+            "categoryName": "",
+            "clinicalIndications": [],
+            "cloudinarySyncStatus": null,
+            "engineeringHighlights": [],
+            "featured": false,
+            "features": [],
+            "fullDescription": "",
+            "galleryImages": [
+              {
+                "id": "test-hotfix-1793211068600-img-1",
+                "url": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729326/dr-medex/products/hf_test/angle_1.webp",
+                "altText": "TEST SURGICAL HARMONIC SCALPEL SYSTEM - Photo 1",
+                "isPrimary": true,
+                "status": "active"
+              },
+              {
+                "id": "test-hotfix-1793211068600-img-2",
+                "url": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729327/dr-medex/products/hf_test/angle_2.webp",
+                "altText": "TEST SURGICAL HARMONIC SCALPEL SYSTEM - Photo 2",
+                "isPrimary": false,
+                "status": "active"
+              },
+              {
+                "id": "test-hotfix-1793211068600-img-3",
+                "url": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729328/dr-medex/products/hf_test/angle_3.webp",
+                "altText": "TEST SURGICAL HARMONIC SCALPEL SYSTEM - Photo 3",
+                "isPrimary": false,
+                "status": "active"
+              },
+              {
+                "id": "test-hotfix-1793211068600-img-4",
+                "url": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729329/dr-medex/products/hf_test/angle_4.webp",
+                "altText": "TEST SURGICAL HARMONIC SCALPEL SYSTEM - Photo 4",
+                "isPrimary": false,
+                "status": "active"
+              }
+            ],
+            "images": [
+              "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729326/dr-medex/products/hf_test/angle_1.webp",
+              "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729327/dr-medex/products/hf_test/angle_2.webp",
+              "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729328/dr-medex/products/hf_test/angle_3.webp",
+              "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729329/dr-medex/products/hf_test/angle_4.webp"
+            ],
+            "inCatalogue": true,
+            "isBestSeller": false,
+            "isFeatured": false,
+            "isRetired": false,
+            "managedCloudinaryImages": [
+              {
+                "publicId": "-medex/products/hf_test/angle_1",
+                "secureUrl": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729326/dr-medex/products/hf_test/angle_1.webp",
+                "order": 0,
+                "isPrimary": true,
+                "uploadState": "UPLOADED"
+              },
+              {
+                "publicId": "-medex/products/hf_test/angle_2",
+                "secureUrl": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729327/dr-medex/products/hf_test/angle_2.webp",
+                "order": 1,
+                "isPrimary": false,
+                "uploadState": "UPLOADED"
+              },
+              {
+                "publicId": "-medex/products/hf_test/angle_3",
+                "secureUrl": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729328/dr-medex/products/hf_test/angle_3.webp",
+                "order": 2,
+                "isPrimary": false,
+                "uploadState": "UPLOADED"
+              },
+              {
+                "publicId": "-medex/products/hf_test/angle_4",
+                "secureUrl": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729329/dr-medex/products/hf_test/angle_4.webp",
+                "order": 3,
+                "isPrimary": false,
+                "uploadState": "UPLOADED"
+              }
+            ],
+            "metaDescription": "",
+            "metaTitle": "",
+            "modelNumber": "",
+            "mongoSyncStatus": "SYNCED",
+            "mongoSyncedAt": "2026-10-28T18:11:10.219Z",
+            "overview": "",
+            "packageItems": [],
+            "primaryImage": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729326/dr-medex/products/hf_test/angle_1.webp",
+            "productName": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+            "productType": "Medical Equipment",
+            "regularPrice": null,
+            "reviewNote": null,
+            "reviewStatus": "CORRECT",
+            "salePrice": null,
+            "seoDescription": "",
+            "seoTitle": "",
+            "shortDescription": "",
+            "sku": "TEST-HF-ED134A",
+            "slug": "test-hotfix-product-1793211068600",
+            "specifications": {},
+            "status": "ACTIVE",
+            "stock": 10,
+            "stockStatus": "IN_STOCK",
+            "subcategory": "",
+            "subcategoryName": "",
+            "technicalSpecifications": {},
+            "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+            "updatedAt": "2026-10-28T18:11:10.219Z"
+          }
+        }
+      },
+      "timestamp": "2026-10-28T18:11:14.644Z"
+    },
+    {
+      "id": "audit-1793211070395-6y22k",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-hotfix-1793211068600",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:11:10.395Z"
+    },
+    {
+      "id": "audit-1793211069938-n92cp",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-hotfix-1793211068600",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:11:09.938Z"
+    },
+    {
+      "id": "audit-1793211069630-syme4",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CREATED",
+      "productId": "test-hotfix-1793211068600",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "basePrice": 450000,
+        "sku": "TEST-HF-ED134A"
+      },
+      "timestamp": "2026-10-28T18:11:09.630Z"
+    },
+    {
+      "id": "audit-1793211067985-4skdi",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-e2e-prod-1793211065749",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "sku": "TEST-E2E-1793211065749",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-e2e-prod-1793211065749",
+          "deletedCount": 1,
+          "document": {
+            "_id": "6ae23aba6a1d80b347397c1d",
+            "id": "test-e2e-prod-1793211065749",
+            "applications": [],
+            "approvedAt": "2026-10-28T18:11:05.751Z",
+            "approvedBy": "roshan.official0009@gmail.com",
+            "archivedAt": null,
+            "archivedBy": null,
+            "baseCurrency": "INR",
+            "basePrice": 185000,
+            "bestseller": false,
+            "brand": "DR.MEDEX",
+            "category": "patient-monitoring",
+            "categoryName": "",
+            "clinicalIndications": [],
+            "cloudinarySyncStatus": null,
+            "engineeringHighlights": [],
+            "featured": false,
+            "features": [],
+            "fullDescription": "",
+            "galleryImages": [
+              {
+                "id": "test-e2e-prod-1793211065749-img-1",
+                "url": "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+                "altText": "TEST CLINICAL CARDIAC MONITOR - Photo 1",
+                "isPrimary": true,
+                "status": "active"
+              },
+              {
+                "id": "test-e2e-prod-1793211065749-img-2",
+                "url": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+                "altText": "TEST CLINICAL CARDIAC MONITOR - Photo 2",
+                "isPrimary": false,
+                "status": "active"
+              },
+              {
+                "id": "test-e2e-prod-1793211065749-img-3",
+                "url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+                "altText": "TEST CLINICAL CARDIAC MONITOR - Photo 3",
+                "isPrimary": false,
+                "status": "active"
+              },
+              {
+                "id": "test-e2e-prod-1793211065749-img-4",
+                "url": "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=800&q=80",
+                "altText": "TEST CLINICAL CARDIAC MONITOR - Photo 4",
+                "isPrimary": false,
+                "status": "active"
+              },
+              {
+                "id": "test-e2e-prod-1793211065749-img-5",
+                "url": "https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?auto=format&fit=crop&w=800&q=80",
+                "altText": "TEST CLINICAL CARDIAC MONITOR - Photo 5",
+                "isPrimary": false,
+                "status": "active"
+              }
+            ],
+            "images": [
+              "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?auto=format&fit=crop&w=800&q=80"
+            ],
+            "inCatalogue": true,
+            "isBestSeller": false,
+            "isFeatured": false,
+            "isRetired": false,
+            "managedCloudinaryImages": [],
+            "metaDescription": "",
+            "metaTitle": "",
+            "modelNumber": "",
+            "mongoSyncStatus": "SYNCED",
+            "mongoSyncedAt": "2026-10-28T18:11:07.529Z",
+            "overview": "",
+            "packageItems": [],
+            "primaryImage": "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+            "productName": "TEST CLINICAL CARDIAC MONITOR",
+            "productType": "Medical Equipment",
+            "regularPrice": null,
+            "reviewNote": null,
+            "reviewStatus": "CORRECT",
+            "salePrice": null,
+            "seoDescription": "",
+            "seoTitle": "",
+            "shortDescription": "",
+            "sku": "TEST-E2E-1793211065749",
+            "slug": "test-e2e-cardiac-monitor-1793211065749",
+            "specifications": {},
+            "status": "ACTIVE",
+            "stock": 8,
+            "stockStatus": "IN_STOCK",
+            "subcategory": "",
+            "subcategoryName": "",
+            "technicalSpecifications": {},
+            "title": "TEST CLINICAL CARDIAC MONITOR",
+            "updatedAt": "2026-10-28T18:11:07.529Z"
+          }
+        }
+      },
+      "timestamp": "2026-10-28T18:11:07.985Z"
+    },
+    {
+      "id": "audit-1793211067625-12tua",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1793211065749",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:11:07.625Z"
+    },
+    {
+      "id": "audit-1793211067354-lvmbo",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1793211065749",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:11:07.354Z"
+    },
+    {
+      "id": "audit-1793211066976-r1kl5",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1793211065749",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:11:06.976Z"
+    },
+    {
+      "id": "audit-1793211066741-7rm2g",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CREATED",
+      "productId": "test-e2e-prod-1793211065749",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "basePrice": 185000,
+        "sku": "TEST-E2E-1793211065749"
+      },
+      "timestamp": "2026-10-28T18:11:06.742Z"
+    },
+    {
+      "id": "audit-1793211065272-6awfl",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-unref-1793211065203",
+      "details": {
+        "title": "TEST DISPOSABLE FORCEPS",
+        "sku": "TEST-FOR-1793211065203",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-unref-1793211065203",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-28T18:11:05.272Z"
+    },
+    {
+      "id": "audit-1793211065004-5hiu2",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ret-prod-1793211064813",
+      "details": {
+        "title": "TEST SURGICAL CO2 LASER SYSTEM",
+        "sku": "TEST-LAS-1793211064813",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "success": true,
+          "status": "SYNCED",
+          "id": "test-ret-prod-1793211064813",
+          "upserted": true,
+          "modified": false,
+          "matched": false
+        }
+      },
+      "timestamp": "2026-10-28T18:11:05.004Z"
+    },
+    {
+      "id": "audit-1793211063529-6s0rr",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T18:11:03.529Z"
+    },
+    {
+      "id": "audit-1793211062939-bghv0",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1793211061252",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1793211061252",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 1,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [
+            {
+              "publicId": "test_asset_exclusive_delete",
+              "result": "not found"
+            }
+          ],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1793211061252",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-28T18:11:02.939Z"
+    },
+    {
+      "id": "audit-1793211061070-u172o",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1793211059939",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1793211059939",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "success": true,
+          "status": "SYNCED",
+          "id": "test-retire-1793211059939",
+          "upserted": true,
+          "modified": false,
+          "matched": false
+        }
+      },
+      "timestamp": "2026-10-28T18:11:01.070Z"
+    },
+    {
+      "id": "audit-1793211059909-onroy",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T18:10:59.909Z"
+    },
+    {
+      "id": "audit-1793211059057-7p3w7",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:10:59.057Z"
+    },
+    {
+      "id": "audit-1793211058859-y5im4",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNCED"
+      },
+      "timestamp": "2026-10-28T18:10:58.859Z"
+    },
+    {
+      "id": "audit-1793211058680-yc986",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNCED"
+      },
+      "timestamp": "2026-10-28T18:10:58.680Z"
+    },
+    {
+      "id": "audit-1793211058552-hh759",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNCED"
+      },
+      "timestamp": "2026-10-28T18:10:58.552Z"
+    },
+    {
+      "id": "audit-1793211053116-qq5bv",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-28T18:10:53.116Z"
+    },
+    {
+      "id": "audit-1793211053047-uw8rm",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-28T18:10:53.047Z"
+    },
+    {
+      "id": "audit-1793211052937-wzipa",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-28T18:10:52.937Z"
+    },
+    {
+      "id": "audit-1793211052826-x880t",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T18:10:52.826Z"
+    },
+    {
+      "id": "audit-1793210977040-c8swv",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1793210975271",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1793210975271",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 1,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [
+            {
+              "publicId": "test_asset_exclusive_delete",
+              "result": "not found"
+            }
+          ],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1793210975271",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-28T18:09:37.040Z"
+    },
+    {
+      "id": "audit-1793210975095-pz08j",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1793210973975",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1793210973975",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "success": true,
+          "status": "SYNCED",
+          "id": "test-retire-1793210973975",
+          "upserted": true,
+          "modified": false,
+          "matched": false
+        }
+      },
+      "timestamp": "2026-10-28T18:09:35.095Z"
+    },
+    {
+      "id": "audit-1793210973944-a8rms",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T18:09:33.944Z"
+    },
+    {
+      "id": "audit-1793210939965-qitog",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1793210938895",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1793210938895",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "success": true,
+          "status": "SYNCED",
+          "id": "test-retire-1793210938895",
+          "upserted": true,
+          "modified": false,
+          "matched": false
+        }
+      },
+      "timestamp": "2026-10-28T18:08:59.965Z"
+    },
+    {
+      "id": "audit-1793210938863-soojy",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T18:08:58.863Z"
+    },
+    {
+      "id": "audit-1793210938065-l7zg2",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:08:58.065Z"
+    },
+    {
+      "id": "audit-1793210937873-7zqdj",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNCED"
+      },
+      "timestamp": "2026-10-28T18:08:57.874Z"
+    },
+    {
+      "id": "audit-1793210937754-12z7b",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNCED"
+      },
+      "timestamp": "2026-10-28T18:08:57.754Z"
+    },
+    {
+      "id": "audit-1793210937550-uqba1",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNCED"
+      },
+      "timestamp": "2026-10-28T18:08:57.550Z"
+    },
+    {
+      "id": "audit-1793210932256-x3n50",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-28T18:08:52.256Z"
+    },
+    {
+      "id": "audit-1793210932186-0nda1",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-28T18:08:52.186Z"
+    },
+    {
+      "id": "audit-1793210932072-b6qgv",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-28T18:08:52.072Z"
+    },
+    {
+      "id": "audit-1793210931963-zasw4",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T18:08:51.963Z"
+    },
+    {
+      "id": "audit-1793210778661-wn1zw",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:06:18.661Z"
+    },
+    {
+      "id": "audit-1793210778401-zqcgg",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-db-fail-1793210778215",
+      "details": {
+        "title": "TEST DB FAILURE PRODUCT",
+        "sku": "TEST-DBF-1793210778215",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-db-fail-1793210778215",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-28T18:06:18.401Z"
+    },
+    {
+      "id": "audit-1793210778167-n98x8",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ord-prod-1793210777965",
+      "details": {
+        "title": "TEST ORDER-LINKED ICU VENTILATOR",
+        "sku": "TEST-ORD-SKU-1793210777965",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "success": true,
+          "status": "SYNCED",
+          "id": "test-ord-prod-1793210777965",
+          "upserted": true,
+          "modified": false,
+          "matched": false
+        }
+      },
+      "timestamp": "2026-10-28T18:06:18.167Z"
+    },
+    {
+      "id": "audit-1793210777418-hi8z7",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-prod-1793210774791",
+      "details": {
+        "title": "TEST TEMPORARY ELECTROSURGICAL GENERATOR",
+        "sku": "TEST-E2E-DEL-1793210774791",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 2,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_1",
+              "result": "not found"
+            },
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_2",
+              "result": "not found"
+            }
+          ],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-prod-1793210774791",
+          "deletedCount": 1,
+          "adminEmail": "roshan.official0009@gmail.com"
+        }
+      },
+      "timestamp": "2026-10-28T18:06:17.418Z"
+    },
+    {
+      "id": "audit-1793210774761-ai4b8",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T18:06:14.761Z"
+    },
+    {
+      "id": "audit-1793210773985-crgr2",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-hotfix-1793210768373",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "sku": "TEST-HF-784280",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 8,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [
+            {
+              "publicId": "-medex/products/hf_test/angle_1",
+              "result": "not found"
+            },
+            {
+              "publicId": "-medex/products/hf_test/angle_2",
+              "result": "not found"
+            },
+            {
+              "publicId": "-medex/products/hf_test/angle_3",
+              "result": "not found"
+            },
+            {
+              "publicId": "-medex/products/hf_test/angle_4",
+              "result": "not found"
+            },
+            {
+              "publicId": "dr-medex/products/hf_test/angle_1",
+              "result": "not found"
+            },
+            {
+              "publicId": "dr-medex/products/hf_test/angle_2",
+              "result": "not found"
+            },
+            {
+              "publicId": "dr-medex/products/hf_test/angle_3",
+              "result": "not found"
+            },
+            {
+              "publicId": "dr-medex/products/hf_test/angle_4",
+              "result": "not found"
+            }
+          ],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-hotfix-1793210768373",
+          "deletedCount": 1,
+          "document": {
+            "_id": "6ae239916a1d80b347397bf5",
+            "id": "test-hotfix-1793210768373",
+            "applications": [],
+            "approvedAt": "2026-10-28T18:06:08.376Z",
+            "approvedBy": "roshan.official0009@gmail.com",
+            "archivedAt": null,
+            "archivedBy": null,
+            "baseCurrency": "INR",
+            "basePrice": 450000,
+            "bestseller": false,
+            "brand": "DR.MEDEX Global",
+            "category": "electrosurgical-units",
+            "categoryName": "",
+            "clinicalIndications": [],
+            "cloudinarySyncStatus": null,
+            "engineeringHighlights": [],
+            "featured": false,
+            "features": [],
+            "fullDescription": "",
+            "galleryImages": [
+              {
+                "id": "test-hotfix-1793210768373-img-1",
+                "url": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729326/dr-medex/products/hf_test/angle_1.webp",
+                "altText": "TEST SURGICAL HARMONIC SCALPEL SYSTEM - Photo 1",
+                "isPrimary": true,
+                "status": "active"
+              },
+              {
+                "id": "test-hotfix-1793210768373-img-2",
+                "url": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729327/dr-medex/products/hf_test/angle_2.webp",
+                "altText": "TEST SURGICAL HARMONIC SCALPEL SYSTEM - Photo 2",
+                "isPrimary": false,
+                "status": "active"
+              },
+              {
+                "id": "test-hotfix-1793210768373-img-3",
+                "url": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729328/dr-medex/products/hf_test/angle_3.webp",
+                "altText": "TEST SURGICAL HARMONIC SCALPEL SYSTEM - Photo 3",
+                "isPrimary": false,
+                "status": "active"
+              },
+              {
+                "id": "test-hotfix-1793210768373-img-4",
+                "url": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729329/dr-medex/products/hf_test/angle_4.webp",
+                "altText": "TEST SURGICAL HARMONIC SCALPEL SYSTEM - Photo 4",
+                "isPrimary": false,
+                "status": "active"
+              }
+            ],
+            "images": [
+              "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729326/dr-medex/products/hf_test/angle_1.webp",
+              "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729327/dr-medex/products/hf_test/angle_2.webp",
+              "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729328/dr-medex/products/hf_test/angle_3.webp",
+              "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729329/dr-medex/products/hf_test/angle_4.webp"
+            ],
+            "inCatalogue": true,
+            "isBestSeller": false,
+            "isFeatured": false,
+            "isRetired": false,
+            "managedCloudinaryImages": [
+              {
+                "publicId": "-medex/products/hf_test/angle_1",
+                "secureUrl": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729326/dr-medex/products/hf_test/angle_1.webp",
+                "order": 0,
+                "isPrimary": true,
+                "uploadState": "UPLOADED"
+              },
+              {
+                "publicId": "-medex/products/hf_test/angle_2",
+                "secureUrl": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729327/dr-medex/products/hf_test/angle_2.webp",
+                "order": 1,
+                "isPrimary": false,
+                "uploadState": "UPLOADED"
+              },
+              {
+                "publicId": "-medex/products/hf_test/angle_3",
+                "secureUrl": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729328/dr-medex/products/hf_test/angle_3.webp",
+                "order": 2,
+                "isPrimary": false,
+                "uploadState": "UPLOADED"
+              },
+              {
+                "publicId": "-medex/products/hf_test/angle_4",
+                "secureUrl": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729329/dr-medex/products/hf_test/angle_4.webp",
+                "order": 3,
+                "isPrimary": false,
+                "uploadState": "UPLOADED"
+              }
+            ],
+            "metaDescription": "",
+            "metaTitle": "",
+            "modelNumber": "",
+            "mongoSyncStatus": "SYNCED",
+            "mongoSyncedAt": "2026-10-28T18:06:10.022Z",
+            "overview": "",
+            "packageItems": [],
+            "primaryImage": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729326/dr-medex/products/hf_test/angle_1.webp",
+            "productName": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+            "productType": "Medical Equipment",
+            "regularPrice": null,
+            "reviewNote": null,
+            "reviewStatus": "CORRECT",
+            "salePrice": null,
+            "seoDescription": "",
+            "seoTitle": "",
+            "shortDescription": "",
+            "sku": "TEST-HF-784280",
+            "slug": "test-hotfix-product-1793210768373",
+            "specifications": {},
+            "status": "ACTIVE",
+            "stock": 10,
+            "stockStatus": "IN_STOCK",
+            "subcategory": "",
+            "subcategoryName": "",
+            "technicalSpecifications": {},
+            "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+            "updatedAt": "2026-10-28T18:06:10.022Z"
+          }
+        }
+      },
+      "timestamp": "2026-10-28T18:06:13.985Z"
+    },
+    {
+      "id": "audit-1793210770109-n90c5",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-hotfix-1793210768373",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:06:10.109Z"
+    },
+    {
+      "id": "audit-1793210769681-mehr5",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-hotfix-1793210768373",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:06:09.681Z"
+    },
+    {
+      "id": "audit-1793210769455-d1qfl",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CREATED",
+      "productId": "test-hotfix-1793210768373",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "basePrice": 450000,
+        "sku": "TEST-HF-784280"
+      },
+      "timestamp": "2026-10-28T18:06:09.455Z"
+    },
+    {
+      "id": "audit-1793210767689-cwh96",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-e2e-prod-1793210765218",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "sku": "TEST-E2E-1793210765218",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-e2e-prod-1793210765218",
+          "deletedCount": 1,
+          "document": {
+            "_id": "6ae2398e6a1d80b347397bf3",
+            "id": "test-e2e-prod-1793210765218",
+            "applications": [],
+            "approvedAt": "2026-10-28T18:06:05.220Z",
+            "approvedBy": "roshan.official0009@gmail.com",
+            "archivedAt": null,
+            "archivedBy": null,
+            "baseCurrency": "INR",
+            "basePrice": 185000,
+            "bestseller": false,
+            "brand": "DR.MEDEX",
+            "category": "patient-monitoring",
+            "categoryName": "",
+            "clinicalIndications": [],
+            "cloudinarySyncStatus": null,
+            "engineeringHighlights": [],
+            "featured": false,
+            "features": [],
+            "fullDescription": "",
+            "galleryImages": [
+              {
+                "id": "test-e2e-prod-1793210765218-img-1",
+                "url": "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+                "altText": "TEST CLINICAL CARDIAC MONITOR - Photo 1",
+                "isPrimary": true,
+                "status": "active"
+              },
+              {
+                "id": "test-e2e-prod-1793210765218-img-2",
+                "url": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+                "altText": "TEST CLINICAL CARDIAC MONITOR - Photo 2",
+                "isPrimary": false,
+                "status": "active"
+              },
+              {
+                "id": "test-e2e-prod-1793210765218-img-3",
+                "url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+                "altText": "TEST CLINICAL CARDIAC MONITOR - Photo 3",
+                "isPrimary": false,
+                "status": "active"
+              },
+              {
+                "id": "test-e2e-prod-1793210765218-img-4",
+                "url": "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=800&q=80",
+                "altText": "TEST CLINICAL CARDIAC MONITOR - Photo 4",
+                "isPrimary": false,
+                "status": "active"
+              },
+              {
+                "id": "test-e2e-prod-1793210765218-img-5",
+                "url": "https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?auto=format&fit=crop&w=800&q=80",
+                "altText": "TEST CLINICAL CARDIAC MONITOR - Photo 5",
+                "isPrimary": false,
+                "status": "active"
+              }
+            ],
+            "images": [
+              "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?auto=format&fit=crop&w=800&q=80"
+            ],
+            "inCatalogue": true,
+            "isBestSeller": false,
+            "isFeatured": false,
+            "isRetired": false,
+            "managedCloudinaryImages": [],
+            "metaDescription": "",
+            "metaTitle": "",
+            "modelNumber": "",
+            "mongoSyncStatus": "SYNCED",
+            "mongoSyncedAt": "2026-10-28T18:06:06.959Z",
+            "overview": "",
+            "packageItems": [],
+            "primaryImage": "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+            "productName": "TEST CLINICAL CARDIAC MONITOR",
+            "productType": "Medical Equipment",
+            "regularPrice": null,
+            "reviewNote": null,
+            "reviewStatus": "CORRECT",
+            "salePrice": null,
+            "seoDescription": "",
+            "seoTitle": "",
+            "shortDescription": "",
+            "sku": "TEST-E2E-1793210765218",
+            "slug": "test-e2e-cardiac-monitor-1793210765218",
+            "specifications": {},
+            "status": "ACTIVE",
+            "stock": 8,
+            "stockStatus": "IN_STOCK",
+            "subcategory": "",
+            "subcategoryName": "",
+            "technicalSpecifications": {},
+            "title": "TEST CLINICAL CARDIAC MONITOR",
+            "updatedAt": "2026-10-28T18:06:06.959Z"
+          }
+        }
+      },
+      "timestamp": "2026-10-28T18:06:07.689Z"
+    },
+    {
+      "id": "audit-1793210767328-ne52k",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1793210765218",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:06:07.328Z"
+    },
+    {
+      "id": "audit-1793210766798-fc8l4",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1793210765218",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:06:06.798Z"
+    },
+    {
+      "id": "audit-1793210766424-rtg8r",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1793210765218",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:06:06.424Z"
+    },
+    {
+      "id": "audit-1793210766164-w09nt",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CREATED",
+      "productId": "test-e2e-prod-1793210765218",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "basePrice": 185000,
+        "sku": "TEST-E2E-1793210765218"
+      },
+      "timestamp": "2026-10-28T18:06:06.164Z"
+    },
+    {
+      "id": "audit-1793210764731-c1mh8",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-unref-1793210764658",
+      "details": {
+        "title": "TEST DISPOSABLE FORCEPS",
+        "sku": "TEST-FOR-1793210764658",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-unref-1793210764658",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-28T18:06:04.731Z"
+    },
+    {
+      "id": "audit-1793210764598-b0kuf",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ret-prod-1793210764422",
+      "details": {
+        "title": "TEST SURGICAL CO2 LASER SYSTEM",
+        "sku": "TEST-LAS-1793210764422",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "success": true,
+          "status": "SYNCED",
+          "id": "test-ret-prod-1793210764422",
+          "upserted": true,
+          "modified": false,
+          "matched": false
+        }
+      },
+      "timestamp": "2026-10-28T18:06:04.598Z"
+    },
+    {
+      "id": "audit-1793210763264-2mpyq",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T18:06:03.264Z"
+    },
+    {
+      "id": "audit-1793210762697-dlomx",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1793210761076",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1793210761076",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 1,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [
+            {
+              "publicId": "test_asset_exclusive_delete",
+              "result": "not found"
+            }
+          ],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1793210761076",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-28T18:06:02.697Z"
+    },
+    {
+      "id": "audit-1793210761027-igo8m",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1793210759774",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1793210759774",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "success": true,
+          "status": "SYNCED",
+          "id": "test-retire-1793210759774",
+          "upserted": true,
+          "modified": false,
+          "matched": false
+        }
+      },
+      "timestamp": "2026-10-28T18:06:01.027Z"
+    },
+    {
+      "id": "audit-1793210759742-krbcg",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T18:05:59.742Z"
+    },
+    {
+      "id": "audit-1793210759023-2z9z0",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:05:59.023Z"
+    },
+    {
+      "id": "audit-1793210758748-hqrff",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNCED"
+      },
+      "timestamp": "2026-10-28T18:05:58.748Z"
+    },
+    {
+      "id": "audit-1793210758604-dox6l",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNCED"
+      },
+      "timestamp": "2026-10-28T18:05:58.604Z"
+    },
+    {
+      "id": "audit-1793210758451-osg3a",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNCED"
+      },
+      "timestamp": "2026-10-28T18:05:58.451Z"
+    },
+    {
+      "id": "audit-1793210752662-yki6t",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-28T18:05:52.662Z"
+    },
+    {
+      "id": "audit-1793210752592-e1zmx",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-28T18:05:52.592Z"
+    },
+    {
+      "id": "audit-1793210752479-0elre",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-28T18:05:52.479Z"
+    },
+    {
+      "id": "audit-1793210752339-34yk5",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T18:05:52.339Z"
+    },
+    {
+      "id": "audit-1793210429346-vap04",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:00:29.346Z"
+    },
+    {
+      "id": "audit-1793210429031-1ph8c",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-db-fail-1793210428932",
+      "details": {
+        "title": "TEST DB FAILURE PRODUCT",
+        "sku": "TEST-DBF-1793210428932",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-db-fail-1793210428932",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-28T18:00:29.031Z"
+    },
+    {
+      "id": "audit-1793210428886-2vnp7",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ord-prod-1793210428702",
+      "details": {
+        "title": "TEST ORDER-LINKED ICU VENTILATOR",
+        "sku": "TEST-ORD-SKU-1793210428702",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "success": true,
+          "status": "SYNCED",
+          "id": "test-ord-prod-1793210428702",
+          "upserted": true,
+          "modified": false,
+          "matched": false
+        }
+      },
+      "timestamp": "2026-10-28T18:00:28.886Z"
+    },
+    {
+      "id": "audit-1793210428181-h8ybs",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-prod-1793210425229",
+      "details": {
+        "title": "TEST TEMPORARY ELECTROSURGICAL GENERATOR",
+        "sku": "TEST-E2E-DEL-1793210425229",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 2,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_1",
+              "result": "not found"
+            },
+            {
+              "publicId": "dr-medex/reviewed-products/test_asset_exclusive_2",
+              "result": "not found"
+            }
+          ],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-prod-1793210425229",
+          "deletedCount": 1,
+          "adminEmail": "roshan.official0009@gmail.com"
+        }
+      },
+      "timestamp": "2026-10-28T18:00:28.181Z"
+    },
+    {
+      "id": "audit-1793210425200-vre7l",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T18:00:25.200Z"
+    },
+    {
+      "id": "audit-1793210424524-iifwf",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-hotfix-1793210418317",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "sku": "TEST-HF-2D7CC3",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 8,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [
+            {
+              "publicId": "-medex/products/hf_test/angle_1",
+              "result": "not found"
+            },
+            {
+              "publicId": "-medex/products/hf_test/angle_2",
+              "result": "not found"
+            },
+            {
+              "publicId": "-medex/products/hf_test/angle_3",
+              "result": "not found"
+            },
+            {
+              "publicId": "-medex/products/hf_test/angle_4",
+              "result": "not found"
+            },
+            {
+              "publicId": "dr-medex/products/hf_test/angle_1",
+              "result": "not found"
+            },
+            {
+              "publicId": "dr-medex/products/hf_test/angle_2",
+              "result": "not found"
+            },
+            {
+              "publicId": "dr-medex/products/hf_test/angle_3",
+              "result": "not found"
+            },
+            {
+              "publicId": "dr-medex/products/hf_test/angle_4",
+              "result": "not found"
+            }
+          ],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-hotfix-1793210418317",
+          "deletedCount": 1,
+          "document": {
+            "_id": "6ae238336a1d80b347397bda",
+            "id": "test-hotfix-1793210418317",
+            "applications": [],
+            "approvedAt": "2026-10-28T18:00:18.320Z",
+            "approvedBy": "roshan.official0009@gmail.com",
+            "archivedAt": null,
+            "archivedBy": null,
+            "baseCurrency": "INR",
+            "basePrice": 450000,
+            "bestseller": false,
+            "brand": "DR.MEDEX Global",
+            "category": "electrosurgical-units",
+            "categoryName": "",
+            "clinicalIndications": [],
+            "cloudinarySyncStatus": null,
+            "engineeringHighlights": [],
+            "featured": false,
+            "features": [],
+            "fullDescription": "",
+            "galleryImages": [
+              {
+                "id": "test-hotfix-1793210418317-img-1",
+                "url": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729326/dr-medex/products/hf_test/angle_1.webp",
+                "altText": "TEST SURGICAL HARMONIC SCALPEL SYSTEM - Photo 1",
+                "isPrimary": true,
+                "status": "active"
+              },
+              {
+                "id": "test-hotfix-1793210418317-img-2",
+                "url": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729327/dr-medex/products/hf_test/angle_2.webp",
+                "altText": "TEST SURGICAL HARMONIC SCALPEL SYSTEM - Photo 2",
+                "isPrimary": false,
+                "status": "active"
+              },
+              {
+                "id": "test-hotfix-1793210418317-img-3",
+                "url": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729328/dr-medex/products/hf_test/angle_3.webp",
+                "altText": "TEST SURGICAL HARMONIC SCALPEL SYSTEM - Photo 3",
+                "isPrimary": false,
+                "status": "active"
+              },
+              {
+                "id": "test-hotfix-1793210418317-img-4",
+                "url": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729329/dr-medex/products/hf_test/angle_4.webp",
+                "altText": "TEST SURGICAL HARMONIC SCALPEL SYSTEM - Photo 4",
+                "isPrimary": false,
+                "status": "active"
+              }
+            ],
+            "images": [
+              "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729326/dr-medex/products/hf_test/angle_1.webp",
+              "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729327/dr-medex/products/hf_test/angle_2.webp",
+              "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729328/dr-medex/products/hf_test/angle_3.webp",
+              "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729329/dr-medex/products/hf_test/angle_4.webp"
+            ],
+            "inCatalogue": true,
+            "isBestSeller": false,
+            "isFeatured": false,
+            "isRetired": false,
+            "managedCloudinaryImages": [
+              {
+                "publicId": "-medex/products/hf_test/angle_1",
+                "secureUrl": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729326/dr-medex/products/hf_test/angle_1.webp",
+                "order": 0,
+                "isPrimary": true,
+                "uploadState": "UPLOADED"
+              },
+              {
+                "publicId": "-medex/products/hf_test/angle_2",
+                "secureUrl": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729327/dr-medex/products/hf_test/angle_2.webp",
+                "order": 1,
+                "isPrimary": false,
+                "uploadState": "UPLOADED"
+              },
+              {
+                "publicId": "-medex/products/hf_test/angle_3",
+                "secureUrl": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729328/dr-medex/products/hf_test/angle_3.webp",
+                "order": 2,
+                "isPrimary": false,
+                "uploadState": "UPLOADED"
+              },
+              {
+                "publicId": "-medex/products/hf_test/angle_4",
+                "secureUrl": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729329/dr-medex/products/hf_test/angle_4.webp",
+                "order": 3,
+                "isPrimary": false,
+                "uploadState": "UPLOADED"
+              }
+            ],
+            "metaDescription": "",
+            "metaTitle": "",
+            "modelNumber": "",
+            "mongoSyncStatus": "SYNCED",
+            "mongoSyncedAt": "2026-10-28T18:00:19.923Z",
+            "overview": "",
+            "packageItems": [],
+            "primaryImage": "https://res.cloudinary.com/mjqna8qi/image/upload/v1791729326/dr-medex/products/hf_test/angle_1.webp",
+            "productName": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+            "productType": "Medical Equipment",
+            "regularPrice": null,
+            "reviewNote": null,
+            "reviewStatus": "CORRECT",
+            "salePrice": null,
+            "seoDescription": "",
+            "seoTitle": "",
+            "shortDescription": "",
+            "sku": "TEST-HF-2D7CC3",
+            "slug": "test-hotfix-product-1793210418317",
+            "specifications": {},
+            "status": "ACTIVE",
+            "stock": 10,
+            "stockStatus": "IN_STOCK",
+            "subcategory": "",
+            "subcategoryName": "",
+            "technicalSpecifications": {},
+            "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+            "updatedAt": "2026-10-28T18:00:19.923Z"
+          }
+        }
+      },
+      "timestamp": "2026-10-28T18:00:24.524Z"
+    },
+    {
+      "id": "audit-1793210420013-483ro",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-hotfix-1793210418317",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:00:20.013Z"
+    },
+    {
+      "id": "audit-1793210419560-133bm",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-hotfix-1793210418317",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:00:19.560Z"
+    },
+    {
+      "id": "audit-1793210419342-6flj1",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CREATED",
+      "productId": "test-hotfix-1793210418317",
+      "details": {
+        "title": "TEST SURGICAL HARMONIC SCALPEL SYSTEM",
+        "basePrice": 450000,
+        "sku": "TEST-HF-2D7CC3"
+      },
+      "timestamp": "2026-10-28T18:00:19.342Z"
+    },
+    {
+      "id": "audit-1793210417740-r3vfz",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-e2e-prod-1793210415498",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "sku": "TEST-E2E-1793210415498",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-e2e-prod-1793210415498",
+          "deletedCount": 1,
+          "document": {
+            "_id": "6ae238306a1d80b347397bd8",
+            "id": "test-e2e-prod-1793210415498",
+            "applications": [],
+            "approvedAt": "2026-10-28T18:00:15.500Z",
+            "approvedBy": "roshan.official0009@gmail.com",
+            "archivedAt": null,
+            "archivedBy": null,
+            "baseCurrency": "INR",
+            "basePrice": 185000,
+            "bestseller": false,
+            "brand": "DR.MEDEX",
+            "category": "patient-monitoring",
+            "categoryName": "",
+            "clinicalIndications": [],
+            "cloudinarySyncStatus": null,
+            "engineeringHighlights": [],
+            "featured": false,
+            "features": [],
+            "fullDescription": "",
+            "galleryImages": [
+              {
+                "id": "test-e2e-prod-1793210415498-img-1",
+                "url": "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+                "altText": "TEST CLINICAL CARDIAC MONITOR - Photo 1",
+                "isPrimary": true,
+                "status": "active"
+              },
+              {
+                "id": "test-e2e-prod-1793210415498-img-2",
+                "url": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+                "altText": "TEST CLINICAL CARDIAC MONITOR - Photo 2",
+                "isPrimary": false,
+                "status": "active"
+              },
+              {
+                "id": "test-e2e-prod-1793210415498-img-3",
+                "url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+                "altText": "TEST CLINICAL CARDIAC MONITOR - Photo 3",
+                "isPrimary": false,
+                "status": "active"
+              },
+              {
+                "id": "test-e2e-prod-1793210415498-img-4",
+                "url": "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=800&q=80",
+                "altText": "TEST CLINICAL CARDIAC MONITOR - Photo 4",
+                "isPrimary": false,
+                "status": "active"
+              },
+              {
+                "id": "test-e2e-prod-1793210415498-img-5",
+                "url": "https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?auto=format&fit=crop&w=800&q=80",
+                "altText": "TEST CLINICAL CARDIAC MONITOR - Photo 5",
+                "isPrimary": false,
+                "status": "active"
+              }
+            ],
+            "images": [
+              "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?auto=format&fit=crop&w=800&q=80"
+            ],
+            "inCatalogue": true,
+            "isBestSeller": false,
+            "isFeatured": false,
+            "isRetired": false,
+            "managedCloudinaryImages": [],
+            "metaDescription": "",
+            "metaTitle": "",
+            "modelNumber": "",
+            "mongoSyncStatus": "SYNCED",
+            "mongoSyncedAt": "2026-10-28T18:00:17.308Z",
+            "overview": "",
+            "packageItems": [],
+            "primaryImage": "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+            "productName": "TEST CLINICAL CARDIAC MONITOR",
+            "productType": "Medical Equipment",
+            "regularPrice": null,
+            "reviewNote": null,
+            "reviewStatus": "CORRECT",
+            "salePrice": null,
+            "seoDescription": "",
+            "seoTitle": "",
+            "shortDescription": "",
+            "sku": "TEST-E2E-1793210415498",
+            "slug": "test-e2e-cardiac-monitor-1793210415498",
+            "specifications": {},
+            "status": "ACTIVE",
+            "stock": 8,
+            "stockStatus": "IN_STOCK",
+            "subcategory": "",
+            "subcategoryName": "",
+            "technicalSpecifications": {},
+            "title": "TEST CLINICAL CARDIAC MONITOR",
+            "updatedAt": "2026-10-28T18:00:17.308Z"
+          }
+        }
+      },
+      "timestamp": "2026-10-28T18:00:17.740Z"
+    },
+    {
+      "id": "audit-1793210417400-7v6ja",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1793210415498",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:00:17.400Z"
+    },
+    {
+      "id": "audit-1793210417144-u962z",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1793210415498",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:00:17.144Z"
+    },
+    {
+      "id": "audit-1793210416759-srzyp",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "test-e2e-prod-1793210415498",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:00:16.759Z"
+    },
+    {
+      "id": "audit-1793210416451-39287",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CREATED",
+      "productId": "test-e2e-prod-1793210415498",
+      "details": {
+        "title": "TEST CLINICAL CARDIAC MONITOR",
+        "basePrice": 185000,
+        "sku": "TEST-E2E-1793210415498"
+      },
+      "timestamp": "2026-10-28T18:00:16.451Z"
+    },
+    {
+      "id": "audit-1793210415036-qz3cc",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-unref-1793210414971",
+      "details": {
+        "title": "TEST DISPOSABLE FORCEPS",
+        "sku": "TEST-FOR-1793210414971",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 0,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-unref-1793210414971",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-28T18:00:15.036Z"
+    },
+    {
+      "id": "audit-1793210414917-pq0b7",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-ret-prod-1793210414735",
+      "details": {
+        "title": "TEST SURGICAL CO2 LASER SYSTEM",
+        "sku": "TEST-LAS-1793210414735",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "success": true,
+          "status": "SYNCED",
+          "id": "test-ret-prod-1793210414735",
+          "upserted": true,
+          "modified": false,
+          "matched": false
+        }
+      },
+      "timestamp": "2026-10-28T18:00:14.917Z"
+    },
+    {
+      "id": "audit-1793210413536-mvv4r",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T18:00:13.536Z"
+    },
+    {
+      "id": "audit-1793210412981-mwnh6",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1793210411434",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1793210411434",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 1,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [
+            {
+              "publicId": "test_asset_exclusive_delete",
+              "result": "not found"
+            }
+          ],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1793210411434",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-28T18:00:12.981Z"
+    },
+    {
+      "id": "audit-1793210411381-3qckw",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1793210410215",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1793210410215",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "success": true,
+          "status": "SYNCED",
+          "id": "test-retire-1793210410215",
+          "upserted": true,
+          "modified": false,
+          "matched": false
+        }
+      },
+      "timestamp": "2026-10-28T18:00:11.382Z"
+    },
+    {
+      "id": "audit-1793210410183-d08mu",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T18:00:10.183Z"
+    },
+    {
+      "id": "audit-1793210409465-wypok",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T18:00:09.465Z"
+    },
+    {
+      "id": "audit-1793210409272-24ygd",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNCED"
+      },
+      "timestamp": "2026-10-28T18:00:09.272Z"
+    },
+    {
+      "id": "audit-1793210409069-pcdij",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNCED"
+      },
+      "timestamp": "2026-10-28T18:00:09.069Z"
+    },
+    {
+      "id": "audit-1793210408947-3uvi5",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNCED"
+      },
+      "timestamp": "2026-10-28T18:00:08.947Z"
+    },
+    {
+      "id": "audit-1793210403475-t4a5r",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-28T18:00:03.475Z"
+    },
+    {
+      "id": "audit-1793210403402-07i1e",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-28T18:00:03.402Z"
+    },
+    {
+      "id": "audit-1793210403285-zkdwa",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-28T18:00:03.285Z"
+    },
+    {
+      "id": "audit-1793210403182-gs9lx",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T18:00:03.182Z"
+    },
+    {
+      "id": "audit-1793210334801-rdr73",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1793210333031",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1793210333031",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 1,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [
+            {
+              "publicId": "test_asset_exclusive_delete",
+              "result": "not found"
+            }
+          ],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1793210333031",
+          "deletedCount": 1
+        }
+      },
+      "timestamp": "2026-10-28T17:58:54.801Z"
+    },
+    {
+      "id": "audit-1793210332982-9vvqk",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1793210331864",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1793210331864",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "success": true,
+          "status": "SYNCED",
+          "id": "test-retire-1793210331864",
+          "upserted": true,
+          "modified": false,
+          "matched": false
+        }
+      },
+      "timestamp": "2026-10-28T17:58:52.982Z"
+    },
+    {
+      "id": "audit-1793210331833-gp2ri",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T17:58:51.833Z"
+    },
+    {
+      "id": "audit-1793210304091-j8rc5",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_PERMANENTLY_DELETED",
+      "productId": "test-del-1793210302750",
+      "details": {
+        "title": "TEST TEMPORARY ANESTHESIA MONITOR",
+        "sku": "TEST-SKU-1793210302750",
+        "cloudinary": {
+          "status": "MEDIA_DELETED",
+          "deletedCount": 1,
+          "preservedCount": 0,
+          "errorCount": 0,
+          "deleted": [
+            {
+              "publicId": "test_asset_exclusive_delete",
+              "result": "not found"
+            }
+          ],
+          "preserved": [],
+          "errors": []
+        },
+        "mongo": {
+          "success": true,
+          "status": "REMOVED",
+          "id": "test-del-1793210302750",
+          "deletedCount": 0,
+          "document": null
+        }
+      },
+      "timestamp": "2026-10-28T17:58:24.091Z"
+    },
+    {
+      "id": "audit-1793210302701-n8x5v",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_CATALOGUE_RETIRED",
+      "productId": "test-retire-1793210301569",
+      "details": {
+        "title": "TEST SURGICAL LIGHT TO RETIRE",
+        "sku": "TEST-RET-SKU-1793210301569",
+        "reason": "Administrator explicitly retired product from active catalogue to preserve customer order history",
+        "mongo": {
+          "success": true,
+          "status": "SYNCED",
+          "id": "test-retire-1793210301569",
+          "upserted": true,
+          "modified": false,
+          "matched": false
+        }
+      },
+      "timestamp": "2026-10-28T17:58:22.701Z"
+    },
+    {
+      "id": "audit-1793210301539-s46qm",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T17:58:21.539Z"
+    },
+    {
+      "id": "audit-1793210300738-587x4",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "changes": {}
+      },
+      "timestamp": "2026-10-28T17:58:20.738Z"
+    },
+    {
+      "id": "audit-1793210300472-4mxnn",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "NEEDS_EDITING",
+        "toStatus": "PENDING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNCED"
+      },
+      "timestamp": "2026-10-28T17:58:20.472Z"
+    },
+    {
+      "id": "audit-1793210300354-zym3c",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "NEEDS_EDITING",
+        "note": "Test review note for clinical audit",
+        "mongoStatus": "SYNCED"
+      },
+      "timestamp": "2026-10-28T17:58:20.354Z"
+    },
+    {
+      "id": "audit-1793210300231-nwzex",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "PRODUCT_REVIEW_UPDATED",
+      "productId": "prod-surgical-cautery-400-wat",
+      "details": {
+        "title": "DR.MEDEX Surgical Cautery 400 Watts- Electrosurgical Generator",
+        "sku": "DRM-ELE-8326",
+        "fromStatus": "CORRECT",
+        "toStatus": "CORRECT",
+        "note": null,
+        "mongoStatus": "SYNCED"
+      },
+      "timestamp": "2026-10-28T17:58:20.231Z"
+    },
+    {
+      "id": "audit-1793210292754-wfpsq",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-28T17:58:12.754Z"
+    },
+    {
+      "id": "audit-1793210292683-l8ckf",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-28T17:58:12.683Z"
+    },
+    {
+      "id": "audit-1793210292572-77y6b",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-28T17:58:12.572Z"
+    },
+    {
+      "id": "audit-1793210292468-o92r3",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T17:58:12.468Z"
+    },
+    {
+      "id": "audit-1793209945708-zt3gj",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGOUT",
+      "productId": null,
+      "details": {},
+      "timestamp": "2026-10-28T17:52:25.708Z"
+    },
+    {
+      "id": "audit-1793209945638-8zthq",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 3
+      },
+      "timestamp": "2026-10-28T17:52:25.638Z"
+    },
+    {
+      "id": "audit-1793209945527-t96xx",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_FAILED",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1",
+        "remainingAttempts": 4
+      },
+      "timestamp": "2026-10-28T17:52:25.527Z"
+    },
+    {
+      "id": "audit-1793209945419-ebzsv",
+      "adminId": "roshan.official0009@gmail.com",
+      "action": "LOGIN_SUCCESS",
+      "productId": null,
+      "details": {
+        "ip": "127.0.0.1"
+      },
+      "timestamp": "2026-10-28T17:52:25.419Z"
+    },
     {
       "id": "audit-1793043276826-hlaix",
       "adminId": "roshan.official0009@gmail.com",

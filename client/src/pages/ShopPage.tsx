@@ -109,31 +109,36 @@ export const ShopPage: React.FC = () => {
     }
 
     if (selectedSubcategory) {
-      const directMatches = list.filter(
-        (p) =>
-          p.subcategory === selectedSubcategory ||
-          (Array.isArray(p.subcategories) && p.subcategories.includes(selectedSubcategory))
-      );
-      if (directMatches.length > 0) {
-        list = directMatches;
-      } else {
-        const cleanSub = selectedSubcategory.replace(/-/g, " ").toLowerCase();
-        const subTokens = cleanSub
-          .split(/\s+/)
-          .filter(
-            (w) =>
-              w.length > 2 &&
-              !["equipment", "machines", "systems", "medical", "surgical"].includes(w)
+      const isSurgery =
+        selectedSubcategory === "electrosurgical-surgery" ||
+        selectedSubcategory === "electro-surgical-skin-cautery" ||
+        selectedSubcategory === "cautery";
+      const isGen =
+        selectedSubcategory === "electrosurgical-generator" ||
+        selectedSubcategory === "generators" ||
+        selectedSubcategory === "electrosurgical-generators";
+
+      list = list.filter((p) => {
+        if (isSurgery) {
+          return (
+            p.subcategory === "electrosurgical-surgery" ||
+            p.subcategory === "electro-surgical-skin-cautery" ||
+            p.subcategory === "cautery"
           );
-        const fuzzyMatches = list.filter((p) => {
-          const pSub = (p.subcategory || "").replace(/-/g, " ").toLowerCase();
-          const pTitle = (p.title || "").toLowerCase();
-          return subTokens.some((t) => pSub.includes(t) || pTitle.includes(t));
-        });
-        if (fuzzyMatches.length > 0) {
-          list = fuzzyMatches;
         }
-      }
+        if (isGen) {
+          return (
+            p.subcategory === "electrosurgical-generator" ||
+            p.subcategory === "generators" ||
+            p.subcategory === "electrosurgical-generators"
+          );
+        }
+        return (
+          p.subcategory === selectedSubcategory ||
+          p.subcategory === selectedSubcategory.replace(/-/g, " ") ||
+          (Array.isArray(p.subcategories) && p.subcategories.includes(selectedSubcategory))
+        );
+      });
     }
 
     if (searchQuery) {
@@ -146,14 +151,17 @@ export const ShopPage: React.FC = () => {
           (p.applications && p.applications.some((a) => a.toLowerCase().includes(q)))
       );
     }
-    if (selectedRating) {
-      list = list.filter((p) => p.rating >= selectedRating);
-    }
-    if (onlyInStock) {
-      list = list.filter((p) => p.stock > 0);
-    }
-    if (maxPriceINR < 700000) {
-      list = list.filter((p) => p.basePrice <= maxPriceINR);
+    // Only apply range & availability filters when on global shop-all (filters removed from category pages)
+    if (!selectedCategory) {
+      if (selectedRating) {
+        list = list.filter((p) => p.rating >= selectedRating);
+      }
+      if (onlyInStock) {
+        list = list.filter((p) => p.stock > 0);
+      }
+      if (maxPriceINR < 700000) {
+        list = list.filter((p) => p.basePrice <= maxPriceINR);
+      }
     }
 
     // Sort
@@ -240,15 +248,17 @@ export const ShopPage: React.FC = () => {
 
             {/* Top Toolbar */}
             <div className="flex items-center gap-3">
-              {/* Mobile Filter Toggle Button */}
-              <button
-                type="button"
-                onClick={() => setIsMobileFilterOpen(true)}
-                className="lg:hidden flex items-center gap-2 px-4 py-2.5 bg-white border border-[#EAEAEA] rounded-xl text-xs font-bold text-[#111111] shadow-2xs"
-              >
-                <SlidersHorizontal size={14} />
-                <span>Filters</span>
-              </button>
+              {/* Mobile Filter Toggle Button (Only on generic Shop All, hidden on clean Category pages) */}
+              {!selectedCategory && (
+                <button
+                  type="button"
+                  onClick={() => setIsMobileFilterOpen(true)}
+                  className="lg:hidden flex items-center gap-2 px-4 py-2.5 bg-white border border-[#EAEAEA] rounded-xl text-xs font-bold text-[#111111] shadow-2xs"
+                >
+                  <SlidersHorizontal size={14} />
+                  <span>Filters</span>
+                </button>
+              )}
 
               {/* Sort Dropdown */}
               <div className="flex items-center gap-2 bg-white border border-[#EAEAEA] rounded-xl px-3.5 py-2 shadow-2xs">
@@ -272,153 +282,191 @@ export const ShopPage: React.FC = () => {
 
 
 
-        {/* Main 2-Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-10">
-          {/* Sidebar Desktop Filters */}
-          <aside className="hidden lg:block space-y-6">
-            <div className="bg-white p-6 rounded-xl border border-[#EAEAEA] shadow-2xs space-y-6 sticky top-24">
-              <div className="flex items-center justify-between pb-3.5 border-b border-[#EAEAEA]">
-                <span className="text-xs font-bold text-[#111111] uppercase tracking-wider flex items-center gap-2">
-                  <Filter size={14} className="text-[#1F7A4D]" />
-                  Filter Equipment
-                </span>
+        {/* Subcategory Navigation on Category Pages */}
+        {activeCategoryObject && activeCategoryObject.subcategories && activeCategoryObject.subcategories.length > 0 && (
+          <div className="mb-8 flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                const params = new URLSearchParams(searchParams);
+                params.delete("subcategory");
+                setSearchParams(params);
+              }}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-2xs ${
+                !selectedSubcategory
+                  ? "bg-[#111111] text-white"
+                  : "bg-white text-neutral-700 hover:text-black hover:bg-neutral-50 border border-[#EAEAEA]"
+              }`}
+            >
+              <span>All {activeCategoryObject.name.replace(/Equipment|Machines|Units/i, "").trim()}</span>
+              <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${!selectedSubcategory ? "bg-white/20 text-white" : "bg-neutral-100 text-neutral-600"}`}>
+                {products.filter(p => p.category === activeCategoryObject.slug || p.category === activeCategoryObject.id).length}
+              </span>
+            </button>
+            {activeCategoryObject.subcategories.map((sub) => {
+              const isSelected = selectedSubcategory === sub.slug || selectedSubcategory === sub.id;
+              const subCount = products.filter(p => {
+                const inCat = p.category === activeCategoryObject.slug || p.category === activeCategoryObject.id;
+                if (!inCat) return false;
+                if (sub.slug === "electrosurgical-surgery" || sub.slug === "electro-surgical-skin-cautery") {
+                  return p.subcategory === "electrosurgical-surgery" || p.subcategory === "electro-surgical-skin-cautery" || p.subcategory === "cautery";
+                }
+                if (sub.slug === "electrosurgical-generator" || sub.slug === "generators") {
+                  return p.subcategory === "electrosurgical-generator" || p.subcategory === "generators" || p.subcategory === "electrosurgical-generators";
+                }
+                return p.subcategory === sub.slug || p.subcategory === sub.id || (Array.isArray(p.subcategories) && p.subcategories.includes(sub.slug));
+              }).length;
+
+              return (
                 <button
+                  key={sub.id}
                   type="button"
-                  onClick={handleResetFilters}
-                  className="text-3xs text-neutral-500 hover:text-[#111111] font-bold flex items-center gap-1 transition-colors"
+                  onClick={() => handleSubcategoryClick(sub.slug)}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-2xs ${
+                    isSelected
+                      ? "bg-[#7AA05A] text-white"
+                      : "bg-white text-neutral-700 hover:text-black hover:bg-neutral-50 border border-[#EAEAEA]"
+                  }`}
                 >
-                  <RotateCcw size={11} />
-                  Reset
-                </button>
-              </div>
-
-              {/* Categories Accordion */}
-              <div>
-                <h4 className="text-2xs font-extrabold text-neutral-400 uppercase tracking-wider mb-3">
-                  Categories
-                </h4>
-                <div className="space-y-1.5">
-                  {categories.map((cat) => (
-                    <div key={cat.id}>
-                      <button
-                        type="button"
-                        onClick={() => handleCategoryClick(cat.slug)}
-                        className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-colors ${
-                          selectedCategory === cat.slug
-                            ? "bg-[#111111] text-white font-bold"
-                            : "text-neutral-700 hover:bg-[#F7F7F7]"
-                        }`}
-                      >
-                        <span>{cat.name}</span>
-                        <span className={`text-3xs font-mono ${selectedCategory === cat.slug ? "text-neutral-300" : "text-neutral-400"}`}>
-                          {cat.subcategories.length}
-                        </span>
-                      </button>
-
-                      {/* Subcategories (if category active) */}
-                      {selectedCategory === cat.slug && (
-                        <div className="pl-3 pr-1 py-1.5 space-y-1">
-                          {cat.subcategories.map((sub) => (
-                            <button
-                              key={sub.id}
-                              type="button"
-                              onClick={() => handleSubcategoryClick(sub.slug)}
-                              className={`w-full text-left text-2xs py-1.5 px-2.5 rounded-md transition-colors ${
-                                selectedSubcategory === sub.slug
-                                  ? "bg-[#EAF5EF] text-[#145A38] font-bold border border-[#1F7A4D]/20"
-                                  : "text-neutral-600 hover:text-[#111111]"
-                              }`}
-                            >
-                              • {sub.name}
-                            </button>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Price Range Slider in Active Currency */}
-              <div>
-                <div className="flex justify-between items-center mb-2.5">
-                  <h4 className="text-2xs font-extrabold text-neutral-400 uppercase tracking-wider">
-                    Maximum Budget
-                  </h4>
-                  <span className="text-xs font-bold text-[#111111] font-mono">
-                    {formatPrice(maxPriceINR)}
+                  <span>{sub.name}</span>
+                  <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${isSelected ? "bg-white/20 text-white" : "bg-neutral-100 text-neutral-600"}`}>
+                    {subCount}
                   </span>
-                </div>
-                <input
-                  type="range"
-                  min="5000"
-                  max="700000"
-                  step="10000"
-                  value={maxPriceINR}
-                  onChange={(e) => setMaxPriceINR(Number(e.target.value))}
-                  className="w-full h-1.5 bg-[#EAEAEA] rounded-lg appearance-none cursor-pointer accent-[#111111]"
-                />
-                <div className="flex justify-between text-3xs text-neutral-400 font-mono mt-1.5">
-                  <span>{formatPrice(5000)}</span>
-                  <span>{formatPrice(700000)}</span>
-                </div>
-              </div>
+                </button>
+              );
+            })}
+          </div>
+        )}
 
-              {/* Availability & Rating */}
-              <div className="space-y-4 pt-4 border-t border-[#EAEAEA]">
-                <label className="flex items-center gap-2.5 cursor-pointer text-xs text-neutral-700">
-                  <input
-                    type="checkbox"
-                    checked={onlyInStock}
-                    onChange={(e) => setOnlyInStock(e.target.checked)}
-                    className="w-4 h-4 rounded-sm border-[#EAEAEA] text-[#111111] focus:ring-[#111111]"
-                  />
-                  <span>Show Only In-Stock Equipment</span>
-                </label>
+        {/* Main Layout: Full-width for specific category listings (unwanted filters removed); 2-column sidebar for generic shop-all */}
+        <div className={selectedCategory ? "w-full" : "grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-10"}>
+          {/* Sidebar Desktop Filters - only displayed on generic /shop-all browse */}
+          {!selectedCategory && (
+            <aside className="hidden lg:block space-y-6">
+              <div className="bg-white p-6 rounded-xl border border-[#EAEAEA] shadow-2xs space-y-6 sticky top-24">
+                <div className="flex items-center justify-between pb-3.5 border-b border-[#EAEAEA]">
+                  <span className="text-xs font-bold text-[#111111] uppercase tracking-wider flex items-center gap-2">
+                    <Filter size={14} className="text-[#1F7A4D]" />
+                    Filter Equipment
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleResetFilters}
+                    className="text-3xs text-neutral-500 hover:text-[#111111] font-bold flex items-center gap-1 transition-colors"
+                  >
+                    <RotateCcw size={11} />
+                    Reset
+                  </button>
+                </div>
 
+                {/* Categories Accordion */}
                 <div>
-                  <h4 className="text-2xs font-extrabold text-neutral-400 uppercase tracking-wider mb-2">
-                    Minimum Rating
+                  <h4 className="text-2xs font-extrabold text-neutral-400 uppercase tracking-wider mb-3">
+                    Categories
                   </h4>
-                  <div className="flex gap-2">
-                    {[4, 4.5, 4.8].map((r) => (
-                      <button
-                        key={r}
-                        type="button"
-                        onClick={() => setSelectedRating(selectedRating === r ? null : r)}
-                        className={`px-3 py-1.5 text-2xs rounded-md border font-semibold transition-all ${
-                          selectedRating === r
-                            ? "bg-[#111111] border-[#111111] text-white"
-                            : "border-[#EAEAEA] text-neutral-600 hover:bg-[#F7F7F7]"
-                        }`}
-                      >
-                        ★ {r}+
-                      </button>
+                  <div className="space-y-1.5">
+                    {categories.map((cat) => (
+                      <div key={cat.id}>
+                        <button
+                          type="button"
+                          onClick={() => handleCategoryClick(cat.slug)}
+                          className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-colors ${
+                            selectedCategory === cat.slug
+                              ? "bg-[#111111] text-white font-bold"
+                              : "text-neutral-700 hover:bg-[#F7F7F7]"
+                          }`}
+                        >
+                          <span>{cat.name}</span>
+                          <span className={`text-3xs font-mono ${selectedCategory === cat.slug ? "text-neutral-300" : "text-neutral-400"}`}>
+                            {cat.subcategories.length}
+                          </span>
+                        </button>
+                      </div>
                     ))}
                   </div>
                 </div>
-              </div>
 
-              {/* Institutional Tender Notice */}
-              <div className="p-4 bg-[#FAFAFA] border border-[#EAEAEA] rounded-xl text-xs space-y-1.5">
-                <div className="font-bold text-[#111111]">Hospital Procurement</div>
-                <p className="text-3xs text-neutral-500 leading-relaxed">
-                  Need customized clinical tender specifications, CIF air freight pricing, or bulk discounts?
-                </p>
-                <Link
-                  to="/request-quote"
-                  className="inline-block text-3xs font-bold text-[#111111] hover:text-[#1F7A4D] hover:underline pt-1 transition-colors"
-                >
-                  Submit Official RFQ →
-                </Link>
-              </div>
-            </div>
-          </aside>
+                {/* Price Range Slider in Active Currency */}
+                <div>
+                  <div className="flex justify-between items-center mb-2.5">
+                    <h4 className="text-2xs font-extrabold text-neutral-400 uppercase tracking-wider">
+                      Maximum Budget
+                    </h4>
+                    <span className="text-xs font-bold text-[#111111] font-mono">
+                      {formatPrice(maxPriceINR)}
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="5000"
+                    max="700000"
+                    step="10000"
+                    value={maxPriceINR}
+                    onChange={(e) => setMaxPriceINR(Number(e.target.value))}
+                    className="w-full h-1.5 bg-[#EAEAEA] rounded-lg appearance-none cursor-pointer accent-[#111111]"
+                  />
+                  <div className="flex justify-between text-3xs text-neutral-400 font-mono mt-1.5">
+                    <span>{formatPrice(5000)}</span>
+                    <span>{formatPrice(700000)}</span>
+                  </div>
+                </div>
 
-          {/* Product Grid Area */}
-          <main className="lg:col-span-3">
+                {/* Availability & Rating */}
+                <div className="space-y-4 pt-4 border-t border-[#EAEAEA]">
+                  <label className="flex items-center gap-2.5 cursor-pointer text-xs text-neutral-700">
+                    <input
+                      type="checkbox"
+                      checked={onlyInStock}
+                      onChange={(e) => setOnlyInStock(e.target.checked)}
+                      className="w-4 h-4 rounded-sm border-[#EAEAEA] text-[#111111] focus:ring-[#111111]"
+                    />
+                    <span>Show Only In-Stock Equipment</span>
+                  </label>
+
+                  <div>
+                    <h4 className="text-2xs font-extrabold text-neutral-400 uppercase tracking-wider mb-2">
+                      Minimum Rating
+                    </h4>
+                    <div className="flex gap-2">
+                      {[4, 4.5, 4.8].map((r) => (
+                        <button
+                          key={r}
+                          type="button"
+                          onClick={() => setSelectedRating(selectedRating === r ? null : r)}
+                          className={`px-3 py-1.5 text-2xs rounded-md border font-semibold transition-all ${
+                            selectedRating === r
+                              ? "bg-[#111111] border-[#111111] text-white"
+                              : "border-[#EAEAEA] text-neutral-600 hover:bg-[#F7F7F7]"
+                          }`}
+                        >
+                          ★ {r}+
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Institutional Tender Notice */}
+                <div className="p-4 bg-[#FAFAFA] border border-[#EAEAEA] rounded-xl text-xs space-y-1.5">
+                  <div className="font-bold text-[#111111]">Hospital Procurement</div>
+                  <p className="text-3xs text-neutral-500 leading-relaxed">
+                    Need customized clinical tender specifications, CIF air freight pricing, or bulk discounts?
+                  </p>
+                  <Link
+                    to="/request-quote"
+                    className="inline-block text-3xs font-bold text-[#111111] hover:text-[#1F7A4D] hover:underline pt-1 transition-colors"
+                  >
+                    Submit Official RFQ →
+                  </Link>
+                </div>
+              </div>
+            </aside>
+          )}
+
+          {/* Product Grid Area: Full width on category pages, 3 cols on shop-all */}
+          <main className={selectedCategory ? "w-full" : "lg:col-span-3"}>
             {isLoading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
                 {[...Array(6)].map((_, i) => (
                   <div key={i} className="h-80 bg-white rounded-xl animate-pulse border border-[#EAEAEA]" />
                 ))}
@@ -550,7 +598,7 @@ export const ShopPage: React.FC = () => {
                           No products match active filters in {sec.title}.
                         </div>
                       ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
                           {secProducts.map((p) => (
                             <ProductCard
                               key={p.id}
@@ -705,7 +753,7 @@ export const ShopPage: React.FC = () => {
                           No reviewed products are currently published in {sec.title}.
                         </div>
                       ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
                           {secProducts.map((p) => (
                             <ProductCard
                               key={p.id}
@@ -721,7 +769,7 @@ export const ShopPage: React.FC = () => {
                 })}
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
                 {filteredProducts.map((p) => (
                   <ProductCard
                     key={p.id}

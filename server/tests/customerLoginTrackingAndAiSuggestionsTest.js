@@ -244,7 +244,7 @@ async function runTest() {
   console.log("==========================================================================\n");
 }
 
-runTest().catch((err) => {
+runTest().then(() => process.exit(0)).catch((err) => {
   console.error("Test failed:", err);
   process.exit(1);
 });
