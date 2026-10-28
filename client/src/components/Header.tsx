@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   Search,
@@ -67,7 +68,25 @@ export const Header: React.FC = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
+  const mobileSearchContainerRef = useRef<HTMLDivElement>(null);
   const countryModalRef = useRef<HTMLDivElement>(null);
+
+  // Lock body scrolling when mobile navigation drawer is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
+  // Close mobile drawer on route navigation
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname, location.search]);
 
   // Mega menu hover state
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
@@ -167,7 +186,11 @@ export const Header: React.FC = () => {
   // Click outside and keydown to close dropdowns
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(e.target as Node) &&
+        (!mobileSearchContainerRef.current || !mobileSearchContainerRef.current.contains(e.target as Node))
+      ) {
         setShowSearchDropdown(false);
       }
       if (countryModalRef.current && !countryModalRef.current.contains(e.target as Node)) {
@@ -344,14 +367,14 @@ export const Header: React.FC = () => {
       {/* ==============================================================
           TOP ROW: LOGO (LEFT) | CENTERED SEARCH BAR | UTILITY ICONS (RIGHT)
       ============================================================== */}
-      <div className="max-w-[1400px] mx-auto px-2.5 sm:px-6 lg:px-8 py-2.5 sm:py-3">
+      <div className="max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3">
         <div className="flex items-center justify-between gap-2 sm:gap-4 lg:gap-8 min-w-0">
           
           {/* LEFT: DR.MEDEX Logo & Mobile Hamburger */}
           <div className="flex items-center gap-1.5 sm:gap-3 shrink-0 min-w-0">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-neutral-700 hover:text-black hover:bg-neutral-100 rounded-xl transition-colors focus:outline-none"
+              className="lg:hidden w-9 h-9 flex items-center justify-center text-neutral-700 hover:text-black hover:bg-neutral-100 rounded-xl transition-colors focus:outline-none shrink-0"
               aria-label="Toggle Navigation Menu"
             >
               {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -360,7 +383,7 @@ export const Header: React.FC = () => {
             <Logo variant="light-bg" showIcon={false} />
           </div>
 
-          {/* CENTER: Large Rounded Search Bar with Green Action Button */}
+          {/* CENTER: Large Rounded Search Bar with Green Action Button (Desktop/Tablet) */}
           <div ref={searchContainerRef} className="flex-1 max-w-2xl mx-auto relative hidden sm:block">
             <form onSubmit={handleSearchSubmit} className="relative w-full">
               <div className="relative flex items-center bg-[#F7F7F7] hover:bg-[#F2F2F2] focus-within:bg-white rounded-full border border-[#E5E5E5] focus-within:border-[#167A4A] focus-within:ring-2 focus-within:ring-[#167A4A]/20 transition-all pl-4 pr-1.5 py-1">
@@ -402,7 +425,7 @@ export const Header: React.FC = () => {
               </div>
             </form>
 
-            {/* LIVE SEARCH RESULTS DROPDOWN */}
+            {/* LIVE SEARCH RESULTS DROPDOWN (Desktop) */}
             {showSearchDropdown && (searchResults.length > 0 || searchCategories.length > 0) && (
               <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl border border-[#E5E5E5] overflow-hidden z-50 animate-in fade-in duration-150">
                 <div className="p-3 border-b border-neutral-100 bg-[#F7F7F7] flex items-center justify-between text-[11px] font-bold text-neutral-500 uppercase tracking-wider">
@@ -491,10 +514,10 @@ export const Header: React.FC = () => {
             )}
           </div>
 
-          {/* RIGHT: Country/Currency Selector, Account, Wishlist, Cart */}
-          <div className="flex items-center gap-1 sm:gap-2 shrink-0 text-neutral-800">
-            {/* Country / Currency Selector Dropdown */}
-            <div className="relative" ref={countryModalRef}>
+          {/* RIGHT: Top Row Actions — Strictly Circular Account + Cart on Mobile */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 text-neutral-800">
+            {/* Country / Currency Selector Dropdown (Hidden on mobile header, kept in drawer) */}
+            <div className="relative hidden sm:block" ref={countryModalRef}>
               <button
                 onClick={() => setIsCountryModalOpen(!isCountryModalOpen)}
                 className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full hover:bg-neutral-100 text-neutral-800 transition-all text-xs font-semibold group cursor-pointer border border-transparent hover:border-neutral-200"
@@ -507,7 +530,7 @@ export const Header: React.FC = () => {
                 <ChevronDown size={13} className={`text-neutral-400 group-hover:text-neutral-700 transition-transform ${isCountryModalOpen ? "rotate-180" : ""}`} />
               </button>
 
-              {/* Anchored Popover directly below trigger */}
+              {/* Anchored Popover directly below trigger on desktop */}
               {isCountryModalOpen && (
                 <div
                   className="absolute right-0 top-full mt-2 w-[340px] sm:w-[380px] max-w-[calc(100vw-2rem)] bg-white rounded-2xl p-5 shadow-2xl border border-neutral-200 z-[100] flex flex-col max-h-[80vh] sm:max-h-[500px] animate-in fade-in duration-150"
@@ -593,29 +616,29 @@ export const Header: React.FC = () => {
               )}
             </div>
 
-            {/* Subtle Divider */}
+            {/* Subtle Divider (Desktop only) */}
             <span className="w-px h-4 bg-neutral-200 hidden sm:block mx-1" />
 
-            {/* Account Icon / Customer Greeting */}
+            {/* Circular Login/Account Icon (No dropdown arrow on mobile) */}
             {user ? (
               <div className="relative" ref={userMenuRef}>
                 <button
                   type="button"
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-full hover:bg-neutral-100 text-neutral-800 transition-all text-xs font-semibold group border border-transparent hover:border-neutral-200 cursor-pointer"
+                  className="w-9 h-9 sm:w-auto sm:h-auto rounded-full flex items-center justify-center sm:gap-1.5 sm:px-2.5 sm:py-1 hover:bg-neutral-100 text-neutral-800 transition-all text-xs font-semibold group border border-transparent hover:border-neutral-200 cursor-pointer"
                   title={`Customer Account: ${user.fullName || user.email}`}
                   aria-label="Customer Account Menu"
                   aria-expanded={isUserMenuOpen}
                 >
-                  <div className="w-5 h-5 rounded-full bg-[#2D5A4A]/10 text-[#2D5A4A] flex items-center justify-center">
-                    <User size={13} />
+                  <div className="w-6 h-6 sm:w-5 sm:h-5 rounded-full bg-[#2D5A4A]/10 text-[#2D5A4A] flex items-center justify-center">
+                    <User size={14} />
                   </div>
                   <span className="hidden md:inline text-neutral-700 group-hover:text-[#2D5A4A] font-medium max-w-[130px] truncate">
                     Hi, {user.fullName ? user.fullName.split(" ")[0].replace(/^Dr\.?\s*/i, "") : user.email?.split("@")[0]}
                   </span>
                   <ChevronDown
                     size={12}
-                    className={`text-neutral-400 group-hover:text-neutral-600 transition-transform ${
+                    className={`hidden sm:inline-block text-neutral-400 group-hover:text-neutral-600 transition-transform ${
                       isUserMenuOpen ? "rotate-180" : ""
                     }`}
                   />
@@ -680,10 +703,10 @@ export const Header: React.FC = () => {
             ) : isAdminAuthenticated ? (
               <Link
                 to="/admin"
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#167A4A]/10 text-[#167A4A] hover:bg-[#167A4A]/20 transition-all text-xs font-bold border border-[#167A4A]/30 cursor-pointer"
+                className="w-9 h-9 sm:w-auto sm:h-auto rounded-full flex items-center justify-center sm:gap-1.5 sm:px-2.5 sm:py-1 bg-[#167A4A]/10 text-[#167A4A] hover:bg-[#167A4A]/20 transition-all text-xs font-bold border border-[#167A4A]/30 cursor-pointer"
                 title={`Admin Platform: ${adminUser?.name || "Administrator"}`}
               >
-                <ShieldCheck size={14} className="text-[#167A4A]" />
+                <ShieldCheck size={16} className="text-[#167A4A]" />
                 <span className="hidden md:inline">Admin</span>
               </Link>
             ) : (
@@ -693,18 +716,18 @@ export const Header: React.FC = () => {
                   setAuthModalTab("signin");
                   setIsAuthModalOpen(true);
                 }}
-                className="p-2 rounded-full hover:bg-neutral-100 text-neutral-800 hover:text-[#2D5A4A] transition-all cursor-pointer"
+                className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-neutral-100 text-neutral-800 hover:text-[#2D5A4A] transition-all cursor-pointer shrink-0"
                 title="Sign In / Customer Account"
                 aria-label="Sign In or Register"
               >
-                <User size={18} />
+                <User size={19} />
               </button>
             )}
 
-            {/* Wishlist / Favorite Icon with Count Badge */}
+            {/* Wishlist / Favorite Icon with Count Badge (Desktop only) */}
             <Link
               to="/wishlist"
-              className={`relative p-2 rounded-full hover:bg-neutral-100 transition-all ${
+              className={`relative p-2 rounded-full hover:bg-neutral-100 transition-all hidden sm:flex ${
                 location.pathname === "/wishlist" ? "text-[#2D5A4A]" : "text-neutral-800 hover:text-[#2D5A4A]"
               }`}
               title="Saved Equipment (Wishlist)"
@@ -721,7 +744,7 @@ export const Header: React.FC = () => {
             {/* Shopping Cart Icon with Circular Quantity Badge */}
             <button
               onClick={openDrawer}
-              className="relative p-2 rounded-full hover:bg-neutral-100 text-neutral-800 hover:text-[#2D5A4A] transition-all cursor-pointer"
+              className="relative w-9 h-9 rounded-full flex items-center justify-center hover:bg-neutral-100 text-neutral-800 hover:text-[#2D5A4A] transition-all cursor-pointer shrink-0"
               title="Shopping Cart"
               aria-label="Shopping Cart"
             >
@@ -733,8 +756,8 @@ export const Header: React.FC = () => {
               )}
             </button>
 
-            {/* Three-Dot / Overflow Menu Button (Header Quick Access) */}
-            <div className="relative" ref={overflowMenuRef}>
+            {/* Three-Dot / Overflow Menu Button (Header Quick Access - Desktop only) */}
+            <div className="relative hidden sm:block" ref={overflowMenuRef}>
               <button
                 type="button"
                 onClick={() => setIsOverflowMenuOpen(!isOverflowMenuOpen)}
@@ -861,36 +884,96 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Search Bar (Only shown on small screens under top row) */}
-        <div className="mt-2.5 sm:hidden">
+        {/* ==============================================================
+            SEARCH BAR PLACEMENT: Directly below top header on mobile
+        ============================================================== */}
+        <div className="mt-2.5 sm:hidden relative" ref={mobileSearchContainerRef}>
           <form onSubmit={handleSearchSubmit} className="relative w-full">
-            <div className="flex items-center bg-[#F7F7F7] rounded-full border border-[#E5E5E5] pl-3.5 pr-1 py-1">
-              <Search size={16} className="text-neutral-400 mr-2 shrink-0" />
+            <div className="flex items-center bg-[#F7F7F7] hover:bg-[#F2F2F2] focus-within:bg-white rounded-full border border-[#E5E5E5] focus-within:border-[#167A4A] focus-within:ring-2 focus-within:ring-[#167A4A]/20 transition-all pl-3.5 pr-1 py-1">
+              <Search size={16} className="text-neutral-400 mr-2 shrink-0 pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => {
+                  if (searchResults.length > 0 || searchCategories.length > 0) {
+                    setShowSearchDropdown(true);
+                  }
+                }}
                 placeholder="Search medical equipment..."
-                className="w-full bg-transparent text-xs text-neutral-900 placeholder-neutral-500 focus:outline-none font-medium py-1"
+                className="w-full bg-transparent text-xs text-neutral-900 placeholder-neutral-500 focus:outline-none font-medium py-1 min-w-0"
               />
-              <button
-                type="submit"
-                className="w-7 h-7 rounded-full bg-[#167A4A] text-white flex items-center justify-center shrink-0"
-              >
-                <Search size={13} />
-              </button>
+              {isSearching ? (
+                <div className="w-7 h-7 flex items-center justify-center shrink-0">
+                  <div className="w-3.5 h-3.5 border-2 border-[#167A4A] border-t-transparent rounded-full animate-spin" />
+                </div>
+              ) : (
+                <button
+                  type="submit"
+                  aria-label="Search Catalog"
+                  className="w-7 h-7 rounded-full bg-[#167A4A] hover:bg-[#13673e] text-white flex items-center justify-center shrink-0 shadow-xs transition-colors cursor-pointer"
+                >
+                  <Search size={13} />
+                </button>
+              )}
             </div>
           </form>
+
+          {/* Mobile Search Results Dropdown */}
+          {showSearchDropdown && (searchResults.length > 0 || searchCategories.length > 0) && (
+            <div className="absolute left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl border border-[#E5E5E5] overflow-hidden z-50 animate-in fade-in duration-150">
+              <div className="p-2.5 border-b border-neutral-100 bg-[#F7F7F7] flex items-center justify-between text-[11px] font-bold text-neutral-500 uppercase tracking-wider">
+                <span>Search Results</span>
+                <span>{totalMatches} matching items</span>
+              </div>
+              <div className="max-h-72 overflow-y-auto divide-y divide-neutral-100">
+                {searchResults.map((prod) => (
+                  <Link
+                    key={prod.id}
+                    to={`/product/${prod.slug}`}
+                    onClick={() => setShowSearchDropdown(false)}
+                    className="px-3 py-2.5 flex items-center gap-2.5 hover:bg-neutral-50 transition-colors"
+                  >
+                    <img
+                      src={prod.images?.[0] || "/placeholder.jpg"}
+                      alt={prod.title}
+                      className="w-9 h-9 rounded-lg object-contain bg-neutral-50 shrink-0 border border-neutral-200 p-0.5"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src =
+                          "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=300&q=80";
+                      }}
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="text-xs font-bold text-neutral-900 truncate">
+                        {prod.title}
+                      </div>
+                      <div className="text-[10px] text-neutral-500 capitalize">
+                        {prod.category?.replace(/-/g, " ")}
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <div className="p-2 bg-neutral-50 border-t border-neutral-100 text-center">
+                <button
+                  onClick={handleSearchSubmit}
+                  className="text-xs font-bold text-[#167A4A] hover:underline"
+                >
+                  View all ({totalMatches}) results
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
       {/* ==============================================================
-          SECOND ROW: HORIZONTALLY CENTERED CATEGORY NAVIGATION + MEGA MENUS
+          CATEGORY NAVIGATION BELOW SEARCH: Horizontal Scrollable Row
       ============================================================== */}
-      <div className="bg-[#7AA05A] relative overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-[#7AA05A] relative w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-8">
           <nav
-            className="flex items-center justify-start lg:justify-center gap-1 xl:gap-2 py-1 whitespace-nowrap min-w-max lg:min-w-0"
+            className="flex items-center justify-start lg:justify-center gap-1 xl:gap-2 py-1.5 whitespace-nowrap min-w-max lg:min-w-0"
             aria-label="Product Categories Navigation"
           >
             {navCategories.map((item) => {
@@ -913,20 +996,21 @@ export const Header: React.FC = () => {
                     }`}
                   >
                     <span>{item.label}</span>
+                    {/* Dropdown chevron hidden on mobile, visible on desktop hover */}
                     {item.hasSubmenu && (
                       <ChevronDown
                         size={12}
-                        className={`text-white/80 transition-transform duration-200 ${
+                        className={`hidden sm:inline-block text-white/80 transition-transform duration-200 ${
                           isMegaOpen ? "rotate-180 text-white" : ""
                         }`}
                       />
                     )}
                   </Link>
 
-                  {/* MEGA MENU HOVER DROPDOWN */}
+                  {/* MEGA MENU HOVER DROPDOWN (Desktop only) */}
                   {item.hasSubmenu && isMegaOpen && item.subcategories && (
                     <div
-                      className="absolute top-full left-1/2 -translate-x-1/2 pt-1 w-72 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
+                      className="hidden sm:block absolute top-full left-1/2 -translate-x-1/2 pt-1 w-72 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
                       onMouseEnter={() => handleMegaMenuEnter(item.id)}
                       onMouseLeave={handleMegaMenuLeave}
                     >
@@ -958,25 +1042,34 @@ export const Header: React.FC = () => {
       </div>
 
       {/* ==============================================================
-          MOBILE NAVIGATION DRAWER
+          MOBILE NAVIGATION DRAWER (Portal to document.body)
       ============================================================== */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex">
-          <div className="w-4/5 max-w-sm bg-white h-full overflow-y-auto p-5 shadow-2xl flex flex-col justify-between border-r border-[#E5E5E5]">
-            <div>
-              <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
-                <Logo variant="light-bg" showTagline={false} showIcon={false} />
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-1.5 text-neutral-500 hover:text-black hover:bg-neutral-100 rounded-lg"
-                  aria-label="Close Navigation"
-                >
-                  <X size={20} />
-                </button>
-              </div>
+      {isMobileMenuOpen && typeof document !== "undefined" && createPortal(
+        <div className="fixed inset-0 z-50 overflow-hidden lg:hidden" role="dialog" aria-modal="true" aria-label="Navigation Menu">
+          {/* Backdrop */}
+          <div
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300"
+            aria-hidden="true"
+          />
 
-              {/* Navigation Items with Accordions */}
-              <div className="space-y-1 py-4 text-xs font-semibold text-neutral-800">
+          {/* Drawer Panel */}
+          <div className="fixed inset-y-0 left-0 max-w-[85vw] w-[300px] bg-white shadow-2xl flex flex-col justify-between z-50 border-r border-[#E5E5E5] animate-in slide-in-from-left duration-300">
+            {/* Header: Logo and Close (X) button */}
+            <div className="p-4 border-b border-neutral-100 flex items-center justify-between bg-white shrink-0">
+              <Logo variant="light-bg" showIcon={false} />
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-2 text-neutral-500 hover:text-black hover:bg-neutral-100 rounded-xl transition-colors cursor-pointer"
+                aria-label="Close Navigation"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Scrollable Navigation Body */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-1">
+              <div className="space-y-1 text-xs font-semibold text-neutral-800">
                 {navCategories.map((item) => {
                   const active = isNavActive(item);
                   const isExpanded = expandedMobileCategory === item.id;
@@ -999,7 +1092,7 @@ export const Header: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => setExpandedMobileCategory(isExpanded ? null : item.id)}
-                            className="p-2 text-neutral-400 hover:text-neutral-700"
+                            className="p-2 text-neutral-400 hover:text-neutral-700 cursor-pointer"
                             aria-label={`Toggle ${item.label} subcategories`}
                           >
                             <ChevronDown
@@ -1033,7 +1126,7 @@ export const Header: React.FC = () => {
                 <Link
                   to="/wishlist"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center justify-between py-2 px-3 rounded-xl hover:bg-neutral-50 text-neutral-800"
+                  className="flex items-center justify-between py-2 px-3 rounded-xl hover:bg-neutral-50 text-neutral-800 transition-colors"
                 >
                   <span className="flex items-center gap-2">
                     <Heart size={16} className="text-[#167A4A]" />
@@ -1049,13 +1142,14 @@ export const Header: React.FC = () => {
             </div>
 
             {/* Mobile Footer Area */}
-            <div className="pt-4 border-t border-neutral-100 space-y-2.5">
+            <div className="p-4 border-t border-neutral-100 space-y-2.5 bg-white shrink-0">
               <button
+                type="button"
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   setIsCountryModalOpen(true);
                 }}
-                className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-bold text-neutral-800 hover:bg-neutral-100"
+                className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-bold text-neutral-800 hover:bg-neutral-100 transition-colors cursor-pointer"
               >
                 <span className="flex items-center gap-2">
                   <Globe size={16} className="text-[#167A4A]" />
@@ -1112,8 +1206,8 @@ export const Header: React.FC = () => {
               )}
             </div>
           </div>
-          <div className="flex-1" onClick={() => setIsMobileMenuOpen(false)} />
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Customer Authentication Modal */}
