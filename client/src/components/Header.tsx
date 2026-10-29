@@ -97,44 +97,70 @@ export const Header: React.FC = () => {
   // Mobile menu accordion state
   const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>(null);
 
-  // Check if current route is a product detail page
-  const isProductDetailPage =
-    location.pathname.startsWith("/product/") || location.pathname.startsWith("/products/");
-
-  // Scroll direction state for hiding header on scroll down (product detail page only)
+  // Scroll direction state for hiding header on scroll down on mobile
   const [isHeaderHidden, setIsHeaderHidden] = useState(false);
   const lastScrollYRef = useRef(0);
+  const accumulatedDeltaRef = useRef(0);
+  const lastDirectionRef = useRef<"up" | "down">("up");
 
   useEffect(() => {
-    if (!isProductDetailPage) {
-      setIsHeaderHidden(false);
-      return;
-    }
-
     // Always reset to visible on route change
     setIsHeaderHidden(false);
-    lastScrollYRef.current = window.scrollY;
+    lastScrollYRef.current = Math.max(0, window.scrollY);
+    accumulatedDeltaRef.current = 0;
+    lastDirectionRef.current = "up";
 
-    const SCROLL_THRESHOLD = 8;
+    const HIDE_THRESHOLD = 15; // Requires 15px accumulated downward scroll past header
+    const SHOW_THRESHOLD = 6;  // Small 6px upward scroll gesture immediately reveals header
+    const TOP_ZONE = 60;       // Always fully visible within top 60px
     let ticking = false;
 
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const currentScrollY = window.scrollY;
+          const rawScrollY = window.scrollY;
+          // Clamp to avoid iOS rubber-band negative bounce at the top
+          const currentScrollY = Math.max(0, rawScrollY);
           const prevScrollY = lastScrollYRef.current;
-          const diff = currentScrollY - prevScrollY;
+          const delta = currentScrollY - prevScrollY;
 
-          // Keep header visible at the top when page is at its initial position
-          if (currentScrollY <= 20) {
+          // Prevent rubber-band bounce at page bottom from triggering false reveal
+          const maxScroll = Math.max(
+            0,
+            document.documentElement.scrollHeight - window.innerHeight
+          );
+          if (maxScroll > 0 && currentScrollY > maxScroll) {
+            lastScrollYRef.current = currentScrollY;
+            ticking = false;
+            return;
+          }
+
+          // At the absolute top, always keep the complete header visible
+          if (currentScrollY <= TOP_ZONE) {
             setIsHeaderHidden(false);
-          } else if (Math.abs(diff) >= SCROLL_THRESHOLD) {
-            if (diff > 0 && currentScrollY > 60) {
-              // Scrolling downward: smoothly hide header
-              setIsHeaderHidden(true);
-            } else if (diff < 0) {
-              // Scrolling upward: smoothly reveal header
-              setIsHeaderHidden(false);
+            accumulatedDeltaRef.current = 0;
+            lastDirectionRef.current = "up";
+          } else if (delta > 0) {
+            // Scrolling downward
+            if (lastDirectionRef.current !== "down") {
+              lastDirectionRef.current = "down";
+              accumulatedDeltaRef.current = 0;
+            }
+            accumulatedDeltaRef.current += delta;
+
+            if (accumulatedDeltaRef.current >= HIDE_THRESHOLD && currentScrollY > 100) {
+              setIsHeaderHidden((prev) => (prev ? prev : true));
+            }
+          } else if (delta < 0) {
+            // Scrolling upward
+            if (lastDirectionRef.current !== "up") {
+              lastDirectionRef.current = "up";
+              accumulatedDeltaRef.current = 0;
+            }
+            accumulatedDeltaRef.current += Math.abs(delta);
+
+            if (accumulatedDeltaRef.current >= SHOW_THRESHOLD) {
+              setIsHeaderHidden((prev) => (!prev ? prev : false));
             }
           }
 
@@ -149,7 +175,7 @@ export const Header: React.FC = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [isProductDetailPage, location.pathname]);
+  }, [location.pathname]);
 
   // Live search handler (fetches on ANY input, even single characters like 'F', 'OT', etc.)
   useEffect(() => {
@@ -335,12 +361,20 @@ export const Header: React.FC = () => {
       c.code.toLowerCase().includes(countrySearch.toLowerCase())
   );
 
-  const shouldHideHeader = isProductDetailPage && isHeaderHidden && !isMobileMenuOpen;
+  const shouldHideHeader =
+    isHeaderHidden &&
+    !isMobileMenuOpen &&
+    !showSearchDropdown &&
+    !isCountryModalOpen &&
+    !isUserMenuOpen &&
+    !isOverflowMenuOpen;
 
   return (
     <header
-      className={`w-full z-40 sticky top-0 bg-white select-none transition-transform duration-300 ease-in-out will-change-transform ${
-        shouldHideHeader ? "-translate-y-full pointer-events-none" : "translate-y-0"
+      className={`w-full z-40 sticky top-0 bg-white select-none transition-transform duration-300 ease-in-out will-change-transform motion-reduce:transition-none ${
+        shouldHideHeader
+          ? "-translate-y-full pointer-events-none lg:translate-y-0 lg:pointer-events-auto"
+          : "translate-y-0"
       }`}
     >
       {/* ==============================================================
