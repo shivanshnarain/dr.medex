@@ -44,8 +44,11 @@ export const BlogDetailPage: React.FC = () => {
     return (
       <div className="max-w-md mx-auto px-6 py-28 text-center space-y-4">
         <h2 className="text-xl font-bold text-[#111111]">Article Not Found</h2>
-        <Link to="/blog" className="text-xs font-semibold text-[#1F7A4D] hover:underline">
-          Return to Blog Directory →
+        <p className="text-xs text-[#555555]">
+          The requested clinical resource article is not available.
+        </p>
+        <Link to="/blog" className="inline-block text-xs font-semibold text-[#7AA05A] hover:text-[#2D5A4A] hover:underline">
+          Return to Clinical Resources →
         </Link>
       </div>
     );
