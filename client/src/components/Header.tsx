@@ -24,7 +24,9 @@ import { useWishlist } from "../context/WishlistContext";
 import { useAuth } from "../context/AuthContext";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { CustomerAuthModal } from "./auth/CustomerAuthModal";
-import { Product } from "../types";
+import { Product, Category } from "../types";
+import { getCategories } from "../services/productService";
+import rawFallbackCategories from "../data/fallbackCategories.json";
 import { Logo } from "./Logo";
 
 interface SearchCategoryMatch {
@@ -240,104 +242,81 @@ export const Header: React.FC = () => {
     }, 150);
   };
 
-  // Second row category items and their verified subcategories
-  const navCategories = [
-    {
-      id: "home",
-      label: "Home",
-      to: "/",
-      isHome: true,
-      hasSubmenu: false
-    },
-    {
-      id: "shop-all",
-      label: "Shop All",
-      to: "/shop-all",
-      hasSubmenu: false
-    },
-    {
-      id: "electrosurgical",
-      label: "Electrosurgical",
-      to: "/category/electrosurgical-units",
-      categorySlug: "electrosurgical-units",
-      hasSubmenu: true,
-      subcategories: [
-        { label: "Electrosurgical Surgery", to: "/shop-all?category=electrosurgical-units&subcategory=electrosurgical-surgery" },
-        { label: "Electrosurgical Generators", to: "/shop-all?category=electrosurgical-units&subcategory=electrosurgical-generator" }
-      ]
-    },
-    {
-      id: "cryo-surgical",
-      label: "Cryo Surgical",
-      to: "/category/cryo-surgical",
-      categorySlug: "cryo-surgical",
-      hasSubmenu: true,
-      subcategories: [
-        { label: "Cryo Surgical Guns", to: "/shop-all?category=cryo-surgical&subcategory=cryo-gun" },
-        { label: "Cryo Skin Cautery Units", to: "/shop-all?category=cryo-surgical&subcategory=electro-surgical-skin-cautery" }
-      ]
-    },
-    {
-      id: "ot-lights",
-      label: "OT Lights",
-      to: "/category/ot-lights",
-      categorySlug: "ot-lights",
-      hasSubmenu: true,
-      subcategories: [
-        { label: "Single Dome OT Lights", to: "/shop-all?category=ot-lights&subcategory=single-dome-ot-lights" },
-        { label: "Double Dome OT Lights", to: "/shop-all?category=ot-lights&subcategory=ot-surgical-lights-double-dome" },
-        { label: "Mobile LED OT Lights", to: "/shop-all?category=ot-lights&subcategory=mobile-led-ot-lights" }
-      ]
-    },
-    {
-      id: "ot-tables",
-      label: "OT Tables",
-      to: "/category/examination-ot-tables",
-      categorySlug: "examination-ot-tables",
-      hasSubmenu: true,
-      subcategories: [
-        { label: "Operating OT Tables", to: "/shop-all?category=examination-ot-tables&subcategory=examination-ot-tables" },
-        { label: "Clinical Chairs & Exam Tables", to: "/shop-all?category=examination-ot-tables&subcategory=general-medical" }
-      ]
-    },
-    {
-      id: "obg",
-      label: "OBG",
-      to: "/category/obstetrics-and-gynaecology",
-      categorySlug: "obstetrics-and-gynaecology",
-      hasSubmenu: true,
-      subcategories: [
-        { label: "Obstetric & Gynecological Delivery", to: "/shop-all?category=obstetrics-and-gynaecology&subcategory=obstetrics-and-gynaecology" },
-        { label: "Gynecology Examination Tables", to: "/shop-all?category=obstetrics-and-gynaecology&subcategory=examination-ot-tables" },
-        { label: "Thermal Coagulation & Colposcopy", to: "/shop-all?category=obstetrics-and-gynaecology&subcategory=electrosurgical-generator" }
-      ]
-    },
-    {
-      id: "medical-equipment",
-      label: "General Medical",
-      to: "/category/medical-equipment",
-      categorySlug: "medical-equipment",
-      hasSubmenu: true,
-      subcategories: [
-        { label: "Diagnostic Instruments & Screens", to: "/shop-all?category=medical-equipment&subcategory=general-medical" },
-        { label: "Ultrasound Therapy Transducers", to: "/shop-all?category=medical-equipment&subcategory=ultrasound-therapy-machines" },
-        { label: "TENS & Clinical Muscle Stimulation", to: "/shop-all?category=medical-equipment&subcategory=tens-machines" },
-        { label: "Hospital Trolleys & Utility Equipment", to: "/shop-all?category=medical-equipment&subcategory=cpm" }
-      ]
-    }
-  ];
+  // Dynamic Categories from API with graceful instant fallback
+  const [categories, setCategories] = useState<Category[]>(() => {
+    return ((rawFallbackCategories as unknown) as Category[]).filter(
+      (c) => c.status !== "INACTIVE" && (c as any).active !== false && c.id !== "physiotherapy"
+    );
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchCats = async () => {
+      try {
+        const { categories: fetchedCats } = await getCategories();
+        if (isMounted && Array.isArray(fetchedCats) && fetchedCats.length > 0) {
+          const activeOnly = fetchedCats.filter(
+            (c) => c.status !== "INACTIVE" && (c as any).active !== false && (c.id !== "physiotherapy" || c.status === "ACTIVE")
+          );
+          setCategories(activeOnly);
+        }
+      } catch (err) {
+        console.warn("[Header] Failed to fetch dynamic categories:", err);
+      }
+    };
+    fetchCats();
+    window.addEventListener("focus", fetchCats);
+    return () => {
+      isMounted = false;
+      window.removeEventListener("focus", fetchCats);
+    };
+  }, []);
+
+  // Category navigation label formatter
+  const getCategoryNavLabel = (cat: Category): string => {
+    const s = (cat.slug || cat.id || "").toLowerCase().trim();
+    if (s === "electrosurgical-units" || s === "electrosurgical") return "Electrosurgical";
+    if (s === "cryo-surgical" || s === "cryosurgical-equipment") return "Cryo Surgical";
+    if (s === "ot-lights") return "OT Lights";
+    if (s === "examination-ot-tables" || s === "ot-tables") return "OT Tables";
+    if (s === "obstetrics-and-gynaecology" || s === "obg") return "OBG";
+    if (s === "medical-equipment" || s === "general-medical-equipment") return "General Medical";
+    if (s === "physiotherapy") return "Physiotherapy";
+    return cat.name || "Equipment";
+  };
+
+  interface NavCategoryItem {
+    id: string;
+    label: string;
+    to: string;
+    categorySlug: string;
+    hasSubmenu: boolean;
+    subcategories?: Array<{ label: string; to: string }>;
+  }
+
+  // Second row category items - strictly dynamic equipment categories, without "Home" or "Shop All"
+  const navCategories: NavCategoryItem[] = React.useMemo(() => {
+    return categories.map((cat) => {
+      const slug = cat.slug || cat.id;
+      const subs = Array.isArray(cat.subcategories)
+        ? cat.subcategories.map((sub) => ({
+            label: sub.name,
+            to: `/shop-all?category=${slug}&subcategory=${sub.slug}`
+          }))
+        : [];
+      return {
+        id: slug,
+        label: getCategoryNavLabel(cat),
+        to: `/category/${slug}`,
+        categorySlug: slug,
+        hasSubmenu: subs.length > 0,
+        subcategories: subs
+      };
+    });
+  }, [categories]);
 
   // Check active state
-  const isNavActive = (item: (typeof navCategories)[0]) => {
-    if (item.isHome) {
-      return location.pathname === "/";
-    }
-    if (item.id === "shop-all") {
-      return (
-        (location.pathname === "/shop-all" && !location.search.includes("category=")) ||
-        (location.pathname === "/products" && !location.search.includes("category="))
-      );
-    }
+  const isNavActive = (item: NavCategoryItem) => {
     if (item.categorySlug) {
       return (
         location.search.includes(`category=${item.categorySlug}`) ||
@@ -756,8 +735,8 @@ export const Header: React.FC = () => {
               )}
             </button>
 
-            {/* Three-Dot / Overflow Menu Button (Header Quick Access - Desktop only) */}
-            <div className="relative hidden sm:block" ref={overflowMenuRef}>
+            {/* Three-Dot / Overflow Menu Button (Header Quick Access - Mobile & Desktop) */}
+            <div className="relative" ref={overflowMenuRef}>
               <button
                 type="button"
                 onClick={() => setIsOverflowMenuOpen(!isOverflowMenuOpen)}
@@ -776,7 +755,7 @@ export const Header: React.FC = () => {
               {/* Overflow Menu Dropdown */}
               {isOverflowMenuOpen && (
                 <div
-                  className="absolute right-0 top-full mt-2 w-64 max-w-[calc(100vw-1.5rem)] bg-white rounded-2xl shadow-2xl border border-neutral-200 py-2.5 z-50 animate-in fade-in slide-in-from-top-1 duration-150 text-neutral-900"
+                  className="absolute right-0 top-full mt-2 w-64 sm:w-72 max-w-[calc(100vw-1.5rem)] max-h-[80vh] overflow-y-auto bg-white rounded-2xl shadow-2xl border border-neutral-200 py-2.5 z-50 animate-in fade-in slide-in-from-top-1 duration-150 text-neutral-900"
                   role="menu"
                   aria-label="Header Menu"
                 >
@@ -856,7 +835,7 @@ export const Header: React.FC = () => {
                   </div>
 
                   {/* 3. Wishlist / Favourites */}
-                  <div className="px-3 pt-2.5">
+                  <div className="px-3 pt-2.5 pb-2 border-b border-neutral-100">
                     <div className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-1.5 px-1">
                       3. Wishlist / Favourites
                     </div>
@@ -877,6 +856,26 @@ export const Header: React.FC = () => {
                         <span className="text-[10px] text-neutral-400">0 items</span>
                       )}
                     </Link>
+                  </div>
+
+                  {/* 4. Dynamic Equipment Categories */}
+                  <div className="px-3 pt-2 pb-1">
+                    <div className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-1.5 px-1">
+                      4. Equipment Categories
+                    </div>
+                    <div className="space-y-0.5">
+                      {navCategories.map((item) => (
+                        <Link
+                          key={item.id}
+                          to={item.to}
+                          onClick={() => setIsOverflowMenuOpen(false)}
+                          className="flex items-center justify-between px-2.5 py-1.5 rounded-lg hover:bg-[#7AA05A]/10 hover:text-[#2D5A4A] text-xs font-semibold text-neutral-800 transition-colors"
+                        >
+                          <span>{item.label}</span>
+                          <ChevronRight size={13} className="text-neutral-400" />
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )}
@@ -1070,6 +1069,36 @@ export const Header: React.FC = () => {
             {/* Scrollable Navigation Body */}
             <div className="flex-1 overflow-y-auto p-4 space-y-1">
               <div className="space-y-1 text-xs font-semibold text-neutral-800">
+                {/* Quick Navigation: Home & Shop All */}
+                <div className="border-b border-neutral-100 pb-1.5 mb-1.5 space-y-0.5">
+                  <Link
+                    to="/"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`block py-2 px-3 rounded-xl transition-colors ${
+                      location.pathname === "/"
+                        ? "bg-[#7AA05A]/15 text-[#7AA05A] font-bold"
+                        : "hover:bg-neutral-50 text-neutral-800"
+                    }`}
+                  >
+                    Home
+                  </Link>
+                  <Link
+                    to="/shop-all"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`block py-2 px-3 rounded-xl transition-colors ${
+                      location.pathname === "/shop-all" && !location.search.includes("category=")
+                        ? "bg-[#7AA05A]/15 text-[#7AA05A] font-bold"
+                        : "hover:bg-neutral-50 text-neutral-800"
+                    }`}
+                  >
+                    Shop All Equipment
+                  </Link>
+                </div>
+
+                <div className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider px-3 pt-1 pb-1">
+                  Equipment Categories
+                </div>
+
                 {navCategories.map((item) => {
                   const active = isNavActive(item);
                   const isExpanded = expandedMobileCategory === item.id;

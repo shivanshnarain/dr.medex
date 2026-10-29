@@ -86,21 +86,21 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div className="group relative bg-white rounded-2xl border border-neutral-200/90 hover:border-neutral-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between h-full p-3 sm:p-4">
-      {/* 1. SQUARE PRODUCT IMAGE AREA (1:1 aspect ratio across all viewports, clean container without inner grey border, object-contain for distortion-free equipment) */}
+      {/* 1. SQUARE PRODUCT IMAGE AREA (1:1 aspect ratio across all viewports, clean container without inner grey border, object-cover for true edge-to-edge square presentation) */}
       <div
-        className="product-card-image relative w-full aspect-square shrink-0 rounded-[16px] overflow-hidden bg-white border-none select-none"
+        className="product-card-image relative w-full aspect-square shrink-0 rounded-[16px] overflow-hidden bg-white border-none select-none p-0"
         style={{ aspectRatio: "1 / 1" }}
       >
         <Link
           to={productUrl}
-          className="w-full h-full block overflow-hidden rounded-[16px] border-none"
+          className="relative w-full h-full block overflow-hidden rounded-[16px] border-none"
           aria-label={displayTitle}
         >
           <img
             src={primaryImage}
             alt={displayTitle}
-            className="w-full h-full object-contain object-center transition-transform duration-300 ease-out group-hover:scale-105 block border-none"
-            style={{ objectFit: "contain", objectPosition: "center" }}
+            className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-300 ease-out group-hover:scale-105 block border-none rounded-[16px]"
+            style={{ objectFit: "cover", objectPosition: "center" }}
             loading="lazy"
             onError={(e) => {
               // Graceful fallback to approved medical asset placeholder

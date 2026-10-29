@@ -101,31 +101,36 @@
   border-radius: 9999px;
 }
 
-/* DR.MEDEX Shared Global Product Image System */
+/* DR.MEDEX Shared Global Product Image System - True 1:1 Square Cropping */
 .product-card-image,
 .medex-product-image-container {
-  position: relative;
-  width: 100%;
+  position: relative !important;
+  width: 100% !important;
   aspect-ratio: 1 / 1 !important;
-  flex-shrink: 0;
-  overflow: hidden;
+  flex-shrink: 0 !important;
+  overflow: hidden !important;
+  padding: 0 !important;
   border: none !important;
   outline: none !important;
-  box-sizing: border-box;
-  border-radius: 16px;
-  background-color: #FFFFFF;
-  padding: 0 !important;
+  box-sizing: border-box !important;
+  border-radius: 16px !important;
+  background-color: #FFFFFF !important;
 }
 
 .product-card-image img,
 .medex-product-image {
-  display: block;
+  position: absolute !important;
+  inset: 0 !important;
+  display: block !important;
   width: 100% !important;
   height: 100% !important;
-  object-fit: contain !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
   object-position: center !important;
   border: none !important;
   outline: none !important;
+  border-radius: inherit !important;
   transition: transform 0.3s ease-out;
 }
 .product-description-scrollbar::-webkit-scrollbar-thumb:hover {

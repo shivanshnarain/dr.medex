@@ -72,12 +72,12 @@ export const WishlistPage: React.FC = () => {
                 >
                   <div>
                     {/* Image Area */}
-                    <div className="product-card-image relative w-full aspect-square shrink-0 bg-white flex items-center justify-center rounded-[16px] overflow-hidden border-none" style={{ aspectRatio: "1 / 1" }}>
+                    <div className="product-card-image relative w-full aspect-square shrink-0 bg-white flex items-center justify-center rounded-[16px] overflow-hidden border-none p-0" style={{ aspectRatio: "1 / 1" }}>
                       <img
                         src={mainImg}
                         alt={product.title}
-                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300 block border-none"
-                        style={{ objectFit: "contain", objectPosition: "center" }}
+                        className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300 block border-none rounded-[16px]"
+                        style={{ objectFit: "cover", objectPosition: "center" }}
                         onError={(e) => {
                           (e.target as HTMLImageElement).src =
                             "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=400&q=80";
