@@ -137,7 +137,7 @@
   background-color: #6B8F4E;
 }
 
-/* DR.MEDEX Product Detail Page Main Image — Preserves Original Aspect Ratio & Moss Green Outline */
+/* DR.MEDEX Product Detail Page Main Image — Natural Aspect Ratio, Zero Outlines */
 .product-gallery-main-image {
   display: block !important;
   width: 100% !important;
@@ -145,8 +145,9 @@
   max-width: 100% !important;
   object-fit: contain !important;
   object-position: center !important;
-  border: 2px solid #7FA35B !important;
-  border-radius: 10px !important;
+  border: none !important;
+  outline: none !important;
+  border-radius: 8px !important;
   box-sizing: border-box !important;
 }
 

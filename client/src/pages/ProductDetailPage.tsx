@@ -420,6 +420,7 @@ export const ProductDetailPage: React.FC = () => {
   // Gallery autoplay & interaction state
   const [isGalleryPaused, setIsGalleryPaused] = useState(false);
   const [isPageVisible, setIsPageVisible] = useState(true);
+  const [isMobileStripHidden, setIsMobileStripHidden] = useState(false);
   const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Dynamic measurement of product gallery height to coordinate with right column
@@ -577,16 +578,16 @@ export const ProductDetailPage: React.FC = () => {
     return productImages.slice(0, 5);
   }, [productImages]);
 
-  // Automatic Image Slideshow (Rotates every 2s when multiple images exist, pauses on interaction)
+  // Automatic Image Slideshow (Rotates every 5s when multiple images exist, pauses on interaction or mobile tap)
   useEffect(() => {
-    if (galleryThumbnails.length <= 1 || isGalleryPaused || !isPageVisible) return;
+    if (galleryThumbnails.length <= 1 || isGalleryPaused || !isPageVisible || isMobileStripHidden) return;
 
     const interval = setInterval(() => {
       setActiveImageIndex((prev) => (prev + 1) % galleryThumbnails.length);
-    }, 2000);
+    }, 5000);
 
     return () => clearInterval(interval);
-  }, [galleryThumbnails.length, isGalleryPaused, isPageVisible]);
+  }, [galleryThumbnails.length, isGalleryPaused, isPageVisible, isMobileStripHidden]);
 
   // Clean timeout references on unmount
   useEffect(() => {
@@ -595,14 +596,28 @@ export const ProductDetailPage: React.FC = () => {
     };
   }, []);
 
+  // Main image tap toggle (Mobile tap-to-pause & toggle thumbnail overlay)
+  const handleMainImageTap = () => {
+    setIsMobileStripHidden((prev) => {
+      const willHide = !prev;
+      setIsGalleryPaused(willHide);
+      return willHide;
+    });
+  };
+
   // Thumbnail manual selection with temporary pause
-  const handleSelectThumbnail = (idx: number) => {
+  const handleSelectThumbnail = (idx: number, e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
+    }
     setActiveImageIndex(idx);
     setIsGalleryPaused(true);
     if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
     pauseTimeoutRef.current = setTimeout(() => {
-      setIsGalleryPaused(false);
-    }, 4000);
+      if (!isMobileStripHidden) {
+        setIsGalleryPaused(false);
+      }
+    }, 5000);
   };
 
   // Dynamic SEO Metadata Management (Meta Title & Description with fallback hierarchy and stale cleanup)
@@ -868,69 +883,28 @@ export const ProductDetailPage: React.FC = () => {
   return (
     <div className="w-full bg-white min-h-screen text-neutral-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-        {/* Compact Breadcrumb Navigation - Aligned above content, Category Level Only */}
-        <nav
-          aria-label="Breadcrumb"
-          className="flex items-center gap-1.5 text-xs text-neutral-500 mb-3 sm:mb-4"
-        >
-          <Link to="/" className="hover:text-[#171717] transition-colors">
-            Home
-          </Link>
-          <span className="text-neutral-400">&gt;</span>
-          <Link
-            to={product.category ? `/shop-all?category=${product.category}` : "/shop-all"}
-            className="hover:text-[#171717] transition-colors font-medium text-neutral-600"
-          >
-            {product.categoryName || "Examination & OT Tables"}
-          </Link>
-        </nav>
-
         {/* ========================================================= */}
         {/* TOP SECTION: 50/50 SPLIT GALLERY & DETAILS                */}
         {/* ========================================================= */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-start">
           {/* ------------------------------------------------------- */}
-          {/* LEFT 50%: PRODUCT IMAGE GALLERY (NATURAL RATIO + OVERLAY) */}
+          {/* LEFT 50%: PRODUCT IMAGE GALLERY                          */}
           {/* ------------------------------------------------------- */}
           <div
             ref={galleryRef}
-            className="relative w-full select-none"
+            className="w-full flex items-start gap-3 lg:gap-4 select-none"
             onMouseEnter={() => setIsGalleryPaused(true)}
-            onMouseLeave={() => setIsGalleryPaused(false)}
-            onTouchStart={() => setIsGalleryPaused(true)}
-            onTouchEnd={() => setIsGalleryPaused(false)}
+            onMouseLeave={() => {
+              if (!isMobileStripHidden) setIsGalleryPaused(false);
+            }}
             aria-label="Product Image Gallery"
           >
-            {/* Main Product Image — natural aspect ratio, full width, 10px radius, moss-green outline (#7FA35B) */}
-            <img
-              ref={mainImageRef}
-              src={productImages[activeImageIndex] || productImages[0]}
-              alt={`${productTitle} - Angle ${activeImageIndex + 1}`}
-              onLoad={updateGalleryHeight}
-              className="product-gallery-main-image block w-full h-auto max-w-full object-contain object-center rounded-[10px] border-2 border-[#7FA35B] box-border transition-all duration-200 select-none shadow-xs"
-              style={{
-                display: "block",
-                width: "100%",
-                height: "auto",
-                maxWidth: "100%",
-                objectFit: "contain",
-                objectPosition: "center",
-                borderColor: "#7FA35B",
-                borderRadius: "10px",
-                boxSizing: "border-box"
-              }}
-              onError={(e) => {
-                (e.target as HTMLImageElement).src =
-                  "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
-              }}
-            />
-
-            {/* Floating Thumbnail Strip Overlay directly near bottom-center of the main image */}
+            {/* Desktop Vertical Thumbnail Rail (Far left, up to 5 real images) */}
             {galleryThumbnails.length > 1 && (
               <div
-                className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 max-w-[92%] sm:max-w-[85%] bg-white/95 sm:bg-white/90 backdrop-blur-md rounded-2xl p-1.5 shadow-md border border-neutral-200/80 flex items-center gap-1.5 sm:gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                className="hidden lg:flex flex-col gap-2.5 shrink-0 max-h-[600px] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                 role="tablist"
-                aria-label="Product image gallery thumbnails"
+                aria-label="Product gallery thumbnail rail"
               >
                 {galleryThumbnails.map((img, idx) => {
                   const isSelected = activeImageIndex === idx;
@@ -942,17 +916,17 @@ export const ProductDetailPage: React.FC = () => {
                       role="tab"
                       aria-selected={isSelected}
                       aria-label={`View photo ${idx + 1} of ${galleryThumbnails.length}`}
-                      onClick={() => handleSelectThumbnail(idx)}
-                      className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl overflow-hidden shrink-0 bg-white cursor-pointer transition-all duration-200 p-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7FA35B] ${
+                      onClick={(e) => handleSelectThumbnail(idx, e)}
+                      className={`relative w-16 h-16 xl:w-20 xl:h-20 rounded-[8px] overflow-hidden shrink-0 bg-white cursor-pointer transition-all duration-200 p-0.5 focus:outline-none ${
                         isSelected
-                          ? "border-2 border-[#7FA35B] ring-1 ring-[#7FA35B]/30 scale-105 shadow-xs opacity-100"
-                          : "border-2 border-transparent opacity-70 hover:opacity-100 scale-100"
+                          ? "border-2 border-neutral-900 shadow-sm opacity-100"
+                          : "border-2 border-transparent opacity-65 hover:opacity-100 hover:border-neutral-200"
                       }`}
                     >
                       <img
                         src={img}
                         alt={`${productTitle} thumbnail ${idx + 1}`}
-                        className="w-full h-full object-contain object-center rounded-[8px] select-none pointer-events-none"
+                        className="w-full h-full object-contain object-center rounded-[6px] select-none pointer-events-none"
                         loading="lazy"
                       />
                     </button>
@@ -960,17 +934,100 @@ export const ProductDetailPage: React.FC = () => {
                 })}
               </div>
             )}
+
+            {/* Main Product Image Container — Natural aspect ratio, relative for mobile overlay */}
+            <div
+              className="relative flex-1 min-w-0 w-full cursor-pointer lg:cursor-default"
+              onClick={handleMainImageTap}
+            >
+              <img
+                ref={mainImageRef}
+                src={productImages[activeImageIndex] || productImages[0]}
+                alt={`${productTitle} - Angle ${activeImageIndex + 1}`}
+                onLoad={updateGalleryHeight}
+                className="product-gallery-main-image block w-full h-auto max-w-full object-contain object-center rounded-[8px] border-none select-none"
+                style={{
+                  display: "block",
+                  width: "100%",
+                  height: "auto",
+                  maxWidth: "100%",
+                  objectFit: "contain",
+                  objectPosition: "center",
+                  borderRadius: "8px",
+                  border: "none",
+                  boxSizing: "border-box"
+                }}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src =
+                    "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
+                }}
+              />
+
+              {/* Mobile Floating Thumbnail Strip Overlay (Near bottom, tap toggles visibility) */}
+              {galleryThumbnails.length > 1 && !isMobileStripHidden && (
+                <div
+                  className="lg:hidden absolute bottom-3 left-1/2 -translate-x-1/2 z-20 max-w-[92%] sm:max-w-[85%] bg-white/95 sm:bg-white/90 backdrop-blur-md rounded-2xl p-1.5 shadow-md border border-neutral-200/80 flex items-center gap-1.5 sm:gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  role="tablist"
+                  aria-label="Product image gallery thumbnails"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {galleryThumbnails.map((img, idx) => {
+                    const isSelected = activeImageIndex === idx;
+
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        role="tab"
+                        aria-selected={isSelected}
+                        aria-label={`View photo ${idx + 1} of ${galleryThumbnails.length}`}
+                        onClick={(e) => handleSelectThumbnail(idx, e)}
+                        className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-[8px] overflow-hidden shrink-0 bg-white cursor-pointer transition-all duration-200 p-0.5 focus:outline-none ${
+                          isSelected
+                            ? "border-2 border-neutral-900 shadow-sm opacity-100 scale-105"
+                            : "border-2 border-transparent opacity-70 hover:opacity-100 scale-100"
+                        }`}
+                      >
+                        <img
+                          src={img}
+                          alt={`${productTitle} thumbnail ${idx + 1}`}
+                          className="w-full h-full object-contain object-center rounded-[6px] select-none pointer-events-none"
+                          loading="lazy"
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* ------------------------------------------------------- */}
-          {/* RIGHT 50%: PRODUCT DETAILS & ACTIONS (Bottom Aligned)    */}
+          {/* RIGHT 50%: PRODUCT DETAILS & ACTIONS                    */}
           {/* ------------------------------------------------------- */}
           <div
             style={galleryHeight ? { minHeight: `${galleryHeight}px` } : undefined}
             className="w-full flex flex-col justify-between min-w-0"
           >
-            {/* Top Group: Title, Pricing, Description */}
+            {/* Top Group: Breadcrumb, Title, Pricing, Description */}
             <div className="flex-1 flex flex-col min-h-0 space-y-2">
+              {/* Breadcrumb Navigation - Aligns top on desktop, appears under gallery on mobile */}
+              <nav
+                aria-label="Breadcrumb"
+                className="flex items-center gap-1.5 text-xs text-neutral-500 mb-1 sm:mb-1.5"
+              >
+                <Link to="/" className="hover:text-[#171717] transition-colors">
+                  Home
+                </Link>
+                <span className="text-neutral-400">&gt;</span>
+                <Link
+                  to={product.category ? `/shop-all?category=${product.category}` : "/shop-all"}
+                  className="hover:text-[#171717] transition-colors font-medium text-neutral-600"
+                >
+                  {product.categoryName || "Examination & OT Tables"}
+                </Link>
+              </nav>
+
               {/* 1. Brand and Product Title */}
               <div className="shrink-0">
                 <h1 className="text-xl sm:text-2xl lg:text-[1.65rem] tracking-tight leading-snug">
