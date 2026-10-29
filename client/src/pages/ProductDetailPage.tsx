@@ -13,7 +13,8 @@ import {
   Zap,
   Plug,
   Wrench,
-  CheckCircle
+  CheckCircle,
+  Share2
 } from "lucide-react";
 import { Product, Review } from "../types";
 import { useCurrency } from "../context/CurrencyContext";
@@ -421,7 +422,8 @@ export const ProductDetailPage: React.FC = () => {
   const [isGalleryPaused, setIsGalleryPaused] = useState(false);
   const [isPageVisible, setIsPageVisible] = useState(true);
   const [isMobileStripHidden, setIsMobileStripHidden] = useState(false);
-  const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const slideshowTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [shareToast, setShareToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
   // Dynamic measurement of product gallery height to coordinate with right column
   const galleryRef = useRef<HTMLDivElement>(null);
@@ -578,46 +580,91 @@ export const ProductDetailPage: React.FC = () => {
     return productImages.slice(0, 5);
   }, [productImages]);
 
-  // Automatic Image Slideshow (Rotates every 5s when multiple images exist, pauses on interaction or mobile tap)
+  // Single controlled slideshow timer: Exactly 5,000ms per image sequential rotation
   useEffect(() => {
-    if (galleryThumbnails.length <= 1 || isGalleryPaused || !isPageVisible || isMobileStripHidden) return;
+    // 1. Clean up any existing active timer
+    if (slideshowTimerRef.current) {
+      clearTimeout(slideshowTimerRef.current);
+      slideshowTimerRef.current = null;
+    }
 
-    const interval = setInterval(() => {
+    // 2. Disable if only one image, user paused via tap, or page hidden
+    if (galleryThumbnails.length <= 1 || isGalleryPaused || !isPageVisible) {
+      return;
+    }
+
+    // 3. Exactly 5,000 milliseconds before advancing sequentially
+    slideshowTimerRef.current = setTimeout(() => {
       setActiveImageIndex((prev) => (prev + 1) % galleryThumbnails.length);
     }, 5000);
 
-    return () => clearInterval(interval);
-  }, [galleryThumbnails.length, isGalleryPaused, isPageVisible, isMobileStripHidden]);
-
-  // Clean timeout references on unmount
-  useEffect(() => {
+    // 4. Cleanup on unmount or before next image/state change
     return () => {
-      if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+      if (slideshowTimerRef.current) {
+        clearTimeout(slideshowTimerRef.current);
+        slideshowTimerRef.current = null;
+      }
     };
-  }, []);
+  }, [activeImageIndex, isGalleryPaused, isPageVisible, galleryThumbnails.length]);
 
   // Main image tap toggle (Mobile tap-to-pause & toggle thumbnail overlay)
   const handleMainImageTap = () => {
-    setIsMobileStripHidden((prev) => {
-      const willHide = !prev;
-      setIsGalleryPaused(willHide);
-      return willHide;
-    });
+    setIsGalleryPaused((prev) => !prev);
+    setIsMobileStripHidden((prev) => !prev);
   };
 
-  // Thumbnail manual selection with temporary pause
+  // Thumbnail manual selection: immediately updates main image and resets the 5-second timer
   const handleSelectThumbnail = (idx: number, e?: React.MouseEvent) => {
     if (e) {
       e.stopPropagation();
     }
     setActiveImageIndex(idx);
-    setIsGalleryPaused(true);
-    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-    pauseTimeoutRef.current = setTimeout(() => {
-      if (!isMobileStripHidden) {
-        setIsGalleryPaused(false);
+  };
+
+  // Share product handler (Web Share API with clipboard fallback)
+  const handleShare = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+    const shareTitle = productTitle;
+    const shareText = `Check out ${productTitle} on DR.MEDEX Global`;
+
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({
+          title: shareTitle,
+          text: shareText,
+          url: shareUrl,
+        });
+        setShareToast({ message: "Product link shared successfully!", type: "success" });
+        setTimeout(() => setShareToast(null), 2500);
+        return;
+      } catch (err: any) {
+        if (err?.name === "AbortError") {
+          return;
+        }
       }
-    }, 5000);
+    }
+
+    try {
+      if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(shareUrl);
+        setShareToast({ message: "Product link copied to clipboard!", type: "success" });
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = shareUrl;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+        setShareToast({ message: "Product link copied to clipboard!", type: "success" });
+      }
+      setTimeout(() => setShareToast(null), 2500);
+    } catch {
+      setShareToast({ message: "Failed to copy product link", type: "error" });
+      setTimeout(() => setShareToast(null), 2500);
+    }
   };
 
   // Dynamic SEO Metadata Management (Meta Title & Description with fallback hierarchy and stale cleanup)
@@ -709,17 +756,6 @@ export const ProductDetailPage: React.FC = () => {
     };
   }, [product]);
 
-  // Gallery autoplay timer (~4.5 seconds), pauses on user interaction or background tab
-  const imagesCount = product?.images?.length || 0;
-  useEffect(() => {
-    if (imagesCount <= 1 || isGalleryPaused || !isPageVisible) return;
-
-    const interval = setInterval(() => {
-      setActiveImageIndex((prev) => (prev + 1) % imagesCount);
-    }, 4500);
-
-    return () => clearInterval(interval);
-  }, [imagesCount, isGalleryPaused, isPageVisible]);
 
   if (isLoading) {
     return (
@@ -893,16 +929,12 @@ export const ProductDetailPage: React.FC = () => {
           <div
             ref={galleryRef}
             className="w-full flex items-start gap-3 lg:gap-4 select-none"
-            onMouseEnter={() => setIsGalleryPaused(true)}
-            onMouseLeave={() => {
-              if (!isMobileStripHidden) setIsGalleryPaused(false);
-            }}
             aria-label="Product Image Gallery"
           >
             {/* Desktop Vertical Thumbnail Rail (Far left, up to 5 real images) */}
             {galleryThumbnails.length > 1 && (
               <div
-                className="hidden lg:flex flex-col gap-2.5 shrink-0 max-h-[600px] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                className="hidden lg:flex flex-col items-center gap-2.5 shrink-0 max-h-[600px] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                 role="tablist"
                 aria-label="Product gallery thumbnail rail"
               >
@@ -917,16 +949,16 @@ export const ProductDetailPage: React.FC = () => {
                       aria-selected={isSelected}
                       aria-label={`View photo ${idx + 1} of ${galleryThumbnails.length}`}
                       onClick={(e) => handleSelectThumbnail(idx, e)}
-                      className={`relative w-16 h-16 xl:w-20 xl:h-20 rounded-[8px] overflow-hidden shrink-0 bg-white cursor-pointer transition-all duration-200 p-0.5 focus:outline-none ${
-                        isSelected
-                          ? "border-2 border-neutral-900 shadow-sm opacity-100"
-                          : "border-2 border-transparent opacity-65 hover:opacity-100 hover:border-neutral-200"
-                      }`}
+                      className="relative inline-flex items-center justify-center shrink-0 cursor-pointer p-0 bg-transparent border-0 focus:outline-none"
                     >
                       <img
                         src={img}
                         alt={`${productTitle} thumbnail ${idx + 1}`}
-                        className="w-full h-full object-contain object-center rounded-[6px] select-none pointer-events-none"
+                        className={`block h-16 xl:h-20 w-auto max-w-[76px] xl:max-w-[92px] object-contain rounded-[6px] bg-white select-none pointer-events-none transition-all duration-200 ${
+                          isSelected
+                            ? "border-2 border-[#2D5A4A] ring-1 ring-[#7AA05A]/40 shadow-xs opacity-100"
+                            : "border-2 border-transparent opacity-65 hover:opacity-100 hover:border-neutral-200"
+                        }`}
                         loading="lazy"
                       />
                     </button>
@@ -935,7 +967,7 @@ export const ProductDetailPage: React.FC = () => {
               </div>
             )}
 
-            {/* Main Product Image Container — Natural aspect ratio, relative for mobile overlay */}
+            {/* Main Product Image Container — Natural aspect ratio, relative for mobile overlay & share */}
             <div
               className="relative flex-1 min-w-0 w-full cursor-pointer lg:cursor-default"
               onClick={handleMainImageTap}
@@ -963,10 +995,35 @@ export const ProductDetailPage: React.FC = () => {
                 }}
               />
 
+              {/* Green Share Button (Top-Right inside image area, works on mobile, tablet & desktop) */}
+              <div className="absolute top-3 right-3 z-30">
+                <button
+                  type="button"
+                  onClick={handleShare}
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/95 hover:bg-white text-[#2D5A4A] shadow-md hover:shadow-lg flex items-center justify-center transition-all duration-200 border border-neutral-200/80 cursor-pointer focus:outline-none"
+                  title="Share product"
+                  aria-label="Share product"
+                >
+                  <Share2 size={18} className="text-[#2D5A4A]" />
+                </button>
+                {shareToast && (
+                  <div
+                    role="status"
+                    className={`absolute right-0 top-full mt-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg shadow-lg whitespace-nowrap animate-in fade-in duration-150 z-40 ${
+                      shareToast.type === "success"
+                        ? "bg-[#2D5A4A] text-white"
+                        : "bg-rose-600 text-white"
+                    }`}
+                  >
+                    {shareToast.message}
+                  </div>
+                )}
+              </div>
+
               {/* Mobile Floating Thumbnail Strip Overlay (Near bottom, tap toggles visibility) */}
               {galleryThumbnails.length > 1 && !isMobileStripHidden && (
                 <div
-                  className="lg:hidden absolute bottom-3 left-1/2 -translate-x-1/2 z-20 max-w-[92%] sm:max-w-[85%] bg-white/95 sm:bg-white/90 backdrop-blur-md rounded-2xl p-1.5 shadow-md border border-neutral-200/80 flex items-center gap-1.5 sm:gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  className="lg:hidden absolute bottom-3 left-1/2 -translate-x-1/2 z-20 max-w-[92%] sm:max-w-[85%] bg-white/95 sm:bg-white/90 backdrop-blur-md rounded-2xl p-1.5 shadow-md border border-neutral-200/80 flex items-center gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                   role="tablist"
                   aria-label="Product image gallery thumbnails"
                   onClick={(e) => e.stopPropagation()}
@@ -982,16 +1039,16 @@ export const ProductDetailPage: React.FC = () => {
                         aria-selected={isSelected}
                         aria-label={`View photo ${idx + 1} of ${galleryThumbnails.length}`}
                         onClick={(e) => handleSelectThumbnail(idx, e)}
-                        className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-[8px] overflow-hidden shrink-0 bg-white cursor-pointer transition-all duration-200 p-0.5 focus:outline-none ${
-                          isSelected
-                            ? "border-2 border-neutral-900 shadow-sm opacity-100 scale-105"
-                            : "border-2 border-transparent opacity-70 hover:opacity-100 scale-100"
-                        }`}
+                        className="relative inline-flex items-center justify-center shrink-0 cursor-pointer p-0 bg-transparent border-0 focus:outline-none"
                       >
                         <img
                           src={img}
                           alt={`${productTitle} thumbnail ${idx + 1}`}
-                          className="w-full h-full object-contain object-center rounded-[6px] select-none pointer-events-none"
+                          className={`block h-11 sm:h-12 w-auto max-w-[62px] sm:max-w-[72px] object-contain rounded-[6px] bg-white select-none pointer-events-none transition-all duration-200 ${
+                            isSelected
+                              ? "border-2 border-[#2D5A4A] ring-1 ring-[#7AA05A]/40 shadow-xs opacity-100 scale-105"
+                              : "border-2 border-transparent opacity-70 hover:opacity-100 scale-100"
+                          }`}
                           loading="lazy"
                         />
                       </button>
@@ -1006,11 +1063,10 @@ export const ProductDetailPage: React.FC = () => {
           {/* RIGHT 50%: PRODUCT DETAILS & ACTIONS                    */}
           {/* ------------------------------------------------------- */}
           <div
-            style={galleryHeight ? { minHeight: `${galleryHeight}px` } : undefined}
-            className="w-full flex flex-col justify-between min-w-0"
+            className="w-full flex flex-col justify-start min-w-0"
           >
             {/* Top Group: Breadcrumb, Title, Pricing, Description */}
-            <div className="flex-1 flex flex-col min-h-0 space-y-2">
+            <div className="flex flex-col min-h-0 space-y-2">
               {/* Breadcrumb Navigation - Aligns top on desktop, appears under gallery on mobile */}
               <nav
                 aria-label="Breadcrumb"
@@ -1057,14 +1113,14 @@ export const ProductDetailPage: React.FC = () => {
               {/* 3. Horizontal Divider below Pricing */}
               <hr className="border-t border-neutral-200 my-1.5 shrink-0" />
 
-              {/* 4. Description Section - Fills available vertical space naturally */}
-              <div className="flex-1 min-h-[60px] flex flex-col my-0.5">
+              {/* 4. Description Section - Independently scrollable on desktop, natural flowing on mobile */}
+              <div className="flex flex-col my-0.5">
                 <h2 className="text-sm font-bold text-[#2D5A4A] tracking-tight mb-1.5 shrink-0">
                   Description
                 </h2>
-                <div className="flex-1 min-h-0 max-h-[220px] lg:max-h-none overflow-y-auto pr-3 text-xs sm:text-[13px] text-neutral-600 leading-relaxed product-description-scrollbar [scrollbar-color:#7AA05A_#F3F4F6] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-[#F3F4F6] [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#7AA05A] hover:[&::-webkit-scrollbar-thumb]:bg-[#6B8F4E] [&::-webkit-scrollbar-thumb]:rounded-full">
+                <div className="max-h-none lg:max-h-[175px] xl:max-h-[210px] lg:overflow-y-auto pr-3 text-xs sm:text-[13px] text-neutral-600 leading-relaxed product-description-scrollbar [scrollbar-color:#7AA05A_#F3F4F6] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-[#F3F4F6] [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#7AA05A] hover:[&::-webkit-scrollbar-thumb]:bg-[#6B8F4E] [&::-webkit-scrollbar-thumb]:rounded-full">
                   {productOverview ? (
-                    <p className="whitespace-pre-line pb-2">{productOverview}</p>
+                    <p className="whitespace-pre-line pb-1">{productOverview}</p>
                   ) : (
                     <p className="text-xs text-neutral-400 italic">No description provided for this equipment.</p>
                   )}
@@ -1076,7 +1132,7 @@ export const ProductDetailPage: React.FC = () => {
             </div>
 
             {/* Bottom Group: Purchase Buttons & 2x2 Specifications */}
-            <div className="mt-auto pt-2 shrink-0 space-y-3.5">
+            <div className="pt-2 shrink-0 space-y-3.5">
               {/* Purchase Buttons */}
               <div className="flex flex-col sm:flex-row items-center gap-3 w-full">
                 {/* Add to Cart button: Filled Moss Green #7AA05A bg, white text & cart icon */}
