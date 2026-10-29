@@ -916,6 +916,46 @@ export const ProductDetailPage: React.FC = () => {
     }
   ];
 
+  const renderSpecCardsGrid = () => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-0 gap-y-3">
+      {specCards.map((card, idx) => {
+        const IconComponent = card.icon;
+        const isLeftCol = idx % 2 === 0;
+        const isTopRow = idx < 2;
+        const isLastMobile = idx === specCards.length - 1;
+
+        return (
+          <div
+            key={card.id}
+            className={`flex items-start gap-3 min-w-0 ${
+              !isLastMobile ? "border-b border-neutral-100 pb-2.5" : "pb-0"
+            } ${
+              isLeftCol
+                ? "sm:border-r sm:border-[#7AA05A]/50 sm:pr-4"
+                : "sm:border-r-0 sm:pl-4"
+            } ${
+              isTopRow
+                ? "sm:border-b sm:border-[#7AA05A]/50 sm:pb-3 sm:pt-0"
+                : "sm:border-b-0 sm:pt-3 sm:pb-0"
+            }`}
+          >
+            <div className="w-10 h-10 rounded-full bg-[#2D5A4A] flex items-center justify-center text-white shrink-0 shadow-2xs mt-0.5">
+              <IconComponent size={20} strokeWidth={2} />
+            </div>
+            <div className="min-w-0 flex-1">
+              <h3 className="text-xs sm:text-[13px] font-bold text-[#171717] tracking-tight leading-tight">
+                {card.title}
+              </h3>
+              <p className="text-[11px] sm:text-xs font-normal text-[#6B7280] leading-snug break-words whitespace-pre-line mt-0.5">
+                {card.value}
+              </p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+
   return (
     <div className="w-full bg-white min-h-screen text-neutral-900 pb-24 sm:pb-28 lg:pb-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
@@ -1175,45 +1215,9 @@ export const ProductDetailPage: React.FC = () => {
                 </button>
               </div>
 
-              {/* 3-6. Benefits: Power Supply, Quality Standard, Regulatory Status, Warranty */}
-              <div className="pt-1">
-                <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-0 gap-y-3">
-                  {specCards.map((card, idx) => {
-                    const IconComponent = card.icon;
-                    const isLeftCol = idx % 2 === 0;
-                    const isTopRow = idx < 2;
-                    const isLastMobile = idx === specCards.length - 1;
-
-                    return (
-                      <div
-                        key={card.id}
-                        className={`flex items-start gap-3 min-w-0 ${
-                          !isLastMobile ? "border-b border-neutral-100 pb-2.5" : "pb-0"
-                        } ${
-                          isLeftCol
-                            ? "sm:border-r sm:border-[#7AA05A]/50 sm:pr-4"
-                            : "sm:border-r-0 sm:pl-4"
-                        } ${
-                          isTopRow
-                            ? "sm:border-b sm:border-[#7AA05A]/50 sm:pb-3 sm:pt-0"
-                            : "sm:border-b-0 sm:pt-3 sm:pb-0"
-                        }`}
-                      >
-                        <div className="w-10 h-10 rounded-full bg-[#2D5A4A] flex items-center justify-center text-white shrink-0 shadow-2xs mt-0.5">
-                          <IconComponent size={20} strokeWidth={2} />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <h3 className="text-xs sm:text-[13px] font-bold text-[#171717] tracking-tight leading-tight">
-                            {card.title}
-                          </h3>
-                          <p className="text-[11px] sm:text-xs font-normal text-[#6B7280] leading-snug break-words whitespace-pre-line mt-0.5">
-                            {card.value}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+              {/* 3-6. Benefits: Power Supply, Quality Standard, Regulatory Status, Warranty (Desktop placement) */}
+              <div className="hidden lg:block pt-1">
+                {renderSpecCardsGrid()}
               </div>
             </div>
           </div>
@@ -1334,6 +1338,13 @@ export const ProductDetailPage: React.FC = () => {
               </p>
             )}
           </section>
+        </div>
+
+        {/* ========================================================= */}
+        {/* MOBILE & TABLET ONLY: SPECIFICATIONS BEFORE REVIEWS       */}
+        {/* ========================================================= */}
+        <div className="lg:hidden mt-10 mb-8 pt-6 border-t border-neutral-200">
+          {renderSpecCardsGrid()}
         </div>
 
         {/* ========================================================= */}
