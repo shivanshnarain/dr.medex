@@ -13,7 +13,8 @@ import {
   Zap,
   Plug,
   Wrench,
-  CheckCircle
+  CheckCircle,
+  Share2
 } from "lucide-react";
 import { Product, Review } from "../types";
 import { useCurrency } from "../context/CurrencyContext";
@@ -420,6 +421,9 @@ export const ProductDetailPage: React.FC = () => {
   // Gallery autoplay & interaction state
   const [isGalleryPaused, setIsGalleryPaused] = useState(false);
   const [isPageVisible, setIsPageVisible] = useState(true);
+  const [shareToast, setShareToast] = useState<string | null>(null);
+  const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const shareToastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Dynamic measurement of product gallery height to coordinate with right column
   const galleryRef = useRef<HTMLDivElement>(null);
@@ -428,11 +432,10 @@ export const ProductDetailPage: React.FC = () => {
 
   const updateGalleryHeight = useCallback(() => {
     if (typeof window !== "undefined" && window.innerWidth >= 1024) {
-      const imgEl = mainImageRef.current;
-      if (imgEl && imgEl.offsetHeight > 0) {
-        setGalleryHeight(Math.round(imgEl.offsetHeight));
-      } else if (galleryRef.current && galleryRef.current.offsetHeight > 0) {
+      if (galleryRef.current && galleryRef.current.offsetHeight > 0) {
         setGalleryHeight(Math.round(galleryRef.current.offsetHeight));
+      } else if (mainImageRef.current && mainImageRef.current.offsetHeight > 0) {
+        setGalleryHeight(Math.round(mainImageRef.current.offsetHeight));
       }
     } else {
       setGalleryHeight(null);
@@ -532,6 +535,126 @@ export const ProductDetailPage: React.FC = () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, []);
+
+  // Authoritative canonical current gallery resolution: include every saved photograph preserving order
+  const productImages = React.useMemo(() => {
+    if (!product) return [];
+    const extractUrl = (item: any): string => {
+      if (!item) return "";
+      if (typeof item === "string") return item.trim();
+      if (typeof item === "object") {
+        const u = item.secureUrl || item.secure_url || item.url || item.src || "";
+        return typeof u === "string" ? u.trim() : "";
+      }
+      return "";
+    };
+
+    const seenUrls = new Set<string>();
+    const imgs: string[] = [];
+
+    const addImageUrl = (raw: any) => {
+      const u = extractUrl(raw);
+      if (u && !u.startsWith("blob:") && !u.startsWith("data:") && !seenUrls.has(u)) {
+        seenUrls.add(u);
+        imgs.push(u);
+      }
+    };
+
+    if (product.primaryImage) {
+      addImageUrl(product.primaryImage);
+    }
+    if (Array.isArray(product.images)) {
+      product.images.forEach(addImageUrl);
+    }
+    if (Array.isArray(product.galleryImages)) {
+      product.galleryImages.forEach(addImageUrl);
+    }
+    if (imgs.length === 0) {
+      imgs.push("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80");
+    }
+    return imgs;
+  }, [product]);
+
+  // Automatic Image Slideshow (Rotates every 3.5s when multiple images exist, pauses on interaction)
+  useEffect(() => {
+    if (productImages.length <= 1 || isGalleryPaused || !isPageVisible) return;
+
+    const interval = setInterval(() => {
+      setActiveImageIndex((prev) => (prev + 1) % productImages.length);
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, [productImages.length, isGalleryPaused, isPageVisible]);
+
+  // Clean timeout references on unmount
+  useEffect(() => {
+    return () => {
+      if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+      if (shareToastTimeoutRef.current) clearTimeout(shareToastTimeoutRef.current);
+    };
+  }, []);
+
+  // Thumbnail manual selection with temporary pause
+  const handleSelectThumbnail = (idx: number) => {
+    setActiveImageIndex(idx);
+    setIsGalleryPaused(true);
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+    pauseTimeoutRef.current = setTimeout(() => {
+      setIsGalleryPaused(false);
+    }, 5000);
+  };
+
+  // Product Sharing Control with native Web Share API & clipboard fallback
+  const handleShare = async (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (!product) return;
+
+    const prodTitle = product.title || product.productName || "Medical Equipment";
+    const canonicalUrl = `${window.location.origin}/product/${product.slug || product.id}`;
+    const shareData = {
+      title: prodTitle,
+      text: `Check out ${prodTitle} on DR.MEDEX`,
+      url: canonicalUrl
+    };
+
+    if (typeof navigator !== "undefined" && navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch (err: any) {
+        if (err && err.name === "AbortError") {
+          return;
+        }
+      }
+    }
+
+    // Fallback: Copy canonical product URL to clipboard
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(canonicalUrl);
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = canonicalUrl;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+      }
+      if (shareToastTimeoutRef.current) clearTimeout(shareToastTimeoutRef.current);
+      setShareToast("Link copied to clipboard!");
+      shareToastTimeoutRef.current = setTimeout(() => setShareToast(null), 2500);
+    } catch {
+      if (shareToastTimeoutRef.current) clearTimeout(shareToastTimeoutRef.current);
+      setShareToast("Failed to copy link");
+      shareToastTimeoutRef.current = setTimeout(() => setShareToast(null), 2500);
+    }
+  };
 
   // Dynamic SEO Metadata Management (Meta Title & Description with fallback hierarchy and stale cleanup)
   useEffect(() => {
@@ -726,47 +849,6 @@ export const ProductDetailPage: React.FC = () => {
     );
   }
 
-  // Authoritative canonical current gallery resolution: include every saved photograph preserving order
-  const extractUrl = (item: any): string => {
-    if (!item) return "";
-    if (typeof item === "string") return item.trim();
-    if (typeof item === "object") {
-      const u = item.secureUrl || item.secure_url || item.url || item.src || "";
-      return typeof u === "string" ? u.trim() : "";
-    }
-    return "";
-  };
-
-  const seenUrls = new Set<string>();
-  const productImages: string[] = [];
-
-  const addImageUrl = (raw: any) => {
-    const u = extractUrl(raw);
-    if (u && !u.startsWith("blob:") && !u.startsWith("data:") && !seenUrls.has(u)) {
-      seenUrls.add(u);
-      productImages.push(u);
-    }
-  };
-
-  // 1. Primary image candidate first if defined
-  if (product.primaryImage) {
-    addImageUrl(product.primaryImage);
-  }
-
-  // 2. Add all unique photos from current images array
-  if (Array.isArray(product.images)) {
-    product.images.forEach(addImageUrl);
-  }
-
-  // 3. Add any additional current gallery photos preserving order
-  if (Array.isArray(product.galleryImages)) {
-    product.galleryImages.forEach(addImageUrl);
-  }
-
-  if (productImages.length === 0) {
-    productImages.push("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80");
-  }
-
   const productTitle = product.title || product.productName || "Medical Equipment";
   const titleParts = parseProductTitle(productTitle);
   const originalPrice = product.originalPrice || product.regularPrice;
@@ -859,49 +941,90 @@ export const ProductDetailPage: React.FC = () => {
         {/* ========================================================= */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
           {/* ------------------------------------------------------- */}
-          {/* LEFT 50%: PRODUCT IMAGE GALLERY (Vertical Left Thumbnails) */}
+          {/* LEFT 50%: PRODUCT IMAGE GALLERY (ADRIZO-INSPIRED FRAME)  */}
           {/* ------------------------------------------------------- */}
           <div
             ref={galleryRef}
-            className="w-full flex flex-col sm:flex-row items-start gap-3 sm:gap-4 min-w-0"
+            className="relative w-full rounded-2xl sm:rounded-3xl bg-[#F8F9FA] border border-neutral-200/80 overflow-hidden flex items-center justify-center min-h-[380px] h-[430px] sm:h-[490px] lg:h-[560px] select-none p-3 sm:p-5 group"
             onMouseEnter={() => setIsGalleryPaused(true)}
             onMouseLeave={() => setIsGalleryPaused(false)}
             onTouchStart={() => setIsGalleryPaused(true)}
             onTouchEnd={() => setIsGalleryPaused(false)}
+            aria-label="Product Image Gallery"
           >
-            {/* Vertical thumbnails on the left on desktop; horizontal scroll on mobile */}
+            {/* 1. PRODUCT SHARING CONTROL (Top-right corner, DR.MEDEX moss green & white) */}
+            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20">
+              <button
+                type="button"
+                onClick={handleShare}
+                aria-label="Share product"
+                title="Share this product"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/95 hover:bg-white text-[#7AA05A] hover:text-[#5a7842] border border-neutral-200/90 shadow-xs hover:shadow-md flex items-center justify-center transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#7AA05A]/40 active:scale-95"
+              >
+                <Share2 size={18} strokeWidth={2} />
+              </button>
+
+              {/* Floating Share Feedback Toast */}
+              {shareToast && (
+                <div
+                  role="status"
+                  className="absolute right-0 top-11 sm:top-12 z-30 px-3 py-1.5 bg-[#167A4A] text-white text-xs font-bold rounded-xl shadow-lg border border-[#167A4A]/20 whitespace-nowrap animate-in fade-in slide-in-from-top-1 duration-150 flex items-center gap-1.5"
+                >
+                  <Check size={13} strokeWidth={2.5} />
+                  <span>{shareToast}</span>
+                </div>
+              )}
+            </div>
+
+            {/* 2. MAIN PRODUCT IMAGE CONTAINER (Full frame, object-contain, no distortion) */}
+            <div
+              className={`w-full h-full flex items-center justify-center min-h-0 transition-opacity duration-300 ${
+                productImages.length > 1 ? "pb-14 sm:pb-16" : ""
+              }`}
+            >
+              <img
+                ref={mainImageRef}
+                src={productImages[activeImageIndex] || productImages[0]}
+                alt={`${productTitle} - Angle ${activeImageIndex + 1}`}
+                width={600}
+                height={600}
+                onLoad={updateGalleryHeight}
+                className="w-full h-full max-w-full max-h-full object-contain object-center select-none transition-transform duration-300 ease-out"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src =
+                    "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
+                }}
+              />
+            </div>
+
+            {/* 3. FLOATING THUMBNAIL STRIP (Centered bottom overlay, moss-green indicator) */}
             {productImages.length > 1 && (
               <div
-                style={galleryHeight ? { maxHeight: `${Math.max(galleryHeight, productImages.length * 96, 560)}px` } : undefined}
-                className="flex sm:flex-col items-center gap-2.5 sm:gap-3 overflow-x-auto sm:overflow-y-auto max-h-[640px] shrink-0 w-full sm:w-auto [scrollbar-width:thin] [scrollbar-color:#7AA05A_transparent] order-2 sm:order-1 pt-1 pb-1 px-1"
+                className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 max-w-[92%] sm:max-w-[85%] bg-white/95 sm:bg-white/90 backdrop-blur-md rounded-2xl p-1.5 shadow-md border border-neutral-200/80 flex items-center gap-1.5 sm:gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                role="tablist"
+                aria-label="Product image gallery thumbnails"
               >
                 {productImages.map((img, idx) => {
                   const isSelected = activeImageIndex === idx;
-                  const isHovered = hoveredThumbnailIndex === idx;
-                  const isHighlighted = isSelected || isHovered;
 
                   return (
                     <button
                       key={idx}
                       type="button"
-                      onClick={() => {
-                        setActiveImageIndex(idx);
-                        setHoveredThumbnailIndex(null);
-                        setIsGalleryPaused(true);
-                      }}
-                      onMouseEnter={() => setHoveredThumbnailIndex(idx)}
-                      onMouseLeave={() => setHoveredThumbnailIndex(null)}
-                      className="p-1 m-0 border-0 bg-transparent cursor-pointer shrink-0 inline-flex items-center justify-center focus:outline-none focus-visible:ring-1 focus-visible:ring-[#7AA05A] rounded-[10px]"
-                      aria-label={`View angle ${idx + 1}`}
+                      role="tab"
+                      aria-selected={isSelected}
+                      aria-label={`View photo ${idx + 1} of ${productImages.length}`}
+                      onClick={() => handleSelectThumbnail(idx)}
+                      className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl overflow-hidden shrink-0 bg-white cursor-pointer transition-all duration-200 p-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7AA05A] ${
+                        isSelected
+                          ? "border-2 border-[#7AA05A] ring-2 ring-[#7AA05A]/25 scale-105 shadow-xs opacity-100"
+                          : "border border-neutral-200/90 opacity-70 hover:opacity-100 hover:border-neutral-400 scale-100"
+                      }`}
                     >
                       <img
                         src={img}
-                        alt={`${productTitle} angle ${idx + 1}`}
-                        className={`block max-w-[56px] max-h-[56px] sm:max-w-[68px] sm:max-h-[68px] lg:max-w-[76px] lg:max-h-[76px] w-auto h-auto object-contain rounded-[8px] select-none opacity-100 transition-all duration-200 ease-out ${
-                          isHighlighted
-                            ? "border-[2px] border-[#7AA05A] shadow-[0_2px_6px_rgba(0,0,0,0.08)] scale-[1.05]"
-                            : "border border-[#D9D9D9] shadow-[0_1px_3px_rgba(0,0,0,0.06)] scale-100"
-                        }`}
+                        alt={`${productTitle} thumbnail ${idx + 1}`}
+                        className="w-full h-full object-contain object-center rounded-[8px] select-none pointer-events-none"
                         loading="lazy"
                       />
                     </button>
@@ -909,23 +1032,6 @@ export const ProductDetailPage: React.FC = () => {
                 })}
               </div>
             )}
-
-            {/* Main Product Image directly on page background with reserved dimensions */}
-            <div className="flex-1 w-full flex items-start justify-center order-1 sm:order-2 min-w-0">
-              <img
-                ref={mainImageRef}
-                src={productImages[activeImageIndex] || productImages[0]}
-                alt={productTitle}
-                width={600}
-                height={600}
-                onLoad={updateGalleryHeight}
-                className="w-full h-auto max-h-[580px] lg:max-h-[640px] object-contain select-none aspect-square sm:aspect-auto"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src =
-                    "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
-                }}
-              />
-            </div>
           </div>
 
           {/* ------------------------------------------------------- */}
