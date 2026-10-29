@@ -735,8 +735,8 @@ export const Header: React.FC = () => {
               )}
             </button>
 
-            {/* Three-Dot / Overflow Menu Button (Header Quick Access - Mobile & Desktop) */}
-            <div className="relative" ref={overflowMenuRef}>
+            {/* Three-Dot / Overflow Menu Button (Header Quick Access - Desktop only) */}
+            <div className="relative hidden sm:block" ref={overflowMenuRef}>
               <button
                 type="button"
                 onClick={() => setIsOverflowMenuOpen(!isOverflowMenuOpen)}

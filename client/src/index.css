@@ -137,6 +137,19 @@
   background-color: #6B8F4E;
 }
 
+/* DR.MEDEX Product Detail Page Main Image — Preserves Original Aspect Ratio & Moss Green Outline */
+.product-gallery-main-image {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  border: 2px solid #7FA35B !important;
+  border-radius: 10px !important;
+  box-sizing: border-box !important;
+}
+
 /* Subtle neutral medical grid background */
 .bg-medical-grid {
   background-size: 32px 32px;

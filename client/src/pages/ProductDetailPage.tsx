@@ -13,8 +13,7 @@ import {
   Zap,
   Plug,
   Wrench,
-  CheckCircle,
-  Share2
+  CheckCircle
 } from "lucide-react";
 import { Product, Review } from "../types";
 import { useCurrency } from "../context/CurrencyContext";
@@ -421,9 +420,7 @@ export const ProductDetailPage: React.FC = () => {
   // Gallery autoplay & interaction state
   const [isGalleryPaused, setIsGalleryPaused] = useState(false);
   const [isPageVisible, setIsPageVisible] = useState(true);
-  const [shareToast, setShareToast] = useState<string | null>(null);
   const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const shareToastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Dynamic measurement of product gallery height to coordinate with right column
   const galleryRef = useRef<HTMLDivElement>(null);
@@ -575,22 +572,26 @@ export const ProductDetailPage: React.FC = () => {
     return imgs;
   }, [product]);
 
-  // Automatic Image Slideshow (Rotates every 3.5s when multiple images exist, pauses on interaction)
+  // Up to five real product-image thumbnails for gallery display
+  const galleryThumbnails = React.useMemo(() => {
+    return productImages.slice(0, 5);
+  }, [productImages]);
+
+  // Automatic Image Slideshow (Rotates every 2s when multiple images exist, pauses on interaction)
   useEffect(() => {
-    if (productImages.length <= 1 || isGalleryPaused || !isPageVisible) return;
+    if (galleryThumbnails.length <= 1 || isGalleryPaused || !isPageVisible) return;
 
     const interval = setInterval(() => {
-      setActiveImageIndex((prev) => (prev + 1) % productImages.length);
-    }, 3500);
+      setActiveImageIndex((prev) => (prev + 1) % galleryThumbnails.length);
+    }, 2000);
 
     return () => clearInterval(interval);
-  }, [productImages.length, isGalleryPaused, isPageVisible]);
+  }, [galleryThumbnails.length, isGalleryPaused, isPageVisible]);
 
   // Clean timeout references on unmount
   useEffect(() => {
     return () => {
       if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-      if (shareToastTimeoutRef.current) clearTimeout(shareToastTimeoutRef.current);
     };
   }, []);
 
@@ -601,59 +602,7 @@ export const ProductDetailPage: React.FC = () => {
     if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
     pauseTimeoutRef.current = setTimeout(() => {
       setIsGalleryPaused(false);
-    }, 5000);
-  };
-
-  // Product Sharing Control with native Web Share API & clipboard fallback
-  const handleShare = async (e?: React.MouseEvent) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    if (!product) return;
-
-    const prodTitle = product.title || product.productName || "Medical Equipment";
-    const canonicalUrl = `${window.location.origin}/product/${product.slug || product.id}`;
-    const shareData = {
-      title: prodTitle,
-      text: `Check out ${prodTitle} on DR.MEDEX`,
-      url: canonicalUrl
-    };
-
-    if (typeof navigator !== "undefined" && navigator.share && navigator.canShare && navigator.canShare(shareData)) {
-      try {
-        await navigator.share(shareData);
-        return;
-      } catch (err: any) {
-        if (err && err.name === "AbortError") {
-          return;
-        }
-      }
-    }
-
-    // Fallback: Copy canonical product URL to clipboard
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(canonicalUrl);
-      } else {
-        const textArea = document.createElement("textarea");
-        textArea.value = canonicalUrl;
-        textArea.style.position = "fixed";
-        textArea.style.opacity = "0";
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textArea);
-      }
-      if (shareToastTimeoutRef.current) clearTimeout(shareToastTimeoutRef.current);
-      setShareToast("Link copied to clipboard!");
-      shareToastTimeoutRef.current = setTimeout(() => setShareToast(null), 2500);
-    } catch {
-      if (shareToastTimeoutRef.current) clearTimeout(shareToastTimeoutRef.current);
-      setShareToast("Failed to copy link");
-      shareToastTimeoutRef.current = setTimeout(() => setShareToast(null), 2500);
-    }
+    }, 4000);
   };
 
   // Dynamic SEO Metadata Management (Meta Title & Description with fallback hierarchy and stale cleanup)
@@ -939,72 +888,51 @@ export const ProductDetailPage: React.FC = () => {
         {/* ========================================================= */}
         {/* TOP SECTION: 50/50 SPLIT GALLERY & DETAILS                */}
         {/* ========================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-start">
           {/* ------------------------------------------------------- */}
-          {/* LEFT 50%: PRODUCT IMAGE GALLERY (ADRIZO-INSPIRED FRAME)  */}
+          {/* LEFT 50%: PRODUCT IMAGE GALLERY (NATURAL RATIO + OVERLAY) */}
           {/* ------------------------------------------------------- */}
           <div
             ref={galleryRef}
-            className="relative w-full rounded-2xl sm:rounded-3xl bg-[#F8F9FA] border border-neutral-200/80 overflow-hidden flex items-center justify-center min-h-[380px] h-[430px] sm:h-[490px] lg:h-[560px] select-none p-3 sm:p-5 group"
+            className="relative w-full select-none"
             onMouseEnter={() => setIsGalleryPaused(true)}
             onMouseLeave={() => setIsGalleryPaused(false)}
             onTouchStart={() => setIsGalleryPaused(true)}
             onTouchEnd={() => setIsGalleryPaused(false)}
             aria-label="Product Image Gallery"
           >
-            {/* 1. PRODUCT SHARING CONTROL (Top-right corner, DR.MEDEX moss green & white) */}
-            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20">
-              <button
-                type="button"
-                onClick={handleShare}
-                aria-label="Share product"
-                title="Share this product"
-                className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/95 hover:bg-white text-[#7AA05A] hover:text-[#5a7842] border border-neutral-200/90 shadow-xs hover:shadow-md flex items-center justify-center transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#7AA05A]/40 active:scale-95"
-              >
-                <Share2 size={18} strokeWidth={2} />
-              </button>
+            {/* Main Product Image — natural aspect ratio, full width, 10px radius, moss-green outline (#7FA35B) */}
+            <img
+              ref={mainImageRef}
+              src={productImages[activeImageIndex] || productImages[0]}
+              alt={`${productTitle} - Angle ${activeImageIndex + 1}`}
+              onLoad={updateGalleryHeight}
+              className="product-gallery-main-image block w-full h-auto max-w-full object-contain object-center rounded-[10px] border-2 border-[#7FA35B] box-border transition-all duration-200 select-none shadow-xs"
+              style={{
+                display: "block",
+                width: "100%",
+                height: "auto",
+                maxWidth: "100%",
+                objectFit: "contain",
+                objectPosition: "center",
+                borderColor: "#7FA35B",
+                borderRadius: "10px",
+                boxSizing: "border-box"
+              }}
+              onError={(e) => {
+                (e.target as HTMLImageElement).src =
+                  "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
+              }}
+            />
 
-              {/* Floating Share Feedback Toast */}
-              {shareToast && (
-                <div
-                  role="status"
-                  className="absolute right-0 top-11 sm:top-12 z-30 px-3 py-1.5 bg-[#167A4A] text-white text-xs font-bold rounded-xl shadow-lg border border-[#167A4A]/20 whitespace-nowrap animate-in fade-in slide-in-from-top-1 duration-150 flex items-center gap-1.5"
-                >
-                  <Check size={13} strokeWidth={2.5} />
-                  <span>{shareToast}</span>
-                </div>
-              )}
-            </div>
-
-            {/* 2. MAIN PRODUCT IMAGE CONTAINER (Full frame, object-contain, no distortion) */}
-            <div
-              className={`w-full h-full flex items-center justify-center min-h-0 transition-opacity duration-300 ${
-                productImages.length > 1 ? "pb-14 sm:pb-16" : ""
-              }`}
-            >
-              <img
-                ref={mainImageRef}
-                src={productImages[activeImageIndex] || productImages[0]}
-                alt={`${productTitle} - Angle ${activeImageIndex + 1}`}
-                width={600}
-                height={600}
-                onLoad={updateGalleryHeight}
-                className="w-full h-full max-w-full max-h-full object-contain object-center select-none transition-transform duration-300 ease-out"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src =
-                    "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
-                }}
-              />
-            </div>
-
-            {/* 3. FLOATING THUMBNAIL STRIP (Centered bottom overlay, moss-green indicator) */}
-            {productImages.length > 1 && (
+            {/* Floating Thumbnail Strip Overlay directly near bottom-center of the main image */}
+            {galleryThumbnails.length > 1 && (
               <div
-                className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 max-w-[92%] sm:max-w-[85%] bg-white/95 sm:bg-white/90 backdrop-blur-md rounded-2xl p-1.5 shadow-md border border-neutral-200/80 flex items-center gap-1.5 sm:gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 max-w-[92%] sm:max-w-[85%] bg-white/95 sm:bg-white/90 backdrop-blur-md rounded-2xl p-1.5 shadow-md border border-neutral-200/80 flex items-center gap-1.5 sm:gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                 role="tablist"
                 aria-label="Product image gallery thumbnails"
               >
-                {productImages.map((img, idx) => {
+                {galleryThumbnails.map((img, idx) => {
                   const isSelected = activeImageIndex === idx;
 
                   return (
@@ -1013,12 +941,12 @@ export const ProductDetailPage: React.FC = () => {
                       type="button"
                       role="tab"
                       aria-selected={isSelected}
-                      aria-label={`View photo ${idx + 1} of ${productImages.length}`}
+                      aria-label={`View photo ${idx + 1} of ${galleryThumbnails.length}`}
                       onClick={() => handleSelectThumbnail(idx)}
-                      className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl overflow-hidden shrink-0 bg-white cursor-pointer transition-all duration-200 p-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7AA05A] ${
+                      className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl overflow-hidden shrink-0 bg-white cursor-pointer transition-all duration-200 p-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7FA35B] ${
                         isSelected
-                          ? "border-2 border-[#7AA05A] ring-2 ring-[#7AA05A]/25 scale-105 shadow-xs opacity-100"
-                          : "border border-neutral-200/90 opacity-70 hover:opacity-100 hover:border-neutral-400 scale-100"
+                          ? "border-2 border-[#7FA35B] ring-1 ring-[#7FA35B]/30 scale-105 shadow-xs opacity-100"
+                          : "border-2 border-transparent opacity-70 hover:opacity-100 scale-100"
                       }`}
                     >
                       <img
