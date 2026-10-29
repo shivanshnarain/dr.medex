@@ -995,12 +995,13 @@ export const ProductDetailPage: React.FC = () => {
                 }}
               />
 
-              {/* Dark-Green Share Button (Top-Right inside image area, shadow-none, white icon) */}
+              {/* Dark-Green Circular Share Button (Top-Right inside image area, shadow-none, white icon) */}
               <div className="absolute top-3 right-3 z-30">
                 <button
                   type="button"
                   onClick={handleShare}
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#2D5A4A] hover:bg-[#23473a] text-white flex items-center justify-center transition-all duration-150 border-none cursor-pointer focus:outline-none shadow-none hover:shadow-none focus:shadow-none active:scale-95"
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#2D5A4A] hover:bg-[#23473a] text-white flex items-center justify-center transition-all duration-150 border-none cursor-pointer focus:outline-none shadow-none hover:shadow-none focus:shadow-none active:scale-95"
+                  style={{ borderRadius: "50%" }}
                   title="Share product"
                   aria-label="Share product"
                 >
@@ -1063,12 +1064,12 @@ export const ProductDetailPage: React.FC = () => {
           {/* RIGHT 50%: PRODUCT DETAILS & ACTIONS                    */}
           {/* ------------------------------------------------------- */}
           <div
-            style={galleryHeight ? { minHeight: `${galleryHeight}px` } : undefined}
+            style={galleryHeight ? { height: `${galleryHeight}px` } : undefined}
             className="w-full flex flex-col justify-between min-w-0"
           >
-            {/* Top Group: Breadcrumb, Title, Rating, Pricing, Description */}
-            <div className="flex flex-col min-h-0 space-y-2">
-              {/* Breadcrumb Navigation - Aligns top on desktop, appears under gallery on mobile */}
+            {/* A. Fixed Top Section (flex-shrink: 0) */}
+            <div className="shrink-0 space-y-2">
+              {/* 1. Breadcrumb navigation */}
               <nav
                 aria-label="Breadcrumb"
                 className="flex items-center gap-1.5 text-xs text-neutral-500 mb-1 sm:mb-1.5"
@@ -1085,7 +1086,7 @@ export const ProductDetailPage: React.FC = () => {
                 </Link>
               </nav>
 
-              {/* 1. Brand and Product Title */}
+              {/* 2. Product title and DR.MEDEX branding */}
               <div className="shrink-0">
                 <h1 className="text-xl sm:text-2xl lg:text-[1.65rem] tracking-tight leading-snug">
                   <span className="font-extrabold text-[#2D5A4A]">{titleParts.dr}</span>
@@ -1094,7 +1095,7 @@ export const ProductDetailPage: React.FC = () => {
                 </h1>
               </div>
 
-              {/* 2. Rating (if available) */}
+              {/* 3. Rating, when available */}
               {typeof product.rating === "number" && product.rating > 0 && (
                 <div className="flex items-center gap-1.5 pt-0.5 text-xs text-neutral-600 shrink-0">
                   <div className="flex items-center text-amber-500">
@@ -1107,7 +1108,7 @@ export const ProductDetailPage: React.FC = () => {
                 </div>
               )}
 
-              {/* 3. Pricing Section */}
+              {/* 4. Selling price, original price, and discount badge */}
               <div className="flex items-baseline gap-3 pt-0.5 flex-wrap shrink-0">
                 <span className="text-2xl sm:text-3xl font-extrabold text-[#171717] font-mono tracking-tight">
                   {formatPrice(product.basePrice)}
@@ -1124,30 +1125,30 @@ export const ProductDetailPage: React.FC = () => {
                 )}
               </div>
 
-              {/* Horizontal Divider below Pricing */}
+              {/* 5. Thin horizontal divider immediately below the pricing section */}
               <hr className="border-t border-neutral-200 my-1.5 shrink-0" />
-
-              {/* 4. Description Section - Independently scrollable on desktop, natural flowing on mobile */}
-              <div className="flex flex-col my-0.5">
-                <h2 className="text-sm font-bold text-[#2D5A4A] tracking-tight mb-1.5 shrink-0">
-                  Description
-                </h2>
-                <div className="max-h-none lg:max-h-[160px] xl:max-h-[190px] lg:overflow-y-auto pr-3 text-xs sm:text-[13px] text-neutral-600 leading-relaxed product-description-scrollbar [scrollbar-color:#7AA05A_#F3F4F6] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-[#F3F4F6] [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#7AA05A] hover:[&::-webkit-scrollbar-thumb]:bg-[#6B8F4E] [&::-webkit-scrollbar-thumb]:rounded-full">
-                  {productOverview ? (
-                    <p className="whitespace-pre-line pb-1">{productOverview}</p>
-                  ) : (
-                    <p className="text-xs text-neutral-400 italic">No description provided for this equipment.</p>
-                  )}
-                </div>
-              </div>
-
-              {/* Horizontal Divider below Description */}
-              <hr className="border-t border-neutral-200 my-1 shrink-0" />
             </div>
 
-            {/* Bottom Group: Purchase Buttons & 2x2 Specifications (Anchored near bottom on desktop) */}
-            <div className="mt-auto pt-3 shrink-0 space-y-3.5">
-              {/* Purchase Buttons */}
+            {/* B. Middle Description Section — flex: 1; min-height: 0; overflow-y: auto */}
+            <div className="flex-1 min-h-0 flex flex-col py-1 overflow-hidden my-0.5">
+              <h2 className="text-sm font-bold text-[#2D5A4A] tracking-tight mb-1 shrink-0">
+                Description
+              </h2>
+              <div className="flex-1 min-h-0 lg:overflow-y-auto pr-3 text-xs sm:text-[13px] text-neutral-600 leading-relaxed product-description-scrollbar [scrollbar-color:#7AA05A_#F3F4F6] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-[#F3F4F6] [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#7AA05A] hover:[&::-webkit-scrollbar-thumb]:bg-[#6B8F4E] [&::-webkit-scrollbar-thumb]:rounded-full">
+                {productOverview ? (
+                  <p className="whitespace-pre-line pb-1">{productOverview}</p>
+                ) : (
+                  <p className="text-xs text-neutral-400 italic">No description provided for this equipment.</p>
+                )}
+              </div>
+            </div>
+
+            {/* C. Fixed Bottom Section — flex-shrink: 0; margin-top: auto */}
+            <div className="shrink-0 mt-auto pt-1 space-y-3">
+              {/* 1. Thin horizontal divider immediately above purchase actions */}
+              <hr className="border-t border-neutral-200 mb-3 shrink-0" />
+
+              {/* 2. Purchase Buttons */}
               <div className="flex flex-col sm:flex-row items-center gap-3 w-full">
                 {/* Add to Cart button: Filled Moss Green #7AA05A bg, white text & cart icon */}
                 <button
@@ -1174,8 +1175,8 @@ export const ProductDetailPage: React.FC = () => {
                 </button>
               </div>
 
-              {/* Four Specification Items in a 2x2 Grid with Plus-Shaped Divider (+) */}
-              <div className="pt-2">
+              {/* 3-6. Benefits: Power Supply, Quality Standard, Regulatory Status, Warranty */}
+              <div className="pt-1">
                 <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-0 gap-y-3">
                   {specCards.map((card, idx) => {
                     const IconComponent = card.icon;
@@ -1187,15 +1188,15 @@ export const ProductDetailPage: React.FC = () => {
                       <div
                         key={card.id}
                         className={`flex items-start gap-3 min-w-0 ${
-                          !isLastMobile ? "border-b border-neutral-100 pb-3" : "pb-0"
+                          !isLastMobile ? "border-b border-neutral-100 pb-2.5" : "pb-0"
                         } ${
                           isLeftCol
                             ? "sm:border-r sm:border-[#7AA05A]/50 sm:pr-4"
                             : "sm:border-r-0 sm:pl-4"
                         } ${
                           isTopRow
-                            ? "sm:border-b sm:border-[#7AA05A]/50 sm:pb-3.5 sm:pt-0"
-                            : "sm:border-b-0 sm:pt-3.5 sm:pb-0"
+                            ? "sm:border-b sm:border-[#7AA05A]/50 sm:pb-3 sm:pt-0"
+                            : "sm:border-b-0 sm:pt-3 sm:pb-0"
                         }`}
                       >
                         <div className="w-10 h-10 rounded-full bg-[#2D5A4A] flex items-center justify-center text-white shrink-0 shadow-2xs mt-0.5">
