@@ -110,9 +110,9 @@ export const Header: React.FC = () => {
     accumulatedDeltaRef.current = 0;
     lastDirectionRef.current = "up";
 
-    const HIDE_THRESHOLD = 15; // Requires 15px accumulated downward scroll past header
-    const SHOW_THRESHOLD = 6;  // Small 6px upward scroll gesture immediately reveals header
-    const TOP_ZONE = 60;       // Always fully visible within top 60px
+    const HIDE_THRESHOLD = 16; // Requires 16px accumulated downward scroll past header
+    const SHOW_THRESHOLD = 4;  // Small 4px upward scroll gesture immediately reveals header
+    const TOP_ZONE = 20;       // Always fully visible at top of page (0-20px)
     let ticking = false;
 
     const handleScroll = () => {
@@ -148,7 +148,7 @@ export const Header: React.FC = () => {
             }
             accumulatedDeltaRef.current += delta;
 
-            if (accumulatedDeltaRef.current >= HIDE_THRESHOLD && currentScrollY > 100) {
+            if (accumulatedDeltaRef.current >= HIDE_THRESHOLD && currentScrollY > 70) {
               setIsHeaderHidden((prev) => (prev ? prev : true));
             }
           } else if (delta < 0) {
@@ -371,16 +371,20 @@ export const Header: React.FC = () => {
 
   return (
     <header
-      className={`w-full z-40 sticky top-0 bg-white select-none transition-transform duration-300 ease-in-out will-change-transform motion-reduce:transition-none ${
+      className={`w-full z-40 sticky top-0 bg-white select-none transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform motion-reduce:transition-none ${
         shouldHideHeader
-          ? "-translate-y-full pointer-events-none lg:translate-y-0 lg:pointer-events-auto"
-          : "translate-y-0"
+          ? "-translate-y-full pointer-events-none lg:translate-y-0 lg:pointer-events-auto shadow-none"
+          : "translate-y-0 shadow-xs"
       }`}
     >
       {/* ==============================================================
           TOP ROW: LOGO (LEFT) | CENTERED SEARCH BAR | UTILITY ICONS (RIGHT)
       ============================================================== */}
-      <div className="max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3">
+      <div
+        className={`max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+          shouldHideHeader ? "-translate-y-1 sm:translate-y-0" : "translate-y-0"
+        }`}
+      >
         <div className="flex items-center justify-between gap-2 sm:gap-4 lg:gap-8 min-w-0">
           
           {/* LEFT: DR.MEDEX Logo & Mobile Hamburger */}
@@ -1003,7 +1007,7 @@ export const Header: React.FC = () => {
       {/* ==============================================================
           CATEGORY NAVIGATION BELOW SEARCH: Horizontal Scrollable Row
       ============================================================== */}
-      <div className="bg-[#7AA05A] relative w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="bg-[#7AA05A] relative w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden transition-transform duration-220 ease-out motion-reduce:transition-none">
         <div className="max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-8">
           <nav
             className="flex items-center justify-start lg:justify-center gap-1 xl:gap-2 py-1.5 whitespace-nowrap min-w-max lg:min-w-0"
