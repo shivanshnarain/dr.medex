@@ -72,11 +72,11 @@ export const WishlistPage: React.FC = () => {
                 >
                   <div>
                     {/* Image Area */}
-                    <div className="medex-product-image-container relative w-full aspect-square shrink-0 bg-[#FBFBFB] p-3 flex items-center justify-center rounded-xl overflow-hidden" style={{ aspectRatio: "1 / 1" }}>
+                    <div className="product-card-image relative w-full aspect-square shrink-0 bg-white flex items-center justify-center rounded-[16px] overflow-hidden border-none" style={{ aspectRatio: "1 / 1" }}>
                       <img
                         src={mainImg}
                         alt={product.title}
-                        className="medex-product-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300 block border-none"
                         style={{ objectFit: "contain", objectPosition: "center" }}
                         onError={(e) => {
                           (e.target as HTMLImageElement).src =

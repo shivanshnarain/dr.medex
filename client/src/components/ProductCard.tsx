@@ -88,18 +88,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     <div className="group relative bg-white rounded-2xl border border-neutral-200/90 hover:border-neutral-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between h-full p-3 sm:p-4">
       {/* 1. SQUARE PRODUCT IMAGE AREA (1:1 aspect ratio across all viewports, clean container without inner grey border, object-contain for distortion-free equipment) */}
       <div
-        className="medex-product-image-container relative w-full aspect-square shrink-0 rounded-xl overflow-hidden bg-[#FBFBFB] flex items-center justify-center p-2.5 sm:p-3"
+        className="product-card-image relative w-full aspect-square shrink-0 rounded-[16px] overflow-hidden bg-white border-none select-none"
         style={{ aspectRatio: "1 / 1" }}
       >
         <Link
           to={productUrl}
-          className="w-full h-full flex items-center justify-center overflow-hidden"
+          className="w-full h-full block overflow-hidden rounded-[16px] border-none"
           aria-label={displayTitle}
         >
           <img
             src={primaryImage}
             alt={displayTitle}
-            className="medex-product-image w-full h-full object-contain object-center transition-transform duration-300 ease-out group-hover:scale-105"
+            className="w-full h-full object-contain object-center transition-transform duration-300 ease-out group-hover:scale-105 block border-none"
             style={{ objectFit: "contain", objectPosition: "center" }}
             loading="lazy"
             onError={(e) => {
