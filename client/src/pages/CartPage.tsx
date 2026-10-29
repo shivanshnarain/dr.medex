@@ -53,7 +53,7 @@ export const CartPage: React.FC = () => {
         <div className="pt-3">
           <Link
             to="/shop-all"
-            className="inline-flex items-center gap-2 px-7 py-3 bg-[#111111] hover:bg-[#1F7A4D] text-white font-bold rounded-xl text-xs transition-colors"
+            className="inline-flex items-center gap-2 px-7 py-3 bg-[#7AA05A] hover:bg-[#2D5A4A] text-white font-bold rounded-xl text-xs transition-colors shadow-2xs"
           >
             <span>Explore Medical Equipment</span>
             <ArrowRight size={14} />
@@ -100,70 +100,82 @@ export const CartPage: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#EAEAEA]">
-                  {items.map(({ product, quantity }) => (
-                    <tr key={product.id} className="hover:bg-[#FAFAFA] transition-colors">
-                      <td className="py-5 pr-4">
-                        <div className="flex items-center gap-4">
-                          <img
-                            src={product.images[0]}
-                            alt={product.title}
-                            className="w-16 h-16 object-contain p-1 rounded-lg border border-[#EAEAEA] bg-[#FAFAFA] shrink-0"
-                          />
-                          <div>
-                            <Link
-                              to={`/product/${product.slug}`}
-                              className="font-bold text-[#111111] hover:text-[#1F7A4D] line-clamp-2 text-xs transition-colors"
-                            >
-                              {product.title}
-                            </Link>
-                            <div className="text-3xs text-neutral-400 font-mono mt-0.5">SKU: {product.sku}</div>
-                            <span className="inline-block mt-1 text-3xs font-semibold px-2 py-0.5 bg-[#FAFAFA] border border-[#EAEAEA] text-neutral-700 rounded-md">
-                              {product.brand}
-                            </span>
+                  {items.map(({ product, quantity }) => {
+                    const itemImage =
+                      (Array.isArray(product.images) && product.images[0]) ||
+                      product.primaryImage ||
+                      (Array.isArray(product.galleryImages) && product.galleryImages[0]) ||
+                      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
+
+                    return (
+                      <tr key={product.id} className="hover:bg-[#FAFAFA] transition-colors">
+                        <td className="py-5 pr-4">
+                          <div className="flex items-center gap-4">
+                            <img
+                              src={itemImage}
+                              alt={product.title}
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).src =
+                                  "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
+                              }}
+                              className="w-16 h-16 object-contain p-1 rounded-lg border border-[#EAEAEA] bg-[#FAFAFA] shrink-0"
+                            />
+                            <div>
+                              <Link
+                                to={`/product/${product.slug}`}
+                                className="font-bold text-[#111111] hover:text-[#2D5A4A] line-clamp-2 text-xs transition-colors"
+                              >
+                                {product.title}
+                              </Link>
+                              <div className="text-3xs text-neutral-400 font-mono mt-0.5">SKU: {product.sku}</div>
+                              <span className="inline-block mt-1 text-3xs font-semibold px-2 py-0.5 bg-[#FAFAFA] border border-[#EAEAEA] text-neutral-700 rounded-md">
+                                {product.brand}
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      </td>
+                        </td>
 
-                      <td className="py-5 text-center font-semibold text-neutral-700 whitespace-nowrap">
-                        {formatPrice(product.basePrice)}
-                      </td>
+                        <td className="py-5 text-center font-semibold text-neutral-700 whitespace-nowrap">
+                          {formatPrice(product.basePrice)}
+                        </td>
 
-                      <td className="py-5 text-center">
-                        <div className="inline-flex items-center border border-[#EAEAEA] rounded-lg bg-white">
+                        <td className="py-5 text-center">
+                          <div className="inline-flex items-center border border-[#EAEAEA] rounded-lg bg-white">
+                            <button
+                              type="button"
+                              onClick={() => updateQuantity(product.id, quantity - 1)}
+                              className="p-1.5 text-neutral-500 hover:text-[#111111] hover:bg-[#F7F7F7] rounded-l-lg"
+                            >
+                              <Minus size={12} />
+                            </button>
+                            <span className="px-2.5 text-xs font-bold text-[#111111]">{quantity}</span>
+                            <button
+                              type="button"
+                              onClick={() => updateQuantity(product.id, quantity + 1)}
+                              className="p-1.5 text-neutral-500 hover:text-[#111111] hover:bg-[#F7F7F7] rounded-r-lg"
+                            >
+                              <Plus size={12} />
+                            </button>
+                          </div>
+                        </td>
+
+                        <td className="py-5 text-right font-bold text-[#111111] whitespace-nowrap text-sm">
+                          {formatPrice(product.basePrice * quantity)}
+                        </td>
+
+                        <td className="py-5 text-right pl-3">
                           <button
                             type="button"
-                            onClick={() => updateQuantity(product.id, quantity - 1)}
-                            className="p-1.5 text-neutral-500 hover:text-[#111111] hover:bg-[#F7F7F7] rounded-l-lg"
+                            onClick={() => removeFromCart(product.id)}
+                            className="text-neutral-400 hover:text-rose-600 p-1.5 transition-colors"
+                            title="Remove item"
                           >
-                            <Minus size={12} />
+                            <Trash2 size={16} />
                           </button>
-                          <span className="px-2.5 text-xs font-bold text-[#111111]">{quantity}</span>
-                          <button
-                            type="button"
-                            onClick={() => updateQuantity(product.id, quantity + 1)}
-                            className="p-1.5 text-neutral-500 hover:text-[#111111] hover:bg-[#F7F7F7] rounded-r-lg"
-                          >
-                            <Plus size={12} />
-                          </button>
-                        </div>
-                      </td>
-
-                      <td className="py-5 text-right font-bold text-[#111111] whitespace-nowrap text-sm">
-                        {formatPrice(product.basePrice * quantity)}
-                      </td>
-
-                      <td className="py-5 text-right pl-3">
-                        <button
-                          type="button"
-                          onClick={() => removeFromCart(product.id)}
-                          className="text-neutral-400 hover:text-rose-600 p-1.5 transition-colors"
-                          title="Remove item"
-                        >
-                          <Trash2 size={16} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -171,7 +183,7 @@ export const CartPage: React.FC = () => {
             <div className="pt-6 border-t border-[#EAEAEA] flex items-center justify-between">
               <Link
                 to="/shop-all"
-                className="text-xs font-bold text-[#111111] hover:text-[#1F7A4D] flex items-center gap-1.5 transition-colors"
+                className="text-xs font-bold text-[#111111] hover:text-[#2D5A4A] flex items-center gap-1.5 transition-colors"
               >
                 <ArrowLeft size={14} />
                 <span>Continue Browsing Catalog</span>
@@ -190,7 +202,7 @@ export const CartPage: React.FC = () => {
               <div className="p-3.5 bg-[#FAFAFA] rounded-xl border border-[#EAEAEA] space-y-2">
                 <div className="flex items-center justify-between text-2xs font-bold text-neutral-700">
                   <span className="flex items-center gap-1.5">
-                    <Globe size={13} className="text-[#1F7A4D]" />
+                    <Globe size={13} className="text-[#7AA05A]" />
                     Delivery Destination
                   </span>
                   <span>{currentCountry.flag} {currentCountry.name}</span>
@@ -198,7 +210,7 @@ export const CartPage: React.FC = () => {
                 <select
                   value={currentCountry.code}
                   onChange={(e) => setCountry(e.target.value)}
-                  className="w-full p-2 text-xs border border-[#EAEAEA] rounded-lg bg-white text-[#111111] focus:outline-none focus:border-[#111111]"
+                  className="w-full p-2 text-xs border border-[#EAEAEA] rounded-lg bg-white text-[#111111] focus:outline-none focus:border-[#7AA05A]"
                 >
                   {countries.map((c) => (
                     <option key={c.code} value={c.code}>
@@ -211,9 +223,9 @@ export const CartPage: React.FC = () => {
               {/* Coupon input */}
               <div className="space-y-1.5">
                 {appliedCoupon ? (
-                  <div className="flex items-center justify-between p-2.5 bg-[#EAF5EF] border border-[#1F7A4D]/20 rounded-xl text-xs text-[#145A38]">
+                  <div className="flex items-center justify-between p-2.5 bg-[#F4F8F1] border border-[#7AA05A]/30 rounded-xl text-xs text-[#2D5A4A]">
                     <div className="flex items-center gap-1.5 font-medium">
-                      <Tag size={15} className="text-[#1F7A4D]" />
+                      <Tag size={15} className="text-[#7AA05A]" />
                       <span>Applied: <strong>{appliedCoupon.code}</strong></span>
                     </div>
                     <button
@@ -231,19 +243,19 @@ export const CartPage: React.FC = () => {
                       value={couponCode}
                       onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
                       placeholder="Promo / Tender Code"
-                      className="flex-1 p-2 text-xs border border-[#EAEAEA] rounded-lg uppercase font-mono focus:outline-none focus:border-[#111111] text-[#111111]"
+                      className="flex-1 p-2 text-xs border border-[#EAEAEA] rounded-lg uppercase font-mono focus:outline-none focus:border-[#7AA05A] focus:ring-1 focus:ring-[#7AA05A]/30 text-[#111111]"
                     />
                     <button
                       type="submit"
                       disabled={isApplying}
-                      className="px-4 py-2 bg-[#111111] hover:bg-[#1F7A4D] text-white rounded-lg text-xs font-bold transition-colors disabled:opacity-50"
+                      className="px-4 py-2 bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-lg text-xs font-bold transition-colors disabled:opacity-50 shadow-2xs"
                     >
                       {isApplying ? "..." : "Apply"}
                     </button>
                   </form>
                 )}
                 {couponMsg && (
-                  <p className={`text-3xs font-semibold ${couponMsg.isError ? "text-rose-600" : "text-[#1F7A4D]"}`}>
+                  <p className={`text-3xs font-semibold ${couponMsg.isError ? "text-rose-600" : "text-[#2D5A4A]"}`}>
                     {couponMsg.text}
                   </p>
                 )}
@@ -257,7 +269,7 @@ export const CartPage: React.FC = () => {
                 </div>
 
                 {discountUSD > 0 && (
-                  <div className="flex justify-between text-[#1F7A4D] font-medium">
+                  <div className="flex justify-between text-[#2D5A4A] font-medium">
                     <span>Coupon Discount</span>
                     <span>-{formatPrice(discountUSD)}</span>
                   </div>
@@ -284,14 +296,14 @@ export const CartPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => navigate("/checkout")}
-                className="w-full py-3.5 bg-[#111111] hover:bg-[#1F7A4D] text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-xs transition-all"
+                className="w-full py-3.5 bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-xs transition-all active:scale-[0.99]"
               >
                 <span>Proceed to International Checkout</span>
                 <ArrowRight size={16} />
               </button>
 
               <div className="flex items-center justify-center gap-2 text-2xs text-neutral-400">
-                <ShieldCheck size={14} className="text-[#1F7A4D]" />
+                <ShieldCheck size={14} className="text-[#7AA05A]" />
                 <span>256-Bit SSL Encrypted Healthcare Purchasing</span>
               </div>
             </div>

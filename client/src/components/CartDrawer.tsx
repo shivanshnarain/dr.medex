@@ -90,75 +90,87 @@ export const CartDrawer: React.FC = () => {
                     closeDrawer();
                     navigate("/shop-all");
                   }}
-                  className="mt-6 px-6 py-2.5 text-xs font-semibold bg-[#111111] hover:bg-[#1F7A4D] text-white rounded-lg transition-colors"
+                  className="mt-6 px-6 py-2.5 text-xs font-semibold bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-lg transition-colors shadow-2xs"
                 >
                   Explore Medical Catalog
                 </button>
               </div>
             ) : (
               <div className="space-y-4">
-                {items.map(({ product, quantity }) => (
-                  <div key={product.id} className="pt-4 first:pt-0 flex gap-4 items-start">
-                    <img
-                      src={product.images[0]}
-                      alt={product.title}
-                      className="w-16 h-16 object-contain p-1 rounded-lg border border-[#EAEAEA] bg-[#FAFAFA] shrink-0"
-                    />
-                    <div className="flex-1 min-w-0">
-                      <Link
-                        to={`/product/${product.slug}`}
-                        onClick={closeDrawer}
-                        className="text-xs font-semibold text-[#111111] hover:text-[#1F7A4D] line-clamp-2 transition-colors"
-                      >
-                        {product.title}
-                      </Link>
-                      <div className="text-3xs text-neutral-400 font-mono mt-0.5">SKU: {product.sku}</div>
+                {items.map(({ product, quantity }) => {
+                  const itemImage =
+                    (Array.isArray(product.images) && product.images[0]) ||
+                    product.primaryImage ||
+                    (Array.isArray(product.galleryImages) && product.galleryImages[0]) ||
+                    "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
 
-                      <div className="flex items-center justify-between mt-3">
-                        {/* Quantity Modifier */}
-                        <div className="flex items-center border border-[#EAEAEA] rounded-md bg-white">
-                          <button
-                            type="button"
-                            onClick={() => updateQuantity(product.id, quantity - 1)}
-                            className="p-1.5 text-neutral-500 hover:text-[#111111] hover:bg-[#F7F7F7]"
-                          >
-                            <Minus size={12} />
-                          </button>
-                          <span className="px-2.5 text-xs font-semibold text-[#111111]">{quantity}</span>
-                          <button
-                            type="button"
-                            onClick={() => updateQuantity(product.id, quantity + 1)}
-                            className="p-1.5 text-neutral-500 hover:text-[#111111] hover:bg-[#F7F7F7]"
-                          >
-                            <Plus size={12} />
-                          </button>
-                        </div>
-
-                        {/* Price */}
-                        <div className="text-right">
-                          <div className="text-xs font-bold text-[#111111]">
-                            {formatPrice(product.basePrice * quantity)}
-                          </div>
-                          {quantity > 1 && (
-                            <div className="text-3xs text-neutral-400">
-                              {formatPrice(product.basePrice)} each
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Remove */}
-                        <button
-                          type="button"
-                          onClick={() => removeFromCart(product.id)}
-                          className="text-neutral-400 hover:text-rose-600 p-1 transition-colors"
-                          title="Remove item"
+                  return (
+                    <div key={product.id} className="pt-4 first:pt-0 flex gap-4 items-start">
+                      <img
+                        src={itemImage}
+                        alt={product.title}
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src =
+                            "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
+                        }}
+                        className="w-16 h-16 object-contain p-1 rounded-lg border border-[#EAEAEA] bg-[#FAFAFA] shrink-0"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <Link
+                          to={`/product/${product.slug}`}
+                          onClick={closeDrawer}
+                          className="text-xs font-semibold text-[#111111] hover:text-[#2D5A4A] line-clamp-2 transition-colors"
                         >
-                          <Trash2 size={14} />
-                        </button>
+                          {product.title}
+                        </Link>
+                        <div className="text-3xs text-neutral-400 font-mono mt-0.5">SKU: {product.sku}</div>
+
+                        <div className="flex items-center justify-between mt-3">
+                          {/* Quantity Modifier */}
+                          <div className="flex items-center border border-[#EAEAEA] rounded-md bg-white">
+                            <button
+                              type="button"
+                              onClick={() => updateQuantity(product.id, quantity - 1)}
+                              className="p-1.5 text-neutral-500 hover:text-[#111111] hover:bg-[#F7F7F7]"
+                            >
+                              <Minus size={12} />
+                            </button>
+                            <span className="px-2.5 text-xs font-semibold text-[#111111]">{quantity}</span>
+                            <button
+                              type="button"
+                              onClick={() => updateQuantity(product.id, quantity + 1)}
+                              className="p-1.5 text-neutral-500 hover:text-[#111111] hover:bg-[#F7F7F7]"
+                            >
+                              <Plus size={12} />
+                            </button>
+                          </div>
+
+                          {/* Price */}
+                          <div className="text-right">
+                            <div className="text-xs font-bold text-[#111111]">
+                              {formatPrice(product.basePrice * quantity)}
+                            </div>
+                            {quantity > 1 && (
+                              <div className="text-3xs text-neutral-400">
+                                {formatPrice(product.basePrice)} each
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Remove */}
+                          <button
+                            type="button"
+                            onClick={() => removeFromCart(product.id)}
+                            className="text-neutral-400 hover:text-rose-600 p-1 transition-colors"
+                            title="Remove item"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
@@ -169,9 +181,9 @@ export const CartDrawer: React.FC = () => {
               {/* Promo Coupon Form */}
               <div>
                 {appliedCoupon ? (
-                  <div className="flex items-center justify-between p-2.5 bg-[#EAF5EF] border border-[#1F7A4D]/20 rounded-lg text-xs text-[#145A38]">
+                  <div className="flex items-center justify-between p-2.5 bg-[#F4F8F1] border border-[#7AA05A]/30 rounded-lg text-xs text-[#2D5A4A]">
                     <div className="flex items-center gap-1.5 font-medium">
-                      <Tag size={14} className="text-[#1F7A4D]" />
+                      <Tag size={14} className="text-[#7AA05A]" />
                       <span>Applied: <strong>{appliedCoupon.code}</strong></span>
                     </div>
                     <button
@@ -189,19 +201,19 @@ export const CartDrawer: React.FC = () => {
                       value={couponCode}
                       onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
                       placeholder="Coupon (e.g. DRMEDEX10)"
-                      className="flex-1 px-3 py-2 text-xs bg-white border border-[#EAEAEA] rounded-lg uppercase focus:outline-none focus:border-[#111111] font-mono text-[#111111]"
+                      className="flex-1 px-3 py-2 text-xs bg-white border border-[#EAEAEA] rounded-lg uppercase focus:outline-none focus:border-[#7AA05A] focus:ring-1 focus:ring-[#7AA05A]/30 font-mono text-[#111111]"
                     />
                     <button
                       type="submit"
                       disabled={isApplying}
-                      className="px-4 py-2 bg-[#111111] hover:bg-[#1F7A4D] text-white rounded-lg text-xs font-semibold transition-colors disabled:opacity-50"
+                      className="px-4 py-2 bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-lg text-xs font-semibold transition-colors disabled:opacity-50 shadow-2xs"
                     >
                       {isApplying ? "..." : "Apply"}
                     </button>
                   </form>
                 )}
                 {couponError && <p className="text-3xs text-rose-600 mt-1 font-medium">{couponError}</p>}
-                {couponSuccess && <p className="text-3xs text-[#1F7A4D] mt-1 font-medium">{couponSuccess}</p>}
+                {couponSuccess && <p className="text-3xs text-[#2D5A4A] mt-1 font-medium">{couponSuccess}</p>}
               </div>
 
               {/* Pricing breakdown */}
@@ -211,7 +223,7 @@ export const CartDrawer: React.FC = () => {
                   <span className="font-semibold text-[#111111]">{formatPrice(baseSubtotalUSD)}</span>
                 </div>
                 {discountUSD > 0 && (
-                  <div className="flex justify-between text-[#1F7A4D] font-medium">
+                  <div className="flex justify-between text-[#2D5A4A] font-medium">
                     <span>Discount</span>
                     <span>-{formatPrice(discountUSD)}</span>
                   </div>
@@ -237,7 +249,7 @@ export const CartDrawer: React.FC = () => {
                     closeDrawer();
                     navigate("/checkout");
                   }}
-                  className="w-full py-3.5 bg-[#111111] hover:bg-[#1F7A4D] text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-all"
+                  className="w-full py-3.5 bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-all active:scale-[0.99]"
                 >
                   <span>Proceed to International Checkout</span>
                   <ArrowRight size={15} />
@@ -247,12 +259,12 @@ export const CartDrawer: React.FC = () => {
                   <Link
                     to="/cart"
                     onClick={closeDrawer}
-                    className="hover:text-[#1F7A4D] font-medium underline"
+                    className="hover:text-[#2D5A4A] font-medium underline"
                   >
                     View Full Cart Details
                   </Link>
                   <div className="flex items-center gap-1.5 text-neutral-500">
-                    <ShieldCheck size={14} className="text-[#1F7A4D]" />
+                    <ShieldCheck size={14} className="text-[#7AA05A]" />
                     <span>Secure Checkout</span>
                   </div>
                 </div>
