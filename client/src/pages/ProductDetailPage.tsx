@@ -917,7 +917,7 @@ export const ProductDetailPage: React.FC = () => {
   ];
 
   return (
-    <div className="w-full bg-white min-h-screen text-neutral-900">
+    <div className="w-full bg-white min-h-screen text-neutral-900 pb-24 sm:pb-28 lg:pb-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         {/* ========================================================= */}
         {/* TOP SECTION: 50/50 SPLIT GALLERY & DETAILS                */}
@@ -1148,13 +1148,13 @@ export const ProductDetailPage: React.FC = () => {
               {/* 1. Thin horizontal divider immediately above purchase actions */}
               <hr className="border-t border-neutral-200 mb-3 shrink-0" />
 
-              {/* 2. Purchase Buttons */}
-              <div className="flex flex-col sm:flex-row items-center gap-3 w-full">
+              {/* 2. Purchase Buttons (Desktop layout) */}
+              <div className="hidden lg:flex items-center gap-3 w-full">
                 {/* Add to Cart button: Filled Moss Green #7AA05A bg, white text & cart icon */}
                 <button
                   type="button"
                   onClick={handleAddToCart}
-                  className="w-full sm:flex-1 h-11 sm:h-12 px-4 bg-[#7AA05A] hover:bg-[#6b8f4e] text-white border border-[#7AA05A] rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-colors duration-200 shadow-2xs cursor-pointer select-none"
+                  className="flex-1 h-11 sm:h-12 px-4 bg-[#7AA05A] hover:bg-[#6b8f4e] text-white border border-[#7AA05A] rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-colors duration-200 shadow-2xs cursor-pointer select-none"
                 >
                   {isAdded ? (
                     <Check size={18} className="text-white" />
@@ -1169,7 +1169,7 @@ export const ProductDetailPage: React.FC = () => {
                   type="button"
                   onClick={handleBuyNow}
                   disabled={isSubmittingBuy}
-                  className="w-full sm:flex-1 h-11 sm:h-12 px-4 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center transition-colors duration-200 shadow-2xs cursor-pointer select-none disabled:opacity-50"
+                  className="flex-1 h-11 sm:h-12 px-4 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center transition-colors duration-200 shadow-2xs cursor-pointer select-none disabled:opacity-50"
                 >
                   {isSubmittingBuy ? "Processing..." : "Buy Now"}
                 </button>
@@ -1374,6 +1374,42 @@ export const ProductDetailPage: React.FC = () => {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Mobile & Tablet Fixed Bottom Purchase Bar (Add to Cart + Buy Now on one horizontal line) */}
+      <div
+        className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#EAEAEA] shadow-[0_-4px_16px_rgba(0,0,0,0.06)] px-4 sm:px-6 pt-3"
+        style={{
+          paddingBottom: "max(0.75rem, env(safe-area-inset-bottom, 0.75rem))"
+        }}
+        role="region"
+        aria-label="Quick purchase actions"
+      >
+        <div className="max-w-7xl mx-auto flex items-center gap-3">
+          {/* Add to Cart button (Left) */}
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            className="flex-1 h-11 sm:h-12 px-3 sm:px-4 bg-[#7AA05A] hover:bg-[#6b8f4e] active:scale-[0.99] text-white border border-[#7AA05A] rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all duration-150 shadow-2xs cursor-pointer select-none"
+          >
+            {isAdded ? (
+              <Check size={18} className="text-white" />
+            ) : (
+              <ShoppingCart size={18} className="text-white" />
+            )}
+            <span>{isAdded ? "Added to Cart" : "Add to Cart"}</span>
+          </button>
+
+          {/* Buy Now button (Right) */}
+          <button
+            type="button"
+            onClick={handleBuyNow}
+            disabled={isSubmittingBuy}
+            className="flex-1 h-11 sm:h-12 px-3 sm:px-4 bg-[#2D5A4A] hover:bg-[#23473a] active:scale-[0.99] text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center transition-all duration-150 shadow-2xs cursor-pointer select-none disabled:opacity-50"
+          >
+            {isSubmittingBuy ? "Processing..." : "Buy Now"}
+          </button>
+        </div>
       </div>
 
       {/* B2B Institutional Quote Modal */}
