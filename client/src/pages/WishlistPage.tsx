@@ -72,11 +72,12 @@ export const WishlistPage: React.FC = () => {
                 >
                   <div>
                     {/* Image Area */}
-                    <div className="relative aspect-4/3 bg-neutral-50 p-4 overflow-hidden border-b border-neutral-100">
+                    <div className="medex-product-image-container relative w-full aspect-square shrink-0 bg-[#FBFBFB] p-3 flex items-center justify-center rounded-xl overflow-hidden" style={{ aspectRatio: "1 / 1" }}>
                       <img
                         src={mainImg}
                         alt={product.title}
-                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                        className="medex-product-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                        style={{ objectFit: "contain", objectPosition: "center" }}
                         onError={(e) => {
                           (e.target as HTMLImageElement).src =
                             "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=400&q=80";
@@ -100,7 +101,7 @@ export const WishlistPage: React.FC = () => {
                       </div>
                       <Link
                         to={`/product/${product.slug}`}
-                        className="block text-sm font-bold text-neutral-900 group-hover:text-[#167A4A] transition-colors mt-1 line-clamp-2"
+                        className="block text-sm font-bold text-neutral-900 group-hover:text-[#167A4A] transition-colors mt-1 min-h-[2.75rem]"
                       >
                         {product.title}
                       </Link>

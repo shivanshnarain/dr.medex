@@ -85,10 +85,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const productUrl = `/product/${product.slug || product.id}`;
 
   return (
-    <div className="group relative bg-white rounded-2xl border border-neutral-200/90 hover:border-neutral-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between overflow-hidden h-full p-3 sm:p-4">
-      {/* 1. SQUARE PRODUCT IMAGE AREA (1:1 aspect ratio, clean rounded container WITHOUT grey inner border, object-contain for distortion-free medical equipment) */}
+    <div className="group relative bg-white rounded-2xl border border-neutral-200/90 hover:border-neutral-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between h-full p-3 sm:p-4">
+      {/* 1. SQUARE PRODUCT IMAGE AREA (1:1 aspect ratio across all viewports, clean container without inner grey border, object-contain for distortion-free equipment) */}
       <div
-        className="relative w-full aspect-square rounded-xl overflow-hidden bg-[#FBFBFB] flex items-center justify-center p-2.5 sm:p-3"
+        className="medex-product-image-container relative w-full aspect-square shrink-0 rounded-xl overflow-hidden bg-[#FBFBFB] flex items-center justify-center p-2.5 sm:p-3"
         style={{ aspectRatio: "1 / 1" }}
       >
         <Link
@@ -99,7 +99,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <img
             src={primaryImage}
             alt={displayTitle}
-            className="w-full h-full object-contain object-center transition-transform duration-300 ease-out group-hover:scale-105"
+            className="medex-product-image w-full h-full object-contain object-center transition-transform duration-300 ease-out group-hover:scale-105"
             style={{ objectFit: "contain", objectPosition: "center" }}
             loading="lazy"
             onError={(e) => {
@@ -132,23 +132,23 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
 
       {/* 3. PRODUCT INFORMATION & ACTION (dark moss green category, black name, moss-green button) */}
-      <div className="pt-3 sm:pt-3.5 px-0.5 pb-0.5 flex-1 flex flex-col justify-between gap-3">
-        <div>
+      <div className="pt-3 sm:pt-3.5 px-0.5 pb-0.5 flex-1 flex flex-col justify-between">
+        <div className="flex-1 flex flex-col">
           {/* Category / Subcategory Label in Dark Moss Green (#7AA05A) */}
-          <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#7AA05A] mb-1 line-clamp-1">
+          <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#7AA05A] mb-1.5 shrink-0">
             {categoryLabel}
           </div>
 
-          {/* Product Name in Solid Black */}
-          <h3 className="text-xs sm:text-sm md:text-[14px] font-bold text-black leading-snug line-clamp-2 min-h-[2.5rem] hover:text-[#7AA05A] transition-colors">
-            <Link to={productUrl} title={displayTitle}>
+          {/* Product Name in Solid Black — expanded vertical space (+2 lines), natural wrapping without clipping */}
+          <h3 className="text-xs sm:text-sm md:text-[14px] font-bold text-black leading-snug min-h-[4.25rem] sm:min-h-[4.75rem] hover:text-[#7AA05A] transition-colors break-words flex-1">
+            <Link to={productUrl} title={displayTitle} className="hover:underline">
               {displayTitle}
             </Link>
           </h3>
         </div>
 
-        {/* 4. SINGLE PROMINENT MOSS-GREEN SHOW DETAILS BUTTON */}
-        <div>
+        {/* 4. SINGLE PROMINENT MOSS-GREEN SHOW DETAILS BUTTON — consistently aligned at bottom */}
+        <div className="mt-auto pt-3 shrink-0">
           <Link
             to={productUrl}
             className="w-full py-2.5 sm:py-3 px-4 bg-[#7AA05A] hover:bg-[#688a4c] active:bg-[#5a7842] focus:outline-none focus:ring-2 focus:ring-[#7AA05A]/40 text-white rounded-full text-xs sm:text-sm font-bold tracking-wide transition-colors duration-200 flex items-center justify-center text-center shadow-2xs cursor-pointer block"
