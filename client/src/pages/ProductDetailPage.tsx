@@ -956,7 +956,7 @@ export const ProductDetailPage: React.FC = () => {
                         alt={`${productTitle} thumbnail ${idx + 1}`}
                         className={`block h-16 xl:h-20 w-auto max-w-[76px] xl:max-w-[92px] object-contain rounded-[6px] bg-white select-none pointer-events-none transition-all duration-200 ${
                           isSelected
-                            ? "border-2 border-[#2D5A4A] ring-1 ring-[#7AA05A]/40 shadow-xs opacity-100"
+                            ? "border-2 border-[#7AA05A] opacity-100"
                             : "border-2 border-transparent opacity-65 hover:opacity-100 hover:border-neutral-200"
                         }`}
                         loading="lazy"
@@ -995,21 +995,21 @@ export const ProductDetailPage: React.FC = () => {
                 }}
               />
 
-              {/* Green Share Button (Top-Right inside image area, works on mobile, tablet & desktop) */}
+              {/* Dark-Green Share Button (Top-Right inside image area, shadow-none, white icon) */}
               <div className="absolute top-3 right-3 z-30">
                 <button
                   type="button"
                   onClick={handleShare}
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/95 hover:bg-white text-[#2D5A4A] shadow-md hover:shadow-lg flex items-center justify-center transition-all duration-200 border border-neutral-200/80 cursor-pointer focus:outline-none"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#2D5A4A] hover:bg-[#23473a] text-white flex items-center justify-center transition-all duration-150 border-none cursor-pointer focus:outline-none shadow-none hover:shadow-none focus:shadow-none active:scale-95"
                   title="Share product"
                   aria-label="Share product"
                 >
-                  <Share2 size={18} className="text-[#2D5A4A]" />
+                  <Share2 size={16} className="text-white" />
                 </button>
                 {shareToast && (
                   <div
                     role="status"
-                    className={`absolute right-0 top-full mt-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg shadow-lg whitespace-nowrap animate-in fade-in duration-150 z-40 ${
+                    className={`absolute right-0 top-full mt-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg shadow-none whitespace-nowrap animate-in fade-in duration-150 z-40 ${
                       shareToast.type === "success"
                         ? "bg-[#2D5A4A] text-white"
                         : "bg-rose-600 text-white"
@@ -1046,7 +1046,7 @@ export const ProductDetailPage: React.FC = () => {
                           alt={`${productTitle} thumbnail ${idx + 1}`}
                           className={`block h-11 sm:h-12 w-auto max-w-[62px] sm:max-w-[72px] object-contain rounded-[6px] bg-white select-none pointer-events-none transition-all duration-200 ${
                             isSelected
-                              ? "border-2 border-[#2D5A4A] ring-1 ring-[#7AA05A]/40 shadow-xs opacity-100 scale-105"
+                              ? "border-2 border-[#7AA05A] opacity-100 scale-105"
                               : "border-2 border-transparent opacity-70 hover:opacity-100 scale-100"
                           }`}
                           loading="lazy"
@@ -1063,9 +1063,10 @@ export const ProductDetailPage: React.FC = () => {
           {/* RIGHT 50%: PRODUCT DETAILS & ACTIONS                    */}
           {/* ------------------------------------------------------- */}
           <div
-            className="w-full flex flex-col justify-start min-w-0"
+            style={galleryHeight ? { minHeight: `${galleryHeight}px` } : undefined}
+            className="w-full flex flex-col justify-between min-w-0"
           >
-            {/* Top Group: Breadcrumb, Title, Pricing, Description */}
+            {/* Top Group: Breadcrumb, Title, Rating, Pricing, Description */}
             <div className="flex flex-col min-h-0 space-y-2">
               {/* Breadcrumb Navigation - Aligns top on desktop, appears under gallery on mobile */}
               <nav
@@ -1093,7 +1094,20 @@ export const ProductDetailPage: React.FC = () => {
                 </h1>
               </div>
 
-              {/* 2. Pricing Section */}
+              {/* 2. Rating (if available) */}
+              {typeof product.rating === "number" && product.rating > 0 && (
+                <div className="flex items-center gap-1.5 pt-0.5 text-xs text-neutral-600 shrink-0">
+                  <div className="flex items-center text-amber-500">
+                    <Star size={14} className="fill-amber-400 text-amber-400" />
+                    <span className="font-bold ml-1 text-neutral-800">{product.rating.toFixed(1)}</span>
+                  </div>
+                  {product.reviewCount ? (
+                    <span className="text-neutral-400">({product.reviewCount} {product.reviewCount === 1 ? "review" : "reviews"})</span>
+                  ) : null}
+                </div>
+              )}
+
+              {/* 3. Pricing Section */}
               <div className="flex items-baseline gap-3 pt-0.5 flex-wrap shrink-0">
                 <span className="text-2xl sm:text-3xl font-extrabold text-[#171717] font-mono tracking-tight">
                   {formatPrice(product.basePrice)}
@@ -1110,7 +1124,7 @@ export const ProductDetailPage: React.FC = () => {
                 )}
               </div>
 
-              {/* 3. Horizontal Divider below Pricing */}
+              {/* Horizontal Divider below Pricing */}
               <hr className="border-t border-neutral-200 my-1.5 shrink-0" />
 
               {/* 4. Description Section - Independently scrollable on desktop, natural flowing on mobile */}
@@ -1118,7 +1132,7 @@ export const ProductDetailPage: React.FC = () => {
                 <h2 className="text-sm font-bold text-[#2D5A4A] tracking-tight mb-1.5 shrink-0">
                   Description
                 </h2>
-                <div className="max-h-none lg:max-h-[175px] xl:max-h-[210px] lg:overflow-y-auto pr-3 text-xs sm:text-[13px] text-neutral-600 leading-relaxed product-description-scrollbar [scrollbar-color:#7AA05A_#F3F4F6] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-[#F3F4F6] [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#7AA05A] hover:[&::-webkit-scrollbar-thumb]:bg-[#6B8F4E] [&::-webkit-scrollbar-thumb]:rounded-full">
+                <div className="max-h-none lg:max-h-[160px] xl:max-h-[190px] lg:overflow-y-auto pr-3 text-xs sm:text-[13px] text-neutral-600 leading-relaxed product-description-scrollbar [scrollbar-color:#7AA05A_#F3F4F6] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-[#F3F4F6] [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#7AA05A] hover:[&::-webkit-scrollbar-thumb]:bg-[#6B8F4E] [&::-webkit-scrollbar-thumb]:rounded-full">
                   {productOverview ? (
                     <p className="whitespace-pre-line pb-1">{productOverview}</p>
                   ) : (
@@ -1131,8 +1145,8 @@ export const ProductDetailPage: React.FC = () => {
               <hr className="border-t border-neutral-200 my-1 shrink-0" />
             </div>
 
-            {/* Bottom Group: Purchase Buttons & 2x2 Specifications */}
-            <div className="pt-2 shrink-0 space-y-3.5">
+            {/* Bottom Group: Purchase Buttons & 2x2 Specifications (Anchored near bottom on desktop) */}
+            <div className="mt-auto pt-3 shrink-0 space-y-3.5">
               {/* Purchase Buttons */}
               <div className="flex flex-col sm:flex-row items-center gap-3 w-full">
                 {/* Add to Cart button: Filled Moss Green #7AA05A bg, white text & cart icon */}
