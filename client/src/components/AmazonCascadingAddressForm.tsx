@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import {
-  Globe,
-  MapPin,
   ChevronDown,
   Search,
   Check,
@@ -9,9 +7,7 @@ import {
   Loader2,
   X,
   Mail,
-  User,
-  Building2,
-  Navigation
+  User
 } from "lucide-react";
 import {
   GeoCountry,
@@ -94,6 +90,19 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
   // Postal suggestions state
   const [postalSuggestions, setPostalSuggestions] = useState<string[]>([]);
   const [postalError, setPostalError] = useState<string | null>(null);
+
+  // Phone calling code synchronization:
+  // Selecting delivery country automatically updates phone code, unless customer explicitly changed phone country
+  const [hasUserOverriddenPhoneCountry, setHasUserOverriddenPhoneCountry] = useState(false);
+  const [phoneCountryCode, setPhoneCountryCode] = useState<string>(
+    data.phoneIso || data.countryCode || "IN"
+  );
+
+  useEffect(() => {
+    if (!hasUserOverriddenPhoneCountry && data.countryCode) {
+      setPhoneCountryCode(data.countryCode);
+    }
+  }, [data.countryCode, hasUserOverriddenPhoneCountry]);
 
   // Active country resolution
   const activeCountry = useMemo<GeoCountry>(() => {
@@ -206,6 +215,11 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
     setIsManualCityMode(false);
     setPostalError(null);
 
+    // If customer has not explicitly changed the phone country, sync phone code with delivery country
+    if (!hasUserOverriddenPhoneCountry) {
+      setPhoneCountryCode(country.code);
+    }
+
     // Cascading reset: clear state, city, and postal code
     onChange({
       country: country.name,
@@ -214,8 +228,12 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
       stateCode: "",
       city: "",
       postalCode: "",
-      phoneCountryCode: country.dialCode,
-      phoneIso: country.code
+      ...(!hasUserOverriddenPhoneCountry
+        ? {
+            phoneCountryCode: country.dialCode,
+            phoneIso: country.code
+          }
+        : {})
     });
 
     if (onCountryChange) {
@@ -279,52 +297,10 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-6">
-      {/* Header with Title and Optional Location Auto-Detect */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-neutral-200">
-        <div>
-          <div className="flex items-center gap-2">
-            <Globe size={18} className="text-[#2D5A4A]" />
-            <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
-              Customer & Delivery Destination
-            </h2>
-          </div>
-          <p className="text-2xs text-neutral-500 mt-0.5">
-            195 sovereign countries supported with local address intelligence
-          </p>
-        </div>
-
-        {onDetectLocation && (
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={onDetectLocation}
-              disabled={isGeolocating}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-2xs font-bold text-[#2D5A4A] bg-[#EBF3E8] hover:bg-[#dcecd5] border border-[#7AA05A]/40 transition-colors cursor-pointer disabled:opacity-60"
-              title="Detect location and auto-fill regional destination"
-            >
-              {isGeolocating ? (
-                <>
-                  <Loader2 size={12} className="animate-spin text-[#2D5A4A]" />
-                  <span>Detecting Location...</span>
-                </>
-              ) : (
-                <>
-                  <Navigation size={12} className="text-[#2D5A4A]" />
-                  <span>Auto-Detect My Location</span>
-                </>
-              )}
-            </button>
-            <span className="hidden sm:inline-block text-3xs font-bold text-[#2D5A4A] bg-[#F4F7F2] px-2.5 py-1 rounded-full uppercase tracking-wider">
-              195 Nations
-            </span>
-          </div>
-        )}
-      </div>
-
+    <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs">
       {/* Geolocation Notice Banner */}
       {locationNotice && (
-        <div className="flex items-center justify-between p-3 rounded-xl bg-[#F0F7ED] border border-[#7AA05A]/40 text-xs font-semibold text-[#2D5A4A] animate-in fade-in duration-200">
+        <div className="mb-4 flex items-center justify-between p-3 rounded-xl bg-[#F0F7ED] border border-[#7AA05A]/40 text-xs font-semibold text-[#2D5A4A] animate-in fade-in duration-200">
           <div className="flex items-center gap-2">
             <Check size={16} className="text-[#7AA05A] shrink-0" />
             <span>{locationNotice}</span>
@@ -342,11 +318,11 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
       )}
 
       {/* ========================================================
-          CASCADING ADDRESS FORM (EXACT LOGICAL ORDER 1 TO 8)
+          CASCADING ADDRESS FORM (EXACT FIELD ORDER 1 TO 11)
          ======================================================== */}
       <div className="space-y-4 text-xs">
         
-        {/* FIRST ROW: First Name * | Last Name * */}
+        {/* 1. First Name * & 2. Last Name * */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block font-bold text-[#171717] mb-1.5">
@@ -380,7 +356,25 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
           </div>
         </div>
 
-        {/* SECOND ROW: Phone Number * */}
+        {/* 3. Email Address * */}
+        <div>
+          <label className="block font-bold text-[#171717] mb-1.5">
+            Email Address <span className="text-red-500">*</span>
+          </label>
+          <div className="relative">
+            <input
+              type="email"
+              required
+              value={data.email || ""}
+              onChange={(e) => onChange({ email: e.target.value })}
+              placeholder="Enter your email address (personal or institutional)"
+              className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+            />
+            <Mail size={15} className="absolute left-3 top-3 text-neutral-400 pointer-events-none" />
+          </div>
+        </div>
+
+        {/* 4. Phone Number * (Country Flag Selector, Calling Code Selector, Phone Number Input) */}
         <div>
           <label className="block font-bold text-[#171717] mb-1.5">
             Phone Number <span className="text-red-500">*</span>
@@ -388,13 +382,17 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
           <InternationalPhoneInput
             value={data.phone || ""}
             onChange={(val) => onChange({ phone: val })}
-            countryCode={data.countryCode || "IN"}
+            countryCode={phoneCountryCode}
+            onCountryChange={(code) => {
+              setHasUserOverriddenPhoneCountry(true);
+              setPhoneCountryCode(code);
+            }}
             required
             placeholder="Enter phone number"
           />
         </div>
 
-        {/* THIRD ROW: Country * (195 Sovereign Countries Dropdown) */}
+        {/* 5. Country * (195 Sovereign Countries Dropdown) */}
         <div className="relative" ref={countryDropdownRef}>
           <label className="block font-bold text-[#171717] mb-1.5">
             Country <span className="text-red-500">*</span>
@@ -507,7 +505,7 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
           )}
         </div>
 
-        {/* FOURTH ROW: State / Province / Region * */}
+        {/* 6. State / Province / Region * */}
         {activeCountry.hasStates !== false && (
           <div className="relative" ref={stateDropdownRef}>
             <label className="block font-bold text-[#171717] mb-1.5">
@@ -584,7 +582,7 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
           </div>
         )}
 
-        {/* FIFTH ROW: City / Locality * */}
+        {/* 7. City / Locality * */}
         <div className="relative" ref={cityDropdownRef}>
           <div className="flex items-center justify-between mb-1.5">
             <label className="block font-bold text-[#171717]">
@@ -685,7 +683,7 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
           )}
         </div>
 
-        {/* SIXTH ROW: ZIP / Postal Code (with Suggestion Pills & Validation) */}
+        {/* 8. ZIP / Postal Code (with Suggestion Pills & Validation) */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
             <label className="block font-bold text-[#171717]">
@@ -749,25 +747,7 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
           )}
         </div>
 
-        {/* SEVENTH ROW: Email * */}
-        <div>
-          <label className="block font-bold text-[#171717] mb-1.5">
-            Email <span className="text-red-500">*</span>
-          </label>
-          <div className="relative">
-            <input
-              type="email"
-              required
-              value={data.email || ""}
-              onChange={(e) => onChange({ email: e.target.value })}
-              placeholder="Enter your email address (personal or institutional)"
-              className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-            />
-            <Mail size={15} className="absolute left-3 top-3 text-neutral-400 pointer-events-none" />
-          </div>
-        </div>
-
-        {/* EIGHTH ROW: Street Address * */}
+        {/* 9. Street Address * */}
         <div>
           <label className="block font-bold text-[#171717] mb-1.5">
             Street Address <span className="text-red-500">*</span>
@@ -782,7 +762,7 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
           />
         </div>
 
-        {/* Additional Address Line: Apartment / Suite / Building (Optional) */}
+        {/* 10. Apartment / Suite / Building (Optional) */}
         <div>
           <label className="block font-bold text-[#171717] mb-1.5">
             Apartment / Suite / Building <span className="text-neutral-400 font-normal">(Optional)</span>
@@ -796,7 +776,7 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
           />
         </div>
 
-        {/* Optional Hospital & Medical B2B Details */}
+        {/* 11. Optional Hospital & Medical B2B Details */}
         <div className="pt-2 border-t border-neutral-100">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
@@ -844,3 +824,4 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
     </div>
   );
 };
+
