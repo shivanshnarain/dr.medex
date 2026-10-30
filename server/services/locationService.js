@@ -1,91 +1,34 @@
 /**
  * DR.MEDEX Global — Location & Address Intelligence Service
- * Provides complete worldwide countries, states/provinces, cities,
- * calling codes, currencies, and real-time address autocomplete.
+ * Source of truth for exactly 195 sovereign countries, calling codes,
+ * dynamic states/provinces, cities, Google Maps & fallback address autocomplete,
+ * and libphonenumber phone validation.
  */
 
-const { Country, State, City } = require("country-state-city");
+const { State, City, Country } = require("country-state-city");
+const { parsePhoneNumberFromString } = require("libphonenumber-js");
+const worldwide195 = require("../data/worldwide195Countries");
 
-// In-memory cache for external autocomplete results (5 minutes)
+// In-memory cache for autocomplete results (5 minutes TTL)
 const autocompleteCache = new Map();
 const CACHE_TTL_MS = 5 * 60 * 1000;
 
-// Currencies mapping overrides/refinements
-const currencyOverrides = {
-  IN: "INR",
-  US: "USD",
-  GB: "GBP",
-  CA: "CAD",
-  DE: "EUR",
-  FR: "EUR",
-  IT: "EUR",
-  ES: "EUR",
-  NL: "EUR",
-  BE: "EUR",
-  AU: "AUD",
-  NZ: "NZD",
-  AE: "AED",
-  SA: "SAR",
-  PK: "PKR",
-  BD: "BDT",
-  SG: "SGD",
-  MY: "MYR",
-  JP: "JPY",
-  ZA: "ZAR",
-  NG: "NGN",
-  BR: "BRL",
-  MX: "MXN",
-  CH: "CHF"
-};
-
-const currencySymbols = {
-  INR: "₹",
-  USD: "$",
-  EUR: "€",
-  GBP: "£",
-  AED: "AED ",
-  SAR: "SAR ",
-  CAD: "CA$",
-  AUD: "A$",
-  PKR: "₨",
-  BDT: "৳",
-  SGD: "S$",
-  MYR: "RM",
-  JPY: "¥",
-  ZAR: "R",
-  NGN: "₦",
-  BRL: "R$",
-  MXN: "MX$",
-  CHF: "CHF"
-};
-
 /**
- * Get all 250 countries with standardized metadata
+ * Get all 195 exact countries with calling codes, currencies, symbols & flags
  */
 function getAllCountries() {
-  const allRaw = Country.getAllCountries();
-  return allRaw.map((c) => {
-    const rawDial = c.phonecode ? c.phonecode.replace(/[^0-9]/g, "") : "";
-    const dialCode = rawDial ? `+${rawDial}` : "+1";
-    const currency = currencyOverrides[c.isoCode] || c.currency || "USD";
-    const symbol = currencySymbols[currency] || (currency + " ");
+  return worldwide195;
+}
 
-    const postalLabel = c.isoCode === "IN" ? "PIN Code" : (c.isoCode === "US" ? "ZIP Code" : "Postal Code");
-    const stateLabel = c.isoCode === "CA" ? "Province" : (c.isoCode === "GB" ? "County / Region" : "State / Province");
-
-    return {
-      code: c.isoCode,
-      name: c.name,
-      flag: c.flag || "🌐",
-      dialCode,
-      currency,
-      symbol,
-      postalLabel,
-      stateLabel,
-      latitude: c.latitude,
-      longitude: c.longitude
-    };
-  });
+/**
+ * Get specific country by ISO code or exact name
+ */
+function getCountry(identifier) {
+  if (!identifier) return null;
+  const clean = String(identifier).trim().toUpperCase();
+  return worldwide195.find(
+    (c) => c.code.toUpperCase() === clean || c.name.toUpperCase() === clean
+  ) || null;
 }
 
 /**
@@ -131,7 +74,152 @@ function getCitiesByCountryAndState(countryCode, stateCode, search = "") {
 }
 
 /**
- * Worldwide Address Autocomplete using OpenStreetMap / Photon with caching
+ * Validate and format phone number using libphonenumber-js
+ */
+function validatePhoneNumber(phoneNumber, countryCode = "IN") {
+  if (!phoneNumber) return { isValid: false, formatted: "", localNumber: "" };
+  try {
+    const cleanCountry = String(countryCode).trim().toUpperCase();
+    const parsed = parsePhoneNumberFromString(String(phoneNumber), cleanCountry);
+    if (!parsed) {
+      return {
+        isValid: false,
+        formatted: String(phoneNumber).trim(),
+        localNumber: String(phoneNumber).replace(/[^\d]/g, "")
+      };
+    }
+
+    return {
+      isValid: parsed.isValid(),
+      e164: parsed.format("E.164"),
+      international: parsed.formatInternational(),
+      national: parsed.formatNational(),
+      country: parsed.country,
+      callingCode: `+${parsed.countryCallingCode}`,
+      localNumber: parsed.nationalNumber
+    };
+  } catch (err) {
+    return {
+      isValid: false,
+      formatted: String(phoneNumber).trim(),
+      localNumber: String(phoneNumber).replace(/[^\d]/g, "")
+    };
+  }
+}
+
+/**
+ * Query Google Places API (New) / Place Autocomplete when GOOGLE_MAPS_API_KEY is configured
+ */
+async function autocompleteWithGooglePlaces(query, countryCode, apiKey) {
+  try {
+    const cleanCountry = String(countryCode || "").trim().toLowerCase();
+    let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
+      query
+    )}&types=address&key=${apiKey}`;
+
+    if (cleanCountry && cleanCountry.length === 2) {
+      url += `&components=country:${cleanCountry}`;
+    }
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 4000);
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeout);
+
+    if (!res.ok) return null;
+    const data = await res.json();
+
+    if (data.status === "OK" && Array.isArray(data.predictions) && data.predictions.length > 0) {
+      return data.predictions.map((p) => {
+        const terms = Array.isArray(p.terms) ? p.terms.map((t) => t.value) : [];
+        const mainText = p.structured_formatting?.main_text || p.description.split(",")[0];
+        const secondaryText = p.structured_formatting?.secondary_text || "";
+
+        return {
+          formattedAddress: p.description,
+          addressLine1: mainText,
+          city: terms.length > 2 ? terms[terms.length - 3] : (secondaryText.split(",")[0] || ""),
+          state: terms.length > 1 ? terms[terms.length - 2] : "",
+          postalCode: "",
+          country: terms.length > 0 ? terms[terms.length - 1] : "",
+          countryCode: countryCode.toUpperCase(),
+          provider: "google_places",
+          placeId: p.place_id
+        };
+      });
+    }
+
+    return null;
+  } catch (err) {
+    return null;
+  }
+}
+
+/**
+ * OpenStreetMap / Photon geocoder (Primary fallback if Google Maps API key is not yet set)
+ */
+async function autocompleteWithPhoton(cleanQuery, cleanCountry) {
+  let url = `https://photon.komoot.io/api/?q=${encodeURIComponent(cleanQuery)}&limit=8`;
+  if (cleanCountry && cleanCountry.length === 2) {
+    const countryObj = Country.getCountryByCode(cleanCountry.toUpperCase());
+    if (countryObj && countryObj.latitude && countryObj.longitude) {
+      url += `&lat=${countryObj.latitude}&lon=${countryObj.longitude}`;
+    }
+  }
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 3500);
+
+  const res = await fetch(url, {
+    signal: controller.signal,
+    headers: {
+      "User-Agent": "DR.MEDEX-Global-Procurement/1.0"
+    }
+  });
+  clearTimeout(timeout);
+
+  if (!res.ok) return [];
+
+  const data = await res.json();
+  const features = Array.isArray(data.features) ? data.features : [];
+
+  return features
+    .filter((f) => {
+      if (cleanCountry && f.properties?.countrycode) {
+        return f.properties.countrycode.toLowerCase() === cleanCountry;
+      }
+      return true;
+    })
+    .map((f) => {
+      const p = f.properties || {};
+      const house = p.housenumber ? `${p.housenumber} ` : "";
+      const street = p.street || p.name || "";
+      const addressLine1 = (house + street).trim() || p.name || "";
+      const city = p.city || p.town || p.village || p.county || "";
+      const state = p.state || "";
+      const postalCode = p.postcode || "";
+      const country = p.country || "";
+      const countryCodeUpper = (p.countrycode || cleanCountry || "").toUpperCase();
+
+      const formattedParts = [addressLine1, city, state, postalCode, country].filter(Boolean);
+
+      return {
+        formattedAddress: formattedParts.join(", "),
+        addressLine1,
+        city,
+        state,
+        postalCode,
+        country,
+        countryCode: countryCodeUpper,
+        provider: "photon_osm"
+      };
+    });
+}
+
+/**
+ * Worldwide Address Autocomplete
+ * Uses official Google Places API when GOOGLE_MAPS_API_KEY is configured,
+ * otherwise seamlessly falls back to OpenStreetMap / Photon geocoding.
  */
 async function autocompleteAddress(query, countryCode = "") {
   const cleanQuery = String(query || "").trim();
@@ -147,82 +235,44 @@ async function autocompleteAddress(query, countryCode = "") {
   }
 
   try {
-    let url = `https://photon.komoot.io/api/?q=${encodeURIComponent(cleanQuery)}&limit=6`;
-    if (cleanCountry && cleanCountry.length === 2) {
-      // Prioritize country location
-      const countryObj = Country.getCountryByCode(cleanCountry.toUpperCase());
-      if (countryObj && countryObj.latitude && countryObj.longitude) {
-        url += `&lat=${countryObj.latitude}&lon=${countryObj.longitude}`;
-      }
+    const googleApiKey = process.env.GOOGLE_MAPS_API_KEY || process.env.GOOGLE_PLACES_API_KEY;
+    let results = null;
+
+    if (googleApiKey) {
+      results = await autocompleteWithGooglePlaces(cleanQuery, cleanCountry, googleApiKey);
     }
 
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 3500);
-
-    const res = await fetch(url, {
-      signal: controller.signal,
-      headers: {
-        "User-Agent": "DR.MEDEX-Global-Procurement/1.0"
-      }
-    });
-    clearTimeout(timeout);
-
-    if (!res.ok) {
-      return [];
+    if (!results || results.length === 0) {
+      results = await autocompleteWithPhoton(cleanQuery, cleanCountry);
     }
-
-    const data = await res.json();
-    const features = Array.isArray(data.features) ? data.features : [];
-
-    const results = features
-      .filter((f) => {
-        // If country specified, filter to match if possible
-        if (cleanCountry && f.properties?.countrycode) {
-          return f.properties.countrycode.toLowerCase() === cleanCountry;
-        }
-        return true;
-      })
-      .map((f) => {
-        const p = f.properties || {};
-        const house = p.housenumber ? `${p.housenumber} ` : "";
-        const street = p.street || p.name || "";
-        const addressLine1 = (house + street).trim() || p.name || "";
-        const city = p.city || p.town || p.village || p.county || "";
-        const state = p.state || "";
-        const postalCode = p.postcode || "";
-        const country = p.country || "";
-        const countryCodeUpper = (p.countrycode || cleanCountry || "").toUpperCase();
-
-        const formattedParts = [
-          addressLine1,
-          city,
-          state,
-          postalCode,
-          country
-        ].filter(Boolean);
-
-        return {
-          formattedAddress: formattedParts.join(", "),
-          addressLine1,
-          city,
-          state,
-          postalCode,
-          country,
-          countryCode: countryCodeUpper
-        };
-      });
 
     autocompleteCache.set(cacheKey, { timestamp: Date.now(), data: results });
     return results;
   } catch (err) {
-    // If external service fails or times out, safely return empty suggestions
     return [];
   }
 }
 
+/**
+ * Location Provider Status
+ */
+function getProviderStatus() {
+  const hasGoogleKey = Boolean(process.env.GOOGLE_MAPS_API_KEY || process.env.GOOGLE_PLACES_API_KEY);
+  return {
+    success: true,
+    countriesCount: worldwide195.length,
+    googleMapsConfigured: hasGoogleKey,
+    activeProvider: hasGoogleKey ? "Google Maps Platform Places API" : "OpenStreetMap / Photon Geocoding",
+    requiredConfig: hasGoogleKey ? null : "Set GOOGLE_MAPS_API_KEY in .env for Google Places Autocomplete"
+  };
+}
+
 module.exports = {
   getAllCountries,
+  getCountry,
   getStatesByCountry,
   getCitiesByCountryAndState,
-  autocompleteAddress
+  validatePhoneNumber,
+  autocompleteAddress,
+  getProviderStatus
 };

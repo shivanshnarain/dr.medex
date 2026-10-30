@@ -198,6 +198,16 @@ router.get("/location/autocomplete", async (req, res) => {
   }
 });
 
+router.get("/location/status", (req, res) => {
+  res.json(locationService.getProviderStatus());
+});
+
+router.get("/location/validate-phone", (req, res) => {
+  const { phone, countryCode } = req.query;
+  const result = locationService.validatePhoneNumber(phone, countryCode);
+  res.json({ success: true, result });
+});
+
 // CURRENCY & EXCHANGE RATES
 router.get("/currency/rates", async (req, res) => {
   try {

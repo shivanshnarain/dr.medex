@@ -24,12 +24,13 @@ import {
   Search,
   Globe,
   CreditCard,
-  PackageCheck
+  PackageCheck,
+  FileText
 } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useCurrency } from "../context/CurrencyContext";
 import { useAuth } from "../context/AuthContext";
-import { InternationalPhoneInput } from "../components/InternationalPhoneInput";
+import { InternationalPhoneInput, PhoneCountryItem } from "../components/InternationalPhoneInput";
 import { Order, ShippingAddress } from "../types";
 
 declare global {
@@ -51,8 +52,10 @@ interface CountryItem {
   dialCode: string;
   currency: string;
   symbol: string;
-  postalLabel?: string;
+  postalLabel?: string | null;
   stateLabel?: string;
+  hasPostalCode?: boolean;
+  hasStates?: boolean;
 }
 
 interface StateItem {
@@ -69,9 +72,11 @@ interface AutocompleteSuggestion {
   postalCode: string;
   country: string;
   countryCode: string;
+  provider?: string;
 }
 
-const GUEST_CHECKOUT_STORAGE_KEY = "drmedex_guest_checkout_v3";
+const GUEST_CHECKOUT_STORAGE_KEY = "drmedex_guest_checkout_v4";
+const POPULAR_COUNTRY_CODES = ["IN", "US", "GB", "CA", "AE", "DE", "AU", "PK", "SG", "JP"];
 
 export const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
@@ -91,7 +96,7 @@ export const CheckoutPage: React.FC = () => {
   const [couponSuccess, setCouponSuccess] = useState("");
   const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
 
-  // Complete Worldwide Countries & States State
+  // Complete 195 Worldwide Countries & States State
   const [countriesList, setCountriesList] = useState<CountryItem[]>([]);
   const [statesList, setStatesList] = useState<StateItem[]>([]);
   const [isLoadingStates, setIsLoadingStates] = useState(false);
@@ -99,16 +104,22 @@ export const CheckoutPage: React.FC = () => {
   const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
   const countryDropdownRef = useRef<HTMLDivElement>(null);
 
-  // Customer Information (Initialized 100% empty - NO mock data)
+  // Customer & Medical Procurement Information (Initialized 100% empty - NO mock data)
   const [fullName, setFullName] = useState("");
+  const [professionalTitle, setProfessionalTitle] = useState("");
   const [companyName, setCompanyName] = useState("");
+  const [department, setDepartment] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [taxId, setTaxId] = useState("");
+  const [poReference, setPoReference] = useState("");
 
   // Shipping Destination (Initialized 100% empty - NO mock data)
   const [countryCode, setCountryCode] = useState<string>("IN");
   const [addressLine1, setAddressLine1] = useState("");
   const [addressLine2, setAddressLine2] = useState("");
+  const [buildingSuite, setBuildingSuite] = useState("");
+  const [district, setDistrict] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [postalCode, setPostalCode] = useState("");
@@ -157,7 +168,7 @@ export const CheckoutPage: React.FC = () => {
   const paypalButtonContainerRef = useRef<HTMLDivElement>(null);
   const paypalButtonsInstanceRef = useRef<any>(null);
 
-  // 1. Fetch Complete 250 Worldwide Countries List on Mount
+  // 1. Fetch Complete 195 Worldwide Countries List on Mount
   useEffect(() => {
     let isMounted = true;
     async function loadCountries() {
@@ -167,7 +178,6 @@ export const CheckoutPage: React.FC = () => {
           const data = await res.json();
           if (isMounted && data.success && Array.isArray(data.countries) && data.countries.length > 0) {
             setCountriesList(data.countries);
-            // If user hasn't explicitly set country yet, sync with currentCountry or default
             const initialCode = currentCountry?.code || "IN";
             setCountryCode(initialCode);
             setBillingCountryCode(initialCode);
@@ -185,7 +195,7 @@ export const CheckoutPage: React.FC = () => {
   }, [currentCountry]);
 
   // Active country object
-  const activeCountry = useMemo(() => {
+  const activeCountry = useMemo<CountryItem>(() => {
     const found = countriesList.find((c) => c.code.toUpperCase() === countryCode.toUpperCase());
     if (found) return found;
     return {
@@ -196,7 +206,9 @@ export const CheckoutPage: React.FC = () => {
       currency: countryCode === "IN" ? "INR" : "USD",
       symbol: countryCode === "IN" ? "₹" : "$",
       postalLabel: countryCode === "IN" ? "PIN Code" : (countryCode === "US" ? "ZIP Code" : "Postal Code"),
-      stateLabel: countryCode === "CA" ? "Province" : (countryCode === "GB" ? "County / Region" : "State / Province")
+      stateLabel: countryCode === "CA" ? "Province" : (countryCode === "GB" ? "County / Region" : "State / Province"),
+      hasPostalCode: true,
+      hasStates: true
     };
   }, [countriesList, countryCode]);
 
@@ -236,13 +248,13 @@ export const CheckoutPage: React.FC = () => {
     setIsCountryDropdownOpen(false);
     setCountrySearchQuery("");
 
-    // If billing same as shipping, synchronize billing country too
     if (billingSameAsShipping) {
       setBillingCountryCode(selected.code);
     }
 
-    // Reset dependent state, city, and postal code
+    // Reset dependent geographic fields
     setState("");
+    setDistrict("");
     setCity("");
     setPostalCode("");
     setAutocompleteQuery("");
@@ -254,7 +266,7 @@ export const CheckoutPage: React.FC = () => {
     }
   };
 
-  // Close country dropdown on click outside
+  // Close dropdowns on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (countryDropdownRef.current && !countryDropdownRef.current.contains(e.target as Node)) {
@@ -318,11 +330,15 @@ export const CheckoutPage: React.FC = () => {
       if (savedDraftRaw) {
         const draft = JSON.parse(savedDraftRaw);
         if (draft.fullName) setFullName(draft.fullName);
+        if (draft.professionalTitle) setProfessionalTitle(draft.professionalTitle);
         if (draft.email) setEmail(draft.email);
         if (draft.phone) setPhone(draft.phone);
         if (draft.companyName) setCompanyName(draft.companyName);
+        if (draft.department) setDepartment(draft.department);
         if (draft.addressLine1) setAddressLine1(draft.addressLine1);
         if (draft.addressLine2) setAddressLine2(draft.addressLine2);
+        if (draft.buildingSuite) setBuildingSuite(draft.buildingSuite);
+        if (draft.district) setDistrict(draft.district);
         if (draft.city) setCity(draft.city);
         if (draft.state) setState(draft.state);
         if (draft.postalCode) setPostalCode(draft.postalCode);
@@ -373,16 +389,20 @@ export const CheckoutPage: React.FC = () => {
     loadAddresses();
   }, [user?.id]);
 
-  // Save draft state securely in localStorage
+  // Save draft state in localStorage
   useEffect(() => {
     try {
       const draft = {
         fullName,
+        professionalTitle,
         email,
         phone,
         companyName,
+        department,
         addressLine1,
         addressLine2,
+        buildingSuite,
+        district,
         city,
         state,
         postalCode,
@@ -390,7 +410,7 @@ export const CheckoutPage: React.FC = () => {
       };
       localStorage.setItem(GUEST_CHECKOUT_STORAGE_KEY, JSON.stringify(draft));
     } catch (e) {}
-  }, [fullName, email, phone, companyName, addressLine1, addressLine2, city, state, postalCode, countryCode]);
+  }, [fullName, professionalTitle, email, phone, companyName, department, addressLine1, addressLine2, buildingSuite, district, city, state, postalCode, countryCode]);
 
   // Apply a saved address
   const applySavedAddress = (addr: SavedAddressItem) => {
@@ -547,10 +567,10 @@ export const CheckoutPage: React.FC = () => {
       return false;
     }
     if (!city.trim()) {
-      setErrorMessage("Please specify your Delivery City.");
+      setErrorMessage("Please specify your Delivery City / Town.");
       return false;
     }
-    if (!postalCode.trim()) {
+    if (activeCountry.hasPostalCode !== false && !postalCode.trim()) {
       setErrorMessage(`Please enter your ${activeCountry.postalLabel || "Postal / ZIP Code"}.`);
       return false;
     }
@@ -686,17 +706,22 @@ export const CheckoutPage: React.FC = () => {
               firstName: parsedFirstName,
               lastName: parsedLastName,
               fullName: fullName.trim(),
+              professionalTitle,
               email,
               phone,
               countryCode,
-              companyName
+              companyName,
+              department,
+              taxId,
+              poReference
             },
             shippingAddress: {
               fullName: fullName.trim(),
               companyName,
               phone,
               addressLine1,
-              addressLine2,
+              addressLine2: [buildingSuite, addressLine2].filter(Boolean).join(", "),
+              district,
               city,
               state,
               postalCode,
@@ -823,11 +848,17 @@ export const CheckoutPage: React.FC = () => {
     currentStep,
     isPaypalSdkLoaded,
     fullName,
+    professionalTitle,
     email,
     phone,
     companyName,
+    department,
+    taxId,
+    poReference,
     addressLine1,
     addressLine2,
+    buildingSuite,
+    district,
     city,
     state,
     postalCode,
@@ -845,6 +876,23 @@ export const CheckoutPage: React.FC = () => {
     user?.id,
     activeCountry.name
   ]);
+
+  // Filtered countries for searchable dropdown
+  const { popularCountries, alphabeticalCountries } = useMemo(() => {
+    const q = countrySearchQuery.toLowerCase().trim();
+    if (!q) {
+      const pop = countriesList.filter((c) => POPULAR_COUNTRY_CODES.includes(c.code));
+      const sorted = [...countriesList].sort((a, b) => a.name.localeCompare(b.name));
+      return { popularCountries: pop, alphabeticalCountries: sorted };
+    }
+    const matched = countriesList.filter(
+      (c) =>
+        c.name.toLowerCase().includes(q) ||
+        c.code.toLowerCase().includes(q) ||
+        c.dialCode.replace(/\s+/g, "").includes(q)
+    ).sort((a, b) => a.name.localeCompare(b.name));
+    return { popularCountries: [], alphabeticalCountries: matched };
+  }, [countriesList, countrySearchQuery]);
 
   // EMPTY CART SCREEN
   if (items.length === 0 && !completedOrder) {
@@ -1047,14 +1095,6 @@ export const CheckoutPage: React.FC = () => {
     );
   }
 
-  // Filtered countries for searchable dropdown
-  const filteredCountries = countriesList.filter(
-    (c) =>
-      c.name.toLowerCase().includes(countrySearchQuery.toLowerCase()) ||
-      c.code.toLowerCase().includes(countrySearchQuery.toLowerCase()) ||
-      c.dialCode.includes(countrySearchQuery)
-  );
-
   return (
     <div className="w-full bg-[#FFFFFF] min-h-screen py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1065,14 +1105,14 @@ export const CheckoutPage: React.FC = () => {
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-2xs font-extrabold uppercase tracking-widest text-[#2D5A4A] bg-[#F4F7F2] px-2.5 py-0.5 rounded-full">
-                  Direct Clinical Procurement
+                  International Clinical Procurement
                 </span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-[#171717] tracking-tight mt-1.5">
                 Worldwide Medical Checkout
               </h1>
               <p className="text-xs text-neutral-500 mt-0.5">
-                Certified hospital equipment checkout with worldwide address intelligence and multi-currency PayPal processing.
+                Serving hospitals, surgery centres & distributors across 195 countries with compliant export documentation.
               </p>
             </div>
 
@@ -1082,7 +1122,7 @@ export const CheckoutPage: React.FC = () => {
             </div>
           </div>
 
-          {/* DR.MEDEX GREEN 3-STEP PROGRESS INDICATOR (NO BLACK THEME) */}
+          {/* DR.MEDEX GREEN 3-STEP PROGRESS INDICATOR */}
           <div className="mt-6 bg-white rounded-2xl border border-neutral-200 p-4 sm:p-5 shadow-xs">
             <div className="grid grid-cols-3 gap-2 sm:gap-4 relative">
               {/* Step 1 */}
@@ -1117,7 +1157,7 @@ export const CheckoutPage: React.FC = () => {
                     1. Destination & Customer
                   </div>
                   <div className="text-3xs text-neutral-500 truncate hidden md:block">
-                    Customer & Worldwide Address
+                    Customer & 195 Countries
                   </div>
                 </div>
               </button>
@@ -1219,18 +1259,23 @@ export const CheckoutPage: React.FC = () => {
             {currentStep === 1 && (
               <div className="space-y-6 animate-in fade-in duration-200">
                 
-                {/* 1. CUSTOMER INFORMATION */}
+                {/* 1. CUSTOMER & MEDICAL PROCUREMENT INFORMATION */}
                 <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
-                  <div className="flex items-center gap-2 pb-3 border-b border-neutral-200">
-                    <User size={18} className="text-[#2D5A4A]" />
-                    <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
-                      Customer & Organization Details
-                    </h2>
+                  <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+                    <div className="flex items-center gap-2">
+                      <User size={18} className="text-[#2D5A4A]" />
+                      <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
+                        Customer & Procurement Details
+                      </h2>
+                    </div>
+                    <span className="text-3xs text-neutral-400 font-bold uppercase tracking-wider">
+                      Medical Grade B2B
+                    </span>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                    {/* Full Name */}
-                    <div className="sm:col-span-2">
+                    {/* Full Name & Professional Title */}
+                    <div>
                       <label className="block font-bold text-[#171717] mb-1.5">
                         Full Name <span className="text-red-500">*</span>
                       </label>
@@ -1244,8 +1289,21 @@ export const CheckoutPage: React.FC = () => {
                       />
                     </div>
 
+                    <div>
+                      <label className="block font-bold text-[#171717] mb-1.5">
+                        Professional Title <span className="text-neutral-400 font-normal">(Optional)</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={professionalTitle}
+                        onChange={(e) => setProfessionalTitle(e.target.value)}
+                        placeholder="e.g. Consultant Surgeon, Procurement Officer"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                      />
+                    </div>
+
                     {/* Hospital / Clinic / Organization */}
-                    <div className="sm:col-span-2">
+                    <div>
                       <label className="block font-bold text-[#171717] mb-1.5">
                         Hospital / Clinic / Organization <span className="text-neutral-400 font-normal">(Optional)</span>
                       </label>
@@ -1261,10 +1319,24 @@ export const CheckoutPage: React.FC = () => {
                       </div>
                     </div>
 
+                    {/* Department */}
+                    <div>
+                      <label className="block font-bold text-[#171717] mb-1.5">
+                        Clinical Department <span className="text-neutral-400 font-normal">(Optional)</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={department}
+                        onChange={(e) => setDepartment(e.target.value)}
+                        placeholder="e.g. Operating Theatre, Laparoscopy Unit"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                      />
+                    </div>
+
                     {/* Email Address */}
                     <div>
                       <label className="block font-bold text-[#171717] mb-1.5">
-                        Official Email Address <span className="text-red-500">*</span>
+                        Official Business Email <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
                         <input
@@ -1279,7 +1351,7 @@ export const CheckoutPage: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* International Phone Number with auto-synced calling code */}
+                    {/* International Phone Number with Clean Separation & No Duplicate Code */}
                     <div>
                       <label className="block font-bold text-[#171717] mb-1.5">
                         International Phone Number <span className="text-red-500">*</span>
@@ -1292,6 +1364,36 @@ export const CheckoutPage: React.FC = () => {
                         required
                         placeholder="Enter your phone number"
                       />
+                    </div>
+
+                    {/* Optional Business Details: Tax ID & PO Reference */}
+                    <div>
+                      <label className="block font-bold text-[#171717] mb-1.5">
+                        VAT / GST / Tax ID <span className="text-neutral-400 font-normal">(Optional)</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={taxId}
+                        onChange={(e) => setTaxId(e.target.value)}
+                        placeholder="e.g. EU VAT, GSTIN, Tax ID"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400 uppercase"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-[#171717] mb-1.5">
+                        Purchase Order Reference <span className="text-neutral-400 font-normal">(Optional)</span>
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          value={poReference}
+                          onChange={(e) => setPoReference(e.target.value)}
+                          placeholder="PO Number for invoices"
+                          className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                        />
+                        <FileText size={16} className="absolute left-3 top-3 text-neutral-400 pointer-events-none" />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1386,7 +1488,7 @@ export const CheckoutPage: React.FC = () => {
                   </div>
                 )}
 
-                {/* 3. SHIPPING DESTINATION FORM WITH WORLDWIDE AUTOCOMPLETE */}
+                {/* 3. SHIPPING DESTINATION WITH ALL 195 COUNTRIES & GOOGLE MAPS AUTOCOMPLETE */}
                 <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
                   <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
                     <div className="flex items-center gap-2">
@@ -1395,13 +1497,13 @@ export const CheckoutPage: React.FC = () => {
                         Regional Shipping Destination
                       </h2>
                     </div>
-                    <span className="text-3xs font-bold text-neutral-500 uppercase tracking-wider">
-                      250 Territories Supported
+                    <span className="text-3xs font-bold text-[#2D5A4A] bg-[#F4F7F2] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                      All 195 Sovereign Countries
                     </span>
                   </div>
 
                   <div className="space-y-4 text-xs">
-                    {/* Destination Country Searchable Selector */}
+                    {/* Destination Country Searchable Selector (195 Countries) */}
                     <div className="relative" ref={countryDropdownRef}>
                       <label className="block font-bold text-[#171717] mb-1.5">
                         Destination Country / Jurisdiction <span className="text-red-500">*</span>
@@ -1427,9 +1529,9 @@ export const CheckoutPage: React.FC = () => {
                         </div>
                       </button>
 
-                      {/* Dropdown Menu for Countries */}
+                      {/* Dropdown Menu for All 195 Countries */}
                       {isCountryDropdownOpen && (
-                        <div className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-neutral-200 rounded-xl shadow-xl z-50 py-2 max-h-72 flex flex-col animate-in fade-in zoom-in-95 duration-100">
+                        <div className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-neutral-200 rounded-xl shadow-xl z-50 py-2 max-h-80 flex flex-col animate-in fade-in zoom-in-95 duration-100">
                           <div className="px-3 pb-2 border-b border-neutral-100">
                             <div className="relative">
                               <Search size={14} className="absolute left-2.5 top-2.5 text-neutral-400" />
@@ -1437,53 +1539,91 @@ export const CheckoutPage: React.FC = () => {
                                 type="text"
                                 value={countrySearchQuery}
                                 onChange={(e) => setCountrySearchQuery(e.target.value)}
-                                placeholder="Search by country, code (+91, +92, +1), or ISO..."
+                                placeholder="Search by name, calling code (+91, +92, +1), or ISO (IN, PK, US)..."
                                 className="w-full pl-8 pr-3 py-1.5 text-xs bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-[#7AA05A] text-neutral-800"
                                 autoFocus
                               />
                             </div>
                           </div>
 
-                          <div className="overflow-y-auto max-h-56 divide-y divide-neutral-50">
-                            {filteredCountries.length === 0 ? (
-                              <div className="px-4 py-3 text-xs text-neutral-500 text-center">
-                                No matching country or code found.
+                          <div className="overflow-y-auto max-h-64 divide-y divide-neutral-50">
+                            {/* Popular Countries Section (When not actively searching) */}
+                            {popularCountries.length > 0 && !countrySearchQuery && (
+                              <div className="pb-1">
+                                <div className="px-3.5 py-1 text-3xs font-extrabold uppercase tracking-wider text-neutral-400 bg-neutral-50">
+                                  Popular Procurement Hubs
+                                </div>
+                                {popularCountries.map((c) => (
+                                  <button
+                                    key={`pop-${c.code}`}
+                                    type="button"
+                                    onClick={() => handleSelectCountry(c)}
+                                    className={`w-full flex items-center justify-between px-3.5 py-2 hover:bg-[#F4F7F2] text-left transition-colors text-xs ${
+                                      c.code === countryCode ? "bg-[#7AA05A]/10 font-bold text-[#2D5A4A]" : "text-neutral-800"
+                                    }`}
+                                  >
+                                    <div className="flex items-center gap-2.5 truncate pr-2">
+                                      <span className="text-base">{c.flag}</span>
+                                      <span className="truncate">{c.name}</span>
+                                      <span className="text-3xs font-mono text-neutral-400">({c.code})</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 shrink-0">
+                                      <span className="font-mono text-2xs text-neutral-500 font-semibold">{c.dialCode}</span>
+                                      <span className="text-3xs font-semibold text-neutral-400">{c.currency}</span>
+                                    </div>
+                                  </button>
+                                ))}
                               </div>
-                            ) : (
-                              filteredCountries.map((c) => (
-                                <button
-                                  key={c.code}
-                                  type="button"
-                                  onClick={() => handleSelectCountry(c)}
-                                  className={`w-full flex items-center justify-between px-3.5 py-2 hover:bg-[#F4F7F2] text-left transition-colors text-xs ${
-                                    c.code === countryCode ? "bg-[#7AA05A]/10 font-bold text-[#2D5A4A]" : "text-neutral-800"
-                                  }`}
-                                >
-                                  <div className="flex items-center gap-2.5 truncate pr-2">
-                                    <span className="text-base">{c.flag}</span>
-                                    <span className="truncate">{c.name}</span>
-                                    <span className="text-3xs font-mono text-neutral-400">({c.code})</span>
-                                  </div>
-                                  <div className="flex items-center gap-2 shrink-0">
-                                    <span className="font-mono text-2xs text-neutral-500">{c.dialCode}</span>
-                                    <span className="text-3xs font-semibold text-neutral-400">{c.currency}</span>
-                                  </div>
-                                </button>
-                              ))
                             )}
+
+                            {/* All 195 Countries List */}
+                            <div>
+                              {!countrySearchQuery && (
+                                <div className="px-3.5 py-1 text-3xs font-extrabold uppercase tracking-wider text-neutral-400 bg-neutral-50">
+                                  All 195 Countries (Alphabetical)
+                                </div>
+                              )}
+                              {alphabeticalCountries.length === 0 ? (
+                                <div className="px-4 py-4 text-xs text-neutral-500 text-center">
+                                  No matching country or calling code found.
+                                </div>
+                              ) : (
+                                alphabeticalCountries.map((c) => (
+                                  <button
+                                    key={c.code}
+                                    type="button"
+                                    onClick={() => handleSelectCountry(c)}
+                                    className={`w-full flex items-center justify-between px-3.5 py-2 hover:bg-[#F4F7F2] text-left transition-colors text-xs ${
+                                      c.code === countryCode ? "bg-[#7AA05A]/10 font-bold text-[#2D5A4A]" : "text-neutral-800"
+                                    }`}
+                                  >
+                                    <div className="flex items-center gap-2.5 truncate pr-2">
+                                      <span className="text-base leading-none">{c.flag}</span>
+                                      <span className="truncate">{c.name}</span>
+                                      <span className="text-3xs font-mono text-neutral-400">({c.code})</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 shrink-0">
+                                      <span className="font-mono text-2xs text-neutral-500 font-semibold">{c.dialCode}</span>
+                                      <span className="text-3xs font-semibold text-neutral-400">{c.currency}</span>
+                                    </div>
+                                  </button>
+                                ))
+                              )}
+                            </div>
                           </div>
                         </div>
                       )}
                     </div>
 
-                    {/* Real-time Address Autocomplete Search Bar */}
+                    {/* Google Maps / Geocoded Address Autocomplete Search Bar */}
                     <div className="relative" ref={autocompleteContainerRef}>
                       <div className="flex items-center justify-between mb-1.5">
                         <label className="block font-bold text-[#171717]">
-                          Address Autocomplete Search
+                          Address Autocomplete & Location Search
                         </label>
-                        <span className="text-3xs text-neutral-400 font-medium">
-                          OpenStreetMap / Photon Geocoded
+                        <span className="text-3xs text-neutral-400 font-medium flex items-center gap-1">
+                          <MapPin size={11} className="text-[#2D5A4A]" />
+                          <span>Google Maps / OSM Geocoded</span>
                         </span>
                       </div>
                       <div className="relative">
@@ -1494,7 +1634,7 @@ export const CheckoutPage: React.FC = () => {
                           onFocus={() => {
                             if (autocompleteSuggestions.length > 0) setShowAddressSuggestions(true);
                           }}
-                          placeholder={`Search address or hospital landmark in ${activeCountry.name}...`}
+                          placeholder={`Search hospital, street, landmark, or city in ${activeCountry.name}...`}
                           className="w-full pl-9 pr-8 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
                         />
                         <Search size={15} className="absolute left-3 top-3 text-neutral-400 pointer-events-none" />
@@ -1555,18 +1695,34 @@ export const CheckoutPage: React.FC = () => {
                       />
                     </div>
 
-                    {/* Address Line 2 */}
-                    <div>
-                      <label className="block font-bold text-[#171717] mb-1.5">
-                        Address Line 2 <span className="text-neutral-400 font-normal">(Optional)</span>
-                      </label>
-                      <input
-                        type="text"
-                        value={addressLine2}
-                        onChange={(e) => setAddressLine2(e.target.value)}
-                        placeholder="Apartment, department, ward, floor, loading dock"
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                      />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* Address Line 2 */}
+                      <div>
+                        <label className="block font-bold text-[#171717] mb-1.5">
+                          Address Line 2 <span className="text-neutral-400 font-normal">(Optional)</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={addressLine2}
+                          onChange={(e) => setAddressLine2(e.target.value)}
+                          placeholder="Floor, wing, surgical suite, loading bay"
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                        />
+                      </div>
+
+                      {/* Building / Suite */}
+                      <div>
+                        <label className="block font-bold text-[#171717] mb-1.5">
+                          Building / Suite / Ward <span className="text-neutral-400 font-normal">(Optional)</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={buildingSuite}
+                          onChange={(e) => setBuildingSuite(e.target.value)}
+                          placeholder="Building name, tower, block"
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                        />
+                      </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -1604,10 +1760,10 @@ export const CheckoutPage: React.FC = () => {
                         )}
                       </div>
 
-                      {/* City */}
+                      {/* City / Town */}
                       <div>
                         <label className="block font-bold text-[#171717] mb-1.5">
-                          City / Municipality <span className="text-red-500">*</span>
+                          City / Town <span className="text-red-500">*</span>
                         </label>
                         <input
                           type="text"
@@ -1619,23 +1775,28 @@ export const CheckoutPage: React.FC = () => {
                         />
                       </div>
 
-                      {/* Dynamic Postal Code */}
+                      {/* Dynamic Postal / ZIP / PIN Code (Adapts if country has no postal codes) */}
                       <div>
                         <label className="block font-bold text-[#171717] mb-1.5">
-                          {activeCountry.postalLabel || "Postal Code"} <span className="text-red-500">*</span>
+                          {activeCountry.postalLabel || "Postal Code"}{" "}
+                          {activeCountry.hasPostalCode !== false && <span className="text-red-500">*</span>}
                         </label>
                         <input
                           type="text"
-                          required
+                          required={activeCountry.hasPostalCode !== false}
                           value={postalCode}
                           onChange={(e) => setPostalCode(e.target.value)}
                           placeholder={
-                            activeCountry.code === "IN"
-                              ? "e.g. 110001"
+                            activeCountry.hasPostalCode === false
+                              ? "Not applicable for this country"
+                              : activeCountry.code === "IN"
+                              ? "e.g. 110001 (6 digits)"
                               : activeCountry.code === "US"
                               ? "e.g. 90210"
                               : activeCountry.code === "GB"
                               ? "e.g. SW1A 1AA"
+                              : activeCountry.code === "CA"
+                              ? "e.g. K1A 0B1"
                               : "Enter postal code"
                           }
                           className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
@@ -1643,10 +1804,10 @@ export const CheckoutPage: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Special Delivery Instructions (Optional) */}
+                    {/* Special Cargo Delivery Instructions */}
                     <div>
                       <label className="block font-bold text-[#171717] mb-1.5">
-                        Cargo Delivery Instructions <span className="text-neutral-400 font-normal">(Optional)</span>
+                        Cargo Delivery & Receiving Bay Instructions <span className="text-neutral-400 font-normal">(Optional)</span>
                       </label>
                       <input
                         type="text"
@@ -1726,7 +1887,7 @@ export const CheckoutPage: React.FC = () => {
                           >
                             {countriesList.map((c) => (
                               <option key={c.code} value={c.code}>
-                                {c.flag} {c.name}
+                                {c.flag} {c.name} ({c.dialCode})
                               </option>
                             ))}
                           </select>
@@ -1811,8 +1972,14 @@ export const CheckoutPage: React.FC = () => {
                   </div>
 
                   <div className="p-4 rounded-xl border border-neutral-200 bg-neutral-50 text-xs space-y-1">
-                    <div className="font-bold text-[#171717] text-sm">{fullName}</div>
-                    {companyName && <div className="text-neutral-600 font-medium">{companyName}</div>}
+                    <div className="font-bold text-[#171717] text-sm">
+                      {professionalTitle ? `${professionalTitle} ` : ""}{fullName}
+                    </div>
+                    {companyName && (
+                      <div className="text-neutral-600 font-medium">
+                        {companyName} {department ? `(${department})` : ""}
+                      </div>
+                    )}
                     <div className="text-neutral-600">
                       {addressLine1}
                       {addressLine2 ? `, ${addressLine2}` : ""}
@@ -1925,8 +2092,14 @@ export const CheckoutPage: React.FC = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                     <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 space-y-1">
                       <div className="font-bold text-neutral-500 uppercase text-3xs">Recipient & Organization</div>
-                      <div className="font-bold text-[#171717]">{fullName}</div>
-                      {companyName && <div className="text-neutral-600 text-2xs">{companyName}</div>}
+                      <div className="font-bold text-[#171717]">
+                        {professionalTitle ? `${professionalTitle} ` : ""}{fullName}
+                      </div>
+                      {companyName && (
+                        <div className="text-neutral-600 text-2xs">
+                          {companyName} {department ? `(${department})` : ""}
+                        </div>
+                      )}
                       <div className="text-neutral-500 text-3xs font-mono">{email}</div>
                       <div className="text-neutral-500 text-3xs font-mono">{phone}</div>
                     </div>
@@ -1981,6 +2154,7 @@ export const CheckoutPage: React.FC = () => {
                         <option value="SGD">SGD (S$ - Singapore Dollar)</option>
                         <option value="JPY">JPY (¥ - Japanese Yen)</option>
                         <option value="CHF">CHF (Swiss Franc)</option>
+                        <option value="PKR">PKR (₨ - Pakistani Rupee)</option>
                         <option value="ZAR">ZAR (South African Rand)</option>
                       </select>
                     </div>
@@ -2331,11 +2505,10 @@ export const CheckoutPage: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block font-bold text-[#171717] mb-1">Postal Code *</label>
+                    <label className="block font-bold text-[#171717] mb-1">Postal Code</label>
                     <input
                       type="text"
                       name="postalCode"
-                      required
                       defaultValue={editingAddress?.postalCode || postalCode}
                       placeholder="Enter postal code"
                       className="w-full px-3 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#7AA05A]"
