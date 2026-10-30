@@ -1,0 +1,2429 @@
+{
+  "1": [
+    {
+      "name": "Almirante",
+      "postalCodes": []
+    },
+    {
+      "name": "Barranco",
+      "postalCodes": []
+    },
+    {
+      "name": "Barranco Adentro",
+      "postalCodes": []
+    },
+    {
+      "name": "Bastimentos",
+      "postalCodes": []
+    },
+    {
+      "name": "Bocas del Toro",
+      "postalCodes": []
+    },
+    {
+      "name": "Cauchero",
+      "postalCodes": []
+    },
+    {
+      "name": "Changuinola",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiriquí Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito Chiriquí Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Bocas del Toro",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Changuinola",
+      "postalCodes": []
+    },
+    {
+      "name": "El Empalme",
+      "postalCodes": []
+    },
+    {
+      "name": "El Silencio",
+      "postalCodes": []
+    },
+    {
+      "name": "Guabito",
+      "postalCodes": []
+    },
+    {
+      "name": "Isla Bastimentos",
+      "postalCodes": []
+    },
+    {
+      "name": "La Mesa",
+      "postalCodes": []
+    },
+    {
+      "name": "Miramar",
+      "postalCodes": []
+    },
+    {
+      "name": "Punta Laurel",
+      "postalCodes": []
+    },
+    {
+      "name": "Punta Peña",
+      "postalCodes": []
+    },
+    {
+      "name": "Punta Róbalo",
+      "postalCodes": []
+    },
+    {
+      "name": "Valle del Risco",
+      "postalCodes": []
+    }
+  ],
+  "2": [
+    {
+      "name": "Aguadulce",
+      "postalCodes": []
+    },
+    {
+      "name": "Aguas Blancas",
+      "postalCodes": []
+    },
+    {
+      "name": "Alto de La Estancia",
+      "postalCodes": []
+    },
+    {
+      "name": "Antón",
+      "postalCodes": []
+    },
+    {
+      "name": "Barranco Colorado",
+      "postalCodes": []
+    },
+    {
+      "name": "Caballero",
+      "postalCodes": []
+    },
+    {
+      "name": "Cabuya",
+      "postalCodes": []
+    },
+    {
+      "name": "Caimito",
+      "postalCodes": []
+    },
+    {
+      "name": "Cañaveral",
+      "postalCodes": []
+    },
+    {
+      "name": "Capellanía",
+      "postalCodes": []
+    },
+    {
+      "name": "Chigoré",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiguirí Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Churuquita Chiquita",
+      "postalCodes": []
+    },
+    {
+      "name": "Churuquita Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Coclé",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Aguadulce",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Antón",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de La Pintada",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Natá",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Olá",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito Penonomé",
+      "postalCodes": []
+    },
+    {
+      "name": "El Caño",
+      "postalCodes": []
+    },
+    {
+      "name": "El Chirú",
+      "postalCodes": []
+    },
+    {
+      "name": "El Coco",
+      "postalCodes": []
+    },
+    {
+      "name": "El Copé",
+      "postalCodes": []
+    },
+    {
+      "name": "El Cortezo",
+      "postalCodes": []
+    },
+    {
+      "name": "El Cristo",
+      "postalCodes": []
+    },
+    {
+      "name": "El Potrero",
+      "postalCodes": []
+    },
+    {
+      "name": "El Retiro",
+      "postalCodes": []
+    },
+    {
+      "name": "El Roble",
+      "postalCodes": []
+    },
+    {
+      "name": "Entradero",
+      "postalCodes": []
+    },
+    {
+      "name": "Farallón",
+      "postalCodes": []
+    },
+    {
+      "name": "Guzman",
+      "postalCodes": []
+    },
+    {
+      "name": "Juan Díaz",
+      "postalCodes": []
+    },
+    {
+      "name": "La Loma",
+      "postalCodes": []
+    },
+    {
+      "name": "La Pintada",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Huacas del Quije",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Marias",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Minas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Sabanas",
+      "postalCodes": []
+    },
+    {
+      "name": "Llano Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Llano Marín",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Pollos",
+      "postalCodes": []
+    },
+    {
+      "name": "Natá",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuestro Amo",
+      "postalCodes": []
+    },
+    {
+      "name": "Olá",
+      "postalCodes": []
+    },
+    {
+      "name": "Penonomé",
+      "postalCodes": []
+    },
+    {
+      "name": "Piedras Gordas",
+      "postalCodes": []
+    },
+    {
+      "name": "Pocrí",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Hato",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan de Dios",
+      "postalCodes": []
+    },
+    {
+      "name": "Toabré",
+      "postalCodes": []
+    },
+    {
+      "name": "Toza",
+      "postalCodes": []
+    },
+    {
+      "name": "Vista Hermosa",
+      "postalCodes": []
+    }
+  ],
+  "3": [
+    {
+      "name": "Buena Vista",
+      "postalCodes": []
+    },
+    {
+      "name": "Cativá",
+      "postalCodes": []
+    },
+    {
+      "name": "Coclé del Norte",
+      "postalCodes": []
+    },
+    {
+      "name": "Colón",
+      "postalCodes": []
+    },
+    {
+      "name": "Cristóbal",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Chagres",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Colón",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Donoso",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Portobelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Santa Isabel",
+      "postalCodes": []
+    },
+    {
+      "name": "El Giral",
+      "postalCodes": []
+    },
+    {
+      "name": "El Guabo",
+      "postalCodes": []
+    },
+    {
+      "name": "El Valle de la Unión",
+      "postalCodes": []
+    },
+    {
+      "name": "Escobal",
+      "postalCodes": []
+    },
+    {
+      "name": "Gatún",
+      "postalCodes": []
+    },
+    {
+      "name": "Gatuncillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Margaritas",
+      "postalCodes": []
+    },
+    {
+      "name": "María Chiquita",
+      "postalCodes": []
+    },
+    {
+      "name": "Miramar",
+      "postalCodes": []
+    },
+    {
+      "name": "Nombre de Dios",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuevo Chagres",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuevo San Juan",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuevo Vigía",
+      "postalCodes": []
+    },
+    {
+      "name": "Palenque",
+      "postalCodes": []
+    },
+    {
+      "name": "Palmas Bellas",
+      "postalCodes": []
+    },
+    {
+      "name": "Palmira",
+      "postalCodes": []
+    },
+    {
+      "name": "Playa Chiquita",
+      "postalCodes": []
+    },
+    {
+      "name": "Portobelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Escondido",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Pilón",
+      "postalCodes": []
+    },
+    {
+      "name": "Quebrada Bonita Adentro",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Alejandro",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Duque",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Rita",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabanitas",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Isabel",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rita Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Viento Frío",
+      "postalCodes": []
+    }
+  ],
+  "4": [
+    {
+      "name": "Alanje",
+      "postalCodes": []
+    },
+    {
+      "name": "Algarrobos Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Alto Boquete",
+      "postalCodes": []
+    },
+    {
+      "name": "Aserrío de Gariché",
+      "postalCodes": []
+    },
+    {
+      "name": "Bágala",
+      "postalCodes": []
+    },
+    {
+      "name": "Bajo Boquete",
+      "postalCodes": []
+    },
+    {
+      "name": "Barrio Guadalupe",
+      "postalCodes": []
+    },
+    {
+      "name": "Bijagual",
+      "postalCodes": []
+    },
+    {
+      "name": "Boca Chica",
+      "postalCodes": []
+    },
+    {
+      "name": "Boca del Monte",
+      "postalCodes": []
+    },
+    {
+      "name": "Boquerón",
+      "postalCodes": []
+    },
+    {
+      "name": "Boquete",
+      "postalCodes": []
+    },
+    {
+      "name": "Breñón",
+      "postalCodes": []
+    },
+    {
+      "name": "Bugaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Bugabita Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Caimito",
+      "postalCodes": []
+    },
+    {
+      "name": "Caldera",
+      "postalCodes": []
+    },
+    {
+      "name": "Cañas Gordas",
+      "postalCodes": []
+    },
+    {
+      "name": "Celmira",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerro Punta",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerro Viejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiriquí",
+      "postalCodes": []
+    },
+    {
+      "name": "Cochea Abajo",
+      "postalCodes": []
+    },
+    {
+      "name": "Cordillera",
+      "postalCodes": []
+    },
+    {
+      "name": "David",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Alanje",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Barú",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Boquerón",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Boquete",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Bugaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de David",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Dolega",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Gualaca",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Remedios",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Renacimiento",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de San Félix",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de San Lorenzo",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Tolé",
+      "postalCodes": []
+    },
+    {
+      "name": "Divalá",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolega District",
+      "postalCodes": []
+    },
+    {
+      "name": "El Nancito",
+      "postalCodes": []
+    },
+    {
+      "name": "El Palmar",
+      "postalCodes": []
+    },
+    {
+      "name": "El Porvenir",
+      "postalCodes": []
+    },
+    {
+      "name": "El Tejar",
+      "postalCodes": []
+    },
+    {
+      "name": "Finca Blanco",
+      "postalCodes": []
+    },
+    {
+      "name": "Gómez",
+      "postalCodes": []
+    },
+    {
+      "name": "Guabal",
+      "postalCodes": []
+    },
+    {
+      "name": "Guaca Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Gualaca",
+      "postalCodes": []
+    },
+    {
+      "name": "Guarumal",
+      "postalCodes": []
+    },
+    {
+      "name": "Guayabal",
+      "postalCodes": []
+    },
+    {
+      "name": "Horconcitos",
+      "postalCodes": []
+    },
+    {
+      "name": "La Concepción",
+      "postalCodes": []
+    },
+    {
+      "name": "La Esperanza",
+      "postalCodes": []
+    },
+    {
+      "name": "La Estrella",
+      "postalCodes": []
+    },
+    {
+      "name": "Lajas Adentro",
+      "postalCodes": []
+    },
+    {
+      "name": "Lajas de Tolé",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Lajas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Lomas",
+      "postalCodes": []
+    },
+    {
+      "name": "Limones",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Algarrobos",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Anastacios",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Ángeles",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Naranjos",
+      "postalCodes": []
+    },
+    {
+      "name": "Manaca Civil",
+      "postalCodes": []
+    },
+    {
+      "name": "Manaca Norte",
+      "postalCodes": []
+    },
+    {
+      "name": "Mata del Nance",
+      "postalCodes": []
+    },
+    {
+      "name": "Monte Lirio",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuevo San Carlitos",
+      "postalCodes": []
+    },
+    {
+      "name": "Paja de Sombrero",
+      "postalCodes": []
+    },
+    {
+      "name": "Palmira",
+      "postalCodes": []
+    },
+    {
+      "name": "Palmira Centro",
+      "postalCodes": []
+    },
+    {
+      "name": "Paraíso",
+      "postalCodes": []
+    },
+    {
+      "name": "Paso Canoas Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Pedregal",
+      "postalCodes": []
+    },
+    {
+      "name": "Plaza de Caisán",
+      "postalCodes": []
+    },
+    {
+      "name": "Potrerillos Abajo",
+      "postalCodes": []
+    },
+    {
+      "name": "Potrerillos Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Progreso",
+      "postalCodes": []
+    },
+    {
+      "name": "Pueblo Viejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Armuelles",
+      "postalCodes": []
+    },
+    {
+      "name": "Punta de Burica",
+      "postalCodes": []
+    },
+    {
+      "name": "Quebrada de Piedra",
+      "postalCodes": []
+    },
+    {
+      "name": "Querévalo",
+      "postalCodes": []
+    },
+    {
+      "name": "Quinteño",
+      "postalCodes": []
+    },
+    {
+      "name": "Remedios",
+      "postalCodes": []
+    },
+    {
+      "name": "Rincón",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Sereno",
+      "postalCodes": []
+    },
+    {
+      "name": "Rovira Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "San Andrés",
+      "postalCodes": []
+    },
+    {
+      "name": "San Carlos",
+      "postalCodes": []
+    },
+    {
+      "name": "San Félix",
+      "postalCodes": []
+    },
+    {
+      "name": "San Isidro",
+      "postalCodes": []
+    },
+    {
+      "name": "San Lorenzo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pablo Nuevo Abajo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pablo Viejo Abajo",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Clara",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Cruz",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Marta",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Domingo",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Tomás",
+      "postalCodes": []
+    },
+    {
+      "name": "Sioguí Abajo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sioguí Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Sortova",
+      "postalCodes": []
+    },
+    {
+      "name": "Tijeras",
+      "postalCodes": []
+    },
+    {
+      "name": "Tinajas",
+      "postalCodes": []
+    },
+    {
+      "name": "Tolé",
+      "postalCodes": []
+    },
+    {
+      "name": "Veladero",
+      "postalCodes": []
+    },
+    {
+      "name": "Volcán",
+      "postalCodes": []
+    }
+  ],
+  "5": [
+    {
+      "name": "Boca de Cupé",
+      "postalCodes": []
+    },
+    {
+      "name": "Camogantí",
+      "postalCodes": []
+    },
+    {
+      "name": "Cucunatí",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Chepigana",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Pinogana",
+      "postalCodes": []
+    },
+    {
+      "name": "Garachiné",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaqué",
+      "postalCodes": []
+    },
+    {
+      "name": "La Palma",
+      "postalCodes": []
+    },
+    {
+      "name": "Metetí",
+      "postalCodes": []
+    },
+    {
+      "name": "Mortí",
+      "postalCodes": []
+    },
+    {
+      "name": "Púcuro",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Fé",
+      "postalCodes": []
+    },
+    {
+      "name": "Yaviza",
+      "postalCodes": []
+    }
+  ],
+  "6": [
+    {
+      "name": "Boca de Parita",
+      "postalCodes": []
+    },
+    {
+      "name": "Cabuya",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerro Largo",
+      "postalCodes": []
+    },
+    {
+      "name": "Chitré",
+      "postalCodes": []
+    },
+    {
+      "name": "Chumical",
+      "postalCodes": []
+    },
+    {
+      "name": "Chupampa",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Chitré",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Las Minas",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Los Pozos",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Ocú",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Parita",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Pesé",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Santa María",
+      "postalCodes": []
+    },
+    {
+      "name": "El Calabacito",
+      "postalCodes": []
+    },
+    {
+      "name": "El Capurí",
+      "postalCodes": []
+    },
+    {
+      "name": "El Cedro",
+      "postalCodes": []
+    },
+    {
+      "name": "El Pedregoso",
+      "postalCodes": []
+    },
+    {
+      "name": "El Rincón",
+      "postalCodes": []
+    },
+    {
+      "name": "El Toro",
+      "postalCodes": []
+    },
+    {
+      "name": "La Arena",
+      "postalCodes": []
+    },
+    {
+      "name": "La Trinidad",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Guabas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Minas",
+      "postalCodes": []
+    },
+    {
+      "name": "Leones Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Limón de Tijeras",
+      "postalCodes": []
+    },
+    {
+      "name": "Llano Bonito",
+      "postalCodes": []
+    },
+    {
+      "name": "Llano de La Cruz",
+      "postalCodes": []
+    },
+    {
+      "name": "Llano Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Canelos",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Castillos",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Cerritos",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Cerros de Paja",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Pozos",
+      "postalCodes": []
+    },
+    {
+      "name": "Monagrillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ocú",
+      "postalCodes": []
+    },
+    {
+      "name": "París",
+      "postalCodes": []
+    },
+    {
+      "name": "Parita",
+      "postalCodes": []
+    },
+    {
+      "name": "Peñas Chatas",
+      "postalCodes": []
+    },
+    {
+      "name": "Pesé",
+      "postalCodes": []
+    },
+    {
+      "name": "Pitaloza Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Portobelillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Potuga",
+      "postalCodes": []
+    },
+    {
+      "name": "Quebrada del Rosario",
+      "postalCodes": []
+    },
+    {
+      "name": "Rincón Hondo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabana Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan Bautista",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa María",
+      "postalCodes": []
+    }
+  ],
+  "7": [
+    {
+      "name": "Agua Buena",
+      "postalCodes": []
+    },
+    {
+      "name": "Ave María",
+      "postalCodes": []
+    },
+    {
+      "name": "Bahía Honda",
+      "postalCodes": []
+    },
+    {
+      "name": "Bajo Corral",
+      "postalCodes": []
+    },
+    {
+      "name": "Bayano",
+      "postalCodes": []
+    },
+    {
+      "name": "Bella Vista",
+      "postalCodes": []
+    },
+    {
+      "name": "Cambutal",
+      "postalCodes": []
+    },
+    {
+      "name": "Cañas",
+      "postalCodes": []
+    },
+    {
+      "name": "Cedro Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Guararé",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Las Tablas",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Los Santos",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Macaracas",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Pedasí",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Pocrí",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Tonosí",
+      "postalCodes": []
+    },
+    {
+      "name": "El Cacao",
+      "postalCodes": []
+    },
+    {
+      "name": "El Cañafístulo",
+      "postalCodes": []
+    },
+    {
+      "name": "El Carate",
+      "postalCodes": []
+    },
+    {
+      "name": "El Cocal",
+      "postalCodes": []
+    },
+    {
+      "name": "El Cortezo",
+      "postalCodes": []
+    },
+    {
+      "name": "El Ejido",
+      "postalCodes": []
+    },
+    {
+      "name": "El Guásimo",
+      "postalCodes": []
+    },
+    {
+      "name": "El Hato",
+      "postalCodes": []
+    },
+    {
+      "name": "El Macano",
+      "postalCodes": []
+    },
+    {
+      "name": "El Manantial",
+      "postalCodes": []
+    },
+    {
+      "name": "El Muñoz",
+      "postalCodes": []
+    },
+    {
+      "name": "El Pedregoso",
+      "postalCodes": []
+    },
+    {
+      "name": "Flores",
+      "postalCodes": []
+    },
+    {
+      "name": "Guararé",
+      "postalCodes": []
+    },
+    {
+      "name": "Guararé Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "La Colorada",
+      "postalCodes": []
+    },
+    {
+      "name": "La Enea",
+      "postalCodes": []
+    },
+    {
+      "name": "La Espigadilla",
+      "postalCodes": []
+    },
+    {
+      "name": "La Laja",
+      "postalCodes": []
+    },
+    {
+      "name": "La Mesa",
+      "postalCodes": []
+    },
+    {
+      "name": "La Miel",
+      "postalCodes": []
+    },
+    {
+      "name": "La Palma",
+      "postalCodes": []
+    },
+    {
+      "name": "La Pasera",
+      "postalCodes": []
+    },
+    {
+      "name": "La Tiza",
+      "postalCodes": []
+    },
+    {
+      "name": "La Tronosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Lajamina",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Cruces",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Guabas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Palmas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Palmitas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Tablas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Trancas",
+      "postalCodes": []
+    },
+    {
+      "name": "Llano Abajo",
+      "postalCodes": []
+    },
+    {
+      "name": "Llano de Piedra",
+      "postalCodes": []
+    },
+    {
+      "name": "Llano Largo",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Ángeles",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Asientos",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Olivos",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Santos",
+      "postalCodes": []
+    },
+    {
+      "name": "Macaracas",
+      "postalCodes": []
+    },
+    {
+      "name": "Mogollón",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuario",
+      "postalCodes": []
+    },
+    {
+      "name": "Oria Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Palmira",
+      "postalCodes": []
+    },
+    {
+      "name": "Paraíso",
+      "postalCodes": []
+    },
+    {
+      "name": "Paritilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Pedasí",
+      "postalCodes": []
+    },
+    {
+      "name": "Peña Blanca",
+      "postalCodes": []
+    },
+    {
+      "name": "Perales",
+      "postalCodes": []
+    },
+    {
+      "name": "Pocrí",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Hondo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabana Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "San José",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Ana Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Domingo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sesteadero",
+      "postalCodes": []
+    },
+    {
+      "name": "Tonosí",
+      "postalCodes": []
+    },
+    {
+      "name": "Tres Quebradas",
+      "postalCodes": []
+    },
+    {
+      "name": "Valle Rico",
+      "postalCodes": []
+    },
+    {
+      "name": "Vallerriquito",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Lourdes",
+      "postalCodes": []
+    }
+  ],
+  "8": [
+    {
+      "name": "Alcalde Díaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Ancón",
+      "postalCodes": []
+    },
+    {
+      "name": "Brujas",
+      "postalCodes": []
+    },
+    {
+      "name": "Cabra Número Uno",
+      "postalCodes": []
+    },
+    {
+      "name": "Caimitillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Calzada Larga",
+      "postalCodes": []
+    },
+    {
+      "name": "Cañita",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerro Azul",
+      "postalCodes": []
+    },
+    {
+      "name": "Chepillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Chepo",
+      "postalCodes": []
+    },
+    {
+      "name": "Chilibre",
+      "postalCodes": []
+    },
+    {
+      "name": "Chimán",
+      "postalCodes": []
+    },
+    {
+      "name": "Contadora",
+      "postalCodes": []
+    },
+    {
+      "name": "Curundú",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Balboa",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Chepo",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Chimán",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Panamá",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Taboga",
+      "postalCodes": []
+    },
+    {
+      "name": "El Chorrillo",
+      "postalCodes": []
+    },
+    {
+      "name": "El Progreso",
+      "postalCodes": []
+    },
+    {
+      "name": "Gonzalillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Howard",
+      "postalCodes": []
+    },
+    {
+      "name": "Juan Díaz",
+      "postalCodes": []
+    },
+    {
+      "name": "La Cabima",
+      "postalCodes": []
+    },
+    {
+      "name": "La Colorada",
+      "postalCodes": []
+    },
+    {
+      "name": "La Ensenada",
+      "postalCodes": []
+    },
+    {
+      "name": "La Esmeralda",
+      "postalCodes": []
+    },
+    {
+      "name": "La Guinea",
+      "postalCodes": []
+    },
+    {
+      "name": "La Mesa",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Cumbres",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Margaritas",
+      "postalCodes": []
+    },
+    {
+      "name": "Lídice",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Lotes",
+      "postalCodes": []
+    },
+    {
+      "name": "Nueva Esperanza",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuevo Belén",
+      "postalCodes": []
+    },
+    {
+      "name": "Pacora",
+      "postalCodes": []
+    },
+    {
+      "name": "Panamá",
+      "postalCodes": []
+    },
+    {
+      "name": "Parque Lefevre",
+      "postalCodes": []
+    },
+    {
+      "name": "Pásiga",
+      "postalCodes": []
+    },
+    {
+      "name": "Pedregal",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Abajo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio",
+      "postalCodes": []
+    },
+    {
+      "name": "San Felipe",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguelito",
+      "postalCodes": []
+    },
+    {
+      "name": "San Vicente",
+      "postalCodes": []
+    },
+    {
+      "name": "Tocumen",
+      "postalCodes": []
+    },
+    {
+      "name": "Tortí",
+      "postalCodes": []
+    },
+    {
+      "name": "Unión de Azuero",
+      "postalCodes": []
+    },
+    {
+      "name": "Unión Santeña",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Unida",
+      "postalCodes": []
+    },
+    {
+      "name": "Vista Hermosa",
+      "postalCodes": []
+    }
+  ],
+  "9": [
+    {
+      "name": "Alto de Jesús",
+      "postalCodes": []
+    },
+    {
+      "name": "Arenas",
+      "postalCodes": []
+    },
+    {
+      "name": "Atalaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Barnizal",
+      "postalCodes": []
+    },
+    {
+      "name": "Bisvalles",
+      "postalCodes": []
+    },
+    {
+      "name": "Boquerón",
+      "postalCodes": []
+    },
+    {
+      "name": "Boró",
+      "postalCodes": []
+    },
+    {
+      "name": "Calabacito",
+      "postalCodes": []
+    },
+    {
+      "name": "Calidonia",
+      "postalCodes": []
+    },
+    {
+      "name": "Calobre",
+      "postalCodes": []
+    },
+    {
+      "name": "Calovébora",
+      "postalCodes": []
+    },
+    {
+      "name": "Cañazas",
+      "postalCodes": []
+    },
+    {
+      "name": "Canto del Llano",
+      "postalCodes": []
+    },
+    {
+      "name": "Corozal",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Atalaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Calobre",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Cañazas",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de La Mesa",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Las Palmas",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Montijo",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Río de Jesús",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de San Francisco",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Santa Fé",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Santiago",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Soná",
+      "postalCodes": []
+    },
+    {
+      "name": "El Alto",
+      "postalCodes": []
+    },
+    {
+      "name": "El Barrito",
+      "postalCodes": []
+    },
+    {
+      "name": "El Coclá",
+      "postalCodes": []
+    },
+    {
+      "name": "El Espino de Santa Rosa",
+      "postalCodes": []
+    },
+    {
+      "name": "El Marañón",
+      "postalCodes": []
+    },
+    {
+      "name": "El María",
+      "postalCodes": []
+    },
+    {
+      "name": "El Pájaro",
+      "postalCodes": []
+    },
+    {
+      "name": "El Pantano",
+      "postalCodes": []
+    },
+    {
+      "name": "El Peñón",
+      "postalCodes": []
+    },
+    {
+      "name": "El Picador",
+      "postalCodes": []
+    },
+    {
+      "name": "El Potrero",
+      "postalCodes": []
+    },
+    {
+      "name": "El Rincón",
+      "postalCodes": []
+    },
+    {
+      "name": "El Uvito",
+      "postalCodes": []
+    },
+    {
+      "name": "Guarumal",
+      "postalCodes": []
+    },
+    {
+      "name": "La Colorada",
+      "postalCodes": []
+    },
+    {
+      "name": "La Garceana",
+      "postalCodes": []
+    },
+    {
+      "name": "La Laguna",
+      "postalCodes": []
+    },
+    {
+      "name": "La Loma",
+      "postalCodes": []
+    },
+    {
+      "name": "La Mesa",
+      "postalCodes": []
+    },
+    {
+      "name": "La Montañuela",
+      "postalCodes": []
+    },
+    {
+      "name": "La Peña",
+      "postalCodes": []
+    },
+    {
+      "name": "La Raya de Calobre",
+      "postalCodes": []
+    },
+    {
+      "name": "La Raya de Santa María",
+      "postalCodes": []
+    },
+    {
+      "name": "La Yeguada",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Guías Abajo",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Huacas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Palmas",
+      "postalCodes": []
+    },
+    {
+      "name": "Leones Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Llano Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Lolá",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Algarrobos",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Castillos",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Higos",
+      "postalCodes": []
+    },
+    {
+      "name": "Mariato District",
+      "postalCodes": []
+    },
+    {
+      "name": "Monjarás",
+      "postalCodes": []
+    },
+    {
+      "name": "Montijo",
+      "postalCodes": []
+    },
+    {
+      "name": "Piedras Gordas",
+      "postalCodes": []
+    },
+    {
+      "name": "Ponuga",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Vidal",
+      "postalCodes": []
+    },
+    {
+      "name": "Quebrada de Oro",
+      "postalCodes": []
+    },
+    {
+      "name": "Río de Jesús",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Rodeo Viejo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Bartolo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Francisco",
+      "postalCodes": []
+    },
+    {
+      "name": "San José",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan",
+      "postalCodes": []
+    },
+    {
+      "name": "San Marcelo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro del Espino",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Fé",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago de Veraguas",
+      "postalCodes": []
+    },
+    {
+      "name": "Soná",
+      "postalCodes": []
+    },
+    {
+      "name": "Tebario",
+      "postalCodes": []
+    },
+    {
+      "name": "Utirá",
+      "postalCodes": []
+    },
+    {
+      "name": "Viguí",
+      "postalCodes": []
+    },
+    {
+      "name": "Zapotillo",
+      "postalCodes": []
+    }
+  ],
+  "10": [
+    {
+      "name": "Alto del Espino",
+      "postalCodes": []
+    },
+    {
+      "name": "Altos de San Francisco",
+      "postalCodes": []
+    },
+    {
+      "name": "Arenosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Arosemena",
+      "postalCodes": []
+    },
+    {
+      "name": "Arraiján",
+      "postalCodes": []
+    },
+    {
+      "name": "Bejuco",
+      "postalCodes": []
+    },
+    {
+      "name": "Buenos Aires",
+      "postalCodes": []
+    },
+    {
+      "name": "Cabuya",
+      "postalCodes": []
+    },
+    {
+      "name": "Caimito",
+      "postalCodes": []
+    },
+    {
+      "name": "Capira",
+      "postalCodes": []
+    },
+    {
+      "name": "Cermeño",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerro Cama",
+      "postalCodes": []
+    },
+    {
+      "name": "Chame",
+      "postalCodes": []
+    },
+    {
+      "name": "Cirí de Los Sotos",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito Arraiján",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Capira",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de Chame",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de La Chorrera",
+      "postalCodes": []
+    },
+    {
+      "name": "Distrito de San Carlos",
+      "postalCodes": []
+    },
+    {
+      "name": "El Cacao",
+      "postalCodes": []
+    },
+    {
+      "name": "El Coco",
+      "postalCodes": []
+    },
+    {
+      "name": "El Espavé",
+      "postalCodes": []
+    },
+    {
+      "name": "El Espino",
+      "postalCodes": []
+    },
+    {
+      "name": "El Higo",
+      "postalCodes": []
+    },
+    {
+      "name": "El Líbano",
+      "postalCodes": []
+    },
+    {
+      "name": "Guadalupe",
+      "postalCodes": []
+    },
+    {
+      "name": "Guayabito",
+      "postalCodes": []
+    },
+    {
+      "name": "Hato Montaña",
+      "postalCodes": []
+    },
+    {
+      "name": "La Chorrera",
+      "postalCodes": []
+    },
+    {
+      "name": "La Ermita",
+      "postalCodes": []
+    },
+    {
+      "name": "La Herradura",
+      "postalCodes": []
+    },
+    {
+      "name": "La Laguna",
+      "postalCodes": []
+    },
+    {
+      "name": "La Mitra",
+      "postalCodes": []
+    },
+    {
+      "name": "La Pesa",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Colinas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Lajas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Uvas",
+      "postalCodes": []
+    },
+    {
+      "name": "Llano Largo",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Llanitos",
+      "postalCodes": []
+    },
+    {
+      "name": "Mendoza",
+      "postalCodes": []
+    },
+    {
+      "name": "Nueva Arenosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Nueva Gorgona",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuevo Arraiján",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuevo Emperador",
+      "postalCodes": []
+    },
+    {
+      "name": "Playa Leona",
+      "postalCodes": []
+    },
+    {
+      "name": "Potrero Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Caimito",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Congo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Carlos",
+      "postalCodes": []
+    },
+    {
+      "name": "San José",
+      "postalCodes": []
+    },
+    {
+      "name": "San Vicente de Bique",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Clara",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rita",
+      "postalCodes": []
+    },
+    {
+      "name": "Sorá",
+      "postalCodes": []
+    },
+    {
+      "name": "Veracruz",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Carmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Rosario",
+      "postalCodes": []
+    },
+    {
+      "name": "Vista Alegre",
+      "postalCodes": []
+    }
+  ],
+  "EM": [
+    {
+      "name": "Bayamón",
+      "postalCodes": []
+    },
+    {
+      "name": "Cémaco",
+      "postalCodes": []
+    },
+    {
+      "name": "Corozal",
+      "postalCodes": []
+    },
+    {
+      "name": "Sambú",
+      "postalCodes": []
+    },
+    {
+      "name": "Unión Chocó",
+      "postalCodes": []
+    },
+    {
+      "name": "Yape",
+      "postalCodes": []
+    }
+  ],
+  "KY": [
+    {
+      "name": "Achutupo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ailigandí",
+      "postalCodes": []
+    },
+    {
+      "name": "Cartí Sugdup",
+      "postalCodes": []
+    },
+    {
+      "name": "El Porvenir",
+      "postalCodes": []
+    },
+    {
+      "name": "Mulatupo",
+      "postalCodes": []
+    },
+    {
+      "name": "Narganá",
+      "postalCodes": []
+    },
+    {
+      "name": "Playón Chico",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Obaldía",
+      "postalCodes": []
+    },
+    {
+      "name": "San Ignacio de Tupile",
+      "postalCodes": []
+    },
+    {
+      "name": "Tubualá",
+      "postalCodes": []
+    },
+    {
+      "name": "Ustupo",
+      "postalCodes": []
+    }
+  ],
+  "NB": [
+    {
+      "name": "Bahía Azul",
+      "postalCodes": []
+    },
+    {
+      "name": "Besiko",
+      "postalCodes": []
+    },
+    {
+      "name": "Bisira",
+      "postalCodes": []
+    },
+    {
+      "name": "Boca de Balsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Buenos Aires",
+      "postalCodes": []
+    },
+    {
+      "name": "Camarón Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerro Banco",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerro Caña",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerro Plata",
+      "postalCodes": []
+    },
+    {
+      "name": "Chichica",
+      "postalCodes": []
+    },
+    {
+      "name": "Guayabito",
+      "postalCodes": []
+    },
+    {
+      "name": "Hato Chami",
+      "postalCodes": []
+    },
+    {
+      "name": "Hato Corotú",
+      "postalCodes": []
+    },
+    {
+      "name": "Kankintú",
+      "postalCodes": []
+    },
+    {
+      "name": "Kusapín",
+      "postalCodes": []
+    },
+    {
+      "name": "Lajero Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Llano Ñopo",
+      "postalCodes": []
+    },
+    {
+      "name": "Loma Yuca",
+      "postalCodes": []
+    },
+    {
+      "name": "Mirono",
+      "postalCodes": []
+    },
+    {
+      "name": "Müna",
+      "postalCodes": []
+    },
+    {
+      "name": "Nole Düima",
+      "postalCodes": []
+    },
+    {
+      "name": "Nurun",
+      "postalCodes": []
+    },
+    {
+      "name": "Oma",
+      "postalCodes": []
+    },
+    {
+      "name": "Paredón Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Plan de Chorcha",
+      "postalCodes": []
+    },
+    {
+      "name": "Pueblo Nuevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Quebrada Canoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Quebrada Tula",
+      "postalCodes": []
+    },
+    {
+      "name": "Sitio Prado",
+      "postalCodes": []
+    },
+    {
+      "name": "Tobobe",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

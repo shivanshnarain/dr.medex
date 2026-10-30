@@ -1,0 +1,67 @@
+[
+  {
+    "code": "VAN",
+    "name": "Antwerp",
+    "countryCode": "BE"
+  },
+  {
+    "code": "BRU",
+    "name": "Brussels-Capital Region",
+    "countryCode": "BE"
+  },
+  {
+    "code": "VOV",
+    "name": "East Flanders",
+    "countryCode": "BE"
+  },
+  {
+    "code": "VLG",
+    "name": "Flanders",
+    "countryCode": "BE"
+  },
+  {
+    "code": "VBR",
+    "name": "Flemish Brabant",
+    "countryCode": "BE"
+  },
+  {
+    "code": "WHT",
+    "name": "Hainaut",
+    "countryCode": "BE"
+  },
+  {
+    "code": "WLG",
+    "name": "Liège",
+    "countryCode": "BE"
+  },
+  {
+    "code": "VLI",
+    "name": "Limburg",
+    "countryCode": "BE"
+  },
+  {
+    "code": "WLX",
+    "name": "Luxembourg",
+    "countryCode": "BE"
+  },
+  {
+    "code": "WNA",
+    "name": "Namur",
+    "countryCode": "BE"
+  },
+  {
+    "code": "WAL",
+    "name": "Wallonia",
+    "countryCode": "BE"
+  },
+  {
+    "code": "WBR",
+    "name": "Walloon Brabant",
+    "countryCode": "BE"
+  },
+  {
+    "code": "VWV",
+    "name": "West Flanders",
+    "countryCode": "BE"
+  }
+]

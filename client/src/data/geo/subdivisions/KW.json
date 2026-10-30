@@ -1,0 +1,32 @@
+[
+  {
+    "code": "AH",
+    "name": "Al Ahmadi Governorate",
+    "countryCode": "KW"
+  },
+  {
+    "code": "FA",
+    "name": "Al Farwaniyah Governorate",
+    "countryCode": "KW"
+  },
+  {
+    "code": "JA",
+    "name": "Al Jahra Governorate",
+    "countryCode": "KW"
+  },
+  {
+    "code": "KU",
+    "name": "Capital Governorate",
+    "countryCode": "KW"
+  },
+  {
+    "code": "HA",
+    "name": "Hawalli Governorate",
+    "countryCode": "KW"
+  },
+  {
+    "code": "MU",
+    "name": "Mubarak Al-Kabeer Governorate",
+    "countryCode": "KW"
+  }
+]

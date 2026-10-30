@@ -1,0 +1,87 @@
+[
+  {
+    "code": "BB",
+    "name": "Bamingui-Bangoran Prefecture",
+    "countryCode": "CF"
+  },
+  {
+    "code": "BGF",
+    "name": "Bangui",
+    "countryCode": "CF"
+  },
+  {
+    "code": "BK",
+    "name": "Basse-Kotto Prefecture",
+    "countryCode": "CF"
+  },
+  {
+    "code": "HM",
+    "name": "Haut-Mbomou Prefecture",
+    "countryCode": "CF"
+  },
+  {
+    "code": "HK",
+    "name": "Haute-Kotto Prefecture",
+    "countryCode": "CF"
+  },
+  {
+    "code": "KG",
+    "name": "Kémo Prefecture",
+    "countryCode": "CF"
+  },
+  {
+    "code": "LB",
+    "name": "Lobaye Prefecture",
+    "countryCode": "CF"
+  },
+  {
+    "code": "HS",
+    "name": "Mambéré-Kadéï",
+    "countryCode": "CF"
+  },
+  {
+    "code": "MB",
+    "name": "Mbomou Prefecture",
+    "countryCode": "CF"
+  },
+  {
+    "code": "KB",
+    "name": "Nana-Grébizi Economic Prefecture",
+    "countryCode": "CF"
+  },
+  {
+    "code": "NM",
+    "name": "Nana-Mambéré Prefecture",
+    "countryCode": "CF"
+  },
+  {
+    "code": "MP",
+    "name": "Ombella-M'Poko Prefecture",
+    "countryCode": "CF"
+  },
+  {
+    "code": "UK",
+    "name": "Ouaka Prefecture",
+    "countryCode": "CF"
+  },
+  {
+    "code": "AC",
+    "name": "Ouham Prefecture",
+    "countryCode": "CF"
+  },
+  {
+    "code": "OP",
+    "name": "Ouham-Pendé Prefecture",
+    "countryCode": "CF"
+  },
+  {
+    "code": "SE",
+    "name": "Sangha-Mbaéré",
+    "countryCode": "CF"
+  },
+  {
+    "code": "VK",
+    "name": "Vakaga Prefecture",
+    "countryCode": "CF"
+  }
+]

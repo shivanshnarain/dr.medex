@@ -1,0 +1,598 @@
+{
+  "10": [],
+  "11": [],
+  "12": [],
+  "13": [],
+  "14": [],
+  "15": [
+    {
+      "name": "Akademija (Kaunas)",
+      "postalCodes": []
+    },
+    {
+      "name": "Aleksotas",
+      "postalCodes": []
+    },
+    {
+      "name": "Ariogala",
+      "postalCodes": []
+    },
+    {
+      "name": "Birštonas",
+      "postalCodes": []
+    },
+    {
+      "name": "Dainava (Kaunas)",
+      "postalCodes": []
+    },
+    {
+      "name": "Eiguliai",
+      "postalCodes": []
+    },
+    {
+      "name": "Ežerėlis",
+      "postalCodes": []
+    },
+    {
+      "name": "Garliava",
+      "postalCodes": []
+    },
+    {
+      "name": "Jieznas",
+      "postalCodes": []
+    },
+    {
+      "name": "Jonava",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaišiadorys",
+      "postalCodes": []
+    },
+    {
+      "name": "Karmėlava",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaunas",
+      "postalCodes": []
+    },
+    {
+      "name": "Kėdainiai",
+      "postalCodes": []
+    },
+    {
+      "name": "Kulautuva",
+      "postalCodes": []
+    },
+    {
+      "name": "Mastaiciai",
+      "postalCodes": []
+    },
+    {
+      "name": "Prienai",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramučiai",
+      "postalCodes": []
+    },
+    {
+      "name": "Raseiniai",
+      "postalCodes": []
+    },
+    {
+      "name": "Sargėnai",
+      "postalCodes": []
+    },
+    {
+      "name": "Šilainiai",
+      "postalCodes": []
+    },
+    {
+      "name": "Vilkija",
+      "postalCodes": []
+    },
+    {
+      "name": "Žiežmariai",
+      "postalCodes": []
+    }
+  ],
+  "16": [],
+  "17": [],
+  "18": [],
+  "19": [],
+  "20": [],
+  "21": [
+    {
+      "name": "Gargždai",
+      "postalCodes": []
+    },
+    {
+      "name": "Klaipėda",
+      "postalCodes": []
+    },
+    {
+      "name": "Kretinga",
+      "postalCodes": []
+    },
+    {
+      "name": "Neringa",
+      "postalCodes": []
+    },
+    {
+      "name": "Nida",
+      "postalCodes": []
+    },
+    {
+      "name": "Palanga",
+      "postalCodes": []
+    },
+    {
+      "name": "Priekulė",
+      "postalCodes": []
+    },
+    {
+      "name": "Rusnė",
+      "postalCodes": []
+    },
+    {
+      "name": "Salantai",
+      "postalCodes": []
+    },
+    {
+      "name": "Silute",
+      "postalCodes": []
+    },
+    {
+      "name": "Skuodas",
+      "postalCodes": []
+    },
+    {
+      "name": "Šventoji",
+      "postalCodes": []
+    },
+    {
+      "name": "Žemaičių Naumiestis",
+      "postalCodes": []
+    }
+  ],
+  "22": [],
+  "23": [],
+  "24": [],
+  "25": [
+    {
+      "name": "Gelgaudiškis",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalvarija",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalvarija Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Kazlų Rūda",
+      "postalCodes": []
+    },
+    {
+      "name": "Kazlų Rūda Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Kudirkos Naumiestis",
+      "postalCodes": []
+    },
+    {
+      "name": "Kybartai",
+      "postalCodes": []
+    },
+    {
+      "name": "Marijampolė",
+      "postalCodes": []
+    },
+    {
+      "name": "Marijampolė Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakiai",
+      "postalCodes": []
+    },
+    {
+      "name": "Vilkaviskis",
+      "postalCodes": []
+    },
+    {
+      "name": "Vilkaviškis District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Virbalis",
+      "postalCodes": []
+    }
+  ],
+  "26": [],
+  "27": [],
+  "28": [],
+  "29": [],
+  "30": [],
+  "31": [],
+  "32": [],
+  "33": [
+    {
+      "name": "Birzai",
+      "postalCodes": []
+    },
+    {
+      "name": "Juodupė",
+      "postalCodes": []
+    },
+    {
+      "name": "Kupiskis",
+      "postalCodes": []
+    },
+    {
+      "name": "Obeliai",
+      "postalCodes": []
+    },
+    {
+      "name": "Panevėžys",
+      "postalCodes": []
+    },
+    {
+      "name": "Panevėžys City",
+      "postalCodes": []
+    },
+    {
+      "name": "Panevėžys District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Pasvalys",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramygala",
+      "postalCodes": []
+    },
+    {
+      "name": "Rokiškis",
+      "postalCodes": []
+    },
+    {
+      "name": "Vabalninkas",
+      "postalCodes": []
+    }
+  ],
+  "34": [],
+  "35": [],
+  "36": [],
+  "37": [],
+  "38": [],
+  "39": [],
+  "40": [],
+  "41": [],
+  "42": [],
+  "43": [
+    {
+      "name": "Akmenė",
+      "postalCodes": []
+    },
+    {
+      "name": "Joniškis",
+      "postalCodes": []
+    },
+    {
+      "name": "Kelmė",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuršėnai",
+      "postalCodes": []
+    },
+    {
+      "name": "Linkuva",
+      "postalCodes": []
+    },
+    {
+      "name": "Naujoji Akmene",
+      "postalCodes": []
+    },
+    {
+      "name": "Pakruojis",
+      "postalCodes": []
+    },
+    {
+      "name": "Radviliskis",
+      "postalCodes": []
+    },
+    {
+      "name": "Šeduva",
+      "postalCodes": []
+    },
+    {
+      "name": "Šiauliai",
+      "postalCodes": []
+    },
+    {
+      "name": "Tytuvėnėliai",
+      "postalCodes": []
+    },
+    {
+      "name": "Venta",
+      "postalCodes": []
+    },
+    {
+      "name": "Žagarė",
+      "postalCodes": []
+    }
+  ],
+  "44": [],
+  "45": [],
+  "46": [],
+  "47": [],
+  "48": [],
+  "49": [],
+  "50": [],
+  "51": [
+    {
+      "name": "Mazeikiai",
+      "postalCodes": []
+    },
+    {
+      "name": "Plateliai",
+      "postalCodes": []
+    },
+    {
+      "name": "Plunge",
+      "postalCodes": []
+    },
+    {
+      "name": "Rietavas",
+      "postalCodes": []
+    },
+    {
+      "name": "Seda",
+      "postalCodes": []
+    },
+    {
+      "name": "Telsiai",
+      "postalCodes": []
+    },
+    {
+      "name": "Varniai",
+      "postalCodes": []
+    },
+    {
+      "name": "Viekšniai",
+      "postalCodes": []
+    }
+  ],
+  "52": [],
+  "53": [],
+  "54": [],
+  "55": [],
+  "56": [],
+  "57": [
+    {
+      "name": "Aukstadvaris",
+      "postalCodes": []
+    },
+    {
+      "name": "Baltoji Vokė",
+      "postalCodes": []
+    },
+    {
+      "name": "Eišiškės",
+      "postalCodes": []
+    },
+    {
+      "name": "Elektrėnai",
+      "postalCodes": []
+    },
+    {
+      "name": "Fabijoniškės",
+      "postalCodes": []
+    },
+    {
+      "name": "Grigiškės",
+      "postalCodes": []
+    },
+    {
+      "name": "Justiniškės",
+      "postalCodes": []
+    },
+    {
+      "name": "Lazdynai",
+      "postalCodes": []
+    },
+    {
+      "name": "Lentvaris",
+      "postalCodes": []
+    },
+    {
+      "name": "Naujamiestis",
+      "postalCodes": []
+    },
+    {
+      "name": "Nemenčinė",
+      "postalCodes": []
+    },
+    {
+      "name": "Pabradė",
+      "postalCodes": []
+    },
+    {
+      "name": "Pašilaičiai",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilaitė",
+      "postalCodes": []
+    },
+    {
+      "name": "Rasos",
+      "postalCodes": []
+    },
+    {
+      "name": "Rūdiškės",
+      "postalCodes": []
+    },
+    {
+      "name": "Šalčininkai",
+      "postalCodes": []
+    },
+    {
+      "name": "Senieji Trakai",
+      "postalCodes": []
+    },
+    {
+      "name": "Šeškinė",
+      "postalCodes": []
+    },
+    {
+      "name": "Sirvintos",
+      "postalCodes": []
+    },
+    {
+      "name": "Skaidiškės",
+      "postalCodes": []
+    },
+    {
+      "name": "Švenčionėliai",
+      "postalCodes": []
+    },
+    {
+      "name": "Svencionys",
+      "postalCodes": []
+    },
+    {
+      "name": "Trakai",
+      "postalCodes": []
+    },
+    {
+      "name": "Ukmerge",
+      "postalCodes": []
+    },
+    {
+      "name": "Vievis",
+      "postalCodes": []
+    },
+    {
+      "name": "Vilkpėdė",
+      "postalCodes": []
+    },
+    {
+      "name": "Vilnius",
+      "postalCodes": []
+    },
+    {
+      "name": "Vilnius District Municipality",
+      "postalCodes": []
+    }
+  ],
+  "58": [],
+  "59": [],
+  "60": [],
+  "01": [],
+  "02": [
+    {
+      "name": "Alytus",
+      "postalCodes": []
+    },
+    {
+      "name": "Daugai",
+      "postalCodes": []
+    },
+    {
+      "name": "Druskininkai",
+      "postalCodes": []
+    },
+    {
+      "name": "Lazdijai",
+      "postalCodes": []
+    },
+    {
+      "name": "Simnas",
+      "postalCodes": []
+    },
+    {
+      "name": "Varėna",
+      "postalCodes": []
+    },
+    {
+      "name": "Veisiejai",
+      "postalCodes": []
+    }
+  ],
+  "AL": [],
+  "03": [],
+  "05": [],
+  "06": [],
+  "07": [],
+  "08": [],
+  "09": [],
+  "KU": [],
+  "KL": [],
+  "MR": [],
+  "PN": [],
+  "SA": [],
+  "TA": [
+    {
+      "name": "Būgai",
+      "postalCodes": []
+    },
+    {
+      "name": "Jurbarkas",
+      "postalCodes": []
+    },
+    {
+      "name": "Pagėgiai",
+      "postalCodes": []
+    },
+    {
+      "name": "Šilalė",
+      "postalCodes": []
+    },
+    {
+      "name": "Taurage",
+      "postalCodes": []
+    }
+  ],
+  "TE": [],
+  "UT": [
+    {
+      "name": "Anyksciai",
+      "postalCodes": []
+    },
+    {
+      "name": "Dūkštas",
+      "postalCodes": []
+    },
+    {
+      "name": "Ignalina",
+      "postalCodes": []
+    },
+    {
+      "name": "Moletai",
+      "postalCodes": []
+    },
+    {
+      "name": "Utena",
+      "postalCodes": []
+    },
+    {
+      "name": "Visaginas",
+      "postalCodes": []
+    },
+    {
+      "name": "Zarasai",
+      "postalCodes": []
+    }
+  ],
+  "VL": [],
+  "_OTHER": []
+}

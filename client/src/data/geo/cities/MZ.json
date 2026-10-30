@@ -1,0 +1,177 @@
+{
+  "P": [
+    {
+      "name": "Chiure",
+      "postalCodes": []
+    },
+    {
+      "name": "Mocímboa",
+      "postalCodes": []
+    },
+    {
+      "name": "Montepuez",
+      "postalCodes": []
+    },
+    {
+      "name": "Pemba",
+      "postalCodes": []
+    }
+  ],
+  "G": [
+    {
+      "name": "Chibuto",
+      "postalCodes": []
+    },
+    {
+      "name": "Chokwé",
+      "postalCodes": []
+    },
+    {
+      "name": "Macia",
+      "postalCodes": []
+    },
+    {
+      "name": "Xai-Xai",
+      "postalCodes": []
+    }
+  ],
+  "I": [
+    {
+      "name": "Inhambane",
+      "postalCodes": []
+    },
+    {
+      "name": "Maxixe",
+      "postalCodes": []
+    }
+  ],
+  "B": [
+    {
+      "name": "Chimoio",
+      "postalCodes": []
+    }
+  ],
+  "MPM": [
+    {
+      "name": "KaTembe",
+      "postalCodes": []
+    },
+    {
+      "name": "Maputo",
+      "postalCodes": []
+    }
+  ],
+  "L": [
+    {
+      "name": "Boane District",
+      "postalCodes": []
+    },
+    {
+      "name": "Concelho de Matola",
+      "postalCodes": []
+    },
+    {
+      "name": "Magude District",
+      "postalCodes": []
+    },
+    {
+      "name": "Manhica",
+      "postalCodes": []
+    },
+    {
+      "name": "Marracuene District",
+      "postalCodes": []
+    },
+    {
+      "name": "Matola",
+      "postalCodes": []
+    },
+    {
+      "name": "Matutiune District",
+      "postalCodes": []
+    },
+    {
+      "name": "Moamba District",
+      "postalCodes": []
+    },
+    {
+      "name": "Namaacha District",
+      "postalCodes": []
+    },
+    {
+      "name": "Ressano Garcia",
+      "postalCodes": []
+    }
+  ],
+  "N": [
+    {
+      "name": "António Enes",
+      "postalCodes": []
+    },
+    {
+      "name": "Ilha de Moçambique",
+      "postalCodes": []
+    },
+    {
+      "name": "Mutuáli",
+      "postalCodes": []
+    },
+    {
+      "name": "Nacala",
+      "postalCodes": []
+    },
+    {
+      "name": "Nampula",
+      "postalCodes": []
+    }
+  ],
+  "A": [
+    {
+      "name": "Cuamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Lichinga",
+      "postalCodes": []
+    },
+    {
+      "name": "Mandimba",
+      "postalCodes": []
+    }
+  ],
+  "S": [
+    {
+      "name": "Beira",
+      "postalCodes": []
+    },
+    {
+      "name": "Dondo",
+      "postalCodes": []
+    },
+    {
+      "name": "Nhamatanda District",
+      "postalCodes": []
+    }
+  ],
+  "T": [
+    {
+      "name": "Tete",
+      "postalCodes": []
+    }
+  ],
+  "Q": [
+    {
+      "name": "Alto Molócuè",
+      "postalCodes": []
+    },
+    {
+      "name": "Chinde",
+      "postalCodes": []
+    },
+    {
+      "name": "Quelimane",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

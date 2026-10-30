@@ -1,0 +1,519 @@
+{
+  "AR": [
+    {
+      "name": "Anse Rouge",
+      "postalCodes": []
+    },
+    {
+      "name": "Arrondissement de Saint-Marc",
+      "postalCodes": []
+    },
+    {
+      "name": "Désarmes",
+      "postalCodes": []
+    },
+    {
+      "name": "Dessalines",
+      "postalCodes": []
+    },
+    {
+      "name": "Ennery",
+      "postalCodes": []
+    },
+    {
+      "name": "Gonaïves",
+      "postalCodes": []
+    },
+    {
+      "name": "Grande Saline",
+      "postalCodes": []
+    },
+    {
+      "name": "Gros Morne",
+      "postalCodes": []
+    },
+    {
+      "name": "Marmelade",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Marc",
+      "postalCodes": []
+    },
+    {
+      "name": "Verrettes",
+      "postalCodes": []
+    }
+  ],
+  "CE": [
+    {
+      "name": "Arrondissement de Cerca La Source",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerca la Source",
+      "postalCodes": []
+    },
+    {
+      "name": "Hinche",
+      "postalCodes": []
+    },
+    {
+      "name": "Lascahobas",
+      "postalCodes": []
+    },
+    {
+      "name": "Mayisad",
+      "postalCodes": []
+    },
+    {
+      "name": "Mirebalais",
+      "postalCodes": []
+    },
+    {
+      "name": "Thomassique",
+      "postalCodes": []
+    },
+    {
+      "name": "Thomonde",
+      "postalCodes": []
+    }
+  ],
+  "GA": [
+    {
+      "name": "Anse-à-Veau",
+      "postalCodes": []
+    },
+    {
+      "name": "Chambellan",
+      "postalCodes": []
+    },
+    {
+      "name": "Corail",
+      "postalCodes": []
+    },
+    {
+      "name": "Dame-Marie",
+      "postalCodes": []
+    },
+    {
+      "name": "Jeremi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jérémie",
+      "postalCodes": []
+    },
+    {
+      "name": "Les Abricots",
+      "postalCodes": []
+    },
+    {
+      "name": "Les Irois",
+      "postalCodes": []
+    },
+    {
+      "name": "Moron",
+      "postalCodes": []
+    },
+    {
+      "name": "Petite Rivière de Nippes",
+      "postalCodes": []
+    }
+  ],
+  "NI": [
+    {
+      "name": "Ansavo",
+      "postalCodes": []
+    },
+    {
+      "name": "Baradères",
+      "postalCodes": []
+    },
+    {
+      "name": "Miragoâne",
+      "postalCodes": []
+    },
+    {
+      "name": "Petit Trou de Nippes",
+      "postalCodes": []
+    }
+  ],
+  "ND": [
+    {
+      "name": "Acul du Nord",
+      "postalCodes": []
+    },
+    {
+      "name": "Arrondissement de la Grande Rivière du Nord",
+      "postalCodes": []
+    },
+    {
+      "name": "Arrondissement de Plaisance",
+      "postalCodes": []
+    },
+    {
+      "name": "Arrondissement du Borgne",
+      "postalCodes": []
+    },
+    {
+      "name": "Bahon",
+      "postalCodes": []
+    },
+    {
+      "name": "Borgne",
+      "postalCodes": []
+    },
+    {
+      "name": "Dondon",
+      "postalCodes": []
+    },
+    {
+      "name": "Grande Rivière du Nord",
+      "postalCodes": []
+    },
+    {
+      "name": "Lenbe",
+      "postalCodes": []
+    },
+    {
+      "name": "Limonade",
+      "postalCodes": []
+    },
+    {
+      "name": "Milot",
+      "postalCodes": []
+    },
+    {
+      "name": "Okap",
+      "postalCodes": []
+    },
+    {
+      "name": "Pignon",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilate",
+      "postalCodes": []
+    },
+    {
+      "name": "Plaine du Nord",
+      "postalCodes": []
+    },
+    {
+      "name": "Plaisance",
+      "postalCodes": []
+    },
+    {
+      "name": "Port-Margot",
+      "postalCodes": []
+    },
+    {
+      "name": "Quartier Morin",
+      "postalCodes": []
+    },
+    {
+      "name": "Ranquitte",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Raphaël",
+      "postalCodes": []
+    }
+  ],
+  "NE": [
+    {
+      "name": "Arrondissement de Fort Liberté",
+      "postalCodes": []
+    },
+    {
+      "name": "Arrondissement du Trou du Nord",
+      "postalCodes": []
+    },
+    {
+      "name": "Caracol",
+      "postalCodes": []
+    },
+    {
+      "name": "Carice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dérac",
+      "postalCodes": []
+    },
+    {
+      "name": "Ferrier",
+      "postalCodes": []
+    },
+    {
+      "name": "Fort Liberté",
+      "postalCodes": []
+    },
+    {
+      "name": "Montòrganize",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouanaminthe",
+      "postalCodes": []
+    },
+    {
+      "name": "Perches",
+      "postalCodes": []
+    },
+    {
+      "name": "Phaëton",
+      "postalCodes": []
+    },
+    {
+      "name": "Trou du Nord",
+      "postalCodes": []
+    },
+    {
+      "name": "Wanament",
+      "postalCodes": []
+    }
+  ],
+  "NO": [
+    {
+      "name": "Arcahaie",
+      "postalCodes": []
+    },
+    {
+      "name": "Arrondissement de Port-de-Paix",
+      "postalCodes": []
+    },
+    {
+      "name": "Arrondissement de Saint-Louis du Nord",
+      "postalCodes": []
+    },
+    {
+      "name": "Arrondissement du Môle Saint-Nicolas",
+      "postalCodes": []
+    },
+    {
+      "name": "Baie de Henne",
+      "postalCodes": []
+    },
+    {
+      "name": "Bombardopolis",
+      "postalCodes": []
+    },
+    {
+      "name": "Fond Bassin Bleu",
+      "postalCodes": []
+    },
+    {
+      "name": "Jean-Rabel",
+      "postalCodes": []
+    },
+    {
+      "name": "Môle Saint-Nicolas",
+      "postalCodes": []
+    },
+    {
+      "name": "Petite Anse",
+      "postalCodes": []
+    },
+    {
+      "name": "Port-de-Paix",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Louis du Nord",
+      "postalCodes": []
+    },
+    {
+      "name": "Ti Port-de-Paix",
+      "postalCodes": []
+    }
+  ],
+  "OU": [
+    {
+      "name": "Anse à Galets",
+      "postalCodes": []
+    },
+    {
+      "name": "Arcahaie",
+      "postalCodes": []
+    },
+    {
+      "name": "Arrondissement de Croix des Bouquets",
+      "postalCodes": []
+    },
+    {
+      "name": "Arrondissement de Léogâne",
+      "postalCodes": []
+    },
+    {
+      "name": "Arrondissement de Port-au-Prince",
+      "postalCodes": []
+    },
+    {
+      "name": "Cabaret",
+      "postalCodes": []
+    },
+    {
+      "name": "Carrefour",
+      "postalCodes": []
+    },
+    {
+      "name": "Cornillon",
+      "postalCodes": []
+    },
+    {
+      "name": "Croix-des-Bouquets",
+      "postalCodes": []
+    },
+    {
+      "name": "Delmas 73",
+      "postalCodes": []
+    },
+    {
+      "name": "Fond Parisien",
+      "postalCodes": []
+    },
+    {
+      "name": "Fonds Verrettes",
+      "postalCodes": []
+    },
+    {
+      "name": "Grangwav",
+      "postalCodes": []
+    },
+    {
+      "name": "Gressier",
+      "postalCodes": []
+    },
+    {
+      "name": "Kenscoff",
+      "postalCodes": []
+    },
+    {
+      "name": "Lagonav",
+      "postalCodes": []
+    },
+    {
+      "name": "Léogâne",
+      "postalCodes": []
+    },
+    {
+      "name": "Pétionville",
+      "postalCodes": []
+    },
+    {
+      "name": "Port-au-Prince",
+      "postalCodes": []
+    },
+    {
+      "name": "Thomazeau",
+      "postalCodes": []
+    },
+    {
+      "name": "Tigwav",
+      "postalCodes": []
+    }
+  ],
+  "SD": [
+    {
+      "name": "Aquin",
+      "postalCodes": []
+    },
+    {
+      "name": "Arrondissement de Port-Salut",
+      "postalCodes": []
+    },
+    {
+      "name": "Arrondissement des Cayes",
+      "postalCodes": []
+    },
+    {
+      "name": "Cavaillon",
+      "postalCodes": []
+    },
+    {
+      "name": "Chantal",
+      "postalCodes": []
+    },
+    {
+      "name": "Chardonnière",
+      "postalCodes": []
+    },
+    {
+      "name": "Fond des Blancs",
+      "postalCodes": []
+    },
+    {
+      "name": "Koto",
+      "postalCodes": []
+    },
+    {
+      "name": "Les Anglais",
+      "postalCodes": []
+    },
+    {
+      "name": "Les Cayes",
+      "postalCodes": []
+    },
+    {
+      "name": "Port-à-Piment",
+      "postalCodes": []
+    },
+    {
+      "name": "Roche-à-Bateau",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Louis du Sud",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiburon",
+      "postalCodes": []
+    },
+    {
+      "name": "Torbeck",
+      "postalCodes": []
+    }
+  ],
+  "SE": [
+    {
+      "name": "Anse-à-Pitre",
+      "postalCodes": []
+    },
+    {
+      "name": "Arrondissement de Bainet",
+      "postalCodes": []
+    },
+    {
+      "name": "Arrondissement de Jacmel",
+      "postalCodes": []
+    },
+    {
+      "name": "Belle-Anse",
+      "postalCodes": []
+    },
+    {
+      "name": "Cayes-Jacmel",
+      "postalCodes": []
+    },
+    {
+      "name": "Jacmel",
+      "postalCodes": []
+    },
+    {
+      "name": "Kotdefè",
+      "postalCodes": []
+    },
+    {
+      "name": "Marigot",
+      "postalCodes": []
+    },
+    {
+      "name": "Thiotte",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

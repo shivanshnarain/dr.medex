@@ -1,0 +1,62 @@
+[
+  {
+    "code": "11",
+    "name": "Bouenza Department",
+    "countryCode": "CG"
+  },
+  {
+    "code": "BZV",
+    "name": "Brazzaville",
+    "countryCode": "CG"
+  },
+  {
+    "code": "8",
+    "name": "Cuvette Department",
+    "countryCode": "CG"
+  },
+  {
+    "code": "15",
+    "name": "Cuvette-Ouest Department",
+    "countryCode": "CG"
+  },
+  {
+    "code": "5",
+    "name": "Kouilou Department",
+    "countryCode": "CG"
+  },
+  {
+    "code": "2",
+    "name": "Lékoumou Department",
+    "countryCode": "CG"
+  },
+  {
+    "code": "7",
+    "name": "Likouala Department",
+    "countryCode": "CG"
+  },
+  {
+    "code": "9",
+    "name": "Niari Department",
+    "countryCode": "CG"
+  },
+  {
+    "code": "14",
+    "name": "Plateaux Department",
+    "countryCode": "CG"
+  },
+  {
+    "code": "16",
+    "name": "Pointe-Noire",
+    "countryCode": "CG"
+  },
+  {
+    "code": "12",
+    "name": "Pool Department",
+    "countryCode": "CG"
+  },
+  {
+    "code": "13",
+    "name": "Sangha Department",
+    "countryCode": "CG"
+  }
+]

@@ -1,0 +1,87 @@
+[
+  {
+    "code": "AG",
+    "name": "Agaléga",
+    "countryCode": "MU"
+  },
+  {
+    "code": "BR",
+    "name": "Beau Bassin-Rose Hill",
+    "countryCode": "MU"
+  },
+  {
+    "code": "CC",
+    "name": "Cargados Carajos",
+    "countryCode": "MU"
+  },
+  {
+    "code": "CU",
+    "name": "Curepipe",
+    "countryCode": "MU"
+  },
+  {
+    "code": "FL",
+    "name": "Flacq District",
+    "countryCode": "MU"
+  },
+  {
+    "code": "GP",
+    "name": "Grand Port District",
+    "countryCode": "MU"
+  },
+  {
+    "code": "MO",
+    "name": "Moka District",
+    "countryCode": "MU"
+  },
+  {
+    "code": "PA",
+    "name": "Pamplemousses District",
+    "countryCode": "MU"
+  },
+  {
+    "code": "PW",
+    "name": "Plaines Wilhems District",
+    "countryCode": "MU"
+  },
+  {
+    "code": "PU",
+    "name": "Port Louis",
+    "countryCode": "MU"
+  },
+  {
+    "code": "PL",
+    "name": "Port Louis District",
+    "countryCode": "MU"
+  },
+  {
+    "code": "QB",
+    "name": "Quatre Bornes",
+    "countryCode": "MU"
+  },
+  {
+    "code": "RR",
+    "name": "Rivière du Rempart District",
+    "countryCode": "MU"
+  },
+  {
+    "code": "BL",
+    "name": "Rivière Noire District",
+    "countryCode": "MU"
+  },
+  {
+    "code": "RO",
+    "name": "Rodrigues",
+    "countryCode": "MU"
+  },
+  {
+    "code": "SA",
+    "name": "Savanne District",
+    "countryCode": "MU"
+  },
+  {
+    "code": "VP",
+    "name": "Vacoas-Phoenix",
+    "countryCode": "MU"
+  }
+]

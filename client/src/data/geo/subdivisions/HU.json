@@ -1,0 +1,212 @@
+[
+  {
+    "code": "BK",
+    "name": "Bács-Kiskun County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "BA",
+    "name": "Baranya County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "BE",
+    "name": "Békés County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "BC",
+    "name": "Békéscsaba",
+    "countryCode": "HU"
+  },
+  {
+    "code": "BZ",
+    "name": "Borsod-Abaúj-Zemplén County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "BU",
+    "name": "Budapest",
+    "countryCode": "HU"
+  },
+  {
+    "code": "CS",
+    "name": "Csongrád County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "DE",
+    "name": "Debrecen",
+    "countryCode": "HU"
+  },
+  {
+    "code": "DU",
+    "name": "Dunaújváros",
+    "countryCode": "HU"
+  },
+  {
+    "code": "EG",
+    "name": "Eger",
+    "countryCode": "HU"
+  },
+  {
+    "code": "ER",
+    "name": "Érd",
+    "countryCode": "HU"
+  },
+  {
+    "code": "FE",
+    "name": "Fejér County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "GY",
+    "name": "Győr",
+    "countryCode": "HU"
+  },
+  {
+    "code": "GS",
+    "name": "Győr-Moson-Sopron County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "HB",
+    "name": "Hajdú-Bihar County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "HE",
+    "name": "Heves County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "HV",
+    "name": "Hódmezővásárhely",
+    "countryCode": "HU"
+  },
+  {
+    "code": "JN",
+    "name": "Jász-Nagykun-Szolnok County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "KV",
+    "name": "Kaposvár",
+    "countryCode": "HU"
+  },
+  {
+    "code": "KM",
+    "name": "Kecskemét",
+    "countryCode": "HU"
+  },
+  {
+    "code": "MI",
+    "name": "Miskolc",
+    "countryCode": "HU"
+  },
+  {
+    "code": "NK",
+    "name": "Nagykanizsa",
+    "countryCode": "HU"
+  },
+  {
+    "code": "NO",
+    "name": "Nógrád County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "NY",
+    "name": "Nyíregyháza",
+    "countryCode": "HU"
+  },
+  {
+    "code": "PS",
+    "name": "Pécs",
+    "countryCode": "HU"
+  },
+  {
+    "code": "PE",
+    "name": "Pest County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "ST",
+    "name": "Salgótarján",
+    "countryCode": "HU"
+  },
+  {
+    "code": "SO",
+    "name": "Somogy County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "SN",
+    "name": "Sopron",
+    "countryCode": "HU"
+  },
+  {
+    "code": "SZ",
+    "name": "Szabolcs-Szatmár-Bereg County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "SD",
+    "name": "Szeged",
+    "countryCode": "HU"
+  },
+  {
+    "code": "SF",
+    "name": "Székesfehérvár",
+    "countryCode": "HU"
+  },
+  {
+    "code": "SS",
+    "name": "Szekszárd",
+    "countryCode": "HU"
+  },
+  {
+    "code": "SK",
+    "name": "Szolnok",
+    "countryCode": "HU"
+  },
+  {
+    "code": "SH",
+    "name": "Szombathely",
+    "countryCode": "HU"
+  },
+  {
+    "code": "TB",
+    "name": "Tatabánya",
+    "countryCode": "HU"
+  },
+  {
+    "code": "TO",
+    "name": "Tolna County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "VA",
+    "name": "Vas County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "VM",
+    "name": "Veszprém",
+    "countryCode": "HU"
+  },
+  {
+    "code": "VE",
+    "name": "Veszprém County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "ZA",
+    "name": "Zala County",
+    "countryCode": "HU"
+  },
+  {
+    "code": "ZE",
+    "name": "Zalaegerszeg",
+    "countryCode": "HU"
+  }
+]

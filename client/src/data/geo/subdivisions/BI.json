@@ -1,0 +1,92 @@
+[
+  {
+    "code": "BB",
+    "name": "Bubanza Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "BM",
+    "name": "Bujumbura Mairie Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "BL",
+    "name": "Bujumbura Rural Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "BR",
+    "name": "Bururi Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "CA",
+    "name": "Cankuzo Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "CI",
+    "name": "Cibitoke Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "GI",
+    "name": "Gitega Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "KR",
+    "name": "Karuzi Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "KY",
+    "name": "Kayanza Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "KI",
+    "name": "Kirundo Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "MA",
+    "name": "Makamba Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "MU",
+    "name": "Muramvya Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "MY",
+    "name": "Muyinga Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "MW",
+    "name": "Mwaro Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "NG",
+    "name": "Ngozi Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "RM",
+    "name": "Rumonge Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "RT",
+    "name": "Rutana Province",
+    "countryCode": "BI"
+  },
+  {
+    "code": "RY",
+    "name": "Ruyigi Province",
+    "countryCode": "BI"
+  }
+]

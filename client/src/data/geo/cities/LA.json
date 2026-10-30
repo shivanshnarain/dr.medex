@@ -1,0 +1,344 @@
+{
+  "AT": [
+    {
+      "name": "Attapeu",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Phouvong",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Samakhixai",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Sanamxai",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Sanxai",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Xaiséttha",
+      "postalCodes": []
+    }
+  ],
+  "BK": [
+    {
+      "name": "Ban Houakhoua",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Houayxay",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Houayxay",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Meung",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Paktha",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Pha Oudôm",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Tônpheung",
+      "postalCodes": []
+    }
+  ],
+  "BL": [
+    {
+      "name": "Ban Nahin",
+      "postalCodes": []
+    },
+    {
+      "name": "Pakxan",
+      "postalCodes": []
+    }
+  ],
+  "CH": [
+    {
+      "name": "Champasak",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Bachiangchaleunsook",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Champasak",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Không",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Mounlapamôk",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Pakxé",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Pakxong",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Pathoumphon",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Phônthong",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Soukhouma",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Xanasômboun",
+      "postalCodes": []
+    },
+    {
+      "name": "Pakse",
+      "postalCodes": []
+    },
+    {
+      "name": "Pakxong",
+      "postalCodes": []
+    }
+  ],
+  "HO": [
+    {
+      "name": "Xam Neua",
+      "postalCodes": []
+    },
+    {
+      "name": "Xam Nua",
+      "postalCodes": []
+    }
+  ],
+  "KH": [
+    {
+      "name": "Muang Thakhèk",
+      "postalCodes": []
+    },
+    {
+      "name": "Thakhèk",
+      "postalCodes": []
+    }
+  ],
+  "LM": [
+    {
+      "name": "Luang Namtha",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Louang Namtha",
+      "postalCodes": []
+    }
+  ],
+  "LP": [
+    {
+      "name": "Luang Prabang",
+      "postalCodes": []
+    }
+  ],
+  "OU": [
+    {
+      "name": "Muang Xay",
+      "postalCodes": []
+    }
+  ],
+  "PH": [
+    {
+      "name": "Phôngsali",
+      "postalCodes": []
+    }
+  ],
+  "XA": [
+    {
+      "name": "Sainyabuli",
+      "postalCodes": []
+    }
+  ],
+  "SL": [
+    {
+      "name": "Muang Khôngxédôn",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Lakhonphéng",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Laongam",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Samouay",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Saravan",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Ta-Ôy",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Toumlan",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Vapi",
+      "postalCodes": []
+    },
+    {
+      "name": "Salavan",
+      "postalCodes": []
+    }
+  ],
+  "SV": [
+    {
+      "name": "Kaysone Phomvihane",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Alsaphangthong",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Atsaphan",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Champhon",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Nong",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Outhoumphon",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Phin",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Songkhon",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Thapangthong",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Vilabouli",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Xaibouli",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Xayphoothong",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Xônbouli",
+      "postalCodes": []
+    },
+    {
+      "name": "Savannakhet",
+      "postalCodes": []
+    },
+    {
+      "name": "Thaphalanxay",
+      "postalCodes": []
+    }
+  ],
+  "XE": [
+    {
+      "name": "Ban Thatèng",
+      "postalCodes": []
+    },
+    {
+      "name": "Lamam",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Dakchung",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Khaleum",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Laman",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Thatèng",
+      "postalCodes": []
+    }
+  ],
+  "VT": [
+    {
+      "name": "Vientiane",
+      "postalCodes": []
+    }
+  ],
+  "VI": [
+    {
+      "name": "Muang Phôn-Hông",
+      "postalCodes": []
+    },
+    {
+      "name": "Vangviang",
+      "postalCodes": []
+    }
+  ],
+  "XN": [],
+  "XS": [
+    {
+      "name": "Anouvong district",
+      "postalCodes": []
+    },
+    {
+      "name": "Longchaeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Longxan",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Thathôm",
+      "postalCodes": []
+    }
+  ],
+  "XI": [
+    {
+      "name": "Muang Phônsavan",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

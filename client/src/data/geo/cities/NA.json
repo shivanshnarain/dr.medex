@@ -1,0 +1,222 @@
+{
+  "ER": [
+    {
+      "name": "Arandis",
+      "postalCodes": []
+    },
+    {
+      "name": "Hentiesbaai",
+      "postalCodes": []
+    },
+    {
+      "name": "Karibib",
+      "postalCodes": []
+    },
+    {
+      "name": "Omaruru",
+      "postalCodes": []
+    },
+    {
+      "name": "Otjimbingwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Swakopmund",
+      "postalCodes": []
+    },
+    {
+      "name": "Swakopmund Constituency",
+      "postalCodes": []
+    },
+    {
+      "name": "Usakos",
+      "postalCodes": []
+    },
+    {
+      "name": "Walvis Bay",
+      "postalCodes": []
+    }
+  ],
+  "HA": [
+    {
+      "name": "Aranos",
+      "postalCodes": []
+    },
+    {
+      "name": "Hoachanas",
+      "postalCodes": []
+    },
+    {
+      "name": "Maltahöhe",
+      "postalCodes": []
+    },
+    {
+      "name": "Mariental",
+      "postalCodes": []
+    },
+    {
+      "name": "Rehoboth",
+      "postalCodes": []
+    }
+  ],
+  "KA": [
+    {
+      "name": "Bethanie",
+      "postalCodes": []
+    },
+    {
+      "name": "Karasburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Keetmanshoop",
+      "postalCodes": []
+    },
+    {
+      "name": "Lüderitz",
+      "postalCodes": []
+    },
+    {
+      "name": "Oranjemund",
+      "postalCodes": []
+    },
+    {
+      "name": "Tses",
+      "postalCodes": []
+    },
+    {
+      "name": "Warmbad",
+      "postalCodes": []
+    }
+  ],
+  "KE": [
+    {
+      "name": "Rundu",
+      "postalCodes": []
+    }
+  ],
+  "KW": [],
+  "KH": [
+    {
+      "name": "Katutura",
+      "postalCodes": []
+    },
+    {
+      "name": "Windhoek",
+      "postalCodes": []
+    }
+  ],
+  "KU": [
+    {
+      "name": "Epupa Constituency",
+      "postalCodes": []
+    },
+    {
+      "name": "Khorixas",
+      "postalCodes": []
+    },
+    {
+      "name": "Khorixas Constituency",
+      "postalCodes": []
+    },
+    {
+      "name": "Opuwo",
+      "postalCodes": []
+    },
+    {
+      "name": "Opuwo Constituency",
+      "postalCodes": []
+    },
+    {
+      "name": "Outjo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sesfontein Constituency",
+      "postalCodes": []
+    }
+  ],
+  "OW": [
+    {
+      "name": "Oshikango",
+      "postalCodes": []
+    }
+  ],
+  "OH": [
+    {
+      "name": "Gobabis",
+      "postalCodes": []
+    }
+  ],
+  "OS": [
+    {
+      "name": "Okahao",
+      "postalCodes": []
+    },
+    {
+      "name": "Ongandjera",
+      "postalCodes": []
+    },
+    {
+      "name": "Outapi",
+      "postalCodes": []
+    }
+  ],
+  "ON": [
+    {
+      "name": "Ondangwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Ongwediva",
+      "postalCodes": []
+    },
+    {
+      "name": "Oshakati",
+      "postalCodes": []
+    }
+  ],
+  "OT": [
+    {
+      "name": "Omuthiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsumeb",
+      "postalCodes": []
+    }
+  ],
+  "OD": [
+    {
+      "name": "Grootfontein",
+      "postalCodes": []
+    },
+    {
+      "name": "Okahandja",
+      "postalCodes": []
+    },
+    {
+      "name": "Okakarara",
+      "postalCodes": []
+    },
+    {
+      "name": "Otavi",
+      "postalCodes": []
+    },
+    {
+      "name": "Otjiwarongo",
+      "postalCodes": []
+    }
+  ],
+  "CA": [
+    {
+      "name": "Bagani",
+      "postalCodes": []
+    },
+    {
+      "name": "Katima Mulilo",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

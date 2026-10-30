@@ -1,0 +1,57 @@
+[
+  {
+    "code": "AA",
+    "name": "Addis Ababa",
+    "countryCode": "ET"
+  },
+  {
+    "code": "AF",
+    "name": "Afar Region",
+    "countryCode": "ET"
+  },
+  {
+    "code": "AM",
+    "name": "Amhara Region",
+    "countryCode": "ET"
+  },
+  {
+    "code": "BE",
+    "name": "Benishangul-Gumuz Region",
+    "countryCode": "ET"
+  },
+  {
+    "code": "DD",
+    "name": "Dire Dawa",
+    "countryCode": "ET"
+  },
+  {
+    "code": "GA",
+    "name": "Gambela Region",
+    "countryCode": "ET"
+  },
+  {
+    "code": "HA",
+    "name": "Harari Region",
+    "countryCode": "ET"
+  },
+  {
+    "code": "OR",
+    "name": "Oromia Region",
+    "countryCode": "ET"
+  },
+  {
+    "code": "SO",
+    "name": "Somali Region",
+    "countryCode": "ET"
+  },
+  {
+    "code": "SN",
+    "name": "Southern Nations, Nationalities, and Peoples' Region",
+    "countryCode": "ET"
+  },
+  {
+    "code": "TI",
+    "name": "Tigray Region",
+    "countryCode": "ET"
+  }
+]

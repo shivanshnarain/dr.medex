@@ -1,0 +1,1237 @@
+[
+  {
+    "code": "ABE",
+    "name": "Aberdeen",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ABD",
+    "name": "Aberdeenshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ANS",
+    "name": "Angus",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ANT",
+    "name": "Antrim",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ANN",
+    "name": "Antrim and Newtownabbey",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ARD",
+    "name": "Ards",
+    "countryCode": "GB"
+  },
+  {
+    "code": "AND",
+    "name": "Ards and North Down",
+    "countryCode": "GB"
+  },
+  {
+    "code": "AGB",
+    "name": "Argyll and Bute",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ARM",
+    "name": "Armagh City and District Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ABC",
+    "name": "Armagh, Banbridge and Craigavon",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SH-AC",
+    "name": "Ascension Island",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BLA",
+    "name": "Ballymena Borough",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BLY",
+    "name": "Ballymoney",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BNB",
+    "name": "Banbridge",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BNS",
+    "name": "Barnsley",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BAS",
+    "name": "Bath and North East Somerset",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BDF",
+    "name": "Bedford",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BFS",
+    "name": "Belfast district",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BIR",
+    "name": "Birmingham",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BBD",
+    "name": "Blackburn with Darwen",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BPL",
+    "name": "Blackpool",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BGW",
+    "name": "Blaenau Gwent County Borough",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BOL",
+    "name": "Bolton",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BMH",
+    "name": "Bournemouth",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BRC",
+    "name": "Bracknell Forest",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BRD",
+    "name": "Bradford",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BGE",
+    "name": "Bridgend County Borough",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BNH",
+    "name": "Brighton and Hove",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BKM",
+    "name": "Buckinghamshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BUR",
+    "name": "Bury",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CAY",
+    "name": "Caerphilly County Borough",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CLD",
+    "name": "Calderdale",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CAM",
+    "name": "Cambridgeshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CMN",
+    "name": "Carmarthenshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CKF",
+    "name": "Carrickfergus Borough Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CSR",
+    "name": "Castlereagh",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CCG",
+    "name": "Causeway Coast and Glens",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CBF",
+    "name": "Central Bedfordshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CGN",
+    "name": "Ceredigion",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CHE",
+    "name": "Cheshire East",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CHW",
+    "name": "Cheshire West and Chester",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CRF",
+    "name": "City and County of Cardiff",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SWA",
+    "name": "City and County of Swansea",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BST",
+    "name": "City of Bristol",
+    "countryCode": "GB"
+  },
+  {
+    "code": "DER",
+    "name": "City of Derby",
+    "countryCode": "GB"
+  },
+  {
+    "code": "KHL",
+    "name": "City of Kingston upon Hull",
+    "countryCode": "GB"
+  },
+  {
+    "code": "LCE",
+    "name": "City of Leicester",
+    "countryCode": "GB"
+  },
+  {
+    "code": "LND",
+    "name": "City of London",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NGM",
+    "name": "City of Nottingham",
+    "countryCode": "GB"
+  },
+  {
+    "code": "PTE",
+    "name": "City of Peterborough",
+    "countryCode": "GB"
+  },
+  {
+    "code": "PLY",
+    "name": "City of Plymouth",
+    "countryCode": "GB"
+  },
+  {
+    "code": "POR",
+    "name": "City of Portsmouth",
+    "countryCode": "GB"
+  },
+  {
+    "code": "STH",
+    "name": "City of Southampton",
+    "countryCode": "GB"
+  },
+  {
+    "code": "STE",
+    "name": "City of Stoke-on-Trent",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SND",
+    "name": "City of Sunderland",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WSM",
+    "name": "City of Westminster",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WLV",
+    "name": "City of Wolverhampton",
+    "countryCode": "GB"
+  },
+  {
+    "code": "YOR",
+    "name": "City of York",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CLK",
+    "name": "Clackmannanshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CLR",
+    "name": "Coleraine Borough Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CWY",
+    "name": "Conwy County Borough",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CKT",
+    "name": "Cookstown District Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CON",
+    "name": "Cornwall",
+    "countryCode": "GB"
+  },
+  {
+    "code": "DUR",
+    "name": "County Durham",
+    "countryCode": "GB"
+  },
+  {
+    "code": "COV",
+    "name": "Coventry",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CGV",
+    "name": "Craigavon Borough Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CMA",
+    "name": "Cumbria",
+    "countryCode": "GB"
+  },
+  {
+    "code": "DAL",
+    "name": "Darlington",
+    "countryCode": "GB"
+  },
+  {
+    "code": "DEN",
+    "name": "Denbighshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "DBY",
+    "name": "Derbyshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "DRS",
+    "name": "Derry City and Strabane",
+    "countryCode": "GB"
+  },
+  {
+    "code": "DRY",
+    "name": "Derry City Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "DEV",
+    "name": "Devon",
+    "countryCode": "GB"
+  },
+  {
+    "code": "DNC",
+    "name": "Doncaster",
+    "countryCode": "GB"
+  },
+  {
+    "code": "DOR",
+    "name": "Dorset",
+    "countryCode": "GB"
+  },
+  {
+    "code": "DOW",
+    "name": "Down District Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "DUD",
+    "name": "Dudley",
+    "countryCode": "GB"
+  },
+  {
+    "code": "DGY",
+    "name": "Dumfries and Galloway",
+    "countryCode": "GB"
+  },
+  {
+    "code": "DND",
+    "name": "Dundee",
+    "countryCode": "GB"
+  },
+  {
+    "code": "DGN",
+    "name": "Dungannon and South Tyrone Borough Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "EAY",
+    "name": "East Ayrshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "EDU",
+    "name": "East Dunbartonshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ELN",
+    "name": "East Lothian",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ERW",
+    "name": "East Renfrewshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ERY",
+    "name": "East Riding of Yorkshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ESX",
+    "name": "East Sussex",
+    "countryCode": "GB"
+  },
+  {
+    "code": "EDH",
+    "name": "Edinburgh",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ENG",
+    "name": "England",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ESS",
+    "name": "Essex",
+    "countryCode": "GB"
+  },
+  {
+    "code": "FAL",
+    "name": "Falkirk",
+    "countryCode": "GB"
+  },
+  {
+    "code": "FMO",
+    "name": "Fermanagh and Omagh",
+    "countryCode": "GB"
+  },
+  {
+    "code": "FER",
+    "name": "Fermanagh District Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "FIF",
+    "name": "Fife",
+    "countryCode": "GB"
+  },
+  {
+    "code": "FLN",
+    "name": "Flintshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "GAT",
+    "name": "Gateshead",
+    "countryCode": "GB"
+  },
+  {
+    "code": "GLG",
+    "name": "Glasgow",
+    "countryCode": "GB"
+  },
+  {
+    "code": "GLS",
+    "name": "Gloucestershire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "GWN",
+    "name": "Gwynedd",
+    "countryCode": "GB"
+  },
+  {
+    "code": "HAL",
+    "name": "Halton",
+    "countryCode": "GB"
+  },
+  {
+    "code": "HAM",
+    "name": "Hampshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "HPL",
+    "name": "Hartlepool",
+    "countryCode": "GB"
+  },
+  {
+    "code": "HEF",
+    "name": "Herefordshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "HRT",
+    "name": "Hertfordshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "HLD",
+    "name": "Highland",
+    "countryCode": "GB"
+  },
+  {
+    "code": "IVC",
+    "name": "Inverclyde",
+    "countryCode": "GB"
+  },
+  {
+    "code": "IOW",
+    "name": "Isle of Wight",
+    "countryCode": "GB"
+  },
+  {
+    "code": "IOS",
+    "name": "Isles of Scilly",
+    "countryCode": "GB"
+  },
+  {
+    "code": "KEN",
+    "name": "Kent",
+    "countryCode": "GB"
+  },
+  {
+    "code": "KIR",
+    "name": "Kirklees",
+    "countryCode": "GB"
+  },
+  {
+    "code": "KWL",
+    "name": "Knowsley",
+    "countryCode": "GB"
+  },
+  {
+    "code": "LAN",
+    "name": "Lancashire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "LRN",
+    "name": "Larne Borough Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "LDS",
+    "name": "Leeds",
+    "countryCode": "GB"
+  },
+  {
+    "code": "LEC",
+    "name": "Leicestershire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "LMV",
+    "name": "Limavady Borough Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "LIN",
+    "name": "Lincolnshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "LBC",
+    "name": "Lisburn and Castlereagh",
+    "countryCode": "GB"
+  },
+  {
+    "code": "LSB",
+    "name": "Lisburn City Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "LIV",
+    "name": "Liverpool",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BDG",
+    "name": "London Borough of Barking and Dagenham",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BNE",
+    "name": "London Borough of Barnet",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BEX",
+    "name": "London Borough of Bexley",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BEN",
+    "name": "London Borough of Brent",
+    "countryCode": "GB"
+  },
+  {
+    "code": "BRY",
+    "name": "London Borough of Bromley",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CMD",
+    "name": "London Borough of Camden",
+    "countryCode": "GB"
+  },
+  {
+    "code": "CRY",
+    "name": "London Borough of Croydon",
+    "countryCode": "GB"
+  },
+  {
+    "code": "EAL",
+    "name": "London Borough of Ealing",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ENF",
+    "name": "London Borough of Enfield",
+    "countryCode": "GB"
+  },
+  {
+    "code": "HCK",
+    "name": "London Borough of Hackney",
+    "countryCode": "GB"
+  },
+  {
+    "code": "HMF",
+    "name": "London Borough of Hammersmith and Fulham",
+    "countryCode": "GB"
+  },
+  {
+    "code": "HRY",
+    "name": "London Borough of Haringey",
+    "countryCode": "GB"
+  },
+  {
+    "code": "HRW",
+    "name": "London Borough of Harrow",
+    "countryCode": "GB"
+  },
+  {
+    "code": "HAV",
+    "name": "London Borough of Havering",
+    "countryCode": "GB"
+  },
+  {
+    "code": "HIL",
+    "name": "London Borough of Hillingdon",
+    "countryCode": "GB"
+  },
+  {
+    "code": "HNS",
+    "name": "London Borough of Hounslow",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ISL",
+    "name": "London Borough of Islington",
+    "countryCode": "GB"
+  },
+  {
+    "code": "LBH",
+    "name": "London Borough of Lambeth",
+    "countryCode": "GB"
+  },
+  {
+    "code": "LEW",
+    "name": "London Borough of Lewisham",
+    "countryCode": "GB"
+  },
+  {
+    "code": "MRT",
+    "name": "London Borough of Merton",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NWM",
+    "name": "London Borough of Newham",
+    "countryCode": "GB"
+  },
+  {
+    "code": "RDB",
+    "name": "London Borough of Redbridge",
+    "countryCode": "GB"
+  },
+  {
+    "code": "RIC",
+    "name": "London Borough of Richmond upon Thames",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SWK",
+    "name": "London Borough of Southwark",
+    "countryCode": "GB"
+  },
+  {
+    "code": "STN",
+    "name": "London Borough of Sutton",
+    "countryCode": "GB"
+  },
+  {
+    "code": "TWH",
+    "name": "London Borough of Tower Hamlets",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WFT",
+    "name": "London Borough of Waltham Forest",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WND",
+    "name": "London Borough of Wandsworth",
+    "countryCode": "GB"
+  },
+  {
+    "code": "MFT",
+    "name": "Magherafelt District Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "MAN",
+    "name": "Manchester",
+    "countryCode": "GB"
+  },
+  {
+    "code": "MDW",
+    "name": "Medway",
+    "countryCode": "GB"
+  },
+  {
+    "code": "MTY",
+    "name": "Merthyr Tydfil County Borough",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WGN",
+    "name": "Metropolitan Borough of Wigan",
+    "countryCode": "GB"
+  },
+  {
+    "code": "MEA",
+    "name": "Mid and East Antrim",
+    "countryCode": "GB"
+  },
+  {
+    "code": "MUL",
+    "name": "Mid Ulster",
+    "countryCode": "GB"
+  },
+  {
+    "code": "MDB",
+    "name": "Middlesbrough",
+    "countryCode": "GB"
+  },
+  {
+    "code": "MLN",
+    "name": "Midlothian",
+    "countryCode": "GB"
+  },
+  {
+    "code": "MIK",
+    "name": "Milton Keynes",
+    "countryCode": "GB"
+  },
+  {
+    "code": "MON",
+    "name": "Monmouthshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "MRY",
+    "name": "Moray",
+    "countryCode": "GB"
+  },
+  {
+    "code": "MYL",
+    "name": "Moyle District Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NTL",
+    "name": "Neath Port Talbot County Borough",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NET",
+    "name": "Newcastle upon Tyne",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NWP",
+    "name": "Newport",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NYM",
+    "name": "Newry and Mourne District Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NMD",
+    "name": "Newry, Mourne and Down",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NTA",
+    "name": "Newtownabbey Borough Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NFK",
+    "name": "Norfolk",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NAY",
+    "name": "North Ayrshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NDN",
+    "name": "North Down Borough Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NEL",
+    "name": "North East Lincolnshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NLK",
+    "name": "North Lanarkshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NLN",
+    "name": "North Lincolnshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NSM",
+    "name": "North Somerset",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NTY",
+    "name": "North Tyneside",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NYK",
+    "name": "North Yorkshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NTH",
+    "name": "Northamptonshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NIR",
+    "name": "Northern Ireland",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NBL",
+    "name": "Northumberland",
+    "countryCode": "GB"
+  },
+  {
+    "code": "NTT",
+    "name": "Nottinghamshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "OLD",
+    "name": "Oldham",
+    "countryCode": "GB"
+  },
+  {
+    "code": "OMH",
+    "name": "Omagh District Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ORK",
+    "name": "Orkney Islands",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ELS",
+    "name": "Outer Hebrides",
+    "countryCode": "GB"
+  },
+  {
+    "code": "OXF",
+    "name": "Oxfordshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "PEM",
+    "name": "Pembrokeshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "PKN",
+    "name": "Perth and Kinross",
+    "countryCode": "GB"
+  },
+  {
+    "code": "POL",
+    "name": "Poole",
+    "countryCode": "GB"
+  },
+  {
+    "code": "POW",
+    "name": "Powys",
+    "countryCode": "GB"
+  },
+  {
+    "code": "RDG",
+    "name": "Reading",
+    "countryCode": "GB"
+  },
+  {
+    "code": "RCC",
+    "name": "Redcar and Cleveland",
+    "countryCode": "GB"
+  },
+  {
+    "code": "RFW",
+    "name": "Renfrewshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "RCT",
+    "name": "Rhondda Cynon Taf",
+    "countryCode": "GB"
+  },
+  {
+    "code": "RCH",
+    "name": "Rochdale",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ROT",
+    "name": "Rotherham",
+    "countryCode": "GB"
+  },
+  {
+    "code": "GRE",
+    "name": "Royal Borough of Greenwich",
+    "countryCode": "GB"
+  },
+  {
+    "code": "KEC",
+    "name": "Royal Borough of Kensington and Chelsea",
+    "countryCode": "GB"
+  },
+  {
+    "code": "KTT",
+    "name": "Royal Borough of Kingston upon Thames",
+    "countryCode": "GB"
+  },
+  {
+    "code": "RUT",
+    "name": "Rutland",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SH-HL",
+    "name": "Saint Helena",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SLF",
+    "name": "Salford",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SAW",
+    "name": "Sandwell",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SCT",
+    "name": "Scotland",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SCB",
+    "name": "Scottish Borders",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SFT",
+    "name": "Sefton",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SHF",
+    "name": "Sheffield",
+    "countryCode": "GB"
+  },
+  {
+    "code": "ZET",
+    "name": "Shetland Islands",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SHR",
+    "name": "Shropshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SLG",
+    "name": "Slough",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SOL",
+    "name": "Solihull",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SOM",
+    "name": "Somerset",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SAY",
+    "name": "South Ayrshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SGC",
+    "name": "South Gloucestershire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SLK",
+    "name": "South Lanarkshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "STY",
+    "name": "South Tyneside",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SOS",
+    "name": "Southend-on-Sea",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SHN",
+    "name": "St Helens",
+    "countryCode": "GB"
+  },
+  {
+    "code": "STS",
+    "name": "Staffordshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "STG",
+    "name": "Stirling",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SKP",
+    "name": "Stockport",
+    "countryCode": "GB"
+  },
+  {
+    "code": "STT",
+    "name": "Stockton-on-Tees",
+    "countryCode": "GB"
+  },
+  {
+    "code": "STB",
+    "name": "Strabane District Council",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SFK",
+    "name": "Suffolk",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SRY",
+    "name": "Surrey",
+    "countryCode": "GB"
+  },
+  {
+    "code": "SWD",
+    "name": "Swindon",
+    "countryCode": "GB"
+  },
+  {
+    "code": "TAM",
+    "name": "Tameside",
+    "countryCode": "GB"
+  },
+  {
+    "code": "TFW",
+    "name": "Telford and Wrekin",
+    "countryCode": "GB"
+  },
+  {
+    "code": "THR",
+    "name": "Thurrock",
+    "countryCode": "GB"
+  },
+  {
+    "code": "TOB",
+    "name": "Torbay",
+    "countryCode": "GB"
+  },
+  {
+    "code": "TOF",
+    "name": "Torfaen",
+    "countryCode": "GB"
+  },
+  {
+    "code": "TRF",
+    "name": "Trafford",
+    "countryCode": "GB"
+  },
+  {
+    "code": "UKM",
+    "name": "United Kingdom",
+    "countryCode": "GB"
+  },
+  {
+    "code": "VGL",
+    "name": "Vale of Glamorgan",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WKF",
+    "name": "Wakefield",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WLS",
+    "name": "Wales",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WLL",
+    "name": "Walsall",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WRT",
+    "name": "Warrington",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WAR",
+    "name": "Warwickshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WBK",
+    "name": "West Berkshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WDU",
+    "name": "West Dunbartonshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WLN",
+    "name": "West Lothian",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WSX",
+    "name": "West Sussex",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WIL",
+    "name": "Wiltshire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WNM",
+    "name": "Windsor and Maidenhead",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WRL",
+    "name": "Wirral",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WOK",
+    "name": "Wokingham",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WOR",
+    "name": "Worcestershire",
+    "countryCode": "GB"
+  },
+  {
+    "code": "WRX",
+    "name": "Wrexham County Borough",
+    "countryCode": "GB"
+  }
+]

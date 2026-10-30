@@ -1,0 +1,52 @@
+[
+  {
+    "code": "AR",
+    "name": "Artibonite",
+    "countryCode": "HT"
+  },
+  {
+    "code": "CE",
+    "name": "Centre",
+    "countryCode": "HT"
+  },
+  {
+    "code": "GA",
+    "name": "Grand'Anse",
+    "countryCode": "HT"
+  },
+  {
+    "code": "NI",
+    "name": "Nippes",
+    "countryCode": "HT"
+  },
+  {
+    "code": "ND",
+    "name": "Nord",
+    "countryCode": "HT"
+  },
+  {
+    "code": "NE",
+    "name": "Nord-Est",
+    "countryCode": "HT"
+  },
+  {
+    "code": "NO",
+    "name": "Nord-Ouest",
+    "countryCode": "HT"
+  },
+  {
+    "code": "OU",
+    "name": "Ouest",
+    "countryCode": "HT"
+  },
+  {
+    "code": "SD",
+    "name": "Sud",
+    "countryCode": "HT"
+  },
+  {
+    "code": "SE",
+    "name": "Sud-Est",
+    "countryCode": "HT"
+  }
+]

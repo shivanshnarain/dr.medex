@@ -1,0 +1,42 @@
+[
+  {
+    "code": "10",
+    "name": "Barbuda",
+    "countryCode": "AG"
+  },
+  {
+    "code": "11",
+    "name": "Redonda",
+    "countryCode": "AG"
+  },
+  {
+    "code": "03",
+    "name": "Saint George Parish",
+    "countryCode": "AG"
+  },
+  {
+    "code": "04",
+    "name": "Saint John Parish",
+    "countryCode": "AG"
+  },
+  {
+    "code": "05",
+    "name": "Saint Mary Parish",
+    "countryCode": "AG"
+  },
+  {
+    "code": "06",
+    "name": "Saint Paul Parish",
+    "countryCode": "AG"
+  },
+  {
+    "code": "07",
+    "name": "Saint Peter Parish",
+    "countryCode": "AG"
+  },
+  {
+    "code": "08",
+    "name": "Saint Philip Parish",
+    "countryCode": "AG"
+  }
+]

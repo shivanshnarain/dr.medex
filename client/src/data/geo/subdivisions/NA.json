@@ -1,0 +1,72 @@
+[
+  {
+    "code": "ER",
+    "name": "Erongo Region",
+    "countryCode": "NA"
+  },
+  {
+    "code": "HA",
+    "name": "Hardap Region",
+    "countryCode": "NA"
+  },
+  {
+    "code": "KA",
+    "name": "Karas Region",
+    "countryCode": "NA"
+  },
+  {
+    "code": "KE",
+    "name": "Kavango East Region",
+    "countryCode": "NA"
+  },
+  {
+    "code": "KW",
+    "name": "Kavango West Region",
+    "countryCode": "NA"
+  },
+  {
+    "code": "KH",
+    "name": "Khomas Region",
+    "countryCode": "NA"
+  },
+  {
+    "code": "KU",
+    "name": "Kunene Region",
+    "countryCode": "NA"
+  },
+  {
+    "code": "OW",
+    "name": "Ohangwena Region",
+    "countryCode": "NA"
+  },
+  {
+    "code": "OH",
+    "name": "Omaheke Region",
+    "countryCode": "NA"
+  },
+  {
+    "code": "OS",
+    "name": "Omusati Region",
+    "countryCode": "NA"
+  },
+  {
+    "code": "ON",
+    "name": "Oshana Region",
+    "countryCode": "NA"
+  },
+  {
+    "code": "OT",
+    "name": "Oshikoto Region",
+    "countryCode": "NA"
+  },
+  {
+    "code": "OD",
+    "name": "Otjozondjupa Region",
+    "countryCode": "NA"
+  },
+  {
+    "code": "CA",
+    "name": "Zambezi Region",
+    "countryCode": "NA"
+  }
+]

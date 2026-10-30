@@ -1,0 +1,97 @@
+[
+  {
+    "code": "AR",
+    "name": "Artigas Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "CA",
+    "name": "Canelones Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "CL",
+    "name": "Cerro Largo Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "CO",
+    "name": "Colonia Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "DU",
+    "name": "Durazno Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "FS",
+    "name": "Flores Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "FD",
+    "name": "Florida Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "LA",
+    "name": "Lavalleja Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "MA",
+    "name": "Maldonado Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "MO",
+    "name": "Montevideo Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "PA",
+    "name": "Paysandú Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "RN",
+    "name": "Río Negro Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "RV",
+    "name": "Rivera Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "RO",
+    "name": "Rocha Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "SA",
+    "name": "Salto Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "SJ",
+    "name": "San José Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "SO",
+    "name": "Soriano Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "TA",
+    "name": "Tacuarembó Department",
+    "countryCode": "UY"
+  },
+  {
+    "code": "TT",
+    "name": "Treinta y Tres Department",
+    "countryCode": "UY"
+  }
+]

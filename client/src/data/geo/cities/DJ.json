@@ -1,0 +1,63 @@
+{
+  "AS": [
+    {
+      "name": "'Ali Sabieh",
+      "postalCodes": []
+    },
+    {
+      "name": "Goubétto",
+      "postalCodes": []
+    },
+    {
+      "name": "Holhol",
+      "postalCodes": []
+    }
+  ],
+  "AR": [
+    {
+      "name": "Arta",
+      "postalCodes": []
+    }
+  ],
+  "DI": [
+    {
+      "name": "Dikhil",
+      "postalCodes": []
+    },
+    {
+      "name": "Gâlâfi",
+      "postalCodes": []
+    }
+  ],
+  "DJ": [
+    {
+      "name": "Djibouti",
+      "postalCodes": []
+    },
+    {
+      "name": "Loyada",
+      "postalCodes": []
+    }
+  ],
+  "OB": [
+    {
+      "name": "Alaïli Ḏaḏḏa‘",
+      "postalCodes": []
+    },
+    {
+      "name": "Obock",
+      "postalCodes": []
+    }
+  ],
+  "TA": [
+    {
+      "name": "Dorra",
+      "postalCodes": []
+    },
+    {
+      "name": "Tadjourah",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

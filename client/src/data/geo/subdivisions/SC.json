@@ -1,0 +1,122 @@
+[
+  {
+    "code": "02",
+    "name": "Anse Boileau",
+    "countryCode": "SC"
+  },
+  {
+    "code": "05",
+    "name": "Anse Royale",
+    "countryCode": "SC"
+  },
+  {
+    "code": "01",
+    "name": "Anse-aux-Pins",
+    "countryCode": "SC"
+  },
+  {
+    "code": "04",
+    "name": "Au Cap",
+    "countryCode": "SC"
+  },
+  {
+    "code": "06",
+    "name": "Baie Lazare",
+    "countryCode": "SC"
+  },
+  {
+    "code": "07",
+    "name": "Baie Sainte Anne",
+    "countryCode": "SC"
+  },
+  {
+    "code": "08",
+    "name": "Beau Vallon",
+    "countryCode": "SC"
+  },
+  {
+    "code": "09",
+    "name": "Bel Air",
+    "countryCode": "SC"
+  },
+  {
+    "code": "10",
+    "name": "Bel Ombre",
+    "countryCode": "SC"
+  },
+  {
+    "code": "11",
+    "name": "Cascade",
+    "countryCode": "SC"
+  },
+  {
+    "code": "12",
+    "name": "Glacis",
+    "countryCode": "SC"
+  },
+  {
+    "code": "13",
+    "name": "Grand'Anse Mahé",
+    "countryCode": "SC"
+  },
+  {
+    "code": "14",
+    "name": "Grand'Anse Praslin",
+    "countryCode": "SC"
+  },
+  {
+    "code": "15",
+    "name": "La Digue",
+    "countryCode": "SC"
+  },
+  {
+    "code": "16",
+    "name": "La Rivière Anglaise",
+    "countryCode": "SC"
+  },
+  {
+    "code": "24",
+    "name": "Les Mamelles",
+    "countryCode": "SC"
+  },
+  {
+    "code": "17",
+    "name": "Mont Buxton",
+    "countryCode": "SC"
+  },
+  {
+    "code": "18",
+    "name": "Mont Fleuri",
+    "countryCode": "SC"
+  },
+  {
+    "code": "19",
+    "name": "Plaisance",
+    "countryCode": "SC"
+  },
+  {
+    "code": "20",
+    "name": "Pointe La Rue",
+    "countryCode": "SC"
+  },
+  {
+    "code": "21",
+    "name": "Port Glaud",
+    "countryCode": "SC"
+  },
+  {
+    "code": "25",
+    "name": "Roche Caiman",
+    "countryCode": "SC"
+  },
+  {
+    "code": "22",
+    "name": "Saint Louis",
+    "countryCode": "SC"
+  },
+  {
+    "code": "23",
+    "name": "Takamaka",
+    "countryCode": "SC"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "code": "01",
+    "name": "Anse la Raye Quarter",
+    "countryCode": "LC"
+  },
+  {
+    "code": "12",
+    "name": "Canaries",
+    "countryCode": "LC"
+  },
+  {
+    "code": "02",
+    "name": "Castries Quarter",
+    "countryCode": "LC"
+  },
+  {
+    "code": "03",
+    "name": "Choiseul Quarter",
+    "countryCode": "LC"
+  },
+  {
+    "code": "04",
+    "name": "Dauphin Quarter",
+    "countryCode": "LC"
+  },
+  {
+    "code": "05",
+    "name": "Dennery Quarter",
+    "countryCode": "LC"
+  },
+  {
+    "code": "06",
+    "name": "Gros Islet Quarter",
+    "countryCode": "LC"
+  },
+  {
+    "code": "07",
+    "name": "Laborie Quarter",
+    "countryCode": "LC"
+  },
+  {
+    "code": "08",
+    "name": "Micoud Quarter",
+    "countryCode": "LC"
+  },
+  {
+    "code": "09",
+    "name": "Praslin Quarter",
+    "countryCode": "LC"
+  },
+  {
+    "code": "10",
+    "name": "Soufrière Quarter",
+    "countryCode": "LC"
+  },
+  {
+    "code": "11",
+    "name": "Vieux Fort Quarter",
+    "countryCode": "LC"
+  }
+]

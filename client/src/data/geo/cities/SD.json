@@ -1,0 +1,323 @@
+{
+  "GZ": [
+    {
+      "name": "Al Hasaheisa",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Hilāliyya",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Kiremit al ‘Arakiyyīn",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Manāqil",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Masallamiyya",
+      "postalCodes": []
+    },
+    {
+      "name": "Wad Medani",
+      "postalCodes": []
+    },
+    {
+      "name": "Wad Rāwah",
+      "postalCodes": []
+    }
+  ],
+  "GD": [
+    {
+      "name": "Al Ḩawātah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Qadarif",
+      "postalCodes": []
+    },
+    {
+      "name": "Doka",
+      "postalCodes": []
+    }
+  ],
+  "NB": [
+    {
+      "name": "Ad-Damazin",
+      "postalCodes": []
+    },
+    {
+      "name": "Ar Ruseris",
+      "postalCodes": []
+    },
+    {
+      "name": "Kurmuk",
+      "postalCodes": []
+    }
+  ],
+  "DC": [
+    {
+      "name": "Zalingei",
+      "postalCodes": []
+    }
+  ],
+  "DE": [
+    {
+      "name": "El Daein",
+      "postalCodes": []
+    }
+  ],
+  "KA": [
+    {
+      "name": "Aroma",
+      "postalCodes": []
+    },
+    {
+      "name": "Kassala",
+      "postalCodes": []
+    },
+    {
+      "name": "Wagar",
+      "postalCodes": []
+    }
+  ],
+  "KH": [
+    {
+      "name": "Khartoum",
+      "postalCodes": []
+    },
+    {
+      "name": "Omdurman",
+      "postalCodes": []
+    }
+  ],
+  "DN": [
+    {
+      "name": "El Fasher",
+      "postalCodes": []
+    },
+    {
+      "name": "Kutum",
+      "postalCodes": []
+    },
+    {
+      "name": "Umm Kaddadah",
+      "postalCodes": []
+    }
+  ],
+  "KN": [
+    {
+      "name": "Ar Rahad",
+      "postalCodes": []
+    },
+    {
+      "name": "Bārah",
+      "postalCodes": []
+    },
+    {
+      "name": "El Obeid",
+      "postalCodes": []
+    },
+    {
+      "name": "Umm Ruwaba",
+      "postalCodes": []
+    }
+  ],
+  "NO": [
+    {
+      "name": "Ad Dabbah",
+      "postalCodes": []
+    },
+    {
+      "name": "Argo",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongola",
+      "postalCodes": []
+    },
+    {
+      "name": "Karmah an Nuzul",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuraymah",
+      "postalCodes": []
+    },
+    {
+      "name": "Merowe",
+      "postalCodes": []
+    }
+  ],
+  "RS": [
+    {
+      "name": "Gebeit",
+      "postalCodes": []
+    },
+    {
+      "name": "Port Sudan",
+      "postalCodes": []
+    },
+    {
+      "name": "Sawākin",
+      "postalCodes": []
+    },
+    {
+      "name": "Tokār",
+      "postalCodes": []
+    }
+  ],
+  "NR": [
+    {
+      "name": "Atbara",
+      "postalCodes": []
+    },
+    {
+      "name": "Berber",
+      "postalCodes": []
+    },
+    {
+      "name": "Ed Damer",
+      "postalCodes": []
+    },
+    {
+      "name": "El Bauga",
+      "postalCodes": []
+    },
+    {
+      "name": "El Matama",
+      "postalCodes": []
+    },
+    {
+      "name": "Shendi",
+      "postalCodes": []
+    }
+  ],
+  "SI": [
+    {
+      "name": "Ad Dindar",
+      "postalCodes": []
+    },
+    {
+      "name": "As Sūkī",
+      "postalCodes": []
+    },
+    {
+      "name": "Jalqani",
+      "postalCodes": []
+    },
+    {
+      "name": "Kināna",
+      "postalCodes": []
+    },
+    {
+      "name": "Maiurno",
+      "postalCodes": []
+    },
+    {
+      "name": "Singa",
+      "postalCodes": []
+    },
+    {
+      "name": "Sinnar",
+      "postalCodes": []
+    }
+  ],
+  "DS": [
+    {
+      "name": "Gereida",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyala",
+      "postalCodes": []
+    }
+  ],
+  "KS": [
+    {
+      "name": "Abu Jibeha",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Fūlah",
+      "postalCodes": []
+    },
+    {
+      "name": "Dilling",
+      "postalCodes": []
+    },
+    {
+      "name": "Kadugli",
+      "postalCodes": []
+    },
+    {
+      "name": "Talodi",
+      "postalCodes": []
+    }
+  ],
+  "DW": [
+    {
+      "name": "Geneina",
+      "postalCodes": []
+    }
+  ],
+  "GK": [
+    {
+      "name": "Abū Zabad",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Lagowa",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Mijlad",
+      "postalCodes": []
+    },
+    {
+      "name": "An Nuhūd",
+      "postalCodes": []
+    }
+  ],
+  "NW": [
+    {
+      "name": "Ad Douiem",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Kawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Qiţena",
+      "postalCodes": []
+    },
+    {
+      "name": "Kosti",
+      "postalCodes": []
+    },
+    {
+      "name": "Marabba",
+      "postalCodes": []
+    },
+    {
+      "name": "Rabak",
+      "postalCodes": []
+    },
+    {
+      "name": "Tandaltī",
+      "postalCodes": []
+    },
+    {
+      "name": "Um Jar Al Gharbiyya",
+      "postalCodes": []
+    },
+    {
+      "name": "Wad az Zāki",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "code": "BR",
+    "name": "Brokopondo District",
+    "countryCode": "SR"
+  },
+  {
+    "code": "CM",
+    "name": "Commewijne District",
+    "countryCode": "SR"
+  },
+  {
+    "code": "CR",
+    "name": "Coronie District",
+    "countryCode": "SR"
+  },
+  {
+    "code": "MA",
+    "name": "Marowijne District",
+    "countryCode": "SR"
+  },
+  {
+    "code": "NI",
+    "name": "Nickerie District",
+    "countryCode": "SR"
+  },
+  {
+    "code": "PR",
+    "name": "Para District",
+    "countryCode": "SR"
+  },
+  {
+    "code": "PM",
+    "name": "Paramaribo District",
+    "countryCode": "SR"
+  },
+  {
+    "code": "SA",
+    "name": "Saramacca District",
+    "countryCode": "SR"
+  },
+  {
+    "code": "SI",
+    "name": "Sipaliwini District",
+    "countryCode": "SR"
+  },
+  {
+    "code": "WA",
+    "name": "Wanica District",
+    "countryCode": "SR"
+  }
+]

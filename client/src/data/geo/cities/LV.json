@@ -1,0 +1,728 @@
+{
+  "100": [
+    {
+      "name": "Vaiņode",
+      "postalCodes": []
+    }
+  ],
+  "101": [
+    {
+      "name": "Valka",
+      "postalCodes": []
+    }
+  ],
+  "102": [
+    {
+      "name": "Varakļāni",
+      "postalCodes": []
+    }
+  ],
+  "103": [
+    {
+      "name": "Vecvārkava",
+      "postalCodes": []
+    }
+  ],
+  "104": [
+    {
+      "name": "Vecpiebalga",
+      "postalCodes": []
+    }
+  ],
+  "105": [
+    {
+      "name": "Vecumnieki",
+      "postalCodes": []
+    }
+  ],
+  "106": [
+    {
+      "name": "Piltene",
+      "postalCodes": []
+    }
+  ],
+  "107": [
+    {
+      "name": "Viesīte",
+      "postalCodes": []
+    }
+  ],
+  "108": [
+    {
+      "name": "Viļaka",
+      "postalCodes": []
+    }
+  ],
+  "109": [
+    {
+      "name": "Viļāni",
+      "postalCodes": []
+    }
+  ],
+  "110": [
+    {
+      "name": "Zilupe",
+      "postalCodes": []
+    }
+  ],
+  "001": [
+    {
+      "name": "Aglona",
+      "postalCodes": []
+    }
+  ],
+  "002": [
+    {
+      "name": "Aizkraukle",
+      "postalCodes": []
+    }
+  ],
+  "003": [
+    {
+      "name": "Aizpute",
+      "postalCodes": []
+    }
+  ],
+  "004": [
+    {
+      "name": "Aknīste",
+      "postalCodes": []
+    }
+  ],
+  "005": [
+    {
+      "name": "Aloja",
+      "postalCodes": []
+    },
+    {
+      "name": "Staicele",
+      "postalCodes": []
+    }
+  ],
+  "006": [
+    {
+      "name": "Alsunga",
+      "postalCodes": []
+    }
+  ],
+  "007": [
+    {
+      "name": "Alūksne",
+      "postalCodes": []
+    }
+  ],
+  "008": [],
+  "009": [
+    {
+      "name": "Ape",
+      "postalCodes": []
+    }
+  ],
+  "010": [
+    {
+      "name": "Auce",
+      "postalCodes": []
+    }
+  ],
+  "012": [
+    {
+      "name": "Piņķi",
+      "postalCodes": []
+    }
+  ],
+  "013": [
+    {
+      "name": "Baldone",
+      "postalCodes": []
+    }
+  ],
+  "014": [
+    {
+      "name": "Baltinava",
+      "postalCodes": []
+    }
+  ],
+  "015": [
+    {
+      "name": "Balvi",
+      "postalCodes": []
+    }
+  ],
+  "016": [
+    {
+      "name": "Bauska",
+      "postalCodes": []
+    }
+  ],
+  "017": [
+    {
+      "name": "Mūrmuiža",
+      "postalCodes": []
+    }
+  ],
+  "018": [
+    {
+      "name": "Brocēni",
+      "postalCodes": []
+    }
+  ],
+  "019": [],
+  "020": [
+    {
+      "name": "Carnikava",
+      "postalCodes": []
+    }
+  ],
+  "022": [
+    {
+      "name": "Cēsis",
+      "postalCodes": []
+    }
+  ],
+  "021": [
+    {
+      "name": "Cesvaine",
+      "postalCodes": []
+    }
+  ],
+  "023": [
+    {
+      "name": "Cibla",
+      "postalCodes": []
+    }
+  ],
+  "024": [
+    {
+      "name": "Dagda",
+      "postalCodes": []
+    }
+  ],
+  "DGV": [],
+  "025": [
+    {
+      "name": "Daugavpils",
+      "postalCodes": []
+    }
+  ],
+  "026": [
+    {
+      "name": "Dobele",
+      "postalCodes": []
+    }
+  ],
+  "027": [
+    {
+      "name": "Dundaga",
+      "postalCodes": []
+    }
+  ],
+  "028": [
+    {
+      "name": "Lieģi",
+      "postalCodes": []
+    }
+  ],
+  "029": [
+    {
+      "name": "Smārde",
+      "postalCodes": []
+    }
+  ],
+  "030": [
+    {
+      "name": "Ērgļi",
+      "postalCodes": []
+    }
+  ],
+  "031": [
+    {
+      "name": "Garkalne",
+      "postalCodes": []
+    }
+  ],
+  "032": [
+    {
+      "name": "Grobiņa",
+      "postalCodes": []
+    }
+  ],
+  "033": [
+    {
+      "name": "Gulbene",
+      "postalCodes": []
+    }
+  ],
+  "034": [
+    {
+      "name": "Iecava",
+      "postalCodes": []
+    }
+  ],
+  "035": [
+    {
+      "name": "Ikšķile",
+      "postalCodes": []
+    }
+  ],
+  "036": [
+    {
+      "name": "Ilūkste",
+      "postalCodes": []
+    }
+  ],
+  "037": [
+    {
+      "name": "Inčukalns",
+      "postalCodes": []
+    },
+    {
+      "name": "Vangaži",
+      "postalCodes": []
+    }
+  ],
+  "038": [
+    {
+      "name": "Jaunjelgava",
+      "postalCodes": []
+    }
+  ],
+  "039": [],
+  "040": [
+    {
+      "name": "Jaunpils",
+      "postalCodes": []
+    }
+  ],
+  "JKB": [],
+  "042": [
+    {
+      "name": "Jēkabpils",
+      "postalCodes": []
+    },
+    {
+      "name": "Krustpils",
+      "postalCodes": []
+    }
+  ],
+  "JEL": [
+    {
+      "name": "Jelgava",
+      "postalCodes": []
+    }
+  ],
+  "041": [
+    {
+      "name": "Tīreļi",
+      "postalCodes": []
+    }
+  ],
+  "JUR": [
+    {
+      "name": "Jūrmala",
+      "postalCodes": []
+    }
+  ],
+  "043": [
+    {
+      "name": "Kandava",
+      "postalCodes": []
+    }
+  ],
+  "044": [
+    {
+      "name": "Kārsava",
+      "postalCodes": []
+    }
+  ],
+  "051": [
+    {
+      "name": "Ķegums",
+      "postalCodes": []
+    }
+  ],
+  "052": [
+    {
+      "name": "Baloži",
+      "postalCodes": []
+    },
+    {
+      "name": "Ķekava",
+      "postalCodes": []
+    }
+  ],
+  "045": [
+    {
+      "name": "Kocēni",
+      "postalCodes": []
+    }
+  ],
+  "046": [
+    {
+      "name": "Koknese",
+      "postalCodes": []
+    }
+  ],
+  "047": [
+    {
+      "name": "Krāslava",
+      "postalCodes": []
+    }
+  ],
+  "048": [],
+  "049": [],
+  "050": [
+    {
+      "name": "Kuldīga",
+      "postalCodes": []
+    }
+  ],
+  "053": [
+    {
+      "name": "Lielvārde",
+      "postalCodes": []
+    }
+  ],
+  "LPX": [
+    {
+      "name": "Karosta",
+      "postalCodes": []
+    },
+    {
+      "name": "Liepāja",
+      "postalCodes": []
+    }
+  ],
+  "055": [
+    {
+      "name": "Līgatne",
+      "postalCodes": []
+    }
+  ],
+  "054": [
+    {
+      "name": "Limbaži",
+      "postalCodes": []
+    }
+  ],
+  "056": [
+    {
+      "name": "Līvāni",
+      "postalCodes": []
+    }
+  ],
+  "057": [
+    {
+      "name": "Lubāna",
+      "postalCodes": []
+    }
+  ],
+  "058": [
+    {
+      "name": "Ludza",
+      "postalCodes": []
+    }
+  ],
+  "059": [
+    {
+      "name": "Madona",
+      "postalCodes": []
+    }
+  ],
+  "061": [
+    {
+      "name": "Mālpils",
+      "postalCodes": []
+    }
+  ],
+  "062": [
+    {
+      "name": "Mārupe",
+      "postalCodes": []
+    }
+  ],
+  "060": [
+    {
+      "name": "Mazsalaca",
+      "postalCodes": []
+    }
+  ],
+  "063": [],
+  "064": [
+    {
+      "name": "Naukšēni",
+      "postalCodes": []
+    }
+  ],
+  "065": [
+    {
+      "name": "Nereta",
+      "postalCodes": []
+    }
+  ],
+  "066": [
+    {
+      "name": "Nīca",
+      "postalCodes": []
+    }
+  ],
+  "067": [
+    {
+      "name": "Jumprava",
+      "postalCodes": []
+    },
+    {
+      "name": "Ogre",
+      "postalCodes": []
+    }
+  ],
+  "068": [
+    {
+      "name": "Olaine",
+      "postalCodes": []
+    }
+  ],
+  "069": [
+    {
+      "name": "Ozolnieki",
+      "postalCodes": []
+    }
+  ],
+  "070": [
+    {
+      "name": "Stalbe",
+      "postalCodes": []
+    }
+  ],
+  "071": [
+    {
+      "name": "Pāvilosta",
+      "postalCodes": []
+    }
+  ],
+  "072": [
+    {
+      "name": "Pļaviņas",
+      "postalCodes": []
+    }
+  ],
+  "073": [
+    {
+      "name": "Jaunaglona",
+      "postalCodes": []
+    },
+    {
+      "name": "Preiļi",
+      "postalCodes": []
+    }
+  ],
+  "074": [
+    {
+      "name": "Priekule",
+      "postalCodes": []
+    }
+  ],
+  "075": [
+    {
+      "name": "Priekuļi",
+      "postalCodes": []
+    }
+  ],
+  "076": [
+    {
+      "name": "Rauna",
+      "postalCodes": []
+    }
+  ],
+  "REZ": [
+    {
+      "name": "Rēzekne",
+      "postalCodes": []
+    }
+  ],
+  "077": [],
+  "078": [
+    {
+      "name": "Riebiņi",
+      "postalCodes": []
+    }
+  ],
+  "RIX": [
+    {
+      "name": "Bolderaja",
+      "postalCodes": []
+    },
+    {
+      "name": "Daugavgrīva",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaunciems",
+      "postalCodes": []
+    },
+    {
+      "name": "Mežaparks",
+      "postalCodes": []
+    },
+    {
+      "name": "Riga",
+      "postalCodes": []
+    }
+  ],
+  "079": [
+    {
+      "name": "Roja",
+      "postalCodes": []
+    }
+  ],
+  "080": [
+    {
+      "name": "Ropaži",
+      "postalCodes": []
+    }
+  ],
+  "081": [
+    {
+      "name": "Rucava",
+      "postalCodes": []
+    }
+  ],
+  "082": [
+    {
+      "name": "Rugāji",
+      "postalCodes": []
+    }
+  ],
+  "084": [
+    {
+      "name": "Rūjiena",
+      "postalCodes": []
+    }
+  ],
+  "083": [
+    {
+      "name": "Pilsrundāle",
+      "postalCodes": []
+    }
+  ],
+  "085": [],
+  "086": [
+    {
+      "name": "Ainaži",
+      "postalCodes": []
+    },
+    {
+      "name": "Salacgrīva",
+      "postalCodes": []
+    }
+  ],
+  "087": [
+    {
+      "name": "Salaspils",
+      "postalCodes": []
+    }
+  ],
+  "088": [
+    {
+      "name": "Saldus",
+      "postalCodes": []
+    }
+  ],
+  "089": [
+    {
+      "name": "Saulkrasti",
+      "postalCodes": []
+    }
+  ],
+  "090": [
+    {
+      "name": "Engure",
+      "postalCodes": []
+    },
+    {
+      "name": "Tukums",
+      "postalCodes": []
+    }
+  ],
+  "091": [
+    {
+      "name": "Sigulda",
+      "postalCodes": []
+    }
+  ],
+  "092": [
+    {
+      "name": "Skrīveri",
+      "postalCodes": []
+    }
+  ],
+  "093": [
+    {
+      "name": "Skrunda",
+      "postalCodes": []
+    }
+  ],
+  "094": [
+    {
+      "name": "Smiltene",
+      "postalCodes": []
+    }
+  ],
+  "095": [
+    {
+      "name": "Ulbroka",
+      "postalCodes": []
+    }
+  ],
+  "096": [
+    {
+      "name": "Seda",
+      "postalCodes": []
+    },
+    {
+      "name": "Strenči",
+      "postalCodes": []
+    }
+  ],
+  "097": [
+    {
+      "name": "Sabile",
+      "postalCodes": []
+    },
+    {
+      "name": "Stende",
+      "postalCodes": []
+    },
+    {
+      "name": "Talsi",
+      "postalCodes": []
+    },
+    {
+      "name": "Valdemārpils",
+      "postalCodes": []
+    }
+  ],
+  "098": [
+    {
+      "name": "Tērvete",
+      "postalCodes": []
+    },
+    {
+      "name": "Zelmeņi",
+      "postalCodes": []
+    }
+  ],
+  "099": [],
+  "VMR": [
+    {
+      "name": "Valmiera",
+      "postalCodes": []
+    }
+  ],
+  "VEN": [
+    {
+      "name": "Ventspils",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

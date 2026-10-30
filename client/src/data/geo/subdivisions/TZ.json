@@ -1,0 +1,157 @@
+[
+  {
+    "code": "01",
+    "name": "Arusha",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "02",
+    "name": "Dar es Salaam",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "03",
+    "name": "Dodoma",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "27",
+    "name": "Geita",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "04",
+    "name": "Iringa",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "05",
+    "name": "Kagera",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "28",
+    "name": "Katavi",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "08",
+    "name": "Kigoma",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "09",
+    "name": "Kilimanjaro",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "12",
+    "name": "Lindi",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "26",
+    "name": "Manyara",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "13",
+    "name": "Mara",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "14",
+    "name": "Mbeya",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "16",
+    "name": "Morogoro",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "17",
+    "name": "Mtwara",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "18",
+    "name": "Mwanza",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "29",
+    "name": "Njombe",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "06",
+    "name": "Pemba North",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "10",
+    "name": "Pemba South",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "19",
+    "name": "Pwani",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "20",
+    "name": "Rukwa",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "21",
+    "name": "Ruvuma",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "22",
+    "name": "Shinyanga",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "30",
+    "name": "Simiyu",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "23",
+    "name": "Singida",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "31",
+    "name": "Songwe",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "24",
+    "name": "Tabora",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "25",
+    "name": "Tanga",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "07",
+    "name": "Zanzibar North",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "11",
+    "name": "Zanzibar South",
+    "countryCode": "TZ"
+  },
+  {
+    "code": "15",
+    "name": "Zanzibar West",
+    "countryCode": "TZ"
+  }
+]

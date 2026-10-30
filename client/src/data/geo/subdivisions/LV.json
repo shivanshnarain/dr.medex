@@ -1,0 +1,592 @@
+[
+  {
+    "code": "001",
+    "name": "Aglona Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "002",
+    "name": "Aizkraukle Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "003",
+    "name": "Aizpute Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "004",
+    "name": "Aknīste Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "005",
+    "name": "Aloja Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "006",
+    "name": "Alsunga Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "007",
+    "name": "Alūksne Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "008",
+    "name": "Amata Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "009",
+    "name": "Ape Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "010",
+    "name": "Auce Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "012",
+    "name": "Babīte Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "013",
+    "name": "Baldone Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "014",
+    "name": "Baltinava Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "015",
+    "name": "Balvi Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "016",
+    "name": "Bauska Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "017",
+    "name": "Beverīna Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "018",
+    "name": "Brocēni Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "019",
+    "name": "Burtnieki Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "020",
+    "name": "Carnikava Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "022",
+    "name": "Cēsis Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "021",
+    "name": "Cesvaine Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "023",
+    "name": "Cibla Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "024",
+    "name": "Dagda Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "DGV",
+    "name": "Daugavpils",
+    "countryCode": "LV"
+  },
+  {
+    "code": "025",
+    "name": "Daugavpils Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "026",
+    "name": "Dobele Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "027",
+    "name": "Dundaga Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "028",
+    "name": "Durbe Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "029",
+    "name": "Engure Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "030",
+    "name": "Ērgļi Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "031",
+    "name": "Garkalne Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "032",
+    "name": "Grobiņa Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "033",
+    "name": "Gulbene Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "034",
+    "name": "Iecava Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "035",
+    "name": "Ikšķile Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "036",
+    "name": "Ilūkste Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "037",
+    "name": "Inčukalns Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "038",
+    "name": "Jaunjelgava Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "039",
+    "name": "Jaunpiebalga Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "040",
+    "name": "Jaunpils Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "JKB",
+    "name": "Jēkabpils",
+    "countryCode": "LV"
+  },
+  {
+    "code": "042",
+    "name": "Jēkabpils Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "JEL",
+    "name": "Jelgava",
+    "countryCode": "LV"
+  },
+  {
+    "code": "041",
+    "name": "Jelgava Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "JUR",
+    "name": "Jūrmala",
+    "countryCode": "LV"
+  },
+  {
+    "code": "043",
+    "name": "Kandava Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "044",
+    "name": "Kārsava Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "051",
+    "name": "Ķegums Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "052",
+    "name": "Ķekava Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "045",
+    "name": "Kocēni Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "046",
+    "name": "Koknese Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "047",
+    "name": "Krāslava Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "048",
+    "name": "Krimulda Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "049",
+    "name": "Krustpils Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "050",
+    "name": "Kuldīga Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "053",
+    "name": "Lielvārde Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "LPX",
+    "name": "Liepāja",
+    "countryCode": "LV"
+  },
+  {
+    "code": "055",
+    "name": "Līgatne Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "054",
+    "name": "Limbaži Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "056",
+    "name": "Līvāni Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "057",
+    "name": "Lubāna Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "058",
+    "name": "Ludza Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "059",
+    "name": "Madona Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "061",
+    "name": "Mālpils Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "062",
+    "name": "Mārupe Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "060",
+    "name": "Mazsalaca Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "063",
+    "name": "Mērsrags Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "064",
+    "name": "Naukšēni Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "065",
+    "name": "Nereta Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "066",
+    "name": "Nīca Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "067",
+    "name": "Ogre Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "068",
+    "name": "Olaine Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "069",
+    "name": "Ozolnieki Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "070",
+    "name": "Pārgauja Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "071",
+    "name": "Pāvilosta Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "072",
+    "name": "Pļaviņas Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "073",
+    "name": "Preiļi Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "074",
+    "name": "Priekule Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "075",
+    "name": "Priekuļi Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "076",
+    "name": "Rauna Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "REZ",
+    "name": "Rēzekne",
+    "countryCode": "LV"
+  },
+  {
+    "code": "077",
+    "name": "Rēzekne Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "078",
+    "name": "Riebiņi Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "RIX",
+    "name": "Riga",
+    "countryCode": "LV"
+  },
+  {
+    "code": "079",
+    "name": "Roja Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "080",
+    "name": "Ropaži Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "081",
+    "name": "Rucava Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "082",
+    "name": "Rugāji Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "084",
+    "name": "Rūjiena Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "083",
+    "name": "Rundāle Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "085",
+    "name": "Sala Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "086",
+    "name": "Salacgrīva Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "087",
+    "name": "Salaspils Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "088",
+    "name": "Saldus Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "089",
+    "name": "Saulkrasti Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "090",
+    "name": "Sēja Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "091",
+    "name": "Sigulda Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "092",
+    "name": "Skrīveri Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "093",
+    "name": "Skrunda Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "094",
+    "name": "Smiltene Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "095",
+    "name": "Stopiņi Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "096",
+    "name": "Strenči Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "097",
+    "name": "Talsi Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "098",
+    "name": "Tērvete Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "099",
+    "name": "Tukums Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "100",
+    "name": "Vaiņode Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "101",
+    "name": "Valka Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "VMR",
+    "name": "Valmiera",
+    "countryCode": "LV"
+  },
+  {
+    "code": "102",
+    "name": "Varakļāni Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "103",
+    "name": "Vārkava Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "104",
+    "name": "Vecpiebalga Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "105",
+    "name": "Vecumnieki Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "VEN",
+    "name": "Ventspils",
+    "countryCode": "LV"
+  },
+  {
+    "code": "106",
+    "name": "Ventspils Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "107",
+    "name": "Viesīte Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "108",
+    "name": "Viļaka Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "109",
+    "name": "Viļāni Municipality",
+    "countryCode": "LV"
+  },
+  {
+    "code": "110",
+    "name": "Zilupe Municipality",
+    "countryCode": "LV"
+  }
+]

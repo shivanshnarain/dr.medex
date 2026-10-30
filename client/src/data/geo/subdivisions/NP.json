@@ -1,0 +1,97 @@
+[
+  {
+    "code": "BA",
+    "name": "Bagmati Zone",
+    "countryCode": "NP"
+  },
+  {
+    "code": "BH",
+    "name": "Bheri Zone",
+    "countryCode": "NP"
+  },
+  {
+    "code": "1",
+    "name": "Central Region",
+    "countryCode": "NP"
+  },
+  {
+    "code": "DH",
+    "name": "Dhaulagiri Zone",
+    "countryCode": "NP"
+  },
+  {
+    "code": "4",
+    "name": "Eastern Development Region",
+    "countryCode": "NP"
+  },
+  {
+    "code": "5",
+    "name": "Far-Western Development Region",
+    "countryCode": "NP"
+  },
+  {
+    "code": "GA",
+    "name": "Gandaki Zone",
+    "countryCode": "NP"
+  },
+  {
+    "code": "JA",
+    "name": "Janakpur Zone",
+    "countryCode": "NP"
+  },
+  {
+    "code": "KA",
+    "name": "Karnali Zone",
+    "countryCode": "NP"
+  },
+  {
+    "code": "KO",
+    "name": "Kosi Zone",
+    "countryCode": "NP"
+  },
+  {
+    "code": "LU",
+    "name": "Lumbini Zone",
+    "countryCode": "NP"
+  },
+  {
+    "code": "MA",
+    "name": "Mahakali Zone",
+    "countryCode": "NP"
+  },
+  {
+    "code": "ME",
+    "name": "Mechi Zone",
+    "countryCode": "NP"
+  },
+  {
+    "code": "2",
+    "name": "Mid-Western Region",
+    "countryCode": "NP"
+  },
+  {
+    "code": "NA",
+    "name": "Narayani Zone",
+    "countryCode": "NP"
+  },
+  {
+    "code": "RA",
+    "name": "Rapti Zone",
+    "countryCode": "NP"
+  },
+  {
+    "code": "SA",
+    "name": "Sagarmatha Zone",
+    "countryCode": "NP"
+  },
+  {
+    "code": "SE",
+    "name": "Seti Zone",
+    "countryCode": "NP"
+  },
+  {
+    "code": "3",
+    "name": "Western Region",
+    "countryCode": "NP"
+  }
+]

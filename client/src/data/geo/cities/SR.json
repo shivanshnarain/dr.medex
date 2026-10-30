@@ -1,0 +1,74 @@
+{
+  "BR": [
+    {
+      "name": "Brokopondo",
+      "postalCodes": []
+    },
+    {
+      "name": "Brownsweg",
+      "postalCodes": []
+    }
+  ],
+  "CM": [
+    {
+      "name": "Mariënburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Nieuw Amsterdam",
+      "postalCodes": []
+    }
+  ],
+  "CR": [
+    {
+      "name": "Totness",
+      "postalCodes": []
+    }
+  ],
+  "MA": [
+    {
+      "name": "Albina",
+      "postalCodes": []
+    },
+    {
+      "name": "Moengo",
+      "postalCodes": []
+    }
+  ],
+  "NI": [
+    {
+      "name": "Nieuw Nickerie",
+      "postalCodes": []
+    },
+    {
+      "name": "Wageningen",
+      "postalCodes": []
+    }
+  ],
+  "PR": [
+    {
+      "name": "Onverwacht",
+      "postalCodes": []
+    }
+  ],
+  "PM": [
+    {
+      "name": "Paramaribo",
+      "postalCodes": []
+    }
+  ],
+  "SA": [
+    {
+      "name": "Groningen",
+      "postalCodes": []
+    }
+  ],
+  "SI": [],
+  "WA": [
+    {
+      "name": "Lelydorp",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

@@ -1,0 +1,5527 @@
+{
+  "10": [
+    {
+      "name": "Braník",
+      "postalCodes": []
+    },
+    {
+      "name": "Černý Most",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Počernice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hodkovičky",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Počernice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hostavice",
+      "postalCodes": []
+    },
+    {
+      "name": "Karlín",
+      "postalCodes": []
+    },
+    {
+      "name": "Kbely",
+      "postalCodes": []
+    },
+    {
+      "name": "Letňany",
+      "postalCodes": []
+    },
+    {
+      "name": "Libeň",
+      "postalCodes": []
+    },
+    {
+      "name": "Malá Strana",
+      "postalCodes": []
+    },
+    {
+      "name": "Modřany",
+      "postalCodes": []
+    },
+    {
+      "name": "Prague",
+      "postalCodes": []
+    },
+    {
+      "name": "Praha 1",
+      "postalCodes": []
+    },
+    {
+      "name": "Praha 16",
+      "postalCodes": []
+    },
+    {
+      "name": "Praha 20",
+      "postalCodes": []
+    },
+    {
+      "name": "Praha 21",
+      "postalCodes": []
+    },
+    {
+      "name": "Prosek",
+      "postalCodes": []
+    },
+    {
+      "name": "Satalice",
+      "postalCodes": []
+    },
+    {
+      "name": "Staré Město",
+      "postalCodes": []
+    },
+    {
+      "name": "Střížkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Vysehrad",
+      "postalCodes": []
+    },
+    {
+      "name": "Vysočany",
+      "postalCodes": []
+    }
+  ],
+  "20": [
+    {
+      "name": "Bakov nad Jizerou",
+      "postalCodes": []
+    },
+    {
+      "name": "Bělá pod Bezdězem",
+      "postalCodes": []
+    },
+    {
+      "name": "Benátky nad Jizerou",
+      "postalCodes": []
+    },
+    {
+      "name": "Benešov",
+      "postalCodes": []
+    },
+    {
+      "name": "Beroun",
+      "postalCodes": []
+    },
+    {
+      "name": "Bohutín",
+      "postalCodes": []
+    },
+    {
+      "name": "Brandýs nad Labem-Stará Boleslav",
+      "postalCodes": []
+    },
+    {
+      "name": "Brandýsek",
+      "postalCodes": []
+    },
+    {
+      "name": "Březnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Buštěhrad",
+      "postalCodes": []
+    },
+    {
+      "name": "Byšice",
+      "postalCodes": []
+    },
+    {
+      "name": "Bystřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Čáslav",
+      "postalCodes": []
+    },
+    {
+      "name": "Čechtice",
+      "postalCodes": []
+    },
+    {
+      "name": "Čelákovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Čerčany",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerhenice",
+      "postalCodes": []
+    },
+    {
+      "name": "Černošice",
+      "postalCodes": []
+    },
+    {
+      "name": "Červené Pečky",
+      "postalCodes": []
+    },
+    {
+      "name": "Český Brod",
+      "postalCodes": []
+    },
+    {
+      "name": "Chyňava",
+      "postalCodes": []
+    },
+    {
+      "name": "Církvice",
+      "postalCodes": []
+    },
+    {
+      "name": "Cítov",
+      "postalCodes": []
+    },
+    {
+      "name": "Davle",
+      "postalCodes": []
+    },
+    {
+      "name": "Divišov",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobřichovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobříš",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobrovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Doksy",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Beřkovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Bousov",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Břežany",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Počaply",
+      "postalCodes": []
+    },
+    {
+      "name": "Horoměřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hořovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hostivice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hostomice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hovorčovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hradištko",
+      "postalCodes": []
+    },
+    {
+      "name": "Hřebeč",
+      "postalCodes": []
+    },
+    {
+      "name": "Hudlice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hýskov",
+      "postalCodes": []
+    },
+    {
+      "name": "Jeneč",
+      "postalCodes": []
+    },
+    {
+      "name": "Jesenice",
+      "postalCodes": []
+    },
+    {
+      "name": "Jílové u Prahy",
+      "postalCodes": []
+    },
+    {
+      "name": "Jince",
+      "postalCodes": []
+    },
+    {
+      "name": "Jirny",
+      "postalCodes": []
+    },
+    {
+      "name": "Kačice",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamenice",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamenné Žehrovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamenný Přívoz",
+      "postalCodes": []
+    },
+    {
+      "name": "Kladno",
+      "postalCodes": []
+    },
+    {
+      "name": "Klecany",
+      "postalCodes": []
+    },
+    {
+      "name": "Klobuky",
+      "postalCodes": []
+    },
+    {
+      "name": "Kněžmost",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolín",
+      "postalCodes": []
+    },
+    {
+      "name": "Komárov",
+      "postalCodes": []
+    },
+    {
+      "name": "Kosmonosy",
+      "postalCodes": []
+    },
+    {
+      "name": "Kosova Hora",
+      "postalCodes": []
+    },
+    {
+      "name": "Kostelec nad Černými Lesy",
+      "postalCodes": []
+    },
+    {
+      "name": "Kostelec nad Labem",
+      "postalCodes": []
+    },
+    {
+      "name": "Kouřim",
+      "postalCodes": []
+    },
+    {
+      "name": "Kralupy nad Vltavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Králův Dvůr",
+      "postalCodes": []
+    },
+    {
+      "name": "Krásná Hora nad Vltavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Křinec",
+      "postalCodes": []
+    },
+    {
+      "name": "Kutná Hora",
+      "postalCodes": []
+    },
+    {
+      "name": "Lány",
+      "postalCodes": []
+    },
+    {
+      "name": "Libčice nad Vltavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Líbeznice",
+      "postalCodes": []
+    },
+    {
+      "name": "Libice nad Cidlinou",
+      "postalCodes": []
+    },
+    {
+      "name": "Libiš",
+      "postalCodes": []
+    },
+    {
+      "name": "Libušín",
+      "postalCodes": []
+    },
+    {
+      "name": "Lochovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Loděnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Loučeň",
+      "postalCodes": []
+    },
+    {
+      "name": "Luštěnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Lužec nad Vltavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Lužná",
+      "postalCodes": []
+    },
+    {
+      "name": "Lysá nad Labem",
+      "postalCodes": []
+    },
+    {
+      "name": "Mělník",
+      "postalCodes": []
+    },
+    {
+      "name": "Měšice",
+      "postalCodes": []
+    },
+    {
+      "name": "Městec Králové",
+      "postalCodes": []
+    },
+    {
+      "name": "Milín",
+      "postalCodes": []
+    },
+    {
+      "name": "Milovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Mladá Boleslav",
+      "postalCodes": []
+    },
+    {
+      "name": "Mnichovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Mnichovo Hradiště",
+      "postalCodes": []
+    },
+    {
+      "name": "Mníšek pod Brdy",
+      "postalCodes": []
+    },
+    {
+      "name": "Mšeno",
+      "postalCodes": []
+    },
+    {
+      "name": "Mukařov",
+      "postalCodes": []
+    },
+    {
+      "name": "Načeradec",
+      "postalCodes": []
+    },
+    {
+      "name": "Nehvizdy",
+      "postalCodes": []
+    },
+    {
+      "name": "Nelahozeves",
+      "postalCodes": []
+    },
+    {
+      "name": "Neratovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Netvořice",
+      "postalCodes": []
+    },
+    {
+      "name": "Neveklov",
+      "postalCodes": []
+    },
+    {
+      "name": "Nižbor",
+      "postalCodes": []
+    },
+    {
+      "name": "Nové Strašecí",
+      "postalCodes": []
+    },
+    {
+      "name": "Nový Knín",
+      "postalCodes": []
+    },
+    {
+      "name": "Nymburk",
+      "postalCodes": []
+    },
+    {
+      "name": "Obecnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Odolena Voda",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Benešov",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Beroun",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Kladno",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Kolín",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Kutná Hora",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Mělník",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Mladá Boleslav",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Nymburk",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Praha-východ",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Praha-západ",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Příbram",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Rakovník",
+      "postalCodes": []
+    },
+    {
+      "name": "Ondřejov",
+      "postalCodes": []
+    },
+    {
+      "name": "Pavlíkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Pchery",
+      "postalCodes": []
+    },
+    {
+      "name": "Pečky",
+      "postalCodes": []
+    },
+    {
+      "name": "Petrovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Plaňany",
+      "postalCodes": []
+    },
+    {
+      "name": "Poděbrady",
+      "postalCodes": []
+    },
+    {
+      "name": "Poříčany",
+      "postalCodes": []
+    },
+    {
+      "name": "Poříčí nad Sázavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Postupice",
+      "postalCodes": []
+    },
+    {
+      "name": "Přerov nad Labem",
+      "postalCodes": []
+    },
+    {
+      "name": "Příbram",
+      "postalCodes": []
+    },
+    {
+      "name": "Průhonice",
+      "postalCodes": []
+    },
+    {
+      "name": "Psáry",
+      "postalCodes": []
+    },
+    {
+      "name": "Pyšely",
+      "postalCodes": []
+    },
+    {
+      "name": "Rakovník",
+      "postalCodes": []
+    },
+    {
+      "name": "Řevnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Řevničov",
+      "postalCodes": []
+    },
+    {
+      "name": "Řež",
+      "postalCodes": []
+    },
+    {
+      "name": "Říčany",
+      "postalCodes": []
+    },
+    {
+      "name": "Rožďalovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Rožmitál pod Třemšínem",
+      "postalCodes": []
+    },
+    {
+      "name": "Roztoky",
+      "postalCodes": []
+    },
+    {
+      "name": "Rudná",
+      "postalCodes": []
+    },
+    {
+      "name": "Sadská",
+      "postalCodes": []
+    },
+    {
+      "name": "Sázava",
+      "postalCodes": []
+    },
+    {
+      "name": "Sedlčany",
+      "postalCodes": []
+    },
+    {
+      "name": "Sedlec",
+      "postalCodes": []
+    },
+    {
+      "name": "Šestajovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Slaný",
+      "postalCodes": []
+    },
+    {
+      "name": "Smečno",
+      "postalCodes": []
+    },
+    {
+      "name": "Stará Huť",
+      "postalCodes": []
+    },
+    {
+      "name": "Starý Kolín",
+      "postalCodes": []
+    },
+    {
+      "name": "Štěchovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Stochov",
+      "postalCodes": []
+    },
+    {
+      "name": "Strančice",
+      "postalCodes": []
+    },
+    {
+      "name": "Suchdol",
+      "postalCodes": []
+    },
+    {
+      "name": "Tišice",
+      "postalCodes": []
+    },
+    {
+      "name": "Třebotov",
+      "postalCodes": []
+    },
+    {
+      "name": "Trhový Štěpánov",
+      "postalCodes": []
+    },
+    {
+      "name": "Tuchlovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Tuchoměřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Týnec nad Labem",
+      "postalCodes": []
+    },
+    {
+      "name": "Týnec nad Sázavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Uhlířské Janovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Unhošť",
+      "postalCodes": []
+    },
+    {
+      "name": "Úvaly",
+      "postalCodes": []
+    },
+    {
+      "name": "Velim",
+      "postalCodes": []
+    },
+    {
+      "name": "Velká Dobrá",
+      "postalCodes": []
+    },
+    {
+      "name": "Velké Popovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Velké Přílepy",
+      "postalCodes": []
+    },
+    {
+      "name": "Velký Osek",
+      "postalCodes": []
+    },
+    {
+      "name": "Veltruby",
+      "postalCodes": []
+    },
+    {
+      "name": "Veltrusy",
+      "postalCodes": []
+    },
+    {
+      "name": "Velvary",
+      "postalCodes": []
+    },
+    {
+      "name": "Vestec",
+      "postalCodes": []
+    },
+    {
+      "name": "Vinařice",
+      "postalCodes": []
+    },
+    {
+      "name": "Vlašim",
+      "postalCodes": []
+    },
+    {
+      "name": "Votice",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrané nad Vltavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrdy",
+      "postalCodes": []
+    },
+    {
+      "name": "Všenory",
+      "postalCodes": []
+    },
+    {
+      "name": "Všetaty",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaječov",
+      "postalCodes": []
+    },
+    {
+      "name": "Zásmuky",
+      "postalCodes": []
+    },
+    {
+      "name": "Zbraslavice",
+      "postalCodes": []
+    },
+    {
+      "name": "Žďár",
+      "postalCodes": []
+    },
+    {
+      "name": "Zdiby",
+      "postalCodes": []
+    },
+    {
+      "name": "Zdice",
+      "postalCodes": []
+    },
+    {
+      "name": "Žebrák",
+      "postalCodes": []
+    },
+    {
+      "name": "Zeleneč",
+      "postalCodes": []
+    },
+    {
+      "name": "Žiželice",
+      "postalCodes": []
+    },
+    {
+      "name": "Žleby",
+      "postalCodes": []
+    },
+    {
+      "name": "Zlonice",
+      "postalCodes": []
+    },
+    {
+      "name": "Zruč nad Sázavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Zvole",
+      "postalCodes": []
+    }
+  ],
+  "31": [
+    {
+      "name": "Bavorov",
+      "postalCodes": []
+    },
+    {
+      "name": "Bechyně",
+      "postalCodes": []
+    },
+    {
+      "name": "Benešov nad Černou",
+      "postalCodes": []
+    },
+    {
+      "name": "Bernartice",
+      "postalCodes": []
+    },
+    {
+      "name": "Blatná",
+      "postalCodes": []
+    },
+    {
+      "name": "Borek",
+      "postalCodes": []
+    },
+    {
+      "name": "Borová Lada",
+      "postalCodes": []
+    },
+    {
+      "name": "Borovany",
+      "postalCodes": []
+    },
+    {
+      "name": "Brloh",
+      "postalCodes": []
+    },
+    {
+      "name": "České Budějovice",
+      "postalCodes": []
+    },
+    {
+      "name": "České Velenice",
+      "postalCodes": []
+    },
+    {
+      "name": "Český Krumlov",
+      "postalCodes": []
+    },
+    {
+      "name": "Český Rudolec",
+      "postalCodes": []
+    },
+    {
+      "name": "Chlum u Třeboně",
+      "postalCodes": []
+    },
+    {
+      "name": "Chotoviny",
+      "postalCodes": []
+    },
+    {
+      "name": "Chvalšiny",
+      "postalCodes": []
+    },
+    {
+      "name": "Chýnov",
+      "postalCodes": []
+    },
+    {
+      "name": "Chyšky",
+      "postalCodes": []
+    },
+    {
+      "name": "Čimelice",
+      "postalCodes": []
+    },
+    {
+      "name": "Čkyně",
+      "postalCodes": []
+    },
+    {
+      "name": "Dačice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Bukovsko",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Dvořiště",
+      "postalCodes": []
+    },
+    {
+      "name": "Dřiteň",
+      "postalCodes": []
+    },
+    {
+      "name": "Dubné",
+      "postalCodes": []
+    },
+    {
+      "name": "Frymburk",
+      "postalCodes": []
+    },
+    {
+      "name": "Hluboká nad Vltavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Planá",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Stropnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrdějovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Husinec",
+      "postalCodes": []
+    },
+    {
+      "name": "Jarošov nad Nežárkou",
+      "postalCodes": []
+    },
+    {
+      "name": "Jindřichův Hradec",
+      "postalCodes": []
+    },
+    {
+      "name": "Jistebnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Kájov",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamenný Újezd",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaplice",
+      "postalCodes": []
+    },
+    {
+      "name": "Kardašova Řečice",
+      "postalCodes": []
+    },
+    {
+      "name": "Katovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Kovářov",
+      "postalCodes": []
+    },
+    {
+      "name": "Křemže",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunžak",
+      "postalCodes": []
+    },
+    {
+      "name": "Ledenice",
+      "postalCodes": []
+    },
+    {
+      "name": "Lhenice",
+      "postalCodes": []
+    },
+    {
+      "name": "Lišov",
+      "postalCodes": []
+    },
+    {
+      "name": "Litvínovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Lomnice nad Lužnicí",
+      "postalCodes": []
+    },
+    {
+      "name": "Loučovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Malonty",
+      "postalCodes": []
+    },
+    {
+      "name": "Malšice",
+      "postalCodes": []
+    },
+    {
+      "name": "Milevsko",
+      "postalCodes": []
+    },
+    {
+      "name": "Mirotice",
+      "postalCodes": []
+    },
+    {
+      "name": "Mirovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Mladá Vožice",
+      "postalCodes": []
+    },
+    {
+      "name": "Netolice",
+      "postalCodes": []
+    },
+    {
+      "name": "Nová Bystřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Nová Včelnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Nové Hrady",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres České Budějovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Český Krumlov",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Jindřichův Hradec",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Písek",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Prachatice",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Strakonice",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Tábor",
+      "postalCodes": []
+    },
+    {
+      "name": "Opařany",
+      "postalCodes": []
+    },
+    {
+      "name": "Písek",
+      "postalCodes": []
+    },
+    {
+      "name": "Planá nad Lužnicí",
+      "postalCodes": []
+    },
+    {
+      "name": "Prachatice",
+      "postalCodes": []
+    },
+    {
+      "name": "Protivín",
+      "postalCodes": []
+    },
+    {
+      "name": "Radomyšl",
+      "postalCodes": []
+    },
+    {
+      "name": "Rudolfov",
+      "postalCodes": []
+    },
+    {
+      "name": "Sedlice",
+      "postalCodes": []
+    },
+    {
+      "name": "Sepekov",
+      "postalCodes": []
+    },
+    {
+      "name": "Ševětín",
+      "postalCodes": []
+    },
+    {
+      "name": "Sezimovo Ústí",
+      "postalCodes": []
+    },
+    {
+      "name": "Slavonice",
+      "postalCodes": []
+    },
+    {
+      "name": "Soběslav",
+      "postalCodes": []
+    },
+    {
+      "name": "Srubec",
+      "postalCodes": []
+    },
+    {
+      "name": "Stachy",
+      "postalCodes": []
+    },
+    {
+      "name": "Strakonice",
+      "postalCodes": []
+    },
+    {
+      "name": "Strmilov",
+      "postalCodes": []
+    },
+    {
+      "name": "Strunkovice nad Blanicí",
+      "postalCodes": []
+    },
+    {
+      "name": "Studená",
+      "postalCodes": []
+    },
+    {
+      "name": "Suchdol nad Lužnicí",
+      "postalCodes": []
+    },
+    {
+      "name": "Tábor",
+      "postalCodes": []
+    },
+    {
+      "name": "Třeboň",
+      "postalCodes": []
+    },
+    {
+      "name": "Trhové Sviny",
+      "postalCodes": []
+    },
+    {
+      "name": "Týn nad Vltavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Vacov",
+      "postalCodes": []
+    },
+    {
+      "name": "Včelná",
+      "postalCodes": []
+    },
+    {
+      "name": "Velešín",
+      "postalCodes": []
+    },
+    {
+      "name": "Veselí nad Lužnicí",
+      "postalCodes": []
+    },
+    {
+      "name": "Větřní",
+      "postalCodes": []
+    },
+    {
+      "name": "Vimperk",
+      "postalCodes": []
+    },
+    {
+      "name": "Vlachovo Březí",
+      "postalCodes": []
+    },
+    {
+      "name": "Vodňany",
+      "postalCodes": []
+    },
+    {
+      "name": "Volary",
+      "postalCodes": []
+    },
+    {
+      "name": "Volyně",
+      "postalCodes": []
+    },
+    {
+      "name": "Vyšší Brod",
+      "postalCodes": []
+    },
+    {
+      "name": "Zdíkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Zliv",
+      "postalCodes": []
+    }
+  ],
+  "32": [],
+  "41": [
+    {
+      "name": "Abertamy",
+      "postalCodes": []
+    },
+    {
+      "name": "Aš",
+      "postalCodes": []
+    },
+    {
+      "name": "Bochov",
+      "postalCodes": []
+    },
+    {
+      "name": "Březová",
+      "postalCodes": []
+    },
+    {
+      "name": "Bukovany",
+      "postalCodes": []
+    },
+    {
+      "name": "Cheb",
+      "postalCodes": []
+    },
+    {
+      "name": "Chodov",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Rychnov",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Žandov",
+      "postalCodes": []
+    },
+    {
+      "name": "Františkovy Lázně",
+      "postalCodes": []
+    },
+    {
+      "name": "Habartov",
+      "postalCodes": []
+    },
+    {
+      "name": "Hazlov",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Slavkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Hranice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hroznětín",
+      "postalCodes": []
+    },
+    {
+      "name": "Jáchymov",
+      "postalCodes": []
+    },
+    {
+      "name": "Karlovy Vary",
+      "postalCodes": []
+    },
+    {
+      "name": "Klášter",
+      "postalCodes": []
+    },
+    {
+      "name": "Kraslice",
+      "postalCodes": []
+    },
+    {
+      "name": "Kynšperk nad Ohří",
+      "postalCodes": []
+    },
+    {
+      "name": "Lázně Kynžvart",
+      "postalCodes": []
+    },
+    {
+      "name": "Loket",
+      "postalCodes": []
+    },
+    {
+      "name": "Lomnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Luby",
+      "postalCodes": []
+    },
+    {
+      "name": "Mariánské Lázně",
+      "postalCodes": []
+    },
+    {
+      "name": "Merklín",
+      "postalCodes": []
+    },
+    {
+      "name": "Město",
+      "postalCodes": []
+    },
+    {
+      "name": "Nejdek",
+      "postalCodes": []
+    },
+    {
+      "name": "Nová Role",
+      "postalCodes": []
+    },
+    {
+      "name": "Nové Sedlo",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Cheb",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Karlovy Vary",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Sokolov",
+      "postalCodes": []
+    },
+    {
+      "name": "Oloví",
+      "postalCodes": []
+    },
+    {
+      "name": "Ostrov",
+      "postalCodes": []
+    },
+    {
+      "name": "Plesná",
+      "postalCodes": []
+    },
+    {
+      "name": "Rotava",
+      "postalCodes": []
+    },
+    {
+      "name": "Sadov",
+      "postalCodes": []
+    },
+    {
+      "name": "Skalná",
+      "postalCodes": []
+    },
+    {
+      "name": "Sokolov",
+      "postalCodes": []
+    },
+    {
+      "name": "Svatava",
+      "postalCodes": []
+    },
+    {
+      "name": "Toužim",
+      "postalCodes": []
+    },
+    {
+      "name": "Velká Hleďsebe",
+      "postalCodes": []
+    },
+    {
+      "name": "Vintířov",
+      "postalCodes": []
+    },
+    {
+      "name": "Žlutice",
+      "postalCodes": []
+    }
+  ],
+  "42": [
+    {
+      "name": "Bechlín",
+      "postalCodes": []
+    },
+    {
+      "name": "Bečov",
+      "postalCodes": []
+    },
+    {
+      "name": "Benešov nad Ploučnicí",
+      "postalCodes": []
+    },
+    {
+      "name": "Bílina",
+      "postalCodes": []
+    },
+    {
+      "name": "Bílina Kyselka",
+      "postalCodes": []
+    },
+    {
+      "name": "Bohušovice nad Ohří",
+      "postalCodes": []
+    },
+    {
+      "name": "Braňany",
+      "postalCodes": []
+    },
+    {
+      "name": "Březno",
+      "postalCodes": []
+    },
+    {
+      "name": "Budyně nad Ohří",
+      "postalCodes": []
+    },
+    {
+      "name": "Bystřany",
+      "postalCodes": []
+    },
+    {
+      "name": "Černčice",
+      "postalCodes": []
+    },
+    {
+      "name": "Česká Kamenice",
+      "postalCodes": []
+    },
+    {
+      "name": "Chabařovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Chlumec",
+      "postalCodes": []
+    },
+    {
+      "name": "Chomutov",
+      "postalCodes": []
+    },
+    {
+      "name": "Chřibská",
+      "postalCodes": []
+    },
+    {
+      "name": "Čížkovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Děčín",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobroměřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Podluží",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Poustevna",
+      "postalCodes": []
+    },
+    {
+      "name": "Dubí",
+      "postalCodes": []
+    },
+    {
+      "name": "Duchcov",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Jiřetín",
+      "postalCodes": []
+    },
+    {
+      "name": "Hošťka",
+      "postalCodes": []
+    },
+    {
+      "name": "Hostomice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrob",
+      "postalCodes": []
+    },
+    {
+      "name": "Jílové",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiříkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Jirkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Kadaň",
+      "postalCodes": []
+    },
+    {
+      "name": "Klášterec nad Ohří",
+      "postalCodes": []
+    },
+    {
+      "name": "Košťany",
+      "postalCodes": []
+    },
+    {
+      "name": "Kovářská",
+      "postalCodes": []
+    },
+    {
+      "name": "Krásná Lípa",
+      "postalCodes": []
+    },
+    {
+      "name": "Křešice",
+      "postalCodes": []
+    },
+    {
+      "name": "Krupka",
+      "postalCodes": []
+    },
+    {
+      "name": "Kryry",
+      "postalCodes": []
+    },
+    {
+      "name": "Lenešice",
+      "postalCodes": []
+    },
+    {
+      "name": "Liběšice",
+      "postalCodes": []
+    },
+    {
+      "name": "Libochovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Libouchec",
+      "postalCodes": []
+    },
+    {
+      "name": "Litoměřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Litvínov",
+      "postalCodes": []
+    },
+    {
+      "name": "Lom u Mostu",
+      "postalCodes": []
+    },
+    {
+      "name": "Louny",
+      "postalCodes": []
+    },
+    {
+      "name": "Lovosice",
+      "postalCodes": []
+    },
+    {
+      "name": "Lubenec",
+      "postalCodes": []
+    },
+    {
+      "name": "Měcholupy",
+      "postalCodes": []
+    },
+    {
+      "name": "Meziboři",
+      "postalCodes": []
+    },
+    {
+      "name": "Mikulášovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Most",
+      "postalCodes": []
+    },
+    {
+      "name": "Novosedlice",
+      "postalCodes": []
+    },
+    {
+      "name": "Obrnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Chomutov",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Děčín",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Litoměřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Louny",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Most",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Teplice",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Ústí nad Labem",
+      "postalCodes": []
+    },
+    {
+      "name": "Osek",
+      "postalCodes": []
+    },
+    {
+      "name": "Perštejn",
+      "postalCodes": []
+    },
+    {
+      "name": "Peruc",
+      "postalCodes": []
+    },
+    {
+      "name": "Podbořany",
+      "postalCodes": []
+    },
+    {
+      "name": "Polepy",
+      "postalCodes": []
+    },
+    {
+      "name": "Postoloprty",
+      "postalCodes": []
+    },
+    {
+      "name": "Povrly",
+      "postalCodes": []
+    },
+    {
+      "name": "Proboštov",
+      "postalCodes": []
+    },
+    {
+      "name": "Radonice",
+      "postalCodes": []
+    },
+    {
+      "name": "Řehlovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Roudnice nad Labem",
+      "postalCodes": []
+    },
+    {
+      "name": "Rumburk",
+      "postalCodes": []
+    },
+    {
+      "name": "Šluknov",
+      "postalCodes": []
+    },
+    {
+      "name": "Staré Křečany",
+      "postalCodes": []
+    },
+    {
+      "name": "Štětí",
+      "postalCodes": []
+    },
+    {
+      "name": "Teplice",
+      "postalCodes": []
+    },
+    {
+      "name": "Terezín",
+      "postalCodes": []
+    },
+    {
+      "name": "Třebenice",
+      "postalCodes": []
+    },
+    {
+      "name": "Trmice",
+      "postalCodes": []
+    },
+    {
+      "name": "Údlice",
+      "postalCodes": []
+    },
+    {
+      "name": "Úštěk",
+      "postalCodes": []
+    },
+    {
+      "name": "Varnsdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Vejprty",
+      "postalCodes": []
+    },
+    {
+      "name": "Velemín",
+      "postalCodes": []
+    },
+    {
+      "name": "Velké Březno",
+      "postalCodes": []
+    },
+    {
+      "name": "Velký Šenov",
+      "postalCodes": []
+    },
+    {
+      "name": "Verneřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Vilémov",
+      "postalCodes": []
+    },
+    {
+      "name": "Vroutek",
+      "postalCodes": []
+    },
+    {
+      "name": "Zabrušany",
+      "postalCodes": []
+    },
+    {
+      "name": "Žatec",
+      "postalCodes": []
+    },
+    {
+      "name": "Žitenice",
+      "postalCodes": []
+    }
+  ],
+  "51": [
+    {
+      "name": "Benecko",
+      "postalCodes": []
+    },
+    {
+      "name": "Brniště",
+      "postalCodes": []
+    },
+    {
+      "name": "Česká Lípa",
+      "postalCodes": []
+    },
+    {
+      "name": "Český Dub",
+      "postalCodes": []
+    },
+    {
+      "name": "Chrastava",
+      "postalCodes": []
+    },
+    {
+      "name": "Cvikov",
+      "postalCodes": []
+    },
+    {
+      "name": "Desná",
+      "postalCodes": []
+    },
+    {
+      "name": "Doksy",
+      "postalCodes": []
+    },
+    {
+      "name": "Dubá",
+      "postalCodes": []
+    },
+    {
+      "name": "Frýdlant",
+      "postalCodes": []
+    },
+    {
+      "name": "Harrachov",
+      "postalCodes": []
+    },
+    {
+      "name": "Hejnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hodkovice nad Mohelkou",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Branná",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrádek nad Nisou",
+      "postalCodes": []
+    },
+    {
+      "name": "Jablonec nad Jizerou",
+      "postalCodes": []
+    },
+    {
+      "name": "Jablonec nad Nisou",
+      "postalCodes": []
+    },
+    {
+      "name": "Jablonné v Podještědí",
+      "postalCodes": []
+    },
+    {
+      "name": "Janov nad Nisou",
+      "postalCodes": []
+    },
+    {
+      "name": "Jilemnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Josefův Důl",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamenický Šenov",
+      "postalCodes": []
+    },
+    {
+      "name": "Kořenov",
+      "postalCodes": []
+    },
+    {
+      "name": "Košťálov",
+      "postalCodes": []
+    },
+    {
+      "name": "Liberec",
+      "postalCodes": []
+    },
+    {
+      "name": "Lomnice nad Popelkou",
+      "postalCodes": []
+    },
+    {
+      "name": "Lučany nad Nisou",
+      "postalCodes": []
+    },
+    {
+      "name": "Malá Skála",
+      "postalCodes": []
+    },
+    {
+      "name": "Mimoň",
+      "postalCodes": []
+    },
+    {
+      "name": "Mníšek",
+      "postalCodes": []
+    },
+    {
+      "name": "Nové Město pod Smrkem",
+      "postalCodes": []
+    },
+    {
+      "name": "Nový Bor",
+      "postalCodes": []
+    },
+    {
+      "name": "Ohrazenice",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Česká Lípa",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Jablonec nad Nisou",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Liberec",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Semily",
+      "postalCodes": []
+    },
+    {
+      "name": "Osečná",
+      "postalCodes": []
+    },
+    {
+      "name": "Pěnčín",
+      "postalCodes": []
+    },
+    {
+      "name": "Plavy",
+      "postalCodes": []
+    },
+    {
+      "name": "Poniklá",
+      "postalCodes": []
+    },
+    {
+      "name": "Příšovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Raspenava",
+      "postalCodes": []
+    },
+    {
+      "name": "Rokytnice nad Jizerou",
+      "postalCodes": []
+    },
+    {
+      "name": "Rovensko pod Troskami",
+      "postalCodes": []
+    },
+    {
+      "name": "Semily",
+      "postalCodes": []
+    },
+    {
+      "name": "Smržovka",
+      "postalCodes": []
+    },
+    {
+      "name": "Stráž nad Nisou",
+      "postalCodes": []
+    },
+    {
+      "name": "Stráž pod Ralskem",
+      "postalCodes": []
+    },
+    {
+      "name": "Studenec",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanvald",
+      "postalCodes": []
+    },
+    {
+      "name": "Turnov",
+      "postalCodes": []
+    },
+    {
+      "name": "Valdice",
+      "postalCodes": []
+    },
+    {
+      "name": "Velké Hamry",
+      "postalCodes": []
+    },
+    {
+      "name": "Višňova",
+      "postalCodes": []
+    },
+    {
+      "name": "Vysoké nad Jizerou",
+      "postalCodes": []
+    },
+    {
+      "name": "Zákupy",
+      "postalCodes": []
+    },
+    {
+      "name": "Žandov",
+      "postalCodes": []
+    },
+    {
+      "name": "Železný Brod",
+      "postalCodes": []
+    }
+  ],
+  "52": [
+    {
+      "name": "Albrechtice nad Orlicí",
+      "postalCodes": []
+    },
+    {
+      "name": "Bílá Třemešná",
+      "postalCodes": []
+    },
+    {
+      "name": "Borohrádek",
+      "postalCodes": []
+    },
+    {
+      "name": "Broumov",
+      "postalCodes": []
+    },
+    {
+      "name": "Častolovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Černilov",
+      "postalCodes": []
+    },
+    {
+      "name": "Černožice",
+      "postalCodes": []
+    },
+    {
+      "name": "Červený Kostelec",
+      "postalCodes": []
+    },
+    {
+      "name": "Česká Skalice",
+      "postalCodes": []
+    },
+    {
+      "name": "České Meziříčí",
+      "postalCodes": []
+    },
+    {
+      "name": "Chlumec nad Cidlinou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobruška",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Černilov",
+      "postalCodes": []
+    },
+    {
+      "name": "Doudleby nad Orlicí",
+      "postalCodes": []
+    },
+    {
+      "name": "Dvůr Králové nad Labem",
+      "postalCodes": []
+    },
+    {
+      "name": "Hořice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hostinné",
+      "postalCodes": []
+    },
+    {
+      "name": "Hradec Králové",
+      "postalCodes": []
+    },
+    {
+      "name": "Hronov",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaroměř",
+      "postalCodes": []
+    },
+    {
+      "name": "Jičín",
+      "postalCodes": []
+    },
+    {
+      "name": "Kopidlno",
+      "postalCodes": []
+    },
+    {
+      "name": "Kostelec nad Orlicí",
+      "postalCodes": []
+    },
+    {
+      "name": "Kvasiny",
+      "postalCodes": []
+    },
+    {
+      "name": "Lázně Bělohrad",
+      "postalCodes": []
+    },
+    {
+      "name": "Libáň",
+      "postalCodes": []
+    },
+    {
+      "name": "Machov",
+      "postalCodes": []
+    },
+    {
+      "name": "Malé Svatoňovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Meziměstí",
+      "postalCodes": []
+    },
+    {
+      "name": "Mladé Buky",
+      "postalCodes": []
+    },
+    {
+      "name": "Mostek",
+      "postalCodes": []
+    },
+    {
+      "name": "Náchod",
+      "postalCodes": []
+    },
+    {
+      "name": "Nechanice",
+      "postalCodes": []
+    },
+    {
+      "name": "Nová Paka",
+      "postalCodes": []
+    },
+    {
+      "name": "Nové Město nad Metují",
+      "postalCodes": []
+    },
+    {
+      "name": "Nový Bydžov",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Hradec Králové",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Jičín",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Náchod",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Rychnov nad Kněžnou",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Trutnov",
+      "postalCodes": []
+    },
+    {
+      "name": "Opočno",
+      "postalCodes": []
+    },
+    {
+      "name": "Ostroměř",
+      "postalCodes": []
+    },
+    {
+      "name": "Pecka",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilníkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Police nad Metují",
+      "postalCodes": []
+    },
+    {
+      "name": "Předměřice nad Labem",
+      "postalCodes": []
+    },
+    {
+      "name": "Provodov-Šonov",
+      "postalCodes": []
+    },
+    {
+      "name": "Radvanice",
+      "postalCodes": []
+    },
+    {
+      "name": "Rokytnice v Orlických Horách",
+      "postalCodes": []
+    },
+    {
+      "name": "Rtyně v Podkrkonoší",
+      "postalCodes": []
+    },
+    {
+      "name": "Rudník",
+      "postalCodes": []
+    },
+    {
+      "name": "Rychnov nad Kněžnou",
+      "postalCodes": []
+    },
+    {
+      "name": "Skuhrov nad Bělou",
+      "postalCodes": []
+    },
+    {
+      "name": "Smidary",
+      "postalCodes": []
+    },
+    {
+      "name": "Smiřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Sobotka",
+      "postalCodes": []
+    },
+    {
+      "name": "Solnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Špindlerův Mlýn",
+      "postalCodes": []
+    },
+    {
+      "name": "Stará Paka",
+      "postalCodes": []
+    },
+    {
+      "name": "Staré Nechanice",
+      "postalCodes": []
+    },
+    {
+      "name": "Stěžery",
+      "postalCodes": []
+    },
+    {
+      "name": "Svoboda nad Úpou",
+      "postalCodes": []
+    },
+    {
+      "name": "Teplice nad Metují",
+      "postalCodes": []
+    },
+    {
+      "name": "Třebechovice pod Orebem",
+      "postalCodes": []
+    },
+    {
+      "name": "Trutnov",
+      "postalCodes": []
+    },
+    {
+      "name": "Týniště nad Orlicí",
+      "postalCodes": []
+    },
+    {
+      "name": "Úpice",
+      "postalCodes": []
+    },
+    {
+      "name": "Valdice",
+      "postalCodes": []
+    },
+    {
+      "name": "Vamberk",
+      "postalCodes": []
+    },
+    {
+      "name": "Velké Poříčí",
+      "postalCodes": []
+    },
+    {
+      "name": "Velké Svatoňovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrchlabí",
+      "postalCodes": []
+    },
+    {
+      "name": "Všestary",
+      "postalCodes": []
+    },
+    {
+      "name": "Žacléř",
+      "postalCodes": []
+    },
+    {
+      "name": "Zadní Mostek",
+      "postalCodes": []
+    },
+    {
+      "name": "Železnice",
+      "postalCodes": []
+    }
+  ],
+  "53": [
+    {
+      "name": "Brandýs nad Orlicí",
+      "postalCodes": []
+    },
+    {
+      "name": "Březová nad Svitavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Brněnec",
+      "postalCodes": []
+    },
+    {
+      "name": "Býšť",
+      "postalCodes": []
+    },
+    {
+      "name": "Bystré",
+      "postalCodes": []
+    },
+    {
+      "name": "Bystřec",
+      "postalCodes": []
+    },
+    {
+      "name": "Červená Voda",
+      "postalCodes": []
+    },
+    {
+      "name": "Česká Třebová",
+      "postalCodes": []
+    },
+    {
+      "name": "Choceň",
+      "postalCodes": []
+    },
+    {
+      "name": "Chrast",
+      "postalCodes": []
+    },
+    {
+      "name": "Chroustovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Chrudim",
+      "postalCodes": []
+    },
+    {
+      "name": "Chvaletice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dašice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dlouhá Třebová",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Čermná",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Dobrouč",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Roveň",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Sloupnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Újezd",
+      "postalCodes": []
+    },
+    {
+      "name": "Heřmanův Městec",
+      "postalCodes": []
+    },
+    {
+      "name": "Hlinsko",
+      "postalCodes": []
+    },
+    {
+      "name": "Holice",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Čermná",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Jelení",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Sloupnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hradec nad Svitavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrochův Týnec",
+      "postalCodes": []
+    },
+    {
+      "name": "Jablonné nad Orlicí",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaroměřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Jedlová",
+      "postalCodes": []
+    },
+    {
+      "name": "Jevíčko",
+      "postalCodes": []
+    },
+    {
+      "name": "Králíky",
+      "postalCodes": []
+    },
+    {
+      "name": "Krouna",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunčina",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunvald",
+      "postalCodes": []
+    },
+    {
+      "name": "Lanškroun",
+      "postalCodes": []
+    },
+    {
+      "name": "Lázně Bohdaneč",
+      "postalCodes": []
+    },
+    {
+      "name": "Letohrad",
+      "postalCodes": []
+    },
+    {
+      "name": "Litomyšl",
+      "postalCodes": []
+    },
+    {
+      "name": "Lukavice",
+      "postalCodes": []
+    },
+    {
+      "name": "Luže",
+      "postalCodes": []
+    },
+    {
+      "name": "Městečko Trnávka",
+      "postalCodes": []
+    },
+    {
+      "name": "Miřetice",
+      "postalCodes": []
+    },
+    {
+      "name": "Moravany",
+      "postalCodes": []
+    },
+    {
+      "name": "Moravská Třebová",
+      "postalCodes": []
+    },
+    {
+      "name": "Nasavrky",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Chrudim",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Pardubice",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Svitavy",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Ústí nad Orlicí",
+      "postalCodes": []
+    },
+    {
+      "name": "Opatov",
+      "postalCodes": []
+    },
+    {
+      "name": "Opatovice nad Labem",
+      "postalCodes": []
+    },
+    {
+      "name": "Osík",
+      "postalCodes": []
+    },
+    {
+      "name": "Pardubice",
+      "postalCodes": []
+    },
+    {
+      "name": "Polička",
+      "postalCodes": []
+    },
+    {
+      "name": "Pomezí",
+      "postalCodes": []
+    },
+    {
+      "name": "Prachovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Přelouč",
+      "postalCodes": []
+    },
+    {
+      "name": "Proseč",
+      "postalCodes": []
+    },
+    {
+      "name": "Radiměř",
+      "postalCodes": []
+    },
+    {
+      "name": "Řečany nad Labem",
+      "postalCodes": []
+    },
+    {
+      "name": "Ronov nad Doubravou",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosice",
+      "postalCodes": []
+    },
+    {
+      "name": "Rybitví",
+      "postalCodes": []
+    },
+    {
+      "name": "Seč",
+      "postalCodes": []
+    },
+    {
+      "name": "Sezemice",
+      "postalCodes": []
+    },
+    {
+      "name": "Skuteč",
+      "postalCodes": []
+    },
+    {
+      "name": "Slatiňany",
+      "postalCodes": []
+    },
+    {
+      "name": "Staré Hradiště",
+      "postalCodes": []
+    },
+    {
+      "name": "Svitavy",
+      "postalCodes": []
+    },
+    {
+      "name": "Třemošnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Ústí nad Orlicí",
+      "postalCodes": []
+    },
+    {
+      "name": "Vysoké Mýto",
+      "postalCodes": []
+    },
+    {
+      "name": "Žamberk",
+      "postalCodes": []
+    }
+  ],
+  "63": [
+    {
+      "name": "Batelov",
+      "postalCodes": []
+    },
+    {
+      "name": "Bohdalov",
+      "postalCodes": []
+    },
+    {
+      "name": "Brtnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Budišov",
+      "postalCodes": []
+    },
+    {
+      "name": "Bystřice nad Pernštejnem",
+      "postalCodes": []
+    },
+    {
+      "name": "Černovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Chotěboř",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobronín",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Cerekev",
+      "postalCodes": []
+    },
+    {
+      "name": "Golčův Jeníkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Habry",
+      "postalCodes": []
+    },
+    {
+      "name": "Havlíčkův Brod",
+      "postalCodes": []
+    },
+    {
+      "name": "Herálec",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Cerekev",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrotovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Humpolec",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaroměřice nad Rokytnou",
+      "postalCodes": []
+    },
+    {
+      "name": "Jemnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Jihlava",
+      "postalCodes": []
+    },
+    {
+      "name": "Jimramov",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamenice",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamenice nad Lipou",
+      "postalCodes": []
+    },
+    {
+      "name": "Kněžice",
+      "postalCodes": []
+    },
+    {
+      "name": "Křižanov",
+      "postalCodes": []
+    },
+    {
+      "name": "Křížová",
+      "postalCodes": []
+    },
+    {
+      "name": "Ledeč nad Sázavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Lípa",
+      "postalCodes": []
+    },
+    {
+      "name": "Luka nad Jihlavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Lukavec",
+      "postalCodes": []
+    },
+    {
+      "name": "Měřín",
+      "postalCodes": []
+    },
+    {
+      "name": "Mohelno",
+      "postalCodes": []
+    },
+    {
+      "name": "Moravské Budějovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Náměšť nad Oslavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Nová Cerekev",
+      "postalCodes": []
+    },
+    {
+      "name": "Nové Město na Moravě",
+      "postalCodes": []
+    },
+    {
+      "name": "Nové Syrovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Nové Veselí",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Havlíčkův Brod",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Jihlava",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Pelhřimov",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Třebíč",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Žďár nad Sázavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Okříšky",
+      "postalCodes": []
+    },
+    {
+      "name": "Okrouhlice",
+      "postalCodes": []
+    },
+    {
+      "name": "Pacov",
+      "postalCodes": []
+    },
+    {
+      "name": "Pelhřimov",
+      "postalCodes": []
+    },
+    {
+      "name": "Počátky",
+      "postalCodes": []
+    },
+    {
+      "name": "Polná",
+      "postalCodes": []
+    },
+    {
+      "name": "Přibyslav",
+      "postalCodes": []
+    },
+    {
+      "name": "Rouchovany",
+      "postalCodes": []
+    },
+    {
+      "name": "Stařeč",
+      "postalCodes": []
+    },
+    {
+      "name": "Štoky",
+      "postalCodes": []
+    },
+    {
+      "name": "Světlá nad Sázavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Svratka",
+      "postalCodes": []
+    },
+    {
+      "name": "Telč",
+      "postalCodes": []
+    },
+    {
+      "name": "Třebíč",
+      "postalCodes": []
+    },
+    {
+      "name": "Třešť",
+      "postalCodes": []
+    },
+    {
+      "name": "Velká Bíteš",
+      "postalCodes": []
+    },
+    {
+      "name": "Velké Meziříčí",
+      "postalCodes": []
+    },
+    {
+      "name": "Velký Beranov",
+      "postalCodes": []
+    },
+    {
+      "name": "Vilémov",
+      "postalCodes": []
+    },
+    {
+      "name": "Vladislav",
+      "postalCodes": []
+    },
+    {
+      "name": "Žďár nad Sázavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Žďár nad Sázavou Druhy",
+      "postalCodes": []
+    },
+    {
+      "name": "Želetava",
+      "postalCodes": []
+    },
+    {
+      "name": "Želiv",
+      "postalCodes": []
+    },
+    {
+      "name": "Žirovnice",
+      "postalCodes": []
+    }
+  ],
+  "64": [
+    {
+      "name": "Adamov",
+      "postalCodes": []
+    },
+    {
+      "name": "Bílovice nad Svitavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Blansko",
+      "postalCodes": []
+    },
+    {
+      "name": "Blažovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Blížkovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Blučina",
+      "postalCodes": []
+    },
+    {
+      "name": "Bořetice",
+      "postalCodes": []
+    },
+    {
+      "name": "Bořitov",
+      "postalCodes": []
+    },
+    {
+      "name": "Boskovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Bošovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Božice",
+      "postalCodes": []
+    },
+    {
+      "name": "Břeclav",
+      "postalCodes": []
+    },
+    {
+      "name": "Březí",
+      "postalCodes": []
+    },
+    {
+      "name": "Brno",
+      "postalCodes": []
+    },
+    {
+      "name": "Bučovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Bzenec",
+      "postalCodes": []
+    },
+    {
+      "name": "Čebín",
+      "postalCodes": []
+    },
+    {
+      "name": "Čejč",
+      "postalCodes": []
+    },
+    {
+      "name": "Čejkovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Černá Hora",
+      "postalCodes": []
+    },
+    {
+      "name": "Dambořice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobšice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Bojanovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Dunajovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Kounice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Loućky",
+      "postalCodes": []
+    },
+    {
+      "name": "Domanín",
+      "postalCodes": []
+    },
+    {
+      "name": "Doubravice nad Svitavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Drásov",
+      "postalCodes": []
+    },
+    {
+      "name": "Drnholec",
+      "postalCodes": []
+    },
+    {
+      "name": "Drnovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dubňany",
+      "postalCodes": []
+    },
+    {
+      "name": "Hevlín",
+      "postalCodes": []
+    },
+    {
+      "name": "Hlohovec",
+      "postalCodes": []
+    },
+    {
+      "name": "Hodonice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hodonín",
+      "postalCodes": []
+    },
+    {
+      "name": "Hostěradice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hovorany",
+      "postalCodes": []
+    },
+    {
+      "name": "Hroznová Lhota",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrušky",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrušovany nad Jevišovkou",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrušovany u Brna",
+      "postalCodes": []
+    },
+    {
+      "name": "Hustopeče",
+      "postalCodes": []
+    },
+    {
+      "name": "Ivančice",
+      "postalCodes": []
+    },
+    {
+      "name": "Ivanovice na Hané",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaroslavice",
+      "postalCodes": []
+    },
+    {
+      "name": "Jedovnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Jevišovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Klobouky",
+      "postalCodes": []
+    },
+    {
+      "name": "Kněždub",
+      "postalCodes": []
+    },
+    {
+      "name": "Kobylí",
+      "postalCodes": []
+    },
+    {
+      "name": "Kostice",
+      "postalCodes": []
+    },
+    {
+      "name": "Křenovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Křepice",
+      "postalCodes": []
+    },
+    {
+      "name": "Krumvíř",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunštát",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuřim",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyjov",
+      "postalCodes": []
+    },
+    {
+      "name": "Lanžhot",
+      "postalCodes": []
+    },
+    {
+      "name": "Lednice",
+      "postalCodes": []
+    },
+    {
+      "name": "Lelekovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Letonice",
+      "postalCodes": []
+    },
+    {
+      "name": "Letovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Lipov",
+      "postalCodes": []
+    },
+    {
+      "name": "Lipovec",
+      "postalCodes": []
+    },
+    {
+      "name": "Lipůvka",
+      "postalCodes": []
+    },
+    {
+      "name": "Lomnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Louka",
+      "postalCodes": []
+    },
+    {
+      "name": "Lužice",
+      "postalCodes": []
+    },
+    {
+      "name": "Lysice",
+      "postalCodes": []
+    },
+    {
+      "name": "Měnín",
+      "postalCodes": []
+    },
+    {
+      "name": "Město Brno",
+      "postalCodes": []
+    },
+    {
+      "name": "Mikulčice",
+      "postalCodes": []
+    },
+    {
+      "name": "Mikulov",
+      "postalCodes": []
+    },
+    {
+      "name": "Milotice",
+      "postalCodes": []
+    },
+    {
+      "name": "Miroslav",
+      "postalCodes": []
+    },
+    {
+      "name": "Modřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Mokrá Hora",
+      "postalCodes": []
+    },
+    {
+      "name": "Moravany",
+      "postalCodes": []
+    },
+    {
+      "name": "Moravská Nová Ves",
+      "postalCodes": []
+    },
+    {
+      "name": "Moravský Krumlov",
+      "postalCodes": []
+    },
+    {
+      "name": "Moravský Písek",
+      "postalCodes": []
+    },
+    {
+      "name": "Moravský Žižkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Moutnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Mutěnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Nedvědice",
+      "postalCodes": []
+    },
+    {
+      "name": "Nesovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Nosislav",
+      "postalCodes": []
+    },
+    {
+      "name": "Novosedly",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Blansko",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Břeclav",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Brno-venkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Hodonín",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Vyškov",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Znojmo",
+      "postalCodes": []
+    },
+    {
+      "name": "Olbramovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Olešnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Ořechov",
+      "postalCodes": []
+    },
+    {
+      "name": "Oslavany",
+      "postalCodes": []
+    },
+    {
+      "name": "Ostopovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Ostrov u Macochy",
+      "postalCodes": []
+    },
+    {
+      "name": "Otnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Petrov",
+      "postalCodes": []
+    },
+    {
+      "name": "Podivín",
+      "postalCodes": []
+    },
+    {
+      "name": "Podolí",
+      "postalCodes": []
+    },
+    {
+      "name": "Pohořelice",
+      "postalCodes": []
+    },
+    {
+      "name": "Pozořice",
+      "postalCodes": []
+    },
+    {
+      "name": "Předklášteří",
+      "postalCodes": []
+    },
+    {
+      "name": "Prušánky",
+      "postalCodes": []
+    },
+    {
+      "name": "Pustiměř",
+      "postalCodes": []
+    },
+    {
+      "name": "Rájec-Jestřebí",
+      "postalCodes": []
+    },
+    {
+      "name": "Ráječko",
+      "postalCodes": []
+    },
+    {
+      "name": "Rajhrad",
+      "postalCodes": []
+    },
+    {
+      "name": "Rajhradice",
+      "postalCodes": []
+    },
+    {
+      "name": "Rakvice",
+      "postalCodes": []
+    },
+    {
+      "name": "Ratíškovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Říčany",
+      "postalCodes": []
+    },
+    {
+      "name": "Rohatec",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosice",
+      "postalCodes": []
+    },
+    {
+      "name": "Rousínov",
+      "postalCodes": []
+    },
+    {
+      "name": "Šakvice",
+      "postalCodes": []
+    },
+    {
+      "name": "Šanov",
+      "postalCodes": []
+    },
+    {
+      "name": "Šardice",
+      "postalCodes": []
+    },
+    {
+      "name": "Šatov",
+      "postalCodes": []
+    },
+    {
+      "name": "Šitbořice",
+      "postalCodes": []
+    },
+    {
+      "name": "Šlapanice",
+      "postalCodes": []
+    },
+    {
+      "name": "Slavkov u Brna",
+      "postalCodes": []
+    },
+    {
+      "name": "Sokolnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Strážnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Střelice",
+      "postalCodes": []
+    },
+    {
+      "name": "Suchohrdly",
+      "postalCodes": []
+    },
+    {
+      "name": "Sudoměřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Svitávka",
+      "postalCodes": []
+    },
+    {
+      "name": "Tasovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Telnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Těšany",
+      "postalCodes": []
+    },
+    {
+      "name": "Tišnov",
+      "postalCodes": []
+    },
+    {
+      "name": "Troubsko",
+      "postalCodes": []
+    },
+    {
+      "name": "Tvarožná",
+      "postalCodes": []
+    },
+    {
+      "name": "Tvrdonice",
+      "postalCodes": []
+    },
+    {
+      "name": "Týnec",
+      "postalCodes": []
+    },
+    {
+      "name": "Únanov",
+      "postalCodes": []
+    },
+    {
+      "name": "Vacenovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Valtice",
+      "postalCodes": []
+    },
+    {
+      "name": "Velká nad Veličkou",
+      "postalCodes": []
+    },
+    {
+      "name": "Velké Bílovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Velké Němčice",
+      "postalCodes": []
+    },
+    {
+      "name": "Velké Opatovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Velké Pavlovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Veselí nad Moravou",
+      "postalCodes": []
+    },
+    {
+      "name": "Veverská Bítýška",
+      "postalCodes": []
+    },
+    {
+      "name": "Viničné Šumice",
+      "postalCodes": []
+    },
+    {
+      "name": "Višňové",
+      "postalCodes": []
+    },
+    {
+      "name": "Vlkoš",
+      "postalCodes": []
+    },
+    {
+      "name": "Vnorovy",
+      "postalCodes": []
+    },
+    {
+      "name": "Vojkovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Vracov",
+      "postalCodes": []
+    },
+    {
+      "name": "Vranovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrbice",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrbovec",
+      "postalCodes": []
+    },
+    {
+      "name": "Vyškov",
+      "postalCodes": []
+    },
+    {
+      "name": "Žabčice",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaječí",
+      "postalCodes": []
+    },
+    {
+      "name": "Zastávka",
+      "postalCodes": []
+    },
+    {
+      "name": "Zbraslav",
+      "postalCodes": []
+    },
+    {
+      "name": "Zbýšov",
+      "postalCodes": []
+    },
+    {
+      "name": "Ždánice",
+      "postalCodes": []
+    },
+    {
+      "name": "Želešice",
+      "postalCodes": []
+    },
+    {
+      "name": "Žeravice",
+      "postalCodes": []
+    },
+    {
+      "name": "Židlochovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Znojmo",
+      "postalCodes": []
+    }
+  ],
+  "71": [
+    {
+      "name": "Bedihošť",
+      "postalCodes": []
+    },
+    {
+      "name": "Bělotín",
+      "postalCodes": []
+    },
+    {
+      "name": "Bílá Lhota",
+      "postalCodes": []
+    },
+    {
+      "name": "Bludov",
+      "postalCodes": []
+    },
+    {
+      "name": "Bohuňovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Bouzov",
+      "postalCodes": []
+    },
+    {
+      "name": "Brodek u Přerova",
+      "postalCodes": []
+    },
+    {
+      "name": "Čelechovice na Hané",
+      "postalCodes": []
+    },
+    {
+      "name": "Červenka",
+      "postalCodes": []
+    },
+    {
+      "name": "Česká Ves",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolany",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Bohdíkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Studénky",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Újezd",
+      "postalCodes": []
+    },
+    {
+      "name": "Doloplazy",
+      "postalCodes": []
+    },
+    {
+      "name": "Drahanovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dřevohostice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dub nad Moravou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dubicko",
+      "postalCodes": []
+    },
+    {
+      "name": "Grygov",
+      "postalCodes": []
+    },
+    {
+      "name": "Hanušovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hlubočky",
+      "postalCodes": []
+    },
+    {
+      "name": "Hněvotín",
+      "postalCodes": []
+    },
+    {
+      "name": "Horka nad Moravou",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Moštěnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Štěpánov",
+      "postalCodes": []
+    },
+    {
+      "name": "Hranice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hustopeče Nad Bečvou",
+      "postalCodes": []
+    },
+    {
+      "name": "Javorník",
+      "postalCodes": []
+    },
+    {
+      "name": "Jeseník",
+      "postalCodes": []
+    },
+    {
+      "name": "Kojetín",
+      "postalCodes": []
+    },
+    {
+      "name": "Kokory",
+      "postalCodes": []
+    },
+    {
+      "name": "Konice",
+      "postalCodes": []
+    },
+    {
+      "name": "Kostelec na Hané",
+      "postalCodes": []
+    },
+    {
+      "name": "Kralice na Hané",
+      "postalCodes": []
+    },
+    {
+      "name": "Leština",
+      "postalCodes": []
+    },
+    {
+      "name": "Lipník nad Bečvou",
+      "postalCodes": []
+    },
+    {
+      "name": "Litovel",
+      "postalCodes": []
+    },
+    {
+      "name": "Loštice",
+      "postalCodes": []
+    },
+    {
+      "name": "Loučná nad Desnou",
+      "postalCodes": []
+    },
+    {
+      "name": "Lutín",
+      "postalCodes": []
+    },
+    {
+      "name": "Majetín",
+      "postalCodes": []
+    },
+    {
+      "name": "Medlov",
+      "postalCodes": []
+    },
+    {
+      "name": "Město Libavá",
+      "postalCodes": []
+    },
+    {
+      "name": "Mikulovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Mohelnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Moravičany",
+      "postalCodes": []
+    },
+    {
+      "name": "Moravský Beroun",
+      "postalCodes": []
+    },
+    {
+      "name": "Mostkovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Náklo",
+      "postalCodes": []
+    },
+    {
+      "name": "Náměšť na Hané",
+      "postalCodes": []
+    },
+    {
+      "name": "Němčice nad Hanou",
+      "postalCodes": []
+    },
+    {
+      "name": "Nezamyslice",
+      "postalCodes": []
+    },
+    {
+      "name": "Nový Malín",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Jeseník",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Olomouc",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Přerov",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Prostějov",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Šumperk",
+      "postalCodes": []
+    },
+    {
+      "name": "Olomouc",
+      "postalCodes": []
+    },
+    {
+      "name": "Olšany",
+      "postalCodes": []
+    },
+    {
+      "name": "Osek nad Bečvou",
+      "postalCodes": []
+    },
+    {
+      "name": "Oskava",
+      "postalCodes": []
+    },
+    {
+      "name": "Otaslavice",
+      "postalCodes": []
+    },
+    {
+      "name": "Paseka",
+      "postalCodes": []
+    },
+    {
+      "name": "Písečná",
+      "postalCodes": []
+    },
+    {
+      "name": "Plumlov",
+      "postalCodes": []
+    },
+    {
+      "name": "Postřelmov",
+      "postalCodes": []
+    },
+    {
+      "name": "Potštát",
+      "postalCodes": []
+    },
+    {
+      "name": "Přáslavice",
+      "postalCodes": []
+    },
+    {
+      "name": "Přemyslovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Přerov",
+      "postalCodes": []
+    },
+    {
+      "name": "Příkazy",
+      "postalCodes": []
+    },
+    {
+      "name": "Prostějov",
+      "postalCodes": []
+    },
+    {
+      "name": "Protivanov",
+      "postalCodes": []
+    },
+    {
+      "name": "Ptení",
+      "postalCodes": []
+    },
+    {
+      "name": "Radslavice",
+      "postalCodes": []
+    },
+    {
+      "name": "Rapotín",
+      "postalCodes": []
+    },
+    {
+      "name": "Rokytnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruda nad Moravou",
+      "postalCodes": []
+    },
+    {
+      "name": "Samotíšky",
+      "postalCodes": []
+    },
+    {
+      "name": "Senice na Hané",
+      "postalCodes": []
+    },
+    {
+      "name": "Skrbeň",
+      "postalCodes": []
+    },
+    {
+      "name": "Slatinice",
+      "postalCodes": []
+    },
+    {
+      "name": "Smržice",
+      "postalCodes": []
+    },
+    {
+      "name": "Sobotín",
+      "postalCodes": []
+    },
+    {
+      "name": "Staré Město",
+      "postalCodes": []
+    },
+    {
+      "name": "Štěpánov",
+      "postalCodes": []
+    },
+    {
+      "name": "Šternberk",
+      "postalCodes": []
+    },
+    {
+      "name": "Štíty",
+      "postalCodes": []
+    },
+    {
+      "name": "Strážná",
+      "postalCodes": []
+    },
+    {
+      "name": "Sudkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Šumperk",
+      "postalCodes": []
+    },
+    {
+      "name": "Těšetice",
+      "postalCodes": []
+    },
+    {
+      "name": "Tovačov",
+      "postalCodes": []
+    },
+    {
+      "name": "Troubelice",
+      "postalCodes": []
+    },
+    {
+      "name": "Troubky",
+      "postalCodes": []
+    },
+    {
+      "name": "Tršice",
+      "postalCodes": []
+    },
+    {
+      "name": "Újezd",
+      "postalCodes": []
+    },
+    {
+      "name": "Uničov",
+      "postalCodes": []
+    },
+    {
+      "name": "Určice",
+      "postalCodes": []
+    },
+    {
+      "name": "Úsov",
+      "postalCodes": []
+    },
+    {
+      "name": "Vápenná",
+      "postalCodes": []
+    },
+    {
+      "name": "Velká Bystřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Velké Losiny",
+      "postalCodes": []
+    },
+    {
+      "name": "Velký Týnec",
+      "postalCodes": []
+    },
+    {
+      "name": "Velký Újezd",
+      "postalCodes": []
+    },
+    {
+      "name": "Věrovany",
+      "postalCodes": []
+    },
+    {
+      "name": "Vidnava",
+      "postalCodes": []
+    },
+    {
+      "name": "Vikýřovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrbátky",
+      "postalCodes": []
+    },
+    {
+      "name": "Zábřeh",
+      "postalCodes": []
+    },
+    {
+      "name": "Zlaté Hory",
+      "postalCodes": []
+    },
+    {
+      "name": "Žulová",
+      "postalCodes": []
+    }
+  ],
+  "72": [],
+  "80": [
+    {
+      "name": "Albrechtice",
+      "postalCodes": []
+    },
+    {
+      "name": "Bartošovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Baška",
+      "postalCodes": []
+    },
+    {
+      "name": "Bílovec",
+      "postalCodes": []
+    },
+    {
+      "name": "Bohumín",
+      "postalCodes": []
+    },
+    {
+      "name": "Bohuslavice",
+      "postalCodes": []
+    },
+    {
+      "name": "Bolatice",
+      "postalCodes": []
+    },
+    {
+      "name": "Brantice",
+      "postalCodes": []
+    },
+    {
+      "name": "Březová",
+      "postalCodes": []
+    },
+    {
+      "name": "Břidličná",
+      "postalCodes": []
+    },
+    {
+      "name": "Brumovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Bruntál",
+      "postalCodes": []
+    },
+    {
+      "name": "Brušperk",
+      "postalCodes": []
+    },
+    {
+      "name": "Budišov nad Budišovkou",
+      "postalCodes": []
+    },
+    {
+      "name": "Bukovec",
+      "postalCodes": []
+    },
+    {
+      "name": "Bystřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Čeladná",
+      "postalCodes": []
+    },
+    {
+      "name": "Český Těšín",
+      "postalCodes": []
+    },
+    {
+      "name": "Chlebičov",
+      "postalCodes": []
+    },
+    {
+      "name": "Chotěbuz",
+      "postalCodes": []
+    },
+    {
+      "name": "Chuchelná",
+      "postalCodes": []
+    },
+    {
+      "name": "Darkovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dětmarovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobrá",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobratice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Benešov",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Lhota",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Lutyně",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Životice",
+      "postalCodes": []
+    },
+    {
+      "name": "Doubrava",
+      "postalCodes": []
+    },
+    {
+      "name": "Dvorce",
+      "postalCodes": []
+    },
+    {
+      "name": "Frenštát pod Radhoštěm",
+      "postalCodes": []
+    },
+    {
+      "name": "Fryčovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Frýdek-Místek",
+      "postalCodes": []
+    },
+    {
+      "name": "Frýdlant nad Ostravicí",
+      "postalCodes": []
+    },
+    {
+      "name": "Fulnek",
+      "postalCodes": []
+    },
+    {
+      "name": "Háj ve Slezsku",
+      "postalCodes": []
+    },
+    {
+      "name": "Hať",
+      "postalCodes": []
+    },
+    {
+      "name": "Havířov",
+      "postalCodes": []
+    },
+    {
+      "name": "Hlučín",
+      "postalCodes": []
+    },
+    {
+      "name": "Hněvošice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hnojník",
+      "postalCodes": []
+    },
+    {
+      "name": "Hodslavice",
+      "postalCodes": []
+    },
+    {
+      "name": "Holasovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Benešov",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Bludovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Město",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Suchá",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Těrlicko",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrabyně",
+      "postalCodes": []
+    },
+    {
+      "name": "Hradec nad Moravici",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrádek",
+      "postalCodes": []
+    },
+    {
+      "name": "Hukvaldy",
+      "postalCodes": []
+    },
+    {
+      "name": "Jablunkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Jakartovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Janovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Jeseník nad Odrou",
+      "postalCodes": []
+    },
+    {
+      "name": "Jindřichov",
+      "postalCodes": []
+    },
+    {
+      "name": "Jistebník",
+      "postalCodes": []
+    },
+    {
+      "name": "Karlovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Karviná",
+      "postalCodes": []
+    },
+    {
+      "name": "Klimkovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Kobeřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Komorní Lhotka",
+      "postalCodes": []
+    },
+    {
+      "name": "Kopřivnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Kozlovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Kozmice",
+      "postalCodes": []
+    },
+    {
+      "name": "Kravaře",
+      "postalCodes": []
+    },
+    {
+      "name": "Krmelín",
+      "postalCodes": []
+    },
+    {
+      "name": "Krnov",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunčice pod Ondřejníkem",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunín",
+      "postalCodes": []
+    },
+    {
+      "name": "Lichnov",
+      "postalCodes": []
+    },
+    {
+      "name": "Lichnov (o. Nový Jičín)",
+      "postalCodes": []
+    },
+    {
+      "name": "Lučina",
+      "postalCodes": []
+    },
+    {
+      "name": "Ludgeřovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Markvartovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Město Albrechtice",
+      "postalCodes": []
+    },
+    {
+      "name": "Metylovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Milíkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Mokré Lazce",
+      "postalCodes": []
+    },
+    {
+      "name": "Morávka",
+      "postalCodes": []
+    },
+    {
+      "name": "Mořkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosty u Jablunkova",
+      "postalCodes": []
+    },
+    {
+      "name": "Návsí u Jablunkova",
+      "postalCodes": []
+    },
+    {
+      "name": "Nový Jičín",
+      "postalCodes": []
+    },
+    {
+      "name": "Nýdek",
+      "postalCodes": []
+    },
+    {
+      "name": "Odry",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Bruntál",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Frýdek-Místek",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Karviná",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Nový Jičín",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Opava",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Ostrava-město",
+      "postalCodes": []
+    },
+    {
+      "name": "Oldřišov",
+      "postalCodes": []
+    },
+    {
+      "name": "Opava",
+      "postalCodes": []
+    },
+    {
+      "name": "Orlová",
+      "postalCodes": []
+    },
+    {
+      "name": "Osoblaha",
+      "postalCodes": []
+    },
+    {
+      "name": "Ostrava",
+      "postalCodes": []
+    },
+    {
+      "name": "Ostravice",
+      "postalCodes": []
+    },
+    {
+      "name": "Otice",
+      "postalCodes": []
+    },
+    {
+      "name": "Palkovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Paskov",
+      "postalCodes": []
+    },
+    {
+      "name": "Petrovice u Karviné",
+      "postalCodes": []
+    },
+    {
+      "name": "Petřvald",
+      "postalCodes": []
+    },
+    {
+      "name": "Písek",
+      "postalCodes": []
+    },
+    {
+      "name": "Píšť",
+      "postalCodes": []
+    },
+    {
+      "name": "Pražmo",
+      "postalCodes": []
+    },
+    {
+      "name": "Příbor",
+      "postalCodes": []
+    },
+    {
+      "name": "Pustá Polom",
+      "postalCodes": []
+    },
+    {
+      "name": "Raškovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Řepiště",
+      "postalCodes": []
+    },
+    {
+      "name": "Ropice",
+      "postalCodes": []
+    },
+    {
+      "name": "Rybí",
+      "postalCodes": []
+    },
+    {
+      "name": "Rychvald",
+      "postalCodes": []
+    },
+    {
+      "name": "Rýmařov",
+      "postalCodes": []
+    },
+    {
+      "name": "Sedliště",
+      "postalCodes": []
+    },
+    {
+      "name": "Sedlnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Šenov",
+      "postalCodes": []
+    },
+    {
+      "name": "Šilheřovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Slavkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Stará Ves nad Ondřejnicí",
+      "postalCodes": []
+    },
+    {
+      "name": "Staré Město",
+      "postalCodes": []
+    },
+    {
+      "name": "Staříč",
+      "postalCodes": []
+    },
+    {
+      "name": "Starý Bohumín",
+      "postalCodes": []
+    },
+    {
+      "name": "Starý Jičín",
+      "postalCodes": []
+    },
+    {
+      "name": "Stěbořice",
+      "postalCodes": []
+    },
+    {
+      "name": "Štěpánkovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Štítina",
+      "postalCodes": []
+    },
+    {
+      "name": "Stonava",
+      "postalCodes": []
+    },
+    {
+      "name": "Štramberk",
+      "postalCodes": []
+    },
+    {
+      "name": "Studénka",
+      "postalCodes": []
+    },
+    {
+      "name": "Sviadnov",
+      "postalCodes": []
+    },
+    {
+      "name": "Tichá",
+      "postalCodes": []
+    },
+    {
+      "name": "Třinec",
+      "postalCodes": []
+    },
+    {
+      "name": "Trojanovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Václavovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Velká Polom",
+      "postalCodes": []
+    },
+    {
+      "name": "Velké Heraltice",
+      "postalCodes": []
+    },
+    {
+      "name": "Velké Hoštice",
+      "postalCodes": []
+    },
+    {
+      "name": "Vendryně",
+      "postalCodes": []
+    },
+    {
+      "name": "Veřovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Vítkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Vlčnov",
+      "postalCodes": []
+    },
+    {
+      "name": "Vratimov",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrbice",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrbno pod Pradědem",
+      "postalCodes": []
+    },
+    {
+      "name": "Vřesina",
+      "postalCodes": []
+    },
+    {
+      "name": "Zátor",
+      "postalCodes": []
+    }
+  ],
+  "201": [],
+  "202": [],
+  "203": [],
+  "204": [],
+  "205": [],
+  "206": [],
+  "207": [],
+  "208": [],
+  "209": [],
+  "311": [],
+  "312": [],
+  "313": [],
+  "314": [],
+  "315": [],
+  "316": [],
+  "317": [],
+  "321": [],
+  "322": [],
+  "323": [],
+  "324": [
+    {
+      "name": "Bělá nad Radbuzou",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezdružice",
+      "postalCodes": []
+    },
+    {
+      "name": "Blížejov",
+      "postalCodes": []
+    },
+    {
+      "name": "Blovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Bor",
+      "postalCodes": []
+    },
+    {
+      "name": "Břasy",
+      "postalCodes": []
+    },
+    {
+      "name": "Černošín",
+      "postalCodes": []
+    },
+    {
+      "name": "Chlumčany",
+      "postalCodes": []
+    },
+    {
+      "name": "Chodová Planá",
+      "postalCodes": []
+    },
+    {
+      "name": "Chotěšov",
+      "postalCodes": []
+    },
+    {
+      "name": "Chrást",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobřany",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobřív",
+      "postalCodes": []
+    },
+    {
+      "name": "Domažlice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dýšina",
+      "postalCodes": []
+    },
+    {
+      "name": "Hartmanice",
+      "postalCodes": []
+    },
+    {
+      "name": "Heřmanova Huť",
+      "postalCodes": []
+    },
+    {
+      "name": "Holoubkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Holýšov",
+      "postalCodes": []
+    },
+    {
+      "name": "Horažďovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Bříza",
+      "postalCodes": []
+    },
+    {
+      "name": "Horšovský Týn",
+      "postalCodes": []
+    },
+    {
+      "name": "Hostouň",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrádek",
+      "postalCodes": []
+    },
+    {
+      "name": "Hromnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Janovice nad Úhlavou",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasejovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Kašperské Hory",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaznějov",
+      "postalCodes": []
+    },
+    {
+      "name": "Kdyně",
+      "postalCodes": []
+    },
+    {
+      "name": "Kladruby",
+      "postalCodes": []
+    },
+    {
+      "name": "Klatovy",
+      "postalCodes": []
+    },
+    {
+      "name": "Klenčí pod Čerchovem",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolinec",
+      "postalCodes": []
+    },
+    {
+      "name": "Kout na Šumavě",
+      "postalCodes": []
+    },
+    {
+      "name": "Kožlany",
+      "postalCodes": []
+    },
+    {
+      "name": "Kralovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Líně",
+      "postalCodes": []
+    },
+    {
+      "name": "Manětín",
+      "postalCodes": []
+    },
+    {
+      "name": "Měčín",
+      "postalCodes": []
+    },
+    {
+      "name": "Meclov",
+      "postalCodes": []
+    },
+    {
+      "name": "Merklín",
+      "postalCodes": []
+    },
+    {
+      "name": "Město Touškov",
+      "postalCodes": []
+    },
+    {
+      "name": "Mirošov",
+      "postalCodes": []
+    },
+    {
+      "name": "Mrákov",
+      "postalCodes": []
+    },
+    {
+      "name": "Mýto",
+      "postalCodes": []
+    },
+    {
+      "name": "Nepomuk",
+      "postalCodes": []
+    },
+    {
+      "name": "Nezvěstice",
+      "postalCodes": []
+    },
+    {
+      "name": "Nýřany",
+      "postalCodes": []
+    },
+    {
+      "name": "Nýrsko",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Domažlice",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Klatovy",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Plzeň-jih",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Plzeň-město",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Plzeň-sever",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Rokycany",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Tachov",
+      "postalCodes": []
+    },
+    {
+      "name": "Osek",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilsen",
+      "postalCodes": []
+    },
+    {
+      "name": "Planá",
+      "postalCodes": []
+    },
+    {
+      "name": "Plánice",
+      "postalCodes": []
+    },
+    {
+      "name": "Plasy",
+      "postalCodes": []
+    },
+    {
+      "name": "Poběžovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Postřekov",
+      "postalCodes": []
+    },
+    {
+      "name": "Přeštice",
+      "postalCodes": []
+    },
+    {
+      "name": "Přimda",
+      "postalCodes": []
+    },
+    {
+      "name": "Radnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Rokycany",
+      "postalCodes": []
+    },
+    {
+      "name": "Spálené Poříčí",
+      "postalCodes": []
+    },
+    {
+      "name": "Šťáhlavy",
+      "postalCodes": []
+    },
+    {
+      "name": "Staňkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Starý Plzenec",
+      "postalCodes": []
+    },
+    {
+      "name": "Štěnovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Stod",
+      "postalCodes": []
+    },
+    {
+      "name": "Strašice",
+      "postalCodes": []
+    },
+    {
+      "name": "Stráž",
+      "postalCodes": []
+    },
+    {
+      "name": "Strážov",
+      "postalCodes": []
+    },
+    {
+      "name": "Stříbro",
+      "postalCodes": []
+    },
+    {
+      "name": "Sušice",
+      "postalCodes": []
+    },
+    {
+      "name": "Švihov",
+      "postalCodes": []
+    },
+    {
+      "name": "Tachov",
+      "postalCodes": []
+    },
+    {
+      "name": "Tlučná",
+      "postalCodes": []
+    },
+    {
+      "name": "Třemošná",
+      "postalCodes": []
+    },
+    {
+      "name": "Vejprnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Všeruby",
+      "postalCodes": []
+    },
+    {
+      "name": "Zbiroh",
+      "postalCodes": []
+    },
+    {
+      "name": "Zbůch",
+      "postalCodes": []
+    },
+    {
+      "name": "Železná Ruda",
+      "postalCodes": []
+    },
+    {
+      "name": "Žihle",
+      "postalCodes": []
+    }
+  ],
+  "325": [],
+  "326": [],
+  "327": [],
+  "411": [],
+  "412": [],
+  "413": [],
+  "421": [],
+  "422": [],
+  "423": [],
+  "424": [],
+  "425": [],
+  "426": [],
+  "427": [],
+  "511": [],
+  "512": [],
+  "513": [],
+  "514": [],
+  "521": [],
+  "522": [],
+  "523": [],
+  "524": [],
+  "525": [],
+  "531": [],
+  "532": [],
+  "533": [],
+  "534": [],
+  "631": [],
+  "632": [],
+  "633": [],
+  "634": [],
+  "635": [],
+  "641": [],
+  "642": [],
+  "643": [],
+  "644": [],
+  "645": [],
+  "646": [],
+  "647": [],
+  "711": [],
+  "712": [],
+  "713": [],
+  "714": [],
+  "715": [],
+  "721": [],
+  "722": [],
+  "723": [],
+  "724": [
+    {
+      "name": "Babice",
+      "postalCodes": []
+    },
+    {
+      "name": "Bánov",
+      "postalCodes": []
+    },
+    {
+      "name": "Bílovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Bojkovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Boršice",
+      "postalCodes": []
+    },
+    {
+      "name": "Březnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Březolupy",
+      "postalCodes": []
+    },
+    {
+      "name": "Březová",
+      "postalCodes": []
+    },
+    {
+      "name": "Buchlovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Bystřice pod Hostýnem",
+      "postalCodes": []
+    },
+    {
+      "name": "Chropyně",
+      "postalCodes": []
+    },
+    {
+      "name": "Chvalčov",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Bečva",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolní Němčí",
+      "postalCodes": []
+    },
+    {
+      "name": "Francova Lhota",
+      "postalCodes": []
+    },
+    {
+      "name": "Fryšták",
+      "postalCodes": []
+    },
+    {
+      "name": "Halenkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Halenkovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Hluk",
+      "postalCodes": []
+    },
+    {
+      "name": "Holešov",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Bečva",
+      "postalCodes": []
+    },
+    {
+      "name": "Horní Lideč",
+      "postalCodes": []
+    },
+    {
+      "name": "Hošťálková",
+      "postalCodes": []
+    },
+    {
+      "name": "Hovězí",
+      "postalCodes": []
+    },
+    {
+      "name": "Hulín",
+      "postalCodes": []
+    },
+    {
+      "name": "Hvozdná",
+      "postalCodes": []
+    },
+    {
+      "name": "Jablůnka",
+      "postalCodes": []
+    },
+    {
+      "name": "Jalubí",
+      "postalCodes": []
+    },
+    {
+      "name": "Karolinka",
+      "postalCodes": []
+    },
+    {
+      "name": "Kelč",
+      "postalCodes": []
+    },
+    {
+      "name": "Kněžpole",
+      "postalCodes": []
+    },
+    {
+      "name": "Koryčany",
+      "postalCodes": []
+    },
+    {
+      "name": "Kroměříž",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Kvasice",
+      "postalCodes": []
+    },
+    {
+      "name": "Lešná",
+      "postalCodes": []
+    },
+    {
+      "name": "Lidečko",
+      "postalCodes": []
+    },
+    {
+      "name": "Liptál",
+      "postalCodes": []
+    },
+    {
+      "name": "Luhačovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Lukov",
+      "postalCodes": []
+    },
+    {
+      "name": "Mistřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Napajedla",
+      "postalCodes": []
+    },
+    {
+      "name": "Nedakonice",
+      "postalCodes": []
+    },
+    {
+      "name": "Nedašov",
+      "postalCodes": []
+    },
+    {
+      "name": "Nivnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Nový Hrozenkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Kroměříž",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Uherské Hradiště",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Vsetín",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Zlín",
+      "postalCodes": []
+    },
+    {
+      "name": "Ostrožská Lhota",
+      "postalCodes": []
+    },
+    {
+      "name": "Ostrožská Nová Ves",
+      "postalCodes": []
+    },
+    {
+      "name": "Otrokovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Polešovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Popovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Pozlovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Prostřední Bečva",
+      "postalCodes": []
+    },
+    {
+      "name": "Prusinovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Rataje",
+      "postalCodes": []
+    },
+    {
+      "name": "Ratiboř",
+      "postalCodes": []
+    },
+    {
+      "name": "Rožnov pod Radhoštěm",
+      "postalCodes": []
+    },
+    {
+      "name": "Slavičín",
+      "postalCodes": []
+    },
+    {
+      "name": "Slušovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Spytihněv",
+      "postalCodes": []
+    },
+    {
+      "name": "Staré Město",
+      "postalCodes": []
+    },
+    {
+      "name": "Štítná nad Vláří",
+      "postalCodes": []
+    },
+    {
+      "name": "Strání",
+      "postalCodes": []
+    },
+    {
+      "name": "Suchá Loz",
+      "postalCodes": []
+    },
+    {
+      "name": "Šumice",
+      "postalCodes": []
+    },
+    {
+      "name": "Tečovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Tlumačov",
+      "postalCodes": []
+    },
+    {
+      "name": "Topolná",
+      "postalCodes": []
+    },
+    {
+      "name": "Traplice",
+      "postalCodes": []
+    },
+    {
+      "name": "Trnava",
+      "postalCodes": []
+    },
+    {
+      "name": "Tupesy",
+      "postalCodes": []
+    },
+    {
+      "name": "Uherské Hradiště",
+      "postalCodes": []
+    },
+    {
+      "name": "Uherský Brod",
+      "postalCodes": []
+    },
+    {
+      "name": "Uherský Ostroh",
+      "postalCodes": []
+    },
+    {
+      "name": "Újezd",
+      "postalCodes": []
+    },
+    {
+      "name": "Valašská Bystřice",
+      "postalCodes": []
+    },
+    {
+      "name": "Valašská Polanka",
+      "postalCodes": []
+    },
+    {
+      "name": "Valašské Klobouky",
+      "postalCodes": []
+    },
+    {
+      "name": "Valašské Meziříčí",
+      "postalCodes": []
+    },
+    {
+      "name": "Velehrad",
+      "postalCodes": []
+    },
+    {
+      "name": "Velké Karlovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Vidče",
+      "postalCodes": []
+    },
+    {
+      "name": "Vizovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Vlachovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Vlčnov",
+      "postalCodes": []
+    },
+    {
+      "name": "Všemina",
+      "postalCodes": []
+    },
+    {
+      "name": "Vsetín",
+      "postalCodes": []
+    },
+    {
+      "name": "Záhorovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Zašová",
+      "postalCodes": []
+    },
+    {
+      "name": "Zborovice",
+      "postalCodes": []
+    },
+    {
+      "name": "Zdounky",
+      "postalCodes": []
+    },
+    {
+      "name": "Zlechov",
+      "postalCodes": []
+    },
+    {
+      "name": "Zlín",
+      "postalCodes": []
+    },
+    {
+      "name": "Žlutava",
+      "postalCodes": []
+    },
+    {
+      "name": "Zubří",
+      "postalCodes": []
+    }
+  ],
+  "801": [],
+  "802": [],
+  "803": [],
+  "804": [],
+  "805": [],
+  "806": [],
+  "20A": [],
+  "20B": [],
+  "20C": [],
+  "_OTHER": []
+}

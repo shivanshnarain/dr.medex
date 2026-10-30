@@ -1,0 +1,91 @@
+{
+  "10": [
+    {
+      "name": "Mahaut",
+      "postalCodes": []
+    },
+    {
+      "name": "Pont Cassé",
+      "postalCodes": []
+    }
+  ],
+  "11": [
+    {
+      "name": "Colihaut",
+      "postalCodes": []
+    }
+  ],
+  "02": [
+    {
+      "name": "Calibishie",
+      "postalCodes": []
+    },
+    {
+      "name": "Marigot",
+      "postalCodes": []
+    },
+    {
+      "name": "Wesley",
+      "postalCodes": []
+    },
+    {
+      "name": "Woodford Hill",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Castle Bruce",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosalie",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Roseau",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Portsmouth",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Saint Joseph",
+      "postalCodes": []
+    },
+    {
+      "name": "Salisbury",
+      "postalCodes": []
+    }
+  ],
+  "07": [
+    {
+      "name": "Pointe Michel",
+      "postalCodes": []
+    }
+  ],
+  "08": [
+    {
+      "name": "Soufrière",
+      "postalCodes": []
+    }
+  ],
+  "09": [
+    {
+      "name": "Berekua",
+      "postalCodes": []
+    },
+    {
+      "name": "La Plaine",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

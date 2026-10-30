@@ -1,0 +1,37 @@
+[
+  {
+    "code": "AZ",
+    "name": "Abu Dhabi Emirate",
+    "countryCode": "AE"
+  },
+  {
+    "code": "AJ",
+    "name": "Ajman Emirate",
+    "countryCode": "AE"
+  },
+  {
+    "code": "DU",
+    "name": "Dubai",
+    "countryCode": "AE"
+  },
+  {
+    "code": "FU",
+    "name": "Fujairah",
+    "countryCode": "AE"
+  },
+  {
+    "code": "RK",
+    "name": "Ras al-Khaimah",
+    "countryCode": "AE"
+  },
+  {
+    "code": "SH",
+    "name": "Sharjah Emirate",
+    "countryCode": "AE"
+  },
+  {
+    "code": "UQ",
+    "name": "Umm al-Quwain",
+    "countryCode": "AE"
+  }
+]

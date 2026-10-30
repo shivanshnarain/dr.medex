@@ -1,0 +1,407 @@
+[
+  {
+    "code": "01",
+    "name": "Adana",
+    "countryCode": "TR"
+  },
+  {
+    "code": "02",
+    "name": "Adıyaman",
+    "countryCode": "TR"
+  },
+  {
+    "code": "03",
+    "name": "Afyonkarahisar",
+    "countryCode": "TR"
+  },
+  {
+    "code": "04",
+    "name": "Ağrı",
+    "countryCode": "TR"
+  },
+  {
+    "code": "68",
+    "name": "Aksaray",
+    "countryCode": "TR"
+  },
+  {
+    "code": "05",
+    "name": "Amasya",
+    "countryCode": "TR"
+  },
+  {
+    "code": "06",
+    "name": "Ankara",
+    "countryCode": "TR"
+  },
+  {
+    "code": "07",
+    "name": "Antalya",
+    "countryCode": "TR"
+  },
+  {
+    "code": "75",
+    "name": "Ardahan",
+    "countryCode": "TR"
+  },
+  {
+    "code": "08",
+    "name": "Artvin",
+    "countryCode": "TR"
+  },
+  {
+    "code": "09",
+    "name": "Aydın",
+    "countryCode": "TR"
+  },
+  {
+    "code": "10",
+    "name": "Balıkesir",
+    "countryCode": "TR"
+  },
+  {
+    "code": "74",
+    "name": "Bartın",
+    "countryCode": "TR"
+  },
+  {
+    "code": "72",
+    "name": "Batman",
+    "countryCode": "TR"
+  },
+  {
+    "code": "69",
+    "name": "Bayburt",
+    "countryCode": "TR"
+  },
+  {
+    "code": "11",
+    "name": "Bilecik",
+    "countryCode": "TR"
+  },
+  {
+    "code": "12",
+    "name": "Bingöl",
+    "countryCode": "TR"
+  },
+  {
+    "code": "13",
+    "name": "Bitlis",
+    "countryCode": "TR"
+  },
+  {
+    "code": "14",
+    "name": "Bolu",
+    "countryCode": "TR"
+  },
+  {
+    "code": "15",
+    "name": "Burdur",
+    "countryCode": "TR"
+  },
+  {
+    "code": "16",
+    "name": "Bursa",
+    "countryCode": "TR"
+  },
+  {
+    "code": "17",
+    "name": "Çanakkale",
+    "countryCode": "TR"
+  },
+  {
+    "code": "18",
+    "name": "Çankırı",
+    "countryCode": "TR"
+  },
+  {
+    "code": "19",
+    "name": "Çorum",
+    "countryCode": "TR"
+  },
+  {
+    "code": "20",
+    "name": "Denizli",
+    "countryCode": "TR"
+  },
+  {
+    "code": "21",
+    "name": "Diyarbakır",
+    "countryCode": "TR"
+  },
+  {
+    "code": "81",
+    "name": "Düzce",
+    "countryCode": "TR"
+  },
+  {
+    "code": "22",
+    "name": "Edirne",
+    "countryCode": "TR"
+  },
+  {
+    "code": "23",
+    "name": "Elazığ",
+    "countryCode": "TR"
+  },
+  {
+    "code": "24",
+    "name": "Erzincan",
+    "countryCode": "TR"
+  },
+  {
+    "code": "25",
+    "name": "Erzurum",
+    "countryCode": "TR"
+  },
+  {
+    "code": "26",
+    "name": "Eskişehir",
+    "countryCode": "TR"
+  },
+  {
+    "code": "27",
+    "name": "Gaziantep",
+    "countryCode": "TR"
+  },
+  {
+    "code": "28",
+    "name": "Giresun",
+    "countryCode": "TR"
+  },
+  {
+    "code": "29",
+    "name": "Gümüşhane",
+    "countryCode": "TR"
+  },
+  {
+    "code": "30",
+    "name": "Hakkâri",
+    "countryCode": "TR"
+  },
+  {
+    "code": "31",
+    "name": "Hatay",
+    "countryCode": "TR"
+  },
+  {
+    "code": "76",
+    "name": "Iğdır",
+    "countryCode": "TR"
+  },
+  {
+    "code": "32",
+    "name": "Isparta",
+    "countryCode": "TR"
+  },
+  {
+    "code": "34",
+    "name": "Istanbul",
+    "countryCode": "TR"
+  },
+  {
+    "code": "35",
+    "name": "İzmir",
+    "countryCode": "TR"
+  },
+  {
+    "code": "46",
+    "name": "Kahramanmaraş",
+    "countryCode": "TR"
+  },
+  {
+    "code": "78",
+    "name": "Karabük",
+    "countryCode": "TR"
+  },
+  {
+    "code": "70",
+    "name": "Karaman",
+    "countryCode": "TR"
+  },
+  {
+    "code": "36",
+    "name": "Kars",
+    "countryCode": "TR"
+  },
+  {
+    "code": "37",
+    "name": "Kastamonu",
+    "countryCode": "TR"
+  },
+  {
+    "code": "38",
+    "name": "Kayseri",
+    "countryCode": "TR"
+  },
+  {
+    "code": "79",
+    "name": "Kilis",
+    "countryCode": "TR"
+  },
+  {
+    "code": "71",
+    "name": "Kırıkkale",
+    "countryCode": "TR"
+  },
+  {
+    "code": "39",
+    "name": "Kırklareli",
+    "countryCode": "TR"
+  },
+  {
+    "code": "40",
+    "name": "Kırşehir",
+    "countryCode": "TR"
+  },
+  {
+    "code": "41",
+    "name": "Kocaeli",
+    "countryCode": "TR"
+  },
+  {
+    "code": "42",
+    "name": "Konya",
+    "countryCode": "TR"
+  },
+  {
+    "code": "43",
+    "name": "Kütahya",
+    "countryCode": "TR"
+  },
+  {
+    "code": "44",
+    "name": "Malatya",
+    "countryCode": "TR"
+  },
+  {
+    "code": "45",
+    "name": "Manisa",
+    "countryCode": "TR"
+  },
+  {
+    "code": "47",
+    "name": "Mardin",
+    "countryCode": "TR"
+  },
+  {
+    "code": "33",
+    "name": "Mersin",
+    "countryCode": "TR"
+  },
+  {
+    "code": "48",
+    "name": "Muğla",
+    "countryCode": "TR"
+  },
+  {
+    "code": "49",
+    "name": "Muş",
+    "countryCode": "TR"
+  },
+  {
+    "code": "50",
+    "name": "Nevşehir",
+    "countryCode": "TR"
+  },
+  {
+    "code": "51",
+    "name": "Niğde",
+    "countryCode": "TR"
+  },
+  {
+    "code": "52",
+    "name": "Ordu",
+    "countryCode": "TR"
+  },
+  {
+    "code": "80",
+    "name": "Osmaniye",
+    "countryCode": "TR"
+  },
+  {
+    "code": "53",
+    "name": "Rize",
+    "countryCode": "TR"
+  },
+  {
+    "code": "54",
+    "name": "Sakarya",
+    "countryCode": "TR"
+  },
+  {
+    "code": "55",
+    "name": "Samsun",
+    "countryCode": "TR"
+  },
+  {
+    "code": "63",
+    "name": "Şanlıurfa",
+    "countryCode": "TR"
+  },
+  {
+    "code": "56",
+    "name": "Siirt",
+    "countryCode": "TR"
+  },
+  {
+    "code": "57",
+    "name": "Sinop",
+    "countryCode": "TR"
+  },
+  {
+    "code": "58",
+    "name": "Sivas",
+    "countryCode": "TR"
+  },
+  {
+    "code": "73",
+    "name": "Şırnak",
+    "countryCode": "TR"
+  },
+  {
+    "code": "59",
+    "name": "Tekirdağ",
+    "countryCode": "TR"
+  },
+  {
+    "code": "60",
+    "name": "Tokat",
+    "countryCode": "TR"
+  },
+  {
+    "code": "61",
+    "name": "Trabzon",
+    "countryCode": "TR"
+  },
+  {
+    "code": "62",
+    "name": "Tunceli",
+    "countryCode": "TR"
+  },
+  {
+    "code": "64",
+    "name": "Uşak",
+    "countryCode": "TR"
+  },
+  {
+    "code": "65",
+    "name": "Van",
+    "countryCode": "TR"
+  },
+  {
+    "code": "77",
+    "name": "Yalova",
+    "countryCode": "TR"
+  },
+  {
+    "code": "66",
+    "name": "Yozgat",
+    "countryCode": "TR"
+  },
+  {
+    "code": "67",
+    "name": "Zonguldak",
+    "countryCode": "TR"
+  }
+]

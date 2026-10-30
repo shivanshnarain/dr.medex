@@ -1,0 +1,1057 @@
+[
+  {
+    "code": "001",
+    "name": "Ajdovščina Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "213",
+    "name": "Ankaran Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "002",
+    "name": "Beltinci Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "148",
+    "name": "Benedikt Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "149",
+    "name": "Bistrica ob Sotli Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "003",
+    "name": "Bled Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "150",
+    "name": "Bloke Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "004",
+    "name": "Bohinj Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "005",
+    "name": "Borovnica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "006",
+    "name": "Bovec Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "151",
+    "name": "Braslovče Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "007",
+    "name": "Brda Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "009",
+    "name": "Brežice Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "008",
+    "name": "Brezovica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "152",
+    "name": "Cankova Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "012",
+    "name": "Cerklje na Gorenjskem Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "013",
+    "name": "Cerknica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "014",
+    "name": "Cerkno Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "153",
+    "name": "Cerkvenjak Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "011",
+    "name": "City Municipality of Celje",
+    "countryCode": "SI"
+  },
+  {
+    "code": "085",
+    "name": "City Municipality of Novo Mesto",
+    "countryCode": "SI"
+  },
+  {
+    "code": "015",
+    "name": "Črenšovci Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "016",
+    "name": "Črna na Koroškem Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "017",
+    "name": "Črnomelj Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "018",
+    "name": "Destrnik Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "019",
+    "name": "Divača Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "154",
+    "name": "Dobje Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "020",
+    "name": "Dobrepolje Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "155",
+    "name": "Dobrna Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "021",
+    "name": "Dobrova–Polhov Gradec Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "156",
+    "name": "Dobrovnik Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "022",
+    "name": "Dol pri Ljubljani Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "157",
+    "name": "Dolenjske Toplice Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "023",
+    "name": "Domžale Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "024",
+    "name": "Dornava Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "025",
+    "name": "Dravograd Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "026",
+    "name": "Duplek Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "027",
+    "name": "Gorenja Vas–Poljane Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "028",
+    "name": "Gorišnica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "207",
+    "name": "Gorje Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "029",
+    "name": "Gornja Radgona Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "030",
+    "name": "Gornji Grad Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "031",
+    "name": "Gornji Petrovci Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "158",
+    "name": "Grad Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "032",
+    "name": "Grosuplje Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "159",
+    "name": "Hajdina Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "160",
+    "name": "Hoče–Slivnica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "161",
+    "name": "Hodoš Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "162",
+    "name": "Horjul Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "034",
+    "name": "Hrastnik Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "035",
+    "name": "Hrpelje–Kozina Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "036",
+    "name": "Idrija Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "037",
+    "name": "Ig Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "039",
+    "name": "Ivančna Gorica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "040",
+    "name": "Izola Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "041",
+    "name": "Jesenice Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "163",
+    "name": "Jezersko Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "042",
+    "name": "Juršinci Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "043",
+    "name": "Kamnik Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "044",
+    "name": "Kanal ob Soči Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "045",
+    "name": "Kidričevo Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "046",
+    "name": "Kobarid Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "047",
+    "name": "Kobilje Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "048",
+    "name": "Kočevje Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "049",
+    "name": "Komen Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "164",
+    "name": "Komenda Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "050",
+    "name": "Koper City Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "197",
+    "name": "Kostanjevica na Krki Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "165",
+    "name": "Kostel Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "051",
+    "name": "Kozje Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "052",
+    "name": "Kranj City Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "053",
+    "name": "Kranjska Gora Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "166",
+    "name": "Križevci Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "055",
+    "name": "Kungota",
+    "countryCode": "SI"
+  },
+  {
+    "code": "056",
+    "name": "Kuzma Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "057",
+    "name": "Laško Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "058",
+    "name": "Lenart Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "059",
+    "name": "Lendava Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "060",
+    "name": "Litija Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "061",
+    "name": "Ljubljana City Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "062",
+    "name": "Ljubno Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "063",
+    "name": "Ljutomer Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "208",
+    "name": "Log–Dragomer Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "064",
+    "name": "Logatec Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "065",
+    "name": "Loška Dolina Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "066",
+    "name": "Loški Potok Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "167",
+    "name": "Lovrenc na Pohorju Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "067",
+    "name": "Luče Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "068",
+    "name": "Lukovica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "069",
+    "name": "Majšperk Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "198",
+    "name": "Makole Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "070",
+    "name": "Maribor City Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "168",
+    "name": "Markovci Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "071",
+    "name": "Medvode Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "072",
+    "name": "Mengeš Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "073",
+    "name": "Metlika Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "074",
+    "name": "Mežica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "169",
+    "name": "Miklavž na Dravskem Polju Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "075",
+    "name": "Miren–Kostanjevica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "212",
+    "name": "Mirna Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "170",
+    "name": "Mirna Peč Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "076",
+    "name": "Mislinja Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "199",
+    "name": "Mokronog–Trebelno Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "077",
+    "name": "Moravče Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "078",
+    "name": "Moravske Toplice Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "079",
+    "name": "Mozirje Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "195",
+    "name": "Municipality of Apače",
+    "countryCode": "SI"
+  },
+  {
+    "code": "196",
+    "name": "Municipality of Cirkulane",
+    "countryCode": "SI"
+  },
+  {
+    "code": "038",
+    "name": "Municipality of Ilirska Bistrica",
+    "countryCode": "SI"
+  },
+  {
+    "code": "054",
+    "name": "Municipality of Krško",
+    "countryCode": "SI"
+  },
+  {
+    "code": "123",
+    "name": "Municipality of Škofljica",
+    "countryCode": "SI"
+  },
+  {
+    "code": "080",
+    "name": "Murska Sobota City Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "081",
+    "name": "Muta Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "082",
+    "name": "Naklo Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "083",
+    "name": "Nazarje Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "084",
+    "name": "Nova Gorica City Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "086",
+    "name": "Odranci Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "171",
+    "name": "Oplotnica",
+    "countryCode": "SI"
+  },
+  {
+    "code": "087",
+    "name": "Ormož Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "088",
+    "name": "Osilnica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "089",
+    "name": "Pesnica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "090",
+    "name": "Piran Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "091",
+    "name": "Pivka Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "092",
+    "name": "Podčetrtek Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "172",
+    "name": "Podlehnik Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "093",
+    "name": "Podvelka Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "200",
+    "name": "Poljčane Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "173",
+    "name": "Polzela Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "094",
+    "name": "Postojna Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "174",
+    "name": "Prebold Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "095",
+    "name": "Preddvor Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "175",
+    "name": "Prevalje Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "096",
+    "name": "Ptuj City Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "097",
+    "name": "Puconci Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "098",
+    "name": "Rače–Fram Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "099",
+    "name": "Radeče Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "100",
+    "name": "Radenci Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "101",
+    "name": "Radlje ob Dravi Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "102",
+    "name": "Radovljica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "103",
+    "name": "Ravne na Koroškem Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "176",
+    "name": "Razkrižje Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "209",
+    "name": "Rečica ob Savinji Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "201",
+    "name": "Renče–Vogrsko Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "104",
+    "name": "Ribnica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "177",
+    "name": "Ribnica na Pohorju Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "106",
+    "name": "Rogaška Slatina Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "105",
+    "name": "Rogašovci Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "107",
+    "name": "Rogatec Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "108",
+    "name": "Ruše Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "033",
+    "name": "Šalovci Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "178",
+    "name": "Selnica ob Dravi Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "109",
+    "name": "Semič Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "183",
+    "name": "Šempeter–Vrtojba Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "117",
+    "name": "Šenčur Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "118",
+    "name": "Šentilj Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "119",
+    "name": "Šentjernej Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "120",
+    "name": "Šentjur Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "211",
+    "name": "Šentrupert Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "110",
+    "name": "Sevnica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "111",
+    "name": "Sežana Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "121",
+    "name": "Škocjan Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "122",
+    "name": "Škofja Loka Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "112",
+    "name": "Slovenj Gradec City Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "113",
+    "name": "Slovenska Bistrica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "114",
+    "name": "Slovenske Konjice Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "124",
+    "name": "Šmarje pri Jelšah Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "206",
+    "name": "Šmarješke Toplice Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "125",
+    "name": "Šmartno ob Paki Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "194",
+    "name": "Šmartno pri Litiji Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "179",
+    "name": "Sodražica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "180",
+    "name": "Solčava Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "126",
+    "name": "Šoštanj Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "202",
+    "name": "Središče ob Dravi",
+    "countryCode": "SI"
+  },
+  {
+    "code": "115",
+    "name": "Starše Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "127",
+    "name": "Štore Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "203",
+    "name": "Straža Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "181",
+    "name": "Sveta Ana Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "204",
+    "name": "Sveta Trojica v Slovenskih Goricah Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "182",
+    "name": "Sveti Andraž v Slovenskih Goricah Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "116",
+    "name": "Sveti Jurij ob Ščavnici Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "210",
+    "name": "Sveti Jurij v Slovenskih Goricah Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "205",
+    "name": "Sveti Tomaž Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "184",
+    "name": "Tabor Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "010",
+    "name": "Tišina Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "128",
+    "name": "Tolmin Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "129",
+    "name": "Trbovlje Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "130",
+    "name": "Trebnje Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "185",
+    "name": "Trnovska Vas Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "131",
+    "name": "Tržič Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "186",
+    "name": "Trzin Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "132",
+    "name": "Turnišče Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "187",
+    "name": "Velika Polana Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "134",
+    "name": "Velike Lašče Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "188",
+    "name": "Veržej Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "135",
+    "name": "Videm Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "136",
+    "name": "Vipava Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "137",
+    "name": "Vitanje Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "138",
+    "name": "Vodice Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "139",
+    "name": "Vojnik Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "189",
+    "name": "Vransko Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "140",
+    "name": "Vrhnika Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "141",
+    "name": "Vuzenica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "142",
+    "name": "Zagorje ob Savi Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "190",
+    "name": "Žalec Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "143",
+    "name": "Zavrč Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "146",
+    "name": "Železniki Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "191",
+    "name": "Žetale Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "147",
+    "name": "Žiri Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "192",
+    "name": "Žirovnica Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "144",
+    "name": "Zreče Municipality",
+    "countryCode": "SI"
+  },
+  {
+    "code": "193",
+    "name": "Žužemberk Municipality",
+    "countryCode": "SI"
+  }
+]

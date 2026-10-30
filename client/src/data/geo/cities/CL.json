@@ -1,0 +1,1419 @@
+{
+  "AI": [
+    {
+      "name": "Aysén",
+      "postalCodes": []
+    },
+    {
+      "name": "Chile Chico",
+      "postalCodes": []
+    },
+    {
+      "name": "Cisnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Cochrane",
+      "postalCodes": []
+    },
+    {
+      "name": "Coyhaique",
+      "postalCodes": []
+    },
+    {
+      "name": "Guaitecas",
+      "postalCodes": []
+    },
+    {
+      "name": "Lago Verde",
+      "postalCodes": []
+    },
+    {
+      "name": "O'Higgins",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Ibáñez",
+      "postalCodes": []
+    },
+    {
+      "name": "Tortel",
+      "postalCodes": []
+    }
+  ],
+  "AN": [
+    {
+      "name": "Antofagasta",
+      "postalCodes": []
+    },
+    {
+      "name": "Calama",
+      "postalCodes": []
+    },
+    {
+      "name": "María Elena",
+      "postalCodes": []
+    },
+    {
+      "name": "Mejillones",
+      "postalCodes": []
+    },
+    {
+      "name": "Ollagüe",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro de Atacama",
+      "postalCodes": []
+    },
+    {
+      "name": "Sierra Gorda",
+      "postalCodes": []
+    },
+    {
+      "name": "Taltal",
+      "postalCodes": []
+    },
+    {
+      "name": "Tocopilla",
+      "postalCodes": []
+    }
+  ],
+  "AP": [
+    {
+      "name": "Arica",
+      "postalCodes": []
+    },
+    {
+      "name": "Camarones",
+      "postalCodes": []
+    },
+    {
+      "name": "General Lagos",
+      "postalCodes": []
+    },
+    {
+      "name": "Putre",
+      "postalCodes": []
+    }
+  ],
+  "AT": [
+    {
+      "name": "Alto del Carmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Caldera",
+      "postalCodes": []
+    },
+    {
+      "name": "Chañaral",
+      "postalCodes": []
+    },
+    {
+      "name": "Copiapó",
+      "postalCodes": []
+    },
+    {
+      "name": "Diego de Almagro",
+      "postalCodes": []
+    },
+    {
+      "name": "Freirina",
+      "postalCodes": []
+    },
+    {
+      "name": "Huasco",
+      "postalCodes": []
+    },
+    {
+      "name": "Tierra Amarilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Vallenar",
+      "postalCodes": []
+    }
+  ],
+  "BI": [
+    {
+      "name": "Alto Biobío",
+      "postalCodes": []
+    },
+    {
+      "name": "Antuco",
+      "postalCodes": []
+    },
+    {
+      "name": "Arauco",
+      "postalCodes": []
+    },
+    {
+      "name": "Cabrero",
+      "postalCodes": []
+    },
+    {
+      "name": "Cañete",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiguayante",
+      "postalCodes": []
+    },
+    {
+      "name": "Concepción",
+      "postalCodes": []
+    },
+    {
+      "name": "Contulmo",
+      "postalCodes": []
+    },
+    {
+      "name": "Coronel",
+      "postalCodes": []
+    },
+    {
+      "name": "Curanilahue",
+      "postalCodes": []
+    },
+    {
+      "name": "Florida",
+      "postalCodes": []
+    },
+    {
+      "name": "Hualpén",
+      "postalCodes": []
+    },
+    {
+      "name": "Hualqui",
+      "postalCodes": []
+    },
+    {
+      "name": "Laja",
+      "postalCodes": []
+    },
+    {
+      "name": "Lebu",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Álamos",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Ángeles",
+      "postalCodes": []
+    },
+    {
+      "name": "Lota",
+      "postalCodes": []
+    },
+    {
+      "name": "Mulchén",
+      "postalCodes": []
+    },
+    {
+      "name": "Nacimiento",
+      "postalCodes": []
+    },
+    {
+      "name": "Negrete",
+      "postalCodes": []
+    },
+    {
+      "name": "Penco",
+      "postalCodes": []
+    },
+    {
+      "name": "Quilaco",
+      "postalCodes": []
+    },
+    {
+      "name": "Quilleco",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro de la Paz",
+      "postalCodes": []
+    },
+    {
+      "name": "San Rosendo",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Bárbara",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Juana",
+      "postalCodes": []
+    },
+    {
+      "name": "Talcahuano",
+      "postalCodes": []
+    },
+    {
+      "name": "Tirúa",
+      "postalCodes": []
+    },
+    {
+      "name": "Tomé",
+      "postalCodes": []
+    },
+    {
+      "name": "Tucapel",
+      "postalCodes": []
+    },
+    {
+      "name": "Yumbel",
+      "postalCodes": []
+    }
+  ],
+  "CO": [
+    {
+      "name": "Andacollo",
+      "postalCodes": []
+    },
+    {
+      "name": "Canela",
+      "postalCodes": []
+    },
+    {
+      "name": "Combarbalá",
+      "postalCodes": []
+    },
+    {
+      "name": "Coquimbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Illapel",
+      "postalCodes": []
+    },
+    {
+      "name": "La Higuera",
+      "postalCodes": []
+    },
+    {
+      "name": "La Serena",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Vilos",
+      "postalCodes": []
+    },
+    {
+      "name": "Monte Patria",
+      "postalCodes": []
+    },
+    {
+      "name": "Ovalle",
+      "postalCodes": []
+    },
+    {
+      "name": "Paihuano",
+      "postalCodes": []
+    },
+    {
+      "name": "Punitaqui",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Hurtado",
+      "postalCodes": []
+    },
+    {
+      "name": "Salamanca",
+      "postalCodes": []
+    },
+    {
+      "name": "Vicuña",
+      "postalCodes": []
+    }
+  ],
+  "AR": [
+    {
+      "name": "Angol",
+      "postalCodes": []
+    },
+    {
+      "name": "Carahue",
+      "postalCodes": []
+    },
+    {
+      "name": "Cholchol",
+      "postalCodes": []
+    },
+    {
+      "name": "Collipulli",
+      "postalCodes": []
+    },
+    {
+      "name": "Cunco",
+      "postalCodes": []
+    },
+    {
+      "name": "Curacautín",
+      "postalCodes": []
+    },
+    {
+      "name": "Curarrehue",
+      "postalCodes": []
+    },
+    {
+      "name": "Ercilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Freire",
+      "postalCodes": []
+    },
+    {
+      "name": "Galvarino",
+      "postalCodes": []
+    },
+    {
+      "name": "Gorbea",
+      "postalCodes": []
+    },
+    {
+      "name": "Lautaro",
+      "postalCodes": []
+    },
+    {
+      "name": "Loncoche",
+      "postalCodes": []
+    },
+    {
+      "name": "Lonquimay",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Sauces",
+      "postalCodes": []
+    },
+    {
+      "name": "Lumaco",
+      "postalCodes": []
+    },
+    {
+      "name": "Melipeuco",
+      "postalCodes": []
+    },
+    {
+      "name": "Nueva Imperial",
+      "postalCodes": []
+    },
+    {
+      "name": "Padre Las Casas",
+      "postalCodes": []
+    },
+    {
+      "name": "Perquenco",
+      "postalCodes": []
+    },
+    {
+      "name": "Pitrufquén",
+      "postalCodes": []
+    },
+    {
+      "name": "Pucón",
+      "postalCodes": []
+    },
+    {
+      "name": "Purén",
+      "postalCodes": []
+    },
+    {
+      "name": "Renaico",
+      "postalCodes": []
+    },
+    {
+      "name": "Saavedra",
+      "postalCodes": []
+    },
+    {
+      "name": "Temuco",
+      "postalCodes": []
+    },
+    {
+      "name": "Teodoro Schmidt",
+      "postalCodes": []
+    },
+    {
+      "name": "Toltén",
+      "postalCodes": []
+    },
+    {
+      "name": "Traiguén",
+      "postalCodes": []
+    },
+    {
+      "name": "Victoria",
+      "postalCodes": []
+    },
+    {
+      "name": "Vilcún",
+      "postalCodes": []
+    },
+    {
+      "name": "Villarrica",
+      "postalCodes": []
+    }
+  ],
+  "LI": [
+    {
+      "name": "Chépica",
+      "postalCodes": []
+    },
+    {
+      "name": "Chimbarongo",
+      "postalCodes": []
+    },
+    {
+      "name": "Codegua",
+      "postalCodes": []
+    },
+    {
+      "name": "Coínco",
+      "postalCodes": []
+    },
+    {
+      "name": "Coltauco",
+      "postalCodes": []
+    },
+    {
+      "name": "Doñihue",
+      "postalCodes": []
+    },
+    {
+      "name": "Graneros",
+      "postalCodes": []
+    },
+    {
+      "name": "La Estrella",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Cabras",
+      "postalCodes": []
+    },
+    {
+      "name": "Litueche",
+      "postalCodes": []
+    },
+    {
+      "name": "Lolol",
+      "postalCodes": []
+    },
+    {
+      "name": "Machalí",
+      "postalCodes": []
+    },
+    {
+      "name": "Malloa",
+      "postalCodes": []
+    },
+    {
+      "name": "Marchigüe",
+      "postalCodes": []
+    },
+    {
+      "name": "Mostazal",
+      "postalCodes": []
+    },
+    {
+      "name": "Nancagua",
+      "postalCodes": []
+    },
+    {
+      "name": "Navidad",
+      "postalCodes": []
+    },
+    {
+      "name": "Olivar",
+      "postalCodes": []
+    },
+    {
+      "name": "Palmilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Paredones",
+      "postalCodes": []
+    },
+    {
+      "name": "Peralillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Peumo",
+      "postalCodes": []
+    },
+    {
+      "name": "Pichidegua",
+      "postalCodes": []
+    },
+    {
+      "name": "Pichilemu",
+      "postalCodes": []
+    },
+    {
+      "name": "Placilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Pumanque",
+      "postalCodes": []
+    },
+    {
+      "name": "Quinta de Tilcoco",
+      "postalCodes": []
+    },
+    {
+      "name": "Rancagua",
+      "postalCodes": []
+    },
+    {
+      "name": "Rengo",
+      "postalCodes": []
+    },
+    {
+      "name": "Requínoa",
+      "postalCodes": []
+    },
+    {
+      "name": "San Fernando",
+      "postalCodes": []
+    },
+    {
+      "name": "San Vicente",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Cruz",
+      "postalCodes": []
+    }
+  ],
+  "LL": [
+    {
+      "name": "Ancud",
+      "postalCodes": []
+    },
+    {
+      "name": "Calbuco",
+      "postalCodes": []
+    },
+    {
+      "name": "Castro",
+      "postalCodes": []
+    },
+    {
+      "name": "Chaitén",
+      "postalCodes": []
+    },
+    {
+      "name": "Chonchi",
+      "postalCodes": []
+    },
+    {
+      "name": "Cochamó",
+      "postalCodes": []
+    },
+    {
+      "name": "Curaco de Vélez",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalcahue",
+      "postalCodes": []
+    },
+    {
+      "name": "Fresia",
+      "postalCodes": []
+    },
+    {
+      "name": "Frutillar",
+      "postalCodes": []
+    },
+    {
+      "name": "Futaleufú",
+      "postalCodes": []
+    },
+    {
+      "name": "Hualaihué",
+      "postalCodes": []
+    },
+    {
+      "name": "Llanquihue",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Muermos",
+      "postalCodes": []
+    },
+    {
+      "name": "Maullín",
+      "postalCodes": []
+    },
+    {
+      "name": "Osorno",
+      "postalCodes": []
+    },
+    {
+      "name": "Palena",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Montt",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Octay",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Varas",
+      "postalCodes": []
+    },
+    {
+      "name": "Puqueldón",
+      "postalCodes": []
+    },
+    {
+      "name": "Purranque",
+      "postalCodes": []
+    },
+    {
+      "name": "Puyehue",
+      "postalCodes": []
+    },
+    {
+      "name": "Queilén",
+      "postalCodes": []
+    },
+    {
+      "name": "Quellón",
+      "postalCodes": []
+    },
+    {
+      "name": "Quemchi",
+      "postalCodes": []
+    },
+    {
+      "name": "Quinchao",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Negro",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan de la Costa",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pablo",
+      "postalCodes": []
+    }
+  ],
+  "LR": [
+    {
+      "name": "Corral",
+      "postalCodes": []
+    },
+    {
+      "name": "Futrono",
+      "postalCodes": []
+    },
+    {
+      "name": "La Unión",
+      "postalCodes": []
+    },
+    {
+      "name": "Lago Ranco",
+      "postalCodes": []
+    },
+    {
+      "name": "Lanco",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Lagos",
+      "postalCodes": []
+    },
+    {
+      "name": "Máfil",
+      "postalCodes": []
+    },
+    {
+      "name": "Mariquina",
+      "postalCodes": []
+    },
+    {
+      "name": "Paillaco",
+      "postalCodes": []
+    },
+    {
+      "name": "Panguipulli",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Bueno",
+      "postalCodes": []
+    },
+    {
+      "name": "Valdivia",
+      "postalCodes": []
+    }
+  ],
+  "MA": [
+    {
+      "name": "Antártica",
+      "postalCodes": []
+    },
+    {
+      "name": "Cabo de Hornos",
+      "postalCodes": []
+    },
+    {
+      "name": "Laguna Blanca",
+      "postalCodes": []
+    },
+    {
+      "name": "Natales",
+      "postalCodes": []
+    },
+    {
+      "name": "Porvenir",
+      "postalCodes": []
+    },
+    {
+      "name": "Primavera",
+      "postalCodes": []
+    },
+    {
+      "name": "Punta Arenas",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Verde",
+      "postalCodes": []
+    },
+    {
+      "name": "San Gregorio",
+      "postalCodes": []
+    },
+    {
+      "name": "Timaukel",
+      "postalCodes": []
+    },
+    {
+      "name": "Torres del Paine",
+      "postalCodes": []
+    }
+  ],
+  "ML": [
+    {
+      "name": "Cauquenes",
+      "postalCodes": []
+    },
+    {
+      "name": "Chanco",
+      "postalCodes": []
+    },
+    {
+      "name": "Colbún",
+      "postalCodes": []
+    },
+    {
+      "name": "Constitución",
+      "postalCodes": []
+    },
+    {
+      "name": "Curepto",
+      "postalCodes": []
+    },
+    {
+      "name": "Curicó",
+      "postalCodes": []
+    },
+    {
+      "name": "Empedrado",
+      "postalCodes": []
+    },
+    {
+      "name": "Hualañé",
+      "postalCodes": []
+    },
+    {
+      "name": "Licantén",
+      "postalCodes": []
+    },
+    {
+      "name": "Linares",
+      "postalCodes": []
+    },
+    {
+      "name": "Longaví",
+      "postalCodes": []
+    },
+    {
+      "name": "Maule",
+      "postalCodes": []
+    },
+    {
+      "name": "Molina",
+      "postalCodes": []
+    },
+    {
+      "name": "Parral",
+      "postalCodes": []
+    },
+    {
+      "name": "Pelarco",
+      "postalCodes": []
+    },
+    {
+      "name": "Pelluhue",
+      "postalCodes": []
+    },
+    {
+      "name": "Pencahue",
+      "postalCodes": []
+    },
+    {
+      "name": "Rauco",
+      "postalCodes": []
+    },
+    {
+      "name": "Retiro",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Claro",
+      "postalCodes": []
+    },
+    {
+      "name": "Romeral",
+      "postalCodes": []
+    },
+    {
+      "name": "Sagrada Familia",
+      "postalCodes": []
+    },
+    {
+      "name": "San Clemente",
+      "postalCodes": []
+    },
+    {
+      "name": "San Javier",
+      "postalCodes": []
+    },
+    {
+      "name": "San Rafael",
+      "postalCodes": []
+    },
+    {
+      "name": "Talca",
+      "postalCodes": []
+    },
+    {
+      "name": "Teno",
+      "postalCodes": []
+    },
+    {
+      "name": "Vichuquén",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Alegre",
+      "postalCodes": []
+    },
+    {
+      "name": "Yerbas Buenas",
+      "postalCodes": []
+    }
+  ],
+  "NB": [
+    {
+      "name": "Bulnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Chillán",
+      "postalCodes": []
+    },
+    {
+      "name": "Chillán Viejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Cobquecura",
+      "postalCodes": []
+    },
+    {
+      "name": "Coelemu",
+      "postalCodes": []
+    },
+    {
+      "name": "Coihueco",
+      "postalCodes": []
+    },
+    {
+      "name": "El Carmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Ninhue",
+      "postalCodes": []
+    },
+    {
+      "name": "Ñiquén",
+      "postalCodes": []
+    },
+    {
+      "name": "Pemuco",
+      "postalCodes": []
+    },
+    {
+      "name": "Pinto",
+      "postalCodes": []
+    },
+    {
+      "name": "Portezuelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Quillón",
+      "postalCodes": []
+    },
+    {
+      "name": "Quirihue",
+      "postalCodes": []
+    },
+    {
+      "name": "Ránquil",
+      "postalCodes": []
+    },
+    {
+      "name": "San Carlos",
+      "postalCodes": []
+    },
+    {
+      "name": "San Fabián",
+      "postalCodes": []
+    },
+    {
+      "name": "San Ignacio",
+      "postalCodes": []
+    },
+    {
+      "name": "San Nicolás",
+      "postalCodes": []
+    },
+    {
+      "name": "Treguaco",
+      "postalCodes": []
+    },
+    {
+      "name": "Yungay",
+      "postalCodes": []
+    }
+  ],
+  "RM": [
+    {
+      "name": "Alhué",
+      "postalCodes": []
+    },
+    {
+      "name": "Buin",
+      "postalCodes": []
+    },
+    {
+      "name": "Calera de Tango",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerrillos",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerro Navia",
+      "postalCodes": []
+    },
+    {
+      "name": "Colina",
+      "postalCodes": []
+    },
+    {
+      "name": "Conchalí",
+      "postalCodes": []
+    },
+    {
+      "name": "Curacaví",
+      "postalCodes": []
+    },
+    {
+      "name": "El Bosque",
+      "postalCodes": []
+    },
+    {
+      "name": "El Monte",
+      "postalCodes": []
+    },
+    {
+      "name": "Estación Central",
+      "postalCodes": []
+    },
+    {
+      "name": "Huechuraba",
+      "postalCodes": []
+    },
+    {
+      "name": "Independencia",
+      "postalCodes": []
+    },
+    {
+      "name": "Isla de Maipo",
+      "postalCodes": []
+    },
+    {
+      "name": "La Cisterna",
+      "postalCodes": []
+    },
+    {
+      "name": "La Florida",
+      "postalCodes": []
+    },
+    {
+      "name": "La Granja",
+      "postalCodes": []
+    },
+    {
+      "name": "La Pintana",
+      "postalCodes": []
+    },
+    {
+      "name": "La Reina",
+      "postalCodes": []
+    },
+    {
+      "name": "Lampa",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Condes",
+      "postalCodes": []
+    },
+    {
+      "name": "Lo Barnechea",
+      "postalCodes": []
+    },
+    {
+      "name": "Lo Espejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Lo Prado",
+      "postalCodes": []
+    },
+    {
+      "name": "Macul",
+      "postalCodes": []
+    },
+    {
+      "name": "Maipú",
+      "postalCodes": []
+    },
+    {
+      "name": "María Pinto",
+      "postalCodes": []
+    },
+    {
+      "name": "Melipilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Ñuñoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Padre Hurtado",
+      "postalCodes": []
+    },
+    {
+      "name": "Paine",
+      "postalCodes": []
+    },
+    {
+      "name": "Pedro Aguirre Cerda",
+      "postalCodes": []
+    },
+    {
+      "name": "Peñaflor",
+      "postalCodes": []
+    },
+    {
+      "name": "Peñalolén",
+      "postalCodes": []
+    },
+    {
+      "name": "Pirque",
+      "postalCodes": []
+    },
+    {
+      "name": "Providencia",
+      "postalCodes": []
+    },
+    {
+      "name": "Pudahuel",
+      "postalCodes": []
+    },
+    {
+      "name": "Puente Alto",
+      "postalCodes": []
+    },
+    {
+      "name": "Quilicura",
+      "postalCodes": []
+    },
+    {
+      "name": "Quinta Normal",
+      "postalCodes": []
+    },
+    {
+      "name": "Recoleta",
+      "postalCodes": []
+    },
+    {
+      "name": "Renca",
+      "postalCodes": []
+    },
+    {
+      "name": "San Bernardo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Joaquín",
+      "postalCodes": []
+    },
+    {
+      "name": "San José de Maipo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro",
+      "postalCodes": []
+    },
+    {
+      "name": "San Ramón",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago",
+      "postalCodes": []
+    },
+    {
+      "name": "Talagante",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiltil",
+      "postalCodes": []
+    },
+    {
+      "name": "Vitacura",
+      "postalCodes": []
+    }
+  ],
+  "TA": [
+    {
+      "name": "Alto Hospicio",
+      "postalCodes": []
+    },
+    {
+      "name": "Camiña",
+      "postalCodes": []
+    },
+    {
+      "name": "Colchane",
+      "postalCodes": []
+    },
+    {
+      "name": "Huara",
+      "postalCodes": []
+    },
+    {
+      "name": "Iquique",
+      "postalCodes": []
+    },
+    {
+      "name": "Pica",
+      "postalCodes": []
+    },
+    {
+      "name": "Pozo Almonte",
+      "postalCodes": []
+    }
+  ],
+  "VS": [
+    {
+      "name": "Algarrobo",
+      "postalCodes": []
+    },
+    {
+      "name": "Cabildo",
+      "postalCodes": []
+    },
+    {
+      "name": "Calle Larga",
+      "postalCodes": []
+    },
+    {
+      "name": "Cartagena",
+      "postalCodes": []
+    },
+    {
+      "name": "Casablanca",
+      "postalCodes": []
+    },
+    {
+      "name": "Catemu",
+      "postalCodes": []
+    },
+    {
+      "name": "Concón",
+      "postalCodes": []
+    },
+    {
+      "name": "El Quisco",
+      "postalCodes": []
+    },
+    {
+      "name": "El Tabo",
+      "postalCodes": []
+    },
+    {
+      "name": "Hijuelas",
+      "postalCodes": []
+    },
+    {
+      "name": "Isla de Pascua",
+      "postalCodes": []
+    },
+    {
+      "name": "Juan Fernández",
+      "postalCodes": []
+    },
+    {
+      "name": "La Calera",
+      "postalCodes": []
+    },
+    {
+      "name": "La Cruz",
+      "postalCodes": []
+    },
+    {
+      "name": "La Ligua",
+      "postalCodes": []
+    },
+    {
+      "name": "Limache",
+      "postalCodes": []
+    },
+    {
+      "name": "Llaillay",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Andes",
+      "postalCodes": []
+    },
+    {
+      "name": "Nogales",
+      "postalCodes": []
+    },
+    {
+      "name": "Olmué",
+      "postalCodes": []
+    },
+    {
+      "name": "Panquehue",
+      "postalCodes": []
+    },
+    {
+      "name": "Papudo",
+      "postalCodes": []
+    },
+    {
+      "name": "Petorca",
+      "postalCodes": []
+    },
+    {
+      "name": "Puchuncaví",
+      "postalCodes": []
+    },
+    {
+      "name": "Putaendo",
+      "postalCodes": []
+    },
+    {
+      "name": "Quillota",
+      "postalCodes": []
+    },
+    {
+      "name": "Quilpué",
+      "postalCodes": []
+    },
+    {
+      "name": "Quintero",
+      "postalCodes": []
+    },
+    {
+      "name": "Rinconada",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio",
+      "postalCodes": []
+    },
+    {
+      "name": "San Esteban",
+      "postalCodes": []
+    },
+    {
+      "name": "San Felipe",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa María",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Domingo",
+      "postalCodes": []
+    },
+    {
+      "name": "Valparaíso",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Alemana",
+      "postalCodes": []
+    },
+    {
+      "name": "Viña del Mar",
+      "postalCodes": []
+    },
+    {
+      "name": "Zapallar",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

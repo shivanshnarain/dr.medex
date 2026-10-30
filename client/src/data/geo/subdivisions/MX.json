@@ -1,0 +1,162 @@
+[
+  {
+    "code": "AGU",
+    "name": "Aguascalientes",
+    "countryCode": "MX"
+  },
+  {
+    "code": "BCN",
+    "name": "Baja California",
+    "countryCode": "MX"
+  },
+  {
+    "code": "BCS",
+    "name": "Baja California Sur",
+    "countryCode": "MX"
+  },
+  {
+    "code": "CAM",
+    "name": "Campeche",
+    "countryCode": "MX"
+  },
+  {
+    "code": "CHP",
+    "name": "Chiapas",
+    "countryCode": "MX"
+  },
+  {
+    "code": "CHH",
+    "name": "Chihuahua",
+    "countryCode": "MX"
+  },
+  {
+    "code": "CDMX",
+    "name": "Ciudad de México",
+    "countryCode": "MX"
+  },
+  {
+    "code": "COA",
+    "name": "Coahuila de Zaragoza",
+    "countryCode": "MX"
+  },
+  {
+    "code": "COL",
+    "name": "Colima",
+    "countryCode": "MX"
+  },
+  {
+    "code": "DUR",
+    "name": "Durango",
+    "countryCode": "MX"
+  },
+  {
+    "code": "MEX",
+    "name": "Estado de México",
+    "countryCode": "MX"
+  },
+  {
+    "code": "GUA",
+    "name": "Guanajuato",
+    "countryCode": "MX"
+  },
+  {
+    "code": "GRO",
+    "name": "Guerrero",
+    "countryCode": "MX"
+  },
+  {
+    "code": "HID",
+    "name": "Hidalgo",
+    "countryCode": "MX"
+  },
+  {
+    "code": "JAL",
+    "name": "Jalisco",
+    "countryCode": "MX"
+  },
+  {
+    "code": "MIC",
+    "name": "Michoacán de Ocampo",
+    "countryCode": "MX"
+  },
+  {
+    "code": "MOR",
+    "name": "Morelos",
+    "countryCode": "MX"
+  },
+  {
+    "code": "NAY",
+    "name": "Nayarit",
+    "countryCode": "MX"
+  },
+  {
+    "code": "NLE",
+    "name": "Nuevo León",
+    "countryCode": "MX"
+  },
+  {
+    "code": "OAX",
+    "name": "Oaxaca",
+    "countryCode": "MX"
+  },
+  {
+    "code": "PUE",
+    "name": "Puebla",
+    "countryCode": "MX"
+  },
+  {
+    "code": "QUE",
+    "name": "Querétaro",
+    "countryCode": "MX"
+  },
+  {
+    "code": "ROO",
+    "name": "Quintana Roo",
+    "countryCode": "MX"
+  },
+  {
+    "code": "SLP",
+    "name": "San Luis Potosí",
+    "countryCode": "MX"
+  },
+  {
+    "code": "SIN",
+    "name": "Sinaloa",
+    "countryCode": "MX"
+  },
+  {
+    "code": "SON",
+    "name": "Sonora",
+    "countryCode": "MX"
+  },
+  {
+    "code": "TAB",
+    "name": "Tabasco",
+    "countryCode": "MX"
+  },
+  {
+    "code": "TAM",
+    "name": "Tamaulipas",
+    "countryCode": "MX"
+  },
+  {
+    "code": "TLA",
+    "name": "Tlaxcala",
+    "countryCode": "MX"
+  },
+  {
+    "code": "VER",
+    "name": "Veracruz de Ignacio de la Llave",
+    "countryCode": "MX"
+  },
+  {
+    "code": "YUC",
+    "name": "Yucatán",
+    "countryCode": "MX"
+  },
+  {
+    "code": "ZAC",
+    "name": "Zacatecas",
+    "countryCode": "MX"
+  }
+]

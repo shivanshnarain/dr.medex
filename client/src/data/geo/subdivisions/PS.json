@@ -1,0 +1,22 @@
+[
+  {
+    "code": "GZ",
+    "name": "Gaza Strip",
+    "countryCode": "PS"
+  },
+  {
+    "code": "JEM",
+    "name": "Jerusalem",
+    "countryCode": "PS"
+  },
+  {
+    "code": "RBH",
+    "name": "Ramallah & Al-Bireh",
+    "countryCode": "PS"
+  },
+  {
+    "code": "WB",
+    "name": "West Bank",
+    "countryCode": "PS"
+  }
+]

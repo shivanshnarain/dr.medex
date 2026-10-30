@@ -1,0 +1,32 @@
+[
+  {
+    "code": "AS",
+    "name": "Ali Sabieh Region",
+    "countryCode": "DJ"
+  },
+  {
+    "code": "AR",
+    "name": "Arta Region",
+    "countryCode": "DJ"
+  },
+  {
+    "code": "DI",
+    "name": "Dikhil Region",
+    "countryCode": "DJ"
+  },
+  {
+    "code": "DJ",
+    "name": "Djibouti",
+    "countryCode": "DJ"
+  },
+  {
+    "code": "OB",
+    "name": "Obock Region",
+    "countryCode": "DJ"
+  },
+  {
+    "code": "TA",
+    "name": "Tadjourah Region",
+    "countryCode": "DJ"
+  }
+]

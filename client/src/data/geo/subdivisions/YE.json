@@ -1,0 +1,107 @@
+[
+  {
+    "code": "AD",
+    "name": "'Adan Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "AM",
+    "name": "'Amran Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "AB",
+    "name": "Abyan Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "BA",
+    "name": "Al Bayda' Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "HU",
+    "name": "Al Hudaydah Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "JA",
+    "name": "Al Jawf Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "MR",
+    "name": "Al Mahrah Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "MW",
+    "name": "Al Mahwit Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "DH",
+    "name": "Dhamar Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "HD",
+    "name": "Hadhramaut Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "HJ",
+    "name": "Hajjah Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "IB",
+    "name": "Ibb Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "LA",
+    "name": "Lahij Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "MA",
+    "name": "Ma'rib Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "RA",
+    "name": "Raymah Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "SD",
+    "name": "Saada Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "SA",
+    "name": "Sana'a",
+    "countryCode": "YE"
+  },
+  {
+    "code": "SN",
+    "name": "Sana'a Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "SH",
+    "name": "Shabwah Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "SU",
+    "name": "Socotra Governorate",
+    "countryCode": "YE"
+  },
+  {
+    "code": "TA",
+    "name": "Ta'izz Governorate",
+    "countryCode": "YE"
+  }
+]

@@ -1,0 +1,42 @@
+{
+  "MAP": [
+    {
+      "name": "Lakatoro",
+      "postalCodes": []
+    },
+    {
+      "name": "Norsup",
+      "postalCodes": []
+    }
+  ],
+  "PAM": [],
+  "SAM": [
+    {
+      "name": "Luganville",
+      "postalCodes": []
+    },
+    {
+      "name": "Port-Olry",
+      "postalCodes": []
+    }
+  ],
+  "SEE": [
+    {
+      "name": "Port-Vila",
+      "postalCodes": []
+    }
+  ],
+  "TAE": [
+    {
+      "name": "Isangel",
+      "postalCodes": []
+    }
+  ],
+  "TOB": [
+    {
+      "name": "Sola",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

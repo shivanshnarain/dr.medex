@@ -1,0 +1,27 @@
+[
+  {
+    "code": "02",
+    "name": "Eastern Province",
+    "countryCode": "RW"
+  },
+  {
+    "code": "01",
+    "name": "Kigali district",
+    "countryCode": "RW"
+  },
+  {
+    "code": "03",
+    "name": "Northern Province",
+    "countryCode": "RW"
+  },
+  {
+    "code": "05",
+    "name": "Southern Province",
+    "countryCode": "RW"
+  },
+  {
+    "code": "04",
+    "name": "Western Province",
+    "countryCode": "RW"
+  }
+]

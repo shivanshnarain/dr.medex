@@ -1,0 +1,45 @@
+{
+  "02": [
+    {
+      "name": "Pangai",
+      "postalCodes": []
+    }
+  ],
+  "01": [
+    {
+      "name": "‘Ohonua",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Hihifo",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Haveluloto",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolonga",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuku‘alofa",
+      "postalCodes": []
+    },
+    {
+      "name": "Vaini",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Neiafu",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

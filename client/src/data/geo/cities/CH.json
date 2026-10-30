@@ -1,0 +1,6079 @@
+{
+  "AG": [
+    {
+      "name": "Aarau",
+      "postalCodes": []
+    },
+    {
+      "name": "Aarburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Aristau",
+      "postalCodes": []
+    },
+    {
+      "name": "Auw",
+      "postalCodes": []
+    },
+    {
+      "name": "Bad Zurzach",
+      "postalCodes": []
+    },
+    {
+      "name": "Baden",
+      "postalCodes": []
+    },
+    {
+      "name": "Berikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Besenbüren",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Aarau",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Baden",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Bremgarten",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Brugg",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Kulm",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Laufenburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Lenzburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Muri",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Rheinfelden",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Zofingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Zurzach",
+      "postalCodes": []
+    },
+    {
+      "name": "Birmenstorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Birr",
+      "postalCodes": []
+    },
+    {
+      "name": "Boniswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Bremgarten",
+      "postalCodes": []
+    },
+    {
+      "name": "Brittnau",
+      "postalCodes": []
+    },
+    {
+      "name": "Brugg",
+      "postalCodes": []
+    },
+    {
+      "name": "Buchs",
+      "postalCodes": []
+    },
+    {
+      "name": "Buttwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Densbüren",
+      "postalCodes": []
+    },
+    {
+      "name": "Dottikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Dürrenäsch",
+      "postalCodes": []
+    },
+    {
+      "name": "Egliswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Ehrendingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Eiken",
+      "postalCodes": []
+    },
+    {
+      "name": "Endingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Frick",
+      "postalCodes": []
+    },
+    {
+      "name": "Gebenstorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Gipf-Oberfrick",
+      "postalCodes": []
+    },
+    {
+      "name": "Gontenschwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Gränichen",
+      "postalCodes": []
+    },
+    {
+      "name": "Hägglingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Hausen",
+      "postalCodes": []
+    },
+    {
+      "name": "Jonen",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaiseraugst",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaisten",
+      "postalCodes": []
+    },
+    {
+      "name": "Killwangen",
+      "postalCodes": []
+    },
+    {
+      "name": "Klingnau",
+      "postalCodes": []
+    },
+    {
+      "name": "Koblenz",
+      "postalCodes": []
+    },
+    {
+      "name": "Kölliken",
+      "postalCodes": []
+    },
+    {
+      "name": "Künten",
+      "postalCodes": []
+    },
+    {
+      "name": "Küttigen",
+      "postalCodes": []
+    },
+    {
+      "name": "Laufenburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Lauffohr (Brugg)",
+      "postalCodes": []
+    },
+    {
+      "name": "Leibstadt",
+      "postalCodes": []
+    },
+    {
+      "name": "Lenzburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Magden",
+      "postalCodes": []
+    },
+    {
+      "name": "Meisterschwanden",
+      "postalCodes": []
+    },
+    {
+      "name": "Mellingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Menziken",
+      "postalCodes": []
+    },
+    {
+      "name": "Merenschwand",
+      "postalCodes": []
+    },
+    {
+      "name": "Möhlin",
+      "postalCodes": []
+    },
+    {
+      "name": "Muhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Mumpf",
+      "postalCodes": []
+    },
+    {
+      "name": "Murgenthal",
+      "postalCodes": []
+    },
+    {
+      "name": "Muri",
+      "postalCodes": []
+    },
+    {
+      "name": "Neuenhof",
+      "postalCodes": []
+    },
+    {
+      "name": "Niederlenz",
+      "postalCodes": []
+    },
+    {
+      "name": "Niederrohrdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberentfelden",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberlunkhofen",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberrohrdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberrüti",
+      "postalCodes": []
+    },
+    {
+      "name": "Obersiggenthal",
+      "postalCodes": []
+    },
+    {
+      "name": "Oftringen",
+      "postalCodes": []
+    },
+    {
+      "name": "Othmarsingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Reinach",
+      "postalCodes": []
+    },
+    {
+      "name": "Rheinfelden",
+      "postalCodes": []
+    },
+    {
+      "name": "Rothrist",
+      "postalCodes": []
+    },
+    {
+      "name": "Rudolfstetten",
+      "postalCodes": []
+    },
+    {
+      "name": "Rupperswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Safenwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarmenstorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Schafisheim",
+      "postalCodes": []
+    },
+    {
+      "name": "Schinznach Bad",
+      "postalCodes": []
+    },
+    {
+      "name": "Schinznach Dorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Schöftland",
+      "postalCodes": []
+    },
+    {
+      "name": "Schwaderloch",
+      "postalCodes": []
+    },
+    {
+      "name": "Seengen",
+      "postalCodes": []
+    },
+    {
+      "name": "Seon",
+      "postalCodes": []
+    },
+    {
+      "name": "Sins",
+      "postalCodes": []
+    },
+    {
+      "name": "Spreitenbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Staffelbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Staufen",
+      "postalCodes": []
+    },
+    {
+      "name": "Stein",
+      "postalCodes": []
+    },
+    {
+      "name": "Strengelbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Suhr",
+      "postalCodes": []
+    },
+    {
+      "name": "Sulz",
+      "postalCodes": []
+    },
+    {
+      "name": "Tegerfelden",
+      "postalCodes": []
+    },
+    {
+      "name": "Teufenthal",
+      "postalCodes": []
+    },
+    {
+      "name": "Turgi",
+      "postalCodes": []
+    },
+    {
+      "name": "Uerkheim",
+      "postalCodes": []
+    },
+    {
+      "name": "Unterkulm",
+      "postalCodes": []
+    },
+    {
+      "name": "Unterlunkhofen",
+      "postalCodes": []
+    },
+    {
+      "name": "Untersiggenthal",
+      "postalCodes": []
+    },
+    {
+      "name": "Veltheim",
+      "postalCodes": []
+    },
+    {
+      "name": "Villigen",
+      "postalCodes": []
+    },
+    {
+      "name": "Villmergen",
+      "postalCodes": []
+    },
+    {
+      "name": "Villnachern",
+      "postalCodes": []
+    },
+    {
+      "name": "Vordemwald",
+      "postalCodes": []
+    },
+    {
+      "name": "Waltenschwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Wegenstetten",
+      "postalCodes": []
+    },
+    {
+      "name": "Wettingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Windisch",
+      "postalCodes": []
+    },
+    {
+      "name": "Wittnau",
+      "postalCodes": []
+    },
+    {
+      "name": "Wohlen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wölflinswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Würenlingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Würenlos",
+      "postalCodes": []
+    },
+    {
+      "name": "Zofingen",
+      "postalCodes": []
+    }
+  ],
+  "AR": [
+    {
+      "name": "Bezirk Hinterland",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Mittelland",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Vorderland",
+      "postalCodes": []
+    },
+    {
+      "name": "Bühler",
+      "postalCodes": []
+    },
+    {
+      "name": "Gais",
+      "postalCodes": []
+    },
+    {
+      "name": "Heiden",
+      "postalCodes": []
+    },
+    {
+      "name": "Herisau",
+      "postalCodes": []
+    },
+    {
+      "name": "Rehetobel",
+      "postalCodes": []
+    },
+    {
+      "name": "Schwellbrunn",
+      "postalCodes": []
+    },
+    {
+      "name": "Speicher",
+      "postalCodes": []
+    },
+    {
+      "name": "Teufen",
+      "postalCodes": []
+    },
+    {
+      "name": "Trogen",
+      "postalCodes": []
+    },
+    {
+      "name": "Urnäsch",
+      "postalCodes": []
+    },
+    {
+      "name": "Waldstatt",
+      "postalCodes": []
+    },
+    {
+      "name": "Walzenhausen",
+      "postalCodes": []
+    }
+  ],
+  "AI": [
+    {
+      "name": "Appenzell",
+      "postalCodes": []
+    },
+    {
+      "name": "Gonten",
+      "postalCodes": []
+    },
+    {
+      "name": "Haslen",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberegg",
+      "postalCodes": []
+    }
+  ],
+  "BL": [
+    {
+      "name": "Aesch",
+      "postalCodes": []
+    },
+    {
+      "name": "Allschwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Arisdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Arlesheim",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Arlesheim",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Laufen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Liestal",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Sissach",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Waldenburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Binningen",
+      "postalCodes": []
+    },
+    {
+      "name": "Birsfelden",
+      "postalCodes": []
+    },
+    {
+      "name": "Bottmingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Brislach",
+      "postalCodes": []
+    },
+    {
+      "name": "Bubendorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Buus",
+      "postalCodes": []
+    },
+    {
+      "name": "Diegten",
+      "postalCodes": []
+    },
+    {
+      "name": "Ettingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Frenkendorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Füllinsdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Gelterkinden",
+      "postalCodes": []
+    },
+    {
+      "name": "Grellingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Hölstein",
+      "postalCodes": []
+    },
+    {
+      "name": "Itingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Langenbruck",
+      "postalCodes": []
+    },
+    {
+      "name": "Läufelfingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Laufen",
+      "postalCodes": []
+    },
+    {
+      "name": "Lausen",
+      "postalCodes": []
+    },
+    {
+      "name": "Liesberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Liestal",
+      "postalCodes": []
+    },
+    {
+      "name": "Münchenstein",
+      "postalCodes": []
+    },
+    {
+      "name": "Muttenz",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Ormalingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Pfeffingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Pratteln",
+      "postalCodes": []
+    },
+    {
+      "name": "Reigoldswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Röschenz",
+      "postalCodes": []
+    },
+    {
+      "name": "Schönenbuch",
+      "postalCodes": []
+    },
+    {
+      "name": "Seltisberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Sissach",
+      "postalCodes": []
+    },
+    {
+      "name": "Therwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Wahlen",
+      "postalCodes": []
+    },
+    {
+      "name": "Waldenburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Zunzgen",
+      "postalCodes": []
+    },
+    {
+      "name": "Zwingen",
+      "postalCodes": []
+    }
+  ],
+  "BS": [
+    {
+      "name": "Basel",
+      "postalCodes": []
+    },
+    {
+      "name": "Bettingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Riehen",
+      "postalCodes": []
+    }
+  ],
+  "BE": [
+    {
+      "name": "Aarberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Aarwangen",
+      "postalCodes": []
+    },
+    {
+      "name": "Adelboden",
+      "postalCodes": []
+    },
+    {
+      "name": "Aeschi b. Spiez",
+      "postalCodes": []
+    },
+    {
+      "name": "Arch",
+      "postalCodes": []
+    },
+    {
+      "name": "Attiswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Bäriswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Bätterkinden",
+      "postalCodes": []
+    },
+    {
+      "name": "Beatenberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Bellmund",
+      "postalCodes": []
+    },
+    {
+      "name": "Belp",
+      "postalCodes": []
+    },
+    {
+      "name": "Bern",
+      "postalCodes": []
+    },
+    {
+      "name": "Bern-Mittelland District",
+      "postalCodes": []
+    },
+    {
+      "name": "Bévilard",
+      "postalCodes": []
+    },
+    {
+      "name": "Biel/Bienne",
+      "postalCodes": []
+    },
+    {
+      "name": "Biel/Bienne District",
+      "postalCodes": []
+    },
+    {
+      "name": "Biglen",
+      "postalCodes": []
+    },
+    {
+      "name": "Blumenstein",
+      "postalCodes": []
+    },
+    {
+      "name": "Bolligen",
+      "postalCodes": []
+    },
+    {
+      "name": "Boltigen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bönigen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bowil",
+      "postalCodes": []
+    },
+    {
+      "name": "Brienz",
+      "postalCodes": []
+    },
+    {
+      "name": "Brügg",
+      "postalCodes": []
+    },
+    {
+      "name": "Buchholterberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Burgdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Burgistein",
+      "postalCodes": []
+    },
+    {
+      "name": "Corgémont",
+      "postalCodes": []
+    },
+    {
+      "name": "Court",
+      "postalCodes": []
+    },
+    {
+      "name": "Courtelary",
+      "postalCodes": []
+    },
+    {
+      "name": "Därligen",
+      "postalCodes": []
+    },
+    {
+      "name": "Diemtigen",
+      "postalCodes": []
+    },
+    {
+      "name": "Dürrenroth",
+      "postalCodes": []
+    },
+    {
+      "name": "Eggiwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Emmental District",
+      "postalCodes": []
+    },
+    {
+      "name": "Eriswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Erlach",
+      "postalCodes": []
+    },
+    {
+      "name": "Erlenbach im Simmental",
+      "postalCodes": []
+    },
+    {
+      "name": "Ersigen",
+      "postalCodes": []
+    },
+    {
+      "name": "Evilard",
+      "postalCodes": []
+    },
+    {
+      "name": "Ferenbalm",
+      "postalCodes": []
+    },
+    {
+      "name": "Fraubrunnen",
+      "postalCodes": []
+    },
+    {
+      "name": "Frauenkappelen",
+      "postalCodes": []
+    },
+    {
+      "name": "Frutigen",
+      "postalCodes": []
+    },
+    {
+      "name": "Frutigen-Niedersimmental District",
+      "postalCodes": []
+    },
+    {
+      "name": "Grindelwald",
+      "postalCodes": []
+    },
+    {
+      "name": "Grossaffoltern",
+      "postalCodes": []
+    },
+    {
+      "name": "Gstaad",
+      "postalCodes": []
+    },
+    {
+      "name": "Guggisberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Heimberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Heimiswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Hermiswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Herzogenbuchsee",
+      "postalCodes": []
+    },
+    {
+      "name": "Hilterfingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Hindelbank",
+      "postalCodes": []
+    },
+    {
+      "name": "Huttwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Ins",
+      "postalCodes": []
+    },
+    {
+      "name": "Interlaken",
+      "postalCodes": []
+    },
+    {
+      "name": "Interlaken-Oberhasli District",
+      "postalCodes": []
+    },
+    {
+      "name": "Jegenstorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Jura bernois",
+      "postalCodes": []
+    },
+    {
+      "name": "Kallnach",
+      "postalCodes": []
+    },
+    {
+      "name": "Kandersteg",
+      "postalCodes": []
+    },
+    {
+      "name": "Kappelen",
+      "postalCodes": []
+    },
+    {
+      "name": "Kehrsatz",
+      "postalCodes": []
+    },
+    {
+      "name": "Kirchberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Kirchlindach",
+      "postalCodes": []
+    },
+    {
+      "name": "Köniz",
+      "postalCodes": []
+    },
+    {
+      "name": "Konolfingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Koppigen",
+      "postalCodes": []
+    },
+    {
+      "name": "Krauchthal",
+      "postalCodes": []
+    },
+    {
+      "name": "La Neuveville",
+      "postalCodes": []
+    },
+    {
+      "name": "Langenthal",
+      "postalCodes": []
+    },
+    {
+      "name": "Langnau",
+      "postalCodes": []
+    },
+    {
+      "name": "Laupen",
+      "postalCodes": []
+    },
+    {
+      "name": "Lauperswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Lauterbrunnen",
+      "postalCodes": []
+    },
+    {
+      "name": "Lengnau",
+      "postalCodes": []
+    },
+    {
+      "name": "Lenk",
+      "postalCodes": []
+    },
+    {
+      "name": "Leuzigen",
+      "postalCodes": []
+    },
+    {
+      "name": "Linden",
+      "postalCodes": []
+    },
+    {
+      "name": "Lotzwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Lützelflüh",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyss",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyssach",
+      "postalCodes": []
+    },
+    {
+      "name": "Madiswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Malleray",
+      "postalCodes": []
+    },
+    {
+      "name": "Matten",
+      "postalCodes": []
+    },
+    {
+      "name": "Meinisberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Meiringen",
+      "postalCodes": []
+    },
+    {
+      "name": "Melchnau",
+      "postalCodes": []
+    },
+    {
+      "name": "Moutier",
+      "postalCodes": []
+    },
+    {
+      "name": "Mühleberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Mühlethurnen",
+      "postalCodes": []
+    },
+    {
+      "name": "Münchenbuchsee",
+      "postalCodes": []
+    },
+    {
+      "name": "Münchenwiler",
+      "postalCodes": []
+    },
+    {
+      "name": "Münsingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Müntschemier",
+      "postalCodes": []
+    },
+    {
+      "name": "Muri",
+      "postalCodes": []
+    },
+    {
+      "name": "Nidau",
+      "postalCodes": []
+    },
+    {
+      "name": "Niederbipp",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberaargau",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberbipp",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberdiessbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Obersimmental-Saanen District",
+      "postalCodes": []
+    },
+    {
+      "name": "Orpund",
+      "postalCodes": []
+    },
+    {
+      "name": "Orvin",
+      "postalCodes": []
+    },
+    {
+      "name": "Péry",
+      "postalCodes": []
+    },
+    {
+      "name": "Pieterlen",
+      "postalCodes": []
+    },
+    {
+      "name": "Radelfingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Reconvilier",
+      "postalCodes": []
+    },
+    {
+      "name": "Riggisberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Ringgenberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Roggwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Rohrbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Rubigen",
+      "postalCodes": []
+    },
+    {
+      "name": "Rüderswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Rüeggisberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Rüschegg",
+      "postalCodes": []
+    },
+    {
+      "name": "Saanen",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Imier",
+      "postalCodes": []
+    },
+    {
+      "name": "Sankt Stephan",
+      "postalCodes": []
+    },
+    {
+      "name": "Schüpfen",
+      "postalCodes": []
+    },
+    {
+      "name": "Seeberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Seedorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Seeland District",
+      "postalCodes": []
+    },
+    {
+      "name": "Seftigen",
+      "postalCodes": []
+    },
+    {
+      "name": "Signau",
+      "postalCodes": []
+    },
+    {
+      "name": "Sigriswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Spiez",
+      "postalCodes": []
+    },
+    {
+      "name": "Steffisburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Stettlen",
+      "postalCodes": []
+    },
+    {
+      "name": "Sumiswald",
+      "postalCodes": []
+    },
+    {
+      "name": "Täuffelen",
+      "postalCodes": []
+    },
+    {
+      "name": "Tavannes",
+      "postalCodes": []
+    },
+    {
+      "name": "Thierachern",
+      "postalCodes": []
+    },
+    {
+      "name": "Thun",
+      "postalCodes": []
+    },
+    {
+      "name": "Thun District",
+      "postalCodes": []
+    },
+    {
+      "name": "Toffen",
+      "postalCodes": []
+    },
+    {
+      "name": "Trachselwald",
+      "postalCodes": []
+    },
+    {
+      "name": "Tramelan",
+      "postalCodes": []
+    },
+    {
+      "name": "Trub",
+      "postalCodes": []
+    },
+    {
+      "name": "Trubschachen",
+      "postalCodes": []
+    },
+    {
+      "name": "Uetendorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Unterseen",
+      "postalCodes": []
+    },
+    {
+      "name": "Urtenen",
+      "postalCodes": []
+    },
+    {
+      "name": "Uttigen",
+      "postalCodes": []
+    },
+    {
+      "name": "Utzenstorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Vechigen",
+      "postalCodes": []
+    },
+    {
+      "name": "Walkringen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wangen an der Aare",
+      "postalCodes": []
+    },
+    {
+      "name": "Wattenwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Wichtrach",
+      "postalCodes": []
+    },
+    {
+      "name": "Wiedlisbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Wilderswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Wimmis",
+      "postalCodes": []
+    },
+    {
+      "name": "Wohlen",
+      "postalCodes": []
+    },
+    {
+      "name": "Worb",
+      "postalCodes": []
+    },
+    {
+      "name": "Worben",
+      "postalCodes": []
+    },
+    {
+      "name": "Wynau",
+      "postalCodes": []
+    },
+    {
+      "name": "Wynigen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wyssachen",
+      "postalCodes": []
+    },
+    {
+      "name": "Zäziwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Zollikofen",
+      "postalCodes": []
+    },
+    {
+      "name": "Zweisimmen",
+      "postalCodes": []
+    }
+  ],
+  "FR": [
+    {
+      "name": "Alterswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Attalens",
+      "postalCodes": []
+    },
+    {
+      "name": "Avry-sur-Matran",
+      "postalCodes": []
+    },
+    {
+      "name": "Bas-Vully",
+      "postalCodes": []
+    },
+    {
+      "name": "Belfaux",
+      "postalCodes": []
+    },
+    {
+      "name": "Bösingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Broc",
+      "postalCodes": []
+    },
+    {
+      "name": "Broye District",
+      "postalCodes": []
+    },
+    {
+      "name": "Bulle",
+      "postalCodes": []
+    },
+    {
+      "name": "Charmey",
+      "postalCodes": []
+    },
+    {
+      "name": "Châtel-Saint-Denis",
+      "postalCodes": []
+    },
+    {
+      "name": "Corminboeuf",
+      "postalCodes": []
+    },
+    {
+      "name": "Courgevaux",
+      "postalCodes": []
+    },
+    {
+      "name": "Cugy",
+      "postalCodes": []
+    },
+    {
+      "name": "Domdidier",
+      "postalCodes": []
+    },
+    {
+      "name": "Düdingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Ecublens",
+      "postalCodes": []
+    },
+    {
+      "name": "Ependes",
+      "postalCodes": []
+    },
+    {
+      "name": "Estavayer-le-Lac",
+      "postalCodes": []
+    },
+    {
+      "name": "Flamatt",
+      "postalCodes": []
+    },
+    {
+      "name": "Fribourg",
+      "postalCodes": []
+    },
+    {
+      "name": "Giffers",
+      "postalCodes": []
+    },
+    {
+      "name": "Givisiez",
+      "postalCodes": []
+    },
+    {
+      "name": "Glâne District",
+      "postalCodes": []
+    },
+    {
+      "name": "Grolley",
+      "postalCodes": []
+    },
+    {
+      "name": "Gruyère District",
+      "postalCodes": []
+    },
+    {
+      "name": "Gruyères",
+      "postalCodes": []
+    },
+    {
+      "name": "Heitenried",
+      "postalCodes": []
+    },
+    {
+      "name": "Kerzers",
+      "postalCodes": []
+    },
+    {
+      "name": "La Roche",
+      "postalCodes": []
+    },
+    {
+      "name": "La Tour-de-Trême",
+      "postalCodes": []
+    },
+    {
+      "name": "Lake District",
+      "postalCodes": []
+    },
+    {
+      "name": "Marly",
+      "postalCodes": []
+    },
+    {
+      "name": "Marsens",
+      "postalCodes": []
+    },
+    {
+      "name": "Mézières",
+      "postalCodes": []
+    },
+    {
+      "name": "Murten/Morat",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberschrot",
+      "postalCodes": []
+    },
+    {
+      "name": "Plaffeien",
+      "postalCodes": []
+    },
+    {
+      "name": "Praroman",
+      "postalCodes": []
+    },
+    {
+      "name": "Rechthalten",
+      "postalCodes": []
+    },
+    {
+      "name": "Riaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Romont",
+      "postalCodes": []
+    },
+    {
+      "name": "Rue",
+      "postalCodes": []
+    },
+    {
+      "name": "Sâles",
+      "postalCodes": []
+    },
+    {
+      "name": "Sankt Antoni",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarine District",
+      "postalCodes": []
+    },
+    {
+      "name": "Schmitten",
+      "postalCodes": []
+    },
+    {
+      "name": "Sense District",
+      "postalCodes": []
+    },
+    {
+      "name": "Tafers",
+      "postalCodes": []
+    },
+    {
+      "name": "Treyvaux",
+      "postalCodes": []
+    },
+    {
+      "name": "Ueberstorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Veveyse District",
+      "postalCodes": []
+    },
+    {
+      "name": "Villars-sur-Glâne",
+      "postalCodes": []
+    },
+    {
+      "name": "Villaz-Saint-Pierre",
+      "postalCodes": []
+    },
+    {
+      "name": "Vuadens",
+      "postalCodes": []
+    }
+  ],
+  "GE": [
+    {
+      "name": "Aire-la-Ville",
+      "postalCodes": []
+    },
+    {
+      "name": "Anières",
+      "postalCodes": []
+    },
+    {
+      "name": "Bellevue",
+      "postalCodes": []
+    },
+    {
+      "name": "Bernex",
+      "postalCodes": []
+    },
+    {
+      "name": "Carouge",
+      "postalCodes": []
+    },
+    {
+      "name": "Chancy",
+      "postalCodes": []
+    },
+    {
+      "name": "Chêne-Bougeries",
+      "postalCodes": []
+    },
+    {
+      "name": "Chêne-Bourg",
+      "postalCodes": []
+    },
+    {
+      "name": "Confignon",
+      "postalCodes": []
+    },
+    {
+      "name": "Corsier",
+      "postalCodes": []
+    },
+    {
+      "name": "Dardagny",
+      "postalCodes": []
+    },
+    {
+      "name": "Genève",
+      "postalCodes": []
+    },
+    {
+      "name": "Jussy",
+      "postalCodes": []
+    },
+    {
+      "name": "Lancy",
+      "postalCodes": []
+    },
+    {
+      "name": "Le Grand-Saconnex",
+      "postalCodes": []
+    },
+    {
+      "name": "Les Avanchets",
+      "postalCodes": []
+    },
+    {
+      "name": "Meinier",
+      "postalCodes": []
+    },
+    {
+      "name": "Meyrin",
+      "postalCodes": []
+    },
+    {
+      "name": "Onex",
+      "postalCodes": []
+    },
+    {
+      "name": "Plan-les-Ouates",
+      "postalCodes": []
+    },
+    {
+      "name": "Puplinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Satigny",
+      "postalCodes": []
+    },
+    {
+      "name": "Thônex",
+      "postalCodes": []
+    },
+    {
+      "name": "Troinex",
+      "postalCodes": []
+    },
+    {
+      "name": "Vandœuvres",
+      "postalCodes": []
+    },
+    {
+      "name": "Vernier",
+      "postalCodes": []
+    },
+    {
+      "name": "Versoix",
+      "postalCodes": []
+    },
+    {
+      "name": "Veyrier",
+      "postalCodes": []
+    }
+  ],
+  "GL": [
+    {
+      "name": "Bilten",
+      "postalCodes": []
+    },
+    {
+      "name": "Ennenda",
+      "postalCodes": []
+    },
+    {
+      "name": "Glarus",
+      "postalCodes": []
+    },
+    {
+      "name": "Linthal",
+      "postalCodes": []
+    },
+    {
+      "name": "Luchsingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Mollis",
+      "postalCodes": []
+    },
+    {
+      "name": "Näfels",
+      "postalCodes": []
+    },
+    {
+      "name": "Netstal",
+      "postalCodes": []
+    },
+    {
+      "name": "Niederurnen",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberurnen",
+      "postalCodes": []
+    },
+    {
+      "name": "Schwanden",
+      "postalCodes": []
+    }
+  ],
+  "GR": [
+    {
+      "name": "Arosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Arvigo",
+      "postalCodes": []
+    },
+    {
+      "name": "Bonaduz",
+      "postalCodes": []
+    },
+    {
+      "name": "Breíl",
+      "postalCodes": []
+    },
+    {
+      "name": "Brusio",
+      "postalCodes": []
+    },
+    {
+      "name": "Buseno",
+      "postalCodes": []
+    },
+    {
+      "name": "Cauco",
+      "postalCodes": []
+    },
+    {
+      "name": "Cazis",
+      "postalCodes": []
+    },
+    {
+      "name": "Celerina",
+      "postalCodes": []
+    },
+    {
+      "name": "Chur",
+      "postalCodes": []
+    },
+    {
+      "name": "Churwalden",
+      "postalCodes": []
+    },
+    {
+      "name": "Davos",
+      "postalCodes": []
+    },
+    {
+      "name": "Disentis",
+      "postalCodes": []
+    },
+    {
+      "name": "Domat",
+      "postalCodes": []
+    },
+    {
+      "name": "Felsberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Flims",
+      "postalCodes": []
+    },
+    {
+      "name": "Grüsch",
+      "postalCodes": []
+    },
+    {
+      "name": "Hinterrhein",
+      "postalCodes": []
+    },
+    {
+      "name": "Igis",
+      "postalCodes": []
+    },
+    {
+      "name": "Ilanz",
+      "postalCodes": []
+    },
+    {
+      "name": "Jenaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Klosters Serneus",
+      "postalCodes": []
+    },
+    {
+      "name": "La Punt Chamues-ch",
+      "postalCodes": []
+    },
+    {
+      "name": "Laax",
+      "postalCodes": []
+    },
+    {
+      "name": "Landquart",
+      "postalCodes": []
+    },
+    {
+      "name": "Lenzerheide",
+      "postalCodes": []
+    },
+    {
+      "name": "Luzein",
+      "postalCodes": []
+    },
+    {
+      "name": "Maienfeld",
+      "postalCodes": []
+    },
+    {
+      "name": "Malans",
+      "postalCodes": []
+    },
+    {
+      "name": "Mesocco",
+      "postalCodes": []
+    },
+    {
+      "name": "Pontresina",
+      "postalCodes": []
+    },
+    {
+      "name": "Poschiavo",
+      "postalCodes": []
+    },
+    {
+      "name": "Region Albula",
+      "postalCodes": []
+    },
+    {
+      "name": "Region Bernina",
+      "postalCodes": []
+    },
+    {
+      "name": "Region Engiadina Bassa / Val Müstair",
+      "postalCodes": []
+    },
+    {
+      "name": "Region Imboden",
+      "postalCodes": []
+    },
+    {
+      "name": "Region Landquart",
+      "postalCodes": []
+    },
+    {
+      "name": "Region Maloja",
+      "postalCodes": []
+    },
+    {
+      "name": "Region Moesa",
+      "postalCodes": []
+    },
+    {
+      "name": "Region Plessur",
+      "postalCodes": []
+    },
+    {
+      "name": "Region Prättigau / Davos",
+      "postalCodes": []
+    },
+    {
+      "name": "Region Surselva",
+      "postalCodes": []
+    },
+    {
+      "name": "Region Viamala",
+      "postalCodes": []
+    },
+    {
+      "name": "Rhäzüns",
+      "postalCodes": []
+    },
+    {
+      "name": "Samedan",
+      "postalCodes": []
+    },
+    {
+      "name": "Scharans",
+      "postalCodes": []
+    },
+    {
+      "name": "Schiers",
+      "postalCodes": []
+    },
+    {
+      "name": "Scuol",
+      "postalCodes": []
+    },
+    {
+      "name": "Silvaplana",
+      "postalCodes": []
+    },
+    {
+      "name": "St. Moritz",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamins",
+      "postalCodes": []
+    },
+    {
+      "name": "Thusis",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiefencastel",
+      "postalCodes": []
+    },
+    {
+      "name": "Trimmis",
+      "postalCodes": []
+    },
+    {
+      "name": "Trun",
+      "postalCodes": []
+    },
+    {
+      "name": "Untervaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Vals Platz",
+      "postalCodes": []
+    },
+    {
+      "name": "Zernez",
+      "postalCodes": []
+    },
+    {
+      "name": "Zizers",
+      "postalCodes": []
+    },
+    {
+      "name": "Zuoz",
+      "postalCodes": []
+    }
+  ],
+  "JU": [
+    {
+      "name": "Alle",
+      "postalCodes": []
+    },
+    {
+      "name": "Bassecourt",
+      "postalCodes": []
+    },
+    {
+      "name": "Boncourt",
+      "postalCodes": []
+    },
+    {
+      "name": "Courfaivre",
+      "postalCodes": []
+    },
+    {
+      "name": "Courgenay",
+      "postalCodes": []
+    },
+    {
+      "name": "Courrendlin",
+      "postalCodes": []
+    },
+    {
+      "name": "Courroux",
+      "postalCodes": []
+    },
+    {
+      "name": "Courtételle",
+      "postalCodes": []
+    },
+    {
+      "name": "Delémont",
+      "postalCodes": []
+    },
+    {
+      "name": "Delémont District",
+      "postalCodes": []
+    },
+    {
+      "name": "Fontenais",
+      "postalCodes": []
+    },
+    {
+      "name": "Franches-Montagnes District",
+      "postalCodes": []
+    },
+    {
+      "name": "Glovelier",
+      "postalCodes": []
+    },
+    {
+      "name": "Le Noirmont",
+      "postalCodes": []
+    },
+    {
+      "name": "Les Bois",
+      "postalCodes": []
+    },
+    {
+      "name": "Les Breuleux",
+      "postalCodes": []
+    },
+    {
+      "name": "Porrentruy",
+      "postalCodes": []
+    },
+    {
+      "name": "Porrentruy District",
+      "postalCodes": []
+    },
+    {
+      "name": "Saignelégier",
+      "postalCodes": []
+    },
+    {
+      "name": "Vicques",
+      "postalCodes": []
+    }
+  ],
+  "LU": [
+    {
+      "name": "Adligenswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Altishofen",
+      "postalCodes": []
+    },
+    {
+      "name": "Ballwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Beromünster",
+      "postalCodes": []
+    },
+    {
+      "name": "Buchrain",
+      "postalCodes": []
+    },
+    {
+      "name": "Büron",
+      "postalCodes": []
+    },
+    {
+      "name": "Buttisholz",
+      "postalCodes": []
+    },
+    {
+      "name": "Dagmersellen",
+      "postalCodes": []
+    },
+    {
+      "name": "Ebikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Eich",
+      "postalCodes": []
+    },
+    {
+      "name": "Emmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Entlebuch",
+      "postalCodes": []
+    },
+    {
+      "name": "Entlebuch District",
+      "postalCodes": []
+    },
+    {
+      "name": "Escholzmatt",
+      "postalCodes": []
+    },
+    {
+      "name": "Ettiswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Flühli",
+      "postalCodes": []
+    },
+    {
+      "name": "Geuensee",
+      "postalCodes": []
+    },
+    {
+      "name": "Grosswangen",
+      "postalCodes": []
+    },
+    {
+      "name": "Gunzwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Hasle",
+      "postalCodes": []
+    },
+    {
+      "name": "Hildisrieden",
+      "postalCodes": []
+    },
+    {
+      "name": "Hitzkirch",
+      "postalCodes": []
+    },
+    {
+      "name": "Hochdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Hochdorf District",
+      "postalCodes": []
+    },
+    {
+      "name": "Hohenrain",
+      "postalCodes": []
+    },
+    {
+      "name": "Horw",
+      "postalCodes": []
+    },
+    {
+      "name": "Inwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Knutwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Kriens",
+      "postalCodes": []
+    },
+    {
+      "name": "Littau",
+      "postalCodes": []
+    },
+    {
+      "name": "Lucerne-Land District",
+      "postalCodes": []
+    },
+    {
+      "name": "Lucerne-Stadt District",
+      "postalCodes": []
+    },
+    {
+      "name": "Luthern",
+      "postalCodes": []
+    },
+    {
+      "name": "Luzern",
+      "postalCodes": []
+    },
+    {
+      "name": "Malters",
+      "postalCodes": []
+    },
+    {
+      "name": "Mauensee",
+      "postalCodes": []
+    },
+    {
+      "name": "Meggen",
+      "postalCodes": []
+    },
+    {
+      "name": "Meierskappel",
+      "postalCodes": []
+    },
+    {
+      "name": "Menznau",
+      "postalCodes": []
+    },
+    {
+      "name": "Nebikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Neudorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Neuenkirch",
+      "postalCodes": []
+    },
+    {
+      "name": "Nottwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberkirch",
+      "postalCodes": []
+    },
+    {
+      "name": "Pfaffnau",
+      "postalCodes": []
+    },
+    {
+      "name": "Reiden",
+      "postalCodes": []
+    },
+    {
+      "name": "Römerswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Root",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Schenkon",
+      "postalCodes": []
+    },
+    {
+      "name": "Schötz",
+      "postalCodes": []
+    },
+    {
+      "name": "Schüpfheim",
+      "postalCodes": []
+    },
+    {
+      "name": "Schwarzenberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Sempach",
+      "postalCodes": []
+    },
+    {
+      "name": "Sursee",
+      "postalCodes": []
+    },
+    {
+      "name": "Sursee District",
+      "postalCodes": []
+    },
+    {
+      "name": "Triengen",
+      "postalCodes": []
+    },
+    {
+      "name": "Udligenswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Vitznau",
+      "postalCodes": []
+    },
+    {
+      "name": "Wauwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Weggis",
+      "postalCodes": []
+    },
+    {
+      "name": "Werthenstein",
+      "postalCodes": []
+    },
+    {
+      "name": "Wikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Willisau",
+      "postalCodes": []
+    },
+    {
+      "name": "Willisau District",
+      "postalCodes": []
+    },
+    {
+      "name": "Wolhusen",
+      "postalCodes": []
+    },
+    {
+      "name": "Zell",
+      "postalCodes": []
+    }
+  ],
+  "NE": [
+    {
+      "name": "Auvernier",
+      "postalCodes": []
+    },
+    {
+      "name": "Bevaix",
+      "postalCodes": []
+    },
+    {
+      "name": "Boudry",
+      "postalCodes": []
+    },
+    {
+      "name": "Boudry District",
+      "postalCodes": []
+    },
+    {
+      "name": "Cernier",
+      "postalCodes": []
+    },
+    {
+      "name": "Chézard-Saint-Martin",
+      "postalCodes": []
+    },
+    {
+      "name": "Cornaux",
+      "postalCodes": []
+    },
+    {
+      "name": "Cortaillod",
+      "postalCodes": []
+    },
+    {
+      "name": "Couvet",
+      "postalCodes": []
+    },
+    {
+      "name": "Dombresson",
+      "postalCodes": []
+    },
+    {
+      "name": "Fleurier",
+      "postalCodes": []
+    },
+    {
+      "name": "Fontainemelon",
+      "postalCodes": []
+    },
+    {
+      "name": "Gorgier",
+      "postalCodes": []
+    },
+    {
+      "name": "Grand-Savagnier",
+      "postalCodes": []
+    },
+    {
+      "name": "La Chaux-de-Fonds",
+      "postalCodes": []
+    },
+    {
+      "name": "La Chaux-de-Fonds District",
+      "postalCodes": []
+    },
+    {
+      "name": "Le Landeron",
+      "postalCodes": []
+    },
+    {
+      "name": "Le Locle",
+      "postalCodes": []
+    },
+    {
+      "name": "Le Locle District",
+      "postalCodes": []
+    },
+    {
+      "name": "Les Brenets",
+      "postalCodes": []
+    },
+    {
+      "name": "Les Geneveys-sur-Coffrane",
+      "postalCodes": []
+    },
+    {
+      "name": "Les Ponts-de-Martel",
+      "postalCodes": []
+    },
+    {
+      "name": "Marin-Epagnier",
+      "postalCodes": []
+    },
+    {
+      "name": "Neuchâtel",
+      "postalCodes": []
+    },
+    {
+      "name": "Neuchâtel District",
+      "postalCodes": []
+    },
+    {
+      "name": "Peseux",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Aubin-Sauges",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Blaise",
+      "postalCodes": []
+    },
+    {
+      "name": "Travers",
+      "postalCodes": []
+    },
+    {
+      "name": "Val-de-Ruz District",
+      "postalCodes": []
+    },
+    {
+      "name": "Val-de-Travers District",
+      "postalCodes": []
+    }
+  ],
+  "NW": [
+    {
+      "name": "Beckenried",
+      "postalCodes": []
+    },
+    {
+      "name": "Buochs",
+      "postalCodes": []
+    },
+    {
+      "name": "Dallenwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Emmetten",
+      "postalCodes": []
+    },
+    {
+      "name": "Ennetbürgen",
+      "postalCodes": []
+    },
+    {
+      "name": "Hergiswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Stans",
+      "postalCodes": []
+    },
+    {
+      "name": "Stansstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Wolfenschiessen",
+      "postalCodes": []
+    }
+  ],
+  "OW": [
+    {
+      "name": "Alpnach",
+      "postalCodes": []
+    },
+    {
+      "name": "Engelberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Giswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Kerns",
+      "postalCodes": []
+    },
+    {
+      "name": "Lungern",
+      "postalCodes": []
+    },
+    {
+      "name": "Sachseln",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarnen",
+      "postalCodes": []
+    }
+  ],
+  "SH": [
+    {
+      "name": "Beringen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Oberklettgau",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Reiat",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Schaffhausen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Schleitheim",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Stein",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Unterklettgau",
+      "postalCodes": []
+    },
+    {
+      "name": "Hallau",
+      "postalCodes": []
+    },
+    {
+      "name": "Löhningen",
+      "postalCodes": []
+    },
+    {
+      "name": "Neuhausen",
+      "postalCodes": []
+    },
+    {
+      "name": "Neunkirch",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramsen",
+      "postalCodes": []
+    },
+    {
+      "name": "Schaffhausen",
+      "postalCodes": []
+    },
+    {
+      "name": "Schleitheim",
+      "postalCodes": []
+    },
+    {
+      "name": "Stein am Rhein",
+      "postalCodes": []
+    },
+    {
+      "name": "Stetten",
+      "postalCodes": []
+    },
+    {
+      "name": "Thayngen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wilchingen",
+      "postalCodes": []
+    }
+  ],
+  "SZ": [
+    {
+      "name": "Altendorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Arth",
+      "postalCodes": []
+    },
+    {
+      "name": "Bäch",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Einsiedeln",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Gersau",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Höfe",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Küssnacht",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk March",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Schwyz",
+      "postalCodes": []
+    },
+    {
+      "name": "Einsiedeln",
+      "postalCodes": []
+    },
+    {
+      "name": "Feusisberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Freienbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Gersau",
+      "postalCodes": []
+    },
+    {
+      "name": "Goldau",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibach",
+      "postalCodes": []
+    },
+    {
+      "name": "Ingenbohl",
+      "postalCodes": []
+    },
+    {
+      "name": "Küssnacht",
+      "postalCodes": []
+    },
+    {
+      "name": "Lachen",
+      "postalCodes": []
+    },
+    {
+      "name": "Muotathal",
+      "postalCodes": []
+    },
+    {
+      "name": "Pfäffikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Reichenburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Rothenthurm",
+      "postalCodes": []
+    },
+    {
+      "name": "Sattel",
+      "postalCodes": []
+    },
+    {
+      "name": "Schindellegi",
+      "postalCodes": []
+    },
+    {
+      "name": "Schübelbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Schwyz",
+      "postalCodes": []
+    },
+    {
+      "name": "Siebnen",
+      "postalCodes": []
+    },
+    {
+      "name": "Steinen",
+      "postalCodes": []
+    },
+    {
+      "name": "Tuggen",
+      "postalCodes": []
+    },
+    {
+      "name": "Unteriberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Vorderthal",
+      "postalCodes": []
+    },
+    {
+      "name": "Wollerau",
+      "postalCodes": []
+    }
+  ],
+  "SO": [
+    {
+      "name": "Balsthal",
+      "postalCodes": []
+    },
+    {
+      "name": "Bettlach",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Bucheggberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Dorneck",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Gäu",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Gösgen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Lebern",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Olten",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Solothurn",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Thal",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Thierstein",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Wasseramt",
+      "postalCodes": []
+    },
+    {
+      "name": "Biberist",
+      "postalCodes": []
+    },
+    {
+      "name": "Breitenbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Büsserach",
+      "postalCodes": []
+    },
+    {
+      "name": "Deitingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Derendingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Dornach",
+      "postalCodes": []
+    },
+    {
+      "name": "Egerkingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Erlinsbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Fulenbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Gerlafingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Grenchen",
+      "postalCodes": []
+    },
+    {
+      "name": "Gunzgen",
+      "postalCodes": []
+    },
+    {
+      "name": "Hägendorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Himmelried",
+      "postalCodes": []
+    },
+    {
+      "name": "Hochwald",
+      "postalCodes": []
+    },
+    {
+      "name": "Kleinlützel",
+      "postalCodes": []
+    },
+    {
+      "name": "Kriegstetten",
+      "postalCodes": []
+    },
+    {
+      "name": "Langendorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Laupersdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Lostorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Luterbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Matzendorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Messen",
+      "postalCodes": []
+    },
+    {
+      "name": "Niedergösgen",
+      "postalCodes": []
+    },
+    {
+      "name": "Nunningen",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberbuchsiten",
+      "postalCodes": []
+    },
+    {
+      "name": "Obergösgen",
+      "postalCodes": []
+    },
+    {
+      "name": "Oensingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Olten",
+      "postalCodes": []
+    },
+    {
+      "name": "Riedholz",
+      "postalCodes": []
+    },
+    {
+      "name": "Rodersdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Rohr",
+      "postalCodes": []
+    },
+    {
+      "name": "Schönenwerd",
+      "postalCodes": []
+    },
+    {
+      "name": "Selzach",
+      "postalCodes": []
+    },
+    {
+      "name": "Solothurn",
+      "postalCodes": []
+    },
+    {
+      "name": "Subingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Trimbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Wangen",
+      "postalCodes": []
+    },
+    {
+      "name": "Welschenrohr",
+      "postalCodes": []
+    },
+    {
+      "name": "Wolfwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Zuchwil",
+      "postalCodes": []
+    }
+  ],
+  "SG": [
+    {
+      "name": "Altstätten",
+      "postalCodes": []
+    },
+    {
+      "name": "Amden",
+      "postalCodes": []
+    },
+    {
+      "name": "Andwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Au",
+      "postalCodes": []
+    },
+    {
+      "name": "Bad Ragaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Balgach",
+      "postalCodes": []
+    },
+    {
+      "name": "Benken",
+      "postalCodes": []
+    },
+    {
+      "name": "Bronschhofen",
+      "postalCodes": []
+    },
+    {
+      "name": "Buchs",
+      "postalCodes": []
+    },
+    {
+      "name": "Bütschwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Degersheim",
+      "postalCodes": []
+    },
+    {
+      "name": "Diepoldsau",
+      "postalCodes": []
+    },
+    {
+      "name": "Ebnat-Kappel",
+      "postalCodes": []
+    },
+    {
+      "name": "Eggersriet",
+      "postalCodes": []
+    },
+    {
+      "name": "Eichberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Eschenbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Flawil",
+      "postalCodes": []
+    },
+    {
+      "name": "Flums",
+      "postalCodes": []
+    },
+    {
+      "name": "Gams",
+      "postalCodes": []
+    },
+    {
+      "name": "Ganterschwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Goldach",
+      "postalCodes": []
+    },
+    {
+      "name": "Goldingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Gommiswald",
+      "postalCodes": []
+    },
+    {
+      "name": "Gossau",
+      "postalCodes": []
+    },
+    {
+      "name": "Grabs",
+      "postalCodes": []
+    },
+    {
+      "name": "Haag (Rheintal)",
+      "postalCodes": []
+    },
+    {
+      "name": "Häggenschwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Horn",
+      "postalCodes": []
+    },
+    {
+      "name": "Jona",
+      "postalCodes": []
+    },
+    {
+      "name": "Jonschwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaltbrunn",
+      "postalCodes": []
+    },
+    {
+      "name": "Kirchberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Krummenau",
+      "postalCodes": []
+    },
+    {
+      "name": "Lichtensteig",
+      "postalCodes": []
+    },
+    {
+      "name": "Lütisburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Mogelsberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Mörschwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosnang",
+      "postalCodes": []
+    },
+    {
+      "name": "Muolen",
+      "postalCodes": []
+    },
+    {
+      "name": "Niederbüren",
+      "postalCodes": []
+    },
+    {
+      "name": "Niederhelfenschwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberhelfenschwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberriet",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberuzwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Quarten",
+      "postalCodes": []
+    },
+    {
+      "name": "Rapperswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Rebstein",
+      "postalCodes": []
+    },
+    {
+      "name": "Rheineck",
+      "postalCodes": []
+    },
+    {
+      "name": "Rorschach",
+      "postalCodes": []
+    },
+    {
+      "name": "Rüthi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sankt Gallen",
+      "postalCodes": []
+    },
+    {
+      "name": "Sankt Gallenkappel",
+      "postalCodes": []
+    },
+    {
+      "name": "Sankt Margrethen",
+      "postalCodes": []
+    },
+    {
+      "name": "Sankt Peterzell",
+      "postalCodes": []
+    },
+    {
+      "name": "Sargans",
+      "postalCodes": []
+    },
+    {
+      "name": "Schänis",
+      "postalCodes": []
+    },
+    {
+      "name": "Schmerikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Sennwald",
+      "postalCodes": []
+    },
+    {
+      "name": "Sevelen",
+      "postalCodes": []
+    },
+    {
+      "name": "Thal",
+      "postalCodes": []
+    },
+    {
+      "name": "Uznach",
+      "postalCodes": []
+    },
+    {
+      "name": "Uzwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Wahlkreis Rheintal",
+      "postalCodes": []
+    },
+    {
+      "name": "Wahlkreis Rorschach",
+      "postalCodes": []
+    },
+    {
+      "name": "Wahlkreis Sarganserland",
+      "postalCodes": []
+    },
+    {
+      "name": "Wahlkreis See-Gaster",
+      "postalCodes": []
+    },
+    {
+      "name": "Wahlkreis St. Gallen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wahlkreis Toggenburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Wahlkreis Werdenberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Wahlkreis Wil",
+      "postalCodes": []
+    },
+    {
+      "name": "Waldkirch",
+      "postalCodes": []
+    },
+    {
+      "name": "Walenstadt",
+      "postalCodes": []
+    },
+    {
+      "name": "Wattwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Weesen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wil",
+      "postalCodes": []
+    },
+    {
+      "name": "Wildhaus",
+      "postalCodes": []
+    },
+    {
+      "name": "Wittenbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Zuzwil",
+      "postalCodes": []
+    }
+  ],
+  "TG": [
+    {
+      "name": "Aadorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Affeltrangen",
+      "postalCodes": []
+    },
+    {
+      "name": "Altnau",
+      "postalCodes": []
+    },
+    {
+      "name": "Amriswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Arbon",
+      "postalCodes": []
+    },
+    {
+      "name": "Arbon District",
+      "postalCodes": []
+    },
+    {
+      "name": "Berg",
+      "postalCodes": []
+    },
+    {
+      "name": "Bottighofen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bürglen",
+      "postalCodes": []
+    },
+    {
+      "name": "Diessenhofen",
+      "postalCodes": []
+    },
+    {
+      "name": "Egnach",
+      "postalCodes": []
+    },
+    {
+      "name": "Erlen",
+      "postalCodes": []
+    },
+    {
+      "name": "Ermatingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Eschenz",
+      "postalCodes": []
+    },
+    {
+      "name": "Eschlikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Fischingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Frauenfeld",
+      "postalCodes": []
+    },
+    {
+      "name": "Frauenfeld District",
+      "postalCodes": []
+    },
+    {
+      "name": "Gachnang",
+      "postalCodes": []
+    },
+    {
+      "name": "Gottlieben",
+      "postalCodes": []
+    },
+    {
+      "name": "Güttingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Homburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Hüttwilen",
+      "postalCodes": []
+    },
+    {
+      "name": "Kreuzlingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Kreuzlingen District",
+      "postalCodes": []
+    },
+    {
+      "name": "Langrickenbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Märstetten-Dorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Matzingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Müllheim",
+      "postalCodes": []
+    },
+    {
+      "name": "Münchwilen",
+      "postalCodes": []
+    },
+    {
+      "name": "Münchwilen District",
+      "postalCodes": []
+    },
+    {
+      "name": "Münsterlingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Pfyn",
+      "postalCodes": []
+    },
+    {
+      "name": "Rickenbach bei Wil",
+      "postalCodes": []
+    },
+    {
+      "name": "Roggwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Romanshorn",
+      "postalCodes": []
+    },
+    {
+      "name": "Salmsach",
+      "postalCodes": []
+    },
+    {
+      "name": "Sirnach",
+      "postalCodes": []
+    },
+    {
+      "name": "Steckborn",
+      "postalCodes": []
+    },
+    {
+      "name": "Stettfurt",
+      "postalCodes": []
+    },
+    {
+      "name": "Sulgen",
+      "postalCodes": []
+    },
+    {
+      "name": "Tägerwilen",
+      "postalCodes": []
+    },
+    {
+      "name": "Thundorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Uttwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Wagenhausen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wängi",
+      "postalCodes": []
+    },
+    {
+      "name": "Weinfelden",
+      "postalCodes": []
+    },
+    {
+      "name": "Weinfelden District",
+      "postalCodes": []
+    },
+    {
+      "name": "Wigoltingen",
+      "postalCodes": []
+    }
+  ],
+  "TI": [
+    {
+      "name": "Acquarossa",
+      "postalCodes": []
+    },
+    {
+      "name": "Agno",
+      "postalCodes": []
+    },
+    {
+      "name": "Airolo",
+      "postalCodes": []
+    },
+    {
+      "name": "Arzo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ascona",
+      "postalCodes": []
+    },
+    {
+      "name": "Balerna",
+      "postalCodes": []
+    },
+    {
+      "name": "Bellinzona",
+      "postalCodes": []
+    },
+    {
+      "name": "Bellinzona District",
+      "postalCodes": []
+    },
+    {
+      "name": "Biasca",
+      "postalCodes": []
+    },
+    {
+      "name": "Bioggio",
+      "postalCodes": []
+    },
+    {
+      "name": "Blenio District",
+      "postalCodes": []
+    },
+    {
+      "name": "Bodio",
+      "postalCodes": []
+    },
+    {
+      "name": "Brissago",
+      "postalCodes": []
+    },
+    {
+      "name": "Cadempino",
+      "postalCodes": []
+    },
+    {
+      "name": "Cadenazzo",
+      "postalCodes": []
+    },
+    {
+      "name": "Cadro",
+      "postalCodes": []
+    },
+    {
+      "name": "Camorino",
+      "postalCodes": []
+    },
+    {
+      "name": "Canobbio",
+      "postalCodes": []
+    },
+    {
+      "name": "Caslano",
+      "postalCodes": []
+    },
+    {
+      "name": "Castel San Pietro",
+      "postalCodes": []
+    },
+    {
+      "name": "Cevio",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiasso",
+      "postalCodes": []
+    },
+    {
+      "name": "Claro",
+      "postalCodes": []
+    },
+    {
+      "name": "Comano",
+      "postalCodes": []
+    },
+    {
+      "name": "Cugnasco",
+      "postalCodes": []
+    },
+    {
+      "name": "Faido",
+      "postalCodes": []
+    },
+    {
+      "name": "Giubiasco",
+      "postalCodes": []
+    },
+    {
+      "name": "Gordola",
+      "postalCodes": []
+    },
+    {
+      "name": "Gravesano",
+      "postalCodes": []
+    },
+    {
+      "name": "Lavertezzo",
+      "postalCodes": []
+    },
+    {
+      "name": "Leventina District",
+      "postalCodes": []
+    },
+    {
+      "name": "Ligornetto",
+      "postalCodes": []
+    },
+    {
+      "name": "Locarno",
+      "postalCodes": []
+    },
+    {
+      "name": "Locarno District",
+      "postalCodes": []
+    },
+    {
+      "name": "Lodrino",
+      "postalCodes": []
+    },
+    {
+      "name": "Losone",
+      "postalCodes": []
+    },
+    {
+      "name": "Lugano",
+      "postalCodes": []
+    },
+    {
+      "name": "Lugano District",
+      "postalCodes": []
+    },
+    {
+      "name": "Lumino",
+      "postalCodes": []
+    },
+    {
+      "name": "Magadino",
+      "postalCodes": []
+    },
+    {
+      "name": "Malvaglia",
+      "postalCodes": []
+    },
+    {
+      "name": "Massagno",
+      "postalCodes": []
+    },
+    {
+      "name": "Melano",
+      "postalCodes": []
+    },
+    {
+      "name": "Melide",
+      "postalCodes": []
+    },
+    {
+      "name": "Mendrisio",
+      "postalCodes": []
+    },
+    {
+      "name": "Mendrisio District",
+      "postalCodes": []
+    },
+    {
+      "name": "Minusio",
+      "postalCodes": []
+    },
+    {
+      "name": "Montagnola",
+      "postalCodes": []
+    },
+    {
+      "name": "Monte Carasso",
+      "postalCodes": []
+    },
+    {
+      "name": "Morbio Inferiore",
+      "postalCodes": []
+    },
+    {
+      "name": "Muralto",
+      "postalCodes": []
+    },
+    {
+      "name": "Novazzano",
+      "postalCodes": []
+    },
+    {
+      "name": "Pregassona",
+      "postalCodes": []
+    },
+    {
+      "name": "Pura",
+      "postalCodes": []
+    },
+    {
+      "name": "Riva San Vitale",
+      "postalCodes": []
+    },
+    {
+      "name": "Riviera District",
+      "postalCodes": []
+    },
+    {
+      "name": "Sementina",
+      "postalCodes": []
+    },
+    {
+      "name": "Sorengo",
+      "postalCodes": []
+    },
+    {
+      "name": "Stabio",
+      "postalCodes": []
+    },
+    {
+      "name": "Tesserete",
+      "postalCodes": []
+    },
+    {
+      "name": "Vallemaggia District",
+      "postalCodes": []
+    },
+    {
+      "name": "Verscio",
+      "postalCodes": []
+    },
+    {
+      "name": "Viganello",
+      "postalCodes": []
+    }
+  ],
+  "UR": [
+    {
+      "name": "Altdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Andermatt",
+      "postalCodes": []
+    },
+    {
+      "name": "Attinghausen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bauen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bürglen",
+      "postalCodes": []
+    },
+    {
+      "name": "Erstfeld",
+      "postalCodes": []
+    },
+    {
+      "name": "Flüelen",
+      "postalCodes": []
+    },
+    {
+      "name": "Schattdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Seedorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Silenen",
+      "postalCodes": []
+    }
+  ],
+  "VS": [
+    {
+      "name": "Ardon",
+      "postalCodes": []
+    },
+    {
+      "name": "Ayent",
+      "postalCodes": []
+    },
+    {
+      "name": "Bagnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Baltschieder",
+      "postalCodes": []
+    },
+    {
+      "name": "Basse-Nendaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Brig",
+      "postalCodes": []
+    },
+    {
+      "name": "Brig District",
+      "postalCodes": []
+    },
+    {
+      "name": "Chalais",
+      "postalCodes": []
+    },
+    {
+      "name": "Chamoson",
+      "postalCodes": []
+    },
+    {
+      "name": "Champéry",
+      "postalCodes": []
+    },
+    {
+      "name": "Charrat",
+      "postalCodes": []
+    },
+    {
+      "name": "Chermignon-d’en Haut",
+      "postalCodes": []
+    },
+    {
+      "name": "Chippis",
+      "postalCodes": []
+    },
+    {
+      "name": "Collombey",
+      "postalCodes": []
+    },
+    {
+      "name": "Conthey",
+      "postalCodes": []
+    },
+    {
+      "name": "Conthey District",
+      "postalCodes": []
+    },
+    {
+      "name": "Entremont District",
+      "postalCodes": []
+    },
+    {
+      "name": "Evionnaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Evolène",
+      "postalCodes": []
+    },
+    {
+      "name": "Fiesch",
+      "postalCodes": []
+    },
+    {
+      "name": "Fully",
+      "postalCodes": []
+    },
+    {
+      "name": "Gampel",
+      "postalCodes": []
+    },
+    {
+      "name": "Goms District",
+      "postalCodes": []
+    },
+    {
+      "name": "Grächen",
+      "postalCodes": []
+    },
+    {
+      "name": "Grimisuat",
+      "postalCodes": []
+    },
+    {
+      "name": "Grône",
+      "postalCodes": []
+    },
+    {
+      "name": "Hérémence",
+      "postalCodes": []
+    },
+    {
+      "name": "Hérens District",
+      "postalCodes": []
+    },
+    {
+      "name": "Lens",
+      "postalCodes": []
+    },
+    {
+      "name": "Leuk",
+      "postalCodes": []
+    },
+    {
+      "name": "Leuk District",
+      "postalCodes": []
+    },
+    {
+      "name": "Leukerbad",
+      "postalCodes": []
+    },
+    {
+      "name": "Leytron",
+      "postalCodes": []
+    },
+    {
+      "name": "Martigny District",
+      "postalCodes": []
+    },
+    {
+      "name": "Martigny-Combe",
+      "postalCodes": []
+    },
+    {
+      "name": "Martigny-Ville",
+      "postalCodes": []
+    },
+    {
+      "name": "Montana",
+      "postalCodes": []
+    },
+    {
+      "name": "Monthey",
+      "postalCodes": []
+    },
+    {
+      "name": "Monthey District",
+      "postalCodes": []
+    },
+    {
+      "name": "Naters",
+      "postalCodes": []
+    },
+    {
+      "name": "Orsières",
+      "postalCodes": []
+    },
+    {
+      "name": "Randogne",
+      "postalCodes": []
+    },
+    {
+      "name": "Raron",
+      "postalCodes": []
+    },
+    {
+      "name": "Raron District",
+      "postalCodes": []
+    },
+    {
+      "name": "Riddes",
+      "postalCodes": []
+    },
+    {
+      "name": "Saas-Fee",
+      "postalCodes": []
+    },
+    {
+      "name": "Saas-Grund",
+      "postalCodes": []
+    },
+    {
+      "name": "Saillon",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Léonard",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Maurice",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Maurice District",
+      "postalCodes": []
+    },
+    {
+      "name": "Salgesch",
+      "postalCodes": []
+    },
+    {
+      "name": "Salvan",
+      "postalCodes": []
+    },
+    {
+      "name": "Sankt Niklaus",
+      "postalCodes": []
+    },
+    {
+      "name": "Savièse",
+      "postalCodes": []
+    },
+    {
+      "name": "Saxon",
+      "postalCodes": []
+    },
+    {
+      "name": "Sierre",
+      "postalCodes": []
+    },
+    {
+      "name": "Sierre District",
+      "postalCodes": []
+    },
+    {
+      "name": "Sion District",
+      "postalCodes": []
+    },
+    {
+      "name": "Sitten",
+      "postalCodes": []
+    },
+    {
+      "name": "Stalden",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanay",
+      "postalCodes": []
+    },
+    {
+      "name": "Troistorrents",
+      "postalCodes": []
+    },
+    {
+      "name": "Turtmann",
+      "postalCodes": []
+    },
+    {
+      "name": "Varen",
+      "postalCodes": []
+    },
+    {
+      "name": "Verbier",
+      "postalCodes": []
+    },
+    {
+      "name": "Vernayaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Vétroz",
+      "postalCodes": []
+    },
+    {
+      "name": "Vex",
+      "postalCodes": []
+    },
+    {
+      "name": "Vionnaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Visp",
+      "postalCodes": []
+    },
+    {
+      "name": "Visp District",
+      "postalCodes": []
+    },
+    {
+      "name": "Visperterminen",
+      "postalCodes": []
+    },
+    {
+      "name": "Vouvry",
+      "postalCodes": []
+    },
+    {
+      "name": "Zermatt",
+      "postalCodes": []
+    }
+  ],
+  "VD": [
+    {
+      "name": "Aigle",
+      "postalCodes": []
+    },
+    {
+      "name": "Aigle District",
+      "postalCodes": []
+    },
+    {
+      "name": "Apples",
+      "postalCodes": []
+    },
+    {
+      "name": "Arzier",
+      "postalCodes": []
+    },
+    {
+      "name": "Aubonne",
+      "postalCodes": []
+    },
+    {
+      "name": "Avenches",
+      "postalCodes": []
+    },
+    {
+      "name": "Ballens",
+      "postalCodes": []
+    },
+    {
+      "name": "Bavois",
+      "postalCodes": []
+    },
+    {
+      "name": "Begnins",
+      "postalCodes": []
+    },
+    {
+      "name": "Belmont-sur-Lausanne",
+      "postalCodes": []
+    },
+    {
+      "name": "Berolle",
+      "postalCodes": []
+    },
+    {
+      "name": "Bex",
+      "postalCodes": []
+    },
+    {
+      "name": "Bière",
+      "postalCodes": []
+    },
+    {
+      "name": "Blécherette",
+      "postalCodes": []
+    },
+    {
+      "name": "Blonay",
+      "postalCodes": []
+    },
+    {
+      "name": "Bottens",
+      "postalCodes": []
+    },
+    {
+      "name": "Broye-Vully District",
+      "postalCodes": []
+    },
+    {
+      "name": "Bussigny",
+      "postalCodes": []
+    },
+    {
+      "name": "Caux",
+      "postalCodes": []
+    },
+    {
+      "name": "Chardonne",
+      "postalCodes": []
+    },
+    {
+      "name": "Château-d'Oex",
+      "postalCodes": []
+    },
+    {
+      "name": "Chavannes",
+      "postalCodes": []
+    },
+    {
+      "name": "Chavannes-le-Veyron",
+      "postalCodes": []
+    },
+    {
+      "name": "Chavornay",
+      "postalCodes": []
+    },
+    {
+      "name": "Cheseaux",
+      "postalCodes": []
+    },
+    {
+      "name": "Chevilly",
+      "postalCodes": []
+    },
+    {
+      "name": "Chexbres",
+      "postalCodes": []
+    },
+    {
+      "name": "Colombier",
+      "postalCodes": []
+    },
+    {
+      "name": "Coppet",
+      "postalCodes": []
+    },
+    {
+      "name": "Cossonay",
+      "postalCodes": []
+    },
+    {
+      "name": "Crissier",
+      "postalCodes": []
+    },
+    {
+      "name": "Cuarnens",
+      "postalCodes": []
+    },
+    {
+      "name": "Cully",
+      "postalCodes": []
+    },
+    {
+      "name": "Echallens",
+      "postalCodes": []
+    },
+    {
+      "name": "Ecublens",
+      "postalCodes": []
+    },
+    {
+      "name": "Epalinges",
+      "postalCodes": []
+    },
+    {
+      "name": "Ferreyres",
+      "postalCodes": []
+    },
+    {
+      "name": "Founex",
+      "postalCodes": []
+    },
+    {
+      "name": "Froideville",
+      "postalCodes": []
+    },
+    {
+      "name": "Genolier",
+      "postalCodes": []
+    },
+    {
+      "name": "Gimel",
+      "postalCodes": []
+    },
+    {
+      "name": "Gland",
+      "postalCodes": []
+    },
+    {
+      "name": "Grancy",
+      "postalCodes": []
+    },
+    {
+      "name": "Grandson",
+      "postalCodes": []
+    },
+    {
+      "name": "Gros-de-Vaud District",
+      "postalCodes": []
+    },
+    {
+      "name": "Gryon",
+      "postalCodes": []
+    },
+    {
+      "name": "Jongny",
+      "postalCodes": []
+    },
+    {
+      "name": "Jura-Nord vaudois District",
+      "postalCodes": []
+    },
+    {
+      "name": "La Sarraz",
+      "postalCodes": []
+    },
+    {
+      "name": "La Tour-de-Peilz",
+      "postalCodes": []
+    },
+    {
+      "name": "Lausanne",
+      "postalCodes": []
+    },
+    {
+      "name": "Lausanne District",
+      "postalCodes": []
+    },
+    {
+      "name": "Lavaux-Oron District",
+      "postalCodes": []
+    },
+    {
+      "name": "Le Chenit",
+      "postalCodes": []
+    },
+    {
+      "name": "Le Mont-sur-Lausanne",
+      "postalCodes": []
+    },
+    {
+      "name": "Le Vaud",
+      "postalCodes": []
+    },
+    {
+      "name": "Leysin",
+      "postalCodes": []
+    },
+    {
+      "name": "Lucens",
+      "postalCodes": []
+    },
+    {
+      "name": "Lutry",
+      "postalCodes": []
+    },
+    {
+      "name": "Mauraz",
+      "postalCodes": []
+    },
+    {
+      "name": "Mollens",
+      "postalCodes": []
+    },
+    {
+      "name": "Montagny",
+      "postalCodes": []
+    },
+    {
+      "name": "Montreux",
+      "postalCodes": []
+    },
+    {
+      "name": "Morges",
+      "postalCodes": []
+    },
+    {
+      "name": "Morges District",
+      "postalCodes": []
+    },
+    {
+      "name": "Moudon",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyon",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyon District",
+      "postalCodes": []
+    },
+    {
+      "name": "Ollon",
+      "postalCodes": []
+    },
+    {
+      "name": "Orbe",
+      "postalCodes": []
+    },
+    {
+      "name": "Oron-la-Ville",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouest Lausannois District",
+      "postalCodes": []
+    },
+    {
+      "name": "Pailly",
+      "postalCodes": []
+    },
+    {
+      "name": "Palézieux",
+      "postalCodes": []
+    },
+    {
+      "name": "Pampigny",
+      "postalCodes": []
+    },
+    {
+      "name": "Paudex",
+      "postalCodes": []
+    },
+    {
+      "name": "Payerne",
+      "postalCodes": []
+    },
+    {
+      "name": "Penthalaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Penthéréaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Perroy",
+      "postalCodes": []
+    },
+    {
+      "name": "Pompaples",
+      "postalCodes": []
+    },
+    {
+      "name": "Prangins",
+      "postalCodes": []
+    },
+    {
+      "name": "Préverenges",
+      "postalCodes": []
+    },
+    {
+      "name": "Prilly",
+      "postalCodes": []
+    },
+    {
+      "name": "Puidoux",
+      "postalCodes": []
+    },
+    {
+      "name": "Pully",
+      "postalCodes": []
+    },
+    {
+      "name": "Renens",
+      "postalCodes": []
+    },
+    {
+      "name": "Riviera-Pays-d'Enhaut District",
+      "postalCodes": []
+    },
+    {
+      "name": "Rolle",
+      "postalCodes": []
+    },
+    {
+      "name": "Romanel-sur-Lausanne",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Cergue",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Livres",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Prex",
+      "postalCodes": []
+    },
+    {
+      "name": "Sainte-Croix",
+      "postalCodes": []
+    },
+    {
+      "name": "Saubraz",
+      "postalCodes": []
+    },
+    {
+      "name": "Savigny",
+      "postalCodes": []
+    },
+    {
+      "name": "Sottens",
+      "postalCodes": []
+    },
+    {
+      "name": "Trélex",
+      "postalCodes": []
+    },
+    {
+      "name": "Vallorbe",
+      "postalCodes": []
+    },
+    {
+      "name": "Vevey",
+      "postalCodes": []
+    },
+    {
+      "name": "Villars-sur-Ollon",
+      "postalCodes": []
+    },
+    {
+      "name": "Villeneuve",
+      "postalCodes": []
+    },
+    {
+      "name": "Vuarrens",
+      "postalCodes": []
+    },
+    {
+      "name": "Yverdon-les-Bains",
+      "postalCodes": []
+    },
+    {
+      "name": "Yvonand",
+      "postalCodes": []
+    }
+  ],
+  "ZG": [
+    {
+      "name": "Baar",
+      "postalCodes": []
+    },
+    {
+      "name": "Cham",
+      "postalCodes": []
+    },
+    {
+      "name": "Hünenberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Menzingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Rotkreuz",
+      "postalCodes": []
+    },
+    {
+      "name": "Steinhausen",
+      "postalCodes": []
+    },
+    {
+      "name": "Unterägeri",
+      "postalCodes": []
+    },
+    {
+      "name": "Walchwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Zug",
+      "postalCodes": []
+    }
+  ],
+  "ZH": [
+    {
+      "name": "Adliswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Adliswil / Adliswil (Stadtkern)",
+      "postalCodes": []
+    },
+    {
+      "name": "Adliswil / Hündli-Zopf",
+      "postalCodes": []
+    },
+    {
+      "name": "Adliswil / Oberleimbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Adliswil / Sonnenberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Adliswil / Sood",
+      "postalCodes": []
+    },
+    {
+      "name": "Adliswil / Tal",
+      "postalCodes": []
+    },
+    {
+      "name": "Aesch",
+      "postalCodes": []
+    },
+    {
+      "name": "Affoltern / Hasenbüel",
+      "postalCodes": []
+    },
+    {
+      "name": "Affoltern / Oberdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Affoltern / Sonnenberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Affoltern / Unterdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Affoltern am Albis",
+      "postalCodes": []
+    },
+    {
+      "name": "Andelfingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Au",
+      "postalCodes": []
+    },
+    {
+      "name": "Au / Mittel-Dorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Au / Unter-Dorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Bachenbülach",
+      "postalCodes": []
+    },
+    {
+      "name": "Bäretswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Bassersdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Bauma",
+      "postalCodes": []
+    },
+    {
+      "name": "Benglen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Affoltern",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Andelfingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Bülach",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Dielsdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Dietikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Hinwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Horgen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Meilen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Pfäffikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Uster",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Winterthur",
+      "postalCodes": []
+    },
+    {
+      "name": "Bezirk Zürich",
+      "postalCodes": []
+    },
+    {
+      "name": "Binz",
+      "postalCodes": []
+    },
+    {
+      "name": "Binzikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Birchwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Birmensdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Bonstetten",
+      "postalCodes": []
+    },
+    {
+      "name": "Brütten",
+      "postalCodes": []
+    },
+    {
+      "name": "Brüttisellen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bubikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Bülach",
+      "postalCodes": []
+    },
+    {
+      "name": "Bülach / Gstückt",
+      "postalCodes": []
+    },
+    {
+      "name": "Bülach / Seematt",
+      "postalCodes": []
+    },
+    {
+      "name": "Bülach / Soligänter",
+      "postalCodes": []
+    },
+    {
+      "name": "Dachsen",
+      "postalCodes": []
+    },
+    {
+      "name": "Dällikon / Dällikon (Dorf)",
+      "postalCodes": []
+    },
+    {
+      "name": "Dänikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Dielsdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Dietikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Dietikon / Almend",
+      "postalCodes": []
+    },
+    {
+      "name": "Dietikon / Guggenbühl",
+      "postalCodes": []
+    },
+    {
+      "name": "Dietikon / Hofacker",
+      "postalCodes": []
+    },
+    {
+      "name": "Dietikon / Kreuzacker",
+      "postalCodes": []
+    },
+    {
+      "name": "Dietikon / Oberdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Dietikon / Schönenwerd",
+      "postalCodes": []
+    },
+    {
+      "name": "Dietikon / Vorstadt",
+      "postalCodes": []
+    },
+    {
+      "name": "Dietlikon / Dietlikon (Dorf)",
+      "postalCodes": []
+    },
+    {
+      "name": "Dietlikon / Eichwiesen",
+      "postalCodes": []
+    },
+    {
+      "name": "Dorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Dübendorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Dübendorf / Kunklerstrasse",
+      "postalCodes": []
+    },
+    {
+      "name": "Dübendorf / Sonnenberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Dübendorf / Vogelquartier",
+      "postalCodes": []
+    },
+    {
+      "name": "Dübendorf / Wasserfurren",
+      "postalCodes": []
+    },
+    {
+      "name": "Dürnten",
+      "postalCodes": []
+    },
+    {
+      "name": "Ebmatingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Effretikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Effretikon / Rappenhalde-Bannhalde",
+      "postalCodes": []
+    },
+    {
+      "name": "Effretikon / Rikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Effretikon / Watt",
+      "postalCodes": []
+    },
+    {
+      "name": "Egg",
+      "postalCodes": []
+    },
+    {
+      "name": "Elgg",
+      "postalCodes": []
+    },
+    {
+      "name": "Elgg / Städtchen und Umgebung",
+      "postalCodes": []
+    },
+    {
+      "name": "Elsau-Räterschen",
+      "postalCodes": []
+    },
+    {
+      "name": "Elsau-Räterschen / Räterschen",
+      "postalCodes": []
+    },
+    {
+      "name": "Embrach",
+      "postalCodes": []
+    },
+    {
+      "name": "Embrach / Embrach (Dorfkern)",
+      "postalCodes": []
+    },
+    {
+      "name": "Embrach / Kellersacker",
+      "postalCodes": []
+    },
+    {
+      "name": "Erlenbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Erlenbach / links des Dorfbachs oberhalb Bahnlinie",
+      "postalCodes": []
+    },
+    {
+      "name": "Erlenbach / rechts des Dorfbachs oberhalb Bahnlinie",
+      "postalCodes": []
+    },
+    {
+      "name": "Esslingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Fällanden",
+      "postalCodes": []
+    },
+    {
+      "name": "Fehraltorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Feldmeilen",
+      "postalCodes": []
+    },
+    {
+      "name": "Feuerthalen",
+      "postalCodes": []
+    },
+    {
+      "name": "Flurlingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Freienstein",
+      "postalCodes": []
+    },
+    {
+      "name": "Gattikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Geroldswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Glattbrugg",
+      "postalCodes": []
+    },
+    {
+      "name": "Glattbrugg / Rohr/Platten-Balsberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Glattbrugg / Wydacker/Bettacker/Lättenwiesen",
+      "postalCodes": []
+    },
+    {
+      "name": "Glattfelden",
+      "postalCodes": []
+    },
+    {
+      "name": "Gockhausen",
+      "postalCodes": []
+    },
+    {
+      "name": "Gossau",
+      "postalCodes": []
+    },
+    {
+      "name": "Greifensee",
+      "postalCodes": []
+    },
+    {
+      "name": "Greifensee / Müllerwis / Seilerwis",
+      "postalCodes": []
+    },
+    {
+      "name": "Greifensee / Pfisterhölzli",
+      "postalCodes": []
+    },
+    {
+      "name": "Grossacker/Opfikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Grüt",
+      "postalCodes": []
+    },
+    {
+      "name": "Gutenswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Hadlikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Hausen am Albis / Hausen (Dorf)",
+      "postalCodes": []
+    },
+    {
+      "name": "Hedingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Hegnau",
+      "postalCodes": []
+    },
+    {
+      "name": "Hegnau / Dammboden-Grindel",
+      "postalCodes": []
+    },
+    {
+      "name": "Hegnau / Sunnebüel-Eich",
+      "postalCodes": []
+    },
+    {
+      "name": "Henggart",
+      "postalCodes": []
+    },
+    {
+      "name": "Herrliberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Hettlingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Hinteregg",
+      "postalCodes": []
+    },
+    {
+      "name": "Hinwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Hittnau / Hittnau (Dorf)",
+      "postalCodes": []
+    },
+    {
+      "name": "Hochfelden",
+      "postalCodes": []
+    },
+    {
+      "name": "Hofstetten",
+      "postalCodes": []
+    },
+    {
+      "name": "Hombrechtikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Horgen",
+      "postalCodes": []
+    },
+    {
+      "name": "Horgen / Allmend",
+      "postalCodes": []
+    },
+    {
+      "name": "Horgen / Horgen (Dorfkern)",
+      "postalCodes": []
+    },
+    {
+      "name": "Horgen / Oberdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Horgen / Scheller-Stockerstrasse",
+      "postalCodes": []
+    },
+    {
+      "name": "Höri",
+      "postalCodes": []
+    },
+    {
+      "name": "Illnau",
+      "postalCodes": []
+    },
+    {
+      "name": "Illnau / Unter-Illnau",
+      "postalCodes": []
+    },
+    {
+      "name": "Kilchberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Kilchberg / Bächler-Stocken",
+      "postalCodes": []
+    },
+    {
+      "name": "Kilchberg / Kilchberg (Dorfkern)",
+      "postalCodes": []
+    },
+    {
+      "name": "Kindhausen / Kindhausen (Dorf)",
+      "postalCodes": []
+    },
+    {
+      "name": "Kleinandelfingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Kloten",
+      "postalCodes": []
+    },
+    {
+      "name": "Kloten / Balsberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Kloten / Freienberg (Chanzler-Chlini Chaseren)",
+      "postalCodes": []
+    },
+    {
+      "name": "Kloten / Geissberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Kloten / Holberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Kloten / Horainli",
+      "postalCodes": []
+    },
+    {
+      "name": "Kloten / Hostrass",
+      "postalCodes": []
+    },
+    {
+      "name": "Kloten / Kloten (Zentrum)",
+      "postalCodes": []
+    },
+    {
+      "name": "Kloten / Rütlen",
+      "postalCodes": []
+    },
+    {
+      "name": "Kloten / Spitz",
+      "postalCodes": []
+    },
+    {
+      "name": "Knonau",
+      "postalCodes": []
+    },
+    {
+      "name": "Kollbrunn",
+      "postalCodes": []
+    },
+    {
+      "name": "Kollbrunn / Kollbrunn (Dorfkern)",
+      "postalCodes": []
+    },
+    {
+      "name": "Küsnacht",
+      "postalCodes": []
+    },
+    {
+      "name": "Küsnacht / Dorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Küsnacht / Goldbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Küsnacht / Heslibach",
+      "postalCodes": []
+    },
+    {
+      "name": "Küsnacht / Itschnach",
+      "postalCodes": []
+    },
+    {
+      "name": "Küsnacht / Schiedhalden",
+      "postalCodes": []
+    },
+    {
+      "name": "Langnau / Langnau (Dorf)",
+      "postalCodes": []
+    },
+    {
+      "name": "Langnau / Vitaquartier",
+      "postalCodes": []
+    },
+    {
+      "name": "Langnau am Albis",
+      "postalCodes": []
+    },
+    {
+      "name": "Männedorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Männedorf / Ausserfeld",
+      "postalCodes": []
+    },
+    {
+      "name": "Männedorf / Dorfkern",
+      "postalCodes": []
+    },
+    {
+      "name": "Marthalen",
+      "postalCodes": []
+    },
+    {
+      "name": "Mattenbach (Kreis 7)",
+      "postalCodes": []
+    },
+    {
+      "name": "Mattenbach (Kreis 7) / Deutweg",
+      "postalCodes": []
+    },
+    {
+      "name": "Mattenbach (Kreis 7) / Endliker",
+      "postalCodes": []
+    },
+    {
+      "name": "Mattenbach (Kreis 7) / Gutschick",
+      "postalCodes": []
+    },
+    {
+      "name": "Meilen",
+      "postalCodes": []
+    },
+    {
+      "name": "Mettmenstetten",
+      "postalCodes": []
+    },
+    {
+      "name": "Mönchaltorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Mönchaltorf / Dorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Mühlehalde",
+      "postalCodes": []
+    },
+    {
+      "name": "Nänikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Nänikon / Nänikon (Dorfkern)",
+      "postalCodes": []
+    },
+    {
+      "name": "Neerach",
+      "postalCodes": []
+    },
+    {
+      "name": "Neftenbach / Dorf Neftenbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Niederglatt",
+      "postalCodes": []
+    },
+    {
+      "name": "Niederglatt / Niederglatt (Dorfkern)",
+      "postalCodes": []
+    },
+    {
+      "name": "Niederhasli",
+      "postalCodes": []
+    },
+    {
+      "name": "Nürensdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberengstringen",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberengstringen / Rauchacher",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberengstringen / Sonnenberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberengstringen / Zentrum",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberglatt",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberglatt / Bahnhofquartier",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberglatt / Oberglatt (Dorfkern)",
+      "postalCodes": []
+    },
+    {
+      "name": "Obermeilen",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberrieden",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberrieden / Berg",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberrieden / Mitte",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberwinterthur (Kreis 2)",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberwinterthur (Kreis 2) / Guggenbühl",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberwinterthur (Kreis 2) / Hegi",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberwinterthur (Kreis 2) / Talacker",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberwinterthur (Kreis 2) / Zinzikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Obfelden",
+      "postalCodes": []
+    },
+    {
+      "name": "Obfelden / Oberlunnern",
+      "postalCodes": []
+    },
+    {
+      "name": "Obfelden / Toussen",
+      "postalCodes": []
+    },
+    {
+      "name": "Oetwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Opfikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Otelfingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Ottenbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Pfaffhausen",
+      "postalCodes": []
+    },
+    {
+      "name": "Pfäffikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Pfäffikon / Irgenhausen",
+      "postalCodes": []
+    },
+    {
+      "name": "Pfäffikon / Pfäffikon (Dorfkern)",
+      "postalCodes": []
+    },
+    {
+      "name": "Pfungen",
+      "postalCodes": []
+    },
+    {
+      "name": "Rafz",
+      "postalCodes": []
+    },
+    {
+      "name": "Regensdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Regensdorf / Feldblumen-Riedthofstrasse",
+      "postalCodes": []
+    },
+    {
+      "name": "Regensdorf / Hofacher-Geeren",
+      "postalCodes": []
+    },
+    {
+      "name": "Regensdorf / Obstgarten",
+      "postalCodes": []
+    },
+    {
+      "name": "Richterswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Richterswil / Burghalde",
+      "postalCodes": []
+    },
+    {
+      "name": "Richterswil / Dorfkern",
+      "postalCodes": []
+    },
+    {
+      "name": "Richterswil / Richterswil (Dorfkern)",
+      "postalCodes": []
+    },
+    {
+      "name": "Rorbas",
+      "postalCodes": []
+    },
+    {
+      "name": "Rümlang",
+      "postalCodes": []
+    },
+    {
+      "name": "Rümlang / Rümlang (Dorfkern)",
+      "postalCodes": []
+    },
+    {
+      "name": "Rüschlikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Russikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Rüti",
+      "postalCodes": []
+    },
+    {
+      "name": "Rüti / Dorfzentrum, Südl. Teil",
+      "postalCodes": []
+    },
+    {
+      "name": "Rüti / Oberdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Rüti / Westlicher Dorfteil",
+      "postalCodes": []
+    },
+    {
+      "name": "Samstagern",
+      "postalCodes": []
+    },
+    {
+      "name": "Schachen",
+      "postalCodes": []
+    },
+    {
+      "name": "Schlieren",
+      "postalCodes": []
+    },
+    {
+      "name": "Schlieren / Boden",
+      "postalCodes": []
+    },
+    {
+      "name": "Schlieren / Engstingerquartier",
+      "postalCodes": []
+    },
+    {
+      "name": "Schlieren / Freiestrasse",
+      "postalCodes": []
+    },
+    {
+      "name": "Schlieren / Kamp",
+      "postalCodes": []
+    },
+    {
+      "name": "Schlieren / Spital",
+      "postalCodes": []
+    },
+    {
+      "name": "Schlieren / Zentrum",
+      "postalCodes": []
+    },
+    {
+      "name": "Schwerzenbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Schwerzenbach / Blatten",
+      "postalCodes": []
+    },
+    {
+      "name": "Schwerzenbach / Chimli",
+      "postalCodes": []
+    },
+    {
+      "name": "Seen (Kreis 3)",
+      "postalCodes": []
+    },
+    {
+      "name": "Seen (Kreis 3) / Büelwiesen",
+      "postalCodes": []
+    },
+    {
+      "name": "Seen (Kreis 3) / Ganzenbühl",
+      "postalCodes": []
+    },
+    {
+      "name": "Seen (Kreis 3) / Oberseen",
+      "postalCodes": []
+    },
+    {
+      "name": "Seen (Kreis 3) / Waldegg",
+      "postalCodes": []
+    },
+    {
+      "name": "Seen (Kreis 3) / Waser",
+      "postalCodes": []
+    },
+    {
+      "name": "Seglingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Sellenbüren",
+      "postalCodes": []
+    },
+    {
+      "name": "Seuzach / Seuzach (Dorf)",
+      "postalCodes": []
+    },
+    {
+      "name": "Seuzach Dorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Seuzach Dorf / Breite-Weid",
+      "postalCodes": []
+    },
+    {
+      "name": "Sonnhalde",
+      "postalCodes": []
+    },
+    {
+      "name": "Stadt Winterthur (Kreis 1)",
+      "postalCodes": []
+    },
+    {
+      "name": "Stadt Winterthur (Kreis 1) / Altstadt",
+      "postalCodes": []
+    },
+    {
+      "name": "Stadt Winterthur (Kreis 1) / Brühlberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Stadt Winterthur (Kreis 1) / Heiligberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Stadt Winterthur (Kreis 1) / Lind",
+      "postalCodes": []
+    },
+    {
+      "name": "Stadt Winterthur (Kreis 1) / Neuwiesen",
+      "postalCodes": []
+    },
+    {
+      "name": "Stadt Winterthur (Kreis 1) / Tössfeld",
+      "postalCodes": []
+    },
+    {
+      "name": "Stäfa",
+      "postalCodes": []
+    },
+    {
+      "name": "Steinmaur",
+      "postalCodes": []
+    },
+    {
+      "name": "Sulz",
+      "postalCodes": []
+    },
+    {
+      "name": "Tagelswangen",
+      "postalCodes": []
+    },
+    {
+      "name": "Tann",
+      "postalCodes": []
+    },
+    {
+      "name": "Tann / Tann (Dorfkern)",
+      "postalCodes": []
+    },
+    {
+      "name": "Thalwil",
+      "postalCodes": []
+    },
+    {
+      "name": "Thalwil / Berg",
+      "postalCodes": []
+    },
+    {
+      "name": "Thalwil / Dorfkern",
+      "postalCodes": []
+    },
+    {
+      "name": "Thalwil / Nord",
+      "postalCodes": []
+    },
+    {
+      "name": "Thalwil / See",
+      "postalCodes": []
+    },
+    {
+      "name": "Thalwil / Süd",
+      "postalCodes": []
+    },
+    {
+      "name": "Töss (Kreis 4)",
+      "postalCodes": []
+    },
+    {
+      "name": "Töss (Kreis 4) / Eichliacker",
+      "postalCodes": []
+    },
+    {
+      "name": "Töss (Kreis 4) / Schlosstal",
+      "postalCodes": []
+    },
+    {
+      "name": "Töss (Kreis 4) / Vorder-Dättnau",
+      "postalCodes": []
+    },
+    {
+      "name": "Turbenthal",
+      "postalCodes": []
+    },
+    {
+      "name": "Uerikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Uetikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Uetikon / Grossdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Uhwiesen",
+      "postalCodes": []
+    },
+    {
+      "name": "Uitikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Unterengstringen",
+      "postalCodes": []
+    },
+    {
+      "name": "Urdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Urdorf / Bodenfeld",
+      "postalCodes": []
+    },
+    {
+      "name": "Urdorf / Moos",
+      "postalCodes": []
+    },
+    {
+      "name": "Urdorf / Oberurdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Uster",
+      "postalCodes": []
+    },
+    {
+      "name": "Uster / Gschwader",
+      "postalCodes": []
+    },
+    {
+      "name": "Uster / Kirch-Uster",
+      "postalCodes": []
+    },
+    {
+      "name": "Uster / Nieder-Uster",
+      "postalCodes": []
+    },
+    {
+      "name": "Uster / Nossikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Uster / Ober-Uster",
+      "postalCodes": []
+    },
+    {
+      "name": "Veltheim (Kreis 5)",
+      "postalCodes": []
+    },
+    {
+      "name": "Veltheim (Kreis 5) / Blumenau",
+      "postalCodes": []
+    },
+    {
+      "name": "Veltheim (Kreis 5) / Rosenberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Volketswil / Volketswil (Dorf)",
+      "postalCodes": []
+    },
+    {
+      "name": "Wädenswil",
+      "postalCodes": []
+    },
+    {
+      "name": "Wädenswil / Boller-Giessen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wädenswil / Büelen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wädenswil / Dorf (Wädenswil)",
+      "postalCodes": []
+    },
+    {
+      "name": "Wädenswil / Eichweid",
+      "postalCodes": []
+    },
+    {
+      "name": "Wädenswil / Hangenmoos",
+      "postalCodes": []
+    },
+    {
+      "name": "Wädenswil / Leihof-Mühlebach",
+      "postalCodes": []
+    },
+    {
+      "name": "Wädenswil / Untermosen-Fuhr",
+      "postalCodes": []
+    },
+    {
+      "name": "Wald",
+      "postalCodes": []
+    },
+    {
+      "name": "Wallisellen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wallisellen / Rieden",
+      "postalCodes": []
+    },
+    {
+      "name": "Wallisellen / Wallisellen-Ost",
+      "postalCodes": []
+    },
+    {
+      "name": "Wallisellen / Wallisellen-West",
+      "postalCodes": []
+    },
+    {
+      "name": "Wangen",
+      "postalCodes": []
+    },
+    {
+      "name": "Weiningen",
+      "postalCodes": []
+    },
+    {
+      "name": "Weisslingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wettswil / Ausser-Dorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Wettswil / Wettswil (Dorf)",
+      "postalCodes": []
+    },
+    {
+      "name": "Wetzikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Wetzikon / Kempten",
+      "postalCodes": []
+    },
+    {
+      "name": "Wetzikon / Ober-Wetzikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Wetzikon / Robenhausen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wetzikon / Unter-Wetzikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Wiesendangen / Wiesendangen (Dorf)",
+      "postalCodes": []
+    },
+    {
+      "name": "Wila",
+      "postalCodes": []
+    },
+    {
+      "name": "Winterthur",
+      "postalCodes": []
+    },
+    {
+      "name": "Wolfhausen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wülflingen (Kreis 6)",
+      "postalCodes": []
+    },
+    {
+      "name": "Wülflingen (Kreis 6) / Härti",
+      "postalCodes": []
+    },
+    {
+      "name": "Wülflingen (Kreis 6) / Lindenplatz",
+      "postalCodes": []
+    },
+    {
+      "name": "Wülflingen (Kreis 6) / Niederfeld",
+      "postalCodes": []
+    },
+    {
+      "name": "Wülflingen (Kreis 6) / Oberfeld",
+      "postalCodes": []
+    },
+    {
+      "name": "Zollikerberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Zollikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Zumikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 1)",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 1) / City",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 1) / Lindenhof",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 1) / Rathaus",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 10)",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 10) / Höngg",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 10) / Rütihof",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 10) / Wipkingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 11)",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 11) / Affoltern",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 11) / Oerlikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 11) / Schwandenholz",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 11) / Seebach",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 12)",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 12) / Auzelg",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 12) / Hirzenbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 12) / Saatlen",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 12) / Schwamendingen-Mitte",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 2)",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 2) / Enge",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 2) / Mittel-Leimbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 2) / Unter-Leimbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 2) / Wollishofen",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 3)",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 3) / Alt-Wiedikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 3) / Friesenberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 3) / Sihlfeld",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 4) / Aussersihl",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 4) / Hard",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 4) / Langstrasse",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 4) / Werd",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 5)",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 5) / Escher-Wyss",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 5) / Gewerbeschule",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 6)",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 6) / Oberstrass",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 6) / Unterstrass",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 7)",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 7) / Fluntern",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 7) / Hirslanden",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 7) / Hottingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 7) / Witikon",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 8)",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 8) / Mühlebach",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 8) / Seefeld",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 8) / Weinegg",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 9)",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 9) / Albisrieden",
+      "postalCodes": []
+    },
+    {
+      "name": "Zürich (Kreis 9) / Altstetten",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

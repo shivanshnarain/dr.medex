@@ -1,0 +1,127 @@
+[
+  {
+    "code": "Z",
+    "name": "Amazonas",
+    "countryCode": "VE"
+  },
+  {
+    "code": "B",
+    "name": "Anzoátegui",
+    "countryCode": "VE"
+  },
+  {
+    "code": "C",
+    "name": "Apure",
+    "countryCode": "VE"
+  },
+  {
+    "code": "D",
+    "name": "Aragua",
+    "countryCode": "VE"
+  },
+  {
+    "code": "E",
+    "name": "Barinas",
+    "countryCode": "VE"
+  },
+  {
+    "code": "F",
+    "name": "Bolívar",
+    "countryCode": "VE"
+  },
+  {
+    "code": "G",
+    "name": "Carabobo",
+    "countryCode": "VE"
+  },
+  {
+    "code": "H",
+    "name": "Cojedes",
+    "countryCode": "VE"
+  },
+  {
+    "code": "Y",
+    "name": "Delta Amacuro",
+    "countryCode": "VE"
+  },
+  {
+    "code": "A",
+    "name": "Distrito Capital",
+    "countryCode": "VE"
+  },
+  {
+    "code": "I",
+    "name": "Falcón",
+    "countryCode": "VE"
+  },
+  {
+    "code": "W",
+    "name": "Federal Dependencies of Venezuela",
+    "countryCode": "VE"
+  },
+  {
+    "code": "J",
+    "name": "Guárico",
+    "countryCode": "VE"
+  },
+  {
+    "code": "X",
+    "name": "La Guaira",
+    "countryCode": "VE"
+  },
+  {
+    "code": "K",
+    "name": "Lara",
+    "countryCode": "VE"
+  },
+  {
+    "code": "L",
+    "name": "Mérida",
+    "countryCode": "VE"
+  },
+  {
+    "code": "M",
+    "name": "Miranda",
+    "countryCode": "VE"
+  },
+  {
+    "code": "N",
+    "name": "Monagas",
+    "countryCode": "VE"
+  },
+  {
+    "code": "O",
+    "name": "Nueva Esparta",
+    "countryCode": "VE"
+  },
+  {
+    "code": "P",
+    "name": "Portuguesa",
+    "countryCode": "VE"
+  },
+  {
+    "code": "R",
+    "name": "Sucre",
+    "countryCode": "VE"
+  },
+  {
+    "code": "S",
+    "name": "Táchira",
+    "countryCode": "VE"
+  },
+  {
+    "code": "T",
+    "name": "Trujillo",
+    "countryCode": "VE"
+  },
+  {
+    "code": "U",
+    "name": "Yaracuy",
+    "countryCode": "VE"
+  },
+  {
+    "code": "V",
+    "name": "Zulia",
+    "countryCode": "VE"
+  }
+]

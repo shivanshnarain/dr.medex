@@ -1,0 +1,475 @@
+{
+  "1": [
+    {
+      "name": "Mongkol Borei",
+      "postalCodes": []
+    },
+    {
+      "name": "Paoy Paet",
+      "postalCodes": []
+    },
+    {
+      "name": "Sisophon",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Malai",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Svay Chék",
+      "postalCodes": []
+    }
+  ],
+  "2": [
+    {
+      "name": "Battambang",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Âk Phnŭm",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Banăn",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Bâvĭl",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Rotanak Mondol",
+      "postalCodes": []
+    }
+  ],
+  "3": [
+    {
+      "name": "Cheung Prey",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampong Cham",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Bathéay",
+      "postalCodes": []
+    }
+  ],
+  "4": [
+    {
+      "name": "Baribour",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampong Chhnang",
+      "postalCodes": []
+    },
+    {
+      "name": "Rolea B'ier",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Chol Kiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Sameakki Mean Chey",
+      "postalCodes": []
+    }
+  ],
+  "5": [
+    {
+      "name": "Kampong Speu",
+      "postalCodes": []
+    },
+    {
+      "name": "Krŏng Chbar Mon",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Basedth",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Kông Pĭsei",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Ŏdŏngk",
+      "postalCodes": []
+    }
+  ],
+  "6": [],
+  "7": [
+    {
+      "name": "Angkor Chey",
+      "postalCodes": []
+    },
+    {
+      "name": "Banteay Meas",
+      "postalCodes": []
+    },
+    {
+      "name": "Chhouk District",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampong Bay",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampong Tranch",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampot",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Chŭm Kiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Dângtóng",
+      "postalCodes": []
+    },
+    {
+      "name": "Srok Tuek Chhou",
+      "postalCodes": []
+    }
+  ],
+  "8": [
+    {
+      "name": "Krŏng Ta Khmau",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Khsăch Kândal",
+      "postalCodes": []
+    },
+    {
+      "name": "Ta Khmau",
+      "postalCodes": []
+    }
+  ],
+  "9": [
+    {
+      "name": "Koh Kong",
+      "postalCodes": []
+    },
+    {
+      "name": "Smach Mean Chey",
+      "postalCodes": []
+    },
+    {
+      "name": "Srae Ambel",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Batum Sakôr",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Môndôl Seima",
+      "postalCodes": []
+    }
+  ],
+  "10": [
+    {
+      "name": "Kracheh",
+      "postalCodes": []
+    },
+    {
+      "name": "Kratié",
+      "postalCodes": []
+    },
+    {
+      "name": "Snuol",
+      "postalCodes": []
+    }
+  ],
+  "11": [
+    {
+      "name": "Krŏng Sênmônoŭrôm",
+      "postalCodes": []
+    },
+    {
+      "name": "Sen Monorom",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Kaev Seima",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Pech Chreada",
+      "postalCodes": []
+    }
+  ],
+  "12": [
+    {
+      "name": "Khan 7 Makara",
+      "postalCodes": []
+    },
+    {
+      "name": "Khan Châmkar Mon",
+      "postalCodes": []
+    },
+    {
+      "name": "Khan Dângkaô",
+      "postalCodes": []
+    },
+    {
+      "name": "Khan Duŏn Pénh",
+      "postalCodes": []
+    },
+    {
+      "name": "Khan Méan Chey",
+      "postalCodes": []
+    },
+    {
+      "name": "Khan Russey Keo",
+      "postalCodes": []
+    },
+    {
+      "name": "Khan Saen Sokh",
+      "postalCodes": []
+    },
+    {
+      "name": "Phnom Penh",
+      "postalCodes": []
+    }
+  ],
+  "13": [
+    {
+      "name": "Sangkom Thmei",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Ch’êh Sên",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Chhêb",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Kulén",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Rôviĕng",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Tbêng Méanchey",
+      "postalCodes": []
+    },
+    {
+      "name": "Tbeng Meanchey",
+      "postalCodes": []
+    }
+  ],
+  "14": [
+    {
+      "name": "Prey Veng",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Kâmpóng Léav",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Mésang",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Preăh Sdéch",
+      "postalCodes": []
+    }
+  ],
+  "15": [
+    {
+      "name": "Bakan",
+      "postalCodes": []
+    },
+    {
+      "name": "Krakor",
+      "postalCodes": []
+    },
+    {
+      "name": "Pursat",
+      "postalCodes": []
+    },
+    {
+      "name": "Sampov Meas",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Kândiĕng",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Véal Vêng",
+      "postalCodes": []
+    }
+  ],
+  "16": [
+    {
+      "name": "Banlung",
+      "postalCodes": []
+    },
+    {
+      "name": "Lumphat",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Ândong Méas",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Bâ Kêv",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Ban Lŭng",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Koun Mom",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Ou Chum",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Ou Ya Dav",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Ta Vêng",
+      "postalCodes": []
+    }
+  ],
+  "17": [
+    {
+      "name": "Siem Reap",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Ângkôr Thum",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Prasat Bakong",
+      "postalCodes": []
+    },
+    {
+      "name": "Svay Leu",
+      "postalCodes": []
+    },
+    {
+      "name": "Varin",
+      "postalCodes": []
+    }
+  ],
+  "18": [
+    {
+      "name": "Sihanoukville",
+      "postalCodes": []
+    },
+    {
+      "name": "Srok Stueng Hav",
+      "postalCodes": []
+    }
+  ],
+  "19": [
+    {
+      "name": "Srŏk Srêsén",
+      "postalCodes": []
+    },
+    {
+      "name": "Stueng Traeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Stung Treng",
+      "postalCodes": []
+    }
+  ],
+  "20": [
+    {
+      "name": "Srŏk Svay Chrŭm",
+      "postalCodes": []
+    },
+    {
+      "name": "Svay Rieng",
+      "postalCodes": []
+    }
+  ],
+  "21": [
+    {
+      "name": "Krŏng Doun Kaev",
+      "postalCodes": []
+    },
+    {
+      "name": "Phumĭ Véal Srê",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Ângkôr Borei",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Borei Cholsar",
+      "postalCodes": []
+    },
+    {
+      "name": "Takeo",
+      "postalCodes": []
+    }
+  ],
+  "22": [
+    {
+      "name": "Samraong",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Bântéay Âmpĭl",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Sâmraông",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Trâpeăng Prasat",
+      "postalCodes": []
+    }
+  ],
+  "23": [
+    {
+      "name": "Krong Kep",
+      "postalCodes": []
+    },
+    {
+      "name": "Srŏk Dâmnăk Châng’aeur",
+      "postalCodes": []
+    }
+  ],
+  "24": [
+    {
+      "name": "Khan Sala Krau",
+      "postalCodes": []
+    },
+    {
+      "name": "Pailin",
+      "postalCodes": []
+    }
+  ],
+  "NTP": [],
+  "_OTHER": []
+}

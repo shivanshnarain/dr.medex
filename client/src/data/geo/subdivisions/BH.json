@@ -1,0 +1,27 @@
+[
+  {
+    "code": "13",
+    "name": "Capital Governorate",
+    "countryCode": "BH"
+  },
+  {
+    "code": "16",
+    "name": "Central Governorate",
+    "countryCode": "BH"
+  },
+  {
+    "code": "15",
+    "name": "Muharraq Governorate",
+    "countryCode": "BH"
+  },
+  {
+    "code": "17",
+    "name": "Northern Governorate",
+    "countryCode": "BH"
+  },
+  {
+    "code": "14",
+    "name": "Southern Governorate",
+    "countryCode": "BH"
+  }
+]

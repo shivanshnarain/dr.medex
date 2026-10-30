@@ -1,0 +1,82 @@
+[
+  {
+    "code": "ARI",
+    "name": "Arima",
+    "countryCode": "TT"
+  },
+  {
+    "code": "CHA",
+    "name": "Chaguanas",
+    "countryCode": "TT"
+  },
+  {
+    "code": "CTT",
+    "name": "Couva-Tabaquite-Talparo Regional Corporation",
+    "countryCode": "TT"
+  },
+  {
+    "code": "DMN",
+    "name": "Diego Martin Regional Corporation",
+    "countryCode": "TT"
+  },
+  {
+    "code": "ETO",
+    "name": "Eastern Tobago",
+    "countryCode": "TT"
+  },
+  {
+    "code": "PED",
+    "name": "Penal-Debe Regional Corporation",
+    "countryCode": "TT"
+  },
+  {
+    "code": "PTF",
+    "name": "Point Fortin",
+    "countryCode": "TT"
+  },
+  {
+    "code": "POS",
+    "name": "Port of Spain",
+    "countryCode": "TT"
+  },
+  {
+    "code": "PRT",
+    "name": "Princes Town Regional Corporation",
+    "countryCode": "TT"
+  },
+  {
+    "code": "MRC",
+    "name": "Rio Claro-Mayaro Regional Corporation",
+    "countryCode": "TT"
+  },
+  {
+    "code": "SFO",
+    "name": "San Fernando",
+    "countryCode": "TT"
+  },
+  {
+    "code": "SJL",
+    "name": "San Juan-Laventille Regional Corporation",
+    "countryCode": "TT"
+  },
+  {
+    "code": "SGE",
+    "name": "Sangre Grande Regional Corporation",
+    "countryCode": "TT"
+  },
+  {
+    "code": "SIP",
+    "name": "Siparia Regional Corporation",
+    "countryCode": "TT"
+  },
+  {
+    "code": "TUP",
+    "name": "Tunapuna-Piarco Regional Corporation",
+    "countryCode": "TT"
+  },
+  {
+    "code": "WTO",
+    "name": "Western Tobago",
+    "countryCode": "TT"
+  }
+]

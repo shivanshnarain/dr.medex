@@ -33,12 +33,15 @@ import { useCurrency } from "../context/CurrencyContext";
 import { useAuth } from "../context/AuthContext";
 import { InternationalPhoneInput, PhoneCountryItem } from "../components/InternationalPhoneInput";
 import { SmartLocationPrompt, ResolvedLocationData } from "../components/SmartLocationPrompt";
+import { AmazonCascadingAddressForm, AddressFormData } from "../components/AmazonCascadingAddressForm";
 import { hasDismissedLocationPrompt } from "../services/pushNotificationService";
 import {
-  WORLDWIDE_195_COUNTRIES,
-  filterWorldwideCountries,
+  WORLDWIDE_195_GEO_COUNTRIES,
+  getCountryByCode,
+  filterCountries,
+  GeoCountry,
   POPULAR_COUNTRY_CODES
-} from "../data/worldwide195Countries";
+} from "../data/geo/geoService";
 import { Order, ShippingAddress } from "../types";
 
 declare global {
@@ -104,7 +107,7 @@ export const CheckoutPage: React.FC = () => {
   const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
 
   // Complete 195 Worldwide Countries & States State
-  const [countriesList, setCountriesList] = useState<CountryItem[]>(WORLDWIDE_195_COUNTRIES as CountryItem[]);
+  const [countriesList, setCountriesList] = useState<CountryItem[]>(WORLDWIDE_195_GEO_COUNTRIES as unknown as CountryItem[]);
   const [statesList, setStatesList] = useState<StateItem[]>([]);
   const [isLoadingStates, setIsLoadingStates] = useState(false);
   const [countrySearchQuery, setCountrySearchQuery] = useState("");
@@ -112,6 +115,8 @@ export const CheckoutPage: React.FC = () => {
   const countryDropdownRef = useRef<HTMLDivElement>(null);
 
   // Customer & Medical Procurement Information (Initialized 100% empty - NO mock data)
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [fullName, setFullName] = useState("");
   const [professionalTitle, setProfessionalTitle] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -128,6 +133,7 @@ export const CheckoutPage: React.FC = () => {
   const [district, setDistrict] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
+  const [stateCode, setStateCode] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [deliveryInstructions, setDeliveryInstructions] = useState("");
   const [saveAddressToAccount, setSaveAddressToAccount] = useState(true);
@@ -207,6 +213,8 @@ export const CheckoutPage: React.FC = () => {
 
   // Active country object
   const activeCountry = useMemo<CountryItem>(() => {
+    const geoFound = getCountryByCode(countryCode);
+    if (geoFound) return geoFound as unknown as CountryItem;
     const found = countriesList.find((c) => c.code.toUpperCase() === countryCode.toUpperCase());
     if (found) return found;
     return {
@@ -430,7 +438,16 @@ export const CheckoutPage: React.FC = () => {
       const savedDraftRaw = localStorage.getItem(GUEST_CHECKOUT_STORAGE_KEY);
       if (savedDraftRaw) {
         const draft = JSON.parse(savedDraftRaw);
-        if (draft.fullName) setFullName(draft.fullName);
+        if (draft.firstName) setFirstName(draft.firstName);
+        if (draft.lastName) setLastName(draft.lastName);
+        if (draft.fullName) {
+          setFullName(draft.fullName);
+          if (!draft.firstName) {
+            const parts = draft.fullName.trim().split(" ");
+            setFirstName(parts[0] || "");
+            setLastName(parts.slice(1).join(" ") || "");
+          }
+        }
         if (draft.professionalTitle) setProfessionalTitle(draft.professionalTitle);
         if (draft.email) setEmail(draft.email);
         if (draft.phone) setPhone(draft.phone);
@@ -442,13 +459,19 @@ export const CheckoutPage: React.FC = () => {
         if (draft.district) setDistrict(draft.district);
         if (draft.city) setCity(draft.city);
         if (draft.state) setState(draft.state);
+        if (draft.stateCode) setStateCode(draft.stateCode);
         if (draft.postalCode) setPostalCode(draft.postalCode);
         if (draft.countryCode) setCountryCode(draft.countryCode);
       }
     } catch (e) {}
 
     if (user) {
-      if (user.fullName) setFullName((prev) => prev || user.fullName);
+      if (user.fullName) {
+        setFullName((prev) => prev || user.fullName);
+        const parts = user.fullName.trim().split(" ");
+        setFirstName((prev) => prev || parts[0] || "");
+        setLastName((prev) => prev || parts.slice(1).join(" ") || "");
+      }
       if (user.email) setEmail((prev) => prev || user.email);
       if (user.phone) setPhone((prev) => prev || user.phone);
       if (user.institutionName) setCompanyName((prev) => prev || user.institutionName);
@@ -494,7 +517,9 @@ export const CheckoutPage: React.FC = () => {
   useEffect(() => {
     try {
       const draft = {
-        fullName,
+        firstName,
+        lastName,
+        fullName: fullName || `${firstName} ${lastName}`.trim(),
         professionalTitle,
         email,
         phone,
@@ -506,16 +531,20 @@ export const CheckoutPage: React.FC = () => {
         district,
         city,
         state,
+        stateCode,
         postalCode,
         countryCode
       };
       localStorage.setItem(GUEST_CHECKOUT_STORAGE_KEY, JSON.stringify(draft));
     } catch (e) {}
-  }, [fullName, professionalTitle, email, phone, companyName, department, addressLine1, addressLine2, buildingSuite, district, city, state, postalCode, countryCode]);
+  }, [firstName, lastName, fullName, professionalTitle, email, phone, companyName, department, addressLine1, addressLine2, buildingSuite, district, city, state, stateCode, postalCode, countryCode]);
 
   // Apply a saved address
   const applySavedAddress = (addr: SavedAddressItem) => {
     setFullName(addr.fullName || "");
+    const parts = (addr.fullName || "").trim().split(" ");
+    setFirstName(parts[0] || "");
+    setLastName(parts.slice(1).join(" ") || "");
     if (addr.companyName) setCompanyName(addr.companyName);
     if (addr.phone) setPhone(addr.phone);
     if (addr.addressLine1) setAddressLine1(addr.addressLine1);
@@ -648,13 +677,10 @@ export const CheckoutPage: React.FC = () => {
 
   // Step 1 Validation
   const validateStep1 = (): boolean => {
-    if (!fullName.trim()) {
-      setErrorMessage("Please enter your Full Name.");
-      window.scrollTo({ top: 120, behavior: "smooth" });
-      return false;
-    }
-    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setErrorMessage("Please enter a valid Email Address.");
+    const fName = firstName.trim() || fullName.trim().split(" ")[0];
+    const lName = lastName.trim() || fullName.trim().split(" ").slice(1).join(" ");
+    if (!fName || !lName) {
+      setErrorMessage("Please enter both First Name and Last Name.");
       window.scrollTo({ top: 120, behavior: "smooth" });
       return false;
     }
@@ -663,16 +689,29 @@ export const CheckoutPage: React.FC = () => {
       window.scrollTo({ top: 120, behavior: "smooth" });
       return false;
     }
-    if (!addressLine1.trim()) {
-      setErrorMessage("Please enter your Street Shipping Address (Line 1).");
+    if (!countryCode) {
+      setErrorMessage("Please select a Destination Country.");
+      return false;
+    }
+    if (activeCountry.hasStates !== false && !state.trim()) {
+      setErrorMessage(`Please select your ${activeCountry.stateLabel || "State / Province"}.`);
       return false;
     }
     if (!city.trim()) {
-      setErrorMessage("Please specify your Delivery City / Town.");
+      setErrorMessage("Please specify your Delivery City / Locality.");
       return false;
     }
     if (activeCountry.hasPostalCode !== false && !postalCode.trim()) {
       setErrorMessage(`Please enter your ${activeCountry.postalLabel || "Postal / ZIP Code"}.`);
+      return false;
+    }
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setErrorMessage("Please enter a valid Email Address.");
+      window.scrollTo({ top: 120, behavior: "smooth" });
+      return false;
+    }
+    if (!addressLine1.trim()) {
+      setErrorMessage("Please enter your Street Address.");
       return false;
     }
 
@@ -682,7 +721,7 @@ export const CheckoutPage: React.FC = () => {
         return false;
       }
       if (!billingAddressLine1.trim()) {
-        setErrorMessage("Please enter the Billing Street Address (Line 1).");
+        setErrorMessage("Please enter the Billing Street Address.");
         return false;
       }
       if (!billingCity.trim()) {
@@ -797,16 +836,16 @@ export const CheckoutPage: React.FC = () => {
           setIsProcessing(true);
           setErrorMessage("");
 
-          const nameParts = fullName.trim().split(" ");
-          const parsedFirstName = nameParts[0] || "Customer";
-          const parsedLastName = nameParts.slice(1).join(" ") || "Procurement";
+          const parsedFirstName = firstName.trim() || fullName.trim().split(" ")[0] || "Customer";
+          const parsedLastName = lastName.trim() || fullName.trim().split(" ").slice(1).join(" ") || "Procurement";
+          const computedFullName = fullName.trim() || `${parsedFirstName} ${parsedLastName}`.trim();
 
           const payload = {
             customerId: user?.id || null,
             customer: {
               firstName: parsedFirstName,
               lastName: parsedLastName,
-              fullName: fullName.trim(),
+              fullName: computedFullName,
               professionalTitle,
               email,
               phone,
@@ -816,7 +855,9 @@ export const CheckoutPage: React.FC = () => {
               taxId
             },
             shippingAddress: {
-              fullName: fullName.trim(),
+              firstName: parsedFirstName,
+              lastName: parsedLastName,
+              fullName: computedFullName,
               companyName,
               phone,
               addressLine1,
@@ -824,6 +865,7 @@ export const CheckoutPage: React.FC = () => {
               district,
               city,
               state,
+              stateCode,
               postalCode,
               country: activeCountry.name,
               countryCode
@@ -984,7 +1026,7 @@ export const CheckoutPage: React.FC = () => {
       const sorted = [...countriesList].sort((a, b) => a.name.localeCompare(b.name));
       return { popularCountries: pop, alphabeticalCountries: sorted };
     }
-    const matched = filterWorldwideCountries(countriesList as any, q) as CountryItem[];
+    const matched = filterCountries(q, countriesList as any) as CountryItem[];
     return { popularCountries: [], alphabeticalCountries: matched };
   }, [countriesList, countrySearchQuery]);
 
@@ -1353,130 +1395,7 @@ export const CheckoutPage: React.FC = () => {
             {currentStep === 1 && (
               <div className="space-y-6 animate-in fade-in duration-200">
                 
-                {/* 1. CUSTOMER & MEDICAL PROCUREMENT INFORMATION */}
-                <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
-                  <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
-                    <div className="flex items-center gap-2">
-                      <User size={18} className="text-[#2D5A4A]" />
-                      <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
-                        Customer & Procurement Details
-                      </h2>
-                    </div>
-                    <span className="text-3xs text-neutral-400 font-bold uppercase tracking-wider">
-                      Medical Grade B2B
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                    {/* Full Name & Professional Title */}
-                    <div>
-                      <label className="block font-bold text-[#171717] mb-1.5">
-                        Full Name <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        placeholder="Enter your full name"
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block font-bold text-[#171717] mb-1.5">
-                        Professional Title <span className="text-neutral-400 font-normal">(Optional)</span>
-                      </label>
-                      <input
-                        type="text"
-                        value={professionalTitle}
-                        onChange={(e) => setProfessionalTitle(e.target.value)}
-                        placeholder="e.g. Consultant Surgeon, Procurement Officer"
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                      />
-                    </div>
-
-                    {/* Hospital / Clinic / Organization */}
-                    <div>
-                      <label className="block font-bold text-[#171717] mb-1.5">
-                        Hospital / Clinic / Organization <span className="text-neutral-400 font-normal">(Optional)</span>
-                      </label>
-                      <div className="relative">
-                        <input
-                          type="text"
-                          value={companyName}
-                          onChange={(e) => setCompanyName(e.target.value)}
-                          placeholder="Enter hospital or organization name"
-                          className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                        />
-                        <Building2 size={16} className="absolute left-3 top-3 text-neutral-400 pointer-events-none" />
-                      </div>
-                    </div>
-
-                    {/* Department */}
-                    <div>
-                      <label className="block font-bold text-[#171717] mb-1.5">
-                        Clinical Department <span className="text-neutral-400 font-normal">(Optional)</span>
-                      </label>
-                      <input
-                        type="text"
-                        value={department}
-                        onChange={(e) => setDepartment(e.target.value)}
-                        placeholder="e.g. Operating Theatre, Laparoscopy Unit"
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                      />
-                    </div>
-
-                    {/* Email Address */}
-                    <div>
-                      <label className="block font-bold text-[#171717] mb-1.5">
-                        Email <span className="text-red-500">*</span>
-                      </label>
-                      <div className="relative">
-                        <input
-                          type="email"
-                          required
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="Enter your email address"
-                          className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                        />
-                        <Mail size={16} className="absolute left-3 top-3 text-neutral-400 pointer-events-none" />
-                      </div>
-                    </div>
-
-                    {/* Phone Number with Local Number Input & Country Calling Code */}
-                    <div>
-                      <label className="block font-bold text-[#171717] mb-1.5">
-                        Phone Number <span className="text-red-500">*</span>
-                      </label>
-                      <InternationalPhoneInput
-                        value={phone}
-                        onChange={setPhone}
-                        countryCode={countryCode}
-                        countriesList={countriesList}
-                        required
-                        placeholder="Enter your phone number"
-                      />
-                    </div>
-
-                    {/* Optional Business Details: Tax ID */}
-                    <div className="sm:col-span-2">
-                      <label className="block font-bold text-[#171717] mb-1.5">
-                        VAT / GST / Tax ID <span className="text-neutral-400 font-normal">(Optional)</span>
-                      </label>
-                      <input
-                        type="text"
-                        value={taxId}
-                        onChange={(e) => setTaxId(e.target.value)}
-                        placeholder="e.g. EU VAT, GSTIN, Tax ID"
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400 uppercase"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* 2. SAVED ADDRESS SELECTION (If available) */}
+                {/* 1. SAVED ADDRESS SELECTION (If available) */}
                 {savedAddresses.length > 0 && (
                   <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
                     <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
@@ -1566,386 +1485,90 @@ export const CheckoutPage: React.FC = () => {
                   </div>
                 )}
 
-                {/* 3. SHIPPING DESTINATION WITH ALL 195 COUNTRIES & GOOGLE MAPS AUTOCOMPLETE */}
+                {/* 2. AMAZON-STYLE CASCADING ADDRESS FORM (EXACT LOGICAL ORDER 1 TO 8) */}
+                <AmazonCascadingAddressForm
+                  data={{
+                    firstName,
+                    lastName,
+                    fullName: fullName || `${firstName} ${lastName}`.trim(),
+                    phone,
+                    phoneCountryCode: activeCountry.dialCode,
+                    phoneIso: countryCode,
+                    country: activeCountry.name,
+                    countryCode,
+                    state,
+                    stateCode,
+                    city,
+                    postalCode,
+                    email,
+                    streetAddress: addressLine1,
+                    additionalAddress: addressLine2 || buildingSuite,
+                    companyName,
+                    department,
+                    professionalTitle,
+                    taxId
+                  }}
+                  onChange={(updated) => {
+                    if (updated.firstName !== undefined) setFirstName(updated.firstName);
+                    if (updated.lastName !== undefined) setLastName(updated.lastName);
+                    if (updated.fullName !== undefined) setFullName(updated.fullName);
+                    if (updated.phone !== undefined) setPhone(updated.phone);
+                    if (updated.countryCode !== undefined) {
+                      setCountryCode(updated.countryCode);
+                      if (billingSameAsShipping) setBillingCountryCode(updated.countryCode);
+                    }
+                    if (updated.state !== undefined) setState(updated.state);
+                    if (updated.stateCode !== undefined) setStateCode(updated.stateCode);
+                    if (updated.city !== undefined) setCity(updated.city);
+                    if (updated.postalCode !== undefined) setPostalCode(updated.postalCode);
+                    if (updated.email !== undefined) setEmail(updated.email);
+                    if (updated.streetAddress !== undefined) setAddressLine1(updated.streetAddress);
+                    if (updated.additionalAddress !== undefined) setAddressLine2(updated.additionalAddress);
+                    if (updated.companyName !== undefined) setCompanyName(updated.companyName);
+                    if (updated.department !== undefined) setDepartment(updated.department);
+                    if (updated.professionalTitle !== undefined) setProfessionalTitle(updated.professionalTitle);
+                    if (updated.taxId !== undefined) setTaxId(updated.taxId);
+                  }}
+                  onCountryChange={(selected) => {
+                    setCountryCode(selected.code);
+                    if (billingSameAsShipping) setBillingCountryCode(selected.code);
+                    if (selected.currency && selected.currency !== currentCurrency) {
+                      setCurrencyManually(selected.currency);
+                    }
+                  }}
+                  isGeolocating={isGeolocating}
+                  onDetectLocation={handleDirectDetectLocation}
+                  locationNotice={locationNotice}
+                  onDismissLocationNotice={() => setLocationNotice(null)}
+                />
+
+                {/* 3. OPTIONAL CARGO INSTRUCTIONS & ACCOUNT SAVE */}
                 <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-neutral-200">
-                    <div className="flex items-center gap-2">
-                      <Globe size={18} className="text-[#2D5A4A]" />
-                      <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
-                        Regional Shipping Destination
-                      </h2>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={handleDirectDetectLocation}
-                        disabled={isGeolocating}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-2xs font-bold text-[#2D5A4A] bg-[#EBF3E8] hover:bg-[#dcecd5] border border-[#7AA05A]/40 transition-colors cursor-pointer disabled:opacity-60"
-                        title="Detect location and auto-fill regional destination"
-                      >
-                        {isGeolocating ? (
-                          <>
-                            <Loader2 size={12} className="animate-spin text-[#2D5A4A]" />
-                            <span>Detecting Location...</span>
-                          </>
-                        ) : (
-                          <>
-                            <Navigation size={12} className="text-[#2D5A4A]" />
-                            <span>Use My Current Location</span>
-                          </>
-                        )}
-                      </button>
-                      <span className="hidden sm:inline-block text-3xs font-bold text-[#2D5A4A] bg-[#F4F7F2] px-2.5 py-1 rounded-full uppercase tracking-wider">
-                        195 Countries
-                      </span>
-                    </div>
+                  <h3 className="font-extrabold text-[#2D5A4A] uppercase tracking-wider text-2xs">
+                    Cargo Delivery Options
+                  </h3>
+                  <div>
+                    <label className="block font-bold text-[#171717] mb-1.5 text-xs">
+                      Cargo Delivery & Receiving Bay Instructions <span className="text-neutral-400 font-normal">(Optional)</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={deliveryInstructions}
+                      onChange={(e) => setDeliveryInstructions(e.target.value)}
+                      placeholder="Special hospital delivery instructions, receiving dock hours, contact person"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400 text-xs"
+                    />
                   </div>
-
-                  {locationNotice && (
-                    <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#F0F7ED] border border-[#7AA05A]/40 text-xs font-semibold text-[#2D5A4A]">
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 size={15} className="text-[#7AA05A] shrink-0" />
-                        <span>{locationNotice}</span>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => setLocationNotice(null)}
-                        className="text-neutral-400 hover:text-neutral-700 p-1 rounded hover:bg-black/5 cursor-pointer"
-                        title="Dismiss notification"
-                      >
-                        <X size={14} />
-                      </button>
-                    </div>
-                  )}
-
-                  <div className="space-y-4 text-xs">
-                    {/* Destination Country Searchable Selector (195 Countries) */}
-                    <div className="relative" ref={countryDropdownRef}>
-                      <label className="block font-bold text-[#171717] mb-1.5">
-                        Destination Country / Jurisdiction <span className="text-red-500">*</span>
-                      </label>
-
-                      <button
-                        type="button"
-                        onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
-                        className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-semibold hover:border-neutral-400 focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all text-left"
-                      >
-                        <div className="flex items-center gap-2.5 truncate">
-                          <span className="text-lg leading-none">{activeCountry.flag}</span>
-                          <span className="font-bold text-sm text-[#171717] truncate">{activeCountry.name}</span>
-                          <span className="text-2xs font-mono text-neutral-400">({activeCountry.code})</span>
-                        </div>
-                        <div className="flex items-center gap-2 shrink-0">
-                          <span className="text-2xs font-bold text-[#2D5A4A] bg-[#F4F7F2] px-2 py-0.5 rounded">
-                            {activeCountry.dialCode}
-                          </span>
-                          <span className="text-2xs text-neutral-500 font-mono">
-                            {activeCountry.currency} ({activeCountry.symbol})
-                          </span>
-                        </div>
-                      </button>
-
-                      {/* Dropdown Menu for All 195 Countries */}
-                      {isCountryDropdownOpen && (
-                        <div className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-neutral-200 rounded-xl shadow-xl z-50 py-2 max-h-80 flex flex-col animate-in fade-in zoom-in-95 duration-100">
-                          <div className="px-3 pb-2 border-b border-neutral-100">
-                            <div className="relative">
-                              <Search size={14} className="absolute left-2.5 top-2.5 text-neutral-400" />
-                              <input
-                                type="text"
-                                value={countrySearchQuery}
-                                onChange={(e) => setCountrySearchQuery(e.target.value)}
-                                placeholder="Search by name, calling code (+91, +92, +1), or ISO (IN, PK, US)..."
-                                className="w-full pl-8 pr-3 py-1.5 text-xs bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-[#7AA05A] text-neutral-800"
-                                autoFocus
-                              />
-                            </div>
-                          </div>
-
-                          <div className="overflow-y-auto max-h-64 divide-y divide-neutral-50">
-                            {/* Popular Countries Section (When not actively searching) */}
-                            {popularCountries.length > 0 && !countrySearchQuery && (
-                              <div className="pb-1">
-                                <div className="px-3.5 py-1 text-3xs font-extrabold uppercase tracking-wider text-neutral-400 bg-neutral-50">
-                                  Popular Procurement Hubs
-                                </div>
-                                {popularCountries.map((c) => (
-                                  <button
-                                    key={`pop-${c.code}`}
-                                    type="button"
-                                    onClick={() => handleSelectCountry(c)}
-                                    className={`w-full flex items-center justify-between px-3.5 py-2 hover:bg-[#F4F7F2] text-left transition-colors text-xs ${
-                                      c.code === countryCode ? "bg-[#7AA05A]/10 font-bold text-[#2D5A4A]" : "text-neutral-800"
-                                    }`}
-                                  >
-                                    <div className="flex items-center gap-2.5 truncate pr-2">
-                                      <span className="text-base">{c.flag}</span>
-                                      <span className="truncate">{c.name}</span>
-                                      <span className="text-3xs font-mono text-neutral-400">({c.code})</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 shrink-0">
-                                      <span className="font-mono text-2xs text-neutral-500 font-semibold">{c.dialCode}</span>
-                                      <span className="text-3xs font-semibold text-neutral-400">{c.currency}</span>
-                                    </div>
-                                  </button>
-                                ))}
-                              </div>
-                            )}
-
-                            {/* All 195 Countries List */}
-                            <div>
-                              {!countrySearchQuery && (
-                                <div className="px-3.5 py-1 text-3xs font-extrabold uppercase tracking-wider text-neutral-400 bg-neutral-50">
-                                  All 195 Countries (Alphabetical)
-                                </div>
-                              )}
-                              {alphabeticalCountries.length === 0 ? (
-                                <div className="px-4 py-4 text-xs text-neutral-500 text-center">
-                                  No matching country or calling code found.
-                                </div>
-                              ) : (
-                                alphabeticalCountries.map((c) => (
-                                  <button
-                                    key={c.code}
-                                    type="button"
-                                    onClick={() => handleSelectCountry(c)}
-                                    className={`w-full flex items-center justify-between px-3.5 py-2 hover:bg-[#F4F7F2] text-left transition-colors text-xs ${
-                                      c.code === countryCode ? "bg-[#7AA05A]/10 font-bold text-[#2D5A4A]" : "text-neutral-800"
-                                    }`}
-                                  >
-                                    <div className="flex items-center gap-2.5 truncate pr-2">
-                                      <span className="text-base leading-none">{c.flag}</span>
-                                      <span className="truncate">{c.name}</span>
-                                      <span className="text-3xs font-mono text-neutral-400">({c.code})</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 shrink-0">
-                                      <span className="font-mono text-2xs text-neutral-500 font-semibold">{c.dialCode}</span>
-                                      <span className="text-3xs font-semibold text-neutral-400">{c.currency}</span>
-                                    </div>
-                                  </button>
-                                ))
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Google Maps / Geocoded Address Autocomplete Search Bar */}
-                    <div className="relative" ref={autocompleteContainerRef}>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <label className="block font-bold text-[#171717]">
-                          Address Autocomplete & Location Search
-                        </label>
-                        <span className="text-3xs text-neutral-400 font-medium flex items-center gap-1">
-                          <MapPin size={11} className="text-[#2D5A4A]" />
-                          <span>Google Maps / OSM Geocoded</span>
-                        </span>
-                      </div>
-                      <div className="relative">
-                        <input
-                          type="text"
-                          value={autocompleteQuery}
-                          onChange={(e) => handleAddressSearchChange(e.target.value)}
-                          onFocus={() => {
-                            if (autocompleteSuggestions.length > 0) setShowAddressSuggestions(true);
-                          }}
-                          placeholder={`Search hospital, street, landmark, or city in ${activeCountry.name}...`}
-                          className="w-full pl-9 pr-8 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                        />
-                        <Search size={15} className="absolute left-3 top-3 text-neutral-400 pointer-events-none" />
-                        {isSearchingAddress ? (
-                          <Loader2 size={15} className="absolute right-3 top-3 animate-spin text-[#7AA05A]" />
-                        ) : autocompleteQuery ? (
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setAutocompleteQuery("");
-                              setAutocompleteSuggestions([]);
-                              setShowAddressSuggestions(false);
-                            }}
-                            className="absolute right-3 top-3 text-neutral-400 hover:text-neutral-700"
-                          >
-                            <X size={14} />
-                          </button>
-                        ) : null}
-                      </div>
-
-                      {/* Autocomplete Suggestions Popup */}
-                      {showAddressSuggestions && autocompleteSuggestions.length > 0 && (
-                        <div className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-neutral-200 rounded-xl shadow-xl z-40 max-h-60 overflow-y-auto divide-y divide-neutral-100 animate-in fade-in duration-100">
-                          {autocompleteSuggestions.map((sug, idx) => (
-                            <button
-                              key={idx}
-                              type="button"
-                              onClick={() => handleSelectAddressSuggestion(sug)}
-                              className="w-full px-3.5 py-2.5 text-left hover:bg-[#F4F7F2] transition-colors flex items-start gap-2.5 cursor-pointer"
-                            >
-                              <MapPin size={15} className="text-[#2D5A4A] shrink-0 mt-0.5" />
-                              <div className="min-w-0">
-                                <div className="text-xs font-semibold text-[#171717] truncate">
-                                  {sug.addressLine1 || sug.formattedAddress.split(",")[0]}
-                                </div>
-                                <div className="text-3xs text-neutral-500 truncate mt-0.5">
-                                  {sug.formattedAddress}
-                                </div>
-                              </div>
-                            </button>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Street Address Line 1 */}
-                    <div>
-                      <label className="block font-bold text-[#171717] mb-1.5">
-                        Street Address (Line 1) <span className="text-red-500">*</span>
-                      </label>
+                  <div className="pt-2">
+                    <label className="flex items-center gap-2 cursor-pointer select-none text-xs text-[#171717]">
                       <input
-                        type="text"
-                        required
-                        value={addressLine1}
-                        onChange={(e) => setAddressLine1(e.target.value)}
-                        placeholder="Building, street, hospital ward, suite number"
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                        type="checkbox"
+                        checked={saveAddressToAccount}
+                        onChange={(e) => setSaveAddressToAccount(e.target.checked)}
+                        className="w-4 h-4 rounded text-[#7AA05A] focus:ring-[#7AA05A] accent-[#7AA05A]"
                       />
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {/* Address Line 2 */}
-                      <div>
-                        <label className="block font-bold text-[#171717] mb-1.5">
-                          Address Line 2 <span className="text-neutral-400 font-normal">(Optional)</span>
-                        </label>
-                        <input
-                          type="text"
-                          value={addressLine2}
-                          onChange={(e) => setAddressLine2(e.target.value)}
-                          placeholder="Floor, wing, surgical suite, loading bay"
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                        />
-                      </div>
-
-                      {/* Building / Suite */}
-                      <div>
-                        <label className="block font-bold text-[#171717] mb-1.5">
-                          Building / Suite / Ward <span className="text-neutral-400 font-normal">(Optional)</span>
-                        </label>
-                        <input
-                          type="text"
-                          value={buildingSuite}
-                          onChange={(e) => setBuildingSuite(e.target.value)}
-                          placeholder="Building name, tower, block"
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      {/* Dynamic State / Province / Territory */}
-                      <div>
-                        <label className="block font-bold text-[#171717] mb-1.5">
-                          {activeCountry.stateLabel || "State / Province"}
-                        </label>
-                        {isLoadingStates ? (
-                          <div className="w-full px-3 py-2.5 rounded-xl border border-neutral-200 bg-neutral-50 text-neutral-400 flex items-center gap-2">
-                            <Loader2 size={13} className="animate-spin text-[#7AA05A]" />
-                            <span>Loading states...</span>
-                          </div>
-                        ) : statesList.length > 0 ? (
-                          <select
-                            value={state}
-                            onChange={(e) => setState(e.target.value)}
-                            className="w-full px-3 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all cursor-pointer"
-                          >
-                            <option value="">Select state/province...</option>
-                            {statesList.map((s) => (
-                              <option key={s.code} value={s.name}>
-                                {s.name}
-                              </option>
-                            ))}
-                          </select>
-                        ) : (
-                          <input
-                            type="text"
-                            value={state}
-                            onChange={(e) => setState(e.target.value)}
-                            placeholder="Enter state or region"
-                            className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                          />
-                        )}
-                      </div>
-
-                      {/* City / Town */}
-                      <div>
-                        <label className="block font-bold text-[#171717] mb-1.5">
-                          City / Town <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={city}
-                          onChange={(e) => setCity(e.target.value)}
-                          placeholder="Enter city"
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                        />
-                      </div>
-
-                      {/* Dynamic Postal / ZIP / PIN Code (Adapts if country has no postal codes) */}
-                      <div>
-                        <label className="block font-bold text-[#171717] mb-1.5">
-                          {activeCountry.postalLabel || "Postal Code"}{" "}
-                          {activeCountry.hasPostalCode !== false && <span className="text-red-500">*</span>}
-                        </label>
-                        <input
-                          type="text"
-                          required={activeCountry.hasPostalCode !== false}
-                          value={postalCode}
-                          onChange={(e) => setPostalCode(e.target.value)}
-                          placeholder={
-                            activeCountry.hasPostalCode === false
-                              ? "Not applicable for this country"
-                              : activeCountry.code === "IN"
-                              ? "e.g. 110001 (6 digits)"
-                              : activeCountry.code === "US"
-                              ? "e.g. 90210"
-                              : activeCountry.code === "GB"
-                              ? "e.g. SW1A 1AA"
-                              : activeCountry.code === "CA"
-                              ? "e.g. K1A 0B1"
-                              : "Enter postal code"
-                          }
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Special Cargo Delivery Instructions */}
-                    <div>
-                      <label className="block font-bold text-[#171717] mb-1.5">
-                        Cargo Delivery & Receiving Bay Instructions <span className="text-neutral-400 font-normal">(Optional)</span>
-                      </label>
-                      <input
-                        type="text"
-                        value={deliveryInstructions}
-                        onChange={(e) => setDeliveryInstructions(e.target.value)}
-                        placeholder="Special hospital delivery instructions, receiving dock hours, contact person"
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                      />
-                    </div>
-
-                    {/* Save Address to Account Checkbox */}
-                    <div className="pt-2">
-                      <label className="flex items-center gap-2 cursor-pointer select-none text-xs text-[#171717]">
-                        <input
-                          type="checkbox"
-                          checked={saveAddressToAccount}
-                          onChange={(e) => setSaveAddressToAccount(e.target.checked)}
-                          className="w-4 h-4 rounded text-[#7AA05A] focus:ring-[#7AA05A] accent-[#7AA05A]"
-                        />
-                        <span>Save this delivery address to my DR.MEDEX account for future orders</span>
-                      </label>
-                    </div>
+                      <span>Save this delivery address to my DR.MEDEX account for future orders</span>
+                    </label>
                   </div>
                 </div>
 

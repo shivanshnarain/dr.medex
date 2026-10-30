@@ -1,0 +1,167 @@
+[
+  {
+    "code": "BDS",
+    "name": "Badakhshan",
+    "countryCode": "AF"
+  },
+  {
+    "code": "BDG",
+    "name": "Badghis",
+    "countryCode": "AF"
+  },
+  {
+    "code": "BGL",
+    "name": "Baghlan",
+    "countryCode": "AF"
+  },
+  {
+    "code": "BAL",
+    "name": "Balkh",
+    "countryCode": "AF"
+  },
+  {
+    "code": "BAM",
+    "name": "Bamyan",
+    "countryCode": "AF"
+  },
+  {
+    "code": "DAY",
+    "name": "Daykundi",
+    "countryCode": "AF"
+  },
+  {
+    "code": "FRA",
+    "name": "Farah",
+    "countryCode": "AF"
+  },
+  {
+    "code": "FYB",
+    "name": "Faryab",
+    "countryCode": "AF"
+  },
+  {
+    "code": "GHA",
+    "name": "Ghazni",
+    "countryCode": "AF"
+  },
+  {
+    "code": "GHO",
+    "name": "Ghōr",
+    "countryCode": "AF"
+  },
+  {
+    "code": "HEL",
+    "name": "Helmand",
+    "countryCode": "AF"
+  },
+  {
+    "code": "HER",
+    "name": "Herat",
+    "countryCode": "AF"
+  },
+  {
+    "code": "JOW",
+    "name": "Jowzjan",
+    "countryCode": "AF"
+  },
+  {
+    "code": "KAB",
+    "name": "Kabul",
+    "countryCode": "AF"
+  },
+  {
+    "code": "KAN",
+    "name": "Kandahar",
+    "countryCode": "AF"
+  },
+  {
+    "code": "KAP",
+    "name": "Kapisa",
+    "countryCode": "AF"
+  },
+  {
+    "code": "KHO",
+    "name": "Khost",
+    "countryCode": "AF"
+  },
+  {
+    "code": "KNR",
+    "name": "Kunar",
+    "countryCode": "AF"
+  },
+  {
+    "code": "KDZ",
+    "name": "Kunduz Province",
+    "countryCode": "AF"
+  },
+  {
+    "code": "LAG",
+    "name": "Laghman",
+    "countryCode": "AF"
+  },
+  {
+    "code": "LOG",
+    "name": "Logar",
+    "countryCode": "AF"
+  },
+  {
+    "code": "NAN",
+    "name": "Nangarhar",
+    "countryCode": "AF"
+  },
+  {
+    "code": "NIM",
+    "name": "Nimruz",
+    "countryCode": "AF"
+  },
+  {
+    "code": "NUR",
+    "name": "Nuristan",
+    "countryCode": "AF"
+  },
+  {
+    "code": "PIA",
+    "name": "Paktia",
+    "countryCode": "AF"
+  },
+  {
+    "code": "PKA",
+    "name": "Paktika",
+    "countryCode": "AF"
+  },
+  {
+    "code": "PAN",
+    "name": "Panjshir",
+    "countryCode": "AF"
+  },
+  {
+    "code": "PAR",
+    "name": "Parwan",
+    "countryCode": "AF"
+  },
+  {
+    "code": "SAM",
+    "name": "Samangan",
+    "countryCode": "AF"
+  },
+  {
+    "code": "SAR",
+    "name": "Sar-e Pol",
+    "countryCode": "AF"
+  },
+  {
+    "code": "TAK",
+    "name": "Takhar",
+    "countryCode": "AF"
+  },
+  {
+    "code": "URU",
+    "name": "Urozgan",
+    "countryCode": "AF"
+  },
+  {
+    "code": "ZAB",
+    "name": "Zabul",
+    "countryCode": "AF"
+  }
+]

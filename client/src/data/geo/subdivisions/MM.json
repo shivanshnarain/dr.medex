@@ -1,0 +1,77 @@
+[
+  {
+    "code": "07",
+    "name": "Ayeyarwady Region",
+    "countryCode": "MM"
+  },
+  {
+    "code": "02",
+    "name": "Bago",
+    "countryCode": "MM"
+  },
+  {
+    "code": "14",
+    "name": "Chin State",
+    "countryCode": "MM"
+  },
+  {
+    "code": "11",
+    "name": "Kachin State",
+    "countryCode": "MM"
+  },
+  {
+    "code": "12",
+    "name": "Kayah State",
+    "countryCode": "MM"
+  },
+  {
+    "code": "13",
+    "name": "Kayin State",
+    "countryCode": "MM"
+  },
+  {
+    "code": "03",
+    "name": "Magway Region",
+    "countryCode": "MM"
+  },
+  {
+    "code": "04",
+    "name": "Mandalay Region",
+    "countryCode": "MM"
+  },
+  {
+    "code": "15",
+    "name": "Mon State",
+    "countryCode": "MM"
+  },
+  {
+    "code": "18",
+    "name": "Naypyidaw Union Territory",
+    "countryCode": "MM"
+  },
+  {
+    "code": "16",
+    "name": "Rakhine State",
+    "countryCode": "MM"
+  },
+  {
+    "code": "01",
+    "name": "Sagaing Region",
+    "countryCode": "MM"
+  },
+  {
+    "code": "17",
+    "name": "Shan State",
+    "countryCode": "MM"
+  },
+  {
+    "code": "05",
+    "name": "Tanintharyi Region",
+    "countryCode": "MM"
+  },
+  {
+    "code": "06",
+    "name": "Yangon Region",
+    "countryCode": "MM"
+  }
+]

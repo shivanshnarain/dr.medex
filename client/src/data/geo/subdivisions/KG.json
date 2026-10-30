@@ -1,0 +1,47 @@
+[
+  {
+    "code": "B",
+    "name": "Batken Region",
+    "countryCode": "KG"
+  },
+  {
+    "code": "GB",
+    "name": "Bishkek",
+    "countryCode": "KG"
+  },
+  {
+    "code": "C",
+    "name": "Chuy Region",
+    "countryCode": "KG"
+  },
+  {
+    "code": "Y",
+    "name": "Issyk-Kul Region",
+    "countryCode": "KG"
+  },
+  {
+    "code": "J",
+    "name": "Jalal-Abad Region",
+    "countryCode": "KG"
+  },
+  {
+    "code": "N",
+    "name": "Naryn Region",
+    "countryCode": "KG"
+  },
+  {
+    "code": "GO",
+    "name": "Osh",
+    "countryCode": "KG"
+  },
+  {
+    "code": "O",
+    "name": "Osh Region",
+    "countryCode": "KG"
+  },
+  {
+    "code": "T",
+    "name": "Talas Region",
+    "countryCode": "KG"
+  }
+]

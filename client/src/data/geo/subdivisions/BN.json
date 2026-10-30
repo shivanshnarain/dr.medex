@@ -1,0 +1,22 @@
+[
+  {
+    "code": "BE",
+    "name": "Belait District",
+    "countryCode": "BN"
+  },
+  {
+    "code": "BM",
+    "name": "Brunei-Muara District",
+    "countryCode": "BN"
+  },
+  {
+    "code": "TE",
+    "name": "Temburong District",
+    "countryCode": "BN"
+  },
+  {
+    "code": "TU",
+    "name": "Tutong District",
+    "countryCode": "BN"
+  }
+]

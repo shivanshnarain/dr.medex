@@ -1,0 +1,67 @@
+[
+  {
+    "code": "1",
+    "name": "Bocas del Toro Province",
+    "countryCode": "PA"
+  },
+  {
+    "code": "4",
+    "name": "Chiriquí Province",
+    "countryCode": "PA"
+  },
+  {
+    "code": "2",
+    "name": "Coclé Province",
+    "countryCode": "PA"
+  },
+  {
+    "code": "3",
+    "name": "Colón Province",
+    "countryCode": "PA"
+  },
+  {
+    "code": "5",
+    "name": "Darién Province",
+    "countryCode": "PA"
+  },
+  {
+    "code": "EM",
+    "name": "Emberá-Wounaan Comarca",
+    "countryCode": "PA"
+  },
+  {
+    "code": "KY",
+    "name": "Guna Yala",
+    "countryCode": "PA"
+  },
+  {
+    "code": "6",
+    "name": "Herrera Province",
+    "countryCode": "PA"
+  },
+  {
+    "code": "7",
+    "name": "Los Santos Province",
+    "countryCode": "PA"
+  },
+  {
+    "code": "NB",
+    "name": "Ngöbe-Buglé Comarca",
+    "countryCode": "PA"
+  },
+  {
+    "code": "10",
+    "name": "Panamá Oeste Province",
+    "countryCode": "PA"
+  },
+  {
+    "code": "8",
+    "name": "Panamá Province",
+    "countryCode": "PA"
+  },
+  {
+    "code": "9",
+    "name": "Veraguas Province",
+    "countryCode": "PA"
+  }
+]

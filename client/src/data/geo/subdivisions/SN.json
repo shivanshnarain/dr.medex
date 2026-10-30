@@ -1,0 +1,72 @@
+[
+  {
+    "code": "DK",
+    "name": "Dakar",
+    "countryCode": "SN"
+  },
+  {
+    "code": "DB",
+    "name": "Diourbel Region",
+    "countryCode": "SN"
+  },
+  {
+    "code": "FK",
+    "name": "Fatick",
+    "countryCode": "SN"
+  },
+  {
+    "code": "KA",
+    "name": "Kaffrine",
+    "countryCode": "SN"
+  },
+  {
+    "code": "KL",
+    "name": "Kaolack",
+    "countryCode": "SN"
+  },
+  {
+    "code": "KE",
+    "name": "Kédougou",
+    "countryCode": "SN"
+  },
+  {
+    "code": "KD",
+    "name": "Kolda",
+    "countryCode": "SN"
+  },
+  {
+    "code": "LG",
+    "name": "Louga",
+    "countryCode": "SN"
+  },
+  {
+    "code": "MT",
+    "name": "Matam",
+    "countryCode": "SN"
+  },
+  {
+    "code": "SL",
+    "name": "Saint-Louis",
+    "countryCode": "SN"
+  },
+  {
+    "code": "SE",
+    "name": "Sédhiou",
+    "countryCode": "SN"
+  },
+  {
+    "code": "TC",
+    "name": "Tambacounda Region",
+    "countryCode": "SN"
+  },
+  {
+    "code": "TH",
+    "name": "Thiès Region",
+    "countryCode": "SN"
+  },
+  {
+    "code": "ZG",
+    "name": "Ziguinchor",
+    "countryCode": "SN"
+  }
+]

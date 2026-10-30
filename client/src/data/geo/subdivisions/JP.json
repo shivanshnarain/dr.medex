@@ -1,0 +1,237 @@
+[
+  {
+    "code": "23",
+    "name": "Aichi Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "05",
+    "name": "Akita Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "02",
+    "name": "Aomori Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "12",
+    "name": "Chiba Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "38",
+    "name": "Ehime Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "18",
+    "name": "Fukui Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "40",
+    "name": "Fukuoka Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "07",
+    "name": "Fukushima Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "21",
+    "name": "Gifu Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "10",
+    "name": "Gunma Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "34",
+    "name": "Hiroshima Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "01",
+    "name": "Hokkaidō Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "28",
+    "name": "Hyōgo Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "08",
+    "name": "Ibaraki Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "17",
+    "name": "Ishikawa Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "03",
+    "name": "Iwate Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "37",
+    "name": "Kagawa Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "46",
+    "name": "Kagoshima Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "14",
+    "name": "Kanagawa Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "39",
+    "name": "Kōchi Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "43",
+    "name": "Kumamoto Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "26",
+    "name": "Kyōto Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "24",
+    "name": "Mie Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "04",
+    "name": "Miyagi Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "45",
+    "name": "Miyazaki Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "20",
+    "name": "Nagano Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "42",
+    "name": "Nagasaki Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "29",
+    "name": "Nara Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "15",
+    "name": "Niigata Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "44",
+    "name": "Ōita Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "33",
+    "name": "Okayama Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "47",
+    "name": "Okinawa Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "27",
+    "name": "Ōsaka Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "41",
+    "name": "Saga Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "11",
+    "name": "Saitama Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "25",
+    "name": "Shiga Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "32",
+    "name": "Shimane Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "22",
+    "name": "Shizuoka Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "09",
+    "name": "Tochigi Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "36",
+    "name": "Tokushima Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "13",
+    "name": "Tokyo",
+    "countryCode": "JP"
+  },
+  {
+    "code": "31",
+    "name": "Tottori Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "16",
+    "name": "Toyama Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "30",
+    "name": "Wakayama Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "06",
+    "name": "Yamagata Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "35",
+    "name": "Yamaguchi Prefecture",
+    "countryCode": "JP"
+  },
+  {
+    "code": "19",
+    "name": "Yamanashi Prefecture",
+    "countryCode": "JP"
+  }
+]

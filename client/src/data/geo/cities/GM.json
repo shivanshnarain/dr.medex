@@ -1,0 +1,431 @@
+{
+  "B": [
+    {
+      "name": "Bakau",
+      "postalCodes": []
+    },
+    {
+      "name": "Banjul",
+      "postalCodes": []
+    },
+    {
+      "name": "Kombo Saint Mary District",
+      "postalCodes": []
+    },
+    {
+      "name": "Serekunda",
+      "postalCodes": []
+    }
+  ],
+  "M": [
+    {
+      "name": "Bansang",
+      "postalCodes": []
+    },
+    {
+      "name": "Brikama Nding",
+      "postalCodes": []
+    },
+    {
+      "name": "Dankunku",
+      "postalCodes": []
+    },
+    {
+      "name": "Denton",
+      "postalCodes": []
+    },
+    {
+      "name": "Fulladu West",
+      "postalCodes": []
+    },
+    {
+      "name": "Galleh Manda",
+      "postalCodes": []
+    },
+    {
+      "name": "Georgetown",
+      "postalCodes": []
+    },
+    {
+      "name": "Jakhaly",
+      "postalCodes": []
+    },
+    {
+      "name": "Janjanbureh",
+      "postalCodes": []
+    },
+    {
+      "name": "Jarreng",
+      "postalCodes": []
+    },
+    {
+      "name": "Karantaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Kass Wollof",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuntaur",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunting",
+      "postalCodes": []
+    },
+    {
+      "name": "Lower Saloum",
+      "postalCodes": []
+    },
+    {
+      "name": "Niamina East District",
+      "postalCodes": []
+    },
+    {
+      "name": "Niamina West District",
+      "postalCodes": []
+    },
+    {
+      "name": "Niani",
+      "postalCodes": []
+    },
+    {
+      "name": "Nianija District",
+      "postalCodes": []
+    },
+    {
+      "name": "Pateh Sam",
+      "postalCodes": []
+    },
+    {
+      "name": "Sami",
+      "postalCodes": []
+    },
+    {
+      "name": "Sami District",
+      "postalCodes": []
+    },
+    {
+      "name": "Saruja",
+      "postalCodes": []
+    },
+    {
+      "name": "Sukuta",
+      "postalCodes": []
+    },
+    {
+      "name": "Upper Saloum",
+      "postalCodes": []
+    },
+    {
+      "name": "Wassu",
+      "postalCodes": []
+    }
+  ],
+  "L": [
+    {
+      "name": "Baro Kunda",
+      "postalCodes": []
+    },
+    {
+      "name": "Bureng",
+      "postalCodes": []
+    },
+    {
+      "name": "Jali",
+      "postalCodes": []
+    },
+    {
+      "name": "Jarra Central",
+      "postalCodes": []
+    },
+    {
+      "name": "Jarra East",
+      "postalCodes": []
+    },
+    {
+      "name": "Jarra West",
+      "postalCodes": []
+    },
+    {
+      "name": "Jenoi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jifarong",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaiaf",
+      "postalCodes": []
+    },
+    {
+      "name": "Karantaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Keneba",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiang Central",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiang East",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiang West District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mansa Konko",
+      "postalCodes": []
+    },
+    {
+      "name": "Nioro",
+      "postalCodes": []
+    },
+    {
+      "name": "Sankwia",
+      "postalCodes": []
+    },
+    {
+      "name": "Si Kunda",
+      "postalCodes": []
+    },
+    {
+      "name": "Soma",
+      "postalCodes": []
+    },
+    {
+      "name": "Sutukung",
+      "postalCodes": []
+    },
+    {
+      "name": "Toniataba",
+      "postalCodes": []
+    },
+    {
+      "name": "Wellingara Ba",
+      "postalCodes": []
+    }
+  ],
+  "N": [
+    {
+      "name": "Bambali",
+      "postalCodes": []
+    },
+    {
+      "name": "Barra",
+      "postalCodes": []
+    },
+    {
+      "name": "Central Baddibu",
+      "postalCodes": []
+    },
+    {
+      "name": "Chilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Daru Rilwan",
+      "postalCodes": []
+    },
+    {
+      "name": "Essau",
+      "postalCodes": []
+    },
+    {
+      "name": "Farafenni",
+      "postalCodes": []
+    },
+    {
+      "name": "Gunjur",
+      "postalCodes": []
+    },
+    {
+      "name": "Jokadu",
+      "postalCodes": []
+    },
+    {
+      "name": "Katchang",
+      "postalCodes": []
+    },
+    {
+      "name": "Kerewan",
+      "postalCodes": []
+    },
+    {
+      "name": "Lamin",
+      "postalCodes": []
+    },
+    {
+      "name": "Lower Baddibu District",
+      "postalCodes": []
+    },
+    {
+      "name": "Lower Niumi District",
+      "postalCodes": []
+    },
+    {
+      "name": "No Kunda",
+      "postalCodes": []
+    },
+    {
+      "name": "Saba",
+      "postalCodes": []
+    },
+    {
+      "name": "Sara Kunda",
+      "postalCodes": []
+    },
+    {
+      "name": "Upper Baddibu",
+      "postalCodes": []
+    },
+    {
+      "name": "Upper Niumi District",
+      "postalCodes": []
+    }
+  ],
+  "U": [
+    {
+      "name": "Bakadagy",
+      "postalCodes": []
+    },
+    {
+      "name": "Basse Santa Su",
+      "postalCodes": []
+    },
+    {
+      "name": "Brifu",
+      "postalCodes": []
+    },
+    {
+      "name": "Daba Kunda",
+      "postalCodes": []
+    },
+    {
+      "name": "Demba Kunda",
+      "postalCodes": []
+    },
+    {
+      "name": "Diabugu",
+      "postalCodes": []
+    },
+    {
+      "name": "Diabugu Basilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Fulladu East",
+      "postalCodes": []
+    },
+    {
+      "name": "Gunjur Kuta",
+      "postalCodes": []
+    },
+    {
+      "name": "Kantora",
+      "postalCodes": []
+    },
+    {
+      "name": "Koina",
+      "postalCodes": []
+    },
+    {
+      "name": "Kumbija",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyamanari",
+      "postalCodes": []
+    },
+    {
+      "name": "Perai",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sandu",
+      "postalCodes": []
+    },
+    {
+      "name": "Sudowol",
+      "postalCodes": []
+    },
+    {
+      "name": "Sun Kunda",
+      "postalCodes": []
+    },
+    {
+      "name": "Sutukoba",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuli",
+      "postalCodes": []
+    }
+  ],
+  "W": [
+    {
+      "name": "Abuko",
+      "postalCodes": []
+    },
+    {
+      "name": "Brikama",
+      "postalCodes": []
+    },
+    {
+      "name": "Foni Bondali",
+      "postalCodes": []
+    },
+    {
+      "name": "Foni Brefet",
+      "postalCodes": []
+    },
+    {
+      "name": "Foni Jarrol",
+      "postalCodes": []
+    },
+    {
+      "name": "Foni Kansala",
+      "postalCodes": []
+    },
+    {
+      "name": "Gunjur",
+      "postalCodes": []
+    },
+    {
+      "name": "Kombo Central District",
+      "postalCodes": []
+    },
+    {
+      "name": "Kombo East District",
+      "postalCodes": []
+    },
+    {
+      "name": "Kombo North District",
+      "postalCodes": []
+    },
+    {
+      "name": "Kombo South District",
+      "postalCodes": []
+    },
+    {
+      "name": "Somita",
+      "postalCodes": []
+    },
+    {
+      "name": "Sukuta",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

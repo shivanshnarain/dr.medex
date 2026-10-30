@@ -1,0 +1,335 @@
+{
+  "TRK": [
+    {
+      "name": "Eot Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Ettal Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Fananu Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Fanapanges Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Fefen Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Fonoton Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Houk Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuttu Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Lekinioch Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Losap Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Makur Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Moch Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Murilo",
+      "postalCodes": []
+    },
+    {
+      "name": "Murilo Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Namoluk Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Nema",
+      "postalCodes": []
+    },
+    {
+      "name": "Nema Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Nomwin Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Oneop Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Onou Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Onoun Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Paata-Tupunion Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Parem Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Piherarh Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Piis-Emwar Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Piis-Panewu Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Pollap Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Polowat Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Pwene Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramanum Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruo Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Satowan Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Siis Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Ta Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamatam Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Tolensom Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Tonoas Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Udot-Fonuweisom Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Uman-Fonuweisom Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Unanu Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Weno",
+      "postalCodes": []
+    },
+    {
+      "name": "Weno Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Wonei Municipality",
+      "postalCodes": []
+    }
+  ],
+  "KSA": [
+    {
+      "name": "Lelu Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Malem Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Tafunsak Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Tofol",
+      "postalCodes": []
+    },
+    {
+      "name": "Utwe Municipality",
+      "postalCodes": []
+    }
+  ],
+  "PNI": [
+    {
+      "name": "Kitti Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolonia",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolonia Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolonia Town",
+      "postalCodes": []
+    },
+    {
+      "name": "Madolenihm Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Mokil Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Nett Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngatik",
+      "postalCodes": []
+    },
+    {
+      "name": "Nukuoro Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Palikir - National Government Center",
+      "postalCodes": []
+    },
+    {
+      "name": "Pingelap Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Sapwuahfik Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Sokehs Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "U Municipality",
+      "postalCodes": []
+    }
+  ],
+  "YAP": [
+    {
+      "name": "Colonia",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalipebinaw Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Fais",
+      "postalCodes": []
+    },
+    {
+      "name": "Fais Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Fanif Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Faraulep Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Gagil Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Gilman Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanifay Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Lamotrek Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Maap Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngulu Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Rull Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Rumung Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Satawal Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Tomil Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Ulithi Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Weloy Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Woleai Municipality",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

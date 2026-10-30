@@ -1,0 +1,292 @@
+[
+  {
+    "code": "01",
+    "name": "Adrar",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "44",
+    "name": "Aïn Defla",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "46",
+    "name": "Aïn Témouchent",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "16",
+    "name": "Algiers",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "23",
+    "name": "Annaba",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "05",
+    "name": "Batna",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "08",
+    "name": "Béchar",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "06",
+    "name": "Béjaïa",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "53",
+    "name": "Béni Abbès",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "07",
+    "name": "Biskra",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "09",
+    "name": "Blida",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "52",
+    "name": "Bordj Baji Mokhtar",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "34",
+    "name": "Bordj Bou Arréridj",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "10",
+    "name": "Bouïra",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "35",
+    "name": "Boumerdès",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "02",
+    "name": "Chlef",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "25",
+    "name": "Constantine",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "56",
+    "name": "Djanet",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "17",
+    "name": "Djelfa",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "32",
+    "name": "El Bayadh",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "49",
+    "name": "El M'ghair",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "50",
+    "name": "El Menia",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "39",
+    "name": "El Oued",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "36",
+    "name": "El Tarf",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "47",
+    "name": "Ghardaïa",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "24",
+    "name": "Guelma",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "33",
+    "name": "Illizi",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "58",
+    "name": "In Guezzam",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "57",
+    "name": "In Salah",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "18",
+    "name": "Jijel",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "40",
+    "name": "Khenchela",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "03",
+    "name": "Laghouat",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "28",
+    "name": "M'Sila",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "29",
+    "name": "Mascara",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "26",
+    "name": "Médéa",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "43",
+    "name": "Mila",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "27",
+    "name": "Mostaganem",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "45",
+    "name": "Naama",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "31",
+    "name": "Oran",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "30",
+    "name": "Ouargla",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "51",
+    "name": "Ouled Djellal",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "04",
+    "name": "Oum El Bouaghi",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "48",
+    "name": "Relizane",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "20",
+    "name": "Saïda",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "19",
+    "name": "Sétif",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "22",
+    "name": "Sidi Bel Abbès",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "21",
+    "name": "Skikda",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "41",
+    "name": "Souk Ahras",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "11",
+    "name": "Tamanghasset",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "12",
+    "name": "Tébessa",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "14",
+    "name": "Tiaret",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "54",
+    "name": "Timimoun",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "37",
+    "name": "Tindouf",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "42",
+    "name": "Tipasa",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "38",
+    "name": "Tissemsilt",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "15",
+    "name": "Tizi Ouzou",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "13",
+    "name": "Tlemcen",
+    "countryCode": "DZ"
+  },
+  {
+    "code": "55",
+    "name": "Touggourt",
+    "countryCode": "DZ"
+  }
+]

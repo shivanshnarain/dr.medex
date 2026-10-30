@@ -1,0 +1,22 @@
+[
+  {
+    "code": "E",
+    "name": "Eastern Province",
+    "countryCode": "SL"
+  },
+  {
+    "code": "N",
+    "name": "Northern Province",
+    "countryCode": "SL"
+  },
+  {
+    "code": "S",
+    "name": "Southern Province",
+    "countryCode": "SL"
+  },
+  {
+    "code": "W",
+    "name": "Western Area",
+    "countryCode": "SL"
+  }
+]

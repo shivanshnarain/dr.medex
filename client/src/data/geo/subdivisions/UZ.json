@@ -1,0 +1,72 @@
+[
+  {
+    "code": "AN",
+    "name": "Andijan Region",
+    "countryCode": "UZ"
+  },
+  {
+    "code": "BU",
+    "name": "Bukhara Region",
+    "countryCode": "UZ"
+  },
+  {
+    "code": "FA",
+    "name": "Fergana Region",
+    "countryCode": "UZ"
+  },
+  {
+    "code": "JI",
+    "name": "Jizzakh Region",
+    "countryCode": "UZ"
+  },
+  {
+    "code": "QR",
+    "name": "Karakalpakstan",
+    "countryCode": "UZ"
+  },
+  {
+    "code": "NG",
+    "name": "Namangan Region",
+    "countryCode": "UZ"
+  },
+  {
+    "code": "NW",
+    "name": "Navoiy Region",
+    "countryCode": "UZ"
+  },
+  {
+    "code": "QA",
+    "name": "Qashqadaryo Region",
+    "countryCode": "UZ"
+  },
+  {
+    "code": "SA",
+    "name": "Samarqand Region",
+    "countryCode": "UZ"
+  },
+  {
+    "code": "SI",
+    "name": "Sirdaryo Region",
+    "countryCode": "UZ"
+  },
+  {
+    "code": "SU",
+    "name": "Surxondaryo Region",
+    "countryCode": "UZ"
+  },
+  {
+    "code": "TK",
+    "name": "Tashkent",
+    "countryCode": "UZ"
+  },
+  {
+    "code": "TO",
+    "name": "Tashkent Region",
+    "countryCode": "UZ"
+  },
+  {
+    "code": "XO",
+    "name": "Xorazm Region",
+    "countryCode": "UZ"
+  }
+]

@@ -1,0 +1,147 @@
+[
+  {
+    "code": "CW",
+    "name": "Carlow",
+    "countryCode": "IE"
+  },
+  {
+    "code": "CN",
+    "name": "Cavan",
+    "countryCode": "IE"
+  },
+  {
+    "code": "CE",
+    "name": "Clare",
+    "countryCode": "IE"
+  },
+  {
+    "code": "C",
+    "name": "Connacht",
+    "countryCode": "IE"
+  },
+  {
+    "code": "CO",
+    "name": "Cork",
+    "countryCode": "IE"
+  },
+  {
+    "code": "DL",
+    "name": "Donegal",
+    "countryCode": "IE"
+  },
+  {
+    "code": "D",
+    "name": "Dublin",
+    "countryCode": "IE"
+  },
+  {
+    "code": "G",
+    "name": "Galway",
+    "countryCode": "IE"
+  },
+  {
+    "code": "KY",
+    "name": "Kerry",
+    "countryCode": "IE"
+  },
+  {
+    "code": "KE",
+    "name": "Kildare",
+    "countryCode": "IE"
+  },
+  {
+    "code": "KK",
+    "name": "Kilkenny",
+    "countryCode": "IE"
+  },
+  {
+    "code": "LS",
+    "name": "Laois",
+    "countryCode": "IE"
+  },
+  {
+    "code": "L",
+    "name": "Leinster",
+    "countryCode": "IE"
+  },
+  {
+    "code": "LK",
+    "name": "Limerick",
+    "countryCode": "IE"
+  },
+  {
+    "code": "LD",
+    "name": "Longford",
+    "countryCode": "IE"
+  },
+  {
+    "code": "LH",
+    "name": "Louth",
+    "countryCode": "IE"
+  },
+  {
+    "code": "MO",
+    "name": "Mayo",
+    "countryCode": "IE"
+  },
+  {
+    "code": "MH",
+    "name": "Meath",
+    "countryCode": "IE"
+  },
+  {
+    "code": "MN",
+    "name": "Monaghan",
+    "countryCode": "IE"
+  },
+  {
+    "code": "M",
+    "name": "Munster",
+    "countryCode": "IE"
+  },
+  {
+    "code": "OY",
+    "name": "Offaly",
+    "countryCode": "IE"
+  },
+  {
+    "code": "RN",
+    "name": "Roscommon",
+    "countryCode": "IE"
+  },
+  {
+    "code": "SO",
+    "name": "Sligo",
+    "countryCode": "IE"
+  },
+  {
+    "code": "TA",
+    "name": "Tipperary",
+    "countryCode": "IE"
+  },
+  {
+    "code": "U",
+    "name": "Ulster",
+    "countryCode": "IE"
+  },
+  {
+    "code": "WD",
+    "name": "Waterford",
+    "countryCode": "IE"
+  },
+  {
+    "code": "WH",
+    "name": "Westmeath",
+    "countryCode": "IE"
+  },
+  {
+    "code": "WX",
+    "name": "Wexford",
+    "countryCode": "IE"
+  },
+  {
+    "code": "WW",
+    "name": "Wicklow",
+    "countryCode": "IE"
+  }
+]

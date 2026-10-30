@@ -1,0 +1,579 @@
+{
+  "AD": [
+    {
+      "name": "Bankim",
+      "postalCodes": []
+    },
+    {
+      "name": "Banyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Bélel",
+      "postalCodes": []
+    },
+    {
+      "name": "Djohong",
+      "postalCodes": []
+    },
+    {
+      "name": "Kontcha",
+      "postalCodes": []
+    },
+    {
+      "name": "Mayo-Banyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Meïganga",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngaoundéré",
+      "postalCodes": []
+    },
+    {
+      "name": "Somié",
+      "postalCodes": []
+    },
+    {
+      "name": "Tibati",
+      "postalCodes": []
+    },
+    {
+      "name": "Tignère",
+      "postalCodes": []
+    },
+    {
+      "name": "Vina",
+      "postalCodes": []
+    }
+  ],
+  "CE": [
+    {
+      "name": "Akono",
+      "postalCodes": []
+    },
+    {
+      "name": "Akonolinga",
+      "postalCodes": []
+    },
+    {
+      "name": "Bafia",
+      "postalCodes": []
+    },
+    {
+      "name": "Eséka",
+      "postalCodes": []
+    },
+    {
+      "name": "Essé",
+      "postalCodes": []
+    },
+    {
+      "name": "Évodoula",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbalmayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbam-Et-Inoubou",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbandjok",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbankomo",
+      "postalCodes": []
+    },
+    {
+      "name": "Mefou-et-Akono",
+      "postalCodes": []
+    },
+    {
+      "name": "Mfoundi",
+      "postalCodes": []
+    },
+    {
+      "name": "Minta",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanga Eboko",
+      "postalCodes": []
+    },
+    {
+      "name": "Ndikiniméki",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngomedzap",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngoro",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkoteng",
+      "postalCodes": []
+    },
+    {
+      "name": "Ntui",
+      "postalCodes": []
+    },
+    {
+      "name": "Obala",
+      "postalCodes": []
+    },
+    {
+      "name": "Okoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Okola",
+      "postalCodes": []
+    },
+    {
+      "name": "Ombésa",
+      "postalCodes": []
+    },
+    {
+      "name": "Saa",
+      "postalCodes": []
+    },
+    {
+      "name": "Yaoundé",
+      "postalCodes": []
+    },
+    {
+      "name": "Yoko",
+      "postalCodes": []
+    }
+  ],
+  "ES": [
+    {
+      "name": "Abong Mbang",
+      "postalCodes": []
+    },
+    {
+      "name": "Batouri",
+      "postalCodes": []
+    },
+    {
+      "name": "Bélabo",
+      "postalCodes": []
+    },
+    {
+      "name": "Bertoua",
+      "postalCodes": []
+    },
+    {
+      "name": "Bétaré Oya",
+      "postalCodes": []
+    },
+    {
+      "name": "Dimako",
+      "postalCodes": []
+    },
+    {
+      "name": "Doumé",
+      "postalCodes": []
+    },
+    {
+      "name": "Garoua Boulaï",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbang",
+      "postalCodes": []
+    },
+    {
+      "name": "Ndelele",
+      "postalCodes": []
+    },
+    {
+      "name": "Yokadouma",
+      "postalCodes": []
+    }
+  ],
+  "EN": [
+    {
+      "name": "Bogo",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaélé",
+      "postalCodes": []
+    },
+    {
+      "name": "Kousséri",
+      "postalCodes": []
+    },
+    {
+      "name": "Koza",
+      "postalCodes": []
+    },
+    {
+      "name": "Makary",
+      "postalCodes": []
+    },
+    {
+      "name": "Maroua",
+      "postalCodes": []
+    },
+    {
+      "name": "Mayo-Sava",
+      "postalCodes": []
+    },
+    {
+      "name": "Mayo-Tsanaga",
+      "postalCodes": []
+    },
+    {
+      "name": "Mindif",
+      "postalCodes": []
+    },
+    {
+      "name": "Mokolo",
+      "postalCodes": []
+    },
+    {
+      "name": "Mora",
+      "postalCodes": []
+    },
+    {
+      "name": "Yagoua",
+      "postalCodes": []
+    }
+  ],
+  "LT": [
+    {
+      "name": "Bonabéri",
+      "postalCodes": []
+    },
+    {
+      "name": "Diang",
+      "postalCodes": []
+    },
+    {
+      "name": "Dibombari",
+      "postalCodes": []
+    },
+    {
+      "name": "Dizangué",
+      "postalCodes": []
+    },
+    {
+      "name": "Douala",
+      "postalCodes": []
+    },
+    {
+      "name": "Edéa",
+      "postalCodes": []
+    },
+    {
+      "name": "Loum",
+      "postalCodes": []
+    },
+    {
+      "name": "Manjo",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbanga",
+      "postalCodes": []
+    },
+    {
+      "name": "Melong",
+      "postalCodes": []
+    },
+    {
+      "name": "Mouanko",
+      "postalCodes": []
+    },
+    {
+      "name": "Ndom",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngambé",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkongsamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Penja",
+      "postalCodes": []
+    },
+    {
+      "name": "Yabassi",
+      "postalCodes": []
+    }
+  ],
+  "NO": [
+    {
+      "name": "Faro Department",
+      "postalCodes": []
+    },
+    {
+      "name": "Garoua",
+      "postalCodes": []
+    },
+    {
+      "name": "Guider",
+      "postalCodes": []
+    },
+    {
+      "name": "Lagdo",
+      "postalCodes": []
+    },
+    {
+      "name": "Mayo-Louti",
+      "postalCodes": []
+    },
+    {
+      "name": "Mayo-Rey",
+      "postalCodes": []
+    },
+    {
+      "name": "Pitoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Poli",
+      "postalCodes": []
+    },
+    {
+      "name": "Rey Bouba",
+      "postalCodes": []
+    },
+    {
+      "name": "Tcholliré",
+      "postalCodes": []
+    }
+  ],
+  "NW": [
+    {
+      "name": "Babanki",
+      "postalCodes": []
+    },
+    {
+      "name": "Bali",
+      "postalCodes": []
+    },
+    {
+      "name": "Bamenda",
+      "postalCodes": []
+    },
+    {
+      "name": "Batibo",
+      "postalCodes": []
+    },
+    {
+      "name": "Belo",
+      "postalCodes": []
+    },
+    {
+      "name": "Boyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Fundong",
+      "postalCodes": []
+    },
+    {
+      "name": "Jakiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Kumbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbengwi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mme-Bafumen",
+      "postalCodes": []
+    },
+    {
+      "name": "Njinikom",
+      "postalCodes": []
+    },
+    {
+      "name": "Wum",
+      "postalCodes": []
+    }
+  ],
+  "SU": [
+    {
+      "name": "Akom II",
+      "postalCodes": []
+    },
+    {
+      "name": "Ambam",
+      "postalCodes": []
+    },
+    {
+      "name": "Ébolowa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kribi",
+      "postalCodes": []
+    },
+    {
+      "name": "Lolodorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Mvangué",
+      "postalCodes": []
+    },
+    {
+      "name": "Mvila",
+      "postalCodes": []
+    },
+    {
+      "name": "Sangmélima",
+      "postalCodes": []
+    }
+  ],
+  "SW": [
+    {
+      "name": "Bamusso",
+      "postalCodes": []
+    },
+    {
+      "name": "Bekondo",
+      "postalCodes": []
+    },
+    {
+      "name": "Buea",
+      "postalCodes": []
+    },
+    {
+      "name": "Fako Division",
+      "postalCodes": []
+    },
+    {
+      "name": "Fontem",
+      "postalCodes": []
+    },
+    {
+      "name": "Kumba",
+      "postalCodes": []
+    },
+    {
+      "name": "Lebialem",
+      "postalCodes": []
+    },
+    {
+      "name": "Limbe",
+      "postalCodes": []
+    },
+    {
+      "name": "Mamfe",
+      "postalCodes": []
+    },
+    {
+      "name": "Mundemba",
+      "postalCodes": []
+    },
+    {
+      "name": "Mutengene",
+      "postalCodes": []
+    },
+    {
+      "name": "Muyuka",
+      "postalCodes": []
+    },
+    {
+      "name": "Nguti",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiko",
+      "postalCodes": []
+    }
+  ],
+  "OU": [
+    {
+      "name": "Bafang",
+      "postalCodes": []
+    },
+    {
+      "name": "Bafoussam",
+      "postalCodes": []
+    },
+    {
+      "name": "Bamendjou",
+      "postalCodes": []
+    },
+    {
+      "name": "Bana",
+      "postalCodes": []
+    },
+    {
+      "name": "Bandjoun",
+      "postalCodes": []
+    },
+    {
+      "name": "Bangangté",
+      "postalCodes": []
+    },
+    {
+      "name": "Bansoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Bazou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dschang",
+      "postalCodes": []
+    },
+    {
+      "name": "Foumban",
+      "postalCodes": []
+    },
+    {
+      "name": "Foumbot",
+      "postalCodes": []
+    },
+    {
+      "name": "Hauts-Plateaux",
+      "postalCodes": []
+    },
+    {
+      "name": "Koung-Khi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbouda",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngou",
+      "postalCodes": []
+    },
+    {
+      "name": "Noun",
+      "postalCodes": []
+    },
+    {
+      "name": "Tonga",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

@@ -1,0 +1,87 @@
+[
+  {
+    "code": "26",
+    "name": "Busan",
+    "countryCode": "KR"
+  },
+  {
+    "code": "27",
+    "name": "Daegu",
+    "countryCode": "KR"
+  },
+  {
+    "code": "30",
+    "name": "Daejeon",
+    "countryCode": "KR"
+  },
+  {
+    "code": "42",
+    "name": "Gangwon Province",
+    "countryCode": "KR"
+  },
+  {
+    "code": "29",
+    "name": "Gwangju",
+    "countryCode": "KR"
+  },
+  {
+    "code": "41",
+    "name": "Gyeonggi Province",
+    "countryCode": "KR"
+  },
+  {
+    "code": "28",
+    "name": "Incheon",
+    "countryCode": "KR"
+  },
+  {
+    "code": "49",
+    "name": "Jeju",
+    "countryCode": "KR"
+  },
+  {
+    "code": "43",
+    "name": "North Chungcheong Province",
+    "countryCode": "KR"
+  },
+  {
+    "code": "47",
+    "name": "North Gyeongsang Province",
+    "countryCode": "KR"
+  },
+  {
+    "code": "45",
+    "name": "North Jeolla Province",
+    "countryCode": "KR"
+  },
+  {
+    "code": "50",
+    "name": "Sejong City",
+    "countryCode": "KR"
+  },
+  {
+    "code": "11",
+    "name": "Seoul",
+    "countryCode": "KR"
+  },
+  {
+    "code": "44",
+    "name": "South Chungcheong Province",
+    "countryCode": "KR"
+  },
+  {
+    "code": "48",
+    "name": "South Gyeongsang Province",
+    "countryCode": "KR"
+  },
+  {
+    "code": "46",
+    "name": "South Jeolla Province",
+    "countryCode": "KR"
+  },
+  {
+    "code": "31",
+    "name": "Ulsan",
+    "countryCode": "KR"
+  }
+]

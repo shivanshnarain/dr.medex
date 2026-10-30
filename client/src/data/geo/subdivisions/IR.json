@@ -1,0 +1,157 @@
+[
+  {
+    "code": "30",
+    "name": "Alborz",
+    "countryCode": "IR"
+  },
+  {
+    "code": "24",
+    "name": "Ardabil",
+    "countryCode": "IR"
+  },
+  {
+    "code": "18",
+    "name": "Bushehr",
+    "countryCode": "IR"
+  },
+  {
+    "code": "14",
+    "name": "Chaharmahal and Bakhtiari",
+    "countryCode": "IR"
+  },
+  {
+    "code": "03",
+    "name": "East Azerbaijan",
+    "countryCode": "IR"
+  },
+  {
+    "code": "07",
+    "name": "Fars",
+    "countryCode": "IR"
+  },
+  {
+    "code": "01",
+    "name": "Gilan",
+    "countryCode": "IR"
+  },
+  {
+    "code": "27",
+    "name": "Golestan",
+    "countryCode": "IR"
+  },
+  {
+    "code": "13",
+    "name": "Hamadan",
+    "countryCode": "IR"
+  },
+  {
+    "code": "22",
+    "name": "Hormozgan",
+    "countryCode": "IR"
+  },
+  {
+    "code": "16",
+    "name": "Ilam",
+    "countryCode": "IR"
+  },
+  {
+    "code": "10",
+    "name": "Isfahan",
+    "countryCode": "IR"
+  },
+  {
+    "code": "08",
+    "name": "Kerman",
+    "countryCode": "IR"
+  },
+  {
+    "code": "05",
+    "name": "Kermanshah",
+    "countryCode": "IR"
+  },
+  {
+    "code": "06",
+    "name": "Khuzestan",
+    "countryCode": "IR"
+  },
+  {
+    "code": "17",
+    "name": "Kohgiluyeh and Boyer-Ahmad",
+    "countryCode": "IR"
+  },
+  {
+    "code": "12",
+    "name": "Kurdistan",
+    "countryCode": "IR"
+  },
+  {
+    "code": "15",
+    "name": "Lorestan",
+    "countryCode": "IR"
+  },
+  {
+    "code": "00",
+    "name": "Markazi",
+    "countryCode": "IR"
+  },
+  {
+    "code": "02",
+    "name": "Mazandaran",
+    "countryCode": "IR"
+  },
+  {
+    "code": "28",
+    "name": "North Khorasan",
+    "countryCode": "IR"
+  },
+  {
+    "code": "26",
+    "name": "Qazvin",
+    "countryCode": "IR"
+  },
+  {
+    "code": "25",
+    "name": "Qom",
+    "countryCode": "IR"
+  },
+  {
+    "code": "09",
+    "name": "Razavi Khorasan",
+    "countryCode": "IR"
+  },
+  {
+    "code": "20",
+    "name": "Semnan",
+    "countryCode": "IR"
+  },
+  {
+    "code": "11",
+    "name": "Sistan and Baluchestan",
+    "countryCode": "IR"
+  },
+  {
+    "code": "29",
+    "name": "South Khorasan",
+    "countryCode": "IR"
+  },
+  {
+    "code": "23",
+    "name": "Tehran",
+    "countryCode": "IR"
+  },
+  {
+    "code": "04",
+    "name": "West Azarbaijan",
+    "countryCode": "IR"
+  },
+  {
+    "code": "21",
+    "name": "Yazd",
+    "countryCode": "IR"
+  },
+  {
+    "code": "19",
+    "name": "Zanjan",
+    "countryCode": "IR"
+  }
+]

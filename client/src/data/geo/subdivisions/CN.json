@@ -1,0 +1,172 @@
+[
+  {
+    "code": "AH",
+    "name": "Anhui",
+    "countryCode": "CN"
+  },
+  {
+    "code": "BJ",
+    "name": "Beijing",
+    "countryCode": "CN"
+  },
+  {
+    "code": "CQ",
+    "name": "Chongqing",
+    "countryCode": "CN"
+  },
+  {
+    "code": "FJ",
+    "name": "Fujian",
+    "countryCode": "CN"
+  },
+  {
+    "code": "GS",
+    "name": "Gansu",
+    "countryCode": "CN"
+  },
+  {
+    "code": "GD",
+    "name": "Guangdong",
+    "countryCode": "CN"
+  },
+  {
+    "code": "GX",
+    "name": "Guangxi Zhuang",
+    "countryCode": "CN"
+  },
+  {
+    "code": "GZ",
+    "name": "Guizhou",
+    "countryCode": "CN"
+  },
+  {
+    "code": "HI",
+    "name": "Hainan",
+    "countryCode": "CN"
+  },
+  {
+    "code": "HE",
+    "name": "Hebei",
+    "countryCode": "CN"
+  },
+  {
+    "code": "HL",
+    "name": "Heilongjiang",
+    "countryCode": "CN"
+  },
+  {
+    "code": "HA",
+    "name": "Henan",
+    "countryCode": "CN"
+  },
+  {
+    "code": "HK",
+    "name": "Hong Kong SAR",
+    "countryCode": "CN"
+  },
+  {
+    "code": "HB",
+    "name": "Hubei",
+    "countryCode": "CN"
+  },
+  {
+    "code": "HN",
+    "name": "Hunan",
+    "countryCode": "CN"
+  },
+  {
+    "code": "NM",
+    "name": "Inner Mongolia",
+    "countryCode": "CN"
+  },
+  {
+    "code": "JS",
+    "name": "Jiangsu",
+    "countryCode": "CN"
+  },
+  {
+    "code": "JX",
+    "name": "Jiangxi",
+    "countryCode": "CN"
+  },
+  {
+    "code": "JL",
+    "name": "Jilin",
+    "countryCode": "CN"
+  },
+  {
+    "code": "LN",
+    "name": "Liaoning",
+    "countryCode": "CN"
+  },
+  {
+    "code": "MO",
+    "name": "Macau SAR",
+    "countryCode": "CN"
+  },
+  {
+    "code": "NX",
+    "name": "Ningxia Huizu",
+    "countryCode": "CN"
+  },
+  {
+    "code": "QH",
+    "name": "Qinghai",
+    "countryCode": "CN"
+  },
+  {
+    "code": "SN",
+    "name": "Shaanxi",
+    "countryCode": "CN"
+  },
+  {
+    "code": "SD",
+    "name": "Shandong",
+    "countryCode": "CN"
+  },
+  {
+    "code": "SH",
+    "name": "Shanghai",
+    "countryCode": "CN"
+  },
+  {
+    "code": "SX",
+    "name": "Shanxi",
+    "countryCode": "CN"
+  },
+  {
+    "code": "SC",
+    "name": "Sichuan",
+    "countryCode": "CN"
+  },
+  {
+    "code": "TW",
+    "name": "Taiwan",
+    "countryCode": "CN"
+  },
+  {
+    "code": "TJ",
+    "name": "Tianjin",
+    "countryCode": "CN"
+  },
+  {
+    "code": "XJ",
+    "name": "Xinjiang",
+    "countryCode": "CN"
+  },
+  {
+    "code": "XZ",
+    "name": "Xizang",
+    "countryCode": "CN"
+  },
+  {
+    "code": "YN",
+    "name": "Yunnan",
+    "countryCode": "CN"
+  },
+  {
+    "code": "ZJ",
+    "name": "Zhejiang",
+    "countryCode": "CN"
+  }
+]

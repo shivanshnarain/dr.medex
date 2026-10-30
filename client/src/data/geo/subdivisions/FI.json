@@ -1,0 +1,107 @@
+[
+  {
+    "code": "01",
+    "name": "Åland Islands",
+    "countryCode": "FI"
+  },
+  {
+    "code": "08",
+    "name": "Central Finland",
+    "countryCode": "FI"
+  },
+  {
+    "code": "07",
+    "name": "Central Ostrobothnia",
+    "countryCode": "FI"
+  },
+  {
+    "code": "IS",
+    "name": "Eastern Finland Province",
+    "countryCode": "FI"
+  },
+  {
+    "code": "19",
+    "name": "Finland Proper",
+    "countryCode": "FI"
+  },
+  {
+    "code": "05",
+    "name": "Kainuu",
+    "countryCode": "FI"
+  },
+  {
+    "code": "09",
+    "name": "Kymenlaakso",
+    "countryCode": "FI"
+  },
+  {
+    "code": "LL",
+    "name": "Lapland",
+    "countryCode": "FI"
+  },
+  {
+    "code": "13",
+    "name": "North Karelia",
+    "countryCode": "FI"
+  },
+  {
+    "code": "14",
+    "name": "Northern Ostrobothnia",
+    "countryCode": "FI"
+  },
+  {
+    "code": "15",
+    "name": "Northern Savonia",
+    "countryCode": "FI"
+  },
+  {
+    "code": "12",
+    "name": "Ostrobothnia",
+    "countryCode": "FI"
+  },
+  {
+    "code": "OL",
+    "name": "Oulu Province",
+    "countryCode": "FI"
+  },
+  {
+    "code": "16",
+    "name": "Päijänne Tavastia",
+    "countryCode": "FI"
+  },
+  {
+    "code": "11",
+    "name": "Pirkanmaa",
+    "countryCode": "FI"
+  },
+  {
+    "code": "17",
+    "name": "Satakunta",
+    "countryCode": "FI"
+  },
+  {
+    "code": "02",
+    "name": "South Karelia",
+    "countryCode": "FI"
+  },
+  {
+    "code": "03",
+    "name": "Southern Ostrobothnia",
+    "countryCode": "FI"
+  },
+  {
+    "code": "04",
+    "name": "Southern Savonia",
+    "countryCode": "FI"
+  },
+  {
+    "code": "06",
+    "name": "Tavastia Proper",
+    "countryCode": "FI"
+  },
+  {
+    "code": "18",
+    "name": "Uusimaa",
+    "countryCode": "FI"
+  }
+]

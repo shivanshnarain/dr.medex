@@ -1,0 +1,107 @@
+[
+  {
+    "code": "NSB",
+    "name": "Bougainville",
+    "countryCode": "PG"
+  },
+  {
+    "code": "CPM",
+    "name": "Central Province",
+    "countryCode": "PG"
+  },
+  {
+    "code": "CPK",
+    "name": "Chimbu Province",
+    "countryCode": "PG"
+  },
+  {
+    "code": "EBR",
+    "name": "East New Britain",
+    "countryCode": "PG"
+  },
+  {
+    "code": "EHG",
+    "name": "Eastern Highlands Province",
+    "countryCode": "PG"
+  },
+  {
+    "code": "EPW",
+    "name": "Enga Province",
+    "countryCode": "PG"
+  },
+  {
+    "code": "GPK",
+    "name": "Gulf",
+    "countryCode": "PG"
+  },
+  {
+    "code": "HLA",
+    "name": "Hela",
+    "countryCode": "PG"
+  },
+  {
+    "code": "JWK",
+    "name": "Jiwaka Province",
+    "countryCode": "PG"
+  },
+  {
+    "code": "MPM",
+    "name": "Madang Province",
+    "countryCode": "PG"
+  },
+  {
+    "code": "MRL",
+    "name": "Manus Province",
+    "countryCode": "PG"
+  },
+  {
+    "code": "MBA",
+    "name": "Milne Bay Province",
+    "countryCode": "PG"
+  },
+  {
+    "code": "MPL",
+    "name": "Morobe Province",
+    "countryCode": "PG"
+  },
+  {
+    "code": "NIK",
+    "name": "New Ireland Province",
+    "countryCode": "PG"
+  },
+  {
+    "code": "NPP",
+    "name": "Oro Province",
+    "countryCode": "PG"
+  },
+  {
+    "code": "NCD",
+    "name": "Port Moresby",
+    "countryCode": "PG"
+  },
+  {
+    "code": "SAN",
+    "name": "Sandaun Province",
+    "countryCode": "PG"
+  },
+  {
+    "code": "SHM",
+    "name": "Southern Highlands Province",
+    "countryCode": "PG"
+  },
+  {
+    "code": "WBK",
+    "name": "West New Britain Province",
+    "countryCode": "PG"
+  },
+  {
+    "code": "WHM",
+    "name": "Western Highlands Province",
+    "countryCode": "PG"
+  },
+  {
+    "code": "WPD",
+    "name": "Western Province",
+    "countryCode": "PG"
+  }
+]

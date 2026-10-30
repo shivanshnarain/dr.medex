@@ -1,0 +1,37 @@
+[
+  {
+    "code": "A",
+    "name": "Alajuela Province",
+    "countryCode": "CR"
+  },
+  {
+    "code": "G",
+    "name": "Guanacaste Province",
+    "countryCode": "CR"
+  },
+  {
+    "code": "H",
+    "name": "Heredia Province",
+    "countryCode": "CR"
+  },
+  {
+    "code": "L",
+    "name": "Limón Province",
+    "countryCode": "CR"
+  },
+  {
+    "code": "C",
+    "name": "Provincia de Cartago",
+    "countryCode": "CR"
+  },
+  {
+    "code": "P",
+    "name": "Puntarenas Province",
+    "countryCode": "CR"
+  },
+  {
+    "code": "SJ",
+    "name": "San José Province",
+    "countryCode": "CR"
+  }
+]

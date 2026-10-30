@@ -1,0 +1,1997 @@
+{
+  "13": [
+    {
+      "name": "Cẩm Phả",
+      "postalCodes": []
+    },
+    {
+      "name": "Cẩm Phả Mines",
+      "postalCodes": []
+    },
+    {
+      "name": "Hạ Long",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Ba Chẽ",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Bình Liêu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Cô Tô",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đầm Hà",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đông Triều",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hải Hà",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hoành Bồ",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tiên Yên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Vân Đồn",
+      "postalCodes": []
+    },
+    {
+      "name": "Móng Cái",
+      "postalCodes": []
+    },
+    {
+      "name": "Thành Phố Uông Bí",
+      "postalCodes": []
+    }
+  ],
+  "14": [
+    {
+      "name": "Hòa Bình",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Cao Phong",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Kỳ Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Lạc Thủy",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Lương Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tân Lạc",
+      "postalCodes": []
+    }
+  ],
+  "18": [
+    {
+      "name": "Huyện Hoa Lư",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Kim Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Nho Quan",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Yên Khánh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Yên Mô",
+      "postalCodes": []
+    },
+    {
+      "name": "Ninh Bình",
+      "postalCodes": []
+    }
+  ],
+  "20": [
+    {
+      "name": "Huyện Ðông Hưng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hưng Hà",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Kiến Xương",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Quỳnh Phụ",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thái Thụy",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tiền Hải",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Vũ Thư",
+      "postalCodes": []
+    },
+    {
+      "name": "Thái Bình",
+      "postalCodes": []
+    }
+  ],
+  "21": [
+    {
+      "name": "Bỉm Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Bá Thước",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Cẩm Thủy",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đông Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hà Trung",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hậu Lộc",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Lang Chánh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Mường Lát",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Nga Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Ngọc Lặc",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Như Thanh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Như Xuân",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Nông Cống",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Quan Hóa",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Quan Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Quảng Xương",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thiệu Hóa",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thọ Xuân",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thường Xuân",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Triệu Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Vĩnh Lộc",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Yên Định",
+      "postalCodes": []
+    },
+    {
+      "name": "Thanh Hóa",
+      "postalCodes": []
+    }
+  ],
+  "22": [
+    {
+      "name": "Huyện Anh Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Con Cuông",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Diễn Châu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đô Lương",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hưng Nguyên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Kỳ Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Nam Đàn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Nghi Lộc",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Nghĩa Đàn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Quế Phong",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Quỳ Châu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Quỳ Hợp",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Quỳnh Lưu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thanh Chương",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tương Dương",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Yên Thành",
+      "postalCodes": []
+    },
+    {
+      "name": "Vinh",
+      "postalCodes": []
+    },
+    {
+      "name": "Yên Vinh",
+      "postalCodes": []
+    }
+  ],
+  "23": [
+    {
+      "name": "Hà Tĩnh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Cẩm Xuyên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Can Lộc",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Ðức Thọ",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Kỳ Anh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Nghi Xuân",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thạch Hà",
+      "postalCodes": []
+    }
+  ],
+  "24": [
+    {
+      "name": "Huyện Lệ Thủy",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Quảng Ninh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Quảng Trạch",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tuyên Hóa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kwang Binh",
+      "postalCodes": []
+    }
+  ],
+  "25": [
+    {
+      "name": "Ðông Hà",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Cam Lộ",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đa Krông",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Gio Linh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hải Lăng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hướng Hóa",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Triệu Phong",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Vĩnh Linh",
+      "postalCodes": []
+    }
+  ],
+  "26": [
+    {
+      "name": "Huế",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện A Lưới",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Nam Đông",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Phong Điền",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Phú Lộc",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Phú Vang",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Quảng Ðiền",
+      "postalCodes": []
+    }
+  ],
+  "27": [
+    {
+      "name": "Hội An",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đại Lộc",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Điện Bàn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Duy Xuyên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hiệp Đức",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Nam Giang",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Núi Thành",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Phước Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tiên Phước",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Trà My",
+      "postalCodes": []
+    },
+    {
+      "name": "Tam Kỳ",
+      "postalCodes": []
+    }
+  ],
+  "28": [
+    {
+      "name": "Huyện Đắk Glei",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đắk Hà",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đắk Tô",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Ia H'Drai",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Kon Plông",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Ngọc Hồi",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Sa Thầy",
+      "postalCodes": []
+    },
+    {
+      "name": "Kon Tum",
+      "postalCodes": []
+    }
+  ],
+  "29": [
+    {
+      "name": "Huyện Ba Tơ",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Bình Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đức Phổ",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Lý Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Minh Long",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Mộ Đức",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Nghĩa Hành",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Sơn Hà",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Sơn Tây",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Sơn Tịnh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Trà Bồng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tư Nghĩa",
+      "postalCodes": []
+    },
+    {
+      "name": "Quảng Ngãi",
+      "postalCodes": []
+    }
+  ],
+  "30": [
+    {
+      "name": "Huyện Chư Păh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Chư Prông",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Chư Sê",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đức Cơ",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Ia Grai",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện KBang",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Kông Chro",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Krông Pa",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Mang Yang",
+      "postalCodes": []
+    },
+    {
+      "name": "Pleiku",
+      "postalCodes": []
+    }
+  ],
+  "31": [
+    {
+      "name": "Huyện An Lão",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hoài Nhơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Phù Mỹ",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tây Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tuy Phước",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Vĩnh Thạnh",
+      "postalCodes": []
+    },
+    {
+      "name": "Qui Nhon",
+      "postalCodes": []
+    }
+  ],
+  "32": [
+    {
+      "name": "Huyện Sơn Hòa",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Sông Hinh",
+      "postalCodes": []
+    },
+    {
+      "name": "Sông Cầu",
+      "postalCodes": []
+    },
+    {
+      "name": "Tuy Hòa",
+      "postalCodes": []
+    }
+  ],
+  "33": [
+    {
+      "name": "Buôn Ma Thuột",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Buôn Đôn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Ea H'Leo",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Ea Súp",
+      "postalCodes": []
+    }
+  ],
+  "34": [
+    {
+      "name": "Cam Ranh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Diên Khánh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Khánh Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Khánh Vĩnh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Vạn Ninh",
+      "postalCodes": []
+    },
+    {
+      "name": "Nha Trang",
+      "postalCodes": []
+    },
+    {
+      "name": "Thành Phố Cam Ranh",
+      "postalCodes": []
+    },
+    {
+      "name": "Thành Phố Nha Trang",
+      "postalCodes": []
+    },
+    {
+      "name": "Thị Xã Ninh Hòa",
+      "postalCodes": []
+    }
+  ],
+  "35": [
+    {
+      "name": "Bảo Lộc",
+      "postalCodes": []
+    },
+    {
+      "name": "Ðà Lạt",
+      "postalCodes": []
+    },
+    {
+      "name": "Đam Rong",
+      "postalCodes": []
+    },
+    {
+      "name": "Đinh Văn",
+      "postalCodes": []
+    },
+    {
+      "name": "Đưc Trọng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Bảo Lâm",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đạ Huoai",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đạ Tẻh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đơn Dương",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đức Trọng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Lâm Hà",
+      "postalCodes": []
+    }
+  ],
+  "36": [
+    {
+      "name": "Phan Rang-Tháp Chàm",
+      "postalCodes": []
+    }
+  ],
+  "37": [
+    {
+      "name": "Huyện Bến Cầu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Dương Minh Châu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Gò Dầu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hòa Thành",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tân Châu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Trảng Bàng",
+      "postalCodes": []
+    },
+    {
+      "name": "Phú Khương",
+      "postalCodes": []
+    },
+    {
+      "name": "Tây Ninh",
+      "postalCodes": []
+    }
+  ],
+  "39": [
+    {
+      "name": "Biên Hòa",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Định Quán",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Long Thành",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tân Phú",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thống Nhất",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Trảng Bom",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Vĩnh Cửu",
+      "postalCodes": []
+    }
+  ],
+  "40": [
+    {
+      "name": "Huyện Bắc Bình",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hàm Tân",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hàm Thuận Bắc",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hàm Thuận Nam",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tánh Linh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tuy Phong",
+      "postalCodes": []
+    },
+    {
+      "name": "La Gi",
+      "postalCodes": []
+    },
+    {
+      "name": "Phan Thiết",
+      "postalCodes": []
+    },
+    {
+      "name": "Thành Phố Phan Thiết",
+      "postalCodes": []
+    }
+  ],
+  "41": [
+    {
+      "name": "Cần Giuộc",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Bến Lức",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Cần Đước",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Cần Giuộc",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Châu Thành",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đức Hòa",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đức Huệ",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Mộc Hóa",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tân Hưng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tân Thạnh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tân Trụ",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thạnh Hóa",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thủ Thừa",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Vĩnh Hưng",
+      "postalCodes": []
+    },
+    {
+      "name": "Tân An",
+      "postalCodes": []
+    }
+  ],
+  "43": [
+    {
+      "name": "Côn Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Châu Đức",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đất Đỏ",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tân Thành",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Xuyên Mộc",
+      "postalCodes": []
+    },
+    {
+      "name": "Thành Phố Vũng Tàu",
+      "postalCodes": []
+    },
+    {
+      "name": "Thị Xã Phú Mỹ",
+      "postalCodes": []
+    },
+    {
+      "name": "Vũng Tàu",
+      "postalCodes": []
+    }
+  ],
+  "44": [
+    {
+      "name": "Cho Dok",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện An Phú",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Châu Phú",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Chợ Mới",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Phú Tân",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tri Tôn",
+      "postalCodes": []
+    },
+    {
+      "name": "Long Xuyên",
+      "postalCodes": []
+    },
+    {
+      "name": "Long Xuyên City",
+      "postalCodes": []
+    }
+  ],
+  "45": [
+    {
+      "name": "Cao Lãnh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Châu Thành",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Lai Vung",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Lấp Vò",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tam Nông",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tân Hồng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thanh Bình",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tháp Mười",
+      "postalCodes": []
+    },
+    {
+      "name": "Sa Dec",
+      "postalCodes": []
+    },
+    {
+      "name": "Sa Dec city",
+      "postalCodes": []
+    },
+    {
+      "name": "Thị Trấn Tân Thành",
+      "postalCodes": []
+    }
+  ],
+  "46": [
+    {
+      "name": "Huyện Cái Bè",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Cai Lậy",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Châu Thành",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Chợ Gạo",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Gò Công Đông",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Gò Công Tây",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tân Phước",
+      "postalCodes": []
+    },
+    {
+      "name": "Mỹ Tho",
+      "postalCodes": []
+    },
+    {
+      "name": "Thành Phố Mỹ Tho",
+      "postalCodes": []
+    },
+    {
+      "name": "Thị Xã Gò Công",
+      "postalCodes": []
+    }
+  ],
+  "47": [
+    {
+      "name": "Dương Đông",
+      "postalCodes": []
+    },
+    {
+      "name": "Hà Tiên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện An Biên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện An Minh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Châu Thành",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Giồng Riềng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Gò Quao",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hòn Đất",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Kiên Hải",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Phú Quốc",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tân Hiệp",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Vĩnh Thuận",
+      "postalCodes": []
+    },
+    {
+      "name": "Kien Luong Town",
+      "postalCodes": []
+    },
+    {
+      "name": "Rạch Giá",
+      "postalCodes": []
+    }
+  ],
+  "49": [
+    {
+      "name": "Huyện Long Hồ",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Mang Thít",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tam Bình",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Trà Ôn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Vũng Liêm",
+      "postalCodes": []
+    },
+    {
+      "name": "Vĩnh Long",
+      "postalCodes": []
+    }
+  ],
+  "50": [
+    {
+      "name": "Ấp Tân Ngãi",
+      "postalCodes": []
+    },
+    {
+      "name": "Bến Tre",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Ba Tri",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Bình Đại",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Châu Thành",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Chợ Lách",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Giồng Trôm",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thạnh Phú",
+      "postalCodes": []
+    }
+  ],
+  "51": [
+    {
+      "name": "Huyện Càng Long",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Cầu Kè",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Cầu Ngang",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tiểu Cần",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Trà Cú",
+      "postalCodes": []
+    },
+    {
+      "name": "Trà Vinh",
+      "postalCodes": []
+    }
+  ],
+  "52": [
+    {
+      "name": "Huyện Kế Sách",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Long Phú",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Mỹ Tú",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Mỹ Xuyên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyen Nga Nam",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thạnh Trị",
+      "postalCodes": []
+    },
+    {
+      "name": "Sóc Trăng",
+      "postalCodes": []
+    }
+  ],
+  "53": [
+    {
+      "name": "Bắc Kạn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Ba Bể",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Bạch Thông",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Chợ Đồn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Na Rì",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Ngân Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Thị Xã Bắc Kạn",
+      "postalCodes": []
+    }
+  ],
+  "54": [
+    {
+      "name": "Bắc Giang",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Lục Nam",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Lục Ngạn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Yên Thế",
+      "postalCodes": []
+    }
+  ],
+  "55": [
+    {
+      "name": "Bạc Liêu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Giá Rai",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hồng Dân",
+      "postalCodes": []
+    }
+  ],
+  "56": [
+    {
+      "name": "Bắc Ninh",
+      "postalCodes": []
+    },
+    {
+      "name": "Cung Kiệm",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Gia Bình",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thuận Thành",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tiên Du",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Yên Phong",
+      "postalCodes": []
+    }
+  ],
+  "57": [
+    {
+      "name": "Dĩ An",
+      "postalCodes": []
+    },
+    {
+      "name": "Thủ Dầu Một",
+      "postalCodes": []
+    }
+  ],
+  "58": [
+    {
+      "name": "Bình Long",
+      "postalCodes": []
+    },
+    {
+      "name": "Don Luan",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Bù Đốp",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Chơn Thành",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đồng Phú",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hớn Quản",
+      "postalCodes": []
+    },
+    {
+      "name": "Thị Xã Phước Long",
+      "postalCodes": []
+    }
+  ],
+  "59": [
+    {
+      "name": "Cà Mau",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Cái Nước",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đầm Dơi",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyen Nam Can",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thới Bình",
+      "postalCodes": []
+    }
+  ],
+  "61": [
+    {
+      "name": "Hải Dương",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Bình Giang",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Cẩm Giàng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Gia Lộc",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Kinh Môn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Nam Sách",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thanh Miện",
+      "postalCodes": []
+    },
+    {
+      "name": "Thị Xã Chí Linh",
+      "postalCodes": []
+    }
+  ],
+  "63": [
+    {
+      "name": "Huyện Bình Lục",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Duy Tiên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Kim Bảng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Lý Nhân",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thanh Liêm",
+      "postalCodes": []
+    },
+    {
+      "name": "Phủ Lý",
+      "postalCodes": []
+    }
+  ],
+  "66": [
+    {
+      "name": "Hưng Yên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Ân Thi",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Khoái Châu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Kim Động",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Mỹ Hào",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Phù Cừ",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tiên Lữ",
+      "postalCodes": []
+    }
+  ],
+  "67": [
+    {
+      "name": "Huyện Giao Thủy",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hải Hậu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Mỹ Lộc",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Nam Trực",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Nghĩa Hưng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Trực Ninh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Vụ Bản",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Ý Yên",
+      "postalCodes": []
+    },
+    {
+      "name": "Nam Định",
+      "postalCodes": []
+    }
+  ],
+  "68": [
+    {
+      "name": "Huyện Cẩm Khê",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đoan Hùng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hạ Hòa",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyen Lam Thao",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thanh Ba",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Yên Lập",
+      "postalCodes": []
+    },
+    {
+      "name": "Thành Phố Việt Trì",
+      "postalCodes": []
+    },
+    {
+      "name": "Thị xã Phú Thọ",
+      "postalCodes": []
+    },
+    {
+      "name": "Việt Trì",
+      "postalCodes": []
+    }
+  ],
+  "69": [
+    {
+      "name": "Thái Nguyên",
+      "postalCodes": []
+    }
+  ],
+  "70": [
+    {
+      "name": "Huyện Bình Xuyên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tam Đảo",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tam Dương",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Yên Lạc",
+      "postalCodes": []
+    },
+    {
+      "name": "Vĩnh Yên",
+      "postalCodes": []
+    }
+  ],
+  "71": [
+    {
+      "name": "Dien Bien Phu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Điện Biên Đông",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Mường Nhé",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tủa Chùa",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tuần Giáo",
+      "postalCodes": []
+    },
+    {
+      "name": "Thị Xã Mưòng Lay",
+      "postalCodes": []
+    }
+  ],
+  "72": [
+    {
+      "name": "Huyện Cư Jút",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đắk R’Lấp",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Krông Nô",
+      "postalCodes": []
+    }
+  ],
+  "73": [
+    {
+      "name": "Huyện Châu Thành A",
+      "postalCodes": []
+    },
+    {
+      "name": "Vị Thanh",
+      "postalCodes": []
+    }
+  ],
+  "CT": [
+    {
+      "name": "Cần Thơ",
+      "postalCodes": []
+    },
+    {
+      "name": "Cờ Đỏ",
+      "postalCodes": []
+    },
+    {
+      "name": "Thới Lai",
+      "postalCodes": []
+    },
+    {
+      "name": "Vĩnh Thạnh",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Cao Bằng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Bảo Lac",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Bảo Lâm",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hạ Lang",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hà Quảng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Nguyên Bình",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyen Phuc Hoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thạch An",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thông Nông",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Trà Lĩnh",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Trùng Khánh",
+      "postalCodes": []
+    }
+  ],
+  "DN": [
+    {
+      "name": "Da Nang",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Hà Giang",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Bắc Mê",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Bắc Quang",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đồng Văn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Quang Bình",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Vị Xuyên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Xín Mần",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Yên Minh",
+      "postalCodes": []
+    }
+  ],
+  "HN": [
+    {
+      "name": "Hà Đông",
+      "postalCodes": []
+    },
+    {
+      "name": "Hanoi",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Quốc Oai",
+      "postalCodes": []
+    },
+    {
+      "name": "Quận Ba Đình",
+      "postalCodes": []
+    },
+    {
+      "name": "Quận Hà Đông",
+      "postalCodes": []
+    },
+    {
+      "name": "Sơn Tây",
+      "postalCodes": []
+    }
+  ],
+  "HP": [
+    {
+      "name": "Cát Bà",
+      "postalCodes": []
+    },
+    {
+      "name": "Haiphong",
+      "postalCodes": []
+    }
+  ],
+  "SG": [
+    {
+      "name": "Cần Giờ",
+      "postalCodes": []
+    },
+    {
+      "name": "Củ Chi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ho Chi Minh City",
+      "postalCodes": []
+    }
+  ],
+  "01": [
+    {
+      "name": "Huyện Mưòng Tè",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Tam Đường",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Than Uyên",
+      "postalCodes": []
+    }
+  ],
+  "09": [
+    {
+      "name": "Huyện Bắc Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Bình Gia",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Cao Lộc",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Chi Lăng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Đình Lập",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hũu Lũng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Vặn Quan",
+      "postalCodes": []
+    },
+    {
+      "name": "Lạng Sơn",
+      "postalCodes": []
+    }
+  ],
+  "02": [
+    {
+      "name": "Huyện Bắc Hà",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Bảo Yên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Bát Xát",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Mường Khương",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Sa Pa",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Si Ma Cai",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Văn Bàn",
+      "postalCodes": []
+    },
+    {
+      "name": "Lào Cai",
+      "postalCodes": []
+    },
+    {
+      "name": "Lao Chải",
+      "postalCodes": []
+    },
+    {
+      "name": "Sa Pa",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Huyện Bắc Yên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Mai Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Mộc Châu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Mường La",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Phù Yên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Quỳnh Nhai",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Sông Mã",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Thuận Châu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Yên Châu",
+      "postalCodes": []
+    },
+    {
+      "name": "Sơn La",
+      "postalCodes": []
+    }
+  ],
+  "07": [
+    {
+      "name": "Huyện Chiêm Hóa",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Hàm Yên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Lâm Bình",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Na Hang",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Sơn Dương",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Yên Sơn",
+      "postalCodes": []
+    },
+    {
+      "name": "Tuyên Quang",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Huyện Lục Yên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Mù Cang Chải",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Trạm Tấu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Trấn Yên",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Văn Chấn",
+      "postalCodes": []
+    },
+    {
+      "name": "Huyện Văn Yên",
+      "postalCodes": []
+    },
+    {
+      "name": "Yên Bái",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

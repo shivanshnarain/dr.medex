@@ -1,0 +1,52 @@
+[
+  {
+    "code": "CE",
+    "name": "Central District",
+    "countryCode": "BW"
+  },
+  {
+    "code": "GH",
+    "name": "Ghanzi District",
+    "countryCode": "BW"
+  },
+  {
+    "code": "KG",
+    "name": "Kgalagadi District",
+    "countryCode": "BW"
+  },
+  {
+    "code": "KL",
+    "name": "Kgatleng District",
+    "countryCode": "BW"
+  },
+  {
+    "code": "KW",
+    "name": "Kweneng District",
+    "countryCode": "BW"
+  },
+  {
+    "code": "NG",
+    "name": "Ngamiland",
+    "countryCode": "BW"
+  },
+  {
+    "code": "NE",
+    "name": "North-East District",
+    "countryCode": "BW"
+  },
+  {
+    "code": "NW",
+    "name": "North-West District",
+    "countryCode": "BW"
+  },
+  {
+    "code": "SE",
+    "name": "South-East District",
+    "countryCode": "BW"
+  },
+  {
+    "code": "SO",
+    "name": "Southern District",
+    "countryCode": "BW"
+  }
+]

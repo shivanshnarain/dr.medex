@@ -1,0 +1,599 @@
+{
+  "HA": [
+    {
+      "name": "Ad Darbāsīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Ḩasakah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Mālikīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Qāmishlī",
+      "postalCodes": []
+    },
+    {
+      "name": "Al-Malikiyah District",
+      "postalCodes": []
+    },
+    {
+      "name": "Amude",
+      "postalCodes": []
+    }
+  ],
+  "RA": [
+    {
+      "name": "Al-Thawrah District",
+      "postalCodes": []
+    },
+    {
+      "name": "Ar Raqqah",
+      "postalCodes": []
+    },
+    {
+      "name": "Ar-Raqqah District",
+      "postalCodes": []
+    },
+    {
+      "name": "Ath Thawrah",
+      "postalCodes": []
+    },
+    {
+      "name": "Tall Abyaḑ",
+      "postalCodes": []
+    },
+    {
+      "name": "Tell Abyad District",
+      "postalCodes": []
+    }
+  ],
+  "HL": [
+    {
+      "name": "‘Afrīn",
+      "postalCodes": []
+    },
+    {
+      "name": "‘Ayn al ‘Arab",
+      "postalCodes": []
+    },
+    {
+      "name": "Afrin District",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Atārib",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Bāb",
+      "postalCodes": []
+    },
+    {
+      "name": "Al-Bab District",
+      "postalCodes": []
+    },
+    {
+      "name": "Aleppo",
+      "postalCodes": []
+    },
+    {
+      "name": "As Safīrah",
+      "postalCodes": []
+    },
+    {
+      "name": "Azaz District",
+      "postalCodes": []
+    },
+    {
+      "name": "Dayr Ḩāfir",
+      "postalCodes": []
+    },
+    {
+      "name": "I‘zāz",
+      "postalCodes": []
+    },
+    {
+      "name": "Jarābulus",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafr Şaghīr",
+      "postalCodes": []
+    },
+    {
+      "name": "Khanāşir",
+      "postalCodes": []
+    },
+    {
+      "name": "Manbij",
+      "postalCodes": []
+    },
+    {
+      "name": "Manbij District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mount Simeon District",
+      "postalCodes": []
+    },
+    {
+      "name": "Nubl",
+      "postalCodes": []
+    },
+    {
+      "name": "Şūrān",
+      "postalCodes": []
+    },
+    {
+      "name": "Tādif",
+      "postalCodes": []
+    },
+    {
+      "name": "Tall Rif‘at",
+      "postalCodes": []
+    }
+  ],
+  "SU": [
+    {
+      "name": "As-Suwayda",
+      "postalCodes": []
+    },
+    {
+      "name": "As-Suwayda District",
+      "postalCodes": []
+    },
+    {
+      "name": "Şalākhid",
+      "postalCodes": []
+    },
+    {
+      "name": "Şalkhad",
+      "postalCodes": []
+    },
+    {
+      "name": "Salkhad District",
+      "postalCodes": []
+    },
+    {
+      "name": "Shahbā",
+      "postalCodes": []
+    },
+    {
+      "name": "Shahba District",
+      "postalCodes": []
+    }
+  ],
+  "DI": [
+    {
+      "name": "Damascus",
+      "postalCodes": []
+    }
+  ],
+  "DR": [
+    {
+      "name": "Al Ḩarāk",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Muzayrīb",
+      "postalCodes": []
+    },
+    {
+      "name": "Al-Sanamayn District",
+      "postalCodes": []
+    },
+    {
+      "name": "Aş Şanamayn",
+      "postalCodes": []
+    },
+    {
+      "name": "Ash Shaykh Miskīn",
+      "postalCodes": []
+    },
+    {
+      "name": "Buşrá ash Shām",
+      "postalCodes": []
+    },
+    {
+      "name": "Dar‘ā",
+      "postalCodes": []
+    },
+    {
+      "name": "Ghabāghib",
+      "postalCodes": []
+    },
+    {
+      "name": "Inkhil",
+      "postalCodes": []
+    },
+    {
+      "name": "Izra District",
+      "postalCodes": []
+    },
+    {
+      "name": "Izra‘",
+      "postalCodes": []
+    },
+    {
+      "name": "Jāsim",
+      "postalCodes": []
+    },
+    {
+      "name": "Nawá",
+      "postalCodes": []
+    },
+    {
+      "name": "Ţafas",
+      "postalCodes": []
+    },
+    {
+      "name": "Tasīl",
+      "postalCodes": []
+    }
+  ],
+  "DY": [
+    {
+      "name": "Al Mayādīn",
+      "postalCodes": []
+    },
+    {
+      "name": "Ālbū Kamāl",
+      "postalCodes": []
+    },
+    {
+      "name": "Deir ez-Zor",
+      "postalCodes": []
+    },
+    {
+      "name": "Hajīn",
+      "postalCodes": []
+    },
+    {
+      "name": "Subaykhān",
+      "postalCodes": []
+    }
+  ],
+  "HM": [
+    {
+      "name": "Al-Salamiyah District",
+      "postalCodes": []
+    },
+    {
+      "name": "As Salamīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "As Suqaylibīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Ḩalfāyā",
+      "postalCodes": []
+    },
+    {
+      "name": "Hama District",
+      "postalCodes": []
+    },
+    {
+      "name": "Ḩamāh",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafr Zaytā",
+      "postalCodes": []
+    },
+    {
+      "name": "Maşyāf",
+      "postalCodes": []
+    },
+    {
+      "name": "Masyaf District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mūrak",
+      "postalCodes": []
+    },
+    {
+      "name": "Souran",
+      "postalCodes": []
+    },
+    {
+      "name": "Tall Salḩab",
+      "postalCodes": []
+    },
+    {
+      "name": "Ţayyibat al Imām",
+      "postalCodes": []
+    },
+    {
+      "name": "Tremseh",
+      "postalCodes": []
+    }
+  ],
+  "HI": [
+    {
+      "name": "Al Ghanţū",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Qaryatayn",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Quşayr",
+      "postalCodes": []
+    },
+    {
+      "name": "Al-Rastan District",
+      "postalCodes": []
+    },
+    {
+      "name": "Ar Rastan",
+      "postalCodes": []
+    },
+    {
+      "name": "Hisya",
+      "postalCodes": []
+    },
+    {
+      "name": "Homs",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafr Lāhā",
+      "postalCodes": []
+    },
+    {
+      "name": "Mukharram al Fawqānī",
+      "postalCodes": []
+    },
+    {
+      "name": "Şadad",
+      "postalCodes": []
+    },
+    {
+      "name": "Tadmur",
+      "postalCodes": []
+    },
+    {
+      "name": "Tadmur District",
+      "postalCodes": []
+    },
+    {
+      "name": "Tallbīsah",
+      "postalCodes": []
+    },
+    {
+      "name": "Tallkalakh",
+      "postalCodes": []
+    }
+  ],
+  "ID": [
+    {
+      "name": "Ad Dānā",
+      "postalCodes": []
+    },
+    {
+      "name": "Arīḩā",
+      "postalCodes": []
+    },
+    {
+      "name": "Armanāz",
+      "postalCodes": []
+    },
+    {
+      "name": "Binnish",
+      "postalCodes": []
+    },
+    {
+      "name": "Darkūsh",
+      "postalCodes": []
+    },
+    {
+      "name": "Harem District",
+      "postalCodes": []
+    },
+    {
+      "name": "Ḩārim",
+      "postalCodes": []
+    },
+    {
+      "name": "Idlib",
+      "postalCodes": []
+    },
+    {
+      "name": "Jisr al-Shughur District",
+      "postalCodes": []
+    },
+    {
+      "name": "Jisr ash Shughūr",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafr Takhārīm",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafranbel",
+      "postalCodes": []
+    },
+    {
+      "name": "Khān Shaykhūn",
+      "postalCodes": []
+    },
+    {
+      "name": "Ma‘arratmişrīn",
+      "postalCodes": []
+    },
+    {
+      "name": "Maarrat al-Nu'man District",
+      "postalCodes": []
+    },
+    {
+      "name": "Salqīn",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarāqib",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarmīn",
+      "postalCodes": []
+    },
+    {
+      "name": "Taftanāz",
+      "postalCodes": []
+    }
+  ],
+  "LA": [
+    {
+      "name": "Al-Haffah District",
+      "postalCodes": []
+    },
+    {
+      "name": "Jablah",
+      "postalCodes": []
+    },
+    {
+      "name": "Jableh District",
+      "postalCodes": []
+    },
+    {
+      "name": "Kassab",
+      "postalCodes": []
+    },
+    {
+      "name": "Latakia",
+      "postalCodes": []
+    },
+    {
+      "name": "Latakia District",
+      "postalCodes": []
+    },
+    {
+      "name": "Qardaha District",
+      "postalCodes": []
+    },
+    {
+      "name": "Şlinfah",
+      "postalCodes": []
+    }
+  ],
+  "QU": [
+    {
+      "name": "Al Qunayţirah",
+      "postalCodes": []
+    }
+  ],
+  "RD": [
+    {
+      "name": "‘Irbīn",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Kiswah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Quţayfah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al-Zabadani District",
+      "postalCodes": []
+    },
+    {
+      "name": "An Nabk",
+      "postalCodes": []
+    },
+    {
+      "name": "At Tall",
+      "postalCodes": []
+    },
+    {
+      "name": "Az Zabadānī",
+      "postalCodes": []
+    },
+    {
+      "name": "Dārayyā",
+      "postalCodes": []
+    },
+    {
+      "name": "Dayr al ‘Aşāfīr",
+      "postalCodes": []
+    },
+    {
+      "name": "Douma",
+      "postalCodes": []
+    },
+    {
+      "name": "Ḩarastā",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaramānā",
+      "postalCodes": []
+    },
+    {
+      "name": "Jayrūd",
+      "postalCodes": []
+    },
+    {
+      "name": "Ma‘lūlā",
+      "postalCodes": []
+    },
+    {
+      "name": "Medaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Qārah",
+      "postalCodes": []
+    },
+    {
+      "name": "Qaţanā",
+      "postalCodes": []
+    },
+    {
+      "name": "Şaydnāyā",
+      "postalCodes": []
+    },
+    {
+      "name": "Yabrūd",
+      "postalCodes": []
+    }
+  ],
+  "TA": [
+    {
+      "name": "Ad Duraykīsh",
+      "postalCodes": []
+    },
+    {
+      "name": "Bāniyās",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaff al-Jaa",
+      "postalCodes": []
+    },
+    {
+      "name": "Safita District",
+      "postalCodes": []
+    },
+    {
+      "name": "Satita",
+      "postalCodes": []
+    },
+    {
+      "name": "Tartouss",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

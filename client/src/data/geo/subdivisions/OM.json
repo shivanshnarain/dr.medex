@@ -1,0 +1,67 @@
+[
+  {
+    "code": "DA",
+    "name": "Ad Dakhiliyah Governorate",
+    "countryCode": "OM"
+  },
+  {
+    "code": "ZA",
+    "name": "Ad Dhahirah Governorate",
+    "countryCode": "OM"
+  },
+  {
+    "code": "BS",
+    "name": "Al Batinah North Governorate",
+    "countryCode": "OM"
+  },
+  {
+    "code": "BA",
+    "name": "Al Batinah Region",
+    "countryCode": "OM"
+  },
+  {
+    "code": "BJ",
+    "name": "Al Batinah South Governorate",
+    "countryCode": "OM"
+  },
+  {
+    "code": "BU",
+    "name": "Al Buraimi Governorate",
+    "countryCode": "OM"
+  },
+  {
+    "code": "WU",
+    "name": "Al Wusta Governorate",
+    "countryCode": "OM"
+  },
+  {
+    "code": "SS",
+    "name": "Ash Sharqiyah North Governorate",
+    "countryCode": "OM"
+  },
+  {
+    "code": "SH",
+    "name": "Ash Sharqiyah Region",
+    "countryCode": "OM"
+  },
+  {
+    "code": "SJ",
+    "name": "Ash Sharqiyah South Governorate",
+    "countryCode": "OM"
+  },
+  {
+    "code": "ZU",
+    "name": "Dhofar Governorate",
+    "countryCode": "OM"
+  },
+  {
+    "code": "MU",
+    "name": "Musandam Governorate",
+    "countryCode": "OM"
+  },
+  {
+    "code": "MA",
+    "name": "Muscat Governorate",
+    "countryCode": "OM"
+  }
+]

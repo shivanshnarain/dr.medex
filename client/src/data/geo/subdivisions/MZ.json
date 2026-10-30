@@ -1,0 +1,57 @@
+[
+  {
+    "code": "P",
+    "name": "Cabo Delgado Province",
+    "countryCode": "MZ"
+  },
+  {
+    "code": "G",
+    "name": "Gaza Province",
+    "countryCode": "MZ"
+  },
+  {
+    "code": "I",
+    "name": "Inhambane Province",
+    "countryCode": "MZ"
+  },
+  {
+    "code": "B",
+    "name": "Manica Province",
+    "countryCode": "MZ"
+  },
+  {
+    "code": "MPM",
+    "name": "Maputo",
+    "countryCode": "MZ"
+  },
+  {
+    "code": "L",
+    "name": "Maputo Province",
+    "countryCode": "MZ"
+  },
+  {
+    "code": "N",
+    "name": "Nampula Province",
+    "countryCode": "MZ"
+  },
+  {
+    "code": "A",
+    "name": "Niassa Province",
+    "countryCode": "MZ"
+  },
+  {
+    "code": "S",
+    "name": "Sofala Province",
+    "countryCode": "MZ"
+  },
+  {
+    "code": "T",
+    "name": "Tete Province",
+    "countryCode": "MZ"
+  },
+  {
+    "code": "Q",
+    "name": "Zambezia Province",
+    "countryCode": "MZ"
+  }
+]

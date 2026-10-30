@@ -1,0 +1,123 @@
+{
+  "AK": [
+    {
+      "name": "Caza de Aakkar",
+      "postalCodes": []
+    }
+  ],
+  "BH": [
+    {
+      "name": "Baalbek",
+      "postalCodes": []
+    },
+    {
+      "name": "Caza de Baalbek",
+      "postalCodes": []
+    }
+  ],
+  "BA": [
+    {
+      "name": "Beirut",
+      "postalCodes": []
+    },
+    {
+      "name": "Ra’s Bayrūt",
+      "postalCodes": []
+    }
+  ],
+  "BI": [
+    {
+      "name": "Aanjar",
+      "postalCodes": []
+    },
+    {
+      "name": "Zahlé",
+      "postalCodes": []
+    }
+  ],
+  "JL": [
+    {
+      "name": "Baabda",
+      "postalCodes": []
+    },
+    {
+      "name": "Bhamdoun",
+      "postalCodes": []
+    },
+    {
+      "name": "Bhamdoûn el Mhatta",
+      "postalCodes": []
+    },
+    {
+      "name": "Caza de Baabda",
+      "postalCodes": []
+    },
+    {
+      "name": "Jbaïl",
+      "postalCodes": []
+    },
+    {
+      "name": "Jounieh",
+      "postalCodes": []
+    }
+  ],
+  "NA": [
+    {
+      "name": "Ain Ebel",
+      "postalCodes": []
+    },
+    {
+      "name": "Caza de Bent Jbaïl",
+      "postalCodes": []
+    },
+    {
+      "name": "Caza de Nabatîyé",
+      "postalCodes": []
+    },
+    {
+      "name": "Habboûch",
+      "postalCodes": []
+    },
+    {
+      "name": "Marjayoûn",
+      "postalCodes": []
+    },
+    {
+      "name": "Nabatîyé et Tahta",
+      "postalCodes": []
+    }
+  ],
+  "AS": [
+    {
+      "name": "Batroûn",
+      "postalCodes": []
+    },
+    {
+      "name": "Bcharré",
+      "postalCodes": []
+    },
+    {
+      "name": "Tripoli",
+      "postalCodes": []
+    }
+  ],
+  "JA": [
+    {
+      "name": "En Nâqoûra",
+      "postalCodes": []
+    },
+    {
+      "name": "Ghazieh",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidon",
+      "postalCodes": []
+    },
+    {
+      "name": "Tyre",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

@@ -1,0 +1,229 @@
+{
+  "BGO": [
+    {
+      "name": "Caxito",
+      "postalCodes": []
+    }
+  ],
+  "BGU": [
+    {
+      "name": "Benguela",
+      "postalCodes": []
+    },
+    {
+      "name": "Catumbela",
+      "postalCodes": []
+    },
+    {
+      "name": "Lobito",
+      "postalCodes": []
+    }
+  ],
+  "BIE": [
+    {
+      "name": "Camacupa",
+      "postalCodes": []
+    },
+    {
+      "name": "Catabola",
+      "postalCodes": []
+    },
+    {
+      "name": "Chissamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Cuito",
+      "postalCodes": []
+    }
+  ],
+  "CAB": [
+    {
+      "name": "Cabinda",
+      "postalCodes": []
+    }
+  ],
+  "CCU": [
+    {
+      "name": "Menongue",
+      "postalCodes": []
+    }
+  ],
+  "CNO": [
+    {
+      "name": "Camabatela",
+      "postalCodes": []
+    },
+    {
+      "name": "N’dalatando",
+      "postalCodes": []
+    }
+  ],
+  "CUS": [
+    {
+      "name": "Quibala",
+      "postalCodes": []
+    },
+    {
+      "name": "Sumbe",
+      "postalCodes": []
+    },
+    {
+      "name": "Uacu Cungo",
+      "postalCodes": []
+    }
+  ],
+  "CNN": [
+    {
+      "name": "Ondjiva",
+      "postalCodes": []
+    }
+  ],
+  "HUA": [
+    {
+      "name": "Caála",
+      "postalCodes": []
+    },
+    {
+      "name": "Chela",
+      "postalCodes": []
+    },
+    {
+      "name": "Huambo",
+      "postalCodes": []
+    },
+    {
+      "name": "Longonjo",
+      "postalCodes": []
+    }
+  ],
+  "HUI": [
+    {
+      "name": "Caconda",
+      "postalCodes": []
+    },
+    {
+      "name": "Caluquembe",
+      "postalCodes": []
+    },
+    {
+      "name": "Chibia",
+      "postalCodes": []
+    },
+    {
+      "name": "Chicomba",
+      "postalCodes": []
+    },
+    {
+      "name": "Chipindo",
+      "postalCodes": []
+    },
+    {
+      "name": "Cuvango",
+      "postalCodes": []
+    },
+    {
+      "name": "Gambos",
+      "postalCodes": []
+    },
+    {
+      "name": "Humpata",
+      "postalCodes": []
+    },
+    {
+      "name": "Jamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Lubango",
+      "postalCodes": []
+    },
+    {
+      "name": "Matala",
+      "postalCodes": []
+    },
+    {
+      "name": "Quilengues",
+      "postalCodes": []
+    },
+    {
+      "name": "Quipungo",
+      "postalCodes": []
+    }
+  ],
+  "LUA": [
+    {
+      "name": "Belas",
+      "postalCodes": []
+    },
+    {
+      "name": "Icolo e Bengo",
+      "postalCodes": []
+    },
+    {
+      "name": "Luanda",
+      "postalCodes": []
+    }
+  ],
+  "LNO": [
+    {
+      "name": "Lucapa",
+      "postalCodes": []
+    }
+  ],
+  "LSU": [
+    {
+      "name": "Cazaji",
+      "postalCodes": []
+    },
+    {
+      "name": "Saurimo",
+      "postalCodes": []
+    }
+  ],
+  "MAL": [
+    {
+      "name": "Malanje",
+      "postalCodes": []
+    }
+  ],
+  "MOX": [
+    {
+      "name": "Léua",
+      "postalCodes": []
+    },
+    {
+      "name": "Luau",
+      "postalCodes": []
+    },
+    {
+      "name": "Luena",
+      "postalCodes": []
+    },
+    {
+      "name": "Lumeje",
+      "postalCodes": []
+    }
+  ],
+  "UIG": [
+    {
+      "name": "Uíge",
+      "postalCodes": []
+    }
+  ],
+  "ZAI": [
+    {
+      "name": "Mbanza Congo",
+      "postalCodes": []
+    },
+    {
+      "name": "N'zeto",
+      "postalCodes": []
+    },
+    {
+      "name": "Soio",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

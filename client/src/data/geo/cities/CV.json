@@ -1,0 +1,143 @@
+{
+  "B": [],
+  "BV": [
+    {
+      "name": "Sal Rei",
+      "postalCodes": []
+    }
+  ],
+  "BR": [
+    {
+      "name": "Nova Sintra",
+      "postalCodes": []
+    }
+  ],
+  "MA": [
+    {
+      "name": "Vila do Maio",
+      "postalCodes": []
+    }
+  ],
+  "MO": [
+    {
+      "name": "Igreja",
+      "postalCodes": []
+    }
+  ],
+  "PA": [
+    {
+      "name": "Pombas",
+      "postalCodes": []
+    }
+  ],
+  "PN": [
+    {
+      "name": "Porto Novo",
+      "postalCodes": []
+    }
+  ],
+  "PR": [
+    {
+      "name": "Praia",
+      "postalCodes": []
+    }
+  ],
+  "RB": [
+    {
+      "name": "Ribeira Brava",
+      "postalCodes": []
+    }
+  ],
+  "RG": [
+    {
+      "name": "Ponta do Sol",
+      "postalCodes": []
+    },
+    {
+      "name": "Ribeira Grande",
+      "postalCodes": []
+    }
+  ],
+  "RS": [
+    {
+      "name": "Cidade Velha",
+      "postalCodes": []
+    }
+  ],
+  "SL": [
+    {
+      "name": "Espargos",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Maria",
+      "postalCodes": []
+    }
+  ],
+  "CA": [
+    {
+      "name": "Assomada",
+      "postalCodes": []
+    }
+  ],
+  "CF": [
+    {
+      "name": "Cova Figueira",
+      "postalCodes": []
+    }
+  ],
+  "CR": [
+    {
+      "name": "Pedra Badejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Cruz",
+      "postalCodes": []
+    }
+  ],
+  "SD": [
+    {
+      "name": "São Domingos",
+      "postalCodes": []
+    }
+  ],
+  "SF": [
+    {
+      "name": "São Filipe",
+      "postalCodes": []
+    }
+  ],
+  "SO": [
+    {
+      "name": "João Teves",
+      "postalCodes": []
+    }
+  ],
+  "SM": [
+    {
+      "name": "Calheta",
+      "postalCodes": []
+    }
+  ],
+  "SV": [
+    {
+      "name": "Mindelo",
+      "postalCodes": []
+    }
+  ],
+  "S": [],
+  "TA": [
+    {
+      "name": "Tarrafal",
+      "postalCodes": []
+    }
+  ],
+  "TS": [
+    {
+      "name": "Tarrafal de São Nicolau",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

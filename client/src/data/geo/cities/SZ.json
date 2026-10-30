@@ -1,0 +1,147 @@
+{
+  "HH": [
+    {
+      "name": "Bulembu",
+      "postalCodes": []
+    },
+    {
+      "name": "Hhukwini",
+      "postalCodes": []
+    },
+    {
+      "name": "Lobamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbabane",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkhaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Piggs Peak",
+      "postalCodes": []
+    }
+  ],
+  "LU": [
+    {
+      "name": "Big Bend",
+      "postalCodes": []
+    },
+    {
+      "name": "Dvokodvweni Inkhundla",
+      "postalCodes": []
+    },
+    {
+      "name": "Lomashasha",
+      "postalCodes": []
+    },
+    {
+      "name": "Mhlume",
+      "postalCodes": []
+    },
+    {
+      "name": "Nsoko",
+      "postalCodes": []
+    },
+    {
+      "name": "Siteki",
+      "postalCodes": []
+    },
+    {
+      "name": "Tshaneni",
+      "postalCodes": []
+    },
+    {
+      "name": "Vuvulane",
+      "postalCodes": []
+    }
+  ],
+  "MA": [
+    {
+      "name": "Bhunya",
+      "postalCodes": []
+    },
+    {
+      "name": "Ekukhanyeni",
+      "postalCodes": []
+    },
+    {
+      "name": "Kwaluseni",
+      "postalCodes": []
+    },
+    {
+      "name": "Malkerns",
+      "postalCodes": []
+    },
+    {
+      "name": "Manzini",
+      "postalCodes": []
+    },
+    {
+      "name": "Manzini South",
+      "postalCodes": []
+    },
+    {
+      "name": "Mhlambanyatsi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngwempisi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ntondozi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidvokodvo",
+      "postalCodes": []
+    }
+  ],
+  "SH": [
+    {
+      "name": "Hlatikulu",
+      "postalCodes": []
+    },
+    {
+      "name": "Hluti",
+      "postalCodes": []
+    },
+    {
+      "name": "Kubuta",
+      "postalCodes": []
+    },
+    {
+      "name": "Lavumisa",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsanjeni",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngudzeni",
+      "postalCodes": []
+    },
+    {
+      "name": "Nhlangano",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkwene",
+      "postalCodes": []
+    },
+    {
+      "name": "Sigwe Inkhundla",
+      "postalCodes": []
+    },
+    {
+      "name": "Zombodze Ikhundla",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

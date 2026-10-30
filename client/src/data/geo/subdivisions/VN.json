@@ -1,0 +1,317 @@
+[
+  {
+    "code": "44",
+    "name": "An Giang",
+    "countryCode": "VN"
+  },
+  {
+    "code": "43",
+    "name": "Bà Rịa-Vũng Tàu",
+    "countryCode": "VN"
+  },
+  {
+    "code": "54",
+    "name": "Bắc Giang",
+    "countryCode": "VN"
+  },
+  {
+    "code": "53",
+    "name": "Bắc Kạn",
+    "countryCode": "VN"
+  },
+  {
+    "code": "55",
+    "name": "Bạc Liêu",
+    "countryCode": "VN"
+  },
+  {
+    "code": "56",
+    "name": "Bắc Ninh",
+    "countryCode": "VN"
+  },
+  {
+    "code": "50",
+    "name": "Bến Tre",
+    "countryCode": "VN"
+  },
+  {
+    "code": "31",
+    "name": "Bình Định",
+    "countryCode": "VN"
+  },
+  {
+    "code": "57",
+    "name": "Bình Dương",
+    "countryCode": "VN"
+  },
+  {
+    "code": "58",
+    "name": "Bình Phước",
+    "countryCode": "VN"
+  },
+  {
+    "code": "40",
+    "name": "Bình Thuận",
+    "countryCode": "VN"
+  },
+  {
+    "code": "59",
+    "name": "Cà Mau",
+    "countryCode": "VN"
+  },
+  {
+    "code": "CT",
+    "name": "Cần Thơ",
+    "countryCode": "VN"
+  },
+  {
+    "code": "04",
+    "name": "Cao Bằng",
+    "countryCode": "VN"
+  },
+  {
+    "code": "DN",
+    "name": "Đà Nẵng",
+    "countryCode": "VN"
+  },
+  {
+    "code": "33",
+    "name": "Đắk Lắk",
+    "countryCode": "VN"
+  },
+  {
+    "code": "72",
+    "name": "Đắk Nông",
+    "countryCode": "VN"
+  },
+  {
+    "code": "71",
+    "name": "Điện Biên",
+    "countryCode": "VN"
+  },
+  {
+    "code": "39",
+    "name": "Đồng Nai",
+    "countryCode": "VN"
+  },
+  {
+    "code": "45",
+    "name": "Đồng Tháp",
+    "countryCode": "VN"
+  },
+  {
+    "code": "30",
+    "name": "Gia Lai",
+    "countryCode": "VN"
+  },
+  {
+    "code": "03",
+    "name": "Hà Giang",
+    "countryCode": "VN"
+  },
+  {
+    "code": "63",
+    "name": "Hà Nam",
+    "countryCode": "VN"
+  },
+  {
+    "code": "HN",
+    "name": "Hà Nội",
+    "countryCode": "VN"
+  },
+  {
+    "code": "23",
+    "name": "Hà Tĩnh",
+    "countryCode": "VN"
+  },
+  {
+    "code": "61",
+    "name": "Hải Dương",
+    "countryCode": "VN"
+  },
+  {
+    "code": "HP",
+    "name": "Hải Phòng",
+    "countryCode": "VN"
+  },
+  {
+    "code": "73",
+    "name": "Hậu Giang",
+    "countryCode": "VN"
+  },
+  {
+    "code": "SG",
+    "name": "Hồ Chí Minh",
+    "countryCode": "VN"
+  },
+  {
+    "code": "14",
+    "name": "Hòa Bình",
+    "countryCode": "VN"
+  },
+  {
+    "code": "66",
+    "name": "Hưng Yên",
+    "countryCode": "VN"
+  },
+  {
+    "code": "34",
+    "name": "Khánh Hòa",
+    "countryCode": "VN"
+  },
+  {
+    "code": "47",
+    "name": "Kiên Giang",
+    "countryCode": "VN"
+  },
+  {
+    "code": "28",
+    "name": "Kon Tum",
+    "countryCode": "VN"
+  },
+  {
+    "code": "01",
+    "name": "Lai Châu",
+    "countryCode": "VN"
+  },
+  {
+    "code": "35",
+    "name": "Lâm Đồng",
+    "countryCode": "VN"
+  },
+  {
+    "code": "09",
+    "name": "Lạng Sơn",
+    "countryCode": "VN"
+  },
+  {
+    "code": "02",
+    "name": "Lào Cai",
+    "countryCode": "VN"
+  },
+  {
+    "code": "41",
+    "name": "Long An",
+    "countryCode": "VN"
+  },
+  {
+    "code": "67",
+    "name": "Nam Định",
+    "countryCode": "VN"
+  },
+  {
+    "code": "22",
+    "name": "Nghệ An",
+    "countryCode": "VN"
+  },
+  {
+    "code": "18",
+    "name": "Ninh Bình",
+    "countryCode": "VN"
+  },
+  {
+    "code": "36",
+    "name": "Ninh Thuận",
+    "countryCode": "VN"
+  },
+  {
+    "code": "68",
+    "name": "Phú Thọ",
+    "countryCode": "VN"
+  },
+  {
+    "code": "32",
+    "name": "Phú Yên",
+    "countryCode": "VN"
+  },
+  {
+    "code": "24",
+    "name": "Quảng Bình",
+    "countryCode": "VN"
+  },
+  {
+    "code": "27",
+    "name": "Quảng Nam",
+    "countryCode": "VN"
+  },
+  {
+    "code": "29",
+    "name": "Quảng Ngãi",
+    "countryCode": "VN"
+  },
+  {
+    "code": "13",
+    "name": "Quảng Ninh",
+    "countryCode": "VN"
+  },
+  {
+    "code": "25",
+    "name": "Quảng Trị",
+    "countryCode": "VN"
+  },
+  {
+    "code": "52",
+    "name": "Sóc Trăng",
+    "countryCode": "VN"
+  },
+  {
+    "code": "05",
+    "name": "Sơn La",
+    "countryCode": "VN"
+  },
+  {
+    "code": "37",
+    "name": "Tây Ninh",
+    "countryCode": "VN"
+  },
+  {
+    "code": "20",
+    "name": "Thái Bình",
+    "countryCode": "VN"
+  },
+  {
+    "code": "69",
+    "name": "Thái Nguyên",
+    "countryCode": "VN"
+  },
+  {
+    "code": "21",
+    "name": "Thanh Hóa",
+    "countryCode": "VN"
+  },
+  {
+    "code": "26",
+    "name": "Thừa Thiên-Huế",
+    "countryCode": "VN"
+  },
+  {
+    "code": "46",
+    "name": "Tiền Giang",
+    "countryCode": "VN"
+  },
+  {
+    "code": "51",
+    "name": "Trà Vinh",
+    "countryCode": "VN"
+  },
+  {
+    "code": "07",
+    "name": "Tuyên Quang",
+    "countryCode": "VN"
+  },
+  {
+    "code": "49",
+    "name": "Vĩnh Long",
+    "countryCode": "VN"
+  },
+  {
+    "code": "70",
+    "name": "Vĩnh Phúc",
+    "countryCode": "VN"
+  },
+  {
+    "code": "06",
+    "name": "Yên Bái",
+    "countryCode": "VN"
+  }
+]

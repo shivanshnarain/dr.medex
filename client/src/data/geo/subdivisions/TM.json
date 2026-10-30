@@ -1,0 +1,32 @@
+[
+  {
+    "code": "A",
+    "name": "Ahal Region",
+    "countryCode": "TM"
+  },
+  {
+    "code": "S",
+    "name": "Ashgabat",
+    "countryCode": "TM"
+  },
+  {
+    "code": "B",
+    "name": "Balkan Region",
+    "countryCode": "TM"
+  },
+  {
+    "code": "D",
+    "name": "Daşoguz Region",
+    "countryCode": "TM"
+  },
+  {
+    "code": "L",
+    "name": "Lebap Region",
+    "countryCode": "TM"
+  },
+  {
+    "code": "M",
+    "name": "Mary Region",
+    "countryCode": "TM"
+  }
+]

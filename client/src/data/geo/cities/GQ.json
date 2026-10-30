@@ -1,0 +1,115 @@
+{
+  "AN": [
+    {
+      "name": "San Antonio de Palé",
+      "postalCodes": []
+    }
+  ],
+  "BN": [
+    {
+      "name": "Malabo",
+      "postalCodes": []
+    },
+    {
+      "name": "Rebola",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago de Baney",
+      "postalCodes": []
+    }
+  ],
+  "BS": [
+    {
+      "name": "Luba",
+      "postalCodes": []
+    }
+  ],
+  "CS": [
+    {
+      "name": "Acurenam",
+      "postalCodes": []
+    },
+    {
+      "name": "Bicurga",
+      "postalCodes": []
+    },
+    {
+      "name": "Evinayong",
+      "postalCodes": []
+    }
+  ],
+  "I": [],
+  "KN": [
+    {
+      "name": "Ebebiyin",
+      "postalCodes": []
+    },
+    {
+      "name": "Mikomeseng",
+      "postalCodes": []
+    },
+    {
+      "name": "Ncue",
+      "postalCodes": []
+    },
+    {
+      "name": "Nsang",
+      "postalCodes": []
+    }
+  ],
+  "LI": [
+    {
+      "name": "Bata",
+      "postalCodes": []
+    },
+    {
+      "name": "Bitica",
+      "postalCodes": []
+    },
+    {
+      "name": "Cogo",
+      "postalCodes": []
+    },
+    {
+      "name": "Machinda",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbini",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Campo",
+      "postalCodes": []
+    }
+  ],
+  "C": [],
+  "WN": [
+    {
+      "name": "Aconibe",
+      "postalCodes": []
+    },
+    {
+      "name": "Añisoc",
+      "postalCodes": []
+    },
+    {
+      "name": "Ayene",
+      "postalCodes": []
+    },
+    {
+      "name": "Mengomeyén",
+      "postalCodes": []
+    },
+    {
+      "name": "Mongomo",
+      "postalCodes": []
+    },
+    {
+      "name": "Nsok",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

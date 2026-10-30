@@ -1,0 +1,132 @@
+[
+  {
+    "code": "01",
+    "name": "Addu Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "02",
+    "name": "Alif Alif Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "00",
+    "name": "Alif Dhaal Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "CE",
+    "name": "Central Province",
+    "countryCode": "MV"
+  },
+  {
+    "code": "17",
+    "name": "Dhaalu Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "14",
+    "name": "Faafu Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "27",
+    "name": "Gaafu Alif Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "28",
+    "name": "Gaafu Dhaalu Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "29",
+    "name": "Gnaviyani Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "07",
+    "name": "Haa Alif Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "23",
+    "name": "Haa Dhaalu Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "26",
+    "name": "Kaafu Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "05",
+    "name": "Laamu Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "03",
+    "name": "Lhaviyani Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "MLE",
+    "name": "Malé",
+    "countryCode": "MV"
+  },
+  {
+    "code": "12",
+    "name": "Meemu Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "25",
+    "name": "Noonu Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "NC",
+    "name": "North Central Province",
+    "countryCode": "MV"
+  },
+  {
+    "code": "NO",
+    "name": "North Province",
+    "countryCode": "MV"
+  },
+  {
+    "code": "13",
+    "name": "Raa Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "24",
+    "name": "Shaviyani Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "SC",
+    "name": "South Central Province",
+    "countryCode": "MV"
+  },
+  {
+    "code": "SU",
+    "name": "South Province",
+    "countryCode": "MV"
+  },
+  {
+    "code": "08",
+    "name": "Thaa Atoll",
+    "countryCode": "MV"
+  },
+  {
+    "code": "US",
+    "name": "Upper South Province",
+    "countryCode": "MV"
+  },
+  {
+    "code": "04",
+    "name": "Vaavu Atoll",
+    "countryCode": "MV"
+  }
+]

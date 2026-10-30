@@ -1,0 +1,1273 @@
+{
+  "11": [
+    {
+      "name": "Dobong-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongdaemun-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongjak-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Eunpyeong-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Gangbuk-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Gangdong-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Gangnam-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Gangseo-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Geumcheon-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Guro-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwanak-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwangjin-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Jongno-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Jung-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Jungnang-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Mapo-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Nowon-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Seocho-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Seodaemun-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Seongbuk-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Seongdong-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Seoul",
+      "postalCodes": []
+    },
+    {
+      "name": "Songpa-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangcheon-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeongdeungpo-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yongsan-dong",
+      "postalCodes": []
+    },
+    {
+      "name": "Yongsan-gu",
+      "postalCodes": []
+    }
+  ],
+  "26": [
+    {
+      "name": "Buk-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Busan",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongnae-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Gangseo-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Geumjeong-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Gijang",
+      "postalCodes": []
+    },
+    {
+      "name": "Gijang-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Haeundae-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Jung-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Nam-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Saha-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Sasang-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Seo-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Suyeong-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeongdo-gu",
+      "postalCodes": []
+    }
+  ],
+  "27": [
+    {
+      "name": "Daegu",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalseo-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalseong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Dong-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Hwawŏn",
+      "postalCodes": []
+    },
+    {
+      "name": "Jung-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Seo-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Suseong-gu",
+      "postalCodes": []
+    }
+  ],
+  "28": [
+    {
+      "name": "Bupyeong-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Incheon",
+      "postalCodes": []
+    },
+    {
+      "name": "Michuhol",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeonsu-gu",
+      "postalCodes": []
+    }
+  ],
+  "29": [
+    {
+      "name": "Gwangju",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwangsan-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Masan",
+      "postalCodes": []
+    }
+  ],
+  "30": [
+    {
+      "name": "Daejeon",
+      "postalCodes": []
+    },
+    {
+      "name": "Seo-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Sintansin",
+      "postalCodes": []
+    },
+    {
+      "name": "Songgangdong",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuseong-gu",
+      "postalCodes": []
+    }
+  ],
+  "31": [
+    {
+      "name": "Buk-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Dong-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Jung-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Nam-gu",
+      "postalCodes": []
+    },
+    {
+      "name": "Ulju-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Ulsan",
+      "postalCodes": []
+    }
+  ],
+  "41": [
+    {
+      "name": "Ansan-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Anseong",
+      "postalCodes": []
+    },
+    {
+      "name": "Anyang-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Bucheon-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongducheon",
+      "postalCodes": []
+    },
+    {
+      "name": "Gapyeong",
+      "postalCodes": []
+    },
+    {
+      "name": "Gapyeong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Gimpo-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Goyang-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Gunpo-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Guri-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwacheon-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwangju",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwangju-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwangmyeong-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Hanam",
+      "postalCodes": []
+    },
+    {
+      "name": "Hanam-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Hwado",
+      "postalCodes": []
+    },
+    {
+      "name": "Hwaseong-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Icheon-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Kwangmyŏng",
+      "postalCodes": []
+    },
+    {
+      "name": "Munsan",
+      "postalCodes": []
+    },
+    {
+      "name": "Namyangju",
+      "postalCodes": []
+    },
+    {
+      "name": "Namyangju-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Osan",
+      "postalCodes": []
+    },
+    {
+      "name": "Osan-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Paju-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Pocheon-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Pubal",
+      "postalCodes": []
+    },
+    {
+      "name": "Pyeongtaek",
+      "postalCodes": []
+    },
+    {
+      "name": "Seongnam-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Siheung",
+      "postalCodes": []
+    },
+    {
+      "name": "Suwon",
+      "postalCodes": []
+    },
+    {
+      "name": "Uijeongbu-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Uiwang-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Wabu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangju",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangju-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangp'yŏng",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangpyeong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeoju-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeoncheon-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Yongin-si",
+      "postalCodes": []
+    }
+  ],
+  "42": [
+    {
+      "name": "Cheorwon-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Chuncheon",
+      "postalCodes": []
+    },
+    {
+      "name": "Chuncheon-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Donghae-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Gangneung",
+      "postalCodes": []
+    },
+    {
+      "name": "Gangneung-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Goseong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Hoengseong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Hongch’ŏn",
+      "postalCodes": []
+    },
+    {
+      "name": "Hongcheon-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Hwacheon",
+      "postalCodes": []
+    },
+    {
+      "name": "Hwacheon-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Inje-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Jeongseon-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Kosong",
+      "postalCodes": []
+    },
+    {
+      "name": "Neietsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Pyeongchang",
+      "postalCodes": []
+    },
+    {
+      "name": "Pyeongchang-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Samcheok-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Santyoku",
+      "postalCodes": []
+    },
+    {
+      "name": "Sokcho",
+      "postalCodes": []
+    },
+    {
+      "name": "Sokcho-si",
+      "postalCodes": []
+    },
+    {
+      "name": "T’aebaek",
+      "postalCodes": []
+    },
+    {
+      "name": "Taebaek-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Tonghae",
+      "postalCodes": []
+    },
+    {
+      "name": "Wŏnju",
+      "postalCodes": []
+    },
+    {
+      "name": "Wonju-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanggu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanggu-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangyang-gun",
+      "postalCodes": []
+    }
+  ],
+  "43": [
+    {
+      "name": "Boeun-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Cheongju-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Chinch'ŏn",
+      "postalCodes": []
+    },
+    {
+      "name": "Chungju-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Danyang-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Eumseong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Goesan-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Jecheon-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Jeungpyeong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Jincheon-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Koesan",
+      "postalCodes": []
+    },
+    {
+      "name": "Okcheon",
+      "postalCodes": []
+    },
+    {
+      "name": "Okcheon-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeongdong",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeongdong-gun",
+      "postalCodes": []
+    }
+  ],
+  "44": [
+    {
+      "name": "Asan",
+      "postalCodes": []
+    },
+    {
+      "name": "Asan-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Boryeong",
+      "postalCodes": []
+    },
+    {
+      "name": "Boryeong-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Buyeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Buyeo-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Cheonan",
+      "postalCodes": []
+    },
+    {
+      "name": "Cheonan-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Cheongyang-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Geumsan-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Gongju",
+      "postalCodes": []
+    },
+    {
+      "name": "Gongju-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyeryong-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Hongseong",
+      "postalCodes": []
+    },
+    {
+      "name": "Hongseong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Kinzan",
+      "postalCodes": []
+    },
+    {
+      "name": "Nonsan",
+      "postalCodes": []
+    },
+    {
+      "name": "Nonsan-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Seocheon-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Seonghwan",
+      "postalCodes": []
+    },
+    {
+      "name": "Seosan",
+      "postalCodes": []
+    },
+    {
+      "name": "Seosan-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Taean-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Taesal-li",
+      "postalCodes": []
+    },
+    {
+      "name": "Tangjin",
+      "postalCodes": []
+    },
+    {
+      "name": "Yesan",
+      "postalCodes": []
+    },
+    {
+      "name": "Yesan-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Yŏnmu",
+      "postalCodes": []
+    }
+  ],
+  "45": [
+    {
+      "name": "Buan-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Changsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Gimje-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Gochang-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Gunsan",
+      "postalCodes": []
+    },
+    {
+      "name": "Gunsan-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Iksan",
+      "postalCodes": []
+    },
+    {
+      "name": "Iksan-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Imsil",
+      "postalCodes": []
+    },
+    {
+      "name": "Imsil-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Jangsu-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Jeongeup",
+      "postalCodes": []
+    },
+    {
+      "name": "Jeongeup-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Jeonju",
+      "postalCodes": []
+    },
+    {
+      "name": "Jeonju-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinan-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Kimje",
+      "postalCodes": []
+    },
+    {
+      "name": "Koch'ang",
+      "postalCodes": []
+    },
+    {
+      "name": "Muju-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Namwon",
+      "postalCodes": []
+    },
+    {
+      "name": "Nangen",
+      "postalCodes": []
+    },
+    {
+      "name": "Puan",
+      "postalCodes": []
+    },
+    {
+      "name": "Sunchang-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Wanju",
+      "postalCodes": []
+    }
+  ],
+  "46": [
+    {
+      "name": "Beolgyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Boseong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Damyang-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Gangjin-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Goheung-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Gokseong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Gurye-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwangyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwangyang-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Haenam",
+      "postalCodes": []
+    },
+    {
+      "name": "Haenam-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Hampyeong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Hwasun",
+      "postalCodes": []
+    },
+    {
+      "name": "Hwasun-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Jangheung-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Jangseong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Jindo-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Kurye",
+      "postalCodes": []
+    },
+    {
+      "name": "Kwangyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Mokpo",
+      "postalCodes": []
+    },
+    {
+      "name": "Mokpo-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Muan",
+      "postalCodes": []
+    },
+    {
+      "name": "Muan-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Naju",
+      "postalCodes": []
+    },
+    {
+      "name": "Naju-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Sinan",
+      "postalCodes": []
+    },
+    {
+      "name": "Sinan-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Suncheon",
+      "postalCodes": []
+    },
+    {
+      "name": "Suncheon-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Wando-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeongam",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeongam-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeonggwang",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeonggwang-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeosu",
+      "postalCodes": []
+    }
+  ],
+  "47": [
+    {
+      "name": "Andong",
+      "postalCodes": []
+    },
+    {
+      "name": "Andong-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Bonghwa-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Cheongdo-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Cheongsong gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Cheongsong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Chilgok-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Eisen",
+      "postalCodes": []
+    },
+    {
+      "name": "Gimcheon",
+      "postalCodes": []
+    },
+    {
+      "name": "Gimcheon-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Goryeong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Gumi-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Gunwi-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyeongju",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyeongsan-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Hayang",
+      "postalCodes": []
+    },
+    {
+      "name": "Heunghae",
+      "postalCodes": []
+    },
+    {
+      "name": "Jenzan",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunwi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mungyeong",
+      "postalCodes": []
+    },
+    {
+      "name": "Mungyeong-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Pohang",
+      "postalCodes": []
+    },
+    {
+      "name": "Pohang-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Sangju",
+      "postalCodes": []
+    },
+    {
+      "name": "Seongju-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Uiseong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Uljin-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Ulleung-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Waegwan",
+      "postalCodes": []
+    },
+    {
+      "name": "Yecheon-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeongcheon-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeongdeok-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeongju-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeongyang-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeonil",
+      "postalCodes": []
+    }
+  ],
+  "48": [
+    {
+      "name": "Changnyeong",
+      "postalCodes": []
+    },
+    {
+      "name": "Changnyeong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Changwon",
+      "postalCodes": []
+    },
+    {
+      "name": "Changwon-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Chinju",
+      "postalCodes": []
+    },
+    {
+      "name": "Geochang-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Geoje-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Gimhae-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Goseong",
+      "postalCodes": []
+    },
+    {
+      "name": "Goseong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Hadong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Haman-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Hapcheon-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinju-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Kimhae",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyosai",
+      "postalCodes": []
+    },
+    {
+      "name": "Miryang",
+      "postalCodes": []
+    },
+    {
+      "name": "Miryang-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Naesŏ",
+      "postalCodes": []
+    },
+    {
+      "name": "Namhae-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Sacheon-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Sancheong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Sinhyeon",
+      "postalCodes": []
+    },
+    {
+      "name": "Uiryeong-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Ungsang",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangsan",
+      "postalCodes": []
+    }
+  ],
+  "49": [
+    {
+      "name": "Gaigeturi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jeju City",
+      "postalCodes": []
+    },
+    {
+      "name": "Jeju-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Seogwipo",
+      "postalCodes": []
+    }
+  ],
+  "50": [
+    {
+      "name": "Sejong",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

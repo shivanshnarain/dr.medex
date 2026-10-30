@@ -1,0 +1,82 @@
+[
+  {
+    "code": "AF",
+    "name": "Ahafo",
+    "countryCode": "GH"
+  },
+  {
+    "code": "AH",
+    "name": "Ashanti",
+    "countryCode": "GH"
+  },
+  {
+    "code": "BO",
+    "name": "Bono",
+    "countryCode": "GH"
+  },
+  {
+    "code": "BE",
+    "name": "Bono East",
+    "countryCode": "GH"
+  },
+  {
+    "code": "CP",
+    "name": "Central",
+    "countryCode": "GH"
+  },
+  {
+    "code": "EP",
+    "name": "Eastern",
+    "countryCode": "GH"
+  },
+  {
+    "code": "AA",
+    "name": "Greater Accra",
+    "countryCode": "GH"
+  },
+  {
+    "code": "NE",
+    "name": "North East",
+    "countryCode": "GH"
+  },
+  {
+    "code": "NP",
+    "name": "Northern",
+    "countryCode": "GH"
+  },
+  {
+    "code": "OT",
+    "name": "Oti",
+    "countryCode": "GH"
+  },
+  {
+    "code": "SV",
+    "name": "Savannah",
+    "countryCode": "GH"
+  },
+  {
+    "code": "UE",
+    "name": "Upper East",
+    "countryCode": "GH"
+  },
+  {
+    "code": "UW",
+    "name": "Upper West",
+    "countryCode": "GH"
+  },
+  {
+    "code": "TV",
+    "name": "Volta",
+    "countryCode": "GH"
+  },
+  {
+    "code": "WP",
+    "name": "Western",
+    "countryCode": "GH"
+  },
+  {
+    "code": "WN",
+    "name": "Western North",
+    "countryCode": "GH"
+  }
+]

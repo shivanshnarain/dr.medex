@@ -1,0 +1,92 @@
+[
+  {
+    "code": "AT",
+    "name": "Atlántida Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "IB",
+    "name": "Bay Islands Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "CH",
+    "name": "Choluteca Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "CL",
+    "name": "Colón Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "CM",
+    "name": "Comayagua Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "CP",
+    "name": "Copán Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "CR",
+    "name": "Cortés Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "EP",
+    "name": "El Paraíso Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "FM",
+    "name": "Francisco Morazán Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "GD",
+    "name": "Gracias a Dios Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "IN",
+    "name": "Intibucá Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "LP",
+    "name": "La Paz Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "LE",
+    "name": "Lempira Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "OC",
+    "name": "Ocotepeque Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "OL",
+    "name": "Olancho Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "SB",
+    "name": "Santa Bárbara Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "VA",
+    "name": "Valle Department",
+    "countryCode": "HN"
+  },
+  {
+    "code": "YO",
+    "name": "Yoro Department",
+    "countryCode": "HN"
+  }
+]

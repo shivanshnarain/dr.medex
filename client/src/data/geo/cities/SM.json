@@ -1,0 +1,57 @@
+{
+  "01": [
+    {
+      "name": "Acquaviva",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Borgo Maggiore",
+      "postalCodes": []
+    }
+  ],
+  "02": [
+    {
+      "name": "Poggio di Chiesanuova",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Domagnano",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Faetano",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Fiorentino",
+      "postalCodes": []
+    }
+  ],
+  "08": [
+    {
+      "name": "Monte Giardino",
+      "postalCodes": []
+    }
+  ],
+  "07": [
+    {
+      "name": "San Marino",
+      "postalCodes": []
+    }
+  ],
+  "09": [
+    {
+      "name": "Serravalle",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

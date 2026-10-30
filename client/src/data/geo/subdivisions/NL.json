@@ -1,0 +1,77 @@
+[
+  {
+    "code": "BQ1",
+    "name": "Bonaire",
+    "countryCode": "NL"
+  },
+  {
+    "code": "DR",
+    "name": "Drenthe",
+    "countryCode": "NL"
+  },
+  {
+    "code": "FL",
+    "name": "Flevoland",
+    "countryCode": "NL"
+  },
+  {
+    "code": "FR",
+    "name": "Friesland",
+    "countryCode": "NL"
+  },
+  {
+    "code": "GE",
+    "name": "Gelderland",
+    "countryCode": "NL"
+  },
+  {
+    "code": "GR",
+    "name": "Groningen",
+    "countryCode": "NL"
+  },
+  {
+    "code": "LI",
+    "name": "Limburg",
+    "countryCode": "NL"
+  },
+  {
+    "code": "NB",
+    "name": "North Brabant",
+    "countryCode": "NL"
+  },
+  {
+    "code": "NH",
+    "name": "North Holland",
+    "countryCode": "NL"
+  },
+  {
+    "code": "OV",
+    "name": "Overijssel",
+    "countryCode": "NL"
+  },
+  {
+    "code": "BQ2",
+    "name": "Saba",
+    "countryCode": "NL"
+  },
+  {
+    "code": "BQ3",
+    "name": "Sint Eustatius",
+    "countryCode": "NL"
+  },
+  {
+    "code": "ZH",
+    "name": "South Holland",
+    "countryCode": "NL"
+  },
+  {
+    "code": "UT",
+    "name": "Utrecht",
+    "countryCode": "NL"
+  },
+  {
+    "code": "ZE",
+    "name": "Zeeland",
+    "countryCode": "NL"
+  }
+]

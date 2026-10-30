@@ -1,0 +1,27 @@
+[
+  {
+    "code": "01",
+    "name": "Central Singapore Community Development Council",
+    "countryCode": "SG"
+  },
+  {
+    "code": "02",
+    "name": "North East Community Development Council",
+    "countryCode": "SG"
+  },
+  {
+    "code": "03",
+    "name": "North West Community Development Council",
+    "countryCode": "SG"
+  },
+  {
+    "code": "04",
+    "name": "South East Community Development Council",
+    "countryCode": "SG"
+  },
+  {
+    "code": "05",
+    "name": "South West Community Development Council",
+    "countryCode": "SG"
+  }
+]

@@ -1,0 +1,127 @@
+[
+  {
+    "code": "1",
+    "name": "Banteay Meanchey",
+    "countryCode": "KH"
+  },
+  {
+    "code": "2",
+    "name": "Battambang",
+    "countryCode": "KH"
+  },
+  {
+    "code": "3",
+    "name": "Kampong Cham",
+    "countryCode": "KH"
+  },
+  {
+    "code": "4",
+    "name": "Kampong Chhnang",
+    "countryCode": "KH"
+  },
+  {
+    "code": "5",
+    "name": "Kampong Speu",
+    "countryCode": "KH"
+  },
+  {
+    "code": "6",
+    "name": "Kampong Thom",
+    "countryCode": "KH"
+  },
+  {
+    "code": "7",
+    "name": "Kampot",
+    "countryCode": "KH"
+  },
+  {
+    "code": "8",
+    "name": "Kandal",
+    "countryCode": "KH"
+  },
+  {
+    "code": "23",
+    "name": "Kep",
+    "countryCode": "KH"
+  },
+  {
+    "code": "9",
+    "name": "Koh Kong",
+    "countryCode": "KH"
+  },
+  {
+    "code": "10",
+    "name": "Kratie",
+    "countryCode": "KH"
+  },
+  {
+    "code": "11",
+    "name": "Mondulkiri",
+    "countryCode": "KH"
+  },
+  {
+    "code": "22",
+    "name": "Oddar Meanchey",
+    "countryCode": "KH"
+  },
+  {
+    "code": "24",
+    "name": "Pailin",
+    "countryCode": "KH"
+  },
+  {
+    "code": "12",
+    "name": "Phnom Penh",
+    "countryCode": "KH"
+  },
+  {
+    "code": "13",
+    "name": "Preah Vihear",
+    "countryCode": "KH"
+  },
+  {
+    "code": "14",
+    "name": "Prey Veng",
+    "countryCode": "KH"
+  },
+  {
+    "code": "15",
+    "name": "Pursat",
+    "countryCode": "KH"
+  },
+  {
+    "code": "16",
+    "name": "Ratanakiri",
+    "countryCode": "KH"
+  },
+  {
+    "code": "17",
+    "name": "Siem Reap",
+    "countryCode": "KH"
+  },
+  {
+    "code": "18",
+    "name": "Sihanoukville",
+    "countryCode": "KH"
+  },
+  {
+    "code": "19",
+    "name": "Stung Treng",
+    "countryCode": "KH"
+  },
+  {
+    "code": "20",
+    "name": "Svay Rieng",
+    "countryCode": "KH"
+  },
+  {
+    "code": "NTP",
+    "name": "Tai Po District",
+    "countryCode": "KH"
+  },
+  {
+    "code": "21",
+    "name": "Takeo",
+    "countryCode": "KH"
+  }
+]

@@ -1,0 +1,211 @@
+{
+  "1": [
+    {
+      "name": "Bafoulabé",
+      "postalCodes": []
+    },
+    {
+      "name": "Kayes",
+      "postalCodes": []
+    },
+    {
+      "name": "Kita",
+      "postalCodes": []
+    },
+    {
+      "name": "Kokofata",
+      "postalCodes": []
+    },
+    {
+      "name": "Sagalo",
+      "postalCodes": []
+    }
+  ],
+  "2": [
+    {
+      "name": "Banamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Kangaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Kati",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolokani",
+      "postalCodes": []
+    },
+    {
+      "name": "Koulikoro",
+      "postalCodes": []
+    }
+  ],
+  "3": [
+    {
+      "name": "Bougouni",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolondiéba",
+      "postalCodes": []
+    },
+    {
+      "name": "Koutiala",
+      "postalCodes": []
+    },
+    {
+      "name": "Koutiala Cercle",
+      "postalCodes": []
+    },
+    {
+      "name": "Ntossoni",
+      "postalCodes": []
+    },
+    {
+      "name": "Sikasso",
+      "postalCodes": []
+    },
+    {
+      "name": "Yorosso",
+      "postalCodes": []
+    }
+  ],
+  "4": [
+    {
+      "name": "Baroueli",
+      "postalCodes": []
+    },
+    {
+      "name": "Cercle de San",
+      "postalCodes": []
+    },
+    {
+      "name": "Ké-Macina",
+      "postalCodes": []
+    },
+    {
+      "name": "Kinmparana",
+      "postalCodes": []
+    },
+    {
+      "name": "Markala",
+      "postalCodes": []
+    },
+    {
+      "name": "San",
+      "postalCodes": []
+    },
+    {
+      "name": "Ségou",
+      "postalCodes": []
+    },
+    {
+      "name": "Sokolo",
+      "postalCodes": []
+    }
+  ],
+  "5": [
+    {
+      "name": "Bandiagara",
+      "postalCodes": []
+    },
+    {
+      "name": "Djénné",
+      "postalCodes": []
+    },
+    {
+      "name": "Douentza",
+      "postalCodes": []
+    },
+    {
+      "name": "Douentza Cercle",
+      "postalCodes": []
+    },
+    {
+      "name": "Mopti",
+      "postalCodes": []
+    },
+    {
+      "name": "Ténenkou",
+      "postalCodes": []
+    }
+  ],
+  "6": [
+    {
+      "name": "Araouane",
+      "postalCodes": []
+    },
+    {
+      "name": "Cercle de Goundam",
+      "postalCodes": []
+    },
+    {
+      "name": "Dire",
+      "postalCodes": []
+    },
+    {
+      "name": "Goundam",
+      "postalCodes": []
+    },
+    {
+      "name": "Gourma-Rharous Cercle",
+      "postalCodes": []
+    },
+    {
+      "name": "Niafunké",
+      "postalCodes": []
+    },
+    {
+      "name": "Timbuktu",
+      "postalCodes": []
+    }
+  ],
+  "7": [
+    {
+      "name": "Ansongo",
+      "postalCodes": []
+    },
+    {
+      "name": "Cercle de Bourem",
+      "postalCodes": []
+    },
+    {
+      "name": "Gao",
+      "postalCodes": []
+    },
+    {
+      "name": "Gao Cercle",
+      "postalCodes": []
+    },
+    {
+      "name": "Inékar",
+      "postalCodes": []
+    }
+  ],
+  "8": [
+    {
+      "name": "Abeïbara",
+      "postalCodes": []
+    },
+    {
+      "name": "Cercle d’Abeïbara",
+      "postalCodes": []
+    },
+    {
+      "name": "Kidal",
+      "postalCodes": []
+    }
+  ],
+  "9": [],
+  "10": [],
+  "BKO": [
+    {
+      "name": "Bamako",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

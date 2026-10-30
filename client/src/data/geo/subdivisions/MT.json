@@ -1,0 +1,337 @@
+[
+  {
+    "code": "01",
+    "name": "Attard",
+    "countryCode": "MT"
+  },
+  {
+    "code": "02",
+    "name": "Balzan",
+    "countryCode": "MT"
+  },
+  {
+    "code": "03",
+    "name": "Birgu",
+    "countryCode": "MT"
+  },
+  {
+    "code": "04",
+    "name": "Birkirkara",
+    "countryCode": "MT"
+  },
+  {
+    "code": "05",
+    "name": "Birżebbuġa",
+    "countryCode": "MT"
+  },
+  {
+    "code": "06",
+    "name": "Cospicua",
+    "countryCode": "MT"
+  },
+  {
+    "code": "07",
+    "name": "Dingli",
+    "countryCode": "MT"
+  },
+  {
+    "code": "08",
+    "name": "Fgura",
+    "countryCode": "MT"
+  },
+  {
+    "code": "09",
+    "name": "Floriana",
+    "countryCode": "MT"
+  },
+  {
+    "code": "10",
+    "name": "Fontana",
+    "countryCode": "MT"
+  },
+  {
+    "code": "13",
+    "name": "Għajnsielem",
+    "countryCode": "MT"
+  },
+  {
+    "code": "14",
+    "name": "Għarb",
+    "countryCode": "MT"
+  },
+  {
+    "code": "15",
+    "name": "Għargħur",
+    "countryCode": "MT"
+  },
+  {
+    "code": "16",
+    "name": "Għasri",
+    "countryCode": "MT"
+  },
+  {
+    "code": "17",
+    "name": "Għaxaq",
+    "countryCode": "MT"
+  },
+  {
+    "code": "11",
+    "name": "Gudja",
+    "countryCode": "MT"
+  },
+  {
+    "code": "12",
+    "name": "Gżira",
+    "countryCode": "MT"
+  },
+  {
+    "code": "18",
+    "name": "Ħamrun",
+    "countryCode": "MT"
+  },
+  {
+    "code": "19",
+    "name": "Iklin",
+    "countryCode": "MT"
+  },
+  {
+    "code": "21",
+    "name": "Kalkara",
+    "countryCode": "MT"
+  },
+  {
+    "code": "22",
+    "name": "Kerċem",
+    "countryCode": "MT"
+  },
+  {
+    "code": "23",
+    "name": "Kirkop",
+    "countryCode": "MT"
+  },
+  {
+    "code": "24",
+    "name": "Lija",
+    "countryCode": "MT"
+  },
+  {
+    "code": "25",
+    "name": "Luqa",
+    "countryCode": "MT"
+  },
+  {
+    "code": "26",
+    "name": "Marsa",
+    "countryCode": "MT"
+  },
+  {
+    "code": "27",
+    "name": "Marsaskala",
+    "countryCode": "MT"
+  },
+  {
+    "code": "28",
+    "name": "Marsaxlokk",
+    "countryCode": "MT"
+  },
+  {
+    "code": "29",
+    "name": "Mdina",
+    "countryCode": "MT"
+  },
+  {
+    "code": "30",
+    "name": "Mellieħa",
+    "countryCode": "MT"
+  },
+  {
+    "code": "31",
+    "name": "Mġarr",
+    "countryCode": "MT"
+  },
+  {
+    "code": "32",
+    "name": "Mosta",
+    "countryCode": "MT"
+  },
+  {
+    "code": "33",
+    "name": "Mqabba",
+    "countryCode": "MT"
+  },
+  {
+    "code": "34",
+    "name": "Msida",
+    "countryCode": "MT"
+  },
+  {
+    "code": "35",
+    "name": "Mtarfa",
+    "countryCode": "MT"
+  },
+  {
+    "code": "36",
+    "name": "Munxar",
+    "countryCode": "MT"
+  },
+  {
+    "code": "37",
+    "name": "Nadur",
+    "countryCode": "MT"
+  },
+  {
+    "code": "38",
+    "name": "Naxxar",
+    "countryCode": "MT"
+  },
+  {
+    "code": "39",
+    "name": "Paola",
+    "countryCode": "MT"
+  },
+  {
+    "code": "40",
+    "name": "Pembroke",
+    "countryCode": "MT"
+  },
+  {
+    "code": "41",
+    "name": "Pietà",
+    "countryCode": "MT"
+  },
+  {
+    "code": "42",
+    "name": "Qala",
+    "countryCode": "MT"
+  },
+  {
+    "code": "43",
+    "name": "Qormi",
+    "countryCode": "MT"
+  },
+  {
+    "code": "44",
+    "name": "Qrendi",
+    "countryCode": "MT"
+  },
+  {
+    "code": "46",
+    "name": "Rabat",
+    "countryCode": "MT"
+  },
+  {
+    "code": "50",
+    "name": "Saint Lawrence",
+    "countryCode": "MT"
+  },
+  {
+    "code": "49",
+    "name": "San Ġwann",
+    "countryCode": "MT"
+  },
+  {
+    "code": "52",
+    "name": "Sannat",
+    "countryCode": "MT"
+  },
+  {
+    "code": "53",
+    "name": "Santa Luċija",
+    "countryCode": "MT"
+  },
+  {
+    "code": "54",
+    "name": "Santa Venera",
+    "countryCode": "MT"
+  },
+  {
+    "code": "20",
+    "name": "Senglea",
+    "countryCode": "MT"
+  },
+  {
+    "code": "55",
+    "name": "Siġġiewi",
+    "countryCode": "MT"
+  },
+  {
+    "code": "56",
+    "name": "Sliema",
+    "countryCode": "MT"
+  },
+  {
+    "code": "48",
+    "name": "St. Julian's",
+    "countryCode": "MT"
+  },
+  {
+    "code": "51",
+    "name": "St. Paul's Bay",
+    "countryCode": "MT"
+  },
+  {
+    "code": "57",
+    "name": "Swieqi",
+    "countryCode": "MT"
+  },
+  {
+    "code": "58",
+    "name": "Ta' Xbiex",
+    "countryCode": "MT"
+  },
+  {
+    "code": "59",
+    "name": "Tarxien",
+    "countryCode": "MT"
+  },
+  {
+    "code": "60",
+    "name": "Valletta",
+    "countryCode": "MT"
+  },
+  {
+    "code": "45",
+    "name": "Victoria",
+    "countryCode": "MT"
+  },
+  {
+    "code": "61",
+    "name": "Xagħra",
+    "countryCode": "MT"
+  },
+  {
+    "code": "62",
+    "name": "Xewkija",
+    "countryCode": "MT"
+  },
+  {
+    "code": "63",
+    "name": "Xgħajra",
+    "countryCode": "MT"
+  },
+  {
+    "code": "64",
+    "name": "Żabbar",
+    "countryCode": "MT"
+  },
+  {
+    "code": "65",
+    "name": "Żebbuġ Gozo",
+    "countryCode": "MT"
+  },
+  {
+    "code": "66",
+    "name": "Żebbuġ Malta",
+    "countryCode": "MT"
+  },
+  {
+    "code": "67",
+    "name": "Żejtun",
+    "countryCode": "MT"
+  },
+  {
+    "code": "68",
+    "name": "Żurrieq",
+    "countryCode": "MT"
+  }
+]

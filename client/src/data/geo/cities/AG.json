@@ -1,0 +1,53 @@
+{
+  "10": [
+    {
+      "name": "Codrington",
+      "postalCodes": []
+    }
+  ],
+  "11": [],
+  "03": [
+    {
+      "name": "Piggotts",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Potters Village",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint John’s",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Bolands",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Falmouth",
+      "postalCodes": []
+    },
+    {
+      "name": "Liberta",
+      "postalCodes": []
+    }
+  ],
+  "07": [
+    {
+      "name": "All Saints",
+      "postalCodes": []
+    },
+    {
+      "name": "Parham",
+      "postalCodes": []
+    }
+  ],
+  "08": [],
+  "_OTHER": []
+}

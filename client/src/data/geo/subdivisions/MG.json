@@ -1,0 +1,32 @@
+[
+  {
+    "code": "T",
+    "name": "Antananarivo Province",
+    "countryCode": "MG"
+  },
+  {
+    "code": "D",
+    "name": "Antsiranana Province",
+    "countryCode": "MG"
+  },
+  {
+    "code": "F",
+    "name": "Fianarantsoa Province",
+    "countryCode": "MG"
+  },
+  {
+    "code": "M",
+    "name": "Mahajanga Province",
+    "countryCode": "MG"
+  },
+  {
+    "code": "A",
+    "name": "Toamasina Province",
+    "countryCode": "MG"
+  },
+  {
+    "code": "U",
+    "name": "Toliara Province",
+    "countryCode": "MG"
+  }
+]

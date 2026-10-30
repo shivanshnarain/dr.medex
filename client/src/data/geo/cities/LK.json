@@ -1,0 +1,635 @@
+{
+  "1": [
+    {
+      "name": "Battaramulla South",
+      "postalCodes": []
+    },
+    {
+      "name": "Beruwala",
+      "postalCodes": []
+    },
+    {
+      "name": "Colombo",
+      "postalCodes": []
+    },
+    {
+      "name": "Colombo District",
+      "postalCodes": []
+    },
+    {
+      "name": "Gampaha",
+      "postalCodes": []
+    },
+    {
+      "name": "Gampaha District",
+      "postalCodes": []
+    },
+    {
+      "name": "Hanwella Ihala",
+      "postalCodes": []
+    },
+    {
+      "name": "Hendala",
+      "postalCodes": []
+    },
+    {
+      "name": "Horana South",
+      "postalCodes": []
+    },
+    {
+      "name": "Horawala Junction",
+      "postalCodes": []
+    },
+    {
+      "name": "Ja Ela",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalutara",
+      "postalCodes": []
+    },
+    {
+      "name": "Kandana",
+      "postalCodes": []
+    },
+    {
+      "name": "Katunayaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Kelaniya",
+      "postalCodes": []
+    },
+    {
+      "name": "Kotikawatta",
+      "postalCodes": []
+    },
+    {
+      "name": "Minuwangoda",
+      "postalCodes": []
+    },
+    {
+      "name": "Mulleriyawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Negombo",
+      "postalCodes": []
+    },
+    {
+      "name": "Panadura",
+      "postalCodes": []
+    },
+    {
+      "name": "Peliyagoda",
+      "postalCodes": []
+    },
+    {
+      "name": "Pita Kotte",
+      "postalCodes": []
+    },
+    {
+      "name": "Sri Jayewardenepura Kotte",
+      "postalCodes": []
+    },
+    {
+      "name": "Wattala",
+      "postalCodes": []
+    },
+    {
+      "name": "Welisara",
+      "postalCodes": []
+    }
+  ],
+  "2": [
+    {
+      "name": "Dambulla",
+      "postalCodes": []
+    },
+    {
+      "name": "Hatton",
+      "postalCodes": []
+    },
+    {
+      "name": "Kandy",
+      "postalCodes": []
+    },
+    {
+      "name": "Kandy District",
+      "postalCodes": []
+    },
+    {
+      "name": "Matale",
+      "postalCodes": []
+    },
+    {
+      "name": "Matale District",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuwara Eliya",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuwara Eliya District",
+      "postalCodes": []
+    },
+    {
+      "name": "Sigiriya",
+      "postalCodes": []
+    },
+    {
+      "name": "Talawakele",
+      "postalCodes": []
+    }
+  ],
+  "3": [
+    {
+      "name": "Ambalangoda",
+      "postalCodes": []
+    },
+    {
+      "name": "Bentota",
+      "postalCodes": []
+    },
+    {
+      "name": "Devinuwara",
+      "postalCodes": []
+    },
+    {
+      "name": "Galle",
+      "postalCodes": []
+    },
+    {
+      "name": "Galle District",
+      "postalCodes": []
+    },
+    {
+      "name": "Hambantota District",
+      "postalCodes": []
+    },
+    {
+      "name": "Hikkaduwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Koggala",
+      "postalCodes": []
+    },
+    {
+      "name": "Matara",
+      "postalCodes": []
+    },
+    {
+      "name": "Matara District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mirissa city",
+      "postalCodes": []
+    },
+    {
+      "name": "Talpe",
+      "postalCodes": []
+    },
+    {
+      "name": "Tangalle",
+      "postalCodes": []
+    },
+    {
+      "name": "Unawatuna",
+      "postalCodes": []
+    },
+    {
+      "name": "Weligama",
+      "postalCodes": []
+    }
+  ],
+  "4": [
+    {
+      "name": "Jaffna",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaffna District",
+      "postalCodes": []
+    },
+    {
+      "name": "Kilinochchi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kilinochchi District",
+      "postalCodes": []
+    },
+    {
+      "name": "Point Pedro",
+      "postalCodes": []
+    },
+    {
+      "name": "Valvedditturai",
+      "postalCodes": []
+    },
+    {
+      "name": "Vavuniya",
+      "postalCodes": []
+    },
+    {
+      "name": "Vavuniya District",
+      "postalCodes": []
+    }
+  ],
+  "5": [
+    {
+      "name": "Ampara",
+      "postalCodes": []
+    },
+    {
+      "name": "Ampara District",
+      "postalCodes": []
+    },
+    {
+      "name": "Batticaloa",
+      "postalCodes": []
+    },
+    {
+      "name": "Batticaloa District",
+      "postalCodes": []
+    },
+    {
+      "name": "Eravur Town",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalmunai",
+      "postalCodes": []
+    },
+    {
+      "name": "Trincomalee",
+      "postalCodes": []
+    },
+    {
+      "name": "Trincomalee District",
+      "postalCodes": []
+    },
+    {
+      "name": "Vakarai",
+      "postalCodes": []
+    }
+  ],
+  "6": [
+    {
+      "name": "Chilaw",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuliyapitiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Kurunegala",
+      "postalCodes": []
+    },
+    {
+      "name": "Kurunegala District",
+      "postalCodes": []
+    },
+    {
+      "name": "Puttalam",
+      "postalCodes": []
+    },
+    {
+      "name": "Puttalam District",
+      "postalCodes": []
+    }
+  ],
+  "7": [
+    {
+      "name": "Anuradhapura",
+      "postalCodes": []
+    },
+    {
+      "name": "Anuradhapura District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mihintale",
+      "postalCodes": []
+    },
+    {
+      "name": "Polonnaruwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Polonnaruwa District",
+      "postalCodes": []
+    }
+  ],
+  "8": [
+    {
+      "name": "Badulla",
+      "postalCodes": []
+    },
+    {
+      "name": "Badulla District",
+      "postalCodes": []
+    },
+    {
+      "name": "Ella Town",
+      "postalCodes": []
+    },
+    {
+      "name": "Haputale",
+      "postalCodes": []
+    },
+    {
+      "name": "Kataragama",
+      "postalCodes": []
+    },
+    {
+      "name": "Monaragala",
+      "postalCodes": []
+    },
+    {
+      "name": "Moneragala District",
+      "postalCodes": []
+    },
+    {
+      "name": "Wellawaya",
+      "postalCodes": []
+    }
+  ],
+  "9": [
+    {
+      "name": "Kegalle",
+      "postalCodes": []
+    },
+    {
+      "name": "Kegalle District",
+      "postalCodes": []
+    },
+    {
+      "name": "Ratnapura",
+      "postalCodes": []
+    },
+    {
+      "name": "Ratnapura District",
+      "postalCodes": []
+    }
+  ],
+  "11": [
+    {
+      "name": "Dehiwala-Mount Lavinia",
+      "postalCodes": []
+    },
+    {
+      "name": "Homagama",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaduwela",
+      "postalCodes": []
+    },
+    {
+      "name": "Kesbewa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolonnawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kotte",
+      "postalCodes": []
+    },
+    {
+      "name": "Maharagama",
+      "postalCodes": []
+    },
+    {
+      "name": "Moratuwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Padukka",
+      "postalCodes": []
+    },
+    {
+      "name": "Ratmalana",
+      "postalCodes": []
+    },
+    {
+      "name": "Seethawaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Thimbirigasyaya",
+      "postalCodes": []
+    }
+  ],
+  "12": [],
+  "13": [],
+  "21": [
+    {
+      "name": "Akurana",
+      "postalCodes": []
+    },
+    {
+      "name": "Alawatugoda",
+      "postalCodes": []
+    },
+    {
+      "name": "Ambatenna",
+      "postalCodes": []
+    },
+    {
+      "name": "Daskara",
+      "postalCodes": []
+    },
+    {
+      "name": "Daulagala",
+      "postalCodes": []
+    },
+    {
+      "name": "Delthota",
+      "postalCodes": []
+    },
+    {
+      "name": "Doluwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Galagedara",
+      "postalCodes": []
+    },
+    {
+      "name": "Galhinna",
+      "postalCodes": []
+    },
+    {
+      "name": "Gampola",
+      "postalCodes": []
+    },
+    {
+      "name": "Ganga Ihala Korale",
+      "postalCodes": []
+    },
+    {
+      "name": "Hanguranketa",
+      "postalCodes": []
+    },
+    {
+      "name": "Hapugastalawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Harispattuwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Hatharaliyadda",
+      "postalCodes": []
+    },
+    {
+      "name": "Kadugannawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kandy Four Gravets",
+      "postalCodes": []
+    },
+    {
+      "name": "Katugastota",
+      "postalCodes": []
+    },
+    {
+      "name": "Kundasale",
+      "postalCodes": []
+    },
+    {
+      "name": "Madawala",
+      "postalCodes": []
+    },
+    {
+      "name": "Medadumbara",
+      "postalCodes": []
+    },
+    {
+      "name": "Menikdiwela",
+      "postalCodes": []
+    },
+    {
+      "name": "Minipe",
+      "postalCodes": []
+    },
+    {
+      "name": "Nawalapitiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Pallekele",
+      "postalCodes": []
+    },
+    {
+      "name": "Panvila",
+      "postalCodes": []
+    },
+    {
+      "name": "Pasbage Korale",
+      "postalCodes": []
+    },
+    {
+      "name": "Pathadumbara",
+      "postalCodes": []
+    },
+    {
+      "name": "Pathahewaheta",
+      "postalCodes": []
+    },
+    {
+      "name": "Peradeniya",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilimathalawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Poojapitiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Pussellawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Talatuoya",
+      "postalCodes": []
+    },
+    {
+      "name": "Teldeniya",
+      "postalCodes": []
+    },
+    {
+      "name": "Thumpane",
+      "postalCodes": []
+    },
+    {
+      "name": "Udadumbara",
+      "postalCodes": []
+    },
+    {
+      "name": "Udapalatha",
+      "postalCodes": []
+    },
+    {
+      "name": "Ududumbara",
+      "postalCodes": []
+    },
+    {
+      "name": "Udunuwara",
+      "postalCodes": []
+    },
+    {
+      "name": "Ulapane",
+      "postalCodes": []
+    },
+    {
+      "name": "Watadeniya",
+      "postalCodes": []
+    },
+    {
+      "name": "Wattegama",
+      "postalCodes": []
+    },
+    {
+      "name": "Welamboda",
+      "postalCodes": []
+    },
+    {
+      "name": "Yatinuwara",
+      "postalCodes": []
+    }
+  ],
+  "22": [],
+  "23": [],
+  "31": [],
+  "32": [],
+  "33": [],
+  "41": [],
+  "42": [],
+  "43": [],
+  "44": [],
+  "45": [],
+  "51": [],
+  "52": [],
+  "53": [],
+  "62": [],
+  "71": [],
+  "72": [],
+  "81": [],
+  "82": [],
+  "91": [],
+  "92": [],
+  "_OTHER": []
+}

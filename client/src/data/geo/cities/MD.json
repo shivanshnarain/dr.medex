@@ -1,0 +1,363 @@
+{
+  "AN": [
+    {
+      "name": "Anenii Noi",
+      "postalCodes": []
+    },
+    {
+      "name": "Varniţa",
+      "postalCodes": []
+    }
+  ],
+  "BA": [
+    {
+      "name": "Bălţi",
+      "postalCodes": []
+    }
+  ],
+  "BS": [
+    {
+      "name": "Basarabeasca",
+      "postalCodes": []
+    }
+  ],
+  "BD": [
+    {
+      "name": "Bender",
+      "postalCodes": []
+    }
+  ],
+  "BR": [
+    {
+      "name": "Briceni",
+      "postalCodes": []
+    }
+  ],
+  "CA": [
+    {
+      "name": "Cahul",
+      "postalCodes": []
+    },
+    {
+      "name": "Giurgiuleşti",
+      "postalCodes": []
+    }
+  ],
+  "CL": [
+    {
+      "name": "Călăraşi",
+      "postalCodes": []
+    }
+  ],
+  "CT": [
+    {
+      "name": "Cantemir",
+      "postalCodes": []
+    },
+    {
+      "name": "Iargara",
+      "postalCodes": []
+    },
+    {
+      "name": "Vişniovca",
+      "postalCodes": []
+    }
+  ],
+  "CS": [
+    {
+      "name": "Căuşeni",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiţcani",
+      "postalCodes": []
+    }
+  ],
+  "CU": [
+    {
+      "name": "Chisinau",
+      "postalCodes": []
+    },
+    {
+      "name": "Ciorescu",
+      "postalCodes": []
+    },
+    {
+      "name": "Cricova",
+      "postalCodes": []
+    },
+    {
+      "name": "Sîngera",
+      "postalCodes": []
+    },
+    {
+      "name": "Stăuceni",
+      "postalCodes": []
+    },
+    {
+      "name": "Vadul lui Vodă",
+      "postalCodes": []
+    },
+    {
+      "name": "Vatra",
+      "postalCodes": []
+    }
+  ],
+  "CM": [
+    {
+      "name": "Cimişlia",
+      "postalCodes": []
+    }
+  ],
+  "CR": [
+    {
+      "name": "Criuleni",
+      "postalCodes": []
+    }
+  ],
+  "DO": [
+    {
+      "name": "Briceni",
+      "postalCodes": []
+    },
+    {
+      "name": "Donduşeni",
+      "postalCodes": []
+    }
+  ],
+  "DR": [
+    {
+      "name": "Drochia",
+      "postalCodes": []
+    }
+  ],
+  "DU": [
+    {
+      "name": "Cocieri",
+      "postalCodes": []
+    },
+    {
+      "name": "Ustia",
+      "postalCodes": []
+    }
+  ],
+  "ED": [
+    {
+      "name": "Edineţ",
+      "postalCodes": []
+    }
+  ],
+  "FA": [
+    {
+      "name": "Fălești",
+      "postalCodes": []
+    }
+  ],
+  "FL": [
+    {
+      "name": "Floreşti",
+      "postalCodes": []
+    },
+    {
+      "name": "Ghindești",
+      "postalCodes": []
+    },
+    {
+      "name": "Mărculeşti",
+      "postalCodes": []
+    }
+  ],
+  "GA": [
+    {
+      "name": "Bugeac",
+      "postalCodes": []
+    },
+    {
+      "name": "Ceadîr-Lunga",
+      "postalCodes": []
+    },
+    {
+      "name": "Comrat",
+      "postalCodes": []
+    },
+    {
+      "name": "Vulcăneşti",
+      "postalCodes": []
+    }
+  ],
+  "GL": [
+    {
+      "name": "Glodeni",
+      "postalCodes": []
+    }
+  ],
+  "HI": [
+    {
+      "name": "Dancu",
+      "postalCodes": []
+    },
+    {
+      "name": "Hînceşti",
+      "postalCodes": []
+    }
+  ],
+  "IA": [
+    {
+      "name": "Ialoveni",
+      "postalCodes": []
+    }
+  ],
+  "NI": [
+    {
+      "name": "Nisporeni",
+      "postalCodes": []
+    }
+  ],
+  "OC": [
+    {
+      "name": "Ocniţa",
+      "postalCodes": []
+    },
+    {
+      "name": "Otaci",
+      "postalCodes": []
+    }
+  ],
+  "OR": [
+    {
+      "name": "Orhei",
+      "postalCodes": []
+    }
+  ],
+  "RE": [
+    {
+      "name": "Rezina",
+      "postalCodes": []
+    },
+    {
+      "name": "Saharna",
+      "postalCodes": []
+    }
+  ],
+  "RI": [
+    {
+      "name": "Rîşcani",
+      "postalCodes": []
+    }
+  ],
+  "SI": [
+    {
+      "name": "Bilicenii Vechi",
+      "postalCodes": []
+    },
+    {
+      "name": "Biruinţa",
+      "postalCodes": []
+    },
+    {
+      "name": "Sîngerei",
+      "postalCodes": []
+    }
+  ],
+  "SD": [
+    {
+      "name": "Şoldăneşti",
+      "postalCodes": []
+    }
+  ],
+  "SO": [
+    {
+      "name": "Soroca",
+      "postalCodes": []
+    }
+  ],
+  "SV": [
+    {
+      "name": "Ştefan Vodă",
+      "postalCodes": []
+    }
+  ],
+  "ST": [
+    {
+      "name": "Bucovăţ",
+      "postalCodes": []
+    },
+    {
+      "name": "Strășeni",
+      "postalCodes": []
+    }
+  ],
+  "TA": [
+    {
+      "name": "Taraclia",
+      "postalCodes": []
+    },
+    {
+      "name": "Tvardița",
+      "postalCodes": []
+    }
+  ],
+  "TE": [
+    {
+      "name": "Mîndreşti",
+      "postalCodes": []
+    },
+    {
+      "name": "Teleneşti",
+      "postalCodes": []
+    }
+  ],
+  "SN": [
+    {
+      "name": "Camenca",
+      "postalCodes": []
+    },
+    {
+      "name": "Crasnoe",
+      "postalCodes": []
+    },
+    {
+      "name": "Dnestrovsc",
+      "postalCodes": []
+    },
+    {
+      "name": "Dubăsari",
+      "postalCodes": []
+    },
+    {
+      "name": "Hryhoriopol",
+      "postalCodes": []
+    },
+    {
+      "name": "Maiac",
+      "postalCodes": []
+    },
+    {
+      "name": "Pervomaisc",
+      "postalCodes": []
+    },
+    {
+      "name": "Rîbniţa",
+      "postalCodes": []
+    },
+    {
+      "name": "Slobozia",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiraspol",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiraspolul Nou",
+      "postalCodes": []
+    }
+  ],
+  "UN": [
+    {
+      "name": "Ungheni",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

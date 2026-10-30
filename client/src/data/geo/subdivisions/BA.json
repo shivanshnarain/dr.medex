@@ -1,0 +1,67 @@
+[
+  {
+    "code": "05",
+    "name": "Bosnian Podrinje Canton",
+    "countryCode": "BA"
+  },
+  {
+    "code": "BRC",
+    "name": "Brčko District",
+    "countryCode": "BA"
+  },
+  {
+    "code": "10",
+    "name": "Canton 10",
+    "countryCode": "BA"
+  },
+  {
+    "code": "06",
+    "name": "Central Bosnia Canton",
+    "countryCode": "BA"
+  },
+  {
+    "code": "BIH",
+    "name": "Federation of Bosnia and Herzegovina",
+    "countryCode": "BA"
+  },
+  {
+    "code": "07",
+    "name": "Herzegovina-Neretva Canton",
+    "countryCode": "BA"
+  },
+  {
+    "code": "02",
+    "name": "Posavina Canton",
+    "countryCode": "BA"
+  },
+  {
+    "code": "SRP",
+    "name": "Republika Srpska",
+    "countryCode": "BA"
+  },
+  {
+    "code": "09",
+    "name": "Sarajevo Canton",
+    "countryCode": "BA"
+  },
+  {
+    "code": "03",
+    "name": "Tuzla Canton",
+    "countryCode": "BA"
+  },
+  {
+    "code": "01",
+    "name": "Una-Sana Canton",
+    "countryCode": "BA"
+  },
+  {
+    "code": "08",
+    "name": "West Herzegovina Canton",
+    "countryCode": "BA"
+  },
+  {
+    "code": "04",
+    "name": "Zenica-Doboj Canton",
+    "countryCode": "BA"
+  }
+]

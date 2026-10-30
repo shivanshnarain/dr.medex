@@ -1,0 +1,601 @@
+{
+  "AA": [
+    {
+      "name": "Addis Ababa",
+      "postalCodes": []
+    }
+  ],
+  "AF": [
+    {
+      "name": "Administrative Zone 2",
+      "postalCodes": []
+    },
+    {
+      "name": "Administrative Zone 3",
+      "postalCodes": []
+    },
+    {
+      "name": "Asaita",
+      "postalCodes": []
+    },
+    {
+      "name": "Āwash",
+      "postalCodes": []
+    },
+    {
+      "name": "Dubti",
+      "postalCodes": []
+    },
+    {
+      "name": "Gewanē",
+      "postalCodes": []
+    },
+    {
+      "name": "Semera",
+      "postalCodes": []
+    }
+  ],
+  "AM": [
+    {
+      "name": "Abomsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Addiet Canna",
+      "postalCodes": []
+    },
+    {
+      "name": "Ādīs Zemen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bahir Dar",
+      "postalCodes": []
+    },
+    {
+      "name": "Batī",
+      "postalCodes": []
+    },
+    {
+      "name": "Bichena",
+      "postalCodes": []
+    },
+    {
+      "name": "Burē",
+      "postalCodes": []
+    },
+    {
+      "name": "Dabat",
+      "postalCodes": []
+    },
+    {
+      "name": "Debark’",
+      "postalCodes": []
+    },
+    {
+      "name": "Debre Birhan",
+      "postalCodes": []
+    },
+    {
+      "name": "Debre Mark’os",
+      "postalCodes": []
+    },
+    {
+      "name": "Debre Sīna",
+      "postalCodes": []
+    },
+    {
+      "name": "Debre Tabor",
+      "postalCodes": []
+    },
+    {
+      "name": "Debre Werk’",
+      "postalCodes": []
+    },
+    {
+      "name": "Dejen",
+      "postalCodes": []
+    },
+    {
+      "name": "Desē",
+      "postalCodes": []
+    },
+    {
+      "name": "Finote Selam",
+      "postalCodes": []
+    },
+    {
+      "name": "Gondar",
+      "postalCodes": []
+    },
+    {
+      "name": "Kemisē",
+      "postalCodes": []
+    },
+    {
+      "name": "Kombolcha",
+      "postalCodes": []
+    },
+    {
+      "name": "Lalībela",
+      "postalCodes": []
+    },
+    {
+      "name": "North Shewa Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "North Wollo Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Robīt",
+      "postalCodes": []
+    },
+    {
+      "name": "South Gondar Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "South Wollo Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Wag Hemra Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Were Īlu",
+      "postalCodes": []
+    },
+    {
+      "name": "Werota",
+      "postalCodes": []
+    }
+  ],
+  "BE": [
+    {
+      "name": "Asosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Metekel",
+      "postalCodes": []
+    }
+  ],
+  "DD": [
+    {
+      "name": "Dire Dawa",
+      "postalCodes": []
+    }
+  ],
+  "GA": [
+    {
+      "name": "Administrative Zone 1",
+      "postalCodes": []
+    },
+    {
+      "name": "Gambēla",
+      "postalCodes": []
+    }
+  ],
+  "HA": [
+    {
+      "name": "Harar",
+      "postalCodes": []
+    }
+  ],
+  "OR": [
+    {
+      "name": "Ādīs ‘Alem",
+      "postalCodes": []
+    },
+    {
+      "name": "Āgaro",
+      "postalCodes": []
+    },
+    {
+      "name": "Arsi Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Āsasa",
+      "postalCodes": []
+    },
+    {
+      "name": "Āsbe Teferī",
+      "postalCodes": []
+    },
+    {
+      "name": "Bedelē",
+      "postalCodes": []
+    },
+    {
+      "name": "Bedēsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Bishoftu",
+      "postalCodes": []
+    },
+    {
+      "name": "Deder",
+      "postalCodes": []
+    },
+    {
+      "name": "Dembī Dolo",
+      "postalCodes": []
+    },
+    {
+      "name": "Dodola",
+      "postalCodes": []
+    },
+    {
+      "name": "East Harerghe Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "East Shewa Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "East Wellega Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Fichē",
+      "postalCodes": []
+    },
+    {
+      "name": "Gebre Guracha",
+      "postalCodes": []
+    },
+    {
+      "name": "Gēdo",
+      "postalCodes": []
+    },
+    {
+      "name": "Gelemso",
+      "postalCodes": []
+    },
+    {
+      "name": "Genet",
+      "postalCodes": []
+    },
+    {
+      "name": "Gimbi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ginir",
+      "postalCodes": []
+    },
+    {
+      "name": "Goba",
+      "postalCodes": []
+    },
+    {
+      "name": "Gorē",
+      "postalCodes": []
+    },
+    {
+      "name": "Guji Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Hāgere Hiywet",
+      "postalCodes": []
+    },
+    {
+      "name": "Hagere Maryam",
+      "postalCodes": []
+    },
+    {
+      "name": "Hīrna",
+      "postalCodes": []
+    },
+    {
+      "name": "Huruta",
+      "postalCodes": []
+    },
+    {
+      "name": "Illubabor Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Jimma",
+      "postalCodes": []
+    },
+    {
+      "name": "Jimma Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Kibre Mengist",
+      "postalCodes": []
+    },
+    {
+      "name": "Kofelē",
+      "postalCodes": []
+    },
+    {
+      "name": "Mēga",
+      "postalCodes": []
+    },
+    {
+      "name": "Mendī",
+      "postalCodes": []
+    },
+    {
+      "name": "Metahāra",
+      "postalCodes": []
+    },
+    {
+      "name": "Metu",
+      "postalCodes": []
+    },
+    {
+      "name": "Mojo",
+      "postalCodes": []
+    },
+    {
+      "name": "Nazrēt",
+      "postalCodes": []
+    },
+    {
+      "name": "Nejo",
+      "postalCodes": []
+    },
+    {
+      "name": "North Shewa Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Sebeta",
+      "postalCodes": []
+    },
+    {
+      "name": "Sendafa",
+      "postalCodes": []
+    },
+    {
+      "name": "Shakiso",
+      "postalCodes": []
+    },
+    {
+      "name": "Shambu",
+      "postalCodes": []
+    },
+    {
+      "name": "Shashemenē",
+      "postalCodes": []
+    },
+    {
+      "name": "Sirre",
+      "postalCodes": []
+    },
+    {
+      "name": "Tulu Bolo",
+      "postalCodes": []
+    },
+    {
+      "name": "Waliso",
+      "postalCodes": []
+    },
+    {
+      "name": "Wenjī",
+      "postalCodes": []
+    },
+    {
+      "name": "West Harerghe Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "West Wellega Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Yabēlo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ziway",
+      "postalCodes": []
+    }
+  ],
+  "SO": [
+    {
+      "name": "Afder Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Degehabur Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Gode Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Jijiga",
+      "postalCodes": []
+    },
+    {
+      "name": "Liben zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Shinile Zone",
+      "postalCodes": []
+    }
+  ],
+  "SN": [
+    {
+      "name": "Alaba Special Wereda",
+      "postalCodes": []
+    },
+    {
+      "name": "Arba Minch",
+      "postalCodes": []
+    },
+    {
+      "name": "Āreka",
+      "postalCodes": []
+    },
+    {
+      "name": "Bako",
+      "postalCodes": []
+    },
+    {
+      "name": "Bench Maji Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Bodītī",
+      "postalCodes": []
+    },
+    {
+      "name": "Bonga",
+      "postalCodes": []
+    },
+    {
+      "name": "Butajīra",
+      "postalCodes": []
+    },
+    {
+      "name": "Dīla",
+      "postalCodes": []
+    },
+    {
+      "name": "Felege Neway",
+      "postalCodes": []
+    },
+    {
+      "name": "Gedeo Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Gīdolē",
+      "postalCodes": []
+    },
+    {
+      "name": "Guraghe Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Hadiya Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Hāgere Selam",
+      "postalCodes": []
+    },
+    {
+      "name": "Hawassa",
+      "postalCodes": []
+    },
+    {
+      "name": "Hosa’ina",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinka",
+      "postalCodes": []
+    },
+    {
+      "name": "K’olīto",
+      "postalCodes": []
+    },
+    {
+      "name": "Kembata Alaba Tembaro Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Konso",
+      "postalCodes": []
+    },
+    {
+      "name": "Leku",
+      "postalCodes": []
+    },
+    {
+      "name": "Lobuni",
+      "postalCodes": []
+    },
+    {
+      "name": "Mīzan Teferī",
+      "postalCodes": []
+    },
+    {
+      "name": "Sheka Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidama Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Sodo",
+      "postalCodes": []
+    },
+    {
+      "name": "Tippi",
+      "postalCodes": []
+    },
+    {
+      "name": "Turmi",
+      "postalCodes": []
+    },
+    {
+      "name": "Wendo",
+      "postalCodes": []
+    },
+    {
+      "name": "Wolayita Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Yem",
+      "postalCodes": []
+    },
+    {
+      "name": "Yirga ‘Alem",
+      "postalCodes": []
+    }
+  ],
+  "TI": [
+    {
+      "name": "Ādīgrat",
+      "postalCodes": []
+    },
+    {
+      "name": "Axum",
+      "postalCodes": []
+    },
+    {
+      "name": "Inda Silasē",
+      "postalCodes": []
+    },
+    {
+      "name": "Korem",
+      "postalCodes": []
+    },
+    {
+      "name": "Maych’ew",
+      "postalCodes": []
+    },
+    {
+      "name": "Mek'ele",
+      "postalCodes": []
+    },
+    {
+      "name": "Southeastern Tigray Zone",
+      "postalCodes": []
+    },
+    {
+      "name": "Southern Tigray Zone",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

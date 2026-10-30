@@ -1,0 +1,52 @@
+[
+  {
+    "code": "BU",
+    "name": "Bulawayo Province",
+    "countryCode": "ZW"
+  },
+  {
+    "code": "HA",
+    "name": "Harare Province",
+    "countryCode": "ZW"
+  },
+  {
+    "code": "MA",
+    "name": "Manicaland",
+    "countryCode": "ZW"
+  },
+  {
+    "code": "MC",
+    "name": "Mashonaland Central Province",
+    "countryCode": "ZW"
+  },
+  {
+    "code": "ME",
+    "name": "Mashonaland East Province",
+    "countryCode": "ZW"
+  },
+  {
+    "code": "MW",
+    "name": "Mashonaland West Province",
+    "countryCode": "ZW"
+  },
+  {
+    "code": "MV",
+    "name": "Masvingo Province",
+    "countryCode": "ZW"
+  },
+  {
+    "code": "MN",
+    "name": "Matabeleland North Province",
+    "countryCode": "ZW"
+  },
+  {
+    "code": "MS",
+    "name": "Matabeleland South Province",
+    "countryCode": "ZW"
+  },
+  {
+    "code": "MI",
+    "name": "Midlands Province",
+    "countryCode": "ZW"
+  }
+]

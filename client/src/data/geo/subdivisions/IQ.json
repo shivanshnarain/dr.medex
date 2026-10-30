@@ -1,0 +1,92 @@
+[
+  {
+    "code": "AN",
+    "name": "Al Anbar Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "MU",
+    "name": "Al Muthanna Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "QA",
+    "name": "Al-Qādisiyyah Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "BB",
+    "name": "Babylon Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "BG",
+    "name": "Baghdad Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "BA",
+    "name": "Basra Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "DQ",
+    "name": "Dhi Qar Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "DI",
+    "name": "Diyala Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "DA",
+    "name": "Dohuk Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "AR",
+    "name": "Erbil Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "KA",
+    "name": "Karbala Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "KI",
+    "name": "Kirkuk Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "MA",
+    "name": "Maysan Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "NA",
+    "name": "Najaf Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "NI",
+    "name": "Nineveh Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "SD",
+    "name": "Saladin Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "SU",
+    "name": "Sulaymaniyah Governorate",
+    "countryCode": "IQ"
+  },
+  {
+    "code": "WA",
+    "name": "Wasit Governorate",
+    "countryCode": "IQ"
+  }
+]

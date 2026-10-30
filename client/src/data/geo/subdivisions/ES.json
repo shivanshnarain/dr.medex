@@ -1,0 +1,142 @@
+[
+  {
+    "code": "AN",
+    "name": "Andalusia",
+    "countryCode": "ES"
+  },
+  {
+    "code": "AR",
+    "name": "Aragon",
+    "countryCode": "ES"
+  },
+  {
+    "code": "AS",
+    "name": "Asturias",
+    "countryCode": "ES"
+  },
+  {
+    "code": "AV",
+    "name": "Ávila",
+    "countryCode": "ES"
+  },
+  {
+    "code": "PM",
+    "name": "Balearic Islands",
+    "countryCode": "ES"
+  },
+  {
+    "code": "PV",
+    "name": "Basque Country",
+    "countryCode": "ES"
+  },
+  {
+    "code": "BU",
+    "name": "Burgos Province",
+    "countryCode": "ES"
+  },
+  {
+    "code": "CN",
+    "name": "Canary Islands",
+    "countryCode": "ES"
+  },
+  {
+    "code": "CB",
+    "name": "Cantabria",
+    "countryCode": "ES"
+  },
+  {
+    "code": "CL",
+    "name": "Castile and León",
+    "countryCode": "ES"
+  },
+  {
+    "code": "CM",
+    "name": "Castilla La Mancha",
+    "countryCode": "ES"
+  },
+  {
+    "code": "CT",
+    "name": "Catalonia",
+    "countryCode": "ES"
+  },
+  {
+    "code": "CE",
+    "name": "Ceuta",
+    "countryCode": "ES"
+  },
+  {
+    "code": "EX",
+    "name": "Extremadura",
+    "countryCode": "ES"
+  },
+  {
+    "code": "GA",
+    "name": "Galicia",
+    "countryCode": "ES"
+  },
+  {
+    "code": "RI",
+    "name": "La Rioja",
+    "countryCode": "ES"
+  },
+  {
+    "code": "LE",
+    "name": "Léon",
+    "countryCode": "ES"
+  },
+  {
+    "code": "MD",
+    "name": "Madrid",
+    "countryCode": "ES"
+  },
+  {
+    "code": "ML",
+    "name": "Melilla",
+    "countryCode": "ES"
+  },
+  {
+    "code": "MC",
+    "name": "Murcia",
+    "countryCode": "ES"
+  },
+  {
+    "code": "NC",
+    "name": "Navarra",
+    "countryCode": "ES"
+  },
+  {
+    "code": "P",
+    "name": "Palencia Province",
+    "countryCode": "ES"
+  },
+  {
+    "code": "SA",
+    "name": "Salamanca Province",
+    "countryCode": "ES"
+  },
+  {
+    "code": "SG",
+    "name": "Segovia Province",
+    "countryCode": "ES"
+  },
+  {
+    "code": "SO",
+    "name": "Soria Province",
+    "countryCode": "ES"
+  },
+  {
+    "code": "VC",
+    "name": "Valencia",
+    "countryCode": "ES"
+  },
+  {
+    "code": "VA",
+    "name": "Valladolid Province",
+    "countryCode": "ES"
+  },
+  {
+    "code": "ZA",
+    "name": "Zamora Province",
+    "countryCode": "ES"
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "FUN": [
+    {
+      "name": "Alapi Village",
+      "postalCodes": []
+    },
+    {
+      "name": "Fakaifou Village",
+      "postalCodes": []
+    },
+    {
+      "name": "Funafuti",
+      "postalCodes": []
+    }
+  ],
+  "NMG": [
+    {
+      "name": "Toga Village",
+      "postalCodes": []
+    }
+  ],
+  "NMA": [],
+  "NIT": [
+    {
+      "name": "Kulia Village",
+      "postalCodes": []
+    },
+    {
+      "name": "Niulakita",
+      "postalCodes": []
+    }
+  ],
+  "NUI": [
+    {
+      "name": "Tanrake Village",
+      "postalCodes": []
+    }
+  ],
+  "NKF": [
+    {
+      "name": "Savave Village",
+      "postalCodes": []
+    }
+  ],
+  "NKL": [],
+  "VAI": [
+    {
+      "name": "Asau Village",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

@@ -1,0 +1,77 @@
+[
+  {
+    "code": "07",
+    "name": "Adrar Region",
+    "countryCode": "MR"
+  },
+  {
+    "code": "03",
+    "name": "Assaba Region",
+    "countryCode": "MR"
+  },
+  {
+    "code": "05",
+    "name": "Brakna Region",
+    "countryCode": "MR"
+  },
+  {
+    "code": "08",
+    "name": "Dakhlet Nouadhibou",
+    "countryCode": "MR"
+  },
+  {
+    "code": "04",
+    "name": "Gorgol Region",
+    "countryCode": "MR"
+  },
+  {
+    "code": "10",
+    "name": "Guidimaka Region",
+    "countryCode": "MR"
+  },
+  {
+    "code": "01",
+    "name": "Hodh Ech Chargui Region",
+    "countryCode": "MR"
+  },
+  {
+    "code": "02",
+    "name": "Hodh El Gharbi Region",
+    "countryCode": "MR"
+  },
+  {
+    "code": "12",
+    "name": "Inchiri Region",
+    "countryCode": "MR"
+  },
+  {
+    "code": "14",
+    "name": "Nouakchott-Nord Region",
+    "countryCode": "MR"
+  },
+  {
+    "code": "13",
+    "name": "Nouakchott-Ouest Region",
+    "countryCode": "MR"
+  },
+  {
+    "code": "15",
+    "name": "Nouakchott-Sud Region",
+    "countryCode": "MR"
+  },
+  {
+    "code": "09",
+    "name": "Tagant Region",
+    "countryCode": "MR"
+  },
+  {
+    "code": "11",
+    "name": "Tiris Zemmour Region",
+    "countryCode": "MR"
+  },
+  {
+    "code": "06",
+    "name": "Trarza Region",
+    "countryCode": "MR"
+  }
+]

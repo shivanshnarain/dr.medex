@@ -1,0 +1,661 @@
+{
+  "AR": [
+    {
+      "name": "Artigas",
+      "postalCodes": []
+    },
+    {
+      "name": "Baltasar Brum",
+      "postalCodes": []
+    },
+    {
+      "name": "Bella Unión",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Piedras",
+      "postalCodes": []
+    },
+    {
+      "name": "Tomás Gomensoro",
+      "postalCodes": []
+    }
+  ],
+  "CA": [
+    {
+      "name": "Aguas Corrientes",
+      "postalCodes": []
+    },
+    {
+      "name": "Atlántida",
+      "postalCodes": []
+    },
+    {
+      "name": "Barra de Carrasco",
+      "postalCodes": []
+    },
+    {
+      "name": "Barros Blancos",
+      "postalCodes": []
+    },
+    {
+      "name": "Canelones",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonia Nicolich",
+      "postalCodes": []
+    },
+    {
+      "name": "Empalme Olmos",
+      "postalCodes": []
+    },
+    {
+      "name": "Joaquín Suárez",
+      "postalCodes": []
+    },
+    {
+      "name": "Juanicó",
+      "postalCodes": []
+    },
+    {
+      "name": "La Floresta",
+      "postalCodes": []
+    },
+    {
+      "name": "La Paz",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Piedras",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Toscas",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Cerrillos",
+      "postalCodes": []
+    },
+    {
+      "name": "Migues",
+      "postalCodes": []
+    },
+    {
+      "name": "Montes",
+      "postalCodes": []
+    },
+    {
+      "name": "Pando",
+      "postalCodes": []
+    },
+    {
+      "name": "Paso de Carrasco",
+      "postalCodes": []
+    },
+    {
+      "name": "Progreso",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio",
+      "postalCodes": []
+    },
+    {
+      "name": "San Bautista",
+      "postalCodes": []
+    },
+    {
+      "name": "San Jacinto",
+      "postalCodes": []
+    },
+    {
+      "name": "San Ramón",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Lucía",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Sauce",
+      "postalCodes": []
+    },
+    {
+      "name": "Soca",
+      "postalCodes": []
+    },
+    {
+      "name": "Tala",
+      "postalCodes": []
+    },
+    {
+      "name": "Toledo",
+      "postalCodes": []
+    }
+  ],
+  "CL": [
+    {
+      "name": "Aceguá",
+      "postalCodes": []
+    },
+    {
+      "name": "Isidoro Noblía",
+      "postalCodes": []
+    },
+    {
+      "name": "Melo",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Branco",
+      "postalCodes": []
+    },
+    {
+      "name": "Tupambaé",
+      "postalCodes": []
+    }
+  ],
+  "CO": [
+    {
+      "name": "Carmelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonia del Sacramento",
+      "postalCodes": []
+    },
+    {
+      "name": "Florencio Sánchez",
+      "postalCodes": []
+    },
+    {
+      "name": "Juan L. Lacaze",
+      "postalCodes": []
+    },
+    {
+      "name": "Nueva Helvecia",
+      "postalCodes": []
+    },
+    {
+      "name": "Nueva Palmira",
+      "postalCodes": []
+    },
+    {
+      "name": "Ombúes de Lavalle",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosario",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarariras",
+      "postalCodes": []
+    }
+  ],
+  "DU": [
+    {
+      "name": "Blanquillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Carlos Reyles",
+      "postalCodes": []
+    },
+    {
+      "name": "Durazno",
+      "postalCodes": []
+    },
+    {
+      "name": "La Paloma",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Bernardina",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarandí del Yi",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa del Carmen",
+      "postalCodes": []
+    }
+  ],
+  "FS": [
+    {
+      "name": "Trinidad",
+      "postalCodes": []
+    }
+  ],
+  "FD": [
+    {
+      "name": "25 de Agosto",
+      "postalCodes": []
+    },
+    {
+      "name": "25 de Mayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Alejandro Gallinal",
+      "postalCodes": []
+    },
+    {
+      "name": "Cardal",
+      "postalCodes": []
+    },
+    {
+      "name": "Casupá",
+      "postalCodes": []
+    },
+    {
+      "name": "Florida",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarandí Grande",
+      "postalCodes": []
+    }
+  ],
+  "LA": [
+    {
+      "name": "José Batlle y Ordóñez",
+      "postalCodes": []
+    },
+    {
+      "name": "José Pedro Varela",
+      "postalCodes": []
+    },
+    {
+      "name": "Mariscala",
+      "postalCodes": []
+    },
+    {
+      "name": "Minas",
+      "postalCodes": []
+    },
+    {
+      "name": "Solís de Mataojo",
+      "postalCodes": []
+    }
+  ],
+  "MA": [
+    {
+      "name": "Aiguá",
+      "postalCodes": []
+    },
+    {
+      "name": "Maldonado",
+      "postalCodes": []
+    },
+    {
+      "name": "Pan de Azúcar",
+      "postalCodes": []
+    },
+    {
+      "name": "Piriápolis",
+      "postalCodes": []
+    },
+    {
+      "name": "Punta del Este",
+      "postalCodes": []
+    },
+    {
+      "name": "San Carlos",
+      "postalCodes": []
+    }
+  ],
+  "MO": [
+    {
+      "name": "Bella Vista",
+      "postalCodes": []
+    },
+    {
+      "name": "Belvedere",
+      "postalCodes": []
+    },
+    {
+      "name": "Buceo",
+      "postalCodes": []
+    },
+    {
+      "name": "Capurro (Montevideo)",
+      "postalCodes": []
+    },
+    {
+      "name": "Carrasco",
+      "postalCodes": []
+    },
+    {
+      "name": "Casabó",
+      "postalCodes": []
+    },
+    {
+      "name": "Centro",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerrito, Montevideo",
+      "postalCodes": []
+    },
+    {
+      "name": "Colón Centro y Noroeste",
+      "postalCodes": []
+    },
+    {
+      "name": "Colón Sudeste",
+      "postalCodes": []
+    },
+    {
+      "name": "Conciliación",
+      "postalCodes": []
+    },
+    {
+      "name": "Cordón",
+      "postalCodes": []
+    },
+    {
+      "name": "Flor de Maroñas",
+      "postalCodes": []
+    },
+    {
+      "name": "Ituzaingó",
+      "postalCodes": []
+    },
+    {
+      "name": "La Unión",
+      "postalCodes": []
+    },
+    {
+      "name": "Malvín",
+      "postalCodes": []
+    },
+    {
+      "name": "Manga",
+      "postalCodes": []
+    },
+    {
+      "name": "Maroñas",
+      "postalCodes": []
+    },
+    {
+      "name": "Montevideo",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuevo París",
+      "postalCodes": []
+    },
+    {
+      "name": "Pajas Blancas",
+      "postalCodes": []
+    },
+    {
+      "name": "Paso del Molino",
+      "postalCodes": []
+    },
+    {
+      "name": "Peñarol",
+      "postalCodes": []
+    },
+    {
+      "name": "Piedras Blancas",
+      "postalCodes": []
+    },
+    {
+      "name": "Pocitos",
+      "postalCodes": []
+    },
+    {
+      "name": "Punta Carretas",
+      "postalCodes": []
+    },
+    {
+      "name": "Punta Gorda",
+      "postalCodes": []
+    },
+    {
+      "name": "Reducto",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago Vázquez",
+      "postalCodes": []
+    },
+    {
+      "name": "Sayage",
+      "postalCodes": []
+    },
+    {
+      "name": "Tres Cruces",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa del Cerro",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Española",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa García",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Muñoz",
+      "postalCodes": []
+    }
+  ],
+  "PA": [
+    {
+      "name": "Estación Porvenir",
+      "postalCodes": []
+    },
+    {
+      "name": "Guichón",
+      "postalCodes": []
+    },
+    {
+      "name": "Paysandú",
+      "postalCodes": []
+    },
+    {
+      "name": "Piedras Coloradas",
+      "postalCodes": []
+    },
+    {
+      "name": "Quebracho",
+      "postalCodes": []
+    },
+    {
+      "name": "San Félix",
+      "postalCodes": []
+    }
+  ],
+  "RN": [
+    {
+      "name": "Fray Bentos",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuevo Berlín",
+      "postalCodes": []
+    },
+    {
+      "name": "San Javier",
+      "postalCodes": []
+    },
+    {
+      "name": "Young",
+      "postalCodes": []
+    }
+  ],
+  "RV": [
+    {
+      "name": "Minas de Corrales",
+      "postalCodes": []
+    },
+    {
+      "name": "Rivera",
+      "postalCodes": []
+    },
+    {
+      "name": "Tranqueras",
+      "postalCodes": []
+    },
+    {
+      "name": "Vichadero",
+      "postalCodes": []
+    }
+  ],
+  "RO": [
+    {
+      "name": "Castillos",
+      "postalCodes": []
+    },
+    {
+      "name": "Cebollatí",
+      "postalCodes": []
+    },
+    {
+      "name": "Chui",
+      "postalCodes": []
+    },
+    {
+      "name": "Dieciocho de Julio",
+      "postalCodes": []
+    },
+    {
+      "name": "La Paloma",
+      "postalCodes": []
+    },
+    {
+      "name": "Lascano",
+      "postalCodes": []
+    },
+    {
+      "name": "Rocha",
+      "postalCodes": []
+    },
+    {
+      "name": "Velázquez",
+      "postalCodes": []
+    }
+  ],
+  "SA": [
+    {
+      "name": "Belén",
+      "postalCodes": []
+    },
+    {
+      "name": "Salto",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Constitución",
+      "postalCodes": []
+    }
+  ],
+  "SJ": [
+    {
+      "name": "Delta del Tigre",
+      "postalCodes": []
+    },
+    {
+      "name": "Ecilda Paullier",
+      "postalCodes": []
+    },
+    {
+      "name": "Libertad",
+      "postalCodes": []
+    },
+    {
+      "name": "Puntas de Valdéz",
+      "postalCodes": []
+    },
+    {
+      "name": "Rafael Perazza",
+      "postalCodes": []
+    },
+    {
+      "name": "Rodríguez",
+      "postalCodes": []
+    },
+    {
+      "name": "San José de Mayo",
+      "postalCodes": []
+    }
+  ],
+  "SO": [
+    {
+      "name": "Cardona",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolores",
+      "postalCodes": []
+    },
+    {
+      "name": "José Enrique Rodó",
+      "postalCodes": []
+    },
+    {
+      "name": "Mercedes",
+      "postalCodes": []
+    },
+    {
+      "name": "Palmitas",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Catalina",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Soriano",
+      "postalCodes": []
+    }
+  ],
+  "TA": [
+    {
+      "name": "Curtina",
+      "postalCodes": []
+    },
+    {
+      "name": "Paso de los Toros",
+      "postalCodes": []
+    },
+    {
+      "name": "Tacuarembó",
+      "postalCodes": []
+    }
+  ],
+  "TT": [
+    {
+      "name": "Santa Clara de Olimar",
+      "postalCodes": []
+    },
+    {
+      "name": "Treinta y Tres",
+      "postalCodes": []
+    },
+    {
+      "name": "Vergara",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Sara",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

@@ -1,0 +1,591 @@
+{
+  "Z": [
+    {
+      "name": "Maroa",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio Autónomo Alto Orinoco",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Ayacucho",
+      "postalCodes": []
+    },
+    {
+      "name": "San Carlos de Río Negro",
+      "postalCodes": []
+    },
+    {
+      "name": "San Fernando de Atabapo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan de Manapiare",
+      "postalCodes": []
+    }
+  ],
+  "B": [
+    {
+      "name": "Anaco",
+      "postalCodes": []
+    },
+    {
+      "name": "Aragua de Barcelona",
+      "postalCodes": []
+    },
+    {
+      "name": "Barcelona",
+      "postalCodes": []
+    },
+    {
+      "name": "Cantaura",
+      "postalCodes": []
+    },
+    {
+      "name": "El Tigre",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio José Gregorio Monagas",
+      "postalCodes": []
+    },
+    {
+      "name": "Onoto",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto La Cruz",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Píritu",
+      "postalCodes": []
+    },
+    {
+      "name": "San José de Guanipa",
+      "postalCodes": []
+    }
+  ],
+  "C": [],
+  "D": [
+    {
+      "name": "Cagua",
+      "postalCodes": []
+    },
+    {
+      "name": "El Limón",
+      "postalCodes": []
+    },
+    {
+      "name": "La Victoria",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Tejerías",
+      "postalCodes": []
+    },
+    {
+      "name": "Maracay",
+      "postalCodes": []
+    },
+    {
+      "name": "Palo Negro",
+      "postalCodes": []
+    },
+    {
+      "name": "San Mateo",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rita",
+      "postalCodes": []
+    },
+    {
+      "name": "Turmero",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa de Cura",
+      "postalCodes": []
+    }
+  ],
+  "E": [
+    {
+      "name": "Alto Barinas",
+      "postalCodes": []
+    },
+    {
+      "name": "Barinas",
+      "postalCodes": []
+    },
+    {
+      "name": "Barinitas",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio Barinas",
+      "postalCodes": []
+    }
+  ],
+  "F": [
+    {
+      "name": "Ciudad Bolívar",
+      "postalCodes": []
+    },
+    {
+      "name": "Ciudad Guayana",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio Padre Pedro Chien",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Elena de Uairén",
+      "postalCodes": []
+    },
+    {
+      "name": "Upata",
+      "postalCodes": []
+    }
+  ],
+  "G": [
+    {
+      "name": "Guacara",
+      "postalCodes": []
+    },
+    {
+      "name": "Güigüe",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Guayos",
+      "postalCodes": []
+    },
+    {
+      "name": "Mariara",
+      "postalCodes": []
+    },
+    {
+      "name": "Morón",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Cabello",
+      "postalCodes": []
+    },
+    {
+      "name": "San Joaquín",
+      "postalCodes": []
+    },
+    {
+      "name": "Tacarigua",
+      "postalCodes": []
+    },
+    {
+      "name": "Tocuyito",
+      "postalCodes": []
+    },
+    {
+      "name": "Valencia",
+      "postalCodes": []
+    }
+  ],
+  "H": [
+    {
+      "name": "San Carlos",
+      "postalCodes": []
+    },
+    {
+      "name": "Tinaquillo",
+      "postalCodes": []
+    }
+  ],
+  "Y": [
+    {
+      "name": "Tucupita",
+      "postalCodes": []
+    }
+  ],
+  "A": [
+    {
+      "name": "Caracas",
+      "postalCodes": []
+    }
+  ],
+  "I": [
+    {
+      "name": "Chichiriviche",
+      "postalCodes": []
+    },
+    {
+      "name": "Coro",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio Los Taques",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio Miranda",
+      "postalCodes": []
+    },
+    {
+      "name": "Punta Cardón",
+      "postalCodes": []
+    },
+    {
+      "name": "Punto Fijo",
+      "postalCodes": []
+    },
+    {
+      "name": "Tucacas",
+      "postalCodes": []
+    }
+  ],
+  "W": [],
+  "J": [
+    {
+      "name": "Altagracia de Orituco",
+      "postalCodes": []
+    },
+    {
+      "name": "Calabozo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan de los Morros",
+      "postalCodes": []
+    },
+    {
+      "name": "Valle de La Pascua",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaraza",
+      "postalCodes": []
+    }
+  ],
+  "X": [
+    {
+      "name": "Caraballeda",
+      "postalCodes": []
+    },
+    {
+      "name": "Catia La Mar",
+      "postalCodes": []
+    },
+    {
+      "name": "La Guaira",
+      "postalCodes": []
+    },
+    {
+      "name": "Maiquetía",
+      "postalCodes": []
+    }
+  ],
+  "K": [
+    {
+      "name": "Barquisimeto",
+      "postalCodes": []
+    },
+    {
+      "name": "Cabudare",
+      "postalCodes": []
+    },
+    {
+      "name": "Carora",
+      "postalCodes": []
+    },
+    {
+      "name": "El Tocuyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Rastrojos",
+      "postalCodes": []
+    },
+    {
+      "name": "Quíbor",
+      "postalCodes": []
+    }
+  ],
+  "L": [
+    {
+      "name": "Ejido",
+      "postalCodes": []
+    },
+    {
+      "name": "El Vigía",
+      "postalCodes": []
+    },
+    {
+      "name": "Mérida",
+      "postalCodes": []
+    },
+    {
+      "name": "Mucumpiz",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio Libertador",
+      "postalCodes": []
+    }
+  ],
+  "M": [
+    {
+      "name": "Baruta",
+      "postalCodes": []
+    },
+    {
+      "name": "Carrizal",
+      "postalCodes": []
+    },
+    {
+      "name": "Caucaguita",
+      "postalCodes": []
+    },
+    {
+      "name": "Caucagüito",
+      "postalCodes": []
+    },
+    {
+      "name": "Chacao",
+      "postalCodes": []
+    },
+    {
+      "name": "Charallave",
+      "postalCodes": []
+    },
+    {
+      "name": "Cúa",
+      "postalCodes": []
+    },
+    {
+      "name": "El Cafetal",
+      "postalCodes": []
+    },
+    {
+      "name": "El Hatillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Guarenas",
+      "postalCodes": []
+    },
+    {
+      "name": "Guatire",
+      "postalCodes": []
+    },
+    {
+      "name": "La Dolorita",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Dos Caminos",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Teques",
+      "postalCodes": []
+    },
+    {
+      "name": "Ocumare del Tuy",
+      "postalCodes": []
+    },
+    {
+      "name": "Petare",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio de Los Altos",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Teresa del Tuy",
+      "postalCodes": []
+    }
+  ],
+  "N": [
+    {
+      "name": "Caripito",
+      "postalCodes": []
+    },
+    {
+      "name": "Maturín",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio Maturín",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio Uracoa",
+      "postalCodes": []
+    }
+  ],
+  "O": [
+    {
+      "name": "Juan Griego",
+      "postalCodes": []
+    },
+    {
+      "name": "La Asunción",
+      "postalCodes": []
+    },
+    {
+      "name": "Porlamar",
+      "postalCodes": []
+    }
+  ],
+  "P": [
+    {
+      "name": "Acarigua",
+      "postalCodes": []
+    },
+    {
+      "name": "Araure",
+      "postalCodes": []
+    },
+    {
+      "name": "Guanare",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Bruzual",
+      "postalCodes": []
+    }
+  ],
+  "R": [
+    {
+      "name": "Carúpano",
+      "postalCodes": []
+    },
+    {
+      "name": "Cumaná",
+      "postalCodes": []
+    },
+    {
+      "name": "Güiria",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio Valdez",
+      "postalCodes": []
+    }
+  ],
+  "S": [
+    {
+      "name": "Colón",
+      "postalCodes": []
+    },
+    {
+      "name": "La Fría",
+      "postalCodes": []
+    },
+    {
+      "name": "La Grita",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio José María Vargas",
+      "postalCodes": []
+    },
+    {
+      "name": "Rubio",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio del Táchira",
+      "postalCodes": []
+    },
+    {
+      "name": "San Cristóbal",
+      "postalCodes": []
+    },
+    {
+      "name": "Táriba",
+      "postalCodes": []
+    }
+  ],
+  "T": [
+    {
+      "name": "Boconó",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio Pampanito",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio San Rafael de Carvajal",
+      "postalCodes": []
+    },
+    {
+      "name": "Trujillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Valera",
+      "postalCodes": []
+    }
+  ],
+  "U": [
+    {
+      "name": "Chivacoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio Independencia",
+      "postalCodes": []
+    },
+    {
+      "name": "Nirgua",
+      "postalCodes": []
+    },
+    {
+      "name": "San Felipe",
+      "postalCodes": []
+    },
+    {
+      "name": "Yaritagua",
+      "postalCodes": []
+    }
+  ],
+  "V": [
+    {
+      "name": "Cabimas",
+      "postalCodes": []
+    },
+    {
+      "name": "Ciudad Ojeda",
+      "postalCodes": []
+    },
+    {
+      "name": "La Villa del Rosario",
+      "postalCodes": []
+    },
+    {
+      "name": "Lagunillas",
+      "postalCodes": []
+    },
+    {
+      "name": "Machiques",
+      "postalCodes": []
+    },
+    {
+      "name": "Maracaibo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Carlos del Zulia",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rita",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

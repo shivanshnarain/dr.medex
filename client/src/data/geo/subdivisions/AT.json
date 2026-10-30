@@ -1,0 +1,47 @@
+[
+  {
+    "code": "1",
+    "name": "Burgenland",
+    "countryCode": "AT"
+  },
+  {
+    "code": "2",
+    "name": "Carinthia",
+    "countryCode": "AT"
+  },
+  {
+    "code": "3",
+    "name": "Lower Austria",
+    "countryCode": "AT"
+  },
+  {
+    "code": "5",
+    "name": "Salzburg",
+    "countryCode": "AT"
+  },
+  {
+    "code": "6",
+    "name": "Styria",
+    "countryCode": "AT"
+  },
+  {
+    "code": "7",
+    "name": "Tyrol",
+    "countryCode": "AT"
+  },
+  {
+    "code": "4",
+    "name": "Upper Austria",
+    "countryCode": "AT"
+  },
+  {
+    "code": "9",
+    "name": "Vienna",
+    "countryCode": "AT"
+  },
+  {
+    "code": "8",
+    "name": "Vorarlberg",
+    "countryCode": "AT"
+  }
+]

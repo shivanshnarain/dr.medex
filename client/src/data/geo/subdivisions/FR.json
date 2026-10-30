@@ -1,0 +1,617 @@
+[
+  {
+    "code": "01",
+    "name": "Ain",
+    "countryCode": "FR"
+  },
+  {
+    "code": "02",
+    "name": "Aisne",
+    "countryCode": "FR"
+  },
+  {
+    "code": "03",
+    "name": "Allier",
+    "countryCode": "FR"
+  },
+  {
+    "code": "04",
+    "name": "Alpes-de-Haute-Provence",
+    "countryCode": "FR"
+  },
+  {
+    "code": "06",
+    "name": "Alpes-Maritimes",
+    "countryCode": "FR"
+  },
+  {
+    "code": "6AE",
+    "name": "Alsace",
+    "countryCode": "FR"
+  },
+  {
+    "code": "07",
+    "name": "Ardèche",
+    "countryCode": "FR"
+  },
+  {
+    "code": "08",
+    "name": "Ardennes",
+    "countryCode": "FR"
+  },
+  {
+    "code": "09",
+    "name": "Ariège",
+    "countryCode": "FR"
+  },
+  {
+    "code": "10",
+    "name": "Aube",
+    "countryCode": "FR"
+  },
+  {
+    "code": "11",
+    "name": "Aude",
+    "countryCode": "FR"
+  },
+  {
+    "code": "ARA",
+    "name": "Auvergne-Rhône-Alpes",
+    "countryCode": "FR"
+  },
+  {
+    "code": "12",
+    "name": "Aveyron",
+    "countryCode": "FR"
+  },
+  {
+    "code": "67",
+    "name": "Bas-Rhin",
+    "countryCode": "FR"
+  },
+  {
+    "code": "13",
+    "name": "Bouches-du-Rhône",
+    "countryCode": "FR"
+  },
+  {
+    "code": "BFC",
+    "name": "Bourgogne-Franche-Comté",
+    "countryCode": "FR"
+  },
+  {
+    "code": "BRE",
+    "name": "Bretagne",
+    "countryCode": "FR"
+  },
+  {
+    "code": "14",
+    "name": "Calvados",
+    "countryCode": "FR"
+  },
+  {
+    "code": "15",
+    "name": "Cantal",
+    "countryCode": "FR"
+  },
+  {
+    "code": "CVL",
+    "name": "Centre-Val de Loire",
+    "countryCode": "FR"
+  },
+  {
+    "code": "16",
+    "name": "Charente",
+    "countryCode": "FR"
+  },
+  {
+    "code": "17",
+    "name": "Charente-Maritime",
+    "countryCode": "FR"
+  },
+  {
+    "code": "18",
+    "name": "Cher",
+    "countryCode": "FR"
+  },
+  {
+    "code": "CP",
+    "name": "Clipperton",
+    "countryCode": "FR"
+  },
+  {
+    "code": "19",
+    "name": "Corrèze",
+    "countryCode": "FR"
+  },
+  {
+    "code": "20R",
+    "name": "Corse",
+    "countryCode": "FR"
+  },
+  {
+    "code": "2A",
+    "name": "Corse-du-Sud",
+    "countryCode": "FR"
+  },
+  {
+    "code": "21",
+    "name": "Côte-d'Or",
+    "countryCode": "FR"
+  },
+  {
+    "code": "22",
+    "name": "Côtes-d'Armor",
+    "countryCode": "FR"
+  },
+  {
+    "code": "23",
+    "name": "Creuse",
+    "countryCode": "FR"
+  },
+  {
+    "code": "79",
+    "name": "Deux-Sèvres",
+    "countryCode": "FR"
+  },
+  {
+    "code": "24",
+    "name": "Dordogne",
+    "countryCode": "FR"
+  },
+  {
+    "code": "25",
+    "name": "Doubs",
+    "countryCode": "FR"
+  },
+  {
+    "code": "26",
+    "name": "Drôme",
+    "countryCode": "FR"
+  },
+  {
+    "code": "91",
+    "name": "Essonne",
+    "countryCode": "FR"
+  },
+  {
+    "code": "27",
+    "name": "Eure",
+    "countryCode": "FR"
+  },
+  {
+    "code": "28",
+    "name": "Eure-et-Loir",
+    "countryCode": "FR"
+  },
+  {
+    "code": "29",
+    "name": "Finistère",
+    "countryCode": "FR"
+  },
+  {
+    "code": "973",
+    "name": "French Guiana",
+    "countryCode": "FR"
+  },
+  {
+    "code": "PF",
+    "name": "French Polynesia",
+    "countryCode": "FR"
+  },
+  {
+    "code": "TF",
+    "name": "French Southern and Antarctic Lands",
+    "countryCode": "FR"
+  },
+  {
+    "code": "30",
+    "name": "Gard",
+    "countryCode": "FR"
+  },
+  {
+    "code": "32",
+    "name": "Gers",
+    "countryCode": "FR"
+  },
+  {
+    "code": "33",
+    "name": "Gironde",
+    "countryCode": "FR"
+  },
+  {
+    "code": "GES",
+    "name": "Grand-Est",
+    "countryCode": "FR"
+  },
+  {
+    "code": "971",
+    "name": "Guadeloupe",
+    "countryCode": "FR"
+  },
+  {
+    "code": "68",
+    "name": "Haut-Rhin",
+    "countryCode": "FR"
+  },
+  {
+    "code": "2B",
+    "name": "Haute-Corse",
+    "countryCode": "FR"
+  },
+  {
+    "code": "31",
+    "name": "Haute-Garonne",
+    "countryCode": "FR"
+  },
+  {
+    "code": "43",
+    "name": "Haute-Loire",
+    "countryCode": "FR"
+  },
+  {
+    "code": "52",
+    "name": "Haute-Marne",
+    "countryCode": "FR"
+  },
+  {
+    "code": "70",
+    "name": "Haute-Saône",
+    "countryCode": "FR"
+  },
+  {
+    "code": "74",
+    "name": "Haute-Savoie",
+    "countryCode": "FR"
+  },
+  {
+    "code": "87",
+    "name": "Haute-Vienne",
+    "countryCode": "FR"
+  },
+  {
+    "code": "05",
+    "name": "Hautes-Alpes",
+    "countryCode": "FR"
+  },
+  {
+    "code": "65",
+    "name": "Hautes-Pyrénées",
+    "countryCode": "FR"
+  },
+  {
+    "code": "HDF",
+    "name": "Hauts-de-France",
+    "countryCode": "FR"
+  },
+  {
+    "code": "92",
+    "name": "Hauts-de-Seine",
+    "countryCode": "FR"
+  },
+  {
+    "code": "34",
+    "name": "Hérault",
+    "countryCode": "FR"
+  },
+  {
+    "code": "IDF",
+    "name": "Île-de-France",
+    "countryCode": "FR"
+  },
+  {
+    "code": "35",
+    "name": "Ille-et-Vilaine",
+    "countryCode": "FR"
+  },
+  {
+    "code": "36",
+    "name": "Indre",
+    "countryCode": "FR"
+  },
+  {
+    "code": "37",
+    "name": "Indre-et-Loire",
+    "countryCode": "FR"
+  },
+  {
+    "code": "38",
+    "name": "Isère",
+    "countryCode": "FR"
+  },
+  {
+    "code": "39",
+    "name": "Jura",
+    "countryCode": "FR"
+  },
+  {
+    "code": "974",
+    "name": "La Réunion",
+    "countryCode": "FR"
+  },
+  {
+    "code": "40",
+    "name": "Landes",
+    "countryCode": "FR"
+  },
+  {
+    "code": "41",
+    "name": "Loir-et-Cher",
+    "countryCode": "FR"
+  },
+  {
+    "code": "42",
+    "name": "Loire",
+    "countryCode": "FR"
+  },
+  {
+    "code": "44",
+    "name": "Loire-Atlantique",
+    "countryCode": "FR"
+  },
+  {
+    "code": "45",
+    "name": "Loiret",
+    "countryCode": "FR"
+  },
+  {
+    "code": "46",
+    "name": "Lot",
+    "countryCode": "FR"
+  },
+  {
+    "code": "47",
+    "name": "Lot-et-Garonne",
+    "countryCode": "FR"
+  },
+  {
+    "code": "48",
+    "name": "Lozère",
+    "countryCode": "FR"
+  },
+  {
+    "code": "49",
+    "name": "Maine-et-Loire",
+    "countryCode": "FR"
+  },
+  {
+    "code": "50",
+    "name": "Manche",
+    "countryCode": "FR"
+  },
+  {
+    "code": "51",
+    "name": "Marne",
+    "countryCode": "FR"
+  },
+  {
+    "code": "972",
+    "name": "Martinique",
+    "countryCode": "FR"
+  },
+  {
+    "code": "53",
+    "name": "Mayenne",
+    "countryCode": "FR"
+  },
+  {
+    "code": "976",
+    "name": "Mayotte",
+    "countryCode": "FR"
+  },
+  {
+    "code": "69M",
+    "name": "Métropole de Lyon",
+    "countryCode": "FR"
+  },
+  {
+    "code": "54",
+    "name": "Meurthe-et-Moselle",
+    "countryCode": "FR"
+  },
+  {
+    "code": "55",
+    "name": "Meuse",
+    "countryCode": "FR"
+  },
+  {
+    "code": "56",
+    "name": "Morbihan",
+    "countryCode": "FR"
+  },
+  {
+    "code": "57",
+    "name": "Moselle",
+    "countryCode": "FR"
+  },
+  {
+    "code": "58",
+    "name": "Nièvre",
+    "countryCode": "FR"
+  },
+  {
+    "code": "59",
+    "name": "Nord",
+    "countryCode": "FR"
+  },
+  {
+    "code": "NOR",
+    "name": "Normandie",
+    "countryCode": "FR"
+  },
+  {
+    "code": "NAQ",
+    "name": "Nouvelle-Aquitaine",
+    "countryCode": "FR"
+  },
+  {
+    "code": "OCC",
+    "name": "Occitanie",
+    "countryCode": "FR"
+  },
+  {
+    "code": "60",
+    "name": "Oise",
+    "countryCode": "FR"
+  },
+  {
+    "code": "61",
+    "name": "Orne",
+    "countryCode": "FR"
+  },
+  {
+    "code": "75C",
+    "name": "Paris",
+    "countryCode": "FR"
+  },
+  {
+    "code": "62",
+    "name": "Pas-de-Calais",
+    "countryCode": "FR"
+  },
+  {
+    "code": "PDL",
+    "name": "Pays-de-la-Loire",
+    "countryCode": "FR"
+  },
+  {
+    "code": "PAC",
+    "name": "Provence-Alpes-Côte-d’Azur",
+    "countryCode": "FR"
+  },
+  {
+    "code": "63",
+    "name": "Puy-de-Dôme",
+    "countryCode": "FR"
+  },
+  {
+    "code": "64",
+    "name": "Pyrénées-Atlantiques",
+    "countryCode": "FR"
+  },
+  {
+    "code": "66",
+    "name": "Pyrénées-Orientales",
+    "countryCode": "FR"
+  },
+  {
+    "code": "69",
+    "name": "Rhône",
+    "countryCode": "FR"
+  },
+  {
+    "code": "PM",
+    "name": "Saint Pierre and Miquelon",
+    "countryCode": "FR"
+  },
+  {
+    "code": "BL",
+    "name": "Saint-Barthélemy",
+    "countryCode": "FR"
+  },
+  {
+    "code": "MF",
+    "name": "Saint-Martin",
+    "countryCode": "FR"
+  },
+  {
+    "code": "71",
+    "name": "Saône-et-Loire",
+    "countryCode": "FR"
+  },
+  {
+    "code": "72",
+    "name": "Sarthe",
+    "countryCode": "FR"
+  },
+  {
+    "code": "73",
+    "name": "Savoie",
+    "countryCode": "FR"
+  },
+  {
+    "code": "77",
+    "name": "Seine-et-Marne",
+    "countryCode": "FR"
+  },
+  {
+    "code": "76",
+    "name": "Seine-Maritime",
+    "countryCode": "FR"
+  },
+  {
+    "code": "93",
+    "name": "Seine-Saint-Denis",
+    "countryCode": "FR"
+  },
+  {
+    "code": "80",
+    "name": "Somme",
+    "countryCode": "FR"
+  },
+  {
+    "code": "81",
+    "name": "Tarn",
+    "countryCode": "FR"
+  },
+  {
+    "code": "82",
+    "name": "Tarn-et-Garonne",
+    "countryCode": "FR"
+  },
+  {
+    "code": "90",
+    "name": "Territoire de Belfort",
+    "countryCode": "FR"
+  },
+  {
+    "code": "95",
+    "name": "Val-d'Oise",
+    "countryCode": "FR"
+  },
+  {
+    "code": "94",
+    "name": "Val-de-Marne",
+    "countryCode": "FR"
+  },
+  {
+    "code": "83",
+    "name": "Var",
+    "countryCode": "FR"
+  },
+  {
+    "code": "84",
+    "name": "Vaucluse",
+    "countryCode": "FR"
+  },
+  {
+    "code": "85",
+    "name": "Vendée",
+    "countryCode": "FR"
+  },
+  {
+    "code": "86",
+    "name": "Vienne",
+    "countryCode": "FR"
+  },
+  {
+    "code": "88",
+    "name": "Vosges",
+    "countryCode": "FR"
+  },
+  {
+    "code": "WF",
+    "name": "Wallis and Futuna",
+    "countryCode": "FR"
+  },
+  {
+    "code": "89",
+    "name": "Yonne",
+    "countryCode": "FR"
+  },
+  {
+    "code": "78",
+    "name": "Yvelines",
+    "countryCode": "FR"
+  }
+]

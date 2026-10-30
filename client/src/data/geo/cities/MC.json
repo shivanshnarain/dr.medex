@@ -1,0 +1,25 @@
+{
+  "CL": [
+    {
+      "name": "La Condamine",
+      "postalCodes": [
+        "98000"
+      ]
+    },
+    {
+      "name": "Monaco",
+      "postalCodes": [
+        "98000"
+      ]
+    },
+    {
+      "name": "Monte Carlo",
+      "postalCodes": [
+        "98000"
+      ]
+    }
+  ],
+  "CO": [],
+  "MG": [],
+  "_OTHER": []
+}

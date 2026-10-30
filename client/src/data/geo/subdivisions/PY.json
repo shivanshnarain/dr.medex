@@ -1,0 +1,87 @@
+[
+  {
+    "code": "16",
+    "name": "Alto Paraguay Department",
+    "countryCode": "PY"
+  },
+  {
+    "code": "10",
+    "name": "Alto Paraná Department",
+    "countryCode": "PY"
+  },
+  {
+    "code": "13",
+    "name": "Amambay Department",
+    "countryCode": "PY"
+  },
+  {
+    "code": "19",
+    "name": "Boquerón Department",
+    "countryCode": "PY"
+  },
+  {
+    "code": "5",
+    "name": "Caaguazú",
+    "countryCode": "PY"
+  },
+  {
+    "code": "6",
+    "name": "Caazapá",
+    "countryCode": "PY"
+  },
+  {
+    "code": "14",
+    "name": "Canindeyú",
+    "countryCode": "PY"
+  },
+  {
+    "code": "11",
+    "name": "Central Department",
+    "countryCode": "PY"
+  },
+  {
+    "code": "1",
+    "name": "Concepción Department",
+    "countryCode": "PY"
+  },
+  {
+    "code": "3",
+    "name": "Cordillera Department",
+    "countryCode": "PY"
+  },
+  {
+    "code": "4",
+    "name": "Guairá Department",
+    "countryCode": "PY"
+  },
+  {
+    "code": "7",
+    "name": "Itapúa",
+    "countryCode": "PY"
+  },
+  {
+    "code": "8",
+    "name": "Misiones Department",
+    "countryCode": "PY"
+  },
+  {
+    "code": "12",
+    "name": "Ñeembucú Department",
+    "countryCode": "PY"
+  },
+  {
+    "code": "9",
+    "name": "Paraguarí Department",
+    "countryCode": "PY"
+  },
+  {
+    "code": "15",
+    "name": "Presidente Hayes Department",
+    "countryCode": "PY"
+  },
+  {
+    "code": "2",
+    "name": "San Pedro Department",
+    "countryCode": "PY"
+  }
+]

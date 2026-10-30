@@ -1,0 +1,182 @@
+{
+  "10": [
+    {
+      "name": "Dobrota",
+      "postalCodes": []
+    },
+    {
+      "name": "Kotor",
+      "postalCodes": []
+    },
+    {
+      "name": "Prčanj",
+      "postalCodes": []
+    },
+    {
+      "name": "Risan",
+      "postalCodes": []
+    }
+  ],
+  "11": [
+    {
+      "name": "Mojkovac",
+      "postalCodes": []
+    }
+  ],
+  "12": [
+    {
+      "name": "Nikšić",
+      "postalCodes": []
+    }
+  ],
+  "13": [
+    {
+      "name": "Plav",
+      "postalCodes": []
+    }
+  ],
+  "14": [
+    {
+      "name": "Pljevlja",
+      "postalCodes": []
+    }
+  ],
+  "15": [
+    {
+      "name": "Plužine",
+      "postalCodes": []
+    }
+  ],
+  "16": [
+    {
+      "name": "Golubovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Goričani",
+      "postalCodes": []
+    },
+    {
+      "name": "Mataguži",
+      "postalCodes": []
+    },
+    {
+      "name": "Mojanovići",
+      "postalCodes": []
+    },
+    {
+      "name": "Podgorica",
+      "postalCodes": []
+    },
+    {
+      "name": "Tuzi",
+      "postalCodes": []
+    }
+  ],
+  "17": [
+    {
+      "name": "Rožaje",
+      "postalCodes": []
+    }
+  ],
+  "18": [
+    {
+      "name": "Šavnik",
+      "postalCodes": []
+    }
+  ],
+  "19": [
+    {
+      "name": "Tivat",
+      "postalCodes": []
+    }
+  ],
+  "20": [
+    {
+      "name": "Ulcinj",
+      "postalCodes": []
+    }
+  ],
+  "21": [
+    {
+      "name": "Žabljak",
+      "postalCodes": []
+    }
+  ],
+  "22": [
+    {
+      "name": "Gusinje",
+      "postalCodes": []
+    }
+  ],
+  "23": [],
+  "01": [
+    {
+      "name": "Andrijevica",
+      "postalCodes": []
+    }
+  ],
+  "02": [
+    {
+      "name": "Bar",
+      "postalCodes": []
+    },
+    {
+      "name": "Stari Bar",
+      "postalCodes": []
+    },
+    {
+      "name": "Šušanj",
+      "postalCodes": []
+    },
+    {
+      "name": "Sutomore",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Berane",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Bijelo Polje",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Budva",
+      "postalCodes": []
+    },
+    {
+      "name": "Petrovac na Moru",
+      "postalCodes": []
+    }
+  ],
+  "07": [
+    {
+      "name": "Danilovgrad",
+      "postalCodes": []
+    },
+    {
+      "name": "Spuž",
+      "postalCodes": []
+    }
+  ],
+  "09": [
+    {
+      "name": "Kolašin",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Cetinje",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

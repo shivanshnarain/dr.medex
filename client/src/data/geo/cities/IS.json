@@ -1,0 +1,315 @@
+{
+  "1": [
+    {
+      "name": "Álftanes",
+      "postalCodes": []
+    },
+    {
+      "name": "Garðabær",
+      "postalCodes": []
+    },
+    {
+      "name": "Hafnarfjörður",
+      "postalCodes": []
+    },
+    {
+      "name": "Kjósarhreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Kópavogur",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosfellsbaer",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosfellsbær",
+      "postalCodes": []
+    },
+    {
+      "name": "Reykjavík",
+      "postalCodes": []
+    },
+    {
+      "name": "Seltjarnarnes",
+      "postalCodes": []
+    }
+  ],
+  "2": [
+    {
+      "name": "Garður",
+      "postalCodes": []
+    },
+    {
+      "name": "Grindavík",
+      "postalCodes": []
+    },
+    {
+      "name": "Keflavík",
+      "postalCodes": []
+    },
+    {
+      "name": "Reykjanesbær",
+      "postalCodes": []
+    },
+    {
+      "name": "Sandgerði",
+      "postalCodes": []
+    },
+    {
+      "name": "Vogar",
+      "postalCodes": []
+    }
+  ],
+  "3": [
+    {
+      "name": "Akranes",
+      "postalCodes": []
+    },
+    {
+      "name": "Borgarbyggð",
+      "postalCodes": []
+    },
+    {
+      "name": "Borgarnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalabyggð",
+      "postalCodes": []
+    },
+    {
+      "name": "Eyja- og Miklaholtshreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Helgafellssveit",
+      "postalCodes": []
+    },
+    {
+      "name": "Hvalfjarðarsveit",
+      "postalCodes": []
+    },
+    {
+      "name": "Ólafsvík",
+      "postalCodes": []
+    },
+    {
+      "name": "Skorradalshreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Snæfellsbær",
+      "postalCodes": []
+    },
+    {
+      "name": "Stykkishólmur",
+      "postalCodes": []
+    }
+  ],
+  "4": [
+    {
+      "name": "Ísafjarðarbær",
+      "postalCodes": []
+    },
+    {
+      "name": "Ísafjörður",
+      "postalCodes": []
+    },
+    {
+      "name": "Reykhólahreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Strandabyggð",
+      "postalCodes": []
+    },
+    {
+      "name": "Tálknafjarðarhreppur",
+      "postalCodes": []
+    }
+  ],
+  "5": [
+    {
+      "name": "Akrahreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Húnaþing Vestra",
+      "postalCodes": []
+    },
+    {
+      "name": "Sauðárkrókur",
+      "postalCodes": []
+    },
+    {
+      "name": "Skagabyggð",
+      "postalCodes": []
+    },
+    {
+      "name": "Sveitarfélagið Skagafjörður",
+      "postalCodes": []
+    }
+  ],
+  "6": [
+    {
+      "name": "Akureyri",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalvík",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalvíkurbyggð",
+      "postalCodes": []
+    },
+    {
+      "name": "Eyjafjarðarsveit",
+      "postalCodes": []
+    },
+    {
+      "name": "Fjallabyggð",
+      "postalCodes": []
+    },
+    {
+      "name": "Grýtubakkahreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Hörgársveit",
+      "postalCodes": []
+    },
+    {
+      "name": "Húsavík",
+      "postalCodes": []
+    },
+    {
+      "name": "Langanesbyggð",
+      "postalCodes": []
+    },
+    {
+      "name": "Laugar",
+      "postalCodes": []
+    },
+    {
+      "name": "Siglufjörður",
+      "postalCodes": []
+    },
+    {
+      "name": "Skútustaðahreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Svalbarðsstrandarhreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Tjörneshreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Þingeyjarsveit",
+      "postalCodes": []
+    }
+  ],
+  "7": [
+    {
+      "name": "Borgarfjarðarhreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Breiðdalshreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Egilsstaðir",
+      "postalCodes": []
+    },
+    {
+      "name": "Eskifjörður",
+      "postalCodes": []
+    },
+    {
+      "name": "Fjarðabyggð",
+      "postalCodes": []
+    },
+    {
+      "name": "Fljótsdalshérað",
+      "postalCodes": []
+    },
+    {
+      "name": "Fljótsdalshreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Höfn",
+      "postalCodes": []
+    },
+    {
+      "name": "Neskaupstaður",
+      "postalCodes": []
+    },
+    {
+      "name": "Reyðarfjörður",
+      "postalCodes": []
+    }
+  ],
+  "8": [
+    {
+      "name": "Ásahreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Bláskógabyggð",
+      "postalCodes": []
+    },
+    {
+      "name": "Flóahreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Grímsnes- og Grafningshreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrunamannahreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Hveragerði",
+      "postalCodes": []
+    },
+    {
+      "name": "Mýrdalshreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Selfoss",
+      "postalCodes": []
+    },
+    {
+      "name": "Skaftárhreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Skeiða- og Gnúpverjahreppur",
+      "postalCodes": []
+    },
+    {
+      "name": "Vestmannaeyjabær",
+      "postalCodes": []
+    },
+    {
+      "name": "Vestmannaeyjar",
+      "postalCodes": []
+    },
+    {
+      "name": "Þorlákshöfn",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

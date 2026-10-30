@@ -1,0 +1,581 @@
+{
+  "10": [],
+  "11": [],
+  "12": [
+    {
+      "name": "Bashkia Finiq",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Himarë",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Konispol",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Selenicë",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Vlorë",
+      "postalCodes": []
+    },
+    {
+      "name": "Delvinë",
+      "postalCodes": []
+    },
+    {
+      "name": "Himarë",
+      "postalCodes": []
+    },
+    {
+      "name": "Konispol",
+      "postalCodes": []
+    },
+    {
+      "name": "Ksamil",
+      "postalCodes": []
+    },
+    {
+      "name": "Orikum",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Delvinës",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarandë",
+      "postalCodes": []
+    },
+    {
+      "name": "Selenicë",
+      "postalCodes": []
+    },
+    {
+      "name": "Vlorë",
+      "postalCodes": []
+    }
+  ],
+  "01": [],
+  "BR": [
+    {
+      "name": "Banaj",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Berat",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Kuçovë",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Poliçan",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Skrapar",
+      "postalCodes": []
+    },
+    {
+      "name": "Berat",
+      "postalCodes": []
+    },
+    {
+      "name": "Çorovodë",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuçovë",
+      "postalCodes": []
+    },
+    {
+      "name": "Poliçan",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Beratit",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Kuçovës",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Skraparit",
+      "postalCodes": []
+    },
+    {
+      "name": "Ura Vajgurore",
+      "postalCodes": []
+    }
+  ],
+  "BU": [],
+  "DL": [],
+  "DV": [],
+  "09": [
+    {
+      "name": "Bashkia Bulqizë",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Klos",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Mat",
+      "postalCodes": []
+    },
+    {
+      "name": "Bulqizë",
+      "postalCodes": []
+    },
+    {
+      "name": "Burrel",
+      "postalCodes": []
+    },
+    {
+      "name": "Klos",
+      "postalCodes": []
+    },
+    {
+      "name": "Peshkopi",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Bulqizës",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Dibrës",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Matit",
+      "postalCodes": []
+    },
+    {
+      "name": "Ulëz",
+      "postalCodes": []
+    }
+  ],
+  "DI": [],
+  "02": [],
+  "DR": [
+    {
+      "name": "Bashkia Durrës",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Krujë",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Shijak",
+      "postalCodes": []
+    },
+    {
+      "name": "Durrës",
+      "postalCodes": []
+    },
+    {
+      "name": "Durrës District",
+      "postalCodes": []
+    },
+    {
+      "name": "Fushë-Krujë",
+      "postalCodes": []
+    },
+    {
+      "name": "Krujë",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Krujës",
+      "postalCodes": []
+    },
+    {
+      "name": "Shijak",
+      "postalCodes": []
+    },
+    {
+      "name": "Sukth",
+      "postalCodes": []
+    }
+  ],
+  "03": [],
+  "04": [
+    {
+      "name": "Ballsh",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Divjakë",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Fier",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Mallakastër",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Patos",
+      "postalCodes": []
+    },
+    {
+      "name": "Divjakë",
+      "postalCodes": []
+    },
+    {
+      "name": "Fier",
+      "postalCodes": []
+    },
+    {
+      "name": "Fier-Çifçi",
+      "postalCodes": []
+    },
+    {
+      "name": "Lushnjë",
+      "postalCodes": []
+    },
+    {
+      "name": "Patos",
+      "postalCodes": []
+    },
+    {
+      "name": "Patos Fshat",
+      "postalCodes": []
+    },
+    {
+      "name": "Roskovec",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Mallakastrës",
+      "postalCodes": []
+    }
+  ],
+  "FR": [],
+  "05": [],
+  "GJ": [
+    {
+      "name": "Bashkia Dropull",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Kelcyrë",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Libohovë",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Memaliaj",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Përmet",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Tepelenë",
+      "postalCodes": []
+    },
+    {
+      "name": "Gjinkar",
+      "postalCodes": []
+    },
+    {
+      "name": "Gjirokastër",
+      "postalCodes": []
+    },
+    {
+      "name": "Këlcyrë",
+      "postalCodes": []
+    },
+    {
+      "name": "Lazarat",
+      "postalCodes": []
+    },
+    {
+      "name": "Libohovë",
+      "postalCodes": []
+    },
+    {
+      "name": "Memaliaj",
+      "postalCodes": []
+    },
+    {
+      "name": "Përmet",
+      "postalCodes": []
+    },
+    {
+      "name": "Tepelenë",
+      "postalCodes": []
+    }
+  ],
+  "GR": [],
+  "HA": [],
+  "KA": [],
+  "ER": [],
+  "06": [
+    {
+      "name": "Bashkia Devoll",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Kolonjë",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Maliq",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Pustec",
+      "postalCodes": []
+    },
+    {
+      "name": "Bilisht",
+      "postalCodes": []
+    },
+    {
+      "name": "Ersekë",
+      "postalCodes": []
+    },
+    {
+      "name": "Korçë",
+      "postalCodes": []
+    },
+    {
+      "name": "Leskovik",
+      "postalCodes": []
+    },
+    {
+      "name": "Libonik",
+      "postalCodes": []
+    },
+    {
+      "name": "Maliq",
+      "postalCodes": []
+    },
+    {
+      "name": "Mborje",
+      "postalCodes": []
+    },
+    {
+      "name": "Pogradec",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Devollit",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Kolonjës",
+      "postalCodes": []
+    },
+    {
+      "name": "Velçan",
+      "postalCodes": []
+    },
+    {
+      "name": "Voskopojë",
+      "postalCodes": []
+    }
+  ],
+  "KO": [],
+  "KR": [],
+  "KC": [],
+  "07": [],
+  "KU": [
+    {
+      "name": "Bajram Curri",
+      "postalCodes": []
+    },
+    {
+      "name": "Krumë",
+      "postalCodes": []
+    },
+    {
+      "name": "Kukës",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Hasit",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Kukësit",
+      "postalCodes": []
+    }
+  ],
+  "KB": [],
+  "08": [
+    {
+      "name": "Bashkia Kurbin",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Lezhë",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Mirditë",
+      "postalCodes": []
+    },
+    {
+      "name": "Kurbnesh",
+      "postalCodes": []
+    },
+    {
+      "name": "Laç",
+      "postalCodes": []
+    },
+    {
+      "name": "Lezhë",
+      "postalCodes": []
+    },
+    {
+      "name": "Mamurras",
+      "postalCodes": []
+    },
+    {
+      "name": "Milot",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrëshen",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Kurbinit",
+      "postalCodes": []
+    },
+    {
+      "name": "Rubik",
+      "postalCodes": []
+    },
+    {
+      "name": "Shëngjin",
+      "postalCodes": []
+    }
+  ],
+  "LE": [],
+  "LB": [],
+  "LU": [],
+  "MM": [],
+  "MK": [],
+  "MT": [],
+  "MR": [],
+  "PQ": [],
+  "PR": [],
+  "PG": [],
+  "PU": [],
+  "SR": [],
+  "SH": [
+    {
+      "name": "Bashkia Malësi e Madhe",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Pukë",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Vau i Dejës",
+      "postalCodes": []
+    },
+    {
+      "name": "Fushë-Arrëz",
+      "postalCodes": []
+    },
+    {
+      "name": "Koplik",
+      "postalCodes": []
+    },
+    {
+      "name": "Pukë",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Malësia e Madhe",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Shkodrës",
+      "postalCodes": []
+    },
+    {
+      "name": "Shkodër",
+      "postalCodes": []
+    },
+    {
+      "name": "Vau i Dejës",
+      "postalCodes": []
+    },
+    {
+      "name": "Vukatanë",
+      "postalCodes": []
+    }
+  ],
+  "SK": [],
+  "TE": [],
+  "TR": [
+    {
+      "name": "Bashkia Kavajë",
+      "postalCodes": []
+    },
+    {
+      "name": "Bashkia Vorë",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamëz",
+      "postalCodes": []
+    },
+    {
+      "name": "Kavajë",
+      "postalCodes": []
+    },
+    {
+      "name": "Krrabë",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Kavajës",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrethi i Tiranës",
+      "postalCodes": []
+    },
+    {
+      "name": "Rrogozhinë",
+      "postalCodes": []
+    },
+    {
+      "name": "Sinaballaj",
+      "postalCodes": []
+    },
+    {
+      "name": "Tirana",
+      "postalCodes": []
+    },
+    {
+      "name": "Vorë",
+      "postalCodes": []
+    }
+  ],
+  "TP": [],
+  "VL": [],
+  "_OTHER": []
+}

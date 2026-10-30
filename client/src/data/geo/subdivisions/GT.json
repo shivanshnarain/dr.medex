@@ -1,0 +1,107 @@
+[
+  {
+    "code": "AV",
+    "name": "Alta Verapaz Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "BV",
+    "name": "Baja Verapaz Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "CM",
+    "name": "Chimaltenango Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "CQ",
+    "name": "Chiquimula Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "PR",
+    "name": "El Progreso Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "ES",
+    "name": "Escuintla Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "GU",
+    "name": "Guatemala Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "HU",
+    "name": "Huehuetenango Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "IZ",
+    "name": "Izabal Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "JA",
+    "name": "Jalapa Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "JU",
+    "name": "Jutiapa Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "PE",
+    "name": "Petén Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "QZ",
+    "name": "Quetzaltenango Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "QC",
+    "name": "Quiché Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "RE",
+    "name": "Retalhuleu Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "SA",
+    "name": "Sacatepéquez Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "SM",
+    "name": "San Marcos Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "SR",
+    "name": "Santa Rosa Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "SO",
+    "name": "Sololá Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "SU",
+    "name": "Suchitepéquez Department",
+    "countryCode": "GT"
+  },
+  {
+    "code": "TO",
+    "name": "Totonicapán Department",
+    "countryCode": "GT"
+  }
+]

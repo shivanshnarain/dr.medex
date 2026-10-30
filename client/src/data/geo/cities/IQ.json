@@ -1,0 +1,363 @@
+{
+  "AN": [
+    {
+      "name": "‘Anah",
+      "postalCodes": []
+    },
+    {
+      "name": "‘Anat al Qadīmah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Fallūjah",
+      "postalCodes": []
+    },
+    {
+      "name": "Ar Ruţbah",
+      "postalCodes": []
+    },
+    {
+      "name": "Ḩadīthah",
+      "postalCodes": []
+    },
+    {
+      "name": "Hīt",
+      "postalCodes": []
+    },
+    {
+      "name": "Hīt District",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramadi",
+      "postalCodes": []
+    },
+    {
+      "name": "Rāwah",
+      "postalCodes": []
+    }
+  ],
+  "MU": [
+    {
+      "name": "Ar Rumaythah",
+      "postalCodes": []
+    },
+    {
+      "name": "As Samawah",
+      "postalCodes": []
+    }
+  ],
+  "QA": [
+    {
+      "name": "‘Afak",
+      "postalCodes": []
+    },
+    {
+      "name": "Ad Dīwānīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Ash Shāmīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Nāḩiyat ash Shināfīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Nahiyat Ghammas",
+      "postalCodes": []
+    }
+  ],
+  "BB": [
+    {
+      "name": "Al Ḩillah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Musayyib",
+      "postalCodes": []
+    },
+    {
+      "name": "Imam Qasim",
+      "postalCodes": []
+    },
+    {
+      "name": "Nāḩīyat Saddat al Hindīyah",
+      "postalCodes": []
+    }
+  ],
+  "BG": [
+    {
+      "name": "Abu Ghraib District",
+      "postalCodes": []
+    },
+    {
+      "name": "Abū Ghurayb",
+      "postalCodes": []
+    },
+    {
+      "name": "Baghdad",
+      "postalCodes": []
+    }
+  ],
+  "BA": [
+    {
+      "name": "Al Başrah al Qadīmah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Fāw",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Hārithah",
+      "postalCodes": []
+    },
+    {
+      "name": "Az Zubayr",
+      "postalCodes": []
+    },
+    {
+      "name": "Basrah",
+      "postalCodes": []
+    },
+    {
+      "name": "Umm Qaşr",
+      "postalCodes": []
+    }
+  ],
+  "DQ": [
+    {
+      "name": "Ash Shaţrah",
+      "postalCodes": []
+    },
+    {
+      "name": "Nāḩiyat al Fuhūd",
+      "postalCodes": []
+    },
+    {
+      "name": "Nasiriyah",
+      "postalCodes": []
+    }
+  ],
+  "DI": [
+    {
+      "name": "Al Miqdādīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Baladrūz",
+      "postalCodes": []
+    },
+    {
+      "name": "Baqubah",
+      "postalCodes": []
+    },
+    {
+      "name": "Khāliş",
+      "postalCodes": []
+    },
+    {
+      "name": "Kifrī",
+      "postalCodes": []
+    },
+    {
+      "name": "Mandalī",
+      "postalCodes": []
+    },
+    {
+      "name": "Qaḑā’ Kifrī",
+      "postalCodes": []
+    }
+  ],
+  "DA": [
+    {
+      "name": "Al ‘Amādīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Batifa",
+      "postalCodes": []
+    },
+    {
+      "name": "Dihok",
+      "postalCodes": []
+    },
+    {
+      "name": "Sīnah",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaxo",
+      "postalCodes": []
+    }
+  ],
+  "AR": [
+    {
+      "name": "Arbil",
+      "postalCodes": []
+    },
+    {
+      "name": "Erbil",
+      "postalCodes": []
+    },
+    {
+      "name": "Koysinceq",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruwāndiz",
+      "postalCodes": []
+    },
+    {
+      "name": "Shaqlāwah",
+      "postalCodes": []
+    },
+    {
+      "name": "Soran",
+      "postalCodes": []
+    }
+  ],
+  "KA": [
+    {
+      "name": "Al Hindīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Karbala",
+      "postalCodes": []
+    }
+  ],
+  "KI": [
+    {
+      "name": "Kirkuk",
+      "postalCodes": []
+    }
+  ],
+  "MA": [
+    {
+      "name": "‘Alī al Gharbī",
+      "postalCodes": []
+    },
+    {
+      "name": "Al ‘Amārah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al-Mejar Al-Kabi District",
+      "postalCodes": []
+    }
+  ],
+  "NA": [
+    {
+      "name": "Al Mishkhāb",
+      "postalCodes": []
+    },
+    {
+      "name": "Kufa",
+      "postalCodes": []
+    },
+    {
+      "name": "Najaf",
+      "postalCodes": []
+    }
+  ],
+  "NI": [
+    {
+      "name": "‘Aqrah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Mawşil al Jadīdah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al-Hamdaniya",
+      "postalCodes": []
+    },
+    {
+      "name": "Ash Shaykhān",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosul",
+      "postalCodes": []
+    },
+    {
+      "name": "Sinjar",
+      "postalCodes": []
+    },
+    {
+      "name": "Tall ‘Afar",
+      "postalCodes": []
+    },
+    {
+      "name": "Tallkayf",
+      "postalCodes": []
+    }
+  ],
+  "SD": [
+    {
+      "name": "Ad Dujayl",
+      "postalCodes": []
+    },
+    {
+      "name": "Balad",
+      "postalCodes": []
+    },
+    {
+      "name": "Bayjī",
+      "postalCodes": []
+    },
+    {
+      "name": "Sāmarrā’",
+      "postalCodes": []
+    },
+    {
+      "name": "Tikrīt",
+      "postalCodes": []
+    },
+    {
+      "name": "Tozkhurmato",
+      "postalCodes": []
+    }
+  ],
+  "SU": [
+    {
+      "name": "As Sulaymānīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Baynjiwayn",
+      "postalCodes": []
+    },
+    {
+      "name": "Ḩalabjah",
+      "postalCodes": []
+    },
+    {
+      "name": "Jamjamāl",
+      "postalCodes": []
+    }
+  ],
+  "WA": [
+    {
+      "name": "Al ‘Azīzīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Ḩayy",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Kūt",
+      "postalCodes": []
+    },
+    {
+      "name": "Aş Şuwayrah",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

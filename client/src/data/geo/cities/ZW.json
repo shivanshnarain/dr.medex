@@ -1,0 +1,459 @@
+{
+  "BU": [
+    {
+      "name": "Bulawayo",
+      "postalCodes": []
+    }
+  ],
+  "HA": [
+    {
+      "name": "Chitungwiza",
+      "postalCodes": []
+    },
+    {
+      "name": "Epworth",
+      "postalCodes": []
+    },
+    {
+      "name": "Harare",
+      "postalCodes": []
+    }
+  ],
+  "MA": [
+    {
+      "name": "Buhera District",
+      "postalCodes": []
+    },
+    {
+      "name": "Chimanimani",
+      "postalCodes": []
+    },
+    {
+      "name": "Chimanimani District",
+      "postalCodes": []
+    },
+    {
+      "name": "Chipinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Chipinge District",
+      "postalCodes": []
+    },
+    {
+      "name": "Dorowa Mining Lease",
+      "postalCodes": []
+    },
+    {
+      "name": "Headlands",
+      "postalCodes": []
+    },
+    {
+      "name": "Makoni District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mutare",
+      "postalCodes": []
+    },
+    {
+      "name": "Mutare District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mutasa District",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyanga",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyanga District",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyazura",
+      "postalCodes": []
+    },
+    {
+      "name": "Odzi",
+      "postalCodes": []
+    },
+    {
+      "name": "Penhalonga",
+      "postalCodes": []
+    },
+    {
+      "name": "Rusape",
+      "postalCodes": []
+    }
+  ],
+  "MC": [
+    {
+      "name": "Bindura",
+      "postalCodes": []
+    },
+    {
+      "name": "Bindura District",
+      "postalCodes": []
+    },
+    {
+      "name": "Centenary",
+      "postalCodes": []
+    },
+    {
+      "name": "Centenary District",
+      "postalCodes": []
+    },
+    {
+      "name": "Concession",
+      "postalCodes": []
+    },
+    {
+      "name": "Glendale",
+      "postalCodes": []
+    },
+    {
+      "name": "Guruve District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mazowe",
+      "postalCodes": []
+    },
+    {
+      "name": "Mazowe District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mount Darwin",
+      "postalCodes": []
+    },
+    {
+      "name": "Mvurwi",
+      "postalCodes": []
+    },
+    {
+      "name": "Rushinga District",
+      "postalCodes": []
+    },
+    {
+      "name": "Shamva",
+      "postalCodes": []
+    },
+    {
+      "name": "Shamva District",
+      "postalCodes": []
+    }
+  ],
+  "ME": [
+    {
+      "name": "Beatrice",
+      "postalCodes": []
+    },
+    {
+      "name": "Chivhu",
+      "postalCodes": []
+    },
+    {
+      "name": "Goromonzi District",
+      "postalCodes": []
+    },
+    {
+      "name": "Macheke",
+      "postalCodes": []
+    },
+    {
+      "name": "Marondera",
+      "postalCodes": []
+    },
+    {
+      "name": "Marondera District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mudzi District",
+      "postalCodes": []
+    },
+    {
+      "name": "Murehwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Murehwa District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mutoko",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruwa",
+      "postalCodes": []
+    }
+  ],
+  "MW": [
+    {
+      "name": "Banket",
+      "postalCodes": []
+    },
+    {
+      "name": "Chakari",
+      "postalCodes": []
+    },
+    {
+      "name": "Chegutu",
+      "postalCodes": []
+    },
+    {
+      "name": "Chegutu District",
+      "postalCodes": []
+    },
+    {
+      "name": "Chinhoyi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chirundu",
+      "postalCodes": []
+    },
+    {
+      "name": "Hurungwe District",
+      "postalCodes": []
+    },
+    {
+      "name": "Kadoma",
+      "postalCodes": []
+    },
+    {
+      "name": "Kadoma District",
+      "postalCodes": []
+    },
+    {
+      "name": "Kariba",
+      "postalCodes": []
+    },
+    {
+      "name": "Kariba District",
+      "postalCodes": []
+    },
+    {
+      "name": "Karoi",
+      "postalCodes": []
+    },
+    {
+      "name": "Makonde District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mhangura",
+      "postalCodes": []
+    },
+    {
+      "name": "Norton",
+      "postalCodes": []
+    },
+    {
+      "name": "Raffingora",
+      "postalCodes": []
+    }
+  ],
+  "MV": [
+    {
+      "name": "Bikita District",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiredzi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiredzi District",
+      "postalCodes": []
+    },
+    {
+      "name": "Chivi District",
+      "postalCodes": []
+    },
+    {
+      "name": "Gutu District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mashava",
+      "postalCodes": []
+    },
+    {
+      "name": "Masvingo",
+      "postalCodes": []
+    },
+    {
+      "name": "Masvingo District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mwenezi District",
+      "postalCodes": []
+    },
+    {
+      "name": "Zvishavane",
+      "postalCodes": []
+    }
+  ],
+  "MN": [
+    {
+      "name": "Binga",
+      "postalCodes": []
+    },
+    {
+      "name": "Binga District",
+      "postalCodes": []
+    },
+    {
+      "name": "Bubi District",
+      "postalCodes": []
+    },
+    {
+      "name": "Dete",
+      "postalCodes": []
+    },
+    {
+      "name": "Hwange",
+      "postalCodes": []
+    },
+    {
+      "name": "Hwange District",
+      "postalCodes": []
+    },
+    {
+      "name": "Inyati",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamativi Mine",
+      "postalCodes": []
+    },
+    {
+      "name": "Lupane",
+      "postalCodes": []
+    },
+    {
+      "name": "Lupane District",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkayi District",
+      "postalCodes": []
+    },
+    {
+      "name": "Victoria Falls",
+      "postalCodes": []
+    }
+  ],
+  "MS": [
+    {
+      "name": "Beitbridge",
+      "postalCodes": []
+    },
+    {
+      "name": "Beitbridge District",
+      "postalCodes": []
+    },
+    {
+      "name": "Esigodini",
+      "postalCodes": []
+    },
+    {
+      "name": "Filabusi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwanda",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwanda District",
+      "postalCodes": []
+    },
+    {
+      "name": "Insiza",
+      "postalCodes": []
+    },
+    {
+      "name": "Insiza District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mangwe District",
+      "postalCodes": []
+    },
+    {
+      "name": "Matobo",
+      "postalCodes": []
+    },
+    {
+      "name": "Plumtree",
+      "postalCodes": []
+    },
+    {
+      "name": "Umzingwane District",
+      "postalCodes": []
+    }
+  ],
+  "MI": [
+    {
+      "name": "Gokwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Gweru",
+      "postalCodes": []
+    },
+    {
+      "name": "Gweru District",
+      "postalCodes": []
+    },
+    {
+      "name": "Kwekwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Kwekwe District",
+      "postalCodes": []
+    },
+    {
+      "name": "Lalapanzi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mberengwa District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mvuma",
+      "postalCodes": []
+    },
+    {
+      "name": "Redcliff",
+      "postalCodes": []
+    },
+    {
+      "name": "Shangani",
+      "postalCodes": []
+    },
+    {
+      "name": "Shurugwi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shurugwi District",
+      "postalCodes": []
+    },
+    {
+      "name": "Zvishavane District",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "code": "C",
+    "name": "Centrale Region",
+    "countryCode": "TG"
+  },
+  {
+    "code": "K",
+    "name": "Kara Region",
+    "countryCode": "TG"
+  },
+  {
+    "code": "M",
+    "name": "Maritime",
+    "countryCode": "TG"
+  },
+  {
+    "code": "P",
+    "name": "Plateaux Region",
+    "countryCode": "TG"
+  },
+  {
+    "code": "S",
+    "name": "Savanes Region",
+    "countryCode": "TG"
+  }
+]

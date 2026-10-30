@@ -1,0 +1,615 @@
+{
+  "M": [
+    {
+      "name": "Bet Dagan",
+      "postalCodes": []
+    },
+    {
+      "name": "Bet Yiẕẖaq",
+      "postalCodes": []
+    },
+    {
+      "name": "Bnei Ayish",
+      "postalCodes": []
+    },
+    {
+      "name": "Elyakhin",
+      "postalCodes": []
+    },
+    {
+      "name": "Eṭ Ṭaiyiba",
+      "postalCodes": []
+    },
+    {
+      "name": "Even Yehuda",
+      "postalCodes": []
+    },
+    {
+      "name": "Gan Yavne",
+      "postalCodes": []
+    },
+    {
+      "name": "Ganei Tikva",
+      "postalCodes": []
+    },
+    {
+      "name": "Gedera",
+      "postalCodes": []
+    },
+    {
+      "name": "Hod HaSharon",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaljūlya",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafr Qāsim",
+      "postalCodes": []
+    },
+    {
+      "name": "Kefar H̱abad",
+      "postalCodes": []
+    },
+    {
+      "name": "Kefar Yona",
+      "postalCodes": []
+    },
+    {
+      "name": "Kfar Saba",
+      "postalCodes": []
+    },
+    {
+      "name": "Lapid",
+      "postalCodes": []
+    },
+    {
+      "name": "Lod",
+      "postalCodes": []
+    },
+    {
+      "name": "Mazkeret Batya",
+      "postalCodes": []
+    },
+    {
+      "name": "Modi‘in Makkabbim Re‘ut",
+      "postalCodes": []
+    },
+    {
+      "name": "Neẖalim",
+      "postalCodes": []
+    },
+    {
+      "name": "Ness Ziona",
+      "postalCodes": []
+    },
+    {
+      "name": "Netanya",
+      "postalCodes": []
+    },
+    {
+      "name": "Nirit",
+      "postalCodes": []
+    },
+    {
+      "name": "Nof Ayalon",
+      "postalCodes": []
+    },
+    {
+      "name": "Nordiyya",
+      "postalCodes": []
+    },
+    {
+      "name": "Pardesiyya",
+      "postalCodes": []
+    },
+    {
+      "name": "Petaẖ Tiqwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Qalansuwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Ra'anana",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramla",
+      "postalCodes": []
+    },
+    {
+      "name": "Reẖovot",
+      "postalCodes": []
+    },
+    {
+      "name": "Rishon LeẔiyyon",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosh Ha‘Ayin",
+      "postalCodes": []
+    },
+    {
+      "name": "Savyon",
+      "postalCodes": []
+    },
+    {
+      "name": "Shoham",
+      "postalCodes": []
+    },
+    {
+      "name": "Tel Mond",
+      "postalCodes": []
+    },
+    {
+      "name": "Tirah",
+      "postalCodes": []
+    },
+    {
+      "name": "Yavné",
+      "postalCodes": []
+    },
+    {
+      "name": "Yehud",
+      "postalCodes": []
+    },
+    {
+      "name": "Ẕur Moshe",
+      "postalCodes": []
+    }
+  ],
+  "HA": [
+    {
+      "name": "Atlit",
+      "postalCodes": []
+    },
+    {
+      "name": "Caesarea",
+      "postalCodes": []
+    },
+    {
+      "name": "Daliyat al Karmel",
+      "postalCodes": []
+    },
+    {
+      "name": "El Fureidīs",
+      "postalCodes": []
+    },
+    {
+      "name": "Hadera",
+      "postalCodes": []
+    },
+    {
+      "name": "Haifa",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibṭīn",
+      "postalCodes": []
+    },
+    {
+      "name": "Nesher",
+      "postalCodes": []
+    },
+    {
+      "name": "Qiryat Ata",
+      "postalCodes": []
+    },
+    {
+      "name": "Qiryat Bialik",
+      "postalCodes": []
+    },
+    {
+      "name": "Qiryat Moẕqin",
+      "postalCodes": []
+    },
+    {
+      "name": "Qiryat Yam",
+      "postalCodes": []
+    },
+    {
+      "name": "Rekhasim",
+      "postalCodes": []
+    },
+    {
+      "name": "Tirat Karmel",
+      "postalCodes": []
+    },
+    {
+      "name": "Umm el Faḥm",
+      "postalCodes": []
+    }
+  ],
+  "JM": [
+    {
+      "name": "Abū Ghaush",
+      "postalCodes": []
+    },
+    {
+      "name": "Bet Shemesh",
+      "postalCodes": []
+    },
+    {
+      "name": "Har Adar",
+      "postalCodes": []
+    },
+    {
+      "name": "Jerusalem",
+      "postalCodes": []
+    },
+    {
+      "name": "Mevasseret Ẕiyyon",
+      "postalCodes": []
+    },
+    {
+      "name": "Modiin Ilit",
+      "postalCodes": []
+    },
+    {
+      "name": "West Jerusalem",
+      "postalCodes": []
+    },
+    {
+      "name": "Ẕur Hadassa",
+      "postalCodes": []
+    }
+  ],
+  "Z": [
+    {
+      "name": "‘Eilabun",
+      "postalCodes": []
+    },
+    {
+      "name": "‘Uzeir",
+      "postalCodes": []
+    },
+    {
+      "name": "Acre",
+      "postalCodes": []
+    },
+    {
+      "name": "Afula",
+      "postalCodes": []
+    },
+    {
+      "name": "Basmat Ṭab‘ūn",
+      "postalCodes": []
+    },
+    {
+      "name": "Beit Jann",
+      "postalCodes": []
+    },
+    {
+      "name": "Bet She’an",
+      "postalCodes": []
+    },
+    {
+      "name": "Bīr el Maksūr",
+      "postalCodes": []
+    },
+    {
+      "name": "Bu‘eina",
+      "postalCodes": []
+    },
+    {
+      "name": "Buqei‘a",
+      "postalCodes": []
+    },
+    {
+      "name": "Dabbūrīya",
+      "postalCodes": []
+    },
+    {
+      "name": "Deir Ḥannā",
+      "postalCodes": []
+    },
+    {
+      "name": "El Mazra‘a",
+      "postalCodes": []
+    },
+    {
+      "name": "Er Reina",
+      "postalCodes": []
+    },
+    {
+      "name": "Esh Sheikh Dannūn",
+      "postalCodes": []
+    },
+    {
+      "name": "Ḥurfeish",
+      "postalCodes": []
+    },
+    {
+      "name": "Iksāl",
+      "postalCodes": []
+    },
+    {
+      "name": "Jīsh",
+      "postalCodes": []
+    },
+    {
+      "name": "Judeida Makr",
+      "postalCodes": []
+    },
+    {
+      "name": "Kābūl",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafr Kammā",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafr Kannā",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafr Mandā",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafr Miṣr",
+      "postalCodes": []
+    },
+    {
+      "name": "Karmi’el",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaukab Abū el Hījā",
+      "postalCodes": []
+    },
+    {
+      "name": "Kefar Rosh HaNiqra",
+      "postalCodes": []
+    },
+    {
+      "name": "Kefar Tavor",
+      "postalCodes": []
+    },
+    {
+      "name": "Kefar Weradim",
+      "postalCodes": []
+    },
+    {
+      "name": "Kfar Yasif",
+      "postalCodes": []
+    },
+    {
+      "name": "maalot Tarshīhā",
+      "postalCodes": []
+    },
+    {
+      "name": "Maghār",
+      "postalCodes": []
+    },
+    {
+      "name": "Metulla",
+      "postalCodes": []
+    },
+    {
+      "name": "Mi‘ilyā",
+      "postalCodes": []
+    },
+    {
+      "name": "Migdal Ha‘Emeq",
+      "postalCodes": []
+    },
+    {
+      "name": "Nahariyya",
+      "postalCodes": []
+    },
+    {
+      "name": "Naḥf",
+      "postalCodes": []
+    },
+    {
+      "name": "Nazareth",
+      "postalCodes": []
+    },
+    {
+      "name": "Nefat ‘Akko",
+      "postalCodes": []
+    },
+    {
+      "name": "Nein",
+      "postalCodes": []
+    },
+    {
+      "name": "Pasuta",
+      "postalCodes": []
+    },
+    {
+      "name": "Qiryat Shemona",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramat Yishay",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosh Pinna",
+      "postalCodes": []
+    },
+    {
+      "name": "Rumat Heib",
+      "postalCodes": []
+    },
+    {
+      "name": "Safed",
+      "postalCodes": []
+    },
+    {
+      "name": "Sājūr",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakhnīn",
+      "postalCodes": []
+    },
+    {
+      "name": "Sallama",
+      "postalCodes": []
+    },
+    {
+      "name": "Shelomi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shibli",
+      "postalCodes": []
+    },
+    {
+      "name": "Sūlam",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamra",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiberias",
+      "postalCodes": []
+    },
+    {
+      "name": "Timrat",
+      "postalCodes": []
+    },
+    {
+      "name": "Yavne’el",
+      "postalCodes": []
+    }
+  ],
+  "D": [
+    {
+      "name": "‘En Boqeq",
+      "postalCodes": []
+    },
+    {
+      "name": "Arad",
+      "postalCodes": []
+    },
+    {
+      "name": "Ashdod",
+      "postalCodes": []
+    },
+    {
+      "name": "Ashkelon",
+      "postalCodes": []
+    },
+    {
+      "name": "Beersheba",
+      "postalCodes": []
+    },
+    {
+      "name": "Dimona",
+      "postalCodes": []
+    },
+    {
+      "name": "Eilat",
+      "postalCodes": []
+    },
+    {
+      "name": "Lehavim",
+      "postalCodes": []
+    },
+    {
+      "name": "Midreshet Ben-Gurion",
+      "postalCodes": []
+    },
+    {
+      "name": "Mitzpe Ramon",
+      "postalCodes": []
+    },
+    {
+      "name": "Netivot",
+      "postalCodes": []
+    },
+    {
+      "name": "Ofaqim",
+      "postalCodes": []
+    },
+    {
+      "name": "Qiryat Gat",
+      "postalCodes": []
+    },
+    {
+      "name": "Rahat",
+      "postalCodes": []
+    },
+    {
+      "name": "Sederot",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeroẖam",
+      "postalCodes": []
+    }
+  ],
+  "TA": [
+    {
+      "name": "Azor",
+      "postalCodes": []
+    },
+    {
+      "name": "Bat Yam",
+      "postalCodes": []
+    },
+    {
+      "name": "Bnei Brak",
+      "postalCodes": []
+    },
+    {
+      "name": "Giv'at Shmuel",
+      "postalCodes": []
+    },
+    {
+      "name": "Givatayim",
+      "postalCodes": []
+    },
+    {
+      "name": "Herzliya",
+      "postalCodes": []
+    },
+    {
+      "name": "Herzliya Pituah",
+      "postalCodes": []
+    },
+    {
+      "name": "H̱olon",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaffa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kefar Shemaryahu",
+      "postalCodes": []
+    },
+    {
+      "name": "Or Yehuda",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramat Gan",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramat HaSharon",
+      "postalCodes": []
+    },
+    {
+      "name": "Tel Aviv",
+      "postalCodes": []
+    },
+    {
+      "name": "Yehud-Monosson",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

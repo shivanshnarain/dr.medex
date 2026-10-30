@@ -1,0 +1,57 @@
+{
+  "07": [
+    {
+      "name": "Andorra la Vella",
+      "postalCodes": []
+    }
+  ],
+  "02": [
+    {
+      "name": "Canillo",
+      "postalCodes": []
+    },
+    {
+      "name": "El Tarter",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Encamp",
+      "postalCodes": []
+    },
+    {
+      "name": "Pas de la Casa",
+      "postalCodes": []
+    }
+  ],
+  "08": [
+    {
+      "name": "les Escaldes",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Arinsal",
+      "postalCodes": []
+    },
+    {
+      "name": "la Massana",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Ordino",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Sant Julià de Lòria",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

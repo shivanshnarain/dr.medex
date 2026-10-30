@@ -1,0 +1,87 @@
+[
+  {
+    "code": "BO",
+    "name": "Boaco",
+    "countryCode": "NI"
+  },
+  {
+    "code": "CA",
+    "name": "Carazo",
+    "countryCode": "NI"
+  },
+  {
+    "code": "CI",
+    "name": "Chinandega",
+    "countryCode": "NI"
+  },
+  {
+    "code": "CO",
+    "name": "Chontales",
+    "countryCode": "NI"
+  },
+  {
+    "code": "ES",
+    "name": "Estelí",
+    "countryCode": "NI"
+  },
+  {
+    "code": "GR",
+    "name": "Granada",
+    "countryCode": "NI"
+  },
+  {
+    "code": "JI",
+    "name": "Jinotega",
+    "countryCode": "NI"
+  },
+  {
+    "code": "LE",
+    "name": "León",
+    "countryCode": "NI"
+  },
+  {
+    "code": "MD",
+    "name": "Madriz",
+    "countryCode": "NI"
+  },
+  {
+    "code": "MN",
+    "name": "Managua",
+    "countryCode": "NI"
+  },
+  {
+    "code": "MS",
+    "name": "Masaya",
+    "countryCode": "NI"
+  },
+  {
+    "code": "MT",
+    "name": "Matagalpa",
+    "countryCode": "NI"
+  },
+  {
+    "code": "AN",
+    "name": "North Caribbean Coast",
+    "countryCode": "NI"
+  },
+  {
+    "code": "NS",
+    "name": "Nueva Segovia",
+    "countryCode": "NI"
+  },
+  {
+    "code": "SJ",
+    "name": "Río San Juan",
+    "countryCode": "NI"
+  },
+  {
+    "code": "RI",
+    "name": "Rivas",
+    "countryCode": "NI"
+  },
+  {
+    "code": "AS",
+    "name": "South Caribbean Coast",
+    "countryCode": "NI"
+  }
+]

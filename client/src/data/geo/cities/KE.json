@@ -1,0 +1,534 @@
+{
+  "10": [
+    {
+      "name": "Kajiado",
+      "postalCodes": []
+    },
+    {
+      "name": "Magadi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngong",
+      "postalCodes": []
+    }
+  ],
+  "11": [
+    {
+      "name": "Butere",
+      "postalCodes": []
+    },
+    {
+      "name": "Kakamega",
+      "postalCodes": []
+    },
+    {
+      "name": "Mumias",
+      "postalCodes": []
+    }
+  ],
+  "12": [
+    {
+      "name": "Kericho",
+      "postalCodes": []
+    },
+    {
+      "name": "Kipkelion",
+      "postalCodes": []
+    },
+    {
+      "name": "Litein",
+      "postalCodes": []
+    },
+    {
+      "name": "Londiani",
+      "postalCodes": []
+    }
+  ],
+  "13": [
+    {
+      "name": "Kiambu",
+      "postalCodes": []
+    },
+    {
+      "name": "Kikuyu",
+      "postalCodes": []
+    },
+    {
+      "name": "Limuru",
+      "postalCodes": []
+    },
+    {
+      "name": "Pumwani",
+      "postalCodes": []
+    },
+    {
+      "name": "Thika",
+      "postalCodes": []
+    }
+  ],
+  "14": [
+    {
+      "name": "Iten",
+      "postalCodes": []
+    },
+    {
+      "name": "Kapsowar",
+      "postalCodes": []
+    },
+    {
+      "name": "Kilifi",
+      "postalCodes": []
+    },
+    {
+      "name": "Malindi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mariakani",
+      "postalCodes": []
+    },
+    {
+      "name": "Takaungu",
+      "postalCodes": []
+    }
+  ],
+  "15": [
+    {
+      "name": "Kerugoya",
+      "postalCodes": []
+    },
+    {
+      "name": "Sagana",
+      "postalCodes": []
+    }
+  ],
+  "16": [
+    {
+      "name": "Kisii",
+      "postalCodes": []
+    },
+    {
+      "name": "Ogembo",
+      "postalCodes": []
+    }
+  ],
+  "17": [
+    {
+      "name": "Ahero",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisumu",
+      "postalCodes": []
+    },
+    {
+      "name": "Muhoroni",
+      "postalCodes": []
+    }
+  ],
+  "18": [
+    {
+      "name": "Kitui",
+      "postalCodes": []
+    },
+    {
+      "name": "Mwingi",
+      "postalCodes": []
+    }
+  ],
+  "19": [
+    {
+      "name": "Gazi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kinango",
+      "postalCodes": []
+    },
+    {
+      "name": "Kwale",
+      "postalCodes": []
+    },
+    {
+      "name": "Sawa Sawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimoni",
+      "postalCodes": []
+    }
+  ],
+  "20": [
+    {
+      "name": "Nanyuki",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyahururu",
+      "postalCodes": []
+    },
+    {
+      "name": "Rumuruti",
+      "postalCodes": []
+    }
+  ],
+  "21": [
+    {
+      "name": "Lamu",
+      "postalCodes": []
+    },
+    {
+      "name": "Witu",
+      "postalCodes": []
+    }
+  ],
+  "22": [
+    {
+      "name": "Athi River",
+      "postalCodes": []
+    },
+    {
+      "name": "Kangundo",
+      "postalCodes": []
+    },
+    {
+      "name": "Konza",
+      "postalCodes": []
+    },
+    {
+      "name": "Machakos",
+      "postalCodes": []
+    }
+  ],
+  "23": [
+    {
+      "name": "Makueni Boma",
+      "postalCodes": []
+    },
+    {
+      "name": "Mtito Andei",
+      "postalCodes": []
+    },
+    {
+      "name": "Wote",
+      "postalCodes": []
+    }
+  ],
+  "24": [
+    {
+      "name": "Mandera",
+      "postalCodes": []
+    }
+  ],
+  "25": [
+    {
+      "name": "Marsabit",
+      "postalCodes": []
+    },
+    {
+      "name": "Moyale",
+      "postalCodes": []
+    }
+  ],
+  "26": [
+    {
+      "name": "Maua",
+      "postalCodes": []
+    },
+    {
+      "name": "Meru",
+      "postalCodes": []
+    }
+  ],
+  "27": [
+    {
+      "name": "Kihancha",
+      "postalCodes": []
+    },
+    {
+      "name": "Migori",
+      "postalCodes": []
+    }
+  ],
+  "28": [
+    {
+      "name": "Mombasa",
+      "postalCodes": []
+    }
+  ],
+  "29": [
+    {
+      "name": "Kangema",
+      "postalCodes": []
+    },
+    {
+      "name": "Karuri",
+      "postalCodes": []
+    },
+    {
+      "name": "Maragua",
+      "postalCodes": []
+    },
+    {
+      "name": "Murang’a",
+      "postalCodes": []
+    }
+  ],
+  "30": [
+    {
+      "name": "Nairobi",
+      "postalCodes": []
+    }
+  ],
+  "31": [
+    {
+      "name": "Kijabe",
+      "postalCodes": []
+    },
+    {
+      "name": "Molo",
+      "postalCodes": []
+    },
+    {
+      "name": "Naivasha",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakuru",
+      "postalCodes": []
+    },
+    {
+      "name": "Rongai",
+      "postalCodes": []
+    }
+  ],
+  "32": [
+    {
+      "name": "Kapsabet",
+      "postalCodes": []
+    },
+    {
+      "name": "Nandi Hills",
+      "postalCodes": []
+    }
+  ],
+  "33": [
+    {
+      "name": "Narok",
+      "postalCodes": []
+    }
+  ],
+  "34": [
+    {
+      "name": "Keroka",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyamira",
+      "postalCodes": []
+    }
+  ],
+  "35": [
+    {
+      "name": "Ol Kalou",
+      "postalCodes": []
+    }
+  ],
+  "36": [
+    {
+      "name": "Naro Moru",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyeri",
+      "postalCodes": []
+    },
+    {
+      "name": "Othaya",
+      "postalCodes": []
+    }
+  ],
+  "37": [
+    {
+      "name": "Maralal",
+      "postalCodes": []
+    }
+  ],
+  "38": [
+    {
+      "name": "Bondo",
+      "postalCodes": []
+    },
+    {
+      "name": "Siaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Yala",
+      "postalCodes": []
+    }
+  ],
+  "39": [],
+  "40": [
+    {
+      "name": "Hola",
+      "postalCodes": []
+    },
+    {
+      "name": "Kipini",
+      "postalCodes": []
+    }
+  ],
+  "41": [
+    {
+      "name": "Chuka",
+      "postalCodes": []
+    }
+  ],
+  "42": [
+    {
+      "name": "Kitale",
+      "postalCodes": []
+    }
+  ],
+  "43": [
+    {
+      "name": "Lodwar",
+      "postalCodes": []
+    }
+  ],
+  "44": [
+    {
+      "name": "Eldoret",
+      "postalCodes": []
+    }
+  ],
+  "45": [],
+  "46": [
+    {
+      "name": "Wajir",
+      "postalCodes": []
+    }
+  ],
+  "47": [
+    {
+      "name": "Chepareria",
+      "postalCodes": []
+    },
+    {
+      "name": "Kapenguria",
+      "postalCodes": []
+    },
+    {
+      "name": "Taveta",
+      "postalCodes": []
+    },
+    {
+      "name": "Voi",
+      "postalCodes": []
+    },
+    {
+      "name": "Wundanyi",
+      "postalCodes": []
+    }
+  ],
+  "01": [
+    {
+      "name": "Baringo",
+      "postalCodes": []
+    },
+    {
+      "name": "Eldama Ravine",
+      "postalCodes": []
+    },
+    {
+      "name": "Kabarnet",
+      "postalCodes": []
+    }
+  ],
+  "02": [
+    {
+      "name": "Sotik",
+      "postalCodes": []
+    },
+    {
+      "name": "Sotik Post",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Bungoma",
+      "postalCodes": []
+    },
+    {
+      "name": "Malikisi",
+      "postalCodes": []
+    },
+    {
+      "name": "Webuye",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Busia",
+      "postalCodes": []
+    },
+    {
+      "name": "Luanda",
+      "postalCodes": []
+    },
+    {
+      "name": "Lugulu",
+      "postalCodes": []
+    },
+    {
+      "name": "Malaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Nambare",
+      "postalCodes": []
+    },
+    {
+      "name": "Port Victoria",
+      "postalCodes": []
+    }
+  ],
+  "05": [],
+  "06": [
+    {
+      "name": "Embu",
+      "postalCodes": []
+    }
+  ],
+  "07": [
+    {
+      "name": "Garissa",
+      "postalCodes": []
+    }
+  ],
+  "08": [
+    {
+      "name": "Homa Bay",
+      "postalCodes": []
+    },
+    {
+      "name": "Oyugis",
+      "postalCodes": []
+    },
+    {
+      "name": "Rachuonyo District",
+      "postalCodes": []
+    }
+  ],
+  "09": [
+    {
+      "name": "Isiolo",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

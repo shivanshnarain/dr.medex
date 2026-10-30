@@ -1,0 +1,67 @@
+[
+  {
+    "code": "14",
+    "name": "'Asir",
+    "countryCode": "SA"
+  },
+  {
+    "code": "11",
+    "name": "Al Bahah",
+    "countryCode": "SA"
+  },
+  {
+    "code": "12",
+    "name": "Al Jawf",
+    "countryCode": "SA"
+  },
+  {
+    "code": "03",
+    "name": "Al Madinah",
+    "countryCode": "SA"
+  },
+  {
+    "code": "05",
+    "name": "Al-Qassim",
+    "countryCode": "SA"
+  },
+  {
+    "code": "04",
+    "name": "Eastern Province",
+    "countryCode": "SA"
+  },
+  {
+    "code": "06",
+    "name": "Ha'il",
+    "countryCode": "SA"
+  },
+  {
+    "code": "09",
+    "name": "Jizan",
+    "countryCode": "SA"
+  },
+  {
+    "code": "02",
+    "name": "Makkah",
+    "countryCode": "SA"
+  },
+  {
+    "code": "10",
+    "name": "Najran",
+    "countryCode": "SA"
+  },
+  {
+    "code": "08",
+    "name": "Northern Borders",
+    "countryCode": "SA"
+  },
+  {
+    "code": "01",
+    "name": "Riyadh",
+    "countryCode": "SA"
+  },
+  {
+    "code": "07",
+    "name": "Tabuk",
+    "countryCode": "SA"
+  }
+]

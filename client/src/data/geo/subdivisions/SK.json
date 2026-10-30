@@ -1,0 +1,42 @@
+[
+  {
+    "code": "BC",
+    "name": "Banská Bystrica Region",
+    "countryCode": "SK"
+  },
+  {
+    "code": "BL",
+    "name": "Bratislava Region",
+    "countryCode": "SK"
+  },
+  {
+    "code": "KI",
+    "name": "Košice Region",
+    "countryCode": "SK"
+  },
+  {
+    "code": "NI",
+    "name": "Nitra Region",
+    "countryCode": "SK"
+  },
+  {
+    "code": "PV",
+    "name": "Prešov Region",
+    "countryCode": "SK"
+  },
+  {
+    "code": "TC",
+    "name": "Trenčín Region",
+    "countryCode": "SK"
+  },
+  {
+    "code": "TA",
+    "name": "Trnava Region",
+    "countryCode": "SK"
+  },
+  {
+    "code": "ZI",
+    "name": "Žilina Region",
+    "countryCode": "SK"
+  }
+]

@@ -1,0 +1,449 @@
+{
+  "NSB": [
+    {
+      "name": "Arawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Central Bougainville",
+      "postalCodes": []
+    },
+    {
+      "name": "Kieta",
+      "postalCodes": []
+    },
+    {
+      "name": "North Bougainville",
+      "postalCodes": []
+    },
+    {
+      "name": "Panguna",
+      "postalCodes": []
+    },
+    {
+      "name": "South Bougainville",
+      "postalCodes": []
+    }
+  ],
+  "CPM": [
+    {
+      "name": "Abau",
+      "postalCodes": []
+    },
+    {
+      "name": "Goilala",
+      "postalCodes": []
+    },
+    {
+      "name": "Kairuku-Hiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Rigo",
+      "postalCodes": []
+    }
+  ],
+  "CPK": [
+    {
+      "name": "Chuave",
+      "postalCodes": []
+    },
+    {
+      "name": "Gumine",
+      "postalCodes": []
+    },
+    {
+      "name": "Karimui Nomane",
+      "postalCodes": []
+    },
+    {
+      "name": "Kerowagi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kundiawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Sinasina Yonggamugl",
+      "postalCodes": []
+    }
+  ],
+  "EBR": [
+    {
+      "name": "Gazelle",
+      "postalCodes": []
+    },
+    {
+      "name": "Kokopo",
+      "postalCodes": []
+    },
+    {
+      "name": "Pomio",
+      "postalCodes": []
+    },
+    {
+      "name": "Rabaul",
+      "postalCodes": []
+    }
+  ],
+  "EHG": [
+    {
+      "name": "Daulo",
+      "postalCodes": []
+    },
+    {
+      "name": "Goroka",
+      "postalCodes": []
+    },
+    {
+      "name": "Henganofi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kainantu",
+      "postalCodes": []
+    },
+    {
+      "name": "Lufa",
+      "postalCodes": []
+    },
+    {
+      "name": "Obura Wonenara",
+      "postalCodes": []
+    },
+    {
+      "name": "Okapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Unggai Bena",
+      "postalCodes": []
+    }
+  ],
+  "EPW": [
+    {
+      "name": "Kandep",
+      "postalCodes": []
+    },
+    {
+      "name": "Kompiam Ambum",
+      "postalCodes": []
+    },
+    {
+      "name": "Lagaip Porgera",
+      "postalCodes": []
+    },
+    {
+      "name": "Porgera",
+      "postalCodes": []
+    },
+    {
+      "name": "Wabag",
+      "postalCodes": []
+    },
+    {
+      "name": "Wapenamanda",
+      "postalCodes": []
+    }
+  ],
+  "GPK": [
+    {
+      "name": "Kerema",
+      "postalCodes": []
+    },
+    {
+      "name": "Kikori",
+      "postalCodes": []
+    }
+  ],
+  "HLA": [
+    {
+      "name": "Komo Margarima",
+      "postalCodes": []
+    },
+    {
+      "name": "Koroba-Lake Kopiago",
+      "postalCodes": []
+    },
+    {
+      "name": "Tari",
+      "postalCodes": []
+    },
+    {
+      "name": "Tari Pori",
+      "postalCodes": []
+    }
+  ],
+  "JWK": [
+    {
+      "name": "Angalimp South Wahgi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jimi",
+      "postalCodes": []
+    },
+    {
+      "name": "North Wahgi",
+      "postalCodes": []
+    }
+  ],
+  "MPM": [
+    {
+      "name": "Bogia",
+      "postalCodes": []
+    },
+    {
+      "name": "Madang",
+      "postalCodes": []
+    },
+    {
+      "name": "Middle Ramu",
+      "postalCodes": []
+    },
+    {
+      "name": "Rai Coast",
+      "postalCodes": []
+    },
+    {
+      "name": "Sumkar",
+      "postalCodes": []
+    },
+    {
+      "name": "Usino Bundi",
+      "postalCodes": []
+    }
+  ],
+  "MRL": [
+    {
+      "name": "Lorengau",
+      "postalCodes": []
+    },
+    {
+      "name": "Manus",
+      "postalCodes": []
+    }
+  ],
+  "MBA": [
+    {
+      "name": "Alotau",
+      "postalCodes": []
+    },
+    {
+      "name": "Esa’ala",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiriwina Goodenough",
+      "postalCodes": []
+    },
+    {
+      "name": "Samarai",
+      "postalCodes": []
+    },
+    {
+      "name": "Samarai Murua",
+      "postalCodes": []
+    }
+  ],
+  "MPL": [
+    {
+      "name": "Bulolo",
+      "postalCodes": []
+    },
+    {
+      "name": "Finschhafen",
+      "postalCodes": []
+    },
+    {
+      "name": "Huon Gulf",
+      "postalCodes": []
+    },
+    {
+      "name": "Kabwum",
+      "postalCodes": []
+    },
+    {
+      "name": "Lae",
+      "postalCodes": []
+    },
+    {
+      "name": "Markham",
+      "postalCodes": []
+    },
+    {
+      "name": "Menyamya",
+      "postalCodes": []
+    },
+    {
+      "name": "Nawae",
+      "postalCodes": []
+    },
+    {
+      "name": "Tewai Siassi",
+      "postalCodes": []
+    },
+    {
+      "name": "Wau",
+      "postalCodes": []
+    }
+  ],
+  "NIK": [
+    {
+      "name": "Kavieng",
+      "postalCodes": []
+    },
+    {
+      "name": "Namatanai",
+      "postalCodes": []
+    }
+  ],
+  "NPP": [
+    {
+      "name": "Ijivitari",
+      "postalCodes": []
+    },
+    {
+      "name": "Kokoda",
+      "postalCodes": []
+    },
+    {
+      "name": "Popondetta",
+      "postalCodes": []
+    },
+    {
+      "name": "Sohe",
+      "postalCodes": []
+    }
+  ],
+  "NCD": [
+    {
+      "name": "National Capital District",
+      "postalCodes": []
+    },
+    {
+      "name": "Port Moresby",
+      "postalCodes": []
+    }
+  ],
+  "SAN": [
+    {
+      "name": "Aitape",
+      "postalCodes": []
+    },
+    {
+      "name": "Aitape Lumi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuku",
+      "postalCodes": []
+    },
+    {
+      "name": "Telefomin",
+      "postalCodes": []
+    },
+    {
+      "name": "Vanimo",
+      "postalCodes": []
+    },
+    {
+      "name": "Vanimo Green",
+      "postalCodes": []
+    }
+  ],
+  "SHM": [
+    {
+      "name": "Ialibu",
+      "postalCodes": []
+    },
+    {
+      "name": "Ialibu Pangia",
+      "postalCodes": []
+    },
+    {
+      "name": "Imbonggu",
+      "postalCodes": []
+    },
+    {
+      "name": "Kagua Erave",
+      "postalCodes": []
+    },
+    {
+      "name": "Mendi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nipa Kutubu",
+      "postalCodes": []
+    }
+  ],
+  "WBK": [
+    {
+      "name": "Kandrian",
+      "postalCodes": []
+    },
+    {
+      "name": "Kandrian Gloucester",
+      "postalCodes": []
+    },
+    {
+      "name": "Kimbe",
+      "postalCodes": []
+    },
+    {
+      "name": "Talasea",
+      "postalCodes": []
+    }
+  ],
+  "WHM": [
+    {
+      "name": "Baiyer Mul",
+      "postalCodes": []
+    },
+    {
+      "name": "Dei",
+      "postalCodes": []
+    },
+    {
+      "name": "Hagen",
+      "postalCodes": []
+    },
+    {
+      "name": "Mount Hagen",
+      "postalCodes": []
+    },
+    {
+      "name": "Tambul Nebilyer",
+      "postalCodes": []
+    }
+  ],
+  "WPD": [
+    {
+      "name": "Daru",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiunga",
+      "postalCodes": []
+    },
+    {
+      "name": "Middle Fly",
+      "postalCodes": []
+    },
+    {
+      "name": "Morehead",
+      "postalCodes": []
+    },
+    {
+      "name": "North Fly",
+      "postalCodes": []
+    },
+    {
+      "name": "South Fly",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

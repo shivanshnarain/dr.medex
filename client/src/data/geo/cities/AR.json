@@ -1,0 +1,3902 @@
+{
+  "B": [
+    {
+      "name": "Balvanera",
+      "postalCodes": []
+    },
+    {
+      "name": "Barracas",
+      "postalCodes": []
+    },
+    {
+      "name": "Belgrano",
+      "postalCodes": []
+    },
+    {
+      "name": "Boedo",
+      "postalCodes": []
+    },
+    {
+      "name": "Buenos Aires",
+      "postalCodes": []
+    },
+    {
+      "name": "Colegiales",
+      "postalCodes": []
+    },
+    {
+      "name": "Retiro",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Lugano",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Ortúzar",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Santa Rita",
+      "postalCodes": []
+    }
+  ],
+  "K": [
+    {
+      "name": "Ancasti",
+      "postalCodes": []
+    },
+    {
+      "name": "Andalgalá",
+      "postalCodes": []
+    },
+    {
+      "name": "Antofagasta de la Sierra",
+      "postalCodes": []
+    },
+    {
+      "name": "Capayán",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Ambato",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Ancasti",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Andalgalá",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Antofagasta de la Sierra",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Capayán",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Capital",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de El Alto",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Fray Mamerto Esquiú",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de La Paz",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Pomán",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Santa María",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Santa Rosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Tinogasta",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Valle Viejo",
+      "postalCodes": []
+    },
+    {
+      "name": "El Rodeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Fiambalá",
+      "postalCodes": []
+    },
+    {
+      "name": "Hualfín",
+      "postalCodes": []
+    },
+    {
+      "name": "Huillapima",
+      "postalCodes": []
+    },
+    {
+      "name": "Icaño",
+      "postalCodes": []
+    },
+    {
+      "name": "La Puerta de San José",
+      "postalCodes": []
+    },
+    {
+      "name": "Londres",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Altos",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Varela",
+      "postalCodes": []
+    },
+    {
+      "name": "Mutquín",
+      "postalCodes": []
+    },
+    {
+      "name": "Pomán",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerta de Corral Quemado",
+      "postalCodes": []
+    },
+    {
+      "name": "Recreo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio",
+      "postalCodes": []
+    },
+    {
+      "name": "San Fernando del Valle de Catamarca",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa María",
+      "postalCodes": []
+    },
+    {
+      "name": "Tinogasta",
+      "postalCodes": []
+    }
+  ],
+  "H": [
+    {
+      "name": "Aviá Terai",
+      "postalCodes": []
+    },
+    {
+      "name": "Barranqueras",
+      "postalCodes": []
+    },
+    {
+      "name": "Basail",
+      "postalCodes": []
+    },
+    {
+      "name": "Campo Largo",
+      "postalCodes": []
+    },
+    {
+      "name": "Capitán Solari",
+      "postalCodes": []
+    },
+    {
+      "name": "Castelli",
+      "postalCodes": []
+    },
+    {
+      "name": "Charadai",
+      "postalCodes": []
+    },
+    {
+      "name": "Charata",
+      "postalCodes": []
+    },
+    {
+      "name": "Chorotis",
+      "postalCodes": []
+    },
+    {
+      "name": "Ciervo Petiso",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonia Benítez",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonia Elisa",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonias Unidas",
+      "postalCodes": []
+    },
+    {
+      "name": "Concepción del Bermejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Coronel Du Graty",
+      "postalCodes": []
+    },
+    {
+      "name": "Corzuela",
+      "postalCodes": []
+    },
+    {
+      "name": "Coté-Lai",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Almirante Brown",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Bermejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Comandante Fernández",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Doce de Octubre",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Dos de Abril",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de General Donovan",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de General Güemes",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Independencia",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Libertad",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Maipú",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Nueve de Julio",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de O’Higgins",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Presidencia de la Plaza",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Quitilipi",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Fernando",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Lorenzo",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Sargento Cabral",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Tapenagá",
+      "postalCodes": []
+    },
+    {
+      "name": "Fontana",
+      "postalCodes": []
+    },
+    {
+      "name": "Gancedo",
+      "postalCodes": []
+    },
+    {
+      "name": "General José de San Martín",
+      "postalCodes": []
+    },
+    {
+      "name": "General Pinedo",
+      "postalCodes": []
+    },
+    {
+      "name": "General Vedia",
+      "postalCodes": []
+    },
+    {
+      "name": "Hermoso Campo",
+      "postalCodes": []
+    },
+    {
+      "name": "La Clotilde",
+      "postalCodes": []
+    },
+    {
+      "name": "La Eduvigis",
+      "postalCodes": []
+    },
+    {
+      "name": "La Escondida",
+      "postalCodes": []
+    },
+    {
+      "name": "La Leonesa",
+      "postalCodes": []
+    },
+    {
+      "name": "La Tigra",
+      "postalCodes": []
+    },
+    {
+      "name": "La Verde",
+      "postalCodes": []
+    },
+    {
+      "name": "Laguna Limpia",
+      "postalCodes": []
+    },
+    {
+      "name": "Lapachito",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Breñas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Garcitas",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Frentones",
+      "postalCodes": []
+    },
+    {
+      "name": "Machagai",
+      "postalCodes": []
+    },
+    {
+      "name": "Makallé",
+      "postalCodes": []
+    },
+    {
+      "name": "Margarita Belén",
+      "postalCodes": []
+    },
+    {
+      "name": "Napenay",
+      "postalCodes": []
+    },
+    {
+      "name": "Pampa Almirón",
+      "postalCodes": []
+    },
+    {
+      "name": "Pampa del Indio",
+      "postalCodes": []
+    },
+    {
+      "name": "Pampa del Infierno",
+      "postalCodes": []
+    },
+    {
+      "name": "Presidencia de la Plaza",
+      "postalCodes": []
+    },
+    {
+      "name": "Presidencia Roca",
+      "postalCodes": []
+    },
+    {
+      "name": "Presidencia Roque Sáenz Peña",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Bermejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Tirol",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Vilelas",
+      "postalCodes": []
+    },
+    {
+      "name": "Quitilipi",
+      "postalCodes": []
+    },
+    {
+      "name": "Resistencia",
+      "postalCodes": []
+    },
+    {
+      "name": "Samuhú",
+      "postalCodes": []
+    },
+    {
+      "name": "San Bernardo",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Sylvina",
+      "postalCodes": []
+    },
+    {
+      "name": "Taco Pozo",
+      "postalCodes": []
+    },
+    {
+      "name": "Tres Isletas",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Ángela",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Berthet",
+      "postalCodes": []
+    }
+  ],
+  "U": [
+    {
+      "name": "Alto Río Senguer",
+      "postalCodes": []
+    },
+    {
+      "name": "Camarones",
+      "postalCodes": []
+    },
+    {
+      "name": "Comodoro Rivadavia",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Biedma",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Cushamen",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Escalante",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Florentino Ameghino",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Futaleufú",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Gaimán",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Gastre",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Languiñeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Mártires",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Paso de Indios",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Rawson",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Río Senguerr",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Sarmiento",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Tehuelches",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Telsen",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolavón",
+      "postalCodes": []
+    },
+    {
+      "name": "El Maitén",
+      "postalCodes": []
+    },
+    {
+      "name": "Esquel",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaimán",
+      "postalCodes": []
+    },
+    {
+      "name": "Gastre",
+      "postalCodes": []
+    },
+    {
+      "name": "Gobernador Costa",
+      "postalCodes": []
+    },
+    {
+      "name": "Hoyo de Epuyén",
+      "postalCodes": []
+    },
+    {
+      "name": "José de San Martín",
+      "postalCodes": []
+    },
+    {
+      "name": "Lago Puelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Plumas",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Madryn",
+      "postalCodes": []
+    },
+    {
+      "name": "Rada Tilly",
+      "postalCodes": []
+    },
+    {
+      "name": "Rawson",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Mayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Pico",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarmiento",
+      "postalCodes": []
+    },
+    {
+      "name": "Tecka",
+      "postalCodes": []
+    },
+    {
+      "name": "Trelew",
+      "postalCodes": []
+    },
+    {
+      "name": "Trevelin",
+      "postalCodes": []
+    }
+  ],
+  "C": [],
+  "X": [
+    {
+      "name": "Achiras",
+      "postalCodes": []
+    },
+    {
+      "name": "Adelia María",
+      "postalCodes": []
+    },
+    {
+      "name": "Agua de Oro",
+      "postalCodes": []
+    },
+    {
+      "name": "Alejandro Roca",
+      "postalCodes": []
+    },
+    {
+      "name": "Alejo Ledesma",
+      "postalCodes": []
+    },
+    {
+      "name": "Almafuerte",
+      "postalCodes": []
+    },
+    {
+      "name": "Alta Gracia",
+      "postalCodes": []
+    },
+    {
+      "name": "Altos de Chipión",
+      "postalCodes": []
+    },
+    {
+      "name": "Arias",
+      "postalCodes": []
+    },
+    {
+      "name": "Arroyito",
+      "postalCodes": []
+    },
+    {
+      "name": "Arroyo Cabral",
+      "postalCodes": []
+    },
+    {
+      "name": "Balnearia",
+      "postalCodes": []
+    },
+    {
+      "name": "Bell Ville",
+      "postalCodes": []
+    },
+    {
+      "name": "Berrotarán",
+      "postalCodes": []
+    },
+    {
+      "name": "Brinkmann",
+      "postalCodes": []
+    },
+    {
+      "name": "Buchardo",
+      "postalCodes": []
+    },
+    {
+      "name": "Camilo Aldao",
+      "postalCodes": []
+    },
+    {
+      "name": "Cañada de Luque",
+      "postalCodes": []
+    },
+    {
+      "name": "Canals",
+      "postalCodes": []
+    },
+    {
+      "name": "Capilla del Monte",
+      "postalCodes": []
+    },
+    {
+      "name": "Carnerillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Carrilobo",
+      "postalCodes": []
+    },
+    {
+      "name": "Cavanagh",
+      "postalCodes": []
+    },
+    {
+      "name": "Charras",
+      "postalCodes": []
+    },
+    {
+      "name": "Chazón",
+      "postalCodes": []
+    },
+    {
+      "name": "Cintra",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonia La Tordilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonia San Bartolomé",
+      "postalCodes": []
+    },
+    {
+      "name": "Córdoba",
+      "postalCodes": []
+    },
+    {
+      "name": "Coronel Baigorria",
+      "postalCodes": []
+    },
+    {
+      "name": "Coronel Moldes",
+      "postalCodes": []
+    },
+    {
+      "name": "Corral de Bustos",
+      "postalCodes": []
+    },
+    {
+      "name": "Corralito",
+      "postalCodes": []
+    },
+    {
+      "name": "Cosquín",
+      "postalCodes": []
+    },
+    {
+      "name": "Costa Sacate",
+      "postalCodes": []
+    },
+    {
+      "name": "Cruz Alta",
+      "postalCodes": []
+    },
+    {
+      "name": "Cruz del Eje",
+      "postalCodes": []
+    },
+    {
+      "name": "Cuesta Blanca",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalmacio Vélez Sársfield",
+      "postalCodes": []
+    },
+    {
+      "name": "Deán Funes",
+      "postalCodes": []
+    },
+    {
+      "name": "Del Campillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Calamuchita",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Colón",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Cruz del Eje",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de General Roca",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de General San Martín",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Juárez Celman",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Marcos Juárez",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Minas",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Presidente Roque Sáenz Peña",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Río Cuarto",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Río Primero",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Río Seco",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Río Segundo",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Alberto",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Javier",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Justo",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Sobremonte",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Totoral",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Tulumba",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Unión",
+      "postalCodes": []
+    },
+    {
+      "name": "Despeñaderos",
+      "postalCodes": []
+    },
+    {
+      "name": "Devoto",
+      "postalCodes": []
+    },
+    {
+      "name": "El Arañado",
+      "postalCodes": []
+    },
+    {
+      "name": "El Tío",
+      "postalCodes": []
+    },
+    {
+      "name": "Elena",
+      "postalCodes": []
+    },
+    {
+      "name": "Embalse",
+      "postalCodes": []
+    },
+    {
+      "name": "Etruria",
+      "postalCodes": []
+    },
+    {
+      "name": "General Baldissera",
+      "postalCodes": []
+    },
+    {
+      "name": "General Cabrera",
+      "postalCodes": []
+    },
+    {
+      "name": "General Levalle",
+      "postalCodes": []
+    },
+    {
+      "name": "General Roca",
+      "postalCodes": []
+    },
+    {
+      "name": "Guatimozín",
+      "postalCodes": []
+    },
+    {
+      "name": "Hernando",
+      "postalCodes": []
+    },
+    {
+      "name": "Huanchillas",
+      "postalCodes": []
+    },
+    {
+      "name": "Huerta Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Huinca Renancó",
+      "postalCodes": []
+    },
+    {
+      "name": "Idiazábal",
+      "postalCodes": []
+    },
+    {
+      "name": "Inriville",
+      "postalCodes": []
+    },
+    {
+      "name": "Isla Verde",
+      "postalCodes": []
+    },
+    {
+      "name": "Italó",
+      "postalCodes": []
+    },
+    {
+      "name": "James Craik",
+      "postalCodes": []
+    },
+    {
+      "name": "Jesús María",
+      "postalCodes": []
+    },
+    {
+      "name": "Justiniano Posse",
+      "postalCodes": []
+    },
+    {
+      "name": "La Calera",
+      "postalCodes": []
+    },
+    {
+      "name": "La Carlota",
+      "postalCodes": []
+    },
+    {
+      "name": "La Cesira",
+      "postalCodes": []
+    },
+    {
+      "name": "La Cumbre",
+      "postalCodes": []
+    },
+    {
+      "name": "La Falda",
+      "postalCodes": []
+    },
+    {
+      "name": "La Francia",
+      "postalCodes": []
+    },
+    {
+      "name": "La Granja",
+      "postalCodes": []
+    },
+    {
+      "name": "La Para",
+      "postalCodes": []
+    },
+    {
+      "name": "La Playosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Laborde",
+      "postalCodes": []
+    },
+    {
+      "name": "Laboulaye",
+      "postalCodes": []
+    },
+    {
+      "name": "Laguna Larga",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Acequias",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Higueras",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Junturas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Perdices",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Varas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Varillas",
+      "postalCodes": []
+    },
+    {
+      "name": "Leones",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Cocos",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Cóndores",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Surgentes",
+      "postalCodes": []
+    },
+    {
+      "name": "Malagueño",
+      "postalCodes": []
+    },
+    {
+      "name": "Malvinas Argentinas",
+      "postalCodes": []
+    },
+    {
+      "name": "Marcos Juárez",
+      "postalCodes": []
+    },
+    {
+      "name": "Marull",
+      "postalCodes": []
+    },
+    {
+      "name": "Mattaldi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mendiolaza",
+      "postalCodes": []
+    },
+    {
+      "name": "Mina Clavero",
+      "postalCodes": []
+    },
+    {
+      "name": "Miramar",
+      "postalCodes": []
+    },
+    {
+      "name": "Monte Buey",
+      "postalCodes": []
+    },
+    {
+      "name": "Monte Cristo",
+      "postalCodes": []
+    },
+    {
+      "name": "Monte Maíz",
+      "postalCodes": []
+    },
+    {
+      "name": "Morrison",
+      "postalCodes": []
+    },
+    {
+      "name": "Morteros",
+      "postalCodes": []
+    },
+    {
+      "name": "Noetinger",
+      "postalCodes": []
+    },
+    {
+      "name": "Obispo Trejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Oliva",
+      "postalCodes": []
+    },
+    {
+      "name": "Oncativo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ordóñez",
+      "postalCodes": []
+    },
+    {
+      "name": "Pascanas",
+      "postalCodes": []
+    },
+    {
+      "name": "Pasco",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilar",
+      "postalCodes": []
+    },
+    {
+      "name": "Piquillín",
+      "postalCodes": []
+    },
+    {
+      "name": "Porteña",
+      "postalCodes": []
+    },
+    {
+      "name": "Pozo del Molle",
+      "postalCodes": []
+    },
+    {
+      "name": "Quilino",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Ceballos",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Cuarto",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Segundo",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Tercero",
+      "postalCodes": []
+    },
+    {
+      "name": "Sacanta",
+      "postalCodes": []
+    },
+    {
+      "name": "Saldán",
+      "postalCodes": []
+    },
+    {
+      "name": "Salsacate",
+      "postalCodes": []
+    },
+    {
+      "name": "Salsipuedes",
+      "postalCodes": []
+    },
+    {
+      "name": "Sampacho",
+      "postalCodes": []
+    },
+    {
+      "name": "San Agustín",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio de Litín",
+      "postalCodes": []
+    },
+    {
+      "name": "San Basilio",
+      "postalCodes": []
+    },
+    {
+      "name": "San Carlos",
+      "postalCodes": []
+    },
+    {
+      "name": "San Francisco",
+      "postalCodes": []
+    },
+    {
+      "name": "San Francisco del Chañar",
+      "postalCodes": []
+    },
+    {
+      "name": "San José de la Dormida",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Eufemia",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Magdalena",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rosa de Calamuchita",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rosa de Río Primero",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago Temple",
+      "postalCodes": []
+    },
+    {
+      "name": "Saturnino M. Laspiur",
+      "postalCodes": []
+    },
+    {
+      "name": "Sebastián Elcano",
+      "postalCodes": []
+    },
+    {
+      "name": "Serrano",
+      "postalCodes": []
+    },
+    {
+      "name": "Serrezuela",
+      "postalCodes": []
+    },
+    {
+      "name": "Tancacha",
+      "postalCodes": []
+    },
+    {
+      "name": "Ticino",
+      "postalCodes": []
+    },
+    {
+      "name": "Tío Pujio",
+      "postalCodes": []
+    },
+    {
+      "name": "Toledo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ucacha",
+      "postalCodes": []
+    },
+    {
+      "name": "Unquillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Valle Hermoso",
+      "postalCodes": []
+    },
+    {
+      "name": "Viamonte",
+      "postalCodes": []
+    },
+    {
+      "name": "Vicuña Mackenna",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Allende",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Ascasubi",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Berna",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Carlos Paz",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Concepción del Tío",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Cura Brochero",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa de Soto",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa del Dique",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa del Rosario",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa del Totoral",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Dolores",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa General Belgrano",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Giardino",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Huidobro",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Las Rosas",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa María",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Nueva",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Reducción",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Rumipal",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Tulumba",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Valeria",
+      "postalCodes": []
+    },
+    {
+      "name": "Wenceslao Escalante",
+      "postalCodes": []
+    }
+  ],
+  "W": [
+    {
+      "name": "Alvear",
+      "postalCodes": []
+    },
+    {
+      "name": "Berón de Astrada",
+      "postalCodes": []
+    },
+    {
+      "name": "Bonpland",
+      "postalCodes": []
+    },
+    {
+      "name": "Chavarría",
+      "postalCodes": []
+    },
+    {
+      "name": "Concepción",
+      "postalCodes": []
+    },
+    {
+      "name": "Corrientes",
+      "postalCodes": []
+    },
+    {
+      "name": "Cruz de los Milagros",
+      "postalCodes": []
+    },
+    {
+      "name": "Curuzú Cuatiá",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Bella Vista",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Berón de Astrada",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Capital",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Concepción",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Curuzú Cuatiá",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Empedrado",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Esquina",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de General Alvear",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de General Paz",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Goya",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Itatí",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Ituzaingó",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Lavalle",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Mburucuyá",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Mercedes",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Monte Caseros",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Paso de los Libres",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Saladas",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Cosme",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Luis del Palmar",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Martín",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Miguel",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Roque",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Santo Tomé",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Sauce",
+      "postalCodes": []
+    },
+    {
+      "name": "Empedrado",
+      "postalCodes": []
+    },
+    {
+      "name": "Esquina",
+      "postalCodes": []
+    },
+    {
+      "name": "Felipe Yofré",
+      "postalCodes": []
+    },
+    {
+      "name": "Garruchos",
+      "postalCodes": []
+    },
+    {
+      "name": "Gobernador Juan E. Martínez",
+      "postalCodes": []
+    },
+    {
+      "name": "Gobernador Virasora",
+      "postalCodes": []
+    },
+    {
+      "name": "Goya",
+      "postalCodes": []
+    },
+    {
+      "name": "Herlitzka",
+      "postalCodes": []
+    },
+    {
+      "name": "Itá Ibaté",
+      "postalCodes": []
+    },
+    {
+      "name": "Itatí",
+      "postalCodes": []
+    },
+    {
+      "name": "Ituzaingó",
+      "postalCodes": []
+    },
+    {
+      "name": "Juan Pujol",
+      "postalCodes": []
+    },
+    {
+      "name": "La Cruz",
+      "postalCodes": []
+    },
+    {
+      "name": "Libertad",
+      "postalCodes": []
+    },
+    {
+      "name": "Lomas de Vallejos",
+      "postalCodes": []
+    },
+    {
+      "name": "Loreto",
+      "postalCodes": []
+    },
+    {
+      "name": "Mariano I. Loza",
+      "postalCodes": []
+    },
+    {
+      "name": "Mburucuyá",
+      "postalCodes": []
+    },
+    {
+      "name": "Mercedes",
+      "postalCodes": []
+    },
+    {
+      "name": "Mocoretá",
+      "postalCodes": []
+    },
+    {
+      "name": "Monte Caseros",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuestra Señora del Rosario de Caa Catí",
+      "postalCodes": []
+    },
+    {
+      "name": "Nueve de Julio",
+      "postalCodes": []
+    },
+    {
+      "name": "Palmar Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Paso de la Patria",
+      "postalCodes": []
+    },
+    {
+      "name": "Paso de los Libres",
+      "postalCodes": []
+    },
+    {
+      "name": "Pedro R. Fernández",
+      "postalCodes": []
+    },
+    {
+      "name": "Perugorría",
+      "postalCodes": []
+    },
+    {
+      "name": "Pueblo Libertador",
+      "postalCodes": []
+    },
+    {
+      "name": "Riachuelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Saladas",
+      "postalCodes": []
+    },
+    {
+      "name": "San Carlos",
+      "postalCodes": []
+    },
+    {
+      "name": "San Cosme",
+      "postalCodes": []
+    },
+    {
+      "name": "San Lorenzo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Luis del Palmar",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Lucía",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Tomé",
+      "postalCodes": []
+    },
+    {
+      "name": "Yapeyú",
+      "postalCodes": []
+    },
+    {
+      "name": "Yataity Calle",
+      "postalCodes": []
+    }
+  ],
+  "E": [
+    {
+      "name": "Aldea San Antonio",
+      "postalCodes": []
+    },
+    {
+      "name": "Aranguren",
+      "postalCodes": []
+    },
+    {
+      "name": "Bovril",
+      "postalCodes": []
+    },
+    {
+      "name": "Caseros",
+      "postalCodes": []
+    },
+    {
+      "name": "Ceibas",
+      "postalCodes": []
+    },
+    {
+      "name": "Chajarí",
+      "postalCodes": []
+    },
+    {
+      "name": "Colón",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonia Elía",
+      "postalCodes": []
+    },
+    {
+      "name": "Concepción del Uruguay",
+      "postalCodes": []
+    },
+    {
+      "name": "Concordia",
+      "postalCodes": []
+    },
+    {
+      "name": "Conscripto Bernardi",
+      "postalCodes": []
+    },
+    {
+      "name": "Crespo",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Gualeguaychú",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Paraná",
+      "postalCodes": []
+    },
+    {
+      "name": "Diamante",
+      "postalCodes": []
+    },
+    {
+      "name": "Domínguez",
+      "postalCodes": []
+    },
+    {
+      "name": "Federación",
+      "postalCodes": []
+    },
+    {
+      "name": "Federal",
+      "postalCodes": []
+    },
+    {
+      "name": "General Campos",
+      "postalCodes": []
+    },
+    {
+      "name": "General Galarza",
+      "postalCodes": []
+    },
+    {
+      "name": "General Ramírez",
+      "postalCodes": []
+    },
+    {
+      "name": "Gobernador Mansilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Gualeguay",
+      "postalCodes": []
+    },
+    {
+      "name": "Gualeguaychú",
+      "postalCodes": []
+    },
+    {
+      "name": "Hasenkamp",
+      "postalCodes": []
+    },
+    {
+      "name": "Hernández",
+      "postalCodes": []
+    },
+    {
+      "name": "Herrera",
+      "postalCodes": []
+    },
+    {
+      "name": "La Criolla",
+      "postalCodes": []
+    },
+    {
+      "name": "La Paz",
+      "postalCodes": []
+    },
+    {
+      "name": "Larroque",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Charrúas",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Conquistadores",
+      "postalCodes": []
+    },
+    {
+      "name": "Lucas González",
+      "postalCodes": []
+    },
+    {
+      "name": "Maciá",
+      "postalCodes": []
+    },
+    {
+      "name": "Nogoyá",
+      "postalCodes": []
+    },
+    {
+      "name": "Oro Verde",
+      "postalCodes": []
+    },
+    {
+      "name": "Paraná",
+      "postalCodes": []
+    },
+    {
+      "name": "Piedras Blancas",
+      "postalCodes": []
+    },
+    {
+      "name": "Pronunciamiento",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Ibicuy",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Yeruá",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosario del Tala",
+      "postalCodes": []
+    },
+    {
+      "name": "San Benito",
+      "postalCodes": []
+    },
+    {
+      "name": "San Gustavo",
+      "postalCodes": []
+    },
+    {
+      "name": "San José de Feliciano",
+      "postalCodes": []
+    },
+    {
+      "name": "San Justo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Salvador",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Ana",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Anita",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Elena",
+      "postalCodes": []
+    },
+    {
+      "name": "Sauce de Luna",
+      "postalCodes": []
+    },
+    {
+      "name": "Seguí",
+      "postalCodes": []
+    },
+    {
+      "name": "Tabossi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ubajay",
+      "postalCodes": []
+    },
+    {
+      "name": "Urdinarrain",
+      "postalCodes": []
+    },
+    {
+      "name": "Viale",
+      "postalCodes": []
+    },
+    {
+      "name": "Victoria",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa del Rosario",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Elisa",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Hernandarias",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Mantero",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa María Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Paranacito",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Urquiza",
+      "postalCodes": []
+    },
+    {
+      "name": "Villaguay",
+      "postalCodes": []
+    }
+  ],
+  "P": [
+    {
+      "name": "Clorinda",
+      "postalCodes": []
+    },
+    {
+      "name": "Comandante Fontana",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Pilcomayo",
+      "postalCodes": []
+    },
+    {
+      "name": "El Colorado",
+      "postalCodes": []
+    },
+    {
+      "name": "Estanislao del Campo",
+      "postalCodes": []
+    },
+    {
+      "name": "Formosa",
+      "postalCodes": []
+    },
+    {
+      "name": "General Enrique Mosconi",
+      "postalCodes": []
+    },
+    {
+      "name": "Herradura",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibarreta",
+      "postalCodes": []
+    },
+    {
+      "name": "Ingeniero Guillermo N. Juárez",
+      "postalCodes": []
+    },
+    {
+      "name": "Laguna Naick-Neck",
+      "postalCodes": []
+    },
+    {
+      "name": "Laguna Yema",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Lomitas",
+      "postalCodes": []
+    },
+    {
+      "name": "Palo Santo",
+      "postalCodes": []
+    },
+    {
+      "name": "Pirané",
+      "postalCodes": []
+    },
+    {
+      "name": "Pozo del Tigre",
+      "postalCodes": []
+    },
+    {
+      "name": "Riacho Eh-Eh",
+      "postalCodes": []
+    },
+    {
+      "name": "San Francisco de Laishí",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Escolar",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa General Guemes",
+      "postalCodes": []
+    }
+  ],
+  "Y": [
+    {
+      "name": "Abra Pampa",
+      "postalCodes": []
+    },
+    {
+      "name": "Caimancito",
+      "postalCodes": []
+    },
+    {
+      "name": "Calilegua",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Cochinoca",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Rinconada",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Tumbaya",
+      "postalCodes": []
+    },
+    {
+      "name": "El Aguilar",
+      "postalCodes": []
+    },
+    {
+      "name": "Fraile Pintado",
+      "postalCodes": []
+    },
+    {
+      "name": "Humahuaca",
+      "postalCodes": []
+    },
+    {
+      "name": "Ingenio La Esperanza",
+      "postalCodes": []
+    },
+    {
+      "name": "La Mendieta",
+      "postalCodes": []
+    },
+    {
+      "name": "La Quiaca",
+      "postalCodes": []
+    },
+    {
+      "name": "Libertador General San Martín",
+      "postalCodes": []
+    },
+    {
+      "name": "Maimará",
+      "postalCodes": []
+    },
+    {
+      "name": "Palma Sola",
+      "postalCodes": []
+    },
+    {
+      "name": "Palpalá",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro de Jujuy",
+      "postalCodes": []
+    },
+    {
+      "name": "San Salvador de Jujuy",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Clara",
+      "postalCodes": []
+    },
+    {
+      "name": "Tilcara",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuto",
+      "postalCodes": []
+    }
+  ],
+  "L": [
+    {
+      "name": "Alpachiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Alta Italia",
+      "postalCodes": []
+    },
+    {
+      "name": "Anguil",
+      "postalCodes": []
+    },
+    {
+      "name": "Arata",
+      "postalCodes": []
+    },
+    {
+      "name": "Bernardo Larroudé",
+      "postalCodes": []
+    },
+    {
+      "name": "Bernasconi",
+      "postalCodes": []
+    },
+    {
+      "name": "Caleufú",
+      "postalCodes": []
+    },
+    {
+      "name": "Catriló",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonia Barón",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Caleu-Caleu",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Toay",
+      "postalCodes": []
+    },
+    {
+      "name": "Doblas",
+      "postalCodes": []
+    },
+    {
+      "name": "Eduardo Castex",
+      "postalCodes": []
+    },
+    {
+      "name": "Embajador Martini",
+      "postalCodes": []
+    },
+    {
+      "name": "General Acha",
+      "postalCodes": []
+    },
+    {
+      "name": "General Manuel J. Campos",
+      "postalCodes": []
+    },
+    {
+      "name": "General Pico",
+      "postalCodes": []
+    },
+    {
+      "name": "General San Martín",
+      "postalCodes": []
+    },
+    {
+      "name": "Guatraché",
+      "postalCodes": []
+    },
+    {
+      "name": "Ingeniero Luiggi",
+      "postalCodes": []
+    },
+    {
+      "name": "Intendente Alvear",
+      "postalCodes": []
+    },
+    {
+      "name": "Jacinto Arauz",
+      "postalCodes": []
+    },
+    {
+      "name": "La Adela",
+      "postalCodes": []
+    },
+    {
+      "name": "La Maruja",
+      "postalCodes": []
+    },
+    {
+      "name": "Lonquimay",
+      "postalCodes": []
+    },
+    {
+      "name": "Macachín",
+      "postalCodes": []
+    },
+    {
+      "name": "Miguel Riglos",
+      "postalCodes": []
+    },
+    {
+      "name": "Parera",
+      "postalCodes": []
+    },
+    {
+      "name": "Quemú Quemú",
+      "postalCodes": []
+    },
+    {
+      "name": "Rancul",
+      "postalCodes": []
+    },
+    {
+      "name": "Realicó",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Isabel",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Telén",
+      "postalCodes": []
+    },
+    {
+      "name": "Trenel",
+      "postalCodes": []
+    },
+    {
+      "name": "Uriburu",
+      "postalCodes": []
+    },
+    {
+      "name": "Veinticinco de Mayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Victorica",
+      "postalCodes": []
+    },
+    {
+      "name": "Winifreda",
+      "postalCodes": []
+    }
+  ],
+  "F": [
+    {
+      "name": "Arauco",
+      "postalCodes": []
+    },
+    {
+      "name": "Castro Barros",
+      "postalCodes": []
+    },
+    {
+      "name": "Chamical",
+      "postalCodes": []
+    },
+    {
+      "name": "Chilecito",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Arauco",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de General Lamadrid",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Independencia",
+      "postalCodes": []
+    },
+    {
+      "name": "La Rioja",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Bustos",
+      "postalCodes": []
+    },
+    {
+      "name": "Vinchina",
+      "postalCodes": []
+    }
+  ],
+  "M": [
+    {
+      "name": "Departamento de Capital",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de General Alvear",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Godoy Cruz",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Guaymallén",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de La Paz",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Las Heras",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Lavalle",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Luján",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Maipú",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Malargüe",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Rivadavia",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Carlos",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Martín",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Rafael",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Santa Rosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Tunuyán",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Tupungato",
+      "postalCodes": []
+    },
+    {
+      "name": "Godoy Cruz",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Heras",
+      "postalCodes": []
+    },
+    {
+      "name": "Mendoza",
+      "postalCodes": []
+    },
+    {
+      "name": "San Martín",
+      "postalCodes": []
+    },
+    {
+      "name": "San Rafael",
+      "postalCodes": []
+    }
+  ],
+  "N": [
+    {
+      "name": "Alba Posse",
+      "postalCodes": []
+    },
+    {
+      "name": "Almafuerte",
+      "postalCodes": []
+    },
+    {
+      "name": "Aristóbulo del Valle",
+      "postalCodes": []
+    },
+    {
+      "name": "Arroyo del Medio",
+      "postalCodes": []
+    },
+    {
+      "name": "Azara",
+      "postalCodes": []
+    },
+    {
+      "name": "Bernardo de Irigoyen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bonpland",
+      "postalCodes": []
+    },
+    {
+      "name": "Campo Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Campo Ramón",
+      "postalCodes": []
+    },
+    {
+      "name": "Campo Viera",
+      "postalCodes": []
+    },
+    {
+      "name": "Candelaria",
+      "postalCodes": []
+    },
+    {
+      "name": "Capioví",
+      "postalCodes": []
+    },
+    {
+      "name": "Caraguatay",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerro Azul",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerro Corá",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonia Aurora",
+      "postalCodes": []
+    },
+    {
+      "name": "Concepción de la Sierra",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Apóstoles",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Cainguás",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Candelaria",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Capital",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Concepción de la Sierra",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Eldorado",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de General Manuel Belgrano",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Guaraní",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Iguazú",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Leandro N. Alem",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Libertador General San Martín",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Montecarlo",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Oberá",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Ignacio",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Javier",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Pedro",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Veinticinco de Mayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Dos Arroyos",
+      "postalCodes": []
+    },
+    {
+      "name": "Dos de Mayo",
+      "postalCodes": []
+    },
+    {
+      "name": "El Alcázar",
+      "postalCodes": []
+    },
+    {
+      "name": "El Soberbio",
+      "postalCodes": []
+    },
+    {
+      "name": "Florentino Ameghino",
+      "postalCodes": []
+    },
+    {
+      "name": "Garuhapé",
+      "postalCodes": []
+    },
+    {
+      "name": "Garupá",
+      "postalCodes": []
+    },
+    {
+      "name": "General Alvear",
+      "postalCodes": []
+    },
+    {
+      "name": "Gobernador Roca",
+      "postalCodes": []
+    },
+    {
+      "name": "Guaraní",
+      "postalCodes": []
+    },
+    {
+      "name": "Jardín América",
+      "postalCodes": []
+    },
+    {
+      "name": "Loreto",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Helechos",
+      "postalCodes": []
+    },
+    {
+      "name": "Mártires",
+      "postalCodes": []
+    },
+    {
+      "name": "Mojón Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Montecarlo",
+      "postalCodes": []
+    },
+    {
+      "name": "Oberá",
+      "postalCodes": []
+    },
+    {
+      "name": "Panambí",
+      "postalCodes": []
+    },
+    {
+      "name": "Picada Gobernador López",
+      "postalCodes": []
+    },
+    {
+      "name": "Posadas",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Eldorado",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Esperanza",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Iguazú",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Leoni",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Libertad",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Piray",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Rico",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruiz de Montoya",
+      "postalCodes": []
+    },
+    {
+      "name": "San José",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro",
+      "postalCodes": []
+    },
+    {
+      "name": "San Vicente",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa María",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Pipó",
+      "postalCodes": []
+    },
+    {
+      "name": "Tres Capones",
+      "postalCodes": []
+    },
+    {
+      "name": "Veinticinco de Mayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Wanda",
+      "postalCodes": []
+    }
+  ],
+  "Q": [
+    {
+      "name": "Aluminé",
+      "postalCodes": []
+    },
+    {
+      "name": "Andacollo",
+      "postalCodes": []
+    },
+    {
+      "name": "Añelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Barrancas",
+      "postalCodes": []
+    },
+    {
+      "name": "Buta Ranquil",
+      "postalCodes": []
+    },
+    {
+      "name": "Centenario",
+      "postalCodes": []
+    },
+    {
+      "name": "Chos Malal",
+      "postalCodes": []
+    },
+    {
+      "name": "Cutral-Có",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Aluminé",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Añelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Catán-Lil",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Chos-Malal",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Collón-Curá",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Confluencia",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Lácar",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Minas",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Zapala",
+      "postalCodes": []
+    },
+    {
+      "name": "El Huecú",
+      "postalCodes": []
+    },
+    {
+      "name": "Junín de los Andes",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Coloradas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Lajas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Ovejas",
+      "postalCodes": []
+    },
+    {
+      "name": "Loncopué",
+      "postalCodes": []
+    },
+    {
+      "name": "Mariano Moreno",
+      "postalCodes": []
+    },
+    {
+      "name": "Neuquén",
+      "postalCodes": []
+    },
+    {
+      "name": "Picún Leufú",
+      "postalCodes": []
+    },
+    {
+      "name": "Piedra del Águila",
+      "postalCodes": []
+    },
+    {
+      "name": "Plaza Huincul",
+      "postalCodes": []
+    },
+    {
+      "name": "Plottier",
+      "postalCodes": []
+    },
+    {
+      "name": "San Martín de los Andes",
+      "postalCodes": []
+    },
+    {
+      "name": "Senillosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa La Angostura",
+      "postalCodes": []
+    },
+    {
+      "name": "Vista Alegre",
+      "postalCodes": []
+    },
+    {
+      "name": "Zapala",
+      "postalCodes": []
+    }
+  ],
+  "R": [
+    {
+      "name": "Allen",
+      "postalCodes": []
+    },
+    {
+      "name": "Catriel",
+      "postalCodes": []
+    },
+    {
+      "name": "Cervantes",
+      "postalCodes": []
+    },
+    {
+      "name": "Chichinales",
+      "postalCodes": []
+    },
+    {
+      "name": "Chimpay",
+      "postalCodes": []
+    },
+    {
+      "name": "Choele Choel",
+      "postalCodes": []
+    },
+    {
+      "name": "Cinco Saltos",
+      "postalCodes": []
+    },
+    {
+      "name": "Cipolletti",
+      "postalCodes": []
+    },
+    {
+      "name": "Comallo",
+      "postalCodes": []
+    },
+    {
+      "name": "Contraalmirante Cordero",
+      "postalCodes": []
+    },
+    {
+      "name": "Coronel Belisle",
+      "postalCodes": []
+    },
+    {
+      "name": "Darwin",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Avellaneda",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Veinticinco de Mayo",
+      "postalCodes": []
+    },
+    {
+      "name": "El Bolsón",
+      "postalCodes": []
+    },
+    {
+      "name": "El Cuy",
+      "postalCodes": []
+    },
+    {
+      "name": "Fray Luis Beltrán",
+      "postalCodes": []
+    },
+    {
+      "name": "General Conesa",
+      "postalCodes": []
+    },
+    {
+      "name": "General Enrique Godoy",
+      "postalCodes": []
+    },
+    {
+      "name": "General Fernández Oro",
+      "postalCodes": []
+    },
+    {
+      "name": "General Roca",
+      "postalCodes": []
+    },
+    {
+      "name": "Ingeniero Jacobacci",
+      "postalCodes": []
+    },
+    {
+      "name": "Ingeniero Luis A. Huergo",
+      "postalCodes": []
+    },
+    {
+      "name": "Lamarque",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Menucos",
+      "postalCodes": []
+    },
+    {
+      "name": "Mainque",
+      "postalCodes": []
+    },
+    {
+      "name": "Maquinchao",
+      "postalCodes": []
+    },
+    {
+      "name": "Ñorquinco",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilcaniyeu",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Colorado",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio Oeste",
+      "postalCodes": []
+    },
+    {
+      "name": "San Carlos de Bariloche",
+      "postalCodes": []
+    },
+    {
+      "name": "Sierra Colorada",
+      "postalCodes": []
+    },
+    {
+      "name": "Sierra Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Valcheta",
+      "postalCodes": []
+    },
+    {
+      "name": "Viedma",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Regina",
+      "postalCodes": []
+    }
+  ],
+  "A": [
+    {
+      "name": "Apolinario Saravia",
+      "postalCodes": []
+    },
+    {
+      "name": "Cachí",
+      "postalCodes": []
+    },
+    {
+      "name": "Cafayate",
+      "postalCodes": []
+    },
+    {
+      "name": "Campo Quijano",
+      "postalCodes": []
+    },
+    {
+      "name": "Chicoana",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento Capital",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Anta",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Cerrillos",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Chicoana",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de General Güemes",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Guachipas",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Iruya",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de La Poma",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de La Viña",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Los Andes",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Metán",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Rivadavia",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Rosario de la Frontera",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Rosario de Lerma",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Carlos",
+      "postalCodes": []
+    },
+    {
+      "name": "El Carril",
+      "postalCodes": []
+    },
+    {
+      "name": "El Galpón",
+      "postalCodes": []
+    },
+    {
+      "name": "El Quebrachal",
+      "postalCodes": []
+    },
+    {
+      "name": "Embarcación",
+      "postalCodes": []
+    },
+    {
+      "name": "General Enrique Mosconi",
+      "postalCodes": []
+    },
+    {
+      "name": "Joaquín V. González",
+      "postalCodes": []
+    },
+    {
+      "name": "La Caldera",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Lajitas",
+      "postalCodes": []
+    },
+    {
+      "name": "Salta",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio de los Cobres",
+      "postalCodes": []
+    },
+    {
+      "name": "San Ramón de la Nueva Orán",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rosa de Tastil",
+      "postalCodes": []
+    },
+    {
+      "name": "Tartagal",
+      "postalCodes": []
+    }
+  ],
+  "J": [
+    {
+      "name": "Albardón",
+      "postalCodes": []
+    },
+    {
+      "name": "Calingasta",
+      "postalCodes": []
+    },
+    {
+      "name": "Caucete",
+      "postalCodes": []
+    },
+    {
+      "name": "Chimbas",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Albardón",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Angaco",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Calingasta",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Capital",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Caucete",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Chimbas",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Iglesia",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Jáchal",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Nueve de Julio",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Rawson",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Rivadavia",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Martín",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Santa Lucía",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Sarmiento",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Ullúm",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Zonda",
+      "postalCodes": []
+    },
+    {
+      "name": "Nueve de Julio",
+      "postalCodes": []
+    },
+    {
+      "name": "Pocito",
+      "postalCodes": []
+    },
+    {
+      "name": "San Agustín de Valle Fértil",
+      "postalCodes": []
+    },
+    {
+      "name": "San José de Jáchal",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan",
+      "postalCodes": []
+    },
+    {
+      "name": "San Martín",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Lucía",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Basilio Nievas",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Paula de Sarmiento",
+      "postalCodes": []
+    }
+  ],
+  "D": [
+    {
+      "name": "Buena Esperanza",
+      "postalCodes": []
+    },
+    {
+      "name": "Candelaria",
+      "postalCodes": []
+    },
+    {
+      "name": "Concarán",
+      "postalCodes": []
+    },
+    {
+      "name": "Juan Martín de Pueyrredón",
+      "postalCodes": []
+    },
+    {
+      "name": "Justo Daract",
+      "postalCodes": []
+    },
+    {
+      "name": "La Punta",
+      "postalCodes": []
+    },
+    {
+      "name": "La Toma",
+      "postalCodes": []
+    },
+    {
+      "name": "Luján",
+      "postalCodes": []
+    },
+    {
+      "name": "Merlo",
+      "postalCodes": []
+    },
+    {
+      "name": "Naschel",
+      "postalCodes": []
+    },
+    {
+      "name": "San Francisco del Monte de Oro",
+      "postalCodes": []
+    },
+    {
+      "name": "San Luis",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rosa del Conlara",
+      "postalCodes": []
+    },
+    {
+      "name": "Tilisarao",
+      "postalCodes": []
+    },
+    {
+      "name": "Unión",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa General Roca",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Mercedes",
+      "postalCodes": []
+    }
+  ],
+  "Z": [
+    {
+      "name": "28 de Noviembre",
+      "postalCodes": []
+    },
+    {
+      "name": "Caleta Olivia",
+      "postalCodes": []
+    },
+    {
+      "name": "Comandante Luis Piedra Buena",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Deseado",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Güer Aike",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Lago Argentino",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Magallanes",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Río Chico",
+      "postalCodes": []
+    },
+    {
+      "name": "El Calafate",
+      "postalCodes": []
+    },
+    {
+      "name": "Gobernador Gregores",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Heras",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Antiguos",
+      "postalCodes": []
+    },
+    {
+      "name": "Perito Moreno",
+      "postalCodes": []
+    },
+    {
+      "name": "Pico Truncado",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Deseado",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Santa Cruz",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Gallegos",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Turbio",
+      "postalCodes": []
+    },
+    {
+      "name": "San Julián",
+      "postalCodes": []
+    },
+    {
+      "name": "Yacimiento Río Turbio",
+      "postalCodes": []
+    }
+  ],
+  "S": [
+    {
+      "name": "Armstrong",
+      "postalCodes": []
+    },
+    {
+      "name": "Arroyo Seco",
+      "postalCodes": []
+    },
+    {
+      "name": "Arrufó",
+      "postalCodes": []
+    },
+    {
+      "name": "Avellaneda",
+      "postalCodes": []
+    },
+    {
+      "name": "Bella Italia",
+      "postalCodes": []
+    },
+    {
+      "name": "Calchaquí",
+      "postalCodes": []
+    },
+    {
+      "name": "Cañada de Gómez",
+      "postalCodes": []
+    },
+    {
+      "name": "Capitán Bermúdez",
+      "postalCodes": []
+    },
+    {
+      "name": "Carcarañá",
+      "postalCodes": []
+    },
+    {
+      "name": "Casilda",
+      "postalCodes": []
+    },
+    {
+      "name": "Ceres",
+      "postalCodes": []
+    },
+    {
+      "name": "Chañar Ladeado",
+      "postalCodes": []
+    },
+    {
+      "name": "Coronda",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Belgrano",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Caseros",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Castellanos",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Constitución",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de La Capital",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Nueve de Julio",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Cristóbal",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Javier",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Justo",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Lorenzo",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Martín",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Vera",
+      "postalCodes": []
+    },
+    {
+      "name": "El Trébol",
+      "postalCodes": []
+    },
+    {
+      "name": "Esperanza",
+      "postalCodes": []
+    },
+    {
+      "name": "Firmat",
+      "postalCodes": []
+    },
+    {
+      "name": "Fray Luis A. Beltrán",
+      "postalCodes": []
+    },
+    {
+      "name": "Funes",
+      "postalCodes": []
+    },
+    {
+      "name": "Gálvez",
+      "postalCodes": []
+    },
+    {
+      "name": "Gato Colorado",
+      "postalCodes": []
+    },
+    {
+      "name": "Gobernador Gálvez",
+      "postalCodes": []
+    },
+    {
+      "name": "Granadero Baigorria",
+      "postalCodes": []
+    },
+    {
+      "name": "Helvecia",
+      "postalCodes": []
+    },
+    {
+      "name": "Hersilia",
+      "postalCodes": []
+    },
+    {
+      "name": "Iriondo Department",
+      "postalCodes": []
+    },
+    {
+      "name": "Laguna Paiva",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Parejas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Rosas",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Toscas",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Laureles",
+      "postalCodes": []
+    },
+    {
+      "name": "Malabrigo",
+      "postalCodes": []
+    },
+    {
+      "name": "Melincué",
+      "postalCodes": []
+    },
+    {
+      "name": "Pérez",
+      "postalCodes": []
+    },
+    {
+      "name": "Rafaela",
+      "postalCodes": []
+    },
+    {
+      "name": "Reconquista",
+      "postalCodes": []
+    },
+    {
+      "name": "Recreo",
+      "postalCodes": []
+    },
+    {
+      "name": "Roldán",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosario",
+      "postalCodes": []
+    },
+    {
+      "name": "Rufino",
+      "postalCodes": []
+    },
+    {
+      "name": "San Carlos Centro",
+      "postalCodes": []
+    },
+    {
+      "name": "San Cristóbal",
+      "postalCodes": []
+    },
+    {
+      "name": "San Javier",
+      "postalCodes": []
+    },
+    {
+      "name": "San Jorge",
+      "postalCodes": []
+    },
+    {
+      "name": "San Justo",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Fe",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Tomé",
+      "postalCodes": []
+    },
+    {
+      "name": "Sastre",
+      "postalCodes": []
+    },
+    {
+      "name": "Sunchales",
+      "postalCodes": []
+    },
+    {
+      "name": "Tacuarendí",
+      "postalCodes": []
+    },
+    {
+      "name": "Tostado",
+      "postalCodes": []
+    },
+    {
+      "name": "Totoras",
+      "postalCodes": []
+    },
+    {
+      "name": "Venado Tuerto",
+      "postalCodes": []
+    },
+    {
+      "name": "Vera",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Cañás",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Constitución",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Mugueta",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Ocampo",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Trinidad",
+      "postalCodes": []
+    }
+  ],
+  "G": [
+    {
+      "name": "Añatuya",
+      "postalCodes": []
+    },
+    {
+      "name": "Beltrán",
+      "postalCodes": []
+    },
+    {
+      "name": "Campo Gallo",
+      "postalCodes": []
+    },
+    {
+      "name": "Clodomira",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonia Dora",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Aguirre",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Banda",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Choya",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Guasayán",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Loreto",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Moreno",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Río Hondo",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Robles",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de San Martín",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Sarmiento",
+      "postalCodes": []
+    },
+    {
+      "name": "El Hoyo",
+      "postalCodes": []
+    },
+    {
+      "name": "La Banda",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Juríes",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Telares",
+      "postalCodes": []
+    },
+    {
+      "name": "Pampa de los Guanacos",
+      "postalCodes": []
+    },
+    {
+      "name": "Quimilí",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago del Estero",
+      "postalCodes": []
+    },
+    {
+      "name": "Sumampa",
+      "postalCodes": []
+    },
+    {
+      "name": "Suncho Corral",
+      "postalCodes": []
+    },
+    {
+      "name": "Termas de Río Hondo",
+      "postalCodes": []
+    },
+    {
+      "name": "Tintina",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Atamisqui",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa General Mitre",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Ojo de Agua",
+      "postalCodes": []
+    }
+  ],
+  "V": [
+    {
+      "name": "Río Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Tolhuin",
+      "postalCodes": []
+    },
+    {
+      "name": "Ushuaia",
+      "postalCodes": []
+    }
+  ],
+  "T": [
+    {
+      "name": "Aguilares",
+      "postalCodes": []
+    },
+    {
+      "name": "Alderetes",
+      "postalCodes": []
+    },
+    {
+      "name": "Bella Vista",
+      "postalCodes": []
+    },
+    {
+      "name": "Burruyacú",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Burruyacú",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Capital",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Cruz Alta",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Famaillá",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Graneros",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de La Cocha",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Lules",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Monteros",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Río Chico",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Simoca",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Trancas",
+      "postalCodes": []
+    },
+    {
+      "name": "Departamento de Yerba Buena",
+      "postalCodes": []
+    },
+    {
+      "name": "Famaillá",
+      "postalCodes": []
+    },
+    {
+      "name": "Graneros",
+      "postalCodes": []
+    },
+    {
+      "name": "La Cocha",
+      "postalCodes": []
+    },
+    {
+      "name": "Monteros",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel de Tucumán",
+      "postalCodes": []
+    },
+    {
+      "name": "Simoca",
+      "postalCodes": []
+    },
+    {
+      "name": "Tafí del Valle",
+      "postalCodes": []
+    },
+    {
+      "name": "Tafí Viejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Trancas",
+      "postalCodes": []
+    },
+    {
+      "name": "Yerba Buena",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

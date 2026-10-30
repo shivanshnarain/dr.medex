@@ -1,0 +1,72 @@
+[
+  {
+    "code": "AH",
+    "name": "Ahuachapán Department",
+    "countryCode": "SV"
+  },
+  {
+    "code": "CA",
+    "name": "Cabañas Department",
+    "countryCode": "SV"
+  },
+  {
+    "code": "CH",
+    "name": "Chalatenango Department",
+    "countryCode": "SV"
+  },
+  {
+    "code": "CU",
+    "name": "Cuscatlán Department",
+    "countryCode": "SV"
+  },
+  {
+    "code": "LI",
+    "name": "La Libertad Department",
+    "countryCode": "SV"
+  },
+  {
+    "code": "PA",
+    "name": "La Paz Department",
+    "countryCode": "SV"
+  },
+  {
+    "code": "UN",
+    "name": "La Unión Department",
+    "countryCode": "SV"
+  },
+  {
+    "code": "MO",
+    "name": "Morazán Department",
+    "countryCode": "SV"
+  },
+  {
+    "code": "SM",
+    "name": "San Miguel Department",
+    "countryCode": "SV"
+  },
+  {
+    "code": "SS",
+    "name": "San Salvador Department",
+    "countryCode": "SV"
+  },
+  {
+    "code": "SV",
+    "name": "San Vicente Department",
+    "countryCode": "SV"
+  },
+  {
+    "code": "SA",
+    "name": "Santa Ana Department",
+    "countryCode": "SV"
+  },
+  {
+    "code": "SO",
+    "name": "Sonsonate Department",
+    "countryCode": "SV"
+  },
+  {
+    "code": "US",
+    "name": "Usulután Department",
+    "countryCode": "SV"
+  }
+]

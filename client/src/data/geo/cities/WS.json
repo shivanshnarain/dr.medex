@@ -1,0 +1,102 @@
+{
+  "AA": [
+    {
+      "name": "Fasito‘outa",
+      "postalCodes": []
+    },
+    {
+      "name": "Leulumoega",
+      "postalCodes": []
+    },
+    {
+      "name": "Nofoali‘i",
+      "postalCodes": []
+    },
+    {
+      "name": "Satapuala",
+      "postalCodes": []
+    }
+  ],
+  "AL": [
+    {
+      "name": "Mulifanua",
+      "postalCodes": []
+    }
+  ],
+  "AT": [
+    {
+      "name": "Falefa",
+      "postalCodes": []
+    },
+    {
+      "name": "Lotofagā",
+      "postalCodes": []
+    },
+    {
+      "name": "Lufilufi",
+      "postalCodes": []
+    },
+    {
+      "name": "Solosolo",
+      "postalCodes": []
+    }
+  ],
+  "FA": [],
+  "GE": [],
+  "GI": [
+    {
+      "name": "Matavai",
+      "postalCodes": []
+    },
+    {
+      "name": "Safotu",
+      "postalCodes": []
+    }
+  ],
+  "PA": [
+    {
+      "name": "Gataivai",
+      "postalCodes": []
+    },
+    {
+      "name": "Vailoa",
+      "postalCodes": []
+    }
+  ],
+  "SA": [],
+  "TU": [
+    {
+      "name": "Afega",
+      "postalCodes": []
+    },
+    {
+      "name": "Apia",
+      "postalCodes": []
+    },
+    {
+      "name": "Malie",
+      "postalCodes": []
+    },
+    {
+      "name": "Vailima",
+      "postalCodes": []
+    },
+    {
+      "name": "Vaiusu",
+      "postalCodes": []
+    }
+  ],
+  "VF": [
+    {
+      "name": "Samamea",
+      "postalCodes": []
+    }
+  ],
+  "VS": [
+    {
+      "name": "Asau",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

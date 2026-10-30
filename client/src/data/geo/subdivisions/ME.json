@@ -1,0 +1,112 @@
+[
+  {
+    "code": "01",
+    "name": "Andrijevica Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "02",
+    "name": "Bar Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "03",
+    "name": "Berane Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "04",
+    "name": "Bijelo Polje Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "05",
+    "name": "Budva Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "07",
+    "name": "Danilovgrad Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "22",
+    "name": "Gusinje Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "09",
+    "name": "Kolašin Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "10",
+    "name": "Kotor Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "11",
+    "name": "Mojkovac Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "12",
+    "name": "Nikšić Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "06",
+    "name": "Old Royal Capital Cetinje",
+    "countryCode": "ME"
+  },
+  {
+    "code": "23",
+    "name": "Petnjica Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "13",
+    "name": "Plav Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "14",
+    "name": "Pljevlja Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "15",
+    "name": "Plužine Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "16",
+    "name": "Podgorica Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "17",
+    "name": "Rožaje Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "18",
+    "name": "Šavnik Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "19",
+    "name": "Tivat Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "20",
+    "name": "Ulcinj Municipality",
+    "countryCode": "ME"
+  },
+  {
+    "code": "21",
+    "name": "Žabljak Municipality",
+    "countryCode": "ME"
+  }
+]

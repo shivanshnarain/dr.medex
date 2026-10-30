@@ -1,0 +1,135 @@
+{
+  "A": [
+    {
+      "name": "Abadan",
+      "postalCodes": []
+    },
+    {
+      "name": "Annau",
+      "postalCodes": []
+    },
+    {
+      "name": "Arçabil",
+      "postalCodes": []
+    },
+    {
+      "name": "Baharly",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Tejen",
+      "postalCodes": []
+    }
+  ],
+  "S": [
+    {
+      "name": "Ashgabat",
+      "postalCodes": []
+    }
+  ],
+  "B": [
+    {
+      "name": "Balkanabat",
+      "postalCodes": []
+    },
+    {
+      "name": "Bereket",
+      "postalCodes": []
+    },
+    {
+      "name": "Gumdag",
+      "postalCodes": []
+    },
+    {
+      "name": "Magtymguly",
+      "postalCodes": []
+    },
+    {
+      "name": "Serdar",
+      "postalCodes": []
+    },
+    {
+      "name": "Türkmenbaşy",
+      "postalCodes": []
+    }
+  ],
+  "D": [
+    {
+      "name": "Akdepe",
+      "postalCodes": []
+    },
+    {
+      "name": "Boldumsaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Daşoguz",
+      "postalCodes": []
+    },
+    {
+      "name": "Köneürgench",
+      "postalCodes": []
+    },
+    {
+      "name": "Tagta",
+      "postalCodes": []
+    },
+    {
+      "name": "Yylanly",
+      "postalCodes": []
+    }
+  ],
+  "L": [
+    {
+      "name": "Atamyrat",
+      "postalCodes": []
+    },
+    {
+      "name": "Farap",
+      "postalCodes": []
+    },
+    {
+      "name": "Gazojak",
+      "postalCodes": []
+    },
+    {
+      "name": "Gowurdak",
+      "postalCodes": []
+    },
+    {
+      "name": "Saýat",
+      "postalCodes": []
+    },
+    {
+      "name": "Türkmenabat",
+      "postalCodes": []
+    }
+  ],
+  "M": [
+    {
+      "name": "Bayramaly",
+      "postalCodes": []
+    },
+    {
+      "name": "Mary",
+      "postalCodes": []
+    },
+    {
+      "name": "Serhetabat",
+      "postalCodes": []
+    },
+    {
+      "name": "Seydi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yolöten",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

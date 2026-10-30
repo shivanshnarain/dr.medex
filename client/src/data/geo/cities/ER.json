@@ -1,0 +1,59 @@
+{
+  "AN": [
+    {
+      "name": "Keren",
+      "postalCodes": []
+    }
+  ],
+  "DU": [
+    {
+      "name": "Adi Keyh",
+      "postalCodes": []
+    },
+    {
+      "name": "Dek’emhāre",
+      "postalCodes": []
+    },
+    {
+      "name": "Mendefera",
+      "postalCodes": []
+    }
+  ],
+  "GB": [
+    {
+      "name": "Ak’ordat",
+      "postalCodes": []
+    },
+    {
+      "name": "Barentu",
+      "postalCodes": []
+    },
+    {
+      "name": "Teseney",
+      "postalCodes": []
+    }
+  ],
+  "MA": [
+    {
+      "name": "Asmara",
+      "postalCodes": []
+    }
+  ],
+  "SK": [
+    {
+      "name": "Massawa",
+      "postalCodes": []
+    }
+  ],
+  "DK": [
+    {
+      "name": "Assab",
+      "postalCodes": []
+    },
+    {
+      "name": "Edd",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

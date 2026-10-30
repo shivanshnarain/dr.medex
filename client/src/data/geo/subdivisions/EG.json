@@ -1,0 +1,137 @@
+[
+  {
+    "code": "ALX",
+    "name": "Alexandria",
+    "countryCode": "EG"
+  },
+  {
+    "code": "ASN",
+    "name": "Aswan",
+    "countryCode": "EG"
+  },
+  {
+    "code": "AST",
+    "name": "Asyut",
+    "countryCode": "EG"
+  },
+  {
+    "code": "BH",
+    "name": "Beheira",
+    "countryCode": "EG"
+  },
+  {
+    "code": "BNS",
+    "name": "Beni Suef",
+    "countryCode": "EG"
+  },
+  {
+    "code": "C",
+    "name": "Cairo",
+    "countryCode": "EG"
+  },
+  {
+    "code": "DK",
+    "name": "Dakahlia",
+    "countryCode": "EG"
+  },
+  {
+    "code": "DT",
+    "name": "Damietta",
+    "countryCode": "EG"
+  },
+  {
+    "code": "FYM",
+    "name": "Faiyum",
+    "countryCode": "EG"
+  },
+  {
+    "code": "GH",
+    "name": "Gharbia",
+    "countryCode": "EG"
+  },
+  {
+    "code": "GZ",
+    "name": "Giza",
+    "countryCode": "EG"
+  },
+  {
+    "code": "IS",
+    "name": "Ismailia",
+    "countryCode": "EG"
+  },
+  {
+    "code": "KFS",
+    "name": "Kafr el-Sheikh",
+    "countryCode": "EG"
+  },
+  {
+    "code": "LX",
+    "name": "Luxor",
+    "countryCode": "EG"
+  },
+  {
+    "code": "MT",
+    "name": "Matrouh",
+    "countryCode": "EG"
+  },
+  {
+    "code": "MN",
+    "name": "Minya",
+    "countryCode": "EG"
+  },
+  {
+    "code": "MNF",
+    "name": "Monufia",
+    "countryCode": "EG"
+  },
+  {
+    "code": "WAD",
+    "name": "New Valley",
+    "countryCode": "EG"
+  },
+  {
+    "code": "SIN",
+    "name": "North Sinai",
+    "countryCode": "EG"
+  },
+  {
+    "code": "PTS",
+    "name": "Port Said",
+    "countryCode": "EG"
+  },
+  {
+    "code": "KB",
+    "name": "Qalyubia",
+    "countryCode": "EG"
+  },
+  {
+    "code": "KN",
+    "name": "Qena",
+    "countryCode": "EG"
+  },
+  {
+    "code": "BA",
+    "name": "Red Sea",
+    "countryCode": "EG"
+  },
+  {
+    "code": "SHR",
+    "name": "Sharqia",
+    "countryCode": "EG"
+  },
+  {
+    "code": "SHG",
+    "name": "Sohag",
+    "countryCode": "EG"
+  },
+  {
+    "code": "JS",
+    "name": "South Sinai",
+    "countryCode": "EG"
+  },
+  {
+    "code": "SUZ",
+    "name": "Suez",
+    "countryCode": "EG"
+  }
+]

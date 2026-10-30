@@ -1,0 +1,37 @@
+[
+  {
+    "code": "1",
+    "name": "Agadez Region",
+    "countryCode": "NE"
+  },
+  {
+    "code": "2",
+    "name": "Diffa Region",
+    "countryCode": "NE"
+  },
+  {
+    "code": "3",
+    "name": "Dosso Region",
+    "countryCode": "NE"
+  },
+  {
+    "code": "4",
+    "name": "Maradi Region",
+    "countryCode": "NE"
+  },
+  {
+    "code": "5",
+    "name": "Tahoua Region",
+    "countryCode": "NE"
+  },
+  {
+    "code": "6",
+    "name": "Tillabéri Region",
+    "countryCode": "NE"
+  },
+  {
+    "code": "7",
+    "name": "Zinder Region",
+    "countryCode": "NE"
+  }
+]

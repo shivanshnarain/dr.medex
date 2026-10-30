@@ -1,0 +1,71 @@
+{
+  "D": [
+    {
+      "name": "Teyateyaneng",
+      "postalCodes": []
+    }
+  ],
+  "B": [
+    {
+      "name": "Butha-Buthe",
+      "postalCodes": []
+    }
+  ],
+  "C": [
+    {
+      "name": "Leribe",
+      "postalCodes": []
+    },
+    {
+      "name": "Maputsoe",
+      "postalCodes": []
+    }
+  ],
+  "E": [
+    {
+      "name": "Mafeteng",
+      "postalCodes": []
+    }
+  ],
+  "A": [
+    {
+      "name": "Maseru",
+      "postalCodes": []
+    },
+    {
+      "name": "Nako",
+      "postalCodes": []
+    }
+  ],
+  "F": [
+    {
+      "name": "Mohale’s Hoek",
+      "postalCodes": []
+    }
+  ],
+  "J": [
+    {
+      "name": "Mokhotlong",
+      "postalCodes": []
+    }
+  ],
+  "H": [
+    {
+      "name": "Qacha’s Nek",
+      "postalCodes": []
+    }
+  ],
+  "G": [
+    {
+      "name": "Quthing",
+      "postalCodes": []
+    }
+  ],
+  "K": [
+    {
+      "name": "Thaba-Tseka",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

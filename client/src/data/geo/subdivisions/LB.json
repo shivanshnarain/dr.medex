@@ -1,0 +1,42 @@
+[
+  {
+    "code": "AK",
+    "name": "Akkar Governorate",
+    "countryCode": "LB"
+  },
+  {
+    "code": "BH",
+    "name": "Baalbek-Hermel Governorate",
+    "countryCode": "LB"
+  },
+  {
+    "code": "BA",
+    "name": "Beirut Governorate",
+    "countryCode": "LB"
+  },
+  {
+    "code": "BI",
+    "name": "Beqaa Governorate",
+    "countryCode": "LB"
+  },
+  {
+    "code": "JL",
+    "name": "Mount Lebanon Governorate",
+    "countryCode": "LB"
+  },
+  {
+    "code": "NA",
+    "name": "Nabatieh Governorate",
+    "countryCode": "LB"
+  },
+  {
+    "code": "AS",
+    "name": "North Governorate",
+    "countryCode": "LB"
+  },
+  {
+    "code": "JA",
+    "name": "South Governorate",
+    "countryCode": "LB"
+  }
+]

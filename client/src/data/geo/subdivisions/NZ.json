@@ -1,0 +1,87 @@
+[
+  {
+    "code": "AUK",
+    "name": "Auckland Region",
+    "countryCode": "NZ"
+  },
+  {
+    "code": "BOP",
+    "name": "Bay of Plenty Region",
+    "countryCode": "NZ"
+  },
+  {
+    "code": "CAN",
+    "name": "Canterbury Region",
+    "countryCode": "NZ"
+  },
+  {
+    "code": "CIT",
+    "name": "Chatham Islands",
+    "countryCode": "NZ"
+  },
+  {
+    "code": "GIS",
+    "name": "Gisborne District",
+    "countryCode": "NZ"
+  },
+  {
+    "code": "HKB",
+    "name": "Hawke's Bay Region",
+    "countryCode": "NZ"
+  },
+  {
+    "code": "MWT",
+    "name": "Manawatu-Wanganui Region",
+    "countryCode": "NZ"
+  },
+  {
+    "code": "MBH",
+    "name": "Marlborough Region",
+    "countryCode": "NZ"
+  },
+  {
+    "code": "NSN",
+    "name": "Nelson Region",
+    "countryCode": "NZ"
+  },
+  {
+    "code": "NTL",
+    "name": "Northland Region",
+    "countryCode": "NZ"
+  },
+  {
+    "code": "OTA",
+    "name": "Otago Region",
+    "countryCode": "NZ"
+  },
+  {
+    "code": "STL",
+    "name": "Southland Region",
+    "countryCode": "NZ"
+  },
+  {
+    "code": "TKI",
+    "name": "Taranaki Region",
+    "countryCode": "NZ"
+  },
+  {
+    "code": "TAS",
+    "name": "Tasman District",
+    "countryCode": "NZ"
+  },
+  {
+    "code": "WKO",
+    "name": "Waikato Region",
+    "countryCode": "NZ"
+  },
+  {
+    "code": "WGN",
+    "name": "Wellington Region",
+    "countryCode": "NZ"
+  },
+  {
+    "code": "WTC",
+    "name": "West Coast Region",
+    "countryCode": "NZ"
+  }
+]

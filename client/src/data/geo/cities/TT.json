@@ -1,0 +1,134 @@
+{
+  "ARI": [
+    {
+      "name": "Arima",
+      "postalCodes": []
+    }
+  ],
+  "CHA": [
+    {
+      "name": "Chaguanas",
+      "postalCodes": []
+    },
+    {
+      "name": "Ward of Chaguanas",
+      "postalCodes": []
+    }
+  ],
+  "CTT": [
+    {
+      "name": "Couva",
+      "postalCodes": []
+    },
+    {
+      "name": "Tabaquite",
+      "postalCodes": []
+    }
+  ],
+  "DMN": [
+    {
+      "name": "Petit Valley",
+      "postalCodes": []
+    },
+    {
+      "name": "Ward of Diego Martin",
+      "postalCodes": []
+    }
+  ],
+  "ETO": [
+    {
+      "name": "Scarborough",
+      "postalCodes": []
+    }
+  ],
+  "PED": [
+    {
+      "name": "Debe",
+      "postalCodes": []
+    },
+    {
+      "name": "Peñal",
+      "postalCodes": []
+    }
+  ],
+  "PTF": [
+    {
+      "name": "Point Fortin",
+      "postalCodes": []
+    }
+  ],
+  "POS": [
+    {
+      "name": "Mucurapo",
+      "postalCodes": []
+    },
+    {
+      "name": "Port of Spain",
+      "postalCodes": []
+    }
+  ],
+  "PRT": [
+    {
+      "name": "Princes Town",
+      "postalCodes": []
+    }
+  ],
+  "MRC": [],
+  "SFO": [
+    {
+      "name": "Marabella",
+      "postalCodes": []
+    },
+    {
+      "name": "Mon Repos",
+      "postalCodes": []
+    },
+    {
+      "name": "San Fernando",
+      "postalCodes": []
+    }
+  ],
+  "SJL": [
+    {
+      "name": "Laventille",
+      "postalCodes": []
+    }
+  ],
+  "SGE": [
+    {
+      "name": "Sangre Grande",
+      "postalCodes": []
+    }
+  ],
+  "SIP": [
+    {
+      "name": "Siparia",
+      "postalCodes": []
+    },
+    {
+      "name": "Ward of Siparia",
+      "postalCodes": []
+    }
+  ],
+  "TUP": [
+    {
+      "name": "Arouca",
+      "postalCodes": []
+    },
+    {
+      "name": "Paradise",
+      "postalCodes": []
+    },
+    {
+      "name": "Tunapuna",
+      "postalCodes": []
+    }
+  ],
+  "WTO": [
+    {
+      "name": "Rio Claro",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

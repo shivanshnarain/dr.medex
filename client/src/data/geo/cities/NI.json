@@ -1,0 +1,657 @@
+{
+  "BO": [
+    {
+      "name": "Boaco",
+      "postalCodes": []
+    },
+    {
+      "name": "Camoapa",
+      "postalCodes": []
+    },
+    {
+      "name": "San José de los Remates",
+      "postalCodes": []
+    },
+    {
+      "name": "San Lorenzo",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Lucía",
+      "postalCodes": []
+    },
+    {
+      "name": "Teustepe",
+      "postalCodes": []
+    }
+  ],
+  "CA": [
+    {
+      "name": "Diriamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolores",
+      "postalCodes": []
+    },
+    {
+      "name": "El Rosario",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinotepe",
+      "postalCodes": []
+    },
+    {
+      "name": "La Conquista",
+      "postalCodes": []
+    },
+    {
+      "name": "La Paz de Carazo",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Marcos",
+      "postalCodes": []
+    },
+    {
+      "name": "San Marcos",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Teresa",
+      "postalCodes": []
+    }
+  ],
+  "CI": [
+    {
+      "name": "Chichigalpa",
+      "postalCodes": []
+    },
+    {
+      "name": "Chinandega",
+      "postalCodes": []
+    },
+    {
+      "name": "Cinco Pinos",
+      "postalCodes": []
+    },
+    {
+      "name": "Corinto",
+      "postalCodes": []
+    },
+    {
+      "name": "El Realejo",
+      "postalCodes": []
+    },
+    {
+      "name": "El Viejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiquilillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Francisco del Norte",
+      "postalCodes": []
+    },
+    {
+      "name": "Posoltega",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Morazán",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Tomás del Norte",
+      "postalCodes": []
+    },
+    {
+      "name": "Somotillo",
+      "postalCodes": []
+    }
+  ],
+  "CO": [
+    {
+      "name": "Acoyapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Comalapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Cuapa",
+      "postalCodes": []
+    },
+    {
+      "name": "El Ayote",
+      "postalCodes": []
+    },
+    {
+      "name": "Juigalpa",
+      "postalCodes": []
+    },
+    {
+      "name": "La Libertad",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Domingo",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Tomás",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Sandino",
+      "postalCodes": []
+    }
+  ],
+  "ES": [
+    {
+      "name": "Condega",
+      "postalCodes": []
+    },
+    {
+      "name": "Estelí",
+      "postalCodes": []
+    },
+    {
+      "name": "La Trinidad",
+      "postalCodes": []
+    },
+    {
+      "name": "Pueblo Nuevo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan de Limay",
+      "postalCodes": []
+    }
+  ],
+  "GR": [
+    {
+      "name": "Diriá",
+      "postalCodes": []
+    },
+    {
+      "name": "Diriomo",
+      "postalCodes": []
+    },
+    {
+      "name": "Granada",
+      "postalCodes": []
+    },
+    {
+      "name": "Nandaime",
+      "postalCodes": []
+    }
+  ],
+  "JI": [
+    {
+      "name": "El Cuá",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinotega",
+      "postalCodes": []
+    },
+    {
+      "name": "La Concordia",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Praderas",
+      "postalCodes": []
+    },
+    {
+      "name": "LLano de La Cruz",
+      "postalCodes": []
+    },
+    {
+      "name": "San José de Bocay",
+      "postalCodes": []
+    },
+    {
+      "name": "San Rafael del Norte",
+      "postalCodes": []
+    },
+    {
+      "name": "San Sebastián de Yalí",
+      "postalCodes": []
+    }
+  ],
+  "LE": [
+    {
+      "name": "Achuapa",
+      "postalCodes": []
+    },
+    {
+      "name": "El Jicaral",
+      "postalCodes": []
+    },
+    {
+      "name": "El Sauce",
+      "postalCodes": []
+    },
+    {
+      "name": "La Paz Centro",
+      "postalCodes": []
+    },
+    {
+      "name": "Larreynaga",
+      "postalCodes": []
+    },
+    {
+      "name": "León",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagarote",
+      "postalCodes": []
+    },
+    {
+      "name": "Quezalguaque",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rosa del Peñón",
+      "postalCodes": []
+    },
+    {
+      "name": "Telica",
+      "postalCodes": []
+    }
+  ],
+  "MD": [
+    {
+      "name": "Las Sabanas",
+      "postalCodes": []
+    },
+    {
+      "name": "Palacagüina",
+      "postalCodes": []
+    },
+    {
+      "name": "San José de Cusmapa",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan de Río Coco",
+      "postalCodes": []
+    },
+    {
+      "name": "San Lucas",
+      "postalCodes": []
+    },
+    {
+      "name": "Somoto",
+      "postalCodes": []
+    },
+    {
+      "name": "Telpaneca",
+      "postalCodes": []
+    },
+    {
+      "name": "Totogalpa",
+      "postalCodes": []
+    },
+    {
+      "name": "Yalagüina",
+      "postalCodes": []
+    }
+  ],
+  "MN": [
+    {
+      "name": "Ciudad Sandino",
+      "postalCodes": []
+    },
+    {
+      "name": "El Crucero",
+      "postalCodes": []
+    },
+    {
+      "name": "Managua",
+      "postalCodes": []
+    },
+    {
+      "name": "Masachapa",
+      "postalCodes": []
+    },
+    {
+      "name": "San Rafael del Sur",
+      "postalCodes": []
+    },
+    {
+      "name": "Ticuantepe",
+      "postalCodes": []
+    },
+    {
+      "name": "Tipitapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Valle San Francisco",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa El Carmen",
+      "postalCodes": []
+    }
+  ],
+  "MS": [
+    {
+      "name": "Catarina",
+      "postalCodes": []
+    },
+    {
+      "name": "La Concepción",
+      "postalCodes": []
+    },
+    {
+      "name": "Masatepe",
+      "postalCodes": []
+    },
+    {
+      "name": "Masaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Masatepe",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Nandasmo",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Niquinohomo",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Juan de Oriente",
+      "postalCodes": []
+    },
+    {
+      "name": "Nandasmo",
+      "postalCodes": []
+    },
+    {
+      "name": "Nindirí",
+      "postalCodes": []
+    },
+    {
+      "name": "Niquinohomo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan de Oriente",
+      "postalCodes": []
+    },
+    {
+      "name": "Tisma",
+      "postalCodes": []
+    }
+  ],
+  "MT": [
+    {
+      "name": "Ciudad Darío",
+      "postalCodes": []
+    },
+    {
+      "name": "Matagalpa",
+      "postalCodes": []
+    },
+    {
+      "name": "Matiguás",
+      "postalCodes": []
+    },
+    {
+      "name": "Muy Muy",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Blanco",
+      "postalCodes": []
+    },
+    {
+      "name": "San Dionisio",
+      "postalCodes": []
+    },
+    {
+      "name": "San Ramón",
+      "postalCodes": []
+    },
+    {
+      "name": "Terrabona",
+      "postalCodes": []
+    }
+  ],
+  "AN": [
+    {
+      "name": "Bonanza",
+      "postalCodes": []
+    },
+    {
+      "name": "Prinzapolka",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Cabezas",
+      "postalCodes": []
+    },
+    {
+      "name": "Siuna",
+      "postalCodes": []
+    },
+    {
+      "name": "Waslala",
+      "postalCodes": []
+    },
+    {
+      "name": "Waspán",
+      "postalCodes": []
+    }
+  ],
+  "NS": [
+    {
+      "name": "Ciudad Antigua",
+      "postalCodes": []
+    },
+    {
+      "name": "Dipilto",
+      "postalCodes": []
+    },
+    {
+      "name": "El Jícaro",
+      "postalCodes": []
+    },
+    {
+      "name": "Jalapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Macuelizo",
+      "postalCodes": []
+    },
+    {
+      "name": "Mozonte",
+      "postalCodes": []
+    },
+    {
+      "name": "Murra",
+      "postalCodes": []
+    },
+    {
+      "name": "Ocotal",
+      "postalCodes": []
+    },
+    {
+      "name": "Quilalí",
+      "postalCodes": []
+    },
+    {
+      "name": "San Fernando",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa María",
+      "postalCodes": []
+    },
+    {
+      "name": "Wiwilí",
+      "postalCodes": []
+    }
+  ],
+  "SJ": [
+    {
+      "name": "El Almendro",
+      "postalCodes": []
+    },
+    {
+      "name": "Greytown",
+      "postalCodes": []
+    },
+    {
+      "name": "Morrito",
+      "postalCodes": []
+    },
+    {
+      "name": "San Carlos",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguelito",
+      "postalCodes": []
+    }
+  ],
+  "RI": [
+    {
+      "name": "Altagracia",
+      "postalCodes": []
+    },
+    {
+      "name": "Belén",
+      "postalCodes": []
+    },
+    {
+      "name": "Buenos Aires",
+      "postalCodes": []
+    },
+    {
+      "name": "Cárdenas",
+      "postalCodes": []
+    },
+    {
+      "name": "Moyogalpa",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Altagracia",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Belén",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Buenos Aires",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Cárdenas",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Moyogalpa",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Potosí",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Rivas",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Jorge",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Juan del Sur",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Tola",
+      "postalCodes": []
+    },
+    {
+      "name": "Potosí",
+      "postalCodes": []
+    },
+    {
+      "name": "Rivas",
+      "postalCodes": []
+    },
+    {
+      "name": "San Jorge",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan del Sur",
+      "postalCodes": []
+    },
+    {
+      "name": "Tola",
+      "postalCodes": []
+    }
+  ],
+  "AS": [
+    {
+      "name": "Bluefields",
+      "postalCodes": []
+    },
+    {
+      "name": "Bocana de Paiwas",
+      "postalCodes": []
+    },
+    {
+      "name": "Corn Island",
+      "postalCodes": []
+    },
+    {
+      "name": "El Rama",
+      "postalCodes": []
+    },
+    {
+      "name": "El Tortuguero",
+      "postalCodes": []
+    },
+    {
+      "name": "Kukrahill",
+      "postalCodes": []
+    },
+    {
+      "name": "La Cruz de Río Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Laguna de Perlas",
+      "postalCodes": []
+    },
+    {
+      "name": "Muelle de los Bueyes",
+      "postalCodes": []
+    },
+    {
+      "name": "Nueva Guinea",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

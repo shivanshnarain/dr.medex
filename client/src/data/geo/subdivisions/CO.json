@@ -1,0 +1,167 @@
+[
+  {
+    "code": "AMA",
+    "name": "Amazonas",
+    "countryCode": "CO"
+  },
+  {
+    "code": "ANT",
+    "name": "Antioquia",
+    "countryCode": "CO"
+  },
+  {
+    "code": "ARA",
+    "name": "Arauca",
+    "countryCode": "CO"
+  },
+  {
+    "code": "SAP",
+    "name": "Archipiélago de San Andrés, Providencia y Santa Catalina",
+    "countryCode": "CO"
+  },
+  {
+    "code": "ATL",
+    "name": "Atlántico",
+    "countryCode": "CO"
+  },
+  {
+    "code": "DC",
+    "name": "Bogotá D.C.",
+    "countryCode": "CO"
+  },
+  {
+    "code": "BOL",
+    "name": "Bolívar",
+    "countryCode": "CO"
+  },
+  {
+    "code": "BOY",
+    "name": "Boyacá",
+    "countryCode": "CO"
+  },
+  {
+    "code": "CAL",
+    "name": "Caldas",
+    "countryCode": "CO"
+  },
+  {
+    "code": "CAQ",
+    "name": "Caquetá",
+    "countryCode": "CO"
+  },
+  {
+    "code": "CAS",
+    "name": "Casanare",
+    "countryCode": "CO"
+  },
+  {
+    "code": "CAU",
+    "name": "Cauca",
+    "countryCode": "CO"
+  },
+  {
+    "code": "CES",
+    "name": "Cesar",
+    "countryCode": "CO"
+  },
+  {
+    "code": "CHO",
+    "name": "Chocó",
+    "countryCode": "CO"
+  },
+  {
+    "code": "COR",
+    "name": "Córdoba",
+    "countryCode": "CO"
+  },
+  {
+    "code": "CUN",
+    "name": "Cundinamarca",
+    "countryCode": "CO"
+  },
+  {
+    "code": "GUA",
+    "name": "Guainía",
+    "countryCode": "CO"
+  },
+  {
+    "code": "GUV",
+    "name": "Guaviare",
+    "countryCode": "CO"
+  },
+  {
+    "code": "HUI",
+    "name": "Huila",
+    "countryCode": "CO"
+  },
+  {
+    "code": "LAG",
+    "name": "La Guajira",
+    "countryCode": "CO"
+  },
+  {
+    "code": "MAG",
+    "name": "Magdalena",
+    "countryCode": "CO"
+  },
+  {
+    "code": "MET",
+    "name": "Meta",
+    "countryCode": "CO"
+  },
+  {
+    "code": "NAR",
+    "name": "Nariño",
+    "countryCode": "CO"
+  },
+  {
+    "code": "NSA",
+    "name": "Norte de Santander",
+    "countryCode": "CO"
+  },
+  {
+    "code": "PUT",
+    "name": "Putumayo",
+    "countryCode": "CO"
+  },
+  {
+    "code": "QUI",
+    "name": "Quindío",
+    "countryCode": "CO"
+  },
+  {
+    "code": "RIS",
+    "name": "Risaralda",
+    "countryCode": "CO"
+  },
+  {
+    "code": "SAN",
+    "name": "Santander",
+    "countryCode": "CO"
+  },
+  {
+    "code": "SUC",
+    "name": "Sucre",
+    "countryCode": "CO"
+  },
+  {
+    "code": "TOL",
+    "name": "Tolima",
+    "countryCode": "CO"
+  },
+  {
+    "code": "VAC",
+    "name": "Valle del Cauca",
+    "countryCode": "CO"
+  },
+  {
+    "code": "VAU",
+    "name": "Vaupés",
+    "countryCode": "CO"
+  },
+  {
+    "code": "VID",
+    "name": "Vichada",
+    "countryCode": "CO"
+  }
+]

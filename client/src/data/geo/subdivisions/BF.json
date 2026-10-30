@@ -1,0 +1,287 @@
+[
+  {
+    "code": "BAL",
+    "name": "Balé Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "BAM",
+    "name": "Bam Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "BAN",
+    "name": "Banwa Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "BAZ",
+    "name": "Bazèga Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "01",
+    "name": "Boucle du Mouhoun Region",
+    "countryCode": "BF"
+  },
+  {
+    "code": "BGR",
+    "name": "Bougouriba Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "BLG",
+    "name": "Boulgou",
+    "countryCode": "BF"
+  },
+  {
+    "code": "02",
+    "name": "Cascades Region",
+    "countryCode": "BF"
+  },
+  {
+    "code": "03",
+    "name": "Centre",
+    "countryCode": "BF"
+  },
+  {
+    "code": "04",
+    "name": "Centre-Est Region",
+    "countryCode": "BF"
+  },
+  {
+    "code": "05",
+    "name": "Centre-Nord Region",
+    "countryCode": "BF"
+  },
+  {
+    "code": "06",
+    "name": "Centre-Ouest Region",
+    "countryCode": "BF"
+  },
+  {
+    "code": "07",
+    "name": "Centre-Sud Region",
+    "countryCode": "BF"
+  },
+  {
+    "code": "COM",
+    "name": "Comoé Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "08",
+    "name": "Est Region",
+    "countryCode": "BF"
+  },
+  {
+    "code": "GAN",
+    "name": "Ganzourgou Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "GNA",
+    "name": "Gnagna Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "GOU",
+    "name": "Gourma Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "09",
+    "name": "Hauts-Bassins Region",
+    "countryCode": "BF"
+  },
+  {
+    "code": "HOU",
+    "name": "Houet Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "IOB",
+    "name": "Ioba Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "KAD",
+    "name": "Kadiogo Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "KEN",
+    "name": "Kénédougou Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "KMD",
+    "name": "Komondjari Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "KMP",
+    "name": "Kompienga Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "KOS",
+    "name": "Kossi Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "KOP",
+    "name": "Koulpélogo Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "KOT",
+    "name": "Kouritenga Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "KOW",
+    "name": "Kourwéogo Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "LER",
+    "name": "Léraba Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "LOR",
+    "name": "Loroum Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "MOU",
+    "name": "Mouhoun",
+    "countryCode": "BF"
+  },
+  {
+    "code": "NAO",
+    "name": "Nahouri Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "NAM",
+    "name": "Namentenga Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "NAY",
+    "name": "Nayala Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "10",
+    "name": "Nord Region, Burkina Faso",
+    "countryCode": "BF"
+  },
+  {
+    "code": "NOU",
+    "name": "Noumbiel Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "OUB",
+    "name": "Oubritenga Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "OUD",
+    "name": "Oudalan Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "PAS",
+    "name": "Passoré Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "11",
+    "name": "Plateau-Central Region",
+    "countryCode": "BF"
+  },
+  {
+    "code": "PON",
+    "name": "Poni Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "12",
+    "name": "Sahel Region",
+    "countryCode": "BF"
+  },
+  {
+    "code": "SNG",
+    "name": "Sanguié Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "SMT",
+    "name": "Sanmatenga Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "SEN",
+    "name": "Séno Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "SIS",
+    "name": "Sissili Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "SOM",
+    "name": "Soum Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "SOR",
+    "name": "Sourou Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "13",
+    "name": "Sud-Ouest Region",
+    "countryCode": "BF"
+  },
+  {
+    "code": "TAP",
+    "name": "Tapoa Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "TUI",
+    "name": "Tuy Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "YAG",
+    "name": "Yagha Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "YAT",
+    "name": "Yatenga Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "ZIR",
+    "name": "Ziro Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "ZON",
+    "name": "Zondoma Province",
+    "countryCode": "BF"
+  },
+  {
+    "code": "ZOU",
+    "name": "Zoundwéogo Province",
+    "countryCode": "BF"
+  }
+]

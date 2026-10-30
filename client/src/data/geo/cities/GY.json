@@ -1,0 +1,79 @@
+{
+  "BA": [
+    {
+      "name": "Mabaruma",
+      "postalCodes": []
+    }
+  ],
+  "CU": [
+    {
+      "name": "Bartica",
+      "postalCodes": []
+    }
+  ],
+  "DE": [
+    {
+      "name": "Georgetown",
+      "postalCodes": []
+    },
+    {
+      "name": "Mahaica Village",
+      "postalCodes": []
+    }
+  ],
+  "EB": [
+    {
+      "name": "New Amsterdam",
+      "postalCodes": []
+    },
+    {
+      "name": "Skeldon",
+      "postalCodes": []
+    }
+  ],
+  "ES": [
+    {
+      "name": "Parika",
+      "postalCodes": []
+    },
+    {
+      "name": "Vreed-en-Hoop",
+      "postalCodes": []
+    }
+  ],
+  "MA": [
+    {
+      "name": "Mahaicony Village",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosignol",
+      "postalCodes": []
+    }
+  ],
+  "PM": [
+    {
+      "name": "Anna Regina",
+      "postalCodes": []
+    }
+  ],
+  "PT": [
+    {
+      "name": "Mahdia",
+      "postalCodes": []
+    }
+  ],
+  "UD": [
+    {
+      "name": "Linden",
+      "postalCodes": []
+    }
+  ],
+  "UT": [
+    {
+      "name": "Lethem",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

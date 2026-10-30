@@ -1,0 +1,6781 @@
+{
+  "10": [
+    {
+      "name": "Agatsuma-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Annaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Annaka Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fujioka",
+      "postalCodes": []
+    },
+    {
+      "name": "Fujioka Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Isesaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Isesaki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanekomachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiryū",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiryū Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Maebashi",
+      "postalCodes": []
+    },
+    {
+      "name": "Maebashi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Midori",
+      "postalCodes": []
+    },
+    {
+      "name": "Midori Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakanojōmachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Numata",
+      "postalCodes": []
+    },
+    {
+      "name": "Numata Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōmamachō-ōmama",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōta",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōta-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakai-nakajima",
+      "postalCodes": []
+    },
+    {
+      "name": "Shibukawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Shibukawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takasaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Takasaki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamamura",
+      "postalCodes": []
+    },
+    {
+      "name": "Tatebayashi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tatebayashi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tomioka",
+      "postalCodes": []
+    },
+    {
+      "name": "Tomioka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yoshii",
+      "postalCodes": []
+    }
+  ],
+  "11": [
+    {
+      "name": "Ageo Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ageoshimo",
+      "postalCodes": []
+    },
+    {
+      "name": "Asaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Asaka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chichibu",
+      "postalCodes": []
+    },
+    {
+      "name": "Chichibu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fujimi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fujimino Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukaya-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukayachō",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukiage-fujimi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyōda",
+      "postalCodes": []
+    },
+    {
+      "name": "Hannō",
+      "postalCodes": []
+    },
+    {
+      "name": "Hannō-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hanyū",
+      "postalCodes": []
+    },
+    {
+      "name": "Hanyū-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hasuda",
+      "postalCodes": []
+    },
+    {
+      "name": "Hasuda-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hatogaya-honchō",
+      "postalCodes": []
+    },
+    {
+      "name": "Hidaka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Higashimatsuyama Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hiki-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Honjō",
+      "postalCodes": []
+    },
+    {
+      "name": "Honjō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Iruma-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwatsuki",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamifukuoka",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasukabe",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasukabe Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawagoe",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawagoe-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawaguchi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawaguchi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kazo",
+      "postalCodes": []
+    },
+    {
+      "name": "Kazo-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisai",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitamoto Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kodamachō-kodamaminami",
+      "postalCodes": []
+    },
+    {
+      "name": "Kōnosu",
+      "postalCodes": []
+    },
+    {
+      "name": "Konosu-Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Koshigaya Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kukichūō",
+      "postalCodes": []
+    },
+    {
+      "name": "Kumagaya Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kurihashi",
+      "postalCodes": []
+    },
+    {
+      "name": "Menuma",
+      "postalCodes": []
+    },
+    {
+      "name": "Misato Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Morohongō",
+      "postalCodes": []
+    },
+    {
+      "name": "Niiza-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ogawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōi",
+      "postalCodes": []
+    },
+    {
+      "name": "Okegawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Okegawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōsato-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Saitama",
+      "postalCodes": []
+    },
+    {
+      "name": "Saitama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakado",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakado-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Satte",
+      "postalCodes": []
+    },
+    {
+      "name": "Satte Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sayama",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiki",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimotoda",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiraoka",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiraoka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shōbu",
+      "postalCodes": []
+    },
+    {
+      "name": "Sōka",
+      "postalCodes": []
+    },
+    {
+      "name": "Sōka Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sugito",
+      "postalCodes": []
+    },
+    {
+      "name": "Toda-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tokorozawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Tokorozawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsurugashima-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Wako",
+      "postalCodes": []
+    },
+    {
+      "name": "Wakō-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Warabi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yashio",
+      "postalCodes": []
+    },
+    {
+      "name": "Yashio-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yono",
+      "postalCodes": []
+    },
+    {
+      "name": "Yorii",
+      "postalCodes": []
+    },
+    {
+      "name": "Yoshikawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Yoshikawa Shi",
+      "postalCodes": []
+    }
+  ],
+  "12": [
+    {
+      "name": "Abiko",
+      "postalCodes": []
+    },
+    {
+      "name": "Abiko-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Asahi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiba",
+      "postalCodes": []
+    },
+    {
+      "name": "Chōshi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Funabashi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Futtsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Hasaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Honchō",
+      "postalCodes": []
+    },
+    {
+      "name": "Ichihara",
+      "postalCodes": []
+    },
+    {
+      "name": "Ichihara Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ichikawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Inzai-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Isumi",
+      "postalCodes": []
+    },
+    {
+      "name": "Isumi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamagaya Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamogawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamogawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kashiwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kashiwa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Katori-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Katsuura",
+      "postalCodes": []
+    },
+    {
+      "name": "Katsuura-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kimitsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisarazu",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisarazu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsudo Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Minamibōsō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mobara",
+      "postalCodes": []
+    },
+    {
+      "name": "Mobara Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagareyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagareyama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Narashino-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Narita",
+      "postalCodes": []
+    },
+    {
+      "name": "Narita-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Narutō",
+      "postalCodes": []
+    },
+    {
+      "name": "Noda",
+      "postalCodes": []
+    },
+    {
+      "name": "Noda-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōami",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōamishirasato-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōhara",
+      "postalCodes": []
+    },
+    {
+      "name": "Omigawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakura",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakura-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sambu-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanmu",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanmu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sawara",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiroi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiroi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shisui",
+      "postalCodes": []
+    },
+    {
+      "name": "Sodegaura-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sōsa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tateyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Tateyama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tōgane",
+      "postalCodes": []
+    },
+    {
+      "name": "Tōgane-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tomisato-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Urayasu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yachimata",
+      "postalCodes": []
+    },
+    {
+      "name": "Yachimata-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yachiyo-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yōkaichiba",
+      "postalCodes": []
+    },
+    {
+      "name": "Yotsukaidō",
+      "postalCodes": []
+    },
+    {
+      "name": "Yotsukaidō-shi",
+      "postalCodes": []
+    }
+  ],
+  "13": [
+    {
+      "name": "Adachi Ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Akiruno-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Akishima-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Arakawa Ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Bunkyō-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiyoda-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Chōfu",
+      "postalCodes": []
+    },
+    {
+      "name": "Chōfu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chūō Ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Edogawa Ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuchū-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fussa",
+      "postalCodes": []
+    },
+    {
+      "name": "Hachiōji",
+      "postalCodes": []
+    },
+    {
+      "name": "Hamura-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Higashi-murayama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Higashikurume-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Higashimurayama",
+      "postalCodes": []
+    },
+    {
+      "name": "Higashiyamato",
+      "postalCodes": []
+    },
+    {
+      "name": "Higashiyamato-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hino",
+      "postalCodes": []
+    },
+    {
+      "name": "Hino-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Inagi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Itabashi-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Itsukaichi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamirenjaku",
+      "postalCodes": []
+    },
+    {
+      "name": "Katsushika Ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Kita-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiyose-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kodaira-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Koganei-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kokubunji",
+      "postalCodes": []
+    },
+    {
+      "name": "Kokubunji-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Komae-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kōtō-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunitachi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Machida",
+      "postalCodes": []
+    },
+    {
+      "name": "Machida-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Meguro-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Minato-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Mitaka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Musashimurayama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Musashino",
+      "postalCodes": []
+    },
+    {
+      "name": "Musashino-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakano-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Nerima-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Nishi-Tokyo-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nishitōkyō-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōme",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōme-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōta-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Setagaya-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Shibuya-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Shinagawa-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Shinjuku-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Suginami-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Sumida-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Tachikawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Taitō-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Tama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanashichō",
+      "postalCodes": []
+    },
+    {
+      "name": "Tokyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Toshima-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Urayasu",
+      "postalCodes": []
+    }
+  ],
+  "14": [
+    {
+      "name": "Atsugi",
+      "postalCodes": []
+    },
+    {
+      "name": "Atsugi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ayase Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chigasaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Chigasaki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ebina Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fujisawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Fujisawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hadano",
+      "postalCodes": []
+    },
+    {
+      "name": "Hadano-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hakone",
+      "postalCodes": []
+    },
+    {
+      "name": "Hayama",
+      "postalCodes": []
+    },
+    {
+      "name": "Hiratsuka",
+      "postalCodes": []
+    },
+    {
+      "name": "Hiratsuka Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Isehara",
+      "postalCodes": []
+    },
+    {
+      "name": "Isehara Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamakura",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamakura Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawasaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawasaki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Minamiashigara",
+      "postalCodes": []
+    },
+    {
+      "name": "Minamiashigara Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Minamirinkan",
+      "postalCodes": []
+    },
+    {
+      "name": "Miura",
+      "postalCodes": []
+    },
+    {
+      "name": "Miura Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ninomiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Odawara",
+      "postalCodes": []
+    },
+    {
+      "name": "Odawara-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōiso",
+      "postalCodes": []
+    },
+    {
+      "name": "Sagamihara-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamakita",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamato-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yokohama",
+      "postalCodes": []
+    },
+    {
+      "name": "Yokohama Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yokosuka",
+      "postalCodes": []
+    },
+    {
+      "name": "Yokosuka Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yugawara",
+      "postalCodes": []
+    },
+    {
+      "name": "Zama",
+      "postalCodes": []
+    },
+    {
+      "name": "Zama Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Zushi Shi",
+      "postalCodes": []
+    }
+  ],
+  "15": [
+    {
+      "name": "Agano Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Arai",
+      "postalCodes": []
+    },
+    {
+      "name": "Gosen",
+      "postalCodes": []
+    },
+    {
+      "name": "Gosen Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Itoigawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Itoigawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jōetsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Jōetsu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kameda-honchō",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamo",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamo Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kashiwazaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Kashiwazaki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Maki",
+      "postalCodes": []
+    },
+    {
+      "name": "Minamiuonuma Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mitsuke",
+      "postalCodes": []
+    },
+    {
+      "name": "Mitsuke Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Muikamachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Murakami Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Muramatsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Myoko-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagaoka",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagaoka Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Niigata",
+      "postalCodes": []
+    },
+    {
+      "name": "Niigata Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Niitsu-honchō",
+      "postalCodes": []
+    },
+    {
+      "name": "Ojiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Ojiya-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ryōtsu-minato",
+      "postalCodes": []
+    },
+    {
+      "name": "Sado Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanjō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shibata",
+      "postalCodes": []
+    },
+    {
+      "name": "Shibata Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiozawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Shirone",
+      "postalCodes": []
+    },
+    {
+      "name": "Suibara",
+      "postalCodes": []
+    },
+    {
+      "name": "Tainai",
+      "postalCodes": []
+    },
+    {
+      "name": "Tainai Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tochio-honchō",
+      "postalCodes": []
+    },
+    {
+      "name": "Tōkamachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tōkamachi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsubame",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsubame Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Uonuma",
+      "postalCodes": []
+    },
+    {
+      "name": "Uonuma Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yoshida-kasugachō",
+      "postalCodes": []
+    }
+  ],
+  "16": [
+    {
+      "name": "Fukumitsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Himi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Himimachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Imizu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamiichi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kurobe-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Namerikawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Namerikawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanto Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanto-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nishishinminato",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyūzen",
+      "postalCodes": []
+    },
+    {
+      "name": "Oyabe",
+      "postalCodes": []
+    },
+    {
+      "name": "Oyabe Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takaoka",
+      "postalCodes": []
+    },
+    {
+      "name": "Takaoka Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tonami Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Toyama Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Uozu",
+      "postalCodes": []
+    },
+    {
+      "name": "Uozu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yatsuomachi-higashikumisaka",
+      "postalCodes": []
+    }
+  ],
+  "17": [
+    {
+      "name": "Hakui",
+      "postalCodes": []
+    },
+    {
+      "name": "Hakui Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hakusan Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaga Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kahoku Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanazawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanazawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Komatsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsutō",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanao Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nomi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nonoichi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nonoichi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Suzu",
+      "postalCodes": []
+    },
+    {
+      "name": "Suzu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsubata",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsurugi-asahimachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Wajima Shi",
+      "postalCodes": []
+    }
+  ],
+  "18": [
+    {
+      "name": "Asahi",
+      "postalCodes": []
+    },
+    {
+      "name": "Awara-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Echizen-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukui-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Katsuyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Katsuyama Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Maruoka",
+      "postalCodes": []
+    },
+    {
+      "name": "Mikuni",
+      "postalCodes": []
+    },
+    {
+      "name": "Obama",
+      "postalCodes": []
+    },
+    {
+      "name": "Obama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōi-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Ono",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōno-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabae",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabae-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakai-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takefu",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsuruga",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsuruga-shi",
+      "postalCodes": []
+    }
+  ],
+  "19": [
+    {
+      "name": "Chūō-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Enzan",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuefuki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuji-yoshida Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fujikawaguchiko",
+      "postalCodes": []
+    },
+    {
+      "name": "Fujiyoshida",
+      "postalCodes": []
+    },
+    {
+      "name": "Hokuto",
+      "postalCodes": []
+    },
+    {
+      "name": "Hokuto-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Isawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kai-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kōfu",
+      "postalCodes": []
+    },
+    {
+      "name": "Kōfu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kōshū-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Minami Alps-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nirasaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Nirasaki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōtsuki",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōtsuki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ryūō",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsuru-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Uenohara",
+      "postalCodes": []
+    },
+    {
+      "name": "Uenohara-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamanashi-shi",
+      "postalCodes": []
+    }
+  ],
+  "20": [
+    {
+      "name": "Azumino-Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chikuma Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chino",
+      "postalCodes": []
+    },
+    {
+      "name": "Chino Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hakuba",
+      "postalCodes": []
+    },
+    {
+      "name": "Hotaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Iida",
+      "postalCodes": []
+    },
+    {
+      "name": "Iida-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Iiyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Iiyama Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ina",
+      "postalCodes": []
+    },
+    {
+      "name": "Ina-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamimaruko",
+      "postalCodes": []
+    },
+    {
+      "name": "Komagane",
+      "postalCodes": []
+    },
+    {
+      "name": "Komagane-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Komoro",
+      "postalCodes": []
+    },
+    {
+      "name": "Komoro Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsumoto",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsumoto Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagano",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagano Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakano Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Okaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Okaya Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōmachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōmachi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Saku",
+      "postalCodes": []
+    },
+    {
+      "name": "Saku Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiojiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiojiri-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Suwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Suwa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Suzaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Suzaka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tatsuno",
+      "postalCodes": []
+    },
+    {
+      "name": "Tōmi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tōmi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Toyoshina",
+      "postalCodes": []
+    },
+    {
+      "name": "Ueda",
+      "postalCodes": []
+    },
+    {
+      "name": "Ueda Shi",
+      "postalCodes": []
+    }
+  ],
+  "21": [
+    {
+      "name": "Ena-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gero",
+      "postalCodes": []
+    },
+    {
+      "name": "Gero-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gifu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gōdo",
+      "postalCodes": []
+    },
+    {
+      "name": "Gujō",
+      "postalCodes": []
+    },
+    {
+      "name": "Gujō-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hashima",
+      "postalCodes": []
+    },
+    {
+      "name": "Hashima-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hida",
+      "postalCodes": []
+    },
+    {
+      "name": "Hida Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaizu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kakamigahara-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kani-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasamatsuchō",
+      "postalCodes": []
+    },
+    {
+      "name": "Mino",
+      "postalCodes": []
+    },
+    {
+      "name": "Mino-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Minokamo",
+      "postalCodes": []
+    },
+    {
+      "name": "Minokamo-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mitake",
+      "postalCodes": []
+    },
+    {
+      "name": "Mizuho-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mizunami",
+      "postalCodes": []
+    },
+    {
+      "name": "Mizunami-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Motosu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakatsugawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakatsugawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōgaki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Seki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tajimi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tajimi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takayama Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarui",
+      "postalCodes": []
+    },
+    {
+      "name": "Toki",
+      "postalCodes": []
+    },
+    {
+      "name": "Toki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamagata-shi",
+      "postalCodes": []
+    }
+  ],
+  "22": [
+    {
+      "name": "Atami",
+      "postalCodes": []
+    },
+    {
+      "name": "Atami-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuji Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fujieda Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fujinomiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Fujinomiya Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukuroi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukuroi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gotenba Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hamakita",
+      "postalCodes": []
+    },
+    {
+      "name": "Hamamatsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Hamamatsu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Heda",
+      "postalCodes": []
+    },
+    {
+      "name": "Itō",
+      "postalCodes": []
+    },
+    {
+      "name": "Itō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwata",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwata-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Izu",
+      "postalCodes": []
+    },
+    {
+      "name": "Izu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Izunokuni-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kakegawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kakegawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Kikugawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kosai",
+      "postalCodes": []
+    },
+    {
+      "name": "Kosai-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Makinohara Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mishima",
+      "postalCodes": []
+    },
+    {
+      "name": "Mishima Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mori",
+      "postalCodes": []
+    },
+    {
+      "name": "Numazu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Omaezaki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Sagara",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimada",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimada-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimoda",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimoda-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shizuoka",
+      "postalCodes": []
+    },
+    {
+      "name": "Shizuoka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Susono",
+      "postalCodes": []
+    },
+    {
+      "name": "Susono Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yaizu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yaizu Shi",
+      "postalCodes": []
+    }
+  ],
+  "23": [
+    {
+      "name": "Aisai-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ama-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Anjō-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiryū",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiryū-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chita",
+      "postalCodes": []
+    },
+    {
+      "name": "Chita-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gamagōri",
+      "postalCodes": []
+    },
+    {
+      "name": "Gamagōri-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Handa",
+      "postalCodes": []
+    },
+    {
+      "name": "Handa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hekinan",
+      "postalCodes": []
+    },
+    {
+      "name": "Hekinan-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ichinomiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Ichinomiya-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Inazawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Inazawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Inuyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Inuyama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ishiki",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwakura",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwakura-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanie",
+      "postalCodes": []
+    },
+    {
+      "name": "Kariya",
+      "postalCodes": []
+    },
+    {
+      "name": "Kariya-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasugai",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasugai-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitanagoya",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitanagoya-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiyosu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Komaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Komaki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kōnan",
+      "postalCodes": []
+    },
+    {
+      "name": "Kōnan-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kozakai-chō",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuroda",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyoshi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagakute-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagoya",
+      "postalCodes": []
+    },
+    {
+      "name": "Nishio",
+      "postalCodes": []
+    },
+    {
+      "name": "Nishio-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nisshin-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōbu",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōbu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Okazaki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Owariasahi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Seto",
+      "postalCodes": []
+    },
+    {
+      "name": "Seto-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shinshiro",
+      "postalCodes": []
+    },
+    {
+      "name": "Shinshiro-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sobue",
+      "postalCodes": []
+    },
+    {
+      "name": "Tahara",
+      "postalCodes": []
+    },
+    {
+      "name": "Tahara-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takahama",
+      "postalCodes": []
+    },
+    {
+      "name": "Takahama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Taketoyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Tōkai-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tokoname",
+      "postalCodes": []
+    },
+    {
+      "name": "Tokoname-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Toyoake",
+      "postalCodes": []
+    },
+    {
+      "name": "Toyoake-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Toyohama",
+      "postalCodes": []
+    },
+    {
+      "name": "Toyohashi",
+      "postalCodes": []
+    },
+    {
+      "name": "Toyohashi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Toyokawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Toyokawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Toyota-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsushima",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsushima-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yatomi-shi",
+      "postalCodes": []
+    }
+  ],
+  "24": [
+    {
+      "name": "Hisai-motomachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Iga-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Inabe",
+      "postalCodes": []
+    },
+    {
+      "name": "Inabe-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ise",
+      "postalCodes": []
+    },
+    {
+      "name": "Ise-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kameyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Kameyama Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawage",
+      "postalCodes": []
+    },
+    {
+      "name": "Komono",
+      "postalCodes": []
+    },
+    {
+      "name": "Kumano",
+      "postalCodes": []
+    },
+    {
+      "name": "Kumano-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuwana",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuwana-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsuzaka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nabari",
+      "postalCodes": []
+    },
+    {
+      "name": "Nabari-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Owase",
+      "postalCodes": []
+    },
+    {
+      "name": "Shima",
+      "postalCodes": []
+    },
+    {
+      "name": "Shima-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Suzuka",
+      "postalCodes": []
+    },
+    {
+      "name": "Suzuka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Toba",
+      "postalCodes": []
+    },
+    {
+      "name": "Toba-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ueno-ebisumachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yokkaichi-shi",
+      "postalCodes": []
+    }
+  ],
+  "25": [
+    {
+      "name": "Higashiōmi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hikone",
+      "postalCodes": []
+    },
+    {
+      "name": "Hikone-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hino",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitahama",
+      "postalCodes": []
+    },
+    {
+      "name": "Kōka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Konan-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kusatsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Kusatsu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Maibara",
+      "postalCodes": []
+    },
+    {
+      "name": "Maibara-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Minakuchichō-matoba",
+      "postalCodes": []
+    },
+    {
+      "name": "Moriyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Moriyama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagahama",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagahama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōmihachiman",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōmihachiman-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōtsu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Rittō-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takashima",
+      "postalCodes": []
+    },
+    {
+      "name": "Takashima-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yasu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Youkaichi",
+      "postalCodes": []
+    }
+  ],
+  "26": [
+    {
+      "name": "Arashiyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Ayabe",
+      "postalCodes": []
+    },
+    {
+      "name": "Ayabe-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukuchiyama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jōyō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kameoka",
+      "postalCodes": []
+    },
+    {
+      "name": "Kameoka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamigyō-ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Kizugawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyōtanabe Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyōtango-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyoto",
+      "postalCodes": []
+    },
+    {
+      "name": "Maizuru",
+      "postalCodes": []
+    },
+    {
+      "name": "Maizuru-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyazu",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyazu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mukō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagaokakyō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nantan-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanabe",
+      "postalCodes": []
+    },
+    {
+      "name": "Uji",
+      "postalCodes": []
+    },
+    {
+      "name": "Uji Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yawata",
+      "postalCodes": []
+    },
+    {
+      "name": "Yawata Shi",
+      "postalCodes": []
+    }
+  ],
+  "27": [
+    {
+      "name": "Daitō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Daitōchō",
+      "postalCodes": []
+    },
+    {
+      "name": "Fujiidera-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Habikino-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hannan",
+      "postalCodes": []
+    },
+    {
+      "name": "Hannan Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Higashiōsaka Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hirakata",
+      "postalCodes": []
+    },
+    {
+      "name": "Hirakata Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibaraki",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibaraki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ikeda",
+      "postalCodes": []
+    },
+    {
+      "name": "Ikeda Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Izumi",
+      "postalCodes": []
+    },
+    {
+      "name": "Izumi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Izumiōtsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Izumiōtsu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Izumisano",
+      "postalCodes": []
+    },
+    {
+      "name": "Izumisano Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kadoma",
+      "postalCodes": []
+    },
+    {
+      "name": "Kadoma Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaizuka",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaizuka Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kashihara",
+      "postalCodes": []
+    },
+    {
+      "name": "Kashiwara-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Katano Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawachi-nagano Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kishiwada",
+      "postalCodes": []
+    },
+    {
+      "name": "Kishiwada Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsubara",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsubara-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mino",
+      "postalCodes": []
+    },
+    {
+      "name": "Minoo Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mishima-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Moriguchi",
+      "postalCodes": []
+    },
+    {
+      "name": "Neyagawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Neyagawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Osaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōsaka-sayama Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakai",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakai Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sennan Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Settsu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shijonawate Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Suita",
+      "postalCodes": []
+    },
+    {
+      "name": "Suita Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tajiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Takaishi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takaishi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takatsuki",
+      "postalCodes": []
+    },
+    {
+      "name": "Takatsuki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tondabayashi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tondabayashichō",
+      "postalCodes": []
+    },
+    {
+      "name": "Toyonaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Toyonaka Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yao",
+      "postalCodes": []
+    },
+    {
+      "name": "Yao-shi",
+      "postalCodes": []
+    }
+  ],
+  "28": [
+    {
+      "name": "Aioi",
+      "postalCodes": []
+    },
+    {
+      "name": "Aioi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Akashi",
+      "postalCodes": []
+    },
+    {
+      "name": "Akashi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amagasaki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Asago-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ashiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Ashiya Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Awaji Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukura",
+      "postalCodes": []
+    },
+    {
+      "name": "Himeji",
+      "postalCodes": []
+    },
+    {
+      "name": "Himeji Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Itami",
+      "postalCodes": []
+    },
+    {
+      "name": "Itami Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kakogawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kakogawachō-honmachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kariya",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasai Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Katō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawanishi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawanishi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kobe",
+      "postalCodes": []
+    },
+    {
+      "name": "Miki",
+      "postalCodes": []
+    },
+    {
+      "name": "Miki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Minamiawaji Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nishinomiya Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nishinomiya-hama",
+      "postalCodes": []
+    },
+    {
+      "name": "Nishiwaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Nishiwaki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ono",
+      "postalCodes": []
+    },
+    {
+      "name": "Ono Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanda Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sandachō",
+      "postalCodes": []
+    },
+    {
+      "name": "Sasayama",
+      "postalCodes": []
+    },
+    {
+      "name": "Sasayama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shirahamachō-usazakiminami",
+      "postalCodes": []
+    },
+    {
+      "name": "Shisō-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sumoto",
+      "postalCodes": []
+    },
+    {
+      "name": "Sumoto Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Taka-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Takarazuka",
+      "postalCodes": []
+    },
+    {
+      "name": "Takarazuka Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takasago Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanba-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tatsuno-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tatsunochō-tominaga",
+      "postalCodes": []
+    },
+    {
+      "name": "Toyooka",
+      "postalCodes": []
+    },
+    {
+      "name": "Toyooka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yabu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yabu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamazakichō-nakabirose",
+      "postalCodes": []
+    },
+    {
+      "name": "Yashiro",
+      "postalCodes": []
+    },
+    {
+      "name": "Yonedacho Sendo",
+      "postalCodes": []
+    }
+  ],
+  "29": [
+    {
+      "name": "Gojō",
+      "postalCodes": []
+    },
+    {
+      "name": "Gojō-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gose",
+      "postalCodes": []
+    },
+    {
+      "name": "Haibara-akanedai",
+      "postalCodes": []
+    },
+    {
+      "name": "Hōryūji",
+      "postalCodes": []
+    },
+    {
+      "name": "Ikoma",
+      "postalCodes": []
+    },
+    {
+      "name": "Ikoma-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kashiba-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kashihara-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Katsuragi",
+      "postalCodes": []
+    },
+    {
+      "name": "Katsuragi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nara-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakurai",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakurai-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tawaramoto",
+      "postalCodes": []
+    },
+    {
+      "name": "Tenri",
+      "postalCodes": []
+    },
+    {
+      "name": "Tenri-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Uda Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamatokōriyama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamatotakada-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yoshino-chō",
+      "postalCodes": []
+    }
+  ],
+  "30": [
+    {
+      "name": "Arida Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gobō",
+      "postalCodes": []
+    },
+    {
+      "name": "Hashimoto",
+      "postalCodes": []
+    },
+    {
+      "name": "Hashimoto Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwade",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwade Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kainan",
+      "postalCodes": []
+    },
+    {
+      "name": "Kainan Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kinokawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kōya",
+      "postalCodes": []
+    },
+    {
+      "name": "Minato",
+      "postalCodes": []
+    },
+    {
+      "name": "Shingū",
+      "postalCodes": []
+    },
+    {
+      "name": "Shingū-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanabe-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Wakayama",
+      "postalCodes": []
+    },
+    {
+      "name": "Wakayama Shi",
+      "postalCodes": []
+    }
+  ],
+  "31": [
+    {
+      "name": "Kurayoshi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakaiminato",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakaiminato Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tottori-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yonago Shi",
+      "postalCodes": []
+    }
+  ],
+  "32": [
+    {
+      "name": "Gōtsu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gōtsuchō",
+      "postalCodes": []
+    },
+    {
+      "name": "Hamada",
+      "postalCodes": []
+    },
+    {
+      "name": "Hamada Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hiratachō",
+      "postalCodes": []
+    },
+    {
+      "name": "Izumo",
+      "postalCodes": []
+    },
+    {
+      "name": "Izumo Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Masuda",
+      "postalCodes": []
+    },
+    {
+      "name": "Masuda Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsue",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsue Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōda Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōdachō-ōda",
+      "postalCodes": []
+    },
+    {
+      "name": "Unnan Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yasugi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yasugichō",
+      "postalCodes": []
+    }
+  ],
+  "33": [
+    {
+      "name": "Akaiwa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Asakuchi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Bizen Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibara",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibara Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamogatachō-kamogata",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasaoka",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasaoka Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kurashiki",
+      "postalCodes": []
+    },
+    {
+      "name": "Kurashiki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Maniwa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mimasaka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Niimi",
+      "postalCodes": []
+    },
+    {
+      "name": "Niimi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Okayama",
+      "postalCodes": []
+    },
+    {
+      "name": "Okayama Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Setouchi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sōja",
+      "postalCodes": []
+    },
+    {
+      "name": "Sōja Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takahashi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takahashi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamano",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamano Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsuyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsuyama-shi",
+      "postalCodes": []
+    }
+  ],
+  "34": [
+    {
+      "name": "Aki-takata Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Etajima-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuchū-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuchūchō",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukuyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukuyama Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hatsukaichi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hatsukaichi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Higashihiroshima Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hiroshima",
+      "postalCodes": []
+    },
+    {
+      "name": "Hiroshima-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Innoshima",
+      "postalCodes": []
+    },
+    {
+      "name": "Kannabechō-yahiro",
+      "postalCodes": []
+    },
+    {
+      "name": "Kure",
+      "postalCodes": []
+    },
+    {
+      "name": "Kure-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mihara",
+      "postalCodes": []
+    },
+    {
+      "name": "Mihara Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyajima",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyoshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyoshi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōno-hara",
+      "postalCodes": []
+    },
+    {
+      "name": "Onomichi",
+      "postalCodes": []
+    },
+    {
+      "name": "Onomichi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōtake",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōtake-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shin’ichi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shōbara",
+      "postalCodes": []
+    },
+    {
+      "name": "Shōbara-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takehara",
+      "postalCodes": []
+    },
+    {
+      "name": "Takehara-shi",
+      "postalCodes": []
+    }
+  ],
+  "35": [
+    {
+      "name": "Hagi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hagi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hikari",
+      "postalCodes": []
+    },
+    {
+      "name": "Hikari Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hōfu",
+      "postalCodes": []
+    },
+    {
+      "name": "Hofu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwakuni Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kudamatsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Kudamatsu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mine Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagato",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagato Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ogōri-shimogō",
+      "postalCodes": []
+    },
+    {
+      "name": "Onoda",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanyōonoda Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimonoseki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shūnan Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tokuyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Ube",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamaguchi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanai Shi",
+      "postalCodes": []
+    }
+  ],
+  "36": [
+    {
+      "name": "Anan Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Awa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ikedachō",
+      "postalCodes": []
+    },
+    {
+      "name": "Ishii",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamojimachō-jōgejima",
+      "postalCodes": []
+    },
+    {
+      "name": "Katsuura Gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Komatsushima Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Komatsushimachō",
+      "postalCodes": []
+    },
+    {
+      "name": "Mima Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyoshi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyoshi-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Naruto-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Narutochō-mitsuishi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tokushima",
+      "postalCodes": []
+    },
+    {
+      "name": "Tokushima Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Wakimachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yoshinogawa Shi",
+      "postalCodes": []
+    }
+  ],
+  "37": [
+    {
+      "name": "Higashikagawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kan’onji Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kan’onjichō",
+      "postalCodes": []
+    },
+    {
+      "name": "Marugame",
+      "postalCodes": []
+    },
+    {
+      "name": "Marugame Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mitoyo Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakaide Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakaidechō",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanuki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shido",
+      "postalCodes": []
+    },
+    {
+      "name": "Tadotsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Takamatsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Takamatsu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tonoshō",
+      "postalCodes": []
+    },
+    {
+      "name": "Zentsūji Shi",
+      "postalCodes": []
+    }
+  ],
+  "38": [
+    {
+      "name": "Hōjō",
+      "postalCodes": []
+    },
+    {
+      "name": "Imabari-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Iyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Iyo-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawanoechō",
+      "postalCodes": []
+    },
+    {
+      "name": "Kihoku-chō",
+      "postalCodes": []
+    },
+    {
+      "name": "Masaki-chō",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsuyama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Niihama",
+      "postalCodes": []
+    },
+    {
+      "name": "Niihama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōzu",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōzu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Saijō",
+      "postalCodes": []
+    },
+    {
+      "name": "Saijō-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Seiyo-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shikoku-chūō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tōon-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Uwajima",
+      "postalCodes": []
+    },
+    {
+      "name": "Uwajima-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yawatahama-shi",
+      "postalCodes": []
+    }
+  ],
+  "39": [
+    {
+      "name": "Achi",
+      "postalCodes": []
+    },
+    {
+      "name": "Agematsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Aki",
+      "postalCodes": []
+    },
+    {
+      "name": "Anan",
+      "postalCodes": []
+    },
+    {
+      "name": "Aoki",
+      "postalCodes": []
+    },
+    {
+      "name": "Asahi",
+      "postalCodes": []
+    },
+    {
+      "name": "Azumino",
+      "postalCodes": []
+    },
+    {
+      "name": "Chikuhoku",
+      "postalCodes": []
+    },
+    {
+      "name": "Chikuma",
+      "postalCodes": []
+    },
+    {
+      "name": "Chino",
+      "postalCodes": []
+    },
+    {
+      "name": "Fujimi",
+      "postalCodes": []
+    },
+    {
+      "name": "Geisei",
+      "postalCodes": []
+    },
+    {
+      "name": "Hakuba",
+      "postalCodes": []
+    },
+    {
+      "name": "Hara",
+      "postalCodes": []
+    },
+    {
+      "name": "Hidaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Hiraya",
+      "postalCodes": []
+    },
+    {
+      "name": "Iida",
+      "postalCodes": []
+    },
+    {
+      "name": "Iijima",
+      "postalCodes": []
+    },
+    {
+      "name": "Iiyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Iizuna",
+      "postalCodes": []
+    },
+    {
+      "name": "Ikeda",
+      "postalCodes": []
+    },
+    {
+      "name": "Ikusaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Ina",
+      "postalCodes": []
+    },
+    {
+      "name": "Ino",
+      "postalCodes": []
+    },
+    {
+      "name": "Karuizawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawakami",
+      "postalCodes": []
+    },
+    {
+      "name": "Kijimadaira",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiso",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitaaiki",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitagawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kōchi",
+      "postalCodes": []
+    },
+    {
+      "name": "Komoro",
+      "postalCodes": []
+    },
+    {
+      "name": "Kōnan",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuroshio",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsukawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsumoto",
+      "postalCodes": []
+    },
+    {
+      "name": "Mihara",
+      "postalCodes": []
+    },
+    {
+      "name": "Minamiaiki",
+      "postalCodes": []
+    },
+    {
+      "name": "Minamimaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Minamiminowa",
+      "postalCodes": []
+    },
+    {
+      "name": "Minowa",
+      "postalCodes": []
+    },
+    {
+      "name": "Mitsushima",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyada",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyota",
+      "postalCodes": []
+    },
+    {
+      "name": "Motoyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Muroto",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagano",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagiso",
+      "postalCodes": []
+    },
+    {
+      "name": "Nahari",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakagawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakajō",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakamura",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakano",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakatosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Nankoku",
+      "postalCodes": []
+    },
+    {
+      "name": "Neba",
+      "postalCodes": []
+    },
+    {
+      "name": "Niyodogawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Nozawaonsen",
+      "postalCodes": []
+    },
+    {
+      "name": "Obuse",
+      "postalCodes": []
+    },
+    {
+      "name": "Ochi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ogawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōkawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Okaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōkuwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōmachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Omi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōshika",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōtaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Otari",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōtoyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōtsuki",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakae",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Saku",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakuho",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanada",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimanto",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimojō",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimosuwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Shinano",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiojiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Sukumo",
+      "postalCodes": []
+    },
+    {
+      "name": "Susaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Suwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Suzaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Takagi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takamori",
+      "postalCodes": []
+    },
+    {
+      "name": "Takayama",
+      "postalCodes": []
+    },
+    {
+      "name": "Tano",
+      "postalCodes": []
+    },
+    {
+      "name": "Tateshina",
+      "postalCodes": []
+    },
+    {
+      "name": "Tatsuno",
+      "postalCodes": []
+    },
+    {
+      "name": "Togari",
+      "postalCodes": []
+    },
+    {
+      "name": "Tōmi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Tosashimizu",
+      "postalCodes": []
+    },
+    {
+      "name": "Tōyō",
+      "postalCodes": []
+    },
+    {
+      "name": "Toyooka",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsuno",
+      "postalCodes": []
+    },
+    {
+      "name": "Ueda",
+      "postalCodes": []
+    },
+    {
+      "name": "Umaji",
+      "postalCodes": []
+    },
+    {
+      "name": "Urugi",
+      "postalCodes": []
+    },
+    {
+      "name": "Usa",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamagata",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamanouchi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yasuda",
+      "postalCodes": []
+    },
+    {
+      "name": "Yasuoka",
+      "postalCodes": []
+    },
+    {
+      "name": "Yawata",
+      "postalCodes": []
+    },
+    {
+      "name": "Yusuhara",
+      "postalCodes": []
+    }
+  ],
+  "40": [
+    {
+      "name": "Amagi",
+      "postalCodes": []
+    },
+    {
+      "name": "Asakura Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Buzen",
+      "postalCodes": []
+    },
+    {
+      "name": "Buzen-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chikugo Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chikushino-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Dazaifu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukuoka",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukuoka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukutsu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Iizuka",
+      "postalCodes": []
+    },
+    {
+      "name": "Iizuka Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Itoshima-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kama Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanda",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasuga Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawasaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitakyushu",
+      "postalCodes": []
+    },
+    {
+      "name": "Koga",
+      "postalCodes": []
+    },
+    {
+      "name": "Koga-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kurume",
+      "postalCodes": []
+    },
+    {
+      "name": "Kurume Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Maebaru-chūō",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyama Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyata",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyawaka Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Munakata-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakama",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakama Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nishifukuma",
+      "postalCodes": []
+    },
+    {
+      "name": "Nōgata",
+      "postalCodes": []
+    },
+    {
+      "name": "Nōgata Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ogōri-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōkawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōkawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōmuta",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōmuta Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Onga-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōnojō",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōnojō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sasaguri",
+      "postalCodes": []
+    },
+    {
+      "name": "Setakamachi-takayanagi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiida",
+      "postalCodes": []
+    },
+    {
+      "name": "Shingū",
+      "postalCodes": []
+    },
+    {
+      "name": "Tagawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Tagawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanushimarumachi-toyoki",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsuiki",
+      "postalCodes": []
+    },
+    {
+      "name": "Ukiha Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Umi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yame Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanagawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanagawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yoshitomi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yukuhashi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yukuhashi Shi",
+      "postalCodes": []
+    }
+  ],
+  "41": [
+    {
+      "name": "Imari Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Imarichō-kō",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanzaki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Karatsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Karatsu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kashima",
+      "postalCodes": []
+    },
+    {
+      "name": "Kashima Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyaki-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Ogi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Saga",
+      "postalCodes": []
+    },
+    {
+      "name": "Saga Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takeo Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takeochō-takeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Taku Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tosu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ureshino Shi",
+      "postalCodes": []
+    }
+  ],
+  "42": [
+    {
+      "name": "Fukuechō",
+      "postalCodes": []
+    },
+    {
+      "name": "Gotō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hirado",
+      "postalCodes": []
+    },
+    {
+      "name": "Hirado Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Iki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Isahaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Isahaya-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsuura",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsuura Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Minamishimabara-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagasaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagasaki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Obita",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōmura",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōmura-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Saikai-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sasebo Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimabara",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimabara-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Togitsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsushima Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Unzen-shi",
+      "postalCodes": []
+    }
+  ],
+  "43": [
+    {
+      "name": "Amakusa Gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amakusa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Arao Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Aso-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hitoyoshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hitoyoshi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hondomachi-hondo",
+      "postalCodes": []
+    },
+    {
+      "name": "Honmachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamiamakusa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kikuchi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kikuchi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kōshi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kumamoto",
+      "postalCodes": []
+    },
+    {
+      "name": "Kumamoto Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsubase",
+      "postalCodes": []
+    },
+    {
+      "name": "Minamata",
+      "postalCodes": []
+    },
+    {
+      "name": "Minamata Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōzu",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamana",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamana Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Uekimachi-mōno",
+      "postalCodes": []
+    },
+    {
+      "name": "Uki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ushibukamachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Uto",
+      "postalCodes": []
+    },
+    {
+      "name": "Uto Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamaga Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yatsushiro Shi",
+      "postalCodes": []
+    }
+  ],
+  "44": [
+    {
+      "name": "Beppu",
+      "postalCodes": []
+    },
+    {
+      "name": "Beppu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Bungo-ōno Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Bungo-Takada-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hiji",
+      "postalCodes": []
+    },
+    {
+      "name": "Hita",
+      "postalCodes": []
+    },
+    {
+      "name": "Hita Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitsuki",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitsuki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunisaki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakatsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakatsu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōita",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōita-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Saiki",
+      "postalCodes": []
+    },
+    {
+      "name": "Saiki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takedamachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Taketa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsukawaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsukumi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsukumiura",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsurusaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Usa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Usuki",
+      "postalCodes": []
+    },
+    {
+      "name": "Usuki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yufu-shi",
+      "postalCodes": []
+    }
+  ],
+  "45": [
+    {
+      "name": "Ebino-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hyūga-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kobayashi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kobayashi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kushima",
+      "postalCodes": []
+    },
+    {
+      "name": "Kushima Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyakonojō",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyakonojō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyazaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyazaki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nichinan",
+      "postalCodes": []
+    },
+    {
+      "name": "Nichinan Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nobeoka",
+      "postalCodes": []
+    },
+    {
+      "name": "Nobeoka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Saito-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takanabe",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsuma",
+      "postalCodes": []
+    }
+  ],
+  "46": [
+    {
+      "name": "Aira Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Akune",
+      "postalCodes": []
+    },
+    {
+      "name": "Akune Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amami",
+      "postalCodes": []
+    },
+    {
+      "name": "Amami Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hamanoichi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hioki",
+      "postalCodes": []
+    },
+    {
+      "name": "Hioki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibusuki",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibusuki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ichikikushikino Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ijūin",
+      "postalCodes": []
+    },
+    {
+      "name": "Isa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Izumi",
+      "postalCodes": []
+    },
+    {
+      "name": "Izumi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kagoshima",
+      "postalCodes": []
+    },
+    {
+      "name": "Kagoshima Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kajiki",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanoya",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanoya Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaseda-shirakame",
+      "postalCodes": []
+    },
+    {
+      "name": "Kirishima Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kokubu-matsuki",
+      "postalCodes": []
+    },
+    {
+      "name": "Koseda",
+      "postalCodes": []
+    },
+    {
+      "name": "Koshima",
+      "postalCodes": []
+    },
+    {
+      "name": "Kurio",
+      "postalCodes": []
+    },
+    {
+      "name": "Kushikino",
+      "postalCodes": []
+    },
+    {
+      "name": "Makurazaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Makurazaki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Minamikyushu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Minamisatsuma Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyanoura",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagata",
+      "postalCodes": []
+    },
+    {
+      "name": "Naze",
+      "postalCodes": []
+    },
+    {
+      "name": "Nishinoomote",
+      "postalCodes": []
+    },
+    {
+      "name": "Nishinoomote Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōkuchi-shinohara",
+      "postalCodes": []
+    },
+    {
+      "name": "Satsumasendai",
+      "postalCodes": []
+    },
+    {
+      "name": "Satsumasendai Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shibushi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shibushi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Soo Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sueyoshichō-ninokata",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarumizu",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarumizu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yudomari",
+      "postalCodes": []
+    }
+  ],
+  "47": [
+    {
+      "name": "Chatan",
+      "postalCodes": []
+    },
+    {
+      "name": "Ginowan Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gushikawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Hirara",
+      "postalCodes": []
+    },
+    {
+      "name": "Ishigaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Ishigaki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ishikawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Itoman",
+      "postalCodes": []
+    },
+    {
+      "name": "Itoman Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Katsuren-haebaru",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyakojima Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nago",
+      "postalCodes": []
+    },
+    {
+      "name": "Nago Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Naha",
+      "postalCodes": []
+    },
+    {
+      "name": "Naha Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakagami-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanjō",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanjō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Okinawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Okinawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tomigusuku",
+      "postalCodes": []
+    },
+    {
+      "name": "Tomigusuku-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Urasoe Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Uruma Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yonakuni",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Akita",
+      "postalCodes": []
+    },
+    {
+      "name": "Akita Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Daisen",
+      "postalCodes": []
+    },
+    {
+      "name": "Daisen-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hanawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kakunodatemachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Katagami",
+      "postalCodes": []
+    },
+    {
+      "name": "Katagami-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kazuno Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitaakita-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nikaho-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Noshiro",
+      "postalCodes": []
+    },
+    {
+      "name": "Noshiro Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōdate",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōdate-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Oga",
+      "postalCodes": []
+    },
+    {
+      "name": "Oga-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōmagari",
+      "postalCodes": []
+    },
+    {
+      "name": "Semboku-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takanosu",
+      "postalCodes": []
+    },
+    {
+      "name": "Tennō",
+      "postalCodes": []
+    },
+    {
+      "name": "Yokote",
+      "postalCodes": []
+    },
+    {
+      "name": "Yokote-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yurihonjō",
+      "postalCodes": []
+    },
+    {
+      "name": "Yurihonjō-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuzawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuzawa-shi",
+      "postalCodes": []
+    }
+  ],
+  "02": [
+    {
+      "name": "Aomori",
+      "postalCodes": []
+    },
+    {
+      "name": "Aomori Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Goshogawara",
+      "postalCodes": []
+    },
+    {
+      "name": "Goshogawara Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hachinohe",
+      "postalCodes": []
+    },
+    {
+      "name": "Hachinohe Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hirakawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Hirakawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hirosaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Hirosaki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuroishi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuroishi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Misawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Misawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mutsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Mutsu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Namioka",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimokizukuri",
+      "postalCodes": []
+    },
+    {
+      "name": "Towada Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsugaru",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsugaru Shi",
+      "postalCodes": []
+    }
+  ],
+  "07": [
+    {
+      "name": "Aizu-wakamatsu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Date-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukushima",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukushima Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Funehikimachi-funehiki",
+      "postalCodes": []
+    },
+    {
+      "name": "Hobaramachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Inawashiro",
+      "postalCodes": []
+    },
+    {
+      "name": "Ishikawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwaki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitakata",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitakata-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kōriyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Kōriyama Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Miharu",
+      "postalCodes": []
+    },
+    {
+      "name": "Minami-Sōma",
+      "postalCodes": []
+    },
+    {
+      "name": "Minamisōma Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Motomiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Motomiya-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Namie",
+      "postalCodes": []
+    },
+    {
+      "name": "Nihommatsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Nihonmatsu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shirakawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sōma",
+      "postalCodes": []
+    },
+    {
+      "name": "Sōma Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sukagawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Sukagawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamura",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamura-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanagawamachi-saiwaichō",
+      "postalCodes": []
+    }
+  ],
+  "01": [
+    {
+      "name": "Abashiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Abashiri Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Akabira",
+      "postalCodes": []
+    },
+    {
+      "name": "Akabira-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Asahikawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Ashibetsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Ashibetsu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Bibai",
+      "postalCodes": []
+    },
+    {
+      "name": "Chitose",
+      "postalCodes": []
+    },
+    {
+      "name": "Chitose Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Date",
+      "postalCodes": []
+    },
+    {
+      "name": "Date-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ebetsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Eniwa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukagawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukagawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Furano-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hakodate",
+      "postalCodes": []
+    },
+    {
+      "name": "Hakodate Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hokuto",
+      "postalCodes": []
+    },
+    {
+      "name": "Hokuto-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Honchō",
+      "postalCodes": []
+    },
+    {
+      "name": "Ishikari",
+      "postalCodes": []
+    },
+    {
+      "name": "Ishikari-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwamizawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwamizawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwanai",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamiiso",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamikawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitahiroshima",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitahiroshima-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitami",
+      "postalCodes": []
+    },
+    {
+      "name": "Ktiami Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kushiro",
+      "postalCodes": []
+    },
+    {
+      "name": "Kushiro Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Makubetsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Mikasa",
+      "postalCodes": []
+    },
+    {
+      "name": "Mikasa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mombetsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Monbetsu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Motomachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Muroran",
+      "postalCodes": []
+    },
+    {
+      "name": "Muroran-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nayoro",
+      "postalCodes": []
+    },
+    {
+      "name": "Nayoro Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nemuro",
+      "postalCodes": []
+    },
+    {
+      "name": "Nemuro-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Niseko Town",
+      "postalCodes": []
+    },
+    {
+      "name": "Noboribetsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Noboribetsu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Obihiro",
+      "postalCodes": []
+    },
+    {
+      "name": "Obihiro Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Otaru",
+      "postalCodes": []
+    },
+    {
+      "name": "Otaru-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Otofuke",
+      "postalCodes": []
+    },
+    {
+      "name": "Rebun Gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Rishiri Gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Rishiri Town",
+      "postalCodes": []
+    },
+    {
+      "name": "Rumoi",
+      "postalCodes": []
+    },
+    {
+      "name": "Rumoi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sapporo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sapporo-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shibetsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Shibetsu Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimo-furano",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiraoi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shizunai-furukawachō",
+      "postalCodes": []
+    },
+    {
+      "name": "Sunagawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Sunagawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takikawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Takikawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tōbetsu",
+      "postalCodes": []
+    },
+    {
+      "name": "Tomakomai",
+      "postalCodes": []
+    },
+    {
+      "name": "Tomakomai Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Utashinai",
+      "postalCodes": []
+    },
+    {
+      "name": "Utashinai-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Wakkanai",
+      "postalCodes": []
+    },
+    {
+      "name": "Wakkanai Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yoichi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yūbari",
+      "postalCodes": []
+    },
+    {
+      "name": "Yūbari-shi",
+      "postalCodes": []
+    }
+  ],
+  "08": [
+    {
+      "name": "Ami",
+      "postalCodes": []
+    },
+    {
+      "name": "Bandō",
+      "postalCodes": []
+    },
+    {
+      "name": "Bandō-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chikusei",
+      "postalCodes": []
+    },
+    {
+      "name": "Chikusei-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Daigo",
+      "postalCodes": []
+    },
+    {
+      "name": "Edosaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Fujishiro",
+      "postalCodes": []
+    },
+    {
+      "name": "Funaishikawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Hitachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hitachi-Naka",
+      "postalCodes": []
+    },
+    {
+      "name": "Hitachi-ota",
+      "postalCodes": []
+    },
+    {
+      "name": "Hitachi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hitachinaka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hitachiōmiya-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hitachiōta-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hokota-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Inashiki",
+      "postalCodes": []
+    },
+    {
+      "name": "Inashiki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ishige",
+      "postalCodes": []
+    },
+    {
+      "name": "Ishioka",
+      "postalCodes": []
+    },
+    {
+      "name": "Ishioka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Itako",
+      "postalCodes": []
+    },
+    {
+      "name": "Itako-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwai",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwase",
+      "postalCodes": []
+    },
+    {
+      "name": "Jōsō-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamisu-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasama",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kashima-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasumigaura",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasumigaura-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Katsuta",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitaibaraki",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitaibaraki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Koga",
+      "postalCodes": []
+    },
+    {
+      "name": "Koga-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Makabe",
+      "postalCodes": []
+    },
+    {
+      "name": "Mito",
+      "postalCodes": []
+    },
+    {
+      "name": "Mito-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mitsukaidō",
+      "postalCodes": []
+    },
+    {
+      "name": "Moriya",
+      "postalCodes": []
+    },
+    {
+      "name": "Moriya-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Naka",
+      "postalCodes": []
+    },
+    {
+      "name": "Naka-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Namegata",
+      "postalCodes": []
+    },
+    {
+      "name": "Namegata-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōarai",
+      "postalCodes": []
+    },
+    {
+      "name": "Okunoya",
+      "postalCodes": []
+    },
+    {
+      "name": "Omitama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōmiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Ryūgasaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Ryūgasaki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakai",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakuragawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakuragawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimodate",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimotsuma-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takahagi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tomobe",
+      "postalCodes": []
+    },
+    {
+      "name": "Toride",
+      "postalCodes": []
+    },
+    {
+      "name": "Toride-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsuchiura-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsukuba",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsukuba-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsukubamirai",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsukubamirai-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ushiku",
+      "postalCodes": []
+    },
+    {
+      "name": "Ushiku-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yūki",
+      "postalCodes": []
+    },
+    {
+      "name": "Yūki-shi",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Hachimantai",
+      "postalCodes": []
+    },
+    {
+      "name": "Hachimantai Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hanamaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Hanamaki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ichinohe",
+      "postalCodes": []
+    },
+    {
+      "name": "Ichinoseki",
+      "postalCodes": []
+    },
+    {
+      "name": "Ichinoseki-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwate-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamaishi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamaishi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitakami",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitakami-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuji",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuji-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyako",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyako-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mizusawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Morioka",
+      "postalCodes": []
+    },
+    {
+      "name": "Morioka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ninohe",
+      "postalCodes": []
+    },
+    {
+      "name": "Ninohe Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōfunato",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōfunato-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōshū",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōshū-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōtsuchi",
+      "postalCodes": []
+    },
+    {
+      "name": "Rikuzentakata-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shizukuishi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takizawa-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tōno",
+      "postalCodes": []
+    },
+    {
+      "name": "Tōno-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamada",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Furukawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Higashimatshushima Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Higashimatsushima",
+      "postalCodes": []
+    },
+    {
+      "name": "Ishinomaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Ishinomaki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwanuma",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwanuma-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kakuda",
+      "postalCodes": []
+    },
+    {
+      "name": "Kakuda Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kesennuma",
+      "postalCodes": []
+    },
+    {
+      "name": "Kesennuma Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kogota",
+      "postalCodes": []
+    },
+    {
+      "name": "Kurihara",
+      "postalCodes": []
+    },
+    {
+      "name": "Kurihara Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Marumori",
+      "postalCodes": []
+    },
+    {
+      "name": "Matsushima",
+      "postalCodes": []
+    },
+    {
+      "name": "Natori Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōkawara",
+      "postalCodes": []
+    },
+    {
+      "name": "Onagawa Chō",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōsaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōsaki Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Rifu",
+      "postalCodes": []
+    },
+    {
+      "name": "Sendai",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiogama",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiroishi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiroishi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tagajō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tome Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tomiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Wakuya",
+      "postalCodes": []
+    },
+    {
+      "name": "Watari",
+      "postalCodes": []
+    },
+    {
+      "name": "Watari-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamoto",
+      "postalCodes": []
+    }
+  ],
+  "09": [
+    {
+      "name": "Ashikaga",
+      "postalCodes": []
+    },
+    {
+      "name": "Fujioka",
+      "postalCodes": []
+    },
+    {
+      "name": "Imaichi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaminokawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanuma",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanuma-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Karasuyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuroiso",
+      "postalCodes": []
+    },
+    {
+      "name": "Mashiko",
+      "postalCodes": []
+    },
+    {
+      "name": "Mibu",
+      "postalCodes": []
+    },
+    {
+      "name": "Mooka",
+      "postalCodes": []
+    },
+    {
+      "name": "Mooka-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Motegi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nasukarasuyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Nasukarasuyama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nasushiobara-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nikkō",
+      "postalCodes": []
+    },
+    {
+      "name": "Nikko-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōtawara",
+      "postalCodes": []
+    },
+    {
+      "name": "Ōtawara-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Oyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Oyama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakura-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sano",
+      "postalCodes": []
+    },
+    {
+      "name": "Sano-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimotsuke-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanuma",
+      "postalCodes": []
+    },
+    {
+      "name": "Tochigi-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ujiie",
+      "postalCodes": []
+    },
+    {
+      "name": "Utsunomiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Utsunomiya-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yaita",
+      "postalCodes": []
+    },
+    {
+      "name": "Yaita-shi",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Higashine",
+      "postalCodes": []
+    },
+    {
+      "name": "Higashine Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaminoyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaminoyama-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Murayama",
+      "postalCodes": []
+    },
+    {
+      "name": "Murayama Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagai",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagai-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanyō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Obanazawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Obanazawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sagae",
+      "postalCodes": []
+    },
+    {
+      "name": "Sagae-shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakata",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakata Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shinjō",
+      "postalCodes": []
+    },
+    {
+      "name": "Shinjō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Takahata",
+      "postalCodes": []
+    },
+    {
+      "name": "Tendō",
+      "postalCodes": []
+    },
+    {
+      "name": "Tendō Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsuruoka",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsuruoka Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamagata",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamagata Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yonezawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Yonezawa Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuza",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "code": "AW",
+    "name": "Awdal Region",
+    "countryCode": "SO"
+  },
+  {
+    "code": "BK",
+    "name": "Bakool",
+    "countryCode": "SO"
+  },
+  {
+    "code": "BN",
+    "name": "Banaadir",
+    "countryCode": "SO"
+  },
+  {
+    "code": "BR",
+    "name": "Bari",
+    "countryCode": "SO"
+  },
+  {
+    "code": "BY",
+    "name": "Bay",
+    "countryCode": "SO"
+  },
+  {
+    "code": "GA",
+    "name": "Galguduud",
+    "countryCode": "SO"
+  },
+  {
+    "code": "GE",
+    "name": "Gedo",
+    "countryCode": "SO"
+  },
+  {
+    "code": "HI",
+    "name": "Hiran",
+    "countryCode": "SO"
+  },
+  {
+    "code": "JH",
+    "name": "Lower Juba",
+    "countryCode": "SO"
+  },
+  {
+    "code": "SH",
+    "name": "Lower Shebelle",
+    "countryCode": "SO"
+  },
+  {
+    "code": "JD",
+    "name": "Middle Juba",
+    "countryCode": "SO"
+  },
+  {
+    "code": "SD",
+    "name": "Middle Shebelle",
+    "countryCode": "SO"
+  },
+  {
+    "code": "MU",
+    "name": "Mudug",
+    "countryCode": "SO"
+  },
+  {
+    "code": "NU",
+    "name": "Nugal",
+    "countryCode": "SO"
+  },
+  {
+    "code": "SA",
+    "name": "Sanaag Region",
+    "countryCode": "SO"
+  },
+  {
+    "code": "TO",
+    "name": "Togdheer Region",
+    "countryCode": "SO"
+  }
+]

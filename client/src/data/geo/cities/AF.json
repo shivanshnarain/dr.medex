@@ -1,0 +1,437 @@
+{
+  "BDS": [
+    {
+      "name": "Ashkāsham",
+      "postalCodes": []
+    },
+    {
+      "name": "Fayzabad",
+      "postalCodes": []
+    },
+    {
+      "name": "Jurm",
+      "postalCodes": []
+    },
+    {
+      "name": "Khandūd",
+      "postalCodes": []
+    },
+    {
+      "name": "Rāghistān",
+      "postalCodes": []
+    },
+    {
+      "name": "Wākhān",
+      "postalCodes": []
+    }
+  ],
+  "BDG": [
+    {
+      "name": "Ghormach",
+      "postalCodes": []
+    },
+    {
+      "name": "Qala i Naw",
+      "postalCodes": []
+    }
+  ],
+  "BGL": [
+    {
+      "name": "Baghlān",
+      "postalCodes": []
+    },
+    {
+      "name": "Ḩukūmatī Dahanah-ye Ghōrī",
+      "postalCodes": []
+    },
+    {
+      "name": "Nahrīn",
+      "postalCodes": []
+    },
+    {
+      "name": "Pul-e Khumrī",
+      "postalCodes": []
+    }
+  ],
+  "BAL": [
+    {
+      "name": "Balkh",
+      "postalCodes": []
+    },
+    {
+      "name": "Dowlatābād",
+      "postalCodes": []
+    },
+    {
+      "name": "Khulm",
+      "postalCodes": []
+    },
+    {
+      "name": "Lab-Sar",
+      "postalCodes": []
+    },
+    {
+      "name": "Mazār-e Sharīf",
+      "postalCodes": []
+    },
+    {
+      "name": "Qarchī Gak",
+      "postalCodes": []
+    }
+  ],
+  "BAM": [
+    {
+      "name": "Bāmyān",
+      "postalCodes": []
+    },
+    {
+      "name": "Panjāb",
+      "postalCodes": []
+    }
+  ],
+  "DAY": [
+    {
+      "name": "Nīlī",
+      "postalCodes": []
+    }
+  ],
+  "FRA": [
+    {
+      "name": "Farah",
+      "postalCodes": []
+    }
+  ],
+  "FYB": [
+    {
+      "name": "Andkhoy",
+      "postalCodes": []
+    },
+    {
+      "name": "Maymana",
+      "postalCodes": []
+    }
+  ],
+  "GHA": [
+    {
+      "name": "Ghazni",
+      "postalCodes": []
+    }
+  ],
+  "GHO": [
+    {
+      "name": "Fayrōz Kōh",
+      "postalCodes": []
+    },
+    {
+      "name": "Shahrak",
+      "postalCodes": []
+    }
+  ],
+  "HEL": [
+    {
+      "name": "‘Alāqahdārī Dīshū",
+      "postalCodes": []
+    },
+    {
+      "name": "Gereshk",
+      "postalCodes": []
+    },
+    {
+      "name": "Lashkar Gāh",
+      "postalCodes": []
+    },
+    {
+      "name": "Markaz-e Ḩukūmat-e Darwēshān",
+      "postalCodes": []
+    },
+    {
+      "name": "Sangīn",
+      "postalCodes": []
+    }
+  ],
+  "HER": [
+    {
+      "name": "Chahār Burj",
+      "postalCodes": []
+    },
+    {
+      "name": "Ghōriyān",
+      "postalCodes": []
+    },
+    {
+      "name": "Herāt",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafir Qala",
+      "postalCodes": []
+    },
+    {
+      "name": "Karukh",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuhsān",
+      "postalCodes": []
+    },
+    {
+      "name": "Kushk",
+      "postalCodes": []
+    },
+    {
+      "name": "Qarah Bāgh",
+      "postalCodes": []
+    },
+    {
+      "name": "Shīnḏanḏ",
+      "postalCodes": []
+    },
+    {
+      "name": "Tīr Pul",
+      "postalCodes": []
+    },
+    {
+      "name": "Zindah Jān",
+      "postalCodes": []
+    }
+  ],
+  "JOW": [
+    {
+      "name": "Āqchah",
+      "postalCodes": []
+    },
+    {
+      "name": "Darzāb",
+      "postalCodes": []
+    },
+    {
+      "name": "Qarqīn",
+      "postalCodes": []
+    },
+    {
+      "name": "Shibirghān",
+      "postalCodes": []
+    }
+  ],
+  "KAB": [
+    {
+      "name": "Kabul",
+      "postalCodes": []
+    },
+    {
+      "name": "Mīr Bachah Kōṯ",
+      "postalCodes": []
+    },
+    {
+      "name": "Paghmān",
+      "postalCodes": []
+    }
+  ],
+  "KAN": [
+    {
+      "name": "Kandahār",
+      "postalCodes": []
+    }
+  ],
+  "KAP": [
+    {
+      "name": "Sidqābād",
+      "postalCodes": []
+    }
+  ],
+  "KHO": [
+    {
+      "name": "Khōst",
+      "postalCodes": []
+    }
+  ],
+  "KNR": [
+    {
+      "name": "Asadabad",
+      "postalCodes": []
+    },
+    {
+      "name": "Āsmār",
+      "postalCodes": []
+    }
+  ],
+  "KDZ": [
+    {
+      "name": "Dasht-e Archī",
+      "postalCodes": []
+    },
+    {
+      "name": "Imām Şāḩib",
+      "postalCodes": []
+    },
+    {
+      "name": "Khanabad",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunduz",
+      "postalCodes": []
+    },
+    {
+      "name": "Qarāwul",
+      "postalCodes": []
+    }
+  ],
+  "LAG": [
+    {
+      "name": "Mehtar Lām",
+      "postalCodes": []
+    }
+  ],
+  "LOG": [
+    {
+      "name": "Baraki Barak",
+      "postalCodes": []
+    },
+    {
+      "name": "Ḩukūmatī Azrah",
+      "postalCodes": []
+    },
+    {
+      "name": "Pul-e ‘Alam",
+      "postalCodes": []
+    }
+  ],
+  "NAN": [
+    {
+      "name": "Bāsawul",
+      "postalCodes": []
+    },
+    {
+      "name": "Jalālābād",
+      "postalCodes": []
+    },
+    {
+      "name": "Markaz-e Woluswalī-ye Āchīn",
+      "postalCodes": []
+    }
+  ],
+  "NIM": [
+    {
+      "name": "Khāsh",
+      "postalCodes": []
+    },
+    {
+      "name": "Mīrābād",
+      "postalCodes": []
+    },
+    {
+      "name": "Rūdbār",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaranj",
+      "postalCodes": []
+    }
+  ],
+  "NUR": [
+    {
+      "name": "Pārūn",
+      "postalCodes": []
+    }
+  ],
+  "PIA": [
+    {
+      "name": "Gardez",
+      "postalCodes": []
+    }
+  ],
+  "PKA": [
+    {
+      "name": "Saṟōbī",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaṟah Sharan",
+      "postalCodes": []
+    },
+    {
+      "name": "Zarghūn Shahr",
+      "postalCodes": []
+    }
+  ],
+  "PAN": [
+    {
+      "name": "Bāzārak",
+      "postalCodes": []
+    }
+  ],
+  "PAR": [
+    {
+      "name": "Charikar",
+      "postalCodes": []
+    },
+    {
+      "name": "Jabal os Saraj",
+      "postalCodes": []
+    }
+  ],
+  "SAM": [
+    {
+      "name": "Aībak",
+      "postalCodes": []
+    }
+  ],
+  "SAR": [
+    {
+      "name": "Chīras",
+      "postalCodes": []
+    },
+    {
+      "name": "Larkird",
+      "postalCodes": []
+    },
+    {
+      "name": "Qal‘ah-ye Shahr",
+      "postalCodes": []
+    },
+    {
+      "name": "Sang-e Chārak",
+      "postalCodes": []
+    },
+    {
+      "name": "Sar-e Pul",
+      "postalCodes": []
+    },
+    {
+      "name": "Tagāw-Bāy",
+      "postalCodes": []
+    },
+    {
+      "name": "Tukzār",
+      "postalCodes": []
+    }
+  ],
+  "TAK": [
+    {
+      "name": "Ārt Khwājah",
+      "postalCodes": []
+    },
+    {
+      "name": "Taloqan",
+      "postalCodes": []
+    }
+  ],
+  "URU": [
+    {
+      "name": "Tarinkot",
+      "postalCodes": []
+    },
+    {
+      "name": "Uruzgān",
+      "postalCodes": []
+    }
+  ],
+  "ZAB": [
+    {
+      "name": "Qalāt",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

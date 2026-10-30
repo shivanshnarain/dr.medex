@@ -1,0 +1,32 @@
+[
+  {
+    "code": "MAP",
+    "name": "Malampa",
+    "countryCode": "VU"
+  },
+  {
+    "code": "PAM",
+    "name": "Penama",
+    "countryCode": "VU"
+  },
+  {
+    "code": "SAM",
+    "name": "Sanma",
+    "countryCode": "VU"
+  },
+  {
+    "code": "SEE",
+    "name": "Shefa",
+    "countryCode": "VU"
+  },
+  {
+    "code": "TAE",
+    "name": "Tafea",
+    "countryCode": "VU"
+  },
+  {
+    "code": "TOB",
+    "name": "Torba",
+    "countryCode": "VU"
+  }
+]

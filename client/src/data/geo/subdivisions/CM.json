@@ -1,0 +1,52 @@
+[
+  {
+    "code": "AD",
+    "name": "Adamawa",
+    "countryCode": "CM"
+  },
+  {
+    "code": "CE",
+    "name": "Centre",
+    "countryCode": "CM"
+  },
+  {
+    "code": "ES",
+    "name": "East",
+    "countryCode": "CM"
+  },
+  {
+    "code": "EN",
+    "name": "Far North",
+    "countryCode": "CM"
+  },
+  {
+    "code": "LT",
+    "name": "Littoral",
+    "countryCode": "CM"
+  },
+  {
+    "code": "NO",
+    "name": "North",
+    "countryCode": "CM"
+  },
+  {
+    "code": "NW",
+    "name": "Northwest",
+    "countryCode": "CM"
+  },
+  {
+    "code": "SU",
+    "name": "South",
+    "countryCode": "CM"
+  },
+  {
+    "code": "SW",
+    "name": "Southwest",
+    "countryCode": "CM"
+  },
+  {
+    "code": "OU",
+    "name": "West",
+    "countryCode": "CM"
+  }
+]

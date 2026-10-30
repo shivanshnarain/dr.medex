@@ -1,0 +1,72 @@
+[
+  {
+    "code": "HA",
+    "name": "Al-Hasakah Governorate",
+    "countryCode": "SY"
+  },
+  {
+    "code": "RA",
+    "name": "Al-Raqqah Governorate",
+    "countryCode": "SY"
+  },
+  {
+    "code": "HL",
+    "name": "Aleppo Governorate",
+    "countryCode": "SY"
+  },
+  {
+    "code": "SU",
+    "name": "As-Suwayda Governorate",
+    "countryCode": "SY"
+  },
+  {
+    "code": "DI",
+    "name": "Damascus Governorate",
+    "countryCode": "SY"
+  },
+  {
+    "code": "DR",
+    "name": "Daraa Governorate",
+    "countryCode": "SY"
+  },
+  {
+    "code": "DY",
+    "name": "Deir ez-Zor Governorate",
+    "countryCode": "SY"
+  },
+  {
+    "code": "HM",
+    "name": "Hama Governorate",
+    "countryCode": "SY"
+  },
+  {
+    "code": "HI",
+    "name": "Homs Governorate",
+    "countryCode": "SY"
+  },
+  {
+    "code": "ID",
+    "name": "Idlib Governorate",
+    "countryCode": "SY"
+  },
+  {
+    "code": "LA",
+    "name": "Latakia Governorate",
+    "countryCode": "SY"
+  },
+  {
+    "code": "QU",
+    "name": "Quneitra Governorate",
+    "countryCode": "SY"
+  },
+  {
+    "code": "RD",
+    "name": "Rif Dimashq Governorate",
+    "countryCode": "SY"
+  },
+  {
+    "code": "TA",
+    "name": "Tartus Governorate",
+    "countryCode": "SY"
+  }
+]

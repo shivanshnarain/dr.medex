@@ -1,0 +1,52 @@
+[
+  {
+    "code": "D",
+    "name": "Berea District",
+    "countryCode": "LS"
+  },
+  {
+    "code": "B",
+    "name": "Butha-Buthe District",
+    "countryCode": "LS"
+  },
+  {
+    "code": "C",
+    "name": "Leribe District",
+    "countryCode": "LS"
+  },
+  {
+    "code": "E",
+    "name": "Mafeteng District",
+    "countryCode": "LS"
+  },
+  {
+    "code": "A",
+    "name": "Maseru District",
+    "countryCode": "LS"
+  },
+  {
+    "code": "F",
+    "name": "Mohale's Hoek District",
+    "countryCode": "LS"
+  },
+  {
+    "code": "J",
+    "name": "Mokhotlong District",
+    "countryCode": "LS"
+  },
+  {
+    "code": "H",
+    "name": "Qacha's Nek District",
+    "countryCode": "LS"
+  },
+  {
+    "code": "G",
+    "name": "Quthing District",
+    "countryCode": "LS"
+  },
+  {
+    "code": "K",
+    "name": "Thaba-Tseka District",
+    "countryCode": "LS"
+  }
+]

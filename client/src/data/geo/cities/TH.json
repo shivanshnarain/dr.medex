@@ -1,0 +1,5118 @@
+{
+  "10": [
+    {
+      "name": "Bang Bon",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Kapi",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Khae",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Khen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Kho laen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Khun thain",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Na",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Phlat",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Rak",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Sue",
+      "postalCodes": []
+    },
+    {
+      "name": "Bangkok",
+      "postalCodes": []
+    },
+    {
+      "name": "Bangkok Noi",
+      "postalCodes": []
+    },
+    {
+      "name": "Bangkok Yai",
+      "postalCodes": []
+    },
+    {
+      "name": "Bueng Kum",
+      "postalCodes": []
+    },
+    {
+      "name": "Chatu Chak",
+      "postalCodes": []
+    },
+    {
+      "name": "Chom Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Din Daeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Don Mueang",
+      "postalCodes": []
+    },
+    {
+      "name": "Dusit",
+      "postalCodes": []
+    },
+    {
+      "name": "Huai Khwang",
+      "postalCodes": []
+    },
+    {
+      "name": "Khan Na Yao",
+      "postalCodes": []
+    },
+    {
+      "name": "Khlong Sam Wa",
+      "postalCodes": []
+    },
+    {
+      "name": "Khlong San",
+      "postalCodes": []
+    },
+    {
+      "name": "Khlong Toei",
+      "postalCodes": []
+    },
+    {
+      "name": "Lak Si",
+      "postalCodes": []
+    },
+    {
+      "name": "Lat Krabang",
+      "postalCodes": []
+    },
+    {
+      "name": "Lat Phrao",
+      "postalCodes": []
+    },
+    {
+      "name": "Min Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Nong Chok",
+      "postalCodes": []
+    },
+    {
+      "name": "Nong Khaem",
+      "postalCodes": []
+    },
+    {
+      "name": "Parthum Wan",
+      "postalCodes": []
+    },
+    {
+      "name": "Phasi Charoen",
+      "postalCodes": []
+    },
+    {
+      "name": "Phaya Thai",
+      "postalCodes": []
+    },
+    {
+      "name": "Phra Khanong",
+      "postalCodes": []
+    },
+    {
+      "name": "Phra Nakhon",
+      "postalCodes": []
+    },
+    {
+      "name": "Pom Prap Sattru Phai",
+      "postalCodes": []
+    },
+    {
+      "name": "Pra Wet",
+      "postalCodes": []
+    },
+    {
+      "name": "Rat Burana",
+      "postalCodes": []
+    },
+    {
+      "name": "Ratchathewi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sai Mai",
+      "postalCodes": []
+    },
+    {
+      "name": "Samphanthawong",
+      "postalCodes": []
+    },
+    {
+      "name": "Saphan Sung",
+      "postalCodes": []
+    },
+    {
+      "name": "Sathon",
+      "postalCodes": []
+    },
+    {
+      "name": "Suanluang",
+      "postalCodes": []
+    },
+    {
+      "name": "Taling Chan",
+      "postalCodes": []
+    },
+    {
+      "name": "Thawi Watthana",
+      "postalCodes": []
+    },
+    {
+      "name": "Thon buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Thung khru",
+      "postalCodes": []
+    },
+    {
+      "name": "Vadhana",
+      "postalCodes": []
+    },
+    {
+      "name": "Wang Thong Lang",
+      "postalCodes": []
+    },
+    {
+      "name": "Yan na wa",
+      "postalCodes": []
+    }
+  ],
+  "11": [
+    {
+      "name": "Amphoe Bang Bo",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bang Phli",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bang Sao Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Samut Prakan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phra Pradaeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phra Samut Chedi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Khlong Bang Sao Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Bo District",
+      "postalCodes": []
+    },
+    {
+      "name": "Phra Pradaeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Samut Prakan",
+      "postalCodes": []
+    }
+  ],
+  "12": [
+    {
+      "name": "Amphoe Bang Bua Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bang Kruai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bang Yai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Nonthaburi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pak Kret",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sai Noi",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Bua Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Kruai",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Yai",
+      "postalCodes": []
+    },
+    {
+      "name": "Mueang Nonthaburi",
+      "postalCodes": []
+    },
+    {
+      "name": "Pak Kret",
+      "postalCodes": []
+    }
+  ],
+  "13": [
+    {
+      "name": "Amphoe Khlong Luang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lam Luk Ka",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lat Lum Kaeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Pathum Thani",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Suea",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thanyaburi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Lam Luk Ka",
+      "postalCodes": []
+    },
+    {
+      "name": "Khlong Luang",
+      "postalCodes": []
+    },
+    {
+      "name": "Pathum Thani",
+      "postalCodes": []
+    }
+  ],
+  "14": [
+    {
+      "name": "Amphoe Ban Phraek",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bang Ban",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bang Pa-in",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bang Pahan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bang Sai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lat Bua Luang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Maha Rat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nakhon Luang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phak Hai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phra Nakhon Si Ayutthaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sena",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Ruea",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Uthai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wang Noi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Bang Kadi Pathum Thani",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Ban",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Pa-in",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakhon Luang",
+      "postalCodes": []
+    },
+    {
+      "name": "Phak Hai",
+      "postalCodes": []
+    },
+    {
+      "name": "Phra Nakhon Si Ayutthaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Tha Ruea",
+      "postalCodes": []
+    },
+    {
+      "name": "Wang Noi",
+      "postalCodes": []
+    }
+  ],
+  "15": [
+    {
+      "name": "Amphoe Chaiyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Ang Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pa Mok",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pho Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sawaeng Ha",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wiset Chai Chan",
+      "postalCodes": []
+    },
+    {
+      "name": "Ang Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Thai Tan",
+      "postalCodes": []
+    },
+    {
+      "name": "Chaiyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Pho Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Wiset Chaichan",
+      "postalCodes": []
+    }
+  ],
+  "16": [
+    {
+      "name": "Amphoe Ban Mi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chai Badan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khok Charoen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khok Samrong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lam Sonthi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Muang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phatthana Nikhom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sa Bot",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Luang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Wung",
+      "postalCodes": []
+    },
+    {
+      "name": "Chai Badan",
+      "postalCodes": []
+    },
+    {
+      "name": "Lop Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Muang Lop Buri District",
+      "postalCodes": []
+    }
+  ],
+  "17": [
+    {
+      "name": "Amphoe Bang Rachan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe In Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khai Bang Rachan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Sing Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phrom Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Chang",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Racham",
+      "postalCodes": []
+    },
+    {
+      "name": "In Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Sing Buri",
+      "postalCodes": []
+    }
+  ],
+  "18": [
+    {
+      "name": "Amphoe Hankha",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Manorom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Chainat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Noen Kham",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Mamong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sankhaburi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sapphaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wat Sing",
+      "postalCodes": []
+    },
+    {
+      "name": "Chai Nat",
+      "postalCodes": []
+    }
+  ],
+  "19": [
+    {
+      "name": "Amphoe Ban Mo",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chaloem Phra Kiat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Don Phut",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kaeng Khoi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Muak Lek",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Sara Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Don",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Khae",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Saeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phra Phutthabat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sao Hai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wang Muang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wihan Daeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Mo",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaeng Khoi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nong Khae",
+      "postalCodes": []
+    },
+    {
+      "name": "Phra Phutthabat",
+      "postalCodes": []
+    },
+    {
+      "name": "Saraburi",
+      "postalCodes": []
+    }
+  ],
+  "20": [
+    {
+      "name": "Amphoe Ban Bueng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bo Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ko Chan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ko Si Chang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Yai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phan Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phanat Nikhom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sattahip",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Racha",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Bueng",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Ko Lan",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Talat Bueng",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Lamung",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Lamung District",
+      "postalCodes": []
+    },
+    {
+      "name": "Chon Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Ko Si Chang",
+      "postalCodes": []
+    },
+    {
+      "name": "Mueang Chonburi District",
+      "postalCodes": []
+    },
+    {
+      "name": "Pattaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Phan Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Phanat Nikhom",
+      "postalCodes": []
+    },
+    {
+      "name": "Sattahip",
+      "postalCodes": []
+    },
+    {
+      "name": "Si Racha",
+      "postalCodes": []
+    }
+  ],
+  "21": [
+    {
+      "name": "Amphoe Ban Chang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ban Khai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khao Chamao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Klaeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Rayong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nikhom Phattana",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pluak Daeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wang Chan",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Chang",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Phe",
+      "postalCodes": []
+    },
+    {
+      "name": "Klaeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Rayong",
+      "postalCodes": []
+    }
+  ],
+  "22": [
+    {
+      "name": "Amphoe Kaeng Hang Maeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khao Khitchakut",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khlung",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Laem Sing",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Makham",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Chanthaburi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Yai Am",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pong Nam Ron",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Soi Dao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Mai",
+      "postalCodes": []
+    },
+    {
+      "name": "Chanthaburi",
+      "postalCodes": []
+    },
+    {
+      "name": "Khlung",
+      "postalCodes": []
+    },
+    {
+      "name": "Laem Sing",
+      "postalCodes": []
+    },
+    {
+      "name": "Pong Nam Ron",
+      "postalCodes": []
+    },
+    {
+      "name": "Tha Mai",
+      "postalCodes": []
+    }
+  ],
+  "23": [
+    {
+      "name": "Amphoe Bo Rai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khao Saming",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khlong Yai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ko Chang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ko Kut",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Laem Ngop",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Trat",
+      "postalCodes": []
+    },
+    {
+      "name": "Bo Rai",
+      "postalCodes": []
+    },
+    {
+      "name": "Khlong Yai",
+      "postalCodes": []
+    },
+    {
+      "name": "Ko Chang Tai",
+      "postalCodes": []
+    },
+    {
+      "name": "Trat",
+      "postalCodes": []
+    }
+  ],
+  "24": [
+    {
+      "name": "Amphoe Ban Pho",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bang Khla",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bang Nam Priao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bang Pakong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khlong Khuean",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Chachoengsao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phanom Sarakham",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Plaeng Yao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ratchasan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sanam Chai Khet",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Takiap",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Khla",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Nam Priao",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Pakong",
+      "postalCodes": []
+    },
+    {
+      "name": "Chachoengsao",
+      "postalCodes": []
+    },
+    {
+      "name": "Khlong Khuean",
+      "postalCodes": []
+    },
+    {
+      "name": "Phanom Sarakham",
+      "postalCodes": []
+    }
+  ],
+  "25": [
+    {
+      "name": "Amphoe Ban Sang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kabin Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Prachin Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Di",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Prachantakham",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Maha Phot",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Mahosot",
+      "postalCodes": []
+    },
+    {
+      "name": "Kabin Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Prachin Buri",
+      "postalCodes": []
+    }
+  ],
+  "26": [
+    {
+      "name": "Amphoe Ban Na",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Nakhon Nayok",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ongkharak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pak Phli",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakhon Nayok",
+      "postalCodes": []
+    }
+  ],
+  "27": [
+    {
+      "name": "Amphoe Aranyaprathet",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khao Chakan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khlong Hat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khok Sung",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Sa Kaeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ta Phraya",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wang Nam Yen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wang Sombun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Watthana Nakhon",
+      "postalCodes": []
+    },
+    {
+      "name": "Aranyaprathet",
+      "postalCodes": []
+    },
+    {
+      "name": "Sa Kaeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Wang Nam Yen",
+      "postalCodes": []
+    }
+  ],
+  "30": [
+    {
+      "name": "Amphoe Ban Lueam",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bua Lai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bua Yai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chakkarat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chaloem Phra Kiat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chok Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chum Phuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Dan Khun Thot",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Huai Thalaeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kaeng Sanam Nang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kham Sakae Saeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kham Thale So",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khon Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lam Thamen Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Nakhon Ratchasima",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Yang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Non Daeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Non Sung",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Non Thai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Bun Mak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pak Chong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pak Thong Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phimai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phra Thong Kham",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Prathai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sida",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sikhio",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sikhiu",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Soeng Sang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sung Noen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thepharak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wang Nam Khiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Huai Thalaeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Bua Yai",
+      "postalCodes": []
+    },
+    {
+      "name": "Chok Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Dan Khun Thot",
+      "postalCodes": []
+    },
+    {
+      "name": "Kham Sakae Saeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Khon Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakhon Ratchasima",
+      "postalCodes": []
+    },
+    {
+      "name": "Non Sung",
+      "postalCodes": []
+    },
+    {
+      "name": "Non Thai",
+      "postalCodes": []
+    },
+    {
+      "name": "Pak Chong",
+      "postalCodes": []
+    },
+    {
+      "name": "Pak Thong Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Phimai",
+      "postalCodes": []
+    },
+    {
+      "name": "Soeng Sang",
+      "postalCodes": []
+    },
+    {
+      "name": "Sung Noen",
+      "postalCodes": []
+    }
+  ],
+  "31": [
+    {
+      "name": "Amphoe Ban Dan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ban Kruat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ban Mai Chaiyaphot",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chaloem Phra Kiat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chamni",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Huai Rat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khaen Dong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khu Mueang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Krasang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lahan Sai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lam Plai Mat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Buriram",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Pho",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nang Rong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Non Din Daeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Non Suwan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Hong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Ki",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pa Kham",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phlapphla Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phutthaisong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Prakhon Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Satuek",
+      "postalCodes": []
+    },
+    {
+      "name": "Buri Ram",
+      "postalCodes": []
+    },
+    {
+      "name": "Nang Rong",
+      "postalCodes": []
+    },
+    {
+      "name": "Nong Ki",
+      "postalCodes": []
+    },
+    {
+      "name": "Prakhon Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Satuek",
+      "postalCodes": []
+    }
+  ],
+  "32": [
+    {
+      "name": "Amphoe Bua Chet",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chom Phra",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chumphon Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kap Choeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khwao Sinarin",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lamduan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Surin",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Non Narai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phanom Dong Rak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Prasat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Rattanaburi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Samrong Thap",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sangkha",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sanom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Khoraphum",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Narong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Tum",
+      "postalCodes": []
+    },
+    {
+      "name": "Surin",
+      "postalCodes": []
+    }
+  ],
+  "33": [
+    {
+      "name": "Amphoe Benchalak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bueng Bun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Huai Thap Than",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kantharalak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kanthararom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khukhan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khun Han",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Chan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Sisaket",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nam Kliang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Non Khun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phayu",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pho Si Suwan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phrai Bueng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phu Sing",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Prang Ku",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Rasi Salai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Rattana",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sila Lat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Uthumphon Phisai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wang Hin",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Yang Chum Noi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kantharalak",
+      "postalCodes": []
+    },
+    {
+      "name": "Phrai Bueng",
+      "postalCodes": []
+    },
+    {
+      "name": "Si Sa Ket",
+      "postalCodes": []
+    }
+  ],
+  "34": [
+    {
+      "name": "Amphoe Buntharik",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Det Udom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Don Mot Daeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khemmarat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khong Chiam",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khueang Nai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kut Khaopun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lao Suea Kok",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Muang Sam Sip",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Ubon Ratchathani",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Chaluai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Tan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Yia",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nam Khun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nam Yuen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phibun Mangsahan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pho Sai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Samrong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sawang Wirawong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Mueang Mai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sirindhorn",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tan Sum",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thung Si Udom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Trakan Phuet Phon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Warin Chamrap",
+      "postalCodes": []
+    },
+    {
+      "name": "Det Udom",
+      "postalCodes": []
+    },
+    {
+      "name": "Phibun Mangsahan",
+      "postalCodes": []
+    },
+    {
+      "name": "Sawang Wirawong",
+      "postalCodes": []
+    },
+    {
+      "name": "Ubon Ratchathani",
+      "postalCodes": []
+    },
+    {
+      "name": "Warin Chamrap",
+      "postalCodes": []
+    }
+  ],
+  "35": [
+    {
+      "name": "Amphoe Kham Khuan Kaeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kho Wang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kut Chum",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Loeng Nok Tha",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Maha Chana Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Yasothon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pa Tio",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sai Mun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thai Charoen",
+      "postalCodes": []
+    },
+    {
+      "name": "Yasothon",
+      "postalCodes": []
+    }
+  ],
+  "36": [
+    {
+      "name": "Bamnet Narong",
+      "postalCodes": []
+    },
+    {
+      "name": "Chaiyaphum",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaeng Khro",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaset Sombun",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakhon Nayok",
+      "postalCodes": []
+    },
+    {
+      "name": "Phu Khiao",
+      "postalCodes": []
+    }
+  ],
+  "37": [
+    {
+      "name": "Amnat Charoen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chanuman",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Hua Taphan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lue Amnat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Amnat Charoen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pathum Ratchawongsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phana",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Senangkhanikhom",
+      "postalCodes": []
+    }
+  ],
+  "38": [
+    {
+      "name": "Amphoe Bueng Khong Long",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bung Khla",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Bueng Kan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pak Khat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phon Charoen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Seka",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Wilai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe So Phisai",
+      "postalCodes": []
+    },
+    {
+      "name": "Bueng Kan",
+      "postalCodes": []
+    },
+    {
+      "name": "Seka",
+      "postalCodes": []
+    }
+  ],
+  "39": [
+    {
+      "name": "Amphoe Mueang Nong Bua Lamphu",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Klang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Wang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Non Sang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Bun Rueang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Suwannakhuha",
+      "postalCodes": []
+    },
+    {
+      "name": "Na Klang",
+      "postalCodes": []
+    },
+    {
+      "name": "Non Sang",
+      "postalCodes": []
+    },
+    {
+      "name": "Nong Bua Lamphu",
+      "postalCodes": []
+    },
+    {
+      "name": "Si Bun Rueang",
+      "postalCodes": []
+    }
+  ],
+  "40": [
+    {
+      "name": "Amphoe Ban Fang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ban Haet",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ban Phai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chonnabot",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chum Phae",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khao Suan Kwang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khok Pho Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kranuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mancha Khiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Khon Kaen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nam Phong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Non Sila",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Na Kham",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Ruea",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Song Hong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phra Yuen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phu Pha Man",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phu Wiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pueai Noi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sam Sung",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Chom Phu",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ubolratana",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Waeng Noi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Waeng Yai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wiang Kao",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Phai",
+      "postalCodes": []
+    },
+    {
+      "name": "Chum Phae",
+      "postalCodes": []
+    },
+    {
+      "name": "Khon Kaen",
+      "postalCodes": []
+    },
+    {
+      "name": "Kranuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Phon",
+      "postalCodes": []
+    },
+    {
+      "name": "Pueai Noi",
+      "postalCodes": []
+    }
+  ],
+  "41": [
+    {
+      "name": "Amphoe Ban Dung",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ban Phue",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chai Wan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ku Kaeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kumphawapi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kut Chap",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Udon Thani",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Yung",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nam Som",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Non Sa-at",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Han",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Saeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Wua So",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phibun Rak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Prachak Sinlapakhom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sang Khom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si That",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thung Fon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wang Sam Mo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Dung",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Nong Wua So",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Phan Don",
+      "postalCodes": []
+    },
+    {
+      "name": "Kumphawapi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kut Chap",
+      "postalCodes": []
+    },
+    {
+      "name": "Nam Som",
+      "postalCodes": []
+    },
+    {
+      "name": "Nong Wua So",
+      "postalCodes": []
+    },
+    {
+      "name": "Udon Thani",
+      "postalCodes": []
+    }
+  ],
+  "42": [
+    {
+      "name": "Amphoe Chiang Khan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Dan Sai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Erawan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Loei",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Duang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Haeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Hin",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pak Chom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pha Khao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phu Kradueng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phu Luang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phu Ruea",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Li",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wang Saphung",
+      "postalCodes": []
+    },
+    {
+      "name": "Loei",
+      "postalCodes": []
+    },
+    {
+      "name": "Phu Kradueng",
+      "postalCodes": []
+    },
+    {
+      "name": "Wang Saphung",
+      "postalCodes": []
+    }
+  ],
+  "43": [
+    {
+      "name": "Amphoe Fao Rai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Nong Khai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pho Tak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phonphisai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Rattanawapi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sa Khrai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sangkhom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Chiang Mai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Bo",
+      "postalCodes": []
+    },
+    {
+      "name": "Nong Khai",
+      "postalCodes": []
+    },
+    {
+      "name": "Phon Charoen",
+      "postalCodes": []
+    },
+    {
+      "name": "Sangkhom",
+      "postalCodes": []
+    },
+    {
+      "name": "Si Chiang Mai",
+      "postalCodes": []
+    },
+    {
+      "name": "Tha Bo",
+      "postalCodes": []
+    }
+  ],
+  "44": [
+    {
+      "name": "Amphoe Borabue",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chiang Yuen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chuen Chom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kae Dam",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kantharawichai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kosum Phisai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kut Rang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Maha Sarakham",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Chueak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Dun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phayakkhaphum Phisai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wapi Pathum",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Yang Si Surat",
+      "postalCodes": []
+    },
+    {
+      "name": "Kosum Phisai",
+      "postalCodes": []
+    },
+    {
+      "name": "Maha Sarakham",
+      "postalCodes": []
+    },
+    {
+      "name": "Phayakkhaphum Phisai",
+      "postalCodes": []
+    },
+    {
+      "name": "Wapi Pathum",
+      "postalCodes": []
+    }
+  ],
+  "45": [
+    {
+      "name": "Amphoe At Samat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Changhan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chaturaphak Phiman",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chiang Khwan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kaset Wisai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Moeiwadi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Roi Et",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Suang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Hi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Phok",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pathum Rat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phanom Phrai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pho Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phon Sai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phon Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Selaphum",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Somdet",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Suwannaphum",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thawatchaburi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thung Khao Luang",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Selaphum",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaset Wisai",
+      "postalCodes": []
+    },
+    {
+      "name": "Moeiwadi",
+      "postalCodes": []
+    },
+    {
+      "name": "Pho Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Roi Et",
+      "postalCodes": []
+    },
+    {
+      "name": "Suwannaphum",
+      "postalCodes": []
+    },
+    {
+      "name": "Waeng",
+      "postalCodes": []
+    }
+  ],
+  "46": [
+    {
+      "name": "Amphoe Don Chan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Huai Mek",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Huai Phueng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kamalasai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kham Muang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khao Wong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khong Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kuchinarai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Kalasin",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Khu",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Mon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Kung Si",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Rong Kham",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sahatsakhan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sam Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Somdet",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Khantho",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Yang Talat",
+      "postalCodes": []
+    },
+    {
+      "name": "Huai Mek",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalasin",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamalasai",
+      "postalCodes": []
+    },
+    {
+      "name": "Khao Wong",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuchinarai",
+      "postalCodes": []
+    },
+    {
+      "name": "Nong Kung Si",
+      "postalCodes": []
+    },
+    {
+      "name": "Yang Talat",
+      "postalCodes": []
+    }
+  ],
+  "47": [
+    {
+      "name": "Amphoe Akat Amnuai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ban Muang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Charoen Sin",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kham Ta Kla",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khok Si Suphan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kusuman",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kut Bak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Sakon Nakhon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nikhom Nam Un",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phang Khon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phanna Nikhom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phon Na Kaeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phu Phan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sawang Daen Din",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Song Dao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tao Ngoi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wanon Niwat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Waritchaphum",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakon Nakhon",
+      "postalCodes": []
+    },
+    {
+      "name": "Sawang Daen Din",
+      "postalCodes": []
+    }
+  ],
+  "48": [
+    {
+      "name": "Amphoe Ban Phaeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Nakhon Phanom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Kae",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Thom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Wa",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phon Sawan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pla Pak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Renu Nakhon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Songkhram",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Uthen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe That Phanom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wangyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Na Wa",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakhon Phanom",
+      "postalCodes": []
+    },
+    {
+      "name": "That Phanom",
+      "postalCodes": []
+    }
+  ],
+  "49": [
+    {
+      "name": "Amphoe Don Tan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Dong Luang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khamcha-i",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Mukdahan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nikhom Kham Soi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Sung",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wan Yai",
+      "postalCodes": []
+    },
+    {
+      "name": "Mukdahan",
+      "postalCodes": []
+    }
+  ],
+  "50": [
+    {
+      "name": "Amphoe Chai Prakan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chiang Dao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chom Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Doi Lo",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Doi Saket",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Doi Tao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Fang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Galyani Vadhana",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Hang Dong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Hot",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Ai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Chaem",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae On",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Rim",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Taeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Wang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Chiang Mai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Om Koi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phrao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Samoeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe San Kamphaeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe San Pa Tong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe San Sai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Saraphi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wiang Haeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Chai Prakan",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiang Mai",
+      "postalCodes": []
+    },
+    {
+      "name": "Chom Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Fang",
+      "postalCodes": []
+    },
+    {
+      "name": "Hang Dong",
+      "postalCodes": []
+    },
+    {
+      "name": "Pai",
+      "postalCodes": []
+    },
+    {
+      "name": "San Kamphaeng",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pa Tong",
+      "postalCodes": []
+    }
+  ],
+  "51": [
+    {
+      "name": "Amphoe Ban Hong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ban Thi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Li",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Tha",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Lamphun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pa Sang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thung Hua Chang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wiang Nong Long",
+      "postalCodes": []
+    },
+    {
+      "name": "Lamphun",
+      "postalCodes": []
+    },
+    {
+      "name": "Mae Tha",
+      "postalCodes": []
+    },
+    {
+      "name": "Pa Sang",
+      "postalCodes": []
+    }
+  ],
+  "52": [
+    {
+      "name": "Amphoe Chae Hom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Hang Chat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ko Kha",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Mo",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Phrik",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Tha",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Lampang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Pan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ngao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Soem Ngam",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sop Prap",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thoen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wang Nuea",
+      "postalCodes": []
+    },
+    {
+      "name": "Lampang",
+      "postalCodes": []
+    },
+    {
+      "name": "Thoen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wang Nuea",
+      "postalCodes": []
+    }
+  ],
+  "53": [
+    {
+      "name": "Amphoe Ban Khok",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Fak Tha",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lap Lae",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Uttaradit",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nam Pat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phichai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Pla",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thong Saen Khan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tron",
+      "postalCodes": []
+    },
+    {
+      "name": "Uttaradit",
+      "postalCodes": []
+    }
+  ],
+  "54": [
+    {
+      "name": "Amphoe Den Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Long",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Phrae",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Muang Khai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Rong Kwang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Song",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sung Men",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wang Chin",
+      "postalCodes": []
+    },
+    {
+      "name": "Den Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Long",
+      "postalCodes": []
+    },
+    {
+      "name": "Phrae",
+      "postalCodes": []
+    },
+    {
+      "name": "Rong Kwang",
+      "postalCodes": []
+    }
+  ],
+  "55": [
+    {
+      "name": "Amphoe Ban Luang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bo Kluea",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chaloem Phra Kiat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chiang Klang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Charim",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Nan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Muen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Noi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phu Phiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pua",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Santi Suk",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Song Khwae",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Wang Pha",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thung Chang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wiang Sa",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiang Klang",
+      "postalCodes": []
+    },
+    {
+      "name": "Nan",
+      "postalCodes": []
+    }
+  ],
+  "56": [
+    {
+      "name": "Amphoe Chiang Kham",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chiang Muan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Dok Kham Tai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Phayao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phu Kam Yao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phu Sang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pong",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiang Kham",
+      "postalCodes": []
+    },
+    {
+      "name": "Dok Kham Tai",
+      "postalCodes": []
+    },
+    {
+      "name": "Mae Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Phayao",
+      "postalCodes": []
+    },
+    {
+      "name": "Pong",
+      "postalCodes": []
+    }
+  ],
+  "57": [
+    {
+      "name": "Amphoe Chiang Khong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chiang Saen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Doi Luang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khun Tan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Chan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Fa Luang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Lao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Sai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Suai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Chiang Rai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pa Daet",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phaya Mengrai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thoeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wiang Chai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wiang Chiang Rung",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wiang Kaen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wiang Pa Pao",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiang Khong",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiang Rai",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiang Saen",
+      "postalCodes": []
+    },
+    {
+      "name": "Mae Chan",
+      "postalCodes": []
+    },
+    {
+      "name": "Mae Sai",
+      "postalCodes": []
+    },
+    {
+      "name": "Pa Daet",
+      "postalCodes": []
+    }
+  ],
+  "58": [
+    {
+      "name": "Amphoe Khun Yuam",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae La Noi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Sariang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Mae Hong Son",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pang Mapha",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sop Moei",
+      "postalCodes": []
+    },
+    {
+      "name": "Mae Hong Son",
+      "postalCodes": []
+    }
+  ],
+  "60": [
+    {
+      "name": "Amphoe Banphot Phisai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chum Ta Bong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chumsaeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kao Liao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Krok Phra",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lat Yao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Poen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Wong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Nakhon Sawan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Bua",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phai Sali",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phayuha Khiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tak Fa",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Takhli",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Tako",
+      "postalCodes": []
+    },
+    {
+      "name": "Kao Liao",
+      "postalCodes": []
+    },
+    {
+      "name": "Lat Yao",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakhon Sawan",
+      "postalCodes": []
+    },
+    {
+      "name": "Nong Bua",
+      "postalCodes": []
+    },
+    {
+      "name": "Phai Sali",
+      "postalCodes": []
+    },
+    {
+      "name": "Phayuha Khiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Takhli",
+      "postalCodes": []
+    }
+  ],
+  "61": [
+    {
+      "name": "Amphoe Ban Rai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Huai Khot",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lan Sak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Uthai Thani",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Chang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Khayang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sawang Arom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thap Than",
+      "postalCodes": []
+    },
+    {
+      "name": "Huai Khot",
+      "postalCodes": []
+    },
+    {
+      "name": "Lan Sak",
+      "postalCodes": []
+    },
+    {
+      "name": "Thap Than",
+      "postalCodes": []
+    },
+    {
+      "name": "Uthai Thani",
+      "postalCodes": []
+    }
+  ],
+  "62": [
+    {
+      "name": "Amphoe Bueng Samakkhi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khanu Woralaksaburi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khlong Khlung",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khlong Lan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kosamphi Nakhon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lan Krabue",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Kamphaeng Phet",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pang Sila Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phran Kratai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sai Ngam",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sai Thong Watthana",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamphaeng Phet",
+      "postalCodes": []
+    },
+    {
+      "name": "Khanu Woralaksaburi",
+      "postalCodes": []
+    },
+    {
+      "name": "Lan Krabue",
+      "postalCodes": []
+    }
+  ],
+  "63": [
+    {
+      "name": "Amphoe Ban Tak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Ramat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Sot",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Tak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phop Phra",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Song Yang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Umphang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wang Chao",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Tak",
+      "postalCodes": []
+    },
+    {
+      "name": "Mae Ramat",
+      "postalCodes": []
+    },
+    {
+      "name": "Mae Sot",
+      "postalCodes": []
+    },
+    {
+      "name": "Tak",
+      "postalCodes": []
+    }
+  ],
+  "64": [
+    {
+      "name": "Amphoe Ban Dan Lan Hoi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khiri Mat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kong Krailat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Sukhothai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sawankhalok",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Nakhon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Samrong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Satchanalai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thung Saliam",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Dan Lan Hoi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Na",
+      "postalCodes": []
+    },
+    {
+      "name": "Khiri Mat",
+      "postalCodes": []
+    },
+    {
+      "name": "Sawankhalok",
+      "postalCodes": []
+    },
+    {
+      "name": "Si Satchanalai",
+      "postalCodes": []
+    },
+    {
+      "name": "Sukhothai",
+      "postalCodes": []
+    }
+  ],
+  "65": [
+    {
+      "name": "Amphoe Bang Krathum",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bang Rakam",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chat Trakan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Phitsanulok",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nakhon Thai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Noen Maprang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phrom Phiram",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wang Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wat Bot",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Krathum",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Rakam",
+      "postalCodes": []
+    },
+    {
+      "name": "Chat Trakan",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakhon Thai",
+      "postalCodes": []
+    },
+    {
+      "name": "Phitsanulok",
+      "postalCodes": []
+    }
+  ],
+  "66": [
+    {
+      "name": "Amphoe Bang Mun Nak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bueng Na Rang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Dong Charoen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Phichit",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pho Prathap Chang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pho Thale",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sak Lek",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Taphan Hin",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thap Khlo",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wachira Barami",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wang Sai Phun",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Mun Nak",
+      "postalCodes": []
+    },
+    {
+      "name": "Bueng Na Rang",
+      "postalCodes": []
+    },
+    {
+      "name": "Phichit",
+      "postalCodes": []
+    },
+    {
+      "name": "Taphan Hin",
+      "postalCodes": []
+    },
+    {
+      "name": "Thap Khlo",
+      "postalCodes": []
+    },
+    {
+      "name": "Wang Sai Phun",
+      "postalCodes": []
+    }
+  ],
+  "67": [
+    {
+      "name": "Amphoe Bueng Sam Phan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chon Daen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khao Kho",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lom Kao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lom Sak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Phetchabun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nam Nao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Phai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Thep",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wang Pong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wichian Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Chon Daen",
+      "postalCodes": []
+    },
+    {
+      "name": "Lom Sak",
+      "postalCodes": []
+    },
+    {
+      "name": "Nong Phai",
+      "postalCodes": []
+    },
+    {
+      "name": "Phetchabun",
+      "postalCodes": []
+    },
+    {
+      "name": "Wichian Buri",
+      "postalCodes": []
+    }
+  ],
+  "70": [
+    {
+      "name": "Amphoe Ban Kha",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ban Pong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bang Phae",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chom Bueng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Damnoen Saduak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Ratchaburi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pak Tho",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Photharam",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Suan Phueng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wat Phleng",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Pong",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Phae",
+      "postalCodes": []
+    },
+    {
+      "name": "Chom Bueng",
+      "postalCodes": []
+    },
+    {
+      "name": "Damnoen Saduak",
+      "postalCodes": []
+    },
+    {
+      "name": "Photharam",
+      "postalCodes": []
+    },
+    {
+      "name": "Ratchaburi",
+      "postalCodes": []
+    }
+  ],
+  "71": [
+    {
+      "name": "Amphoe Bo Phloi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Dan Makham Tia",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Huai Krachao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lao Khwan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Kanchanaburi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Prue",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phanom Thuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sai Yok",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sangkhla Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Sawat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Maka",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Muang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thong Pha Phum",
+      "postalCodes": []
+    },
+    {
+      "name": "Bo Phloi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanchanaburi",
+      "postalCodes": []
+    },
+    {
+      "name": "Phanom Thuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Sangkhla Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Tha Maka",
+      "postalCodes": []
+    },
+    {
+      "name": "Tha Muang",
+      "postalCodes": []
+    }
+  ],
+  "72": [
+    {
+      "name": "Amphoe Bang Pla Ma",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Dan Chang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Doembang Nangbuat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Don Chedi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Suphan Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Yasai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Prachan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Song Phi Nong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe U Thong",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Sam Chuk",
+      "postalCodes": []
+    },
+    {
+      "name": "Doembang Nangbuat",
+      "postalCodes": []
+    },
+    {
+      "name": "Suphan Buri",
+      "postalCodes": []
+    }
+  ],
+  "73": [
+    {
+      "name": "Amphoe Bang Len",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Don Tum",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Nakhon Pathom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nakhon Chai Si",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phutthamonthon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sam Phran",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Len",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamphaeng Saen District",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakhon Pathom",
+      "postalCodes": []
+    },
+    {
+      "name": "Sam Phran",
+      "postalCodes": []
+    }
+  ],
+  "74": [
+    {
+      "name": "Amphoe Ban Phaeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Krathum Baen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Samut Sakhon",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Phaeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Krathum Baen",
+      "postalCodes": []
+    },
+    {
+      "name": "Samut Sakhon",
+      "postalCodes": []
+    }
+  ],
+  "75": [
+    {
+      "name": "Amphoe Amphawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bang Khonthi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Samut Songkhram",
+      "postalCodes": []
+    },
+    {
+      "name": "Samut Songkhram",
+      "postalCodes": []
+    }
+  ],
+  "76": [
+    {
+      "name": "Amphoe Ban Laem",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ban Lat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Cha-am",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kaeng Krachan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khao Yoi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Phetchaburi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Ya Plong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Yang",
+      "postalCodes": []
+    },
+    {
+      "name": "Cha-am",
+      "postalCodes": []
+    },
+    {
+      "name": "Khao Yoi",
+      "postalCodes": []
+    },
+    {
+      "name": "Phetchaburi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tha Yang",
+      "postalCodes": []
+    }
+  ],
+  "77": [
+    {
+      "name": "Amphoe Bang Saphan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Bang Saphan Noi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Hua Hin",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kui Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Prachuap Khiri Khan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pran Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sam Roi Yot",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thap Sakae",
+      "postalCodes": []
+    },
+    {
+      "name": "Bang Saphan",
+      "postalCodes": []
+    },
+    {
+      "name": "Hua Hin",
+      "postalCodes": []
+    },
+    {
+      "name": "Kui Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Prachuap Khiri Khan",
+      "postalCodes": []
+    },
+    {
+      "name": "Pran Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Sam Roi Yot",
+      "postalCodes": []
+    }
+  ],
+  "80": [
+    {
+      "name": "Amphoe Bang Khan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Cha-uat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chaloem Phra Kiat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chang Klang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chawang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chian Yai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chulabhorn",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Hua Sai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khanom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lan Saka",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Nakhon Si Thammarat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Bon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nopphitam",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pak Phanang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phipun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phra Phrom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phrom Khiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ron Phibun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sichon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Sala",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tham Phannara",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thung Song",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thung Yai",
+      "postalCodes": []
+    },
+    {
+      "name": "Chawang",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakhon Si Thammarat",
+      "postalCodes": []
+    },
+    {
+      "name": "Pak Phanang",
+      "postalCodes": []
+    },
+    {
+      "name": "Ron Phibun",
+      "postalCodes": []
+    },
+    {
+      "name": "Tham Phannara",
+      "postalCodes": []
+    },
+    {
+      "name": "Thung Song",
+      "postalCodes": []
+    }
+  ],
+  "81": [
+    {
+      "name": "Amphoe Ao Luek",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khao Phanom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khlong Thom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ko Lanta",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lam Thap",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Krabi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nuea Khlong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Plai Phraya",
+      "postalCodes": []
+    },
+    {
+      "name": "Ao Luek",
+      "postalCodes": []
+    },
+    {
+      "name": "Ko Lanta",
+      "postalCodes": []
+    },
+    {
+      "name": "Krabi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuea Khlong",
+      "postalCodes": []
+    },
+    {
+      "name": "Saladan",
+      "postalCodes": []
+    }
+  ],
+  "82": [
+    {
+      "name": "Amphoe Kapong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khura Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ko Yao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Phangnga",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Takua Pa",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Takua Thung",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thai Mueang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thap Put",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Ao Nang",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Khao Lak",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Phru Nai",
+      "postalCodes": []
+    },
+    {
+      "name": "Phang Nga",
+      "postalCodes": []
+    }
+  ],
+  "83": [
+    {
+      "name": "Amphoe Kathu",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Phuket",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thalang",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Chalong",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Karon",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Kata",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Ko Kaeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Mai Khao",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Ratsada",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Talat Nua",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Talat Yai",
+      "postalCodes": []
+    },
+    {
+      "name": "Kathu",
+      "postalCodes": []
+    },
+    {
+      "name": "Nai Harn",
+      "postalCodes": []
+    },
+    {
+      "name": "Patong",
+      "postalCodes": []
+    },
+    {
+      "name": "Phuket",
+      "postalCodes": []
+    },
+    {
+      "name": "Rawai",
+      "postalCodes": []
+    },
+    {
+      "name": "Wichit",
+      "postalCodes": []
+    }
+  ],
+  "84": [
+    {
+      "name": "Amphoe Ban Na Doem",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ban Na San",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ban Takhun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chai Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chaiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Don Sak",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kanchanadit",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khian Sa",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khiri Rat Nikhom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ko Pha-ngan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ko Samui",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Surat Thani",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phanom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phrasaeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phunphin",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Chana",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Chang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wiang Sa",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wiphawadi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Na San",
+      "postalCodes": []
+    },
+    {
+      "name": "Chai Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Chaiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Don Sak",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanchanadit",
+      "postalCodes": []
+    },
+    {
+      "name": "Ko Pha Ngan",
+      "postalCodes": []
+    },
+    {
+      "name": "Ko Samui",
+      "postalCodes": []
+    },
+    {
+      "name": "Koh Tao",
+      "postalCodes": []
+    },
+    {
+      "name": "Surat Thani",
+      "postalCodes": []
+    },
+    {
+      "name": "Tha Kham",
+      "postalCodes": []
+    },
+    {
+      "name": "Tha Khanon",
+      "postalCodes": []
+    },
+    {
+      "name": "Wiang Sa",
+      "postalCodes": []
+    }
+  ],
+  "85": [
+    {
+      "name": "Amphoe Kapoe",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kra Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe La-un",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Ranong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Suk Samran",
+      "postalCodes": []
+    },
+    {
+      "name": "Ranong",
+      "postalCodes": []
+    }
+  ],
+  "86": [
+    {
+      "name": "Amphoe Lamae",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Lang Suan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Chumphon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pathio",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Phato",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sawi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Sae",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thung Tako",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Nam Yuen",
+      "postalCodes": []
+    },
+    {
+      "name": "Chumphon",
+      "postalCodes": []
+    },
+    {
+      "name": "Lang Suan",
+      "postalCodes": []
+    }
+  ],
+  "90": [
+    {
+      "name": "Amphoe Bang Klam",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chana",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Hat Yai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khlong Hoi Khong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khuan Niang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Krasae Sin",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Songkhla",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Mom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Thawi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ranot",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Rattaphum",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Saba Yoi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sadao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sathing Phra",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Singhanakhon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thepha",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Mai",
+      "postalCodes": []
+    },
+    {
+      "name": "Hat Yai",
+      "postalCodes": []
+    },
+    {
+      "name": "Na Mom",
+      "postalCodes": []
+    },
+    {
+      "name": "Ranot",
+      "postalCodes": []
+    },
+    {
+      "name": "Sadao",
+      "postalCodes": []
+    },
+    {
+      "name": "Songkhla",
+      "postalCodes": []
+    }
+  ],
+  "91": [
+    {
+      "name": "Amphoe Khuan Don",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khuan Kalong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe La-Ngu",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Manang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Satun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tha Phae",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thung Wa",
+      "postalCodes": []
+    },
+    {
+      "name": "Satun",
+      "postalCodes": []
+    }
+  ],
+  "92": [
+    {
+      "name": "Amphoe Hat Samran",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Huai Yot",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kantang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Trang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Na Yong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Palian",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ratsada",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sikao",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Wang Wiset",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Yan Ta Khao",
+      "postalCodes": []
+    },
+    {
+      "name": "Huai Yot",
+      "postalCodes": []
+    },
+    {
+      "name": "Kantang",
+      "postalCodes": []
+    },
+    {
+      "name": "Trang",
+      "postalCodes": []
+    }
+  ],
+  "93": [
+    {
+      "name": "Amphoe Bang Kaeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khao Chaison",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khuan Khanun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kong Ra",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Phatthalung",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pa Bon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pa Phayom",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Pak Phayun",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Banphot",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Srinagarindra",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tamot",
+      "postalCodes": []
+    },
+    {
+      "name": "Phatthalung",
+      "postalCodes": []
+    }
+  ],
+  "94": [
+    {
+      "name": "Amphoe Kapho",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Khok Pho",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mae Lan",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mai Kaen",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Pattani",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Nong Chik",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Panare",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sai Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Thung Yang Daeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Yarang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Yaring",
+      "postalCodes": []
+    },
+    {
+      "name": "Nong Chik",
+      "postalCodes": []
+    },
+    {
+      "name": "Pattani",
+      "postalCodes": []
+    },
+    {
+      "name": "Sai Buri",
+      "postalCodes": []
+    },
+    {
+      "name": "Yaring",
+      "postalCodes": []
+    }
+  ],
+  "95": [
+    {
+      "name": "Amphoe Bannang Sata",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Betong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Kabang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Krong Pinang",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Yala",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Raman",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Than To",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Yaha",
+      "postalCodes": []
+    },
+    {
+      "name": "Betong",
+      "postalCodes": []
+    },
+    {
+      "name": "Yala",
+      "postalCodes": []
+    }
+  ],
+  "96": [
+    {
+      "name": "Amphoe Ba Cho",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Chanae",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Cho-airong",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Mueang Narathiwat",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Ra-ngae",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Rueso",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Si Sakhon",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Su-ngai Kolok",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Su-ngai Padi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Sukhirin",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Tak Bai",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Waeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Amphoe Yi-ngo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ban Su-ngai Pa Di",
+      "postalCodes": []
+    },
+    {
+      "name": "Narathiwat",
+      "postalCodes": []
+    },
+    {
+      "name": "Ra-ngae",
+      "postalCodes": []
+    },
+    {
+      "name": "Su-ngai Kolok",
+      "postalCodes": []
+    },
+    {
+      "name": "Tak Bai",
+      "postalCodes": []
+    }
+  ],
+  "S": [],
+  "_OTHER": []
+}

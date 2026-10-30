@@ -1,0 +1,653 @@
+{
+  "A": [
+    {
+      "name": "Alajuela",
+      "postalCodes": []
+    },
+    {
+      "name": "Atenas",
+      "postalCodes": []
+    },
+    {
+      "name": "Bijagua",
+      "postalCodes": []
+    },
+    {
+      "name": "Carrillos",
+      "postalCodes": []
+    },
+    {
+      "name": "Desamparados",
+      "postalCodes": []
+    },
+    {
+      "name": "Esquipulas",
+      "postalCodes": []
+    },
+    {
+      "name": "Grecia",
+      "postalCodes": []
+    },
+    {
+      "name": "Guatuso",
+      "postalCodes": []
+    },
+    {
+      "name": "La Fortuna",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Chiles",
+      "postalCodes": []
+    },
+    {
+      "name": "Naranjo",
+      "postalCodes": []
+    },
+    {
+      "name": "Orotina",
+      "postalCodes": []
+    },
+    {
+      "name": "Palmares",
+      "postalCodes": []
+    },
+    {
+      "name": "Pital",
+      "postalCodes": []
+    },
+    {
+      "name": "Poás",
+      "postalCodes": []
+    },
+    {
+      "name": "Pocosol",
+      "postalCodes": []
+    },
+    {
+      "name": "Quesada",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Segundo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabanilla",
+      "postalCodes": []
+    },
+    {
+      "name": "San Carlos",
+      "postalCodes": []
+    },
+    {
+      "name": "San José",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan",
+      "postalCodes": []
+    },
+    {
+      "name": "San Mateo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Rafael",
+      "postalCodes": []
+    },
+    {
+      "name": "San Ramón",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago",
+      "postalCodes": []
+    },
+    {
+      "name": "Upala",
+      "postalCodes": []
+    },
+    {
+      "name": "Valverde Vega",
+      "postalCodes": []
+    },
+    {
+      "name": "Zarcero",
+      "postalCodes": []
+    }
+  ],
+  "G": [
+    {
+      "name": "Abangares",
+      "postalCodes": []
+    },
+    {
+      "name": "Bagaces",
+      "postalCodes": []
+    },
+    {
+      "name": "Belén",
+      "postalCodes": []
+    },
+    {
+      "name": "Cañas",
+      "postalCodes": []
+    },
+    {
+      "name": "Carrillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Fortuna",
+      "postalCodes": []
+    },
+    {
+      "name": "Hojancha",
+      "postalCodes": []
+    },
+    {
+      "name": "Juntas",
+      "postalCodes": []
+    },
+    {
+      "name": "La Cruz",
+      "postalCodes": []
+    },
+    {
+      "name": "Liberia",
+      "postalCodes": []
+    },
+    {
+      "name": "Nandayure",
+      "postalCodes": []
+    },
+    {
+      "name": "Nicoya",
+      "postalCodes": []
+    },
+    {
+      "name": "Sámara",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Cruz",
+      "postalCodes": []
+    },
+    {
+      "name": "Sardinal",
+      "postalCodes": []
+    },
+    {
+      "name": "Tilarán",
+      "postalCodes": []
+    }
+  ],
+  "H": [
+    {
+      "name": "Ángeles",
+      "postalCodes": []
+    },
+    {
+      "name": "Barva",
+      "postalCodes": []
+    },
+    {
+      "name": "Belén",
+      "postalCodes": []
+    },
+    {
+      "name": "Flores",
+      "postalCodes": []
+    },
+    {
+      "name": "Heredia",
+      "postalCodes": []
+    },
+    {
+      "name": "La Asunción",
+      "postalCodes": []
+    },
+    {
+      "name": "Llorente",
+      "postalCodes": []
+    },
+    {
+      "name": "Mercedes",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio",
+      "postalCodes": []
+    },
+    {
+      "name": "San Francisco",
+      "postalCodes": []
+    },
+    {
+      "name": "San Isidro",
+      "postalCodes": []
+    },
+    {
+      "name": "San Josecito",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pablo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Rafael",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Bárbara",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Domingo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarapiquí",
+      "postalCodes": []
+    }
+  ],
+  "L": [
+    {
+      "name": "Batán",
+      "postalCodes": []
+    },
+    {
+      "name": "Guácimo",
+      "postalCodes": []
+    },
+    {
+      "name": "Guápiles",
+      "postalCodes": []
+    },
+    {
+      "name": "Limón",
+      "postalCodes": []
+    },
+    {
+      "name": "Matina",
+      "postalCodes": []
+    },
+    {
+      "name": "Pococí",
+      "postalCodes": []
+    },
+    {
+      "name": "Pocora",
+      "postalCodes": []
+    },
+    {
+      "name": "Roxana",
+      "postalCodes": []
+    },
+    {
+      "name": "Siquirres",
+      "postalCodes": []
+    },
+    {
+      "name": "Sixaola",
+      "postalCodes": []
+    },
+    {
+      "name": "Talamanca",
+      "postalCodes": []
+    }
+  ],
+  "C": [
+    {
+      "name": "Alvarado",
+      "postalCodes": []
+    },
+    {
+      "name": "Cartago",
+      "postalCodes": []
+    },
+    {
+      "name": "Concepción",
+      "postalCodes": []
+    },
+    {
+      "name": "Cot",
+      "postalCodes": []
+    },
+    {
+      "name": "El Guarco",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiménez",
+      "postalCodes": []
+    },
+    {
+      "name": "La Suiza",
+      "postalCodes": []
+    },
+    {
+      "name": "La Unión",
+      "postalCodes": []
+    },
+    {
+      "name": "Oreamuno",
+      "postalCodes": []
+    },
+    {
+      "name": "Orosí",
+      "postalCodes": []
+    },
+    {
+      "name": "Pacayas",
+      "postalCodes": []
+    },
+    {
+      "name": "Paraíso",
+      "postalCodes": []
+    },
+    {
+      "name": "Pejibaye",
+      "postalCodes": []
+    },
+    {
+      "name": "San Diego",
+      "postalCodes": []
+    },
+    {
+      "name": "Tobosi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tres Ríos",
+      "postalCodes": []
+    },
+    {
+      "name": "Tucurrique",
+      "postalCodes": []
+    },
+    {
+      "name": "Turrialba",
+      "postalCodes": []
+    }
+  ],
+  "P": [
+    {
+      "name": "Buenos Aires",
+      "postalCodes": []
+    },
+    {
+      "name": "Canoas",
+      "postalCodes": []
+    },
+    {
+      "name": "Chacarita",
+      "postalCodes": []
+    },
+    {
+      "name": "Ciudad Cortés",
+      "postalCodes": []
+    },
+    {
+      "name": "Corredor",
+      "postalCodes": []
+    },
+    {
+      "name": "Corredores",
+      "postalCodes": []
+    },
+    {
+      "name": "Coto Brus",
+      "postalCodes": []
+    },
+    {
+      "name": "Esparza",
+      "postalCodes": []
+    },
+    {
+      "name": "Garabito",
+      "postalCodes": []
+    },
+    {
+      "name": "Golfito",
+      "postalCodes": []
+    },
+    {
+      "name": "Jacó",
+      "postalCodes": []
+    },
+    {
+      "name": "Miramar",
+      "postalCodes": []
+    },
+    {
+      "name": "Montes de Oro",
+      "postalCodes": []
+    },
+    {
+      "name": "Osa",
+      "postalCodes": []
+    },
+    {
+      "name": "Paquera",
+      "postalCodes": []
+    },
+    {
+      "name": "Parrita",
+      "postalCodes": []
+    },
+    {
+      "name": "Puntarenas",
+      "postalCodes": []
+    },
+    {
+      "name": "Quepos",
+      "postalCodes": []
+    },
+    {
+      "name": "San Vito",
+      "postalCodes": []
+    }
+  ],
+  "SJ": [
+    {
+      "name": "Acosta",
+      "postalCodes": []
+    },
+    {
+      "name": "Alajuelita",
+      "postalCodes": []
+    },
+    {
+      "name": "Aserrí",
+      "postalCodes": []
+    },
+    {
+      "name": "Calle Blancos",
+      "postalCodes": []
+    },
+    {
+      "name": "Colima",
+      "postalCodes": []
+    },
+    {
+      "name": "Colón",
+      "postalCodes": []
+    },
+    {
+      "name": "Curridabat",
+      "postalCodes": []
+    },
+    {
+      "name": "Daniel Flores",
+      "postalCodes": []
+    },
+    {
+      "name": "Desamparados",
+      "postalCodes": []
+    },
+    {
+      "name": "Dota",
+      "postalCodes": []
+    },
+    {
+      "name": "Escazú",
+      "postalCodes": []
+    },
+    {
+      "name": "Goicoechea",
+      "postalCodes": []
+    },
+    {
+      "name": "Granadilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Guadalupe",
+      "postalCodes": []
+    },
+    {
+      "name": "Ipís",
+      "postalCodes": []
+    },
+    {
+      "name": "León Cortés",
+      "postalCodes": []
+    },
+    {
+      "name": "Mercedes",
+      "postalCodes": []
+    },
+    {
+      "name": "Montes de Oca",
+      "postalCodes": []
+    },
+    {
+      "name": "Mora",
+      "postalCodes": []
+    },
+    {
+      "name": "Moravia",
+      "postalCodes": []
+    },
+    {
+      "name": "Palmichal",
+      "postalCodes": []
+    },
+    {
+      "name": "Patarrá",
+      "postalCodes": []
+    },
+    {
+      "name": "Pérez Zeledón",
+      "postalCodes": []
+    },
+    {
+      "name": "Puriscal",
+      "postalCodes": []
+    },
+    {
+      "name": "Purral",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabanilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Salitral",
+      "postalCodes": []
+    },
+    {
+      "name": "Salitrillos",
+      "postalCodes": []
+    },
+    {
+      "name": "San Felipe",
+      "postalCodes": []
+    },
+    {
+      "name": "San Ignacio",
+      "postalCodes": []
+    },
+    {
+      "name": "San Isidro",
+      "postalCodes": []
+    },
+    {
+      "name": "San José",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan de Dios",
+      "postalCodes": []
+    },
+    {
+      "name": "San Marcos",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro",
+      "postalCodes": []
+    },
+    {
+      "name": "San Rafael",
+      "postalCodes": []
+    },
+    {
+      "name": "San Rafael Abajo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Rafael Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "San Vicente",
+      "postalCodes": []
+    },
+    {
+      "name": "San Vicente de Moravia",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Ana",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarrazú",
+      "postalCodes": []
+    },
+    {
+      "name": "Tejar",
+      "postalCodes": []
+    },
+    {
+      "name": "Tibás",
+      "postalCodes": []
+    },
+    {
+      "name": "Turrubares",
+      "postalCodes": []
+    },
+    {
+      "name": "Vázquez de Coronado",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

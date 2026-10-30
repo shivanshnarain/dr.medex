@@ -1,0 +1,232 @@
+{
+  "B": [
+    {
+      "name": "Aydarken",
+      "postalCodes": []
+    },
+    {
+      "name": "Batken",
+      "postalCodes": []
+    },
+    {
+      "name": "Iradan",
+      "postalCodes": []
+    },
+    {
+      "name": "Isfana",
+      "postalCodes": []
+    },
+    {
+      "name": "Karavan",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyzyl-Kyya",
+      "postalCodes": []
+    },
+    {
+      "name": "Suluktu",
+      "postalCodes": []
+    }
+  ],
+  "GB": [
+    {
+      "name": "Bishkek",
+      "postalCodes": []
+    }
+  ],
+  "C": [
+    {
+      "name": "Alamudunskiy Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Belovodskoye",
+      "postalCodes": []
+    },
+    {
+      "name": "Chuyskiy Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Ivanovka",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaindy",
+      "postalCodes": []
+    },
+    {
+      "name": "Kant",
+      "postalCodes": []
+    },
+    {
+      "name": "Kara-Balta",
+      "postalCodes": []
+    },
+    {
+      "name": "Kemin",
+      "postalCodes": []
+    },
+    {
+      "name": "Lebedinovka",
+      "postalCodes": []
+    },
+    {
+      "name": "Sokulukskiy Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Sosnovka",
+      "postalCodes": []
+    },
+    {
+      "name": "Tokmok",
+      "postalCodes": []
+    },
+    {
+      "name": "Ysyk-Ata",
+      "postalCodes": []
+    }
+  ],
+  "Y": [
+    {
+      "name": "Ak-Suu",
+      "postalCodes": []
+    },
+    {
+      "name": "Balykchy",
+      "postalCodes": []
+    },
+    {
+      "name": "Cholpon-Ata",
+      "postalCodes": []
+    },
+    {
+      "name": "Kadzhi-Say",
+      "postalCodes": []
+    },
+    {
+      "name": "Karakol",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyzyl-Suu",
+      "postalCodes": []
+    },
+    {
+      "name": "Tyup",
+      "postalCodes": []
+    }
+  ],
+  "J": [
+    {
+      "name": "Ala-Buka",
+      "postalCodes": []
+    },
+    {
+      "name": "Bazar-Korgon",
+      "postalCodes": []
+    },
+    {
+      "name": "Jalal-Abad",
+      "postalCodes": []
+    },
+    {
+      "name": "Kazarman",
+      "postalCodes": []
+    },
+    {
+      "name": "Kerben",
+      "postalCodes": []
+    },
+    {
+      "name": "Kochkor-Ata",
+      "postalCodes": []
+    },
+    {
+      "name": "Suzak",
+      "postalCodes": []
+    },
+    {
+      "name": "Tash-Kumyr",
+      "postalCodes": []
+    },
+    {
+      "name": "Toktogul",
+      "postalCodes": []
+    },
+    {
+      "name": "Toktogul District",
+      "postalCodes": []
+    }
+  ],
+  "N": [
+    {
+      "name": "At-Bashi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jumgal",
+      "postalCodes": []
+    },
+    {
+      "name": "Naryn",
+      "postalCodes": []
+    }
+  ],
+  "GO": [],
+  "O": [
+    {
+      "name": "Chong-Alay District",
+      "postalCodes": []
+    },
+    {
+      "name": "Daroot-Korgon",
+      "postalCodes": []
+    },
+    {
+      "name": "Kara Kulja",
+      "postalCodes": []
+    },
+    {
+      "name": "Kara Suu",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyzyl-Eshme",
+      "postalCodes": []
+    },
+    {
+      "name": "Nookat",
+      "postalCodes": []
+    },
+    {
+      "name": "Osh",
+      "postalCodes": []
+    },
+    {
+      "name": "Uzgen",
+      "postalCodes": []
+    },
+    {
+      "name": "Uzgen District",
+      "postalCodes": []
+    }
+  ],
+  "T": [
+    {
+      "name": "Kara-Buurinskiy Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Talas",
+      "postalCodes": []
+    },
+    {
+      "name": "Talasskiy Rayon",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

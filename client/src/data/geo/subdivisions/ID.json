@@ -1,0 +1,172 @@
+[
+  {
+    "code": "AC",
+    "name": "Aceh",
+    "countryCode": "ID"
+  },
+  {
+    "code": "BA",
+    "name": "Bali",
+    "countryCode": "ID"
+  },
+  {
+    "code": "BT",
+    "name": "Banten",
+    "countryCode": "ID"
+  },
+  {
+    "code": "BE",
+    "name": "Bengkulu",
+    "countryCode": "ID"
+  },
+  {
+    "code": "YO",
+    "name": "DI Yogyakarta",
+    "countryCode": "ID"
+  },
+  {
+    "code": "JK",
+    "name": "DKI Jakarta",
+    "countryCode": "ID"
+  },
+  {
+    "code": "GO",
+    "name": "Gorontalo",
+    "countryCode": "ID"
+  },
+  {
+    "code": "JA",
+    "name": "Jambi",
+    "countryCode": "ID"
+  },
+  {
+    "code": "JB",
+    "name": "Jawa Barat",
+    "countryCode": "ID"
+  },
+  {
+    "code": "JT",
+    "name": "Jawa Tengah",
+    "countryCode": "ID"
+  },
+  {
+    "code": "JI",
+    "name": "Jawa Timur",
+    "countryCode": "ID"
+  },
+  {
+    "code": "KA",
+    "name": "Kalimantan Barat",
+    "countryCode": "ID"
+  },
+  {
+    "code": "KS",
+    "name": "Kalimantan Selatan",
+    "countryCode": "ID"
+  },
+  {
+    "code": "KT",
+    "name": "Kalimantan Tengah",
+    "countryCode": "ID"
+  },
+  {
+    "code": "KI",
+    "name": "Kalimantan Timur",
+    "countryCode": "ID"
+  },
+  {
+    "code": "KU",
+    "name": "Kalimantan Utara",
+    "countryCode": "ID"
+  },
+  {
+    "code": "BB",
+    "name": "Kepulauan Bangka Belitung",
+    "countryCode": "ID"
+  },
+  {
+    "code": "KR",
+    "name": "Kepulauan Riau",
+    "countryCode": "ID"
+  },
+  {
+    "code": "LA",
+    "name": "Lampung",
+    "countryCode": "ID"
+  },
+  {
+    "code": "MA",
+    "name": "Maluku",
+    "countryCode": "ID"
+  },
+  {
+    "code": "MU",
+    "name": "Maluku Utara",
+    "countryCode": "ID"
+  },
+  {
+    "code": "NB",
+    "name": "Nusa Tenggara Barat",
+    "countryCode": "ID"
+  },
+  {
+    "code": "NT",
+    "name": "Nusa Tenggara Timur",
+    "countryCode": "ID"
+  },
+  {
+    "code": "PA",
+    "name": "Papua",
+    "countryCode": "ID"
+  },
+  {
+    "code": "PB",
+    "name": "Papua Barat",
+    "countryCode": "ID"
+  },
+  {
+    "code": "RI",
+    "name": "Riau",
+    "countryCode": "ID"
+  },
+  {
+    "code": "SR",
+    "name": "Sulawesi Barat",
+    "countryCode": "ID"
+  },
+  {
+    "code": "SN",
+    "name": "Sulawesi Selatan",
+    "countryCode": "ID"
+  },
+  {
+    "code": "ST",
+    "name": "Sulawesi Tengah",
+    "countryCode": "ID"
+  },
+  {
+    "code": "SG",
+    "name": "Sulawesi Tenggara",
+    "countryCode": "ID"
+  },
+  {
+    "code": "SA",
+    "name": "Sulawesi Utara",
+    "countryCode": "ID"
+  },
+  {
+    "code": "SB",
+    "name": "Sumatera Barat",
+    "countryCode": "ID"
+  },
+  {
+    "code": "SS",
+    "name": "Sumatera Selatan",
+    "countryCode": "ID"
+  },
+  {
+    "code": "SU",
+    "name": "Sumatera Utara",
+    "countryCode": "ID"
+  }
+]

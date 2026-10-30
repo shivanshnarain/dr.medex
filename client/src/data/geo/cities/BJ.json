@@ -1,0 +1,171 @@
+{
+  "AL": [
+    {
+      "name": "Banikoara",
+      "postalCodes": []
+    },
+    {
+      "name": "Kandi",
+      "postalCodes": []
+    },
+    {
+      "name": "Malanville",
+      "postalCodes": []
+    }
+  ],
+  "AK": [
+    {
+      "name": "Guilmaro",
+      "postalCodes": []
+    },
+    {
+      "name": "Natitingou",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanguieta",
+      "postalCodes": []
+    }
+  ],
+  "AQ": [
+    {
+      "name": "Abomey-Calavi",
+      "postalCodes": []
+    },
+    {
+      "name": "Allada",
+      "postalCodes": []
+    },
+    {
+      "name": "Hévié",
+      "postalCodes": []
+    },
+    {
+      "name": "Hinvi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouidah",
+      "postalCodes": []
+    }
+  ],
+  "BO": [
+    {
+      "name": "Bembèrèkè",
+      "postalCodes": []
+    },
+    {
+      "name": "Bétérou",
+      "postalCodes": []
+    },
+    {
+      "name": "Nikki",
+      "postalCodes": []
+    },
+    {
+      "name": "Parakou",
+      "postalCodes": []
+    },
+    {
+      "name": "Tchaourou",
+      "postalCodes": []
+    }
+  ],
+  "CO": [
+    {
+      "name": "Comé",
+      "postalCodes": []
+    },
+    {
+      "name": "Dassa-Zoumé",
+      "postalCodes": []
+    },
+    {
+      "name": "Savalou",
+      "postalCodes": []
+    },
+    {
+      "name": "Savé",
+      "postalCodes": []
+    }
+  ],
+  "DO": [
+    {
+      "name": "Bassila",
+      "postalCodes": []
+    },
+    {
+      "name": "Commune of Djougou",
+      "postalCodes": []
+    },
+    {
+      "name": "Djougou",
+      "postalCodes": []
+    }
+  ],
+  "KO": [
+    {
+      "name": "Djakotomey",
+      "postalCodes": []
+    },
+    {
+      "name": "Dogbo",
+      "postalCodes": []
+    }
+  ],
+  "LI": [
+    {
+      "name": "Cotonou",
+      "postalCodes": []
+    }
+  ],
+  "MO": [
+    {
+      "name": "Commune of Athieme",
+      "postalCodes": []
+    },
+    {
+      "name": "Lokossa",
+      "postalCodes": []
+    }
+  ],
+  "OU": [
+    {
+      "name": "Porto-Novo",
+      "postalCodes": []
+    }
+  ],
+  "PL": [
+    {
+      "name": "Kétou",
+      "postalCodes": []
+    },
+    {
+      "name": "Pobé",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakété",
+      "postalCodes": []
+    }
+  ],
+  "ZO": [
+    {
+      "name": "Abomey",
+      "postalCodes": []
+    },
+    {
+      "name": "Bohicon",
+      "postalCodes": []
+    },
+    {
+      "name": "Commune of Agbangnizoun",
+      "postalCodes": []
+    },
+    {
+      "name": "Cové",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

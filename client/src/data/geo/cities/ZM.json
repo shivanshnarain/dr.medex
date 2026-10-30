@@ -1,0 +1,307 @@
+{
+  "10": [
+    {
+      "name": "Chama",
+      "postalCodes": []
+    },
+    {
+      "name": "Chinsali",
+      "postalCodes": []
+    },
+    {
+      "name": "Isoka",
+      "postalCodes": []
+    },
+    {
+      "name": "Mpika",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakonde",
+      "postalCodes": []
+    }
+  ],
+  "02": [
+    {
+      "name": "Chibombo",
+      "postalCodes": []
+    },
+    {
+      "name": "Chibombo District",
+      "postalCodes": []
+    },
+    {
+      "name": "Kabwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Kapiri Mposhi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mkushi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mumbwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Serenje",
+      "postalCodes": []
+    }
+  ],
+  "08": [
+    {
+      "name": "Chambishi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chililabombwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Chingola",
+      "postalCodes": []
+    },
+    {
+      "name": "Chingola District",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalulushi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kataba",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Luanshya",
+      "postalCodes": []
+    },
+    {
+      "name": "Mpongwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Mufulira",
+      "postalCodes": []
+    },
+    {
+      "name": "Ndola",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Chadiza",
+      "postalCodes": []
+    },
+    {
+      "name": "Chipata",
+      "postalCodes": []
+    },
+    {
+      "name": "Lundazi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyimba",
+      "postalCodes": []
+    },
+    {
+      "name": "Petauke",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Kawambwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Mansa",
+      "postalCodes": []
+    },
+    {
+      "name": "Mwense",
+      "postalCodes": []
+    },
+    {
+      "name": "Nchelenge",
+      "postalCodes": []
+    },
+    {
+      "name": "Samfya",
+      "postalCodes": []
+    }
+  ],
+  "09": [
+    {
+      "name": "Chongwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafue",
+      "postalCodes": []
+    },
+    {
+      "name": "Luangwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Lusaka",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Kaputa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasama",
+      "postalCodes": []
+    },
+    {
+      "name": "Luwingu",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbala",
+      "postalCodes": []
+    },
+    {
+      "name": "Mporokoso",
+      "postalCodes": []
+    },
+    {
+      "name": "Mpulungu",
+      "postalCodes": []
+    },
+    {
+      "name": "Mungwi",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Kabompo",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalengwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kansanshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasempa",
+      "postalCodes": []
+    },
+    {
+      "name": "Mufumbwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Mwinilunga",
+      "postalCodes": []
+    },
+    {
+      "name": "Solwezi",
+      "postalCodes": []
+    },
+    {
+      "name": "Zambezi",
+      "postalCodes": []
+    }
+  ],
+  "07": [
+    {
+      "name": "Choma",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwembe",
+      "postalCodes": []
+    },
+    {
+      "name": "Itezhi-Tezhi District",
+      "postalCodes": []
+    },
+    {
+      "name": "Livingstone",
+      "postalCodes": []
+    },
+    {
+      "name": "Maamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Mazabuka",
+      "postalCodes": []
+    },
+    {
+      "name": "Monze",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakambala",
+      "postalCodes": []
+    },
+    {
+      "name": "Namwala",
+      "postalCodes": []
+    },
+    {
+      "name": "Siavonga",
+      "postalCodes": []
+    },
+    {
+      "name": "Siavonga District",
+      "postalCodes": []
+    },
+    {
+      "name": "Sinazongwe",
+      "postalCodes": []
+    }
+  ],
+  "01": [
+    {
+      "name": "Kalabo",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaoma",
+      "postalCodes": []
+    },
+    {
+      "name": "Limulunga",
+      "postalCodes": []
+    },
+    {
+      "name": "Lukulu",
+      "postalCodes": []
+    },
+    {
+      "name": "Mongu",
+      "postalCodes": []
+    },
+    {
+      "name": "Senanga",
+      "postalCodes": []
+    },
+    {
+      "name": "Sesheke",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

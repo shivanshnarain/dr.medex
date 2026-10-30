@@ -1,0 +1,82 @@
+[
+  {
+    "code": "01",
+    "name": "Johor",
+    "countryCode": "MY"
+  },
+  {
+    "code": "02",
+    "name": "Kedah",
+    "countryCode": "MY"
+  },
+  {
+    "code": "03",
+    "name": "Kelantan",
+    "countryCode": "MY"
+  },
+  {
+    "code": "14",
+    "name": "Kuala Lumpur",
+    "countryCode": "MY"
+  },
+  {
+    "code": "15",
+    "name": "Labuan",
+    "countryCode": "MY"
+  },
+  {
+    "code": "04",
+    "name": "Malacca",
+    "countryCode": "MY"
+  },
+  {
+    "code": "05",
+    "name": "Negeri Sembilan",
+    "countryCode": "MY"
+  },
+  {
+    "code": "06",
+    "name": "Pahang",
+    "countryCode": "MY"
+  },
+  {
+    "code": "07",
+    "name": "Penang",
+    "countryCode": "MY"
+  },
+  {
+    "code": "08",
+    "name": "Perak",
+    "countryCode": "MY"
+  },
+  {
+    "code": "09",
+    "name": "Perlis",
+    "countryCode": "MY"
+  },
+  {
+    "code": "16",
+    "name": "Putrajaya",
+    "countryCode": "MY"
+  },
+  {
+    "code": "12",
+    "name": "Sabah",
+    "countryCode": "MY"
+  },
+  {
+    "code": "13",
+    "name": "Sarawak",
+    "countryCode": "MY"
+  },
+  {
+    "code": "10",
+    "name": "Selangor",
+    "countryCode": "MY"
+  },
+  {
+    "code": "11",
+    "name": "Terengganu",
+    "countryCode": "MY"
+  }
+]

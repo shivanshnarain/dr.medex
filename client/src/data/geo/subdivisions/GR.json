@@ -1,0 +1,192 @@
+[
+  {
+    "code": "13",
+    "name": "Achaea Regional Unit",
+    "countryCode": "GR"
+  },
+  {
+    "code": "01",
+    "name": "Aetolia-Acarnania Regional Unit",
+    "countryCode": "GR"
+  },
+  {
+    "code": "12",
+    "name": "Arcadia Prefecture",
+    "countryCode": "GR"
+  },
+  {
+    "code": "11",
+    "name": "Argolis Regional Unit",
+    "countryCode": "GR"
+  },
+  {
+    "code": "I",
+    "name": "Attica Region",
+    "countryCode": "GR"
+  },
+  {
+    "code": "03",
+    "name": "Boeotia Regional Unit",
+    "countryCode": "GR"
+  },
+  {
+    "code": "H",
+    "name": "Central Greece Region",
+    "countryCode": "GR"
+  },
+  {
+    "code": "B",
+    "name": "Central Macedonia",
+    "countryCode": "GR"
+  },
+  {
+    "code": "94",
+    "name": "Chania Regional Unit",
+    "countryCode": "GR"
+  },
+  {
+    "code": "22",
+    "name": "Corfu Prefecture",
+    "countryCode": "GR"
+  },
+  {
+    "code": "15",
+    "name": "Corinthia Regional Unit",
+    "countryCode": "GR"
+  },
+  {
+    "code": "M",
+    "name": "Crete Region",
+    "countryCode": "GR"
+  },
+  {
+    "code": "52",
+    "name": "Drama Regional Unit",
+    "countryCode": "GR"
+  },
+  {
+    "code": "A2",
+    "name": "East Attica Regional Unit",
+    "countryCode": "GR"
+  },
+  {
+    "code": "A",
+    "name": "East Macedonia and Thrace",
+    "countryCode": "GR"
+  },
+  {
+    "code": "D",
+    "name": "Epirus Region",
+    "countryCode": "GR"
+  },
+  {
+    "code": "04",
+    "name": "Euboea",
+    "countryCode": "GR"
+  },
+  {
+    "code": "51",
+    "name": "Grevena Prefecture",
+    "countryCode": "GR"
+  },
+  {
+    "code": "53",
+    "name": "Imathia Regional Unit",
+    "countryCode": "GR"
+  },
+  {
+    "code": "33",
+    "name": "Ioannina Regional Unit",
+    "countryCode": "GR"
+  },
+  {
+    "code": "F",
+    "name": "Ionian Islands Region",
+    "countryCode": "GR"
+  },
+  {
+    "code": "41",
+    "name": "Karditsa Regional Unit",
+    "countryCode": "GR"
+  },
+  {
+    "code": "56",
+    "name": "Kastoria Regional Unit",
+    "countryCode": "GR"
+  },
+  {
+    "code": "23",
+    "name": "Kefalonia Prefecture",
+    "countryCode": "GR"
+  },
+  {
+    "code": "57",
+    "name": "Kilkis Regional Unit",
+    "countryCode": "GR"
+  },
+  {
+    "code": "58",
+    "name": "Kozani Prefecture",
+    "countryCode": "GR"
+  },
+  {
+    "code": "16",
+    "name": "Laconia",
+    "countryCode": "GR"
+  },
+  {
+    "code": "42",
+    "name": "Larissa Prefecture",
+    "countryCode": "GR"
+  },
+  {
+    "code": "24",
+    "name": "Lefkada Regional Unit",
+    "countryCode": "GR"
+  },
+  {
+    "code": "59",
+    "name": "Pella Regional Unit",
+    "countryCode": "GR"
+  },
+  {
+    "code": "J",
+    "name": "Peloponnese Region",
+    "countryCode": "GR"
+  },
+  {
+    "code": "06",
+    "name": "Phthiotis Prefecture",
+    "countryCode": "GR"
+  },
+  {
+    "code": "34",
+    "name": "Preveza Prefecture",
+    "countryCode": "GR"
+  },
+  {
+    "code": "62",
+    "name": "Serres Prefecture",
+    "countryCode": "GR"
+  },
+  {
+    "code": "L",
+    "name": "South Aegean",
+    "countryCode": "GR"
+  },
+  {
+    "code": "54",
+    "name": "Thessaloniki Regional Unit",
+    "countryCode": "GR"
+  },
+  {
+    "code": "G",
+    "name": "West Greece Region",
+    "countryCode": "GR"
+  },
+  {
+    "code": "C",
+    "name": "West Macedonia Region",
+    "countryCode": "GR"
+  }
+]

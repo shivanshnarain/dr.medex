@@ -1,0 +1,392 @@
+[
+  {
+    "code": "37",
+    "name": "Amnat Charoen",
+    "countryCode": "TH"
+  },
+  {
+    "code": "15",
+    "name": "Ang Thong",
+    "countryCode": "TH"
+  },
+  {
+    "code": "10",
+    "name": "Bangkok",
+    "countryCode": "TH"
+  },
+  {
+    "code": "38",
+    "name": "Bueng Kan",
+    "countryCode": "TH"
+  },
+  {
+    "code": "31",
+    "name": "Buri Ram",
+    "countryCode": "TH"
+  },
+  {
+    "code": "24",
+    "name": "Chachoengsao",
+    "countryCode": "TH"
+  },
+  {
+    "code": "18",
+    "name": "Chai Nat",
+    "countryCode": "TH"
+  },
+  {
+    "code": "36",
+    "name": "Chaiyaphum",
+    "countryCode": "TH"
+  },
+  {
+    "code": "22",
+    "name": "Chanthaburi",
+    "countryCode": "TH"
+  },
+  {
+    "code": "50",
+    "name": "Chiang Mai",
+    "countryCode": "TH"
+  },
+  {
+    "code": "57",
+    "name": "Chiang Rai",
+    "countryCode": "TH"
+  },
+  {
+    "code": "20",
+    "name": "Chon Buri",
+    "countryCode": "TH"
+  },
+  {
+    "code": "86",
+    "name": "Chumphon",
+    "countryCode": "TH"
+  },
+  {
+    "code": "46",
+    "name": "Kalasin",
+    "countryCode": "TH"
+  },
+  {
+    "code": "62",
+    "name": "Kamphaeng Phet",
+    "countryCode": "TH"
+  },
+  {
+    "code": "71",
+    "name": "Kanchanaburi",
+    "countryCode": "TH"
+  },
+  {
+    "code": "40",
+    "name": "Khon Kaen",
+    "countryCode": "TH"
+  },
+  {
+    "code": "81",
+    "name": "Krabi",
+    "countryCode": "TH"
+  },
+  {
+    "code": "52",
+    "name": "Lampang",
+    "countryCode": "TH"
+  },
+  {
+    "code": "51",
+    "name": "Lamphun",
+    "countryCode": "TH"
+  },
+  {
+    "code": "42",
+    "name": "Loei",
+    "countryCode": "TH"
+  },
+  {
+    "code": "16",
+    "name": "Lop Buri",
+    "countryCode": "TH"
+  },
+  {
+    "code": "58",
+    "name": "Mae Hong Son",
+    "countryCode": "TH"
+  },
+  {
+    "code": "44",
+    "name": "Maha Sarakham",
+    "countryCode": "TH"
+  },
+  {
+    "code": "49",
+    "name": "Mukdahan",
+    "countryCode": "TH"
+  },
+  {
+    "code": "26",
+    "name": "Nakhon Nayok",
+    "countryCode": "TH"
+  },
+  {
+    "code": "73",
+    "name": "Nakhon Pathom",
+    "countryCode": "TH"
+  },
+  {
+    "code": "48",
+    "name": "Nakhon Phanom",
+    "countryCode": "TH"
+  },
+  {
+    "code": "30",
+    "name": "Nakhon Ratchasima",
+    "countryCode": "TH"
+  },
+  {
+    "code": "60",
+    "name": "Nakhon Sawan",
+    "countryCode": "TH"
+  },
+  {
+    "code": "80",
+    "name": "Nakhon Si Thammarat",
+    "countryCode": "TH"
+  },
+  {
+    "code": "55",
+    "name": "Nan",
+    "countryCode": "TH"
+  },
+  {
+    "code": "96",
+    "name": "Narathiwat",
+    "countryCode": "TH"
+  },
+  {
+    "code": "39",
+    "name": "Nong Bua Lam Phu",
+    "countryCode": "TH"
+  },
+  {
+    "code": "43",
+    "name": "Nong Khai",
+    "countryCode": "TH"
+  },
+  {
+    "code": "12",
+    "name": "Nonthaburi",
+    "countryCode": "TH"
+  },
+  {
+    "code": "13",
+    "name": "Pathum Thani",
+    "countryCode": "TH"
+  },
+  {
+    "code": "94",
+    "name": "Pattani",
+    "countryCode": "TH"
+  },
+  {
+    "code": "S",
+    "name": "Pattaya",
+    "countryCode": "TH"
+  },
+  {
+    "code": "82",
+    "name": "Phangnga",
+    "countryCode": "TH"
+  },
+  {
+    "code": "93",
+    "name": "Phatthalung",
+    "countryCode": "TH"
+  },
+  {
+    "code": "56",
+    "name": "Phayao",
+    "countryCode": "TH"
+  },
+  {
+    "code": "67",
+    "name": "Phetchabun",
+    "countryCode": "TH"
+  },
+  {
+    "code": "76",
+    "name": "Phetchaburi",
+    "countryCode": "TH"
+  },
+  {
+    "code": "66",
+    "name": "Phichit",
+    "countryCode": "TH"
+  },
+  {
+    "code": "65",
+    "name": "Phitsanulok",
+    "countryCode": "TH"
+  },
+  {
+    "code": "14",
+    "name": "Phra Nakhon Si Ayutthaya",
+    "countryCode": "TH"
+  },
+  {
+    "code": "54",
+    "name": "Phrae",
+    "countryCode": "TH"
+  },
+  {
+    "code": "83",
+    "name": "Phuket",
+    "countryCode": "TH"
+  },
+  {
+    "code": "25",
+    "name": "Prachin Buri",
+    "countryCode": "TH"
+  },
+  {
+    "code": "77",
+    "name": "Prachuap Khiri Khan",
+    "countryCode": "TH"
+  },
+  {
+    "code": "85",
+    "name": "Ranong",
+    "countryCode": "TH"
+  },
+  {
+    "code": "70",
+    "name": "Ratchaburi",
+    "countryCode": "TH"
+  },
+  {
+    "code": "21",
+    "name": "Rayong",
+    "countryCode": "TH"
+  },
+  {
+    "code": "45",
+    "name": "Roi Et",
+    "countryCode": "TH"
+  },
+  {
+    "code": "27",
+    "name": "Sa Kaeo",
+    "countryCode": "TH"
+  },
+  {
+    "code": "47",
+    "name": "Sakon Nakhon",
+    "countryCode": "TH"
+  },
+  {
+    "code": "11",
+    "name": "Samut Prakan",
+    "countryCode": "TH"
+  },
+  {
+    "code": "74",
+    "name": "Samut Sakhon",
+    "countryCode": "TH"
+  },
+  {
+    "code": "75",
+    "name": "Samut Songkhram",
+    "countryCode": "TH"
+  },
+  {
+    "code": "19",
+    "name": "Saraburi",
+    "countryCode": "TH"
+  },
+  {
+    "code": "91",
+    "name": "Satun",
+    "countryCode": "TH"
+  },
+  {
+    "code": "33",
+    "name": "Si Sa Ket",
+    "countryCode": "TH"
+  },
+  {
+    "code": "17",
+    "name": "Sing Buri",
+    "countryCode": "TH"
+  },
+  {
+    "code": "90",
+    "name": "Songkhla",
+    "countryCode": "TH"
+  },
+  {
+    "code": "64",
+    "name": "Sukhothai",
+    "countryCode": "TH"
+  },
+  {
+    "code": "72",
+    "name": "Suphan Buri",
+    "countryCode": "TH"
+  },
+  {
+    "code": "84",
+    "name": "Surat Thani",
+    "countryCode": "TH"
+  },
+  {
+    "code": "32",
+    "name": "Surin",
+    "countryCode": "TH"
+  },
+  {
+    "code": "63",
+    "name": "Tak",
+    "countryCode": "TH"
+  },
+  {
+    "code": "92",
+    "name": "Trang",
+    "countryCode": "TH"
+  },
+  {
+    "code": "23",
+    "name": "Trat",
+    "countryCode": "TH"
+  },
+  {
+    "code": "34",
+    "name": "Ubon Ratchathani",
+    "countryCode": "TH"
+  },
+  {
+    "code": "41",
+    "name": "Udon Thani",
+    "countryCode": "TH"
+  },
+  {
+    "code": "61",
+    "name": "Uthai Thani",
+    "countryCode": "TH"
+  },
+  {
+    "code": "53",
+    "name": "Uttaradit",
+    "countryCode": "TH"
+  },
+  {
+    "code": "95",
+    "name": "Yala",
+    "countryCode": "TH"
+  },
+  {
+    "code": "35",
+    "name": "Yasothon",
+    "countryCode": "TH"
+  }
+]

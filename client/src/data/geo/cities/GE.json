@@ -1,0 +1,477 @@
+{
+  "29": [],
+  "50": [],
+  "AJ": [
+    {
+      "name": "Akhaldaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Batumi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chakvi",
+      "postalCodes": []
+    },
+    {
+      "name": "Dioknisi",
+      "postalCodes": []
+    },
+    {
+      "name": "Khelvachauri",
+      "postalCodes": []
+    },
+    {
+      "name": "Khulo",
+      "postalCodes": []
+    },
+    {
+      "name": "Kobuleti",
+      "postalCodes": []
+    },
+    {
+      "name": "Makhinjauri",
+      "postalCodes": []
+    },
+    {
+      "name": "Ochkhamuri",
+      "postalCodes": []
+    },
+    {
+      "name": "Shuakhevi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsikhisdziri",
+      "postalCodes": []
+    }
+  ],
+  "AB": [
+    {
+      "name": "Bich’vinta",
+      "postalCodes": []
+    },
+    {
+      "name": "Dranda",
+      "postalCodes": []
+    },
+    {
+      "name": "Gagra",
+      "postalCodes": []
+    },
+    {
+      "name": "Gali",
+      "postalCodes": []
+    },
+    {
+      "name": "Gantiadi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gudauta",
+      "postalCodes": []
+    },
+    {
+      "name": "Kelasuri",
+      "postalCodes": []
+    },
+    {
+      "name": "Och’amch’ire",
+      "postalCodes": []
+    },
+    {
+      "name": "P’rimorsk’oe",
+      "postalCodes": []
+    },
+    {
+      "name": "Sokhumi",
+      "postalCodes": []
+    },
+    {
+      "name": "Stantsiya Novyy Afon",
+      "postalCodes": []
+    },
+    {
+      "name": "Tqvarch'eli",
+      "postalCodes": []
+    }
+  ],
+  "GU": [
+    {
+      "name": "Lanchkhuti",
+      "postalCodes": []
+    },
+    {
+      "name": "Naruja",
+      "postalCodes": []
+    },
+    {
+      "name": "Ozurgeti",
+      "postalCodes": []
+    },
+    {
+      "name": "Urek’i",
+      "postalCodes": []
+    }
+  ],
+  "IM": [
+    {
+      "name": "Baghdatis Munitsip’alit’et’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiat’ura",
+      "postalCodes": []
+    },
+    {
+      "name": "K’alak’i Chiat’ura",
+      "postalCodes": []
+    },
+    {
+      "name": "K’ulashi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kharagauli",
+      "postalCodes": []
+    },
+    {
+      "name": "Khoni",
+      "postalCodes": []
+    },
+    {
+      "name": "Kutaisi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sach’khere",
+      "postalCodes": []
+    },
+    {
+      "name": "Samtredia",
+      "postalCodes": []
+    },
+    {
+      "name": "Shorapani",
+      "postalCodes": []
+    },
+    {
+      "name": "Tqibuli",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsqaltubo",
+      "postalCodes": []
+    },
+    {
+      "name": "Vani",
+      "postalCodes": []
+    },
+    {
+      "name": "Zestap’oni",
+      "postalCodes": []
+    }
+  ],
+  "KA": [
+    {
+      "name": "Akhmet’a",
+      "postalCodes": []
+    },
+    {
+      "name": "Akhmet’is Munitsip’alit’et’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Gurjaani",
+      "postalCodes": []
+    },
+    {
+      "name": "Lagodekhi",
+      "postalCodes": []
+    },
+    {
+      "name": "Qvareli",
+      "postalCodes": []
+    },
+    {
+      "name": "Sagarejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sighnaghi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sighnaghis Munitsip’alit’et’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Telavi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsinandali",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsnori",
+      "postalCodes": []
+    }
+  ],
+  "KK": [
+    {
+      "name": "Bolnisi",
+      "postalCodes": []
+    },
+    {
+      "name": "Bolnisis Munitsip’alit’et’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Didi Lilo",
+      "postalCodes": []
+    },
+    {
+      "name": "Dmanisis Munitsip’alit’et’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Gardabani",
+      "postalCodes": []
+    },
+    {
+      "name": "Gardabnis Munitsip’alit’et’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Manglisi",
+      "postalCodes": []
+    },
+    {
+      "name": "Marneuli",
+      "postalCodes": []
+    },
+    {
+      "name": "Marneulis Munitsip’alit’et’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Naghvarevi",
+      "postalCodes": []
+    },
+    {
+      "name": "Rust’avi",
+      "postalCodes": []
+    },
+    {
+      "name": "T’et’ri Tsqaro",
+      "postalCodes": []
+    },
+    {
+      "name": "Tetrits’q’alos Munitsip’alit’et’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Ts’alk’is Munitsip’alit’et’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsalka",
+      "postalCodes": []
+    }
+  ],
+  "MM": [
+    {
+      "name": "Akhalgori",
+      "postalCodes": []
+    },
+    {
+      "name": "Dzegvi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gudauri",
+      "postalCodes": []
+    },
+    {
+      "name": "Java",
+      "postalCodes": []
+    },
+    {
+      "name": "Mtskheta",
+      "postalCodes": []
+    },
+    {
+      "name": "P’asanauri",
+      "postalCodes": []
+    },
+    {
+      "name": "Step’antsminda",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhinvali",
+      "postalCodes": []
+    }
+  ],
+  "RL": [
+    {
+      "name": "Ambrolauri",
+      "postalCodes": []
+    },
+    {
+      "name": "Ambrolauris Munitsip’alit’et’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Lent’ekhi",
+      "postalCodes": []
+    },
+    {
+      "name": "Oni",
+      "postalCodes": []
+    }
+  ],
+  "SZ": [
+    {
+      "name": "Abasha",
+      "postalCodes": []
+    },
+    {
+      "name": "Jvari",
+      "postalCodes": []
+    },
+    {
+      "name": "Khobi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kveda Chkhorots’q’u",
+      "postalCodes": []
+    },
+    {
+      "name": "Mart’vili",
+      "postalCodes": []
+    },
+    {
+      "name": "Mest’ia",
+      "postalCodes": []
+    },
+    {
+      "name": "Mest’iis Munitsip’alit’et’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Orsant’ia",
+      "postalCodes": []
+    },
+    {
+      "name": "P’ot’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Senak’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsalenjikha",
+      "postalCodes": []
+    },
+    {
+      "name": "Zugdidi",
+      "postalCodes": []
+    }
+  ],
+  "SJ": [
+    {
+      "name": "Adigeni",
+      "postalCodes": []
+    },
+    {
+      "name": "Adigeni Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Akhaldaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Akhalk’alak’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Akhaltsikhe",
+      "postalCodes": []
+    },
+    {
+      "name": "Akhaltsikhis Munitsip’alit’et’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Asp’indzis Munitsip’alit’et’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Aspindza",
+      "postalCodes": []
+    },
+    {
+      "name": "Bakuriani",
+      "postalCodes": []
+    },
+    {
+      "name": "Borjomi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ninotsminda",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsaghveri",
+      "postalCodes": []
+    },
+    {
+      "name": "Vale",
+      "postalCodes": []
+    }
+  ],
+  "SK": [
+    {
+      "name": "Agara",
+      "postalCodes": []
+    },
+    {
+      "name": "Gori",
+      "postalCodes": []
+    },
+    {
+      "name": "Goris Munitsip’alit’et’i",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaspi",
+      "postalCodes": []
+    },
+    {
+      "name": "Khashuri",
+      "postalCodes": []
+    },
+    {
+      "name": "Surami",
+      "postalCodes": []
+    },
+    {
+      "name": "Ts’khinvali",
+      "postalCodes": []
+    }
+  ],
+  "TB": [
+    {
+      "name": "Tbilisi",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

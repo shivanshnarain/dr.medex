@@ -1,0 +1,52 @@
+[
+  {
+    "code": "CE",
+    "name": "Central Province",
+    "countryCode": "SB"
+  },
+  {
+    "code": "CH",
+    "name": "Choiseul Province",
+    "countryCode": "SB"
+  },
+  {
+    "code": "GU",
+    "name": "Guadalcanal Province",
+    "countryCode": "SB"
+  },
+  {
+    "code": "CT",
+    "name": "Honiara",
+    "countryCode": "SB"
+  },
+  {
+    "code": "IS",
+    "name": "Isabel Province",
+    "countryCode": "SB"
+  },
+  {
+    "code": "MK",
+    "name": "Makira-Ulawa Province",
+    "countryCode": "SB"
+  },
+  {
+    "code": "ML",
+    "name": "Malaita Province",
+    "countryCode": "SB"
+  },
+  {
+    "code": "RB",
+    "name": "Rennell and Bellona Province",
+    "countryCode": "SB"
+  },
+  {
+    "code": "TE",
+    "name": "Temotu Province",
+    "countryCode": "SB"
+  },
+  {
+    "code": "WE",
+    "name": "Western Province",
+    "countryCode": "SB"
+  }
+]

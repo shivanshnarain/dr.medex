@@ -1,0 +1,352 @@
+[
+  {
+    "code": "05",
+    "name": "Bagerhat District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "33",
+    "name": "Bahadia",
+    "countryCode": "BD"
+  },
+  {
+    "code": "01",
+    "name": "Bandarban District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "02",
+    "name": "Barguna District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "06",
+    "name": "Barisal District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "A",
+    "name": "Barisal Division",
+    "countryCode": "BD"
+  },
+  {
+    "code": "07",
+    "name": "Bhola District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "03",
+    "name": "Bogra District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "04",
+    "name": "Brahmanbaria District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "09",
+    "name": "Chandpur District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "45",
+    "name": "Chapai Nawabganj District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "10",
+    "name": "Chittagong District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "B",
+    "name": "Chittagong Division",
+    "countryCode": "BD"
+  },
+  {
+    "code": "12",
+    "name": "Chuadanga District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "08",
+    "name": "Comilla District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "11",
+    "name": "Cox's Bazar District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "13",
+    "name": "Dhaka District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "C",
+    "name": "Dhaka Division",
+    "countryCode": "BD"
+  },
+  {
+    "code": "14",
+    "name": "Dinajpur District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "15",
+    "name": "Faridpur District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "16",
+    "name": "Feni District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "19",
+    "name": "Gaibandha District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "18",
+    "name": "Gazipur District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "17",
+    "name": "Gopalganj District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "20",
+    "name": "Habiganj District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "21",
+    "name": "Jamalpur District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "22",
+    "name": "Jessore District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "25",
+    "name": "Jhalokati District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "23",
+    "name": "Jhenaidah District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "24",
+    "name": "Joypurhat District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "29",
+    "name": "Khagrachari District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "27",
+    "name": "Khulna District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "D",
+    "name": "Khulna Division",
+    "countryCode": "BD"
+  },
+  {
+    "code": "26",
+    "name": "Kishoreganj District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "28",
+    "name": "Kurigram District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "30",
+    "name": "Kushtia District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "31",
+    "name": "Lakshmipur District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "32",
+    "name": "Lalmonirhat District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "36",
+    "name": "Madaripur District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "39",
+    "name": "Meherpur District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "38",
+    "name": "Moulvibazar District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "35",
+    "name": "Munshiganj District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "34",
+    "name": "Mymensingh District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "H",
+    "name": "Mymensingh Division",
+    "countryCode": "BD"
+  },
+  {
+    "code": "48",
+    "name": "Naogaon District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "43",
+    "name": "Narail District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "40",
+    "name": "Narayanganj District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "44",
+    "name": "Natore District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "41",
+    "name": "Netrokona District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "46",
+    "name": "Nilphamari District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "47",
+    "name": "Noakhali District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "49",
+    "name": "Pabna District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "52",
+    "name": "Panchagarh District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "51",
+    "name": "Patuakhali District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "50",
+    "name": "Pirojpur District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "53",
+    "name": "Rajbari District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "54",
+    "name": "Rajshahi District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "E",
+    "name": "Rajshahi Division",
+    "countryCode": "BD"
+  },
+  {
+    "code": "56",
+    "name": "Rangamati Hill District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "55",
+    "name": "Rangpur District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "F",
+    "name": "Rangpur Division",
+    "countryCode": "BD"
+  },
+  {
+    "code": "58",
+    "name": "Satkhira District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "62",
+    "name": "Shariatpur District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "57",
+    "name": "Sherpur District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "59",
+    "name": "Sirajganj District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "61",
+    "name": "Sunamganj District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "60",
+    "name": "Sylhet District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "G",
+    "name": "Sylhet Division",
+    "countryCode": "BD"
+  },
+  {
+    "code": "63",
+    "name": "Tangail District",
+    "countryCode": "BD"
+  },
+  {
+    "code": "64",
+    "name": "Thakurgaon District",
+    "countryCode": "BD"
+  }
+]

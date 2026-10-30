@@ -1,0 +1,51 @@
+{
+  "01": [
+    {
+      "name": "Biabou",
+      "postalCodes": []
+    },
+    {
+      "name": "Byera Village",
+      "postalCodes": []
+    },
+    {
+      "name": "Georgetown",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Port Elizabeth",
+      "postalCodes": []
+    }
+  ],
+  "02": [
+    {
+      "name": "Layou",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Chateaubelair",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Kingstown",
+      "postalCodes": []
+    },
+    {
+      "name": "Kingstown Park",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Barrouallie",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

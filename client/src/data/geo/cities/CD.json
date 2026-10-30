@@ -1,0 +1,329 @@
+{
+  "BU": [
+    {
+      "name": "Aketi",
+      "postalCodes": []
+    },
+    {
+      "name": "Bondo",
+      "postalCodes": []
+    },
+    {
+      "name": "Buta",
+      "postalCodes": []
+    }
+  ],
+  "EQ": [
+    {
+      "name": "Gemena",
+      "postalCodes": []
+    },
+    {
+      "name": "Lisala",
+      "postalCodes": []
+    },
+    {
+      "name": "Lukolela",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbandaka",
+      "postalCodes": []
+    }
+  ],
+  "HK": [
+    {
+      "name": "Haut Katanga",
+      "postalCodes": []
+    },
+    {
+      "name": "Kambove",
+      "postalCodes": []
+    },
+    {
+      "name": "Kipushi",
+      "postalCodes": []
+    },
+    {
+      "name": "Likasi",
+      "postalCodes": []
+    },
+    {
+      "name": "Lubumbashi",
+      "postalCodes": []
+    }
+  ],
+  "HL": [
+    {
+      "name": "Bukama",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamina",
+      "postalCodes": []
+    }
+  ],
+  "HU": [
+    {
+      "name": "Isiro",
+      "postalCodes": []
+    },
+    {
+      "name": "Wamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Watsa",
+      "postalCodes": []
+    }
+  ],
+  "IT": [
+    {
+      "name": "Bunia",
+      "postalCodes": []
+    }
+  ],
+  "KS": [
+    {
+      "name": "Ilebo",
+      "postalCodes": []
+    },
+    {
+      "name": "Luebo",
+      "postalCodes": []
+    },
+    {
+      "name": "Mweka",
+      "postalCodes": []
+    },
+    {
+      "name": "Tshikapa",
+      "postalCodes": []
+    }
+  ],
+  "KC": [],
+  "KE": [
+    {
+      "name": "Gandajika",
+      "postalCodes": []
+    },
+    {
+      "name": "Kabinda",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbuji-Mayi",
+      "postalCodes": []
+    }
+  ],
+  "KN": [
+    {
+      "name": "Kinshasa",
+      "postalCodes": []
+    },
+    {
+      "name": "Masina",
+      "postalCodes": []
+    }
+  ],
+  "BC": [
+    {
+      "name": "Boma",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasangulu",
+      "postalCodes": []
+    },
+    {
+      "name": "Matadi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbanza-Ngungu",
+      "postalCodes": []
+    },
+    {
+      "name": "Moanda",
+      "postalCodes": []
+    },
+    {
+      "name": "Tshela",
+      "postalCodes": []
+    }
+  ],
+  "KG": [
+    {
+      "name": "Kasongo-Lunda",
+      "postalCodes": []
+    }
+  ],
+  "KL": [
+    {
+      "name": "Bandundu",
+      "postalCodes": []
+    },
+    {
+      "name": "Bulungu",
+      "postalCodes": []
+    },
+    {
+      "name": "Kikwit",
+      "postalCodes": []
+    },
+    {
+      "name": "Mangai",
+      "postalCodes": []
+    }
+  ],
+  "LO": [
+    {
+      "name": "Lubao",
+      "postalCodes": []
+    },
+    {
+      "name": "Mwene-Ditu",
+      "postalCodes": []
+    }
+  ],
+  "LU": [],
+  "MN": [
+    {
+      "name": "Bolobo",
+      "postalCodes": []
+    },
+    {
+      "name": "Inongo",
+      "postalCodes": []
+    },
+    {
+      "name": "Mushie",
+      "postalCodes": []
+    },
+    {
+      "name": "Nioki",
+      "postalCodes": []
+    }
+  ],
+  "MA": [
+    {
+      "name": "Kampene",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasongo",
+      "postalCodes": []
+    },
+    {
+      "name": "Kindu",
+      "postalCodes": []
+    }
+  ],
+  "MO": [
+    {
+      "name": "Bumba",
+      "postalCodes": []
+    }
+  ],
+  "NK": [
+    {
+      "name": "Beni",
+      "postalCodes": []
+    },
+    {
+      "name": "Butembo",
+      "postalCodes": []
+    },
+    {
+      "name": "Goma",
+      "postalCodes": []
+    },
+    {
+      "name": "Sake",
+      "postalCodes": []
+    }
+  ],
+  "NU": [
+    {
+      "name": "Bosobolo",
+      "postalCodes": []
+    },
+    {
+      "name": "Businga",
+      "postalCodes": []
+    },
+    {
+      "name": "Gbadolite",
+      "postalCodes": []
+    }
+  ],
+  "SA": [
+    {
+      "name": "Lodja",
+      "postalCodes": []
+    },
+    {
+      "name": "Lusambo",
+      "postalCodes": []
+    }
+  ],
+  "SK": [
+    {
+      "name": "Bukavu",
+      "postalCodes": []
+    },
+    {
+      "name": "Kabare",
+      "postalCodes": []
+    },
+    {
+      "name": "Uvira",
+      "postalCodes": []
+    }
+  ],
+  "SU": [
+    {
+      "name": "Bongandanga",
+      "postalCodes": []
+    },
+    {
+      "name": "Libenge",
+      "postalCodes": []
+    }
+  ],
+  "TA": [
+    {
+      "name": "Kabalo",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalemie",
+      "postalCodes": []
+    },
+    {
+      "name": "Kongolo",
+      "postalCodes": []
+    }
+  ],
+  "TO": [
+    {
+      "name": "Basoko",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisangani",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangambi",
+      "postalCodes": []
+    }
+  ],
+  "TU": [
+    {
+      "name": "Boende",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

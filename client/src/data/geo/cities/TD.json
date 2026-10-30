@@ -1,0 +1,210 @@
+{
+  "BG": [
+    {
+      "name": "Moussoro",
+      "postalCodes": []
+    }
+  ],
+  "BA": [
+    {
+      "name": "Ati",
+      "postalCodes": []
+    },
+    {
+      "name": "Oum Hadjer",
+      "postalCodes": []
+    }
+  ],
+  "BO": [
+    {
+      "name": "Faya-Largeau",
+      "postalCodes": []
+    }
+  ],
+  "EN": [],
+  "EE": [],
+  "EO": [
+    {
+      "name": "Fada",
+      "postalCodes": []
+    }
+  ],
+  "GR": [
+    {
+      "name": "Bitkine",
+      "postalCodes": []
+    },
+    {
+      "name": "Melfi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mongo",
+      "postalCodes": []
+    }
+  ],
+  "HL": [
+    {
+      "name": "Bokoro",
+      "postalCodes": []
+    },
+    {
+      "name": "Massaguet",
+      "postalCodes": []
+    },
+    {
+      "name": "Massakory",
+      "postalCodes": []
+    }
+  ],
+  "KA": [
+    {
+      "name": "Mao",
+      "postalCodes": []
+    }
+  ],
+  "LC": [
+    {
+      "name": "Bol",
+      "postalCodes": []
+    }
+  ],
+  "LO": [
+    {
+      "name": "Beïnamar",
+      "postalCodes": []
+    },
+    {
+      "name": "Benoy",
+      "postalCodes": []
+    },
+    {
+      "name": "Lac Wey",
+      "postalCodes": []
+    },
+    {
+      "name": "Moundou",
+      "postalCodes": []
+    }
+  ],
+  "LR": [
+    {
+      "name": "Bébédja",
+      "postalCodes": []
+    },
+    {
+      "name": "Béboto",
+      "postalCodes": []
+    },
+    {
+      "name": "Doba",
+      "postalCodes": []
+    }
+  ],
+  "MA": [
+    {
+      "name": "Goundi",
+      "postalCodes": []
+    },
+    {
+      "name": "Koumra",
+      "postalCodes": []
+    },
+    {
+      "name": "Moïssala",
+      "postalCodes": []
+    }
+  ],
+  "ME": [
+    {
+      "name": "Bongor",
+      "postalCodes": []
+    },
+    {
+      "name": "Gounou Gaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Guelendeng",
+      "postalCodes": []
+    }
+  ],
+  "MO": [
+    {
+      "name": "Mboursou Léré",
+      "postalCodes": []
+    },
+    {
+      "name": "Pala",
+      "postalCodes": []
+    }
+  ],
+  "MC": [
+    {
+      "name": "Kyabé",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarh",
+      "postalCodes": []
+    }
+  ],
+  "ND": [],
+  "OD": [
+    {
+      "name": "Abéché",
+      "postalCodes": []
+    },
+    {
+      "name": "Adré",
+      "postalCodes": []
+    },
+    {
+      "name": "Goz Béïda",
+      "postalCodes": []
+    }
+  ],
+  "SA": [
+    {
+      "name": "Am Timan",
+      "postalCodes": []
+    }
+  ],
+  "SI": [
+    {
+      "name": "Goz Beïda",
+      "postalCodes": []
+    }
+  ],
+  "TA": [
+    {
+      "name": "Béré",
+      "postalCodes": []
+    },
+    {
+      "name": "Kelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Laï",
+      "postalCodes": []
+    }
+  ],
+  "TI": [
+    {
+      "name": "Aozou",
+      "postalCodes": []
+    }
+  ],
+  "WF": [
+    {
+      "name": "Biltine",
+      "postalCodes": []
+    },
+    {
+      "name": "Iriba",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

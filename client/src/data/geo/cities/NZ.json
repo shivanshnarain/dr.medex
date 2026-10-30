@@ -1,0 +1,669 @@
+{
+  "AUK": [
+    {
+      "name": "Auckland",
+      "postalCodes": []
+    },
+    {
+      "name": "Mangere",
+      "postalCodes": []
+    },
+    {
+      "name": "Manukau City",
+      "postalCodes": []
+    },
+    {
+      "name": "Muriwai Beach",
+      "postalCodes": []
+    },
+    {
+      "name": "Murrays Bay",
+      "postalCodes": []
+    },
+    {
+      "name": "North Shore",
+      "postalCodes": []
+    },
+    {
+      "name": "Pakuranga",
+      "postalCodes": []
+    },
+    {
+      "name": "Papakura",
+      "postalCodes": []
+    },
+    {
+      "name": "Parakai",
+      "postalCodes": []
+    },
+    {
+      "name": "Pukekohe East",
+      "postalCodes": []
+    },
+    {
+      "name": "Red Hill",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosebank",
+      "postalCodes": []
+    },
+    {
+      "name": "Rothesay Bay",
+      "postalCodes": []
+    },
+    {
+      "name": "Takanini",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Titirangi",
+      "postalCodes": []
+    },
+    {
+      "name": "Waitakere",
+      "postalCodes": []
+    },
+    {
+      "name": "Waiuku",
+      "postalCodes": []
+    },
+    {
+      "name": "Warkworth",
+      "postalCodes": []
+    },
+    {
+      "name": "Wellsford",
+      "postalCodes": []
+    },
+    {
+      "name": "Wiri",
+      "postalCodes": []
+    }
+  ],
+  "BOP": [
+    {
+      "name": "Edgecumbe",
+      "postalCodes": []
+    },
+    {
+      "name": "Katikati",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawerau",
+      "postalCodes": []
+    },
+    {
+      "name": "Maketu",
+      "postalCodes": []
+    },
+    {
+      "name": "Murupara",
+      "postalCodes": []
+    },
+    {
+      "name": "Opotiki",
+      "postalCodes": []
+    },
+    {
+      "name": "Rotorua",
+      "postalCodes": []
+    },
+    {
+      "name": "Tauranga",
+      "postalCodes": []
+    },
+    {
+      "name": "Waihi Beach",
+      "postalCodes": []
+    },
+    {
+      "name": "Whakatane",
+      "postalCodes": []
+    }
+  ],
+  "CAN": [
+    {
+      "name": "Amberley",
+      "postalCodes": []
+    },
+    {
+      "name": "Ashburton",
+      "postalCodes": []
+    },
+    {
+      "name": "Ashburton District",
+      "postalCodes": []
+    },
+    {
+      "name": "Burnham",
+      "postalCodes": []
+    },
+    {
+      "name": "Christchurch",
+      "postalCodes": []
+    },
+    {
+      "name": "Christchurch City",
+      "postalCodes": []
+    },
+    {
+      "name": "Darfield",
+      "postalCodes": []
+    },
+    {
+      "name": "Geraldine",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaiapoi",
+      "postalCodes": []
+    },
+    {
+      "name": "Leeston",
+      "postalCodes": []
+    },
+    {
+      "name": "Lincoln",
+      "postalCodes": []
+    },
+    {
+      "name": "Mackenzie District",
+      "postalCodes": []
+    },
+    {
+      "name": "Methven",
+      "postalCodes": []
+    },
+    {
+      "name": "Oxford",
+      "postalCodes": []
+    },
+    {
+      "name": "Pleasant Point",
+      "postalCodes": []
+    },
+    {
+      "name": "Prebbleton",
+      "postalCodes": []
+    },
+    {
+      "name": "Rakaia",
+      "postalCodes": []
+    },
+    {
+      "name": "Rolleston",
+      "postalCodes": []
+    },
+    {
+      "name": "Selwyn District",
+      "postalCodes": []
+    },
+    {
+      "name": "Timaru",
+      "postalCodes": []
+    },
+    {
+      "name": "Timaru District",
+      "postalCodes": []
+    },
+    {
+      "name": "Tinwald",
+      "postalCodes": []
+    },
+    {
+      "name": "Waimakariri District",
+      "postalCodes": []
+    },
+    {
+      "name": "Woodend",
+      "postalCodes": []
+    }
+  ],
+  "CIT": [
+    {
+      "name": "Waitangi",
+      "postalCodes": []
+    }
+  ],
+  "GIS": [
+    {
+      "name": "Gisborne",
+      "postalCodes": []
+    }
+  ],
+  "HKB": [
+    {
+      "name": "Hastings",
+      "postalCodes": []
+    },
+    {
+      "name": "Napier",
+      "postalCodes": []
+    },
+    {
+      "name": "Taradale",
+      "postalCodes": []
+    },
+    {
+      "name": "Wairoa",
+      "postalCodes": []
+    }
+  ],
+  "MWT": [
+    {
+      "name": "Bulls",
+      "postalCodes": []
+    },
+    {
+      "name": "Foxton",
+      "postalCodes": []
+    },
+    {
+      "name": "Horowhenua District",
+      "postalCodes": []
+    },
+    {
+      "name": "Levin",
+      "postalCodes": []
+    },
+    {
+      "name": "Manawatu District",
+      "postalCodes": []
+    },
+    {
+      "name": "Palmerston North",
+      "postalCodes": []
+    },
+    {
+      "name": "Waiouru",
+      "postalCodes": []
+    },
+    {
+      "name": "Wanganui",
+      "postalCodes": []
+    }
+  ],
+  "MBH": [
+    {
+      "name": "Blenheim",
+      "postalCodes": []
+    },
+    {
+      "name": "Picton",
+      "postalCodes": []
+    }
+  ],
+  "NSN": [
+    {
+      "name": "Nelson",
+      "postalCodes": []
+    }
+  ],
+  "NTL": [
+    {
+      "name": "Ahipara",
+      "postalCodes": []
+    },
+    {
+      "name": "Dargaville",
+      "postalCodes": []
+    },
+    {
+      "name": "Far North District",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaipara District",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaitaia",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawakawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kerikeri",
+      "postalCodes": []
+    },
+    {
+      "name": "Maungatapere",
+      "postalCodes": []
+    },
+    {
+      "name": "Moerewa",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngunguru",
+      "postalCodes": []
+    },
+    {
+      "name": "Paihia",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruakaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Taipa",
+      "postalCodes": []
+    },
+    {
+      "name": "Waimate North",
+      "postalCodes": []
+    },
+    {
+      "name": "Whangarei",
+      "postalCodes": []
+    }
+  ],
+  "OTA": [
+    {
+      "name": "Arrowtown",
+      "postalCodes": []
+    },
+    {
+      "name": "Balclutha",
+      "postalCodes": []
+    },
+    {
+      "name": "Clutha District",
+      "postalCodes": []
+    },
+    {
+      "name": "Cromwell",
+      "postalCodes": []
+    },
+    {
+      "name": "Dunedin",
+      "postalCodes": []
+    },
+    {
+      "name": "Kingston",
+      "postalCodes": []
+    },
+    {
+      "name": "Milton",
+      "postalCodes": []
+    },
+    {
+      "name": "Oamaru",
+      "postalCodes": []
+    },
+    {
+      "name": "Papatowai",
+      "postalCodes": []
+    },
+    {
+      "name": "Portobello",
+      "postalCodes": []
+    },
+    {
+      "name": "Queenstown",
+      "postalCodes": []
+    },
+    {
+      "name": "Wanaka",
+      "postalCodes": []
+    }
+  ],
+  "STL": [
+    {
+      "name": "Bluff",
+      "postalCodes": []
+    },
+    {
+      "name": "Gore",
+      "postalCodes": []
+    },
+    {
+      "name": "Invercargill",
+      "postalCodes": []
+    },
+    {
+      "name": "Riverton",
+      "postalCodes": []
+    },
+    {
+      "name": "Southland District",
+      "postalCodes": []
+    },
+    {
+      "name": "Te Anau",
+      "postalCodes": []
+    },
+    {
+      "name": "Winton",
+      "postalCodes": []
+    }
+  ],
+  "TKI": [
+    {
+      "name": "Eltham",
+      "postalCodes": []
+    },
+    {
+      "name": "Hawera",
+      "postalCodes": []
+    },
+    {
+      "name": "New Plymouth",
+      "postalCodes": []
+    },
+    {
+      "name": "New Plymouth District",
+      "postalCodes": []
+    },
+    {
+      "name": "Opunake",
+      "postalCodes": []
+    },
+    {
+      "name": "Patea",
+      "postalCodes": []
+    },
+    {
+      "name": "South Taranaki District",
+      "postalCodes": []
+    },
+    {
+      "name": "Waitara",
+      "postalCodes": []
+    }
+  ],
+  "TAS": [
+    {
+      "name": "Brightwater",
+      "postalCodes": []
+    },
+    {
+      "name": "Mapua",
+      "postalCodes": []
+    },
+    {
+      "name": "Motueka",
+      "postalCodes": []
+    },
+    {
+      "name": "Richmond",
+      "postalCodes": []
+    },
+    {
+      "name": "Takaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Wakefield",
+      "postalCodes": []
+    }
+  ],
+  "WKO": [
+    {
+      "name": "Cambridge",
+      "postalCodes": []
+    },
+    {
+      "name": "Coromandel",
+      "postalCodes": []
+    },
+    {
+      "name": "Hamilton",
+      "postalCodes": []
+    },
+    {
+      "name": "Matamata",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngaruawahia",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngatea",
+      "postalCodes": []
+    },
+    {
+      "name": "Otorohanga",
+      "postalCodes": []
+    },
+    {
+      "name": "Paeroa",
+      "postalCodes": []
+    },
+    {
+      "name": "Raglan",
+      "postalCodes": []
+    },
+    {
+      "name": "South Waikato District",
+      "postalCodes": []
+    },
+    {
+      "name": "Tairua",
+      "postalCodes": []
+    },
+    {
+      "name": "Taupo",
+      "postalCodes": []
+    },
+    {
+      "name": "Te Kauwhata",
+      "postalCodes": []
+    },
+    {
+      "name": "Thames",
+      "postalCodes": []
+    },
+    {
+      "name": "Tokoroa",
+      "postalCodes": []
+    },
+    {
+      "name": "Turangi",
+      "postalCodes": []
+    },
+    {
+      "name": "Waihi",
+      "postalCodes": []
+    },
+    {
+      "name": "Whangamata",
+      "postalCodes": []
+    },
+    {
+      "name": "Whitianga",
+      "postalCodes": []
+    }
+  ],
+  "WGN": [
+    {
+      "name": "Brooklyn",
+      "postalCodes": []
+    },
+    {
+      "name": "Castlepoint",
+      "postalCodes": []
+    },
+    {
+      "name": "Kapiti Coast District",
+      "postalCodes": []
+    },
+    {
+      "name": "Kelburn",
+      "postalCodes": []
+    },
+    {
+      "name": "Khandallah",
+      "postalCodes": []
+    },
+    {
+      "name": "Lower Hutt",
+      "postalCodes": []
+    },
+    {
+      "name": "Masterton",
+      "postalCodes": []
+    },
+    {
+      "name": "Otaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Paraparaumu",
+      "postalCodes": []
+    },
+    {
+      "name": "Petone",
+      "postalCodes": []
+    },
+    {
+      "name": "Porirua",
+      "postalCodes": []
+    },
+    {
+      "name": "South Wairarapa District",
+      "postalCodes": []
+    },
+    {
+      "name": "Upper Hutt",
+      "postalCodes": []
+    },
+    {
+      "name": "Waipawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Wellington",
+      "postalCodes": []
+    },
+    {
+      "name": "Wellington City",
+      "postalCodes": []
+    }
+  ],
+  "WTC": [
+    {
+      "name": "Greymouth",
+      "postalCodes": []
+    },
+    {
+      "name": "Hokitika",
+      "postalCodes": []
+    },
+    {
+      "name": "Westport",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

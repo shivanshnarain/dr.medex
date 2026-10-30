@@ -1,0 +1,1773 @@
+{
+  "AB": [
+    {
+      "name": "Aba",
+      "postalCodes": []
+    },
+    {
+      "name": "Amaigbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Arochukwu",
+      "postalCodes": []
+    },
+    {
+      "name": "Bende",
+      "postalCodes": []
+    },
+    {
+      "name": "Ohafia-Ifigh",
+      "postalCodes": []
+    },
+    {
+      "name": "Umuahia",
+      "postalCodes": []
+    }
+  ],
+  "FC": [
+    {
+      "name": "Abuja",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuje",
+      "postalCodes": []
+    },
+    {
+      "name": "Kwali",
+      "postalCodes": []
+    },
+    {
+      "name": "Madala",
+      "postalCodes": []
+    }
+  ],
+  "AD": [
+    {
+      "name": "Ganye",
+      "postalCodes": []
+    },
+    {
+      "name": "Gombi",
+      "postalCodes": []
+    },
+    {
+      "name": "Holma",
+      "postalCodes": []
+    },
+    {
+      "name": "Jimeta",
+      "postalCodes": []
+    },
+    {
+      "name": "Madagali",
+      "postalCodes": []
+    },
+    {
+      "name": "Mayo-Belwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Mubi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngurore",
+      "postalCodes": []
+    },
+    {
+      "name": "Numan",
+      "postalCodes": []
+    },
+    {
+      "name": "Toungo",
+      "postalCodes": []
+    },
+    {
+      "name": "Yola",
+      "postalCodes": []
+    }
+  ],
+  "AK": [
+    {
+      "name": "Eket",
+      "postalCodes": []
+    },
+    {
+      "name": "Esuk Oron",
+      "postalCodes": []
+    },
+    {
+      "name": "Ikot Ekpene",
+      "postalCodes": []
+    },
+    {
+      "name": "Itu",
+      "postalCodes": []
+    },
+    {
+      "name": "Uyo",
+      "postalCodes": []
+    }
+  ],
+  "AN": [
+    {
+      "name": "Agulu",
+      "postalCodes": []
+    },
+    {
+      "name": "Atani",
+      "postalCodes": []
+    },
+    {
+      "name": "Awka",
+      "postalCodes": []
+    },
+    {
+      "name": "Enugu-Ukwu",
+      "postalCodes": []
+    },
+    {
+      "name": "Igbo-Ukwu",
+      "postalCodes": []
+    },
+    {
+      "name": "Ihiala",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkpor",
+      "postalCodes": []
+    },
+    {
+      "name": "Nnewi",
+      "postalCodes": []
+    },
+    {
+      "name": "Onitsha",
+      "postalCodes": []
+    },
+    {
+      "name": "Ozubulu",
+      "postalCodes": []
+    },
+    {
+      "name": "Uga",
+      "postalCodes": []
+    },
+    {
+      "name": "Uruobo-Okija",
+      "postalCodes": []
+    }
+  ],
+  "BA": [
+    {
+      "name": "Azare",
+      "postalCodes": []
+    },
+    {
+      "name": "Bauchi",
+      "postalCodes": []
+    },
+    {
+      "name": "Boi",
+      "postalCodes": []
+    },
+    {
+      "name": "Bununu",
+      "postalCodes": []
+    },
+    {
+      "name": "Darazo",
+      "postalCodes": []
+    },
+    {
+      "name": "Dass",
+      "postalCodes": []
+    },
+    {
+      "name": "Dindima",
+      "postalCodes": []
+    },
+    {
+      "name": "Disina",
+      "postalCodes": []
+    },
+    {
+      "name": "Gabarin",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwaram",
+      "postalCodes": []
+    },
+    {
+      "name": "Kari",
+      "postalCodes": []
+    },
+    {
+      "name": "Lame",
+      "postalCodes": []
+    },
+    {
+      "name": "Lere",
+      "postalCodes": []
+    },
+    {
+      "name": "Madara",
+      "postalCodes": []
+    },
+    {
+      "name": "Misau",
+      "postalCodes": []
+    },
+    {
+      "name": "Sade",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamrat",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanda Bayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuli",
+      "postalCodes": []
+    },
+    {
+      "name": "Zadawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Zalanga",
+      "postalCodes": []
+    }
+  ],
+  "BY": [
+    {
+      "name": "Amassoma",
+      "postalCodes": []
+    },
+    {
+      "name": "Twon-Brass",
+      "postalCodes": []
+    },
+    {
+      "name": "Yenagoa",
+      "postalCodes": []
+    }
+  ],
+  "BE": [
+    {
+      "name": "Aliade",
+      "postalCodes": []
+    },
+    {
+      "name": "Boju",
+      "postalCodes": []
+    },
+    {
+      "name": "Gboko",
+      "postalCodes": []
+    },
+    {
+      "name": "Igbor",
+      "postalCodes": []
+    },
+    {
+      "name": "Makurdi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ochobo",
+      "postalCodes": []
+    },
+    {
+      "name": "Otukpa",
+      "postalCodes": []
+    },
+    {
+      "name": "Takum",
+      "postalCodes": []
+    },
+    {
+      "name": "Ugbokpo",
+      "postalCodes": []
+    },
+    {
+      "name": "Yandev",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaki Biam",
+      "postalCodes": []
+    }
+  ],
+  "BO": [
+    {
+      "name": "Bama",
+      "postalCodes": []
+    },
+    {
+      "name": "Benisheikh",
+      "postalCodes": []
+    },
+    {
+      "name": "Biu",
+      "postalCodes": []
+    },
+    {
+      "name": "Bornu Yassu",
+      "postalCodes": []
+    },
+    {
+      "name": "Damasak",
+      "postalCodes": []
+    },
+    {
+      "name": "Damboa",
+      "postalCodes": []
+    },
+    {
+      "name": "Dikwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Gamboru",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwoza",
+      "postalCodes": []
+    },
+    {
+      "name": "Kukawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Magumeri",
+      "postalCodes": []
+    },
+    {
+      "name": "Maiduguri",
+      "postalCodes": []
+    },
+    {
+      "name": "Marte",
+      "postalCodes": []
+    },
+    {
+      "name": "Miringa",
+      "postalCodes": []
+    },
+    {
+      "name": "Monguno",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngala",
+      "postalCodes": []
+    },
+    {
+      "name": "Shaffa",
+      "postalCodes": []
+    },
+    {
+      "name": "Shani",
+      "postalCodes": []
+    },
+    {
+      "name": "Tokombere",
+      "postalCodes": []
+    },
+    {
+      "name": "Uba",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Yajiwa",
+      "postalCodes": []
+    }
+  ],
+  "CR": [
+    {
+      "name": "Akankpa",
+      "postalCodes": []
+    },
+    {
+      "name": "Calabar",
+      "postalCodes": []
+    },
+    {
+      "name": "Gakem",
+      "postalCodes": []
+    },
+    {
+      "name": "Ikang",
+      "postalCodes": []
+    },
+    {
+      "name": "Ugep",
+      "postalCodes": []
+    }
+  ],
+  "DE": [
+    {
+      "name": "Abraka",
+      "postalCodes": []
+    },
+    {
+      "name": "Agbor",
+      "postalCodes": []
+    },
+    {
+      "name": "Asaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Bomadi",
+      "postalCodes": []
+    },
+    {
+      "name": "Burutu",
+      "postalCodes": []
+    },
+    {
+      "name": "Kwale",
+      "postalCodes": []
+    },
+    {
+      "name": "Obiaruku",
+      "postalCodes": []
+    },
+    {
+      "name": "Ogwashi-Uku",
+      "postalCodes": []
+    },
+    {
+      "name": "Orerokpe",
+      "postalCodes": []
+    },
+    {
+      "name": "Patani",
+      "postalCodes": []
+    },
+    {
+      "name": "Sapele",
+      "postalCodes": []
+    },
+    {
+      "name": "Ughelli",
+      "postalCodes": []
+    },
+    {
+      "name": "Umunede",
+      "postalCodes": []
+    },
+    {
+      "name": "Warri",
+      "postalCodes": []
+    }
+  ],
+  "EB": [
+    {
+      "name": "Abakaliki",
+      "postalCodes": []
+    },
+    {
+      "name": "Afikpo",
+      "postalCodes": []
+    },
+    {
+      "name": "Effium",
+      "postalCodes": []
+    },
+    {
+      "name": "Ezza-Ohu",
+      "postalCodes": []
+    },
+    {
+      "name": "Isieke",
+      "postalCodes": []
+    }
+  ],
+  "ED": [
+    {
+      "name": "Agenebode",
+      "postalCodes": []
+    },
+    {
+      "name": "Auchi",
+      "postalCodes": []
+    },
+    {
+      "name": "Benin City",
+      "postalCodes": []
+    },
+    {
+      "name": "Ekpoma",
+      "postalCodes": []
+    },
+    {
+      "name": "Igarra",
+      "postalCodes": []
+    },
+    {
+      "name": "Illushi",
+      "postalCodes": []
+    },
+    {
+      "name": "Siluko",
+      "postalCodes": []
+    },
+    {
+      "name": "Ubiaja",
+      "postalCodes": []
+    },
+    {
+      "name": "Uromi",
+      "postalCodes": []
+    }
+  ],
+  "EK": [
+    {
+      "name": "Ado-Ekiti",
+      "postalCodes": []
+    },
+    {
+      "name": "Aramoko-Ekiti",
+      "postalCodes": []
+    },
+    {
+      "name": "Efon-Alaaye",
+      "postalCodes": []
+    },
+    {
+      "name": "Emure-Ekiti",
+      "postalCodes": []
+    },
+    {
+      "name": "Ifaki",
+      "postalCodes": []
+    },
+    {
+      "name": "Igbara-Odo",
+      "postalCodes": []
+    },
+    {
+      "name": "Igede-Ekiti",
+      "postalCodes": []
+    },
+    {
+      "name": "Ijero-Ekiti",
+      "postalCodes": []
+    },
+    {
+      "name": "Ikere-Ekiti",
+      "postalCodes": []
+    },
+    {
+      "name": "Ipoti",
+      "postalCodes": []
+    },
+    {
+      "name": "Ise-Ekiti",
+      "postalCodes": []
+    },
+    {
+      "name": "Oke Ila",
+      "postalCodes": []
+    },
+    {
+      "name": "Omuo-Ekiti",
+      "postalCodes": []
+    }
+  ],
+  "EN": [
+    {
+      "name": "Adani",
+      "postalCodes": []
+    },
+    {
+      "name": "Ake-Eze",
+      "postalCodes": []
+    },
+    {
+      "name": "Aku",
+      "postalCodes": []
+    },
+    {
+      "name": "Amagunze",
+      "postalCodes": []
+    },
+    {
+      "name": "Awgu",
+      "postalCodes": []
+    },
+    {
+      "name": "Eha Amufu",
+      "postalCodes": []
+    },
+    {
+      "name": "Enugu",
+      "postalCodes": []
+    },
+    {
+      "name": "Enugu-Ezike",
+      "postalCodes": []
+    },
+    {
+      "name": "Ete",
+      "postalCodes": []
+    },
+    {
+      "name": "Ikem",
+      "postalCodes": []
+    },
+    {
+      "name": "Mberubu",
+      "postalCodes": []
+    },
+    {
+      "name": "Nsukka",
+      "postalCodes": []
+    },
+    {
+      "name": "Obolo-Eke (1)",
+      "postalCodes": []
+    },
+    {
+      "name": "Opi",
+      "postalCodes": []
+    },
+    {
+      "name": "Udi",
+      "postalCodes": []
+    }
+  ],
+  "GO": [
+    {
+      "name": "Akko",
+      "postalCodes": []
+    },
+    {
+      "name": "Bara",
+      "postalCodes": []
+    },
+    {
+      "name": "Billiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Dadiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Deba",
+      "postalCodes": []
+    },
+    {
+      "name": "Dukku",
+      "postalCodes": []
+    },
+    {
+      "name": "Garko",
+      "postalCodes": []
+    },
+    {
+      "name": "Gombe",
+      "postalCodes": []
+    },
+    {
+      "name": "Hinna",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafarati",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaltungo",
+      "postalCodes": []
+    },
+    {
+      "name": "Kumo",
+      "postalCodes": []
+    },
+    {
+      "name": "Nafada",
+      "postalCodes": []
+    },
+    {
+      "name": "Pindiga",
+      "postalCodes": []
+    }
+  ],
+  "IM": [
+    {
+      "name": "Iho",
+      "postalCodes": []
+    },
+    {
+      "name": "Oguta",
+      "postalCodes": []
+    },
+    {
+      "name": "Okigwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Orlu",
+      "postalCodes": []
+    },
+    {
+      "name": "Orodo",
+      "postalCodes": []
+    },
+    {
+      "name": "Owerri",
+      "postalCodes": []
+    }
+  ],
+  "JI": [
+    {
+      "name": "Babura",
+      "postalCodes": []
+    },
+    {
+      "name": "Birnin Kudu",
+      "postalCodes": []
+    },
+    {
+      "name": "Birniwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Dutse",
+      "postalCodes": []
+    },
+    {
+      "name": "Gagarawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Gumel",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwaram",
+      "postalCodes": []
+    },
+    {
+      "name": "Hadejia",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafin Hausa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kazaure",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiyawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Mallammaduri",
+      "postalCodes": []
+    },
+    {
+      "name": "Ringim",
+      "postalCodes": []
+    },
+    {
+      "name": "Samamiya",
+      "postalCodes": []
+    }
+  ],
+  "KD": [
+    {
+      "name": "Anchau",
+      "postalCodes": []
+    },
+    {
+      "name": "Burumburum",
+      "postalCodes": []
+    },
+    {
+      "name": "Dutsen Wai",
+      "postalCodes": []
+    },
+    {
+      "name": "Hunkuyi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kachia",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaduna",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafanchan",
+      "postalCodes": []
+    },
+    {
+      "name": "Kagoro",
+      "postalCodes": []
+    },
+    {
+      "name": "Kajuru",
+      "postalCodes": []
+    },
+    {
+      "name": "Kujama",
+      "postalCodes": []
+    },
+    {
+      "name": "Lere",
+      "postalCodes": []
+    },
+    {
+      "name": "Mando",
+      "postalCodes": []
+    },
+    {
+      "name": "Saminaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Soba",
+      "postalCodes": []
+    },
+    {
+      "name": "Sofo-Birnin-Gwari",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaria",
+      "postalCodes": []
+    }
+  ],
+  "KN": [
+    {
+      "name": "Dan Gora",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Kano",
+      "postalCodes": []
+    }
+  ],
+  "KT": [
+    {
+      "name": "Danja",
+      "postalCodes": []
+    },
+    {
+      "name": "Dankama",
+      "postalCodes": []
+    },
+    {
+      "name": "Daura",
+      "postalCodes": []
+    },
+    {
+      "name": "Dutsin-Ma",
+      "postalCodes": []
+    },
+    {
+      "name": "Funtua",
+      "postalCodes": []
+    },
+    {
+      "name": "Gora",
+      "postalCodes": []
+    },
+    {
+      "name": "Jibia",
+      "postalCodes": []
+    },
+    {
+      "name": "Jikamshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kankara",
+      "postalCodes": []
+    },
+    {
+      "name": "Katsina",
+      "postalCodes": []
+    },
+    {
+      "name": "Mashi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruma",
+      "postalCodes": []
+    },
+    {
+      "name": "Runka",
+      "postalCodes": []
+    },
+    {
+      "name": "Wagini",
+      "postalCodes": []
+    }
+  ],
+  "KE": [
+    {
+      "name": "Argungu",
+      "postalCodes": []
+    },
+    {
+      "name": "Bagudo",
+      "postalCodes": []
+    },
+    {
+      "name": "Bena",
+      "postalCodes": []
+    },
+    {
+      "name": "Bin Yauri",
+      "postalCodes": []
+    },
+    {
+      "name": "Birnin Kebbi",
+      "postalCodes": []
+    },
+    {
+      "name": "Dabai",
+      "postalCodes": []
+    },
+    {
+      "name": "Dakingari",
+      "postalCodes": []
+    },
+    {
+      "name": "Gulma",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwandu",
+      "postalCodes": []
+    },
+    {
+      "name": "Jega",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Kangiwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kende",
+      "postalCodes": []
+    },
+    {
+      "name": "Mahuta",
+      "postalCodes": []
+    },
+    {
+      "name": "Maiyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Shanga",
+      "postalCodes": []
+    },
+    {
+      "name": "Wasagu",
+      "postalCodes": []
+    },
+    {
+      "name": "Zuru",
+      "postalCodes": []
+    }
+  ],
+  "KO": [
+    {
+      "name": "Abocho",
+      "postalCodes": []
+    },
+    {
+      "name": "Adoru",
+      "postalCodes": []
+    },
+    {
+      "name": "Ankpa",
+      "postalCodes": []
+    },
+    {
+      "name": "Bugana",
+      "postalCodes": []
+    },
+    {
+      "name": "Dekina",
+      "postalCodes": []
+    },
+    {
+      "name": "Egbe",
+      "postalCodes": []
+    },
+    {
+      "name": "Icheu",
+      "postalCodes": []
+    },
+    {
+      "name": "Idah",
+      "postalCodes": []
+    },
+    {
+      "name": "Isanlu-Itedoijowa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kabba",
+      "postalCodes": []
+    },
+    {
+      "name": "Koton-Karfe",
+      "postalCodes": []
+    },
+    {
+      "name": "Lokoja",
+      "postalCodes": []
+    },
+    {
+      "name": "Ogaminana",
+      "postalCodes": []
+    },
+    {
+      "name": "Ogurugu",
+      "postalCodes": []
+    },
+    {
+      "name": "Okene",
+      "postalCodes": []
+    }
+  ],
+  "KW": [
+    {
+      "name": "Ajasse Ipo",
+      "postalCodes": []
+    },
+    {
+      "name": "Bode Saadu",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwasero",
+      "postalCodes": []
+    },
+    {
+      "name": "Ilorin",
+      "postalCodes": []
+    },
+    {
+      "name": "Jebba",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaiama",
+      "postalCodes": []
+    },
+    {
+      "name": "Lafiagi",
+      "postalCodes": []
+    },
+    {
+      "name": "Offa",
+      "postalCodes": []
+    },
+    {
+      "name": "Okuta",
+      "postalCodes": []
+    },
+    {
+      "name": "Omu-Aran",
+      "postalCodes": []
+    },
+    {
+      "name": "Patigi",
+      "postalCodes": []
+    },
+    {
+      "name": "Suya",
+      "postalCodes": []
+    },
+    {
+      "name": "Yashikera",
+      "postalCodes": []
+    }
+  ],
+  "LA": [
+    {
+      "name": "Apapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Badagry",
+      "postalCodes": []
+    },
+    {
+      "name": "Ebute Ikorodu",
+      "postalCodes": []
+    },
+    {
+      "name": "Ejirin",
+      "postalCodes": []
+    },
+    {
+      "name": "Epe",
+      "postalCodes": []
+    },
+    {
+      "name": "Ikeja",
+      "postalCodes": []
+    },
+    {
+      "name": "Lagos",
+      "postalCodes": []
+    },
+    {
+      "name": "Makoko",
+      "postalCodes": []
+    }
+  ],
+  "NA": [
+    {
+      "name": "Buga",
+      "postalCodes": []
+    },
+    {
+      "name": "Doma",
+      "postalCodes": []
+    },
+    {
+      "name": "Keffi",
+      "postalCodes": []
+    },
+    {
+      "name": "Lafia",
+      "postalCodes": []
+    },
+    {
+      "name": "Nasarawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Wamba",
+      "postalCodes": []
+    }
+  ],
+  "NI": [
+    {
+      "name": "Auna",
+      "postalCodes": []
+    },
+    {
+      "name": "Babana",
+      "postalCodes": []
+    },
+    {
+      "name": "Badeggi",
+      "postalCodes": []
+    },
+    {
+      "name": "Baro",
+      "postalCodes": []
+    },
+    {
+      "name": "Bokani",
+      "postalCodes": []
+    },
+    {
+      "name": "Duku",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibeto",
+      "postalCodes": []
+    },
+    {
+      "name": "Konkwesso",
+      "postalCodes": []
+    },
+    {
+      "name": "Kontagora",
+      "postalCodes": []
+    },
+    {
+      "name": "Kusheriki",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuta",
+      "postalCodes": []
+    },
+    {
+      "name": "Lapai",
+      "postalCodes": []
+    },
+    {
+      "name": "Minna",
+      "postalCodes": []
+    },
+    {
+      "name": "New Shagunnu",
+      "postalCodes": []
+    },
+    {
+      "name": "Suleja",
+      "postalCodes": []
+    },
+    {
+      "name": "Tegina",
+      "postalCodes": []
+    },
+    {
+      "name": "Ukata",
+      "postalCodes": []
+    },
+    {
+      "name": "Wawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Zungeru",
+      "postalCodes": []
+    }
+  ],
+  "OG": [
+    {
+      "name": "Abeokuta",
+      "postalCodes": []
+    },
+    {
+      "name": "Ado Odo",
+      "postalCodes": []
+    },
+    {
+      "name": "Idi Iroko",
+      "postalCodes": []
+    },
+    {
+      "name": "Ifo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ijebu-Ife",
+      "postalCodes": []
+    },
+    {
+      "name": "Ijebu-Igbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ijebu-Ode",
+      "postalCodes": []
+    },
+    {
+      "name": "Ilaro",
+      "postalCodes": []
+    },
+    {
+      "name": "Imeko",
+      "postalCodes": []
+    },
+    {
+      "name": "Iperu",
+      "postalCodes": []
+    },
+    {
+      "name": "Isara",
+      "postalCodes": []
+    },
+    {
+      "name": "Owode",
+      "postalCodes": []
+    }
+  ],
+  "ON": [
+    {
+      "name": "Agbabu",
+      "postalCodes": []
+    },
+    {
+      "name": "Akure",
+      "postalCodes": []
+    },
+    {
+      "name": "Idanre",
+      "postalCodes": []
+    },
+    {
+      "name": "Ifon",
+      "postalCodes": []
+    },
+    {
+      "name": "Ilare",
+      "postalCodes": []
+    },
+    {
+      "name": "Ode",
+      "postalCodes": []
+    },
+    {
+      "name": "Ondo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ore",
+      "postalCodes": []
+    },
+    {
+      "name": "Owo",
+      "postalCodes": []
+    }
+  ],
+  "OS": [
+    {
+      "name": "Apomu",
+      "postalCodes": []
+    },
+    {
+      "name": "Ejigbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Gbongan",
+      "postalCodes": []
+    },
+    {
+      "name": "Ijebu-Jesa",
+      "postalCodes": []
+    },
+    {
+      "name": "Ikire",
+      "postalCodes": []
+    },
+    {
+      "name": "Ikirun",
+      "postalCodes": []
+    },
+    {
+      "name": "Ila Orangun",
+      "postalCodes": []
+    },
+    {
+      "name": "Ile-Ife",
+      "postalCodes": []
+    },
+    {
+      "name": "Ilesa",
+      "postalCodes": []
+    },
+    {
+      "name": "Ilobu",
+      "postalCodes": []
+    },
+    {
+      "name": "Inisa",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwo",
+      "postalCodes": []
+    },
+    {
+      "name": "Modakeke",
+      "postalCodes": []
+    },
+    {
+      "name": "Oke Mesi",
+      "postalCodes": []
+    },
+    {
+      "name": "Olupona",
+      "postalCodes": []
+    },
+    {
+      "name": "Osogbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Otan Ayegbaju",
+      "postalCodes": []
+    },
+    {
+      "name": "Oyan",
+      "postalCodes": []
+    }
+  ],
+  "OY": [
+    {
+      "name": "Ago Are",
+      "postalCodes": []
+    },
+    {
+      "name": "Alapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Fiditi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibadan",
+      "postalCodes": []
+    },
+    {
+      "name": "Igbeti",
+      "postalCodes": []
+    },
+    {
+      "name": "Igbo-Ora",
+      "postalCodes": []
+    },
+    {
+      "name": "Igboho",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisi",
+      "postalCodes": []
+    },
+    {
+      "name": "Lalupon",
+      "postalCodes": []
+    },
+    {
+      "name": "Ogbomoso",
+      "postalCodes": []
+    },
+    {
+      "name": "Okeho",
+      "postalCodes": []
+    },
+    {
+      "name": "Orita Eruwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Oyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Saki",
+      "postalCodes": []
+    }
+  ],
+  "PL": [
+    {
+      "name": "Amper",
+      "postalCodes": []
+    },
+    {
+      "name": "Bukuru",
+      "postalCodes": []
+    },
+    {
+      "name": "Dengi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jos",
+      "postalCodes": []
+    },
+    {
+      "name": "Kwolla",
+      "postalCodes": []
+    },
+    {
+      "name": "Langtang",
+      "postalCodes": []
+    },
+    {
+      "name": "Pankshin",
+      "postalCodes": []
+    },
+    {
+      "name": "Panyam",
+      "postalCodes": []
+    },
+    {
+      "name": "Vom",
+      "postalCodes": []
+    },
+    {
+      "name": "Yelwa",
+      "postalCodes": []
+    }
+  ],
+  "RI": [
+    {
+      "name": "Abalama",
+      "postalCodes": []
+    },
+    {
+      "name": "Abonnema",
+      "postalCodes": []
+    },
+    {
+      "name": "Ahoada",
+      "postalCodes": []
+    },
+    {
+      "name": "Bori",
+      "postalCodes": []
+    },
+    {
+      "name": "Buguma",
+      "postalCodes": []
+    },
+    {
+      "name": "Chokocho",
+      "postalCodes": []
+    },
+    {
+      "name": "Elele",
+      "postalCodes": []
+    },
+    {
+      "name": "Obonoma",
+      "postalCodes": []
+    },
+    {
+      "name": "Omoku",
+      "postalCodes": []
+    },
+    {
+      "name": "Onne",
+      "postalCodes": []
+    },
+    {
+      "name": "Opobo",
+      "postalCodes": []
+    },
+    {
+      "name": "Port Harcourt",
+      "postalCodes": []
+    },
+    {
+      "name": "Rumuokoro",
+      "postalCodes": []
+    }
+  ],
+  "SO": [
+    {
+      "name": "Binji",
+      "postalCodes": []
+    },
+    {
+      "name": "Dange",
+      "postalCodes": []
+    },
+    {
+      "name": "Gandi",
+      "postalCodes": []
+    },
+    {
+      "name": "Goronyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwadabawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Illela",
+      "postalCodes": []
+    },
+    {
+      "name": "Rabah",
+      "postalCodes": []
+    },
+    {
+      "name": "Sokoto",
+      "postalCodes": []
+    },
+    {
+      "name": "Tambuwal",
+      "postalCodes": []
+    },
+    {
+      "name": "Wurno",
+      "postalCodes": []
+    }
+  ],
+  "TA": [
+    {
+      "name": "Baissa",
+      "postalCodes": []
+    },
+    {
+      "name": "Beli",
+      "postalCodes": []
+    },
+    {
+      "name": "Gassol",
+      "postalCodes": []
+    },
+    {
+      "name": "Gembu",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jalingo",
+      "postalCodes": []
+    },
+    {
+      "name": "Lau",
+      "postalCodes": []
+    },
+    {
+      "name": "Mutum Biyu",
+      "postalCodes": []
+    },
+    {
+      "name": "Riti",
+      "postalCodes": []
+    },
+    {
+      "name": "Wukari",
+      "postalCodes": []
+    }
+  ],
+  "YO": [
+    {
+      "name": "Damaturu",
+      "postalCodes": []
+    },
+    {
+      "name": "Dankalwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Dapchi",
+      "postalCodes": []
+    },
+    {
+      "name": "Daura",
+      "postalCodes": []
+    },
+    {
+      "name": "Fika",
+      "postalCodes": []
+    },
+    {
+      "name": "Gashua",
+      "postalCodes": []
+    },
+    {
+      "name": "Geidam",
+      "postalCodes": []
+    },
+    {
+      "name": "Goniri",
+      "postalCodes": []
+    },
+    {
+      "name": "Gorgoram",
+      "postalCodes": []
+    },
+    {
+      "name": "Gujba",
+      "postalCodes": []
+    },
+    {
+      "name": "Gwio Kura",
+      "postalCodes": []
+    },
+    {
+      "name": "Kumagunnam",
+      "postalCodes": []
+    },
+    {
+      "name": "Lajere",
+      "postalCodes": []
+    },
+    {
+      "name": "Machina",
+      "postalCodes": []
+    },
+    {
+      "name": "Nguru",
+      "postalCodes": []
+    },
+    {
+      "name": "Potiskum",
+      "postalCodes": []
+    }
+  ],
+  "ZA": [
+    {
+      "name": "Anka",
+      "postalCodes": []
+    },
+    {
+      "name": "Dan Sadau",
+      "postalCodes": []
+    },
+    {
+      "name": "Gummi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gusau",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaura Namoda",
+      "postalCodes": []
+    },
+    {
+      "name": "Kwatarkwashi",
+      "postalCodes": []
+    },
+    {
+      "name": "Maru",
+      "postalCodes": []
+    },
+    {
+      "name": "Moriki",
+      "postalCodes": []
+    },
+    {
+      "name": "Sauri",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsafe",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

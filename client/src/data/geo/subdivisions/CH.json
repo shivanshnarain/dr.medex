@@ -1,0 +1,132 @@
+[
+  {
+    "code": "AG",
+    "name": "Aargau",
+    "countryCode": "CH"
+  },
+  {
+    "code": "AR",
+    "name": "Appenzell Ausserrhoden",
+    "countryCode": "CH"
+  },
+  {
+    "code": "AI",
+    "name": "Appenzell Innerrhoden",
+    "countryCode": "CH"
+  },
+  {
+    "code": "BL",
+    "name": "Basel-Land",
+    "countryCode": "CH"
+  },
+  {
+    "code": "BS",
+    "name": "Basel-Stadt",
+    "countryCode": "CH"
+  },
+  {
+    "code": "BE",
+    "name": "Bern",
+    "countryCode": "CH"
+  },
+  {
+    "code": "FR",
+    "name": "Fribourg",
+    "countryCode": "CH"
+  },
+  {
+    "code": "GE",
+    "name": "Geneva",
+    "countryCode": "CH"
+  },
+  {
+    "code": "GL",
+    "name": "Glarus",
+    "countryCode": "CH"
+  },
+  {
+    "code": "GR",
+    "name": "Graubünden",
+    "countryCode": "CH"
+  },
+  {
+    "code": "JU",
+    "name": "Jura",
+    "countryCode": "CH"
+  },
+  {
+    "code": "LU",
+    "name": "Lucerne",
+    "countryCode": "CH"
+  },
+  {
+    "code": "NE",
+    "name": "Neuchâtel",
+    "countryCode": "CH"
+  },
+  {
+    "code": "NW",
+    "name": "Nidwalden",
+    "countryCode": "CH"
+  },
+  {
+    "code": "OW",
+    "name": "Obwalden",
+    "countryCode": "CH"
+  },
+  {
+    "code": "SH",
+    "name": "Schaffhausen",
+    "countryCode": "CH"
+  },
+  {
+    "code": "SZ",
+    "name": "Schwyz",
+    "countryCode": "CH"
+  },
+  {
+    "code": "SO",
+    "name": "Solothurn",
+    "countryCode": "CH"
+  },
+  {
+    "code": "SG",
+    "name": "St. Gallen",
+    "countryCode": "CH"
+  },
+  {
+    "code": "TG",
+    "name": "Thurgau",
+    "countryCode": "CH"
+  },
+  {
+    "code": "TI",
+    "name": "Ticino",
+    "countryCode": "CH"
+  },
+  {
+    "code": "UR",
+    "name": "Uri",
+    "countryCode": "CH"
+  },
+  {
+    "code": "VS",
+    "name": "Valais",
+    "countryCode": "CH"
+  },
+  {
+    "code": "VD",
+    "name": "Vaud",
+    "countryCode": "CH"
+  },
+  {
+    "code": "ZG",
+    "name": "Zug",
+    "countryCode": "CH"
+  },
+  {
+    "code": "ZH",
+    "name": "Zürich",
+    "countryCode": "CH"
+  }
+]

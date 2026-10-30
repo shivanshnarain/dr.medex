@@ -1,0 +1,422 @@
+[
+  {
+    "code": "01",
+    "name": "Aerodrom Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "02",
+    "name": "Aračinovo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "03",
+    "name": "Berovo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "04",
+    "name": "Bitola Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "05",
+    "name": "Bogdanci Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "06",
+    "name": "Bogovinje Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "07",
+    "name": "Bosilovo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "08",
+    "name": "Brvenica Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "09",
+    "name": "Butel Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "79",
+    "name": "Čair Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "80",
+    "name": "Čaška Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "77",
+    "name": "Centar Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "78",
+    "name": "Centar Župa Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "81",
+    "name": "Češinovo-Obleševo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "82",
+    "name": "Čučer-Sandevo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "22",
+    "name": "Debarca Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "23",
+    "name": "Delčevo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "25",
+    "name": "Demir Hisar Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "24",
+    "name": "Demir Kapija Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "26",
+    "name": "Dojran Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "27",
+    "name": "Dolneni Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "28",
+    "name": "Drugovo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "17",
+    "name": "Gazi Baba Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "18",
+    "name": "Gevgelija Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "29",
+    "name": "Gjorče Petrov Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "19",
+    "name": "Gostivar Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "20",
+    "name": "Gradsko Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "85",
+    "name": "Greater Skopje",
+    "countryCode": "MK"
+  },
+  {
+    "code": "34",
+    "name": "Ilinden Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "35",
+    "name": "Jegunovce Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "37",
+    "name": "Karbinci",
+    "countryCode": "MK"
+  },
+  {
+    "code": "38",
+    "name": "Karpoš Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "36",
+    "name": "Kavadarci Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "40",
+    "name": "Kičevo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "39",
+    "name": "Kisela Voda Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "42",
+    "name": "Kočani Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "41",
+    "name": "Konče Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "43",
+    "name": "Kratovo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "44",
+    "name": "Kriva Palanka Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "45",
+    "name": "Krivogaštani Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "46",
+    "name": "Kruševo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "47",
+    "name": "Kumanovo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "48",
+    "name": "Lipkovo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "49",
+    "name": "Lozovo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "51",
+    "name": "Makedonska Kamenica Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "52",
+    "name": "Makedonski Brod Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "50",
+    "name": "Mavrovo and Rostuša Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "53",
+    "name": "Mogila Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "54",
+    "name": "Negotino Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "55",
+    "name": "Novaci Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "56",
+    "name": "Novo Selo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "58",
+    "name": "Ohrid Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "57",
+    "name": "Oslomej Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "60",
+    "name": "Pehčevo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "59",
+    "name": "Petrovec Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "61",
+    "name": "Plasnica Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "62",
+    "name": "Prilep Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "63",
+    "name": "Probištip Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "64",
+    "name": "Radoviš Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "65",
+    "name": "Rankovce Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "66",
+    "name": "Resen Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "67",
+    "name": "Rosoman Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "68",
+    "name": "Saraj Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "70",
+    "name": "Sopište Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "71",
+    "name": "Staro Nagoričane Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "83",
+    "name": "Štip Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "72",
+    "name": "Struga Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "73",
+    "name": "Strumica Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "74",
+    "name": "Studeničani Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "84",
+    "name": "Šuto Orizari Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "69",
+    "name": "Sveti Nikole Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "75",
+    "name": "Tearce Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "76",
+    "name": "Tetovo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "10",
+    "name": "Valandovo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "11",
+    "name": "Vasilevo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "13",
+    "name": "Veles Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "12",
+    "name": "Vevčani Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "14",
+    "name": "Vinica Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "15",
+    "name": "Vraneštica Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "16",
+    "name": "Vrapčište Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "31",
+    "name": "Zajas Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "32",
+    "name": "Zelenikovo Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "30",
+    "name": "Želino Municipality",
+    "countryCode": "MK"
+  },
+  {
+    "code": "33",
+    "name": "Zrnovci Municipality",
+    "countryCode": "MK"
+  }
+]

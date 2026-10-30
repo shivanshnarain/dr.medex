@@ -1,0 +1,627 @@
+[
+  {
+    "code": "314",
+    "name": "Abim District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "301",
+    "name": "Adjumani District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "322",
+    "name": "Agago District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "323",
+    "name": "Alebtong District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "315",
+    "name": "Amolatar District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "324",
+    "name": "Amudat District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "216",
+    "name": "Amuria District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "316",
+    "name": "Amuru District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "302",
+    "name": "Apac District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "303",
+    "name": "Arua District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "217",
+    "name": "Budaka District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "218",
+    "name": "Bududa District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "201",
+    "name": "Bugiri District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "420",
+    "name": "Buhweju District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "117",
+    "name": "Buikwe District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "219",
+    "name": "Bukedea District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "118",
+    "name": "Bukomansimbi District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "220",
+    "name": "Bukwo District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "225",
+    "name": "Bulambuli District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "416",
+    "name": "Buliisa District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "401",
+    "name": "Bundibugyo District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "430",
+    "name": "Bunyangabu District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "402",
+    "name": "Bushenyi District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "202",
+    "name": "Busia District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "221",
+    "name": "Butaleja District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "119",
+    "name": "Butambala District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "233",
+    "name": "Butebo District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "120",
+    "name": "Buvuma District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "226",
+    "name": "Buyende District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "C",
+    "name": "Central Region",
+    "countryCode": "UG"
+  },
+  {
+    "code": "317",
+    "name": "Dokolo District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "E",
+    "name": "Eastern Region",
+    "countryCode": "UG"
+  },
+  {
+    "code": "121",
+    "name": "Gomba District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "304",
+    "name": "Gulu District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "417",
+    "name": "Ibanda District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "203",
+    "name": "Iganga District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "418",
+    "name": "Isingiro District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "204",
+    "name": "Jinja District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "318",
+    "name": "Kaabong District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "404",
+    "name": "Kabale District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "405",
+    "name": "Kabarole District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "213",
+    "name": "Kaberamaido District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "427",
+    "name": "Kagadi District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "428",
+    "name": "Kakumiro District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "101",
+    "name": "Kalangala District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "222",
+    "name": "Kaliro District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "122",
+    "name": "Kalungu District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "102",
+    "name": "Kampala District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "205",
+    "name": "Kamuli District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "413",
+    "name": "Kamwenge District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "414",
+    "name": "Kanungu District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "206",
+    "name": "Kapchorwa District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "406",
+    "name": "Kasese District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "207",
+    "name": "Katakwi District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "112",
+    "name": "Kayunga District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "407",
+    "name": "Kibaale District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "103",
+    "name": "Kiboga District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "227",
+    "name": "Kibuku District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "419",
+    "name": "Kiruhura District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "421",
+    "name": "Kiryandongo District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "408",
+    "name": "Kisoro District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "305",
+    "name": "Kitgum District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "319",
+    "name": "Koboko District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "325",
+    "name": "Kole District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "306",
+    "name": "Kotido District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "208",
+    "name": "Kumi District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "228",
+    "name": "Kween District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "123",
+    "name": "Kyankwanzi District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "422",
+    "name": "Kyegegwa District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "415",
+    "name": "Kyenjojo District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "125",
+    "name": "Kyotera District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "326",
+    "name": "Lamwo District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "307",
+    "name": "Lira District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "229",
+    "name": "Luuka District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "104",
+    "name": "Luwero District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "124",
+    "name": "Lwengo District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "114",
+    "name": "Lyantonde District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "223",
+    "name": "Manafwa District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "320",
+    "name": "Maracha District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "105",
+    "name": "Masaka District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "409",
+    "name": "Masindi District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "214",
+    "name": "Mayuge District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "209",
+    "name": "Mbale District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "410",
+    "name": "Mbarara District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "423",
+    "name": "Mitooma District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "115",
+    "name": "Mityana District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "308",
+    "name": "Moroto District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "309",
+    "name": "Moyo District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "106",
+    "name": "Mpigi District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "107",
+    "name": "Mubende District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "108",
+    "name": "Mukono District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "311",
+    "name": "Nakapiripirit District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "116",
+    "name": "Nakaseke District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "109",
+    "name": "Nakasongola District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "230",
+    "name": "Namayingo District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "234",
+    "name": "Namisindwa District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "224",
+    "name": "Namutumba District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "327",
+    "name": "Napak District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "310",
+    "name": "Nebbi District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "231",
+    "name": "Ngora District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "N",
+    "name": "Northern Region",
+    "countryCode": "UG"
+  },
+  {
+    "code": "424",
+    "name": "Ntoroko District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "411",
+    "name": "Ntungamo District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "328",
+    "name": "Nwoya District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "331",
+    "name": "Omoro District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "329",
+    "name": "Otuke District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "321",
+    "name": "Oyam District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "312",
+    "name": "Pader District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "332",
+    "name": "Pakwach District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "210",
+    "name": "Pallisa District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "110",
+    "name": "Rakai District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "429",
+    "name": "Rubanda District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "425",
+    "name": "Rubirizi District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "431",
+    "name": "Rukiga District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "412",
+    "name": "Rukungiri District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "111",
+    "name": "Sembabule District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "232",
+    "name": "Serere District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "426",
+    "name": "Sheema District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "215",
+    "name": "Sironko District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "211",
+    "name": "Soroti District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "212",
+    "name": "Tororo District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "113",
+    "name": "Wakiso District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "W",
+    "name": "Western Region",
+    "countryCode": "UG"
+  },
+  {
+    "code": "313",
+    "name": "Yumbe District",
+    "countryCode": "UG"
+  },
+  {
+    "code": "330",
+    "name": "Zombo District",
+    "countryCode": "UG"
+  }
+]

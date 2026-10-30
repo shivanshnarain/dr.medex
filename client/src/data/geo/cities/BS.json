@@ -1,0 +1,148 @@
+{
+  "AK": [],
+  "AC": [],
+  "BY": [],
+  "BI": [
+    {
+      "name": "Alice Town",
+      "postalCodes": []
+    }
+  ],
+  "BP": [],
+  "CI": [
+    {
+      "name": "Arthur’s Town",
+      "postalCodes": []
+    }
+  ],
+  "CO": [
+    {
+      "name": "Marsh Harbour",
+      "postalCodes": []
+    }
+  ],
+  "CS": [],
+  "CE": [],
+  "CK": [
+    {
+      "name": "Colonel Hill",
+      "postalCodes": []
+    }
+  ],
+  "EG": [
+    {
+      "name": "High Rock",
+      "postalCodes": []
+    }
+  ],
+  "EX": [
+    {
+      "name": "George Town",
+      "postalCodes": []
+    }
+  ],
+  "FP": [
+    {
+      "name": "Freeport",
+      "postalCodes": []
+    },
+    {
+      "name": "Lucaya",
+      "postalCodes": []
+    }
+  ],
+  "FC": [],
+  "GH": [],
+  "GC": [],
+  "GT": [],
+  "HI": [
+    {
+      "name": "Dunmore Town",
+      "postalCodes": []
+    }
+  ],
+  "HR": [],
+  "HT": [],
+  "IN": [
+    {
+      "name": "Matthew Town",
+      "postalCodes": []
+    }
+  ],
+  "KB": [],
+  "LI": [
+    {
+      "name": "Clarence Town",
+      "postalCodes": []
+    }
+  ],
+  "MC": [],
+  "MH": [],
+  "MG": [
+    {
+      "name": "Abraham’s Bay",
+      "postalCodes": []
+    }
+  ],
+  "NP": [
+    {
+      "name": "Nassau",
+      "postalCodes": []
+    }
+  ],
+  "NB": [],
+  "NO": [
+    {
+      "name": "Cooper’s Town",
+      "postalCodes": []
+    }
+  ],
+  "NS": [
+    {
+      "name": "Andros Town",
+      "postalCodes": []
+    },
+    {
+      "name": "San Andros",
+      "postalCodes": []
+    }
+  ],
+  "NE": [],
+  "RI": [
+    {
+      "name": "Duncan Town",
+      "postalCodes": []
+    }
+  ],
+  "RS": [],
+  "RC": [
+    {
+      "name": "Port Nelson",
+      "postalCodes": []
+    }
+  ],
+  "SR": [],
+  "SS": [
+    {
+      "name": "Cockburn Town",
+      "postalCodes": []
+    }
+  ],
+  "SP": [],
+  "SO": [],
+  "SA": [],
+  "SE": [],
+  "SW": [
+    {
+      "name": "Spanish Wells",
+      "postalCodes": []
+    }
+  ],
+  "WG": [
+    {
+      "name": "West End",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

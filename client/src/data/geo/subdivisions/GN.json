@@ -1,0 +1,202 @@
+[
+  {
+    "code": "BE",
+    "name": "Beyla Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "BF",
+    "name": "Boffa Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "BK",
+    "name": "Boké Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "B",
+    "name": "Boké Region",
+    "countryCode": "GN"
+  },
+  {
+    "code": "C",
+    "name": "Conakry",
+    "countryCode": "GN"
+  },
+  {
+    "code": "CO",
+    "name": "Coyah Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "DB",
+    "name": "Dabola Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "DL",
+    "name": "Dalaba Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "DI",
+    "name": "Dinguiraye Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "DU",
+    "name": "Dubréka Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "FA",
+    "name": "Faranah Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "FO",
+    "name": "Forécariah Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "FR",
+    "name": "Fria Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "GA",
+    "name": "Gaoual Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "GU",
+    "name": "Guéckédou Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "KA",
+    "name": "Kankan Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "K",
+    "name": "Kankan Region",
+    "countryCode": "GN"
+  },
+  {
+    "code": "KE",
+    "name": "Kérouané Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "KD",
+    "name": "Kindia Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "D",
+    "name": "Kindia Region",
+    "countryCode": "GN"
+  },
+  {
+    "code": "KS",
+    "name": "Kissidougou Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "KB",
+    "name": "Koubia Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "KN",
+    "name": "Koundara Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "KO",
+    "name": "Kouroussa Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "LA",
+    "name": "Labé Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "L",
+    "name": "Labé Region",
+    "countryCode": "GN"
+  },
+  {
+    "code": "LE",
+    "name": "Lélouma Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "LO",
+    "name": "Lola Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "MC",
+    "name": "Macenta Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "ML",
+    "name": "Mali Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "MM",
+    "name": "Mamou Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "M",
+    "name": "Mamou Region",
+    "countryCode": "GN"
+  },
+  {
+    "code": "MD",
+    "name": "Mandiana Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "NZ",
+    "name": "Nzérékoré Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "N",
+    "name": "Nzérékoré Region",
+    "countryCode": "GN"
+  },
+  {
+    "code": "PI",
+    "name": "Pita Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "SI",
+    "name": "Siguiri Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "TE",
+    "name": "Télimélé Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "TO",
+    "name": "Tougué Prefecture",
+    "countryCode": "GN"
+  },
+  {
+    "code": "YO",
+    "name": "Yomou Prefecture",
+    "countryCode": "GN"
+  }
+]

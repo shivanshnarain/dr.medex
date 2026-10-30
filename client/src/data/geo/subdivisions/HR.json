@@ -1,0 +1,102 @@
+[
+  {
+    "code": "07",
+    "name": "Bjelovar-Bilogora County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "12",
+    "name": "Brod-Posavina County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "19",
+    "name": "Dubrovnik-Neretva County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "18",
+    "name": "Istria County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "05",
+    "name": "Karlovac County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "06",
+    "name": "Koprivnica-Križevci County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "02",
+    "name": "Krapina-Zagorje County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "09",
+    "name": "Lika-Senj County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "20",
+    "name": "Međimurje County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "14",
+    "name": "Osijek-Baranja County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "11",
+    "name": "Požega-Slavonia County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "08",
+    "name": "Primorje-Gorski Kotar County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "15",
+    "name": "Šibenik-Knin County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "03",
+    "name": "Sisak-Moslavina County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "17",
+    "name": "Split-Dalmatia County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "10",
+    "name": "Virovitica-Podravina County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "16",
+    "name": "Vukovar-Syrmia County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "13",
+    "name": "Zadar County",
+    "countryCode": "HR"
+  },
+  {
+    "code": "21",
+    "name": "Zagreb",
+    "countryCode": "HR"
+  },
+  {
+    "code": "01",
+    "name": "Zagreb County",
+    "countryCode": "HR"
+  }
+]

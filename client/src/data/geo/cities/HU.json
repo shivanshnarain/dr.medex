@@ -1,0 +1,4084 @@
+{
+  "BK": [
+    {
+      "name": "Ágasegyháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Akasztó",
+      "postalCodes": []
+    },
+    {
+      "name": "Apostag",
+      "postalCodes": []
+    },
+    {
+      "name": "Bácsalmás",
+      "postalCodes": []
+    },
+    {
+      "name": "Bácsalmási Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Bácsbokod",
+      "postalCodes": []
+    },
+    {
+      "name": "Baja",
+      "postalCodes": []
+    },
+    {
+      "name": "Bajai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Ballószög",
+      "postalCodes": []
+    },
+    {
+      "name": "Bátya",
+      "postalCodes": []
+    },
+    {
+      "name": "Bugac",
+      "postalCodes": []
+    },
+    {
+      "name": "Császártöltés",
+      "postalCodes": []
+    },
+    {
+      "name": "Csávoly",
+      "postalCodes": []
+    },
+    {
+      "name": "Csengőd",
+      "postalCodes": []
+    },
+    {
+      "name": "Dávod",
+      "postalCodes": []
+    },
+    {
+      "name": "Dunapataj",
+      "postalCodes": []
+    },
+    {
+      "name": "Dunavecse",
+      "postalCodes": []
+    },
+    {
+      "name": "Dusnok",
+      "postalCodes": []
+    },
+    {
+      "name": "Érsekcsanád",
+      "postalCodes": []
+    },
+    {
+      "name": "Felsőszentiván",
+      "postalCodes": []
+    },
+    {
+      "name": "Fülöpjakab",
+      "postalCodes": []
+    },
+    {
+      "name": "Fülöpszállás",
+      "postalCodes": []
+    },
+    {
+      "name": "Gara",
+      "postalCodes": []
+    },
+    {
+      "name": "Hajós",
+      "postalCodes": []
+    },
+    {
+      "name": "Harta",
+      "postalCodes": []
+    },
+    {
+      "name": "Helvécia",
+      "postalCodes": []
+    },
+    {
+      "name": "Hercegszántó",
+      "postalCodes": []
+    },
+    {
+      "name": "Izsák",
+      "postalCodes": []
+    },
+    {
+      "name": "Jánoshalma",
+      "postalCodes": []
+    },
+    {
+      "name": "Jánoshalmai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Jászszentlászló",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalocsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalocsai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Katymár",
+      "postalCodes": []
+    },
+    {
+      "name": "Kecel",
+      "postalCodes": []
+    },
+    {
+      "name": "Kecskemét",
+      "postalCodes": []
+    },
+    {
+      "name": "Kecskeméti Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kelebia",
+      "postalCodes": []
+    },
+    {
+      "name": "Kerekegyháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiskőrös",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiskőrösi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiskunfélegyháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiskunfélegyházi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiskunhalas",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiskunhalasi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiskunmajsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiskunmajsai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisszállás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunfehértó",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunszentmiklós",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunszentmiklósi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Lajosmizse",
+      "postalCodes": []
+    },
+    {
+      "name": "Lakitelek",
+      "postalCodes": []
+    },
+    {
+      "name": "Madaras",
+      "postalCodes": []
+    },
+    {
+      "name": "Mélykút",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagybaracska",
+      "postalCodes": []
+    },
+    {
+      "name": "Nemesnádudvar",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyárlőrinc",
+      "postalCodes": []
+    },
+    {
+      "name": "Orgovány",
+      "postalCodes": []
+    },
+    {
+      "name": "Pálmonostora",
+      "postalCodes": []
+    },
+    {
+      "name": "Solt",
+      "postalCodes": []
+    },
+    {
+      "name": "Soltvadkert",
+      "postalCodes": []
+    },
+    {
+      "name": "Sükösd",
+      "postalCodes": []
+    },
+    {
+      "name": "Szabadszállás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szalkszentmárton",
+      "postalCodes": []
+    },
+    {
+      "name": "Szank",
+      "postalCodes": []
+    },
+    {
+      "name": "Szentkirály",
+      "postalCodes": []
+    },
+    {
+      "name": "Tass",
+      "postalCodes": []
+    },
+    {
+      "name": "Tázlár",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszaalpár",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszakécske",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszakécskei Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Tompa",
+      "postalCodes": []
+    },
+    {
+      "name": "Városföld",
+      "postalCodes": []
+    },
+    {
+      "name": "Vaskút",
+      "postalCodes": []
+    }
+  ],
+  "BA": [
+    {
+      "name": "Beremend",
+      "postalCodes": []
+    },
+    {
+      "name": "Bóly",
+      "postalCodes": []
+    },
+    {
+      "name": "Bólyi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Bükkösd",
+      "postalCodes": []
+    },
+    {
+      "name": "Dunaszekcső",
+      "postalCodes": []
+    },
+    {
+      "name": "Harkány",
+      "postalCodes": []
+    },
+    {
+      "name": "Hegyháti Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Hidas",
+      "postalCodes": []
+    },
+    {
+      "name": "Hosszúhetény",
+      "postalCodes": []
+    },
+    {
+      "name": "Komló",
+      "postalCodes": []
+    },
+    {
+      "name": "Komlói Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kozármisleny",
+      "postalCodes": []
+    },
+    {
+      "name": "Lánycsók",
+      "postalCodes": []
+    },
+    {
+      "name": "Mágocs",
+      "postalCodes": []
+    },
+    {
+      "name": "Mecseknádasd",
+      "postalCodes": []
+    },
+    {
+      "name": "Mohács",
+      "postalCodes": []
+    },
+    {
+      "name": "Mohácsi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Pécs",
+      "postalCodes": []
+    },
+    {
+      "name": "Pécsi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Pécsvárad",
+      "postalCodes": []
+    },
+    {
+      "name": "Pécsváradi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Pellérd",
+      "postalCodes": []
+    },
+    {
+      "name": "Sásd",
+      "postalCodes": []
+    },
+    {
+      "name": "Sellye",
+      "postalCodes": []
+    },
+    {
+      "name": "Sellyei Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Siklós",
+      "postalCodes": []
+    },
+    {
+      "name": "Siklósi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szászvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Szentlőrinc",
+      "postalCodes": []
+    },
+    {
+      "name": "Szentlőrinci Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szigetvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Szigetvári Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Vajszló",
+      "postalCodes": []
+    },
+    {
+      "name": "Villány",
+      "postalCodes": []
+    }
+  ],
+  "BE": [
+    {
+      "name": "Battonya",
+      "postalCodes": []
+    },
+    {
+      "name": "Békés",
+      "postalCodes": []
+    },
+    {
+      "name": "Békéscsaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Békéscsabai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Békési Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Békéssámson",
+      "postalCodes": []
+    },
+    {
+      "name": "Békésszentandrás",
+      "postalCodes": []
+    },
+    {
+      "name": "Bucsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Csanádapáca",
+      "postalCodes": []
+    },
+    {
+      "name": "Csorvás",
+      "postalCodes": []
+    },
+    {
+      "name": "Dévaványa",
+      "postalCodes": []
+    },
+    {
+      "name": "Doboz",
+      "postalCodes": []
+    },
+    {
+      "name": "Dombegyház",
+      "postalCodes": []
+    },
+    {
+      "name": "Elek",
+      "postalCodes": []
+    },
+    {
+      "name": "Füzesgyarmat",
+      "postalCodes": []
+    },
+    {
+      "name": "Gádoros",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyomaendrőd",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyomaendrődi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyula",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyulai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaszaper",
+      "postalCodes": []
+    },
+    {
+      "name": "Kétegyháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Kevermes",
+      "postalCodes": []
+    },
+    {
+      "name": "Kondoros",
+      "postalCodes": []
+    },
+    {
+      "name": "Körösladány",
+      "postalCodes": []
+    },
+    {
+      "name": "Köröstarcsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunágota",
+      "postalCodes": []
+    },
+    {
+      "name": "Lőkösháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Magyarbánhegyes",
+      "postalCodes": []
+    },
+    {
+      "name": "Medgyesegyháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Méhkerék",
+      "postalCodes": []
+    },
+    {
+      "name": "Mezőberény",
+      "postalCodes": []
+    },
+    {
+      "name": "Mezőhegyes",
+      "postalCodes": []
+    },
+    {
+      "name": "Mezőkovácsháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Mezőkovácsházai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagyszénás",
+      "postalCodes": []
+    },
+    {
+      "name": "Okány",
+      "postalCodes": []
+    },
+    {
+      "name": "Orosháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Orosházi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Pusztaföldvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarkad",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarkadi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szabadkígyós",
+      "postalCodes": []
+    },
+    {
+      "name": "Szarvas",
+      "postalCodes": []
+    },
+    {
+      "name": "Szarvasi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szeghalmi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szeghalom",
+      "postalCodes": []
+    },
+    {
+      "name": "Tótkomlós",
+      "postalCodes": []
+    },
+    {
+      "name": "Újkígyós",
+      "postalCodes": []
+    },
+    {
+      "name": "Vésztő",
+      "postalCodes": []
+    }
+  ],
+  "BC": [],
+  "BZ": [
+    {
+      "name": "Abaújszántó",
+      "postalCodes": []
+    },
+    {
+      "name": "Alsózsolca",
+      "postalCodes": []
+    },
+    {
+      "name": "Arló",
+      "postalCodes": []
+    },
+    {
+      "name": "Arnót",
+      "postalCodes": []
+    },
+    {
+      "name": "Aszaló",
+      "postalCodes": []
+    },
+    {
+      "name": "Bekecs",
+      "postalCodes": []
+    },
+    {
+      "name": "Bőcs",
+      "postalCodes": []
+    },
+    {
+      "name": "Bogács",
+      "postalCodes": []
+    },
+    {
+      "name": "Boldva",
+      "postalCodes": []
+    },
+    {
+      "name": "Borsodnádasd",
+      "postalCodes": []
+    },
+    {
+      "name": "Cigánd",
+      "postalCodes": []
+    },
+    {
+      "name": "Cigándi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Edelény",
+      "postalCodes": []
+    },
+    {
+      "name": "Edelényi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Emőd",
+      "postalCodes": []
+    },
+    {
+      "name": "Encs",
+      "postalCodes": []
+    },
+    {
+      "name": "Encsi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Farkaslyuk",
+      "postalCodes": []
+    },
+    {
+      "name": "Felsőzsolca",
+      "postalCodes": []
+    },
+    {
+      "name": "Gesztely",
+      "postalCodes": []
+    },
+    {
+      "name": "Gönc",
+      "postalCodes": []
+    },
+    {
+      "name": "Gönci Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Halmaj",
+      "postalCodes": []
+    },
+    {
+      "name": "Harsány",
+      "postalCodes": []
+    },
+    {
+      "name": "Hejőbába",
+      "postalCodes": []
+    },
+    {
+      "name": "Hernádnémeti",
+      "postalCodes": []
+    },
+    {
+      "name": "Izsófalva",
+      "postalCodes": []
+    },
+    {
+      "name": "Járdánháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Karcsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kazincbarcika",
+      "postalCodes": []
+    },
+    {
+      "name": "Kazincbarcikai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Mád",
+      "postalCodes": []
+    },
+    {
+      "name": "Mályi",
+      "postalCodes": []
+    },
+    {
+      "name": "Megyaszó",
+      "postalCodes": []
+    },
+    {
+      "name": "Mezőcsát",
+      "postalCodes": []
+    },
+    {
+      "name": "Mezőcsáti Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Mezőkeresztes",
+      "postalCodes": []
+    },
+    {
+      "name": "Mezőkövesd",
+      "postalCodes": []
+    },
+    {
+      "name": "Mezőkövesdi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Mezőzombor",
+      "postalCodes": []
+    },
+    {
+      "name": "Miskolc",
+      "postalCodes": []
+    },
+    {
+      "name": "Miskolci Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Monok",
+      "postalCodes": []
+    },
+    {
+      "name": "Múcsony",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyékládháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Olaszliszka",
+      "postalCodes": []
+    },
+    {
+      "name": "Onga",
+      "postalCodes": []
+    },
+    {
+      "name": "Ónod",
+      "postalCodes": []
+    },
+    {
+      "name": "Ózd",
+      "postalCodes": []
+    },
+    {
+      "name": "Ózdi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Prügy",
+      "postalCodes": []
+    },
+    {
+      "name": "Putnok",
+      "postalCodes": []
+    },
+    {
+      "name": "Putnoki Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Ricse",
+      "postalCodes": []
+    },
+    {
+      "name": "Rudabánya",
+      "postalCodes": []
+    },
+    {
+      "name": "Sajóbábony",
+      "postalCodes": []
+    },
+    {
+      "name": "Sajókaza",
+      "postalCodes": []
+    },
+    {
+      "name": "Sajólád",
+      "postalCodes": []
+    },
+    {
+      "name": "Sajóörös",
+      "postalCodes": []
+    },
+    {
+      "name": "Sajószentpéter",
+      "postalCodes": []
+    },
+    {
+      "name": "Sajószöged",
+      "postalCodes": []
+    },
+    {
+      "name": "Sajóvámos",
+      "postalCodes": []
+    },
+    {
+      "name": "Sály",
+      "postalCodes": []
+    },
+    {
+      "name": "Sárospatak",
+      "postalCodes": []
+    },
+    {
+      "name": "Sárospataki Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Sátoraljaújhely",
+      "postalCodes": []
+    },
+    {
+      "name": "Sátoraljaújhelyi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szendrő",
+      "postalCodes": []
+    },
+    {
+      "name": "Szentistván",
+      "postalCodes": []
+    },
+    {
+      "name": "Szerencs",
+      "postalCodes": []
+    },
+    {
+      "name": "Szerencsi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szikszó",
+      "postalCodes": []
+    },
+    {
+      "name": "Szikszói Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szirmabesenyő",
+      "postalCodes": []
+    },
+    {
+      "name": "Taktaharkány",
+      "postalCodes": []
+    },
+    {
+      "name": "Taktaszada",
+      "postalCodes": []
+    },
+    {
+      "name": "Tállya",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarcal",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszakarád",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszakeszi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszalúc",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszaújváros",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszaújvárosi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Tokaj",
+      "postalCodes": []
+    },
+    {
+      "name": "Tokaji Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Tolcsva",
+      "postalCodes": []
+    }
+  ],
+  "BU": [
+    {
+      "name": "Budapest",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest I. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest II. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest III. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest IV. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest VI. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest VIII. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest X. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest XI. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest XII. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest XIII. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest XV. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest XVI. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest XVII. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest XVIII. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest XX. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest XXI. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest XXII. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Budapest XXIII. kerület",
+      "postalCodes": []
+    },
+    {
+      "name": "Erzsébetváros",
+      "postalCodes": []
+    },
+    {
+      "name": "Józsefváros",
+      "postalCodes": []
+    },
+    {
+      "name": "Kispest",
+      "postalCodes": []
+    },
+    {
+      "name": "Zugló",
+      "postalCodes": []
+    }
+  ],
+  "CS": [
+    {
+      "name": "Algyő",
+      "postalCodes": []
+    },
+    {
+      "name": "Apátfalva",
+      "postalCodes": []
+    },
+    {
+      "name": "Ásotthalom",
+      "postalCodes": []
+    },
+    {
+      "name": "Baks",
+      "postalCodes": []
+    },
+    {
+      "name": "Balástya",
+      "postalCodes": []
+    },
+    {
+      "name": "Bordány",
+      "postalCodes": []
+    },
+    {
+      "name": "Csanádpalota",
+      "postalCodes": []
+    },
+    {
+      "name": "Csanytelek",
+      "postalCodes": []
+    },
+    {
+      "name": "Csengele",
+      "postalCodes": []
+    },
+    {
+      "name": "Csongrád",
+      "postalCodes": []
+    },
+    {
+      "name": "Csongrádi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Deszk",
+      "postalCodes": []
+    },
+    {
+      "name": "Domaszék",
+      "postalCodes": []
+    },
+    {
+      "name": "Fábiánsebestyén",
+      "postalCodes": []
+    },
+    {
+      "name": "Földeák",
+      "postalCodes": []
+    },
+    {
+      "name": "Forráskút",
+      "postalCodes": []
+    },
+    {
+      "name": "Hódmezővásárhely",
+      "postalCodes": []
+    },
+    {
+      "name": "Hódmezővásárhelyi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kistelek",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisteleki Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiszombor",
+      "postalCodes": []
+    },
+    {
+      "name": "Makó",
+      "postalCodes": []
+    },
+    {
+      "name": "Makói Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Maroslele",
+      "postalCodes": []
+    },
+    {
+      "name": "Mindszent",
+      "postalCodes": []
+    },
+    {
+      "name": "Mórahalmi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Mórahalom",
+      "postalCodes": []
+    },
+    {
+      "name": "Ópusztaszer",
+      "postalCodes": []
+    },
+    {
+      "name": "Pusztaszer",
+      "postalCodes": []
+    },
+    {
+      "name": "Röszke",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruzsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Sándorfalva",
+      "postalCodes": []
+    },
+    {
+      "name": "Szatymaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Szeged",
+      "postalCodes": []
+    },
+    {
+      "name": "Szegedi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szegvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Székkutas",
+      "postalCodes": []
+    },
+    {
+      "name": "Szentes",
+      "postalCodes": []
+    },
+    {
+      "name": "Szentesi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Tömörkény",
+      "postalCodes": []
+    },
+    {
+      "name": "Üllés",
+      "postalCodes": []
+    },
+    {
+      "name": "Zákányszék",
+      "postalCodes": []
+    },
+    {
+      "name": "Zsombó",
+      "postalCodes": []
+    }
+  ],
+  "DE": [],
+  "DU": [],
+  "EG": [],
+  "ER": [],
+  "FE": [
+    {
+      "name": "Aba",
+      "postalCodes": []
+    },
+    {
+      "name": "Adony",
+      "postalCodes": []
+    },
+    {
+      "name": "Alap",
+      "postalCodes": []
+    },
+    {
+      "name": "Bakonycsernye",
+      "postalCodes": []
+    },
+    {
+      "name": "Baracs",
+      "postalCodes": []
+    },
+    {
+      "name": "Baracska",
+      "postalCodes": []
+    },
+    {
+      "name": "Bicske",
+      "postalCodes": []
+    },
+    {
+      "name": "Bicskei Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Bodajk",
+      "postalCodes": []
+    },
+    {
+      "name": "Cece",
+      "postalCodes": []
+    },
+    {
+      "name": "Csákvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Dég",
+      "postalCodes": []
+    },
+    {
+      "name": "dunaújváros",
+      "postalCodes": []
+    },
+    {
+      "name": "Dunaújvárosi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Előszállás",
+      "postalCodes": []
+    },
+    {
+      "name": "Enying",
+      "postalCodes": []
+    },
+    {
+      "name": "Enyingi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Ercsi",
+      "postalCodes": []
+    },
+    {
+      "name": "Etyek",
+      "postalCodes": []
+    },
+    {
+      "name": "Fehérvárcsurgó",
+      "postalCodes": []
+    },
+    {
+      "name": "Gárdony",
+      "postalCodes": []
+    },
+    {
+      "name": "Gárdonyi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Iváncsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Káloz",
+      "postalCodes": []
+    },
+    {
+      "name": "Kápolnásnyék",
+      "postalCodes": []
+    },
+    {
+      "name": "Kincsesbánya",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisláng",
+      "postalCodes": []
+    },
+    {
+      "name": "Lajoskomárom",
+      "postalCodes": []
+    },
+    {
+      "name": "Lepsény",
+      "postalCodes": []
+    },
+    {
+      "name": "Lovasberény",
+      "postalCodes": []
+    },
+    {
+      "name": "Mány",
+      "postalCodes": []
+    },
+    {
+      "name": "Martonvásár",
+      "postalCodes": []
+    },
+    {
+      "name": "Martonvásári Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Mezőfalva",
+      "postalCodes": []
+    },
+    {
+      "name": "Mezőszilas",
+      "postalCodes": []
+    },
+    {
+      "name": "Mór",
+      "postalCodes": []
+    },
+    {
+      "name": "Móri Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Pákozd",
+      "postalCodes": []
+    },
+    {
+      "name": "Pázmánd",
+      "postalCodes": []
+    },
+    {
+      "name": "Perkáta",
+      "postalCodes": []
+    },
+    {
+      "name": "Polgárdi",
+      "postalCodes": []
+    },
+    {
+      "name": "Pusztaszabolcs",
+      "postalCodes": []
+    },
+    {
+      "name": "Pusztavám",
+      "postalCodes": []
+    },
+    {
+      "name": "Rácalmás",
+      "postalCodes": []
+    },
+    {
+      "name": "Ráckeresztúr",
+      "postalCodes": []
+    },
+    {
+      "name": "Sárbogárd",
+      "postalCodes": []
+    },
+    {
+      "name": "Sárbogárdi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Sárkeresztúr",
+      "postalCodes": []
+    },
+    {
+      "name": "Sárosd",
+      "postalCodes": []
+    },
+    {
+      "name": "Sárszentmihály",
+      "postalCodes": []
+    },
+    {
+      "name": "Seregélyes",
+      "postalCodes": []
+    },
+    {
+      "name": "Soponya",
+      "postalCodes": []
+    },
+    {
+      "name": "Szabadbattyán",
+      "postalCodes": []
+    },
+    {
+      "name": "Szárliget",
+      "postalCodes": []
+    },
+    {
+      "name": "Székesfehérvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Székesfehérvári Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Vál",
+      "postalCodes": []
+    },
+    {
+      "name": "Velence",
+      "postalCodes": []
+    },
+    {
+      "name": "Zámoly",
+      "postalCodes": []
+    }
+  ],
+  "GY": [],
+  "GS": [
+    {
+      "name": "Abda",
+      "postalCodes": []
+    },
+    {
+      "name": "Ágfalva",
+      "postalCodes": []
+    },
+    {
+      "name": "Ásványráró",
+      "postalCodes": []
+    },
+    {
+      "name": "Bakonyszentlászló",
+      "postalCodes": []
+    },
+    {
+      "name": "Beled",
+      "postalCodes": []
+    },
+    {
+      "name": "Bőny",
+      "postalCodes": []
+    },
+    {
+      "name": "Bősárkány",
+      "postalCodes": []
+    },
+    {
+      "name": "Csorna",
+      "postalCodes": []
+    },
+    {
+      "name": "Csornai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Farád",
+      "postalCodes": []
+    },
+    {
+      "name": "Fertőd",
+      "postalCodes": []
+    },
+    {
+      "name": "Fertőrákos",
+      "postalCodes": []
+    },
+    {
+      "name": "Fertőszentmiklós",
+      "postalCodes": []
+    },
+    {
+      "name": "Győr",
+      "postalCodes": []
+    },
+    {
+      "name": "Győri Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Győrszemere",
+      "postalCodes": []
+    },
+    {
+      "name": "Győrújbarát",
+      "postalCodes": []
+    },
+    {
+      "name": "Halászi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jánossomorja",
+      "postalCodes": []
+    },
+    {
+      "name": "Kapuvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Kapuvári Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kimle",
+      "postalCodes": []
+    },
+    {
+      "name": "Kóny",
+      "postalCodes": []
+    },
+    {
+      "name": "Lébény",
+      "postalCodes": []
+    },
+    {
+      "name": "Mihályi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosonmagyaróvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosonmagyaróvári Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosonszentmiklós",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagycenk",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyúl",
+      "postalCodes": []
+    },
+    {
+      "name": "Öttevény",
+      "postalCodes": []
+    },
+    {
+      "name": "Pannonhalma",
+      "postalCodes": []
+    },
+    {
+      "name": "Pannonhalmi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Pér",
+      "postalCodes": []
+    },
+    {
+      "name": "Rábapatona",
+      "postalCodes": []
+    },
+    {
+      "name": "Rajka",
+      "postalCodes": []
+    },
+    {
+      "name": "Sopron",
+      "postalCodes": []
+    },
+    {
+      "name": "Soproni Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szany",
+      "postalCodes": []
+    },
+    {
+      "name": "Tét",
+      "postalCodes": []
+    },
+    {
+      "name": "Téti Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Töltéstava",
+      "postalCodes": []
+    }
+  ],
+  "HB": [
+    {
+      "name": "Bagamér",
+      "postalCodes": []
+    },
+    {
+      "name": "Balmazújváros",
+      "postalCodes": []
+    },
+    {
+      "name": "Balmazújvárosi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Báránd",
+      "postalCodes": []
+    },
+    {
+      "name": "Berettyóújfalu",
+      "postalCodes": []
+    },
+    {
+      "name": "Berettyóújfalui Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Biharkeresztes",
+      "postalCodes": []
+    },
+    {
+      "name": "Biharnagybajom",
+      "postalCodes": []
+    },
+    {
+      "name": "Csökmő",
+      "postalCodes": []
+    },
+    {
+      "name": "Debrecen",
+      "postalCodes": []
+    },
+    {
+      "name": "Debreceni Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Derecske",
+      "postalCodes": []
+    },
+    {
+      "name": "Derecskei Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Ebes",
+      "postalCodes": []
+    },
+    {
+      "name": "Egyek",
+      "postalCodes": []
+    },
+    {
+      "name": "Földes",
+      "postalCodes": []
+    },
+    {
+      "name": "Görbeháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Hadjúszoboszlói Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Hajdúbagos",
+      "postalCodes": []
+    },
+    {
+      "name": "Hajdúböszörmény",
+      "postalCodes": []
+    },
+    {
+      "name": "Hajdúböszörményi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Hajdúdorog",
+      "postalCodes": []
+    },
+    {
+      "name": "Hajdúhadház",
+      "postalCodes": []
+    },
+    {
+      "name": "Hajdúhadházi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Hajdúnánás",
+      "postalCodes": []
+    },
+    {
+      "name": "Hajdúnánási Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Hajdúsámson",
+      "postalCodes": []
+    },
+    {
+      "name": "Hajdúszoboszló",
+      "postalCodes": []
+    },
+    {
+      "name": "Hajdúszovát",
+      "postalCodes": []
+    },
+    {
+      "name": "Hortobágy",
+      "postalCodes": []
+    },
+    {
+      "name": "Hosszúpályi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Komádi",
+      "postalCodes": []
+    },
+    {
+      "name": "Konyár",
+      "postalCodes": []
+    },
+    {
+      "name": "Létavértes",
+      "postalCodes": []
+    },
+    {
+      "name": "Mikepércs",
+      "postalCodes": []
+    },
+    {
+      "name": "Monostorpályi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nádudvar",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagyrábé",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírábrány",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyíracsád",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyíradony",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyíradonyi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírmártonfalva",
+      "postalCodes": []
+    },
+    {
+      "name": "Pocsaj",
+      "postalCodes": []
+    },
+    {
+      "name": "Polgár",
+      "postalCodes": []
+    },
+    {
+      "name": "Püspökladány",
+      "postalCodes": []
+    },
+    {
+      "name": "Püspökladányi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Sáránd",
+      "postalCodes": []
+    },
+    {
+      "name": "Sárrétudvari",
+      "postalCodes": []
+    },
+    {
+      "name": "Téglás",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszacsege",
+      "postalCodes": []
+    },
+    {
+      "name": "Vámospércs",
+      "postalCodes": []
+    }
+  ],
+  "HE": [
+    {
+      "name": "Abasár",
+      "postalCodes": []
+    },
+    {
+      "name": "Adács",
+      "postalCodes": []
+    },
+    {
+      "name": "Andornaktálya",
+      "postalCodes": []
+    },
+    {
+      "name": "Apc",
+      "postalCodes": []
+    },
+    {
+      "name": "Bélapátfalva",
+      "postalCodes": []
+    },
+    {
+      "name": "Bélapátfalvai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Besenyőtelek",
+      "postalCodes": []
+    },
+    {
+      "name": "Boldog",
+      "postalCodes": []
+    },
+    {
+      "name": "Csány",
+      "postalCodes": []
+    },
+    {
+      "name": "Domoszló",
+      "postalCodes": []
+    },
+    {
+      "name": "Ecséd",
+      "postalCodes": []
+    },
+    {
+      "name": "Eger",
+      "postalCodes": []
+    },
+    {
+      "name": "Egerszalók",
+      "postalCodes": []
+    },
+    {
+      "name": "Egri Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Erdőtelek",
+      "postalCodes": []
+    },
+    {
+      "name": "Felsőtárkány",
+      "postalCodes": []
+    },
+    {
+      "name": "Füzesabony",
+      "postalCodes": []
+    },
+    {
+      "name": "Füzesabonyi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyöngyös",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyöngyöshalász",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyöngyösi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyöngyöspata",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyöngyössolymos",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyöngyöstarján",
+      "postalCodes": []
+    },
+    {
+      "name": "Hatvan",
+      "postalCodes": []
+    },
+    {
+      "name": "Hatvani Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Heréd",
+      "postalCodes": []
+    },
+    {
+      "name": "Heves",
+      "postalCodes": []
+    },
+    {
+      "name": "Hevesi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Hort",
+      "postalCodes": []
+    },
+    {
+      "name": "Kál",
+      "postalCodes": []
+    },
+    {
+      "name": "Karácsond",
+      "postalCodes": []
+    },
+    {
+      "name": "Kerecsend",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisköre",
+      "postalCodes": []
+    },
+    {
+      "name": "Kompolt",
+      "postalCodes": []
+    },
+    {
+      "name": "Lőrinci",
+      "postalCodes": []
+    },
+    {
+      "name": "Maklár",
+      "postalCodes": []
+    },
+    {
+      "name": "Mátraderecske",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagyréde",
+      "postalCodes": []
+    },
+    {
+      "name": "Ostoros",
+      "postalCodes": []
+    },
+    {
+      "name": "Parád",
+      "postalCodes": []
+    },
+    {
+      "name": "Parádsasvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Pétervására",
+      "postalCodes": []
+    },
+    {
+      "name": "Pétervásárai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Petőfibánya",
+      "postalCodes": []
+    },
+    {
+      "name": "Poroszló",
+      "postalCodes": []
+    },
+    {
+      "name": "Recsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Rózsaszentmárton",
+      "postalCodes": []
+    },
+    {
+      "name": "Sirok",
+      "postalCodes": []
+    },
+    {
+      "name": "Szihalom",
+      "postalCodes": []
+    },
+    {
+      "name": "Szilvásvárad",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarnalelesz",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarnaörs",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszanána",
+      "postalCodes": []
+    },
+    {
+      "name": "Vámosgyörk",
+      "postalCodes": []
+    },
+    {
+      "name": "Verpelét",
+      "postalCodes": []
+    },
+    {
+      "name": "Zagyvaszántó",
+      "postalCodes": []
+    }
+  ],
+  "HV": [],
+  "JN": [
+    {
+      "name": "Abádszalók",
+      "postalCodes": []
+    },
+    {
+      "name": "Alattyán",
+      "postalCodes": []
+    },
+    {
+      "name": "Besenyszög",
+      "postalCodes": []
+    },
+    {
+      "name": "Cibakháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Cserkeszőlő",
+      "postalCodes": []
+    },
+    {
+      "name": "Fegyvernek",
+      "postalCodes": []
+    },
+    {
+      "name": "Jánoshida",
+      "postalCodes": []
+    },
+    {
+      "name": "Jászalsószentgyörgy",
+      "postalCodes": []
+    },
+    {
+      "name": "Jászapáti",
+      "postalCodes": []
+    },
+    {
+      "name": "Jászapáti Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Jászárokszállás",
+      "postalCodes": []
+    },
+    {
+      "name": "Jászberény",
+      "postalCodes": []
+    },
+    {
+      "name": "Jászberényi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Jászdózsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Jászjákóhalma",
+      "postalCodes": []
+    },
+    {
+      "name": "Jászkisér",
+      "postalCodes": []
+    },
+    {
+      "name": "Jászladány",
+      "postalCodes": []
+    },
+    {
+      "name": "Jászszentandrás",
+      "postalCodes": []
+    },
+    {
+      "name": "Karcag",
+      "postalCodes": []
+    },
+    {
+      "name": "Karcagi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kenderes",
+      "postalCodes": []
+    },
+    {
+      "name": "Kengyel",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisújszállás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunhegyes",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunhegyesi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunmadaras",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunszentmárton",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunszentmártoni Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Mezőtúr",
+      "postalCodes": []
+    },
+    {
+      "name": "Mezőtúri Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Öcsöd",
+      "postalCodes": []
+    },
+    {
+      "name": "Rákóczifalva",
+      "postalCodes": []
+    },
+    {
+      "name": "Rákócziújfalu",
+      "postalCodes": []
+    },
+    {
+      "name": "Szajol",
+      "postalCodes": []
+    },
+    {
+      "name": "Szelevény",
+      "postalCodes": []
+    },
+    {
+      "name": "Szolnok",
+      "postalCodes": []
+    },
+    {
+      "name": "Szolnoki Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszabő",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszabura",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszaföldvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszafüred",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszafüredi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszapüspöki",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszaroff",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszasüly",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszaszentimre",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszaszőlős",
+      "postalCodes": []
+    },
+    {
+      "name": "Törökszentmiklós",
+      "postalCodes": []
+    },
+    {
+      "name": "Törökszentmiklósi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Tószeg",
+      "postalCodes": []
+    },
+    {
+      "name": "Túrkeve",
+      "postalCodes": []
+    },
+    {
+      "name": "Újszász",
+      "postalCodes": []
+    },
+    {
+      "name": "Zagyvarékas",
+      "postalCodes": []
+    }
+  ],
+  "KV": [],
+  "KM": [],
+  "MI": [],
+  "NK": [],
+  "NO": [
+    {
+      "name": "Balassagyarmat",
+      "postalCodes": []
+    },
+    {
+      "name": "Balassagyarmati Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Bátonyterenye",
+      "postalCodes": []
+    },
+    {
+      "name": "Bátonyterenyei Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Bercel",
+      "postalCodes": []
+    },
+    {
+      "name": "Buják",
+      "postalCodes": []
+    },
+    {
+      "name": "Diósjenő",
+      "postalCodes": []
+    },
+    {
+      "name": "Érsekvadkert",
+      "postalCodes": []
+    },
+    {
+      "name": "Héhalom",
+      "postalCodes": []
+    },
+    {
+      "name": "Jobbágyi",
+      "postalCodes": []
+    },
+    {
+      "name": "Karancskeszi",
+      "postalCodes": []
+    },
+    {
+      "name": "Karancslapujtő",
+      "postalCodes": []
+    },
+    {
+      "name": "Kazár",
+      "postalCodes": []
+    },
+    {
+      "name": "Mátranovák",
+      "postalCodes": []
+    },
+    {
+      "name": "Mátraterenye",
+      "postalCodes": []
+    },
+    {
+      "name": "Mátraverebély",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagyoroszi",
+      "postalCodes": []
+    },
+    {
+      "name": "Palotás",
+      "postalCodes": []
+    },
+    {
+      "name": "Pásztó",
+      "postalCodes": []
+    },
+    {
+      "name": "Pásztói Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Rétság",
+      "postalCodes": []
+    },
+    {
+      "name": "Rétsági Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Rimóc",
+      "postalCodes": []
+    },
+    {
+      "name": "Romhány",
+      "postalCodes": []
+    },
+    {
+      "name": "Salgótarján",
+      "postalCodes": []
+    },
+    {
+      "name": "Salgótarjáni Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Somoskőújfalu",
+      "postalCodes": []
+    },
+    {
+      "name": "Szécsény",
+      "postalCodes": []
+    },
+    {
+      "name": "Szécsényi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szurdokpüspöki",
+      "postalCodes": []
+    },
+    {
+      "name": "Tar",
+      "postalCodes": []
+    }
+  ],
+  "NY": [],
+  "PS": [],
+  "PE": [
+    {
+      "name": "Abony",
+      "postalCodes": []
+    },
+    {
+      "name": "Acsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Albertirsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Alsónémedi",
+      "postalCodes": []
+    },
+    {
+      "name": "Aszód",
+      "postalCodes": []
+    },
+    {
+      "name": "Aszódi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Bag",
+      "postalCodes": []
+    },
+    {
+      "name": "Biatorbágy",
+      "postalCodes": []
+    },
+    {
+      "name": "Budakalász",
+      "postalCodes": []
+    },
+    {
+      "name": "Budakeszi",
+      "postalCodes": []
+    },
+    {
+      "name": "Budakeszi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Budaörs",
+      "postalCodes": []
+    },
+    {
+      "name": "Bugyi",
+      "postalCodes": []
+    },
+    {
+      "name": "Cegléd",
+      "postalCodes": []
+    },
+    {
+      "name": "Ceglédbercel",
+      "postalCodes": []
+    },
+    {
+      "name": "Ceglédi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Csemő",
+      "postalCodes": []
+    },
+    {
+      "name": "Csobánka",
+      "postalCodes": []
+    },
+    {
+      "name": "Csömör",
+      "postalCodes": []
+    },
+    {
+      "name": "Dabas",
+      "postalCodes": []
+    },
+    {
+      "name": "Dabasi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Dánszentmiklós",
+      "postalCodes": []
+    },
+    {
+      "name": "Dány",
+      "postalCodes": []
+    },
+    {
+      "name": "Délegyháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Diósd",
+      "postalCodes": []
+    },
+    {
+      "name": "Domony",
+      "postalCodes": []
+    },
+    {
+      "name": "Dömsöd",
+      "postalCodes": []
+    },
+    {
+      "name": "Dunabogdány",
+      "postalCodes": []
+    },
+    {
+      "name": "Dunaharaszti",
+      "postalCodes": []
+    },
+    {
+      "name": "Dunakeszi",
+      "postalCodes": []
+    },
+    {
+      "name": "Dunakeszi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Dunavarsány",
+      "postalCodes": []
+    },
+    {
+      "name": "Ecser",
+      "postalCodes": []
+    },
+    {
+      "name": "Érd",
+      "postalCodes": []
+    },
+    {
+      "name": "Érdi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Erdőkertes",
+      "postalCodes": []
+    },
+    {
+      "name": "Farmos",
+      "postalCodes": []
+    },
+    {
+      "name": "Felsőpakony",
+      "postalCodes": []
+    },
+    {
+      "name": "Forrópuszta",
+      "postalCodes": []
+    },
+    {
+      "name": "Fót",
+      "postalCodes": []
+    },
+    {
+      "name": "Galgahévíz",
+      "postalCodes": []
+    },
+    {
+      "name": "Galgamácsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Göd",
+      "postalCodes": []
+    },
+    {
+      "name": "Gödöllő",
+      "postalCodes": []
+    },
+    {
+      "name": "Gödöllői Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Gomba",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyál",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyáli Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyömrő",
+      "postalCodes": []
+    },
+    {
+      "name": "Halásztelek",
+      "postalCodes": []
+    },
+    {
+      "name": "Hernád",
+      "postalCodes": []
+    },
+    {
+      "name": "Hévízgyörk",
+      "postalCodes": []
+    },
+    {
+      "name": "Iklad",
+      "postalCodes": []
+    },
+    {
+      "name": "Inárcs",
+      "postalCodes": []
+    },
+    {
+      "name": "Isaszeg",
+      "postalCodes": []
+    },
+    {
+      "name": "Jászkarajenő",
+      "postalCodes": []
+    },
+    {
+      "name": "Kakucs",
+      "postalCodes": []
+    },
+    {
+      "name": "Kartal",
+      "postalCodes": []
+    },
+    {
+      "name": "Kerepes",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiskunlacháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Kismaros",
+      "postalCodes": []
+    },
+    {
+      "name": "Kistarcsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kocsér",
+      "postalCodes": []
+    },
+    {
+      "name": "Kóka",
+      "postalCodes": []
+    },
+    {
+      "name": "Kosd",
+      "postalCodes": []
+    },
+    {
+      "name": "Leányfalu",
+      "postalCodes": []
+    },
+    {
+      "name": "Maglód",
+      "postalCodes": []
+    },
+    {
+      "name": "Mende",
+      "postalCodes": []
+    },
+    {
+      "name": "Mogyoród",
+      "postalCodes": []
+    },
+    {
+      "name": "Monor",
+      "postalCodes": []
+    },
+    {
+      "name": "Monori Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagykáta",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagykátai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagykőrös",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagykőrösi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagykovácsi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagymaros",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagytarcsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyáregyháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Ócsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Őrbottyán",
+      "postalCodes": []
+    },
+    {
+      "name": "Örkény",
+      "postalCodes": []
+    },
+    {
+      "name": "Pánd",
+      "postalCodes": []
+    },
+    {
+      "name": "Páty",
+      "postalCodes": []
+    },
+    {
+      "name": "Pécel",
+      "postalCodes": []
+    },
+    {
+      "name": "Perbál",
+      "postalCodes": []
+    },
+    {
+      "name": "Péteri",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilis",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilisborosjenő",
+      "postalCodes": []
+    },
+    {
+      "name": "Piliscsaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilisszántó",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilisszentiván",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilisszentkereszt",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilisvörösvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilisvörösvári Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Pomáz",
+      "postalCodes": []
+    },
+    {
+      "name": "Ráckeve",
+      "postalCodes": []
+    },
+    {
+      "name": "Ráckevei Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Solymár",
+      "postalCodes": []
+    },
+    {
+      "name": "Sóskút",
+      "postalCodes": []
+    },
+    {
+      "name": "Sülysáp",
+      "postalCodes": []
+    },
+    {
+      "name": "Szada",
+      "postalCodes": []
+    },
+    {
+      "name": "Százhalombatta",
+      "postalCodes": []
+    },
+    {
+      "name": "Szentendre",
+      "postalCodes": []
+    },
+    {
+      "name": "Szentendrei Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szentlőrinckáta",
+      "postalCodes": []
+    },
+    {
+      "name": "Szentmártonkáta",
+      "postalCodes": []
+    },
+    {
+      "name": "Szigetcsép",
+      "postalCodes": []
+    },
+    {
+      "name": "Szigethalom",
+      "postalCodes": []
+    },
+    {
+      "name": "Szigetszentmiklós",
+      "postalCodes": []
+    },
+    {
+      "name": "Szigetszentmiklósi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szigetújfalu",
+      "postalCodes": []
+    },
+    {
+      "name": "Szob",
+      "postalCodes": []
+    },
+    {
+      "name": "Szobi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Sződ",
+      "postalCodes": []
+    },
+    {
+      "name": "Sződliget",
+      "postalCodes": []
+    },
+    {
+      "name": "Táborfalva",
+      "postalCodes": []
+    },
+    {
+      "name": "Tahitótfalu",
+      "postalCodes": []
+    },
+    {
+      "name": "Taksony",
+      "postalCodes": []
+    },
+    {
+      "name": "Tápióbicske",
+      "postalCodes": []
+    },
+    {
+      "name": "Tápiógyörgye",
+      "postalCodes": []
+    },
+    {
+      "name": "Tápióság",
+      "postalCodes": []
+    },
+    {
+      "name": "Tápiószecső",
+      "postalCodes": []
+    },
+    {
+      "name": "Tápiószele",
+      "postalCodes": []
+    },
+    {
+      "name": "Tápiószentmárton",
+      "postalCodes": []
+    },
+    {
+      "name": "Tápiószőlős",
+      "postalCodes": []
+    },
+    {
+      "name": "Tárnok",
+      "postalCodes": []
+    },
+    {
+      "name": "Telki",
+      "postalCodes": []
+    },
+    {
+      "name": "Tóalmás",
+      "postalCodes": []
+    },
+    {
+      "name": "Tököl",
+      "postalCodes": []
+    },
+    {
+      "name": "Törökbálint",
+      "postalCodes": []
+    },
+    {
+      "name": "Törtel",
+      "postalCodes": []
+    },
+    {
+      "name": "Tura",
+      "postalCodes": []
+    },
+    {
+      "name": "Újhartyán",
+      "postalCodes": []
+    },
+    {
+      "name": "Újszilvás",
+      "postalCodes": []
+    },
+    {
+      "name": "Üllő",
+      "postalCodes": []
+    },
+    {
+      "name": "Úri",
+      "postalCodes": []
+    },
+    {
+      "name": "Üröm",
+      "postalCodes": []
+    },
+    {
+      "name": "Vác",
+      "postalCodes": []
+    },
+    {
+      "name": "Váci Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Vácszentlászló",
+      "postalCodes": []
+    },
+    {
+      "name": "Valkó",
+      "postalCodes": []
+    },
+    {
+      "name": "Vecsés",
+      "postalCodes": []
+    },
+    {
+      "name": "Vecsési Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Veresegyház",
+      "postalCodes": []
+    },
+    {
+      "name": "Verőce",
+      "postalCodes": []
+    },
+    {
+      "name": "Visegrád",
+      "postalCodes": []
+    },
+    {
+      "name": "Zsámbék",
+      "postalCodes": []
+    },
+    {
+      "name": "Zsámbok",
+      "postalCodes": []
+    }
+  ],
+  "ST": [],
+  "SO": [
+    {
+      "name": "Ádánd",
+      "postalCodes": []
+    },
+    {
+      "name": "Babócsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Balatonberény",
+      "postalCodes": []
+    },
+    {
+      "name": "Balatonboglár",
+      "postalCodes": []
+    },
+    {
+      "name": "Balatonfenyves",
+      "postalCodes": []
+    },
+    {
+      "name": "Balatonföldvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Balatonlelle",
+      "postalCodes": []
+    },
+    {
+      "name": "Balatonszabadi",
+      "postalCodes": []
+    },
+    {
+      "name": "Balatonszárszó",
+      "postalCodes": []
+    },
+    {
+      "name": "Barcs",
+      "postalCodes": []
+    },
+    {
+      "name": "Barcsi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Berzence",
+      "postalCodes": []
+    },
+    {
+      "name": "Böhönye",
+      "postalCodes": []
+    },
+    {
+      "name": "Csurgó",
+      "postalCodes": []
+    },
+    {
+      "name": "Csurgói Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Fonyód",
+      "postalCodes": []
+    },
+    {
+      "name": "Fonyódi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kadarkút",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaposmérő",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaposvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaposvári Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Karád",
+      "postalCodes": []
+    },
+    {
+      "name": "Kéthely",
+      "postalCodes": []
+    },
+    {
+      "name": "Lábod",
+      "postalCodes": []
+    },
+    {
+      "name": "Lengyeltóti",
+      "postalCodes": []
+    },
+    {
+      "name": "Marcali",
+      "postalCodes": []
+    },
+    {
+      "name": "Marcali Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagyatád",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagyatádi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagybajom",
+      "postalCodes": []
+    },
+    {
+      "name": "Segesd",
+      "postalCodes": []
+    },
+    {
+      "name": "Siófok",
+      "postalCodes": []
+    },
+    {
+      "name": "Siófoki Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Somogyvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Tab",
+      "postalCodes": []
+    },
+    {
+      "name": "Tabi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Taszár",
+      "postalCodes": []
+    },
+    {
+      "name": "Zamárdi",
+      "postalCodes": []
+    }
+  ],
+  "SN": [],
+  "SZ": [
+    {
+      "name": "Ajak",
+      "postalCodes": []
+    },
+    {
+      "name": "Anarcs",
+      "postalCodes": []
+    },
+    {
+      "name": "Apagy",
+      "postalCodes": []
+    },
+    {
+      "name": "Aranyosapáti",
+      "postalCodes": []
+    },
+    {
+      "name": "Baktalórántháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Baktalórántházai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Balkány",
+      "postalCodes": []
+    },
+    {
+      "name": "Bököny",
+      "postalCodes": []
+    },
+    {
+      "name": "Buj",
+      "postalCodes": []
+    },
+    {
+      "name": "Csenger",
+      "postalCodes": []
+    },
+    {
+      "name": "Csengeri Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Demecser",
+      "postalCodes": []
+    },
+    {
+      "name": "Döge",
+      "postalCodes": []
+    },
+    {
+      "name": "Dombrád",
+      "postalCodes": []
+    },
+    {
+      "name": "Encsencs",
+      "postalCodes": []
+    },
+    {
+      "name": "Fehérgyarmat",
+      "postalCodes": []
+    },
+    {
+      "name": "Fehérgyarmati Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Fényeslitke",
+      "postalCodes": []
+    },
+    {
+      "name": "Gégény",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyulaháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Hodász",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibrány",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibrányi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kállósemjén",
+      "postalCodes": []
+    },
+    {
+      "name": "Kálmánháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Kántorjánosi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kék",
+      "postalCodes": []
+    },
+    {
+      "name": "Kemecse",
+      "postalCodes": []
+    },
+    {
+      "name": "Kemecsei Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisléta",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisvárda",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisvárdai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kocsord",
+      "postalCodes": []
+    },
+    {
+      "name": "Kótaj",
+      "postalCodes": []
+    },
+    {
+      "name": "Levelek",
+      "postalCodes": []
+    },
+    {
+      "name": "Mándok",
+      "postalCodes": []
+    },
+    {
+      "name": "Máriapócs",
+      "postalCodes": []
+    },
+    {
+      "name": "Mátészalka",
+      "postalCodes": []
+    },
+    {
+      "name": "Mátészalkai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Mérk",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagycserkesz",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagydobos",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagyecsed",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagyhalász",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagykálló",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagykállói Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Napkor",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírbátor",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírbátori Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírbéltek",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírbogát",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírbogdány",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírcsaholy",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyíregyháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyíregyházi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírgyulaj",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírkarász",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírlugos",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírmada",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírmeggyes",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírmihálydi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírpazony",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírtass",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírtelek",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyírvasvári",
+      "postalCodes": []
+    },
+    {
+      "name": "Ófehértó",
+      "postalCodes": []
+    },
+    {
+      "name": "Ököritófülpös",
+      "postalCodes": []
+    },
+    {
+      "name": "Ópályi",
+      "postalCodes": []
+    },
+    {
+      "name": "Pátroha",
+      "postalCodes": []
+    },
+    {
+      "name": "Petneháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Porcsalma",
+      "postalCodes": []
+    },
+    {
+      "name": "Rakamaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Szakoly",
+      "postalCodes": []
+    },
+    {
+      "name": "Szamosszeg",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarpa",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszabercel",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszabezdéd",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszadada",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszadob",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszaeszlár",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszalök",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszanagyfalu",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszavasvári",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszavasvári Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Tornyospálca",
+      "postalCodes": []
+    },
+    {
+      "name": "Tunyogmatolcs",
+      "postalCodes": []
+    },
+    {
+      "name": "Tuzsér",
+      "postalCodes": []
+    },
+    {
+      "name": "Tyukod",
+      "postalCodes": []
+    },
+    {
+      "name": "Újfehértó",
+      "postalCodes": []
+    },
+    {
+      "name": "Vaja",
+      "postalCodes": []
+    },
+    {
+      "name": "Vásárosnamény",
+      "postalCodes": []
+    },
+    {
+      "name": "Vásárosnaményi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Záhony",
+      "postalCodes": []
+    },
+    {
+      "name": "Záhonyi Járás",
+      "postalCodes": []
+    }
+  ],
+  "SD": [],
+  "SF": [],
+  "SS": [],
+  "SK": [],
+  "SH": [],
+  "TB": [],
+  "TO": [
+    {
+      "name": "Báta",
+      "postalCodes": []
+    },
+    {
+      "name": "Bátaszék",
+      "postalCodes": []
+    },
+    {
+      "name": "Bogyiszló",
+      "postalCodes": []
+    },
+    {
+      "name": "Bölcske",
+      "postalCodes": []
+    },
+    {
+      "name": "Bonyhád",
+      "postalCodes": []
+    },
+    {
+      "name": "Bonyhádi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Decs",
+      "postalCodes": []
+    },
+    {
+      "name": "Döbrököz",
+      "postalCodes": []
+    },
+    {
+      "name": "Dombóvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Dombóvári Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Dunaföldvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Dunaszentgyörgy",
+      "postalCodes": []
+    },
+    {
+      "name": "Fadd",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyönk",
+      "postalCodes": []
+    },
+    {
+      "name": "Hőgyész",
+      "postalCodes": []
+    },
+    {
+      "name": "Iregszemcse",
+      "postalCodes": []
+    },
+    {
+      "name": "Madocsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagydorog",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagymányok",
+      "postalCodes": []
+    },
+    {
+      "name": "Németkér",
+      "postalCodes": []
+    },
+    {
+      "name": "Őcsény",
+      "postalCodes": []
+    },
+    {
+      "name": "Ozora",
+      "postalCodes": []
+    },
+    {
+      "name": "Paks",
+      "postalCodes": []
+    },
+    {
+      "name": "Paksi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Pincehely",
+      "postalCodes": []
+    },
+    {
+      "name": "Simontornya",
+      "postalCodes": []
+    },
+    {
+      "name": "Szedres",
+      "postalCodes": []
+    },
+    {
+      "name": "Szekszárd",
+      "postalCodes": []
+    },
+    {
+      "name": "Szekszárdi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szentgálpuszta",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamási",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamási Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Tengelic",
+      "postalCodes": []
+    },
+    {
+      "name": "Tolna",
+      "postalCodes": []
+    },
+    {
+      "name": "Tolnai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Zomba",
+      "postalCodes": []
+    }
+  ],
+  "VA": [
+    {
+      "name": "Bük",
+      "postalCodes": []
+    },
+    {
+      "name": "Celldömölk",
+      "postalCodes": []
+    },
+    {
+      "name": "Celldömölki Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Csepreg",
+      "postalCodes": []
+    },
+    {
+      "name": "Gencsapáti",
+      "postalCodes": []
+    },
+    {
+      "name": "Ják",
+      "postalCodes": []
+    },
+    {
+      "name": "Jánosháza",
+      "postalCodes": []
+    },
+    {
+      "name": "Körmend",
+      "postalCodes": []
+    },
+    {
+      "name": "Körmendi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Kőszeg",
+      "postalCodes": []
+    },
+    {
+      "name": "Kőszegi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Répcelak",
+      "postalCodes": []
+    },
+    {
+      "name": "Sárvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Sárvári Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szentgotthárd",
+      "postalCodes": []
+    },
+    {
+      "name": "Szentgotthárdi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szombathely",
+      "postalCodes": []
+    },
+    {
+      "name": "Szombathelyi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Táplánszentkereszt",
+      "postalCodes": []
+    },
+    {
+      "name": "Vasvár",
+      "postalCodes": []
+    },
+    {
+      "name": "Vasvári Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Vép",
+      "postalCodes": []
+    }
+  ],
+  "VM": [],
+  "VE": [
+    {
+      "name": "Ajka",
+      "postalCodes": []
+    },
+    {
+      "name": "Ajkai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Badacsonytomaj",
+      "postalCodes": []
+    },
+    {
+      "name": "Balatonalmádi",
+      "postalCodes": []
+    },
+    {
+      "name": "Balatonalmádi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Balatonfüred",
+      "postalCodes": []
+    },
+    {
+      "name": "Balatonfüredi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Balatonkenese",
+      "postalCodes": []
+    },
+    {
+      "name": "Berhida",
+      "postalCodes": []
+    },
+    {
+      "name": "Csabrendek",
+      "postalCodes": []
+    },
+    {
+      "name": "Csetény",
+      "postalCodes": []
+    },
+    {
+      "name": "Csopak",
+      "postalCodes": []
+    },
+    {
+      "name": "Devecser",
+      "postalCodes": []
+    },
+    {
+      "name": "Devecseri Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Hajmáskér",
+      "postalCodes": []
+    },
+    {
+      "name": "Herend",
+      "postalCodes": []
+    },
+    {
+      "name": "Litér",
+      "postalCodes": []
+    },
+    {
+      "name": "Nemesvámos",
+      "postalCodes": []
+    },
+    {
+      "name": "Ősi",
+      "postalCodes": []
+    },
+    {
+      "name": "Pápa",
+      "postalCodes": []
+    },
+    {
+      "name": "Pápai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Pétfürdő",
+      "postalCodes": []
+    },
+    {
+      "name": "Révfülöp",
+      "postalCodes": []
+    },
+    {
+      "name": "Sümeg",
+      "postalCodes": []
+    },
+    {
+      "name": "Sümegi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Szentkirályszabadja",
+      "postalCodes": []
+    },
+    {
+      "name": "Tapolca",
+      "postalCodes": []
+    },
+    {
+      "name": "Tapolcai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Tihany",
+      "postalCodes": []
+    },
+    {
+      "name": "Úrkút",
+      "postalCodes": []
+    },
+    {
+      "name": "Várpalota",
+      "postalCodes": []
+    },
+    {
+      "name": "Várpalotai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Veszprém",
+      "postalCodes": []
+    },
+    {
+      "name": "Veszprémi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Zánka",
+      "postalCodes": []
+    },
+    {
+      "name": "Zirc",
+      "postalCodes": []
+    },
+    {
+      "name": "Zirci Járás",
+      "postalCodes": []
+    }
+  ],
+  "ZA": [
+    {
+      "name": "Becsehely",
+      "postalCodes": []
+    },
+    {
+      "name": "Cserszegtomaj",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyenesdiás",
+      "postalCodes": []
+    },
+    {
+      "name": "Hévíz",
+      "postalCodes": []
+    },
+    {
+      "name": "Keszthely",
+      "postalCodes": []
+    },
+    {
+      "name": "Keszthelyi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Lenti",
+      "postalCodes": []
+    },
+    {
+      "name": "Lenti Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Letenye",
+      "postalCodes": []
+    },
+    {
+      "name": "Letenyei Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Murakeresztúr",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagykanizsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagykanizsai Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Pacsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Sármellék",
+      "postalCodes": []
+    },
+    {
+      "name": "Türje",
+      "postalCodes": []
+    },
+    {
+      "name": "Vonyarcvashegy",
+      "postalCodes": []
+    },
+    {
+      "name": "Zalaegerszeg",
+      "postalCodes": []
+    },
+    {
+      "name": "Zalaegerszegi Járás",
+      "postalCodes": []
+    },
+    {
+      "name": "Zalakomár",
+      "postalCodes": []
+    },
+    {
+      "name": "Zalalövő",
+      "postalCodes": []
+    },
+    {
+      "name": "Zalaszentgrót",
+      "postalCodes": []
+    },
+    {
+      "name": "Zalaszentgróti Járás",
+      "postalCodes": []
+    }
+  ],
+  "ZE": [],
+  "_OTHER": []
+}

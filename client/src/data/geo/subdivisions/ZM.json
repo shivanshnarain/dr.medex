@@ -1,0 +1,52 @@
+[
+  {
+    "code": "02",
+    "name": "Central Province",
+    "countryCode": "ZM"
+  },
+  {
+    "code": "08",
+    "name": "Copperbelt Province",
+    "countryCode": "ZM"
+  },
+  {
+    "code": "03",
+    "name": "Eastern Province",
+    "countryCode": "ZM"
+  },
+  {
+    "code": "04",
+    "name": "Luapula Province",
+    "countryCode": "ZM"
+  },
+  {
+    "code": "09",
+    "name": "Lusaka Province",
+    "countryCode": "ZM"
+  },
+  {
+    "code": "10",
+    "name": "Muchinga Province",
+    "countryCode": "ZM"
+  },
+  {
+    "code": "05",
+    "name": "Northern Province",
+    "countryCode": "ZM"
+  },
+  {
+    "code": "06",
+    "name": "Northwestern Province",
+    "countryCode": "ZM"
+  },
+  {
+    "code": "07",
+    "name": "Southern Province",
+    "countryCode": "ZM"
+  },
+  {
+    "code": "01",
+    "name": "Western Province",
+    "countryCode": "ZM"
+  }
+]

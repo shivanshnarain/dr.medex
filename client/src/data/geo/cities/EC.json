@@ -1,0 +1,511 @@
+{
+  "A": [
+    {
+      "name": "Cantón San Fernando",
+      "postalCodes": []
+    },
+    {
+      "name": "Cuenca",
+      "postalCodes": []
+    },
+    {
+      "name": "Gualaceo",
+      "postalCodes": []
+    },
+    {
+      "name": "La Unión",
+      "postalCodes": []
+    },
+    {
+      "name": "Llacao",
+      "postalCodes": []
+    },
+    {
+      "name": "Nulti",
+      "postalCodes": []
+    }
+  ],
+  "B": [
+    {
+      "name": "Guaranda",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel",
+      "postalCodes": []
+    }
+  ],
+  "F": [
+    {
+      "name": "Azogues",
+      "postalCodes": []
+    },
+    {
+      "name": "Cañar",
+      "postalCodes": []
+    },
+    {
+      "name": "La Troncal",
+      "postalCodes": []
+    }
+  ],
+  "C": [
+    {
+      "name": "El Ángel",
+      "postalCodes": []
+    },
+    {
+      "name": "San Gabriel",
+      "postalCodes": []
+    },
+    {
+      "name": "Tulcán",
+      "postalCodes": []
+    }
+  ],
+  "H": [
+    {
+      "name": "Alausí",
+      "postalCodes": []
+    },
+    {
+      "name": "Guano",
+      "postalCodes": []
+    },
+    {
+      "name": "Riobamba",
+      "postalCodes": []
+    }
+  ],
+  "X": [
+    {
+      "name": "La Maná",
+      "postalCodes": []
+    },
+    {
+      "name": "Latacunga",
+      "postalCodes": []
+    },
+    {
+      "name": "Pujilí",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel de Salcedo",
+      "postalCodes": []
+    },
+    {
+      "name": "Saquisilí",
+      "postalCodes": []
+    }
+  ],
+  "O": [
+    {
+      "name": "Huaquillas",
+      "postalCodes": []
+    },
+    {
+      "name": "Machala",
+      "postalCodes": []
+    },
+    {
+      "name": "Pasaje",
+      "postalCodes": []
+    },
+    {
+      "name": "Piñas",
+      "postalCodes": []
+    },
+    {
+      "name": "Portovelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Bolívar",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaruma",
+      "postalCodes": []
+    }
+  ],
+  "E": [
+    {
+      "name": "Esmeraldas",
+      "postalCodes": []
+    },
+    {
+      "name": "Muisne",
+      "postalCodes": []
+    },
+    {
+      "name": "Pampanal de Bolívar",
+      "postalCodes": []
+    },
+    {
+      "name": "Rio Verde",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosa Zarate",
+      "postalCodes": []
+    },
+    {
+      "name": "San Lorenzo de Esmeraldas",
+      "postalCodes": []
+    },
+    {
+      "name": "Valdez",
+      "postalCodes": []
+    }
+  ],
+  "W": [
+    {
+      "name": "Puerto Ayora",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Baquerizo Moreno",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Villamil",
+      "postalCodes": []
+    }
+  ],
+  "G": [
+    {
+      "name": "Alfredo Baquerizo Moreno",
+      "postalCodes": []
+    },
+    {
+      "name": "Baláo",
+      "postalCodes": []
+    },
+    {
+      "name": "Balzar",
+      "postalCodes": []
+    },
+    {
+      "name": "Colimes",
+      "postalCodes": []
+    },
+    {
+      "name": "Coronel Marcelino Maridueña",
+      "postalCodes": []
+    },
+    {
+      "name": "El Triunfo",
+      "postalCodes": []
+    },
+    {
+      "name": "Eloy Alfaro",
+      "postalCodes": []
+    },
+    {
+      "name": "Guayaquil",
+      "postalCodes": []
+    },
+    {
+      "name": "Lomas de Sargentillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Milagro",
+      "postalCodes": []
+    },
+    {
+      "name": "Naranjal",
+      "postalCodes": []
+    },
+    {
+      "name": "Naranjito",
+      "postalCodes": []
+    },
+    {
+      "name": "Palestina",
+      "postalCodes": []
+    },
+    {
+      "name": "Pedro Carbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Playas",
+      "postalCodes": []
+    },
+    {
+      "name": "Samborondón",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Lucía",
+      "postalCodes": []
+    },
+    {
+      "name": "Velasco Ibarra",
+      "postalCodes": []
+    },
+    {
+      "name": "Yaguachi Nuevo",
+      "postalCodes": []
+    }
+  ],
+  "I": [
+    {
+      "name": "Atuntaqui",
+      "postalCodes": []
+    },
+    {
+      "name": "Cotacachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibarra",
+      "postalCodes": []
+    },
+    {
+      "name": "Otavalo",
+      "postalCodes": []
+    },
+    {
+      "name": "Pimampiro",
+      "postalCodes": []
+    }
+  ],
+  "L": [
+    {
+      "name": "Loja",
+      "postalCodes": []
+    }
+  ],
+  "R": [
+    {
+      "name": "Babahoyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Catarama",
+      "postalCodes": []
+    },
+    {
+      "name": "Montalvo",
+      "postalCodes": []
+    },
+    {
+      "name": "Palenque",
+      "postalCodes": []
+    },
+    {
+      "name": "Quevedo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ventanas",
+      "postalCodes": []
+    },
+    {
+      "name": "Vinces",
+      "postalCodes": []
+    }
+  ],
+  "M": [
+    {
+      "name": "Bahía de Caráquez",
+      "postalCodes": []
+    },
+    {
+      "name": "Calceta",
+      "postalCodes": []
+    },
+    {
+      "name": "Cantón Portoviejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Chone",
+      "postalCodes": []
+    },
+    {
+      "name": "Jipijapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Junín",
+      "postalCodes": []
+    },
+    {
+      "name": "Manta",
+      "postalCodes": []
+    },
+    {
+      "name": "Montecristi",
+      "postalCodes": []
+    },
+    {
+      "name": "Paján",
+      "postalCodes": []
+    },
+    {
+      "name": "Pedernales",
+      "postalCodes": []
+    },
+    {
+      "name": "Portoviejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Rocafuerte",
+      "postalCodes": []
+    },
+    {
+      "name": "San Vicente",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Ana",
+      "postalCodes": []
+    },
+    {
+      "name": "Sucre",
+      "postalCodes": []
+    },
+    {
+      "name": "Tosagua",
+      "postalCodes": []
+    }
+  ],
+  "S": [
+    {
+      "name": "Gualaquiza",
+      "postalCodes": []
+    },
+    {
+      "name": "Macas",
+      "postalCodes": []
+    },
+    {
+      "name": "Palora",
+      "postalCodes": []
+    },
+    {
+      "name": "Sucúa",
+      "postalCodes": []
+    }
+  ],
+  "N": [
+    {
+      "name": "Archidona",
+      "postalCodes": []
+    },
+    {
+      "name": "Tena",
+      "postalCodes": []
+    }
+  ],
+  "D": [
+    {
+      "name": "Boca Suno",
+      "postalCodes": []
+    },
+    {
+      "name": "Francisco de Orellana Canton",
+      "postalCodes": []
+    },
+    {
+      "name": "Loreto Canton",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Francisco de Orellana",
+      "postalCodes": []
+    }
+  ],
+  "Y": [
+    {
+      "name": "Puyo",
+      "postalCodes": []
+    }
+  ],
+  "P": [
+    {
+      "name": "Cayambe",
+      "postalCodes": []
+    },
+    {
+      "name": "Machachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Quito",
+      "postalCodes": []
+    },
+    {
+      "name": "Sangolquí",
+      "postalCodes": []
+    },
+    {
+      "name": "Tutamandahostel",
+      "postalCodes": []
+    }
+  ],
+  "SE": [
+    {
+      "name": "La Libertad",
+      "postalCodes": []
+    },
+    {
+      "name": "Salinas",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Elena",
+      "postalCodes": []
+    }
+  ],
+  "SD": [
+    {
+      "name": "Santo Domingo de los Colorados",
+      "postalCodes": []
+    }
+  ],
+  "U": [
+    {
+      "name": "Nueva Loja",
+      "postalCodes": []
+    }
+  ],
+  "T": [
+    {
+      "name": "Ambato",
+      "postalCodes": []
+    },
+    {
+      "name": "Baños",
+      "postalCodes": []
+    },
+    {
+      "name": "Pelileo",
+      "postalCodes": []
+    },
+    {
+      "name": "Píllaro",
+      "postalCodes": []
+    }
+  ],
+  "Z": [
+    {
+      "name": "Yantzaza",
+      "postalCodes": []
+    },
+    {
+      "name": "Zamora",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

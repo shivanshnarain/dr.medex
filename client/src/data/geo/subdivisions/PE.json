@@ -1,0 +1,127 @@
+[
+  {
+    "code": "AMA",
+    "name": "Amazonas",
+    "countryCode": "PE"
+  },
+  {
+    "code": "ANC",
+    "name": "Áncash",
+    "countryCode": "PE"
+  },
+  {
+    "code": "APU",
+    "name": "Apurímac",
+    "countryCode": "PE"
+  },
+  {
+    "code": "ARE",
+    "name": "Arequipa",
+    "countryCode": "PE"
+  },
+  {
+    "code": "AYA",
+    "name": "Ayacucho",
+    "countryCode": "PE"
+  },
+  {
+    "code": "CAJ",
+    "name": "Cajamarca",
+    "countryCode": "PE"
+  },
+  {
+    "code": "CAL",
+    "name": "Callao",
+    "countryCode": "PE"
+  },
+  {
+    "code": "CUS",
+    "name": "Cusco",
+    "countryCode": "PE"
+  },
+  {
+    "code": "HUV",
+    "name": "Huancavelica",
+    "countryCode": "PE"
+  },
+  {
+    "code": "HUC",
+    "name": "Huanuco",
+    "countryCode": "PE"
+  },
+  {
+    "code": "ICA",
+    "name": "Ica",
+    "countryCode": "PE"
+  },
+  {
+    "code": "JUN",
+    "name": "Junín",
+    "countryCode": "PE"
+  },
+  {
+    "code": "LAL",
+    "name": "La Libertad",
+    "countryCode": "PE"
+  },
+  {
+    "code": "LAM",
+    "name": "Lambayeque",
+    "countryCode": "PE"
+  },
+  {
+    "code": "LIM",
+    "name": "Lima",
+    "countryCode": "PE"
+  },
+  {
+    "code": "LOR",
+    "name": "Loreto",
+    "countryCode": "PE"
+  },
+  {
+    "code": "MDD",
+    "name": "Madre de Dios",
+    "countryCode": "PE"
+  },
+  {
+    "code": "MOQ",
+    "name": "Moquegua",
+    "countryCode": "PE"
+  },
+  {
+    "code": "PAS",
+    "name": "Pasco",
+    "countryCode": "PE"
+  },
+  {
+    "code": "PIU",
+    "name": "Piura",
+    "countryCode": "PE"
+  },
+  {
+    "code": "PUN",
+    "name": "Puno",
+    "countryCode": "PE"
+  },
+  {
+    "code": "SAM",
+    "name": "San Martín",
+    "countryCode": "PE"
+  },
+  {
+    "code": "TAC",
+    "name": "Tacna",
+    "countryCode": "PE"
+  },
+  {
+    "code": "TUM",
+    "name": "Tumbes",
+    "countryCode": "PE"
+  },
+  {
+    "code": "UCA",
+    "name": "Ucayali",
+    "countryCode": "PE"
+  }
+]

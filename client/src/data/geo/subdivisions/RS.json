@@ -1,0 +1,132 @@
+[
+  {
+    "code": "00",
+    "name": "Belgrade",
+    "countryCode": "RS"
+  },
+  {
+    "code": "14",
+    "name": "Bor District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "11",
+    "name": "Braničevo District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "02",
+    "name": "Central Banat District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "23",
+    "name": "Jablanica District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "09",
+    "name": "Kolubara District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "08",
+    "name": "Mačva District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "17",
+    "name": "Moravica District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "20",
+    "name": "Nišava District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "01",
+    "name": "North Bačka District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "03",
+    "name": "North Banat District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "24",
+    "name": "Pčinja District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "22",
+    "name": "Pirot District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "10",
+    "name": "Podunavlje District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "13",
+    "name": "Pomoravlje District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "19",
+    "name": "Rasina District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "18",
+    "name": "Raška District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "06",
+    "name": "South Bačka District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "04",
+    "name": "South Banat District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "07",
+    "name": "Srem District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "12",
+    "name": "Šumadija District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "21",
+    "name": "Toplica District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "VO",
+    "name": "Vojvodina",
+    "countryCode": "RS"
+  },
+  {
+    "code": "05",
+    "name": "West Bačka District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "15",
+    "name": "Zaječar District",
+    "countryCode": "RS"
+  },
+  {
+    "code": "16",
+    "name": "Zlatibor District",
+    "countryCode": "RS"
+  }
+]

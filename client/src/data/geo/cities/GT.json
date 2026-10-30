@@ -1,0 +1,1573 @@
+{
+  "AV": [
+    {
+      "name": "Cahabón",
+      "postalCodes": []
+    },
+    {
+      "name": "Chahal Guatemala",
+      "postalCodes": []
+    },
+    {
+      "name": "Chisec",
+      "postalCodes": []
+    },
+    {
+      "name": "Cobán",
+      "postalCodes": []
+    },
+    {
+      "name": "La Tinta",
+      "postalCodes": []
+    },
+    {
+      "name": "Lanquín",
+      "postalCodes": []
+    },
+    {
+      "name": "Panzós",
+      "postalCodes": []
+    },
+    {
+      "name": "San Cristóbal Verapaz",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan Chamelco",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro Carchá",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Cruz Verapaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Senahú",
+      "postalCodes": []
+    },
+    {
+      "name": "Tactic",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamahú",
+      "postalCodes": []
+    },
+    {
+      "name": "Tucurú",
+      "postalCodes": []
+    }
+  ],
+  "BV": [
+    {
+      "name": "Cubulco",
+      "postalCodes": []
+    },
+    {
+      "name": "El Chol",
+      "postalCodes": []
+    },
+    {
+      "name": "Granados",
+      "postalCodes": []
+    },
+    {
+      "name": "Purulhá",
+      "postalCodes": []
+    },
+    {
+      "name": "Rabinal",
+      "postalCodes": []
+    },
+    {
+      "name": "Salamá",
+      "postalCodes": []
+    },
+    {
+      "name": "San Jerónimo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel Chicaj",
+      "postalCodes": []
+    }
+  ],
+  "CM": [
+    {
+      "name": "Acatenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Chimaltenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Comalapa",
+      "postalCodes": []
+    },
+    {
+      "name": "El Tejar",
+      "postalCodes": []
+    },
+    {
+      "name": "Parramos",
+      "postalCodes": []
+    },
+    {
+      "name": "Patzicía",
+      "postalCodes": []
+    },
+    {
+      "name": "Patzún",
+      "postalCodes": []
+    },
+    {
+      "name": "Pochuta",
+      "postalCodes": []
+    },
+    {
+      "name": "San Andrés Itzapa",
+      "postalCodes": []
+    },
+    {
+      "name": "San José Poaquil",
+      "postalCodes": []
+    },
+    {
+      "name": "San Martín Jilotepeque",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Apolonia",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Cruz Balanyá",
+      "postalCodes": []
+    },
+    {
+      "name": "Tecpán Guatemala",
+      "postalCodes": []
+    },
+    {
+      "name": "Yepocapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaragoza",
+      "postalCodes": []
+    }
+  ],
+  "CQ": [
+    {
+      "name": "Camotán",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiquimula",
+      "postalCodes": []
+    },
+    {
+      "name": "Concepción Las Minas",
+      "postalCodes": []
+    },
+    {
+      "name": "Esquipulas",
+      "postalCodes": []
+    },
+    {
+      "name": "Ipala",
+      "postalCodes": []
+    },
+    {
+      "name": "Jocotán",
+      "postalCodes": []
+    },
+    {
+      "name": "Olopa",
+      "postalCodes": []
+    },
+    {
+      "name": "Quezaltepeque",
+      "postalCodes": []
+    },
+    {
+      "name": "San Jacinto",
+      "postalCodes": []
+    },
+    {
+      "name": "San José La Arada",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan Ermita",
+      "postalCodes": []
+    }
+  ],
+  "PR": [
+    {
+      "name": "El Jícaro",
+      "postalCodes": []
+    },
+    {
+      "name": "Guastatoya",
+      "postalCodes": []
+    },
+    {
+      "name": "Morazán",
+      "postalCodes": []
+    },
+    {
+      "name": "San Agustín Acasaguastlán",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio La Paz",
+      "postalCodes": []
+    },
+    {
+      "name": "San Cristóbal Acasaguastlán",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanarate",
+      "postalCodes": []
+    },
+    {
+      "name": "Sansare",
+      "postalCodes": []
+    }
+  ],
+  "ES": [
+    {
+      "name": "Escuintla",
+      "postalCodes": []
+    },
+    {
+      "name": "Guanagazapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Iztapa",
+      "postalCodes": []
+    },
+    {
+      "name": "La Democracia",
+      "postalCodes": []
+    },
+    {
+      "name": "La Gomera",
+      "postalCodes": []
+    },
+    {
+      "name": "Masagua",
+      "postalCodes": []
+    },
+    {
+      "name": "Nueva Concepción",
+      "postalCodes": []
+    },
+    {
+      "name": "Palín",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto San José",
+      "postalCodes": []
+    },
+    {
+      "name": "San Vicente Pacaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Lucía Cotzumalguapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Siquinalá",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiquisate",
+      "postalCodes": []
+    }
+  ],
+  "GU": [
+    {
+      "name": "Amatitlán",
+      "postalCodes": []
+    },
+    {
+      "name": "Chinautla",
+      "postalCodes": []
+    },
+    {
+      "name": "Chuarrancho",
+      "postalCodes": []
+    },
+    {
+      "name": "Fraijanes",
+      "postalCodes": []
+    },
+    {
+      "name": "Guatemala City",
+      "postalCodes": []
+    },
+    {
+      "name": "Mixco",
+      "postalCodes": []
+    },
+    {
+      "name": "Palencia",
+      "postalCodes": []
+    },
+    {
+      "name": "Petapa",
+      "postalCodes": []
+    },
+    {
+      "name": "San José del Golfo",
+      "postalCodes": []
+    },
+    {
+      "name": "San José Pinula",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan Sacatepéquez",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro Ayampuc",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro Sacatepéquez",
+      "postalCodes": []
+    },
+    {
+      "name": "San Raimundo",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Catarina Pinula",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Canales",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Nueva",
+      "postalCodes": []
+    }
+  ],
+  "HU": [
+    {
+      "name": "Aguacatán",
+      "postalCodes": []
+    },
+    {
+      "name": "Barillas",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiantla",
+      "postalCodes": []
+    },
+    {
+      "name": "Colotenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Concepción Huista",
+      "postalCodes": []
+    },
+    {
+      "name": "Cuilco",
+      "postalCodes": []
+    },
+    {
+      "name": "Huehuetenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Ixtahuacán",
+      "postalCodes": []
+    },
+    {
+      "name": "Jacaltenango",
+      "postalCodes": []
+    },
+    {
+      "name": "La Libertad",
+      "postalCodes": []
+    },
+    {
+      "name": "Malacatancito",
+      "postalCodes": []
+    },
+    {
+      "name": "Nentón",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio Huista",
+      "postalCodes": []
+    },
+    {
+      "name": "San Gaspar Ixchil",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan Atitán",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan Ixcoy",
+      "postalCodes": []
+    },
+    {
+      "name": "San Mateo Ixtatán",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel Acatán",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro Necta",
+      "postalCodes": []
+    },
+    {
+      "name": "San Rafael La Independencia",
+      "postalCodes": []
+    },
+    {
+      "name": "San Rafael Petzal",
+      "postalCodes": []
+    },
+    {
+      "name": "San Sebastián Coatán",
+      "postalCodes": []
+    },
+    {
+      "name": "San Sebastián Huehuetenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Ana Huista",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Bárbara",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Eulalia",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago Chimaltenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Soloma",
+      "postalCodes": []
+    },
+    {
+      "name": "Tectitán",
+      "postalCodes": []
+    },
+    {
+      "name": "Todos Santos Cuchumatán",
+      "postalCodes": []
+    }
+  ],
+  "IZ": [
+    {
+      "name": "El Estor",
+      "postalCodes": []
+    },
+    {
+      "name": "Lívingston",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Amates",
+      "postalCodes": []
+    },
+    {
+      "name": "Morales",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Morales",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Puerto Barrios",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Barrios",
+      "postalCodes": []
+    }
+  ],
+  "JA": [
+    {
+      "name": "Jalapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Mataquescuintla",
+      "postalCodes": []
+    },
+    {
+      "name": "Monjas",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Jalapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Mataquescuintla",
+      "postalCodes": []
+    },
+    {
+      "name": "San Luis Jilotepeque",
+      "postalCodes": []
+    },
+    {
+      "name": "San Manuel Chaparrón",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro Pinula",
+      "postalCodes": []
+    }
+  ],
+  "JU": [
+    {
+      "name": "Agua Blanca",
+      "postalCodes": []
+    },
+    {
+      "name": "Asunción Mita",
+      "postalCodes": []
+    },
+    {
+      "name": "Atescatempa",
+      "postalCodes": []
+    },
+    {
+      "name": "Comapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Conguaco",
+      "postalCodes": []
+    },
+    {
+      "name": "El Adelanto",
+      "postalCodes": []
+    },
+    {
+      "name": "El Progreso",
+      "postalCodes": []
+    },
+    {
+      "name": "Jalpatagua",
+      "postalCodes": []
+    },
+    {
+      "name": "Jerez",
+      "postalCodes": []
+    },
+    {
+      "name": "Jutiapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Moyuta",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Asunción Mita",
+      "postalCodes": []
+    },
+    {
+      "name": "Pasaco",
+      "postalCodes": []
+    },
+    {
+      "name": "Quesada",
+      "postalCodes": []
+    },
+    {
+      "name": "San José Acatempa",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Catarina Mita",
+      "postalCodes": []
+    },
+    {
+      "name": "Yupiltepeque",
+      "postalCodes": []
+    },
+    {
+      "name": "Zapotitlán",
+      "postalCodes": []
+    }
+  ],
+  "PE": [
+    {
+      "name": "Dolores",
+      "postalCodes": []
+    },
+    {
+      "name": "Flores",
+      "postalCodes": []
+    },
+    {
+      "name": "La Libertad",
+      "postalCodes": []
+    },
+    {
+      "name": "Melchor de Mencos",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Flores",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Poptún",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Andrés",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Benito",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Francisco",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Santa Ana",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Sayaxché",
+      "postalCodes": []
+    },
+    {
+      "name": "Poptún",
+      "postalCodes": []
+    },
+    {
+      "name": "San Andrés",
+      "postalCodes": []
+    },
+    {
+      "name": "San Benito",
+      "postalCodes": []
+    },
+    {
+      "name": "San Francisco",
+      "postalCodes": []
+    },
+    {
+      "name": "San José",
+      "postalCodes": []
+    },
+    {
+      "name": "San Luis",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Ana",
+      "postalCodes": []
+    },
+    {
+      "name": "Sayaxché",
+      "postalCodes": []
+    }
+  ],
+  "QZ": [
+    {
+      "name": "Almolonga",
+      "postalCodes": []
+    },
+    {
+      "name": "Cabricán",
+      "postalCodes": []
+    },
+    {
+      "name": "Cajolá",
+      "postalCodes": []
+    },
+    {
+      "name": "Cantel",
+      "postalCodes": []
+    },
+    {
+      "name": "Coatepeque",
+      "postalCodes": []
+    },
+    {
+      "name": "Colomba",
+      "postalCodes": []
+    },
+    {
+      "name": "Concepción Chiquirichapa",
+      "postalCodes": []
+    },
+    {
+      "name": "El Palmar",
+      "postalCodes": []
+    },
+    {
+      "name": "Flores Costa Cuca",
+      "postalCodes": []
+    },
+    {
+      "name": "Génova",
+      "postalCodes": []
+    },
+    {
+      "name": "Huitán",
+      "postalCodes": []
+    },
+    {
+      "name": "La Esperanza",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Almolonga",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Cabricán",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Cantel",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Coatepeque",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Colomba",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Concepción Chiquirichapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Flores Costa Cuca",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Juan Ostuncalco",
+      "postalCodes": []
+    },
+    {
+      "name": "Olintepeque",
+      "postalCodes": []
+    },
+    {
+      "name": "Ostuncalco",
+      "postalCodes": []
+    },
+    {
+      "name": "Palestina de los Altos",
+      "postalCodes": []
+    },
+    {
+      "name": "Quetzaltenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Salcajá",
+      "postalCodes": []
+    },
+    {
+      "name": "Samayac",
+      "postalCodes": []
+    },
+    {
+      "name": "San Carlos Sija",
+      "postalCodes": []
+    },
+    {
+      "name": "San Francisco la Unión",
+      "postalCodes": []
+    },
+    {
+      "name": "San Martín Sacatepéquez",
+      "postalCodes": []
+    },
+    {
+      "name": "San Mateo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel Sigüilá",
+      "postalCodes": []
+    },
+    {
+      "name": "Sibilia",
+      "postalCodes": []
+    },
+    {
+      "name": "Zunil",
+      "postalCodes": []
+    }
+  ],
+  "QC": [
+    {
+      "name": "Canillá",
+      "postalCodes": []
+    },
+    {
+      "name": "Chajul",
+      "postalCodes": []
+    },
+    {
+      "name": "Chicamán",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiché",
+      "postalCodes": []
+    },
+    {
+      "name": "Chichicastenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Chinique",
+      "postalCodes": []
+    },
+    {
+      "name": "Cunén",
+      "postalCodes": []
+    },
+    {
+      "name": "Joyabaj",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Canillá",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Chajul",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Chicaman",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Chiché",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Chichicastenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Chinique",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Cunén",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Ixcan",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Joyabaj",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Pachalum",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Patzité",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Andrés Sajcabajá",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Antonio Ilotenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Juan Cotzal",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Pedro Jocopilas",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Uspantán",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Zacualpa",
+      "postalCodes": []
+    },
+    {
+      "name": "Nebaj",
+      "postalCodes": []
+    },
+    {
+      "name": "Pachalum",
+      "postalCodes": []
+    },
+    {
+      "name": "Patzité",
+      "postalCodes": []
+    },
+    {
+      "name": "Playa Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Sacapulas",
+      "postalCodes": []
+    },
+    {
+      "name": "San Andrés Sajcabajá",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio Ilotenango",
+      "postalCodes": []
+    },
+    {
+      "name": "San Bartolomé Jocotenango",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan Cotzal",
+      "postalCodes": []
+    },
+    {
+      "name": "San Luis Ixcán",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pédro Jocopilas",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Cruz del Quiché",
+      "postalCodes": []
+    },
+    {
+      "name": "Uspantán",
+      "postalCodes": []
+    },
+    {
+      "name": "Zacualpa",
+      "postalCodes": []
+    }
+  ],
+  "RE": [
+    {
+      "name": "Champerico",
+      "postalCodes": []
+    },
+    {
+      "name": "El Asintal",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Felipe",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuevo San Carlos",
+      "postalCodes": []
+    },
+    {
+      "name": "Retalhuleu",
+      "postalCodes": []
+    },
+    {
+      "name": "San Andrés Villa Seca",
+      "postalCodes": []
+    },
+    {
+      "name": "San Felipe",
+      "postalCodes": []
+    },
+    {
+      "name": "San Martín Zapotitlán",
+      "postalCodes": []
+    },
+    {
+      "name": "San Sebastián",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Cruz Muluá",
+      "postalCodes": []
+    }
+  ],
+  "SA": [
+    {
+      "name": "Alotenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Antigua Guatemala",
+      "postalCodes": []
+    },
+    {
+      "name": "Ciudad Vieja",
+      "postalCodes": []
+    },
+    {
+      "name": "Jocotenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Magdalena Milpas Altas",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Alotenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Antigua Guatemala",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Ciudad Vieja",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Jocotenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Magdalena Milpas Altas",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Santa Lucía Milpas Altas",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Santa María de Jesús",
+      "postalCodes": []
+    },
+    {
+      "name": "Pastores",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio Aguas Calientes",
+      "postalCodes": []
+    },
+    {
+      "name": "San Bartolomé Milpas Altas",
+      "postalCodes": []
+    },
+    {
+      "name": "San Lucas Sacatepéquez",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel Dueñas",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Catarina Barahona",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Lucía Milpas Altas",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa María de Jesús",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago Sacatepéquez",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Domingo Xenacoj",
+      "postalCodes": []
+    },
+    {
+      "name": "Sumpango",
+      "postalCodes": []
+    }
+  ],
+  "SM": [
+    {
+      "name": "Catarina",
+      "postalCodes": []
+    },
+    {
+      "name": "Ciudad Tecún Umán",
+      "postalCodes": []
+    },
+    {
+      "name": "Comitancillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Concepción Tutuapa",
+      "postalCodes": []
+    },
+    {
+      "name": "El Quetzal",
+      "postalCodes": []
+    },
+    {
+      "name": "El Rodeo",
+      "postalCodes": []
+    },
+    {
+      "name": "El Tumbador",
+      "postalCodes": []
+    },
+    {
+      "name": "Esquipulas Palo Gordo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ixchiguán",
+      "postalCodes": []
+    },
+    {
+      "name": "La Reforma",
+      "postalCodes": []
+    },
+    {
+      "name": "Malacatán",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Concepción Tutuapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Malacatán",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Sipacapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Tejutla",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuevo Progreso",
+      "postalCodes": []
+    },
+    {
+      "name": "Ocós",
+      "postalCodes": []
+    },
+    {
+      "name": "Pajapita",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Blanco",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio Sacatepéquez",
+      "postalCodes": []
+    },
+    {
+      "name": "San Cristóbal Cucho",
+      "postalCodes": []
+    },
+    {
+      "name": "San José Ojetenam",
+      "postalCodes": []
+    },
+    {
+      "name": "San José Ojetenán",
+      "postalCodes": []
+    },
+    {
+      "name": "San Lorenzo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Marcos",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel Ixtahuacán",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pablo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro Sacatepéquez",
+      "postalCodes": []
+    },
+    {
+      "name": "San Rafael Pie de la Cuesta",
+      "postalCodes": []
+    },
+    {
+      "name": "Sibinal",
+      "postalCodes": []
+    },
+    {
+      "name": "Sipacapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Tacaná",
+      "postalCodes": []
+    },
+    {
+      "name": "Tajumulco",
+      "postalCodes": []
+    },
+    {
+      "name": "Tejutla",
+      "postalCodes": []
+    }
+  ],
+  "SR": [
+    {
+      "name": "Barberena",
+      "postalCodes": []
+    },
+    {
+      "name": "Casillas",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiquimulilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Cuilapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Guazacapán",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Casillas",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Chiquimulilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Guazacapán",
+      "postalCodes": []
+    },
+    {
+      "name": "Nueva Santa Rosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Oratorio",
+      "postalCodes": []
+    },
+    {
+      "name": "Pueblo Nuevo Viñas",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan Tecuaco",
+      "postalCodes": []
+    },
+    {
+      "name": "San Rafael Las Flores",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Cruz Naranjo",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa María Ixhuatán",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rosa de Lima",
+      "postalCodes": []
+    },
+    {
+      "name": "Taxisco",
+      "postalCodes": []
+    }
+  ],
+  "SO": [
+    {
+      "name": "Concepción",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Nahualá",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Panajachel",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Santa Catarina Palopó",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Santa Cruz La Laguna",
+      "postalCodes": []
+    },
+    {
+      "name": "Nahualá",
+      "postalCodes": []
+    },
+    {
+      "name": "Panajachel",
+      "postalCodes": []
+    },
+    {
+      "name": "San Andrés Semetabaj",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio Palopó",
+      "postalCodes": []
+    },
+    {
+      "name": "San José Chacayá",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan La Laguna",
+      "postalCodes": []
+    },
+    {
+      "name": "San Lucas Tolimán",
+      "postalCodes": []
+    },
+    {
+      "name": "San Marcos La Laguna",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pablo La Laguna",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro La Laguna",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Catarina Ixtahuacán",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Catarina Palopó",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Clara La Laguna",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Cruz La Laguna",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Lucía Utatlán",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa María Visitación",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago Atitlán",
+      "postalCodes": []
+    },
+    {
+      "name": "Sololá",
+      "postalCodes": []
+    }
+  ],
+  "SU": [
+    {
+      "name": "Chicacao",
+      "postalCodes": []
+    },
+    {
+      "name": "Cuyotenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Mazatenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Antonio Suchitepéquez",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Miguel Panán",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Santa Bárbara",
+      "postalCodes": []
+    },
+    {
+      "name": "Patulul",
+      "postalCodes": []
+    },
+    {
+      "name": "Pueblo Nuevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Bravo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio Suchitepéquez",
+      "postalCodes": []
+    },
+    {
+      "name": "San Bernardino",
+      "postalCodes": []
+    },
+    {
+      "name": "San Francisco Zapotitlán",
+      "postalCodes": []
+    },
+    {
+      "name": "San Gabriel",
+      "postalCodes": []
+    },
+    {
+      "name": "San José El Ídolo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan Bautista",
+      "postalCodes": []
+    },
+    {
+      "name": "San Lorenzo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel Panán",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pablo Jocopilas",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Bárbara",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Domingo Suchitepéquez",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Tomás La Unión",
+      "postalCodes": []
+    },
+    {
+      "name": "Zunilito",
+      "postalCodes": []
+    }
+  ],
+  "TO": [
+    {
+      "name": "Momostenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Momostenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Santa María Chiquimula",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Totonicapán",
+      "postalCodes": []
+    },
+    {
+      "name": "San Andrés Xecul",
+      "postalCodes": []
+    },
+    {
+      "name": "San Bartolo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Cristóbal Totonicapán",
+      "postalCodes": []
+    },
+    {
+      "name": "San Francisco El Alto",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Lucia La Reforma",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa María Chiquimula",
+      "postalCodes": []
+    },
+    {
+      "name": "Totonicapán",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

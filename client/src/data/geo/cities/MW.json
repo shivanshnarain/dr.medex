@@ -1,0 +1,280 @@
+{
+  "BA": [],
+  "BL": [],
+  "C": [
+    {
+      "name": "Chipoka",
+      "postalCodes": []
+    },
+    {
+      "name": "Dedza",
+      "postalCodes": []
+    },
+    {
+      "name": "Dedza District",
+      "postalCodes": []
+    },
+    {
+      "name": "Dowa",
+      "postalCodes": []
+    },
+    {
+      "name": "Dowa District",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasungu",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasungu District",
+      "postalCodes": []
+    },
+    {
+      "name": "Lilongwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Lilongwe District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mchinji",
+      "postalCodes": []
+    },
+    {
+      "name": "Mchinji District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mponela",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkhotakota",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkhotakota District",
+      "postalCodes": []
+    },
+    {
+      "name": "Ntcheu",
+      "postalCodes": []
+    },
+    {
+      "name": "Ntcheu District",
+      "postalCodes": []
+    },
+    {
+      "name": "Ntchisi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ntchisi District",
+      "postalCodes": []
+    },
+    {
+      "name": "Salima",
+      "postalCodes": []
+    },
+    {
+      "name": "Salima District",
+      "postalCodes": []
+    }
+  ],
+  "CK": [],
+  "CR": [],
+  "CT": [],
+  "DE": [],
+  "DO": [],
+  "KR": [],
+  "KS": [],
+  "LK": [],
+  "LI": [],
+  "MH": [],
+  "MG": [],
+  "MC": [],
+  "MU": [],
+  "MW": [],
+  "MZ": [],
+  "NB": [],
+  "NK": [],
+  "N": [
+    {
+      "name": "Chitipa",
+      "postalCodes": []
+    },
+    {
+      "name": "Chitipa District",
+      "postalCodes": []
+    },
+    {
+      "name": "Karonga",
+      "postalCodes": []
+    },
+    {
+      "name": "Karonga District",
+      "postalCodes": []
+    },
+    {
+      "name": "Likoma District",
+      "postalCodes": []
+    },
+    {
+      "name": "Livingstonia",
+      "postalCodes": []
+    },
+    {
+      "name": "Mzimba",
+      "postalCodes": []
+    },
+    {
+      "name": "Mzimba District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mzuzu",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkhata Bay",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkhata Bay District",
+      "postalCodes": []
+    },
+    {
+      "name": "Rumphi",
+      "postalCodes": []
+    },
+    {
+      "name": "Rumphi District",
+      "postalCodes": []
+    }
+  ],
+  "NS": [],
+  "NU": [],
+  "NI": [],
+  "PH": [],
+  "RU": [],
+  "SA": [],
+  "S": [
+    {
+      "name": "Balaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Balaka District",
+      "postalCodes": []
+    },
+    {
+      "name": "Blantyre",
+      "postalCodes": []
+    },
+    {
+      "name": "Blantyre District",
+      "postalCodes": []
+    },
+    {
+      "name": "Chikwawa",
+      "postalCodes": []
+    },
+    {
+      "name": "Chikwawa District",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiradzulu",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiradzulu District",
+      "postalCodes": []
+    },
+    {
+      "name": "Liwonde",
+      "postalCodes": []
+    },
+    {
+      "name": "Luchenza",
+      "postalCodes": []
+    },
+    {
+      "name": "Machinga",
+      "postalCodes": []
+    },
+    {
+      "name": "Machinga District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mangochi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mangochi District",
+      "postalCodes": []
+    },
+    {
+      "name": "Monkey Bay",
+      "postalCodes": []
+    },
+    {
+      "name": "Mulanje",
+      "postalCodes": []
+    },
+    {
+      "name": "Mulanje District",
+      "postalCodes": []
+    },
+    {
+      "name": "Mwanza",
+      "postalCodes": []
+    },
+    {
+      "name": "Mwanza District",
+      "postalCodes": []
+    },
+    {
+      "name": "Neno District",
+      "postalCodes": []
+    },
+    {
+      "name": "Nsanje",
+      "postalCodes": []
+    },
+    {
+      "name": "Nsanje District",
+      "postalCodes": []
+    },
+    {
+      "name": "Phalombe",
+      "postalCodes": []
+    },
+    {
+      "name": "Phalombe District",
+      "postalCodes": []
+    },
+    {
+      "name": "Thyolo",
+      "postalCodes": []
+    },
+    {
+      "name": "Thyolo District",
+      "postalCodes": []
+    },
+    {
+      "name": "Zomba",
+      "postalCodes": []
+    },
+    {
+      "name": "Zomba District",
+      "postalCodes": []
+    }
+  ],
+  "TH": [],
+  "ZO": [],
+  "_OTHER": []
+}

@@ -1,0 +1,77 @@
+[
+  {
+    "code": "BM",
+    "name": "Bomi County",
+    "countryCode": "LR"
+  },
+  {
+    "code": "BG",
+    "name": "Bong County",
+    "countryCode": "LR"
+  },
+  {
+    "code": "GP",
+    "name": "Gbarpolu County",
+    "countryCode": "LR"
+  },
+  {
+    "code": "GB",
+    "name": "Grand Bassa County",
+    "countryCode": "LR"
+  },
+  {
+    "code": "CM",
+    "name": "Grand Cape Mount County",
+    "countryCode": "LR"
+  },
+  {
+    "code": "GG",
+    "name": "Grand Gedeh County",
+    "countryCode": "LR"
+  },
+  {
+    "code": "GK",
+    "name": "Grand Kru County",
+    "countryCode": "LR"
+  },
+  {
+    "code": "LO",
+    "name": "Lofa County",
+    "countryCode": "LR"
+  },
+  {
+    "code": "MG",
+    "name": "Margibi County",
+    "countryCode": "LR"
+  },
+  {
+    "code": "MY",
+    "name": "Maryland County",
+    "countryCode": "LR"
+  },
+  {
+    "code": "MO",
+    "name": "Montserrado County",
+    "countryCode": "LR"
+  },
+  {
+    "code": "NI",
+    "name": "Nimba",
+    "countryCode": "LR"
+  },
+  {
+    "code": "RI",
+    "name": "River Cess County",
+    "countryCode": "LR"
+  },
+  {
+    "code": "RG",
+    "name": "River Gee County",
+    "countryCode": "LR"
+  },
+  {
+    "code": "SI",
+    "name": "Sinoe County",
+    "countryCode": "LR"
+  }
+]

@@ -1,0 +1,783 @@
+{
+  "10": [
+    {
+      "name": "Amancio",
+      "postalCodes": []
+    },
+    {
+      "name": "Colombia",
+      "postalCodes": []
+    },
+    {
+      "name": "Jesús Menéndez",
+      "postalCodes": []
+    },
+    {
+      "name": "Jobabo",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Tunas",
+      "postalCodes": []
+    },
+    {
+      "name": "Manatí",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Padre",
+      "postalCodes": []
+    }
+  ],
+  "11": [
+    {
+      "name": "Banes",
+      "postalCodes": []
+    },
+    {
+      "name": "Cacocum",
+      "postalCodes": []
+    },
+    {
+      "name": "Cueto",
+      "postalCodes": []
+    },
+    {
+      "name": "Gibara",
+      "postalCodes": []
+    },
+    {
+      "name": "Holguín",
+      "postalCodes": []
+    },
+    {
+      "name": "Jobabo",
+      "postalCodes": []
+    },
+    {
+      "name": "Moa",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Banes",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Holguín",
+      "postalCodes": []
+    },
+    {
+      "name": "Sagua de Tánamo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Germán",
+      "postalCodes": []
+    }
+  ],
+  "12": [
+    {
+      "name": "Bartolomé Masó",
+      "postalCodes": []
+    },
+    {
+      "name": "Bayamo",
+      "postalCodes": []
+    },
+    {
+      "name": "Campechuela",
+      "postalCodes": []
+    },
+    {
+      "name": "Cauto Cristo",
+      "postalCodes": []
+    },
+    {
+      "name": "Guisa",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiguaní",
+      "postalCodes": []
+    },
+    {
+      "name": "Manzanillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Media Luna",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Bayamo",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Manzanillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Niquero",
+      "postalCodes": []
+    },
+    {
+      "name": "Niquero",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Cauto",
+      "postalCodes": []
+    },
+    {
+      "name": "Yara",
+      "postalCodes": []
+    }
+  ],
+  "13": [
+    {
+      "name": "Contramaestre",
+      "postalCodes": []
+    },
+    {
+      "name": "El Cobre",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Palma Soriano",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Santiago de Cuba",
+      "postalCodes": []
+    },
+    {
+      "name": "Palma Soriano",
+      "postalCodes": []
+    },
+    {
+      "name": "San Luis",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago de Cuba",
+      "postalCodes": []
+    }
+  ],
+  "14": [
+    {
+      "name": "Baracoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Guantánamo",
+      "postalCodes": []
+    },
+    {
+      "name": "Maisí",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Guantánamo",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Guayabal de Yateras",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio del Sur",
+      "postalCodes": []
+    }
+  ],
+  "15": [
+    {
+      "name": "Alquízar",
+      "postalCodes": []
+    },
+    {
+      "name": "Artemisa",
+      "postalCodes": []
+    },
+    {
+      "name": "Bahía Honda",
+      "postalCodes": []
+    },
+    {
+      "name": "Bauta",
+      "postalCodes": []
+    },
+    {
+      "name": "Cabañas",
+      "postalCodes": []
+    },
+    {
+      "name": "Candelaria",
+      "postalCodes": []
+    },
+    {
+      "name": "Guanajay",
+      "postalCodes": []
+    },
+    {
+      "name": "Güira de Melena",
+      "postalCodes": []
+    },
+    {
+      "name": "Mariel",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Artemisa",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Bauta",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Guanajay",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Mariel",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de San Cristóbal",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio de los Baños",
+      "postalCodes": []
+    },
+    {
+      "name": "San Cristobal",
+      "postalCodes": []
+    },
+    {
+      "name": "Soroa",
+      "postalCodes": []
+    }
+  ],
+  "16": [
+    {
+      "name": "Batabanó",
+      "postalCodes": []
+    },
+    {
+      "name": "Bejucal",
+      "postalCodes": []
+    },
+    {
+      "name": "Güines",
+      "postalCodes": []
+    },
+    {
+      "name": "Jamaica",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaruco",
+      "postalCodes": []
+    },
+    {
+      "name": "La Salud",
+      "postalCodes": []
+    },
+    {
+      "name": "Madruga",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Güines",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Melena del Sur",
+      "postalCodes": []
+    },
+    {
+      "name": "Quivicán",
+      "postalCodes": []
+    },
+    {
+      "name": "San José de las Lajas",
+      "postalCodes": []
+    },
+    {
+      "name": "San Nicolás de Bari",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Cruz del Norte",
+      "postalCodes": []
+    }
+  ],
+  "99": [
+    {
+      "name": "Nueva Gerona",
+      "postalCodes": []
+    }
+  ],
+  "09": [
+    {
+      "name": "Camagüey",
+      "postalCodes": []
+    },
+    {
+      "name": "El Caney",
+      "postalCodes": []
+    },
+    {
+      "name": "Esmeralda",
+      "postalCodes": []
+    },
+    {
+      "name": "Florida",
+      "postalCodes": []
+    },
+    {
+      "name": "Guáimaro",
+      "postalCodes": []
+    },
+    {
+      "name": "Jimaguayú",
+      "postalCodes": []
+    },
+    {
+      "name": "Minas",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Florida",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Nuevitas",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuevitas",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Cruz del Sur",
+      "postalCodes": []
+    },
+    {
+      "name": "Sibanicú",
+      "postalCodes": []
+    },
+    {
+      "name": "Vertientes",
+      "postalCodes": []
+    }
+  ],
+  "08": [
+    {
+      "name": "Baraguá",
+      "postalCodes": []
+    },
+    {
+      "name": "Chambas",
+      "postalCodes": []
+    },
+    {
+      "name": "Ciego de Ávila",
+      "postalCodes": []
+    },
+    {
+      "name": "Ciro Redondo",
+      "postalCodes": []
+    },
+    {
+      "name": "Florencia",
+      "postalCodes": []
+    },
+    {
+      "name": "Morón",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Ciego de Ávila",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Morón",
+      "postalCodes": []
+    },
+    {
+      "name": "Primero de Enero",
+      "postalCodes": []
+    },
+    {
+      "name": "Venezuela",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Abreus",
+      "postalCodes": []
+    },
+    {
+      "name": "Aguada de Pasajeros",
+      "postalCodes": []
+    },
+    {
+      "name": "Cienfuegos",
+      "postalCodes": []
+    },
+    {
+      "name": "Cruces",
+      "postalCodes": []
+    },
+    {
+      "name": "Cumanayagua",
+      "postalCodes": []
+    },
+    {
+      "name": "Lajas",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Abreus",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Cienfuegos",
+      "postalCodes": []
+    },
+    {
+      "name": "Palmira",
+      "postalCodes": []
+    },
+    {
+      "name": "Rodas",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Alamar",
+      "postalCodes": []
+    },
+    {
+      "name": "Arroyo Naranjo",
+      "postalCodes": []
+    },
+    {
+      "name": "Boyeros",
+      "postalCodes": []
+    },
+    {
+      "name": "Centro Habana",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerro",
+      "postalCodes": []
+    },
+    {
+      "name": "Diez de Octubre",
+      "postalCodes": []
+    },
+    {
+      "name": "Guanabacoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Habana del Este",
+      "postalCodes": []
+    },
+    {
+      "name": "Havana",
+      "postalCodes": []
+    },
+    {
+      "name": "La Habana Vieja",
+      "postalCodes": []
+    },
+    {
+      "name": "Regla",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel del Padrón",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago de las Vegas",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Alacranes",
+      "postalCodes": []
+    },
+    {
+      "name": "Bolondrón",
+      "postalCodes": []
+    },
+    {
+      "name": "Calimete",
+      "postalCodes": []
+    },
+    {
+      "name": "Cárdenas",
+      "postalCodes": []
+    },
+    {
+      "name": "Colón",
+      "postalCodes": []
+    },
+    {
+      "name": "Jagüey Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Jovellanos",
+      "postalCodes": []
+    },
+    {
+      "name": "Limonar",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Arabos",
+      "postalCodes": []
+    },
+    {
+      "name": "Manguito",
+      "postalCodes": []
+    },
+    {
+      "name": "Martí",
+      "postalCodes": []
+    },
+    {
+      "name": "Matanzas",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Cárdenas",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Matanzas",
+      "postalCodes": []
+    },
+    {
+      "name": "Pedro Betancourt",
+      "postalCodes": []
+    },
+    {
+      "name": "Perico",
+      "postalCodes": []
+    },
+    {
+      "name": "Unión de Reyes",
+      "postalCodes": []
+    },
+    {
+      "name": "Varadero",
+      "postalCodes": []
+    }
+  ],
+  "01": [
+    {
+      "name": "Consolación del Sur",
+      "postalCodes": []
+    },
+    {
+      "name": "Guane",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Palacios",
+      "postalCodes": []
+    },
+    {
+      "name": "Mantua",
+      "postalCodes": []
+    },
+    {
+      "name": "Minas de Matahambre",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Consolación del Sur",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Guane",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de La Palma",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Los Palacios",
+      "postalCodes": []
+    },
+    {
+      "name": "Pinar del Río",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Esperanza",
+      "postalCodes": []
+    },
+    {
+      "name": "San Diego de Los Baños",
+      "postalCodes": []
+    },
+    {
+      "name": "San Luis",
+      "postalCodes": []
+    },
+    {
+      "name": "Viñales",
+      "postalCodes": []
+    }
+  ],
+  "07": [
+    {
+      "name": "Cabaiguán",
+      "postalCodes": []
+    },
+    {
+      "name": "Condado",
+      "postalCodes": []
+    },
+    {
+      "name": "Fomento",
+      "postalCodes": []
+    },
+    {
+      "name": "Guayos",
+      "postalCodes": []
+    },
+    {
+      "name": "Jatibonico",
+      "postalCodes": []
+    },
+    {
+      "name": "La Sierpe",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Cabaiguán",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Jatibonico",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Sancti Spíritus",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Trinidad",
+      "postalCodes": []
+    },
+    {
+      "name": "Sancti Spíritus",
+      "postalCodes": []
+    },
+    {
+      "name": "Topes de Collantes",
+      "postalCodes": []
+    },
+    {
+      "name": "Trinidad",
+      "postalCodes": []
+    },
+    {
+      "name": "Yaguajay",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaza del Medio",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Caibarién",
+      "postalCodes": []
+    },
+    {
+      "name": "Calabazar de Sagua",
+      "postalCodes": []
+    },
+    {
+      "name": "Camajuaní",
+      "postalCodes": []
+    },
+    {
+      "name": "Cifuentes",
+      "postalCodes": []
+    },
+    {
+      "name": "Corralillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Encrucijada",
+      "postalCodes": []
+    },
+    {
+      "name": "Esperanza",
+      "postalCodes": []
+    },
+    {
+      "name": "Isabela de Sagua",
+      "postalCodes": []
+    },
+    {
+      "name": "Manicaragua",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Placetas",
+      "postalCodes": []
+    },
+    {
+      "name": "Municipio de Santa Clara",
+      "postalCodes": []
+    },
+    {
+      "name": "Placetas",
+      "postalCodes": []
+    },
+    {
+      "name": "Quemado de Güines",
+      "postalCodes": []
+    },
+    {
+      "name": "Rancho Veloz",
+      "postalCodes": []
+    },
+    {
+      "name": "Ranchuelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sagua la Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Clara",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Domingo",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

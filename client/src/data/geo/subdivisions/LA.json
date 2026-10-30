@@ -1,0 +1,97 @@
+[
+  {
+    "code": "AT",
+    "name": "Attapeu Province",
+    "countryCode": "LA"
+  },
+  {
+    "code": "BK",
+    "name": "Bokeo Province",
+    "countryCode": "LA"
+  },
+  {
+    "code": "BL",
+    "name": "Bolikhamsai Province",
+    "countryCode": "LA"
+  },
+  {
+    "code": "CH",
+    "name": "Champasak Province",
+    "countryCode": "LA"
+  },
+  {
+    "code": "HO",
+    "name": "Houaphanh Province",
+    "countryCode": "LA"
+  },
+  {
+    "code": "KH",
+    "name": "Khammouane Province",
+    "countryCode": "LA"
+  },
+  {
+    "code": "LM",
+    "name": "Luang Namtha Province",
+    "countryCode": "LA"
+  },
+  {
+    "code": "LP",
+    "name": "Luang Prabang Province",
+    "countryCode": "LA"
+  },
+  {
+    "code": "OU",
+    "name": "Oudomxay Province",
+    "countryCode": "LA"
+  },
+  {
+    "code": "PH",
+    "name": "Phongsaly Province",
+    "countryCode": "LA"
+  },
+  {
+    "code": "XA",
+    "name": "Sainyabuli Province",
+    "countryCode": "LA"
+  },
+  {
+    "code": "SL",
+    "name": "Salavan Province",
+    "countryCode": "LA"
+  },
+  {
+    "code": "SV",
+    "name": "Savannakhet Province",
+    "countryCode": "LA"
+  },
+  {
+    "code": "XE",
+    "name": "Sekong Province",
+    "countryCode": "LA"
+  },
+  {
+    "code": "VT",
+    "name": "Vientiane Prefecture",
+    "countryCode": "LA"
+  },
+  {
+    "code": "VI",
+    "name": "Vientiane Province",
+    "countryCode": "LA"
+  },
+  {
+    "code": "XN",
+    "name": "Xaisomboun",
+    "countryCode": "LA"
+  },
+  {
+    "code": "XS",
+    "name": "Xaisomboun Province",
+    "countryCode": "LA"
+  },
+  {
+    "code": "XI",
+    "name": "Xiangkhouang Province",
+    "countryCode": "LA"
+  }
+]

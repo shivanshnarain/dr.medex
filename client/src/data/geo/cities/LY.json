@@ -1,0 +1,249 @@
+{
+  "WA": [
+    {
+      "name": "Ajdabiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Burayqah",
+      "postalCodes": []
+    },
+    {
+      "name": "Awjilah",
+      "postalCodes": []
+    },
+    {
+      "name": "Az Zuwaytīnah",
+      "postalCodes": []
+    },
+    {
+      "name": "Gialo",
+      "postalCodes": []
+    },
+    {
+      "name": "Marādah",
+      "postalCodes": []
+    }
+  ],
+  "BA": [
+    {
+      "name": "Benghazi",
+      "postalCodes": []
+    },
+    {
+      "name": "Qaryat Sulūq",
+      "postalCodes": []
+    }
+  ],
+  "DR": [
+    {
+      "name": "Al Qubbah",
+      "postalCodes": []
+    },
+    {
+      "name": "Darnah",
+      "postalCodes": []
+    }
+  ],
+  "GT": [
+    {
+      "name": "Ghat",
+      "postalCodes": []
+    }
+  ],
+  "JA": [
+    {
+      "name": "Al Bayḑā’",
+      "postalCodes": []
+    }
+  ],
+  "JG": [
+    {
+      "name": "Gharyan",
+      "postalCodes": []
+    },
+    {
+      "name": "Giado",
+      "postalCodes": []
+    },
+    {
+      "name": "Mizdah",
+      "postalCodes": []
+    },
+    {
+      "name": "Yafran",
+      "postalCodes": []
+    },
+    {
+      "name": "Zintan",
+      "postalCodes": []
+    }
+  ],
+  "JI": [
+    {
+      "name": "Al ‘Azīzīyah",
+      "postalCodes": []
+    }
+  ],
+  "JU": [
+    {
+      "name": "Hūn",
+      "postalCodes": []
+    },
+    {
+      "name": "Waddān",
+      "postalCodes": []
+    }
+  ],
+  "KF": [
+    {
+      "name": "Al Jawf",
+      "postalCodes": []
+    },
+    {
+      "name": "At Tāj",
+      "postalCodes": []
+    }
+  ],
+  "MJ": [
+    {
+      "name": "Al Abyār",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Marj",
+      "postalCodes": []
+    },
+    {
+      "name": "Tūkrah",
+      "postalCodes": []
+    }
+  ],
+  "MI": [
+    {
+      "name": "Bani Walid",
+      "postalCodes": []
+    },
+    {
+      "name": "Mişrātah",
+      "postalCodes": []
+    },
+    {
+      "name": "Zliten",
+      "postalCodes": []
+    }
+  ],
+  "MB": [
+    {
+      "name": "Al Khums",
+      "postalCodes": []
+    },
+    {
+      "name": "Masallātah",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarhuna",
+      "postalCodes": []
+    }
+  ],
+  "MQ": [
+    {
+      "name": "Al Qaţrūn",
+      "postalCodes": []
+    },
+    {
+      "name": "Murzuq",
+      "postalCodes": []
+    }
+  ],
+  "NL": [
+    {
+      "name": "Ghadāmis",
+      "postalCodes": []
+    },
+    {
+      "name": "Nālūt",
+      "postalCodes": []
+    }
+  ],
+  "NQ": [
+    {
+      "name": "Al Ajaylat",
+      "postalCodes": []
+    },
+    {
+      "name": "Zalţan",
+      "postalCodes": []
+    },
+    {
+      "name": "Zuwārah",
+      "postalCodes": []
+    }
+  ],
+  "SB": [
+    {
+      "name": "Al Jadīd",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabhā",
+      "postalCodes": []
+    }
+  ],
+  "SR": [
+    {
+      "name": "Qasr Abu Hadi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sirte",
+      "postalCodes": []
+    }
+  ],
+  "TB": [
+    {
+      "name": "Tagiura",
+      "postalCodes": []
+    },
+    {
+      "name": "Tripoli",
+      "postalCodes": []
+    }
+  ],
+  "WD": [
+    {
+      "name": "Ubari",
+      "postalCodes": []
+    }
+  ],
+  "WS": [
+    {
+      "name": "Brak",
+      "postalCodes": []
+    },
+    {
+      "name": "Idrī",
+      "postalCodes": []
+    }
+  ],
+  "ZA": [
+    {
+      "name": "Az Zāwīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Şabrātah",
+      "postalCodes": []
+    },
+    {
+      "name": "Şurmān",
+      "postalCodes": []
+    },
+    {
+      "name": "Zawiya",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

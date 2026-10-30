@@ -1,0 +1,82 @@
+[
+  {
+    "code": "WP",
+    "name": "Greater Poland Voivodeship",
+    "countryCode": "PL"
+  },
+  {
+    "code": "KP",
+    "name": "Kuyavian-Pomeranian Voivodeship",
+    "countryCode": "PL"
+  },
+  {
+    "code": "MA",
+    "name": "Lesser Poland Voivodeship",
+    "countryCode": "PL"
+  },
+  {
+    "code": "LD",
+    "name": "Łódź Voivodeship",
+    "countryCode": "PL"
+  },
+  {
+    "code": "DS",
+    "name": "Lower Silesian Voivodeship",
+    "countryCode": "PL"
+  },
+  {
+    "code": "LU",
+    "name": "Lublin Voivodeship",
+    "countryCode": "PL"
+  },
+  {
+    "code": "LB",
+    "name": "Lubusz Voivodeship",
+    "countryCode": "PL"
+  },
+  {
+    "code": "MZ",
+    "name": "Masovian Voivodeship",
+    "countryCode": "PL"
+  },
+  {
+    "code": "OP",
+    "name": "Opole Voivodeship",
+    "countryCode": "PL"
+  },
+  {
+    "code": "PK",
+    "name": "Podkarpackie Voivodeship",
+    "countryCode": "PL"
+  },
+  {
+    "code": "PD",
+    "name": "Podlaskie Voivodeship",
+    "countryCode": "PL"
+  },
+  {
+    "code": "PM",
+    "name": "Pomeranian Voivodeship",
+    "countryCode": "PL"
+  },
+  {
+    "code": "SL",
+    "name": "Silesian Voivodeship",
+    "countryCode": "PL"
+  },
+  {
+    "code": "SK",
+    "name": "Świętokrzyskie Voivodeship",
+    "countryCode": "PL"
+  },
+  {
+    "code": "WN",
+    "name": "Warmian-Masurian Voivodeship",
+    "countryCode": "PL"
+  },
+  {
+    "code": "ZP",
+    "name": "West Pomeranian Voivodeship",
+    "countryCode": "PL"
+  }
+]

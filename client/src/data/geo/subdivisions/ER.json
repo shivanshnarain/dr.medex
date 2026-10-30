@@ -1,0 +1,32 @@
+[
+  {
+    "code": "AN",
+    "name": "Anseba Region",
+    "countryCode": "ER"
+  },
+  {
+    "code": "DU",
+    "name": "Debub Region",
+    "countryCode": "ER"
+  },
+  {
+    "code": "GB",
+    "name": "Gash-Barka Region",
+    "countryCode": "ER"
+  },
+  {
+    "code": "MA",
+    "name": "Maekel Region",
+    "countryCode": "ER"
+  },
+  {
+    "code": "SK",
+    "name": "Northern Red Sea Region",
+    "countryCode": "ER"
+  },
+  {
+    "code": "DK",
+    "name": "Southern Red Sea Region",
+    "countryCode": "ER"
+  }
+]

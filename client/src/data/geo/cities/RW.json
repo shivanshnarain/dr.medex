@@ -1,0 +1,61 @@
+{
+  "02": [
+    {
+      "name": "Kibungo",
+      "postalCodes": []
+    },
+    {
+      "name": "Rwamagana",
+      "postalCodes": []
+    }
+  ],
+  "01": [
+    {
+      "name": "Kigali",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Byumba",
+      "postalCodes": []
+    },
+    {
+      "name": "Musanze",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Butare",
+      "postalCodes": []
+    },
+    {
+      "name": "Eglise Catholique, Centrale GIKO",
+      "postalCodes": []
+    },
+    {
+      "name": "Gitarama",
+      "postalCodes": []
+    },
+    {
+      "name": "Nzega",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Cyangugu",
+      "postalCodes": []
+    },
+    {
+      "name": "Gisenyi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kibuye",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

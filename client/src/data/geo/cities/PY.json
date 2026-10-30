@@ -1,0 +1,597 @@
+{
+  "1": [
+    {
+      "name": "Belén",
+      "postalCodes": []
+    },
+    {
+      "name": "Concepción",
+      "postalCodes": []
+    },
+    {
+      "name": "Horqueta",
+      "postalCodes": []
+    }
+  ],
+  "2": [
+    {
+      "name": "Antequera",
+      "postalCodes": []
+    },
+    {
+      "name": "Capiíbary",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonia Nueva Germania",
+      "postalCodes": []
+    },
+    {
+      "name": "General Elizardo Aquino",
+      "postalCodes": []
+    },
+    {
+      "name": "Guayaybi",
+      "postalCodes": []
+    },
+    {
+      "name": "Itacurubí del Rosario",
+      "postalCodes": []
+    },
+    {
+      "name": "Lima",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Rosario",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro de Ycuamandiyú",
+      "postalCodes": []
+    },
+    {
+      "name": "Tacuatí",
+      "postalCodes": []
+    },
+    {
+      "name": "Unión",
+      "postalCodes": []
+    },
+    {
+      "name": "Yataity del Norte",
+      "postalCodes": []
+    }
+  ],
+  "3": [
+    {
+      "name": "Altos",
+      "postalCodes": []
+    },
+    {
+      "name": "Arroyos y Esteros",
+      "postalCodes": []
+    },
+    {
+      "name": "Atyrá",
+      "postalCodes": []
+    },
+    {
+      "name": "Caacupé",
+      "postalCodes": []
+    },
+    {
+      "name": "Caraguatay",
+      "postalCodes": []
+    },
+    {
+      "name": "Emboscada",
+      "postalCodes": []
+    },
+    {
+      "name": "Eusebio Ayala",
+      "postalCodes": []
+    },
+    {
+      "name": "Isla Pucú",
+      "postalCodes": []
+    },
+    {
+      "name": "Itacurubí de la Cordillera",
+      "postalCodes": []
+    },
+    {
+      "name": "Piribebuy",
+      "postalCodes": []
+    },
+    {
+      "name": "San Bernardino",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Elena",
+      "postalCodes": []
+    },
+    {
+      "name": "Tobatí",
+      "postalCodes": []
+    }
+  ],
+  "4": [
+    {
+      "name": "Colonia Mauricio José Troche",
+      "postalCodes": []
+    },
+    {
+      "name": "Coronel Martínez",
+      "postalCodes": []
+    },
+    {
+      "name": "Independencia",
+      "postalCodes": []
+    },
+    {
+      "name": "Itapé",
+      "postalCodes": []
+    },
+    {
+      "name": "Iturbe",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbocayaty",
+      "postalCodes": []
+    },
+    {
+      "name": "Natalicio Talavera",
+      "postalCodes": []
+    },
+    {
+      "name": "Villarrica",
+      "postalCodes": []
+    }
+  ],
+  "5": [
+    {
+      "name": "Caaguazú",
+      "postalCodes": []
+    },
+    {
+      "name": "Carayaó",
+      "postalCodes": []
+    },
+    {
+      "name": "Cecilio Baez",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonia General Alfredo Stroessner",
+      "postalCodes": []
+    },
+    {
+      "name": "Coronel Oviedo",
+      "postalCodes": []
+    },
+    {
+      "name": "Doctor Juan Manuel Frutos",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbutuý",
+      "postalCodes": []
+    },
+    {
+      "name": "Repatriación",
+      "postalCodes": []
+    },
+    {
+      "name": "San Joaquín",
+      "postalCodes": []
+    },
+    {
+      "name": "San José",
+      "postalCodes": []
+    },
+    {
+      "name": "Yhú",
+      "postalCodes": []
+    }
+  ],
+  "6": [
+    {
+      "name": "Abaí",
+      "postalCodes": []
+    },
+    {
+      "name": "Buena Vista",
+      "postalCodes": []
+    },
+    {
+      "name": "Caazapá",
+      "postalCodes": []
+    },
+    {
+      "name": "General Higinio Morínigo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan Nepomuceno",
+      "postalCodes": []
+    },
+    {
+      "name": "Yegros",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuty",
+      "postalCodes": []
+    }
+  ],
+  "7": [
+    {
+      "name": "Arquitecto Tomás Romero Pereira",
+      "postalCodes": []
+    },
+    {
+      "name": "Bella Vista",
+      "postalCodes": []
+    },
+    {
+      "name": "Capitán Miranda",
+      "postalCodes": []
+    },
+    {
+      "name": "Carmen del Paraná",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonia Carlos Antonio López",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonia San Lorenzo",
+      "postalCodes": []
+    },
+    {
+      "name": "Edelira",
+      "postalCodes": []
+    },
+    {
+      "name": "Encarnación",
+      "postalCodes": []
+    },
+    {
+      "name": "Fram",
+      "postalCodes": []
+    },
+    {
+      "name": "General Artigas",
+      "postalCodes": []
+    },
+    {
+      "name": "General Delgado",
+      "postalCodes": []
+    },
+    {
+      "name": "Hohenau",
+      "postalCodes": []
+    },
+    {
+      "name": "Jesús",
+      "postalCodes": []
+    },
+    {
+      "name": "Natalio",
+      "postalCodes": []
+    },
+    {
+      "name": "Obligado",
+      "postalCodes": []
+    },
+    {
+      "name": "Pirapó",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Mayor Otaño",
+      "postalCodes": []
+    },
+    {
+      "name": "San Cosme y Damián",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan del Paraná",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro del Paraná",
+      "postalCodes": []
+    },
+    {
+      "name": "Trinidad",
+      "postalCodes": []
+    }
+  ],
+  "8": [
+    {
+      "name": "Juan de Ayolas",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan Bautista",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel",
+      "postalCodes": []
+    },
+    {
+      "name": "San Patricio",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa María",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rosa Misiones",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Florida",
+      "postalCodes": []
+    }
+  ],
+  "9": [
+    {
+      "name": "Acahay",
+      "postalCodes": []
+    },
+    {
+      "name": "Caapucú",
+      "postalCodes": []
+    },
+    {
+      "name": "Carapeguá",
+      "postalCodes": []
+    },
+    {
+      "name": "La Colmena",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbuyapey",
+      "postalCodes": []
+    },
+    {
+      "name": "Paraguarí",
+      "postalCodes": []
+    },
+    {
+      "name": "Pirayú",
+      "postalCodes": []
+    },
+    {
+      "name": "Quiindy",
+      "postalCodes": []
+    },
+    {
+      "name": "Sapucaí",
+      "postalCodes": []
+    },
+    {
+      "name": "Yaguarón",
+      "postalCodes": []
+    },
+    {
+      "name": "Ybycuí",
+      "postalCodes": []
+    }
+  ],
+  "10": [
+    {
+      "name": "Cedrales",
+      "postalCodes": []
+    },
+    {
+      "name": "Ciudad del Este",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonia Minga Porá",
+      "postalCodes": []
+    },
+    {
+      "name": "Doctor Juan León Mallorquín",
+      "postalCodes": []
+    },
+    {
+      "name": "Itakyry",
+      "postalCodes": []
+    },
+    {
+      "name": "Naranjal",
+      "postalCodes": []
+    },
+    {
+      "name": "Presidente Franco",
+      "postalCodes": []
+    },
+    {
+      "name": "San Alberto",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rita",
+      "postalCodes": []
+    },
+    {
+      "name": "Yguazú",
+      "postalCodes": []
+    }
+  ],
+  "11": [
+    {
+      "name": "Areguá",
+      "postalCodes": []
+    },
+    {
+      "name": "Capiatá",
+      "postalCodes": []
+    },
+    {
+      "name": "Fernando de la Mora",
+      "postalCodes": []
+    },
+    {
+      "name": "Guarambaré",
+      "postalCodes": []
+    },
+    {
+      "name": "Itá",
+      "postalCodes": []
+    },
+    {
+      "name": "Itauguá",
+      "postalCodes": []
+    },
+    {
+      "name": "Lambaré",
+      "postalCodes": []
+    },
+    {
+      "name": "Limpio",
+      "postalCodes": []
+    },
+    {
+      "name": "Mariano Roque Alonso",
+      "postalCodes": []
+    },
+    {
+      "name": "Nemby",
+      "postalCodes": []
+    },
+    {
+      "name": "Nueva Italia",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio",
+      "postalCodes": []
+    },
+    {
+      "name": "San Lorenzo",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Elisa",
+      "postalCodes": []
+    },
+    {
+      "name": "Ypacarai",
+      "postalCodes": []
+    }
+  ],
+  "12": [
+    {
+      "name": "Cerrito",
+      "postalCodes": []
+    },
+    {
+      "name": "General José Eduvigis Díaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilar",
+      "postalCodes": []
+    }
+  ],
+  "13": [
+    {
+      "name": "Bella Vista",
+      "postalCodes": []
+    },
+    {
+      "name": "Capitán Bado",
+      "postalCodes": []
+    },
+    {
+      "name": "Pedro Juan Caballero",
+      "postalCodes": []
+    }
+  ],
+  "14": [
+    {
+      "name": "Colonia Catuete",
+      "postalCodes": []
+    },
+    {
+      "name": "Corpus Christi",
+      "postalCodes": []
+    },
+    {
+      "name": "La Paloma",
+      "postalCodes": []
+    },
+    {
+      "name": "Nueva Esperanza",
+      "postalCodes": []
+    },
+    {
+      "name": "Salto del Guairá",
+      "postalCodes": []
+    },
+    {
+      "name": "San Isidro de Curuguaty",
+      "postalCodes": []
+    },
+    {
+      "name": "Ygatimi",
+      "postalCodes": []
+    }
+  ],
+  "15": [
+    {
+      "name": "Benjamín Aceval",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanawua",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Hayes",
+      "postalCodes": []
+    }
+  ],
+  "16": [
+    {
+      "name": "Capitán Pablo Lagerenza",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuerte Olimpo",
+      "postalCodes": []
+    }
+  ],
+  "19": [
+    {
+      "name": "Colonia Menno",
+      "postalCodes": []
+    },
+    {
+      "name": "Colonia Neuland",
+      "postalCodes": []
+    },
+    {
+      "name": "Filadelfia",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

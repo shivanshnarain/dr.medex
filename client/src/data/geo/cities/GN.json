@@ -1,0 +1,266 @@
+{
+  "BE": [],
+  "BF": [],
+  "BK": [],
+  "B": [
+    {
+      "name": "Boffa",
+      "postalCodes": []
+    },
+    {
+      "name": "Boké",
+      "postalCodes": []
+    },
+    {
+      "name": "Boke Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Fria",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaoual",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaoual Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Kimbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Koundara",
+      "postalCodes": []
+    },
+    {
+      "name": "Koundara Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanguéya",
+      "postalCodes": []
+    },
+    {
+      "name": "Youkounkoun",
+      "postalCodes": []
+    }
+  ],
+  "C": [
+    {
+      "name": "Camayenne",
+      "postalCodes": []
+    },
+    {
+      "name": "Conakry",
+      "postalCodes": []
+    }
+  ],
+  "CO": [],
+  "DB": [],
+  "DL": [],
+  "DI": [],
+  "DU": [],
+  "FA": [],
+  "FO": [],
+  "FR": [],
+  "GA": [],
+  "GU": [],
+  "KA": [],
+  "K": [
+    {
+      "name": "Kankan",
+      "postalCodes": []
+    },
+    {
+      "name": "Kankan Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Kérouané",
+      "postalCodes": []
+    },
+    {
+      "name": "Kerouane Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Kouroussa",
+      "postalCodes": []
+    },
+    {
+      "name": "Mandiana",
+      "postalCodes": []
+    },
+    {
+      "name": "Mandiana Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Siguiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Siguiri Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Tokonou",
+      "postalCodes": []
+    }
+  ],
+  "KE": [],
+  "KD": [],
+  "D": [
+    {
+      "name": "Coyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Dubréka",
+      "postalCodes": []
+    },
+    {
+      "name": "Forécariah",
+      "postalCodes": []
+    },
+    {
+      "name": "Kindia",
+      "postalCodes": []
+    },
+    {
+      "name": "Préfecture de Dubréka",
+      "postalCodes": []
+    },
+    {
+      "name": "Préfecture de Forécariah",
+      "postalCodes": []
+    },
+    {
+      "name": "Télimélé",
+      "postalCodes": []
+    },
+    {
+      "name": "Telimele Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Tondon",
+      "postalCodes": []
+    }
+  ],
+  "KS": [],
+  "KB": [],
+  "KN": [],
+  "KO": [],
+  "LA": [],
+  "L": [
+    {
+      "name": "Koubia",
+      "postalCodes": []
+    },
+    {
+      "name": "Labé",
+      "postalCodes": []
+    },
+    {
+      "name": "Labe Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Lélouma",
+      "postalCodes": []
+    },
+    {
+      "name": "Lelouma Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Mali",
+      "postalCodes": []
+    },
+    {
+      "name": "Mali Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Tougué",
+      "postalCodes": []
+    },
+    {
+      "name": "Tougue Prefecture",
+      "postalCodes": []
+    }
+  ],
+  "LE": [],
+  "LO": [],
+  "MC": [],
+  "ML": [],
+  "MM": [],
+  "M": [
+    {
+      "name": "Dalaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Mamou",
+      "postalCodes": []
+    },
+    {
+      "name": "Mamou Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Pita",
+      "postalCodes": []
+    }
+  ],
+  "MD": [],
+  "NZ": [],
+  "N": [
+    {
+      "name": "Beyla",
+      "postalCodes": []
+    },
+    {
+      "name": "Beyla Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Gueckedou",
+      "postalCodes": []
+    },
+    {
+      "name": "Lola",
+      "postalCodes": []
+    },
+    {
+      "name": "Macenta",
+      "postalCodes": []
+    },
+    {
+      "name": "Nzérékoré",
+      "postalCodes": []
+    },
+    {
+      "name": "Nzerekore Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Préfecture de Guékédou",
+      "postalCodes": []
+    },
+    {
+      "name": "Yomou",
+      "postalCodes": []
+    }
+  ],
+  "PI": [],
+  "SI": [],
+  "TE": [],
+  "TO": [],
+  "YO": [],
+  "_OTHER": []
+}

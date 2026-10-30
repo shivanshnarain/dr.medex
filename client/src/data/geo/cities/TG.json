@@ -1,0 +1,101 @@
+{
+  "C": [
+    {
+      "name": "Sokodé",
+      "postalCodes": []
+    },
+    {
+      "name": "Sotouboua",
+      "postalCodes": []
+    },
+    {
+      "name": "Tchamba",
+      "postalCodes": []
+    }
+  ],
+  "K": [
+    {
+      "name": "Bafilo",
+      "postalCodes": []
+    },
+    {
+      "name": "Bassar",
+      "postalCodes": []
+    },
+    {
+      "name": "Kandé",
+      "postalCodes": []
+    },
+    {
+      "name": "Kara",
+      "postalCodes": []
+    },
+    {
+      "name": "Niamtougou",
+      "postalCodes": []
+    },
+    {
+      "name": "Pagouda",
+      "postalCodes": []
+    },
+    {
+      "name": "Préfecture de Bassar",
+      "postalCodes": []
+    }
+  ],
+  "M": [
+    {
+      "name": "Aného",
+      "postalCodes": []
+    },
+    {
+      "name": "Lomé",
+      "postalCodes": []
+    },
+    {
+      "name": "Tabligbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsévié",
+      "postalCodes": []
+    },
+    {
+      "name": "Vogan",
+      "postalCodes": []
+    }
+  ],
+  "P": [
+    {
+      "name": "Amlamé",
+      "postalCodes": []
+    },
+    {
+      "name": "Atakpamé",
+      "postalCodes": []
+    },
+    {
+      "name": "Badou",
+      "postalCodes": []
+    },
+    {
+      "name": "Kpalimé",
+      "postalCodes": []
+    },
+    {
+      "name": "Notsé",
+      "postalCodes": []
+    }
+  ],
+  "S": [
+    {
+      "name": "Dapaong",
+      "postalCodes": []
+    },
+    {
+      "name": "Sansanné-Mango",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

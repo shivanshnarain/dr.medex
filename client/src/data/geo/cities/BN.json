@@ -1,0 +1,47 @@
+{
+  "BE": [
+    {
+      "name": "Kuala Belait",
+      "postalCodes": []
+    },
+    {
+      "name": "Seria",
+      "postalCodes": []
+    }
+  ],
+  "BM": [
+    {
+      "name": "Bandar Seri Begawan",
+      "postalCodes": []
+    },
+    {
+      "name": "Berakas A",
+      "postalCodes": []
+    },
+    {
+      "name": "Kapok",
+      "postalCodes": []
+    },
+    {
+      "name": "Mentiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Serasa",
+      "postalCodes": []
+    }
+  ],
+  "TE": [
+    {
+      "name": "Bangar",
+      "postalCodes": []
+    }
+  ],
+  "TU": [
+    {
+      "name": "Tutong",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "code": "B",
+    "name": "Banjul",
+    "countryCode": "GM"
+  },
+  {
+    "code": "M",
+    "name": "Central River Division",
+    "countryCode": "GM"
+  },
+  {
+    "code": "L",
+    "name": "Lower River Division",
+    "countryCode": "GM"
+  },
+  {
+    "code": "N",
+    "name": "North Bank Division",
+    "countryCode": "GM"
+  },
+  {
+    "code": "U",
+    "name": "Upper River Division",
+    "countryCode": "GM"
+  },
+  {
+    "code": "W",
+    "name": "West Coast Division",
+    "countryCode": "GM"
+  }
+]

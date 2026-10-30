@@ -1,0 +1,645 @@
+{
+  "10": [],
+  "11": [],
+  "12": [],
+  "13": [
+    {
+      "name": "Azimpur",
+      "postalCodes": []
+    },
+    {
+      "name": "Bājitpur",
+      "postalCodes": []
+    },
+    {
+      "name": "Bhairab Bāzār",
+      "postalCodes": []
+    },
+    {
+      "name": "Char Bhadrāsan",
+      "postalCodes": []
+    },
+    {
+      "name": "Char Golora",
+      "postalCodes": []
+    },
+    {
+      "name": "Dhaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Dohār",
+      "postalCodes": []
+    },
+    {
+      "name": "Faridpur",
+      "postalCodes": []
+    },
+    {
+      "name": "Gazipur",
+      "postalCodes": []
+    },
+    {
+      "name": "Gopalganj",
+      "postalCodes": []
+    },
+    {
+      "name": "Joymontop",
+      "postalCodes": []
+    },
+    {
+      "name": "Khanbaniara",
+      "postalCodes": []
+    },
+    {
+      "name": "Kishoregonj",
+      "postalCodes": []
+    },
+    {
+      "name": "Kishorganj",
+      "postalCodes": []
+    },
+    {
+      "name": "Madaripur",
+      "postalCodes": []
+    },
+    {
+      "name": "Manikganj",
+      "postalCodes": []
+    },
+    {
+      "name": "Mirzāpur",
+      "postalCodes": []
+    },
+    {
+      "name": "Munshiganj",
+      "postalCodes": []
+    },
+    {
+      "name": "Nāgarpur",
+      "postalCodes": []
+    },
+    {
+      "name": "Narayanganj",
+      "postalCodes": []
+    },
+    {
+      "name": "Narsingdi",
+      "postalCodes": []
+    },
+    {
+      "name": "Pālang",
+      "postalCodes": []
+    },
+    {
+      "name": "Paltan",
+      "postalCodes": []
+    },
+    {
+      "name": "Parvez Ali",
+      "postalCodes": []
+    },
+    {
+      "name": "Parvez Ali Hossain",
+      "postalCodes": []
+    },
+    {
+      "name": "Rajbari",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramnagar",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakhipur",
+      "postalCodes": []
+    },
+    {
+      "name": "Sayani",
+      "postalCodes": []
+    },
+    {
+      "name": "Shariatpur",
+      "postalCodes": []
+    },
+    {
+      "name": "Sonārgaon",
+      "postalCodes": []
+    },
+    {
+      "name": "Tangail",
+      "postalCodes": []
+    },
+    {
+      "name": "Tungi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tungipāra",
+      "postalCodes": []
+    }
+  ],
+  "14": [],
+  "15": [],
+  "16": [],
+  "17": [],
+  "18": [],
+  "19": [],
+  "20": [],
+  "21": [],
+  "22": [],
+  "23": [],
+  "24": [],
+  "25": [],
+  "26": [],
+  "27": [
+    {
+      "name": "Bagerhat",
+      "postalCodes": []
+    },
+    {
+      "name": "Bhātpāra Abhaynagar",
+      "postalCodes": []
+    },
+    {
+      "name": "Bherāmāra",
+      "postalCodes": []
+    },
+    {
+      "name": "Chuadanga",
+      "postalCodes": []
+    },
+    {
+      "name": "Jessore",
+      "postalCodes": []
+    },
+    {
+      "name": "Jhenaidah",
+      "postalCodes": []
+    },
+    {
+      "name": "Jhingergācha",
+      "postalCodes": []
+    },
+    {
+      "name": "Kālia",
+      "postalCodes": []
+    },
+    {
+      "name": "Kālīganj",
+      "postalCodes": []
+    },
+    {
+      "name": "Kesabpur",
+      "postalCodes": []
+    },
+    {
+      "name": "Khulna",
+      "postalCodes": []
+    },
+    {
+      "name": "Kushtia",
+      "postalCodes": []
+    },
+    {
+      "name": "Magura",
+      "postalCodes": []
+    },
+    {
+      "name": "Meherpur",
+      "postalCodes": []
+    },
+    {
+      "name": "Morrelgonj",
+      "postalCodes": []
+    },
+    {
+      "name": "Narail",
+      "postalCodes": []
+    },
+    {
+      "name": "Nowlamary",
+      "postalCodes": []
+    },
+    {
+      "name": "Phultala",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarankhola",
+      "postalCodes": []
+    },
+    {
+      "name": "Satkhira",
+      "postalCodes": []
+    },
+    {
+      "name": "Ujalpur",
+      "postalCodes": []
+    },
+    {
+      "name": "Uttar Char Fasson",
+      "postalCodes": []
+    }
+  ],
+  "28": [],
+  "29": [],
+  "30": [],
+  "31": [],
+  "32": [],
+  "33": [],
+  "34": [
+    {
+      "name": "Gafargaon",
+      "postalCodes": []
+    },
+    {
+      "name": "Jamalpur",
+      "postalCodes": []
+    },
+    {
+      "name": "Muktāgācha",
+      "postalCodes": []
+    },
+    {
+      "name": "Mymensingh",
+      "postalCodes": []
+    },
+    {
+      "name": "Netrakona",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarishābāri",
+      "postalCodes": []
+    },
+    {
+      "name": "Sherpur",
+      "postalCodes": []
+    }
+  ],
+  "35": [],
+  "36": [],
+  "38": [],
+  "39": [],
+  "40": [],
+  "41": [],
+  "43": [],
+  "44": [],
+  "45": [],
+  "46": [],
+  "47": [],
+  "48": [],
+  "49": [],
+  "50": [],
+  "51": [],
+  "52": [],
+  "53": [],
+  "54": [
+    {
+      "name": "Bera",
+      "postalCodes": []
+    },
+    {
+      "name": "Bogra",
+      "postalCodes": []
+    },
+    {
+      "name": "Chapai Nababganj",
+      "postalCodes": []
+    },
+    {
+      "name": "Ishurdi",
+      "postalCodes": []
+    },
+    {
+      "name": "Joypur Hāt",
+      "postalCodes": []
+    },
+    {
+      "name": "Joypurhat",
+      "postalCodes": []
+    },
+    {
+      "name": "Mahasthangarh",
+      "postalCodes": []
+    },
+    {
+      "name": "Naogaon",
+      "postalCodes": []
+    },
+    {
+      "name": "Natore",
+      "postalCodes": []
+    },
+    {
+      "name": "Nawābganj",
+      "postalCodes": []
+    },
+    {
+      "name": "Pabna",
+      "postalCodes": []
+    },
+    {
+      "name": "Pār Naogaon",
+      "postalCodes": []
+    },
+    {
+      "name": "Puthia",
+      "postalCodes": []
+    },
+    {
+      "name": "Rajshahi",
+      "postalCodes": []
+    },
+    {
+      "name": "Saidpur",
+      "postalCodes": []
+    },
+    {
+      "name": "Shāhzādpur",
+      "postalCodes": []
+    },
+    {
+      "name": "Shibganj",
+      "postalCodes": []
+    },
+    {
+      "name": "Sirajganj",
+      "postalCodes": []
+    }
+  ],
+  "55": [
+    {
+      "name": "Badarganj",
+      "postalCodes": []
+    },
+    {
+      "name": "Chilmāri",
+      "postalCodes": []
+    },
+    {
+      "name": "Dinajpur",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaibandha",
+      "postalCodes": []
+    },
+    {
+      "name": "Kurigram",
+      "postalCodes": []
+    },
+    {
+      "name": "Lalmonirhat",
+      "postalCodes": []
+    },
+    {
+      "name": "Lalmonirhat District",
+      "postalCodes": []
+    },
+    {
+      "name": "Nageswari",
+      "postalCodes": []
+    },
+    {
+      "name": "Nilphamari Zila",
+      "postalCodes": []
+    },
+    {
+      "name": "Panchagarh",
+      "postalCodes": []
+    },
+    {
+      "name": "Parbatipur",
+      "postalCodes": []
+    },
+    {
+      "name": "Pīrgaaj",
+      "postalCodes": []
+    },
+    {
+      "name": "Rangpur",
+      "postalCodes": []
+    },
+    {
+      "name": "Thakurgaon",
+      "postalCodes": []
+    }
+  ],
+  "56": [],
+  "57": [],
+  "58": [],
+  "59": [],
+  "60": [
+    {
+      "name": "Baniachang",
+      "postalCodes": []
+    },
+    {
+      "name": "Chhātak",
+      "postalCodes": []
+    },
+    {
+      "name": "Habiganj",
+      "postalCodes": []
+    },
+    {
+      "name": "Jahedpur",
+      "postalCodes": []
+    },
+    {
+      "name": "Maulavi Bāzār",
+      "postalCodes": []
+    },
+    {
+      "name": "Maulvibazar",
+      "postalCodes": []
+    },
+    {
+      "name": "Sunamganj",
+      "postalCodes": []
+    },
+    {
+      "name": "Sylhet",
+      "postalCodes": []
+    }
+  ],
+  "61": [],
+  "62": [],
+  "63": [],
+  "64": [],
+  "05": [],
+  "01": [],
+  "02": [],
+  "06": [
+    {
+      "name": "Barguna",
+      "postalCodes": []
+    },
+    {
+      "name": "Barisal",
+      "postalCodes": []
+    },
+    {
+      "name": "Bhāndāria",
+      "postalCodes": []
+    },
+    {
+      "name": "Bhola",
+      "postalCodes": []
+    },
+    {
+      "name": "Burhānuddin",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaurnadi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jhalokati",
+      "postalCodes": []
+    },
+    {
+      "name": "Lālmohan",
+      "postalCodes": []
+    },
+    {
+      "name": "Mathba",
+      "postalCodes": []
+    },
+    {
+      "name": "Mehendiganj",
+      "postalCodes": []
+    },
+    {
+      "name": "Nālchiti",
+      "postalCodes": []
+    },
+    {
+      "name": "Patuakhali",
+      "postalCodes": []
+    },
+    {
+      "name": "Pirojpur",
+      "postalCodes": []
+    }
+  ],
+  "A": [],
+  "07": [],
+  "03": [],
+  "04": [],
+  "09": [],
+  "B": [
+    {
+      "name": "Bandarban",
+      "postalCodes": []
+    },
+    {
+      "name": "Bibir Hat",
+      "postalCodes": []
+    },
+    {
+      "name": "Brahmanbaria",
+      "postalCodes": []
+    },
+    {
+      "name": "Chandpur",
+      "postalCodes": []
+    },
+    {
+      "name": "Chhāgalnāiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Chittagong",
+      "postalCodes": []
+    },
+    {
+      "name": "Comilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Cox's Bazar",
+      "postalCodes": []
+    },
+    {
+      "name": "Cox’s Bāzār",
+      "postalCodes": []
+    },
+    {
+      "name": "Feni",
+      "postalCodes": []
+    },
+    {
+      "name": "Hājīganj",
+      "postalCodes": []
+    },
+    {
+      "name": "Khagrachhari",
+      "postalCodes": []
+    },
+    {
+      "name": "Lākshām",
+      "postalCodes": []
+    },
+    {
+      "name": "Lakshmipur",
+      "postalCodes": []
+    },
+    {
+      "name": "Manikchari",
+      "postalCodes": []
+    },
+    {
+      "name": "Nabīnagar",
+      "postalCodes": []
+    },
+    {
+      "name": "Noakhali",
+      "postalCodes": []
+    },
+    {
+      "name": "Patiya",
+      "postalCodes": []
+    },
+    {
+      "name": "Rāipur",
+      "postalCodes": []
+    },
+    {
+      "name": "Rāmganj",
+      "postalCodes": []
+    },
+    {
+      "name": "Rangamati",
+      "postalCodes": []
+    },
+    {
+      "name": "Raojān",
+      "postalCodes": []
+    },
+    {
+      "name": "Sandwīp",
+      "postalCodes": []
+    },
+    {
+      "name": "Sātkania",
+      "postalCodes": []
+    },
+    {
+      "name": "Teknāf",
+      "postalCodes": []
+    }
+  ],
+  "08": [],
+  "C": [],
+  "D": [],
+  "H": [],
+  "E": [],
+  "F": [],
+  "G": [],
+  "_OTHER": []
+}

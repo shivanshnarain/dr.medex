@@ -1,0 +1,45 @@
+{
+  "10": [
+    {
+      "name": "Hillsborough",
+      "postalCodes": []
+    }
+  ],
+  "01": [
+    {
+      "name": "Grenville",
+      "postalCodes": []
+    }
+  ],
+  "02": [
+    {
+      "name": "Saint David’s",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Saint George's",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Gouyave",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Victoria",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Sauteurs",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

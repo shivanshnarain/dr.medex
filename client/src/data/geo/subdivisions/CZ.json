@@ -1,0 +1,452 @@
+[
+  {
+    "code": "201",
+    "name": "Benešov",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "202",
+    "name": "Beroun",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "641",
+    "name": "Blansko",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "644",
+    "name": "Břeclav",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "642",
+    "name": "Brno-město",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "643",
+    "name": "Brno-venkov",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "801",
+    "name": "Bruntál",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "511",
+    "name": "Česká Lípa",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "311",
+    "name": "České Budějovice",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "312",
+    "name": "Český Krumlov",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "411",
+    "name": "Cheb",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "422",
+    "name": "Chomutov",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "531",
+    "name": "Chrudim",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "421",
+    "name": "Děčín",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "321",
+    "name": "Domažlice",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "802",
+    "name": "Frýdek-Místek",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "631",
+    "name": "Havlíčkův Brod",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "645",
+    "name": "Hodonín",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "521",
+    "name": "Hradec Králové",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "512",
+    "name": "Jablonec nad Nisou",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "711",
+    "name": "Jeseník",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "522",
+    "name": "Jičín",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "632",
+    "name": "Jihlava",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "31",
+    "name": "Jihočeský kraj",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "64",
+    "name": "Jihomoravský kraj",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "313",
+    "name": "Jindřichův Hradec",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "41",
+    "name": "Karlovarský kraj",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "412",
+    "name": "Karlovy Vary",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "803",
+    "name": "Karviná",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "203",
+    "name": "Kladno",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "322",
+    "name": "Klatovy",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "204",
+    "name": "Kolín",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "63",
+    "name": "Kraj Vysočina",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "52",
+    "name": "Královéhradecký kraj",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "721",
+    "name": "Kroměříž",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "205",
+    "name": "Kutná Hora",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "513",
+    "name": "Liberec",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "51",
+    "name": "Liberecký kraj",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "423",
+    "name": "Litoměřice",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "424",
+    "name": "Louny",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "206",
+    "name": "Mělník",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "207",
+    "name": "Mladá Boleslav",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "80",
+    "name": "Moravskoslezský kraj",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "425",
+    "name": "Most",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "523",
+    "name": "Náchod",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "804",
+    "name": "Nový Jičín",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "208",
+    "name": "Nymburk",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "712",
+    "name": "Olomouc",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "71",
+    "name": "Olomoucký kraj",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "805",
+    "name": "Opava",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "806",
+    "name": "Ostrava-město",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "532",
+    "name": "Pardubice",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "53",
+    "name": "Pardubický kraj",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "633",
+    "name": "Pelhřimov",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "314",
+    "name": "Písek",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "324",
+    "name": "Plzeň-jih",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "323",
+    "name": "Plzeň-město",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "325",
+    "name": "Plzeň-sever",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "32",
+    "name": "Plzeňský kraj",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "315",
+    "name": "Prachatice",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "209",
+    "name": "Praha-východ",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "20A",
+    "name": "Praha-západ",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "10",
+    "name": "Praha, Hlavní město",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "714",
+    "name": "Přerov",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "20B",
+    "name": "Příbram",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "713",
+    "name": "Prostějov",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "20C",
+    "name": "Rakovník",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "326",
+    "name": "Rokycany",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "524",
+    "name": "Rychnov nad Kněžnou",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "514",
+    "name": "Semily",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "413",
+    "name": "Sokolov",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "316",
+    "name": "Strakonice",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "20",
+    "name": "Středočeský kraj",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "715",
+    "name": "Šumperk",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "533",
+    "name": "Svitavy",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "317",
+    "name": "Tábor",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "327",
+    "name": "Tachov",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "426",
+    "name": "Teplice",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "634",
+    "name": "Třebíč",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "525",
+    "name": "Trutnov",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "722",
+    "name": "Uherské Hradiště",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "42",
+    "name": "Ústecký kraj",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "427",
+    "name": "Ústí nad Labem",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "534",
+    "name": "Ústí nad Orlicí",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "723",
+    "name": "Vsetín",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "646",
+    "name": "Vyškov",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "635",
+    "name": "Žďár nad Sázavou",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "724",
+    "name": "Zlín",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "72",
+    "name": "Zlínský kraj",
+    "countryCode": "CZ"
+  },
+  {
+    "code": "647",
+    "name": "Znojmo",
+    "countryCode": "CZ"
+  }
+]

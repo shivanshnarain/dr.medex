@@ -1,0 +1,420 @@
+{
+  "AG": [
+    {
+      "name": "Vingt Cinq",
+      "postalCodes": []
+    }
+  ],
+  "BR": [],
+  "CC": [
+    {
+      "name": "Cargados Carajos",
+      "postalCodes": []
+    }
+  ],
+  "CU": [],
+  "FL": [
+    {
+      "name": "Bel Air Rivière Sèche",
+      "postalCodes": []
+    },
+    {
+      "name": "Bon Accueil",
+      "postalCodes": []
+    },
+    {
+      "name": "Brisée Verdière",
+      "postalCodes": []
+    },
+    {
+      "name": "Camp de Masque",
+      "postalCodes": []
+    },
+    {
+      "name": "Camp Ithier",
+      "postalCodes": []
+    },
+    {
+      "name": "Centre de Flacq",
+      "postalCodes": []
+    },
+    {
+      "name": "Clémencia",
+      "postalCodes": []
+    },
+    {
+      "name": "Ecroignard",
+      "postalCodes": []
+    },
+    {
+      "name": "Grande Rivière Sud Est",
+      "postalCodes": []
+    },
+    {
+      "name": "Lalmatie",
+      "postalCodes": []
+    },
+    {
+      "name": "Laventure",
+      "postalCodes": []
+    },
+    {
+      "name": "Mare La Chaux",
+      "postalCodes": []
+    },
+    {
+      "name": "Olivia",
+      "postalCodes": []
+    },
+    {
+      "name": "Poste de Flacq",
+      "postalCodes": []
+    },
+    {
+      "name": "Quatre Cocos",
+      "postalCodes": []
+    },
+    {
+      "name": "Quatre Soeurs",
+      "postalCodes": []
+    },
+    {
+      "name": "Queen Victoria",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint Julien",
+      "postalCodes": []
+    },
+    {
+      "name": "Sebastopol",
+      "postalCodes": []
+    }
+  ],
+  "GP": [
+    {
+      "name": "Bambous Virieux",
+      "postalCodes": []
+    },
+    {
+      "name": "Beau Vallon",
+      "postalCodes": []
+    },
+    {
+      "name": "Bois des Amourettes",
+      "postalCodes": []
+    },
+    {
+      "name": "Cluny",
+      "postalCodes": []
+    },
+    {
+      "name": "Grand Sable",
+      "postalCodes": []
+    },
+    {
+      "name": "Mahébourg",
+      "postalCodes": []
+    },
+    {
+      "name": "New Grove",
+      "postalCodes": []
+    },
+    {
+      "name": "Nouvelle France",
+      "postalCodes": []
+    },
+    {
+      "name": "Plaine Magnien",
+      "postalCodes": []
+    },
+    {
+      "name": "Rose Belle",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint Hubert",
+      "postalCodes": []
+    }
+  ],
+  "MO": [
+    {
+      "name": "Camp Thorel",
+      "postalCodes": []
+    },
+    {
+      "name": "Dagotière",
+      "postalCodes": []
+    },
+    {
+      "name": "Dubreuil",
+      "postalCodes": []
+    },
+    {
+      "name": "Melrose",
+      "postalCodes": []
+    },
+    {
+      "name": "Moka",
+      "postalCodes": []
+    },
+    {
+      "name": "Pailles",
+      "postalCodes": []
+    },
+    {
+      "name": "Providence",
+      "postalCodes": []
+    },
+    {
+      "name": "Quartier Militaire",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint Pierre",
+      "postalCodes": []
+    },
+    {
+      "name": "Verdun",
+      "postalCodes": []
+    }
+  ],
+  "PA": [
+    {
+      "name": "Arsenal",
+      "postalCodes": []
+    },
+    {
+      "name": "Calebasses",
+      "postalCodes": []
+    },
+    {
+      "name": "Congomah",
+      "postalCodes": []
+    },
+    {
+      "name": "Crève Coeur",
+      "postalCodes": []
+    },
+    {
+      "name": "Fond du Sac",
+      "postalCodes": []
+    },
+    {
+      "name": "Le Hochet",
+      "postalCodes": []
+    },
+    {
+      "name": "Long Mountain",
+      "postalCodes": []
+    },
+    {
+      "name": "Morcellement Saint André",
+      "postalCodes": []
+    },
+    {
+      "name": "Notre Dame",
+      "postalCodes": []
+    },
+    {
+      "name": "Pamplemousses",
+      "postalCodes": []
+    },
+    {
+      "name": "Plaine des Papayes",
+      "postalCodes": []
+    },
+    {
+      "name": "Pointe aux Piments",
+      "postalCodes": []
+    },
+    {
+      "name": "Terre Rouge",
+      "postalCodes": []
+    },
+    {
+      "name": "Triolet",
+      "postalCodes": []
+    }
+  ],
+  "PW": [
+    {
+      "name": "Beau Bassin-Rose Hill",
+      "postalCodes": []
+    },
+    {
+      "name": "Curepipe",
+      "postalCodes": []
+    },
+    {
+      "name": "Ebene",
+      "postalCodes": []
+    },
+    {
+      "name": "Midlands",
+      "postalCodes": []
+    },
+    {
+      "name": "Quatre Bornes",
+      "postalCodes": []
+    },
+    {
+      "name": "Vacoas",
+      "postalCodes": []
+    }
+  ],
+  "PU": [],
+  "PL": [
+    {
+      "name": "Port Louis",
+      "postalCodes": []
+    }
+  ],
+  "QB": [],
+  "RR": [
+    {
+      "name": "Amaury",
+      "postalCodes": []
+    },
+    {
+      "name": "Cap Malheureux",
+      "postalCodes": []
+    },
+    {
+      "name": "Cottage",
+      "postalCodes": []
+    },
+    {
+      "name": "Espérance Trébuchet",
+      "postalCodes": []
+    },
+    {
+      "name": "Goodlands",
+      "postalCodes": []
+    },
+    {
+      "name": "Grand Baie",
+      "postalCodes": []
+    },
+    {
+      "name": "Grand Gaube",
+      "postalCodes": []
+    },
+    {
+      "name": "Mapou",
+      "postalCodes": []
+    },
+    {
+      "name": "Petit Raffray",
+      "postalCodes": []
+    },
+    {
+      "name": "Piton",
+      "postalCodes": []
+    },
+    {
+      "name": "Plaines des Roches",
+      "postalCodes": []
+    },
+    {
+      "name": "Rivière du Rempart",
+      "postalCodes": []
+    },
+    {
+      "name": "Roche Terre",
+      "postalCodes": []
+    },
+    {
+      "name": "Roches Noire",
+      "postalCodes": []
+    },
+    {
+      "name": "The Vale",
+      "postalCodes": []
+    }
+  ],
+  "BL": [
+    {
+      "name": "Albion",
+      "postalCodes": []
+    },
+    {
+      "name": "Bambous",
+      "postalCodes": []
+    },
+    {
+      "name": "Cascavelle",
+      "postalCodes": []
+    },
+    {
+      "name": "Flic en Flac",
+      "postalCodes": []
+    },
+    {
+      "name": "Grande Rivière Noire",
+      "postalCodes": []
+    },
+    {
+      "name": "Gros Cailloux",
+      "postalCodes": []
+    },
+    {
+      "name": "Petite Case Noyale",
+      "postalCodes": []
+    },
+    {
+      "name": "Petite Rivière",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamarin",
+      "postalCodes": []
+    }
+  ],
+  "RO": [
+    {
+      "name": "Baie aux Huîtres",
+      "postalCodes": []
+    },
+    {
+      "name": "Port Mathurin",
+      "postalCodes": []
+    }
+  ],
+  "SA": [
+    {
+      "name": "Camp Diable",
+      "postalCodes": []
+    },
+    {
+      "name": "Chamouny",
+      "postalCodes": []
+    },
+    {
+      "name": "Chemin Grenier",
+      "postalCodes": []
+    },
+    {
+      "name": "Grand Bois",
+      "postalCodes": []
+    },
+    {
+      "name": "Rivière des Anguilles",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint Aubin",
+      "postalCodes": []
+    },
+    {
+      "name": "Souillac",
+      "postalCodes": []
+    },
+    {
+      "name": "Surinam",
+      "postalCodes": []
+    }
+  ],
+  "VP": [],
+  "_OTHER": []
+}

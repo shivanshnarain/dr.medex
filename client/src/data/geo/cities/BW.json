@@ -1,0 +1,322 @@
+{
+  "CE": [
+    {
+      "name": "Gobojango",
+      "postalCodes": []
+    },
+    {
+      "name": "Gweta",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalamare",
+      "postalCodes": []
+    },
+    {
+      "name": "Letlhakane",
+      "postalCodes": []
+    },
+    {
+      "name": "Letsheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Maapi",
+      "postalCodes": []
+    },
+    {
+      "name": "Machaneng",
+      "postalCodes": []
+    },
+    {
+      "name": "Mahalapye",
+      "postalCodes": []
+    },
+    {
+      "name": "Makobeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Makwata",
+      "postalCodes": []
+    },
+    {
+      "name": "Mathakola",
+      "postalCodes": []
+    },
+    {
+      "name": "Mathambgwane",
+      "postalCodes": []
+    },
+    {
+      "name": "Mathathane",
+      "postalCodes": []
+    },
+    {
+      "name": "Maunatlala",
+      "postalCodes": []
+    },
+    {
+      "name": "Mogapi",
+      "postalCodes": []
+    },
+    {
+      "name": "Moijabana",
+      "postalCodes": []
+    },
+    {
+      "name": "Mookane",
+      "postalCodes": []
+    },
+    {
+      "name": "Mopipi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosetse",
+      "postalCodes": []
+    },
+    {
+      "name": "Nata",
+      "postalCodes": []
+    },
+    {
+      "name": "Orapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Palapye",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilikwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Rakops",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramokgonami",
+      "postalCodes": []
+    },
+    {
+      "name": "Ratholo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sefophe",
+      "postalCodes": []
+    },
+    {
+      "name": "Serowe",
+      "postalCodes": []
+    },
+    {
+      "name": "Sua",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamasane",
+      "postalCodes": []
+    },
+    {
+      "name": "Tobane",
+      "postalCodes": []
+    },
+    {
+      "name": "Tonota",
+      "postalCodes": []
+    }
+  ],
+  "GH": [
+    {
+      "name": "Dekar",
+      "postalCodes": []
+    },
+    {
+      "name": "Ghanzi",
+      "postalCodes": []
+    }
+  ],
+  "KG": [
+    {
+      "name": "Hukuntsi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kang",
+      "postalCodes": []
+    },
+    {
+      "name": "Lehututu",
+      "postalCodes": []
+    },
+    {
+      "name": "Manyana",
+      "postalCodes": []
+    },
+    {
+      "name": "Tshabong",
+      "postalCodes": []
+    },
+    {
+      "name": "Werda",
+      "postalCodes": []
+    }
+  ],
+  "KL": [
+    {
+      "name": "Bokaa",
+      "postalCodes": []
+    },
+    {
+      "name": "Mmathubudukwane",
+      "postalCodes": []
+    },
+    {
+      "name": "Mochudi",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilane",
+      "postalCodes": []
+    }
+  ],
+  "KW": [
+    {
+      "name": "Botlhapatlou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dutlwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Gabane",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaphatshwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Khudumelapye",
+      "postalCodes": []
+    },
+    {
+      "name": "Lenchwe Le Tau",
+      "postalCodes": []
+    },
+    {
+      "name": "Letlhakeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Metsemotlhaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Mmopone",
+      "postalCodes": []
+    },
+    {
+      "name": "Mogoditshane",
+      "postalCodes": []
+    },
+    {
+      "name": "Molepolole",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkoyaphiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Thamaga",
+      "postalCodes": []
+    }
+  ],
+  "NG": [],
+  "NE": [
+    {
+      "name": "Dukwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Makaleng",
+      "postalCodes": []
+    },
+    {
+      "name": "Masunga",
+      "postalCodes": []
+    },
+    {
+      "name": "Sebina",
+      "postalCodes": []
+    }
+  ],
+  "NW": [
+    {
+      "name": "Maun",
+      "postalCodes": []
+    },
+    {
+      "name": "Nokaneng",
+      "postalCodes": []
+    },
+    {
+      "name": "Pandamatenga",
+      "postalCodes": []
+    },
+    {
+      "name": "Sehithwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Shakawe",
+      "postalCodes": []
+    }
+  ],
+  "SE": [
+    {
+      "name": "Gaborone",
+      "postalCodes": []
+    },
+    {
+      "name": "Janeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Kopong",
+      "postalCodes": []
+    },
+    {
+      "name": "Otse",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramotswa",
+      "postalCodes": []
+    }
+  ],
+  "SO": [
+    {
+      "name": "Kanye",
+      "postalCodes": []
+    },
+    {
+      "name": "Khakhea",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosopa",
+      "postalCodes": []
+    },
+    {
+      "name": "Sekoma",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

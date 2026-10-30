@@ -1,0 +1,1985 @@
+{
+  "AMA": [
+    {
+      "name": "Bagua Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Cajaruro",
+      "postalCodes": []
+    },
+    {
+      "name": "Chachapoyas",
+      "postalCodes": []
+    },
+    {
+      "name": "Condorcanqui",
+      "postalCodes": []
+    },
+    {
+      "name": "La Peca",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Bagua",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Bongará",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Chachapoyas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Luya",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Rodríguez de Mendoza",
+      "postalCodes": []
+    },
+    {
+      "name": "Utcubamba",
+      "postalCodes": []
+    }
+  ],
+  "ANC": [
+    {
+      "name": "Asuncion",
+      "postalCodes": []
+    },
+    {
+      "name": "Carás",
+      "postalCodes": []
+    },
+    {
+      "name": "Carhuaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Carlos Fermin Fitzcarrald",
+      "postalCodes": []
+    },
+    {
+      "name": "Chimbote",
+      "postalCodes": []
+    },
+    {
+      "name": "Coishco",
+      "postalCodes": []
+    },
+    {
+      "name": "Huaraz",
+      "postalCodes": []
+    },
+    {
+      "name": "Huarmey",
+      "postalCodes": []
+    },
+    {
+      "name": "Pomabamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Aija",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Antonio Raymondi",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Bolognesi",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Carhuaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Casma",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Corongo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Huaraz",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Huari",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Huarmey",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Huaylas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Mariscal Luzuriaga",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Pallasca",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Pomabamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Recuay",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Santa",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Sihuas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Yungay",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Santa",
+      "postalCodes": []
+    },
+    {
+      "name": "Yauya",
+      "postalCodes": []
+    },
+    {
+      "name": "Yungay",
+      "postalCodes": []
+    }
+  ],
+  "APU": [
+    {
+      "name": "Abancay",
+      "postalCodes": []
+    },
+    {
+      "name": "Andahuaylas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Abancay",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Andahuaylas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Antabamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Aymaraes",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Cotabambas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Grau",
+      "postalCodes": []
+    },
+    {
+      "name": "San Jerónimo",
+      "postalCodes": []
+    },
+    {
+      "name": "Talavera",
+      "postalCodes": []
+    }
+  ],
+  "ARE": [
+    {
+      "name": "Acarí",
+      "postalCodes": []
+    },
+    {
+      "name": "Arequipa",
+      "postalCodes": []
+    },
+    {
+      "name": "Camaná",
+      "postalCodes": []
+    },
+    {
+      "name": "Ccolo",
+      "postalCodes": []
+    },
+    {
+      "name": "Chivay",
+      "postalCodes": []
+    },
+    {
+      "name": "Cocachacra",
+      "postalCodes": []
+    },
+    {
+      "name": "Cotahuasi",
+      "postalCodes": []
+    },
+    {
+      "name": "Huarancante",
+      "postalCodes": []
+    },
+    {
+      "name": "Huarichancara",
+      "postalCodes": []
+    },
+    {
+      "name": "Jatun Orcochiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Jayune",
+      "postalCodes": []
+    },
+    {
+      "name": "Llongasora",
+      "postalCodes": []
+    },
+    {
+      "name": "Lluta",
+      "postalCodes": []
+    },
+    {
+      "name": "Mollendo",
+      "postalCodes": []
+    },
+    {
+      "name": "Orcopampa",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Arequipa",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Camaná",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Caravelí",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Castilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Caylloma",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Condesuyos",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Islay",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de La Unión",
+      "postalCodes": []
+    },
+    {
+      "name": "Pucara",
+      "postalCodes": []
+    },
+    {
+      "name": "Punta de Bombón",
+      "postalCodes": []
+    },
+    {
+      "name": "Vizcachane",
+      "postalCodes": []
+    },
+    {
+      "name": "Yura",
+      "postalCodes": []
+    }
+  ],
+  "AYA": [
+    {
+      "name": "Ayacucho",
+      "postalCodes": []
+    },
+    {
+      "name": "Ayna",
+      "postalCodes": []
+    },
+    {
+      "name": "Coracora",
+      "postalCodes": []
+    },
+    {
+      "name": "Huanta",
+      "postalCodes": []
+    },
+    {
+      "name": "Paucar Del Sara Sara",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Cangallo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Huamanga",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Huanca Sancos",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Huanta",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de La Mar",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Lucanas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Parinacochas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Sucre",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Víctor Fajardo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Vilcas Huamán",
+      "postalCodes": []
+    },
+    {
+      "name": "Puquio",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel",
+      "postalCodes": []
+    },
+    {
+      "name": "Tambo",
+      "postalCodes": []
+    }
+  ],
+  "CAJ": [
+    {
+      "name": "Bambamarca",
+      "postalCodes": []
+    },
+    {
+      "name": "Bellavista",
+      "postalCodes": []
+    },
+    {
+      "name": "Cajabamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Cajamarca",
+      "postalCodes": []
+    },
+    {
+      "name": "Celendín",
+      "postalCodes": []
+    },
+    {
+      "name": "Chota",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaén",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Cajabamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Cajamarca",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Celendín",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Chota",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Contumazá",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Cutervo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Hualgayoc",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Jaén",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de San Ignacio",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de San Miguel",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Santa Cruz",
+      "postalCodes": []
+    },
+    {
+      "name": "San Ignacio",
+      "postalCodes": []
+    }
+  ],
+  "CAL": [
+    {
+      "name": "Callao",
+      "postalCodes": []
+    }
+  ],
+  "CUS": [
+    {
+      "name": "Anta",
+      "postalCodes": []
+    },
+    {
+      "name": "Cahuanuyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Calca",
+      "postalCodes": []
+    },
+    {
+      "name": "Callanca",
+      "postalCodes": []
+    },
+    {
+      "name": "Ccaquiracunca",
+      "postalCodes": []
+    },
+    {
+      "name": "Ccuntuma",
+      "postalCodes": []
+    },
+    {
+      "name": "Checacupe",
+      "postalCodes": []
+    },
+    {
+      "name": "Checca",
+      "postalCodes": []
+    },
+    {
+      "name": "Chignayhua",
+      "postalCodes": []
+    },
+    {
+      "name": "Chinchero",
+      "postalCodes": []
+    },
+    {
+      "name": "Combapata",
+      "postalCodes": []
+    },
+    {
+      "name": "Conchopata",
+      "postalCodes": []
+    },
+    {
+      "name": "Cullcuyre",
+      "postalCodes": []
+    },
+    {
+      "name": "Cusco",
+      "postalCodes": []
+    },
+    {
+      "name": "Huayna Alcalde",
+      "postalCodes": []
+    },
+    {
+      "name": "Jayobamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Langui",
+      "postalCodes": []
+    },
+    {
+      "name": "Layo",
+      "postalCodes": []
+    },
+    {
+      "name": "Lima Pampa",
+      "postalCodes": []
+    },
+    {
+      "name": "Maranganí",
+      "postalCodes": []
+    },
+    {
+      "name": "Maras",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosoc Cancha",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosoc Llacta",
+      "postalCodes": []
+    },
+    {
+      "name": "Ollantaytambo",
+      "postalCodes": []
+    },
+    {
+      "name": "Oropesa",
+      "postalCodes": []
+    },
+    {
+      "name": "Pampamarca",
+      "postalCodes": []
+    },
+    {
+      "name": "Pangoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Paucartambo",
+      "postalCodes": []
+    },
+    {
+      "name": "Pisac",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Acomayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Anta",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Calca",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Canas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Canchis",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Chumbivilcas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Cusco",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Espinar",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de La Convención",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Paruro",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Paucartambo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Quispicanchis",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Urubamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Qquea",
+      "postalCodes": []
+    },
+    {
+      "name": "Queromarca",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pablo",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Ana",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Tomas",
+      "postalCodes": []
+    },
+    {
+      "name": "Sicuani",
+      "postalCodes": []
+    },
+    {
+      "name": "Tinta",
+      "postalCodes": []
+    },
+    {
+      "name": "Tungasuca",
+      "postalCodes": []
+    },
+    {
+      "name": "Urcos",
+      "postalCodes": []
+    },
+    {
+      "name": "Urubamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanaoca",
+      "postalCodes": []
+    }
+  ],
+  "HUV": [
+    {
+      "name": "Huancavelica",
+      "postalCodes": []
+    },
+    {
+      "name": "Huaytara",
+      "postalCodes": []
+    },
+    {
+      "name": "Pampas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Acobamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Angaraes",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Castrovirreyna",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Churcampa",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Huancavelica",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Tayacaja",
+      "postalCodes": []
+    }
+  ],
+  "HUC": [
+    {
+      "name": "Ambo",
+      "postalCodes": []
+    },
+    {
+      "name": "Huacaybamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Huánuco",
+      "postalCodes": []
+    },
+    {
+      "name": "La Unión",
+      "postalCodes": []
+    },
+    {
+      "name": "Lauricocha",
+      "postalCodes": []
+    },
+    {
+      "name": "Llata",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Ambo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Dos de Mayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Huamalíes",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Huánuco",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Leoncio Prado",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Marañón",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Pachitea",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Inca",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel de Cauri",
+      "postalCodes": []
+    },
+    {
+      "name": "Tingo María",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanacancha",
+      "postalCodes": []
+    },
+    {
+      "name": "Yarowilca",
+      "postalCodes": []
+    }
+  ],
+  "ICA": [
+    {
+      "name": "Chincha Alta",
+      "postalCodes": []
+    },
+    {
+      "name": "Ica",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Aquijes",
+      "postalCodes": []
+    },
+    {
+      "name": "Minas de Marcona",
+      "postalCodes": []
+    },
+    {
+      "name": "Nazca",
+      "postalCodes": []
+    },
+    {
+      "name": "Palpa",
+      "postalCodes": []
+    },
+    {
+      "name": "Paracas",
+      "postalCodes": []
+    },
+    {
+      "name": "Pisco",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Chincha",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Ica",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Nazca",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Palpa",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Pisco",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "San Clemente",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan Bautista",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago",
+      "postalCodes": []
+    },
+    {
+      "name": "Subtanjalla",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Tupac Amaru",
+      "postalCodes": []
+    }
+  ],
+  "JUN": [
+    {
+      "name": "Acolla",
+      "postalCodes": []
+    },
+    {
+      "name": "Carhuamayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Chanchamayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Chupaca",
+      "postalCodes": []
+    },
+    {
+      "name": "Concepción",
+      "postalCodes": []
+    },
+    {
+      "name": "Huancayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Huasahuasi",
+      "postalCodes": []
+    },
+    {
+      "name": "Huayucachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jauja",
+      "postalCodes": []
+    },
+    {
+      "name": "Junín",
+      "postalCodes": []
+    },
+    {
+      "name": "La Oroya",
+      "postalCodes": []
+    },
+    {
+      "name": "Mazamari",
+      "postalCodes": []
+    },
+    {
+      "name": "Morococha",
+      "postalCodes": []
+    },
+    {
+      "name": "Orcotuna",
+      "postalCodes": []
+    },
+    {
+      "name": "Perené",
+      "postalCodes": []
+    },
+    {
+      "name": "Pilcomay",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Chupaca",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Concepción",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Huancayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Jauja",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Junín",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Satipo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Tarma",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Yauli",
+      "postalCodes": []
+    },
+    {
+      "name": "San Agustin",
+      "postalCodes": []
+    },
+    {
+      "name": "San Jerónimo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro de Cajas",
+      "postalCodes": []
+    },
+    {
+      "name": "San Ramón",
+      "postalCodes": []
+    },
+    {
+      "name": "Satipo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sicaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarma",
+      "postalCodes": []
+    }
+  ],
+  "LAL": [
+    {
+      "name": "Ascope",
+      "postalCodes": []
+    },
+    {
+      "name": "Cascas",
+      "postalCodes": []
+    },
+    {
+      "name": "Chepen",
+      "postalCodes": []
+    },
+    {
+      "name": "Chicama",
+      "postalCodes": []
+    },
+    {
+      "name": "Chocope",
+      "postalCodes": []
+    },
+    {
+      "name": "Gran Chimu",
+      "postalCodes": []
+    },
+    {
+      "name": "Guadalupe",
+      "postalCodes": []
+    },
+    {
+      "name": "Huamachuco",
+      "postalCodes": []
+    },
+    {
+      "name": "Julcan",
+      "postalCodes": []
+    },
+    {
+      "name": "Laredo",
+      "postalCodes": []
+    },
+    {
+      "name": "Moche",
+      "postalCodes": []
+    },
+    {
+      "name": "Otuzco",
+      "postalCodes": []
+    },
+    {
+      "name": "Pacanga",
+      "postalCodes": []
+    },
+    {
+      "name": "Pacasmayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Paiján",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Bolívar",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Otuzco",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Pacasmayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Pataz",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Santiago de Chuco",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Trujillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Pueblo Nuevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Quiruvilca",
+      "postalCodes": []
+    },
+    {
+      "name": "Salaverry",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro de Lloc",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanchez Carrion",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago de Cao",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago de Chuco",
+      "postalCodes": []
+    },
+    {
+      "name": "Trujillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Viru",
+      "postalCodes": []
+    }
+  ],
+  "LAM": [
+    {
+      "name": "Chiclayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Chongoyape",
+      "postalCodes": []
+    },
+    {
+      "name": "Eten",
+      "postalCodes": []
+    },
+    {
+      "name": "Ferreñafe",
+      "postalCodes": []
+    },
+    {
+      "name": "Jayanca",
+      "postalCodes": []
+    },
+    {
+      "name": "Lambayeque",
+      "postalCodes": []
+    },
+    {
+      "name": "Mochumí",
+      "postalCodes": []
+    },
+    {
+      "name": "Monsefú",
+      "postalCodes": []
+    },
+    {
+      "name": "Mórrope",
+      "postalCodes": []
+    },
+    {
+      "name": "Motupe",
+      "postalCodes": []
+    },
+    {
+      "name": "Olmos",
+      "postalCodes": []
+    },
+    {
+      "name": "Oyotún",
+      "postalCodes": []
+    },
+    {
+      "name": "Picsi",
+      "postalCodes": []
+    },
+    {
+      "name": "Pimentel",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Chiclayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Ferreñafe",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Lambayeque",
+      "postalCodes": []
+    },
+    {
+      "name": "Pueblo Nuevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Reque",
+      "postalCodes": []
+    },
+    {
+      "name": "San José",
+      "postalCodes": []
+    },
+    {
+      "name": "Saña",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Túcume",
+      "postalCodes": []
+    }
+  ],
+  "LIM": [
+    {
+      "name": "Asentamiento Humano Nicolas de Pierola",
+      "postalCodes": []
+    },
+    {
+      "name": "Barranca",
+      "postalCodes": []
+    },
+    {
+      "name": "Caleta de Carquín",
+      "postalCodes": []
+    },
+    {
+      "name": "Chancay",
+      "postalCodes": []
+    },
+    {
+      "name": "Chilca",
+      "postalCodes": []
+    },
+    {
+      "name": "Chosica",
+      "postalCodes": []
+    },
+    {
+      "name": "Huacho",
+      "postalCodes": []
+    },
+    {
+      "name": "Hualmay",
+      "postalCodes": []
+    },
+    {
+      "name": "Huaral",
+      "postalCodes": []
+    },
+    {
+      "name": "Huaura",
+      "postalCodes": []
+    },
+    {
+      "name": "Imperial",
+      "postalCodes": []
+    },
+    {
+      "name": "Independencia",
+      "postalCodes": []
+    },
+    {
+      "name": "Lima",
+      "postalCodes": []
+    },
+    {
+      "name": "Mala",
+      "postalCodes": []
+    },
+    {
+      "name": "Matucana",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuevo Imperial",
+      "postalCodes": []
+    },
+    {
+      "name": "Oyon",
+      "postalCodes": []
+    },
+    {
+      "name": "Paramonga",
+      "postalCodes": []
+    },
+    {
+      "name": "Pativilca",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Cajatambo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Cañete",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Canta",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Huaral",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Huarochirí",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Yauyos",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Supe",
+      "postalCodes": []
+    },
+    {
+      "name": "Quilmaná",
+      "postalCodes": []
+    },
+    {
+      "name": "Ricardo Palma",
+      "postalCodes": []
+    },
+    {
+      "name": "San Bartolo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Isidro",
+      "postalCodes": []
+    },
+    {
+      "name": "San Luis",
+      "postalCodes": []
+    },
+    {
+      "name": "San Vicente de Cañete",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa María",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago de Surco",
+      "postalCodes": []
+    },
+    {
+      "name": "Sayán",
+      "postalCodes": []
+    },
+    {
+      "name": "Supe",
+      "postalCodes": []
+    },
+    {
+      "name": "Urb. Santo Domingo",
+      "postalCodes": []
+    },
+    {
+      "name": "Végueta",
+      "postalCodes": []
+    }
+  ],
+  "LOR": [
+    {
+      "name": "Andoas",
+      "postalCodes": []
+    },
+    {
+      "name": "Borja",
+      "postalCodes": []
+    },
+    {
+      "name": "Caballococha",
+      "postalCodes": []
+    },
+    {
+      "name": "Cape Pantoja",
+      "postalCodes": []
+    },
+    {
+      "name": "Indiana",
+      "postalCodes": []
+    },
+    {
+      "name": "Iquitos",
+      "postalCodes": []
+    },
+    {
+      "name": "Jeberos",
+      "postalCodes": []
+    },
+    {
+      "name": "Jenaro Herrera",
+      "postalCodes": []
+    },
+    {
+      "name": "Lagunas",
+      "postalCodes": []
+    },
+    {
+      "name": "Nauta",
+      "postalCodes": []
+    },
+    {
+      "name": "Punchana",
+      "postalCodes": []
+    },
+    {
+      "name": "Requena",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio del Estrecho",
+      "postalCodes": []
+    },
+    {
+      "name": "San Lorenzo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pablo",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamshiyacu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yurimaguas",
+      "postalCodes": []
+    }
+  ],
+  "MDD": [
+    {
+      "name": "Iberia",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Manú",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Tahuamanú",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Tambopata",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Maldonado",
+      "postalCodes": []
+    },
+    {
+      "name": "Salvación",
+      "postalCodes": []
+    },
+    {
+      "name": "Tambopata",
+      "postalCodes": []
+    }
+  ],
+  "MOQ": [
+    {
+      "name": "Ilo",
+      "postalCodes": []
+    },
+    {
+      "name": "Moquegua",
+      "postalCodes": []
+    },
+    {
+      "name": "Pacocha",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de General Sánchez Cerro",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Ilo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Mariscal Nieto",
+      "postalCodes": []
+    },
+    {
+      "name": "Torata",
+      "postalCodes": []
+    }
+  ],
+  "PAS": [
+    {
+      "name": "Cerro de Pasco",
+      "postalCodes": []
+    },
+    {
+      "name": "Chaupimarca",
+      "postalCodes": []
+    },
+    {
+      "name": "Oxapampa",
+      "postalCodes": []
+    },
+    {
+      "name": "Paucartambo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Daniel Carrión",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Oxapampa",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Pasco",
+      "postalCodes": []
+    },
+    {
+      "name": "Tinyahuarco",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Rica",
+      "postalCodes": []
+    }
+  ],
+  "PIU": [
+    {
+      "name": "Ayabaca",
+      "postalCodes": []
+    },
+    {
+      "name": "Bernal",
+      "postalCodes": []
+    },
+    {
+      "name": "Buenos Aires",
+      "postalCodes": []
+    },
+    {
+      "name": "Catacaos",
+      "postalCodes": []
+    },
+    {
+      "name": "Chulucanas",
+      "postalCodes": []
+    },
+    {
+      "name": "El Alto",
+      "postalCodes": []
+    },
+    {
+      "name": "Huancabamba",
+      "postalCodes": []
+    },
+    {
+      "name": "La Breita",
+      "postalCodes": []
+    },
+    {
+      "name": "La Huaca",
+      "postalCodes": []
+    },
+    {
+      "name": "La Unión",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Lomas",
+      "postalCodes": []
+    },
+    {
+      "name": "Máncora",
+      "postalCodes": []
+    },
+    {
+      "name": "Marcavelica",
+      "postalCodes": []
+    },
+    {
+      "name": "Morropon",
+      "postalCodes": []
+    },
+    {
+      "name": "Paita",
+      "postalCodes": []
+    },
+    {
+      "name": "Piura",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Ayabaca",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Huancabamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Paita",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Piura",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Sullana",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Talara",
+      "postalCodes": []
+    },
+    {
+      "name": "Querecotillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Salinera Colán",
+      "postalCodes": []
+    },
+    {
+      "name": "Salitral",
+      "postalCodes": []
+    },
+    {
+      "name": "Sechura",
+      "postalCodes": []
+    },
+    {
+      "name": "Sullana",
+      "postalCodes": []
+    },
+    {
+      "name": "Talara",
+      "postalCodes": []
+    },
+    {
+      "name": "Tambo Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Vice",
+      "postalCodes": []
+    }
+  ],
+  "PUN": [
+    {
+      "name": "Atuncolla",
+      "postalCodes": []
+    },
+    {
+      "name": "Ayaviri",
+      "postalCodes": []
+    },
+    {
+      "name": "Azángaro",
+      "postalCodes": []
+    },
+    {
+      "name": "Desaguadero",
+      "postalCodes": []
+    },
+    {
+      "name": "El Collao",
+      "postalCodes": []
+    },
+    {
+      "name": "Hacienda Huancane",
+      "postalCodes": []
+    },
+    {
+      "name": "Ilave",
+      "postalCodes": []
+    },
+    {
+      "name": "Juli",
+      "postalCodes": []
+    },
+    {
+      "name": "Juliaca",
+      "postalCodes": []
+    },
+    {
+      "name": "La Rinconada",
+      "postalCodes": []
+    },
+    {
+      "name": "Lampa",
+      "postalCodes": []
+    },
+    {
+      "name": "Macusani",
+      "postalCodes": []
+    },
+    {
+      "name": "Ñuñoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Azángaro",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Carabaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Chucuito",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Huancané",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Lampa",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Melgar",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Puno",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Sandia",
+      "postalCodes": []
+    },
+    {
+      "name": "Puno",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio De Putina",
+      "postalCodes": []
+    },
+    {
+      "name": "San Roman",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Lucía",
+      "postalCodes": []
+    },
+    {
+      "name": "Taquile",
+      "postalCodes": []
+    },
+    {
+      "name": "Yunguyo",
+      "postalCodes": []
+    }
+  ],
+  "SAM": [
+    {
+      "name": "Bellavista",
+      "postalCodes": []
+    },
+    {
+      "name": "Chazuta",
+      "postalCodes": []
+    },
+    {
+      "name": "El Dorado",
+      "postalCodes": []
+    },
+    {
+      "name": "Huicungo",
+      "postalCodes": []
+    },
+    {
+      "name": "Jepelacio",
+      "postalCodes": []
+    },
+    {
+      "name": "Juanjuí",
+      "postalCodes": []
+    },
+    {
+      "name": "Lamas",
+      "postalCodes": []
+    },
+    {
+      "name": "Moyobamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Picota",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Huallaga",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Lamas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Mariscal Cáceres",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Moyobamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Rioja",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de San Martín",
+      "postalCodes": []
+    },
+    {
+      "name": "Rioja",
+      "postalCodes": []
+    },
+    {
+      "name": "Saposoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Sisa",
+      "postalCodes": []
+    },
+    {
+      "name": "Soritor",
+      "postalCodes": []
+    },
+    {
+      "name": "Tabalosos",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarapoto",
+      "postalCodes": []
+    },
+    {
+      "name": "Tocache",
+      "postalCodes": []
+    },
+    {
+      "name": "Uchiza",
+      "postalCodes": []
+    }
+  ],
+  "TAC": [
+    {
+      "name": "Calana",
+      "postalCodes": []
+    },
+    {
+      "name": "Candarave",
+      "postalCodes": []
+    },
+    {
+      "name": "Chipispaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Chuquitira",
+      "postalCodes": []
+    },
+    {
+      "name": "Ilabaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Jorge Basadre",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Tacna",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Tarata",
+      "postalCodes": []
+    },
+    {
+      "name": "Pujocucho",
+      "postalCodes": []
+    },
+    {
+      "name": "Quilahuani",
+      "postalCodes": []
+    },
+    {
+      "name": "Tacna",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarata",
+      "postalCodes": []
+    },
+    {
+      "name": "Totoral",
+      "postalCodes": []
+    }
+  ],
+  "TUM": [
+    {
+      "name": "Aguas Verdes",
+      "postalCodes": []
+    },
+    {
+      "name": "Papayal",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Contralmirante Villar",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Tumbes",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Zarumilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Tumbes",
+      "postalCodes": []
+    },
+    {
+      "name": "Zarumilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Zorritos",
+      "postalCodes": []
+    }
+  ],
+  "UCA": [
+    {
+      "name": "Atalaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Campoverde",
+      "postalCodes": []
+    },
+    {
+      "name": "Padre Abad",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia de Coronel Portillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Pucallpa",
+      "postalCodes": []
+    },
+    {
+      "name": "Purus",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

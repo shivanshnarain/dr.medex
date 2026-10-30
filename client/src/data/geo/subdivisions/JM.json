@@ -1,0 +1,72 @@
+[
+  {
+    "code": "13",
+    "name": "Clarendon Parish",
+    "countryCode": "JM"
+  },
+  {
+    "code": "09",
+    "name": "Hanover Parish",
+    "countryCode": "JM"
+  },
+  {
+    "code": "01",
+    "name": "Kingston Parish",
+    "countryCode": "JM"
+  },
+  {
+    "code": "12",
+    "name": "Manchester Parish",
+    "countryCode": "JM"
+  },
+  {
+    "code": "04",
+    "name": "Portland Parish",
+    "countryCode": "JM"
+  },
+  {
+    "code": "02",
+    "name": "Saint Andrew",
+    "countryCode": "JM"
+  },
+  {
+    "code": "06",
+    "name": "Saint Ann Parish",
+    "countryCode": "JM"
+  },
+  {
+    "code": "14",
+    "name": "Saint Catherine Parish",
+    "countryCode": "JM"
+  },
+  {
+    "code": "11",
+    "name": "Saint Elizabeth Parish",
+    "countryCode": "JM"
+  },
+  {
+    "code": "08",
+    "name": "Saint James Parish",
+    "countryCode": "JM"
+  },
+  {
+    "code": "05",
+    "name": "Saint Mary Parish",
+    "countryCode": "JM"
+  },
+  {
+    "code": "03",
+    "name": "Saint Thomas Parish",
+    "countryCode": "JM"
+  },
+  {
+    "code": "07",
+    "name": "Trelawny Parish",
+    "countryCode": "JM"
+  },
+  {
+    "code": "10",
+    "name": "Westmoreland Parish",
+    "countryCode": "JM"
+  }
+]

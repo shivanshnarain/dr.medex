@@ -1,0 +1,42 @@
+[
+  {
+    "code": "1",
+    "name": "Capital Region",
+    "countryCode": "IS"
+  },
+  {
+    "code": "7",
+    "name": "Eastern Region",
+    "countryCode": "IS"
+  },
+  {
+    "code": "6",
+    "name": "Northeastern Region",
+    "countryCode": "IS"
+  },
+  {
+    "code": "5",
+    "name": "Northwestern Region",
+    "countryCode": "IS"
+  },
+  {
+    "code": "2",
+    "name": "Southern Peninsula Region",
+    "countryCode": "IS"
+  },
+  {
+    "code": "8",
+    "name": "Southern Region",
+    "countryCode": "IS"
+  },
+  {
+    "code": "3",
+    "name": "Western Region",
+    "countryCode": "IS"
+  },
+  {
+    "code": "4",
+    "name": "Westfjords",
+    "countryCode": "IS"
+  }
+]

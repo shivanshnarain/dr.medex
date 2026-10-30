@@ -1,0 +1,32 @@
+[
+  {
+    "code": "01",
+    "name": "Charlotte Parish",
+    "countryCode": "VC"
+  },
+  {
+    "code": "06",
+    "name": "Grenadines Parish",
+    "countryCode": "VC"
+  },
+  {
+    "code": "02",
+    "name": "Saint Andrew Parish",
+    "countryCode": "VC"
+  },
+  {
+    "code": "03",
+    "name": "Saint David Parish",
+    "countryCode": "VC"
+  },
+  {
+    "code": "04",
+    "name": "Saint George Parish",
+    "countryCode": "VC"
+  },
+  {
+    "code": "05",
+    "name": "Saint Patrick Parish",
+    "countryCode": "VC"
+  }
+]

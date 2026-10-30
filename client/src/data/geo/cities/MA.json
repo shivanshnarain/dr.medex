@@ -1,0 +1,998 @@
+{
+  "10": [
+    {
+      "name": "Assa-Zag",
+      "postalCodes": []
+    },
+    {
+      "name": "Guelmim",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi Ifni",
+      "postalCodes": []
+    },
+    {
+      "name": "Tan-Tan",
+      "postalCodes": []
+    }
+  ],
+  "11": [
+    {
+      "name": "Akhfennir",
+      "postalCodes": []
+    },
+    {
+      "name": "Boujdour",
+      "postalCodes": []
+    },
+    {
+      "name": "Es-Semara",
+      "postalCodes": []
+    },
+    {
+      "name": "Gueltat Zemmour",
+      "postalCodes": []
+    },
+    {
+      "name": "Laayoune",
+      "postalCodes": []
+    },
+    {
+      "name": "Smara",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarfaya",
+      "postalCodes": []
+    }
+  ],
+  "12": [],
+  "AGD": [],
+  "HAO": [],
+  "HOC": [],
+  "AOU": [],
+  "ASZ": [
+    {
+      "name": "Agadir",
+      "postalCodes": []
+    },
+    {
+      "name": "Agadir Melloul",
+      "postalCodes": []
+    },
+    {
+      "name": "Agadir-Ida-ou-Tnan",
+      "postalCodes": []
+    },
+    {
+      "name": "Aoulouz",
+      "postalCodes": []
+    },
+    {
+      "name": "Aourir",
+      "postalCodes": []
+    },
+    {
+      "name": "Arazane",
+      "postalCodes": []
+    },
+    {
+      "name": "Argana",
+      "postalCodes": []
+    },
+    {
+      "name": "Bigoudine",
+      "postalCodes": []
+    },
+    {
+      "name": "Chtouka-Ait-Baha",
+      "postalCodes": []
+    },
+    {
+      "name": "Inezgane",
+      "postalCodes": []
+    },
+    {
+      "name": "Inezgane-Ait Melloul",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouijjane",
+      "postalCodes": []
+    },
+    {
+      "name": "Oulad Teïma",
+      "postalCodes": []
+    },
+    {
+      "name": "Reggada",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi Ifni",
+      "postalCodes": []
+    },
+    {
+      "name": "Tadrart",
+      "postalCodes": []
+    },
+    {
+      "name": "Tafraout",
+      "postalCodes": []
+    },
+    {
+      "name": "Taghazout",
+      "postalCodes": []
+    },
+    {
+      "name": "Taliouine",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamri",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanalt",
+      "postalCodes": []
+    },
+    {
+      "name": "Taroudannt",
+      "postalCodes": []
+    },
+    {
+      "name": "Taroudant",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarsouat",
+      "postalCodes": []
+    },
+    {
+      "name": "Tata",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiznit",
+      "postalCodes": []
+    }
+  ],
+  "AZI": [],
+  "BEM": [],
+  "05": [],
+  "BES": [],
+  "BER": [],
+  "BRR": [],
+  "BOD": [],
+  "BOM": [],
+  "CAS": [],
+  "06": [
+    {
+      "name": "Azemmour",
+      "postalCodes": []
+    },
+    {
+      "name": "Benslimane",
+      "postalCodes": []
+    },
+    {
+      "name": "Berrechid",
+      "postalCodes": []
+    },
+    {
+      "name": "Berrechid Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Boulaouane",
+      "postalCodes": []
+    },
+    {
+      "name": "Bouskoura",
+      "postalCodes": []
+    },
+    {
+      "name": "Bouznika",
+      "postalCodes": []
+    },
+    {
+      "name": "Casablanca",
+      "postalCodes": []
+    },
+    {
+      "name": "El Jadid",
+      "postalCodes": []
+    },
+    {
+      "name": "El-Jadida",
+      "postalCodes": []
+    },
+    {
+      "name": "Mediouna",
+      "postalCodes": []
+    },
+    {
+      "name": "Mohammedia",
+      "postalCodes": []
+    },
+    {
+      "name": "Nouaceur",
+      "postalCodes": []
+    },
+    {
+      "name": "Oualidia",
+      "postalCodes": []
+    },
+    {
+      "name": "Oulad Frej",
+      "postalCodes": []
+    },
+    {
+      "name": "Settat",
+      "postalCodes": []
+    },
+    {
+      "name": "Settat Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi Bennour",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi Smai’il",
+      "postalCodes": []
+    },
+    {
+      "name": "Tit Mellil",
+      "postalCodes": []
+    },
+    {
+      "name": "Zawyat an Nwaçer",
+      "postalCodes": []
+    }
+  ],
+  "CHE": [],
+  "CHI": [],
+  "CHT": [],
+  "08": [
+    {
+      "name": "Agdz",
+      "postalCodes": []
+    },
+    {
+      "name": "Alnif",
+      "postalCodes": []
+    },
+    {
+      "name": "Aoufous",
+      "postalCodes": []
+    },
+    {
+      "name": "Arfoud",
+      "postalCodes": []
+    },
+    {
+      "name": "Errachidia",
+      "postalCodes": []
+    },
+    {
+      "name": "Imilchil",
+      "postalCodes": []
+    },
+    {
+      "name": "Jebel Tiskaouine",
+      "postalCodes": []
+    },
+    {
+      "name": "Jorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Kelaat Mgouna",
+      "postalCodes": []
+    },
+    {
+      "name": "Mhamid",
+      "postalCodes": []
+    },
+    {
+      "name": "Midelt",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouarzazat",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouarzazate",
+      "postalCodes": []
+    },
+    {
+      "name": "Reçani",
+      "postalCodes": []
+    },
+    {
+      "name": "Taznakht",
+      "postalCodes": []
+    },
+    {
+      "name": "Telouet",
+      "postalCodes": []
+    },
+    {
+      "name": "Tinghir",
+      "postalCodes": []
+    },
+    {
+      "name": "Tinghir Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Zagora",
+      "postalCodes": []
+    }
+  ],
+  "DRI": [],
+  "HAJ": [],
+  "JDI": [],
+  "KES": [],
+  "ERR": [],
+  "ESM": [],
+  "ESI": [],
+  "FAH": [],
+  "FES": [],
+  "03": [
+    {
+      "name": "Aïn Leuh",
+      "postalCodes": []
+    },
+    {
+      "name": "Aknoul",
+      "postalCodes": []
+    },
+    {
+      "name": "Almis Marmoucha",
+      "postalCodes": []
+    },
+    {
+      "name": "Azrou",
+      "postalCodes": []
+    },
+    {
+      "name": "Bhalil",
+      "postalCodes": []
+    },
+    {
+      "name": "Bouarouss",
+      "postalCodes": []
+    },
+    {
+      "name": "Boulemane",
+      "postalCodes": []
+    },
+    {
+      "name": "El Hajeb",
+      "postalCodes": []
+    },
+    {
+      "name": "El-Hajeb",
+      "postalCodes": []
+    },
+    {
+      "name": "Fes",
+      "postalCodes": []
+    },
+    {
+      "name": "Fès al Bali",
+      "postalCodes": []
+    },
+    {
+      "name": "Galaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Ghouazi",
+      "postalCodes": []
+    },
+    {
+      "name": "Guercif",
+      "postalCodes": []
+    },
+    {
+      "name": "Ifrane",
+      "postalCodes": []
+    },
+    {
+      "name": "Meknes",
+      "postalCodes": []
+    },
+    {
+      "name": "Missour",
+      "postalCodes": []
+    },
+    {
+      "name": "Moulay Bouchta",
+      "postalCodes": []
+    },
+    {
+      "name": "Moulay-Yacoub",
+      "postalCodes": []
+    },
+    {
+      "name": "Oued Amlil",
+      "postalCodes": []
+    },
+    {
+      "name": "Oulad Tayeb",
+      "postalCodes": []
+    },
+    {
+      "name": "Ourtzagh",
+      "postalCodes": []
+    },
+    {
+      "name": "Sefrou",
+      "postalCodes": []
+    },
+    {
+      "name": "Tahla",
+      "postalCodes": []
+    },
+    {
+      "name": "Talzemt",
+      "postalCodes": []
+    },
+    {
+      "name": "Taounate",
+      "postalCodes": []
+    },
+    {
+      "name": "Taza",
+      "postalCodes": []
+    },
+    {
+      "name": "Tmourghout",
+      "postalCodes": []
+    }
+  ],
+  "FIG": [],
+  "FQH": [],
+  "GUE": [],
+  "GUF": [],
+  "IFR": [],
+  "INE": [],
+  "JRA": [],
+  "KEN": [
+    {
+      "name": "Arbaoua",
+      "postalCodes": []
+    },
+    {
+      "name": "Had Kourt",
+      "postalCodes": []
+    },
+    {
+      "name": "Kenitra",
+      "postalCodes": []
+    },
+    {
+      "name": "Kenitra Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Khemisset",
+      "postalCodes": []
+    },
+    {
+      "name": "Mechraa Bel Ksiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Oulmes",
+      "postalCodes": []
+    },
+    {
+      "name": "Rabat",
+      "postalCodes": []
+    },
+    {
+      "name": "Sale",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi Bousber",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi Qacem",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi Redouane",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi Slimane",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi Yahia El Gharb",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi-Kacem",
+      "postalCodes": []
+    },
+    {
+      "name": "Skhirate",
+      "postalCodes": []
+    },
+    {
+      "name": "Skhirate-Temara",
+      "postalCodes": []
+    },
+    {
+      "name": "Souq Larb’a al Gharb",
+      "postalCodes": []
+    },
+    {
+      "name": "Temara",
+      "postalCodes": []
+    },
+    {
+      "name": "Teroual",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiflet",
+      "postalCodes": []
+    }
+  ],
+  "KHE": [],
+  "KHN": [
+    {
+      "name": "Aguelmous",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Fqih Ben Çalah",
+      "postalCodes": []
+    },
+    {
+      "name": "Azilal",
+      "postalCodes": []
+    },
+    {
+      "name": "Azilal Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Beni Mellal",
+      "postalCodes": []
+    },
+    {
+      "name": "Beni-Mellal",
+      "postalCodes": []
+    },
+    {
+      "name": "Boujniba",
+      "postalCodes": []
+    },
+    {
+      "name": "Bzou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dar Ould Zidouh",
+      "postalCodes": []
+    },
+    {
+      "name": "Demnate",
+      "postalCodes": []
+    },
+    {
+      "name": "El Ksiba",
+      "postalCodes": []
+    },
+    {
+      "name": "Fquih Ben Salah Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Ifrane",
+      "postalCodes": []
+    },
+    {
+      "name": "Isseksi",
+      "postalCodes": []
+    },
+    {
+      "name": "Itzer",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasba Tadla",
+      "postalCodes": []
+    },
+    {
+      "name": "Kerrouchen",
+      "postalCodes": []
+    },
+    {
+      "name": "Khenifra",
+      "postalCodes": []
+    },
+    {
+      "name": "Khouribga",
+      "postalCodes": []
+    },
+    {
+      "name": "Khouribga Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Midelt",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouaoula",
+      "postalCodes": []
+    },
+    {
+      "name": "Oued Zem",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi Jaber",
+      "postalCodes": []
+    },
+    {
+      "name": "Timoulilt",
+      "postalCodes": []
+    },
+    {
+      "name": "Zawyat ech Cheïkh",
+      "postalCodes": []
+    }
+  ],
+  "KHO": [],
+  "02": [
+    {
+      "name": "Ahfir",
+      "postalCodes": []
+    },
+    {
+      "name": "Aïn Beni Mathar",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Aaroui",
+      "postalCodes": []
+    },
+    {
+      "name": "Berkane",
+      "postalCodes": []
+    },
+    {
+      "name": "Bouarfa",
+      "postalCodes": []
+    },
+    {
+      "name": "Debdou",
+      "postalCodes": []
+    },
+    {
+      "name": "Driouch Province",
+      "postalCodes": []
+    },
+    {
+      "name": "El Aïoun",
+      "postalCodes": []
+    },
+    {
+      "name": "Figuig",
+      "postalCodes": []
+    },
+    {
+      "name": "Guercif Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Jerada",
+      "postalCodes": []
+    },
+    {
+      "name": "Madagh",
+      "postalCodes": []
+    },
+    {
+      "name": "Midar",
+      "postalCodes": []
+    },
+    {
+      "name": "Nador",
+      "postalCodes": []
+    },
+    {
+      "name": "Oujda-Angad",
+      "postalCodes": []
+    },
+    {
+      "name": "Saidia",
+      "postalCodes": []
+    },
+    {
+      "name": "Selouane",
+      "postalCodes": []
+    },
+    {
+      "name": "Taourirt",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiztoutine",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaïo",
+      "postalCodes": []
+    }
+  ],
+  "LAA": [],
+  "LAR": [],
+  "MDF": [],
+  "MAR": [],
+  "07": [],
+  "MED": [],
+  "MEK": [],
+  "MID": [],
+  "MOH": [],
+  "MOU": [],
+  "NAD": [],
+  "NOU": [],
+  "OUA": [],
+  "OUD": [
+    {
+      "name": "Aousserd",
+      "postalCodes": []
+    },
+    {
+      "name": "Imlili",
+      "postalCodes": []
+    },
+    {
+      "name": "Oued-Ed-Dahab",
+      "postalCodes": []
+    }
+  ],
+  "OUZ": [],
+  "OUJ": [],
+  "RAB": [],
+  "04": [],
+  "REH": [],
+  "SAF": [
+    {
+      "name": "Abadou",
+      "postalCodes": []
+    },
+    {
+      "name": "Adassil",
+      "postalCodes": []
+    },
+    {
+      "name": "Al-Haouz",
+      "postalCodes": []
+    },
+    {
+      "name": "Bouabout",
+      "postalCodes": []
+    },
+    {
+      "name": "Chichaoua",
+      "postalCodes": []
+    },
+    {
+      "name": "Essaouira",
+      "postalCodes": []
+    },
+    {
+      "name": "Kelaa-Des-Sraghna",
+      "postalCodes": []
+    },
+    {
+      "name": "Marrakech",
+      "postalCodes": []
+    },
+    {
+      "name": "Marrakesh",
+      "postalCodes": []
+    },
+    {
+      "name": "Oukaïmedene",
+      "postalCodes": []
+    },
+    {
+      "name": "Rehamna",
+      "postalCodes": []
+    },
+    {
+      "name": "Safi",
+      "postalCodes": []
+    },
+    {
+      "name": "Setti Fatma",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi Rahhal",
+      "postalCodes": []
+    },
+    {
+      "name": "Smimou",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamanar",
+      "postalCodes": []
+    },
+    {
+      "name": "Taouloukoult",
+      "postalCodes": []
+    },
+    {
+      "name": "Tidili Mesfioua",
+      "postalCodes": []
+    },
+    {
+      "name": "Timezgadiouine",
+      "postalCodes": []
+    },
+    {
+      "name": "Youssoufia",
+      "postalCodes": []
+    },
+    {
+      "name": "Zerkten",
+      "postalCodes": []
+    }
+  ],
+  "SAL": [],
+  "SEF": [],
+  "SET": [],
+  "SIB": [],
+  "SIF": [],
+  "SIK": [],
+  "SIL": [],
+  "SKH": [],
+  "09": [],
+  "TNT": [],
+  "TNG": [],
+  "01": [
+    {
+      "name": "Al Hoceïma",
+      "postalCodes": []
+    },
+    {
+      "name": "Al-Hoceima",
+      "postalCodes": []
+    },
+    {
+      "name": "Asilah",
+      "postalCodes": []
+    },
+    {
+      "name": "Bni Bouayach",
+      "postalCodes": []
+    },
+    {
+      "name": "Brikcha",
+      "postalCodes": []
+    },
+    {
+      "name": "Cap Negro II",
+      "postalCodes": []
+    },
+    {
+      "name": "Chefchaouen Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Chefchaouene",
+      "postalCodes": []
+    },
+    {
+      "name": "Derdara",
+      "postalCodes": []
+    },
+    {
+      "name": "Fahs-Anjra",
+      "postalCodes": []
+    },
+    {
+      "name": "Fnidek",
+      "postalCodes": []
+    },
+    {
+      "name": "Imzouren",
+      "postalCodes": []
+    },
+    {
+      "name": "Ksar El Kebir",
+      "postalCodes": []
+    },
+    {
+      "name": "Larache",
+      "postalCodes": []
+    },
+    {
+      "name": "M'Diq-Fnideq",
+      "postalCodes": []
+    },
+    {
+      "name": "Martil",
+      "postalCodes": []
+    },
+    {
+      "name": "Oued Laou",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouezzane",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouezzane Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Senada",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamorot",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanger-Assilah",
+      "postalCodes": []
+    },
+    {
+      "name": "Tangier",
+      "postalCodes": []
+    },
+    {
+      "name": "Targuist",
+      "postalCodes": []
+    },
+    {
+      "name": "Tetouan",
+      "postalCodes": []
+    },
+    {
+      "name": "Tirhanimîne",
+      "postalCodes": []
+    },
+    {
+      "name": "Zinat",
+      "postalCodes": []
+    },
+    {
+      "name": "Zoumi",
+      "postalCodes": []
+    }
+  ],
+  "TAO": [],
+  "TAI": [],
+  "TAF": [],
+  "TAR": [],
+  "TAT": [],
+  "TAZ": [],
+  "TET": [],
+  "TIN": [],
+  "TIZ": [],
+  "YUS": [],
+  "ZAG": [],
+  "_OTHER": []
+}

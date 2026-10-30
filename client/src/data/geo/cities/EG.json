@@ -1,0 +1,617 @@
+{
+  "ALX": [
+    {
+      "name": "Alexandria",
+      "postalCodes": []
+    }
+  ],
+  "ASN": [
+    {
+      "name": "Abu Simbel",
+      "postalCodes": []
+    },
+    {
+      "name": "Aswan",
+      "postalCodes": []
+    },
+    {
+      "name": "Idfū",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawm Umbū",
+      "postalCodes": []
+    }
+  ],
+  "AST": [
+    {
+      "name": "Abnūb",
+      "postalCodes": []
+    },
+    {
+      "name": "Abū Tīj",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Badārī",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Qūşīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Asyūţ",
+      "postalCodes": []
+    },
+    {
+      "name": "Dayrūţ",
+      "postalCodes": []
+    },
+    {
+      "name": "Manfalūţ",
+      "postalCodes": []
+    }
+  ],
+  "BH": [
+    {
+      "name": "Abū al Maţāmīr",
+      "postalCodes": []
+    },
+    {
+      "name": "Ad Dilinjāt",
+      "postalCodes": []
+    },
+    {
+      "name": "Damanhūr",
+      "postalCodes": []
+    },
+    {
+      "name": "Ḩawsh ‘Īsá",
+      "postalCodes": []
+    },
+    {
+      "name": "Idkū",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafr ad Dawwār",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawm Ḩamādah",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosetta",
+      "postalCodes": []
+    }
+  ],
+  "BNS": [
+    {
+      "name": "Al Fashn",
+      "postalCodes": []
+    },
+    {
+      "name": "Banī Suwayf",
+      "postalCodes": []
+    },
+    {
+      "name": "Būsh",
+      "postalCodes": []
+    },
+    {
+      "name": "Sumusţā as Sulţānī",
+      "postalCodes": []
+    }
+  ],
+  "C": [
+    {
+      "name": "Cairo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ḩalwān",
+      "postalCodes": []
+    },
+    {
+      "name": "New Cairo",
+      "postalCodes": []
+    }
+  ],
+  "DK": [
+    {
+      "name": "‘Izbat al Burj",
+      "postalCodes": []
+    },
+    {
+      "name": "Ajā",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Jammālīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Manşūrah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Manzalah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Maţarīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Bilqās",
+      "postalCodes": []
+    },
+    {
+      "name": "Dikirnis",
+      "postalCodes": []
+    },
+    {
+      "name": "Minyat an Naşr",
+      "postalCodes": []
+    },
+    {
+      "name": "Shirbīn",
+      "postalCodes": []
+    },
+    {
+      "name": "Ţalkhā",
+      "postalCodes": []
+    }
+  ],
+  "DT": [
+    {
+      "name": "Az Zarqā",
+      "postalCodes": []
+    },
+    {
+      "name": "Damietta",
+      "postalCodes": []
+    },
+    {
+      "name": "Fāraskūr",
+      "postalCodes": []
+    }
+  ],
+  "FYM": [
+    {
+      "name": "Al Fayyūm",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Wāsiţah",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibshawāy",
+      "postalCodes": []
+    },
+    {
+      "name": "Iţsā",
+      "postalCodes": []
+    },
+    {
+      "name": "Ţāmiyah",
+      "postalCodes": []
+    }
+  ],
+  "GH": [
+    {
+      "name": "Al Maḩallah al Kubrá",
+      "postalCodes": []
+    },
+    {
+      "name": "Basyūn",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafr az Zayyāt",
+      "postalCodes": []
+    },
+    {
+      "name": "Quţūr",
+      "postalCodes": []
+    },
+    {
+      "name": "Samannūd",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanda",
+      "postalCodes": []
+    },
+    {
+      "name": "Zefta",
+      "postalCodes": []
+    }
+  ],
+  "GZ": [
+    {
+      "name": "Al ‘Ayyāţ",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Bawīţī",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Ḩawāmidīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Aş Şaff",
+      "postalCodes": []
+    },
+    {
+      "name": "Awsīm",
+      "postalCodes": []
+    },
+    {
+      "name": "Giza",
+      "postalCodes": []
+    },
+    {
+      "name": "Madīnat Sittah Uktūbar",
+      "postalCodes": []
+    }
+  ],
+  "IS": [
+    {
+      "name": "Ismailia",
+      "postalCodes": []
+    }
+  ],
+  "KFS": [
+    {
+      "name": "Al Ḩāmūl",
+      "postalCodes": []
+    },
+    {
+      "name": "Disūq",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuwwah",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafr ash Shaykh",
+      "postalCodes": []
+    },
+    {
+      "name": "Markaz Disūq",
+      "postalCodes": []
+    },
+    {
+      "name": "Munshāt ‘Alī Āghā",
+      "postalCodes": []
+    },
+    {
+      "name": "Sīdī Sālim",
+      "postalCodes": []
+    }
+  ],
+  "LX": [
+    {
+      "name": "Luxor",
+      "postalCodes": []
+    },
+    {
+      "name": "Markaz al Uqşur",
+      "postalCodes": []
+    }
+  ],
+  "MT": [
+    {
+      "name": "Al ‘Alamayn",
+      "postalCodes": []
+    },
+    {
+      "name": "Mersa Matruh",
+      "postalCodes": []
+    },
+    {
+      "name": "Siwa Oasis",
+      "postalCodes": []
+    }
+  ],
+  "MN": [
+    {
+      "name": "Abū Qurqāş",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Minyā",
+      "postalCodes": []
+    },
+    {
+      "name": "Banī Mazār",
+      "postalCodes": []
+    },
+    {
+      "name": "Dayr Mawās",
+      "postalCodes": []
+    },
+    {
+      "name": "Mallawī",
+      "postalCodes": []
+    },
+    {
+      "name": "Maţāy",
+      "postalCodes": []
+    },
+    {
+      "name": "Samālūţ",
+      "postalCodes": []
+    }
+  ],
+  "MNF": [
+    {
+      "name": "Al Bājūr",
+      "postalCodes": []
+    },
+    {
+      "name": "Ash Shuhadā’",
+      "postalCodes": []
+    },
+    {
+      "name": "Ashmūn",
+      "postalCodes": []
+    },
+    {
+      "name": "Munūf",
+      "postalCodes": []
+    },
+    {
+      "name": "Quwaysinā",
+      "postalCodes": []
+    },
+    {
+      "name": "Shibīn al Kawm",
+      "postalCodes": []
+    },
+    {
+      "name": "Talā",
+      "postalCodes": []
+    }
+  ],
+  "WAD": [
+    {
+      "name": "Al Khārijah",
+      "postalCodes": []
+    },
+    {
+      "name": "Qaşr al Farāfirah",
+      "postalCodes": []
+    }
+  ],
+  "SIN": [
+    {
+      "name": "Arish",
+      "postalCodes": []
+    }
+  ],
+  "PTS": [
+    {
+      "name": "Port Said",
+      "postalCodes": []
+    }
+  ],
+  "KB": [
+    {
+      "name": "Al Khānkah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Qanāţir al Khayrīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Banhā",
+      "postalCodes": []
+    },
+    {
+      "name": "Qalyūb",
+      "postalCodes": []
+    },
+    {
+      "name": "Shibīn al Qanāṭir",
+      "postalCodes": []
+    },
+    {
+      "name": "Toukh",
+      "postalCodes": []
+    }
+  ],
+  "KN": [
+    {
+      "name": "Dishnā",
+      "postalCodes": []
+    },
+    {
+      "name": "Farshūţ",
+      "postalCodes": []
+    },
+    {
+      "name": "Isnā",
+      "postalCodes": []
+    },
+    {
+      "name": "Kousa",
+      "postalCodes": []
+    },
+    {
+      "name": "Naja' Ḥammādī",
+      "postalCodes": []
+    },
+    {
+      "name": "Qinā",
+      "postalCodes": []
+    }
+  ],
+  "BA": [
+    {
+      "name": "Al Quşayr",
+      "postalCodes": []
+    },
+    {
+      "name": "El Gouna",
+      "postalCodes": []
+    },
+    {
+      "name": "Hurghada",
+      "postalCodes": []
+    },
+    {
+      "name": "Makadi Bay",
+      "postalCodes": []
+    },
+    {
+      "name": "Marsa Alam",
+      "postalCodes": []
+    },
+    {
+      "name": "Ras Gharib",
+      "postalCodes": []
+    },
+    {
+      "name": "Safaga",
+      "postalCodes": []
+    }
+  ],
+  "SHR": [
+    {
+      "name": "10th of Ramadan",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Qurein",
+      "postalCodes": []
+    },
+    {
+      "name": "Awlad Saqr",
+      "postalCodes": []
+    },
+    {
+      "name": "Bilbeis",
+      "postalCodes": []
+    },
+    {
+      "name": "Diyarb Negm",
+      "postalCodes": []
+    },
+    {
+      "name": "El Husseiniya",
+      "postalCodes": []
+    },
+    {
+      "name": "Faqous",
+      "postalCodes": []
+    },
+    {
+      "name": "Hihya",
+      "postalCodes": []
+    },
+    {
+      "name": "Kafr Saqr",
+      "postalCodes": []
+    },
+    {
+      "name": "Markaz Abū Ḩammād",
+      "postalCodes": []
+    },
+    {
+      "name": "Mashtoul El Souk",
+      "postalCodes": []
+    },
+    {
+      "name": "Minya El Qamh",
+      "postalCodes": []
+    },
+    {
+      "name": "New Salhia",
+      "postalCodes": []
+    },
+    {
+      "name": "Zagazig",
+      "postalCodes": []
+    }
+  ],
+  "SHG": [
+    {
+      "name": "Akhmīm",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Balyanā",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Manshāh",
+      "postalCodes": []
+    },
+    {
+      "name": "Jirjā",
+      "postalCodes": []
+    },
+    {
+      "name": "Juhaynah",
+      "postalCodes": []
+    },
+    {
+      "name": "Markaz Jirjā",
+      "postalCodes": []
+    },
+    {
+      "name": "Markaz Sūhāj",
+      "postalCodes": []
+    },
+    {
+      "name": "Sohag",
+      "postalCodes": []
+    },
+    {
+      "name": "Ţahţā",
+      "postalCodes": []
+    }
+  ],
+  "JS": [
+    {
+      "name": "Dahab",
+      "postalCodes": []
+    },
+    {
+      "name": "El-Tor",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuwaybi‘a",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint Catherine",
+      "postalCodes": []
+    },
+    {
+      "name": "Sharm el-Sheikh",
+      "postalCodes": []
+    }
+  ],
+  "SUZ": [
+    {
+      "name": "Ain Sukhna",
+      "postalCodes": []
+    },
+    {
+      "name": "Suez",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

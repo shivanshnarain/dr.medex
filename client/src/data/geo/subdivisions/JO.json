@@ -1,0 +1,62 @@
+[
+  {
+    "code": "AJ",
+    "name": "Ajloun Governorate",
+    "countryCode": "JO"
+  },
+  {
+    "code": "AM",
+    "name": "Amman Governorate",
+    "countryCode": "JO"
+  },
+  {
+    "code": "AQ",
+    "name": "Aqaba Governorate",
+    "countryCode": "JO"
+  },
+  {
+    "code": "BA",
+    "name": "Balqa Governorate",
+    "countryCode": "JO"
+  },
+  {
+    "code": "IR",
+    "name": "Irbid Governorate",
+    "countryCode": "JO"
+  },
+  {
+    "code": "JA",
+    "name": "Jerash Governorate",
+    "countryCode": "JO"
+  },
+  {
+    "code": "KA",
+    "name": "Karak Governorate",
+    "countryCode": "JO"
+  },
+  {
+    "code": "MN",
+    "name": "Ma'an Governorate",
+    "countryCode": "JO"
+  },
+  {
+    "code": "MD",
+    "name": "Madaba Governorate",
+    "countryCode": "JO"
+  },
+  {
+    "code": "MA",
+    "name": "Mafraq Governorate",
+    "countryCode": "JO"
+  },
+  {
+    "code": "AT",
+    "name": "Tafilah Governorate",
+    "countryCode": "JO"
+  },
+  {
+    "code": "AZ",
+    "name": "Zarqa Governorate",
+    "countryCode": "JO"
+  }
+]

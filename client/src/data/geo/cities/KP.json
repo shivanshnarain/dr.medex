@@ -1,0 +1,345 @@
+{
+  "10": [
+    {
+      "name": "Hyesan",
+      "postalCodes": []
+    },
+    {
+      "name": "Hyesan-dong",
+      "postalCodes": []
+    },
+    {
+      "name": "Kapsan-ŭp",
+      "postalCodes": []
+    },
+    {
+      "name": "Sŭngjibaegam",
+      "postalCodes": []
+    }
+  ],
+  "13": [
+    {
+      "name": "Sŏnbong",
+      "postalCodes": []
+    },
+    {
+      "name": "Ungsang-nodongjagu",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Changgang-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Chasŏng",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanggye",
+      "postalCodes": []
+    },
+    {
+      "name": "Manp’o",
+      "postalCodes": []
+    }
+  ],
+  "07": [
+    {
+      "name": "Anbyŏn-ŭp",
+      "postalCodes": []
+    },
+    {
+      "name": "Hoeyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Kosan",
+      "postalCodes": []
+    },
+    {
+      "name": "T’ongch’ŏn-ŭp",
+      "postalCodes": []
+    },
+    {
+      "name": "Wŏnsan",
+      "postalCodes": []
+    }
+  ],
+  "09": [
+    {
+      "name": "Aoji",
+      "postalCodes": []
+    },
+    {
+      "name": "Chongjin",
+      "postalCodes": []
+    },
+    {
+      "name": "Hau-ri",
+      "postalCodes": []
+    },
+    {
+      "name": "Hoemul-li",
+      "postalCodes": []
+    },
+    {
+      "name": "Hoeryŏng",
+      "postalCodes": []
+    },
+    {
+      "name": "Kilju",
+      "postalCodes": []
+    },
+    {
+      "name": "Kimch’aek-si",
+      "postalCodes": []
+    },
+    {
+      "name": "Komusan Il-tong",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyŏngsŏng",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyŏngwŏn",
+      "postalCodes": []
+    },
+    {
+      "name": "Musan-ŭp",
+      "postalCodes": []
+    },
+    {
+      "name": "Namyang-dong",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanam",
+      "postalCodes": []
+    },
+    {
+      "name": "Onsŏng",
+      "postalCodes": []
+    },
+    {
+      "name": "Puryŏng",
+      "postalCodes": []
+    },
+    {
+      "name": "Sŭngam-nodongjagu",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Anak",
+      "postalCodes": []
+    },
+    {
+      "name": "Hŭkkyo-ri",
+      "postalCodes": []
+    },
+    {
+      "name": "Hwangju-ŭp",
+      "postalCodes": []
+    },
+    {
+      "name": "Koksan",
+      "postalCodes": []
+    },
+    {
+      "name": "Sariwŏn",
+      "postalCodes": []
+    },
+    {
+      "name": "Sinmak",
+      "postalCodes": []
+    },
+    {
+      "name": "Songnim",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Chŏngju",
+      "postalCodes": []
+    },
+    {
+      "name": "Chŏngju-gun",
+      "postalCodes": []
+    },
+    {
+      "name": "Kujang-ŭp",
+      "postalCodes": []
+    },
+    {
+      "name": "Kusŏng",
+      "postalCodes": []
+    },
+    {
+      "name": "Kwaksan",
+      "postalCodes": []
+    },
+    {
+      "name": "Panghyŏn-dong",
+      "postalCodes": []
+    },
+    {
+      "name": "Pukchil-lodongjagu",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakchu-ŭp",
+      "postalCodes": []
+    },
+    {
+      "name": "Sinŭiju",
+      "postalCodes": []
+    },
+    {
+      "name": "Ŭiju",
+      "postalCodes": []
+    },
+    {
+      "name": "Yŏmju-ŭp",
+      "postalCodes": []
+    },
+    {
+      "name": "Yŏngbyŏn",
+      "postalCodes": []
+    }
+  ],
+  "01": [
+    {
+      "name": "Chunghwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kangdong-ŭp",
+      "postalCodes": []
+    },
+    {
+      "name": "Pyongyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Sunan",
+      "postalCodes": []
+    },
+    {
+      "name": "Sŭngho 1-tong",
+      "postalCodes": []
+    }
+  ],
+  "08": [
+    {
+      "name": "Hamhŭng",
+      "postalCodes": []
+    },
+    {
+      "name": "Hongwŏn",
+      "postalCodes": []
+    },
+    {
+      "name": "Hŭngnam",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwŏn-ŭp",
+      "postalCodes": []
+    },
+    {
+      "name": "Kowŏn-ŭp",
+      "postalCodes": []
+    },
+    {
+      "name": "Samho-rodongjagu",
+      "postalCodes": []
+    },
+    {
+      "name": "Sinsang-ni",
+      "postalCodes": []
+    },
+    {
+      "name": "Yŏnggwang-ŭp",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuktae-dong",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Ayang-ni",
+      "postalCodes": []
+    },
+    {
+      "name": "Chaeryŏng-ŭp",
+      "postalCodes": []
+    },
+    {
+      "name": "Changyŏn",
+      "postalCodes": []
+    },
+    {
+      "name": "Haeju",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaesŏng",
+      "postalCodes": []
+    },
+    {
+      "name": "Ongjin",
+      "postalCodes": []
+    },
+    {
+      "name": "Pyŏksŏng-ŭp",
+      "postalCodes": []
+    },
+    {
+      "name": "Yŏnan-ŭp",
+      "postalCodes": []
+    }
+  ],
+  "02": [
+    {
+      "name": "Anju",
+      "postalCodes": []
+    },
+    {
+      "name": "Namp’o",
+      "postalCodes": []
+    },
+    {
+      "name": "P’yŏngsŏng",
+      "postalCodes": []
+    },
+    {
+      "name": "Sangsŏng-ni",
+      "postalCodes": []
+    },
+    {
+      "name": "Sil-li",
+      "postalCodes": []
+    },
+    {
+      "name": "Sinanju",
+      "postalCodes": []
+    },
+    {
+      "name": "Sunch’ŏn",
+      "postalCodes": []
+    },
+    {
+      "name": "Yonggang-ŭp",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

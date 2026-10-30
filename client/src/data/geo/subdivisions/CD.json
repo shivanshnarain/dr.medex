@@ -1,0 +1,132 @@
+[
+  {
+    "code": "BU",
+    "name": "Bas-Uélé",
+    "countryCode": "CD"
+  },
+  {
+    "code": "EQ",
+    "name": "Équateur",
+    "countryCode": "CD"
+  },
+  {
+    "code": "HK",
+    "name": "Haut-Katanga",
+    "countryCode": "CD"
+  },
+  {
+    "code": "HL",
+    "name": "Haut-Lomami",
+    "countryCode": "CD"
+  },
+  {
+    "code": "HU",
+    "name": "Haut-Uélé",
+    "countryCode": "CD"
+  },
+  {
+    "code": "IT",
+    "name": "Ituri",
+    "countryCode": "CD"
+  },
+  {
+    "code": "KS",
+    "name": "Kasaï",
+    "countryCode": "CD"
+  },
+  {
+    "code": "KC",
+    "name": "Kasaï Central",
+    "countryCode": "CD"
+  },
+  {
+    "code": "KE",
+    "name": "Kasaï Oriental",
+    "countryCode": "CD"
+  },
+  {
+    "code": "KN",
+    "name": "Kinshasa",
+    "countryCode": "CD"
+  },
+  {
+    "code": "BC",
+    "name": "Kongo Central",
+    "countryCode": "CD"
+  },
+  {
+    "code": "KG",
+    "name": "Kwango",
+    "countryCode": "CD"
+  },
+  {
+    "code": "KL",
+    "name": "Kwilu",
+    "countryCode": "CD"
+  },
+  {
+    "code": "LO",
+    "name": "Lomami",
+    "countryCode": "CD"
+  },
+  {
+    "code": "LU",
+    "name": "Lualaba",
+    "countryCode": "CD"
+  },
+  {
+    "code": "MN",
+    "name": "Mai-Ndombe",
+    "countryCode": "CD"
+  },
+  {
+    "code": "MA",
+    "name": "Maniema",
+    "countryCode": "CD"
+  },
+  {
+    "code": "MO",
+    "name": "Mongala",
+    "countryCode": "CD"
+  },
+  {
+    "code": "NK",
+    "name": "Nord-Kivu",
+    "countryCode": "CD"
+  },
+  {
+    "code": "NU",
+    "name": "Nord-Ubangi",
+    "countryCode": "CD"
+  },
+  {
+    "code": "SA",
+    "name": "Sankuru",
+    "countryCode": "CD"
+  },
+  {
+    "code": "SK",
+    "name": "Sud-Kivu",
+    "countryCode": "CD"
+  },
+  {
+    "code": "SU",
+    "name": "Sud-Ubangi",
+    "countryCode": "CD"
+  },
+  {
+    "code": "TA",
+    "name": "Tanganyika",
+    "countryCode": "CD"
+  },
+  {
+    "code": "TO",
+    "name": "Tshopo",
+    "countryCode": "CD"
+  },
+  {
+    "code": "TU",
+    "name": "Tshuapa",
+    "countryCode": "CD"
+  }
+]

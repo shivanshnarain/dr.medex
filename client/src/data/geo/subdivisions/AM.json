@@ -1,0 +1,57 @@
+[
+  {
+    "code": "AG",
+    "name": "Aragatsotn Region",
+    "countryCode": "AM"
+  },
+  {
+    "code": "AR",
+    "name": "Ararat Province",
+    "countryCode": "AM"
+  },
+  {
+    "code": "AV",
+    "name": "Armavir Region",
+    "countryCode": "AM"
+  },
+  {
+    "code": "GR",
+    "name": "Gegharkunik Province",
+    "countryCode": "AM"
+  },
+  {
+    "code": "KT",
+    "name": "Kotayk Region",
+    "countryCode": "AM"
+  },
+  {
+    "code": "LO",
+    "name": "Lori Region",
+    "countryCode": "AM"
+  },
+  {
+    "code": "SH",
+    "name": "Shirak Region",
+    "countryCode": "AM"
+  },
+  {
+    "code": "SU",
+    "name": "Syunik Province",
+    "countryCode": "AM"
+  },
+  {
+    "code": "TV",
+    "name": "Tavush Region",
+    "countryCode": "AM"
+  },
+  {
+    "code": "VD",
+    "name": "Vayots Dzor Region",
+    "countryCode": "AM"
+  },
+  {
+    "code": "ER",
+    "name": "Yerevan",
+    "countryCode": "AM"
+  }
+]

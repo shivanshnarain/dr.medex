@@ -1,0 +1,77 @@
+[
+  {
+    "code": "CA",
+    "name": "Canton of Capellen",
+    "countryCode": "LU"
+  },
+  {
+    "code": "CL",
+    "name": "Canton of Clervaux",
+    "countryCode": "LU"
+  },
+  {
+    "code": "DI",
+    "name": "Canton of Diekirch",
+    "countryCode": "LU"
+  },
+  {
+    "code": "EC",
+    "name": "Canton of Echternach",
+    "countryCode": "LU"
+  },
+  {
+    "code": "ES",
+    "name": "Canton of Esch-sur-Alzette",
+    "countryCode": "LU"
+  },
+  {
+    "code": "GR",
+    "name": "Canton of Grevenmacher",
+    "countryCode": "LU"
+  },
+  {
+    "code": "LU",
+    "name": "Canton of Luxembourg",
+    "countryCode": "LU"
+  },
+  {
+    "code": "ME",
+    "name": "Canton of Mersch",
+    "countryCode": "LU"
+  },
+  {
+    "code": "RD",
+    "name": "Canton of Redange",
+    "countryCode": "LU"
+  },
+  {
+    "code": "RM",
+    "name": "Canton of Remich",
+    "countryCode": "LU"
+  },
+  {
+    "code": "VD",
+    "name": "Canton of Vianden",
+    "countryCode": "LU"
+  },
+  {
+    "code": "WI",
+    "name": "Canton of Wiltz",
+    "countryCode": "LU"
+  },
+  {
+    "code": "D",
+    "name": "Diekirch District",
+    "countryCode": "LU"
+  },
+  {
+    "code": "G",
+    "name": "Grevenmacher District",
+    "countryCode": "LU"
+  },
+  {
+    "code": "L",
+    "name": "Luxembourg District",
+    "countryCode": "LU"
+  }
+]

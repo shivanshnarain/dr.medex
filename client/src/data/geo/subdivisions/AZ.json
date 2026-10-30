@@ -1,0 +1,377 @@
+[
+  {
+    "code": "ABS",
+    "name": "Absheron District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "AGM",
+    "name": "Agdam District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "AGS",
+    "name": "Agdash District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "AGC",
+    "name": "Aghjabadi District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "AGA",
+    "name": "Agstafa District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "AGU",
+    "name": "Agsu District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "AST",
+    "name": "Astara District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "BAB",
+    "name": "Babek District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "BA",
+    "name": "Baku",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "BAL",
+    "name": "Balakan District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "BAR",
+    "name": "Barda District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "BEY",
+    "name": "Beylagan District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "BIL",
+    "name": "Bilasuvar District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "DAS",
+    "name": "Dashkasan District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "FUZ",
+    "name": "Fizuli District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "GA",
+    "name": "Ganja",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "GAD",
+    "name": "Gədəbəy",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "QOB",
+    "name": "Gobustan District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "GOR",
+    "name": "Goranboy District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "GOY",
+    "name": "Goychay",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "GYG",
+    "name": "Goygol District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "HAC",
+    "name": "Hajigabul District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "IMI",
+    "name": "Imishli District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "ISM",
+    "name": "Ismailli District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "CAB",
+    "name": "Jabrayil District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "CAL",
+    "name": "Jalilabad District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "CUL",
+    "name": "Julfa District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "KAL",
+    "name": "Kalbajar District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "KAN",
+    "name": "Kangarli District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "XAC",
+    "name": "Khachmaz District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "XIZ",
+    "name": "Khizi District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "XCI",
+    "name": "Khojali District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "KUR",
+    "name": "Kurdamir District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "LAC",
+    "name": "Lachin District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "LAN",
+    "name": "Lankaran",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "LA",
+    "name": "Lankaran District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "LER",
+    "name": "Lerik District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "XVD",
+    "name": "Martuni",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "MAS",
+    "name": "Masally District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "MI",
+    "name": "Mingachevir",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "NX",
+    "name": "Nakhchivan Autonomous Republic",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "NEF",
+    "name": "Neftchala District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "OGU",
+    "name": "Oghuz District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "ORD",
+    "name": "Ordubad District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "QAB",
+    "name": "Qabala District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "QAX",
+    "name": "Qakh District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "QAZ",
+    "name": "Qazakh District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "QBA",
+    "name": "Quba District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "QBI",
+    "name": "Qubadli District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "QUS",
+    "name": "Qusar District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "SAT",
+    "name": "Saatly District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "SAB",
+    "name": "Sabirabad District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "SAD",
+    "name": "Sadarak District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "SAL",
+    "name": "Salyan District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "SMX",
+    "name": "Samukh District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "SBN",
+    "name": "Shabran District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "SAH",
+    "name": "Shahbuz District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "SA",
+    "name": "Shaki",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "SAK",
+    "name": "Shaki District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "SMI",
+    "name": "Shamakhi District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "SKR",
+    "name": "Shamkir District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "SAR",
+    "name": "Sharur District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "SR",
+    "name": "Shirvan",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "SUS",
+    "name": "Shusha District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "SIY",
+    "name": "Siazan District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "SM",
+    "name": "Sumqayit",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "TAR",
+    "name": "Tartar District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "TOV",
+    "name": "Tovuz District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "UCA",
+    "name": "Ujar District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "YAR",
+    "name": "Yardymli District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "YE",
+    "name": "Yevlakh",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "YEV",
+    "name": "Yevlakh District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "ZAN",
+    "name": "Zangilan District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "ZAQ",
+    "name": "Zaqatala District",
+    "countryCode": "AZ"
+  },
+  {
+    "code": "ZAR",
+    "name": "Zardab District",
+    "countryCode": "AZ"
+  }
+]

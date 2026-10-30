@@ -1,0 +1,571 @@
+{
+  "AN": [
+    {
+      "name": "Andijon",
+      "postalCodes": []
+    },
+    {
+      "name": "Andijon Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Asaka",
+      "postalCodes": []
+    },
+    {
+      "name": "Asaka Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Baliqchi Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Bo‘z Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Buloqboshi Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Izboskan Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Jalolkuduk Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Khŭjaobod Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Marhamat",
+      "postalCodes": []
+    },
+    {
+      "name": "Marhamat Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Oltinkŭl Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Pakhtaobod Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Paxtaobod",
+      "postalCodes": []
+    },
+    {
+      "name": "Qo‘rg‘ontepa",
+      "postalCodes": []
+    },
+    {
+      "name": "Qŭrghontepa Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Shahrikhon Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Shahrixon",
+      "postalCodes": []
+    },
+    {
+      "name": "Ulug‘nor Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Xo‘jaobod",
+      "postalCodes": []
+    }
+  ],
+  "BU": [
+    {
+      "name": "Bukhara",
+      "postalCodes": []
+    },
+    {
+      "name": "Galaosiyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Gazli",
+      "postalCodes": []
+    },
+    {
+      "name": "Ghijduwon",
+      "postalCodes": []
+    },
+    {
+      "name": "Karakul’",
+      "postalCodes": []
+    },
+    {
+      "name": "Kogon",
+      "postalCodes": []
+    },
+    {
+      "name": "Olot",
+      "postalCodes": []
+    },
+    {
+      "name": "Peshku Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Qorako’l",
+      "postalCodes": []
+    },
+    {
+      "name": "Qorovulbozor",
+      "postalCodes": []
+    },
+    {
+      "name": "Romiton",
+      "postalCodes": []
+    },
+    {
+      "name": "Shofirkon",
+      "postalCodes": []
+    },
+    {
+      "name": "Wobkent",
+      "postalCodes": []
+    },
+    {
+      "name": "Wobkent Tumani",
+      "postalCodes": []
+    }
+  ],
+  "FA": [
+    {
+      "name": "Beshariq",
+      "postalCodes": []
+    },
+    {
+      "name": "Fergana",
+      "postalCodes": []
+    },
+    {
+      "name": "Hamza",
+      "postalCodes": []
+    },
+    {
+      "name": "Kirguli",
+      "postalCodes": []
+    },
+    {
+      "name": "Marg‘ilon",
+      "postalCodes": []
+    },
+    {
+      "name": "Oltiariq",
+      "postalCodes": []
+    },
+    {
+      "name": "Qo‘qon",
+      "postalCodes": []
+    },
+    {
+      "name": "Quva",
+      "postalCodes": []
+    },
+    {
+      "name": "Quvasoy",
+      "postalCodes": []
+    },
+    {
+      "name": "Rishton",
+      "postalCodes": []
+    },
+    {
+      "name": "Shohimardon",
+      "postalCodes": []
+    },
+    {
+      "name": "So‘x Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Toshloq",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangi Marg‘ilon",
+      "postalCodes": []
+    },
+    {
+      "name": "Yaypan",
+      "postalCodes": []
+    }
+  ],
+  "JI": [
+    {
+      "name": "Dashtobod",
+      "postalCodes": []
+    },
+    {
+      "name": "Dŭstlik",
+      "postalCodes": []
+    },
+    {
+      "name": "Gagarin",
+      "postalCodes": []
+    },
+    {
+      "name": "Jizzax",
+      "postalCodes": []
+    },
+    {
+      "name": "Paxtakor",
+      "postalCodes": []
+    },
+    {
+      "name": "Zomin",
+      "postalCodes": []
+    }
+  ],
+  "QR": [
+    {
+      "name": "Beruniy",
+      "postalCodes": []
+    },
+    {
+      "name": "Kegeyli Shahar",
+      "postalCodes": []
+    },
+    {
+      "name": "Khŭjayli",
+      "postalCodes": []
+    },
+    {
+      "name": "Manghit",
+      "postalCodes": []
+    },
+    {
+      "name": "Mŭynoq",
+      "postalCodes": []
+    },
+    {
+      "name": "Novyy Turtkul’",
+      "postalCodes": []
+    },
+    {
+      "name": "Nukus",
+      "postalCodes": []
+    },
+    {
+      "name": "Oltinko‘l",
+      "postalCodes": []
+    }
+  ],
+  "NG": [
+    {
+      "name": "Chortoq",
+      "postalCodes": []
+    },
+    {
+      "name": "Chust",
+      "postalCodes": []
+    },
+    {
+      "name": "Haqqulobod",
+      "postalCodes": []
+    },
+    {
+      "name": "Kosonsoy",
+      "postalCodes": []
+    },
+    {
+      "name": "Namangan",
+      "postalCodes": []
+    },
+    {
+      "name": "Pop",
+      "postalCodes": []
+    },
+    {
+      "name": "To‘rqao‘rg‘on",
+      "postalCodes": []
+    },
+    {
+      "name": "Toshbuloq",
+      "postalCodes": []
+    },
+    {
+      "name": "Uchqŭrghon Shahri",
+      "postalCodes": []
+    },
+    {
+      "name": "Uychi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangiqo‘rg‘on",
+      "postalCodes": []
+    }
+  ],
+  "NW": [
+    {
+      "name": "Navoiy",
+      "postalCodes": []
+    },
+    {
+      "name": "Nurota",
+      "postalCodes": []
+    },
+    {
+      "name": "Qiziltepa",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangirabot",
+      "postalCodes": []
+    }
+  ],
+  "QA": [
+    {
+      "name": "Beshkent",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiroqchi",
+      "postalCodes": []
+    },
+    {
+      "name": "G‘uzor",
+      "postalCodes": []
+    },
+    {
+      "name": "Kitob",
+      "postalCodes": []
+    },
+    {
+      "name": "Koson",
+      "postalCodes": []
+    },
+    {
+      "name": "Muborak",
+      "postalCodes": []
+    },
+    {
+      "name": "Nishon Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Qarshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shahrisabz",
+      "postalCodes": []
+    }
+  ],
+  "SA": [
+    {
+      "name": "Bulung’ur",
+      "postalCodes": []
+    },
+    {
+      "name": "Charxin",
+      "postalCodes": []
+    },
+    {
+      "name": "Chelak",
+      "postalCodes": []
+    },
+    {
+      "name": "Daxbet",
+      "postalCodes": []
+    },
+    {
+      "name": "Ishtixon",
+      "postalCodes": []
+    },
+    {
+      "name": "Jomboy",
+      "postalCodes": []
+    },
+    {
+      "name": "Juma",
+      "postalCodes": []
+    },
+    {
+      "name": "Kattaqo‘rg‘on",
+      "postalCodes": []
+    },
+    {
+      "name": "Oqtosh",
+      "postalCodes": []
+    },
+    {
+      "name": "Payshanba",
+      "postalCodes": []
+    },
+    {
+      "name": "Samarkand",
+      "postalCodes": []
+    },
+    {
+      "name": "Urgut",
+      "postalCodes": []
+    }
+  ],
+  "SI": [
+    {
+      "name": "Guliston",
+      "postalCodes": []
+    },
+    {
+      "name": "Sirdaryo",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangiyer",
+      "postalCodes": []
+    }
+  ],
+  "SU": [
+    {
+      "name": "Boysun",
+      "postalCodes": []
+    },
+    {
+      "name": "Denov",
+      "postalCodes": []
+    },
+    {
+      "name": "Sho‘rchi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tirmiz",
+      "postalCodes": []
+    }
+  ],
+  "TK": [
+    {
+      "name": "Bektemir",
+      "postalCodes": []
+    },
+    {
+      "name": "Tashkent",
+      "postalCodes": []
+    }
+  ],
+  "TO": [
+    {
+      "name": "Angren",
+      "postalCodes": []
+    },
+    {
+      "name": "Bekobod",
+      "postalCodes": []
+    },
+    {
+      "name": "Bo‘ka",
+      "postalCodes": []
+    },
+    {
+      "name": "Chinoz",
+      "postalCodes": []
+    },
+    {
+      "name": "Chirchiq",
+      "postalCodes": []
+    },
+    {
+      "name": "G‘azalkent",
+      "postalCodes": []
+    },
+    {
+      "name": "Iskandar",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyzyldzhar",
+      "postalCodes": []
+    },
+    {
+      "name": "Ohangaron",
+      "postalCodes": []
+    },
+    {
+      "name": "Olmaliq",
+      "postalCodes": []
+    },
+    {
+      "name": "Parkent",
+      "postalCodes": []
+    },
+    {
+      "name": "Piskent",
+      "postalCodes": []
+    },
+    {
+      "name": "Qibray",
+      "postalCodes": []
+    },
+    {
+      "name": "Salor",
+      "postalCodes": []
+    },
+    {
+      "name": "Tŭytepa",
+      "postalCodes": []
+    },
+    {
+      "name": "Ŭrtaowul",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangiobod",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangiyŭl",
+      "postalCodes": []
+    },
+    {
+      "name": "Zafar",
+      "postalCodes": []
+    }
+  ],
+  "XO": [
+    {
+      "name": "Boghot Tumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Gurlan",
+      "postalCodes": []
+    },
+    {
+      "name": "Hazorasp",
+      "postalCodes": []
+    },
+    {
+      "name": "Khiwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Qŭshkŭpir",
+      "postalCodes": []
+    },
+    {
+      "name": "Showot",
+      "postalCodes": []
+    },
+    {
+      "name": "Urganch",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

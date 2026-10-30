@@ -1,0 +1,212 @@
+[
+  {
+    "code": "AB",
+    "name": "Alba",
+    "countryCode": "RO"
+  },
+  {
+    "code": "AR",
+    "name": "Arad County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "AG",
+    "name": "Arges",
+    "countryCode": "RO"
+  },
+  {
+    "code": "BC",
+    "name": "Bacău County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "BH",
+    "name": "Bihor County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "BN",
+    "name": "Bistrița-Năsăud County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "BT",
+    "name": "Botoșani County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "BR",
+    "name": "Braila",
+    "countryCode": "RO"
+  },
+  {
+    "code": "BV",
+    "name": "Brașov County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "B",
+    "name": "Bucharest",
+    "countryCode": "RO"
+  },
+  {
+    "code": "BZ",
+    "name": "Buzău County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "CL",
+    "name": "Călărași County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "CS",
+    "name": "Caraș-Severin County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "CJ",
+    "name": "Cluj County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "CT",
+    "name": "Constanța County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "CV",
+    "name": "Covasna County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "DB",
+    "name": "Dâmbovița County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "DJ",
+    "name": "Dolj County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "GL",
+    "name": "Galați County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "GR",
+    "name": "Giurgiu County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "GJ",
+    "name": "Gorj County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "HR",
+    "name": "Harghita County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "HD",
+    "name": "Hunedoara County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "IL",
+    "name": "Ialomița County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "IS",
+    "name": "Iași County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "IF",
+    "name": "Ilfov County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "MM",
+    "name": "Maramureș County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "MH",
+    "name": "Mehedinți County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "MS",
+    "name": "Mureș County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "NT",
+    "name": "Neamț County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "OT",
+    "name": "Olt County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "PH",
+    "name": "Prahova County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "SJ",
+    "name": "Sălaj County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "SM",
+    "name": "Satu Mare County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "SB",
+    "name": "Sibiu County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "SV",
+    "name": "Suceava County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "TR",
+    "name": "Teleorman County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "TM",
+    "name": "Timiș County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "TL",
+    "name": "Tulcea County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "VL",
+    "name": "Vâlcea County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "VS",
+    "name": "Vaslui County",
+    "countryCode": "RO"
+  },
+  {
+    "code": "VN",
+    "name": "Vrancea County",
+    "countryCode": "RO"
+  }
+]

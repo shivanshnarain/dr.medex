@@ -1,0 +1,2219 @@
+{
+  "VAN": [],
+  "BRU": [
+    {
+      "name": "Brussels",
+      "postalCodes": []
+    }
+  ],
+  "VOV": [],
+  "VLG": [
+    {
+      "name": "Aalst",
+      "postalCodes": []
+    },
+    {
+      "name": "Aalter",
+      "postalCodes": []
+    },
+    {
+      "name": "Aarschot",
+      "postalCodes": []
+    },
+    {
+      "name": "Aartselaar",
+      "postalCodes": []
+    },
+    {
+      "name": "Alken",
+      "postalCodes": []
+    },
+    {
+      "name": "Alveringem",
+      "postalCodes": []
+    },
+    {
+      "name": "Antwerpen",
+      "postalCodes": []
+    },
+    {
+      "name": "Anzegem",
+      "postalCodes": []
+    },
+    {
+      "name": "Ardooie",
+      "postalCodes": []
+    },
+    {
+      "name": "Arendonk",
+      "postalCodes": []
+    },
+    {
+      "name": "As",
+      "postalCodes": []
+    },
+    {
+      "name": "Asse",
+      "postalCodes": []
+    },
+    {
+      "name": "Assenede",
+      "postalCodes": []
+    },
+    {
+      "name": "Avelgem",
+      "postalCodes": []
+    },
+    {
+      "name": "Baarle-Hertog",
+      "postalCodes": []
+    },
+    {
+      "name": "Balen",
+      "postalCodes": []
+    },
+    {
+      "name": "Beernem",
+      "postalCodes": []
+    },
+    {
+      "name": "Beerse",
+      "postalCodes": []
+    },
+    {
+      "name": "Beersel",
+      "postalCodes": []
+    },
+    {
+      "name": "Begijnendijk",
+      "postalCodes": []
+    },
+    {
+      "name": "Bekkevoort",
+      "postalCodes": []
+    },
+    {
+      "name": "Beringen",
+      "postalCodes": []
+    },
+    {
+      "name": "Berlaar",
+      "postalCodes": []
+    },
+    {
+      "name": "Berlare",
+      "postalCodes": []
+    },
+    {
+      "name": "Bertem",
+      "postalCodes": []
+    },
+    {
+      "name": "Bever",
+      "postalCodes": []
+    },
+    {
+      "name": "Beveren",
+      "postalCodes": []
+    },
+    {
+      "name": "Bierbeek",
+      "postalCodes": []
+    },
+    {
+      "name": "Bilzen",
+      "postalCodes": []
+    },
+    {
+      "name": "Blankenberge",
+      "postalCodes": []
+    },
+    {
+      "name": "Bocholt",
+      "postalCodes": []
+    },
+    {
+      "name": "Boechout",
+      "postalCodes": []
+    },
+    {
+      "name": "Bonheiden",
+      "postalCodes": []
+    },
+    {
+      "name": "Boom",
+      "postalCodes": []
+    },
+    {
+      "name": "Boortmeerbeek",
+      "postalCodes": []
+    },
+    {
+      "name": "Borgloon",
+      "postalCodes": []
+    },
+    {
+      "name": "Bornem",
+      "postalCodes": []
+    },
+    {
+      "name": "Borsbeek",
+      "postalCodes": []
+    },
+    {
+      "name": "Boutersem",
+      "postalCodes": []
+    },
+    {
+      "name": "Brasschaat",
+      "postalCodes": []
+    },
+    {
+      "name": "Brecht",
+      "postalCodes": []
+    },
+    {
+      "name": "Bredene",
+      "postalCodes": []
+    },
+    {
+      "name": "Bree",
+      "postalCodes": []
+    },
+    {
+      "name": "Brugge",
+      "postalCodes": []
+    },
+    {
+      "name": "Buggenhout",
+      "postalCodes": []
+    },
+    {
+      "name": "Damme",
+      "postalCodes": []
+    },
+    {
+      "name": "De Haan",
+      "postalCodes": []
+    },
+    {
+      "name": "De Panne",
+      "postalCodes": []
+    },
+    {
+      "name": "De Pinte",
+      "postalCodes": []
+    },
+    {
+      "name": "Deerlijk",
+      "postalCodes": []
+    },
+    {
+      "name": "Deinze",
+      "postalCodes": []
+    },
+    {
+      "name": "Denderleeuw",
+      "postalCodes": []
+    },
+    {
+      "name": "Dendermonde",
+      "postalCodes": []
+    },
+    {
+      "name": "Dentergem",
+      "postalCodes": []
+    },
+    {
+      "name": "Dessel",
+      "postalCodes": []
+    },
+    {
+      "name": "Destelbergen",
+      "postalCodes": []
+    },
+    {
+      "name": "Deurne",
+      "postalCodes": []
+    },
+    {
+      "name": "Diegem",
+      "postalCodes": []
+    },
+    {
+      "name": "Diepenbeek",
+      "postalCodes": []
+    },
+    {
+      "name": "Diest",
+      "postalCodes": []
+    },
+    {
+      "name": "Diksmuide",
+      "postalCodes": []
+    },
+    {
+      "name": "Dilbeek",
+      "postalCodes": []
+    },
+    {
+      "name": "Drogenbos",
+      "postalCodes": []
+    },
+    {
+      "name": "Duffel",
+      "postalCodes": []
+    },
+    {
+      "name": "Edegem",
+      "postalCodes": []
+    },
+    {
+      "name": "Eeklo",
+      "postalCodes": []
+    },
+    {
+      "name": "Essen",
+      "postalCodes": []
+    },
+    {
+      "name": "Evergem",
+      "postalCodes": []
+    },
+    {
+      "name": "Galmaarden",
+      "postalCodes": []
+    },
+    {
+      "name": "Gavere",
+      "postalCodes": []
+    },
+    {
+      "name": "Geel",
+      "postalCodes": []
+    },
+    {
+      "name": "Geetbets",
+      "postalCodes": []
+    },
+    {
+      "name": "Genk",
+      "postalCodes": []
+    },
+    {
+      "name": "Gent",
+      "postalCodes": []
+    },
+    {
+      "name": "Geraardsbergen",
+      "postalCodes": []
+    },
+    {
+      "name": "Gingelom",
+      "postalCodes": []
+    },
+    {
+      "name": "Gistel",
+      "postalCodes": []
+    },
+    {
+      "name": "Glabbeek",
+      "postalCodes": []
+    },
+    {
+      "name": "Gooik",
+      "postalCodes": []
+    },
+    {
+      "name": "Grimbergen",
+      "postalCodes": []
+    },
+    {
+      "name": "Grobbendonk",
+      "postalCodes": []
+    },
+    {
+      "name": "Haacht",
+      "postalCodes": []
+    },
+    {
+      "name": "Haaltert",
+      "postalCodes": []
+    },
+    {
+      "name": "Halen",
+      "postalCodes": []
+    },
+    {
+      "name": "Halle",
+      "postalCodes": []
+    },
+    {
+      "name": "Hamme",
+      "postalCodes": []
+    },
+    {
+      "name": "Harelbeke",
+      "postalCodes": []
+    },
+    {
+      "name": "Hasselt",
+      "postalCodes": []
+    },
+    {
+      "name": "Heers",
+      "postalCodes": []
+    },
+    {
+      "name": "Heist-op-den-Berg",
+      "postalCodes": []
+    },
+    {
+      "name": "Helchteren",
+      "postalCodes": []
+    },
+    {
+      "name": "Hemiksem",
+      "postalCodes": []
+    },
+    {
+      "name": "Herent",
+      "postalCodes": []
+    },
+    {
+      "name": "Herentals",
+      "postalCodes": []
+    },
+    {
+      "name": "Herenthout",
+      "postalCodes": []
+    },
+    {
+      "name": "Herk-de-Stad",
+      "postalCodes": []
+    },
+    {
+      "name": "Herne",
+      "postalCodes": []
+    },
+    {
+      "name": "Herselt",
+      "postalCodes": []
+    },
+    {
+      "name": "Herzele",
+      "postalCodes": []
+    },
+    {
+      "name": "Heusden",
+      "postalCodes": []
+    },
+    {
+      "name": "Hoboken",
+      "postalCodes": []
+    },
+    {
+      "name": "Hoegaarden",
+      "postalCodes": []
+    },
+    {
+      "name": "Hoeilaart",
+      "postalCodes": []
+    },
+    {
+      "name": "Hoeselt",
+      "postalCodes": []
+    },
+    {
+      "name": "Holsbeek",
+      "postalCodes": []
+    },
+    {
+      "name": "Hooglede",
+      "postalCodes": []
+    },
+    {
+      "name": "Hoogstraten",
+      "postalCodes": []
+    },
+    {
+      "name": "Houthalen",
+      "postalCodes": []
+    },
+    {
+      "name": "Houthulst",
+      "postalCodes": []
+    },
+    {
+      "name": "Hove",
+      "postalCodes": []
+    },
+    {
+      "name": "Huldenberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Hulshout",
+      "postalCodes": []
+    },
+    {
+      "name": "Ichtegem",
+      "postalCodes": []
+    },
+    {
+      "name": "Ieper",
+      "postalCodes": []
+    },
+    {
+      "name": "Ingelmunster",
+      "postalCodes": []
+    },
+    {
+      "name": "Izegem",
+      "postalCodes": []
+    },
+    {
+      "name": "Jabbeke",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalmthout",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampenhout",
+      "postalCodes": []
+    },
+    {
+      "name": "Kapelle-op-den-Bos",
+      "postalCodes": []
+    },
+    {
+      "name": "Kapellen",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaprijke",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasterlee",
+      "postalCodes": []
+    },
+    {
+      "name": "Keerbergen",
+      "postalCodes": []
+    },
+    {
+      "name": "Kinrooi",
+      "postalCodes": []
+    },
+    {
+      "name": "Knesselare",
+      "postalCodes": []
+    },
+    {
+      "name": "Knokke-Heist",
+      "postalCodes": []
+    },
+    {
+      "name": "Koekelare",
+      "postalCodes": []
+    },
+    {
+      "name": "Koksijde",
+      "postalCodes": []
+    },
+    {
+      "name": "Kontich",
+      "postalCodes": []
+    },
+    {
+      "name": "Kortemark",
+      "postalCodes": []
+    },
+    {
+      "name": "Kortenaken",
+      "postalCodes": []
+    },
+    {
+      "name": "Kortenberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Kortessem",
+      "postalCodes": []
+    },
+    {
+      "name": "Kortrijk",
+      "postalCodes": []
+    },
+    {
+      "name": "Kraainem",
+      "postalCodes": []
+    },
+    {
+      "name": "Kruibeke",
+      "postalCodes": []
+    },
+    {
+      "name": "Kruishoutem",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuurne",
+      "postalCodes": []
+    },
+    {
+      "name": "Laarne",
+      "postalCodes": []
+    },
+    {
+      "name": "Lanaken",
+      "postalCodes": []
+    },
+    {
+      "name": "Landen",
+      "postalCodes": []
+    },
+    {
+      "name": "Lebbeke",
+      "postalCodes": []
+    },
+    {
+      "name": "Lede",
+      "postalCodes": []
+    },
+    {
+      "name": "Ledeberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Ledegem",
+      "postalCodes": []
+    },
+    {
+      "name": "Lendelede",
+      "postalCodes": []
+    },
+    {
+      "name": "Leopoldsburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Leuven",
+      "postalCodes": []
+    },
+    {
+      "name": "Lichtervelde",
+      "postalCodes": []
+    },
+    {
+      "name": "Liedekerke",
+      "postalCodes": []
+    },
+    {
+      "name": "Lier",
+      "postalCodes": []
+    },
+    {
+      "name": "Lille",
+      "postalCodes": []
+    },
+    {
+      "name": "Linkebeek",
+      "postalCodes": []
+    },
+    {
+      "name": "Lint",
+      "postalCodes": []
+    },
+    {
+      "name": "Lochristi",
+      "postalCodes": []
+    },
+    {
+      "name": "Lokeren",
+      "postalCodes": []
+    },
+    {
+      "name": "Lommel",
+      "postalCodes": []
+    },
+    {
+      "name": "Londerzeel",
+      "postalCodes": []
+    },
+    {
+      "name": "Lovendegem",
+      "postalCodes": []
+    },
+    {
+      "name": "Lubbeek",
+      "postalCodes": []
+    },
+    {
+      "name": "Lummen",
+      "postalCodes": []
+    },
+    {
+      "name": "Maaseik",
+      "postalCodes": []
+    },
+    {
+      "name": "Maasmechelen",
+      "postalCodes": []
+    },
+    {
+      "name": "Machelen",
+      "postalCodes": []
+    },
+    {
+      "name": "Maldegem",
+      "postalCodes": []
+    },
+    {
+      "name": "Mechelen",
+      "postalCodes": []
+    },
+    {
+      "name": "Meerhout",
+      "postalCodes": []
+    },
+    {
+      "name": "Meise",
+      "postalCodes": []
+    },
+    {
+      "name": "Melle",
+      "postalCodes": []
+    },
+    {
+      "name": "Menen",
+      "postalCodes": []
+    },
+    {
+      "name": "Merchtem",
+      "postalCodes": []
+    },
+    {
+      "name": "Merelbeke",
+      "postalCodes": []
+    },
+    {
+      "name": "Merksplas",
+      "postalCodes": []
+    },
+    {
+      "name": "Meulebeke",
+      "postalCodes": []
+    },
+    {
+      "name": "Middelkerke",
+      "postalCodes": []
+    },
+    {
+      "name": "Moerbeke",
+      "postalCodes": []
+    },
+    {
+      "name": "Mol",
+      "postalCodes": []
+    },
+    {
+      "name": "Moorslede",
+      "postalCodes": []
+    },
+    {
+      "name": "Mortsel",
+      "postalCodes": []
+    },
+    {
+      "name": "Nazareth",
+      "postalCodes": []
+    },
+    {
+      "name": "Neerpelt",
+      "postalCodes": []
+    },
+    {
+      "name": "Nevele",
+      "postalCodes": []
+    },
+    {
+      "name": "Niel",
+      "postalCodes": []
+    },
+    {
+      "name": "Nieuwerkerken",
+      "postalCodes": []
+    },
+    {
+      "name": "Nieuwpoort",
+      "postalCodes": []
+    },
+    {
+      "name": "Nijlen",
+      "postalCodes": []
+    },
+    {
+      "name": "Ninove",
+      "postalCodes": []
+    },
+    {
+      "name": "Olen",
+      "postalCodes": []
+    },
+    {
+      "name": "Oostduinkerke",
+      "postalCodes": []
+    },
+    {
+      "name": "Oosterzele",
+      "postalCodes": []
+    },
+    {
+      "name": "Oostkamp",
+      "postalCodes": []
+    },
+    {
+      "name": "Oostmalle",
+      "postalCodes": []
+    },
+    {
+      "name": "Oostrozebeke",
+      "postalCodes": []
+    },
+    {
+      "name": "Opglabbeek",
+      "postalCodes": []
+    },
+    {
+      "name": "Opwijk",
+      "postalCodes": []
+    },
+    {
+      "name": "Ostend",
+      "postalCodes": []
+    },
+    {
+      "name": "Oud-Heverlee",
+      "postalCodes": []
+    },
+    {
+      "name": "Oud-Turnhout",
+      "postalCodes": []
+    },
+    {
+      "name": "Oudenaarde",
+      "postalCodes": []
+    },
+    {
+      "name": "Oudenburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Overijse",
+      "postalCodes": []
+    },
+    {
+      "name": "Overpelt",
+      "postalCodes": []
+    },
+    {
+      "name": "Peer",
+      "postalCodes": []
+    },
+    {
+      "name": "Pepingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Perre",
+      "postalCodes": []
+    },
+    {
+      "name": "Pittem",
+      "postalCodes": []
+    },
+    {
+      "name": "Poperinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincie Antwerpen",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincie Limburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincie Oost-Vlaanderen",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincie Vlaams-Brabant",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincie West-Vlaanderen",
+      "postalCodes": []
+    },
+    {
+      "name": "Putte",
+      "postalCodes": []
+    },
+    {
+      "name": "Puurs",
+      "postalCodes": []
+    },
+    {
+      "name": "Ranst",
+      "postalCodes": []
+    },
+    {
+      "name": "Ravels",
+      "postalCodes": []
+    },
+    {
+      "name": "Retie",
+      "postalCodes": []
+    },
+    {
+      "name": "Riemst",
+      "postalCodes": []
+    },
+    {
+      "name": "Rijkevorsel",
+      "postalCodes": []
+    },
+    {
+      "name": "Roeselare",
+      "postalCodes": []
+    },
+    {
+      "name": "Ronse",
+      "postalCodes": []
+    },
+    {
+      "name": "Rotselaar",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruiselede",
+      "postalCodes": []
+    },
+    {
+      "name": "Rumst",
+      "postalCodes": []
+    },
+    {
+      "name": "Schelle",
+      "postalCodes": []
+    },
+    {
+      "name": "Schilde",
+      "postalCodes": []
+    },
+    {
+      "name": "Schoten",
+      "postalCodes": []
+    },
+    {
+      "name": "Sint-Amands",
+      "postalCodes": []
+    },
+    {
+      "name": "Sint-Genesius-Rode",
+      "postalCodes": []
+    },
+    {
+      "name": "Sint-Gillis-Waas",
+      "postalCodes": []
+    },
+    {
+      "name": "Sint-Joris",
+      "postalCodes": []
+    },
+    {
+      "name": "Sint-Katelijne-Waver",
+      "postalCodes": []
+    },
+    {
+      "name": "Sint-Kruis",
+      "postalCodes": []
+    },
+    {
+      "name": "Sint-Laureins",
+      "postalCodes": []
+    },
+    {
+      "name": "Sint-Lievens-Houtem",
+      "postalCodes": []
+    },
+    {
+      "name": "Sint-Maria-Lierde",
+      "postalCodes": []
+    },
+    {
+      "name": "Sint-Martens-Latem",
+      "postalCodes": []
+    },
+    {
+      "name": "Sint-Martens-Lennik",
+      "postalCodes": []
+    },
+    {
+      "name": "Sint-Niklaas",
+      "postalCodes": []
+    },
+    {
+      "name": "Sint-Pieters-Leeuw",
+      "postalCodes": []
+    },
+    {
+      "name": "Sint-Pieters-Voeren",
+      "postalCodes": []
+    },
+    {
+      "name": "Sint-Truiden",
+      "postalCodes": []
+    },
+    {
+      "name": "Stabroek",
+      "postalCodes": []
+    },
+    {
+      "name": "Staden",
+      "postalCodes": []
+    },
+    {
+      "name": "Steenokkerzeel",
+      "postalCodes": []
+    },
+    {
+      "name": "Stekene",
+      "postalCodes": []
+    },
+    {
+      "name": "Temse",
+      "postalCodes": []
+    },
+    {
+      "name": "Terkoest",
+      "postalCodes": []
+    },
+    {
+      "name": "Ternat",
+      "postalCodes": []
+    },
+    {
+      "name": "Tervuren",
+      "postalCodes": []
+    },
+    {
+      "name": "Tessenderlo",
+      "postalCodes": []
+    },
+    {
+      "name": "Tielt",
+      "postalCodes": []
+    },
+    {
+      "name": "Tienen",
+      "postalCodes": []
+    },
+    {
+      "name": "Tongeren",
+      "postalCodes": []
+    },
+    {
+      "name": "Torhout",
+      "postalCodes": []
+    },
+    {
+      "name": "Tremelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Turnhout",
+      "postalCodes": []
+    },
+    {
+      "name": "Veurne",
+      "postalCodes": []
+    },
+    {
+      "name": "Vilvoorde",
+      "postalCodes": []
+    },
+    {
+      "name": "Vorselaar",
+      "postalCodes": []
+    },
+    {
+      "name": "Vosselaar",
+      "postalCodes": []
+    },
+    {
+      "name": "Waarschoot",
+      "postalCodes": []
+    },
+    {
+      "name": "Waasmunster",
+      "postalCodes": []
+    },
+    {
+      "name": "Wachtebeke",
+      "postalCodes": []
+    },
+    {
+      "name": "Waregem",
+      "postalCodes": []
+    },
+    {
+      "name": "Wellen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wemmel",
+      "postalCodes": []
+    },
+    {
+      "name": "Wenduine",
+      "postalCodes": []
+    },
+    {
+      "name": "Wervik",
+      "postalCodes": []
+    },
+    {
+      "name": "Westerlo",
+      "postalCodes": []
+    },
+    {
+      "name": "Wetteren",
+      "postalCodes": []
+    },
+    {
+      "name": "Wevelgem",
+      "postalCodes": []
+    },
+    {
+      "name": "Wezembeek-Oppem",
+      "postalCodes": []
+    },
+    {
+      "name": "Wichelen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wielsbeke",
+      "postalCodes": []
+    },
+    {
+      "name": "Wijnegem",
+      "postalCodes": []
+    },
+    {
+      "name": "Willebroek",
+      "postalCodes": []
+    },
+    {
+      "name": "Wingene",
+      "postalCodes": []
+    },
+    {
+      "name": "Wommelgem",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuustwezel",
+      "postalCodes": []
+    },
+    {
+      "name": "Zandhoven",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaventem",
+      "postalCodes": []
+    },
+    {
+      "name": "Zedelgem",
+      "postalCodes": []
+    },
+    {
+      "name": "Zeebrugge",
+      "postalCodes": []
+    },
+    {
+      "name": "Zele",
+      "postalCodes": []
+    },
+    {
+      "name": "Zelzate",
+      "postalCodes": []
+    },
+    {
+      "name": "Zemst",
+      "postalCodes": []
+    },
+    {
+      "name": "Zingem",
+      "postalCodes": []
+    },
+    {
+      "name": "Zoersel",
+      "postalCodes": []
+    },
+    {
+      "name": "Zomergem",
+      "postalCodes": []
+    },
+    {
+      "name": "Zonhoven",
+      "postalCodes": []
+    },
+    {
+      "name": "Zonnebeke",
+      "postalCodes": []
+    },
+    {
+      "name": "Zottegem",
+      "postalCodes": []
+    },
+    {
+      "name": "Zoutleeuw",
+      "postalCodes": []
+    },
+    {
+      "name": "Zuienkerke",
+      "postalCodes": []
+    },
+    {
+      "name": "Zulte",
+      "postalCodes": []
+    },
+    {
+      "name": "Zutendaal",
+      "postalCodes": []
+    },
+    {
+      "name": "Zwevegem",
+      "postalCodes": []
+    },
+    {
+      "name": "Zwijndrecht",
+      "postalCodes": []
+    }
+  ],
+  "VBR": [],
+  "WHT": [],
+  "WLG": [],
+  "VLI": [],
+  "WLX": [],
+  "WNA": [],
+  "WAL": [
+    {
+      "name": "Aiseau",
+      "postalCodes": []
+    },
+    {
+      "name": "Amay",
+      "postalCodes": []
+    },
+    {
+      "name": "Amblève",
+      "postalCodes": []
+    },
+    {
+      "name": "Andenne",
+      "postalCodes": []
+    },
+    {
+      "name": "Anderlues",
+      "postalCodes": []
+    },
+    {
+      "name": "Anhée",
+      "postalCodes": []
+    },
+    {
+      "name": "Ans",
+      "postalCodes": []
+    },
+    {
+      "name": "Anthisnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Antoing",
+      "postalCodes": []
+    },
+    {
+      "name": "Arlon",
+      "postalCodes": []
+    },
+    {
+      "name": "Assesse",
+      "postalCodes": []
+    },
+    {
+      "name": "Ath",
+      "postalCodes": []
+    },
+    {
+      "name": "Attert",
+      "postalCodes": []
+    },
+    {
+      "name": "Aubange",
+      "postalCodes": []
+    },
+    {
+      "name": "Aubel",
+      "postalCodes": []
+    },
+    {
+      "name": "Awans",
+      "postalCodes": []
+    },
+    {
+      "name": "Aywaille",
+      "postalCodes": []
+    },
+    {
+      "name": "Baelen",
+      "postalCodes": []
+    },
+    {
+      "name": "Basse Lasne",
+      "postalCodes": []
+    },
+    {
+      "name": "Bassenge",
+      "postalCodes": []
+    },
+    {
+      "name": "Bastogne",
+      "postalCodes": []
+    },
+    {
+      "name": "Beaumont",
+      "postalCodes": []
+    },
+    {
+      "name": "Beauraing",
+      "postalCodes": []
+    },
+    {
+      "name": "Beauvechain",
+      "postalCodes": []
+    },
+    {
+      "name": "Beloeil",
+      "postalCodes": []
+    },
+    {
+      "name": "Berloz",
+      "postalCodes": []
+    },
+    {
+      "name": "Bernissart",
+      "postalCodes": []
+    },
+    {
+      "name": "Bertogne",
+      "postalCodes": []
+    },
+    {
+      "name": "Bertrix",
+      "postalCodes": []
+    },
+    {
+      "name": "Beyne-Heusay",
+      "postalCodes": []
+    },
+    {
+      "name": "Bièvre",
+      "postalCodes": []
+    },
+    {
+      "name": "Binche",
+      "postalCodes": []
+    },
+    {
+      "name": "Blégny",
+      "postalCodes": []
+    },
+    {
+      "name": "Bouillon",
+      "postalCodes": []
+    },
+    {
+      "name": "Boussu",
+      "postalCodes": []
+    },
+    {
+      "name": "Braine-l'Alleud",
+      "postalCodes": []
+    },
+    {
+      "name": "Braine-le-Château",
+      "postalCodes": []
+    },
+    {
+      "name": "Braine-le-Comte",
+      "postalCodes": []
+    },
+    {
+      "name": "Braives",
+      "postalCodes": []
+    },
+    {
+      "name": "Brugelette",
+      "postalCodes": []
+    },
+    {
+      "name": "Brunehault",
+      "postalCodes": []
+    },
+    {
+      "name": "Bullange",
+      "postalCodes": []
+    },
+    {
+      "name": "Burdinne",
+      "postalCodes": []
+    },
+    {
+      "name": "Butgenbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Celles",
+      "postalCodes": []
+    },
+    {
+      "name": "Cerfontaine",
+      "postalCodes": []
+    },
+    {
+      "name": "Chapelle-lez-Herlaimont",
+      "postalCodes": []
+    },
+    {
+      "name": "Charleroi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chastre-Villeroux-Blanmont",
+      "postalCodes": []
+    },
+    {
+      "name": "Châtelet",
+      "postalCodes": []
+    },
+    {
+      "name": "Chaudfontaine",
+      "postalCodes": []
+    },
+    {
+      "name": "Chaumont-Gistoux",
+      "postalCodes": []
+    },
+    {
+      "name": "Chièvres",
+      "postalCodes": []
+    },
+    {
+      "name": "Chimay",
+      "postalCodes": []
+    },
+    {
+      "name": "Chiny",
+      "postalCodes": []
+    },
+    {
+      "name": "Ciney",
+      "postalCodes": []
+    },
+    {
+      "name": "Clavier",
+      "postalCodes": []
+    },
+    {
+      "name": "Colfontaine",
+      "postalCodes": []
+    },
+    {
+      "name": "Comblain-au-Pont",
+      "postalCodes": []
+    },
+    {
+      "name": "Courcelles",
+      "postalCodes": []
+    },
+    {
+      "name": "Court-Saint-Étienne",
+      "postalCodes": []
+    },
+    {
+      "name": "Couvin",
+      "postalCodes": []
+    },
+    {
+      "name": "Crisnée",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalhem",
+      "postalCodes": []
+    },
+    {
+      "name": "Daverdisse",
+      "postalCodes": []
+    },
+    {
+      "name": "Dinant",
+      "postalCodes": []
+    },
+    {
+      "name": "Dison",
+      "postalCodes": []
+    },
+    {
+      "name": "Doische",
+      "postalCodes": []
+    },
+    {
+      "name": "Donceel",
+      "postalCodes": []
+    },
+    {
+      "name": "Dour",
+      "postalCodes": []
+    },
+    {
+      "name": "Durbuy",
+      "postalCodes": []
+    },
+    {
+      "name": "Écaussinnes-d’Enghien",
+      "postalCodes": []
+    },
+    {
+      "name": "Éghezée",
+      "postalCodes": []
+    },
+    {
+      "name": "Ellezelles",
+      "postalCodes": []
+    },
+    {
+      "name": "Enghien",
+      "postalCodes": []
+    },
+    {
+      "name": "Engis",
+      "postalCodes": []
+    },
+    {
+      "name": "Érezée",
+      "postalCodes": []
+    },
+    {
+      "name": "Erquelinnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Esneux",
+      "postalCodes": []
+    },
+    {
+      "name": "Estaimpuis",
+      "postalCodes": []
+    },
+    {
+      "name": "Estinnes-au-Val",
+      "postalCodes": []
+    },
+    {
+      "name": "Étalle",
+      "postalCodes": []
+    },
+    {
+      "name": "Eupen",
+      "postalCodes": []
+    },
+    {
+      "name": "Faimes",
+      "postalCodes": []
+    },
+    {
+      "name": "Farciennes",
+      "postalCodes": []
+    },
+    {
+      "name": "Fauvillers",
+      "postalCodes": []
+    },
+    {
+      "name": "Ferrières",
+      "postalCodes": []
+    },
+    {
+      "name": "Fexhe-le-Haut-Clocher",
+      "postalCodes": []
+    },
+    {
+      "name": "Flémalle-Haute",
+      "postalCodes": []
+    },
+    {
+      "name": "Fléron",
+      "postalCodes": []
+    },
+    {
+      "name": "Fleurus",
+      "postalCodes": []
+    },
+    {
+      "name": "Flobecq",
+      "postalCodes": []
+    },
+    {
+      "name": "Floreffe",
+      "postalCodes": []
+    },
+    {
+      "name": "Florennes",
+      "postalCodes": []
+    },
+    {
+      "name": "Florenville",
+      "postalCodes": []
+    },
+    {
+      "name": "Forville",
+      "postalCodes": []
+    },
+    {
+      "name": "Fosses-la-Ville",
+      "postalCodes": []
+    },
+    {
+      "name": "Frameries",
+      "postalCodes": []
+    },
+    {
+      "name": "Frasnes-lez-Buissenal",
+      "postalCodes": []
+    },
+    {
+      "name": "Froidchapelle",
+      "postalCodes": []
+    },
+    {
+      "name": "Gedinne",
+      "postalCodes": []
+    },
+    {
+      "name": "Geer",
+      "postalCodes": []
+    },
+    {
+      "name": "Gembloux",
+      "postalCodes": []
+    },
+    {
+      "name": "Genappe",
+      "postalCodes": []
+    },
+    {
+      "name": "Gerpinnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Gesves",
+      "postalCodes": []
+    },
+    {
+      "name": "Gouvy",
+      "postalCodes": []
+    },
+    {
+      "name": "Grez-Doiceau",
+      "postalCodes": []
+    },
+    {
+      "name": "Habay-la-Vieille",
+      "postalCodes": []
+    },
+    {
+      "name": "Hamoir",
+      "postalCodes": []
+    },
+    {
+      "name": "Hamois",
+      "postalCodes": []
+    },
+    {
+      "name": "Hannut",
+      "postalCodes": []
+    },
+    {
+      "name": "Hastière-Lavaux",
+      "postalCodes": []
+    },
+    {
+      "name": "Havelange",
+      "postalCodes": []
+    },
+    {
+      "name": "Hensies",
+      "postalCodes": []
+    },
+    {
+      "name": "Herbeumont",
+      "postalCodes": []
+    },
+    {
+      "name": "Héron",
+      "postalCodes": []
+    },
+    {
+      "name": "Herstal",
+      "postalCodes": []
+    },
+    {
+      "name": "Herve",
+      "postalCodes": []
+    },
+    {
+      "name": "Hotton",
+      "postalCodes": []
+    },
+    {
+      "name": "Houffalize",
+      "postalCodes": []
+    },
+    {
+      "name": "Houyet",
+      "postalCodes": []
+    },
+    {
+      "name": "Huy",
+      "postalCodes": []
+    },
+    {
+      "name": "Incourt",
+      "postalCodes": []
+    },
+    {
+      "name": "Ittre",
+      "postalCodes": []
+    },
+    {
+      "name": "Jalhay",
+      "postalCodes": []
+    },
+    {
+      "name": "Jodoigne",
+      "postalCodes": []
+    },
+    {
+      "name": "Juprelle",
+      "postalCodes": []
+    },
+    {
+      "name": "Jurbise",
+      "postalCodes": []
+    },
+    {
+      "name": "La Bruyère",
+      "postalCodes": []
+    },
+    {
+      "name": "La Calamine",
+      "postalCodes": []
+    },
+    {
+      "name": "La Hulpe",
+      "postalCodes": []
+    },
+    {
+      "name": "La Louvière",
+      "postalCodes": []
+    },
+    {
+      "name": "La Roche-en-Ardenne",
+      "postalCodes": []
+    },
+    {
+      "name": "Léglise",
+      "postalCodes": []
+    },
+    {
+      "name": "Lens",
+      "postalCodes": []
+    },
+    {
+      "name": "Lessines",
+      "postalCodes": []
+    },
+    {
+      "name": "Libin",
+      "postalCodes": []
+    },
+    {
+      "name": "Liège",
+      "postalCodes": []
+    },
+    {
+      "name": "Lierneux",
+      "postalCodes": []
+    },
+    {
+      "name": "Limbourg",
+      "postalCodes": []
+    },
+    {
+      "name": "Lincent",
+      "postalCodes": []
+    },
+    {
+      "name": "Lobbes",
+      "postalCodes": []
+    },
+    {
+      "name": "Lontzen",
+      "postalCodes": []
+    },
+    {
+      "name": "Louvain-la-Neuve",
+      "postalCodes": []
+    },
+    {
+      "name": "Malmédy",
+      "postalCodes": []
+    },
+    {
+      "name": "Manage",
+      "postalCodes": []
+    },
+    {
+      "name": "Manhay",
+      "postalCodes": []
+    },
+    {
+      "name": "Marche-en-Famenne",
+      "postalCodes": []
+    },
+    {
+      "name": "Marchin",
+      "postalCodes": []
+    },
+    {
+      "name": "Martelange",
+      "postalCodes": []
+    },
+    {
+      "name": "Meix-devant-Virton",
+      "postalCodes": []
+    },
+    {
+      "name": "Merbes-le-Château",
+      "postalCodes": []
+    },
+    {
+      "name": "Messancy",
+      "postalCodes": []
+    },
+    {
+      "name": "Mettet",
+      "postalCodes": []
+    },
+    {
+      "name": "Modave",
+      "postalCodes": []
+    },
+    {
+      "name": "Momignies",
+      "postalCodes": []
+    },
+    {
+      "name": "Mons",
+      "postalCodes": []
+    },
+    {
+      "name": "Mons-lez-Liège",
+      "postalCodes": []
+    },
+    {
+      "name": "Mont-Saint-Guibert",
+      "postalCodes": []
+    },
+    {
+      "name": "Morlanwelz-Mariemont",
+      "postalCodes": []
+    },
+    {
+      "name": "Mouscron",
+      "postalCodes": []
+    },
+    {
+      "name": "Musson",
+      "postalCodes": []
+    },
+    {
+      "name": "Namur",
+      "postalCodes": []
+    },
+    {
+      "name": "Nandrin",
+      "postalCodes": []
+    },
+    {
+      "name": "Nassogne",
+      "postalCodes": []
+    },
+    {
+      "name": "Neufchâteau",
+      "postalCodes": []
+    },
+    {
+      "name": "Nivelles",
+      "postalCodes": []
+    },
+    {
+      "name": "Noville-les-Bois",
+      "postalCodes": []
+    },
+    {
+      "name": "Ohey",
+      "postalCodes": []
+    },
+    {
+      "name": "Olne",
+      "postalCodes": []
+    },
+    {
+      "name": "Onhaye",
+      "postalCodes": []
+    },
+    {
+      "name": "Oreye",
+      "postalCodes": []
+    },
+    {
+      "name": "Ottignies",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouffet",
+      "postalCodes": []
+    },
+    {
+      "name": "Oupeye",
+      "postalCodes": []
+    },
+    {
+      "name": "Paliseul",
+      "postalCodes": []
+    },
+    {
+      "name": "Pecq",
+      "postalCodes": []
+    },
+    {
+      "name": "Pepinster",
+      "postalCodes": []
+    },
+    {
+      "name": "Péruwelz",
+      "postalCodes": []
+    },
+    {
+      "name": "Perwez",
+      "postalCodes": []
+    },
+    {
+      "name": "Philippeville",
+      "postalCodes": []
+    },
+    {
+      "name": "Plombières",
+      "postalCodes": []
+    },
+    {
+      "name": "Pont-à-Celles",
+      "postalCodes": []
+    },
+    {
+      "name": "Profondeville",
+      "postalCodes": []
+    },
+    {
+      "name": "Province de Liège",
+      "postalCodes": []
+    },
+    {
+      "name": "Province de Namur",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Brabant Wallon",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Hainaut",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Luxembourg",
+      "postalCodes": []
+    },
+    {
+      "name": "Quaregnon",
+      "postalCodes": []
+    },
+    {
+      "name": "Quévy-le-Petit",
+      "postalCodes": []
+    },
+    {
+      "name": "Quiévrain",
+      "postalCodes": []
+    },
+    {
+      "name": "Raeren",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramillies",
+      "postalCodes": []
+    },
+    {
+      "name": "Rebecq-Rognon",
+      "postalCodes": []
+    },
+    {
+      "name": "Remicourt",
+      "postalCodes": []
+    },
+    {
+      "name": "Rendeux",
+      "postalCodes": []
+    },
+    {
+      "name": "Rixensart",
+      "postalCodes": []
+    },
+    {
+      "name": "Rochefort",
+      "postalCodes": []
+    },
+    {
+      "name": "Roeulx",
+      "postalCodes": []
+    },
+    {
+      "name": "Rouvroy",
+      "postalCodes": []
+    },
+    {
+      "name": "Rumes",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Ghislain",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Hubert",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Léger",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Nicolas",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Vith",
+      "postalCodes": []
+    },
+    {
+      "name": "Sainte-Ode",
+      "postalCodes": []
+    },
+    {
+      "name": "Seneffe",
+      "postalCodes": []
+    },
+    {
+      "name": "Seraing",
+      "postalCodes": []
+    },
+    {
+      "name": "Silly",
+      "postalCodes": []
+    },
+    {
+      "name": "Soignies",
+      "postalCodes": []
+    },
+    {
+      "name": "Sombreffe",
+      "postalCodes": []
+    },
+    {
+      "name": "Somme-Leuze",
+      "postalCodes": []
+    },
+    {
+      "name": "Soumagne",
+      "postalCodes": []
+    },
+    {
+      "name": "Spa",
+      "postalCodes": []
+    },
+    {
+      "name": "Sprimont",
+      "postalCodes": []
+    },
+    {
+      "name": "Stavelot",
+      "postalCodes": []
+    },
+    {
+      "name": "Stoumont",
+      "postalCodes": []
+    },
+    {
+      "name": "Tellin",
+      "postalCodes": []
+    },
+    {
+      "name": "Tenneville",
+      "postalCodes": []
+    },
+    {
+      "name": "Theux",
+      "postalCodes": []
+    },
+    {
+      "name": "Thuin",
+      "postalCodes": []
+    },
+    {
+      "name": "Tinlot",
+      "postalCodes": []
+    },
+    {
+      "name": "Tintigny",
+      "postalCodes": []
+    },
+    {
+      "name": "Tournai",
+      "postalCodes": []
+    },
+    {
+      "name": "Trois-Ponts",
+      "postalCodes": []
+    },
+    {
+      "name": "Trooz",
+      "postalCodes": []
+    },
+    {
+      "name": "Tubize",
+      "postalCodes": []
+    },
+    {
+      "name": "Vaux-sur-Sûre",
+      "postalCodes": []
+    },
+    {
+      "name": "Verlaine",
+      "postalCodes": []
+    },
+    {
+      "name": "Verviers",
+      "postalCodes": []
+    },
+    {
+      "name": "Vielsalm",
+      "postalCodes": []
+    },
+    {
+      "name": "Villers-la-Ville",
+      "postalCodes": []
+    },
+    {
+      "name": "Villers-le-Bouillet",
+      "postalCodes": []
+    },
+    {
+      "name": "Virton",
+      "postalCodes": []
+    },
+    {
+      "name": "Visé",
+      "postalCodes": []
+    },
+    {
+      "name": "Waimes",
+      "postalCodes": []
+    },
+    {
+      "name": "Walcourt",
+      "postalCodes": []
+    },
+    {
+      "name": "Walhain-Saint-Paul",
+      "postalCodes": []
+    },
+    {
+      "name": "Wanze",
+      "postalCodes": []
+    },
+    {
+      "name": "Waremme",
+      "postalCodes": []
+    },
+    {
+      "name": "Wasseiges",
+      "postalCodes": []
+    },
+    {
+      "name": "Waterloo",
+      "postalCodes": []
+    },
+    {
+      "name": "Wavre",
+      "postalCodes": []
+    },
+    {
+      "name": "Welkenraedt",
+      "postalCodes": []
+    },
+    {
+      "name": "Wellin",
+      "postalCodes": []
+    },
+    {
+      "name": "Yvoir",
+      "postalCodes": []
+    }
+  ],
+  "WBR": [],
+  "VWV": [],
+  "_OTHER": []
+}

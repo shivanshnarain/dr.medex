@@ -1,0 +1,62 @@
+[
+  {
+    "code": "AL",
+    "name": "Alibori Department",
+    "countryCode": "BJ"
+  },
+  {
+    "code": "AK",
+    "name": "Atakora Department",
+    "countryCode": "BJ"
+  },
+  {
+    "code": "AQ",
+    "name": "Atlantique Department",
+    "countryCode": "BJ"
+  },
+  {
+    "code": "BO",
+    "name": "Borgou Department",
+    "countryCode": "BJ"
+  },
+  {
+    "code": "CO",
+    "name": "Collines Department",
+    "countryCode": "BJ"
+  },
+  {
+    "code": "DO",
+    "name": "Donga Department",
+    "countryCode": "BJ"
+  },
+  {
+    "code": "KO",
+    "name": "Kouffo Department",
+    "countryCode": "BJ"
+  },
+  {
+    "code": "LI",
+    "name": "Littoral Department",
+    "countryCode": "BJ"
+  },
+  {
+    "code": "MO",
+    "name": "Mono Department",
+    "countryCode": "BJ"
+  },
+  {
+    "code": "OU",
+    "name": "Ouémé Department",
+    "countryCode": "BJ"
+  },
+  {
+    "code": "PL",
+    "name": "Plateau Department",
+    "countryCode": "BJ"
+  },
+  {
+    "code": "ZO",
+    "name": "Zou Department",
+    "countryCode": "BJ"
+  }
+]

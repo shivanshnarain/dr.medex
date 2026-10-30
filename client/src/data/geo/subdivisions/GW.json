@@ -1,0 +1,57 @@
+[
+  {
+    "code": "BA",
+    "name": "Bafatá",
+    "countryCode": "GW"
+  },
+  {
+    "code": "BM",
+    "name": "Biombo Region",
+    "countryCode": "GW"
+  },
+  {
+    "code": "BL",
+    "name": "Bolama Region",
+    "countryCode": "GW"
+  },
+  {
+    "code": "CA",
+    "name": "Cacheu Region",
+    "countryCode": "GW"
+  },
+  {
+    "code": "GA",
+    "name": "Gabú Region",
+    "countryCode": "GW"
+  },
+  {
+    "code": "L",
+    "name": "Leste Province",
+    "countryCode": "GW"
+  },
+  {
+    "code": "N",
+    "name": "Norte Province",
+    "countryCode": "GW"
+  },
+  {
+    "code": "OI",
+    "name": "Oio Region",
+    "countryCode": "GW"
+  },
+  {
+    "code": "QU",
+    "name": "Quinara Region",
+    "countryCode": "GW"
+  },
+  {
+    "code": "S",
+    "name": "Sul Province",
+    "countryCode": "GW"
+  },
+  {
+    "code": "TO",
+    "name": "Tombali Region",
+    "countryCode": "GW"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "code": "ZA",
+    "name": "Al Daayen",
+    "countryCode": "QA"
+  },
+  {
+    "code": "KH",
+    "name": "Al Khor",
+    "countryCode": "QA"
+  },
+  {
+    "code": "RA",
+    "name": "Al Rayyan Municipality",
+    "countryCode": "QA"
+  },
+  {
+    "code": "WA",
+    "name": "Al Wakrah",
+    "countryCode": "QA"
+  },
+  {
+    "code": "SH",
+    "name": "Al-Shahaniya",
+    "countryCode": "QA"
+  },
+  {
+    "code": "DA",
+    "name": "Doha",
+    "countryCode": "QA"
+  },
+  {
+    "code": "MS",
+    "name": "Madinat ash Shamal",
+    "countryCode": "QA"
+  },
+  {
+    "code": "US",
+    "name": "Umm Salal Municipality",
+    "countryCode": "QA"
+  }
+]

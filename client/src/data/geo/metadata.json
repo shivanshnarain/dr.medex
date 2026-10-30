@@ -1,0 +1,53 @@
+{
+  "title": "DR.MEDEX Global Geographic Address Intelligence Master Dataset",
+  "version": "2.0.0",
+  "lastUpdated": "2026-10-30T17:19:13.181Z",
+  "license": "Open Data / Creative Commons CC-BY-4.0 & MIT",
+  "sources": [
+    {
+      "name": "ISO 3166-1",
+      "description": "Standard country names, alpha-2, and alpha-3 codes",
+      "license": "Public Domain / ISO Standard"
+    },
+    {
+      "name": "ISO 3166-2",
+      "description": "Standard administrative subdivisions and regional codes",
+      "license": "Public Domain / ISO Standard"
+    },
+    {
+      "name": "GeoNames Postal Code Extracts",
+      "description": "Worldwide postal codes, place names, and geographic coordinates",
+      "license": "Creative Commons Attribution 4.0 License",
+      "url": "https://download.geonames.org/export/zip/"
+    },
+    {
+      "name": "country-state-city",
+      "description": "Comprehensive global administrative dataset",
+      "license": "MIT License",
+      "url": "https://github.com/dr5hn/countries-states-cities-database"
+    },
+    {
+      "name": "libphonenumber-js",
+      "description": "Official international dialing codes and phone validation metadata",
+      "license": "Apache 2.0 License"
+    }
+  ],
+  "statistics": {
+    "totalSupportedCountries": 195,
+    "countriesWithSubdivisions": 194,
+    "countriesWithoutSubdivisions": 1,
+    "countriesWithCities": 195,
+    "countriesWithoutCities": 0,
+    "countriesWithPostalCodes": 143,
+    "countriesWithoutPostalCodes": 52,
+    "totalSubdivisionsCount": 4912,
+    "totalCitiesCount": 148013
+  },
+  "storage": {
+    "countriesJsonBytes": 79366,
+    "subdivisionsDirBytes": 402154,
+    "citiesDirBytes": 12457618,
+    "totalGeneratedBytes": 12939138,
+    "totalGeneratedMB": "12.34"
+  }
+}

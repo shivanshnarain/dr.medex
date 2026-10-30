@@ -1,0 +1,606 @@
+{
+  "CA": [
+    {
+      "name": "Bascharage",
+      "postalCodes": []
+    },
+    {
+      "name": "Bridel",
+      "postalCodes": []
+    },
+    {
+      "name": "Capellen",
+      "postalCodes": []
+    },
+    {
+      "name": "Clemency",
+      "postalCodes": []
+    },
+    {
+      "name": "Dippach",
+      "postalCodes": []
+    },
+    {
+      "name": "Eischen",
+      "postalCodes": []
+    },
+    {
+      "name": "Garnich",
+      "postalCodes": []
+    },
+    {
+      "name": "Hautcharage",
+      "postalCodes": []
+    },
+    {
+      "name": "Hobscheid",
+      "postalCodes": []
+    },
+    {
+      "name": "Käerjeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Kehlen",
+      "postalCodes": []
+    },
+    {
+      "name": "Koerich",
+      "postalCodes": []
+    },
+    {
+      "name": "Kopstal",
+      "postalCodes": []
+    },
+    {
+      "name": "Mamer",
+      "postalCodes": []
+    },
+    {
+      "name": "Schouweiler",
+      "postalCodes": []
+    },
+    {
+      "name": "Septfontaines",
+      "postalCodes": []
+    },
+    {
+      "name": "Steinfort",
+      "postalCodes": []
+    }
+  ],
+  "CL": [
+    {
+      "name": "Clervaux",
+      "postalCodes": []
+    },
+    {
+      "name": "Hosingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Parc Hosingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Troisvierges",
+      "postalCodes": []
+    },
+    {
+      "name": "Weiswampach",
+      "postalCodes": []
+    },
+    {
+      "name": "Wincrange",
+      "postalCodes": []
+    }
+  ],
+  "DI": [
+    {
+      "name": "Bettendorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Bourscheid",
+      "postalCodes": []
+    },
+    {
+      "name": "Commune de la Vallée de l’Ernz",
+      "postalCodes": []
+    },
+    {
+      "name": "Diekirch",
+      "postalCodes": []
+    },
+    {
+      "name": "Erpeldange",
+      "postalCodes": []
+    },
+    {
+      "name": "Ettelbruck",
+      "postalCodes": []
+    },
+    {
+      "name": "Feulen",
+      "postalCodes": []
+    },
+    {
+      "name": "Medernach",
+      "postalCodes": []
+    },
+    {
+      "name": "Mertzig",
+      "postalCodes": []
+    },
+    {
+      "name": "Niederfeulen",
+      "postalCodes": []
+    },
+    {
+      "name": "Reisdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Schieren",
+      "postalCodes": []
+    },
+    {
+      "name": "Warken",
+      "postalCodes": []
+    }
+  ],
+  "EC": [
+    {
+      "name": "Beaufort",
+      "postalCodes": []
+    },
+    {
+      "name": "Bech",
+      "postalCodes": []
+    },
+    {
+      "name": "Berdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Consdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Echternach",
+      "postalCodes": []
+    },
+    {
+      "name": "Mompach",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosport",
+      "postalCodes": []
+    },
+    {
+      "name": "Waldbillig",
+      "postalCodes": []
+    }
+  ],
+  "ES": [
+    {
+      "name": "Aspelt",
+      "postalCodes": []
+    },
+    {
+      "name": "Belvaux",
+      "postalCodes": []
+    },
+    {
+      "name": "Bergem",
+      "postalCodes": []
+    },
+    {
+      "name": "Bettembourg",
+      "postalCodes": []
+    },
+    {
+      "name": "Crauthem",
+      "postalCodes": []
+    },
+    {
+      "name": "Differdange",
+      "postalCodes": []
+    },
+    {
+      "name": "Dudelange",
+      "postalCodes": []
+    },
+    {
+      "name": "Esch-sur-Alzette",
+      "postalCodes": []
+    },
+    {
+      "name": "Frisange",
+      "postalCodes": []
+    },
+    {
+      "name": "Kayl",
+      "postalCodes": []
+    },
+    {
+      "name": "Lamadelaine",
+      "postalCodes": []
+    },
+    {
+      "name": "Leudelange",
+      "postalCodes": []
+    },
+    {
+      "name": "Mondercange",
+      "postalCodes": []
+    },
+    {
+      "name": "Niedercorn",
+      "postalCodes": []
+    },
+    {
+      "name": "Obercorn",
+      "postalCodes": []
+    },
+    {
+      "name": "Pétange",
+      "postalCodes": []
+    },
+    {
+      "name": "Pontpierre",
+      "postalCodes": []
+    },
+    {
+      "name": "Reckange-sur-Mess",
+      "postalCodes": []
+    },
+    {
+      "name": "Rodange",
+      "postalCodes": []
+    },
+    {
+      "name": "Roeser",
+      "postalCodes": []
+    },
+    {
+      "name": "Rumelange",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanem",
+      "postalCodes": []
+    },
+    {
+      "name": "Schifflange",
+      "postalCodes": []
+    },
+    {
+      "name": "Soleuvre",
+      "postalCodes": []
+    },
+    {
+      "name": "Tétange",
+      "postalCodes": []
+    }
+  ],
+  "GR": [
+    {
+      "name": "Betzdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Biwer",
+      "postalCodes": []
+    },
+    {
+      "name": "Flaxweiler",
+      "postalCodes": []
+    },
+    {
+      "name": "Gonderange",
+      "postalCodes": []
+    },
+    {
+      "name": "Grevenmacher",
+      "postalCodes": []
+    },
+    {
+      "name": "Junglinster",
+      "postalCodes": []
+    },
+    {
+      "name": "Manternach",
+      "postalCodes": []
+    },
+    {
+      "name": "Mertert",
+      "postalCodes": []
+    },
+    {
+      "name": "Wasserbillig",
+      "postalCodes": []
+    },
+    {
+      "name": "Wormeldange",
+      "postalCodes": []
+    }
+  ],
+  "LU": [
+    {
+      "name": "Alzingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Béreldange",
+      "postalCodes": []
+    },
+    {
+      "name": "Bertrange",
+      "postalCodes": []
+    },
+    {
+      "name": "Contern",
+      "postalCodes": []
+    },
+    {
+      "name": "Fentange",
+      "postalCodes": []
+    },
+    {
+      "name": "Heisdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Helmsange",
+      "postalCodes": []
+    },
+    {
+      "name": "Hesperange",
+      "postalCodes": []
+    },
+    {
+      "name": "Itzig",
+      "postalCodes": []
+    },
+    {
+      "name": "Kirchberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Luxembourg",
+      "postalCodes": []
+    },
+    {
+      "name": "Moutfort",
+      "postalCodes": []
+    },
+    {
+      "name": "Müllendorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Niederanven",
+      "postalCodes": []
+    },
+    {
+      "name": "Olm",
+      "postalCodes": []
+    },
+    {
+      "name": "Sandweiler",
+      "postalCodes": []
+    },
+    {
+      "name": "Schrassig",
+      "postalCodes": []
+    },
+    {
+      "name": "Schuttrange",
+      "postalCodes": []
+    },
+    {
+      "name": "Steinsel",
+      "postalCodes": []
+    },
+    {
+      "name": "Strassen",
+      "postalCodes": []
+    },
+    {
+      "name": "Walferdange",
+      "postalCodes": []
+    },
+    {
+      "name": "Weiler-la-Tour",
+      "postalCodes": []
+    }
+  ],
+  "ME": [
+    {
+      "name": "Bissen",
+      "postalCodes": []
+    },
+    {
+      "name": "Boevange-sur-Attert",
+      "postalCodes": []
+    },
+    {
+      "name": "Colmar",
+      "postalCodes": []
+    },
+    {
+      "name": "Fischbach",
+      "postalCodes": []
+    },
+    {
+      "name": "Heffingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Larochette",
+      "postalCodes": []
+    },
+    {
+      "name": "Lintgen",
+      "postalCodes": []
+    },
+    {
+      "name": "Lorentzweiler",
+      "postalCodes": []
+    },
+    {
+      "name": "Mersch",
+      "postalCodes": []
+    },
+    {
+      "name": "Nommern",
+      "postalCodes": []
+    },
+    {
+      "name": "Rollingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Tuntange",
+      "postalCodes": []
+    }
+  ],
+  "RD": [
+    {
+      "name": "Beckerich",
+      "postalCodes": []
+    },
+    {
+      "name": "Bettborn",
+      "postalCodes": []
+    },
+    {
+      "name": "Commune de Préizerdaul",
+      "postalCodes": []
+    },
+    {
+      "name": "Ell",
+      "postalCodes": []
+    },
+    {
+      "name": "Grosbous",
+      "postalCodes": []
+    },
+    {
+      "name": "Rambrouch",
+      "postalCodes": []
+    },
+    {
+      "name": "Redange-sur-Attert",
+      "postalCodes": []
+    },
+    {
+      "name": "Saeul",
+      "postalCodes": []
+    },
+    {
+      "name": "Useldange",
+      "postalCodes": []
+    },
+    {
+      "name": "Vichten",
+      "postalCodes": []
+    },
+    {
+      "name": "Wahl",
+      "postalCodes": []
+    }
+  ],
+  "RM": [
+    {
+      "name": "Bous",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalheim",
+      "postalCodes": []
+    },
+    {
+      "name": "Lenningen",
+      "postalCodes": []
+    },
+    {
+      "name": "Mondorf-les-Bains",
+      "postalCodes": []
+    },
+    {
+      "name": "Remich",
+      "postalCodes": []
+    },
+    {
+      "name": "Schengen",
+      "postalCodes": []
+    },
+    {
+      "name": "Stadtbredimus",
+      "postalCodes": []
+    },
+    {
+      "name": "Waldbredimus",
+      "postalCodes": []
+    }
+  ],
+  "VD": [
+    {
+      "name": "Putscheid",
+      "postalCodes": []
+    },
+    {
+      "name": "Tandel",
+      "postalCodes": []
+    },
+    {
+      "name": "Vianden",
+      "postalCodes": []
+    }
+  ],
+  "WI": [
+    {
+      "name": "Bavigne",
+      "postalCodes": []
+    },
+    {
+      "name": "Boulaide",
+      "postalCodes": []
+    },
+    {
+      "name": "Esch-sur-Sûre",
+      "postalCodes": []
+    },
+    {
+      "name": "Goesdorf",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiischpelt",
+      "postalCodes": []
+    },
+    {
+      "name": "Lac de la Haute-Sûre",
+      "postalCodes": []
+    },
+    {
+      "name": "Wiltz",
+      "postalCodes": []
+    },
+    {
+      "name": "Wilwerwiltz",
+      "postalCodes": []
+    },
+    {
+      "name": "Winseler",
+      "postalCodes": []
+    }
+  ],
+  "D": [],
+  "G": [],
+  "L": [],
+  "_OTHER": []
+}

@@ -1,0 +1,953 @@
+{
+  "10": [
+    {
+      "name": "Pirava",
+      "postalCodes": []
+    },
+    {
+      "name": "Valandovo",
+      "postalCodes": []
+    }
+  ],
+  "11": [
+    {
+      "name": "Vasilevo",
+      "postalCodes": []
+    }
+  ],
+  "12": [
+    {
+      "name": "Vevčani",
+      "postalCodes": []
+    }
+  ],
+  "13": [
+    {
+      "name": "Gorno Orizari",
+      "postalCodes": []
+    },
+    {
+      "name": "Ivankovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Veles",
+      "postalCodes": []
+    }
+  ],
+  "14": [
+    {
+      "name": "Blatec",
+      "postalCodes": []
+    },
+    {
+      "name": "Gradec",
+      "postalCodes": []
+    },
+    {
+      "name": "Vinica",
+      "postalCodes": []
+    }
+  ],
+  "15": [],
+  "16": [
+    {
+      "name": "Dobri Dol",
+      "postalCodes": []
+    },
+    {
+      "name": "Negotino",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrapčište",
+      "postalCodes": []
+    }
+  ],
+  "17": [
+    {
+      "name": "Cresevo",
+      "postalCodes": []
+    }
+  ],
+  "18": [
+    {
+      "name": "Gevgelija",
+      "postalCodes": []
+    },
+    {
+      "name": "Miravci",
+      "postalCodes": []
+    }
+  ],
+  "19": [
+    {
+      "name": "Cegrane",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolna Banjica",
+      "postalCodes": []
+    },
+    {
+      "name": "Forino",
+      "postalCodes": []
+    },
+    {
+      "name": "Gostivar",
+      "postalCodes": []
+    },
+    {
+      "name": "Srbinovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrutok",
+      "postalCodes": []
+    }
+  ],
+  "20": [
+    {
+      "name": "Gradsko",
+      "postalCodes": []
+    }
+  ],
+  "22": [
+    {
+      "name": "Belčišta",
+      "postalCodes": []
+    },
+    {
+      "name": "Mešeišta",
+      "postalCodes": []
+    }
+  ],
+  "23": [
+    {
+      "name": "Delcevo",
+      "postalCodes": []
+    }
+  ],
+  "24": [
+    {
+      "name": "Demir Kapija",
+      "postalCodes": []
+    }
+  ],
+  "25": [
+    {
+      "name": "Demir Hisar",
+      "postalCodes": []
+    },
+    {
+      "name": "Slepče",
+      "postalCodes": []
+    },
+    {
+      "name": "Sopotnica",
+      "postalCodes": []
+    }
+  ],
+  "26": [
+    {
+      "name": "Star Dojran",
+      "postalCodes": []
+    }
+  ],
+  "27": [
+    {
+      "name": "Crnilište",
+      "postalCodes": []
+    },
+    {
+      "name": "Desovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolneni",
+      "postalCodes": []
+    },
+    {
+      "name": "Lažani",
+      "postalCodes": []
+    },
+    {
+      "name": "Žitoše",
+      "postalCodes": []
+    }
+  ],
+  "28": [],
+  "29": [
+    {
+      "name": "Gjorče Petro",
+      "postalCodes": []
+    }
+  ],
+  "30": [
+    {
+      "name": "Dobarce",
+      "postalCodes": []
+    },
+    {
+      "name": "Larce",
+      "postalCodes": []
+    },
+    {
+      "name": "Sedlarevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Strimnica",
+      "postalCodes": []
+    },
+    {
+      "name": "Zelino",
+      "postalCodes": []
+    }
+  ],
+  "31": [],
+  "32": [
+    {
+      "name": "Zelenikovo",
+      "postalCodes": []
+    }
+  ],
+  "33": [
+    {
+      "name": "Zrnovci",
+      "postalCodes": []
+    }
+  ],
+  "34": [
+    {
+      "name": "Ilinden",
+      "postalCodes": []
+    },
+    {
+      "name": "Kadino",
+      "postalCodes": []
+    },
+    {
+      "name": "Marino",
+      "postalCodes": []
+    },
+    {
+      "name": "Miladinovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Идризово",
+      "postalCodes": []
+    },
+    {
+      "name": "Јурумлери",
+      "postalCodes": []
+    }
+  ],
+  "35": [
+    {
+      "name": "Jegunovce",
+      "postalCodes": []
+    },
+    {
+      "name": "Vratnica",
+      "postalCodes": []
+    }
+  ],
+  "36": [
+    {
+      "name": "Kavadarci",
+      "postalCodes": []
+    },
+    {
+      "name": "Vataša",
+      "postalCodes": []
+    }
+  ],
+  "37": [
+    {
+      "name": "Karbinci",
+      "postalCodes": []
+    }
+  ],
+  "38": [
+    {
+      "name": "Skopje",
+      "postalCodes": []
+    }
+  ],
+  "39": [
+    {
+      "name": "Kisela Voda",
+      "postalCodes": []
+    }
+  ],
+  "40": [
+    {
+      "name": "Drugovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Kičevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Srbica",
+      "postalCodes": []
+    },
+    {
+      "name": "Strelci",
+      "postalCodes": []
+    },
+    {
+      "name": "Tuin",
+      "postalCodes": []
+    },
+    {
+      "name": "Vraneštica",
+      "postalCodes": []
+    },
+    {
+      "name": "Zajas",
+      "postalCodes": []
+    }
+  ],
+  "41": [
+    {
+      "name": "Konče",
+      "postalCodes": []
+    }
+  ],
+  "42": [
+    {
+      "name": "Kochani",
+      "postalCodes": []
+    },
+    {
+      "name": "Orizari",
+      "postalCodes": []
+    }
+  ],
+  "43": [
+    {
+      "name": "Kratovo",
+      "postalCodes": []
+    }
+  ],
+  "44": [
+    {
+      "name": "Kriva Palanka",
+      "postalCodes": []
+    }
+  ],
+  "45": [
+    {
+      "name": "Krivogashtani",
+      "postalCodes": []
+    },
+    {
+      "name": "Obršani",
+      "postalCodes": []
+    },
+    {
+      "name": "Клечовце",
+      "postalCodes": []
+    }
+  ],
+  "46": [
+    {
+      "name": "Bučin",
+      "postalCodes": []
+    },
+    {
+      "name": "Krusevo",
+      "postalCodes": []
+    }
+  ],
+  "47": [
+    {
+      "name": "Bedinje",
+      "postalCodes": []
+    },
+    {
+      "name": "Kumanovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Romanovci",
+      "postalCodes": []
+    }
+  ],
+  "48": [
+    {
+      "name": "Izvor",
+      "postalCodes": []
+    },
+    {
+      "name": "Lipkovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Lojane",
+      "postalCodes": []
+    },
+    {
+      "name": "Matejce",
+      "postalCodes": []
+    },
+    {
+      "name": "Otlja",
+      "postalCodes": []
+    },
+    {
+      "name": "Vaksince",
+      "postalCodes": []
+    },
+    {
+      "name": "Слупчане",
+      "postalCodes": []
+    }
+  ],
+  "49": [
+    {
+      "name": "Lozovo",
+      "postalCodes": []
+    }
+  ],
+  "50": [
+    {
+      "name": "Rostusa",
+      "postalCodes": []
+    }
+  ],
+  "51": [
+    {
+      "name": "Makedonska Kamenica",
+      "postalCodes": []
+    }
+  ],
+  "52": [
+    {
+      "name": "Makedonski Brod",
+      "postalCodes": []
+    },
+    {
+      "name": "Samokov",
+      "postalCodes": []
+    }
+  ],
+  "53": [
+    {
+      "name": "Beranci",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobruševo",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolno Srpci",
+      "postalCodes": []
+    },
+    {
+      "name": "Mogila",
+      "postalCodes": []
+    }
+  ],
+  "54": [
+    {
+      "name": "Negotino",
+      "postalCodes": []
+    }
+  ],
+  "55": [
+    {
+      "name": "Novaci",
+      "postalCodes": []
+    }
+  ],
+  "56": [
+    {
+      "name": "Novo Selo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sušica",
+      "postalCodes": []
+    }
+  ],
+  "57": [],
+  "58": [
+    {
+      "name": "Kosel",
+      "postalCodes": []
+    },
+    {
+      "name": "Ohrid",
+      "postalCodes": []
+    },
+    {
+      "name": "Ohrid Opština",
+      "postalCodes": []
+    }
+  ],
+  "59": [
+    {
+      "name": "Sredno Konjare",
+      "postalCodes": []
+    },
+    {
+      "name": "Петровец",
+      "postalCodes": []
+    }
+  ],
+  "60": [
+    {
+      "name": "Pehčevo",
+      "postalCodes": []
+    }
+  ],
+  "61": [
+    {
+      "name": "Lisičani",
+      "postalCodes": []
+    },
+    {
+      "name": "Plasnica",
+      "postalCodes": []
+    }
+  ],
+  "62": [
+    {
+      "name": "Kanatlarci",
+      "postalCodes": []
+    },
+    {
+      "name": "Markov Grad",
+      "postalCodes": []
+    },
+    {
+      "name": "Prilep",
+      "postalCodes": []
+    },
+    {
+      "name": "Topolčani",
+      "postalCodes": []
+    }
+  ],
+  "63": [
+    {
+      "name": "Probishtip",
+      "postalCodes": []
+    },
+    {
+      "name": "Zletovo",
+      "postalCodes": []
+    }
+  ],
+  "64": [
+    {
+      "name": "Oraovica",
+      "postalCodes": []
+    },
+    {
+      "name": "Podareš",
+      "postalCodes": []
+    },
+    {
+      "name": "Radovis",
+      "postalCodes": []
+    }
+  ],
+  "65": [
+    {
+      "name": "Ранковце",
+      "postalCodes": []
+    }
+  ],
+  "66": [
+    {
+      "name": "Grnčari",
+      "postalCodes": []
+    },
+    {
+      "name": "Jankovec",
+      "postalCodes": []
+    },
+    {
+      "name": "Krani",
+      "postalCodes": []
+    },
+    {
+      "name": "Resen",
+      "postalCodes": []
+    }
+  ],
+  "67": [
+    {
+      "name": "Rosoman",
+      "postalCodes": []
+    }
+  ],
+  "68": [
+    {
+      "name": "Bukovik",
+      "postalCodes": []
+    },
+    {
+      "name": "Grčec",
+      "postalCodes": []
+    },
+    {
+      "name": "Kondovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Krušopek",
+      "postalCodes": []
+    }
+  ],
+  "69": [
+    {
+      "name": "Gorobinci",
+      "postalCodes": []
+    },
+    {
+      "name": "Sveti Nikole",
+      "postalCodes": []
+    }
+  ],
+  "70": [
+    {
+      "name": "Сопиште",
+      "postalCodes": []
+    }
+  ],
+  "71": [
+    {
+      "name": "Старо Нагоричане",
+      "postalCodes": []
+    }
+  ],
+  "72": [
+    {
+      "name": "Delogožda",
+      "postalCodes": []
+    },
+    {
+      "name": "Labunista",
+      "postalCodes": []
+    },
+    {
+      "name": "Lukovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Mislesevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Oktisi",
+      "postalCodes": []
+    },
+    {
+      "name": "Radolista",
+      "postalCodes": []
+    },
+    {
+      "name": "Struga",
+      "postalCodes": []
+    },
+    {
+      "name": "Velesta",
+      "postalCodes": []
+    }
+  ],
+  "73": [
+    {
+      "name": "Kuklis",
+      "postalCodes": []
+    },
+    {
+      "name": "Murtino",
+      "postalCodes": []
+    },
+    {
+      "name": "Strumica",
+      "postalCodes": []
+    },
+    {
+      "name": "Veljusa",
+      "postalCodes": []
+    }
+  ],
+  "74": [
+    {
+      "name": "Batinci",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolno Količani",
+      "postalCodes": []
+    },
+    {
+      "name": "Morani",
+      "postalCodes": []
+    },
+    {
+      "name": "Studeničane",
+      "postalCodes": []
+    }
+  ],
+  "75": [
+    {
+      "name": "Nerašte",
+      "postalCodes": []
+    },
+    {
+      "name": "Orashac",
+      "postalCodes": []
+    },
+    {
+      "name": "Pršovce",
+      "postalCodes": []
+    },
+    {
+      "name": "Slatino",
+      "postalCodes": []
+    },
+    {
+      "name": "Tearce",
+      "postalCodes": []
+    }
+  ],
+  "76": [
+    {
+      "name": "Dobrošte",
+      "postalCodes": []
+    },
+    {
+      "name": "Džepčište",
+      "postalCodes": []
+    },
+    {
+      "name": "Golema Rečica",
+      "postalCodes": []
+    },
+    {
+      "name": "Pirok",
+      "postalCodes": []
+    },
+    {
+      "name": "Poroj",
+      "postalCodes": []
+    },
+    {
+      "name": "Selce",
+      "postalCodes": []
+    },
+    {
+      "name": "Šipkovica",
+      "postalCodes": []
+    },
+    {
+      "name": "Tetovo",
+      "postalCodes": []
+    }
+  ],
+  "77": [],
+  "78": [
+    {
+      "name": "Centar Župa",
+      "postalCodes": []
+    }
+  ],
+  "79": [
+    {
+      "name": "Čair",
+      "postalCodes": []
+    }
+  ],
+  "80": [
+    {
+      "name": "Bogomila",
+      "postalCodes": []
+    },
+    {
+      "name": "Čaška",
+      "postalCodes": []
+    }
+  ],
+  "81": [
+    {
+      "name": "Češinovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Oblesevo",
+      "postalCodes": []
+    }
+  ],
+  "82": [
+    {
+      "name": "Чучер - Сандево",
+      "postalCodes": []
+    }
+  ],
+  "83": [
+    {
+      "name": "Shtip",
+      "postalCodes": []
+    }
+  ],
+  "84": [
+    {
+      "name": "Šuto Orizare",
+      "postalCodes": []
+    }
+  ],
+  "85": [
+    {
+      "name": "Bojane",
+      "postalCodes": []
+    },
+    {
+      "name": "Dračevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ljubin",
+      "postalCodes": []
+    },
+    {
+      "name": "Saraj",
+      "postalCodes": []
+    },
+    {
+      "name": "Usje",
+      "postalCodes": []
+    }
+  ],
+  "01": [],
+  "02": [
+    {
+      "name": "Арачиново",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Berovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Rusinovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Vladimirovo",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Bistrica",
+      "postalCodes": []
+    },
+    {
+      "name": "Bitola",
+      "postalCodes": []
+    },
+    {
+      "name": "Capari",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolno Orizari",
+      "postalCodes": []
+    },
+    {
+      "name": "Gorno Orizari",
+      "postalCodes": []
+    },
+    {
+      "name": "Kukurečani",
+      "postalCodes": []
+    },
+    {
+      "name": "Logovardi",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Bogdanci",
+      "postalCodes": []
+    },
+    {
+      "name": "Stojakovo",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Bogovinje",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolno Palčište",
+      "postalCodes": []
+    },
+    {
+      "name": "Gradec",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamenjane",
+      "postalCodes": []
+    }
+  ],
+  "07": [
+    {
+      "name": "Bosilovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ilovica",
+      "postalCodes": []
+    },
+    {
+      "name": "Sekirnik",
+      "postalCodes": []
+    }
+  ],
+  "08": [
+    {
+      "name": "Brvenica",
+      "postalCodes": []
+    },
+    {
+      "name": "Čelopek",
+      "postalCodes": []
+    },
+    {
+      "name": "Gurgurnica",
+      "postalCodes": []
+    },
+    {
+      "name": "Miletino",
+      "postalCodes": []
+    }
+  ],
+  "09": [
+    {
+      "name": "Butel",
+      "postalCodes": []
+    },
+    {
+      "name": "Radishani",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

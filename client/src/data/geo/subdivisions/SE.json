@@ -1,0 +1,102 @@
+[
+  {
+    "code": "K",
+    "name": "Blekinge",
+    "countryCode": "SE"
+  },
+  {
+    "code": "W",
+    "name": "Dalarna County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "X",
+    "name": "Gävleborg County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "I",
+    "name": "Gotland County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "N",
+    "name": "Halland County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "F",
+    "name": "Jönköping County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "H",
+    "name": "Kalmar County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "G",
+    "name": "Kronoberg County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "BD",
+    "name": "Norrbotten County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "T",
+    "name": "Örebro County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "E",
+    "name": "Östergötland County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "M",
+    "name": "Skåne County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "D",
+    "name": "Södermanland County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "AB",
+    "name": "Stockholm County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "C",
+    "name": "Uppsala County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "S",
+    "name": "Värmland County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "AC",
+    "name": "Västerbotten County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "Y",
+    "name": "Västernorrland County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "U",
+    "name": "Västmanland County",
+    "countryCode": "SE"
+  },
+  {
+    "code": "O",
+    "name": "Västra Götaland County",
+    "countryCode": "SE"
+  }
+]

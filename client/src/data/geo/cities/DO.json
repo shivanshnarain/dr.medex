@@ -1,0 +1,893 @@
+{
+  "10": [
+    {
+      "name": "Cristóbal",
+      "postalCodes": []
+    },
+    {
+      "name": "Duvergé",
+      "postalCodes": []
+    },
+    {
+      "name": "Guayabal",
+      "postalCodes": []
+    },
+    {
+      "name": "Jimaní",
+      "postalCodes": []
+    },
+    {
+      "name": "La Descubierta",
+      "postalCodes": []
+    },
+    {
+      "name": "Mella",
+      "postalCodes": []
+    },
+    {
+      "name": "Postrer Río",
+      "postalCodes": []
+    }
+  ],
+  "11": [
+    {
+      "name": "Boca de Yuma",
+      "postalCodes": []
+    },
+    {
+      "name": "Higüey",
+      "postalCodes": []
+    },
+    {
+      "name": "Otra Banda",
+      "postalCodes": []
+    },
+    {
+      "name": "Punta Cana",
+      "postalCodes": []
+    },
+    {
+      "name": "Salvaleón de Higüey",
+      "postalCodes": []
+    },
+    {
+      "name": "San Rafael del Yuma",
+      "postalCodes": []
+    }
+  ],
+  "12": [
+    {
+      "name": "Guaymate",
+      "postalCodes": []
+    },
+    {
+      "name": "La Romana",
+      "postalCodes": []
+    }
+  ],
+  "13": [
+    {
+      "name": "Concepción de La Vega",
+      "postalCodes": []
+    },
+    {
+      "name": "Constanza",
+      "postalCodes": []
+    },
+    {
+      "name": "Jarabacoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Jima Abajo",
+      "postalCodes": []
+    },
+    {
+      "name": "Rincón",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Verde Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Tireo Arriba",
+      "postalCodes": []
+    }
+  ],
+  "14": [
+    {
+      "name": "Arroyo Salado",
+      "postalCodes": []
+    },
+    {
+      "name": "Cabrera",
+      "postalCodes": []
+    },
+    {
+      "name": "El Factor",
+      "postalCodes": []
+    },
+    {
+      "name": "La Entrada",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagua",
+      "postalCodes": []
+    },
+    {
+      "name": "Río San Juan",
+      "postalCodes": []
+    }
+  ],
+  "15": [
+    {
+      "name": "Cana Chapetón",
+      "postalCodes": []
+    },
+    {
+      "name": "Castañuelas",
+      "postalCodes": []
+    },
+    {
+      "name": "Guayubín",
+      "postalCodes": []
+    },
+    {
+      "name": "Hatillo Palma",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Matas de Santa Cruz",
+      "postalCodes": []
+    },
+    {
+      "name": "Monte Cristi",
+      "postalCodes": []
+    },
+    {
+      "name": "Pepillo Salcedo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Fernando de Monte Cristi",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Elisa",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Vásquez",
+      "postalCodes": []
+    }
+  ],
+  "16": [
+    {
+      "name": "Juancho",
+      "postalCodes": []
+    },
+    {
+      "name": "Oviedo",
+      "postalCodes": []
+    },
+    {
+      "name": "Pedernales",
+      "postalCodes": []
+    }
+  ],
+  "17": [
+    {
+      "name": "Baní",
+      "postalCodes": []
+    },
+    {
+      "name": "Matanzas",
+      "postalCodes": []
+    },
+    {
+      "name": "Nizao",
+      "postalCodes": []
+    },
+    {
+      "name": "Paya",
+      "postalCodes": []
+    },
+    {
+      "name": "Pizarrete",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabana Buey",
+      "postalCodes": []
+    }
+  ],
+  "18": [
+    {
+      "name": "Altamira",
+      "postalCodes": []
+    },
+    {
+      "name": "Cabarete",
+      "postalCodes": []
+    },
+    {
+      "name": "Estero Hondo",
+      "postalCodes": []
+    },
+    {
+      "name": "Guananico",
+      "postalCodes": []
+    },
+    {
+      "name": "Imbert",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Hidalgos",
+      "postalCodes": []
+    },
+    {
+      "name": "Luperón",
+      "postalCodes": []
+    },
+    {
+      "name": "Monte Llano",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Plata",
+      "postalCodes": []
+    },
+    {
+      "name": "Río Grande",
+      "postalCodes": []
+    },
+    {
+      "name": "Sosúa",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Isabela",
+      "postalCodes": []
+    }
+  ],
+  "19": [
+    {
+      "name": "Salcedo",
+      "postalCodes": []
+    },
+    {
+      "name": "Salsipuedes",
+      "postalCodes": []
+    },
+    {
+      "name": "Tenares",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Tapia",
+      "postalCodes": []
+    }
+  ],
+  "20": [
+    {
+      "name": "Las Terrenas",
+      "postalCodes": []
+    },
+    {
+      "name": "Samaná",
+      "postalCodes": []
+    },
+    {
+      "name": "Sánchez",
+      "postalCodes": []
+    }
+  ],
+  "21": [
+    {
+      "name": "Bajos de Haina",
+      "postalCodes": []
+    },
+    {
+      "name": "Cambita Garabitos",
+      "postalCodes": []
+    },
+    {
+      "name": "El Cacao",
+      "postalCodes": []
+    },
+    {
+      "name": "El Carril",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabana Grande de Palenque",
+      "postalCodes": []
+    },
+    {
+      "name": "San Cristóbal",
+      "postalCodes": []
+    },
+    {
+      "name": "San Gregorio de Nigua",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Altagracia",
+      "postalCodes": []
+    },
+    {
+      "name": "Yaguate",
+      "postalCodes": []
+    }
+  ],
+  "22": [
+    {
+      "name": "Bohechío",
+      "postalCodes": []
+    },
+    {
+      "name": "Cercado Abajo",
+      "postalCodes": []
+    },
+    {
+      "name": "El Cercado",
+      "postalCodes": []
+    },
+    {
+      "name": "Juan de Herrera",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Matas de Farfán",
+      "postalCodes": []
+    },
+    {
+      "name": "Matayaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Pedro Corto",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan de la Maguana",
+      "postalCodes": []
+    },
+    {
+      "name": "Vallejuelo",
+      "postalCodes": []
+    }
+  ],
+  "23": [
+    {
+      "name": "El Puerto",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Llanos",
+      "postalCodes": []
+    },
+    {
+      "name": "Quisqueya",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramón Santana",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro de Macorís",
+      "postalCodes": []
+    }
+  ],
+  "24": [
+    {
+      "name": "Cevicos",
+      "postalCodes": []
+    },
+    {
+      "name": "Cotuí",
+      "postalCodes": []
+    },
+    {
+      "name": "Fantino",
+      "postalCodes": []
+    }
+  ],
+  "25": [
+    {
+      "name": "Baitoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Bisonó",
+      "postalCodes": []
+    },
+    {
+      "name": "Juncalito Abajo",
+      "postalCodes": []
+    },
+    {
+      "name": "La Canela",
+      "postalCodes": []
+    },
+    {
+      "name": "Licey al Medio",
+      "postalCodes": []
+    },
+    {
+      "name": "Palmar Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Pedro García",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabana Iglesia",
+      "postalCodes": []
+    },
+    {
+      "name": "San José de Las Matas",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago de los Caballeros",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Tomás de Jánico",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamboril",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Bisonó",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa González",
+      "postalCodes": []
+    }
+  ],
+  "26": [
+    {
+      "name": "Monción",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabaneta",
+      "postalCodes": []
+    },
+    {
+      "name": "San Ignacio de Sabaneta",
+      "postalCodes": []
+    }
+  ],
+  "27": [
+    {
+      "name": "Amina",
+      "postalCodes": []
+    },
+    {
+      "name": "Esperanza",
+      "postalCodes": []
+    },
+    {
+      "name": "Guatapanal",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaibón",
+      "postalCodes": []
+    },
+    {
+      "name": "Jicomé",
+      "postalCodes": []
+    },
+    {
+      "name": "La Caya",
+      "postalCodes": []
+    },
+    {
+      "name": "Laguna Salada",
+      "postalCodes": []
+    },
+    {
+      "name": "Maizal",
+      "postalCodes": []
+    },
+    {
+      "name": "Mao",
+      "postalCodes": []
+    }
+  ],
+  "28": [
+    {
+      "name": "Bonao",
+      "postalCodes": []
+    },
+    {
+      "name": "Juan Adrián",
+      "postalCodes": []
+    },
+    {
+      "name": "Maimón",
+      "postalCodes": []
+    },
+    {
+      "name": "Piedra Blanca",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabana del Puerto",
+      "postalCodes": []
+    }
+  ],
+  "29": [
+    {
+      "name": "Bayaguana",
+      "postalCodes": []
+    },
+    {
+      "name": "Don Juan",
+      "postalCodes": []
+    },
+    {
+      "name": "Esperalvillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Gonzalo",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Botados",
+      "postalCodes": []
+    },
+    {
+      "name": "Majagual",
+      "postalCodes": []
+    },
+    {
+      "name": "Monte Plata",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabana Grande de Boyá",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamasá",
+      "postalCodes": []
+    }
+  ],
+  "30": [
+    {
+      "name": "El Valle",
+      "postalCodes": []
+    },
+    {
+      "name": "Guayabo Dulce",
+      "postalCodes": []
+    },
+    {
+      "name": "Hato Mayor del Rey",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabana de la Mar",
+      "postalCodes": []
+    }
+  ],
+  "31": [
+    {
+      "name": "San José de Ocoa",
+      "postalCodes": []
+    }
+  ],
+  "32": [
+    {
+      "name": "Boca Chica",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Domingo Este",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Domingo Oeste",
+      "postalCodes": []
+    }
+  ],
+  "02": [
+    {
+      "name": "Azua",
+      "postalCodes": []
+    },
+    {
+      "name": "El Guayabal",
+      "postalCodes": []
+    },
+    {
+      "name": "Estebanía",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Charcas",
+      "postalCodes": []
+    },
+    {
+      "name": "Padre Las Casas",
+      "postalCodes": []
+    },
+    {
+      "name": "Palmar de Ocoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Peralta",
+      "postalCodes": []
+    },
+    {
+      "name": "Pueblo Viejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabana Yegua",
+      "postalCodes": []
+    },
+    {
+      "name": "Tábara Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Villarpando",
+      "postalCodes": []
+    },
+    {
+      "name": "Yayas de Viajama",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "El Palmar",
+      "postalCodes": []
+    },
+    {
+      "name": "Galván",
+      "postalCodes": []
+    },
+    {
+      "name": "La Uvilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Ríos",
+      "postalCodes": []
+    },
+    {
+      "name": "Neiba",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Jaragua",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Cabral",
+      "postalCodes": []
+    },
+    {
+      "name": "Cachón",
+      "postalCodes": []
+    },
+    {
+      "name": "Canoa",
+      "postalCodes": []
+    },
+    {
+      "name": "El Peñón",
+      "postalCodes": []
+    },
+    {
+      "name": "Enriquillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Fundación",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaquimeyes",
+      "postalCodes": []
+    },
+    {
+      "name": "La Ciénaga",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Salinas",
+      "postalCodes": []
+    },
+    {
+      "name": "Paraíso",
+      "postalCodes": []
+    },
+    {
+      "name": "Pescadería",
+      "postalCodes": []
+    },
+    {
+      "name": "Polo",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Cruz de Barahona",
+      "postalCodes": []
+    },
+    {
+      "name": "Vicente Noble",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Dajabón",
+      "postalCodes": []
+    },
+    {
+      "name": "El Pino",
+      "postalCodes": []
+    },
+    {
+      "name": "Loma de Cabrera",
+      "postalCodes": []
+    },
+    {
+      "name": "Partido",
+      "postalCodes": []
+    },
+    {
+      "name": "Restauración",
+      "postalCodes": []
+    }
+  ],
+  "01": [
+    {
+      "name": "Bella Vista",
+      "postalCodes": []
+    },
+    {
+      "name": "Ciudad Nueva",
+      "postalCodes": []
+    },
+    {
+      "name": "Cristo Rey",
+      "postalCodes": []
+    },
+    {
+      "name": "Ensanche Luperón",
+      "postalCodes": []
+    },
+    {
+      "name": "La Agustina",
+      "postalCodes": []
+    },
+    {
+      "name": "La Julia",
+      "postalCodes": []
+    },
+    {
+      "name": "San Carlos",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Domingo",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Consuelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Francisca",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Agua Santa del Yuna",
+      "postalCodes": []
+    },
+    {
+      "name": "Arenoso",
+      "postalCodes": []
+    },
+    {
+      "name": "Castillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Hostos",
+      "postalCodes": []
+    },
+    {
+      "name": "Las Guáranas",
+      "postalCodes": []
+    },
+    {
+      "name": "Pimentel",
+      "postalCodes": []
+    },
+    {
+      "name": "San Francisco de Macorís",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Riva",
+      "postalCodes": []
+    }
+  ],
+  "08": [
+    {
+      "name": "Miches",
+      "postalCodes": []
+    },
+    {
+      "name": "Pedro Sánchez",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Cruz de El Seibo",
+      "postalCodes": []
+    }
+  ],
+  "09": [
+    {
+      "name": "Cayetano Germosén",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaspar Hernández",
+      "postalCodes": []
+    },
+    {
+      "name": "Jamao al Norte",
+      "postalCodes": []
+    },
+    {
+      "name": "Joba Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Juan López Abajo",
+      "postalCodes": []
+    },
+    {
+      "name": "Moca",
+      "postalCodes": []
+    },
+    {
+      "name": "San Víctor Arriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Veragua Arriba",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

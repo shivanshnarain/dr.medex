@@ -1,0 +1,361 @@
+{
+  "A": [
+    {
+      "name": "Adda-Douéni",
+      "postalCodes": []
+    },
+    {
+      "name": "Antsahé",
+      "postalCodes": []
+    },
+    {
+      "name": "Assimpao",
+      "postalCodes": []
+    },
+    {
+      "name": "Bambao",
+      "postalCodes": []
+    },
+    {
+      "name": "Bandajou",
+      "postalCodes": []
+    },
+    {
+      "name": "Barakani",
+      "postalCodes": []
+    },
+    {
+      "name": "Bimbini",
+      "postalCodes": []
+    },
+    {
+      "name": "Boungouéni",
+      "postalCodes": []
+    },
+    {
+      "name": "Chandra",
+      "postalCodes": []
+    },
+    {
+      "name": "Chironkamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Chitrouni",
+      "postalCodes": []
+    },
+    {
+      "name": "Daji",
+      "postalCodes": []
+    },
+    {
+      "name": "Domoni",
+      "postalCodes": []
+    },
+    {
+      "name": "Dziani",
+      "postalCodes": []
+    },
+    {
+      "name": "Hajoho",
+      "postalCodes": []
+    },
+    {
+      "name": "Harembo",
+      "postalCodes": []
+    },
+    {
+      "name": "Kangani",
+      "postalCodes": []
+    },
+    {
+      "name": "Kavani",
+      "postalCodes": []
+    },
+    {
+      "name": "Koki",
+      "postalCodes": []
+    },
+    {
+      "name": "Koni-Djodjo",
+      "postalCodes": []
+    },
+    {
+      "name": "Koni-Ngani",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Limbi",
+      "postalCodes": []
+    },
+    {
+      "name": "Lingoni",
+      "postalCodes": []
+    },
+    {
+      "name": "Magnassini-Nindri",
+      "postalCodes": []
+    },
+    {
+      "name": "Maraharé",
+      "postalCodes": []
+    },
+    {
+      "name": "Mirontsi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mjamaoué",
+      "postalCodes": []
+    },
+    {
+      "name": "Mjimandra",
+      "postalCodes": []
+    },
+    {
+      "name": "Moutsamoudou",
+      "postalCodes": []
+    },
+    {
+      "name": "Moya",
+      "postalCodes": []
+    },
+    {
+      "name": "Mramani",
+      "postalCodes": []
+    },
+    {
+      "name": "Mrémani",
+      "postalCodes": []
+    },
+    {
+      "name": "Ongoni",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouani",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouzini",
+      "postalCodes": []
+    },
+    {
+      "name": "Pajé",
+      "postalCodes": []
+    },
+    {
+      "name": "Patsi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sima",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsimbeo",
+      "postalCodes": []
+    },
+    {
+      "name": "Vouani",
+      "postalCodes": []
+    }
+  ],
+  "G": [
+    {
+      "name": "Bahani",
+      "postalCodes": []
+    },
+    {
+      "name": "Bambadjani",
+      "postalCodes": []
+    },
+    {
+      "name": "Bouni",
+      "postalCodes": []
+    },
+    {
+      "name": "Chezani",
+      "postalCodes": []
+    },
+    {
+      "name": "Chindini",
+      "postalCodes": []
+    },
+    {
+      "name": "Chouani",
+      "postalCodes": []
+    },
+    {
+      "name": "Dembéni",
+      "postalCodes": []
+    },
+    {
+      "name": "Douniani",
+      "postalCodes": []
+    },
+    {
+      "name": "Dzahadjou",
+      "postalCodes": []
+    },
+    {
+      "name": "Foumbouni",
+      "postalCodes": []
+    },
+    {
+      "name": "Hantsindzi",
+      "postalCodes": []
+    },
+    {
+      "name": "Héroumbili",
+      "postalCodes": []
+    },
+    {
+      "name": "Itsandra",
+      "postalCodes": []
+    },
+    {
+      "name": "Itsandzéni",
+      "postalCodes": []
+    },
+    {
+      "name": "Ivouani",
+      "postalCodes": []
+    },
+    {
+      "name": "Koua",
+      "postalCodes": []
+    },
+    {
+      "name": "Madjeouéni",
+      "postalCodes": []
+    },
+    {
+      "name": "Mandza",
+      "postalCodes": []
+    },
+    {
+      "name": "Mavingouni",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbéni",
+      "postalCodes": []
+    },
+    {
+      "name": "Mitsamiouli",
+      "postalCodes": []
+    },
+    {
+      "name": "Mitsoudjé",
+      "postalCodes": []
+    },
+    {
+      "name": "Mnoungou",
+      "postalCodes": []
+    },
+    {
+      "name": "Mohoro",
+      "postalCodes": []
+    },
+    {
+      "name": "Moroni",
+      "postalCodes": []
+    },
+    {
+      "name": "Mtsamdou",
+      "postalCodes": []
+    },
+    {
+      "name": "Mvouni",
+      "postalCodes": []
+    },
+    {
+      "name": "Nioumamilima",
+      "postalCodes": []
+    },
+    {
+      "name": "Ntsaouéni",
+      "postalCodes": []
+    },
+    {
+      "name": "Ntsoudjini",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouellah",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouhozi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ourovéni",
+      "postalCodes": []
+    },
+    {
+      "name": "Oussivo",
+      "postalCodes": []
+    },
+    {
+      "name": "Salimani",
+      "postalCodes": []
+    },
+    {
+      "name": "Séléa",
+      "postalCodes": []
+    },
+    {
+      "name": "Singani",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsidjé",
+      "postalCodes": []
+    },
+    {
+      "name": "Vanadjou",
+      "postalCodes": []
+    },
+    {
+      "name": "Vanambouani",
+      "postalCodes": []
+    }
+  ],
+  "M": [
+    {
+      "name": "Djoyézi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fomboni",
+      "postalCodes": []
+    },
+    {
+      "name": "Hoani",
+      "postalCodes": []
+    },
+    {
+      "name": "Mtakoudja",
+      "postalCodes": []
+    },
+    {
+      "name": "Nioumachoua",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouanani",
+      "postalCodes": []
+    },
+    {
+      "name": "Ziroudani",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

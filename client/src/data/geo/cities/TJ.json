@@ -1,0 +1,291 @@
+{
+  "RA": [
+    {
+      "name": "Darband",
+      "postalCodes": []
+    },
+    {
+      "name": "Hisor",
+      "postalCodes": []
+    },
+    {
+      "name": "Karakenja",
+      "postalCodes": []
+    },
+    {
+      "name": "Khodzha-Maston",
+      "postalCodes": []
+    },
+    {
+      "name": "Novobod",
+      "postalCodes": []
+    },
+    {
+      "name": "Obigarm",
+      "postalCodes": []
+    },
+    {
+      "name": "Rasht",
+      "postalCodes": []
+    },
+    {
+      "name": "Roghun",
+      "postalCodes": []
+    },
+    {
+      "name": "Shahrinav",
+      "postalCodes": []
+    },
+    {
+      "name": "Tagob",
+      "postalCodes": []
+    },
+    {
+      "name": "Tursunzoda",
+      "postalCodes": []
+    },
+    {
+      "name": "Vahdat",
+      "postalCodes": []
+    },
+    {
+      "name": "Vahdat District",
+      "postalCodes": []
+    },
+    {
+      "name": "Varzob",
+      "postalCodes": []
+    },
+    {
+      "name": "Varzob District",
+      "postalCodes": []
+    }
+  ],
+  "GB": [
+    {
+      "name": "Ishqoshim",
+      "postalCodes": []
+    },
+    {
+      "name": "Khorugh",
+      "postalCodes": []
+    },
+    {
+      "name": "Murghob",
+      "postalCodes": []
+    },
+    {
+      "name": "Nohiyai Shughnon",
+      "postalCodes": []
+    }
+  ],
+  "KT": [
+    {
+      "name": "Abdurahmoni Jomí",
+      "postalCodes": []
+    },
+    {
+      "name": "Boshchorbogh",
+      "postalCodes": []
+    },
+    {
+      "name": "Bŭstonqal’a",
+      "postalCodes": []
+    },
+    {
+      "name": "Chubek",
+      "postalCodes": []
+    },
+    {
+      "name": "Danghara",
+      "postalCodes": []
+    },
+    {
+      "name": "Dŭstí",
+      "postalCodes": []
+    },
+    {
+      "name": "Farkhor",
+      "postalCodes": []
+    },
+    {
+      "name": "Gharavŭtí",
+      "postalCodes": []
+    },
+    {
+      "name": "Jilikŭl",
+      "postalCodes": []
+    },
+    {
+      "name": "Kirov",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolkhozobod",
+      "postalCodes": []
+    },
+    {
+      "name": "Kŭlob",
+      "postalCodes": []
+    },
+    {
+      "name": "Moskovskiy",
+      "postalCodes": []
+    },
+    {
+      "name": "Mŭ’minobod",
+      "postalCodes": []
+    },
+    {
+      "name": "Nohiyai Kolkhozobod",
+      "postalCodes": []
+    },
+    {
+      "name": "Nohiyai Panj",
+      "postalCodes": []
+    },
+    {
+      "name": "Nohiyai Vakhsh",
+      "postalCodes": []
+    },
+    {
+      "name": "Norak",
+      "postalCodes": []
+    },
+    {
+      "name": "Orzu",
+      "postalCodes": []
+    },
+    {
+      "name": "Panj",
+      "postalCodes": []
+    },
+    {
+      "name": "Qŭrghonteppa",
+      "postalCodes": []
+    },
+    {
+      "name": "Shahritus",
+      "postalCodes": []
+    },
+    {
+      "name": "Sovet",
+      "postalCodes": []
+    },
+    {
+      "name": "Tartiki",
+      "postalCodes": []
+    },
+    {
+      "name": "Vakhsh",
+      "postalCodes": []
+    },
+    {
+      "name": "Vose’",
+      "postalCodes": []
+    },
+    {
+      "name": "Yovon",
+      "postalCodes": []
+    }
+  ],
+  "SU": [
+    {
+      "name": "Adrasmon",
+      "postalCodes": []
+    },
+    {
+      "name": "Ayní",
+      "postalCodes": []
+    },
+    {
+      "name": "Bŭston",
+      "postalCodes": []
+    },
+    {
+      "name": "Chkalov",
+      "postalCodes": []
+    },
+    {
+      "name": "Ghafurov",
+      "postalCodes": []
+    },
+    {
+      "name": "Isfara",
+      "postalCodes": []
+    },
+    {
+      "name": "Istaravshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Khŭjand",
+      "postalCodes": []
+    },
+    {
+      "name": "Kim",
+      "postalCodes": []
+    },
+    {
+      "name": "Konibodom",
+      "postalCodes": []
+    },
+    {
+      "name": "Konsoy",
+      "postalCodes": []
+    },
+    {
+      "name": "Neftobod",
+      "postalCodes": []
+    },
+    {
+      "name": "Nohiyai Konibodom",
+      "postalCodes": []
+    },
+    {
+      "name": "Nov",
+      "postalCodes": []
+    },
+    {
+      "name": "Oltintopkan",
+      "postalCodes": []
+    },
+    {
+      "name": "Pakhtakoron",
+      "postalCodes": []
+    },
+    {
+      "name": "Palos",
+      "postalCodes": []
+    },
+    {
+      "name": "Panjakent",
+      "postalCodes": []
+    },
+    {
+      "name": "Proletar",
+      "postalCodes": []
+    },
+    {
+      "name": "Quruqsoy",
+      "postalCodes": []
+    },
+    {
+      "name": "Shaydon",
+      "postalCodes": []
+    },
+    {
+      "name": "Shŭrob",
+      "postalCodes": []
+    },
+    {
+      "name": "Taboshar",
+      "postalCodes": []
+    },
+    {
+      "name": "Vorukh",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

@@ -1,0 +1,681 @@
+{
+  "37": [
+    {
+      "name": "Anija vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Aruküla",
+      "postalCodes": []
+    },
+    {
+      "name": "Haabneeme",
+      "postalCodes": []
+    },
+    {
+      "name": "Harku",
+      "postalCodes": []
+    },
+    {
+      "name": "Harku vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Jõelähtme vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Jüri",
+      "postalCodes": []
+    },
+    {
+      "name": "Kehra",
+      "postalCodes": []
+    },
+    {
+      "name": "Keila",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiili",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiili vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Kose",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuusalu",
+      "postalCodes": []
+    },
+    {
+      "name": "Laagri",
+      "postalCodes": []
+    },
+    {
+      "name": "Loksa",
+      "postalCodes": []
+    },
+    {
+      "name": "Loksa linn",
+      "postalCodes": []
+    },
+    {
+      "name": "Loo",
+      "postalCodes": []
+    },
+    {
+      "name": "Maardu",
+      "postalCodes": []
+    },
+    {
+      "name": "Maardu linn",
+      "postalCodes": []
+    },
+    {
+      "name": "Paldiski",
+      "postalCodes": []
+    },
+    {
+      "name": "Pringi",
+      "postalCodes": []
+    },
+    {
+      "name": "Raasiku",
+      "postalCodes": []
+    },
+    {
+      "name": "Rae vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Riisipere",
+      "postalCodes": []
+    },
+    {
+      "name": "Rummu",
+      "postalCodes": []
+    },
+    {
+      "name": "Saku",
+      "postalCodes": []
+    },
+    {
+      "name": "Saku vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Saue",
+      "postalCodes": []
+    },
+    {
+      "name": "Saue vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Tabasalu",
+      "postalCodes": []
+    },
+    {
+      "name": "Tallinn",
+      "postalCodes": []
+    },
+    {
+      "name": "Turba",
+      "postalCodes": []
+    },
+    {
+      "name": "Vaida",
+      "postalCodes": []
+    },
+    {
+      "name": "Viimsi",
+      "postalCodes": []
+    },
+    {
+      "name": "Viimsi vald",
+      "postalCodes": []
+    }
+  ],
+  "39": [
+    {
+      "name": "Kärdla",
+      "postalCodes": []
+    }
+  ],
+  "44": [
+    {
+      "name": "Iisaku",
+      "postalCodes": []
+    },
+    {
+      "name": "Jõhvi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jõhvi vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiviõli",
+      "postalCodes": []
+    },
+    {
+      "name": "Kohtla-Järve",
+      "postalCodes": []
+    },
+    {
+      "name": "Kohtla-Nõmme",
+      "postalCodes": []
+    },
+    {
+      "name": "Lüganuse vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Narva",
+      "postalCodes": []
+    },
+    {
+      "name": "Narva-Jõesuu",
+      "postalCodes": []
+    },
+    {
+      "name": "Narva-Jõesuu linn",
+      "postalCodes": []
+    },
+    {
+      "name": "Püssi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sillamäe",
+      "postalCodes": []
+    },
+    {
+      "name": "Toila",
+      "postalCodes": []
+    },
+    {
+      "name": "Voka",
+      "postalCodes": []
+    }
+  ],
+  "49": [
+    {
+      "name": "Jõgeva",
+      "postalCodes": []
+    },
+    {
+      "name": "Jõgeva vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Mustvee",
+      "postalCodes": []
+    },
+    {
+      "name": "Põltsamaa",
+      "postalCodes": []
+    },
+    {
+      "name": "Põltsamaa vald",
+      "postalCodes": []
+    }
+  ],
+  "51": [
+    {
+      "name": "Järva-Jaani",
+      "postalCodes": []
+    },
+    {
+      "name": "Koeru",
+      "postalCodes": []
+    },
+    {
+      "name": "Paide",
+      "postalCodes": []
+    },
+    {
+      "name": "Paide linn",
+      "postalCodes": []
+    },
+    {
+      "name": "Särevere",
+      "postalCodes": []
+    },
+    {
+      "name": "Türi",
+      "postalCodes": []
+    },
+    {
+      "name": "Türi vald",
+      "postalCodes": []
+    }
+  ],
+  "57": [
+    {
+      "name": "Haapsalu",
+      "postalCodes": []
+    },
+    {
+      "name": "Haapsalu linn",
+      "postalCodes": []
+    },
+    {
+      "name": "Hullo",
+      "postalCodes": []
+    },
+    {
+      "name": "Lääne-Nigula vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Taebla",
+      "postalCodes": []
+    },
+    {
+      "name": "Uuemõisa",
+      "postalCodes": []
+    },
+    {
+      "name": "Vormsi vald",
+      "postalCodes": []
+    }
+  ],
+  "59": [
+    {
+      "name": "Aseri",
+      "postalCodes": []
+    },
+    {
+      "name": "Haljala",
+      "postalCodes": []
+    },
+    {
+      "name": "Haljala vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Kadrina",
+      "postalCodes": []
+    },
+    {
+      "name": "Kadrina vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunda",
+      "postalCodes": []
+    },
+    {
+      "name": "Pajusti",
+      "postalCodes": []
+    },
+    {
+      "name": "Rakke",
+      "postalCodes": []
+    },
+    {
+      "name": "Rakvere",
+      "postalCodes": []
+    },
+    {
+      "name": "Rakvere vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Sõmeru",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamsalu",
+      "postalCodes": []
+    },
+    {
+      "name": "Tapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Tapa vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Vaiatu",
+      "postalCodes": []
+    },
+    {
+      "name": "Väike-Maarja",
+      "postalCodes": []
+    },
+    {
+      "name": "Väike-Maarja vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Vinni",
+      "postalCodes": []
+    },
+    {
+      "name": "Vinni vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Viru-Nigula vald",
+      "postalCodes": []
+    }
+  ],
+  "65": [
+    {
+      "name": "Kanepi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanepi vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Põlva",
+      "postalCodes": []
+    },
+    {
+      "name": "Põlva vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Räpina",
+      "postalCodes": []
+    },
+    {
+      "name": "Räpina vald",
+      "postalCodes": []
+    }
+  ],
+  "67": [
+    {
+      "name": "Audru",
+      "postalCodes": []
+    },
+    {
+      "name": "Kihnu vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Kilingi-Nõmme",
+      "postalCodes": []
+    },
+    {
+      "name": "Lihula",
+      "postalCodes": []
+    },
+    {
+      "name": "Linaküla",
+      "postalCodes": []
+    },
+    {
+      "name": "Paikuse",
+      "postalCodes": []
+    },
+    {
+      "name": "Pärnu",
+      "postalCodes": []
+    },
+    {
+      "name": "Pärnu linn",
+      "postalCodes": []
+    },
+    {
+      "name": "Pärnu-Jaagupi",
+      "postalCodes": []
+    },
+    {
+      "name": "Saarde vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Sauga",
+      "postalCodes": []
+    },
+    {
+      "name": "Sindi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tootsi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tori vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Uulu",
+      "postalCodes": []
+    },
+    {
+      "name": "Vändra",
+      "postalCodes": []
+    }
+  ],
+  "70": [
+    {
+      "name": "Järvakandi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kehtna",
+      "postalCodes": []
+    },
+    {
+      "name": "Kehtna vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Kohila",
+      "postalCodes": []
+    },
+    {
+      "name": "Kohila vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Märjamaa",
+      "postalCodes": []
+    },
+    {
+      "name": "Märjamaa vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Rapla",
+      "postalCodes": []
+    },
+    {
+      "name": "Rapla vald",
+      "postalCodes": []
+    }
+  ],
+  "74": [
+    {
+      "name": "Kuressaare",
+      "postalCodes": []
+    },
+    {
+      "name": "Liiva",
+      "postalCodes": []
+    },
+    {
+      "name": "Muhu vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Orissaare",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruhnu",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruhnu vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Tehumardi",
+      "postalCodes": []
+    }
+  ],
+  "78": [
+    {
+      "name": "Alatskivi",
+      "postalCodes": []
+    },
+    {
+      "name": "Elva",
+      "postalCodes": []
+    },
+    {
+      "name": "Kallaste",
+      "postalCodes": []
+    },
+    {
+      "name": "Kambja vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Kõrveküla",
+      "postalCodes": []
+    },
+    {
+      "name": "Kurepalu",
+      "postalCodes": []
+    },
+    {
+      "name": "Luunja",
+      "postalCodes": []
+    },
+    {
+      "name": "Luunja vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Nõo",
+      "postalCodes": []
+    },
+    {
+      "name": "Nõo vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Peipsiääre vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Puhja",
+      "postalCodes": []
+    },
+    {
+      "name": "Tartu",
+      "postalCodes": []
+    },
+    {
+      "name": "Tartu linn",
+      "postalCodes": []
+    },
+    {
+      "name": "Tartu vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Ülenurme",
+      "postalCodes": []
+    }
+  ],
+  "82": [
+    {
+      "name": "Otepää vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Tõrva",
+      "postalCodes": []
+    },
+    {
+      "name": "Valga",
+      "postalCodes": []
+    }
+  ],
+  "84": [
+    {
+      "name": "Abja-Paluoja",
+      "postalCodes": []
+    },
+    {
+      "name": "Karksi-Nuia",
+      "postalCodes": []
+    },
+    {
+      "name": "Mõisaküla",
+      "postalCodes": []
+    },
+    {
+      "name": "Suure-Jaani",
+      "postalCodes": []
+    },
+    {
+      "name": "Viiratsi",
+      "postalCodes": []
+    },
+    {
+      "name": "Viljandi",
+      "postalCodes": []
+    },
+    {
+      "name": "Viljandi vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Võhma",
+      "postalCodes": []
+    }
+  ],
+  "86": [
+    {
+      "name": "Antsla",
+      "postalCodes": []
+    },
+    {
+      "name": "Antsla vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Rõuge",
+      "postalCodes": []
+    },
+    {
+      "name": "Rõuge vald",
+      "postalCodes": []
+    },
+    {
+      "name": "Vana-Antsla",
+      "postalCodes": []
+    },
+    {
+      "name": "Värska",
+      "postalCodes": []
+    },
+    {
+      "name": "Võru",
+      "postalCodes": []
+    },
+    {
+      "name": "Võru vald",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "code": "B",
+    "name": "Beni Department",
+    "countryCode": "BO"
+  },
+  {
+    "code": "H",
+    "name": "Chuquisaca Department",
+    "countryCode": "BO"
+  },
+  {
+    "code": "C",
+    "name": "Cochabamba Department",
+    "countryCode": "BO"
+  },
+  {
+    "code": "L",
+    "name": "La Paz Department",
+    "countryCode": "BO"
+  },
+  {
+    "code": "O",
+    "name": "Oruro Department",
+    "countryCode": "BO"
+  },
+  {
+    "code": "N",
+    "name": "Pando Department",
+    "countryCode": "BO"
+  },
+  {
+    "code": "P",
+    "name": "Potosí Department",
+    "countryCode": "BO"
+  },
+  {
+    "code": "S",
+    "name": "Santa Cruz Department",
+    "countryCode": "BO"
+  },
+  {
+    "code": "T",
+    "name": "Tarija Department",
+    "countryCode": "BO"
+  }
+]

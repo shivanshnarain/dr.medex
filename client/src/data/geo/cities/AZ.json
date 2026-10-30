@@ -1,0 +1,857 @@
+{
+  "ABS": [
+    {
+      "name": "Ceyranbatan",
+      "postalCodes": []
+    },
+    {
+      "name": "Digah",
+      "postalCodes": []
+    },
+    {
+      "name": "Gyuzdek",
+      "postalCodes": []
+    },
+    {
+      "name": "Khirdalan",
+      "postalCodes": []
+    },
+    {
+      "name": "Qobu",
+      "postalCodes": []
+    },
+    {
+      "name": "Saray",
+      "postalCodes": []
+    }
+  ],
+  "AGM": [
+    {
+      "name": "Ağdam",
+      "postalCodes": []
+    }
+  ],
+  "AGS": [
+    {
+      "name": "Ağdaş",
+      "postalCodes": []
+    }
+  ],
+  "AGC": [
+    {
+      "name": "Agdzhabedy",
+      "postalCodes": []
+    },
+    {
+      "name": "Avşar",
+      "postalCodes": []
+    }
+  ],
+  "AGA": [
+    {
+      "name": "Aghstafa",
+      "postalCodes": []
+    },
+    {
+      "name": "Saloğlu",
+      "postalCodes": []
+    },
+    {
+      "name": "Vurğun",
+      "postalCodes": []
+    }
+  ],
+  "AGU": [
+    {
+      "name": "Aghsu",
+      "postalCodes": []
+    }
+  ],
+  "AST": [
+    {
+      "name": "Astara",
+      "postalCodes": []
+    },
+    {
+      "name": "Kizhaba",
+      "postalCodes": []
+    }
+  ],
+  "BAB": [],
+  "BA": [
+    {
+      "name": "Amirdzhan",
+      "postalCodes": []
+    },
+    {
+      "name": "Badamdar",
+      "postalCodes": []
+    },
+    {
+      "name": "Bakıxanov",
+      "postalCodes": []
+    },
+    {
+      "name": "Baku",
+      "postalCodes": []
+    },
+    {
+      "name": "Balakhani",
+      "postalCodes": []
+    },
+    {
+      "name": "Bilajari",
+      "postalCodes": []
+    },
+    {
+      "name": "Bilajer",
+      "postalCodes": []
+    },
+    {
+      "name": "Binagadi",
+      "postalCodes": []
+    },
+    {
+      "name": "Biny Selo",
+      "postalCodes": []
+    },
+    {
+      "name": "Buzovna",
+      "postalCodes": []
+    },
+    {
+      "name": "Hövsan",
+      "postalCodes": []
+    },
+    {
+      "name": "Khodzhi-Gasan",
+      "postalCodes": []
+    },
+    {
+      "name": "Korgöz",
+      "postalCodes": []
+    },
+    {
+      "name": "Lökbatan",
+      "postalCodes": []
+    },
+    {
+      "name": "Mardakan",
+      "postalCodes": []
+    },
+    {
+      "name": "Maştağa",
+      "postalCodes": []
+    },
+    {
+      "name": "Nardaran",
+      "postalCodes": []
+    },
+    {
+      "name": "Nizami Rayonu",
+      "postalCodes": []
+    },
+    {
+      "name": "Pirallahı",
+      "postalCodes": []
+    },
+    {
+      "name": "Puta",
+      "postalCodes": []
+    },
+    {
+      "name": "Qala",
+      "postalCodes": []
+    },
+    {
+      "name": "Qaraçuxur",
+      "postalCodes": []
+    },
+    {
+      "name": "Qobustan",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramana",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabunçu",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanqaçal",
+      "postalCodes": []
+    },
+    {
+      "name": "Türkan",
+      "postalCodes": []
+    },
+    {
+      "name": "Yeni Suraxanı",
+      "postalCodes": []
+    },
+    {
+      "name": "Zabrat",
+      "postalCodes": []
+    },
+    {
+      "name": "Zyrya",
+      "postalCodes": []
+    }
+  ],
+  "BAL": [
+    {
+      "name": "Belokany",
+      "postalCodes": []
+    },
+    {
+      "name": "Qabaqçöl",
+      "postalCodes": []
+    }
+  ],
+  "BAR": [
+    {
+      "name": "Barda",
+      "postalCodes": []
+    },
+    {
+      "name": "Samuxlu",
+      "postalCodes": []
+    }
+  ],
+  "BEY": [
+    {
+      "name": "Beylagan",
+      "postalCodes": []
+    },
+    {
+      "name": "Birinci Aşıqlı",
+      "postalCodes": []
+    },
+    {
+      "name": "Dünyamalılar",
+      "postalCodes": []
+    },
+    {
+      "name": "Orjonikidze",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuxarı Aran",
+      "postalCodes": []
+    }
+  ],
+  "BIL": [
+    {
+      "name": "Pushkino",
+      "postalCodes": []
+    }
+  ],
+  "DAS": [
+    {
+      "name": "Verkhniy Dashkesan",
+      "postalCodes": []
+    },
+    {
+      "name": "Yukhary-Dashkesan",
+      "postalCodes": []
+    }
+  ],
+  "FUZ": [
+    {
+      "name": "Fizuli",
+      "postalCodes": []
+    },
+    {
+      "name": "Horadiz",
+      "postalCodes": []
+    }
+  ],
+  "GA": [
+    {
+      "name": "Ganja",
+      "postalCodes": []
+    }
+  ],
+  "GAD": [
+    {
+      "name": "Arıqdam",
+      "postalCodes": []
+    },
+    {
+      "name": "Arıqıran",
+      "postalCodes": []
+    },
+    {
+      "name": "Böyük Qaramurad",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyadabek",
+      "postalCodes": []
+    },
+    {
+      "name": "Novosaratovka",
+      "postalCodes": []
+    }
+  ],
+  "QOB": [
+    {
+      "name": "Qobustan",
+      "postalCodes": []
+    }
+  ],
+  "GOR": [
+    {
+      "name": "Goranboy",
+      "postalCodes": []
+    },
+    {
+      "name": "Qızılhacılı",
+      "postalCodes": []
+    }
+  ],
+  "GOY": [
+    {
+      "name": "Geoktschai",
+      "postalCodes": []
+    }
+  ],
+  "GYG": [
+    {
+      "name": "Yelenendorf",
+      "postalCodes": []
+    }
+  ],
+  "HAC": [
+    {
+      "name": "Hacıqabul",
+      "postalCodes": []
+    },
+    {
+      "name": "Mughan",
+      "postalCodes": []
+    }
+  ],
+  "IMI": [
+    {
+      "name": "Imishli",
+      "postalCodes": []
+    }
+  ],
+  "ISM": [
+    {
+      "name": "Basqal",
+      "postalCodes": []
+    },
+    {
+      "name": "İsmayıllı",
+      "postalCodes": []
+    }
+  ],
+  "CAB": [
+    {
+      "name": "Jebrail",
+      "postalCodes": []
+    }
+  ],
+  "CAL": [
+    {
+      "name": "Jalilabad",
+      "postalCodes": []
+    },
+    {
+      "name": "Prishibinskoye",
+      "postalCodes": []
+    }
+  ],
+  "CUL": [],
+  "KAL": [
+    {
+      "name": "Kerbakhiar",
+      "postalCodes": []
+    },
+    {
+      "name": "Vank",
+      "postalCodes": []
+    }
+  ],
+  "KAN": [],
+  "XAC": [
+    {
+      "name": "Xaçmaz",
+      "postalCodes": []
+    },
+    {
+      "name": "Xudat",
+      "postalCodes": []
+    }
+  ],
+  "XIZ": [
+    {
+      "name": "Altıağac",
+      "postalCodes": []
+    },
+    {
+      "name": "Khyzy",
+      "postalCodes": []
+    },
+    {
+      "name": "Kilyazi",
+      "postalCodes": []
+    },
+    {
+      "name": "Şuraabad",
+      "postalCodes": []
+    }
+  ],
+  "XCI": [
+    {
+      "name": "Askyaran",
+      "postalCodes": []
+    },
+    {
+      "name": "Xocalı",
+      "postalCodes": []
+    }
+  ],
+  "KUR": [
+    {
+      "name": "Kyurdarmir",
+      "postalCodes": []
+    }
+  ],
+  "LAC": [
+    {
+      "name": "Laçın",
+      "postalCodes": []
+    }
+  ],
+  "LAN": [],
+  "LA": [
+    {
+      "name": "Haftoni",
+      "postalCodes": []
+    },
+    {
+      "name": "Lankaran",
+      "postalCodes": []
+    }
+  ],
+  "LER": [
+    {
+      "name": "Lerik",
+      "postalCodes": []
+    }
+  ],
+  "XVD": [
+    {
+      "name": "Hadrut",
+      "postalCodes": []
+    },
+    {
+      "name": "Novyy Karanlug",
+      "postalCodes": []
+    },
+    {
+      "name": "Qırmızı Bazar",
+      "postalCodes": []
+    }
+  ],
+  "MAS": [
+    {
+      "name": "Boradigah",
+      "postalCodes": []
+    },
+    {
+      "name": "Masally",
+      "postalCodes": []
+    }
+  ],
+  "MI": [
+    {
+      "name": "Mingelchaur",
+      "postalCodes": []
+    }
+  ],
+  "NX": [
+    {
+      "name": "Cahri",
+      "postalCodes": []
+    },
+    {
+      "name": "Çalxanqala",
+      "postalCodes": []
+    },
+    {
+      "name": "Culfa",
+      "postalCodes": []
+    },
+    {
+      "name": "Deste",
+      "postalCodes": []
+    },
+    {
+      "name": "Heydarabad",
+      "postalCodes": []
+    },
+    {
+      "name": "Julfa Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakhchivan",
+      "postalCodes": []
+    },
+    {
+      "name": "Oğlanqala",
+      "postalCodes": []
+    },
+    {
+      "name": "Ordubad",
+      "postalCodes": []
+    },
+    {
+      "name": "Ordubad Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Qıvraq",
+      "postalCodes": []
+    },
+    {
+      "name": "Şahbuz",
+      "postalCodes": []
+    },
+    {
+      "name": "Sedarak",
+      "postalCodes": []
+    },
+    {
+      "name": "Shahbuz Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Sharur City",
+      "postalCodes": []
+    },
+    {
+      "name": "Sumbatan-diza",
+      "postalCodes": []
+    },
+    {
+      "name": "Tazakend",
+      "postalCodes": []
+    },
+    {
+      "name": "Yaycı",
+      "postalCodes": []
+    }
+  ],
+  "NEF": [
+    {
+      "name": "Neftçala",
+      "postalCodes": []
+    },
+    {
+      "name": "Severo-Vostotchnyi Bank",
+      "postalCodes": []
+    },
+    {
+      "name": "Sovetabad",
+      "postalCodes": []
+    },
+    {
+      "name": "Xıllı",
+      "postalCodes": []
+    }
+  ],
+  "OGU": [
+    {
+      "name": "Oğuz",
+      "postalCodes": []
+    }
+  ],
+  "ORD": [],
+  "QAB": [
+    {
+      "name": "Qutqashen",
+      "postalCodes": []
+    }
+  ],
+  "QAX": [
+    {
+      "name": "Çinarlı",
+      "postalCodes": []
+    },
+    {
+      "name": "Qax",
+      "postalCodes": []
+    },
+    {
+      "name": "Qax İngiloy",
+      "postalCodes": []
+    },
+    {
+      "name": "Qaxbaş",
+      "postalCodes": []
+    }
+  ],
+  "QAZ": [
+    {
+      "name": "Qazax",
+      "postalCodes": []
+    }
+  ],
+  "QBA": [
+    {
+      "name": "Hacıhüseynli",
+      "postalCodes": []
+    },
+    {
+      "name": "Quba",
+      "postalCodes": []
+    }
+  ],
+  "QBI": [
+    {
+      "name": "Qubadlı",
+      "postalCodes": []
+    }
+  ],
+  "QUS": [
+    {
+      "name": "Qusar",
+      "postalCodes": []
+    },
+    {
+      "name": "Samur",
+      "postalCodes": []
+    }
+  ],
+  "SAT": [
+    {
+      "name": "Əhmədbəyli",
+      "postalCodes": []
+    },
+    {
+      "name": "Saatlı",
+      "postalCodes": []
+    }
+  ],
+  "SAB": [
+    {
+      "name": "Sabirabad",
+      "postalCodes": []
+    }
+  ],
+  "SAD": [],
+  "SAL": [
+    {
+      "name": "Qaraçala",
+      "postalCodes": []
+    },
+    {
+      "name": "Salyan",
+      "postalCodes": []
+    }
+  ],
+  "SMX": [
+    {
+      "name": "Qarayeri",
+      "postalCodes": []
+    },
+    {
+      "name": "Qırmızı Samux",
+      "postalCodes": []
+    },
+    {
+      "name": "Samux",
+      "postalCodes": []
+    }
+  ],
+  "SBN": [
+    {
+      "name": "Divichibazar",
+      "postalCodes": []
+    }
+  ],
+  "SAH": [],
+  "SA": [
+    {
+      "name": "Sheki",
+      "postalCodes": []
+    }
+  ],
+  "SAK": [
+    {
+      "name": "Baş Göynük",
+      "postalCodes": []
+    }
+  ],
+  "SMI": [
+    {
+      "name": "Shamakhi",
+      "postalCodes": []
+    }
+  ],
+  "SKR": [
+    {
+      "name": "Dolyar",
+      "postalCodes": []
+    },
+    {
+      "name": "Dzagam",
+      "postalCodes": []
+    },
+    {
+      "name": "Qasım İsmayılov",
+      "postalCodes": []
+    },
+    {
+      "name": "Shamkhor",
+      "postalCodes": []
+    }
+  ],
+  "SAR": [],
+  "SR": [
+    {
+      "name": "Şirvan",
+      "postalCodes": []
+    }
+  ],
+  "SUS": [
+    {
+      "name": "Shushi",
+      "postalCodes": []
+    }
+  ],
+  "SIY": [
+    {
+      "name": "Gilgilçay",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyzyl-Burun",
+      "postalCodes": []
+    }
+  ],
+  "SM": [
+    {
+      "name": "Corat",
+      "postalCodes": []
+    },
+    {
+      "name": "Hacı Zeynalabdin",
+      "postalCodes": []
+    },
+    {
+      "name": "Sumqayıt",
+      "postalCodes": []
+    }
+  ],
+  "TAR": [
+    {
+      "name": "Martakert",
+      "postalCodes": []
+    },
+    {
+      "name": "Terter",
+      "postalCodes": []
+    }
+  ],
+  "TOV": [
+    {
+      "name": "Çatax",
+      "postalCodes": []
+    },
+    {
+      "name": "Çobansığnaq",
+      "postalCodes": []
+    },
+    {
+      "name": "Dondar Quşçu",
+      "postalCodes": []
+    },
+    {
+      "name": "Qaraxanlı",
+      "postalCodes": []
+    },
+    {
+      "name": "Tovuz",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanıqlı",
+      "postalCodes": []
+    }
+  ],
+  "UCA": [
+    {
+      "name": "Ujar",
+      "postalCodes": []
+    }
+  ],
+  "YAR": [
+    {
+      "name": "Yardımlı",
+      "postalCodes": []
+    }
+  ],
+  "YE": [
+    {
+      "name": "Yevlakh",
+      "postalCodes": []
+    }
+  ],
+  "YEV": [
+    {
+      "name": "Aran",
+      "postalCodes": []
+    },
+    {
+      "name": "Qaramanlı",
+      "postalCodes": []
+    }
+  ],
+  "ZAN": [
+    {
+      "name": "Mincivan",
+      "postalCodes": []
+    },
+    {
+      "name": "Zangilan",
+      "postalCodes": []
+    }
+  ],
+  "ZAQ": [
+    {
+      "name": "Aliabad",
+      "postalCodes": []
+    },
+    {
+      "name": "Faldarlı",
+      "postalCodes": []
+    },
+    {
+      "name": "Mamrux",
+      "postalCodes": []
+    },
+    {
+      "name": "Qandax",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaqatala",
+      "postalCodes": []
+    }
+  ],
+  "ZAR": [
+    {
+      "name": "Zardob",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

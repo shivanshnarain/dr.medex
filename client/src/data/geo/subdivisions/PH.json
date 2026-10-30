@@ -1,0 +1,487 @@
+[
+  {
+    "code": "ABR",
+    "name": "Abra",
+    "countryCode": "PH"
+  },
+  {
+    "code": "AGN",
+    "name": "Agusan del Norte",
+    "countryCode": "PH"
+  },
+  {
+    "code": "AGS",
+    "name": "Agusan del Sur",
+    "countryCode": "PH"
+  },
+  {
+    "code": "AKL",
+    "name": "Aklan",
+    "countryCode": "PH"
+  },
+  {
+    "code": "ALB",
+    "name": "Albay",
+    "countryCode": "PH"
+  },
+  {
+    "code": "ANT",
+    "name": "Antique",
+    "countryCode": "PH"
+  },
+  {
+    "code": "APA",
+    "name": "Apayao",
+    "countryCode": "PH"
+  },
+  {
+    "code": "AUR",
+    "name": "Aurora",
+    "countryCode": "PH"
+  },
+  {
+    "code": "14",
+    "name": "Autonomous Region in Muslim Mindanao",
+    "countryCode": "PH"
+  },
+  {
+    "code": "BAS",
+    "name": "Basilan",
+    "countryCode": "PH"
+  },
+  {
+    "code": "BAN",
+    "name": "Bataan",
+    "countryCode": "PH"
+  },
+  {
+    "code": "BTN",
+    "name": "Batanes",
+    "countryCode": "PH"
+  },
+  {
+    "code": "BTG",
+    "name": "Batangas",
+    "countryCode": "PH"
+  },
+  {
+    "code": "BEN",
+    "name": "Benguet",
+    "countryCode": "PH"
+  },
+  {
+    "code": "05",
+    "name": "Bicol Region",
+    "countryCode": "PH"
+  },
+  {
+    "code": "BIL",
+    "name": "Biliran",
+    "countryCode": "PH"
+  },
+  {
+    "code": "BOH",
+    "name": "Bohol",
+    "countryCode": "PH"
+  },
+  {
+    "code": "BUK",
+    "name": "Bukidnon",
+    "countryCode": "PH"
+  },
+  {
+    "code": "BUL",
+    "name": "Bulacan",
+    "countryCode": "PH"
+  },
+  {
+    "code": "CAG",
+    "name": "Cagayan",
+    "countryCode": "PH"
+  },
+  {
+    "code": "02",
+    "name": "Cagayan Valley",
+    "countryCode": "PH"
+  },
+  {
+    "code": "40",
+    "name": "Calabarzon",
+    "countryCode": "PH"
+  },
+  {
+    "code": "CAN",
+    "name": "Camarines Norte",
+    "countryCode": "PH"
+  },
+  {
+    "code": "CAS",
+    "name": "Camarines Sur",
+    "countryCode": "PH"
+  },
+  {
+    "code": "CAM",
+    "name": "Camiguin",
+    "countryCode": "PH"
+  },
+  {
+    "code": "CAP",
+    "name": "Capiz",
+    "countryCode": "PH"
+  },
+  {
+    "code": "13",
+    "name": "Caraga",
+    "countryCode": "PH"
+  },
+  {
+    "code": "CAT",
+    "name": "Catanduanes",
+    "countryCode": "PH"
+  },
+  {
+    "code": "CAV",
+    "name": "Cavite",
+    "countryCode": "PH"
+  },
+  {
+    "code": "CEB",
+    "name": "Cebu",
+    "countryCode": "PH"
+  },
+  {
+    "code": "03",
+    "name": "Central Luzon",
+    "countryCode": "PH"
+  },
+  {
+    "code": "07",
+    "name": "Central Visayas",
+    "countryCode": "PH"
+  },
+  {
+    "code": "COM",
+    "name": "Compostela Valley",
+    "countryCode": "PH"
+  },
+  {
+    "code": "15",
+    "name": "Cordillera Administrative Region",
+    "countryCode": "PH"
+  },
+  {
+    "code": "NCO",
+    "name": "Cotabato",
+    "countryCode": "PH"
+  },
+  {
+    "code": "DAV",
+    "name": "Davao del Norte",
+    "countryCode": "PH"
+  },
+  {
+    "code": "DAS",
+    "name": "Davao del Sur",
+    "countryCode": "PH"
+  },
+  {
+    "code": "DVO",
+    "name": "Davao Occidental",
+    "countryCode": "PH"
+  },
+  {
+    "code": "DAO",
+    "name": "Davao Oriental",
+    "countryCode": "PH"
+  },
+  {
+    "code": "11",
+    "name": "Davao Region",
+    "countryCode": "PH"
+  },
+  {
+    "code": "DIN",
+    "name": "Dinagat Islands",
+    "countryCode": "PH"
+  },
+  {
+    "code": "EAS",
+    "name": "Eastern Samar",
+    "countryCode": "PH"
+  },
+  {
+    "code": "08",
+    "name": "Eastern Visayas",
+    "countryCode": "PH"
+  },
+  {
+    "code": "GUI",
+    "name": "Guimaras",
+    "countryCode": "PH"
+  },
+  {
+    "code": "IFU",
+    "name": "Ifugao",
+    "countryCode": "PH"
+  },
+  {
+    "code": "ILN",
+    "name": "Ilocos Norte",
+    "countryCode": "PH"
+  },
+  {
+    "code": "01",
+    "name": "Ilocos Region",
+    "countryCode": "PH"
+  },
+  {
+    "code": "ILS",
+    "name": "Ilocos Sur",
+    "countryCode": "PH"
+  },
+  {
+    "code": "ILI",
+    "name": "Iloilo",
+    "countryCode": "PH"
+  },
+  {
+    "code": "ISA",
+    "name": "Isabela",
+    "countryCode": "PH"
+  },
+  {
+    "code": "KAL",
+    "name": "Kalinga",
+    "countryCode": "PH"
+  },
+  {
+    "code": "LUN",
+    "name": "La Union",
+    "countryCode": "PH"
+  },
+  {
+    "code": "LAG",
+    "name": "Laguna",
+    "countryCode": "PH"
+  },
+  {
+    "code": "LAN",
+    "name": "Lanao del Norte",
+    "countryCode": "PH"
+  },
+  {
+    "code": "LAS",
+    "name": "Lanao del Sur",
+    "countryCode": "PH"
+  },
+  {
+    "code": "LEY",
+    "name": "Leyte",
+    "countryCode": "PH"
+  },
+  {
+    "code": "MAG",
+    "name": "Maguindanao",
+    "countryCode": "PH"
+  },
+  {
+    "code": "MAD",
+    "name": "Marinduque",
+    "countryCode": "PH"
+  },
+  {
+    "code": "MAS",
+    "name": "Masbate",
+    "countryCode": "PH"
+  },
+  {
+    "code": "NCR",
+    "name": "Metro Manila",
+    "countryCode": "PH"
+  },
+  {
+    "code": "41",
+    "name": "Mimaropa",
+    "countryCode": "PH"
+  },
+  {
+    "code": "MSC",
+    "name": "Misamis Occidental",
+    "countryCode": "PH"
+  },
+  {
+    "code": "MSR",
+    "name": "Misamis Oriental",
+    "countryCode": "PH"
+  },
+  {
+    "code": "MOU",
+    "name": "Mountain Province",
+    "countryCode": "PH"
+  },
+  {
+    "code": "NEC",
+    "name": "Negros Occidental",
+    "countryCode": "PH"
+  },
+  {
+    "code": "NER",
+    "name": "Negros Oriental",
+    "countryCode": "PH"
+  },
+  {
+    "code": "10",
+    "name": "Northern Mindanao",
+    "countryCode": "PH"
+  },
+  {
+    "code": "NSA",
+    "name": "Northern Samar",
+    "countryCode": "PH"
+  },
+  {
+    "code": "NUE",
+    "name": "Nueva Ecija",
+    "countryCode": "PH"
+  },
+  {
+    "code": "NUV",
+    "name": "Nueva Vizcaya",
+    "countryCode": "PH"
+  },
+  {
+    "code": "MDC",
+    "name": "Occidental Mindoro",
+    "countryCode": "PH"
+  },
+  {
+    "code": "MDR",
+    "name": "Oriental Mindoro",
+    "countryCode": "PH"
+  },
+  {
+    "code": "PLW",
+    "name": "Palawan",
+    "countryCode": "PH"
+  },
+  {
+    "code": "PAM",
+    "name": "Pampanga",
+    "countryCode": "PH"
+  },
+  {
+    "code": "PAN",
+    "name": "Pangasinan",
+    "countryCode": "PH"
+  },
+  {
+    "code": "QUE",
+    "name": "Quezon",
+    "countryCode": "PH"
+  },
+  {
+    "code": "QUI",
+    "name": "Quirino",
+    "countryCode": "PH"
+  },
+  {
+    "code": "RIZ",
+    "name": "Rizal",
+    "countryCode": "PH"
+  },
+  {
+    "code": "ROM",
+    "name": "Romblon",
+    "countryCode": "PH"
+  },
+  {
+    "code": "SAR",
+    "name": "Sarangani",
+    "countryCode": "PH"
+  },
+  {
+    "code": "SIG",
+    "name": "Siquijor",
+    "countryCode": "PH"
+  },
+  {
+    "code": "12",
+    "name": "Soccsksargen",
+    "countryCode": "PH"
+  },
+  {
+    "code": "SOR",
+    "name": "Sorsogon",
+    "countryCode": "PH"
+  },
+  {
+    "code": "SCO",
+    "name": "South Cotabato",
+    "countryCode": "PH"
+  },
+  {
+    "code": "SLE",
+    "name": "Southern Leyte",
+    "countryCode": "PH"
+  },
+  {
+    "code": "SUK",
+    "name": "Sultan Kudarat",
+    "countryCode": "PH"
+  },
+  {
+    "code": "SLU",
+    "name": "Sulu",
+    "countryCode": "PH"
+  },
+  {
+    "code": "SUN",
+    "name": "Surigao del Norte",
+    "countryCode": "PH"
+  },
+  {
+    "code": "SUR",
+    "name": "Surigao del Sur",
+    "countryCode": "PH"
+  },
+  {
+    "code": "TAR",
+    "name": "Tarlac",
+    "countryCode": "PH"
+  },
+  {
+    "code": "TAW",
+    "name": "Tawi-Tawi",
+    "countryCode": "PH"
+  },
+  {
+    "code": "06",
+    "name": "Western Visayas",
+    "countryCode": "PH"
+  },
+  {
+    "code": "ZMB",
+    "name": "Zambales",
+    "countryCode": "PH"
+  },
+  {
+    "code": "ZAN",
+    "name": "Zamboanga del Norte",
+    "countryCode": "PH"
+  },
+  {
+    "code": "ZAS",
+    "name": "Zamboanga del Sur",
+    "countryCode": "PH"
+  },
+  {
+    "code": "09",
+    "name": "Zamboanga Peninsula",
+    "countryCode": "PH"
+  },
+  {
+    "code": "ZSI",
+    "name": "Zamboanga Sibugay",
+    "countryCode": "PH"
+  }
+]

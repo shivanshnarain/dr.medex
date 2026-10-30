@@ -1,0 +1,441 @@
+{
+  "10": [
+    {
+      "name": "Gourcy",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouahigouya",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Loroum",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Passoré",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Yatenga",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Zondoma",
+      "postalCodes": []
+    },
+    {
+      "name": "Titao",
+      "postalCodes": []
+    },
+    {
+      "name": "Yako",
+      "postalCodes": []
+    }
+  ],
+  "11": [
+    {
+      "name": "Boussé",
+      "postalCodes": []
+    },
+    {
+      "name": "Oubritenga",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Ganzourgou",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Kourwéogo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ziniaré",
+      "postalCodes": []
+    },
+    {
+      "name": "Zorgo",
+      "postalCodes": []
+    }
+  ],
+  "12": [
+    {
+      "name": "Djibo",
+      "postalCodes": []
+    },
+    {
+      "name": "Dori",
+      "postalCodes": []
+    },
+    {
+      "name": "Gorom-Gorom",
+      "postalCodes": []
+    },
+    {
+      "name": "Province de l’Oudalan",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Séno",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Soum",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Yagha",
+      "postalCodes": []
+    }
+  ],
+  "13": [
+    {
+      "name": "Batié",
+      "postalCodes": []
+    },
+    {
+      "name": "Dano",
+      "postalCodes": []
+    },
+    {
+      "name": "Diébougou",
+      "postalCodes": []
+    },
+    {
+      "name": "Province de la Bougouriba",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Ioba",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Noumbièl",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Poni",
+      "postalCodes": []
+    }
+  ],
+  "BAL": [],
+  "BAM": [],
+  "BAN": [],
+  "BAZ": [],
+  "01": [
+    {
+      "name": "Barani",
+      "postalCodes": []
+    },
+    {
+      "name": "Boromo",
+      "postalCodes": []
+    },
+    {
+      "name": "Dédougou",
+      "postalCodes": []
+    },
+    {
+      "name": "Nouna",
+      "postalCodes": []
+    },
+    {
+      "name": "Province de la Kossi",
+      "postalCodes": []
+    },
+    {
+      "name": "Province des Balé",
+      "postalCodes": []
+    },
+    {
+      "name": "Province des Banwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Mouhoun",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Nayala",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Sourou",
+      "postalCodes": []
+    },
+    {
+      "name": "Salanso",
+      "postalCodes": []
+    },
+    {
+      "name": "Toma",
+      "postalCodes": []
+    },
+    {
+      "name": "Tougan",
+      "postalCodes": []
+    }
+  ],
+  "BGR": [],
+  "BLG": [],
+  "02": [
+    {
+      "name": "Banfora",
+      "postalCodes": []
+    },
+    {
+      "name": "Province de la Comoé",
+      "postalCodes": []
+    },
+    {
+      "name": "Province de la Léraba",
+      "postalCodes": []
+    },
+    {
+      "name": "Sindou",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Kadiogo Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouagadougou",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Garango",
+      "postalCodes": []
+    },
+    {
+      "name": "Koupéla",
+      "postalCodes": []
+    },
+    {
+      "name": "Kouritenga Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouargaye",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Boulgou",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Koulpélogo",
+      "postalCodes": []
+    },
+    {
+      "name": "Tenkodogo",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Boulsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Kongoussi",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Bam",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Namentenga",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Sanmatenga",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Goulouré",
+      "postalCodes": []
+    },
+    {
+      "name": "Kokologo",
+      "postalCodes": []
+    },
+    {
+      "name": "Koudougou",
+      "postalCodes": []
+    },
+    {
+      "name": "Léo",
+      "postalCodes": []
+    },
+    {
+      "name": "Pitmoaga",
+      "postalCodes": []
+    },
+    {
+      "name": "Province de la Sissili",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Boulkiemdé",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Sanguié",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Ziro",
+      "postalCodes": []
+    },
+    {
+      "name": "Réo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sapouy",
+      "postalCodes": []
+    }
+  ],
+  "07": [
+    {
+      "name": "Bazega Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Kombissiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Manga",
+      "postalCodes": []
+    },
+    {
+      "name": "Nahouri Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Pô",
+      "postalCodes": []
+    },
+    {
+      "name": "Zoundweogo Province",
+      "postalCodes": []
+    }
+  ],
+  "COM": [],
+  "08": [
+    {
+      "name": "Bogandé",
+      "postalCodes": []
+    },
+    {
+      "name": "Diapaga",
+      "postalCodes": []
+    },
+    {
+      "name": "Fada N'gourma",
+      "postalCodes": []
+    },
+    {
+      "name": "Gayéri",
+      "postalCodes": []
+    },
+    {
+      "name": "Gnagna Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Pama",
+      "postalCodes": []
+    },
+    {
+      "name": "Province de la Komandjoari",
+      "postalCodes": []
+    },
+    {
+      "name": "Province de la Kompienga",
+      "postalCodes": []
+    },
+    {
+      "name": "Province de la Tapoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Gourma",
+      "postalCodes": []
+    }
+  ],
+  "GAN": [],
+  "GNA": [],
+  "GOU": [],
+  "09": [
+    {
+      "name": "Bobo-Dioulasso",
+      "postalCodes": []
+    },
+    {
+      "name": "Houndé",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Houet",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Kénédougou",
+      "postalCodes": []
+    },
+    {
+      "name": "Province du Tuy",
+      "postalCodes": []
+    }
+  ],
+  "HOU": [],
+  "IOB": [],
+  "KAD": [],
+  "KEN": [],
+  "KMD": [],
+  "KMP": [],
+  "KOS": [],
+  "KOP": [],
+  "KOT": [],
+  "KOW": [],
+  "LER": [],
+  "LOR": [],
+  "MOU": [],
+  "NAO": [],
+  "NAM": [],
+  "NAY": [],
+  "NOU": [],
+  "OUB": [],
+  "OUD": [],
+  "PAS": [],
+  "PON": [],
+  "SNG": [],
+  "SMT": [],
+  "SEN": [],
+  "SIS": [],
+  "SOM": [],
+  "SOR": [],
+  "TAP": [],
+  "TUI": [],
+  "YAG": [],
+  "YAT": [],
+  "ZIR": [],
+  "ZON": [],
+  "ZOU": [],
+  "_OTHER": []
+}

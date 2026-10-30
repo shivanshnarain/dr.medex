@@ -1,0 +1,138 @@
+{
+  "DA": [
+    {
+      "name": "Adam",
+      "postalCodes": []
+    },
+    {
+      "name": "Bahlā’",
+      "postalCodes": []
+    },
+    {
+      "name": "Bidbid",
+      "postalCodes": []
+    },
+    {
+      "name": "Izkī",
+      "postalCodes": []
+    },
+    {
+      "name": "Nizwá",
+      "postalCodes": []
+    },
+    {
+      "name": "Sufālat Samā’il",
+      "postalCodes": []
+    }
+  ],
+  "ZA": [
+    {
+      "name": "‘Ibrī",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanqul",
+      "postalCodes": []
+    }
+  ],
+  "BS": [
+    {
+      "name": "Al Khābūrah",
+      "postalCodes": []
+    },
+    {
+      "name": "As Suwayq",
+      "postalCodes": []
+    },
+    {
+      "name": "Liwá",
+      "postalCodes": []
+    },
+    {
+      "name": "Şaḩam",
+      "postalCodes": []
+    },
+    {
+      "name": "Shināş",
+      "postalCodes": []
+    },
+    {
+      "name": "Sohar",
+      "postalCodes": []
+    }
+  ],
+  "BA": [
+    {
+      "name": "Barkā’",
+      "postalCodes": []
+    },
+    {
+      "name": "Bayt al ‘Awābī",
+      "postalCodes": []
+    },
+    {
+      "name": "Oman Smart Future City",
+      "postalCodes": []
+    },
+    {
+      "name": "Rustaq",
+      "postalCodes": []
+    }
+  ],
+  "BJ": [],
+  "BU": [
+    {
+      "name": "Al Buraymī",
+      "postalCodes": []
+    }
+  ],
+  "WU": [
+    {
+      "name": "Haymā’",
+      "postalCodes": []
+    }
+  ],
+  "SS": [],
+  "SH": [
+    {
+      "name": "Sur",
+      "postalCodes": []
+    }
+  ],
+  "SJ": [],
+  "ZU": [
+    {
+      "name": "Şalālah",
+      "postalCodes": []
+    }
+  ],
+  "MU": [
+    {
+      "name": "Dib Dibba",
+      "postalCodes": []
+    },
+    {
+      "name": "Khasab",
+      "postalCodes": []
+    },
+    {
+      "name": "Madḩā’ al Jadīdah",
+      "postalCodes": []
+    }
+  ],
+  "MA": [
+    {
+      "name": "Bawshar",
+      "postalCodes": []
+    },
+    {
+      "name": "Muscat",
+      "postalCodes": []
+    },
+    {
+      "name": "Seeb",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

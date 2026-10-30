@@ -1,0 +1,1367 @@
+{
+  "10": [],
+  "11": [],
+  "12": [],
+  "13": [],
+  "14": [],
+  "15": [],
+  "16": [],
+  "17": [],
+  "18": [],
+  "19": [],
+  "20": [],
+  "21": [],
+  "22": [],
+  "23": [],
+  "24": [],
+  "00": [],
+  "02": [
+    {
+      "name": "Aranđelovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Arilje",
+      "postalCodes": []
+    },
+    {
+      "name": "Badovinci",
+      "postalCodes": []
+    },
+    {
+      "name": "Bajina Bašta",
+      "postalCodes": []
+    },
+    {
+      "name": "Banovo Polje",
+      "postalCodes": []
+    },
+    {
+      "name": "Barič",
+      "postalCodes": []
+    },
+    {
+      "name": "Bečmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Belgrade",
+      "postalCodes": []
+    },
+    {
+      "name": "Belotić",
+      "postalCodes": []
+    },
+    {
+      "name": "Biljača",
+      "postalCodes": []
+    },
+    {
+      "name": "Bogatić",
+      "postalCodes": []
+    },
+    {
+      "name": "Bogosavac",
+      "postalCodes": []
+    },
+    {
+      "name": "Boljevci",
+      "postalCodes": []
+    },
+    {
+      "name": "Bor",
+      "postalCodes": []
+    },
+    {
+      "name": "Brdarica",
+      "postalCodes": []
+    },
+    {
+      "name": "Bukor",
+      "postalCodes": []
+    },
+    {
+      "name": "Čačak",
+      "postalCodes": []
+    },
+    {
+      "name": "Čajetina",
+      "postalCodes": []
+    },
+    {
+      "name": "Ćićevac",
+      "postalCodes": []
+    },
+    {
+      "name": "Čokešina",
+      "postalCodes": []
+    },
+    {
+      "name": "Crna Bara",
+      "postalCodes": []
+    },
+    {
+      "name": "Ćuprija",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobanovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobrić",
+      "postalCodes": []
+    },
+    {
+      "name": "Donji Dobrić",
+      "postalCodes": []
+    },
+    {
+      "name": "Donji Milanovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Draginje",
+      "postalCodes": []
+    },
+    {
+      "name": "Drenovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Dublje",
+      "postalCodes": []
+    },
+    {
+      "name": "Duboka",
+      "postalCodes": []
+    },
+    {
+      "name": "Ðurići",
+      "postalCodes": []
+    },
+    {
+      "name": "Glušci",
+      "postalCodes": []
+    },
+    {
+      "name": "Golubac",
+      "postalCodes": []
+    },
+    {
+      "name": "Gornja Bukovica",
+      "postalCodes": []
+    },
+    {
+      "name": "Gornji Milanovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Grabovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Jablanica",
+      "postalCodes": []
+    },
+    {
+      "name": "Jadranska Lešnica",
+      "postalCodes": []
+    },
+    {
+      "name": "Jagodina",
+      "postalCodes": []
+    },
+    {
+      "name": "Jarebice",
+      "postalCodes": []
+    },
+    {
+      "name": "Jelenča",
+      "postalCodes": []
+    },
+    {
+      "name": "Jevremovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Joševa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamenica",
+      "postalCodes": []
+    },
+    {
+      "name": "Klenje",
+      "postalCodes": []
+    },
+    {
+      "name": "Knjazevac",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolubara",
+      "postalCodes": []
+    },
+    {
+      "name": "Kozjak",
+      "postalCodes": []
+    },
+    {
+      "name": "Kragujevac",
+      "postalCodes": []
+    },
+    {
+      "name": "Kraljevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Krivaja",
+      "postalCodes": []
+    },
+    {
+      "name": "Krupanj",
+      "postalCodes": []
+    },
+    {
+      "name": "Kruševac",
+      "postalCodes": []
+    },
+    {
+      "name": "Lagja e Poshtme",
+      "postalCodes": []
+    },
+    {
+      "name": "Lapovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Lazarevac",
+      "postalCodes": []
+    },
+    {
+      "name": "Leskovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Lešnica",
+      "postalCodes": []
+    },
+    {
+      "name": "Lipnički Šor",
+      "postalCodes": []
+    },
+    {
+      "name": "Lipolist",
+      "postalCodes": []
+    },
+    {
+      "name": "Ljig",
+      "postalCodes": []
+    },
+    {
+      "name": "Ljubovija",
+      "postalCodes": []
+    },
+    {
+      "name": "Lugavčina",
+      "postalCodes": []
+    },
+    {
+      "name": "Mačva",
+      "postalCodes": []
+    },
+    {
+      "name": "Majdanpek",
+      "postalCodes": []
+    },
+    {
+      "name": "Majur",
+      "postalCodes": []
+    },
+    {
+      "name": "Mala Moštanica",
+      "postalCodes": []
+    },
+    {
+      "name": "Mali Zvornik",
+      "postalCodes": []
+    },
+    {
+      "name": "Metković",
+      "postalCodes": []
+    },
+    {
+      "name": "Miratovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Morava",
+      "postalCodes": []
+    },
+    {
+      "name": "Negotin",
+      "postalCodes": []
+    },
+    {
+      "name": "Niš",
+      "postalCodes": []
+    },
+    {
+      "name": "Nišava",
+      "postalCodes": []
+    },
+    {
+      "name": "Novi Pazar",
+      "postalCodes": []
+    },
+    {
+      "name": "Novo Selo",
+      "postalCodes": []
+    },
+    {
+      "name": "Obrenovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Osečina",
+      "postalCodes": []
+    },
+    {
+      "name": "Osječenik",
+      "postalCodes": []
+    },
+    {
+      "name": "Ostružnica",
+      "postalCodes": []
+    },
+    {
+      "name": "Ovča",
+      "postalCodes": []
+    },
+    {
+      "name": "Paraćin",
+      "postalCodes": []
+    },
+    {
+      "name": "Pčinja",
+      "postalCodes": []
+    },
+    {
+      "name": "Petkovica",
+      "postalCodes": []
+    },
+    {
+      "name": "Pirot",
+      "postalCodes": []
+    },
+    {
+      "name": "Pocerski Pričinović",
+      "postalCodes": []
+    },
+    {
+      "name": "Podunavlje District",
+      "postalCodes": []
+    },
+    {
+      "name": "Pomoravlje",
+      "postalCodes": []
+    },
+    {
+      "name": "Požarevac",
+      "postalCodes": []
+    },
+    {
+      "name": "Priboj",
+      "postalCodes": []
+    },
+    {
+      "name": "Prijepolje",
+      "postalCodes": []
+    },
+    {
+      "name": "Prislonica",
+      "postalCodes": []
+    },
+    {
+      "name": "Prnjavor",
+      "postalCodes": []
+    },
+    {
+      "name": "Prokuplje",
+      "postalCodes": []
+    },
+    {
+      "name": "Radenka",
+      "postalCodes": []
+    },
+    {
+      "name": "Radovnica",
+      "postalCodes": []
+    },
+    {
+      "name": "Rajince",
+      "postalCodes": []
+    },
+    {
+      "name": "Rasina",
+      "postalCodes": []
+    },
+    {
+      "name": "Raška",
+      "postalCodes": []
+    },
+    {
+      "name": "Ribari",
+      "postalCodes": []
+    },
+    {
+      "name": "Rumska",
+      "postalCodes": []
+    },
+    {
+      "name": "Rušanj",
+      "postalCodes": []
+    },
+    {
+      "name": "Šabac",
+      "postalCodes": []
+    },
+    {
+      "name": "Salaš Crnobarski",
+      "postalCodes": []
+    },
+    {
+      "name": "Samoljica",
+      "postalCodes": []
+    },
+    {
+      "name": "Ševarice",
+      "postalCodes": []
+    },
+    {
+      "name": "Ševica",
+      "postalCodes": []
+    },
+    {
+      "name": "Sinošević",
+      "postalCodes": []
+    },
+    {
+      "name": "Sjenica",
+      "postalCodes": []
+    },
+    {
+      "name": "Smederevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Smederevska Palanka",
+      "postalCodes": []
+    },
+    {
+      "name": "Sokolovica",
+      "postalCodes": []
+    },
+    {
+      "name": "Sokolovo Brdo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sremčica",
+      "postalCodes": []
+    },
+    {
+      "name": "Stepojevac",
+      "postalCodes": []
+    },
+    {
+      "name": "Štitar",
+      "postalCodes": []
+    },
+    {
+      "name": "Stubline",
+      "postalCodes": []
+    },
+    {
+      "name": "Šumadija",
+      "postalCodes": []
+    },
+    {
+      "name": "Sumulicë",
+      "postalCodes": []
+    },
+    {
+      "name": "Surčin",
+      "postalCodes": []
+    },
+    {
+      "name": "Tabanović",
+      "postalCodes": []
+    },
+    {
+      "name": "Toplica",
+      "postalCodes": []
+    },
+    {
+      "name": "Tršić",
+      "postalCodes": []
+    },
+    {
+      "name": "Trstenik",
+      "postalCodes": []
+    },
+    {
+      "name": "Turija",
+      "postalCodes": []
+    },
+    {
+      "name": "Tutin",
+      "postalCodes": []
+    },
+    {
+      "name": "Ugrinovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Umka",
+      "postalCodes": []
+    },
+    {
+      "name": "Užice",
+      "postalCodes": []
+    },
+    {
+      "name": "Uzveće",
+      "postalCodes": []
+    },
+    {
+      "name": "Valjevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Varna",
+      "postalCodes": []
+    },
+    {
+      "name": "Velika Moštanica",
+      "postalCodes": []
+    },
+    {
+      "name": "Vladimirci",
+      "postalCodes": []
+    },
+    {
+      "name": "Vranić",
+      "postalCodes": []
+    },
+    {
+      "name": "Vranje",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrnjačka Banja",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaječar",
+      "postalCodes": []
+    },
+    {
+      "name": "Zemun",
+      "postalCodes": []
+    },
+    {
+      "name": "Zlatibor",
+      "postalCodes": []
+    },
+    {
+      "name": "Zminjak",
+      "postalCodes": []
+    },
+    {
+      "name": "Žujince",
+      "postalCodes": []
+    },
+    {
+      "name": "Zvečka",
+      "postalCodes": []
+    }
+  ],
+  "09": [],
+  "08": [],
+  "01": [],
+  "03": [],
+  "06": [],
+  "04": [],
+  "07": [],
+  "VO": [
+    {
+      "name": "Adorjan",
+      "postalCodes": []
+    },
+    {
+      "name": "Aleksandrovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Alibunar",
+      "postalCodes": []
+    },
+    {
+      "name": "Apatin",
+      "postalCodes": []
+    },
+    {
+      "name": "Aradac",
+      "postalCodes": []
+    },
+    {
+      "name": "Bačka Palanka",
+      "postalCodes": []
+    },
+    {
+      "name": "Bačka Topola",
+      "postalCodes": []
+    },
+    {
+      "name": "Bački Breg",
+      "postalCodes": []
+    },
+    {
+      "name": "Bački Petrovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Bačko Gradište",
+      "postalCodes": []
+    },
+    {
+      "name": "Bačko Petrovo Selo",
+      "postalCodes": []
+    },
+    {
+      "name": "Banatska Topola",
+      "postalCodes": []
+    },
+    {
+      "name": "Banatski Despotovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Banatski Dvor",
+      "postalCodes": []
+    },
+    {
+      "name": "Banatski Karlovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Banatsko Karađorđevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Banatsko Veliko Selo",
+      "postalCodes": []
+    },
+    {
+      "name": "Baranda",
+      "postalCodes": []
+    },
+    {
+      "name": "Barice",
+      "postalCodes": []
+    },
+    {
+      "name": "Bašaid",
+      "postalCodes": []
+    },
+    {
+      "name": "Bečej",
+      "postalCodes": []
+    },
+    {
+      "name": "Bela Crkva",
+      "postalCodes": []
+    },
+    {
+      "name": "Belegiš",
+      "postalCodes": []
+    },
+    {
+      "name": "Belo Blato",
+      "postalCodes": []
+    },
+    {
+      "name": "Beška",
+      "postalCodes": []
+    },
+    {
+      "name": "Bočar",
+      "postalCodes": []
+    },
+    {
+      "name": "Bogojevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Boka",
+      "postalCodes": []
+    },
+    {
+      "name": "Bosut",
+      "postalCodes": []
+    },
+    {
+      "name": "Botoš",
+      "postalCodes": []
+    },
+    {
+      "name": "Buđanovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Čelarevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Čenta",
+      "postalCodes": []
+    },
+    {
+      "name": "Čestereg",
+      "postalCodes": []
+    },
+    {
+      "name": "Čoka",
+      "postalCodes": []
+    },
+    {
+      "name": "Čortanovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Crepaja",
+      "postalCodes": []
+    },
+    {
+      "name": "Čurug",
+      "postalCodes": []
+    },
+    {
+      "name": "Debeljača",
+      "postalCodes": []
+    },
+    {
+      "name": "Despotovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobrica",
+      "postalCodes": []
+    },
+    {
+      "name": "Doroslovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ðurđevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ečka",
+      "postalCodes": []
+    },
+    {
+      "name": "Elemir",
+      "postalCodes": []
+    },
+    {
+      "name": "Farkaždin",
+      "postalCodes": []
+    },
+    {
+      "name": "Gakovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Gardinovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Gložan",
+      "postalCodes": []
+    },
+    {
+      "name": "Golubinci",
+      "postalCodes": []
+    },
+    {
+      "name": "Gornji Breg",
+      "postalCodes": []
+    },
+    {
+      "name": "Grabovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Gudurica",
+      "postalCodes": []
+    },
+    {
+      "name": "Hajdučica",
+      "postalCodes": []
+    },
+    {
+      "name": "Hetin",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrtkovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Idvor",
+      "postalCodes": []
+    },
+    {
+      "name": "Ilandža",
+      "postalCodes": []
+    },
+    {
+      "name": "Inđija",
+      "postalCodes": []
+    },
+    {
+      "name": "Irig",
+      "postalCodes": []
+    },
+    {
+      "name": "Izbište",
+      "postalCodes": []
+    },
+    {
+      "name": "Janošik",
+      "postalCodes": []
+    },
+    {
+      "name": "Jarak",
+      "postalCodes": []
+    },
+    {
+      "name": "Jarkovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaša Tomić",
+      "postalCodes": []
+    },
+    {
+      "name": "Jazovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Jermenovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanjiža",
+      "postalCodes": []
+    },
+    {
+      "name": "Kikinda",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisač",
+      "postalCodes": []
+    },
+    {
+      "name": "Klek",
+      "postalCodes": []
+    },
+    {
+      "name": "Klenak",
+      "postalCodes": []
+    },
+    {
+      "name": "Knićanin",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolut",
+      "postalCodes": []
+    },
+    {
+      "name": "Konak",
+      "postalCodes": []
+    },
+    {
+      "name": "Kovačica",
+      "postalCodes": []
+    },
+    {
+      "name": "Kovilj",
+      "postalCodes": []
+    },
+    {
+      "name": "Kovin",
+      "postalCodes": []
+    },
+    {
+      "name": "Kozjak",
+      "postalCodes": []
+    },
+    {
+      "name": "Krajišnik",
+      "postalCodes": []
+    },
+    {
+      "name": "Krčedin",
+      "postalCodes": []
+    },
+    {
+      "name": "Kulpin",
+      "postalCodes": []
+    },
+    {
+      "name": "Kumane",
+      "postalCodes": []
+    },
+    {
+      "name": "Kupinovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Kupusina",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuštilj",
+      "postalCodes": []
+    },
+    {
+      "name": "Lazarevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ljukovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Lok",
+      "postalCodes": []
+    },
+    {
+      "name": "Lokve",
+      "postalCodes": []
+    },
+    {
+      "name": "Lukićevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Mačvanska Mitrovica",
+      "postalCodes": []
+    },
+    {
+      "name": "Maglić",
+      "postalCodes": []
+    },
+    {
+      "name": "Margita",
+      "postalCodes": []
+    },
+    {
+      "name": "Međa",
+      "postalCodes": []
+    },
+    {
+      "name": "Melenci",
+      "postalCodes": []
+    },
+    {
+      "name": "Mihajlovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Mokrin",
+      "postalCodes": []
+    },
+    {
+      "name": "Mol",
+      "postalCodes": []
+    },
+    {
+      "name": "Mošorin",
+      "postalCodes": []
+    },
+    {
+      "name": "Nakovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Neuzina",
+      "postalCodes": []
+    },
+    {
+      "name": "Nikinci",
+      "postalCodes": []
+    },
+    {
+      "name": "Nikolinci",
+      "postalCodes": []
+    },
+    {
+      "name": "Nova Crnja",
+      "postalCodes": []
+    },
+    {
+      "name": "Nova Pazova",
+      "postalCodes": []
+    },
+    {
+      "name": "Novi Banovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Novi Itebej",
+      "postalCodes": []
+    },
+    {
+      "name": "Novi Karlovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Novi Kneževac",
+      "postalCodes": []
+    },
+    {
+      "name": "Novi Kozarci",
+      "postalCodes": []
+    },
+    {
+      "name": "Novi Sad",
+      "postalCodes": []
+    },
+    {
+      "name": "Novi Slankamen",
+      "postalCodes": []
+    },
+    {
+      "name": "Novo Miloševo",
+      "postalCodes": []
+    },
+    {
+      "name": "Obrovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Opovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Orlovat",
+      "postalCodes": []
+    },
+    {
+      "name": "Ostojićevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Padej",
+      "postalCodes": []
+    },
+    {
+      "name": "Padina",
+      "postalCodes": []
+    },
+    {
+      "name": "Pančevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Pavliš",
+      "postalCodes": []
+    },
+    {
+      "name": "Pećinci",
+      "postalCodes": []
+    },
+    {
+      "name": "Perlez",
+      "postalCodes": []
+    },
+    {
+      "name": "Petrovaradin",
+      "postalCodes": []
+    },
+    {
+      "name": "Plandište",
+      "postalCodes": []
+    },
+    {
+      "name": "Platičevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Prigrevica",
+      "postalCodes": []
+    },
+    {
+      "name": "Putinci",
+      "postalCodes": []
+    },
+    {
+      "name": "Radenković",
+      "postalCodes": []
+    },
+    {
+      "name": "Radojevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ravni Topolovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Ravnje",
+      "postalCodes": []
+    },
+    {
+      "name": "Ravno Selo",
+      "postalCodes": []
+    },
+    {
+      "name": "Riđica",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruma",
+      "postalCodes": []
+    },
+    {
+      "name": "Rumenka",
+      "postalCodes": []
+    },
+    {
+      "name": "Rusko Selo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sajan",
+      "postalCodes": []
+    },
+    {
+      "name": "Šajkaš",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakule",
+      "postalCodes": []
+    },
+    {
+      "name": "Salaš Noćajski",
+      "postalCodes": []
+    },
+    {
+      "name": "Samoš",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanad",
+      "postalCodes": []
+    },
+    {
+      "name": "Šašinci",
+      "postalCodes": []
+    },
+    {
+      "name": "Sečanj",
+      "postalCodes": []
+    },
+    {
+      "name": "Sefkerin",
+      "postalCodes": []
+    },
+    {
+      "name": "Seleuš",
+      "postalCodes": []
+    },
+    {
+      "name": "Senta",
+      "postalCodes": []
+    },
+    {
+      "name": "Šimanovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Sombor",
+      "postalCodes": []
+    },
+    {
+      "name": "Sonta",
+      "postalCodes": []
+    },
+    {
+      "name": "Sremska Mitrovica",
+      "postalCodes": []
+    },
+    {
+      "name": "Sremski Karlovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Srpska Crnja",
+      "postalCodes": []
+    },
+    {
+      "name": "Srpski Itebej",
+      "postalCodes": []
+    },
+    {
+      "name": "Stajićevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Stanišić",
+      "postalCodes": []
+    },
+    {
+      "name": "Stara Pazova",
+      "postalCodes": []
+    },
+    {
+      "name": "Stari Banovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Stari Lec",
+      "postalCodes": []
+    },
+    {
+      "name": "Stepanovićevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Subotica",
+      "postalCodes": []
+    },
+    {
+      "name": "Surduk",
+      "postalCodes": []
+    },
+    {
+      "name": "Sutjeska",
+      "postalCodes": []
+    },
+    {
+      "name": "Taraš",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiszahegyes",
+      "postalCodes": []
+    },
+    {
+      "name": "Titel",
+      "postalCodes": []
+    },
+    {
+      "name": "Toba",
+      "postalCodes": []
+    },
+    {
+      "name": "Tomaševac",
+      "postalCodes": []
+    },
+    {
+      "name": "Torak",
+      "postalCodes": []
+    },
+    {
+      "name": "Torda",
+      "postalCodes": []
+    },
+    {
+      "name": "Uljma",
+      "postalCodes": []
+    },
+    {
+      "name": "Uzdin",
+      "postalCodes": []
+    },
+    {
+      "name": "Velika Greda",
+      "postalCodes": []
+    },
+    {
+      "name": "Veliki Gaj",
+      "postalCodes": []
+    },
+    {
+      "name": "Veliko Središte",
+      "postalCodes": []
+    },
+    {
+      "name": "Veternik",
+      "postalCodes": []
+    },
+    {
+      "name": "Vilovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Višnjićevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Vladimirovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Vlajkovac",
+      "postalCodes": []
+    },
+    {
+      "name": "Vojka",
+      "postalCodes": []
+    },
+    {
+      "name": "Vojvoda Stepa",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrbas",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrdnik",
+      "postalCodes": []
+    },
+    {
+      "name": "Vršac",
+      "postalCodes": []
+    },
+    {
+      "name": "Žabalj",
+      "postalCodes": []
+    },
+    {
+      "name": "Žitište",
+      "postalCodes": []
+    },
+    {
+      "name": "Zmajevo",
+      "postalCodes": []
+    },
+    {
+      "name": "Zrenjanin",
+      "postalCodes": []
+    }
+  ],
+  "05": [],
+  "_OTHER": []
+}

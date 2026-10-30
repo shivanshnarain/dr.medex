@@ -1,0 +1,32 @@
+[
+  {
+    "code": "04",
+    "name": "Famagusta District (Mağusa)",
+    "countryCode": "CY"
+  },
+  {
+    "code": "06",
+    "name": "Kyrenia District (Keryneia)",
+    "countryCode": "CY"
+  },
+  {
+    "code": "03",
+    "name": "Larnaca District (Larnaka)",
+    "countryCode": "CY"
+  },
+  {
+    "code": "02",
+    "name": "Limassol District (Leymasun)",
+    "countryCode": "CY"
+  },
+  {
+    "code": "01",
+    "name": "Nicosia District (Lefkoşa)",
+    "countryCode": "CY"
+  },
+  {
+    "code": "05",
+    "name": "Paphos District (Pafos)",
+    "countryCode": "CY"
+  }
+]

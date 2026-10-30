@@ -1,0 +1,386 @@
+{
+  "10": [],
+  "11": [],
+  "12": [],
+  "13": [],
+  "14": [],
+  "15": [],
+  "16": [],
+  "17": [],
+  "18": [],
+  "19": [],
+  "AB": [
+    {
+      "name": "Abidjan",
+      "postalCodes": []
+    },
+    {
+      "name": "Abobo",
+      "postalCodes": []
+    },
+    {
+      "name": "Anyama",
+      "postalCodes": []
+    },
+    {
+      "name": "Bingerville",
+      "postalCodes": []
+    }
+  ],
+  "BS": [
+    {
+      "name": "Gbôklé",
+      "postalCodes": []
+    },
+    {
+      "name": "Nawa",
+      "postalCodes": []
+    },
+    {
+      "name": "San-Pédro",
+      "postalCodes": []
+    },
+    {
+      "name": "Sassandra",
+      "postalCodes": []
+    },
+    {
+      "name": "Tabou",
+      "postalCodes": []
+    }
+  ],
+  "09": [],
+  "CM": [
+    {
+      "name": "Abengourou",
+      "postalCodes": []
+    },
+    {
+      "name": "Aboisso",
+      "postalCodes": []
+    },
+    {
+      "name": "Adiaké",
+      "postalCodes": []
+    },
+    {
+      "name": "Agnibilékrou",
+      "postalCodes": []
+    },
+    {
+      "name": "Ayamé",
+      "postalCodes": []
+    },
+    {
+      "name": "Bonoua",
+      "postalCodes": []
+    },
+    {
+      "name": "Grand-Bassam",
+      "postalCodes": []
+    },
+    {
+      "name": "Indénié-Djuablin",
+      "postalCodes": []
+    },
+    {
+      "name": "Sud-Comoé",
+      "postalCodes": []
+    }
+  ],
+  "DN": [
+    {
+      "name": "Folon",
+      "postalCodes": []
+    },
+    {
+      "name": "Kabadougou",
+      "postalCodes": []
+    },
+    {
+      "name": "Odienné",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Bangolo",
+      "postalCodes": []
+    },
+    {
+      "name": "Biankouma",
+      "postalCodes": []
+    },
+    {
+      "name": "Cavally",
+      "postalCodes": []
+    },
+    {
+      "name": "Danané",
+      "postalCodes": []
+    },
+    {
+      "name": "Duekoué",
+      "postalCodes": []
+    },
+    {
+      "name": "Guémon",
+      "postalCodes": []
+    },
+    {
+      "name": "Guiglo",
+      "postalCodes": []
+    },
+    {
+      "name": "Man",
+      "postalCodes": []
+    },
+    {
+      "name": "Tonkpi",
+      "postalCodes": []
+    },
+    {
+      "name": "Toulépleu Gueré",
+      "postalCodes": []
+    }
+  ],
+  "GD": [
+    {
+      "name": "Divo",
+      "postalCodes": []
+    },
+    {
+      "name": "Gagnoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Gôh",
+      "postalCodes": []
+    },
+    {
+      "name": "Guibéroua",
+      "postalCodes": []
+    },
+    {
+      "name": "Lakota",
+      "postalCodes": []
+    },
+    {
+      "name": "Lôh-Djiboua",
+      "postalCodes": []
+    },
+    {
+      "name": "Oumé",
+      "postalCodes": []
+    }
+  ],
+  "02": [],
+  "LC": [],
+  "07": [
+    {
+      "name": "Arrah",
+      "postalCodes": []
+    },
+    {
+      "name": "Bélier",
+      "postalCodes": []
+    },
+    {
+      "name": "Bocanda",
+      "postalCodes": []
+    },
+    {
+      "name": "Bongouanou",
+      "postalCodes": []
+    },
+    {
+      "name": "Daoukro",
+      "postalCodes": []
+    },
+    {
+      "name": "Dimbokro",
+      "postalCodes": []
+    },
+    {
+      "name": "Iffou",
+      "postalCodes": []
+    },
+    {
+      "name": "Moronou",
+      "postalCodes": []
+    },
+    {
+      "name": "N'Zi",
+      "postalCodes": []
+    },
+    {
+      "name": "Toumodi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamoussoukro",
+      "postalCodes": []
+    }
+  ],
+  "LG": [],
+  "01": [
+    {
+      "name": "Adzopé",
+      "postalCodes": []
+    },
+    {
+      "name": "Affery",
+      "postalCodes": []
+    },
+    {
+      "name": "Agboville",
+      "postalCodes": []
+    },
+    {
+      "name": "Agnéby-Tiassa",
+      "postalCodes": []
+    },
+    {
+      "name": "Akoupé",
+      "postalCodes": []
+    },
+    {
+      "name": "Dabou",
+      "postalCodes": []
+    },
+    {
+      "name": "Grand-Lahou",
+      "postalCodes": []
+    },
+    {
+      "name": "Grands-Ponts",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiassalé",
+      "postalCodes": []
+    }
+  ],
+  "MG": [],
+  "05": [],
+  "SM": [
+    {
+      "name": "Bouaflé",
+      "postalCodes": []
+    },
+    {
+      "name": "Daloa",
+      "postalCodes": []
+    },
+    {
+      "name": "Haut-Sassandra",
+      "postalCodes": []
+    },
+    {
+      "name": "Issia",
+      "postalCodes": []
+    },
+    {
+      "name": "Marahoué",
+      "postalCodes": []
+    },
+    {
+      "name": "Vavoua",
+      "postalCodes": []
+    },
+    {
+      "name": "Zuénoula",
+      "postalCodes": []
+    }
+  ],
+  "03": [],
+  "VB": [],
+  "04": [
+    {
+      "name": "Béoumi",
+      "postalCodes": []
+    },
+    {
+      "name": "Botro",
+      "postalCodes": []
+    },
+    {
+      "name": "Bouaké",
+      "postalCodes": []
+    },
+    {
+      "name": "Dabakala",
+      "postalCodes": []
+    },
+    {
+      "name": "Gbêkê",
+      "postalCodes": []
+    },
+    {
+      "name": "Hambol",
+      "postalCodes": []
+    },
+    {
+      "name": "Katiola",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakassou",
+      "postalCodes": []
+    }
+  ],
+  "WR": [
+    {
+      "name": "Bafing",
+      "postalCodes": []
+    },
+    {
+      "name": "Béré",
+      "postalCodes": []
+    },
+    {
+      "name": "Mankono",
+      "postalCodes": []
+    },
+    {
+      "name": "Séguéla",
+      "postalCodes": []
+    },
+    {
+      "name": "Touba",
+      "postalCodes": []
+    },
+    {
+      "name": "Worodougou",
+      "postalCodes": []
+    }
+  ],
+  "YM": [],
+  "ZZ": [
+    {
+      "name": "Bondoukou",
+      "postalCodes": []
+    },
+    {
+      "name": "Bouna",
+      "postalCodes": []
+    },
+    {
+      "name": "Bounkani",
+      "postalCodes": []
+    },
+    {
+      "name": "Gontougo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sinfra",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanda",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

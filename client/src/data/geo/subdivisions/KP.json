@@ -1,0 +1,57 @@
+[
+  {
+    "code": "04",
+    "name": "Chagang Province",
+    "countryCode": "KP"
+  },
+  {
+    "code": "07",
+    "name": "Kangwon Province",
+    "countryCode": "KP"
+  },
+  {
+    "code": "09",
+    "name": "North Hamgyong Province",
+    "countryCode": "KP"
+  },
+  {
+    "code": "06",
+    "name": "North Hwanghae Province",
+    "countryCode": "KP"
+  },
+  {
+    "code": "03",
+    "name": "North Pyongan Province",
+    "countryCode": "KP"
+  },
+  {
+    "code": "01",
+    "name": "Pyongyang",
+    "countryCode": "KP"
+  },
+  {
+    "code": "13",
+    "name": "Rason",
+    "countryCode": "KP"
+  },
+  {
+    "code": "10",
+    "name": "Ryanggang Province",
+    "countryCode": "KP"
+  },
+  {
+    "code": "08",
+    "name": "South Hamgyong Province",
+    "countryCode": "KP"
+  },
+  {
+    "code": "05",
+    "name": "South Hwanghae Province",
+    "countryCode": "KP"
+  },
+  {
+    "code": "02",
+    "name": "South Pyongan Province",
+    "countryCode": "KP"
+  }
+]

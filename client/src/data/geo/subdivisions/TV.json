@@ -1,0 +1,42 @@
+[
+  {
+    "code": "FUN",
+    "name": "Funafuti",
+    "countryCode": "TV"
+  },
+  {
+    "code": "NMG",
+    "name": "Nanumanga",
+    "countryCode": "TV"
+  },
+  {
+    "code": "NMA",
+    "name": "Nanumea",
+    "countryCode": "TV"
+  },
+  {
+    "code": "NIT",
+    "name": "Niutao Island Council",
+    "countryCode": "TV"
+  },
+  {
+    "code": "NUI",
+    "name": "Nui",
+    "countryCode": "TV"
+  },
+  {
+    "code": "NKF",
+    "name": "Nukufetau",
+    "countryCode": "TV"
+  },
+  {
+    "code": "NKL",
+    "name": "Nukulaelae",
+    "countryCode": "TV"
+  },
+  {
+    "code": "VAI",
+    "name": "Vaitupu",
+    "countryCode": "TV"
+  }
+]

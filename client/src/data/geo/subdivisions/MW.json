@@ -1,0 +1,152 @@
+[
+  {
+    "code": "BA",
+    "name": "Balaka District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "BL",
+    "name": "Blantyre District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "C",
+    "name": "Central Region",
+    "countryCode": "MW"
+  },
+  {
+    "code": "CK",
+    "name": "Chikwawa District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "CR",
+    "name": "Chiradzulu District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "CT",
+    "name": "Chitipa district",
+    "countryCode": "MW"
+  },
+  {
+    "code": "DE",
+    "name": "Dedza District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "DO",
+    "name": "Dowa District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "KR",
+    "name": "Karonga District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "KS",
+    "name": "Kasungu District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "LK",
+    "name": "Likoma District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "LI",
+    "name": "Lilongwe District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "MH",
+    "name": "Machinga District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "MG",
+    "name": "Mangochi District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "MC",
+    "name": "Mchinji District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "MU",
+    "name": "Mulanje District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "MW",
+    "name": "Mwanza District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "MZ",
+    "name": "Mzimba District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "NB",
+    "name": "Nkhata Bay District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "NK",
+    "name": "Nkhotakota District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "N",
+    "name": "Northern Region",
+    "countryCode": "MW"
+  },
+  {
+    "code": "NS",
+    "name": "Nsanje District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "NU",
+    "name": "Ntcheu District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "NI",
+    "name": "Ntchisi District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "PH",
+    "name": "Phalombe District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "RU",
+    "name": "Rumphi District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "SA",
+    "name": "Salima District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "S",
+    "name": "Southern Region",
+    "countryCode": "MW"
+  },
+  {
+    "code": "TH",
+    "name": "Thyolo District",
+    "countryCode": "MW"
+  },
+  {
+    "code": "ZO",
+    "name": "Zomba District",
+    "countryCode": "MW"
+  }
+]

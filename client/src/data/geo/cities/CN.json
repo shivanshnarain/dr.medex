@@ -1,0 +1,5253 @@
+{
+  "AH": [
+    {
+      "name": "Anqing",
+      "postalCodes": []
+    },
+    {
+      "name": "Anqing Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Bengbu",
+      "postalCodes": []
+    },
+    {
+      "name": "Bozhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Chaohu",
+      "postalCodes": []
+    },
+    {
+      "name": "Chizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Chizhou Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chuzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Chuzhou Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Datong",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuyang Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gushu",
+      "postalCodes": []
+    },
+    {
+      "name": "Hefei",
+      "postalCodes": []
+    },
+    {
+      "name": "Hefei Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Huaibei",
+      "postalCodes": []
+    },
+    {
+      "name": "Huainan",
+      "postalCodes": []
+    },
+    {
+      "name": "Huainan Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Huaiyuan Chengguanzhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Huangshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Huangshan Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Huoqiu Chengguanzhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Jieshou",
+      "postalCodes": []
+    },
+    {
+      "name": "Lu’an",
+      "postalCodes": []
+    },
+    {
+      "name": "Lucheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Mengcheng Chengguanzhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Mingguang",
+      "postalCodes": []
+    },
+    {
+      "name": "Suixi",
+      "postalCodes": []
+    },
+    {
+      "name": "Suzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Suzhou Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tangzhai",
+      "postalCodes": []
+    },
+    {
+      "name": "Wucheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuhu",
+      "postalCodes": []
+    },
+    {
+      "name": "Wusong",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xuanzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Yingshang Chengguanzhen",
+      "postalCodes": []
+    }
+  ],
+  "BJ": [
+    {
+      "name": "Beijing",
+      "postalCodes": []
+    },
+    {
+      "name": "Changping",
+      "postalCodes": []
+    },
+    {
+      "name": "Daxing",
+      "postalCodes": []
+    },
+    {
+      "name": "Fangshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Liangxiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Mentougou",
+      "postalCodes": []
+    },
+    {
+      "name": "Shunyi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tongzhou",
+      "postalCodes": []
+    }
+  ],
+  "CQ": [
+    {
+      "name": "Beibei",
+      "postalCodes": []
+    },
+    {
+      "name": "Caijia",
+      "postalCodes": []
+    },
+    {
+      "name": "Chongqing",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongxi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuling",
+      "postalCodes": []
+    },
+    {
+      "name": "Ganshui",
+      "postalCodes": []
+    },
+    {
+      "name": "Guofuchang",
+      "postalCodes": []
+    },
+    {
+      "name": "Hechuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Jijiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Liangping District",
+      "postalCodes": []
+    },
+    {
+      "name": "Puhechang",
+      "postalCodes": []
+    },
+    {
+      "name": "Shapingba District",
+      "postalCodes": []
+    },
+    {
+      "name": "Shijiaochang",
+      "postalCodes": []
+    },
+    {
+      "name": "Wanxian",
+      "postalCodes": []
+    },
+    {
+      "name": "Wanzhou District",
+      "postalCodes": []
+    },
+    {
+      "name": "Yongchuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Yudong",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuzhong District",
+      "postalCodes": []
+    }
+  ],
+  "FJ": [
+    {
+      "name": "Badu",
+      "postalCodes": []
+    },
+    {
+      "name": "Baiqi",
+      "postalCodes": []
+    },
+    {
+      "name": "Baiyun",
+      "postalCodes": []
+    },
+    {
+      "name": "Beishancun",
+      "postalCodes": []
+    },
+    {
+      "name": "Changqiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Chengmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Chixi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chongru",
+      "postalCodes": []
+    },
+    {
+      "name": "Dadeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Daixi",
+      "postalCodes": []
+    },
+    {
+      "name": "Danyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Daqiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Dazuo",
+      "postalCodes": []
+    },
+    {
+      "name": "Dinghaicun",
+      "postalCodes": []
+    },
+    {
+      "name": "Dingtoucun",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongchongcun",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongdai",
+      "postalCodes": []
+    },
+    {
+      "name": "Donghu",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongling",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Feiluan",
+      "postalCodes": []
+    },
+    {
+      "name": "Fengpu",
+      "postalCodes": []
+    },
+    {
+      "name": "Fengzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Fu’an",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuding",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuqing",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Gantang",
+      "postalCodes": []
+    },
+    {
+      "name": "Guantou",
+      "postalCodes": []
+    },
+    {
+      "name": "Gufeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Hetang",
+      "postalCodes": []
+    },
+    {
+      "name": "Hongtang",
+      "postalCodes": []
+    },
+    {
+      "name": "Hongyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Houyu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huai’an",
+      "postalCodes": []
+    },
+    {
+      "name": "Huangtian",
+      "postalCodes": []
+    },
+    {
+      "name": "Huotong",
+      "postalCodes": []
+    },
+    {
+      "name": "Jian’ou",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiangkou",
+      "postalCodes": []
+    },
+    {
+      "name": "Jianjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Jingfeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinjing",
+      "postalCodes": []
+    },
+    {
+      "name": "Jitoucun",
+      "postalCodes": []
+    },
+    {
+      "name": "Kengyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Kerencun",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuai’an",
+      "postalCodes": []
+    },
+    {
+      "name": "Lianhecun",
+      "postalCodes": []
+    },
+    {
+      "name": "Liuwudiancun",
+      "postalCodes": []
+    },
+    {
+      "name": "Longmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Longyan",
+      "postalCodes": []
+    },
+    {
+      "name": "Luoqiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Luoyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Luxia",
+      "postalCodes": []
+    },
+    {
+      "name": "Maping",
+      "postalCodes": []
+    },
+    {
+      "name": "Meipu",
+      "postalCodes": []
+    },
+    {
+      "name": "Min’an",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanping",
+      "postalCodes": []
+    },
+    {
+      "name": "Neikeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Ningde",
+      "postalCodes": []
+    },
+    {
+      "name": "Pandu",
+      "postalCodes": []
+    },
+    {
+      "name": "Pucheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Putian",
+      "postalCodes": []
+    },
+    {
+      "name": "Qibu",
+      "postalCodes": []
+    },
+    {
+      "name": "Qidu",
+      "postalCodes": []
+    },
+    {
+      "name": "Quanzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Rong’an",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanming",
+      "postalCodes": []
+    },
+    {
+      "name": "Shajiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Shangjie",
+      "postalCodes": []
+    },
+    {
+      "name": "Shanxia",
+      "postalCodes": []
+    },
+    {
+      "name": "Shanyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Shaowu",
+      "postalCodes": []
+    },
+    {
+      "name": "Shijing",
+      "postalCodes": []
+    },
+    {
+      "name": "Shima",
+      "postalCodes": []
+    },
+    {
+      "name": "Shoushan",
+      "postalCodes": []
+    },
+    {
+      "name": "Shuangxi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shuangzhu",
+      "postalCodes": []
+    },
+    {
+      "name": "Shuikou",
+      "postalCodes": []
+    },
+    {
+      "name": "Tangkou",
+      "postalCodes": []
+    },
+    {
+      "name": "Tantou",
+      "postalCodes": []
+    },
+    {
+      "name": "Tatou",
+      "postalCodes": []
+    },
+    {
+      "name": "Tingjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Tuzhai",
+      "postalCodes": []
+    },
+    {
+      "name": "Wubao",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuyishan",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuyucun",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiabaishi",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiahu",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiamen",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiancun",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiangyun",
+      "postalCodes": []
+    },
+    {
+      "name": "Xibing",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiling",
+      "postalCodes": []
+    },
+    {
+      "name": "Ximei",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinan",
+      "postalCodes": []
+    },
+    {
+      "name": "Xindian",
+      "postalCodes": []
+    },
+    {
+      "name": "Yakou",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanghou",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangzhong",
+      "postalCodes": []
+    },
+    {
+      "name": "Yantian",
+      "postalCodes": []
+    },
+    {
+      "name": "Yingdu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yinglin",
+      "postalCodes": []
+    },
+    {
+      "name": "Yongning",
+      "postalCodes": []
+    },
+    {
+      "name": "Yushan",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhangwan",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhangzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhenhaicun",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhongfang",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhuoyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhuqi",
+      "postalCodes": []
+    }
+  ],
+  "GS": [
+    {
+      "name": "Baiyin",
+      "postalCodes": []
+    },
+    {
+      "name": "Beidao",
+      "postalCodes": []
+    },
+    {
+      "name": "Dingxi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hezuo",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiayuguan",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinchang",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiuquan",
+      "postalCodes": []
+    },
+    {
+      "name": "Lanzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Laojunmiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Linxia Chengguanzhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Linxia Huizu Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Longnan Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mawu",
+      "postalCodes": []
+    },
+    {
+      "name": "Pingliang",
+      "postalCodes": []
+    },
+    {
+      "name": "Qincheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Qingyang Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tianshui",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuwei",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhangye",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhangye Shi",
+      "postalCodes": []
+    }
+  ],
+  "GD": [
+    {
+      "name": "Anbu",
+      "postalCodes": []
+    },
+    {
+      "name": "Chaozhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Chenghua",
+      "postalCodes": []
+    },
+    {
+      "name": "Daliang",
+      "postalCodes": []
+    },
+    {
+      "name": "Danshui",
+      "postalCodes": []
+    },
+    {
+      "name": "Dasha",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongguan",
+      "postalCodes": []
+    },
+    {
+      "name": "Donghai",
+      "postalCodes": []
+    },
+    {
+      "name": "Ducheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Encheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Foshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Foshan Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaoyao",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaozhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Guangzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Guangzhou Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Haikuotiankong",
+      "postalCodes": []
+    },
+    {
+      "name": "Haimen",
+      "postalCodes": []
+    },
+    {
+      "name": "Hepo",
+      "postalCodes": []
+    },
+    {
+      "name": "Heyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Huaicheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huanggang",
+      "postalCodes": []
+    },
+    {
+      "name": "Huazhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Huicheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Huizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Humen",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiangmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiazi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jieshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jieyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Lecheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Lianjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Lianzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Licheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Lubu",
+      "postalCodes": []
+    },
+    {
+      "name": "Luocheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Luoyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Maba",
+      "postalCodes": []
+    },
+    {
+      "name": "Maoming",
+      "postalCodes": []
+    },
+    {
+      "name": "Meizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanfeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Pingshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Puning",
+      "postalCodes": []
+    },
+    {
+      "name": "Qingyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanshui",
+      "postalCodes": []
+    },
+    {
+      "name": "Shantou",
+      "postalCodes": []
+    },
+    {
+      "name": "Shanwei",
+      "postalCodes": []
+    },
+    {
+      "name": "Shaoguan",
+      "postalCodes": []
+    },
+    {
+      "name": "Shaping",
+      "postalCodes": []
+    },
+    {
+      "name": "Shenzhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Shilong",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiqi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiqiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiwan",
+      "postalCodes": []
+    },
+    {
+      "name": "Shixing",
+      "postalCodes": []
+    },
+    {
+      "name": "Taishan",
+      "postalCodes": []
+    },
+    {
+      "name": "Tangping",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuchuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Xingning",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinhui",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinyi",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiongzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Xucheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangchun",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Yingcheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Yunfu",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhanjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhaoqing",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhongshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhongshan Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhuhai",
+      "postalCodes": []
+    }
+  ],
+  "GX": [
+    {
+      "name": "Babu",
+      "postalCodes": []
+    },
+    {
+      "name": "Baihe",
+      "postalCodes": []
+    },
+    {
+      "name": "Baise City",
+      "postalCodes": []
+    },
+    {
+      "name": "Baise Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Beihai",
+      "postalCodes": []
+    },
+    {
+      "name": "Chongzuo Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Dazhai",
+      "postalCodes": []
+    },
+    {
+      "name": "Fangchenggang Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Guigang",
+      "postalCodes": []
+    },
+    {
+      "name": "Guilin",
+      "postalCodes": []
+    },
+    {
+      "name": "Guilin Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Guiping",
+      "postalCodes": []
+    },
+    {
+      "name": "Hechi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinji",
+      "postalCodes": []
+    },
+    {
+      "name": "Laibin",
+      "postalCodes": []
+    },
+    {
+      "name": "Lianzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Lingcheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Liuzhou Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Luorong",
+      "postalCodes": []
+    },
+    {
+      "name": "Nandu",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanning",
+      "postalCodes": []
+    },
+    {
+      "name": "Pingnan",
+      "postalCodes": []
+    },
+    {
+      "name": "Pumiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Qinzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangshuo",
+      "postalCodes": []
+    },
+    {
+      "name": "Yashan",
+      "postalCodes": []
+    },
+    {
+      "name": "Yulin",
+      "postalCodes": []
+    }
+  ],
+  "GZ": [
+    {
+      "name": "Anshun",
+      "postalCodes": []
+    },
+    {
+      "name": "Aoshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Bahuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Baishi",
+      "postalCodes": []
+    },
+    {
+      "name": "Bangdong",
+      "postalCodes": []
+    },
+    {
+      "name": "Benchu",
+      "postalCodes": []
+    },
+    {
+      "name": "Bijie",
+      "postalCodes": []
+    },
+    {
+      "name": "Chadian",
+      "postalCodes": []
+    },
+    {
+      "name": "Changsha",
+      "postalCodes": []
+    },
+    {
+      "name": "Chumi",
+      "postalCodes": []
+    },
+    {
+      "name": "Dabachang",
+      "postalCodes": []
+    },
+    {
+      "name": "Darong",
+      "postalCodes": []
+    },
+    {
+      "name": "Dundong",
+      "postalCodes": []
+    },
+    {
+      "name": "Duyun",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaoniang",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaowu",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaozeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Guandu",
+      "postalCodes": []
+    },
+    {
+      "name": "Guiyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Hongzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Huaqiu",
+      "postalCodes": []
+    },
+    {
+      "name": "Lantian",
+      "postalCodes": []
+    },
+    {
+      "name": "Liangcunchang",
+      "postalCodes": []
+    },
+    {
+      "name": "Liupanshui",
+      "postalCodes": []
+    },
+    {
+      "name": "Longlisuo",
+      "postalCodes": []
+    },
+    {
+      "name": "Loushanguan",
+      "postalCodes": []
+    },
+    {
+      "name": "Maoping",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Pingjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Qiandongnan Miao and Dong Autonomous Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Qianxinan Bouyeizu Miaozu Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Qimeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Qinglang",
+      "postalCodes": []
+    },
+    {
+      "name": "Runsong",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanchahe",
+      "postalCodes": []
+    },
+    {
+      "name": "Sangmu",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiqian",
+      "postalCodes": []
+    },
+    {
+      "name": "Songkan",
+      "postalCodes": []
+    },
+    {
+      "name": "Tingdong",
+      "postalCodes": []
+    },
+    {
+      "name": "Tonggu",
+      "postalCodes": []
+    },
+    {
+      "name": "Tongren",
+      "postalCodes": []
+    },
+    {
+      "name": "Tongren Diqu",
+      "postalCodes": []
+    },
+    {
+      "name": "Weining",
+      "postalCodes": []
+    },
+    {
+      "name": "Wenshui",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiajiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiaoweizhai",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinzhan",
+      "postalCodes": []
+    },
+    {
+      "name": "Xishan",
+      "postalCodes": []
+    },
+    {
+      "name": "Xujiaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangtou",
+      "postalCodes": []
+    },
+    {
+      "name": "Youyupu",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhongchao",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhujiachang",
+      "postalCodes": []
+    },
+    {
+      "name": "Zunyi",
+      "postalCodes": []
+    }
+  ],
+  "HI": [
+    {
+      "name": "Basuo",
+      "postalCodes": []
+    },
+    {
+      "name": "Chongshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Dadonghai",
+      "postalCodes": []
+    },
+    {
+      "name": "Haikou",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Lincheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Nada",
+      "postalCodes": []
+    },
+    {
+      "name": "Qionghai",
+      "postalCodes": []
+    },
+    {
+      "name": "Qiongshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Sansha",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanya",
+      "postalCodes": []
+    },
+    {
+      "name": "Wanning",
+      "postalCodes": []
+    },
+    {
+      "name": "Wenchang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiuying",
+      "postalCodes": []
+    }
+  ],
+  "HE": [
+    {
+      "name": "Baoding",
+      "postalCodes": []
+    },
+    {
+      "name": "Beidaihehaibin",
+      "postalCodes": []
+    },
+    {
+      "name": "Botou",
+      "postalCodes": []
+    },
+    {
+      "name": "Cangzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Cangzhou Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Changli",
+      "postalCodes": []
+    },
+    {
+      "name": "Chengde",
+      "postalCodes": []
+    },
+    {
+      "name": "Chengde Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Dingzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Fengrun",
+      "postalCodes": []
+    },
+    {
+      "name": "Guye",
+      "postalCodes": []
+    },
+    {
+      "name": "Handan",
+      "postalCodes": []
+    },
+    {
+      "name": "Hecun",
+      "postalCodes": []
+    },
+    {
+      "name": "Hengshui",
+      "postalCodes": []
+    },
+    {
+      "name": "Langfang",
+      "postalCodes": []
+    },
+    {
+      "name": "Langfang Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Linshui",
+      "postalCodes": []
+    },
+    {
+      "name": "Linxi",
+      "postalCodes": []
+    },
+    {
+      "name": "Luancheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Nangong",
+      "postalCodes": []
+    },
+    {
+      "name": "Pengcheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Qinhuangdao",
+      "postalCodes": []
+    },
+    {
+      "name": "Renqiu",
+      "postalCodes": []
+    },
+    {
+      "name": "Shahecheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Shanhaiguan",
+      "postalCodes": []
+    },
+    {
+      "name": "Shijiazhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Shijiazhuang Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Songling",
+      "postalCodes": []
+    },
+    {
+      "name": "Tangjiazhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Tangshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Tangshan Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tianchang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xingtai",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinji",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhangjiakou",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhangjiakou Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhangjiakou Shi Xuanhua Qu",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhaogezhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Zunhua",
+      "postalCodes": []
+    }
+  ],
+  "HL": [
+    {
+      "name": "Acheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Anda",
+      "postalCodes": []
+    },
+    {
+      "name": "Baiquan",
+      "postalCodes": []
+    },
+    {
+      "name": "Bamiantong",
+      "postalCodes": []
+    },
+    {
+      "name": "Baoqing",
+      "postalCodes": []
+    },
+    {
+      "name": "Baoshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Bayan",
+      "postalCodes": []
+    },
+    {
+      "name": "Bei’an",
+      "postalCodes": []
+    },
+    {
+      "name": "Binzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Boli",
+      "postalCodes": []
+    },
+    {
+      "name": "Chaihe",
+      "postalCodes": []
+    },
+    {
+      "name": "Chengzihe",
+      "postalCodes": []
+    },
+    {
+      "name": "Daqing",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongning",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongxing",
+      "postalCodes": []
+    },
+    {
+      "name": "Fendou",
+      "postalCodes": []
+    },
+    {
+      "name": "Fengxiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Fujin",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuli",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuyu",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Gannan",
+      "postalCodes": []
+    },
+    {
+      "name": "Hailin",
+      "postalCodes": []
+    },
+    {
+      "name": "Hailun",
+      "postalCodes": []
+    },
+    {
+      "name": "Harbin",
+      "postalCodes": []
+    },
+    {
+      "name": "Hegang",
+      "postalCodes": []
+    },
+    {
+      "name": "Heihe",
+      "postalCodes": []
+    },
+    {
+      "name": "Honggang",
+      "postalCodes": []
+    },
+    {
+      "name": "Huanan",
+      "postalCodes": []
+    },
+    {
+      "name": "Hulan",
+      "postalCodes": []
+    },
+    {
+      "name": "Hulan Ergi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiamusi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jidong",
+      "postalCodes": []
+    },
+    {
+      "name": "Jixi",
+      "postalCodes": []
+    },
+    {
+      "name": "Langxiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Lanxi",
+      "postalCodes": []
+    },
+    {
+      "name": "Lianhe",
+      "postalCodes": []
+    },
+    {
+      "name": "Lingdong",
+      "postalCodes": []
+    },
+    {
+      "name": "Linkou",
+      "postalCodes": []
+    },
+    {
+      "name": "Longfeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Longjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Mingshui",
+      "postalCodes": []
+    },
+    {
+      "name": "Mishan",
+      "postalCodes": []
+    },
+    {
+      "name": "Mudanjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Nehe",
+      "postalCodes": []
+    },
+    {
+      "name": "Nenjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Nianzishan",
+      "postalCodes": []
+    },
+    {
+      "name": "Ning’an",
+      "postalCodes": []
+    },
+    {
+      "name": "Qinggang",
+      "postalCodes": []
+    },
+    {
+      "name": "Qiqihar",
+      "postalCodes": []
+    },
+    {
+      "name": "Shangzhi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shanhecun",
+      "postalCodes": []
+    },
+    {
+      "name": "Shuangcheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Shuangyashan",
+      "postalCodes": []
+    },
+    {
+      "name": "Suifenhe",
+      "postalCodes": []
+    },
+    {
+      "name": "Suihua",
+      "postalCodes": []
+    },
+    {
+      "name": "Suileng",
+      "postalCodes": []
+    },
+    {
+      "name": "Tahe",
+      "postalCodes": []
+    },
+    {
+      "name": "Taihecun",
+      "postalCodes": []
+    },
+    {
+      "name": "Taikang",
+      "postalCodes": []
+    },
+    {
+      "name": "Tailai",
+      "postalCodes": []
+    },
+    {
+      "name": "Tieli",
+      "postalCodes": []
+    },
+    {
+      "name": "Wangkui",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuchang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinqing",
+      "postalCodes": []
+    },
+    {
+      "name": "Yichun",
+      "postalCodes": []
+    },
+    {
+      "name": "Yilan",
+      "postalCodes": []
+    },
+    {
+      "name": "Youhao",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhaodong",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhaoyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhaozhou",
+      "postalCodes": []
+    }
+  ],
+  "HA": [
+    {
+      "name": "Anyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Anyang Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Binhe",
+      "postalCodes": []
+    },
+    {
+      "name": "Chengguan",
+      "postalCodes": []
+    },
+    {
+      "name": "Chengjiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Daokou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dingcheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Hancheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Hebi",
+      "postalCodes": []
+    },
+    {
+      "name": "Huaidian",
+      "postalCodes": []
+    },
+    {
+      "name": "Huazhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Huichang",
+      "postalCodes": []
+    },
+    {
+      "name": "Jianshe",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiaozuo",
+      "postalCodes": []
+    },
+    {
+      "name": "Jishui",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaifeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaiyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Lingbao Chengguanzhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Luohe",
+      "postalCodes": []
+    },
+    {
+      "name": "Luohe Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Luoyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Minggang",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Pingdingshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Puyang Chengguanzhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Puyang Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Qingping",
+      "postalCodes": []
+    },
+    {
+      "name": "Runing",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Shangqiu",
+      "postalCodes": []
+    },
+    {
+      "name": "Songyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Suohe",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanbei",
+      "postalCodes": []
+    },
+    {
+      "name": "Wacheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiangcheng Chengguanzhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Xincheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinhualu",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinxiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinxiang Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xixiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xuchang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xuchang Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yakou",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanshi Chengguanzhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Yigou",
+      "postalCodes": []
+    },
+    {
+      "name": "Yima",
+      "postalCodes": []
+    },
+    {
+      "name": "Yingchuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Yunyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhengzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhoukou",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhumadian",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhumadian Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Zijinglu",
+      "postalCodes": []
+    }
+  ],
+  "HK": [],
+  "HB": [
+    {
+      "name": "Anlu",
+      "postalCodes": []
+    },
+    {
+      "name": "Buhe",
+      "postalCodes": []
+    },
+    {
+      "name": "Caidian",
+      "postalCodes": []
+    },
+    {
+      "name": "Caohe",
+      "postalCodes": []
+    },
+    {
+      "name": "Chengzhong",
+      "postalCodes": []
+    },
+    {
+      "name": "Danjiangkou",
+      "postalCodes": []
+    },
+    {
+      "name": "Daye",
+      "postalCodes": []
+    },
+    {
+      "name": "Duobao",
+      "postalCodes": []
+    },
+    {
+      "name": "Enshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Enshi Tujiazu Miaozu Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Ezhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Ezhou Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fengkou",
+      "postalCodes": []
+    },
+    {
+      "name": "Guangshui",
+      "postalCodes": []
+    },
+    {
+      "name": "Gucheng Chengguanzhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Hanchuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Huanggang",
+      "postalCodes": []
+    },
+    {
+      "name": "Huangmei",
+      "postalCodes": []
+    },
+    {
+      "name": "Huangpi",
+      "postalCodes": []
+    },
+    {
+      "name": "Huangshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Huangzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Jingling",
+      "postalCodes": []
+    },
+    {
+      "name": "Jingmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Jingmen Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jingzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Laohekou",
+      "postalCodes": []
+    },
+    {
+      "name": "Lichuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Macheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanzhang Chengguanzhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Puqi",
+      "postalCodes": []
+    },
+    {
+      "name": "Qianjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Qingquan",
+      "postalCodes": []
+    },
+    {
+      "name": "Shashi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shennongjia",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiyan",
+      "postalCodes": []
+    },
+    {
+      "name": "Suizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuhan",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuxue",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiangyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xianning",
+      "postalCodes": []
+    },
+    {
+      "name": "Xianning Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiantao",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiaogan",
+      "postalCodes": []
+    },
+    {
+      "name": "Xihe",
+      "postalCodes": []
+    },
+    {
+      "name": "Xindi",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiulin",
+      "postalCodes": []
+    },
+    {
+      "name": "Yichang",
+      "postalCodes": []
+    },
+    {
+      "name": "Yicheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Yunmeng Chengguanzhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaoyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhicheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhijiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhongxiang",
+      "postalCodes": []
+    }
+  ],
+  "HN": [
+    {
+      "name": "Anjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Anping",
+      "postalCodes": []
+    },
+    {
+      "name": "Anxiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Baisha",
+      "postalCodes": []
+    },
+    {
+      "name": "Biyong",
+      "postalCodes": []
+    },
+    {
+      "name": "Bojia",
+      "postalCodes": []
+    },
+    {
+      "name": "Boyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Bozhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Changde",
+      "postalCodes": []
+    },
+    {
+      "name": "Changsha",
+      "postalCodes": []
+    },
+    {
+      "name": "Changsha Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chatian",
+      "postalCodes": []
+    },
+    {
+      "name": "Chenzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dabaozi",
+      "postalCodes": []
+    },
+    {
+      "name": "Dehang",
+      "postalCodes": []
+    },
+    {
+      "name": "Dengjiapu",
+      "postalCodes": []
+    },
+    {
+      "name": "Dengyuantai",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongshan Dongzuxiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Fenghuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Gangdong",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaoqiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaoyi",
+      "postalCodes": []
+    },
+    {
+      "name": "Guankou",
+      "postalCodes": []
+    },
+    {
+      "name": "Hengbanqiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Hengyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Hexiangqiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Hongjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Hongqiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Huaihua",
+      "postalCodes": []
+    },
+    {
+      "name": "Huangjinjing",
+      "postalCodes": []
+    },
+    {
+      "name": "Huanglong",
+      "postalCodes": []
+    },
+    {
+      "name": "Huangmaoyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Huangqiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Huangtukuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Huangxikou",
+      "postalCodes": []
+    },
+    {
+      "name": "Huaqiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Huayuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Huomachong",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiangfang",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiangkouxu",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiangshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinhe",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinshiqiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Lanli",
+      "postalCodes": []
+    },
+    {
+      "name": "Leiyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Lengshuijiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Lengshuitan",
+      "postalCodes": []
+    },
+    {
+      "name": "Liangyaping",
+      "postalCodes": []
+    },
+    {
+      "name": "Lianyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Linkou",
+      "postalCodes": []
+    },
+    {
+      "name": "Liuduzhai",
+      "postalCodes": []
+    },
+    {
+      "name": "Lixiqiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Longtan",
+      "postalCodes": []
+    },
+    {
+      "name": "Longtou’an",
+      "postalCodes": []
+    },
+    {
+      "name": "Loudi",
+      "postalCodes": []
+    },
+    {
+      "name": "Luojiu",
+      "postalCodes": []
+    },
+    {
+      "name": "Luyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Ma’an",
+      "postalCodes": []
+    },
+    {
+      "name": "Malin",
+      "postalCodes": []
+    },
+    {
+      "name": "Maoping",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanmuping",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Prefecture of Chenzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Pukou",
+      "postalCodes": []
+    },
+    {
+      "name": "Puzi",
+      "postalCodes": []
+    },
+    {
+      "name": "Qiancheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Qianzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Qiaojiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Qingjiangqiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Qingxi",
+      "postalCodes": []
+    },
+    {
+      "name": "Qionghu",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruoshui",
+      "postalCodes": []
+    },
+    {
+      "name": "Shangmei",
+      "postalCodes": []
+    },
+    {
+      "name": "Shanmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Shijiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Shuangjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Shuangxi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shuiche",
+      "postalCodes": []
+    },
+    {
+      "name": "Shuidatian",
+      "postalCodes": []
+    },
+    {
+      "name": "Simenqian",
+      "postalCodes": []
+    },
+    {
+      "name": "Tangjiafang",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanwan",
+      "postalCodes": []
+    },
+    {
+      "name": "Tongwan",
+      "postalCodes": []
+    },
+    {
+      "name": "Tuokou",
+      "postalCodes": []
+    },
+    {
+      "name": "Wantouqiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Wenxing",
+      "postalCodes": []
+    },
+    {
+      "name": "Wulingyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuxi",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiangtan",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiangxi Tujiazu Miaozu Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiangxiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xianrenwan",
+      "postalCodes": []
+    },
+    {
+      "name": "Xianxi",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiaohenglong",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiaolongmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiaoshajiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xishan",
+      "postalCodes": []
+    },
+    {
+      "name": "Xixi",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiyan",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Yaoshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yatunpu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yiyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Yongfeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Yongzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Yueyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Yueyang Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yutan",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhaishi Miaozu Dongzuxiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhangjiajie",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhongfang",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhongzhai",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhushi",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhuzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhuzhou Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhuzhoujiang Miaozuxiang",
+      "postalCodes": []
+    }
+  ],
+  "NM": [
+    {
+      "name": "Baotou",
+      "postalCodes": []
+    },
+    {
+      "name": "Bayan Nur",
+      "postalCodes": []
+    },
+    {
+      "name": "Bayannur Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Beichengqu",
+      "postalCodes": []
+    },
+    {
+      "name": "Chifeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongsheng",
+      "postalCodes": []
+    },
+    {
+      "name": "E’erguna",
+      "postalCodes": []
+    },
+    {
+      "name": "Erenhot",
+      "postalCodes": []
+    },
+    {
+      "name": "Genhe",
+      "postalCodes": []
+    },
+    {
+      "name": "Hailar",
+      "postalCodes": []
+    },
+    {
+      "name": "Hohhot",
+      "postalCodes": []
+    },
+    {
+      "name": "Hulunbuir Region",
+      "postalCodes": []
+    },
+    {
+      "name": "Jalai Nur",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiagedaqi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jining",
+      "postalCodes": []
+    },
+    {
+      "name": "Manzhouli",
+      "postalCodes": []
+    },
+    {
+      "name": "Mositai",
+      "postalCodes": []
+    },
+    {
+      "name": "Mujiayingzi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ordos",
+      "postalCodes": []
+    },
+    {
+      "name": "Ordos Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Oroqen Zizhiqi",
+      "postalCodes": []
+    },
+    {
+      "name": "Pingzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Salaqi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shiguai",
+      "postalCodes": []
+    },
+    {
+      "name": "Tongliao",
+      "postalCodes": []
+    },
+    {
+      "name": "Ulanhot",
+      "postalCodes": []
+    },
+    {
+      "name": "Wenquan",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuda",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuhai",
+      "postalCodes": []
+    },
+    {
+      "name": "Xilin Gol Meng",
+      "postalCodes": []
+    },
+    {
+      "name": "Xilin Hot",
+      "postalCodes": []
+    },
+    {
+      "name": "Yakeshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhalantun",
+      "postalCodes": []
+    }
+  ],
+  "JS": [
+    {
+      "name": "ChangZhou",
+      "postalCodes": []
+    },
+    {
+      "name": "HuaiAn",
+      "postalCodes": []
+    },
+    {
+      "name": "LianYunGang",
+      "postalCodes": []
+    },
+    {
+      "name": "NanJing",
+      "postalCodes": []
+    },
+    {
+      "name": "NanTong",
+      "postalCodes": []
+    },
+    {
+      "name": "SuQian",
+      "postalCodes": []
+    },
+    {
+      "name": "SuZhou",
+      "postalCodes": []
+    },
+    {
+      "name": "TaiZhou",
+      "postalCodes": []
+    },
+    {
+      "name": "WuXi",
+      "postalCodes": []
+    },
+    {
+      "name": "XuZhou",
+      "postalCodes": []
+    },
+    {
+      "name": "YanCheng",
+      "postalCodes": []
+    },
+    {
+      "name": "YangZhou",
+      "postalCodes": []
+    },
+    {
+      "name": "ZhenJiang",
+      "postalCodes": []
+    }
+  ],
+  "JX": [
+    {
+      "name": "Changleng",
+      "postalCodes": []
+    },
+    {
+      "name": "Fenyi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ganzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Ganzhou Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Guixi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ji’an",
+      "postalCodes": []
+    },
+    {
+      "name": "Jianguang",
+      "postalCodes": []
+    },
+    {
+      "name": "Jingdezhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Jingdezhen Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiujiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanchang",
+      "postalCodes": []
+    },
+    {
+      "name": "Pingxiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Poyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Shangrao",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinyu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yichun",
+      "postalCodes": []
+    }
+  ],
+  "JL": [
+    {
+      "name": "Baicheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Baishan",
+      "postalCodes": []
+    },
+    {
+      "name": "Baishishan",
+      "postalCodes": []
+    },
+    {
+      "name": "Changchun",
+      "postalCodes": []
+    },
+    {
+      "name": "Changling",
+      "postalCodes": []
+    },
+    {
+      "name": "Chaoyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalai",
+      "postalCodes": []
+    },
+    {
+      "name": "Dashitou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dehui",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongfeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Dunhua",
+      "postalCodes": []
+    },
+    {
+      "name": "Erdaojiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuyu",
+      "postalCodes": []
+    },
+    {
+      "name": "Gongzhuling",
+      "postalCodes": []
+    },
+    {
+      "name": "Guangming",
+      "postalCodes": []
+    },
+    {
+      "name": "Helong",
+      "postalCodes": []
+    },
+    {
+      "name": "Hepingjie",
+      "postalCodes": []
+    },
+    {
+      "name": "Huadian",
+      "postalCodes": []
+    },
+    {
+      "name": "Huangnihe",
+      "postalCodes": []
+    },
+    {
+      "name": "Huinan",
+      "postalCodes": []
+    },
+    {
+      "name": "Hunchun",
+      "postalCodes": []
+    },
+    {
+      "name": "Ji’an",
+      "postalCodes": []
+    },
+    {
+      "name": "Jilin",
+      "postalCodes": []
+    },
+    {
+      "name": "Jishu",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiutai",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaitong",
+      "postalCodes": []
+    },
+    {
+      "name": "Liaoyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Linjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Lishu",
+      "postalCodes": []
+    },
+    {
+      "name": "Liuhe",
+      "postalCodes": []
+    },
+    {
+      "name": "Longjing",
+      "postalCodes": []
+    },
+    {
+      "name": "Meihekou",
+      "postalCodes": []
+    },
+    {
+      "name": "Mingyue",
+      "postalCodes": []
+    },
+    {
+      "name": "Minzhu",
+      "postalCodes": []
+    },
+    {
+      "name": "Panshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanchazi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shuangyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Shulan",
+      "postalCodes": []
+    },
+    {
+      "name": "Siping",
+      "postalCodes": []
+    },
+    {
+      "name": "Songjianghe",
+      "postalCodes": []
+    },
+    {
+      "name": "Songyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Tonghua",
+      "postalCodes": []
+    },
+    {
+      "name": "Tonghua Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tumen",
+      "postalCodes": []
+    },
+    {
+      "name": "Wangqing",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinglongshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanbian Chaoxianzu Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanji",
+      "postalCodes": []
+    },
+    {
+      "name": "Yantongshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Yushu",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhengjiatun",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhenlai",
+      "postalCodes": []
+    }
+  ],
+  "LN": [
+    {
+      "name": "Anshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Beipiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Benxi",
+      "postalCodes": []
+    },
+    {
+      "name": "Changtu",
+      "postalCodes": []
+    },
+    {
+      "name": "Chaoyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalian",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalianwan",
+      "postalCodes": []
+    },
+    {
+      "name": "Dandong",
+      "postalCodes": []
+    },
+    {
+      "name": "Dashiqiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongling",
+      "postalCodes": []
+    },
+    {
+      "name": "Fengcheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Fushun",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuxin",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Gongchangling",
+      "postalCodes": []
+    },
+    {
+      "name": "Haicheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Heishan",
+      "postalCodes": []
+    },
+    {
+      "name": "Huanren",
+      "postalCodes": []
+    },
+    {
+      "name": "Huludao",
+      "postalCodes": []
+    },
+    {
+      "name": "Huludao Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hushitai",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiupu",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaiyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuandian",
+      "postalCodes": []
+    },
+    {
+      "name": "Langtoucun",
+      "postalCodes": []
+    },
+    {
+      "name": "Lianshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Liaoyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Liaozhong",
+      "postalCodes": []
+    },
+    {
+      "name": "Linghai",
+      "postalCodes": []
+    },
+    {
+      "name": "Lingyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Lüshun",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanpiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Nantai",
+      "postalCodes": []
+    },
+    {
+      "name": "Panjin Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Panshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Pulandian",
+      "postalCodes": []
+    },
+    {
+      "name": "Shenyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Sujiatun",
+      "postalCodes": []
+    },
+    {
+      "name": "Tieling",
+      "postalCodes": []
+    },
+    {
+      "name": "Tieling Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Wafangdian",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiaoshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Xifeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Xingcheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinmin",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinxing",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiuyan",
+      "postalCodes": []
+    },
+    {
+      "name": "Yebaishou",
+      "postalCodes": []
+    },
+    {
+      "name": "Yingkou",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhuanghe",
+      "postalCodes": []
+    }
+  ],
+  "MO": [],
+  "NX": [
+    {
+      "name": "Dawukou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongta",
+      "postalCodes": []
+    },
+    {
+      "name": "Shitanjing",
+      "postalCodes": []
+    },
+    {
+      "name": "Shizuishan",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuzhong",
+      "postalCodes": []
+    },
+    {
+      "name": "Yinchuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhongwei",
+      "postalCodes": []
+    }
+  ],
+  "QH": [
+    {
+      "name": "Delingha",
+      "postalCodes": []
+    },
+    {
+      "name": "Golmud",
+      "postalCodes": []
+    },
+    {
+      "name": "Golog Tibetan Autonomous Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Haibei Tibetan Autonomous Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Huangnan Zangzu Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Xining",
+      "postalCodes": []
+    },
+    {
+      "name": "Xireg",
+      "postalCodes": []
+    },
+    {
+      "name": "Yushu Zangzu Zizhizhou",
+      "postalCodes": []
+    }
+  ],
+  "SN": [
+    {
+      "name": "Ankang",
+      "postalCodes": []
+    },
+    {
+      "name": "Baoji Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Guozhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Hancheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Hanzhong",
+      "postalCodes": []
+    },
+    {
+      "name": "Huayin",
+      "postalCodes": []
+    },
+    {
+      "name": "Lintong",
+      "postalCodes": []
+    },
+    {
+      "name": "Tongchuanshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Weinan",
+      "postalCodes": []
+    },
+    {
+      "name": "Xi’an",
+      "postalCodes": []
+    },
+    {
+      "name": "Xianyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanliang",
+      "postalCodes": []
+    },
+    {
+      "name": "Yulinshi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuxia",
+      "postalCodes": []
+    }
+  ],
+  "SD": [
+    {
+      "name": "Anqiu",
+      "postalCodes": []
+    },
+    {
+      "name": "Beizhai",
+      "postalCodes": []
+    },
+    {
+      "name": "Bianzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Binzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Boshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Changqing",
+      "postalCodes": []
+    },
+    {
+      "name": "Chengqu",
+      "postalCodes": []
+    },
+    {
+      "name": "Chengtangcun",
+      "postalCodes": []
+    },
+    {
+      "name": "Chengyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Dengying",
+      "postalCodes": []
+    },
+    {
+      "name": "Dengzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dezhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dingtao",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongcun",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongdu",
+      "postalCodes": []
+    },
+    {
+      "name": "Feicheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaomi",
+      "postalCodes": []
+    },
+    {
+      "name": "Hanting",
+      "postalCodes": []
+    },
+    {
+      "name": "Heze",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiamaying",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiaozhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiehu",
+      "postalCodes": []
+    },
+    {
+      "name": "Jimo",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinan",
+      "postalCodes": []
+    },
+    {
+      "name": "Jining",
+      "postalCodes": []
+    },
+    {
+      "name": "Juye",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuiju",
+      "postalCodes": []
+    },
+    {
+      "name": "Kutao",
+      "postalCodes": []
+    },
+    {
+      "name": "Laiwu",
+      "postalCodes": []
+    },
+    {
+      "name": "Laixi",
+      "postalCodes": []
+    },
+    {
+      "name": "Laiyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Laizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Laocheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Liaocheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Linqu",
+      "postalCodes": []
+    },
+    {
+      "name": "Linyi",
+      "postalCodes": []
+    },
+    {
+      "name": "Longgang",
+      "postalCodes": []
+    },
+    {
+      "name": "Mengyin",
+      "postalCodes": []
+    },
+    {
+      "name": "Mingshui",
+      "postalCodes": []
+    },
+    {
+      "name": "Mizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanding",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanma",
+      "postalCodes": []
+    },
+    {
+      "name": "Ninghai",
+      "postalCodes": []
+    },
+    {
+      "name": "Ningyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Pingdu",
+      "postalCodes": []
+    },
+    {
+      "name": "Pingyi",
+      "postalCodes": []
+    },
+    {
+      "name": "Pingyin",
+      "postalCodes": []
+    },
+    {
+      "name": "Qingdao",
+      "postalCodes": []
+    },
+    {
+      "name": "Qingnian",
+      "postalCodes": []
+    },
+    {
+      "name": "Qingshancun",
+      "postalCodes": []
+    },
+    {
+      "name": "Qingyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Qingzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Qufu",
+      "postalCodes": []
+    },
+    {
+      "name": "Rizhao",
+      "postalCodes": []
+    },
+    {
+      "name": "Shancheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Shanting",
+      "postalCodes": []
+    },
+    {
+      "name": "Shazikou",
+      "postalCodes": []
+    },
+    {
+      "name": "Shengli",
+      "postalCodes": []
+    },
+    {
+      "name": "Shilaorencun",
+      "postalCodes": []
+    },
+    {
+      "name": "Shizilu",
+      "postalCodes": []
+    },
+    {
+      "name": "Shouguang",
+      "postalCodes": []
+    },
+    {
+      "name": "Sishui",
+      "postalCodes": []
+    },
+    {
+      "name": "Suozhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Tai’an",
+      "postalCodes": []
+    },
+    {
+      "name": "Taozhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Tianfu",
+      "postalCodes": []
+    },
+    {
+      "name": "Weifang",
+      "postalCodes": []
+    },
+    {
+      "name": "Weihai",
+      "postalCodes": []
+    },
+    {
+      "name": "Wenshang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiazhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiazhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiliguantun",
+      "postalCodes": []
+    },
+    {
+      "name": "Xindian",
+      "postalCodes": []
+    },
+    {
+      "name": "Xintai",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanggu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanta",
+      "postalCodes": []
+    },
+    {
+      "name": "Yantai",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Yatou",
+      "postalCodes": []
+    },
+    {
+      "name": "Yinzhu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yishui",
+      "postalCodes": []
+    },
+    {
+      "name": "Yucheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaozhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhaoyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhoucheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhoucun",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhu Cheng City",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhuangyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Zibo",
+      "postalCodes": []
+    },
+    {
+      "name": "Zoucheng",
+      "postalCodes": []
+    }
+  ],
+  "SH": [
+    {
+      "name": "Shanghai",
+      "postalCodes": []
+    },
+    {
+      "name": "Songjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhabei",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhujiajiao",
+      "postalCodes": []
+    }
+  ],
+  "SX": [
+    {
+      "name": "Changzhi",
+      "postalCodes": []
+    },
+    {
+      "name": "Datong",
+      "postalCodes": []
+    },
+    {
+      "name": "Datong Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Gutao",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiexiu",
+      "postalCodes": []
+    },
+    {
+      "name": "Jincheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinzhong Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Linfen",
+      "postalCodes": []
+    },
+    {
+      "name": "Lüliang",
+      "postalCodes": []
+    },
+    {
+      "name": "Shuozhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Taiyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Xintian",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinzhi",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangquan",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuanping",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuci",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuncheng",
+      "postalCodes": []
+    }
+  ],
+  "SC": [
+    {
+      "name": "Aba Zangzu Qiangzu Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Barkam",
+      "postalCodes": []
+    },
+    {
+      "name": "Bazhong Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Changchi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chengdu",
+      "postalCodes": []
+    },
+    {
+      "name": "Chonglong",
+      "postalCodes": []
+    },
+    {
+      "name": "Dadukou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dazhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Deyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongxi",
+      "postalCodes": []
+    },
+    {
+      "name": "Fangting",
+      "postalCodes": []
+    },
+    {
+      "name": "Fubao",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaoping",
+      "postalCodes": []
+    },
+    {
+      "name": "Garzê Zangzu Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Guang’an",
+      "postalCodes": []
+    },
+    {
+      "name": "Guangyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiancheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiangyou",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiannan",
+      "postalCodes": []
+    },
+    {
+      "name": "Kangding",
+      "postalCodes": []
+    },
+    {
+      "name": "Langzhong",
+      "postalCodes": []
+    },
+    {
+      "name": "Leshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Liangshan Yizu Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Linqiong",
+      "postalCodes": []
+    },
+    {
+      "name": "Luocheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Luzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Meishan Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mianyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanchong",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanlong",
+      "postalCodes": []
+    },
+    {
+      "name": "Neijiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Panzhihua",
+      "postalCodes": []
+    },
+    {
+      "name": "Puji",
+      "postalCodes": []
+    },
+    {
+      "name": "Shuanghejiedao",
+      "postalCodes": []
+    },
+    {
+      "name": "Suining",
+      "postalCodes": []
+    },
+    {
+      "name": "Taihe",
+      "postalCodes": []
+    },
+    {
+      "name": "Taiping",
+      "postalCodes": []
+    },
+    {
+      "name": "Tianpeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Tongchuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Xialiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiantan",
+      "postalCodes": []
+    },
+    {
+      "name": "Xichang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xunchang",
+      "postalCodes": []
+    },
+    {
+      "name": "Yanjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Yibin",
+      "postalCodes": []
+    },
+    {
+      "name": "Yucheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Zengjia",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhongba",
+      "postalCodes": []
+    },
+    {
+      "name": "Zigong",
+      "postalCodes": []
+    }
+  ],
+  "TW": [
+    {
+      "name": "Baoying",
+      "postalCodes": []
+    },
+    {
+      "name": "Changshu City",
+      "postalCodes": []
+    },
+    {
+      "name": "Changzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Chengxiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Dazhong",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongkan",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongtai",
+      "postalCodes": []
+    },
+    {
+      "name": "Fengxian",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaogou",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaoyou",
+      "postalCodes": []
+    },
+    {
+      "name": "Guiren",
+      "postalCodes": []
+    },
+    {
+      "name": "Haizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Hede",
+      "postalCodes": []
+    },
+    {
+      "name": "Huai'an",
+      "postalCodes": []
+    },
+    {
+      "name": "Huai’an Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Huilong",
+      "postalCodes": []
+    },
+    {
+      "name": "Hutang",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiangyan",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiangyin",
+      "postalCodes": []
+    },
+    {
+      "name": "Jingjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinsha",
+      "postalCodes": []
+    },
+    {
+      "name": "Juegang",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Lianyungang Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Licheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Mudu",
+      "postalCodes": []
+    },
+    {
+      "name": "Nanjing",
+      "postalCodes": []
+    },
+    {
+      "name": "Nantong",
+      "postalCodes": []
+    },
+    {
+      "name": "Pizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Qinnan",
+      "postalCodes": []
+    },
+    {
+      "name": "Rucheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanmao",
+      "postalCodes": []
+    },
+    {
+      "name": "Songling",
+      "postalCodes": []
+    },
+    {
+      "name": "Suicheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Suzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Taixing",
+      "postalCodes": []
+    },
+    {
+      "name": "Taizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Tongshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuxi",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiannü",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiaolingwei",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinghua",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinpu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yancheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Yicheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Yushan",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhangjiagang",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhenjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhenzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhongxing",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhouzhuang",
+      "postalCodes": []
+    }
+  ],
+  "TJ": [
+    {
+      "name": "Badaogu",
+      "postalCodes": []
+    },
+    {
+      "name": "Baijian",
+      "postalCodes": []
+    },
+    {
+      "name": "Bamencheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Bangjun",
+      "postalCodes": []
+    },
+    {
+      "name": "Beicang",
+      "postalCodes": []
+    },
+    {
+      "name": "Beihuaidian",
+      "postalCodes": []
+    },
+    {
+      "name": "Beilizigu",
+      "postalCodes": []
+    },
+    {
+      "name": "Biaokou",
+      "postalCodes": []
+    },
+    {
+      "name": "Binhai New Area",
+      "postalCodes": []
+    },
+    {
+      "name": "Caijiapu",
+      "postalCodes": []
+    },
+    {
+      "name": "Caodian",
+      "postalCodes": []
+    },
+    {
+      "name": "Chabaihu",
+      "postalCodes": []
+    },
+    {
+      "name": "Changtun",
+      "postalCodes": []
+    },
+    {
+      "name": "Chengtougu",
+      "postalCodes": []
+    },
+    {
+      "name": "Chitu",
+      "postalCodes": []
+    },
+    {
+      "name": "Cuijiamatou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dadunqiu",
+      "postalCodes": []
+    },
+    {
+      "name": "Dakoutun",
+      "postalCodes": []
+    },
+    {
+      "name": "Dashentang",
+      "postalCodes": []
+    },
+    {
+      "name": "Dawangtai",
+      "postalCodes": []
+    },
+    {
+      "name": "Daxinzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Dazhongzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongditou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongshigu",
+      "postalCodes": []
+    },
+    {
+      "name": "Erwangzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Fanzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Fengtai (Ninghe)",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaojingzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Hanjiashu",
+      "postalCodes": []
+    },
+    {
+      "name": "Hebeitun",
+      "postalCodes": []
+    },
+    {
+      "name": "Hexiwu",
+      "postalCodes": []
+    },
+    {
+      "name": "Huangcaotuo",
+      "postalCodes": []
+    },
+    {
+      "name": "Huantuo",
+      "postalCodes": []
+    },
+    {
+      "name": "Huogezhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiangwakou",
+      "postalCodes": []
+    },
+    {
+      "name": "Lianzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Lintingkou",
+      "postalCodes": []
+    },
+    {
+      "name": "Liujiading",
+      "postalCodes": []
+    },
+    {
+      "name": "Liukuaizhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Liuzikou",
+      "postalCodes": []
+    },
+    {
+      "name": "Luotuofangzi",
+      "postalCodes": []
+    },
+    {
+      "name": "Meichang",
+      "postalCodes": []
+    },
+    {
+      "name": "Mengquan",
+      "postalCodes": []
+    },
+    {
+      "name": "Panzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Qingguang",
+      "postalCodes": []
+    },
+    {
+      "name": "Sangzi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shangcang",
+      "postalCodes": []
+    },
+    {
+      "name": "Shimianzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Shuangjiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Sigaozhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Tianjin",
+      "postalCodes": []
+    },
+    {
+      "name": "Touying",
+      "postalCodes": []
+    },
+    {
+      "name": "Wangqinzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Weiwangzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiawuqi",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiditou",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinkaikou",
+      "postalCodes": []
+    },
+    {
+      "name": "Xitazhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangjinzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangliuqing",
+      "postalCodes": []
+    },
+    {
+      "name": "Yinliu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yixingfu",
+      "postalCodes": []
+    },
+    {
+      "name": "Youguzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuelongzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuguzhuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaojiacheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhangjiawo",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhaoguli",
+      "postalCodes": []
+    }
+  ],
+  "XJ": [
+    {
+      "name": "Ailan Mubage",
+      "postalCodes": []
+    },
+    {
+      "name": "Aksu",
+      "postalCodes": []
+    },
+    {
+      "name": "Aksu Diqu",
+      "postalCodes": []
+    },
+    {
+      "name": "Altay",
+      "postalCodes": []
+    },
+    {
+      "name": "Altay Diqu",
+      "postalCodes": []
+    },
+    {
+      "name": "Aral",
+      "postalCodes": []
+    },
+    {
+      "name": "Aykol",
+      "postalCodes": []
+    },
+    {
+      "name": "Baijiantan",
+      "postalCodes": []
+    },
+    {
+      "name": "Baluntaicun",
+      "postalCodes": []
+    },
+    {
+      "name": "Bayingolin Mongol Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Changji",
+      "postalCodes": []
+    },
+    {
+      "name": "Changji Huizu Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Fukang",
+      "postalCodes": []
+    },
+    {
+      "name": "Hami",
+      "postalCodes": []
+    },
+    {
+      "name": "Hotan",
+      "postalCodes": []
+    },
+    {
+      "name": "Hoxtolgay",
+      "postalCodes": []
+    },
+    {
+      "name": "Huocheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Ili Kazak Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Karamay",
+      "postalCodes": []
+    },
+    {
+      "name": "Karamay Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kashgar",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaxgar Diqu",
+      "postalCodes": []
+    },
+    {
+      "name": "Korla",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuqa",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuytun",
+      "postalCodes": []
+    },
+    {
+      "name": "Qapqal",
+      "postalCodes": []
+    },
+    {
+      "name": "Shache",
+      "postalCodes": []
+    },
+    {
+      "name": "Shihezi",
+      "postalCodes": []
+    },
+    {
+      "name": "Sishilichengzi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tacheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Tacheng Diqu",
+      "postalCodes": []
+    },
+    {
+      "name": "Turpan",
+      "postalCodes": []
+    },
+    {
+      "name": "Turpan Diqu",
+      "postalCodes": []
+    },
+    {
+      "name": "Ürümqi",
+      "postalCodes": []
+    },
+    {
+      "name": "Urumqi Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Xinyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Zangguy",
+      "postalCodes": []
+    }
+  ],
+  "XZ": [
+    {
+      "name": "Burang",
+      "postalCodes": []
+    },
+    {
+      "name": "Dêqên",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiangzi",
+      "postalCodes": []
+    },
+    {
+      "name": "Lhasa",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagqu",
+      "postalCodes": []
+    },
+    {
+      "name": "Nagqu Diqu",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngari Diqu",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyingchi Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Qamdo",
+      "postalCodes": []
+    },
+    {
+      "name": "Qamdo Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Rikaze",
+      "postalCodes": []
+    },
+    {
+      "name": "Saga",
+      "postalCodes": []
+    },
+    {
+      "name": "Shannan Diqu",
+      "postalCodes": []
+    }
+  ],
+  "YN": [
+    {
+      "name": "Chuxiong Yizu Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dali",
+      "postalCodes": []
+    },
+    {
+      "name": "Dali Baizu Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dehong Daizu Jingpozu Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dêqên Tibetan Autonomous Prefecture",
+      "postalCodes": []
+    },
+    {
+      "name": "Gejiu",
+      "postalCodes": []
+    },
+    {
+      "name": "Haikou",
+      "postalCodes": []
+    },
+    {
+      "name": "Honghe Hanizu Yizu Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinghong",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaihua",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaiyuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunming",
+      "postalCodes": []
+    },
+    {
+      "name": "Lianran",
+      "postalCodes": []
+    },
+    {
+      "name": "Lijiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Lincang Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Longquan",
+      "postalCodes": []
+    },
+    {
+      "name": "Mabai",
+      "postalCodes": []
+    },
+    {
+      "name": "Majie",
+      "postalCodes": []
+    },
+    {
+      "name": "Miyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Nujiang Lisuzu Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Qujing",
+      "postalCodes": []
+    },
+    {
+      "name": "Shangri-La",
+      "postalCodes": []
+    },
+    {
+      "name": "Shilin",
+      "postalCodes": []
+    },
+    {
+      "name": "Wenlan",
+      "postalCodes": []
+    },
+    {
+      "name": "Wenshan City",
+      "postalCodes": []
+    },
+    {
+      "name": "Wenshan Zhuangzu Miaozu Zizhizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuxi",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhaotong",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhongshu",
+      "postalCodes": []
+    }
+  ],
+  "ZJ": [
+    {
+      "name": "Deqing",
+      "postalCodes": []
+    },
+    {
+      "name": "Dongyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Fenghua",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Guli",
+      "postalCodes": []
+    },
+    {
+      "name": "Haining",
+      "postalCodes": []
+    },
+    {
+      "name": "Hangzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Huangyan",
+      "postalCodes": []
+    },
+    {
+      "name": "Huzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiaojiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiashan",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiaxing",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiaxing Shi",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinhua",
+      "postalCodes": []
+    },
+    {
+      "name": "Jinxiang",
+      "postalCodes": []
+    },
+    {
+      "name": "Kunyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Lanxi",
+      "postalCodes": []
+    },
+    {
+      "name": "Lianghu",
+      "postalCodes": []
+    },
+    {
+      "name": "Linhai",
+      "postalCodes": []
+    },
+    {
+      "name": "Linping",
+      "postalCodes": []
+    },
+    {
+      "name": "Lishui",
+      "postalCodes": []
+    },
+    {
+      "name": "Luqiao",
+      "postalCodes": []
+    },
+    {
+      "name": "Ningbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ninghai",
+      "postalCodes": []
+    },
+    {
+      "name": "Puyang",
+      "postalCodes": []
+    },
+    {
+      "name": "Quzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Shangyu",
+      "postalCodes": []
+    },
+    {
+      "name": "Shaoxing",
+      "postalCodes": []
+    },
+    {
+      "name": "Shenjiamen",
+      "postalCodes": []
+    },
+    {
+      "name": "Taizhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Wenling",
+      "postalCodes": []
+    },
+    {
+      "name": "Wenzhou",
+      "postalCodes": []
+    },
+    {
+      "name": "Wuzhen",
+      "postalCodes": []
+    },
+    {
+      "name": "Xianju",
+      "postalCodes": []
+    },
+    {
+      "name": "Xiaoshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Yiwu",
+      "postalCodes": []
+    },
+    {
+      "name": "Yuyao",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhaobaoshan",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhicheng",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhoushan",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhuji",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

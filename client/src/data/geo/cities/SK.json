@@ -1,0 +1,951 @@
+{
+  "BC": [
+    {
+      "name": "Banská Bystrica",
+      "postalCodes": []
+    },
+    {
+      "name": "Banská Štiavnica",
+      "postalCodes": []
+    },
+    {
+      "name": "Brezno",
+      "postalCodes": []
+    },
+    {
+      "name": "Čierny Balog",
+      "postalCodes": []
+    },
+    {
+      "name": "Detva",
+      "postalCodes": []
+    },
+    {
+      "name": "Dudince",
+      "postalCodes": []
+    },
+    {
+      "name": "Fiľakovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Hriňová",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrochoť,Slovakia",
+      "postalCodes": []
+    },
+    {
+      "name": "Kováčová",
+      "postalCodes": []
+    },
+    {
+      "name": "Kremnica",
+      "postalCodes": []
+    },
+    {
+      "name": "Krupina",
+      "postalCodes": []
+    },
+    {
+      "name": "Lučenec",
+      "postalCodes": []
+    },
+    {
+      "name": "Nová Baňa",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Banská Bystrica",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Banská Štiavnica",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Brezno",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Detva",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Krupina",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Lučenec",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Poltár",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Revúca",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Veľký Krtíš",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Žarnovica",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Žiar nad Hronom",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Zvolen",
+      "postalCodes": []
+    },
+    {
+      "name": "Poltár",
+      "postalCodes": []
+    },
+    {
+      "name": "Revúca",
+      "postalCodes": []
+    },
+    {
+      "name": "Rimavská Sobota",
+      "postalCodes": []
+    },
+    {
+      "name": "Svätý Anton",
+      "postalCodes": []
+    },
+    {
+      "name": "Tisovec",
+      "postalCodes": []
+    },
+    {
+      "name": "Veľký Krtíš",
+      "postalCodes": []
+    },
+    {
+      "name": "Žarnovica",
+      "postalCodes": []
+    },
+    {
+      "name": "Žiar nad Hronom",
+      "postalCodes": []
+    },
+    {
+      "name": "Zvolen",
+      "postalCodes": []
+    }
+  ],
+  "BL": [
+    {
+      "name": "Bratislava",
+      "postalCodes": []
+    },
+    {
+      "name": "Bratislava - Vajnory",
+      "postalCodes": []
+    },
+    {
+      "name": "Dunajská Lužná",
+      "postalCodes": []
+    },
+    {
+      "name": "Ivanka pri Dunaji",
+      "postalCodes": []
+    },
+    {
+      "name": "Malacky",
+      "postalCodes": []
+    },
+    {
+      "name": "Marianka",
+      "postalCodes": []
+    },
+    {
+      "name": "Modra",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Bratislava I",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Bratislava II",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Bratislava III",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Bratislava IV",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Bratislava V",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Malacky",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Pezinok",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Senec",
+      "postalCodes": []
+    },
+    {
+      "name": "Pezinok",
+      "postalCodes": []
+    },
+    {
+      "name": "Senec",
+      "postalCodes": []
+    },
+    {
+      "name": "Stupava",
+      "postalCodes": []
+    },
+    {
+      "name": "Svätý Jur",
+      "postalCodes": []
+    },
+    {
+      "name": "Vinosady",
+      "postalCodes": []
+    }
+  ],
+  "KI": [
+    {
+      "name": "Čierna nad Tisou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobšiná",
+      "postalCodes": []
+    },
+    {
+      "name": "Gelnica",
+      "postalCodes": []
+    },
+    {
+      "name": "Kavečany",
+      "postalCodes": []
+    },
+    {
+      "name": "Košice",
+      "postalCodes": []
+    },
+    {
+      "name": "Košice I",
+      "postalCodes": []
+    },
+    {
+      "name": "Košice II",
+      "postalCodes": []
+    },
+    {
+      "name": "Košice III",
+      "postalCodes": []
+    },
+    {
+      "name": "Košice IV",
+      "postalCodes": []
+    },
+    {
+      "name": "Krompachy",
+      "postalCodes": []
+    },
+    {
+      "name": "Medzev",
+      "postalCodes": []
+    },
+    {
+      "name": "Michalovce",
+      "postalCodes": []
+    },
+    {
+      "name": "Moldava nad Bodvou",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Gelnica",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Kosice-okolie",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Michalovce",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Rožňava",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Sobrance",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Spišská Nová Ves",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Trebišov",
+      "postalCodes": []
+    },
+    {
+      "name": "Rožňava",
+      "postalCodes": []
+    },
+    {
+      "name": "Sečovce",
+      "postalCodes": []
+    },
+    {
+      "name": "Sobrance",
+      "postalCodes": []
+    },
+    {
+      "name": "Spišská Nová Ves",
+      "postalCodes": []
+    },
+    {
+      "name": "Strážske",
+      "postalCodes": []
+    },
+    {
+      "name": "Trebišov",
+      "postalCodes": []
+    },
+    {
+      "name": "Vinné",
+      "postalCodes": []
+    },
+    {
+      "name": "Žehra",
+      "postalCodes": []
+    }
+  ],
+  "NI": [
+    {
+      "name": "Hurbanovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolárovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Komárno",
+      "postalCodes": []
+    },
+    {
+      "name": "Levice",
+      "postalCodes": []
+    },
+    {
+      "name": "Nitra",
+      "postalCodes": []
+    },
+    {
+      "name": "Nové Zámky",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Komárno",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Levice",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Nitra",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Nové Zámky",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Šaľa",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Topoľčany",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Zlaté Moravce",
+      "postalCodes": []
+    },
+    {
+      "name": "Šahy",
+      "postalCodes": []
+    },
+    {
+      "name": "Šaľa",
+      "postalCodes": []
+    },
+    {
+      "name": "Štúrovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Šurany",
+      "postalCodes": []
+    },
+    {
+      "name": "Svodín",
+      "postalCodes": []
+    },
+    {
+      "name": "Tlmače",
+      "postalCodes": []
+    },
+    {
+      "name": "Topoľčany",
+      "postalCodes": []
+    },
+    {
+      "name": "Vráble",
+      "postalCodes": []
+    },
+    {
+      "name": "Želiezovce",
+      "postalCodes": []
+    },
+    {
+      "name": "Zlaté Moravce",
+      "postalCodes": []
+    }
+  ],
+  "PV": [
+    {
+      "name": "Bardejov",
+      "postalCodes": []
+    },
+    {
+      "name": "Chlmec",
+      "postalCodes": []
+    },
+    {
+      "name": "Giraltovce",
+      "postalCodes": []
+    },
+    {
+      "name": "Humenné",
+      "postalCodes": []
+    },
+    {
+      "name": "Kežmarok",
+      "postalCodes": []
+    },
+    {
+      "name": "Levoča",
+      "postalCodes": []
+    },
+    {
+      "name": "Lipany",
+      "postalCodes": []
+    },
+    {
+      "name": "Ľubica",
+      "postalCodes": []
+    },
+    {
+      "name": "Medzilaborce",
+      "postalCodes": []
+    },
+    {
+      "name": "Nová Lesná",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Bardejov",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Humenné",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Kežmarok",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Levoča",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Medzilaborce",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Poprad",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Prešov",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Sabinov",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Snina",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Stará Ĺubovňa",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Stropkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Svidník",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Vranov nad Topľou",
+      "postalCodes": []
+    },
+    {
+      "name": "Podolínec",
+      "postalCodes": []
+    },
+    {
+      "name": "Poprad",
+      "postalCodes": []
+    },
+    {
+      "name": "Prešov",
+      "postalCodes": []
+    },
+    {
+      "name": "Sabinov",
+      "postalCodes": []
+    },
+    {
+      "name": "Snina",
+      "postalCodes": []
+    },
+    {
+      "name": "Spišská Belá",
+      "postalCodes": []
+    },
+    {
+      "name": "Spišské Podhradie",
+      "postalCodes": []
+    },
+    {
+      "name": "Stará Ľubovňa",
+      "postalCodes": []
+    },
+    {
+      "name": "Štrba",
+      "postalCodes": []
+    },
+    {
+      "name": "Stropkov",
+      "postalCodes": []
+    },
+    {
+      "name": "Svidník",
+      "postalCodes": []
+    },
+    {
+      "name": "Svit",
+      "postalCodes": []
+    },
+    {
+      "name": "Vranov nad Topľou",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrbov",
+      "postalCodes": []
+    },
+    {
+      "name": "Vyšné Ružbachy",
+      "postalCodes": []
+    },
+    {
+      "name": "Vysoké Tatry",
+      "postalCodes": []
+    },
+    {
+      "name": "Ždiar",
+      "postalCodes": []
+    }
+  ],
+  "TC": [
+    {
+      "name": "Bánovce nad Bebravou",
+      "postalCodes": []
+    },
+    {
+      "name": "Bojnice",
+      "postalCodes": []
+    },
+    {
+      "name": "Brezová pod Bradlom",
+      "postalCodes": []
+    },
+    {
+      "name": "Čachtice",
+      "postalCodes": []
+    },
+    {
+      "name": "Dubnica nad Váhom",
+      "postalCodes": []
+    },
+    {
+      "name": "Handlová",
+      "postalCodes": []
+    },
+    {
+      "name": "Ilava",
+      "postalCodes": []
+    },
+    {
+      "name": "Lehota pod Vtáčnikom",
+      "postalCodes": []
+    },
+    {
+      "name": "Myjava",
+      "postalCodes": []
+    },
+    {
+      "name": "Nemšová",
+      "postalCodes": []
+    },
+    {
+      "name": "Nová Dubnica",
+      "postalCodes": []
+    },
+    {
+      "name": "Nováky",
+      "postalCodes": []
+    },
+    {
+      "name": "Nové Mesto nad Váhom",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Bánovce nad Bebravou",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Ilava",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Myjava",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Nové Mesto nad Váhom",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Partizánske",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Považská Bystrica",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Prievidza",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Púchov",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Trenčín",
+      "postalCodes": []
+    },
+    {
+      "name": "Partizánske",
+      "postalCodes": []
+    },
+    {
+      "name": "Považská Bystrica",
+      "postalCodes": []
+    },
+    {
+      "name": "Prievidza",
+      "postalCodes": []
+    },
+    {
+      "name": "Púchov",
+      "postalCodes": []
+    },
+    {
+      "name": "Stará Turá",
+      "postalCodes": []
+    },
+    {
+      "name": "Trenčianske Teplice",
+      "postalCodes": []
+    },
+    {
+      "name": "Trenčín",
+      "postalCodes": []
+    }
+  ],
+  "TA": [
+    {
+      "name": "Dunajská Streda",
+      "postalCodes": []
+    },
+    {
+      "name": "Gabčíkovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Galanta",
+      "postalCodes": []
+    },
+    {
+      "name": "Gbely",
+      "postalCodes": []
+    },
+    {
+      "name": "Hlohovec",
+      "postalCodes": []
+    },
+    {
+      "name": "Holíč",
+      "postalCodes": []
+    },
+    {
+      "name": "Leopoldov",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Dunajská Streda",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Galanta",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Hlohovec",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Piešťany",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Senica",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Skalica",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Trnava",
+      "postalCodes": []
+    },
+    {
+      "name": "Piešťany",
+      "postalCodes": []
+    },
+    {
+      "name": "Šamorín",
+      "postalCodes": []
+    },
+    {
+      "name": "Senica",
+      "postalCodes": []
+    },
+    {
+      "name": "Skalica",
+      "postalCodes": []
+    },
+    {
+      "name": "Sládkovičovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Smolenice",
+      "postalCodes": []
+    },
+    {
+      "name": "Trnava",
+      "postalCodes": []
+    },
+    {
+      "name": "Veľký Meder",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrbové",
+      "postalCodes": []
+    }
+  ],
+  "ZI": [
+    {
+      "name": "Bytča",
+      "postalCodes": []
+    },
+    {
+      "name": "Čadca",
+      "postalCodes": []
+    },
+    {
+      "name": "Dolný Kubín",
+      "postalCodes": []
+    },
+    {
+      "name": "Hybe",
+      "postalCodes": []
+    },
+    {
+      "name": "Krasňany",
+      "postalCodes": []
+    },
+    {
+      "name": "Kysucké Nové Mesto",
+      "postalCodes": []
+    },
+    {
+      "name": "Liptovský Hrádok",
+      "postalCodes": []
+    },
+    {
+      "name": "Liptovský Mikuláš",
+      "postalCodes": []
+    },
+    {
+      "name": "Lúčky",
+      "postalCodes": []
+    },
+    {
+      "name": "Martin",
+      "postalCodes": []
+    },
+    {
+      "name": "Námestovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Nižná",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Bytča",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Čadca",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Dolný Kubín",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Kysucké Nové Mesto",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Liptovský Mikuláš",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Martin",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Namestovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Ružomberok",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Turčianske Teplice",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Tvrdošín",
+      "postalCodes": []
+    },
+    {
+      "name": "Okres Žilina",
+      "postalCodes": []
+    },
+    {
+      "name": "Oravská Lesná",
+      "postalCodes": []
+    },
+    {
+      "name": "Oravský Podzámok",
+      "postalCodes": []
+    },
+    {
+      "name": "Pribylina",
+      "postalCodes": []
+    },
+    {
+      "name": "Rajec",
+      "postalCodes": []
+    },
+    {
+      "name": "Ružomberok",
+      "postalCodes": []
+    },
+    {
+      "name": "Terchová",
+      "postalCodes": []
+    },
+    {
+      "name": "Trstená",
+      "postalCodes": []
+    },
+    {
+      "name": "Turčianske Teplice",
+      "postalCodes": []
+    },
+    {
+      "name": "Turzovka",
+      "postalCodes": []
+    },
+    {
+      "name": "Tvrdošín",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrútky",
+      "postalCodes": []
+    },
+    {
+      "name": "Žilina",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

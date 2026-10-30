@@ -1,0 +1,323 @@
+{
+  "DK": [
+    {
+      "name": "Dakar",
+      "postalCodes": []
+    },
+    {
+      "name": "Dakar Department",
+      "postalCodes": []
+    },
+    {
+      "name": "Guédiawaye Department",
+      "postalCodes": []
+    },
+    {
+      "name": "Mermoz Boabab",
+      "postalCodes": []
+    },
+    {
+      "name": "N’diareme limamoulaye",
+      "postalCodes": []
+    },
+    {
+      "name": "Pikine",
+      "postalCodes": []
+    },
+    {
+      "name": "Pikine Department",
+      "postalCodes": []
+    },
+    {
+      "name": "Rufisque Department",
+      "postalCodes": []
+    }
+  ],
+  "DB": [
+    {
+      "name": "Mbacké",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbaké",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiébo",
+      "postalCodes": []
+    },
+    {
+      "name": "Touba",
+      "postalCodes": []
+    }
+  ],
+  "FK": [
+    {
+      "name": "Diofior",
+      "postalCodes": []
+    },
+    {
+      "name": "Fatick Department",
+      "postalCodes": []
+    },
+    {
+      "name": "Foundiougne",
+      "postalCodes": []
+    },
+    {
+      "name": "Guinguinéo",
+      "postalCodes": []
+    },
+    {
+      "name": "Passi",
+      "postalCodes": []
+    },
+    {
+      "name": "Pourham",
+      "postalCodes": []
+    },
+    {
+      "name": "Sokone",
+      "postalCodes": []
+    }
+  ],
+  "KA": [
+    {
+      "name": "Kaffrine",
+      "postalCodes": []
+    },
+    {
+      "name": "Koungheul",
+      "postalCodes": []
+    }
+  ],
+  "KL": [
+    {
+      "name": "Gandiaye",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaolack",
+      "postalCodes": []
+    },
+    {
+      "name": "Ndofane",
+      "postalCodes": []
+    },
+    {
+      "name": "Nioro du Rip",
+      "postalCodes": []
+    }
+  ],
+  "KE": [
+    {
+      "name": "Département de Salémata",
+      "postalCodes": []
+    },
+    {
+      "name": "Kédougou",
+      "postalCodes": []
+    },
+    {
+      "name": "Kédougou Department",
+      "postalCodes": []
+    },
+    {
+      "name": "Saraya",
+      "postalCodes": []
+    }
+  ],
+  "KD": [
+    {
+      "name": "Kolda",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolda Department",
+      "postalCodes": []
+    },
+    {
+      "name": "Marsassoum",
+      "postalCodes": []
+    },
+    {
+      "name": "Vélingara",
+      "postalCodes": []
+    }
+  ],
+  "LG": [
+    {
+      "name": "Dara",
+      "postalCodes": []
+    },
+    {
+      "name": "Guéoul",
+      "postalCodes": []
+    },
+    {
+      "name": "Linguere Department",
+      "postalCodes": []
+    },
+    {
+      "name": "Louga",
+      "postalCodes": []
+    },
+    {
+      "name": "Ndibène Dahra",
+      "postalCodes": []
+    }
+  ],
+  "MT": [
+    {
+      "name": "Diawara",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanel",
+      "postalCodes": []
+    },
+    {
+      "name": "Matam",
+      "postalCodes": []
+    },
+    {
+      "name": "Matam Department",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouro Sogui",
+      "postalCodes": []
+    },
+    {
+      "name": "Ranérou",
+      "postalCodes": []
+    },
+    {
+      "name": "Sémé",
+      "postalCodes": []
+    },
+    {
+      "name": "Waoundé",
+      "postalCodes": []
+    }
+  ],
+  "SL": [
+    {
+      "name": "Goléré",
+      "postalCodes": []
+    },
+    {
+      "name": "Ndioum",
+      "postalCodes": []
+    },
+    {
+      "name": "Polel Diaoubé",
+      "postalCodes": []
+    },
+    {
+      "name": "Richard-Toll",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosso",
+      "postalCodes": []
+    },
+    {
+      "name": "Saint-Louis",
+      "postalCodes": []
+    }
+  ],
+  "SE": [
+    {
+      "name": "Goudomp Department",
+      "postalCodes": []
+    },
+    {
+      "name": "Sédhiou",
+      "postalCodes": []
+    }
+  ],
+  "TC": [
+    {
+      "name": "Tambacounda",
+      "postalCodes": []
+    },
+    {
+      "name": "Tambacounda Department",
+      "postalCodes": []
+    }
+  ],
+  "TH": [
+    {
+      "name": "Joal-Fadiout",
+      "postalCodes": []
+    },
+    {
+      "name": "Kayar",
+      "postalCodes": []
+    },
+    {
+      "name": "Khombole",
+      "postalCodes": []
+    },
+    {
+      "name": "Mbour",
+      "postalCodes": []
+    },
+    {
+      "name": "Mékhé",
+      "postalCodes": []
+    },
+    {
+      "name": "Nguékhokh",
+      "postalCodes": []
+    },
+    {
+      "name": "Pout",
+      "postalCodes": []
+    },
+    {
+      "name": "Thiès",
+      "postalCodes": []
+    },
+    {
+      "name": "Thiès Nones",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiadiaye",
+      "postalCodes": []
+    },
+    {
+      "name": "Tivaouane",
+      "postalCodes": []
+    },
+    {
+      "name": "Warang",
+      "postalCodes": []
+    }
+  ],
+  "ZG": [
+    {
+      "name": "Adéane",
+      "postalCodes": []
+    },
+    {
+      "name": "Bignona",
+      "postalCodes": []
+    },
+    {
+      "name": "Oussouye",
+      "postalCodes": []
+    },
+    {
+      "name": "Tionk Essil",
+      "postalCodes": []
+    },
+    {
+      "name": "Ziguinchor",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

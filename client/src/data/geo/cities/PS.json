@@ -1,0 +1,41 @@
+{
+  "GZ": [
+    {
+      "name": "Gaza City",
+      "postalCodes": []
+    },
+    {
+      "name": "Khan Yunis",
+      "postalCodes": []
+    },
+    {
+      "name": "Rafah",
+      "postalCodes": []
+    }
+  ],
+  "JEM": [],
+  "RBH": [],
+  "WB": [
+    {
+      "name": "Bethlehem",
+      "postalCodes": []
+    },
+    {
+      "name": "Hebron",
+      "postalCodes": []
+    },
+    {
+      "name": "Jericho",
+      "postalCodes": []
+    },
+    {
+      "name": "Nablus",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramallah",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

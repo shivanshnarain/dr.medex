@@ -1,0 +1,72 @@
+[
+  {
+    "code": "AJ",
+    "name": "Adjara",
+    "countryCode": "GE"
+  },
+  {
+    "code": "AB",
+    "name": "Autonomous Republic of Abkhazia",
+    "countryCode": "GE"
+  },
+  {
+    "code": "GU",
+    "name": "Guria",
+    "countryCode": "GE"
+  },
+  {
+    "code": "IM",
+    "name": "Imereti",
+    "countryCode": "GE"
+  },
+  {
+    "code": "KA",
+    "name": "Kakheti",
+    "countryCode": "GE"
+  },
+  {
+    "code": "29",
+    "name": "Khelvachauri Municipality",
+    "countryCode": "GE"
+  },
+  {
+    "code": "KK",
+    "name": "Kvemo Kartli",
+    "countryCode": "GE"
+  },
+  {
+    "code": "MM",
+    "name": "Mtskheta-Mtianeti",
+    "countryCode": "GE"
+  },
+  {
+    "code": "RL",
+    "name": "Racha-Lechkhumi and Kvemo Svaneti",
+    "countryCode": "GE"
+  },
+  {
+    "code": "SZ",
+    "name": "Samegrelo-Zemo Svaneti",
+    "countryCode": "GE"
+  },
+  {
+    "code": "SJ",
+    "name": "Samtskhe-Javakheti",
+    "countryCode": "GE"
+  },
+  {
+    "code": "50",
+    "name": "Senaki Municipality",
+    "countryCode": "GE"
+  },
+  {
+    "code": "SK",
+    "name": "Shida Kartli",
+    "countryCode": "GE"
+  },
+  {
+    "code": "TB",
+    "name": "Tbilisi",
+    "countryCode": "GE"
+  }
+]

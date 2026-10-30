@@ -1,0 +1,97 @@
+[
+  {
+    "code": "01",
+    "name": "Ba",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "02",
+    "name": "Bua",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "03",
+    "name": "Cakaudrove",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "C",
+    "name": "Central Division",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "E",
+    "name": "Eastern Division",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "04",
+    "name": "Kadavu",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "05",
+    "name": "Lau",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "06",
+    "name": "Lomaiviti",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "07",
+    "name": "Macuata",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "08",
+    "name": "Nadroga-Navosa",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "09",
+    "name": "Naitasiri",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "10",
+    "name": "Namosi",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "N",
+    "name": "Northern Division",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "11",
+    "name": "Ra",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "12",
+    "name": "Rewa",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "R",
+    "name": "Rotuma",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "13",
+    "name": "Serua",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "14",
+    "name": "Tailevu",
+    "countryCode": "FJ"
+  },
+  {
+    "code": "W",
+    "name": "Western Division",
+    "countryCode": "FJ"
+  }
+]

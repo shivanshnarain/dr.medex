@@ -1,0 +1,78 @@
+{
+  "ZA": [],
+  "KH": [
+    {
+      "name": "Al Ghuwayrīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Khawr",
+      "postalCodes": []
+    }
+  ],
+  "RA": [
+    {
+      "name": "Ar Rayyān",
+      "postalCodes": []
+    },
+    {
+      "name": "Umm Bāb",
+      "postalCodes": []
+    }
+  ],
+  "WA": [
+    {
+      "name": "Al Wakrah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Wukayr",
+      "postalCodes": []
+    },
+    {
+      "name": "Musay‘īd",
+      "postalCodes": []
+    }
+  ],
+  "SH": [
+    {
+      "name": "Al Jumaylīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Ash Shīḩānīyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Dukhān",
+      "postalCodes": []
+    }
+  ],
+  "DA": [
+    {
+      "name": "Doha",
+      "postalCodes": []
+    }
+  ],
+  "MS": [
+    {
+      "name": "Ar Ruways",
+      "postalCodes": []
+    },
+    {
+      "name": "Fuwayriţ",
+      "postalCodes": []
+    },
+    {
+      "name": "Madīnat ash Shamāl",
+      "postalCodes": []
+    }
+  ],
+  "US": [
+    {
+      "name": "Umm Şalāl Muḩammad",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

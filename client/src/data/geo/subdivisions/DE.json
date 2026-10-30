@@ -1,0 +1,82 @@
+[
+  {
+    "code": "BW",
+    "name": "Baden-Württemberg",
+    "countryCode": "DE"
+  },
+  {
+    "code": "BY",
+    "name": "Bavaria",
+    "countryCode": "DE"
+  },
+  {
+    "code": "BE",
+    "name": "Berlin",
+    "countryCode": "DE"
+  },
+  {
+    "code": "BB",
+    "name": "Brandenburg",
+    "countryCode": "DE"
+  },
+  {
+    "code": "HB",
+    "name": "Bremen",
+    "countryCode": "DE"
+  },
+  {
+    "code": "HH",
+    "name": "Hamburg",
+    "countryCode": "DE"
+  },
+  {
+    "code": "HE",
+    "name": "Hesse",
+    "countryCode": "DE"
+  },
+  {
+    "code": "NI",
+    "name": "Lower Saxony",
+    "countryCode": "DE"
+  },
+  {
+    "code": "MV",
+    "name": "Mecklenburg-Vorpommern",
+    "countryCode": "DE"
+  },
+  {
+    "code": "NW",
+    "name": "North Rhine-Westphalia",
+    "countryCode": "DE"
+  },
+  {
+    "code": "RP",
+    "name": "Rhineland-Palatinate",
+    "countryCode": "DE"
+  },
+  {
+    "code": "SL",
+    "name": "Saarland",
+    "countryCode": "DE"
+  },
+  {
+    "code": "SN",
+    "name": "Saxony",
+    "countryCode": "DE"
+  },
+  {
+    "code": "ST",
+    "name": "Saxony-Anhalt",
+    "countryCode": "DE"
+  },
+  {
+    "code": "SH",
+    "name": "Schleswig-Holstein",
+    "countryCode": "DE"
+  },
+  {
+    "code": "TH",
+    "name": "Thuringia",
+    "countryCode": "DE"
+  }
+]

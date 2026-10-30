@@ -1,0 +1,47 @@
+[
+  {
+    "code": "1",
+    "name": "Estuaire Province",
+    "countryCode": "GA"
+  },
+  {
+    "code": "2",
+    "name": "Haut-Ogooué Province",
+    "countryCode": "GA"
+  },
+  {
+    "code": "3",
+    "name": "Moyen-Ogooué Province",
+    "countryCode": "GA"
+  },
+  {
+    "code": "4",
+    "name": "Ngounié Province",
+    "countryCode": "GA"
+  },
+  {
+    "code": "5",
+    "name": "Nyanga Province",
+    "countryCode": "GA"
+  },
+  {
+    "code": "6",
+    "name": "Ogooué-Ivindo Province",
+    "countryCode": "GA"
+  },
+  {
+    "code": "7",
+    "name": "Ogooué-Lolo Province",
+    "countryCode": "GA"
+  },
+  {
+    "code": "8",
+    "name": "Ogooué-Maritime Province",
+    "countryCode": "GA"
+  },
+  {
+    "code": "9",
+    "name": "Woleu-Ntem Province",
+    "countryCode": "GA"
+  }
+]

@@ -1,0 +1,933 @@
+{
+  "B": [
+    {
+      "name": "Guayaramerín",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Cercado",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia General José Ballivián",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Iténez",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Mamoré",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Marbán",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Moxos",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Vaca Diez",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Yacuma",
+      "postalCodes": []
+    },
+    {
+      "name": "Reyes",
+      "postalCodes": []
+    },
+    {
+      "name": "Riberalta",
+      "postalCodes": []
+    },
+    {
+      "name": "Rurrenabaque",
+      "postalCodes": []
+    },
+    {
+      "name": "San Borja",
+      "postalCodes": []
+    },
+    {
+      "name": "San Ramón",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Ana de Yacuma",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Trinidad",
+      "postalCodes": []
+    }
+  ],
+  "H": [
+    {
+      "name": "Camargo",
+      "postalCodes": []
+    },
+    {
+      "name": "Monteagudo",
+      "postalCodes": []
+    },
+    {
+      "name": "Padilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Azurduy",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Belisario Boeto",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Hernando Siles",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Luis Calvo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Nor Cinti",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Oropeza",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Sud Cinti",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Tomina",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Yamparáez",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Zudáñez",
+      "postalCodes": []
+    },
+    {
+      "name": "Sucre",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarabuco",
+      "postalCodes": []
+    }
+  ],
+  "C": [
+    {
+      "name": "Aiquile",
+      "postalCodes": []
+    },
+    {
+      "name": "Arani",
+      "postalCodes": []
+    },
+    {
+      "name": "Bolivar",
+      "postalCodes": []
+    },
+    {
+      "name": "Capinota",
+      "postalCodes": []
+    },
+    {
+      "name": "Chimoré",
+      "postalCodes": []
+    },
+    {
+      "name": "Cliza",
+      "postalCodes": []
+    },
+    {
+      "name": "Cochabamba",
+      "postalCodes": []
+    },
+    {
+      "name": "Colchani",
+      "postalCodes": []
+    },
+    {
+      "name": "Colomi",
+      "postalCodes": []
+    },
+    {
+      "name": "Independencia",
+      "postalCodes": []
+    },
+    {
+      "name": "Irpa Irpa",
+      "postalCodes": []
+    },
+    {
+      "name": "Mizque",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Arani",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Arque",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Ayopaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Campero",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Capinota",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Carrasco",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Cercado",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Chaparé",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Esteban Arce",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Germán Jordán",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Mizque",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Punata",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Quillacollo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Tapacarí",
+      "postalCodes": []
+    },
+    {
+      "name": "Punata",
+      "postalCodes": []
+    },
+    {
+      "name": "Quillacollo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sacaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Sipe Sipe",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarata",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiquipaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiraque Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Totora",
+      "postalCodes": []
+    }
+  ],
+  "L": [
+    {
+      "name": "Achacachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Amarete",
+      "postalCodes": []
+    },
+    {
+      "name": "Batallas",
+      "postalCodes": []
+    },
+    {
+      "name": "Caranavi",
+      "postalCodes": []
+    },
+    {
+      "name": "Chulumani",
+      "postalCodes": []
+    },
+    {
+      "name": "Colquiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Coripata",
+      "postalCodes": []
+    },
+    {
+      "name": "Coroico",
+      "postalCodes": []
+    },
+    {
+      "name": "Curahuara de Carangas",
+      "postalCodes": []
+    },
+    {
+      "name": "Eucaliptus",
+      "postalCodes": []
+    },
+    {
+      "name": "Guanay",
+      "postalCodes": []
+    },
+    {
+      "name": "Huarina",
+      "postalCodes": []
+    },
+    {
+      "name": "Huatajata",
+      "postalCodes": []
+    },
+    {
+      "name": "José Manuel Pando",
+      "postalCodes": []
+    },
+    {
+      "name": "La Paz",
+      "postalCodes": []
+    },
+    {
+      "name": "Lahuachaca",
+      "postalCodes": []
+    },
+    {
+      "name": "Mapiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Patacamaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Aroma",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Bautista Saavedra",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Camacho",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Franz Tamayo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Gualberto Villarroel",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Ingavi",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Inquisivi",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Iturralde",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Larecaja",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Loayza",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Los Andes",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Manco Kapac",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Muñecas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Murillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Nor Yungas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Omasuyos",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Pacajes",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Sud Yungas",
+      "postalCodes": []
+    },
+    {
+      "name": "Quime",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pablo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro",
+      "postalCodes": []
+    },
+    {
+      "name": "Sorata",
+      "postalCodes": []
+    },
+    {
+      "name": "Tiahuanaco",
+      "postalCodes": []
+    },
+    {
+      "name": "Viloco",
+      "postalCodes": []
+    },
+    {
+      "name": "Yumani",
+      "postalCodes": []
+    }
+  ],
+  "O": [
+    {
+      "name": "Challapata",
+      "postalCodes": []
+    },
+    {
+      "name": "Huanuni",
+      "postalCodes": []
+    },
+    {
+      "name": "Litoral de Atacama",
+      "postalCodes": []
+    },
+    {
+      "name": "Machacamarca",
+      "postalCodes": []
+    },
+    {
+      "name": "Nor Carangas Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Oruro",
+      "postalCodes": []
+    },
+    {
+      "name": "Poopó",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Avaroa",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Carangas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Cercado",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Ladislao Cabrera",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Pantaleón Dalence",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Poopó",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Sabaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Sajama",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia San Pedro de Totora",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Saucari",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Tomás Barron",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto de Mejillones",
+      "postalCodes": []
+    },
+    {
+      "name": "Sebastian Pagador Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Sud Carangas Province",
+      "postalCodes": []
+    },
+    {
+      "name": "Totoral",
+      "postalCodes": []
+    }
+  ],
+  "N": [
+    {
+      "name": "Cobija",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Abuná",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia General Federico Román",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Madre de Dios",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Manuripi",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Nicolás Suárez",
+      "postalCodes": []
+    }
+  ],
+  "P": [
+    {
+      "name": "Atocha",
+      "postalCodes": []
+    },
+    {
+      "name": "Betanzos",
+      "postalCodes": []
+    },
+    {
+      "name": "Colchani",
+      "postalCodes": []
+    },
+    {
+      "name": "Colquechaca",
+      "postalCodes": []
+    },
+    {
+      "name": "Enrique Baldivieso",
+      "postalCodes": []
+    },
+    {
+      "name": "Llallagua",
+      "postalCodes": []
+    },
+    {
+      "name": "Potosí",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Alonzo de Ibáñez",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Charcas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Chayanta",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Daniel Campos",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia General Bilbao",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Linares",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Modesto Omiste",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Nor Chichas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Nor Lípez",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Quijarro",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Rafael Bustillo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Saavedra",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Sud Chichas",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Sud Lípez",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Tomás Frías",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Bárbara",
+      "postalCodes": []
+    },
+    {
+      "name": "Tupiza",
+      "postalCodes": []
+    },
+    {
+      "name": "Uyuni",
+      "postalCodes": []
+    },
+    {
+      "name": "Villazón",
+      "postalCodes": []
+    }
+  ],
+  "S": [
+    {
+      "name": "Abapó",
+      "postalCodes": []
+    },
+    {
+      "name": "Ascención de Guarayos",
+      "postalCodes": []
+    },
+    {
+      "name": "Ascensión",
+      "postalCodes": []
+    },
+    {
+      "name": "Boyuibe",
+      "postalCodes": []
+    },
+    {
+      "name": "Buena Vista",
+      "postalCodes": []
+    },
+    {
+      "name": "Camiri",
+      "postalCodes": []
+    },
+    {
+      "name": "Charagua",
+      "postalCodes": []
+    },
+    {
+      "name": "Comarapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Concepción",
+      "postalCodes": []
+    },
+    {
+      "name": "Cotoca",
+      "postalCodes": []
+    },
+    {
+      "name": "German Busch",
+      "postalCodes": []
+    },
+    {
+      "name": "Guarayos",
+      "postalCodes": []
+    },
+    {
+      "name": "Jorochito",
+      "postalCodes": []
+    },
+    {
+      "name": "La Bélgica",
+      "postalCodes": []
+    },
+    {
+      "name": "Limoncito",
+      "postalCodes": []
+    },
+    {
+      "name": "Los Negros",
+      "postalCodes": []
+    },
+    {
+      "name": "Mairana",
+      "postalCodes": []
+    },
+    {
+      "name": "Mineros",
+      "postalCodes": []
+    },
+    {
+      "name": "Montero",
+      "postalCodes": []
+    },
+    {
+      "name": "Okinawa Número Uno",
+      "postalCodes": []
+    },
+    {
+      "name": "Pailón",
+      "postalCodes": []
+    },
+    {
+      "name": "Paurito",
+      "postalCodes": []
+    },
+    {
+      "name": "Portachuelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Andrés Ibáñez",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Ángel Sandoval",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Chiquitos",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Cordillera",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Florida",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Ichilo",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Manuel María Caballero",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Ñuflo de Chávez",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Santiesteban",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Sara",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Vallegrande",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Velasco",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Warnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto Quijarro",
+      "postalCodes": []
+    },
+    {
+      "name": "Puesto de Pailas",
+      "postalCodes": []
+    },
+    {
+      "name": "Roboré",
+      "postalCodes": []
+    },
+    {
+      "name": "Samaipata",
+      "postalCodes": []
+    },
+    {
+      "name": "San Carlos",
+      "postalCodes": []
+    },
+    {
+      "name": "San Ignacio de Velasco",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan del Surutú",
+      "postalCodes": []
+    },
+    {
+      "name": "San Julian",
+      "postalCodes": []
+    },
+    {
+      "name": "San Matías",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Cruz de la Sierra",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rita",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rosa del Sara",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago del Torno",
+      "postalCodes": []
+    },
+    {
+      "name": "Urubichá",
+      "postalCodes": []
+    },
+    {
+      "name": "Vallegrande",
+      "postalCodes": []
+    },
+    {
+      "name": "Villa Yapacaní",
+      "postalCodes": []
+    },
+    {
+      "name": "Warnes",
+      "postalCodes": []
+    }
+  ],
+  "T": [
+    {
+      "name": "Bermejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Entre Ríos",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Arce",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Avilez",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Cercado",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Gran Chaco",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia Méndez",
+      "postalCodes": []
+    },
+    {
+      "name": "Provincia O’Connor",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarija",
+      "postalCodes": []
+    },
+    {
+      "name": "Villamontes",
+      "postalCodes": []
+    },
+    {
+      "name": "Yacuiba",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

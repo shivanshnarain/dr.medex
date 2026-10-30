@@ -1,0 +1,87 @@
+[
+  {
+    "code": "BGO",
+    "name": "Bengo Province",
+    "countryCode": "AO"
+  },
+  {
+    "code": "BGU",
+    "name": "Benguela Province",
+    "countryCode": "AO"
+  },
+  {
+    "code": "BIE",
+    "name": "Bié Province",
+    "countryCode": "AO"
+  },
+  {
+    "code": "CAB",
+    "name": "Cabinda Province",
+    "countryCode": "AO"
+  },
+  {
+    "code": "CCU",
+    "name": "Cuando Cubango Province",
+    "countryCode": "AO"
+  },
+  {
+    "code": "CNO",
+    "name": "Cuanza Norte Province",
+    "countryCode": "AO"
+  },
+  {
+    "code": "CUS",
+    "name": "Cuanza Sul",
+    "countryCode": "AO"
+  },
+  {
+    "code": "CNN",
+    "name": "Cunene Province",
+    "countryCode": "AO"
+  },
+  {
+    "code": "HUA",
+    "name": "Huambo Province",
+    "countryCode": "AO"
+  },
+  {
+    "code": "HUI",
+    "name": "Huíla Province",
+    "countryCode": "AO"
+  },
+  {
+    "code": "LUA",
+    "name": "Luanda Province",
+    "countryCode": "AO"
+  },
+  {
+    "code": "LNO",
+    "name": "Lunda Norte Province",
+    "countryCode": "AO"
+  },
+  {
+    "code": "LSU",
+    "name": "Lunda Sul Province",
+    "countryCode": "AO"
+  },
+  {
+    "code": "MAL",
+    "name": "Malanje Province",
+    "countryCode": "AO"
+  },
+  {
+    "code": "MOX",
+    "name": "Moxico Province",
+    "countryCode": "AO"
+  },
+  {
+    "code": "UIG",
+    "name": "Uíge Province",
+    "countryCode": "AO"
+  },
+  {
+    "code": "ZAI",
+    "name": "Zaire Province",
+    "countryCode": "AO"
+  }
+]

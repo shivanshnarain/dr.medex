@@ -1,0 +1,1659 @@
+{
+  "100": [
+    {
+      "name": "Radenci",
+      "postalCodes": []
+    }
+  ],
+  "101": [
+    {
+      "name": "Radlje ob Dravi",
+      "postalCodes": []
+    }
+  ],
+  "102": [
+    {
+      "name": "Lesce",
+      "postalCodes": []
+    },
+    {
+      "name": "Radovljica",
+      "postalCodes": []
+    }
+  ],
+  "103": [
+    {
+      "name": "Kotlje",
+      "postalCodes": []
+    },
+    {
+      "name": "Ravne na Koroškem",
+      "postalCodes": []
+    }
+  ],
+  "104": [
+    {
+      "name": "Ribnica",
+      "postalCodes": []
+    }
+  ],
+  "105": [
+    {
+      "name": "Rogašovci",
+      "postalCodes": []
+    }
+  ],
+  "106": [
+    {
+      "name": "Rogaška Slatina",
+      "postalCodes": []
+    }
+  ],
+  "107": [
+    {
+      "name": "Rogatec",
+      "postalCodes": []
+    }
+  ],
+  "108": [
+    {
+      "name": "Bistrica ob Dravi",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruše",
+      "postalCodes": []
+    }
+  ],
+  "109": [
+    {
+      "name": "Semič",
+      "postalCodes": []
+    }
+  ],
+  "110": [
+    {
+      "name": "Sevnica",
+      "postalCodes": []
+    }
+  ],
+  "111": [
+    {
+      "name": "Sežana",
+      "postalCodes": []
+    }
+  ],
+  "112": [
+    {
+      "name": "Legen",
+      "postalCodes": []
+    },
+    {
+      "name": "Pameče",
+      "postalCodes": []
+    },
+    {
+      "name": "Slovenj Gradec",
+      "postalCodes": []
+    },
+    {
+      "name": "Šmartno pri Slovenj Gradcu",
+      "postalCodes": []
+    }
+  ],
+  "113": [
+    {
+      "name": "Pragersko",
+      "postalCodes": []
+    },
+    {
+      "name": "Slovenska Bistrica",
+      "postalCodes": []
+    },
+    {
+      "name": "Zgornja Polskava",
+      "postalCodes": []
+    }
+  ],
+  "114": [
+    {
+      "name": "Slovenske Konjice",
+      "postalCodes": []
+    }
+  ],
+  "115": [
+    {
+      "name": "Starše",
+      "postalCodes": []
+    }
+  ],
+  "116": [],
+  "117": [
+    {
+      "name": "Hrastje",
+      "postalCodes": []
+    },
+    {
+      "name": "Šenčur",
+      "postalCodes": []
+    }
+  ],
+  "118": [
+    {
+      "name": "Selnica ob Muri",
+      "postalCodes": []
+    },
+    {
+      "name": "Šentilj v Slov. Goricah",
+      "postalCodes": []
+    }
+  ],
+  "119": [
+    {
+      "name": "Šentjernej",
+      "postalCodes": []
+    }
+  ],
+  "120": [
+    {
+      "name": "Šentjur",
+      "postalCodes": []
+    }
+  ],
+  "121": [
+    {
+      "name": "Škocjan",
+      "postalCodes": []
+    }
+  ],
+  "122": [
+    {
+      "name": "Škofja Loka",
+      "postalCodes": []
+    },
+    {
+      "name": "Sv. Duh",
+      "postalCodes": []
+    }
+  ],
+  "123": [
+    {
+      "name": "Lavrica",
+      "postalCodes": []
+    },
+    {
+      "name": "Škofljica",
+      "postalCodes": []
+    }
+  ],
+  "124": [
+    {
+      "name": "Šmarje pri Jelšah",
+      "postalCodes": []
+    }
+  ],
+  "125": [
+    {
+      "name": "Šmartno ob Paki",
+      "postalCodes": []
+    }
+  ],
+  "126": [
+    {
+      "name": "Ravne",
+      "postalCodes": []
+    },
+    {
+      "name": "Šoštanj",
+      "postalCodes": []
+    },
+    {
+      "name": "Topolšica",
+      "postalCodes": []
+    }
+  ],
+  "127": [
+    {
+      "name": "Štore",
+      "postalCodes": []
+    }
+  ],
+  "128": [
+    {
+      "name": "Tolmin",
+      "postalCodes": []
+    }
+  ],
+  "129": [
+    {
+      "name": "Trbovlje",
+      "postalCodes": []
+    }
+  ],
+  "130": [
+    {
+      "name": "Trebnje",
+      "postalCodes": []
+    }
+  ],
+  "131": [
+    {
+      "name": "Bistrica pri Tržiču",
+      "postalCodes": []
+    },
+    {
+      "name": "Tržič",
+      "postalCodes": []
+    }
+  ],
+  "132": [
+    {
+      "name": "Turnišče",
+      "postalCodes": []
+    }
+  ],
+  "134": [
+    {
+      "name": "Velike Lašče",
+      "postalCodes": []
+    }
+  ],
+  "135": [
+    {
+      "name": "Videm pri Ptuju",
+      "postalCodes": []
+    }
+  ],
+  "136": [
+    {
+      "name": "Vipava",
+      "postalCodes": []
+    }
+  ],
+  "137": [
+    {
+      "name": "Vitanje",
+      "postalCodes": []
+    }
+  ],
+  "138": [
+    {
+      "name": "Vodice",
+      "postalCodes": []
+    }
+  ],
+  "139": [
+    {
+      "name": "Vojnik",
+      "postalCodes": []
+    }
+  ],
+  "140": [
+    {
+      "name": "Verd",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrhnika",
+      "postalCodes": []
+    }
+  ],
+  "141": [
+    {
+      "name": "Vuzenica",
+      "postalCodes": []
+    }
+  ],
+  "142": [
+    {
+      "name": "Izlake",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisovec",
+      "postalCodes": []
+    },
+    {
+      "name": "Zagorje ob Savi",
+      "postalCodes": []
+    }
+  ],
+  "143": [
+    {
+      "name": "Zavrč",
+      "postalCodes": []
+    }
+  ],
+  "144": [
+    {
+      "name": "Zreče",
+      "postalCodes": []
+    }
+  ],
+  "146": [
+    {
+      "name": "Železniki",
+      "postalCodes": []
+    }
+  ],
+  "147": [
+    {
+      "name": "Žiri",
+      "postalCodes": []
+    }
+  ],
+  "148": [
+    {
+      "name": "Benedikt",
+      "postalCodes": []
+    }
+  ],
+  "149": [
+    {
+      "name": "Bistrica ob Sotli",
+      "postalCodes": []
+    }
+  ],
+  "150": [
+    {
+      "name": "Nova Vas",
+      "postalCodes": []
+    }
+  ],
+  "151": [
+    {
+      "name": "Braslovče",
+      "postalCodes": []
+    }
+  ],
+  "152": [
+    {
+      "name": "Cankova",
+      "postalCodes": []
+    }
+  ],
+  "153": [
+    {
+      "name": "Cerkvenjak",
+      "postalCodes": []
+    }
+  ],
+  "154": [
+    {
+      "name": "Dobje pri Planini",
+      "postalCodes": []
+    }
+  ],
+  "155": [
+    {
+      "name": "Dobrna",
+      "postalCodes": []
+    }
+  ],
+  "156": [
+    {
+      "name": "Dobrovnik",
+      "postalCodes": []
+    }
+  ],
+  "157": [
+    {
+      "name": "Dolenjske Toplice",
+      "postalCodes": []
+    }
+  ],
+  "158": [
+    {
+      "name": "Grad",
+      "postalCodes": []
+    }
+  ],
+  "159": [
+    {
+      "name": "Spodnja Hajdina",
+      "postalCodes": []
+    }
+  ],
+  "160": [
+    {
+      "name": "Hotinja Vas",
+      "postalCodes": []
+    },
+    {
+      "name": "Radizel",
+      "postalCodes": []
+    },
+    {
+      "name": "Rogoza",
+      "postalCodes": []
+    },
+    {
+      "name": "Spodnje Hoče",
+      "postalCodes": []
+    }
+  ],
+  "161": [
+    {
+      "name": "Hodoš",
+      "postalCodes": []
+    }
+  ],
+  "162": [
+    {
+      "name": "Horjul",
+      "postalCodes": []
+    }
+  ],
+  "163": [
+    {
+      "name": "Zgornje Jezersko",
+      "postalCodes": []
+    }
+  ],
+  "164": [
+    {
+      "name": "Komenda",
+      "postalCodes": []
+    },
+    {
+      "name": "Moste",
+      "postalCodes": []
+    }
+  ],
+  "165": [
+    {
+      "name": "Kostel",
+      "postalCodes": []
+    }
+  ],
+  "166": [
+    {
+      "name": "Križevci pri Ljutomeru",
+      "postalCodes": []
+    }
+  ],
+  "167": [
+    {
+      "name": "Lovrenc na Pohorju",
+      "postalCodes": []
+    }
+  ],
+  "168": [
+    {
+      "name": "Markovci",
+      "postalCodes": []
+    }
+  ],
+  "169": [
+    {
+      "name": "Miklavž na Dravskem Polju",
+      "postalCodes": []
+    }
+  ],
+  "170": [
+    {
+      "name": "Mirna Peč",
+      "postalCodes": []
+    }
+  ],
+  "171": [
+    {
+      "name": "Oplotnica",
+      "postalCodes": []
+    }
+  ],
+  "172": [
+    {
+      "name": "Podlehnik",
+      "postalCodes": []
+    }
+  ],
+  "173": [
+    {
+      "name": "Polzela",
+      "postalCodes": []
+    }
+  ],
+  "174": [
+    {
+      "name": "Prebold",
+      "postalCodes": []
+    }
+  ],
+  "175": [
+    {
+      "name": "Prevalje",
+      "postalCodes": []
+    }
+  ],
+  "176": [
+    {
+      "name": "Razkrižje",
+      "postalCodes": []
+    }
+  ],
+  "177": [
+    {
+      "name": "Ribnica na Pohorju",
+      "postalCodes": []
+    }
+  ],
+  "178": [
+    {
+      "name": "Selnica ob Dravi",
+      "postalCodes": []
+    }
+  ],
+  "179": [
+    {
+      "name": "Sodražica",
+      "postalCodes": []
+    }
+  ],
+  "180": [
+    {
+      "name": "Solčava",
+      "postalCodes": []
+    }
+  ],
+  "181": [
+    {
+      "name": "Sv. Ana v Slov. Goricah",
+      "postalCodes": []
+    }
+  ],
+  "182": [
+    {
+      "name": "Vitomarci",
+      "postalCodes": []
+    }
+  ],
+  "183": [
+    {
+      "name": "Rožna Dolina",
+      "postalCodes": []
+    },
+    {
+      "name": "Šempeter pri Gorici",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrtojba",
+      "postalCodes": []
+    }
+  ],
+  "184": [
+    {
+      "name": "Tabor",
+      "postalCodes": []
+    }
+  ],
+  "185": [
+    {
+      "name": "Trnovska Vas",
+      "postalCodes": []
+    }
+  ],
+  "186": [
+    {
+      "name": "Črnuče District",
+      "postalCodes": []
+    },
+    {
+      "name": "Trzin",
+      "postalCodes": []
+    }
+  ],
+  "187": [
+    {
+      "name": "Velika Polana",
+      "postalCodes": []
+    }
+  ],
+  "188": [
+    {
+      "name": "Veržej",
+      "postalCodes": []
+    }
+  ],
+  "189": [
+    {
+      "name": "Vransko",
+      "postalCodes": []
+    }
+  ],
+  "190": [
+    {
+      "name": "Gotovlje",
+      "postalCodes": []
+    },
+    {
+      "name": "Šempeter v Savinj. Dolini",
+      "postalCodes": []
+    },
+    {
+      "name": "Zabukovica",
+      "postalCodes": []
+    },
+    {
+      "name": "Žalec",
+      "postalCodes": []
+    }
+  ],
+  "191": [
+    {
+      "name": "Žetale",
+      "postalCodes": []
+    }
+  ],
+  "192": [
+    {
+      "name": "Žirovnica",
+      "postalCodes": []
+    }
+  ],
+  "193": [
+    {
+      "name": "Žužemberk",
+      "postalCodes": []
+    }
+  ],
+  "194": [
+    {
+      "name": "Šmartno pri Litiji",
+      "postalCodes": []
+    }
+  ],
+  "195": [
+    {
+      "name": "Apače",
+      "postalCodes": []
+    }
+  ],
+  "196": [],
+  "197": [],
+  "198": [],
+  "199": [],
+  "200": [],
+  "201": [
+    {
+      "name": "Renče",
+      "postalCodes": []
+    },
+    {
+      "name": "Volčja Draga",
+      "postalCodes": []
+    }
+  ],
+  "202": [
+    {
+      "name": "Središče ob Dravi",
+      "postalCodes": []
+    }
+  ],
+  "203": [
+    {
+      "name": "Straža",
+      "postalCodes": []
+    }
+  ],
+  "204": [
+    {
+      "name": "Sv. Trojica v Slov. Goricah",
+      "postalCodes": []
+    }
+  ],
+  "205": [
+    {
+      "name": "Sveti Tomaž",
+      "postalCodes": []
+    }
+  ],
+  "206": [
+    {
+      "name": "Šmarjeta",
+      "postalCodes": []
+    }
+  ],
+  "207": [],
+  "208": [],
+  "209": [],
+  "210": [
+    {
+      "name": "Sveti Jurij ob Ščavnici",
+      "postalCodes": []
+    }
+  ],
+  "211": [
+    {
+      "name": "Šentrupert",
+      "postalCodes": []
+    }
+  ],
+  "212": [],
+  "213": [
+    {
+      "name": "Ankaran",
+      "postalCodes": []
+    }
+  ],
+  "001": [
+    {
+      "name": "Ajdovščina",
+      "postalCodes": []
+    },
+    {
+      "name": "Cirkulane",
+      "postalCodes": []
+    },
+    {
+      "name": "Lokavec",
+      "postalCodes": []
+    }
+  ],
+  "002": [
+    {
+      "name": "Beltinci",
+      "postalCodes": []
+    },
+    {
+      "name": "Gančani",
+      "postalCodes": []
+    },
+    {
+      "name": "Lipovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Zgornje Gorje",
+      "postalCodes": []
+    }
+  ],
+  "003": [
+    {
+      "name": "Bled",
+      "postalCodes": []
+    },
+    {
+      "name": "Kostanjevica na Krki",
+      "postalCodes": []
+    },
+    {
+      "name": "Zasip",
+      "postalCodes": []
+    }
+  ],
+  "004": [
+    {
+      "name": "Bohinjska Bistrica",
+      "postalCodes": []
+    },
+    {
+      "name": "Dragomer",
+      "postalCodes": []
+    },
+    {
+      "name": "Log pri Brezovici",
+      "postalCodes": []
+    }
+  ],
+  "005": [
+    {
+      "name": "Borovnica",
+      "postalCodes": []
+    },
+    {
+      "name": "Makole",
+      "postalCodes": []
+    }
+  ],
+  "006": [
+    {
+      "name": "Bovec",
+      "postalCodes": []
+    },
+    {
+      "name": "Mirna",
+      "postalCodes": []
+    }
+  ],
+  "007": [
+    {
+      "name": "Dobrovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Mokronog",
+      "postalCodes": []
+    }
+  ],
+  "009": [
+    {
+      "name": "Brežice",
+      "postalCodes": []
+    },
+    {
+      "name": "Poljčane",
+      "postalCodes": []
+    }
+  ],
+  "008": [
+    {
+      "name": "Brezovica pri Ljubljani",
+      "postalCodes": []
+    },
+    {
+      "name": "Notranje Gorice",
+      "postalCodes": []
+    },
+    {
+      "name": "Opština Ljubljana-Vič-Rudnik",
+      "postalCodes": []
+    },
+    {
+      "name": "Rečica ob Savinji",
+      "postalCodes": []
+    },
+    {
+      "name": "Vnanje Gorice",
+      "postalCodes": []
+    }
+  ],
+  "012": [
+    {
+      "name": "Cerklje na Gorenjskem",
+      "postalCodes": []
+    }
+  ],
+  "013": [
+    {
+      "name": "Cerknica",
+      "postalCodes": []
+    },
+    {
+      "name": "Rakek",
+      "postalCodes": []
+    }
+  ],
+  "014": [
+    {
+      "name": "Cerkno",
+      "postalCodes": []
+    }
+  ],
+  "011": [
+    {
+      "name": "Celje",
+      "postalCodes": []
+    },
+    {
+      "name": "Ljubečna",
+      "postalCodes": []
+    },
+    {
+      "name": "Trnovlje pri Celju",
+      "postalCodes": []
+    }
+  ],
+  "085": [
+    {
+      "name": "Novo Mesto",
+      "postalCodes": []
+    }
+  ],
+  "015": [
+    {
+      "name": "Črenšovci",
+      "postalCodes": []
+    }
+  ],
+  "016": [
+    {
+      "name": "Črna na Koroškem",
+      "postalCodes": []
+    }
+  ],
+  "017": [
+    {
+      "name": "Črnomelj",
+      "postalCodes": []
+    }
+  ],
+  "018": [
+    {
+      "name": "Destrnik",
+      "postalCodes": []
+    }
+  ],
+  "019": [
+    {
+      "name": "Divača",
+      "postalCodes": []
+    }
+  ],
+  "020": [
+    {
+      "name": "Videm",
+      "postalCodes": []
+    }
+  ],
+  "021": [
+    {
+      "name": "Dobrova",
+      "postalCodes": []
+    }
+  ],
+  "022": [
+    {
+      "name": "Dol pri Ljubljani",
+      "postalCodes": []
+    }
+  ],
+  "023": [
+    {
+      "name": "Dob",
+      "postalCodes": []
+    },
+    {
+      "name": "Domžale",
+      "postalCodes": []
+    },
+    {
+      "name": "Radomlje",
+      "postalCodes": []
+    },
+    {
+      "name": "Vir",
+      "postalCodes": []
+    }
+  ],
+  "024": [
+    {
+      "name": "Dornava",
+      "postalCodes": []
+    }
+  ],
+  "025": [
+    {
+      "name": "Dravograd",
+      "postalCodes": []
+    }
+  ],
+  "026": [
+    {
+      "name": "Spodnji Duplek",
+      "postalCodes": []
+    },
+    {
+      "name": "Zgornji Duplek",
+      "postalCodes": []
+    }
+  ],
+  "027": [
+    {
+      "name": "Gorenja Vas",
+      "postalCodes": []
+    }
+  ],
+  "028": [
+    {
+      "name": "Gorišnica",
+      "postalCodes": []
+    }
+  ],
+  "029": [
+    {
+      "name": "Gornja Radgona",
+      "postalCodes": []
+    }
+  ],
+  "030": [
+    {
+      "name": "Gornji Grad",
+      "postalCodes": []
+    }
+  ],
+  "031": [
+    {
+      "name": "Gornji Petrovci",
+      "postalCodes": []
+    }
+  ],
+  "032": [
+    {
+      "name": "Grosuplje",
+      "postalCodes": []
+    },
+    {
+      "name": "Šmarje-Sap",
+      "postalCodes": []
+    }
+  ],
+  "034": [
+    {
+      "name": "Dol pri Hrastniku",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrastnik",
+      "postalCodes": []
+    }
+  ],
+  "035": [
+    {
+      "name": "Kozina",
+      "postalCodes": []
+    }
+  ],
+  "036": [
+    {
+      "name": "Idrija",
+      "postalCodes": []
+    },
+    {
+      "name": "Spodnja Idrija",
+      "postalCodes": []
+    }
+  ],
+  "037": [
+    {
+      "name": "Ig",
+      "postalCodes": []
+    }
+  ],
+  "039": [
+    {
+      "name": "Ivančna Gorica",
+      "postalCodes": []
+    },
+    {
+      "name": "Šentvid pri Stični",
+      "postalCodes": []
+    }
+  ],
+  "040": [
+    {
+      "name": "Izola",
+      "postalCodes": []
+    },
+    {
+      "name": "Jagodje",
+      "postalCodes": []
+    }
+  ],
+  "041": [
+    {
+      "name": "Hrušica",
+      "postalCodes": []
+    },
+    {
+      "name": "Jesenice",
+      "postalCodes": []
+    },
+    {
+      "name": "Koroška Bela",
+      "postalCodes": []
+    },
+    {
+      "name": "Slovenski Javornik",
+      "postalCodes": []
+    }
+  ],
+  "042": [
+    {
+      "name": "Juršinci",
+      "postalCodes": []
+    }
+  ],
+  "043": [
+    {
+      "name": "Kamnik",
+      "postalCodes": []
+    },
+    {
+      "name": "Mekinje",
+      "postalCodes": []
+    },
+    {
+      "name": "Šmarca",
+      "postalCodes": []
+    }
+  ],
+  "044": [
+    {
+      "name": "Deskle",
+      "postalCodes": []
+    },
+    {
+      "name": "Kanal",
+      "postalCodes": []
+    }
+  ],
+  "045": [
+    {
+      "name": "Kidričevo",
+      "postalCodes": []
+    }
+  ],
+  "046": [
+    {
+      "name": "Kobarid",
+      "postalCodes": []
+    }
+  ],
+  "047": [
+    {
+      "name": "Kobilje",
+      "postalCodes": []
+    }
+  ],
+  "048": [
+    {
+      "name": "Kočevje",
+      "postalCodes": []
+    }
+  ],
+  "049": [
+    {
+      "name": "Komen",
+      "postalCodes": []
+    }
+  ],
+  "050": [
+    {
+      "name": "Dekani",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrvatini",
+      "postalCodes": []
+    },
+    {
+      "name": "Koper",
+      "postalCodes": []
+    },
+    {
+      "name": "Pobegi",
+      "postalCodes": []
+    },
+    {
+      "name": "Prade",
+      "postalCodes": []
+    },
+    {
+      "name": "Spodnje Škofije",
+      "postalCodes": []
+    },
+    {
+      "name": "Sv. Anton",
+      "postalCodes": []
+    }
+  ],
+  "051": [
+    {
+      "name": "Kozje",
+      "postalCodes": []
+    }
+  ],
+  "052": [
+    {
+      "name": "Britof",
+      "postalCodes": []
+    },
+    {
+      "name": "Golnik",
+      "postalCodes": []
+    },
+    {
+      "name": "Kokrica",
+      "postalCodes": []
+    },
+    {
+      "name": "Kranj",
+      "postalCodes": []
+    },
+    {
+      "name": "Mlaka pri Kranju",
+      "postalCodes": []
+    },
+    {
+      "name": "Zgornje Bitnje",
+      "postalCodes": []
+    }
+  ],
+  "053": [
+    {
+      "name": "Kranjska Gora",
+      "postalCodes": []
+    },
+    {
+      "name": "Mojstrana",
+      "postalCodes": []
+    }
+  ],
+  "055": [
+    {
+      "name": "Zgornja Kungota",
+      "postalCodes": []
+    }
+  ],
+  "056": [
+    {
+      "name": "Kuzma",
+      "postalCodes": []
+    }
+  ],
+  "057": [
+    {
+      "name": "Laško",
+      "postalCodes": []
+    }
+  ],
+  "058": [
+    {
+      "name": "Lenart v Slov. Goricah",
+      "postalCodes": []
+    }
+  ],
+  "059": [
+    {
+      "name": "Lendava",
+      "postalCodes": []
+    }
+  ],
+  "060": [
+    {
+      "name": "Litija",
+      "postalCodes": []
+    }
+  ],
+  "061": [
+    {
+      "name": "Dravlje District",
+      "postalCodes": []
+    },
+    {
+      "name": "Jarše District",
+      "postalCodes": []
+    },
+    {
+      "name": "Ljubljana",
+      "postalCodes": []
+    },
+    {
+      "name": "Opčina Ljubljana-Bežigrad",
+      "postalCodes": []
+    },
+    {
+      "name": "Opština Ljubljana-Center",
+      "postalCodes": []
+    },
+    {
+      "name": "Opština Ljubljana-Moste-Polje",
+      "postalCodes": []
+    },
+    {
+      "name": "Rožnik District",
+      "postalCodes": []
+    },
+    {
+      "name": "Šentvid District",
+      "postalCodes": []
+    },
+    {
+      "name": "Sostro District",
+      "postalCodes": []
+    },
+    {
+      "name": "Trnovo District",
+      "postalCodes": []
+    },
+    {
+      "name": "Vič District",
+      "postalCodes": []
+    }
+  ],
+  "062": [
+    {
+      "name": "Ljubno ob Savinji",
+      "postalCodes": []
+    }
+  ],
+  "063": [
+    {
+      "name": "Ljutomer",
+      "postalCodes": []
+    }
+  ],
+  "064": [
+    {
+      "name": "Logatec",
+      "postalCodes": []
+    }
+  ],
+  "065": [
+    {
+      "name": "Leskova Dolina",
+      "postalCodes": []
+    }
+  ],
+  "066": [
+    {
+      "name": "Hrib-Loški Potok",
+      "postalCodes": []
+    }
+  ],
+  "067": [
+    {
+      "name": "Luče",
+      "postalCodes": []
+    }
+  ],
+  "068": [
+    {
+      "name": "Lukovica pri Domžalah",
+      "postalCodes": []
+    }
+  ],
+  "069": [
+    {
+      "name": "Majšperk",
+      "postalCodes": []
+    }
+  ],
+  "070": [
+    {
+      "name": "Bresternica",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamnica",
+      "postalCodes": []
+    },
+    {
+      "name": "Limbuš",
+      "postalCodes": []
+    },
+    {
+      "name": "Maribor",
+      "postalCodes": []
+    },
+    {
+      "name": "Pekre",
+      "postalCodes": []
+    },
+    {
+      "name": "Razvanje",
+      "postalCodes": []
+    }
+  ],
+  "071": [
+    {
+      "name": "Medvode",
+      "postalCodes": []
+    },
+    {
+      "name": "Opština [historical] Ljubljana-Šiška",
+      "postalCodes": []
+    },
+    {
+      "name": "Zgornje Pirniče",
+      "postalCodes": []
+    }
+  ],
+  "072": [
+    {
+      "name": "Mengeš",
+      "postalCodes": []
+    },
+    {
+      "name": "Preserje pri Radomljah",
+      "postalCodes": []
+    }
+  ],
+  "073": [
+    {
+      "name": "Metlika",
+      "postalCodes": []
+    }
+  ],
+  "074": [
+    {
+      "name": "Mežica",
+      "postalCodes": []
+    }
+  ],
+  "075": [
+    {
+      "name": "Bilje",
+      "postalCodes": []
+    },
+    {
+      "name": "Miren",
+      "postalCodes": []
+    }
+  ],
+  "076": [
+    {
+      "name": "Mislinja",
+      "postalCodes": []
+    }
+  ],
+  "077": [
+    {
+      "name": "Moravče",
+      "postalCodes": []
+    }
+  ],
+  "078": [
+    {
+      "name": "Moravske Toplice",
+      "postalCodes": []
+    }
+  ],
+  "079": [
+    {
+      "name": "Mozirje",
+      "postalCodes": []
+    }
+  ],
+  "038": [
+    {
+      "name": "Ilirska Bistrica",
+      "postalCodes": []
+    }
+  ],
+  "054": [
+    {
+      "name": "Krško",
+      "postalCodes": []
+    },
+    {
+      "name": "Leskovec pri Krškem",
+      "postalCodes": []
+    },
+    {
+      "name": "Senovo",
+      "postalCodes": []
+    }
+  ],
+  "080": [
+    {
+      "name": "Bakovci",
+      "postalCodes": []
+    },
+    {
+      "name": "Černelavci",
+      "postalCodes": []
+    },
+    {
+      "name": "Krog",
+      "postalCodes": []
+    },
+    {
+      "name": "Murska Sobota",
+      "postalCodes": []
+    },
+    {
+      "name": "Rakičan",
+      "postalCodes": []
+    }
+  ],
+  "081": [
+    {
+      "name": "Muta",
+      "postalCodes": []
+    }
+  ],
+  "082": [
+    {
+      "name": "Naklo",
+      "postalCodes": []
+    }
+  ],
+  "083": [
+    {
+      "name": "Nazarje",
+      "postalCodes": []
+    }
+  ],
+  "084": [
+    {
+      "name": "Kromberk",
+      "postalCodes": []
+    },
+    {
+      "name": "Nova Gorica",
+      "postalCodes": []
+    },
+    {
+      "name": "Prvačina",
+      "postalCodes": []
+    },
+    {
+      "name": "Šempas",
+      "postalCodes": []
+    },
+    {
+      "name": "Solkan",
+      "postalCodes": []
+    }
+  ],
+  "086": [
+    {
+      "name": "Odranci",
+      "postalCodes": []
+    }
+  ],
+  "087": [
+    {
+      "name": "Ormož",
+      "postalCodes": []
+    }
+  ],
+  "088": [
+    {
+      "name": "Osilnica",
+      "postalCodes": []
+    }
+  ],
+  "089": [
+    {
+      "name": "Pesnica pri Mariboru",
+      "postalCodes": []
+    }
+  ],
+  "090": [
+    {
+      "name": "Lucija",
+      "postalCodes": []
+    },
+    {
+      "name": "Piran",
+      "postalCodes": []
+    },
+    {
+      "name": "Portorož",
+      "postalCodes": []
+    },
+    {
+      "name": "Seča",
+      "postalCodes": []
+    }
+  ],
+  "091": [
+    {
+      "name": "Pivka",
+      "postalCodes": []
+    }
+  ],
+  "092": [
+    {
+      "name": "Podčetrtek",
+      "postalCodes": []
+    }
+  ],
+  "093": [
+    {
+      "name": "Podvelka",
+      "postalCodes": []
+    }
+  ],
+  "094": [
+    {
+      "name": "Postojna",
+      "postalCodes": []
+    }
+  ],
+  "095": [
+    {
+      "name": "Preddvor",
+      "postalCodes": []
+    }
+  ],
+  "096": [
+    {
+      "name": "Ptuj",
+      "postalCodes": []
+    }
+  ],
+  "097": [
+    {
+      "name": "Puconci",
+      "postalCodes": []
+    }
+  ],
+  "098": [
+    {
+      "name": "Fram",
+      "postalCodes": []
+    },
+    {
+      "name": "Morje",
+      "postalCodes": []
+    },
+    {
+      "name": "Rače",
+      "postalCodes": []
+    }
+  ],
+  "099": [
+    {
+      "name": "Radeče",
+      "postalCodes": []
+    }
+  ],
+  "033": [
+    {
+      "name": "Šalovci",
+      "postalCodes": []
+    }
+  ],
+  "010": [
+    {
+      "name": "Tišina",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

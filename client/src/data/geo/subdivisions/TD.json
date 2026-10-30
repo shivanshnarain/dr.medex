@@ -1,0 +1,117 @@
+[
+  {
+    "code": "BG",
+    "name": "Bahr el Gazel",
+    "countryCode": "TD"
+  },
+  {
+    "code": "BA",
+    "name": "Batha Region",
+    "countryCode": "TD"
+  },
+  {
+    "code": "BO",
+    "name": "Borkou",
+    "countryCode": "TD"
+  },
+  {
+    "code": "EN",
+    "name": "Ennedi Region",
+    "countryCode": "TD"
+  },
+  {
+    "code": "EE",
+    "name": "Ennedi-Est",
+    "countryCode": "TD"
+  },
+  {
+    "code": "EO",
+    "name": "Ennedi-Ouest",
+    "countryCode": "TD"
+  },
+  {
+    "code": "GR",
+    "name": "Guéra Region",
+    "countryCode": "TD"
+  },
+  {
+    "code": "HL",
+    "name": "Hadjer-Lamis",
+    "countryCode": "TD"
+  },
+  {
+    "code": "KA",
+    "name": "Kanem Region",
+    "countryCode": "TD"
+  },
+  {
+    "code": "LC",
+    "name": "Lac Region",
+    "countryCode": "TD"
+  },
+  {
+    "code": "LO",
+    "name": "Logone Occidental Region",
+    "countryCode": "TD"
+  },
+  {
+    "code": "LR",
+    "name": "Logone Oriental Region",
+    "countryCode": "TD"
+  },
+  {
+    "code": "MA",
+    "name": "Mandoul Region",
+    "countryCode": "TD"
+  },
+  {
+    "code": "ME",
+    "name": "Mayo-Kebbi Est Region",
+    "countryCode": "TD"
+  },
+  {
+    "code": "MO",
+    "name": "Mayo-Kebbi Ouest Region",
+    "countryCode": "TD"
+  },
+  {
+    "code": "MC",
+    "name": "Moyen-Chari Region",
+    "countryCode": "TD"
+  },
+  {
+    "code": "ND",
+    "name": "N'Djamena",
+    "countryCode": "TD"
+  },
+  {
+    "code": "OD",
+    "name": "Ouaddaï Region",
+    "countryCode": "TD"
+  },
+  {
+    "code": "SA",
+    "name": "Salamat Region",
+    "countryCode": "TD"
+  },
+  {
+    "code": "SI",
+    "name": "Sila Region",
+    "countryCode": "TD"
+  },
+  {
+    "code": "TA",
+    "name": "Tandjilé Region",
+    "countryCode": "TD"
+  },
+  {
+    "code": "TI",
+    "name": "Tibesti Region",
+    "countryCode": "TD"
+  },
+  {
+    "code": "WF",
+    "name": "Wadi Fira Region",
+    "countryCode": "TD"
+  }
+]

@@ -1,0 +1,87 @@
+[
+  {
+    "code": "AKM",
+    "name": "Akmola Region",
+    "countryCode": "KZ"
+  },
+  {
+    "code": "AKT",
+    "name": "Aktobe Region",
+    "countryCode": "KZ"
+  },
+  {
+    "code": "ALA",
+    "name": "Almaty",
+    "countryCode": "KZ"
+  },
+  {
+    "code": "ALM",
+    "name": "Almaty Region",
+    "countryCode": "KZ"
+  },
+  {
+    "code": "ATY",
+    "name": "Atyrau Region",
+    "countryCode": "KZ"
+  },
+  {
+    "code": "BAY",
+    "name": "Baikonur",
+    "countryCode": "KZ"
+  },
+  {
+    "code": "VOS",
+    "name": "East Kazakhstan Region",
+    "countryCode": "KZ"
+  },
+  {
+    "code": "ZHA",
+    "name": "Jambyl Region",
+    "countryCode": "KZ"
+  },
+  {
+    "code": "KAR",
+    "name": "Karaganda Region",
+    "countryCode": "KZ"
+  },
+  {
+    "code": "KUS",
+    "name": "Kostanay Region",
+    "countryCode": "KZ"
+  },
+  {
+    "code": "KZY",
+    "name": "Kyzylorda Region",
+    "countryCode": "KZ"
+  },
+  {
+    "code": "MAN",
+    "name": "Mangystau Region",
+    "countryCode": "KZ"
+  },
+  {
+    "code": "SEV",
+    "name": "North Kazakhstan Region",
+    "countryCode": "KZ"
+  },
+  {
+    "code": "AST",
+    "name": "Nur-Sultan",
+    "countryCode": "KZ"
+  },
+  {
+    "code": "PAV",
+    "name": "Pavlodar Region",
+    "countryCode": "KZ"
+  },
+  {
+    "code": "YUZ",
+    "name": "Turkestan Region",
+    "countryCode": "KZ"
+  },
+  {
+    "code": "ZAP",
+    "name": "West Kazakhstan Province",
+    "countryCode": "KZ"
+  }
+]

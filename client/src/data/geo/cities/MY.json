@@ -1,0 +1,751 @@
+{
+  "10": [
+    {
+      "name": "Ampang",
+      "postalCodes": []
+    },
+    {
+      "name": "Bagan Pulau Ketam",
+      "postalCodes": []
+    },
+    {
+      "name": "Banting",
+      "postalCodes": []
+    },
+    {
+      "name": "Batang Berjuntai",
+      "postalCodes": []
+    },
+    {
+      "name": "Batu Arang",
+      "postalCodes": []
+    },
+    {
+      "name": "Jenjarum",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampong Baharu Balakong",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampung Baru Subang",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampung Tanjung Karang",
+      "postalCodes": []
+    },
+    {
+      "name": "Klang",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuala Selangor",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuang",
+      "postalCodes": []
+    },
+    {
+      "name": "Ladang Seri Kundang",
+      "postalCodes": []
+    },
+    {
+      "name": "Pelabuhan Klang",
+      "postalCodes": []
+    },
+    {
+      "name": "Petaling Jaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Putra Heights",
+      "postalCodes": []
+    },
+    {
+      "name": "Rawang",
+      "postalCodes": []
+    },
+    {
+      "name": "Semenyih",
+      "postalCodes": []
+    },
+    {
+      "name": "Serendah",
+      "postalCodes": []
+    },
+    {
+      "name": "Shah Alam",
+      "postalCodes": []
+    },
+    {
+      "name": "Subang Jaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Sungai Besar",
+      "postalCodes": []
+    },
+    {
+      "name": "Sungai Pelek New Village",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanjung Sepat",
+      "postalCodes": []
+    }
+  ],
+  "11": [
+    {
+      "name": "Cukai",
+      "postalCodes": []
+    },
+    {
+      "name": "Jertih",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampung Kuala Besut",
+      "postalCodes": []
+    },
+    {
+      "name": "Kertih",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuala Besut",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuala Terengganu",
+      "postalCodes": []
+    },
+    {
+      "name": "Marang",
+      "postalCodes": []
+    },
+    {
+      "name": "Paka",
+      "postalCodes": []
+    }
+  ],
+  "12": [
+    {
+      "name": "Bandar Labuan",
+      "postalCodes": []
+    },
+    {
+      "name": "Beaufort",
+      "postalCodes": []
+    },
+    {
+      "name": "Donggongon",
+      "postalCodes": []
+    },
+    {
+      "name": "Keningau",
+      "postalCodes": []
+    },
+    {
+      "name": "Kinarut",
+      "postalCodes": []
+    },
+    {
+      "name": "Kota Belud",
+      "postalCodes": []
+    },
+    {
+      "name": "Kota Kinabalu",
+      "postalCodes": []
+    },
+    {
+      "name": "Kudat",
+      "postalCodes": []
+    },
+    {
+      "name": "Lahad Datu",
+      "postalCodes": []
+    },
+    {
+      "name": "Papar",
+      "postalCodes": []
+    },
+    {
+      "name": "Putatan",
+      "postalCodes": []
+    },
+    {
+      "name": "Ranau",
+      "postalCodes": []
+    },
+    {
+      "name": "Sandakan",
+      "postalCodes": []
+    },
+    {
+      "name": "Semporna",
+      "postalCodes": []
+    },
+    {
+      "name": "Taman Rajawali",
+      "postalCodes": []
+    },
+    {
+      "name": "Tawau",
+      "postalCodes": []
+    }
+  ],
+  "13": [
+    {
+      "name": "Bintulu",
+      "postalCodes": []
+    },
+    {
+      "name": "Data Kakus",
+      "postalCodes": []
+    },
+    {
+      "name": "Kapit",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuching",
+      "postalCodes": []
+    },
+    {
+      "name": "Lawas",
+      "postalCodes": []
+    },
+    {
+      "name": "Lidung Jelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Limbang",
+      "postalCodes": []
+    },
+    {
+      "name": "Long Ampan Aing or Abanang",
+      "postalCodes": []
+    },
+    {
+      "name": "Marudi",
+      "postalCodes": []
+    },
+    {
+      "name": "Miri",
+      "postalCodes": []
+    },
+    {
+      "name": "Mukah",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarikei",
+      "postalCodes": []
+    },
+    {
+      "name": "Sibu",
+      "postalCodes": []
+    },
+    {
+      "name": "Simanggang",
+      "postalCodes": []
+    }
+  ],
+  "14": [
+    {
+      "name": "Kuala Lumpur",
+      "postalCodes": []
+    }
+  ],
+  "15": [
+    {
+      "name": "Labuan",
+      "postalCodes": []
+    }
+  ],
+  "16": [
+    {
+      "name": "Putrajaya",
+      "postalCodes": []
+    }
+  ],
+  "01": [
+    {
+      "name": "Bakri",
+      "postalCodes": []
+    },
+    {
+      "name": "Batu Pahat",
+      "postalCodes": []
+    },
+    {
+      "name": "Buloh Kasap",
+      "postalCodes": []
+    },
+    {
+      "name": "Chaah",
+      "postalCodes": []
+    },
+    {
+      "name": "Daerah Batu Pahat",
+      "postalCodes": []
+    },
+    {
+      "name": "Daerah Johor Baharu",
+      "postalCodes": []
+    },
+    {
+      "name": "Daerah Keluang",
+      "postalCodes": []
+    },
+    {
+      "name": "Daerah Kota Tinggi",
+      "postalCodes": []
+    },
+    {
+      "name": "Daerah Mersing",
+      "postalCodes": []
+    },
+    {
+      "name": "Daerah Muar",
+      "postalCodes": []
+    },
+    {
+      "name": "Daerah Pontian",
+      "postalCodes": []
+    },
+    {
+      "name": "Daerah Segamat",
+      "postalCodes": []
+    },
+    {
+      "name": "Johor Bahru",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampung Pasir Gudang Baru",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampung Simpang Renggam",
+      "postalCodes": []
+    },
+    {
+      "name": "Kelapa Sawit",
+      "postalCodes": []
+    },
+    {
+      "name": "Kluang",
+      "postalCodes": []
+    },
+    {
+      "name": "Kota Tinggi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kulai",
+      "postalCodes": []
+    },
+    {
+      "name": "Labis",
+      "postalCodes": []
+    },
+    {
+      "name": "Mersing",
+      "postalCodes": []
+    },
+    {
+      "name": "Muar",
+      "postalCodes": []
+    },
+    {
+      "name": "Parit Raja",
+      "postalCodes": []
+    },
+    {
+      "name": "Pekan Nenas",
+      "postalCodes": []
+    },
+    {
+      "name": "Pontian Kechil",
+      "postalCodes": []
+    },
+    {
+      "name": "Segamat",
+      "postalCodes": []
+    },
+    {
+      "name": "Skudai",
+      "postalCodes": []
+    },
+    {
+      "name": "Taman Senai",
+      "postalCodes": []
+    },
+    {
+      "name": "Tangkak",
+      "postalCodes": []
+    },
+    {
+      "name": "Ulu Tiram",
+      "postalCodes": []
+    },
+    {
+      "name": "Yong Peng",
+      "postalCodes": []
+    }
+  ],
+  "02": [
+    {
+      "name": "Alor Setar",
+      "postalCodes": []
+    },
+    {
+      "name": "Ayer Hangat",
+      "postalCodes": []
+    },
+    {
+      "name": "Bedong",
+      "postalCodes": []
+    },
+    {
+      "name": "Gurun",
+      "postalCodes": []
+    },
+    {
+      "name": "Jitra",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampung Kilim",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampung Kok",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuah",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuala Kedah",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuala Teriang",
+      "postalCodes": []
+    },
+    {
+      "name": "Kulim",
+      "postalCodes": []
+    },
+    {
+      "name": "Langkawi",
+      "postalCodes": []
+    },
+    {
+      "name": "Padang Mat Sirat",
+      "postalCodes": []
+    },
+    {
+      "name": "Sungai Petani",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Gua Musang",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampong Kadok",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampong Pangkal Kalong",
+      "postalCodes": []
+    },
+    {
+      "name": "Kota Bharu",
+      "postalCodes": []
+    },
+    {
+      "name": "Pasir Mas",
+      "postalCodes": []
+    },
+    {
+      "name": "Peringat",
+      "postalCodes": []
+    },
+    {
+      "name": "Tumpat",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Alor Gajah",
+      "postalCodes": []
+    },
+    {
+      "name": "Batu Berendam",
+      "postalCodes": []
+    },
+    {
+      "name": "Bemban",
+      "postalCodes": []
+    },
+    {
+      "name": "Bukit Rambai",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampong Masjid Tanah",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampung Ayer Keroh",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampung Ayer Molek",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampung Bukit Baharu",
+      "postalCodes": []
+    },
+    {
+      "name": "Klebang Besar",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuala Sungai Baru",
+      "postalCodes": []
+    },
+    {
+      "name": "Malacca",
+      "postalCodes": []
+    },
+    {
+      "name": "Pulau Sebang",
+      "postalCodes": []
+    },
+    {
+      "name": "Sungai Udang",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Bahau",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampung Baharu Nilai",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuala Pilah",
+      "postalCodes": []
+    },
+    {
+      "name": "Port Dickson",
+      "postalCodes": []
+    },
+    {
+      "name": "Seremban",
+      "postalCodes": []
+    },
+    {
+      "name": "Tampin",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Bentong Town",
+      "postalCodes": []
+    },
+    {
+      "name": "Jerantut",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampung Bukit Tinggi, Bentong",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampung Tekek",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuala Lipis",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuantan",
+      "postalCodes": []
+    },
+    {
+      "name": "Mentekab",
+      "postalCodes": []
+    },
+    {
+      "name": "Pekan",
+      "postalCodes": []
+    },
+    {
+      "name": "Raub",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanah Rata",
+      "postalCodes": []
+    },
+    {
+      "name": "Temerluh",
+      "postalCodes": []
+    }
+  ],
+  "07": [
+    {
+      "name": "Batu Feringgi",
+      "postalCodes": []
+    },
+    {
+      "name": "Bukit Mertajam",
+      "postalCodes": []
+    },
+    {
+      "name": "Butterworth",
+      "postalCodes": []
+    },
+    {
+      "name": "George Town",
+      "postalCodes": []
+    },
+    {
+      "name": "Juru",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampung Batu Feringgi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampung Sungai Ara",
+      "postalCodes": []
+    },
+    {
+      "name": "Kepala Batas",
+      "postalCodes": []
+    },
+    {
+      "name": "Nibong Tebal",
+      "postalCodes": []
+    },
+    {
+      "name": "Perai",
+      "postalCodes": []
+    },
+    {
+      "name": "Permatang Kuching",
+      "postalCodes": []
+    },
+    {
+      "name": "Seberang Perai",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanjung Tokong",
+      "postalCodes": []
+    },
+    {
+      "name": "Tasek Glugor",
+      "postalCodes": []
+    },
+    {
+      "name": "Telaga Batu",
+      "postalCodes": []
+    }
+  ],
+  "08": [
+    {
+      "name": "Bagan Serai",
+      "postalCodes": []
+    },
+    {
+      "name": "Batu Gajah",
+      "postalCodes": []
+    },
+    {
+      "name": "Bidur",
+      "postalCodes": []
+    },
+    {
+      "name": "Ipoh",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampar",
+      "postalCodes": []
+    },
+    {
+      "name": "Kampong Dungun",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuala Kangsar",
+      "postalCodes": []
+    },
+    {
+      "name": "Lumut",
+      "postalCodes": []
+    },
+    {
+      "name": "Pantai Remis",
+      "postalCodes": []
+    },
+    {
+      "name": "Parit Buntar",
+      "postalCodes": []
+    },
+    {
+      "name": "Simpang Empat",
+      "postalCodes": []
+    },
+    {
+      "name": "Taiping",
+      "postalCodes": []
+    },
+    {
+      "name": "Tapah Road",
+      "postalCodes": []
+    },
+    {
+      "name": "Teluk Intan",
+      "postalCodes": []
+    }
+  ],
+  "09": [
+    {
+      "name": "Kangar",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuala Perlis",
+      "postalCodes": []
+    },
+    {
+      "name": "Pantai Cenang",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

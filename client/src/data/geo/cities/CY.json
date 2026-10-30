@@ -1,0 +1,395 @@
+{
+  "04": [
+    {
+      "name": "Acherítou",
+      "postalCodes": []
+    },
+    {
+      "name": "Áchna",
+      "postalCodes": []
+    },
+    {
+      "name": "Ammochostos Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Avgórou",
+      "postalCodes": []
+    },
+    {
+      "name": "Ayia Napa",
+      "postalCodes": []
+    },
+    {
+      "name": "Derýneia",
+      "postalCodes": []
+    },
+    {
+      "name": "Famagusta",
+      "postalCodes": []
+    },
+    {
+      "name": "Frénaros",
+      "postalCodes": []
+    },
+    {
+      "name": "Lefkónoiko",
+      "postalCodes": []
+    },
+    {
+      "name": "Leonárisso",
+      "postalCodes": []
+    },
+    {
+      "name": "Liopétri",
+      "postalCodes": []
+    },
+    {
+      "name": "Paralímni",
+      "postalCodes": []
+    },
+    {
+      "name": "Protaras",
+      "postalCodes": []
+    },
+    {
+      "name": "Rizokárpaso",
+      "postalCodes": []
+    },
+    {
+      "name": "Tríkomo",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Kyrenia",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyrenia Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Lápithos",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Ágios Týchon",
+      "postalCodes": []
+    },
+    {
+      "name": "Aradíppou",
+      "postalCodes": []
+    },
+    {
+      "name": "Athíenou",
+      "postalCodes": []
+    },
+    {
+      "name": "Dhromolaxia",
+      "postalCodes": []
+    },
+    {
+      "name": "Kíti",
+      "postalCodes": []
+    },
+    {
+      "name": "Kofínou",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolossi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kórnos",
+      "postalCodes": []
+    },
+    {
+      "name": "Larnaca",
+      "postalCodes": []
+    },
+    {
+      "name": "Livádia",
+      "postalCodes": []
+    },
+    {
+      "name": "Meneou",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosfilotí",
+      "postalCodes": []
+    },
+    {
+      "name": "Pérgamos",
+      "postalCodes": []
+    },
+    {
+      "name": "Perivólia",
+      "postalCodes": []
+    },
+    {
+      "name": "Psevdás",
+      "postalCodes": []
+    },
+    {
+      "name": "Pýla",
+      "postalCodes": []
+    },
+    {
+      "name": "Tersefánou",
+      "postalCodes": []
+    },
+    {
+      "name": "Troúlloi",
+      "postalCodes": []
+    },
+    {
+      "name": "Voróklini",
+      "postalCodes": []
+    },
+    {
+      "name": "Xylofágou",
+      "postalCodes": []
+    },
+    {
+      "name": "Xylotymbou",
+      "postalCodes": []
+    }
+  ],
+  "02": [
+    {
+      "name": "Ágios Tomás",
+      "postalCodes": []
+    },
+    {
+      "name": "Erími",
+      "postalCodes": []
+    },
+    {
+      "name": "Germasógeia",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyperoúnta",
+      "postalCodes": []
+    },
+    {
+      "name": "Lemesós",
+      "postalCodes": []
+    },
+    {
+      "name": "Limassol",
+      "postalCodes": []
+    },
+    {
+      "name": "Mouttagiáka",
+      "postalCodes": []
+    },
+    {
+      "name": "Páchna",
+      "postalCodes": []
+    },
+    {
+      "name": "Páno Polemídia",
+      "postalCodes": []
+    },
+    {
+      "name": "Parekklisha",
+      "postalCodes": []
+    },
+    {
+      "name": "Peléndri",
+      "postalCodes": []
+    },
+    {
+      "name": "Pissoúri",
+      "postalCodes": []
+    },
+    {
+      "name": "Pyrgos",
+      "postalCodes": []
+    },
+    {
+      "name": "Sotíra",
+      "postalCodes": []
+    },
+    {
+      "name": "Soúni-Zanakiá",
+      "postalCodes": []
+    },
+    {
+      "name": "Ýpsonas",
+      "postalCodes": []
+    }
+  ],
+  "01": [
+    {
+      "name": "Akáki",
+      "postalCodes": []
+    },
+    {
+      "name": "Alámpra",
+      "postalCodes": []
+    },
+    {
+      "name": "Aredioú",
+      "postalCodes": []
+    },
+    {
+      "name": "Astromerítis",
+      "postalCodes": []
+    },
+    {
+      "name": "Dáli",
+      "postalCodes": []
+    },
+    {
+      "name": "Ergátes",
+      "postalCodes": []
+    },
+    {
+      "name": "Géri",
+      "postalCodes": []
+    },
+    {
+      "name": "Kakopetriá",
+      "postalCodes": []
+    },
+    {
+      "name": "Káto Defterá",
+      "postalCodes": []
+    },
+    {
+      "name": "Káto Pýrgos",
+      "postalCodes": []
+    },
+    {
+      "name": "Klírou",
+      "postalCodes": []
+    },
+    {
+      "name": "Kokkinotrimithiá",
+      "postalCodes": []
+    },
+    {
+      "name": "Léfka",
+      "postalCodes": []
+    },
+    {
+      "name": "Lýmpia",
+      "postalCodes": []
+    },
+    {
+      "name": "Lythrodóntas",
+      "postalCodes": []
+    },
+    {
+      "name": "Mámmari",
+      "postalCodes": []
+    },
+    {
+      "name": "Méniko",
+      "postalCodes": []
+    },
+    {
+      "name": "Mórfou",
+      "postalCodes": []
+    },
+    {
+      "name": "Nicosia",
+      "postalCodes": []
+    },
+    {
+      "name": "Nicosia Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Páno Defterá",
+      "postalCodes": []
+    },
+    {
+      "name": "Péra",
+      "postalCodes": []
+    },
+    {
+      "name": "Peristeróna",
+      "postalCodes": []
+    },
+    {
+      "name": "Psimolofou",
+      "postalCodes": []
+    },
+    {
+      "name": "Tséri",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Argáka",
+      "postalCodes": []
+    },
+    {
+      "name": "Chlórakas",
+      "postalCodes": []
+    },
+    {
+      "name": "Emba",
+      "postalCodes": []
+    },
+    {
+      "name": "Geroskipou",
+      "postalCodes": []
+    },
+    {
+      "name": "Geroskípou (quarter)",
+      "postalCodes": []
+    },
+    {
+      "name": "Geroskípou Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Kissonerga",
+      "postalCodes": []
+    },
+    {
+      "name": "Koloni",
+      "postalCodes": []
+    },
+    {
+      "name": "Konia",
+      "postalCodes": []
+    },
+    {
+      "name": "Mesógi",
+      "postalCodes": []
+    },
+    {
+      "name": "Paphos",
+      "postalCodes": []
+    },
+    {
+      "name": "Pégeia",
+      "postalCodes": []
+    },
+    {
+      "name": "Pólis",
+      "postalCodes": []
+    },
+    {
+      "name": "Tála",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsáda",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

@@ -1,0 +1,431 @@
+{
+  "AH": [
+    {
+      "name": "Ahuachapán",
+      "postalCodes": []
+    },
+    {
+      "name": "Atiquizaya",
+      "postalCodes": []
+    },
+    {
+      "name": "Concepción de Ataco",
+      "postalCodes": []
+    },
+    {
+      "name": "Guaymango",
+      "postalCodes": []
+    },
+    {
+      "name": "Jujutla",
+      "postalCodes": []
+    },
+    {
+      "name": "San Francisco Menéndez",
+      "postalCodes": []
+    },
+    {
+      "name": "Tacuba",
+      "postalCodes": []
+    }
+  ],
+  "CA": [
+    {
+      "name": "Sensuntepeque",
+      "postalCodes": []
+    },
+    {
+      "name": "Victoria",
+      "postalCodes": []
+    }
+  ],
+  "CH": [
+    {
+      "name": "Chalatenango",
+      "postalCodes": []
+    },
+    {
+      "name": "Nueva Concepción",
+      "postalCodes": []
+    }
+  ],
+  "CU": [
+    {
+      "name": "Cojutepeque",
+      "postalCodes": []
+    },
+    {
+      "name": "San Martín",
+      "postalCodes": []
+    },
+    {
+      "name": "Suchitoto",
+      "postalCodes": []
+    },
+    {
+      "name": "Tecoluca",
+      "postalCodes": []
+    },
+    {
+      "name": "Tenancingo",
+      "postalCodes": []
+    }
+  ],
+  "LI": [
+    {
+      "name": "Antiguo Cuscatlán",
+      "postalCodes": []
+    },
+    {
+      "name": "Ciudad Arce",
+      "postalCodes": []
+    },
+    {
+      "name": "La Libertad",
+      "postalCodes": []
+    },
+    {
+      "name": "Nuevo Cuscatlán",
+      "postalCodes": []
+    },
+    {
+      "name": "Quezaltepeque",
+      "postalCodes": []
+    },
+    {
+      "name": "San Juan Opico",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pablo Tacachico",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Tecla",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaragoza",
+      "postalCodes": []
+    }
+  ],
+  "PA": [
+    {
+      "name": "El Rosario",
+      "postalCodes": []
+    },
+    {
+      "name": "Olocuilta",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro Masahuat",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago Nonualco",
+      "postalCodes": []
+    },
+    {
+      "name": "Zacatecoluca",
+      "postalCodes": []
+    }
+  ],
+  "UN": [
+    {
+      "name": "Anamorós",
+      "postalCodes": []
+    },
+    {
+      "name": "Conchagua",
+      "postalCodes": []
+    },
+    {
+      "name": "Intipucá",
+      "postalCodes": []
+    },
+    {
+      "name": "La Unión",
+      "postalCodes": []
+    },
+    {
+      "name": "Nueva Esparta",
+      "postalCodes": []
+    },
+    {
+      "name": "Pasaquina",
+      "postalCodes": []
+    },
+    {
+      "name": "San Alejo",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Rosa de Lima",
+      "postalCodes": []
+    }
+  ],
+  "MO": [
+    {
+      "name": "Cacaopera",
+      "postalCodes": []
+    },
+    {
+      "name": "Corinto",
+      "postalCodes": []
+    },
+    {
+      "name": "Guatajiagua",
+      "postalCodes": []
+    },
+    {
+      "name": "Jocoro",
+      "postalCodes": []
+    },
+    {
+      "name": "San Francisco",
+      "postalCodes": []
+    },
+    {
+      "name": "Sociedad",
+      "postalCodes": []
+    }
+  ],
+  "SM": [
+    {
+      "name": "Chapeltique",
+      "postalCodes": []
+    },
+    {
+      "name": "Chinameca",
+      "postalCodes": []
+    },
+    {
+      "name": "Chirilagua",
+      "postalCodes": []
+    },
+    {
+      "name": "Ciudad Barrios",
+      "postalCodes": []
+    },
+    {
+      "name": "El Tránsito",
+      "postalCodes": []
+    },
+    {
+      "name": "Lolotique",
+      "postalCodes": []
+    },
+    {
+      "name": "Moncagua",
+      "postalCodes": []
+    },
+    {
+      "name": "Nueva Guadalupe",
+      "postalCodes": []
+    },
+    {
+      "name": "San Miguel",
+      "postalCodes": []
+    },
+    {
+      "name": "San Rafael Oriente",
+      "postalCodes": []
+    },
+    {
+      "name": "Sesori",
+      "postalCodes": []
+    }
+  ],
+  "SS": [
+    {
+      "name": "Aguilares",
+      "postalCodes": []
+    },
+    {
+      "name": "Apopa",
+      "postalCodes": []
+    },
+    {
+      "name": "Ayutuxtepeque",
+      "postalCodes": []
+    },
+    {
+      "name": "Cuscatancingo",
+      "postalCodes": []
+    },
+    {
+      "name": "Delgado",
+      "postalCodes": []
+    },
+    {
+      "name": "El Paisnal",
+      "postalCodes": []
+    },
+    {
+      "name": "Guazapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Ilopango",
+      "postalCodes": []
+    },
+    {
+      "name": "Mejicanos",
+      "postalCodes": []
+    },
+    {
+      "name": "Panchimalco",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosario de Mora",
+      "postalCodes": []
+    },
+    {
+      "name": "San Marcos",
+      "postalCodes": []
+    },
+    {
+      "name": "San Salvador",
+      "postalCodes": []
+    },
+    {
+      "name": "Santo Tomás",
+      "postalCodes": []
+    },
+    {
+      "name": "Soyapango",
+      "postalCodes": []
+    },
+    {
+      "name": "Tonacatepeque",
+      "postalCodes": []
+    }
+  ],
+  "SV": [
+    {
+      "name": "Apastepeque",
+      "postalCodes": []
+    },
+    {
+      "name": "San Sebastián",
+      "postalCodes": []
+    },
+    {
+      "name": "San Vicente",
+      "postalCodes": []
+    }
+  ],
+  "SA": [
+    {
+      "name": "Candelaria de La Frontera",
+      "postalCodes": []
+    },
+    {
+      "name": "Chalchuapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Coatepeque",
+      "postalCodes": []
+    },
+    {
+      "name": "El Congo",
+      "postalCodes": []
+    },
+    {
+      "name": "Metapán",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Ana",
+      "postalCodes": []
+    },
+    {
+      "name": "Texistepeque",
+      "postalCodes": []
+    }
+  ],
+  "SO": [
+    {
+      "name": "Acajutla",
+      "postalCodes": []
+    },
+    {
+      "name": "Armenia",
+      "postalCodes": []
+    },
+    {
+      "name": "Izalco",
+      "postalCodes": []
+    },
+    {
+      "name": "Juayúa",
+      "postalCodes": []
+    },
+    {
+      "name": "Nahuizalco",
+      "postalCodes": []
+    },
+    {
+      "name": "San Antonio del Monte",
+      "postalCodes": []
+    },
+    {
+      "name": "Sonsonate",
+      "postalCodes": []
+    },
+    {
+      "name": "Sonzacate",
+      "postalCodes": []
+    }
+  ],
+  "US": [
+    {
+      "name": "Berlín",
+      "postalCodes": []
+    },
+    {
+      "name": "Concepción Batres",
+      "postalCodes": []
+    },
+    {
+      "name": "Jiquilisco",
+      "postalCodes": []
+    },
+    {
+      "name": "Jucuapa",
+      "postalCodes": []
+    },
+    {
+      "name": "Jucuarán",
+      "postalCodes": []
+    },
+    {
+      "name": "Ozatlán",
+      "postalCodes": []
+    },
+    {
+      "name": "Puerto El Triunfo",
+      "postalCodes": []
+    },
+    {
+      "name": "San Agustín",
+      "postalCodes": []
+    },
+    {
+      "name": "Santa Elena",
+      "postalCodes": []
+    },
+    {
+      "name": "Santiago de María",
+      "postalCodes": []
+    },
+    {
+      "name": "Usulután",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

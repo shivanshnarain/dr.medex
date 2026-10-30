@@ -1,0 +1,437 @@
+[
+  {
+    "code": "AGD",
+    "name": "Agadir-Ida-Ou-Tanane",
+    "countryCode": "MA"
+  },
+  {
+    "code": "HAO",
+    "name": "Al Haouz",
+    "countryCode": "MA"
+  },
+  {
+    "code": "HOC",
+    "name": "Al Hoceïma",
+    "countryCode": "MA"
+  },
+  {
+    "code": "AOU",
+    "name": "Aousserd (EH)",
+    "countryCode": "MA"
+  },
+  {
+    "code": "ASZ",
+    "name": "Assa-Zag (EH-partial)",
+    "countryCode": "MA"
+  },
+  {
+    "code": "AZI",
+    "name": "Azilal",
+    "countryCode": "MA"
+  },
+  {
+    "code": "BEM",
+    "name": "Béni Mellal",
+    "countryCode": "MA"
+  },
+  {
+    "code": "05",
+    "name": "Béni Mellal-Khénifra",
+    "countryCode": "MA"
+  },
+  {
+    "code": "BES",
+    "name": "Benslimane",
+    "countryCode": "MA"
+  },
+  {
+    "code": "BER",
+    "name": "Berkane",
+    "countryCode": "MA"
+  },
+  {
+    "code": "BRR",
+    "name": "Berrechid",
+    "countryCode": "MA"
+  },
+  {
+    "code": "BOD",
+    "name": "Boujdour (EH)",
+    "countryCode": "MA"
+  },
+  {
+    "code": "BOM",
+    "name": "Boulemane",
+    "countryCode": "MA"
+  },
+  {
+    "code": "CAS",
+    "name": "Casablanca",
+    "countryCode": "MA"
+  },
+  {
+    "code": "06",
+    "name": "Casablanca-Settat",
+    "countryCode": "MA"
+  },
+  {
+    "code": "CHE",
+    "name": "Chefchaouen",
+    "countryCode": "MA"
+  },
+  {
+    "code": "CHI",
+    "name": "Chichaoua",
+    "countryCode": "MA"
+  },
+  {
+    "code": "CHT",
+    "name": "Chtouka-Ait Baha",
+    "countryCode": "MA"
+  },
+  {
+    "code": "12",
+    "name": "Dakhla-Oued Ed-Dahab (EH)",
+    "countryCode": "MA"
+  },
+  {
+    "code": "08",
+    "name": "Drâa-Tafilalet",
+    "countryCode": "MA"
+  },
+  {
+    "code": "DRI",
+    "name": "Driouch",
+    "countryCode": "MA"
+  },
+  {
+    "code": "HAJ",
+    "name": "El Hajeb",
+    "countryCode": "MA"
+  },
+  {
+    "code": "JDI",
+    "name": "El Jadida",
+    "countryCode": "MA"
+  },
+  {
+    "code": "KES",
+    "name": "El Kelâa des Sraghna",
+    "countryCode": "MA"
+  },
+  {
+    "code": "ERR",
+    "name": "Errachidia",
+    "countryCode": "MA"
+  },
+  {
+    "code": "ESM",
+    "name": "Es-Semara (EH-partial)",
+    "countryCode": "MA"
+  },
+  {
+    "code": "ESI",
+    "name": "Essaouira",
+    "countryCode": "MA"
+  },
+  {
+    "code": "FAH",
+    "name": "Fahs-Anjra",
+    "countryCode": "MA"
+  },
+  {
+    "code": "FES",
+    "name": "Fès",
+    "countryCode": "MA"
+  },
+  {
+    "code": "03",
+    "name": "Fès-Meknès",
+    "countryCode": "MA"
+  },
+  {
+    "code": "FIG",
+    "name": "Figuig",
+    "countryCode": "MA"
+  },
+  {
+    "code": "FQH",
+    "name": "Fquih Ben Salah",
+    "countryCode": "MA"
+  },
+  {
+    "code": "GUE",
+    "name": "Guelmim",
+    "countryCode": "MA"
+  },
+  {
+    "code": "10",
+    "name": "Guelmim-Oued Noun (EH-partial)",
+    "countryCode": "MA"
+  },
+  {
+    "code": "GUF",
+    "name": "Guercif",
+    "countryCode": "MA"
+  },
+  {
+    "code": "IFR",
+    "name": "Ifrane",
+    "countryCode": "MA"
+  },
+  {
+    "code": "INE",
+    "name": "Inezgane-Ait Melloul",
+    "countryCode": "MA"
+  },
+  {
+    "code": "JRA",
+    "name": "Jerada",
+    "countryCode": "MA"
+  },
+  {
+    "code": "KEN",
+    "name": "Kénitra",
+    "countryCode": "MA"
+  },
+  {
+    "code": "KHE",
+    "name": "Khémisset",
+    "countryCode": "MA"
+  },
+  {
+    "code": "KHN",
+    "name": "Khénifra",
+    "countryCode": "MA"
+  },
+  {
+    "code": "KHO",
+    "name": "Khouribga",
+    "countryCode": "MA"
+  },
+  {
+    "code": "02",
+    "name": "L'Oriental",
+    "countryCode": "MA"
+  },
+  {
+    "code": "LAA",
+    "name": "Laâyoune (EH)",
+    "countryCode": "MA"
+  },
+  {
+    "code": "11",
+    "name": "Laâyoune-Sakia El Hamra (EH-partial)",
+    "countryCode": "MA"
+  },
+  {
+    "code": "LAR",
+    "name": "Larache",
+    "countryCode": "MA"
+  },
+  {
+    "code": "MDF",
+    "name": "M’diq-Fnideq",
+    "countryCode": "MA"
+  },
+  {
+    "code": "MAR",
+    "name": "Marrakech",
+    "countryCode": "MA"
+  },
+  {
+    "code": "07",
+    "name": "Marrakesh-Safi",
+    "countryCode": "MA"
+  },
+  {
+    "code": "MED",
+    "name": "Médiouna",
+    "countryCode": "MA"
+  },
+  {
+    "code": "MEK",
+    "name": "Meknès",
+    "countryCode": "MA"
+  },
+  {
+    "code": "MID",
+    "name": "Midelt",
+    "countryCode": "MA"
+  },
+  {
+    "code": "MOH",
+    "name": "Mohammadia",
+    "countryCode": "MA"
+  },
+  {
+    "code": "MOU",
+    "name": "Moulay Yacoub",
+    "countryCode": "MA"
+  },
+  {
+    "code": "NAD",
+    "name": "Nador",
+    "countryCode": "MA"
+  },
+  {
+    "code": "NOU",
+    "name": "Nouaceur",
+    "countryCode": "MA"
+  },
+  {
+    "code": "OUA",
+    "name": "Ouarzazate",
+    "countryCode": "MA"
+  },
+  {
+    "code": "OUD",
+    "name": "Oued Ed-Dahab (EH)",
+    "countryCode": "MA"
+  },
+  {
+    "code": "OUZ",
+    "name": "Ouezzane",
+    "countryCode": "MA"
+  },
+  {
+    "code": "OUJ",
+    "name": "Oujda-Angad",
+    "countryCode": "MA"
+  },
+  {
+    "code": "RAB",
+    "name": "Rabat",
+    "countryCode": "MA"
+  },
+  {
+    "code": "04",
+    "name": "Rabat-Salé-Kénitra",
+    "countryCode": "MA"
+  },
+  {
+    "code": "REH",
+    "name": "Rehamna",
+    "countryCode": "MA"
+  },
+  {
+    "code": "SAF",
+    "name": "Safi",
+    "countryCode": "MA"
+  },
+  {
+    "code": "SAL",
+    "name": "Salé",
+    "countryCode": "MA"
+  },
+  {
+    "code": "SEF",
+    "name": "Sefrou",
+    "countryCode": "MA"
+  },
+  {
+    "code": "SET",
+    "name": "Settat",
+    "countryCode": "MA"
+  },
+  {
+    "code": "SIB",
+    "name": "Sidi Bennour",
+    "countryCode": "MA"
+  },
+  {
+    "code": "SIF",
+    "name": "Sidi Ifni",
+    "countryCode": "MA"
+  },
+  {
+    "code": "SIK",
+    "name": "Sidi Kacem",
+    "countryCode": "MA"
+  },
+  {
+    "code": "SIL",
+    "name": "Sidi Slimane",
+    "countryCode": "MA"
+  },
+  {
+    "code": "SKH",
+    "name": "Skhirate-Témara",
+    "countryCode": "MA"
+  },
+  {
+    "code": "09",
+    "name": "Souss-Massa",
+    "countryCode": "MA"
+  },
+  {
+    "code": "TNT",
+    "name": "Tan-Tan (EH-partial)",
+    "countryCode": "MA"
+  },
+  {
+    "code": "TNG",
+    "name": "Tanger-Assilah",
+    "countryCode": "MA"
+  },
+  {
+    "code": "01",
+    "name": "Tanger-Tétouan-Al Hoceïma",
+    "countryCode": "MA"
+  },
+  {
+    "code": "TAO",
+    "name": "Taounate",
+    "countryCode": "MA"
+  },
+  {
+    "code": "TAI",
+    "name": "Taourirt",
+    "countryCode": "MA"
+  },
+  {
+    "code": "TAF",
+    "name": "Tarfaya (EH-partial)",
+    "countryCode": "MA"
+  },
+  {
+    "code": "TAR",
+    "name": "Taroudannt",
+    "countryCode": "MA"
+  },
+  {
+    "code": "TAT",
+    "name": "Tata",
+    "countryCode": "MA"
+  },
+  {
+    "code": "TAZ",
+    "name": "Taza",
+    "countryCode": "MA"
+  },
+  {
+    "code": "TET",
+    "name": "Tétouan",
+    "countryCode": "MA"
+  },
+  {
+    "code": "TIN",
+    "name": "Tinghir",
+    "countryCode": "MA"
+  },
+  {
+    "code": "TIZ",
+    "name": "Tiznit",
+    "countryCode": "MA"
+  },
+  {
+    "code": "YUS",
+    "name": "Youssoufia",
+    "countryCode": "MA"
+  },
+  {
+    "code": "ZAG",
+    "name": "Zagora",
+    "countryCode": "MA"
+  }
+]

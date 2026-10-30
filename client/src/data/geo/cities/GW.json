@@ -1,0 +1,78 @@
+{
+  "BA": [
+    {
+      "name": "Bafatá",
+      "postalCodes": []
+    },
+    {
+      "name": "Contuboel Sector",
+      "postalCodes": []
+    }
+  ],
+  "BM": [
+    {
+      "name": "Quinhámel",
+      "postalCodes": []
+    }
+  ],
+  "BL": [
+    {
+      "name": "Bolama",
+      "postalCodes": []
+    },
+    {
+      "name": "Bubaque",
+      "postalCodes": []
+    }
+  ],
+  "CA": [
+    {
+      "name": "Cacheu",
+      "postalCodes": []
+    },
+    {
+      "name": "Canchungo",
+      "postalCodes": []
+    }
+  ],
+  "GA": [
+    {
+      "name": "Gabú",
+      "postalCodes": []
+    }
+  ],
+  "L": [],
+  "N": [],
+  "OI": [
+    {
+      "name": "Bissorã",
+      "postalCodes": []
+    },
+    {
+      "name": "Farim",
+      "postalCodes": []
+    },
+    {
+      "name": "Mansôa",
+      "postalCodes": []
+    }
+  ],
+  "QU": [
+    {
+      "name": "Buba",
+      "postalCodes": []
+    }
+  ],
+  "S": [],
+  "TO": [
+    {
+      "name": "Catió",
+      "postalCodes": []
+    },
+    {
+      "name": "Quebo",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

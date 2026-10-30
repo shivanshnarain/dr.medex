@@ -1,0 +1,157 @@
+[
+  {
+    "code": "AB",
+    "name": "Abidjan",
+    "countryCode": "CI"
+  },
+  {
+    "code": "16",
+    "name": "Agnéby",
+    "countryCode": "CI"
+  },
+  {
+    "code": "17",
+    "name": "Bafing Region",
+    "countryCode": "CI"
+  },
+  {
+    "code": "BS",
+    "name": "Bas-Sassandra District",
+    "countryCode": "CI"
+  },
+  {
+    "code": "09",
+    "name": "Bas-Sassandra Region",
+    "countryCode": "CI"
+  },
+  {
+    "code": "CM",
+    "name": "Comoé District",
+    "countryCode": "CI"
+  },
+  {
+    "code": "DN",
+    "name": "Denguélé District",
+    "countryCode": "CI"
+  },
+  {
+    "code": "10",
+    "name": "Denguélé Region",
+    "countryCode": "CI"
+  },
+  {
+    "code": "06",
+    "name": "Dix-Huit Montagnes",
+    "countryCode": "CI"
+  },
+  {
+    "code": "18",
+    "name": "Fromager",
+    "countryCode": "CI"
+  },
+  {
+    "code": "GD",
+    "name": "Gôh-Djiboua District",
+    "countryCode": "CI"
+  },
+  {
+    "code": "02",
+    "name": "Haut-Sassandra",
+    "countryCode": "CI"
+  },
+  {
+    "code": "LC",
+    "name": "Lacs District",
+    "countryCode": "CI"
+  },
+  {
+    "code": "07",
+    "name": "Lacs Region",
+    "countryCode": "CI"
+  },
+  {
+    "code": "LG",
+    "name": "Lagunes District",
+    "countryCode": "CI"
+  },
+  {
+    "code": "01",
+    "name": "Lagunes region",
+    "countryCode": "CI"
+  },
+  {
+    "code": "12",
+    "name": "Marahoué Region",
+    "countryCode": "CI"
+  },
+  {
+    "code": "MG",
+    "name": "Montagnes District",
+    "countryCode": "CI"
+  },
+  {
+    "code": "19",
+    "name": "Moyen-Cavally",
+    "countryCode": "CI"
+  },
+  {
+    "code": "05",
+    "name": "Moyen-Comoé",
+    "countryCode": "CI"
+  },
+  {
+    "code": "11",
+    "name": "N'zi-Comoé",
+    "countryCode": "CI"
+  },
+  {
+    "code": "SM",
+    "name": "Sassandra-Marahoué District",
+    "countryCode": "CI"
+  },
+  {
+    "code": "03",
+    "name": "Savanes Region",
+    "countryCode": "CI"
+  },
+  {
+    "code": "15",
+    "name": "Sud-Bandama",
+    "countryCode": "CI"
+  },
+  {
+    "code": "13",
+    "name": "Sud-Comoé",
+    "countryCode": "CI"
+  },
+  {
+    "code": "VB",
+    "name": "Vallée du Bandama District",
+    "countryCode": "CI"
+  },
+  {
+    "code": "04",
+    "name": "Vallée du Bandama Region",
+    "countryCode": "CI"
+  },
+  {
+    "code": "WR",
+    "name": "Woroba District",
+    "countryCode": "CI"
+  },
+  {
+    "code": "14",
+    "name": "Worodougou",
+    "countryCode": "CI"
+  },
+  {
+    "code": "YM",
+    "name": "Yamoussoukro",
+    "countryCode": "CI"
+  },
+  {
+    "code": "ZZ",
+    "name": "Zanzan Region",
+    "countryCode": "CI"
+  }
+]

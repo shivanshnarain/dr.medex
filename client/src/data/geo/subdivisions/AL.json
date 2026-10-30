@@ -1,0 +1,237 @@
+[
+  {
+    "code": "01",
+    "name": "Berat County",
+    "countryCode": "AL"
+  },
+  {
+    "code": "BR",
+    "name": "Berat District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "BU",
+    "name": "Bulqizë District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "DL",
+    "name": "Delvinë District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "DV",
+    "name": "Devoll District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "09",
+    "name": "Dibër County",
+    "countryCode": "AL"
+  },
+  {
+    "code": "DI",
+    "name": "Dibër District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "02",
+    "name": "Durrës County",
+    "countryCode": "AL"
+  },
+  {
+    "code": "DR",
+    "name": "Durrës District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "03",
+    "name": "Elbasan County",
+    "countryCode": "AL"
+  },
+  {
+    "code": "04",
+    "name": "Fier County",
+    "countryCode": "AL"
+  },
+  {
+    "code": "FR",
+    "name": "Fier District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "05",
+    "name": "Gjirokastër County",
+    "countryCode": "AL"
+  },
+  {
+    "code": "GJ",
+    "name": "Gjirokastër District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "GR",
+    "name": "Gramsh District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "HA",
+    "name": "Has District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "KA",
+    "name": "Kavajë District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "ER",
+    "name": "Kolonjë District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "06",
+    "name": "Korçë County",
+    "countryCode": "AL"
+  },
+  {
+    "code": "KO",
+    "name": "Korçë District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "KR",
+    "name": "Krujë District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "KC",
+    "name": "Kuçovë District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "07",
+    "name": "Kukës County",
+    "countryCode": "AL"
+  },
+  {
+    "code": "KU",
+    "name": "Kukës District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "KB",
+    "name": "Kurbin District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "08",
+    "name": "Lezhë County",
+    "countryCode": "AL"
+  },
+  {
+    "code": "LE",
+    "name": "Lezhë District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "LB",
+    "name": "Librazhd District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "LU",
+    "name": "Lushnjë District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "MM",
+    "name": "Malësi e Madhe District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "MK",
+    "name": "Mallakastër District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "MT",
+    "name": "Mat District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "MR",
+    "name": "Mirditë District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "PQ",
+    "name": "Peqin District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "PR",
+    "name": "Përmet District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "PG",
+    "name": "Pogradec District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "PU",
+    "name": "Pukë District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "SR",
+    "name": "Sarandë District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "10",
+    "name": "Shkodër County",
+    "countryCode": "AL"
+  },
+  {
+    "code": "SH",
+    "name": "Shkodër District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "SK",
+    "name": "Skrapar District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "TE",
+    "name": "Tepelenë District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "11",
+    "name": "Tirana County",
+    "countryCode": "AL"
+  },
+  {
+    "code": "TR",
+    "name": "Tirana District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "TP",
+    "name": "Tropojë District",
+    "countryCode": "AL"
+  },
+  {
+    "code": "12",
+    "name": "Vlorë County",
+    "countryCode": "AL"
+  },
+  {
+    "code": "VL",
+    "name": "Vlorë District",
+    "countryCode": "AL"
+  }
+]

@@ -1,0 +1,107 @@
+[
+  {
+    "code": "WA",
+    "name": "Al Wahat District",
+    "countryCode": "LY"
+  },
+  {
+    "code": "BA",
+    "name": "Benghazi",
+    "countryCode": "LY"
+  },
+  {
+    "code": "DR",
+    "name": "Derna District",
+    "countryCode": "LY"
+  },
+  {
+    "code": "GT",
+    "name": "Ghat District",
+    "countryCode": "LY"
+  },
+  {
+    "code": "JA",
+    "name": "Jabal al Akhdar",
+    "countryCode": "LY"
+  },
+  {
+    "code": "JG",
+    "name": "Jabal al Gharbi District",
+    "countryCode": "LY"
+  },
+  {
+    "code": "JI",
+    "name": "Jafara",
+    "countryCode": "LY"
+  },
+  {
+    "code": "JU",
+    "name": "Jufra",
+    "countryCode": "LY"
+  },
+  {
+    "code": "KF",
+    "name": "Kufra District",
+    "countryCode": "LY"
+  },
+  {
+    "code": "MJ",
+    "name": "Marj District",
+    "countryCode": "LY"
+  },
+  {
+    "code": "MI",
+    "name": "Misrata District",
+    "countryCode": "LY"
+  },
+  {
+    "code": "MB",
+    "name": "Murqub",
+    "countryCode": "LY"
+  },
+  {
+    "code": "MQ",
+    "name": "Murzuq District",
+    "countryCode": "LY"
+  },
+  {
+    "code": "NL",
+    "name": "Nalut District",
+    "countryCode": "LY"
+  },
+  {
+    "code": "NQ",
+    "name": "Nuqat al Khams",
+    "countryCode": "LY"
+  },
+  {
+    "code": "SB",
+    "name": "Sabha District",
+    "countryCode": "LY"
+  },
+  {
+    "code": "SR",
+    "name": "Sirte District",
+    "countryCode": "LY"
+  },
+  {
+    "code": "TB",
+    "name": "Tripoli District",
+    "countryCode": "LY"
+  },
+  {
+    "code": "WD",
+    "name": "Wadi al Hayaa District",
+    "countryCode": "LY"
+  },
+  {
+    "code": "WS",
+    "name": "Wadi al Shatii District",
+    "countryCode": "LY"
+  },
+  {
+    "code": "ZA",
+    "name": "Zawiya District",
+    "countryCode": "LY"
+  }
+]

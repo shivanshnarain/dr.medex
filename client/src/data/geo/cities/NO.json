@@ -1,0 +1,2713 @@
+{
+  "10": [
+    {
+      "name": "Åseral",
+      "postalCodes": []
+    },
+    {
+      "name": "Audnedal",
+      "postalCodes": []
+    },
+    {
+      "name": "Farsund",
+      "postalCodes": []
+    },
+    {
+      "name": "Flekkefjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Hægebostad",
+      "postalCodes": []
+    },
+    {
+      "name": "Justvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Kristiansand",
+      "postalCodes": []
+    },
+    {
+      "name": "Kvinesdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Liknes",
+      "postalCodes": []
+    },
+    {
+      "name": "Lindesnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyngdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Mandal",
+      "postalCodes": []
+    },
+    {
+      "name": "Marnardal",
+      "postalCodes": []
+    },
+    {
+      "name": "Nodeland",
+      "postalCodes": []
+    },
+    {
+      "name": "Sirdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Skålevik",
+      "postalCodes": []
+    },
+    {
+      "name": "Søgne",
+      "postalCodes": []
+    },
+    {
+      "name": "Songdalen",
+      "postalCodes": []
+    },
+    {
+      "name": "Strai",
+      "postalCodes": []
+    },
+    {
+      "name": "Tonstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Tveit",
+      "postalCodes": []
+    },
+    {
+      "name": "Vanse",
+      "postalCodes": []
+    },
+    {
+      "name": "Vennesla",
+      "postalCodes": []
+    },
+    {
+      "name": "Vestbygd",
+      "postalCodes": []
+    },
+    {
+      "name": "Vigeland",
+      "postalCodes": []
+    }
+  ],
+  "11": [
+    {
+      "name": "Åkrehamn",
+      "postalCodes": []
+    },
+    {
+      "name": "Bjerkreim",
+      "postalCodes": []
+    },
+    {
+      "name": "Bokn",
+      "postalCodes": []
+    },
+    {
+      "name": "Bryne",
+      "postalCodes": []
+    },
+    {
+      "name": "Egersund",
+      "postalCodes": []
+    },
+    {
+      "name": "Eigersund",
+      "postalCodes": []
+    },
+    {
+      "name": "Eike",
+      "postalCodes": []
+    },
+    {
+      "name": "Finnøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Forsand",
+      "postalCodes": []
+    },
+    {
+      "name": "Gjesdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Hå",
+      "postalCodes": []
+    },
+    {
+      "name": "Hauge i Dalane",
+      "postalCodes": []
+    },
+    {
+      "name": "Haugesund",
+      "postalCodes": []
+    },
+    {
+      "name": "Hjelmeland",
+      "postalCodes": []
+    },
+    {
+      "name": "Hommersåk",
+      "postalCodes": []
+    },
+    {
+      "name": "Jørpeland",
+      "postalCodes": []
+    },
+    {
+      "name": "Judaberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Karmøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Klepp",
+      "postalCodes": []
+    },
+    {
+      "name": "Kopervik",
+      "postalCodes": []
+    },
+    {
+      "name": "Kvitsøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Lund",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyefjell",
+      "postalCodes": []
+    },
+    {
+      "name": "Moi",
+      "postalCodes": []
+    },
+    {
+      "name": "Nærbø",
+      "postalCodes": []
+    },
+    {
+      "name": "Ølen",
+      "postalCodes": []
+    },
+    {
+      "name": "Randaberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Rennesøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Sæveland",
+      "postalCodes": []
+    },
+    {
+      "name": "Sandnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Sauda",
+      "postalCodes": []
+    },
+    {
+      "name": "Skudeneshavn",
+      "postalCodes": []
+    },
+    {
+      "name": "Sokndal",
+      "postalCodes": []
+    },
+    {
+      "name": "Sola",
+      "postalCodes": []
+    },
+    {
+      "name": "Stavanger",
+      "postalCodes": []
+    },
+    {
+      "name": "Strand",
+      "postalCodes": []
+    },
+    {
+      "name": "Suldal",
+      "postalCodes": []
+    },
+    {
+      "name": "Tananger",
+      "postalCodes": []
+    },
+    {
+      "name": "Tau",
+      "postalCodes": []
+    },
+    {
+      "name": "Time",
+      "postalCodes": []
+    },
+    {
+      "name": "Tysvær",
+      "postalCodes": []
+    },
+    {
+      "name": "Utsira",
+      "postalCodes": []
+    },
+    {
+      "name": "Varhaug",
+      "postalCodes": []
+    },
+    {
+      "name": "Vedavågen",
+      "postalCodes": []
+    },
+    {
+      "name": "Vigrestad",
+      "postalCodes": []
+    },
+    {
+      "name": "Vikeså",
+      "postalCodes": []
+    },
+    {
+      "name": "Vikevåg",
+      "postalCodes": []
+    },
+    {
+      "name": "Vindafjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Vormedal",
+      "postalCodes": []
+    }
+  ],
+  "12": [
+    {
+      "name": "Ågotnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Askøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Austevoll",
+      "postalCodes": []
+    },
+    {
+      "name": "Austrheim",
+      "postalCodes": []
+    },
+    {
+      "name": "Bergen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bømlo",
+      "postalCodes": []
+    },
+    {
+      "name": "Dale",
+      "postalCodes": []
+    },
+    {
+      "name": "Eidfjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Eikelandsosen",
+      "postalCodes": []
+    },
+    {
+      "name": "Espeland",
+      "postalCodes": []
+    },
+    {
+      "name": "Etne",
+      "postalCodes": []
+    },
+    {
+      "name": "Fedje",
+      "postalCodes": []
+    },
+    {
+      "name": "Fitjar",
+      "postalCodes": []
+    },
+    {
+      "name": "Fjell",
+      "postalCodes": []
+    },
+    {
+      "name": "Frekhaug",
+      "postalCodes": []
+    },
+    {
+      "name": "Fusa",
+      "postalCodes": []
+    },
+    {
+      "name": "Granvin",
+      "postalCodes": []
+    },
+    {
+      "name": "Hagavik",
+      "postalCodes": []
+    },
+    {
+      "name": "Hylkje",
+      "postalCodes": []
+    },
+    {
+      "name": "Indre Arna",
+      "postalCodes": []
+    },
+    {
+      "name": "Jondal",
+      "postalCodes": []
+    },
+    {
+      "name": "Kinsarvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Knappskog",
+      "postalCodes": []
+    },
+    {
+      "name": "Knarvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Kvam",
+      "postalCodes": []
+    },
+    {
+      "name": "Kvinnherad",
+      "postalCodes": []
+    },
+    {
+      "name": "Leirvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Lindås",
+      "postalCodes": []
+    },
+    {
+      "name": "Lonevåg",
+      "postalCodes": []
+    },
+    {
+      "name": "Manger",
+      "postalCodes": []
+    },
+    {
+      "name": "Masfjorden",
+      "postalCodes": []
+    },
+    {
+      "name": "Meland",
+      "postalCodes": []
+    },
+    {
+      "name": "Modalen",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosterhamn",
+      "postalCodes": []
+    },
+    {
+      "name": "Norheimsund",
+      "postalCodes": []
+    },
+    {
+      "name": "Odda",
+      "postalCodes": []
+    },
+    {
+      "name": "Os",
+      "postalCodes": []
+    },
+    {
+      "name": "Osterøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Øygarden",
+      "postalCodes": []
+    },
+    {
+      "name": "Øystese",
+      "postalCodes": []
+    },
+    {
+      "name": "Radøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosendal",
+      "postalCodes": []
+    },
+    {
+      "name": "Rubbestadneset",
+      "postalCodes": []
+    },
+    {
+      "name": "Sagvåg",
+      "postalCodes": []
+    },
+    {
+      "name": "Samnanger",
+      "postalCodes": []
+    },
+    {
+      "name": "Sandsli",
+      "postalCodes": []
+    },
+    {
+      "name": "Skogsvågen",
+      "postalCodes": []
+    },
+    {
+      "name": "Stord",
+      "postalCodes": []
+    },
+    {
+      "name": "Storebø",
+      "postalCodes": []
+    },
+    {
+      "name": "Straume",
+      "postalCodes": []
+    },
+    {
+      "name": "Sund",
+      "postalCodes": []
+    },
+    {
+      "name": "Sveio",
+      "postalCodes": []
+    },
+    {
+      "name": "Syfteland",
+      "postalCodes": []
+    },
+    {
+      "name": "Tysnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Ullensvang",
+      "postalCodes": []
+    },
+    {
+      "name": "Ulvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Vaksdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Voss",
+      "postalCodes": []
+    },
+    {
+      "name": "Ytre Arna",
+      "postalCodes": []
+    },
+    {
+      "name": "Ytrebygda",
+      "postalCodes": []
+    }
+  ],
+  "14": [
+    {
+      "name": "Årdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Årdalstangen",
+      "postalCodes": []
+    },
+    {
+      "name": "Askvoll",
+      "postalCodes": []
+    },
+    {
+      "name": "Aurland",
+      "postalCodes": []
+    },
+    {
+      "name": "Balestrand",
+      "postalCodes": []
+    },
+    {
+      "name": "Bremanger",
+      "postalCodes": []
+    },
+    {
+      "name": "Dale",
+      "postalCodes": []
+    },
+    {
+      "name": "Eid",
+      "postalCodes": []
+    },
+    {
+      "name": "Eivindvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Farnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Fjaler",
+      "postalCodes": []
+    },
+    {
+      "name": "Flora",
+      "postalCodes": []
+    },
+    {
+      "name": "Florø",
+      "postalCodes": []
+    },
+    {
+      "name": "Førde",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaular",
+      "postalCodes": []
+    },
+    {
+      "name": "Gaupne",
+      "postalCodes": []
+    },
+    {
+      "name": "Gloppen",
+      "postalCodes": []
+    },
+    {
+      "name": "Gulen",
+      "postalCodes": []
+    },
+    {
+      "name": "Hardbakke",
+      "postalCodes": []
+    },
+    {
+      "name": "Hermansverk",
+      "postalCodes": []
+    },
+    {
+      "name": "Hornindal",
+      "postalCodes": []
+    },
+    {
+      "name": "Høyanger",
+      "postalCodes": []
+    },
+    {
+      "name": "Hyllestad",
+      "postalCodes": []
+    },
+    {
+      "name": "Jølster",
+      "postalCodes": []
+    },
+    {
+      "name": "Lærdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Lærdalsøyri",
+      "postalCodes": []
+    },
+    {
+      "name": "Leikanger",
+      "postalCodes": []
+    },
+    {
+      "name": "Luster",
+      "postalCodes": []
+    },
+    {
+      "name": "Måløy",
+      "postalCodes": []
+    },
+    {
+      "name": "Naustdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Nordfjordeid",
+      "postalCodes": []
+    },
+    {
+      "name": "Sandane",
+      "postalCodes": []
+    },
+    {
+      "name": "Sande",
+      "postalCodes": []
+    },
+    {
+      "name": "Selje",
+      "postalCodes": []
+    },
+    {
+      "name": "Sogndal",
+      "postalCodes": []
+    },
+    {
+      "name": "Solund",
+      "postalCodes": []
+    },
+    {
+      "name": "Stryn",
+      "postalCodes": []
+    },
+    {
+      "name": "Svelgen",
+      "postalCodes": []
+    },
+    {
+      "name": "Vågsøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Vik",
+      "postalCodes": []
+    }
+  ],
+  "15": [
+    {
+      "name": "Ålesund",
+      "postalCodes": []
+    },
+    {
+      "name": "Åndalsnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Aukra",
+      "postalCodes": []
+    },
+    {
+      "name": "Aure",
+      "postalCodes": []
+    },
+    {
+      "name": "Averøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Batnfjordsøra",
+      "postalCodes": []
+    },
+    {
+      "name": "Brattvåg",
+      "postalCodes": []
+    },
+    {
+      "name": "Eide",
+      "postalCodes": []
+    },
+    {
+      "name": "Eidsvåg",
+      "postalCodes": []
+    },
+    {
+      "name": "Elnesvågen",
+      "postalCodes": []
+    },
+    {
+      "name": "Fræna",
+      "postalCodes": []
+    },
+    {
+      "name": "Giske",
+      "postalCodes": []
+    },
+    {
+      "name": "Gjemnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Halsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Haram",
+      "postalCodes": []
+    },
+    {
+      "name": "Hareid",
+      "postalCodes": []
+    },
+    {
+      "name": "Herøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Hjelset",
+      "postalCodes": []
+    },
+    {
+      "name": "Hopen",
+      "postalCodes": []
+    },
+    {
+      "name": "Kristiansund",
+      "postalCodes": []
+    },
+    {
+      "name": "Larsnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Midsund",
+      "postalCodes": []
+    },
+    {
+      "name": "Molde",
+      "postalCodes": []
+    },
+    {
+      "name": "Nesset",
+      "postalCodes": []
+    },
+    {
+      "name": "Norddal",
+      "postalCodes": []
+    },
+    {
+      "name": "Nordstranda",
+      "postalCodes": []
+    },
+    {
+      "name": "Ørskog",
+      "postalCodes": []
+    },
+    {
+      "name": "Ørsta",
+      "postalCodes": []
+    },
+    {
+      "name": "Rauma",
+      "postalCodes": []
+    },
+    {
+      "name": "Rensvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Sande",
+      "postalCodes": []
+    },
+    {
+      "name": "Sandøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Sjøholt",
+      "postalCodes": []
+    },
+    {
+      "name": "Skodje",
+      "postalCodes": []
+    },
+    {
+      "name": "Smøla",
+      "postalCodes": []
+    },
+    {
+      "name": "Steinshamn",
+      "postalCodes": []
+    },
+    {
+      "name": "Stordal",
+      "postalCodes": []
+    },
+    {
+      "name": "Stranda",
+      "postalCodes": []
+    },
+    {
+      "name": "Sula",
+      "postalCodes": []
+    },
+    {
+      "name": "Sunndal",
+      "postalCodes": []
+    },
+    {
+      "name": "Sunndalsøra",
+      "postalCodes": []
+    },
+    {
+      "name": "Surnadal",
+      "postalCodes": []
+    },
+    {
+      "name": "Sykkylven",
+      "postalCodes": []
+    },
+    {
+      "name": "Tingvoll",
+      "postalCodes": []
+    },
+    {
+      "name": "Tomra",
+      "postalCodes": []
+    },
+    {
+      "name": "Ulstein",
+      "postalCodes": []
+    },
+    {
+      "name": "Ulsteinvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Ulsteinvik weather pws station",
+      "postalCodes": []
+    },
+    {
+      "name": "Vanylven",
+      "postalCodes": []
+    },
+    {
+      "name": "Vatne",
+      "postalCodes": []
+    },
+    {
+      "name": "Vestnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Volda",
+      "postalCodes": []
+    }
+  ],
+  "16": [],
+  "17": [],
+  "18": [
+    {
+      "name": "Alstahaug",
+      "postalCodes": []
+    },
+    {
+      "name": "Andenes",
+      "postalCodes": []
+    },
+    {
+      "name": "Andøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Ballangen",
+      "postalCodes": []
+    },
+    {
+      "name": "Beiarn",
+      "postalCodes": []
+    },
+    {
+      "name": "Bindal",
+      "postalCodes": []
+    },
+    {
+      "name": "Bjerkvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Bø",
+      "postalCodes": []
+    },
+    {
+      "name": "Bodø",
+      "postalCodes": []
+    },
+    {
+      "name": "Bogen",
+      "postalCodes": []
+    },
+    {
+      "name": "Brønnøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Brønnøysund",
+      "postalCodes": []
+    },
+    {
+      "name": "Dønna",
+      "postalCodes": []
+    },
+    {
+      "name": "Evenes",
+      "postalCodes": []
+    },
+    {
+      "name": "Evjen",
+      "postalCodes": []
+    },
+    {
+      "name": "Fauske",
+      "postalCodes": []
+    },
+    {
+      "name": "Flakstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Gildeskål",
+      "postalCodes": []
+    },
+    {
+      "name": "Gladstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Glomfjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Grane",
+      "postalCodes": []
+    },
+    {
+      "name": "Gravdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Hadsel",
+      "postalCodes": []
+    },
+    {
+      "name": "Hamarøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Hattfjelldal",
+      "postalCodes": []
+    },
+    {
+      "name": "Hauknes",
+      "postalCodes": []
+    },
+    {
+      "name": "Hemnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Hemnesberget",
+      "postalCodes": []
+    },
+    {
+      "name": "Herøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Inndyr",
+      "postalCodes": []
+    },
+    {
+      "name": "Kabelvåg",
+      "postalCodes": []
+    },
+    {
+      "name": "Kjøpsvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Korgen",
+      "postalCodes": []
+    },
+    {
+      "name": "Leirfjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Leknes",
+      "postalCodes": []
+    },
+    {
+      "name": "Leland",
+      "postalCodes": []
+    },
+    {
+      "name": "Løding",
+      "postalCodes": []
+    },
+    {
+      "name": "Lødingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Løpsmarka",
+      "postalCodes": []
+    },
+    {
+      "name": "Lurøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Melbu",
+      "postalCodes": []
+    },
+    {
+      "name": "Meløy",
+      "postalCodes": []
+    },
+    {
+      "name": "Mo i Rana",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosjøen",
+      "postalCodes": []
+    },
+    {
+      "name": "Moskenes",
+      "postalCodes": []
+    },
+    {
+      "name": "Myre",
+      "postalCodes": []
+    },
+    {
+      "name": "Narvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Nesna",
+      "postalCodes": []
+    },
+    {
+      "name": "Øksnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Ørnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Rana",
+      "postalCodes": []
+    },
+    {
+      "name": "Reine",
+      "postalCodes": []
+    },
+    {
+      "name": "Rødøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Rognan",
+      "postalCodes": []
+    },
+    {
+      "name": "Røst",
+      "postalCodes": []
+    },
+    {
+      "name": "Saltdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Sandnessjøen",
+      "postalCodes": []
+    },
+    {
+      "name": "Sømna",
+      "postalCodes": []
+    },
+    {
+      "name": "Sørfold",
+      "postalCodes": []
+    },
+    {
+      "name": "Sørland",
+      "postalCodes": []
+    },
+    {
+      "name": "Sortland",
+      "postalCodes": []
+    },
+    {
+      "name": "Steigen",
+      "postalCodes": []
+    },
+    {
+      "name": "Stokmarknes",
+      "postalCodes": []
+    },
+    {
+      "name": "Straume",
+      "postalCodes": []
+    },
+    {
+      "name": "Straumen",
+      "postalCodes": []
+    },
+    {
+      "name": "Svolvær",
+      "postalCodes": []
+    },
+    {
+      "name": "Terråk",
+      "postalCodes": []
+    },
+    {
+      "name": "Tjeldsund",
+      "postalCodes": []
+    },
+    {
+      "name": "Træna",
+      "postalCodes": []
+    },
+    {
+      "name": "Trofors",
+      "postalCodes": []
+    },
+    {
+      "name": "Tysfjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Værøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Vågan",
+      "postalCodes": []
+    },
+    {
+      "name": "Vefsn",
+      "postalCodes": []
+    },
+    {
+      "name": "Vega",
+      "postalCodes": []
+    },
+    {
+      "name": "Vestvågøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Vevelstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Vik",
+      "postalCodes": []
+    }
+  ],
+  "19": [
+    {
+      "name": "Balsfjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Bardu",
+      "postalCodes": []
+    },
+    {
+      "name": "Berg",
+      "postalCodes": []
+    },
+    {
+      "name": "Borkenes",
+      "postalCodes": []
+    },
+    {
+      "name": "Dyrøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Evenskjer",
+      "postalCodes": []
+    },
+    {
+      "name": "Finnsnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Gratangen",
+      "postalCodes": []
+    },
+    {
+      "name": "Gryllefjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Hansnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Harstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Ibestad",
+      "postalCodes": []
+    },
+    {
+      "name": "Kåfjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Karlsøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Kvæfjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Kvænangen",
+      "postalCodes": []
+    },
+    {
+      "name": "Lavangen",
+      "postalCodes": []
+    },
+    {
+      "name": "Lenvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyngen",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyngseidet",
+      "postalCodes": []
+    },
+    {
+      "name": "Målselv",
+      "postalCodes": []
+    },
+    {
+      "name": "Moen",
+      "postalCodes": []
+    },
+    {
+      "name": "Nordreisa",
+      "postalCodes": []
+    },
+    {
+      "name": "Olderdalen",
+      "postalCodes": []
+    },
+    {
+      "name": "Salangen",
+      "postalCodes": []
+    },
+    {
+      "name": "Setermoen",
+      "postalCodes": []
+    },
+    {
+      "name": "Sjøvegan",
+      "postalCodes": []
+    },
+    {
+      "name": "Skånland",
+      "postalCodes": []
+    },
+    {
+      "name": "Skjervøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Sørreisa",
+      "postalCodes": []
+    },
+    {
+      "name": "Storfjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Storslett",
+      "postalCodes": []
+    },
+    {
+      "name": "Storsteinnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Torsken",
+      "postalCodes": []
+    },
+    {
+      "name": "Tranøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Tromsø",
+      "postalCodes": []
+    }
+  ],
+  "20": [
+    {
+      "name": "Alta",
+      "postalCodes": []
+    },
+    {
+      "name": "Ávanuorri",
+      "postalCodes": []
+    },
+    {
+      "name": "Båtsfjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Berlevåg",
+      "postalCodes": []
+    },
+    {
+      "name": "Bjørnevatn",
+      "postalCodes": []
+    },
+    {
+      "name": "Gamvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Hammerfest",
+      "postalCodes": []
+    },
+    {
+      "name": "Hasvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Honningsvåg",
+      "postalCodes": []
+    },
+    {
+      "name": "Kárášjohka",
+      "postalCodes": []
+    },
+    {
+      "name": "Karasjok",
+      "postalCodes": []
+    },
+    {
+      "name": "Kautokeino",
+      "postalCodes": []
+    },
+    {
+      "name": "Kirkenes",
+      "postalCodes": []
+    },
+    {
+      "name": "Kjøllefjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Kvalsund",
+      "postalCodes": []
+    },
+    {
+      "name": "Lakselv",
+      "postalCodes": []
+    },
+    {
+      "name": "Lebesby",
+      "postalCodes": []
+    },
+    {
+      "name": "Loppa",
+      "postalCodes": []
+    },
+    {
+      "name": "Måsøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Mehamn",
+      "postalCodes": []
+    },
+    {
+      "name": "Nesseby",
+      "postalCodes": []
+    },
+    {
+      "name": "Nordkapp",
+      "postalCodes": []
+    },
+    {
+      "name": "Øksfjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Porsanger",
+      "postalCodes": []
+    },
+    {
+      "name": "Rypefjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Sør-Varanger",
+      "postalCodes": []
+    },
+    {
+      "name": "Tana",
+      "postalCodes": []
+    },
+    {
+      "name": "Vadsø",
+      "postalCodes": []
+    },
+    {
+      "name": "Vardø",
+      "postalCodes": []
+    }
+  ],
+  "21": [],
+  "22": [],
+  "50": [
+    {
+      "name": "Å i Åfjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Åfjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Agdenes",
+      "postalCodes": []
+    },
+    {
+      "name": "Berkåk",
+      "postalCodes": []
+    },
+    {
+      "name": "Bjugn",
+      "postalCodes": []
+    },
+    {
+      "name": "Botngård",
+      "postalCodes": []
+    },
+    {
+      "name": "Brekstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Fillan",
+      "postalCodes": []
+    },
+    {
+      "name": "Flatanger",
+      "postalCodes": []
+    },
+    {
+      "name": "Fosnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Frosta",
+      "postalCodes": []
+    },
+    {
+      "name": "Frøya",
+      "postalCodes": []
+    },
+    {
+      "name": "Grong",
+      "postalCodes": []
+    },
+    {
+      "name": "Hemne",
+      "postalCodes": []
+    },
+    {
+      "name": "Hitra",
+      "postalCodes": []
+    },
+    {
+      "name": "Holtålen",
+      "postalCodes": []
+    },
+    {
+      "name": "Hommelvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Høylandet",
+      "postalCodes": []
+    },
+    {
+      "name": "Inderøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Indre Fosen",
+      "postalCodes": []
+    },
+    {
+      "name": "Klæbu",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolvereid",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyrksæterøra",
+      "postalCodes": []
+    },
+    {
+      "name": "Lauvsnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Leka",
+      "postalCodes": []
+    },
+    {
+      "name": "Levanger",
+      "postalCodes": []
+    },
+    {
+      "name": "Lierne",
+      "postalCodes": []
+    },
+    {
+      "name": "Lundamo",
+      "postalCodes": []
+    },
+    {
+      "name": "Malm",
+      "postalCodes": []
+    },
+    {
+      "name": "Malvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Meldal",
+      "postalCodes": []
+    },
+    {
+      "name": "Melhus",
+      "postalCodes": []
+    },
+    {
+      "name": "Meråker",
+      "postalCodes": []
+    },
+    {
+      "name": "Midtre Gauldal",
+      "postalCodes": []
+    },
+    {
+      "name": "Nærøy",
+      "postalCodes": []
+    },
+    {
+      "name": "Namdalseid",
+      "postalCodes": []
+    },
+    {
+      "name": "Namsos",
+      "postalCodes": []
+    },
+    {
+      "name": "Namsskogan",
+      "postalCodes": []
+    },
+    {
+      "name": "Oppdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Orkdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Ørland",
+      "postalCodes": []
+    },
+    {
+      "name": "Osen",
+      "postalCodes": []
+    },
+    {
+      "name": "Overhalla",
+      "postalCodes": []
+    },
+    {
+      "name": "Raarvihke - Røyrvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Ranemsletta",
+      "postalCodes": []
+    },
+    {
+      "name": "Rennebu",
+      "postalCodes": []
+    },
+    {
+      "name": "Rindal",
+      "postalCodes": []
+    },
+    {
+      "name": "Roan",
+      "postalCodes": []
+    },
+    {
+      "name": "Røros",
+      "postalCodes": []
+    },
+    {
+      "name": "Rørvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Røyrvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Selbu",
+      "postalCodes": []
+    },
+    {
+      "name": "Sistranda",
+      "postalCodes": []
+    },
+    {
+      "name": "Skaun",
+      "postalCodes": []
+    },
+    {
+      "name": "Skogn",
+      "postalCodes": []
+    },
+    {
+      "name": "Snåase",
+      "postalCodes": []
+    },
+    {
+      "name": "Snåase - Snåsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Snillfjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Steinkjer",
+      "postalCodes": []
+    },
+    {
+      "name": "Stjørdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Stjørdalshalsen",
+      "postalCodes": []
+    },
+    {
+      "name": "Straumen",
+      "postalCodes": []
+    },
+    {
+      "name": "Trondheim",
+      "postalCodes": []
+    },
+    {
+      "name": "Tydal",
+      "postalCodes": []
+    },
+    {
+      "name": "Verdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Verran",
+      "postalCodes": []
+    },
+    {
+      "name": "Vikna",
+      "postalCodes": []
+    }
+  ],
+  "02": [
+    {
+      "name": "Åneby",
+      "postalCodes": []
+    },
+    {
+      "name": "Årnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Ås",
+      "postalCodes": []
+    },
+    {
+      "name": "Ask",
+      "postalCodes": []
+    },
+    {
+      "name": "Asker",
+      "postalCodes": []
+    },
+    {
+      "name": "Auli",
+      "postalCodes": []
+    },
+    {
+      "name": "Aurskog-Høland",
+      "postalCodes": []
+    },
+    {
+      "name": "Aursmoen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bærum",
+      "postalCodes": []
+    },
+    {
+      "name": "Billingstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Bjørkelangen",
+      "postalCodes": []
+    },
+    {
+      "name": "Blakstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Drøbak",
+      "postalCodes": []
+    },
+    {
+      "name": "Eidsvoll",
+      "postalCodes": []
+    },
+    {
+      "name": "Enebakk",
+      "postalCodes": []
+    },
+    {
+      "name": "Fagerstrand",
+      "postalCodes": []
+    },
+    {
+      "name": "Fet",
+      "postalCodes": []
+    },
+    {
+      "name": "Fetsund",
+      "postalCodes": []
+    },
+    {
+      "name": "Fjellfoten",
+      "postalCodes": []
+    },
+    {
+      "name": "Flateby",
+      "postalCodes": []
+    },
+    {
+      "name": "Frogn",
+      "postalCodes": []
+    },
+    {
+      "name": "Frogner",
+      "postalCodes": []
+    },
+    {
+      "name": "Gjerdrum",
+      "postalCodes": []
+    },
+    {
+      "name": "Hurdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Jessheim",
+      "postalCodes": []
+    },
+    {
+      "name": "Kløfta",
+      "postalCodes": []
+    },
+    {
+      "name": "Leirsund",
+      "postalCodes": []
+    },
+    {
+      "name": "Lillestrøm",
+      "postalCodes": []
+    },
+    {
+      "name": "Lørenskog",
+      "postalCodes": []
+    },
+    {
+      "name": "Lysaker",
+      "postalCodes": []
+    },
+    {
+      "name": "Maura",
+      "postalCodes": []
+    },
+    {
+      "name": "Nannestad",
+      "postalCodes": []
+    },
+    {
+      "name": "Nes",
+      "postalCodes": []
+    },
+    {
+      "name": "Neskollen",
+      "postalCodes": []
+    },
+    {
+      "name": "Nesodden",
+      "postalCodes": []
+    },
+    {
+      "name": "Nesoddtangen",
+      "postalCodes": []
+    },
+    {
+      "name": "Nittedal",
+      "postalCodes": []
+    },
+    {
+      "name": "Oppegård",
+      "postalCodes": []
+    },
+    {
+      "name": "Rælingen",
+      "postalCodes": []
+    },
+    {
+      "name": "Råholt",
+      "postalCodes": []
+    },
+    {
+      "name": "Rotnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Skedsmo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ski",
+      "postalCodes": []
+    },
+    {
+      "name": "Skui",
+      "postalCodes": []
+    },
+    {
+      "name": "Sørum",
+      "postalCodes": []
+    },
+    {
+      "name": "Sørumsand",
+      "postalCodes": []
+    },
+    {
+      "name": "Ullensaker",
+      "postalCodes": []
+    },
+    {
+      "name": "Vestby",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Ål",
+      "postalCodes": []
+    },
+    {
+      "name": "Åros",
+      "postalCodes": []
+    },
+    {
+      "name": "Drammen",
+      "postalCodes": []
+    },
+    {
+      "name": "Flå",
+      "postalCodes": []
+    },
+    {
+      "name": "Flesberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Geilo",
+      "postalCodes": []
+    },
+    {
+      "name": "Gol",
+      "postalCodes": []
+    },
+    {
+      "name": "Hemsedal",
+      "postalCodes": []
+    },
+    {
+      "name": "Hol",
+      "postalCodes": []
+    },
+    {
+      "name": "Hole",
+      "postalCodes": []
+    },
+    {
+      "name": "Hønefoss",
+      "postalCodes": []
+    },
+    {
+      "name": "Hurum",
+      "postalCodes": []
+    },
+    {
+      "name": "Hvittingfoss",
+      "postalCodes": []
+    },
+    {
+      "name": "Kongsberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Krødsherad",
+      "postalCodes": []
+    },
+    {
+      "name": "Lier",
+      "postalCodes": []
+    },
+    {
+      "name": "Modum",
+      "postalCodes": []
+    },
+    {
+      "name": "Nedre Eiker",
+      "postalCodes": []
+    },
+    {
+      "name": "Nes",
+      "postalCodes": []
+    },
+    {
+      "name": "Nesbyen",
+      "postalCodes": []
+    },
+    {
+      "name": "Nore og Uvdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Noresund",
+      "postalCodes": []
+    },
+    {
+      "name": "Øvre Eiker",
+      "postalCodes": []
+    },
+    {
+      "name": "Prestfoss",
+      "postalCodes": []
+    },
+    {
+      "name": "Ringerike",
+      "postalCodes": []
+    },
+    {
+      "name": "Rollag",
+      "postalCodes": []
+    },
+    {
+      "name": "Røyken",
+      "postalCodes": []
+    },
+    {
+      "name": "Sætre",
+      "postalCodes": []
+    },
+    {
+      "name": "Sigdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Skoger",
+      "postalCodes": []
+    },
+    {
+      "name": "Tofte",
+      "postalCodes": []
+    },
+    {
+      "name": "Tranby",
+      "postalCodes": []
+    },
+    {
+      "name": "Vikersund",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Alvdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Åmot",
+      "postalCodes": []
+    },
+    {
+      "name": "Åsnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Brumunddal",
+      "postalCodes": []
+    },
+    {
+      "name": "Eidskog",
+      "postalCodes": []
+    },
+    {
+      "name": "Elverum",
+      "postalCodes": []
+    },
+    {
+      "name": "Engerdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Folldal",
+      "postalCodes": []
+    },
+    {
+      "name": "Grue",
+      "postalCodes": []
+    },
+    {
+      "name": "Hamar",
+      "postalCodes": []
+    },
+    {
+      "name": "Innbygda",
+      "postalCodes": []
+    },
+    {
+      "name": "Kirkenær",
+      "postalCodes": []
+    },
+    {
+      "name": "Kongsvinger",
+      "postalCodes": []
+    },
+    {
+      "name": "Koppang",
+      "postalCodes": []
+    },
+    {
+      "name": "Løten",
+      "postalCodes": []
+    },
+    {
+      "name": "Moelv",
+      "postalCodes": []
+    },
+    {
+      "name": "Nord-Odal",
+      "postalCodes": []
+    },
+    {
+      "name": "Os",
+      "postalCodes": []
+    },
+    {
+      "name": "Rena",
+      "postalCodes": []
+    },
+    {
+      "name": "Rendalen",
+      "postalCodes": []
+    },
+    {
+      "name": "Ringsaker",
+      "postalCodes": []
+    },
+    {
+      "name": "Sand",
+      "postalCodes": []
+    },
+    {
+      "name": "Skarnes",
+      "postalCodes": []
+    },
+    {
+      "name": "Skotterud",
+      "postalCodes": []
+    },
+    {
+      "name": "Sør-Odal",
+      "postalCodes": []
+    },
+    {
+      "name": "Spetalen",
+      "postalCodes": []
+    },
+    {
+      "name": "Stange",
+      "postalCodes": []
+    },
+    {
+      "name": "Stor-Elvdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Tolga",
+      "postalCodes": []
+    },
+    {
+      "name": "Trysil",
+      "postalCodes": []
+    },
+    {
+      "name": "Tynset",
+      "postalCodes": []
+    },
+    {
+      "name": "Våler",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Bagn",
+      "postalCodes": []
+    },
+    {
+      "name": "Dokka",
+      "postalCodes": []
+    },
+    {
+      "name": "Dombås",
+      "postalCodes": []
+    },
+    {
+      "name": "Dovre",
+      "postalCodes": []
+    },
+    {
+      "name": "Etnedal",
+      "postalCodes": []
+    },
+    {
+      "name": "Fagernes",
+      "postalCodes": []
+    },
+    {
+      "name": "Fossbergom",
+      "postalCodes": []
+    },
+    {
+      "name": "Gausdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Gjøvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Gran",
+      "postalCodes": []
+    },
+    {
+      "name": "Grua",
+      "postalCodes": []
+    },
+    {
+      "name": "Hov",
+      "postalCodes": []
+    },
+    {
+      "name": "Hundorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Jevnaker",
+      "postalCodes": []
+    },
+    {
+      "name": "Lena",
+      "postalCodes": []
+    },
+    {
+      "name": "Lesja",
+      "postalCodes": []
+    },
+    {
+      "name": "Lillehammer",
+      "postalCodes": []
+    },
+    {
+      "name": "Lom",
+      "postalCodes": []
+    },
+    {
+      "name": "Lunner",
+      "postalCodes": []
+    },
+    {
+      "name": "Nord-Aurdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Nord-Fron",
+      "postalCodes": []
+    },
+    {
+      "name": "Nordre Land",
+      "postalCodes": []
+    },
+    {
+      "name": "Østre Toten",
+      "postalCodes": []
+    },
+    {
+      "name": "Otta",
+      "postalCodes": []
+    },
+    {
+      "name": "Øyer",
+      "postalCodes": []
+    },
+    {
+      "name": "Øystre Slidre",
+      "postalCodes": []
+    },
+    {
+      "name": "Raufoss",
+      "postalCodes": []
+    },
+    {
+      "name": "Reinsvoll",
+      "postalCodes": []
+    },
+    {
+      "name": "Ringebu",
+      "postalCodes": []
+    },
+    {
+      "name": "Sel",
+      "postalCodes": []
+    },
+    {
+      "name": "Skjåk",
+      "postalCodes": []
+    },
+    {
+      "name": "Skreia",
+      "postalCodes": []
+    },
+    {
+      "name": "Søndre Land",
+      "postalCodes": []
+    },
+    {
+      "name": "Sør-Aurdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Sør-Fron",
+      "postalCodes": []
+    },
+    {
+      "name": "Tretten",
+      "postalCodes": []
+    },
+    {
+      "name": "Vågå",
+      "postalCodes": []
+    },
+    {
+      "name": "Vågåmo",
+      "postalCodes": []
+    },
+    {
+      "name": "Vang",
+      "postalCodes": []
+    },
+    {
+      "name": "Vestre Slidre",
+      "postalCodes": []
+    },
+    {
+      "name": "Vestre Toten",
+      "postalCodes": []
+    },
+    {
+      "name": "Vinstra",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Oslo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sjølyststranda",
+      "postalCodes": []
+    }
+  ],
+  "01": [
+    {
+      "name": "Aremark",
+      "postalCodes": []
+    },
+    {
+      "name": "Askim",
+      "postalCodes": []
+    },
+    {
+      "name": "Eidsberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Fossby",
+      "postalCodes": []
+    },
+    {
+      "name": "Fredrikstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Halden",
+      "postalCodes": []
+    },
+    {
+      "name": "Hobøl",
+      "postalCodes": []
+    },
+    {
+      "name": "Hvaler",
+      "postalCodes": []
+    },
+    {
+      "name": "Karlshus",
+      "postalCodes": []
+    },
+    {
+      "name": "Knappstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Larkollen",
+      "postalCodes": []
+    },
+    {
+      "name": "Lervik",
+      "postalCodes": []
+    },
+    {
+      "name": "Marker",
+      "postalCodes": []
+    },
+    {
+      "name": "Moss",
+      "postalCodes": []
+    },
+    {
+      "name": "Mysen",
+      "postalCodes": []
+    },
+    {
+      "name": "Ørje",
+      "postalCodes": []
+    },
+    {
+      "name": "Råde",
+      "postalCodes": []
+    },
+    {
+      "name": "Rakkestad",
+      "postalCodes": []
+    },
+    {
+      "name": "Rømskog",
+      "postalCodes": []
+    },
+    {
+      "name": "Rygge",
+      "postalCodes": []
+    },
+    {
+      "name": "Ryggebyen",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarpsborg",
+      "postalCodes": []
+    },
+    {
+      "name": "Skiptvet",
+      "postalCodes": []
+    },
+    {
+      "name": "Skjærhalden",
+      "postalCodes": []
+    },
+    {
+      "name": "Skjeberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Spydeberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Tomter",
+      "postalCodes": []
+    },
+    {
+      "name": "Trøgstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Våler",
+      "postalCodes": []
+    }
+  ],
+  "08": [
+    {
+      "name": "Bamble",
+      "postalCodes": []
+    },
+    {
+      "name": "Bø",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalen",
+      "postalCodes": []
+    },
+    {
+      "name": "Drangedal",
+      "postalCodes": []
+    },
+    {
+      "name": "Fyresdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Gvarv",
+      "postalCodes": []
+    },
+    {
+      "name": "Herre",
+      "postalCodes": []
+    },
+    {
+      "name": "Hjartdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Kragerø",
+      "postalCodes": []
+    },
+    {
+      "name": "Kviteseid",
+      "postalCodes": []
+    },
+    {
+      "name": "Lunde",
+      "postalCodes": []
+    },
+    {
+      "name": "Nissedal",
+      "postalCodes": []
+    },
+    {
+      "name": "Nome",
+      "postalCodes": []
+    },
+    {
+      "name": "Notodden",
+      "postalCodes": []
+    },
+    {
+      "name": "Porsgrunn",
+      "postalCodes": []
+    },
+    {
+      "name": "Prestestranda",
+      "postalCodes": []
+    },
+    {
+      "name": "Rjukan",
+      "postalCodes": []
+    },
+    {
+      "name": "Sauherad",
+      "postalCodes": []
+    },
+    {
+      "name": "Seljord",
+      "postalCodes": []
+    },
+    {
+      "name": "Siljan",
+      "postalCodes": []
+    },
+    {
+      "name": "Skien",
+      "postalCodes": []
+    },
+    {
+      "name": "Tinn",
+      "postalCodes": []
+    },
+    {
+      "name": "Tokke",
+      "postalCodes": []
+    },
+    {
+      "name": "Ulefoss",
+      "postalCodes": []
+    },
+    {
+      "name": "Vinje",
+      "postalCodes": []
+    }
+  ],
+  "07": [
+    {
+      "name": "Årøysund",
+      "postalCodes": []
+    },
+    {
+      "name": "Åsgårdstrand",
+      "postalCodes": []
+    },
+    {
+      "name": "Barkåker",
+      "postalCodes": []
+    },
+    {
+      "name": "Berger",
+      "postalCodes": []
+    },
+    {
+      "name": "Færder",
+      "postalCodes": []
+    },
+    {
+      "name": "Gullhaug",
+      "postalCodes": []
+    },
+    {
+      "name": "Holmestrand",
+      "postalCodes": []
+    },
+    {
+      "name": "Horten",
+      "postalCodes": []
+    },
+    {
+      "name": "Larvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Melsomvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Re",
+      "postalCodes": []
+    },
+    {
+      "name": "Sande",
+      "postalCodes": []
+    },
+    {
+      "name": "Sandefjord",
+      "postalCodes": []
+    },
+    {
+      "name": "Selvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Sem",
+      "postalCodes": []
+    },
+    {
+      "name": "Skoppum",
+      "postalCodes": []
+    },
+    {
+      "name": "Stavern",
+      "postalCodes": []
+    },
+    {
+      "name": "Stokke",
+      "postalCodes": []
+    },
+    {
+      "name": "Svelvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Tjøme",
+      "postalCodes": []
+    },
+    {
+      "name": "Tønsberg",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

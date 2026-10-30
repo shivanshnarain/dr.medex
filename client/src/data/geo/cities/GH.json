@@ -1,0 +1,519 @@
+{
+  "AF": [
+    {
+      "name": "Asunafo North",
+      "postalCodes": []
+    },
+    {
+      "name": "Asunafo South",
+      "postalCodes": []
+    },
+    {
+      "name": "Asutifi North",
+      "postalCodes": []
+    },
+    {
+      "name": "Asutifi South",
+      "postalCodes": []
+    },
+    {
+      "name": "Tano North",
+      "postalCodes": []
+    },
+    {
+      "name": "Tano South",
+      "postalCodes": []
+    }
+  ],
+  "AH": [
+    {
+      "name": "Agogo",
+      "postalCodes": []
+    },
+    {
+      "name": "Bekwai",
+      "postalCodes": []
+    },
+    {
+      "name": "Ejura",
+      "postalCodes": []
+    },
+    {
+      "name": "Konongo",
+      "postalCodes": []
+    },
+    {
+      "name": "Kumasi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mampong",
+      "postalCodes": []
+    },
+    {
+      "name": "Obuase",
+      "postalCodes": []
+    },
+    {
+      "name": "Tafo",
+      "postalCodes": []
+    }
+  ],
+  "BO": [
+    {
+      "name": "Banda",
+      "postalCodes": []
+    },
+    {
+      "name": "Berekum East",
+      "postalCodes": []
+    },
+    {
+      "name": "Berekum West",
+      "postalCodes": []
+    },
+    {
+      "name": "Dormaa Central",
+      "postalCodes": []
+    },
+    {
+      "name": "Dormaa East",
+      "postalCodes": []
+    },
+    {
+      "name": "Dormaa West",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaman North",
+      "postalCodes": []
+    },
+    {
+      "name": "Jaman South",
+      "postalCodes": []
+    },
+    {
+      "name": "Sunyani",
+      "postalCodes": []
+    },
+    {
+      "name": "Sunyani West",
+      "postalCodes": []
+    },
+    {
+      "name": "Tain",
+      "postalCodes": []
+    },
+    {
+      "name": "Wenchi",
+      "postalCodes": []
+    }
+  ],
+  "BE": [
+    {
+      "name": "Atebubu-Amantin",
+      "postalCodes": []
+    },
+    {
+      "name": "Kintampo North",
+      "postalCodes": []
+    },
+    {
+      "name": "Kintampo South",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkoranza North",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkoranza South",
+      "postalCodes": []
+    },
+    {
+      "name": "Pru East",
+      "postalCodes": []
+    },
+    {
+      "name": "Pru West",
+      "postalCodes": []
+    },
+    {
+      "name": "Sene East",
+      "postalCodes": []
+    },
+    {
+      "name": "Sene West",
+      "postalCodes": []
+    },
+    {
+      "name": "Techiman",
+      "postalCodes": []
+    },
+    {
+      "name": "Techiman North",
+      "postalCodes": []
+    }
+  ],
+  "CP": [
+    {
+      "name": "Apam",
+      "postalCodes": []
+    },
+    {
+      "name": "Cape Coast",
+      "postalCodes": []
+    },
+    {
+      "name": "Dunkwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Elmina",
+      "postalCodes": []
+    },
+    {
+      "name": "Foso",
+      "postalCodes": []
+    },
+    {
+      "name": "Kasoa",
+      "postalCodes": []
+    },
+    {
+      "name": "Mumford",
+      "postalCodes": []
+    },
+    {
+      "name": "Saltpond",
+      "postalCodes": []
+    },
+    {
+      "name": "Swedru",
+      "postalCodes": []
+    },
+    {
+      "name": "Winneba",
+      "postalCodes": []
+    }
+  ],
+  "EP": [
+    {
+      "name": "Aburi",
+      "postalCodes": []
+    },
+    {
+      "name": "Akim Oda",
+      "postalCodes": []
+    },
+    {
+      "name": "Akim Swedru",
+      "postalCodes": []
+    },
+    {
+      "name": "Akropong",
+      "postalCodes": []
+    },
+    {
+      "name": "Akwatia",
+      "postalCodes": []
+    },
+    {
+      "name": "Asamankese",
+      "postalCodes": []
+    },
+    {
+      "name": "Begoro",
+      "postalCodes": []
+    },
+    {
+      "name": "Kibi",
+      "postalCodes": []
+    },
+    {
+      "name": "Koforidua",
+      "postalCodes": []
+    },
+    {
+      "name": "Mpraeso",
+      "postalCodes": []
+    },
+    {
+      "name": "Nsawam",
+      "postalCodes": []
+    },
+    {
+      "name": "Suhum",
+      "postalCodes": []
+    }
+  ],
+  "AA": [
+    {
+      "name": "Accra",
+      "postalCodes": []
+    },
+    {
+      "name": "Atsiaman",
+      "postalCodes": []
+    },
+    {
+      "name": "Dome",
+      "postalCodes": []
+    },
+    {
+      "name": "Gbawe",
+      "postalCodes": []
+    },
+    {
+      "name": "Medina Estates",
+      "postalCodes": []
+    },
+    {
+      "name": "Nungua",
+      "postalCodes": []
+    },
+    {
+      "name": "Tema",
+      "postalCodes": []
+    },
+    {
+      "name": "Teshi Old Town",
+      "postalCodes": []
+    }
+  ],
+  "NE": [
+    {
+      "name": "Bunkpurugu-Nyakpanduri",
+      "postalCodes": []
+    },
+    {
+      "name": "Chereponi",
+      "postalCodes": []
+    },
+    {
+      "name": "East Mamprusi",
+      "postalCodes": []
+    },
+    {
+      "name": "Mamprugu-Moagduri",
+      "postalCodes": []
+    },
+    {
+      "name": "West Mamprusi",
+      "postalCodes": []
+    },
+    {
+      "name": "Yunyoo-Nasuan",
+      "postalCodes": []
+    }
+  ],
+  "NP": [
+    {
+      "name": "Kpandae",
+      "postalCodes": []
+    },
+    {
+      "name": "Salaga",
+      "postalCodes": []
+    },
+    {
+      "name": "Savelugu",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamale",
+      "postalCodes": []
+    },
+    {
+      "name": "Yendi",
+      "postalCodes": []
+    }
+  ],
+  "OT": [
+    {
+      "name": "Biakoye",
+      "postalCodes": []
+    },
+    {
+      "name": "Jasikan",
+      "postalCodes": []
+    },
+    {
+      "name": "Kadjebi",
+      "postalCodes": []
+    },
+    {
+      "name": "Krachi East",
+      "postalCodes": []
+    },
+    {
+      "name": "Krachi Nchumuru",
+      "postalCodes": []
+    },
+    {
+      "name": "Krachi West",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkwanta North",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkwanta South",
+      "postalCodes": []
+    }
+  ],
+  "SV": [
+    {
+      "name": "Bole",
+      "postalCodes": []
+    },
+    {
+      "name": "Central Gonja",
+      "postalCodes": []
+    },
+    {
+      "name": "East Gonja",
+      "postalCodes": []
+    },
+    {
+      "name": "North East Gonja",
+      "postalCodes": []
+    },
+    {
+      "name": "North Gonja",
+      "postalCodes": []
+    },
+    {
+      "name": "Sawla-Tuna-Kalba",
+      "postalCodes": []
+    },
+    {
+      "name": "West Gonja",
+      "postalCodes": []
+    }
+  ],
+  "UE": [
+    {
+      "name": "Bawku",
+      "postalCodes": []
+    },
+    {
+      "name": "Bolgatanga",
+      "postalCodes": []
+    },
+    {
+      "name": "Navrongo",
+      "postalCodes": []
+    }
+  ],
+  "UW": [
+    {
+      "name": "Wa",
+      "postalCodes": []
+    }
+  ],
+  "TV": [
+    {
+      "name": "Aflao",
+      "postalCodes": []
+    },
+    {
+      "name": "Anloga",
+      "postalCodes": []
+    },
+    {
+      "name": "Ho",
+      "postalCodes": []
+    },
+    {
+      "name": "Hohoe",
+      "postalCodes": []
+    },
+    {
+      "name": "Keta",
+      "postalCodes": []
+    },
+    {
+      "name": "Kete Krachi",
+      "postalCodes": []
+    },
+    {
+      "name": "Kpandu",
+      "postalCodes": []
+    }
+  ],
+  "WP": [
+    {
+      "name": "Aboso",
+      "postalCodes": []
+    },
+    {
+      "name": "Axim",
+      "postalCodes": []
+    },
+    {
+      "name": "Bibiani",
+      "postalCodes": []
+    },
+    {
+      "name": "Prestea",
+      "postalCodes": []
+    },
+    {
+      "name": "Sekondi-Takoradi",
+      "postalCodes": []
+    },
+    {
+      "name": "Shama Junction",
+      "postalCodes": []
+    },
+    {
+      "name": "Takoradi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tarkwa",
+      "postalCodes": []
+    }
+  ],
+  "WN": [
+    {
+      "name": "Aowin",
+      "postalCodes": []
+    },
+    {
+      "name": "Bia East",
+      "postalCodes": []
+    },
+    {
+      "name": "Bia West",
+      "postalCodes": []
+    },
+    {
+      "name": "Bibiani-Anhwiaso-Bekwai",
+      "postalCodes": []
+    },
+    {
+      "name": "Bodi",
+      "postalCodes": []
+    },
+    {
+      "name": "Juaboso",
+      "postalCodes": []
+    },
+    {
+      "name": "Sefwi-Akontombra",
+      "postalCodes": []
+    },
+    {
+      "name": "Sefwi-Wiawso",
+      "postalCodes": []
+    },
+    {
+      "name": "Suaman",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

@@ -1,0 +1,1277 @@
+{
+  "EC": [
+    {
+      "name": "Adelaide",
+      "postalCodes": []
+    },
+    {
+      "name": "Alfred Nzo District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Alice",
+      "postalCodes": []
+    },
+    {
+      "name": "Aliwal North",
+      "postalCodes": []
+    },
+    {
+      "name": "Amathole District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Bhisho",
+      "postalCodes": []
+    },
+    {
+      "name": "Buffalo City Metropolitan Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Burgersdorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Butterworth",
+      "postalCodes": []
+    },
+    {
+      "name": "Cacadu District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Chris Hani District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Cradock",
+      "postalCodes": []
+    },
+    {
+      "name": "Dordrecht",
+      "postalCodes": []
+    },
+    {
+      "name": "East London",
+      "postalCodes": []
+    },
+    {
+      "name": "Elliot",
+      "postalCodes": []
+    },
+    {
+      "name": "Fort Beaufort",
+      "postalCodes": []
+    },
+    {
+      "name": "Graaff-Reinet",
+      "postalCodes": []
+    },
+    {
+      "name": "Grahamstown",
+      "postalCodes": []
+    },
+    {
+      "name": "Ilinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Joe Gqabi District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Kirkwood",
+      "postalCodes": []
+    },
+    {
+      "name": "Kruisfontein",
+      "postalCodes": []
+    },
+    {
+      "name": "Lady Frere",
+      "postalCodes": []
+    },
+    {
+      "name": "Middelburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Molteno",
+      "postalCodes": []
+    },
+    {
+      "name": "Mthatha",
+      "postalCodes": []
+    },
+    {
+      "name": "Nelson Mandela Bay Metropolitan Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "OR Tambo District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Port Alfred",
+      "postalCodes": []
+    },
+    {
+      "name": "Port Elizabeth",
+      "postalCodes": []
+    },
+    {
+      "name": "Port Saint John’s",
+      "postalCodes": []
+    },
+    {
+      "name": "Queensdale",
+      "postalCodes": []
+    },
+    {
+      "name": "Queenstown",
+      "postalCodes": []
+    },
+    {
+      "name": "Somerset East",
+      "postalCodes": []
+    },
+    {
+      "name": "Stutterheim",
+      "postalCodes": []
+    },
+    {
+      "name": "Uitenhage",
+      "postalCodes": []
+    },
+    {
+      "name": "Whittlesea",
+      "postalCodes": []
+    },
+    {
+      "name": "Willowmore",
+      "postalCodes": []
+    }
+  ],
+  "FS": [
+    {
+      "name": "Allanridge",
+      "postalCodes": []
+    },
+    {
+      "name": "Bethlehem",
+      "postalCodes": []
+    },
+    {
+      "name": "Bloemfontein",
+      "postalCodes": []
+    },
+    {
+      "name": "Bothaville",
+      "postalCodes": []
+    },
+    {
+      "name": "Botshabelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Brandfort",
+      "postalCodes": []
+    },
+    {
+      "name": "Clocolan",
+      "postalCodes": []
+    },
+    {
+      "name": "Deneysville",
+      "postalCodes": []
+    },
+    {
+      "name": "Fezile Dabi District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Frankfort",
+      "postalCodes": []
+    },
+    {
+      "name": "Harrismith",
+      "postalCodes": []
+    },
+    {
+      "name": "Heilbron",
+      "postalCodes": []
+    },
+    {
+      "name": "Hennenman",
+      "postalCodes": []
+    },
+    {
+      "name": "Hoopstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Koppies",
+      "postalCodes": []
+    },
+    {
+      "name": "Kroonstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Kutloanong",
+      "postalCodes": []
+    },
+    {
+      "name": "Ladybrand",
+      "postalCodes": []
+    },
+    {
+      "name": "Lejweleputswa District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Lindley",
+      "postalCodes": []
+    },
+    {
+      "name": "Mangaung Metropolitan Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Marquard",
+      "postalCodes": []
+    },
+    {
+      "name": "Parys",
+      "postalCodes": []
+    },
+    {
+      "name": "Phuthaditjhaba",
+      "postalCodes": []
+    },
+    {
+      "name": "Reitz",
+      "postalCodes": []
+    },
+    {
+      "name": "Sasolburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Senekal",
+      "postalCodes": []
+    },
+    {
+      "name": "Thaba Nchu",
+      "postalCodes": []
+    },
+    {
+      "name": "Thabo Mofutsanyana District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Theunissen",
+      "postalCodes": []
+    },
+    {
+      "name": "Ventersburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Viljoenskroon",
+      "postalCodes": []
+    },
+    {
+      "name": "Villiers",
+      "postalCodes": []
+    },
+    {
+      "name": "Virginia",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrede",
+      "postalCodes": []
+    },
+    {
+      "name": "Vredefort",
+      "postalCodes": []
+    },
+    {
+      "name": "Welkom",
+      "postalCodes": []
+    },
+    {
+      "name": "Wesselsbron",
+      "postalCodes": []
+    },
+    {
+      "name": "Winburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Xhariep District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Zastron",
+      "postalCodes": []
+    }
+  ],
+  "GP": [
+    {
+      "name": "Alberton",
+      "postalCodes": []
+    },
+    {
+      "name": "Benoni",
+      "postalCodes": []
+    },
+    {
+      "name": "Boksburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Brakpan",
+      "postalCodes": []
+    },
+    {
+      "name": "Bronkhorstspruit",
+      "postalCodes": []
+    },
+    {
+      "name": "Carletonville",
+      "postalCodes": []
+    },
+    {
+      "name": "Centurion",
+      "postalCodes": []
+    },
+    {
+      "name": "City of Johannesburg Metropolitan Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "City of Tshwane Metropolitan Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Cullinan",
+      "postalCodes": []
+    },
+    {
+      "name": "Diepsloot",
+      "postalCodes": []
+    },
+    {
+      "name": "Eastleigh",
+      "postalCodes": []
+    },
+    {
+      "name": "Eden Glen",
+      "postalCodes": []
+    },
+    {
+      "name": "Eden Glen Ext 60",
+      "postalCodes": []
+    },
+    {
+      "name": "Edenvale",
+      "postalCodes": []
+    },
+    {
+      "name": "Ekangala",
+      "postalCodes": []
+    },
+    {
+      "name": "Ekurhuleni Metropolitan Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Heidelberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Johannesburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Krugersdorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Mabopane",
+      "postalCodes": []
+    },
+    {
+      "name": "Midrand",
+      "postalCodes": []
+    },
+    {
+      "name": "Midstream",
+      "postalCodes": []
+    },
+    {
+      "name": "Modderfontein",
+      "postalCodes": []
+    },
+    {
+      "name": "Muldersdriseloop",
+      "postalCodes": []
+    },
+    {
+      "name": "Nigel",
+      "postalCodes": []
+    },
+    {
+      "name": "Orange Farm",
+      "postalCodes": []
+    },
+    {
+      "name": "Pretoria",
+      "postalCodes": []
+    },
+    {
+      "name": "Randburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Randfontein",
+      "postalCodes": []
+    },
+    {
+      "name": "Roodepoort",
+      "postalCodes": []
+    },
+    {
+      "name": "Sedibeng District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Soweto",
+      "postalCodes": []
+    },
+    {
+      "name": "Springs",
+      "postalCodes": []
+    },
+    {
+      "name": "Tembisa",
+      "postalCodes": []
+    },
+    {
+      "name": "Vanderbijlpark",
+      "postalCodes": []
+    },
+    {
+      "name": "Vereeniging",
+      "postalCodes": []
+    },
+    {
+      "name": "West Rand District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Westonaria",
+      "postalCodes": []
+    }
+  ],
+  "KZN": [
+    {
+      "name": "Amajuba District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Ballito",
+      "postalCodes": []
+    },
+    {
+      "name": "Berea",
+      "postalCodes": []
+    },
+    {
+      "name": "Dundee",
+      "postalCodes": []
+    },
+    {
+      "name": "Durban",
+      "postalCodes": []
+    },
+    {
+      "name": "Ekuvukeni",
+      "postalCodes": []
+    },
+    {
+      "name": "eMkhomazi",
+      "postalCodes": []
+    },
+    {
+      "name": "Empangeni",
+      "postalCodes": []
+    },
+    {
+      "name": "Eshowe",
+      "postalCodes": []
+    },
+    {
+      "name": "eSikhaleni",
+      "postalCodes": []
+    },
+    {
+      "name": "eThekwini Metropolitan Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Glencoe",
+      "postalCodes": []
+    },
+    {
+      "name": "Greytown",
+      "postalCodes": []
+    },
+    {
+      "name": "Hluhluwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Howick",
+      "postalCodes": []
+    },
+    {
+      "name": "iLembe District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Kokstad",
+      "postalCodes": []
+    },
+    {
+      "name": "KwaDukuza",
+      "postalCodes": []
+    },
+    {
+      "name": "Margate",
+      "postalCodes": []
+    },
+    {
+      "name": "Mondlo",
+      "postalCodes": []
+    },
+    {
+      "name": "Mooirivier",
+      "postalCodes": []
+    },
+    {
+      "name": "Mpophomeni",
+      "postalCodes": []
+    },
+    {
+      "name": "Mpumalanga",
+      "postalCodes": []
+    },
+    {
+      "name": "Mtubatuba",
+      "postalCodes": []
+    },
+    {
+      "name": "Ndwedwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Newcastle",
+      "postalCodes": []
+    },
+    {
+      "name": "Pietermaritzburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Port Shepstone",
+      "postalCodes": []
+    },
+    {
+      "name": "Richards Bay",
+      "postalCodes": []
+    },
+    {
+      "name": "Richmond",
+      "postalCodes": []
+    },
+    {
+      "name": "Scottburgh",
+      "postalCodes": []
+    },
+    {
+      "name": "Sisonke District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Sundumbili",
+      "postalCodes": []
+    },
+    {
+      "name": "Ugu District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Ulundi",
+      "postalCodes": []
+    },
+    {
+      "name": "uMgungundlovu District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "uMkhanyakude District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "uMzinyathi District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "uThukela District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "uThungulu District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Utrecht",
+      "postalCodes": []
+    },
+    {
+      "name": "Vryheid",
+      "postalCodes": []
+    },
+    {
+      "name": "Zululand District Municipality",
+      "postalCodes": []
+    }
+  ],
+  "LP": [
+    {
+      "name": "Bochum",
+      "postalCodes": []
+    },
+    {
+      "name": "Capricorn District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Duiwelskloof",
+      "postalCodes": []
+    },
+    {
+      "name": "Ga-Kgapane",
+      "postalCodes": []
+    },
+    {
+      "name": "Giyani",
+      "postalCodes": []
+    },
+    {
+      "name": "Lebowakgomo",
+      "postalCodes": []
+    },
+    {
+      "name": "Louis Trichardt",
+      "postalCodes": []
+    },
+    {
+      "name": "Mankoeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Modimolle",
+      "postalCodes": []
+    },
+    {
+      "name": "Mokopane",
+      "postalCodes": []
+    },
+    {
+      "name": "Mopani District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Musina",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkowakowa",
+      "postalCodes": []
+    },
+    {
+      "name": "Phalaborwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Polokwane",
+      "postalCodes": []
+    },
+    {
+      "name": "Sekhukhune District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Thabazimbi",
+      "postalCodes": []
+    },
+    {
+      "name": "Thohoyandou",
+      "postalCodes": []
+    },
+    {
+      "name": "Thulamahashi",
+      "postalCodes": []
+    },
+    {
+      "name": "Tzaneen",
+      "postalCodes": []
+    },
+    {
+      "name": "Vhembe District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Warmbaths",
+      "postalCodes": []
+    },
+    {
+      "name": "Waterberg District Municipality",
+      "postalCodes": []
+    }
+  ],
+  "MP": [
+    {
+      "name": "Balfour",
+      "postalCodes": []
+    },
+    {
+      "name": "Barberton",
+      "postalCodes": []
+    },
+    {
+      "name": "Belfast",
+      "postalCodes": []
+    },
+    {
+      "name": "Bethal",
+      "postalCodes": []
+    },
+    {
+      "name": "Breyten",
+      "postalCodes": []
+    },
+    {
+      "name": "Carolina",
+      "postalCodes": []
+    },
+    {
+      "name": "Delmas",
+      "postalCodes": []
+    },
+    {
+      "name": "Driefontein",
+      "postalCodes": []
+    },
+    {
+      "name": "Ehlanzeni District",
+      "postalCodes": []
+    },
+    {
+      "name": "eMbalenhle",
+      "postalCodes": []
+    },
+    {
+      "name": "Ermelo",
+      "postalCodes": []
+    },
+    {
+      "name": "Gert Sibande District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Hendrina",
+      "postalCodes": []
+    },
+    {
+      "name": "Komatipoort",
+      "postalCodes": []
+    },
+    {
+      "name": "Kriel",
+      "postalCodes": []
+    },
+    {
+      "name": "Lydenburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Middelburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Nelspruit",
+      "postalCodes": []
+    },
+    {
+      "name": "Nkangala District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Piet Retief",
+      "postalCodes": []
+    },
+    {
+      "name": "Secunda",
+      "postalCodes": []
+    },
+    {
+      "name": "Siyabuswa",
+      "postalCodes": []
+    },
+    {
+      "name": "Standerton",
+      "postalCodes": []
+    },
+    {
+      "name": "Volksrust",
+      "postalCodes": []
+    },
+    {
+      "name": "White River",
+      "postalCodes": []
+    },
+    {
+      "name": "Witbank",
+      "postalCodes": []
+    }
+  ],
+  "NW": [
+    {
+      "name": "Bloemhof",
+      "postalCodes": []
+    },
+    {
+      "name": "Bojanala Platinum District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Brits",
+      "postalCodes": []
+    },
+    {
+      "name": "Christiana",
+      "postalCodes": []
+    },
+    {
+      "name": "Dr Kenneth Kaunda District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Dr Ruth Segomotsi Mompati District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Fochville",
+      "postalCodes": []
+    },
+    {
+      "name": "Ga-Rankuwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Jan Kempdorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Klerksdorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Koster",
+      "postalCodes": []
+    },
+    {
+      "name": "Lichtenburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Mahikeng",
+      "postalCodes": []
+    },
+    {
+      "name": "Maile",
+      "postalCodes": []
+    },
+    {
+      "name": "Mmabatho",
+      "postalCodes": []
+    },
+    {
+      "name": "Ngaka Modiri Molema District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Orkney",
+      "postalCodes": []
+    },
+    {
+      "name": "Potchefstroom",
+      "postalCodes": []
+    },
+    {
+      "name": "Rustenburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Schweizer-Reneke",
+      "postalCodes": []
+    },
+    {
+      "name": "Stilfontein",
+      "postalCodes": []
+    },
+    {
+      "name": "Vryburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Wolmaransstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Zeerust",
+      "postalCodes": []
+    }
+  ],
+  "NC": [
+    {
+      "name": "Barkly West",
+      "postalCodes": []
+    },
+    {
+      "name": "Brandvlei",
+      "postalCodes": []
+    },
+    {
+      "name": "Calvinia",
+      "postalCodes": []
+    },
+    {
+      "name": "Carnarvon",
+      "postalCodes": []
+    },
+    {
+      "name": "Colesberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Daniëlskuil",
+      "postalCodes": []
+    },
+    {
+      "name": "De Aar",
+      "postalCodes": []
+    },
+    {
+      "name": "Frances Baard District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Fraserburg",
+      "postalCodes": []
+    },
+    {
+      "name": "John Taolo Gaetsewe District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Kathu",
+      "postalCodes": []
+    },
+    {
+      "name": "Kenhardt",
+      "postalCodes": []
+    },
+    {
+      "name": "Kimberley",
+      "postalCodes": []
+    },
+    {
+      "name": "Kuruman",
+      "postalCodes": []
+    },
+    {
+      "name": "Namakwa District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Noupoort",
+      "postalCodes": []
+    },
+    {
+      "name": "Orania",
+      "postalCodes": []
+    },
+    {
+      "name": "Pampierstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Pixley ka Seme District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Pofadder",
+      "postalCodes": []
+    },
+    {
+      "name": "Postmasburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Prieska",
+      "postalCodes": []
+    },
+    {
+      "name": "Ritchie",
+      "postalCodes": []
+    },
+    {
+      "name": "Siyanda District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Springbok",
+      "postalCodes": []
+    },
+    {
+      "name": "Upington",
+      "postalCodes": []
+    },
+    {
+      "name": "Van Wyksvlei",
+      "postalCodes": []
+    },
+    {
+      "name": "Warrenton",
+      "postalCodes": []
+    }
+  ],
+  "WC": [
+    {
+      "name": "Albertina",
+      "postalCodes": []
+    },
+    {
+      "name": "Arniston",
+      "postalCodes": []
+    },
+    {
+      "name": "Atlantis",
+      "postalCodes": []
+    },
+    {
+      "name": "Beaufort West",
+      "postalCodes": []
+    },
+    {
+      "name": "Bergvliet",
+      "postalCodes": []
+    },
+    {
+      "name": "Bredasdorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Caledon",
+      "postalCodes": []
+    },
+    {
+      "name": "Calitzdorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Cape Town",
+      "postalCodes": []
+    },
+    {
+      "name": "Cape Winelands District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Central Karoo District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Ceres",
+      "postalCodes": []
+    },
+    {
+      "name": "City of Cape Town",
+      "postalCodes": []
+    },
+    {
+      "name": "Clanwilliam",
+      "postalCodes": []
+    },
+    {
+      "name": "Claremont",
+      "postalCodes": []
+    },
+    {
+      "name": "Constantia",
+      "postalCodes": []
+    },
+    {
+      "name": "De Rust",
+      "postalCodes": []
+    },
+    {
+      "name": "Eden District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "George",
+      "postalCodes": []
+    },
+    {
+      "name": "Grabouw",
+      "postalCodes": []
+    },
+    {
+      "name": "Hardys Memories of Africa",
+      "postalCodes": []
+    },
+    {
+      "name": "Hermanus",
+      "postalCodes": []
+    },
+    {
+      "name": "Knysna",
+      "postalCodes": []
+    },
+    {
+      "name": "Kraaifontein",
+      "postalCodes": []
+    },
+    {
+      "name": "Ladismith",
+      "postalCodes": []
+    },
+    {
+      "name": "Lansdowne",
+      "postalCodes": []
+    },
+    {
+      "name": "Malmesbury",
+      "postalCodes": []
+    },
+    {
+      "name": "Montagu",
+      "postalCodes": []
+    },
+    {
+      "name": "Moorreesburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Mossel Bay",
+      "postalCodes": []
+    },
+    {
+      "name": "Newlands",
+      "postalCodes": []
+    },
+    {
+      "name": "Oudtshoorn",
+      "postalCodes": []
+    },
+    {
+      "name": "Overberg District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Paarl",
+      "postalCodes": []
+    },
+    {
+      "name": "Piketberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Plettenberg Bay",
+      "postalCodes": []
+    },
+    {
+      "name": "Prince Albert",
+      "postalCodes": []
+    },
+    {
+      "name": "Retreat",
+      "postalCodes": []
+    },
+    {
+      "name": "Riversdale",
+      "postalCodes": []
+    },
+    {
+      "name": "Robertson",
+      "postalCodes": []
+    },
+    {
+      "name": "Rondebosch",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosebank",
+      "postalCodes": []
+    },
+    {
+      "name": "Saldanha",
+      "postalCodes": []
+    },
+    {
+      "name": "Stellenbosch",
+      "postalCodes": []
+    },
+    {
+      "name": "Sunset Beach",
+      "postalCodes": []
+    },
+    {
+      "name": "Swellendam",
+      "postalCodes": []
+    },
+    {
+      "name": "Vredenburg",
+      "postalCodes": []
+    },
+    {
+      "name": "Vredendal",
+      "postalCodes": []
+    },
+    {
+      "name": "Wellington",
+      "postalCodes": []
+    },
+    {
+      "name": "West Coast District Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Worcester",
+      "postalCodes": []
+    },
+    {
+      "name": "Zoar",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

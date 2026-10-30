@@ -1,0 +1,47 @@
+[
+  {
+    "code": "AN",
+    "name": "Annobón Province",
+    "countryCode": "GQ"
+  },
+  {
+    "code": "BN",
+    "name": "Bioko Norte Province",
+    "countryCode": "GQ"
+  },
+  {
+    "code": "BS",
+    "name": "Bioko Sur Province",
+    "countryCode": "GQ"
+  },
+  {
+    "code": "CS",
+    "name": "Centro Sur Province",
+    "countryCode": "GQ"
+  },
+  {
+    "code": "I",
+    "name": "Insular Region",
+    "countryCode": "GQ"
+  },
+  {
+    "code": "KN",
+    "name": "Kié-Ntem Province",
+    "countryCode": "GQ"
+  },
+  {
+    "code": "LI",
+    "name": "Litoral Province",
+    "countryCode": "GQ"
+  },
+  {
+    "code": "C",
+    "name": "Río Muni",
+    "countryCode": "GQ"
+  },
+  {
+    "code": "WN",
+    "name": "Wele-Nzas Province",
+    "countryCode": "GQ"
+  }
+]

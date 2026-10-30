@@ -1,0 +1,329 @@
+{
+  "11": [
+    {
+      "name": "Bhamo",
+      "postalCodes": []
+    },
+    {
+      "name": "Myitkyina",
+      "postalCodes": []
+    }
+  ],
+  "12": [
+    {
+      "name": "Loikaw",
+      "postalCodes": []
+    }
+  ],
+  "13": [
+    {
+      "name": "Dellok",
+      "postalCodes": []
+    },
+    {
+      "name": "Hpa-An",
+      "postalCodes": []
+    },
+    {
+      "name": "Klonhtoug",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyain Seikgyi Township",
+      "postalCodes": []
+    },
+    {
+      "name": "Mikenaungea",
+      "postalCodes": []
+    },
+    {
+      "name": "Myawadi",
+      "postalCodes": []
+    },
+    {
+      "name": "Pulei",
+      "postalCodes": []
+    },
+    {
+      "name": "Tagondaing",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamoowoug",
+      "postalCodes": []
+    }
+  ],
+  "14": [
+    {
+      "name": "Falam",
+      "postalCodes": []
+    },
+    {
+      "name": "Hakha",
+      "postalCodes": []
+    }
+  ],
+  "15": [
+    {
+      "name": "Kyaikkami",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyaikto",
+      "postalCodes": []
+    },
+    {
+      "name": "Martaban",
+      "postalCodes": []
+    },
+    {
+      "name": "Mawlamyine",
+      "postalCodes": []
+    },
+    {
+      "name": "Mudon",
+      "postalCodes": []
+    },
+    {
+      "name": "Thaton",
+      "postalCodes": []
+    }
+  ],
+  "16": [
+    {
+      "name": "Sittwe",
+      "postalCodes": []
+    }
+  ],
+  "17": [
+    {
+      "name": "Lashio",
+      "postalCodes": []
+    },
+    {
+      "name": "Tachilek",
+      "postalCodes": []
+    },
+    {
+      "name": "Taunggyi",
+      "postalCodes": []
+    }
+  ],
+  "18": [
+    {
+      "name": "Nay Pyi Taw",
+      "postalCodes": []
+    },
+    {
+      "name": "Pyinmana",
+      "postalCodes": []
+    }
+  ],
+  "07": [
+    {
+      "name": "Bogale",
+      "postalCodes": []
+    },
+    {
+      "name": "Hinthada",
+      "postalCodes": []
+    },
+    {
+      "name": "Kyaiklat",
+      "postalCodes": []
+    },
+    {
+      "name": "Maubin",
+      "postalCodes": []
+    },
+    {
+      "name": "Mawlamyinegyunn",
+      "postalCodes": []
+    },
+    {
+      "name": "Myanaung",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyaungdon",
+      "postalCodes": []
+    },
+    {
+      "name": "Pathein",
+      "postalCodes": []
+    },
+    {
+      "name": "Pyapon",
+      "postalCodes": []
+    },
+    {
+      "name": "Wakema",
+      "postalCodes": []
+    }
+  ],
+  "02": [
+    {
+      "name": "Bago",
+      "postalCodes": []
+    },
+    {
+      "name": "Letpandan",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyaunglebin",
+      "postalCodes": []
+    },
+    {
+      "name": "Paungde",
+      "postalCodes": []
+    },
+    {
+      "name": "Pyay",
+      "postalCodes": []
+    },
+    {
+      "name": "Pyu",
+      "postalCodes": []
+    },
+    {
+      "name": "Taungoo",
+      "postalCodes": []
+    },
+    {
+      "name": "Thanatpin",
+      "postalCodes": []
+    },
+    {
+      "name": "Tharyarwady",
+      "postalCodes": []
+    }
+  ],
+  "03": [
+    {
+      "name": "Chauk",
+      "postalCodes": []
+    },
+    {
+      "name": "Magway",
+      "postalCodes": []
+    },
+    {
+      "name": "Minbu",
+      "postalCodes": []
+    },
+    {
+      "name": "Myaydo",
+      "postalCodes": []
+    },
+    {
+      "name": "Pakokku",
+      "postalCodes": []
+    },
+    {
+      "name": "Taungdwingyi",
+      "postalCodes": []
+    },
+    {
+      "name": "Thayetmyo",
+      "postalCodes": []
+    },
+    {
+      "name": "Yenangyaung",
+      "postalCodes": []
+    }
+  ],
+  "04": [
+    {
+      "name": "Kyaukse",
+      "postalCodes": []
+    },
+    {
+      "name": "Mandalay",
+      "postalCodes": []
+    },
+    {
+      "name": "Meiktila",
+      "postalCodes": []
+    },
+    {
+      "name": "Mogok",
+      "postalCodes": []
+    },
+    {
+      "name": "Myingyan",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyaungshwe",
+      "postalCodes": []
+    },
+    {
+      "name": "Pyin Oo Lwin",
+      "postalCodes": []
+    },
+    {
+      "name": "Yamethin",
+      "postalCodes": []
+    }
+  ],
+  "01": [
+    {
+      "name": "Mawlaik",
+      "postalCodes": []
+    },
+    {
+      "name": "Monywa",
+      "postalCodes": []
+    },
+    {
+      "name": "Sagaing",
+      "postalCodes": []
+    },
+    {
+      "name": "Shwebo",
+      "postalCodes": []
+    }
+  ],
+  "05": [
+    {
+      "name": "Dawei",
+      "postalCodes": []
+    },
+    {
+      "name": "Kawthoung",
+      "postalCodes": []
+    },
+    {
+      "name": "Myeik",
+      "postalCodes": []
+    }
+  ],
+  "06": [
+    {
+      "name": "Kanbe",
+      "postalCodes": []
+    },
+    {
+      "name": "Kayan",
+      "postalCodes": []
+    },
+    {
+      "name": "Syriam",
+      "postalCodes": []
+    },
+    {
+      "name": "Thongwa",
+      "postalCodes": []
+    },
+    {
+      "name": "Twante",
+      "postalCodes": []
+    },
+    {
+      "name": "Yangon",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

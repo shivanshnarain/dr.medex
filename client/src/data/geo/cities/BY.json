@@ -1,0 +1,1333 @@
+{
+  "BR": [
+    {
+      "name": "Antopal’",
+      "postalCodes": []
+    },
+    {
+      "name": "Asnyezhytsy",
+      "postalCodes": []
+    },
+    {
+      "name": "Baranovichi",
+      "postalCodes": []
+    },
+    {
+      "name": "Baranovichskiy Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Brest",
+      "postalCodes": []
+    },
+    {
+      "name": "Brestski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Byaroza",
+      "postalCodes": []
+    },
+    {
+      "name": "Byarozawski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Byelaazyorsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Charnawchytsy",
+      "postalCodes": []
+    },
+    {
+      "name": "Damachava",
+      "postalCodes": []
+    },
+    {
+      "name": "Davyd-Haradok",
+      "postalCodes": []
+    },
+    {
+      "name": "Drahichyn",
+      "postalCodes": []
+    },
+    {
+      "name": "Drahichynski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Hantsavichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Hantsavitski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Haradzishcha",
+      "postalCodes": []
+    },
+    {
+      "name": "Horad Baranavichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Horad Brest",
+      "postalCodes": []
+    },
+    {
+      "name": "Ivanava",
+      "postalCodes": []
+    },
+    {
+      "name": "Ivanawski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Ivatsevichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamyanyets",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamyanyetski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamyanyuki",
+      "postalCodes": []
+    },
+    {
+      "name": "Kobryn",
+      "postalCodes": []
+    },
+    {
+      "name": "Kosava",
+      "postalCodes": []
+    },
+    {
+      "name": "Lahishyn",
+      "postalCodes": []
+    },
+    {
+      "name": "Luninyets",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyakhavichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Malaryta",
+      "postalCodes": []
+    },
+    {
+      "name": "Mikashevichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Motal’",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyakhachava",
+      "postalCodes": []
+    },
+    {
+      "name": "Pinsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Pruzhanski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Pruzhany",
+      "postalCodes": []
+    },
+    {
+      "name": "Ruzhany",
+      "postalCodes": []
+    },
+    {
+      "name": "Stolin",
+      "postalCodes": []
+    },
+    {
+      "name": "Stolinski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsyelyakhany",
+      "postalCodes": []
+    },
+    {
+      "name": "Vysokaye",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhabinka",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhabinkawski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Znamenka",
+      "postalCodes": []
+    }
+  ],
+  "HO": [
+    {
+      "name": "Aktsyabrski",
+      "postalCodes": []
+    },
+    {
+      "name": "Brahin",
+      "postalCodes": []
+    },
+    {
+      "name": "Brahinski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Buda-Kashalyova",
+      "postalCodes": []
+    },
+    {
+      "name": "Chachersk",
+      "postalCodes": []
+    },
+    {
+      "name": "Chacherski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Dobrush",
+      "postalCodes": []
+    },
+    {
+      "name": "Dowsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Homyel'",
+      "postalCodes": []
+    },
+    {
+      "name": "Homyel’ski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalinkavichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Karanyowka",
+      "postalCodes": []
+    },
+    {
+      "name": "Karma",
+      "postalCodes": []
+    },
+    {
+      "name": "Kastsyukowka",
+      "postalCodes": []
+    },
+    {
+      "name": "Khal’ch",
+      "postalCodes": []
+    },
+    {
+      "name": "Khoyniki",
+      "postalCodes": []
+    },
+    {
+      "name": "Loyew",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyel’chytski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyel’chytsy",
+      "postalCodes": []
+    },
+    {
+      "name": "Mazyr",
+      "postalCodes": []
+    },
+    {
+      "name": "Mazyrski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Narowlya",
+      "postalCodes": []
+    },
+    {
+      "name": "Novaya Huta",
+      "postalCodes": []
+    },
+    {
+      "name": "Parychy",
+      "postalCodes": []
+    },
+    {
+      "name": "Peramoga",
+      "postalCodes": []
+    },
+    {
+      "name": "Pyetrykaw",
+      "postalCodes": []
+    },
+    {
+      "name": "Rahachow",
+      "postalCodes": []
+    },
+    {
+      "name": "Rahachowski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Rechytsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Sasnovy Bor",
+      "postalCodes": []
+    },
+    {
+      "name": "Svyetlahorsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Turaw",
+      "postalCodes": []
+    },
+    {
+      "name": "Vasilyevichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Vyetka",
+      "postalCodes": []
+    },
+    {
+      "name": "Vyetkawski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Yel’sk",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhlobin",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhlobinski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhytkavichy",
+      "postalCodes": []
+    }
+  ],
+  "HR": [
+    {
+      "name": "Ashmyanski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Ashmyany",
+      "postalCodes": []
+    },
+    {
+      "name": "Astravyets",
+      "postalCodes": []
+    },
+    {
+      "name": "Astravyetski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Baruny",
+      "postalCodes": []
+    },
+    {
+      "name": "Byarozawka",
+      "postalCodes": []
+    },
+    {
+      "name": "Dyatlovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Grodnenskiy Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Hal’shany",
+      "postalCodes": []
+    },
+    {
+      "name": "Horad Hrodna",
+      "postalCodes": []
+    },
+    {
+      "name": "Hrodna",
+      "postalCodes": []
+    },
+    {
+      "name": "Hyeranyony",
+      "postalCodes": []
+    },
+    {
+      "name": "Indura",
+      "postalCodes": []
+    },
+    {
+      "name": "Iwye",
+      "postalCodes": []
+    },
+    {
+      "name": "Karelichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Karelitski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Krasnosel’skiy",
+      "postalCodes": []
+    },
+    {
+      "name": "Kreva",
+      "postalCodes": []
+    },
+    {
+      "name": "Lida",
+      "postalCodes": []
+    },
+    {
+      "name": "Lidski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyubcha",
+      "postalCodes": []
+    },
+    {
+      "name": "Mir",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosty",
+      "postalCodes": []
+    },
+    {
+      "name": "Novogrudok",
+      "postalCodes": []
+    },
+    {
+      "name": "Ross’",
+      "postalCodes": []
+    },
+    {
+      "name": "Sapotskin",
+      "postalCodes": []
+    },
+    {
+      "name": "Shchuchyn",
+      "postalCodes": []
+    },
+    {
+      "name": "Shchuchynski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Skidel’",
+      "postalCodes": []
+    },
+    {
+      "name": "Slonim",
+      "postalCodes": []
+    },
+    {
+      "name": "Smarhon’",
+      "postalCodes": []
+    },
+    {
+      "name": "Soly",
+      "postalCodes": []
+    },
+    {
+      "name": "Svislach",
+      "postalCodes": []
+    },
+    {
+      "name": "Vishnyeva",
+      "postalCodes": []
+    },
+    {
+      "name": "Volkovysk",
+      "postalCodes": []
+    },
+    {
+      "name": "Voranava",
+      "postalCodes": []
+    },
+    {
+      "name": "Vyalikaya Byerastavitsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Zel’va",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhaludok",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhirovichi",
+      "postalCodes": []
+    }
+  ],
+  "HM": [
+    {
+      "name": "Frunzyenski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Kastrychnitski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyeninski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Maskowski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Minsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Partyzanski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Savyetski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsentral’ny Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Zavodski Rayon",
+      "postalCodes": []
+    }
+  ],
+  "MI": [
+    {
+      "name": "Astrashytski Haradok",
+      "postalCodes": []
+    },
+    {
+      "name": "Atolina",
+      "postalCodes": []
+    },
+    {
+      "name": "Azyartso",
+      "postalCodes": []
+    },
+    {
+      "name": "Bal’shavik",
+      "postalCodes": []
+    },
+    {
+      "name": "Barysaw",
+      "postalCodes": []
+    },
+    {
+      "name": "Barysawski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Blon’",
+      "postalCodes": []
+    },
+    {
+      "name": "Bobr",
+      "postalCodes": []
+    },
+    {
+      "name": "Borovlyany",
+      "postalCodes": []
+    },
+    {
+      "name": "Byarezinski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Byerazino",
+      "postalCodes": []
+    },
+    {
+      "name": "Chervyen’",
+      "postalCodes": []
+    },
+    {
+      "name": "Chervyen’ski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Chyrvonaya Slabada",
+      "postalCodes": []
+    },
+    {
+      "name": "Chyst’",
+      "postalCodes": []
+    },
+    {
+      "name": "Druzhny",
+      "postalCodes": []
+    },
+    {
+      "name": "Dukora",
+      "postalCodes": []
+    },
+    {
+      "name": "Dzyarzhynsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Enyerhyetykaw",
+      "postalCodes": []
+    },
+    {
+      "name": "Fanipol",
+      "postalCodes": []
+    },
+    {
+      "name": "Haradzyeya",
+      "postalCodes": []
+    },
+    {
+      "name": "Hatava",
+      "postalCodes": []
+    },
+    {
+      "name": "Horad Smalyavichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Horad Zhodzina",
+      "postalCodes": []
+    },
+    {
+      "name": "Hotsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Il’ya",
+      "postalCodes": []
+    },
+    {
+      "name": "Ivyanyets",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalodzishchy",
+      "postalCodes": []
+    },
+    {
+      "name": "Kapyl’",
+      "postalCodes": []
+    },
+    {
+      "name": "Kapyl’ski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Khatsyezhyna",
+      "postalCodes": []
+    },
+    {
+      "name": "Kholopenichi",
+      "postalCodes": []
+    },
+    {
+      "name": "Klyetsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Klyetski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Korolëv Stan",
+      "postalCodes": []
+    },
+    {
+      "name": "Krasnaye",
+      "postalCodes": []
+    },
+    {
+      "name": "Krupki",
+      "postalCodes": []
+    },
+    {
+      "name": "Kryvichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Lahoysk",
+      "postalCodes": []
+    },
+    {
+      "name": "Loshnitsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Luhavaya Slabada",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyasny",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyeskawka",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyuban’",
+      "postalCodes": []
+    },
+    {
+      "name": "Machulishchy",
+      "postalCodes": []
+    },
+    {
+      "name": "Maladzyechna",
+      "postalCodes": []
+    },
+    {
+      "name": "Mar’’ina Horka",
+      "postalCodes": []
+    },
+    {
+      "name": "Michanovichi",
+      "postalCodes": []
+    },
+    {
+      "name": "Myadzyel",
+      "postalCodes": []
+    },
+    {
+      "name": "Myadzyel’ski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Narach",
+      "postalCodes": []
+    },
+    {
+      "name": "Nasilava",
+      "postalCodes": []
+    },
+    {
+      "name": "Novosel’ye",
+      "postalCodes": []
+    },
+    {
+      "name": "Novy Svyerzhan’",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyasvizh",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyasvizhski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Plyeshchanitsy",
+      "postalCodes": []
+    },
+    {
+      "name": "Prawdzinski",
+      "postalCodes": []
+    },
+    {
+      "name": "Pryvol’ny",
+      "postalCodes": []
+    },
+    {
+      "name": "Pukhavichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Pukhavichy Raion",
+      "postalCodes": []
+    },
+    {
+      "name": "Pyatryshki",
+      "postalCodes": []
+    },
+    {
+      "name": "Radashkovichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Rakaw",
+      "postalCodes": []
+    },
+    {
+      "name": "Rudzyensk",
+      "postalCodes": []
+    },
+    {
+      "name": "Salihorsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Samakhvalavichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Sarachy",
+      "postalCodes": []
+    },
+    {
+      "name": "Schomyslitsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Slabada",
+      "postalCodes": []
+    },
+    {
+      "name": "Slutsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Slutski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Smalyavitski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Smilavichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Snow",
+      "postalCodes": []
+    },
+    {
+      "name": "Stan’kava",
+      "postalCodes": []
+    },
+    {
+      "name": "Staradarozhski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Starobin",
+      "postalCodes": []
+    },
+    {
+      "name": "Staryya Darohi",
+      "postalCodes": []
+    },
+    {
+      "name": "Stawbtsowski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Stowbtsy",
+      "postalCodes": []
+    },
+    {
+      "name": "Svir",
+      "postalCodes": []
+    },
+    {
+      "name": "Svislach",
+      "postalCodes": []
+    },
+    {
+      "name": "Syenitsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Syomkava",
+      "postalCodes": []
+    },
+    {
+      "name": "Tsimkavichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Turets-Bayary",
+      "postalCodes": []
+    },
+    {
+      "name": "Urechcha",
+      "postalCodes": []
+    },
+    {
+      "name": "Usiazh",
+      "postalCodes": []
+    },
+    {
+      "name": "Uzda",
+      "postalCodes": []
+    },
+    {
+      "name": "Uzdzyenski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Valozhyn",
+      "postalCodes": []
+    },
+    {
+      "name": "Vilyeyka",
+      "postalCodes": []
+    },
+    {
+      "name": "Vilyeyski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Vyaliki Trastsyanets",
+      "postalCodes": []
+    },
+    {
+      "name": "Yubilyeyny",
+      "postalCodes": []
+    },
+    {
+      "name": "Zamostochye",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaslawye",
+      "postalCodes": []
+    },
+    {
+      "name": "Zhdanovichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Zyembin",
+      "postalCodes": []
+    },
+    {
+      "name": "Октябрьский",
+      "postalCodes": []
+    }
+  ],
+  "MA": [
+    {
+      "name": "Asipovichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Asipovitski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Babruysk",
+      "postalCodes": []
+    },
+    {
+      "name": "Babruyski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Buynichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Byalynichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Byalynitski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Bykhaw",
+      "postalCodes": []
+    },
+    {
+      "name": "Chavuski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Chavusy",
+      "postalCodes": []
+    },
+    {
+      "name": "Cherykaw",
+      "postalCodes": []
+    },
+    {
+      "name": "Cherykawski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Dashkawka",
+      "postalCodes": []
+    },
+    {
+      "name": "Drybin",
+      "postalCodes": []
+    },
+    {
+      "name": "Drybinski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Hlusha",
+      "postalCodes": []
+    },
+    {
+      "name": "Hlusk",
+      "postalCodes": []
+    },
+    {
+      "name": "Horatski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Horki",
+      "postalCodes": []
+    },
+    {
+      "name": "Kadino",
+      "postalCodes": []
+    },
+    {
+      "name": "Kamyennyya Lavy",
+      "postalCodes": []
+    },
+    {
+      "name": "Kastsyukovichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Khodasy",
+      "postalCodes": []
+    },
+    {
+      "name": "Khotsimsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Khotsimski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Kirawsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Klichaw",
+      "postalCodes": []
+    },
+    {
+      "name": "Klimavichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Krasnapol’ski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Krasnapollye",
+      "postalCodes": []
+    },
+    {
+      "name": "Krasnyy Bereg",
+      "postalCodes": []
+    },
+    {
+      "name": "Kruhlaye",
+      "postalCodes": []
+    },
+    {
+      "name": "Krychaw",
+      "postalCodes": []
+    },
+    {
+      "name": "Mahilyow",
+      "postalCodes": []
+    },
+    {
+      "name": "Mahilyowski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Mstsislaw",
+      "postalCodes": []
+    },
+    {
+      "name": "Myazhysyatki",
+      "postalCodes": []
+    },
+    {
+      "name": "Myshkavichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Palykavichy Pyershyya",
+      "postalCodes": []
+    },
+    {
+      "name": "Posëlok Voskhod",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramanavichy",
+      "postalCodes": []
+    },
+    {
+      "name": "Shklow",
+      "postalCodes": []
+    },
+    {
+      "name": "Shklowski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Slawharad",
+      "postalCodes": []
+    },
+    {
+      "name": "Veyno",
+      "postalCodes": []
+    },
+    {
+      "name": "Vishow",
+      "postalCodes": []
+    },
+    {
+      "name": "Yalizava",
+      "postalCodes": []
+    }
+  ],
+  "VI": [
+    {
+      "name": "Balbasava",
+      "postalCodes": []
+    },
+    {
+      "name": "Baran’",
+      "postalCodes": []
+    },
+    {
+      "name": "Braslaw",
+      "postalCodes": []
+    },
+    {
+      "name": "Braslawski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Byahoml’",
+      "postalCodes": []
+    },
+    {
+      "name": "Byeshankovitski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Chashniki",
+      "postalCodes": []
+    },
+    {
+      "name": "Chashnitski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Dokshytski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Dokshytsy",
+      "postalCodes": []
+    },
+    {
+      "name": "Druya",
+      "postalCodes": []
+    },
+    {
+      "name": "Dubrowna",
+      "postalCodes": []
+    },
+    {
+      "name": "Dzisna",
+      "postalCodes": []
+    },
+    {
+      "name": "Haradok",
+      "postalCodes": []
+    },
+    {
+      "name": "Haradotski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Hlybokaye",
+      "postalCodes": []
+    },
+    {
+      "name": "Hlybotski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Kokhanava",
+      "postalCodes": []
+    },
+    {
+      "name": "Konstantinovo",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyepyel’",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyepyel’ski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyntupy",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyozna",
+      "postalCodes": []
+    },
+    {
+      "name": "Lyoznyenski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Mosar",
+      "postalCodes": []
+    },
+    {
+      "name": "Myorski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Myory",
+      "postalCodes": []
+    },
+    {
+      "name": "Navapolatsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Novolukoml’",
+      "postalCodes": []
+    },
+    {
+      "name": "Orsha",
+      "postalCodes": []
+    },
+    {
+      "name": "Osveya",
+      "postalCodes": []
+    },
+    {
+      "name": "Pastavy",
+      "postalCodes": []
+    },
+    {
+      "name": "Pastawski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Polatsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Polatski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Rasonski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Rasony",
+      "postalCodes": []
+    },
+    {
+      "name": "Sharkawshchyna",
+      "postalCodes": []
+    },
+    {
+      "name": "Sharkawshchynski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Shumilinski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Syanno",
+      "postalCodes": []
+    },
+    {
+      "name": "Syennyenski Rayon",
+      "postalCodes": []
+    },
+    {
+      "name": "Talachyn",
+      "postalCodes": []
+    },
+    {
+      "name": "Ushachy",
+      "postalCodes": []
+    },
+    {
+      "name": "Vidzy",
+      "postalCodes": []
+    },
+    {
+      "name": "Vitebsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Vyerkhnyadzvinsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Vyerkhnyadzvinski Rayon",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

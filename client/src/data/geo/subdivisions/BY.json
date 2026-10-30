@@ -1,0 +1,37 @@
+[
+  {
+    "code": "BR",
+    "name": "Brest Region",
+    "countryCode": "BY"
+  },
+  {
+    "code": "HO",
+    "name": "Gomel Region",
+    "countryCode": "BY"
+  },
+  {
+    "code": "HR",
+    "name": "Grodno Region",
+    "countryCode": "BY"
+  },
+  {
+    "code": "HM",
+    "name": "Minsk",
+    "countryCode": "BY"
+  },
+  {
+    "code": "MI",
+    "name": "Minsk Region",
+    "countryCode": "BY"
+  },
+  {
+    "code": "MA",
+    "name": "Mogilev Region",
+    "countryCode": "BY"
+  },
+  {
+    "code": "VI",
+    "name": "Vitebsk Region",
+    "countryCode": "BY"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "code": "M",
+    "name": "Central District",
+    "countryCode": "IL"
+  },
+  {
+    "code": "HA",
+    "name": "Haifa District",
+    "countryCode": "IL"
+  },
+  {
+    "code": "JM",
+    "name": "Jerusalem District",
+    "countryCode": "IL"
+  },
+  {
+    "code": "Z",
+    "name": "Northern District",
+    "countryCode": "IL"
+  },
+  {
+    "code": "D",
+    "name": "Southern District",
+    "countryCode": "IL"
+  },
+  {
+    "code": "TA",
+    "name": "Tel Aviv District",
+    "countryCode": "IL"
+  }
+]

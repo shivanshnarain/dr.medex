@@ -1,0 +1,52 @@
+[
+  {
+    "code": "BA",
+    "name": "Barima-Waini",
+    "countryCode": "GY"
+  },
+  {
+    "code": "CU",
+    "name": "Cuyuni-Mazaruni",
+    "countryCode": "GY"
+  },
+  {
+    "code": "DE",
+    "name": "Demerara-Mahaica",
+    "countryCode": "GY"
+  },
+  {
+    "code": "EB",
+    "name": "East Berbice-Corentyne",
+    "countryCode": "GY"
+  },
+  {
+    "code": "ES",
+    "name": "Essequibo Islands-West Demerara",
+    "countryCode": "GY"
+  },
+  {
+    "code": "MA",
+    "name": "Mahaica-Berbice",
+    "countryCode": "GY"
+  },
+  {
+    "code": "PM",
+    "name": "Pomeroon-Supenaam",
+    "countryCode": "GY"
+  },
+  {
+    "code": "PT",
+    "name": "Potaro-Siparuni",
+    "countryCode": "GY"
+  },
+  {
+    "code": "UD",
+    "name": "Upper Demerara-Berbice",
+    "countryCode": "GY"
+  },
+  {
+    "code": "UT",
+    "name": "Upper Takutu-Upper Essequibo",
+    "countryCode": "GY"
+  }
+]

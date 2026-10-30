@@ -1,0 +1,92 @@
+[
+  {
+    "code": "GZ",
+    "name": "Al Jazirah",
+    "countryCode": "SD"
+  },
+  {
+    "code": "GD",
+    "name": "Al Qadarif",
+    "countryCode": "SD"
+  },
+  {
+    "code": "NB",
+    "name": "Blue Nile",
+    "countryCode": "SD"
+  },
+  {
+    "code": "DC",
+    "name": "Central Darfur",
+    "countryCode": "SD"
+  },
+  {
+    "code": "DE",
+    "name": "East Darfur",
+    "countryCode": "SD"
+  },
+  {
+    "code": "KA",
+    "name": "Kassala",
+    "countryCode": "SD"
+  },
+  {
+    "code": "KH",
+    "name": "Khartoum",
+    "countryCode": "SD"
+  },
+  {
+    "code": "DN",
+    "name": "North Darfur",
+    "countryCode": "SD"
+  },
+  {
+    "code": "KN",
+    "name": "North Kordofan",
+    "countryCode": "SD"
+  },
+  {
+    "code": "NO",
+    "name": "Northern",
+    "countryCode": "SD"
+  },
+  {
+    "code": "RS",
+    "name": "Red Sea",
+    "countryCode": "SD"
+  },
+  {
+    "code": "NR",
+    "name": "River Nile",
+    "countryCode": "SD"
+  },
+  {
+    "code": "SI",
+    "name": "Sennar",
+    "countryCode": "SD"
+  },
+  {
+    "code": "DS",
+    "name": "South Darfur",
+    "countryCode": "SD"
+  },
+  {
+    "code": "KS",
+    "name": "South Kordofan",
+    "countryCode": "SD"
+  },
+  {
+    "code": "DW",
+    "name": "West Darfur",
+    "countryCode": "SD"
+  },
+  {
+    "code": "GK",
+    "name": "West Kordofan",
+    "countryCode": "SD"
+  },
+  {
+    "code": "NW",
+    "name": "White Nile",
+    "countryCode": "SD"
+  }
+]

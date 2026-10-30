@@ -1,0 +1,3243 @@
+{
+  "K": [
+    {
+      "name": "Bräkne-Hoby",
+      "postalCodes": []
+    },
+    {
+      "name": "Hällevik",
+      "postalCodes": []
+    },
+    {
+      "name": "Hasslö",
+      "postalCodes": []
+    },
+    {
+      "name": "Jämjö",
+      "postalCodes": []
+    },
+    {
+      "name": "Jämshög",
+      "postalCodes": []
+    },
+    {
+      "name": "Kallinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Karlshamn",
+      "postalCodes": []
+    },
+    {
+      "name": "Karlskrona",
+      "postalCodes": []
+    },
+    {
+      "name": "Mjällby",
+      "postalCodes": []
+    },
+    {
+      "name": "Mörrum",
+      "postalCodes": []
+    },
+    {
+      "name": "Nättraby",
+      "postalCodes": []
+    },
+    {
+      "name": "Olofström",
+      "postalCodes": []
+    },
+    {
+      "name": "Rödeby",
+      "postalCodes": []
+    },
+    {
+      "name": "Ronneby",
+      "postalCodes": []
+    },
+    {
+      "name": "Sölvesborg",
+      "postalCodes": []
+    },
+    {
+      "name": "Sturkö",
+      "postalCodes": []
+    },
+    {
+      "name": "Svängsta",
+      "postalCodes": []
+    }
+  ],
+  "W": [
+    {
+      "name": "Abborrberget",
+      "postalCodes": []
+    },
+    {
+      "name": "Älvdalen",
+      "postalCodes": []
+    },
+    {
+      "name": "Avesta",
+      "postalCodes": []
+    },
+    {
+      "name": "Bjursås",
+      "postalCodes": []
+    },
+    {
+      "name": "Borlänge",
+      "postalCodes": []
+    },
+    {
+      "name": "Brunna",
+      "postalCodes": []
+    },
+    {
+      "name": "Djurås",
+      "postalCodes": []
+    },
+    {
+      "name": "Enbacka",
+      "postalCodes": []
+    },
+    {
+      "name": "Falun",
+      "postalCodes": []
+    },
+    {
+      "name": "Gagnef",
+      "postalCodes": []
+    },
+    {
+      "name": "Grängesberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Grycksbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Hedemora",
+      "postalCodes": []
+    },
+    {
+      "name": "Horndal",
+      "postalCodes": []
+    },
+    {
+      "name": "Insjön",
+      "postalCodes": []
+    },
+    {
+      "name": "Järna",
+      "postalCodes": []
+    },
+    {
+      "name": "Krylbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Långshyttan",
+      "postalCodes": []
+    },
+    {
+      "name": "Leksand",
+      "postalCodes": []
+    },
+    {
+      "name": "Ludvika",
+      "postalCodes": []
+    },
+    {
+      "name": "Malung",
+      "postalCodes": []
+    },
+    {
+      "name": "Mockfjärd",
+      "postalCodes": []
+    },
+    {
+      "name": "Mora",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyhammar",
+      "postalCodes": []
+    },
+    {
+      "name": "Ornäs",
+      "postalCodes": []
+    },
+    {
+      "name": "Orsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Rättvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Romme",
+      "postalCodes": []
+    },
+    {
+      "name": "Säter",
+      "postalCodes": []
+    },
+    {
+      "name": "Siljansnäs",
+      "postalCodes": []
+    },
+    {
+      "name": "Smedby",
+      "postalCodes": []
+    },
+    {
+      "name": "Smedjebacken",
+      "postalCodes": []
+    },
+    {
+      "name": "Svärdsjö",
+      "postalCodes": []
+    },
+    {
+      "name": "Vansbro",
+      "postalCodes": []
+    },
+    {
+      "name": "Vikarbyn",
+      "postalCodes": []
+    }
+  ],
+  "X": [
+    {
+      "name": "Alfta",
+      "postalCodes": []
+    },
+    {
+      "name": "Arbrå",
+      "postalCodes": []
+    },
+    {
+      "name": "Årsunda",
+      "postalCodes": []
+    },
+    {
+      "name": "Bergby",
+      "postalCodes": []
+    },
+    {
+      "name": "Bergsjö",
+      "postalCodes": []
+    },
+    {
+      "name": "Bollnäs",
+      "postalCodes": []
+    },
+    {
+      "name": "Delsbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Edsbyn",
+      "postalCodes": []
+    },
+    {
+      "name": "Färila",
+      "postalCodes": []
+    },
+    {
+      "name": "Forsbacka",
+      "postalCodes": []
+    },
+    {
+      "name": "Gävle",
+      "postalCodes": []
+    },
+    {
+      "name": "Gnarp",
+      "postalCodes": []
+    },
+    {
+      "name": "Hedesunda",
+      "postalCodes": []
+    },
+    {
+      "name": "Hofors",
+      "postalCodes": []
+    },
+    {
+      "name": "Hudiksvall",
+      "postalCodes": []
+    },
+    {
+      "name": "Iggesund",
+      "postalCodes": []
+    },
+    {
+      "name": "Järbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Järvsö",
+      "postalCodes": []
+    },
+    {
+      "name": "Kilafors",
+      "postalCodes": []
+    },
+    {
+      "name": "Ljusdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Ljusne",
+      "postalCodes": []
+    },
+    {
+      "name": "Ockelbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Sandarne",
+      "postalCodes": []
+    },
+    {
+      "name": "Sandviken",
+      "postalCodes": []
+    },
+    {
+      "name": "Söderhamn",
+      "postalCodes": []
+    },
+    {
+      "name": "Sörforsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Storvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Valbo",
+      "postalCodes": []
+    }
+  ],
+  "I": [
+    {
+      "name": "Gotland",
+      "postalCodes": []
+    },
+    {
+      "name": "Hemse",
+      "postalCodes": []
+    },
+    {
+      "name": "Klintehamn",
+      "postalCodes": []
+    },
+    {
+      "name": "Vibble",
+      "postalCodes": []
+    },
+    {
+      "name": "Visby",
+      "postalCodes": []
+    }
+  ],
+  "N": [
+    {
+      "name": "Åled",
+      "postalCodes": []
+    },
+    {
+      "name": "Åsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Bua",
+      "postalCodes": []
+    },
+    {
+      "name": "Falkenberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Fjärås kyrkby",
+      "postalCodes": []
+    },
+    {
+      "name": "Frillesås",
+      "postalCodes": []
+    },
+    {
+      "name": "Frösakull",
+      "postalCodes": []
+    },
+    {
+      "name": "Fyllinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Getinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Glommen",
+      "postalCodes": []
+    },
+    {
+      "name": "Gullbrandstorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Halmstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Harplinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Haverdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Hyltebruk",
+      "postalCodes": []
+    },
+    {
+      "name": "Knäred",
+      "postalCodes": []
+    },
+    {
+      "name": "Kungsbacka",
+      "postalCodes": []
+    },
+    {
+      "name": "Laholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Mellbystrand",
+      "postalCodes": []
+    },
+    {
+      "name": "Mjällby",
+      "postalCodes": []
+    },
+    {
+      "name": "Onsala",
+      "postalCodes": []
+    },
+    {
+      "name": "Oskarström",
+      "postalCodes": []
+    },
+    {
+      "name": "Särö",
+      "postalCodes": []
+    },
+    {
+      "name": "Skrea",
+      "postalCodes": []
+    },
+    {
+      "name": "Steninge",
+      "postalCodes": []
+    },
+    {
+      "name": "Torup",
+      "postalCodes": []
+    },
+    {
+      "name": "Träslövsläge",
+      "postalCodes": []
+    },
+    {
+      "name": "Trönninge",
+      "postalCodes": []
+    },
+    {
+      "name": "Tvååker",
+      "postalCodes": []
+    },
+    {
+      "name": "Vallda",
+      "postalCodes": []
+    },
+    {
+      "name": "Varberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Västra Hagen",
+      "postalCodes": []
+    },
+    {
+      "name": "Veddige",
+      "postalCodes": []
+    },
+    {
+      "name": "Veinge",
+      "postalCodes": []
+    }
+  ],
+  "F": [
+    {
+      "name": "Anderstorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Aneby",
+      "postalCodes": []
+    },
+    {
+      "name": "Bankeryd",
+      "postalCodes": []
+    },
+    {
+      "name": "Bodafors",
+      "postalCodes": []
+    },
+    {
+      "name": "Bor",
+      "postalCodes": []
+    },
+    {
+      "name": "Bredaryd",
+      "postalCodes": []
+    },
+    {
+      "name": "Ekenässjön",
+      "postalCodes": []
+    },
+    {
+      "name": "Eksjö",
+      "postalCodes": []
+    },
+    {
+      "name": "Forserum",
+      "postalCodes": []
+    },
+    {
+      "name": "Forsheda",
+      "postalCodes": []
+    },
+    {
+      "name": "Gislaved",
+      "postalCodes": []
+    },
+    {
+      "name": "Gnosjö",
+      "postalCodes": []
+    },
+    {
+      "name": "Gränna",
+      "postalCodes": []
+    },
+    {
+      "name": "Habo",
+      "postalCodes": []
+    },
+    {
+      "name": "Hestra",
+      "postalCodes": []
+    },
+    {
+      "name": "Hillerstorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Huskvarna",
+      "postalCodes": []
+    },
+    {
+      "name": "Jönköping",
+      "postalCodes": []
+    },
+    {
+      "name": "Kaxholmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Landsbro",
+      "postalCodes": []
+    },
+    {
+      "name": "Malmbäck",
+      "postalCodes": []
+    },
+    {
+      "name": "Mariannelund",
+      "postalCodes": []
+    },
+    {
+      "name": "Marieholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Mullsjö",
+      "postalCodes": []
+    },
+    {
+      "name": "Nässjö",
+      "postalCodes": []
+    },
+    {
+      "name": "Odensjö",
+      "postalCodes": []
+    },
+    {
+      "name": "Reftele",
+      "postalCodes": []
+    },
+    {
+      "name": "Rydaholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Sävsjö",
+      "postalCodes": []
+    },
+    {
+      "name": "Skillingaryd",
+      "postalCodes": []
+    },
+    {
+      "name": "Smålandsstenar",
+      "postalCodes": []
+    },
+    {
+      "name": "Stockaryd",
+      "postalCodes": []
+    },
+    {
+      "name": "Taberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Tenhult",
+      "postalCodes": []
+    },
+    {
+      "name": "Tranås",
+      "postalCodes": []
+    },
+    {
+      "name": "Vaggeryd",
+      "postalCodes": []
+    },
+    {
+      "name": "Värnamo",
+      "postalCodes": []
+    },
+    {
+      "name": "Vetlanda",
+      "postalCodes": []
+    },
+    {
+      "name": "Vrigstad",
+      "postalCodes": []
+    }
+  ],
+  "H": [
+    {
+      "name": "Ankarsrum",
+      "postalCodes": []
+    },
+    {
+      "name": "Bergkvara",
+      "postalCodes": []
+    },
+    {
+      "name": "Blomstermåla",
+      "postalCodes": []
+    },
+    {
+      "name": "Borgholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Emmaboda",
+      "postalCodes": []
+    },
+    {
+      "name": "Färjestaden",
+      "postalCodes": []
+    },
+    {
+      "name": "Gamleby",
+      "postalCodes": []
+    },
+    {
+      "name": "Gunnebo",
+      "postalCodes": []
+    },
+    {
+      "name": "Högsby",
+      "postalCodes": []
+    },
+    {
+      "name": "Hultsfred",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalmar",
+      "postalCodes": []
+    },
+    {
+      "name": "Kristdala",
+      "postalCodes": []
+    },
+    {
+      "name": "Lindsdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Ljungbyholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Målilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Mönsterås",
+      "postalCodes": []
+    },
+    {
+      "name": "Mörbylånga",
+      "postalCodes": []
+    },
+    {
+      "name": "Nybro",
+      "postalCodes": []
+    },
+    {
+      "name": "Oskarshamn",
+      "postalCodes": []
+    },
+    {
+      "name": "Överum",
+      "postalCodes": []
+    },
+    {
+      "name": "Påskallavik",
+      "postalCodes": []
+    },
+    {
+      "name": "Rinkabyholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Smedby",
+      "postalCodes": []
+    },
+    {
+      "name": "Södra Sandby",
+      "postalCodes": []
+    },
+    {
+      "name": "Södra Vi",
+      "postalCodes": []
+    },
+    {
+      "name": "Storebro",
+      "postalCodes": []
+    },
+    {
+      "name": "Timmernabben",
+      "postalCodes": []
+    },
+    {
+      "name": "Torsås",
+      "postalCodes": []
+    },
+    {
+      "name": "Trekanten",
+      "postalCodes": []
+    },
+    {
+      "name": "Västervik",
+      "postalCodes": []
+    },
+    {
+      "name": "Vimmerby",
+      "postalCodes": []
+    },
+    {
+      "name": "Virserum",
+      "postalCodes": []
+    }
+  ],
+  "G": [
+    {
+      "name": "Älmhult",
+      "postalCodes": []
+    },
+    {
+      "name": "Alvesta",
+      "postalCodes": []
+    },
+    {
+      "name": "Åseda",
+      "postalCodes": []
+    },
+    {
+      "name": "Braås",
+      "postalCodes": []
+    },
+    {
+      "name": "Gemla",
+      "postalCodes": []
+    },
+    {
+      "name": "Hovmantorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Ingelstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Lagan",
+      "postalCodes": []
+    },
+    {
+      "name": "Lammhult",
+      "postalCodes": []
+    },
+    {
+      "name": "Lenhovda",
+      "postalCodes": []
+    },
+    {
+      "name": "Lessebo",
+      "postalCodes": []
+    },
+    {
+      "name": "Ljungby",
+      "postalCodes": []
+    },
+    {
+      "name": "Markaryd",
+      "postalCodes": []
+    },
+    {
+      "name": "Moheda",
+      "postalCodes": []
+    },
+    {
+      "name": "Rottne",
+      "postalCodes": []
+    },
+    {
+      "name": "Ryd",
+      "postalCodes": []
+    },
+    {
+      "name": "Strömsnäsbruk",
+      "postalCodes": []
+    },
+    {
+      "name": "Tingsryd",
+      "postalCodes": []
+    },
+    {
+      "name": "Växjö",
+      "postalCodes": []
+    },
+    {
+      "name": "Vislanda",
+      "postalCodes": []
+    }
+  ],
+  "BD": [
+    {
+      "name": "Älvsbyn",
+      "postalCodes": []
+    },
+    {
+      "name": "Arjeplog",
+      "postalCodes": []
+    },
+    {
+      "name": "Arvidsjaur",
+      "postalCodes": []
+    },
+    {
+      "name": "Bergnäset",
+      "postalCodes": []
+    },
+    {
+      "name": "Bergsviken",
+      "postalCodes": []
+    },
+    {
+      "name": "Björkskatan",
+      "postalCodes": []
+    },
+    {
+      "name": "Boden",
+      "postalCodes": []
+    },
+    {
+      "name": "Gällivare",
+      "postalCodes": []
+    },
+    {
+      "name": "Gammelstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Haparanda",
+      "postalCodes": []
+    },
+    {
+      "name": "Hortlax",
+      "postalCodes": []
+    },
+    {
+      "name": "Jokkmokk",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalix",
+      "postalCodes": []
+    },
+    {
+      "name": "Kiruna",
+      "postalCodes": []
+    },
+    {
+      "name": "Luleå",
+      "postalCodes": []
+    },
+    {
+      "name": "Malmberget",
+      "postalCodes": []
+    },
+    {
+      "name": "Marielund",
+      "postalCodes": []
+    },
+    {
+      "name": "Norrfjärden",
+      "postalCodes": []
+    },
+    {
+      "name": "Överkalix",
+      "postalCodes": []
+    },
+    {
+      "name": "Övertorneå",
+      "postalCodes": []
+    },
+    {
+      "name": "Pajala",
+      "postalCodes": []
+    },
+    {
+      "name": "Piteå",
+      "postalCodes": []
+    },
+    {
+      "name": "Råneå",
+      "postalCodes": []
+    },
+    {
+      "name": "Roknäs",
+      "postalCodes": []
+    },
+    {
+      "name": "Rolfs",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Sävast",
+      "postalCodes": []
+    },
+    {
+      "name": "Södra Sunderbyn",
+      "postalCodes": []
+    },
+    {
+      "name": "Töre",
+      "postalCodes": []
+    }
+  ],
+  "T": [
+    {
+      "name": "Åsbro",
+      "postalCodes": []
+    },
+    {
+      "name": "Askersund",
+      "postalCodes": []
+    },
+    {
+      "name": "Degerfors",
+      "postalCodes": []
+    },
+    {
+      "name": "Ekeby-Almby",
+      "postalCodes": []
+    },
+    {
+      "name": "Fellingsbro",
+      "postalCodes": []
+    },
+    {
+      "name": "Fjugesta",
+      "postalCodes": []
+    },
+    {
+      "name": "Frövi",
+      "postalCodes": []
+    },
+    {
+      "name": "Garphyttan",
+      "postalCodes": []
+    },
+    {
+      "name": "Hällabrottet",
+      "postalCodes": []
+    },
+    {
+      "name": "Hällefors",
+      "postalCodes": []
+    },
+    {
+      "name": "Hallsberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Hovsta",
+      "postalCodes": []
+    },
+    {
+      "name": "Karlskoga",
+      "postalCodes": []
+    },
+    {
+      "name": "Kopparberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Kumla",
+      "postalCodes": []
+    },
+    {
+      "name": "Laxå",
+      "postalCodes": []
+    },
+    {
+      "name": "Lindesberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Nora",
+      "postalCodes": []
+    },
+    {
+      "name": "Odensbacken",
+      "postalCodes": []
+    },
+    {
+      "name": "Örebro",
+      "postalCodes": []
+    },
+    {
+      "name": "Pålsboda",
+      "postalCodes": []
+    },
+    {
+      "name": "Sköllersta",
+      "postalCodes": []
+    },
+    {
+      "name": "Storå",
+      "postalCodes": []
+    },
+    {
+      "name": "Vintrosa",
+      "postalCodes": []
+    }
+  ],
+  "E": [
+    {
+      "name": "Åby",
+      "postalCodes": []
+    },
+    {
+      "name": "Åtvidaberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Berg",
+      "postalCodes": []
+    },
+    {
+      "name": "Borensberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Boxholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Ekängen",
+      "postalCodes": []
+    },
+    {
+      "name": "Finspång",
+      "postalCodes": []
+    },
+    {
+      "name": "Grebo",
+      "postalCodes": []
+    },
+    {
+      "name": "Gusum",
+      "postalCodes": []
+    },
+    {
+      "name": "Herrestad",
+      "postalCodes": []
+    },
+    {
+      "name": "Jursla",
+      "postalCodes": []
+    },
+    {
+      "name": "Kimstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Kisa",
+      "postalCodes": []
+    },
+    {
+      "name": "Krokek",
+      "postalCodes": []
+    },
+    {
+      "name": "Lindö",
+      "postalCodes": []
+    },
+    {
+      "name": "Linghem",
+      "postalCodes": []
+    },
+    {
+      "name": "Linköping",
+      "postalCodes": []
+    },
+    {
+      "name": "Ljungsbro",
+      "postalCodes": []
+    },
+    {
+      "name": "Malmslätt",
+      "postalCodes": []
+    },
+    {
+      "name": "Mantorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Mjölby",
+      "postalCodes": []
+    },
+    {
+      "name": "Motala",
+      "postalCodes": []
+    },
+    {
+      "name": "Norrköping",
+      "postalCodes": []
+    },
+    {
+      "name": "Ödeshög",
+      "postalCodes": []
+    },
+    {
+      "name": "Österbymo",
+      "postalCodes": []
+    },
+    {
+      "name": "Rimforsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Ryd",
+      "postalCodes": []
+    },
+    {
+      "name": "Skänninge",
+      "postalCodes": []
+    },
+    {
+      "name": "Skärblacka",
+      "postalCodes": []
+    },
+    {
+      "name": "Söderköping",
+      "postalCodes": []
+    },
+    {
+      "name": "Stenstorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Sturefors",
+      "postalCodes": []
+    },
+    {
+      "name": "Svärtinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Tallboda",
+      "postalCodes": []
+    },
+    {
+      "name": "Vadstena",
+      "postalCodes": []
+    },
+    {
+      "name": "Valdemarsvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Vikingstad",
+      "postalCodes": []
+    }
+  ],
+  "M": [
+    {
+      "name": "Åhus",
+      "postalCodes": []
+    },
+    {
+      "name": "Åkarp",
+      "postalCodes": []
+    },
+    {
+      "name": "Anderslöv",
+      "postalCodes": []
+    },
+    {
+      "name": "Ängelholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Arlöv",
+      "postalCodes": []
+    },
+    {
+      "name": "Asmundtorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Åstorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Bara",
+      "postalCodes": []
+    },
+    {
+      "name": "Bårslöv",
+      "postalCodes": []
+    },
+    {
+      "name": "Båstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Billeberga",
+      "postalCodes": []
+    },
+    {
+      "name": "Billesholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Bjärnum",
+      "postalCodes": []
+    },
+    {
+      "name": "Bjärred",
+      "postalCodes": []
+    },
+    {
+      "name": "Bjuv",
+      "postalCodes": []
+    },
+    {
+      "name": "Blentarp",
+      "postalCodes": []
+    },
+    {
+      "name": "Broby",
+      "postalCodes": []
+    },
+    {
+      "name": "Bromölla",
+      "postalCodes": []
+    },
+    {
+      "name": "Bunkeflostrand",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalby",
+      "postalCodes": []
+    },
+    {
+      "name": "Degeberga",
+      "postalCodes": []
+    },
+    {
+      "name": "Ekeby",
+      "postalCodes": []
+    },
+    {
+      "name": "Eslöv",
+      "postalCodes": []
+    },
+    {
+      "name": "Färlöv",
+      "postalCodes": []
+    },
+    {
+      "name": "Fjälkinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Förslöv",
+      "postalCodes": []
+    },
+    {
+      "name": "Furulund",
+      "postalCodes": []
+    },
+    {
+      "name": "Gantofta",
+      "postalCodes": []
+    },
+    {
+      "name": "Gärsnäs",
+      "postalCodes": []
+    },
+    {
+      "name": "Genarp",
+      "postalCodes": []
+    },
+    {
+      "name": "Glimåkra",
+      "postalCodes": []
+    },
+    {
+      "name": "Glumslöv",
+      "postalCodes": []
+    },
+    {
+      "name": "Häljarp",
+      "postalCodes": []
+    },
+    {
+      "name": "Hammar",
+      "postalCodes": []
+    },
+    {
+      "name": "Hanaskog",
+      "postalCodes": []
+    },
+    {
+      "name": "Hässleholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Hästveda",
+      "postalCodes": []
+    },
+    {
+      "name": "Helsingborg",
+      "postalCodes": []
+    },
+    {
+      "name": "Hittarp",
+      "postalCodes": []
+    },
+    {
+      "name": "Hjärnarp",
+      "postalCodes": []
+    },
+    {
+      "name": "Hjärup",
+      "postalCodes": []
+    },
+    {
+      "name": "Hofterup",
+      "postalCodes": []
+    },
+    {
+      "name": "Höganäs",
+      "postalCodes": []
+    },
+    {
+      "name": "Hököpinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Höllviken",
+      "postalCodes": []
+    },
+    {
+      "name": "Höör",
+      "postalCodes": []
+    },
+    {
+      "name": "Hörby",
+      "postalCodes": []
+    },
+    {
+      "name": "Hyllinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Jonstorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Kågeröd",
+      "postalCodes": []
+    },
+    {
+      "name": "Kävlinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Klågerup",
+      "postalCodes": []
+    },
+    {
+      "name": "Klippan",
+      "postalCodes": []
+    },
+    {
+      "name": "Knislinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Köpingebro",
+      "postalCodes": []
+    },
+    {
+      "name": "Kristianstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Kvidinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Landskrona",
+      "postalCodes": []
+    },
+    {
+      "name": "Ljungbyhed",
+      "postalCodes": []
+    },
+    {
+      "name": "Ljunghusen",
+      "postalCodes": []
+    },
+    {
+      "name": "Löberöd",
+      "postalCodes": []
+    },
+    {
+      "name": "Löddeköpinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Lomma",
+      "postalCodes": []
+    },
+    {
+      "name": "Lönsboda",
+      "postalCodes": []
+    },
+    {
+      "name": "Lund",
+      "postalCodes": []
+    },
+    {
+      "name": "Malmö",
+      "postalCodes": []
+    },
+    {
+      "name": "Marieholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Mörarp",
+      "postalCodes": []
+    },
+    {
+      "name": "Munka-Ljungby",
+      "postalCodes": []
+    },
+    {
+      "name": "Näsum",
+      "postalCodes": []
+    },
+    {
+      "name": "Norra Åsum",
+      "postalCodes": []
+    },
+    {
+      "name": "Ödåkra",
+      "postalCodes": []
+    },
+    {
+      "name": "Önnestad",
+      "postalCodes": []
+    },
+    {
+      "name": "Örkelljunga",
+      "postalCodes": []
+    },
+    {
+      "name": "Osby",
+      "postalCodes": []
+    },
+    {
+      "name": "Östra Ljungby",
+      "postalCodes": []
+    },
+    {
+      "name": "Oxie",
+      "postalCodes": []
+    },
+    {
+      "name": "Påarp",
+      "postalCodes": []
+    },
+    {
+      "name": "Perstorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Rydebäck",
+      "postalCodes": []
+    },
+    {
+      "name": "Rydsgård",
+      "postalCodes": []
+    },
+    {
+      "name": "Sätofta",
+      "postalCodes": []
+    },
+    {
+      "name": "Saxtorpsskogen",
+      "postalCodes": []
+    },
+    {
+      "name": "Sibbhult",
+      "postalCodes": []
+    },
+    {
+      "name": "Simrishamn",
+      "postalCodes": []
+    },
+    {
+      "name": "Sjöbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Skanör med Falsterbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Skåre",
+      "postalCodes": []
+    },
+    {
+      "name": "Skegrie",
+      "postalCodes": []
+    },
+    {
+      "name": "Skivarp",
+      "postalCodes": []
+    },
+    {
+      "name": "Skurup",
+      "postalCodes": []
+    },
+    {
+      "name": "Smygehamn",
+      "postalCodes": []
+    },
+    {
+      "name": "Södra Sandby",
+      "postalCodes": []
+    },
+    {
+      "name": "Sösdala",
+      "postalCodes": []
+    },
+    {
+      "name": "Staffanstorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Stångby",
+      "postalCodes": []
+    },
+    {
+      "name": "Stehag",
+      "postalCodes": []
+    },
+    {
+      "name": "Strövelstorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Svalöv",
+      "postalCodes": []
+    },
+    {
+      "name": "Svedala",
+      "postalCodes": []
+    },
+    {
+      "name": "Teckomatorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Tollarp",
+      "postalCodes": []
+    },
+    {
+      "name": "Tollarp1",
+      "postalCodes": []
+    },
+    {
+      "name": "Tomelilla",
+      "postalCodes": []
+    },
+    {
+      "name": "Torekov",
+      "postalCodes": []
+    },
+    {
+      "name": "Tormestorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Trelleborg",
+      "postalCodes": []
+    },
+    {
+      "name": "Tygelsjö",
+      "postalCodes": []
+    },
+    {
+      "name": "Tyringe",
+      "postalCodes": []
+    },
+    {
+      "name": "Valje",
+      "postalCodes": []
+    },
+    {
+      "name": "Veberöd",
+      "postalCodes": []
+    },
+    {
+      "name": "Vejbystrand",
+      "postalCodes": []
+    },
+    {
+      "name": "Vellinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Viken",
+      "postalCodes": []
+    },
+    {
+      "name": "Vinslöv",
+      "postalCodes": []
+    },
+    {
+      "name": "Vittsjö",
+      "postalCodes": []
+    },
+    {
+      "name": "Ystad",
+      "postalCodes": []
+    }
+  ],
+  "D": [
+    {
+      "name": "Åkers Styckebruk",
+      "postalCodes": []
+    },
+    {
+      "name": "Ärla",
+      "postalCodes": []
+    },
+    {
+      "name": "Arnö",
+      "postalCodes": []
+    },
+    {
+      "name": "Bara",
+      "postalCodes": []
+    },
+    {
+      "name": "Eskilstuna",
+      "postalCodes": []
+    },
+    {
+      "name": "Flen",
+      "postalCodes": []
+    },
+    {
+      "name": "Gnesta",
+      "postalCodes": []
+    },
+    {
+      "name": "Hällbybrunn",
+      "postalCodes": []
+    },
+    {
+      "name": "Hälleforsnäs",
+      "postalCodes": []
+    },
+    {
+      "name": "Katrineholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Kvicksund",
+      "postalCodes": []
+    },
+    {
+      "name": "Malmköping",
+      "postalCodes": []
+    },
+    {
+      "name": "Mariefred",
+      "postalCodes": []
+    },
+    {
+      "name": "Nyköping",
+      "postalCodes": []
+    },
+    {
+      "name": "Olstorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Oxelösund",
+      "postalCodes": []
+    },
+    {
+      "name": "Skogstorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Stallarholmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Stigtomta",
+      "postalCodes": []
+    },
+    {
+      "name": "Strängnäs",
+      "postalCodes": []
+    },
+    {
+      "name": "Svalsta",
+      "postalCodes": []
+    },
+    {
+      "name": "Torshälla",
+      "postalCodes": []
+    },
+    {
+      "name": "Trosa",
+      "postalCodes": []
+    },
+    {
+      "name": "Vagnhärad",
+      "postalCodes": []
+    },
+    {
+      "name": "Valla",
+      "postalCodes": []
+    },
+    {
+      "name": "Vingåker",
+      "postalCodes": []
+    }
+  ],
+  "AB": [
+    {
+      "name": "Akalla",
+      "postalCodes": []
+    },
+    {
+      "name": "Åkersberga",
+      "postalCodes": []
+    },
+    {
+      "name": "Alby",
+      "postalCodes": []
+    },
+    {
+      "name": "Älmsta",
+      "postalCodes": []
+    },
+    {
+      "name": "Älta",
+      "postalCodes": []
+    },
+    {
+      "name": "Arnö",
+      "postalCodes": []
+    },
+    {
+      "name": "Årsta",
+      "postalCodes": []
+    },
+    {
+      "name": "Bergshamra",
+      "postalCodes": []
+    },
+    {
+      "name": "Bollmora",
+      "postalCodes": []
+    },
+    {
+      "name": "Boo",
+      "postalCodes": []
+    },
+    {
+      "name": "Brevik",
+      "postalCodes": []
+    },
+    {
+      "name": "Bro",
+      "postalCodes": []
+    },
+    {
+      "name": "Bromma",
+      "postalCodes": []
+    },
+    {
+      "name": "Brunn",
+      "postalCodes": []
+    },
+    {
+      "name": "Brunna",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalarö",
+      "postalCodes": []
+    },
+    {
+      "name": "Djurö",
+      "postalCodes": []
+    },
+    {
+      "name": "Djursholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Ekerö",
+      "postalCodes": []
+    },
+    {
+      "name": "Enebyberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Eriksberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Fisksätra",
+      "postalCodes": []
+    },
+    {
+      "name": "Fittja",
+      "postalCodes": []
+    },
+    {
+      "name": "Gamla Stan",
+      "postalCodes": []
+    },
+    {
+      "name": "Gustavsberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Hallstavik",
+      "postalCodes": []
+    },
+    {
+      "name": "Handen",
+      "postalCodes": []
+    },
+    {
+      "name": "Haninge",
+      "postalCodes": []
+    },
+    {
+      "name": "Hemmesta",
+      "postalCodes": []
+    },
+    {
+      "name": "Hölö",
+      "postalCodes": []
+    },
+    {
+      "name": "Huddinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Jakobsberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Järna",
+      "postalCodes": []
+    },
+    {
+      "name": "Jordbro",
+      "postalCodes": []
+    },
+    {
+      "name": "Kista",
+      "postalCodes": []
+    },
+    {
+      "name": "Kopparmora",
+      "postalCodes": []
+    },
+    {
+      "name": "Kummelnäs",
+      "postalCodes": []
+    },
+    {
+      "name": "Kungsängen",
+      "postalCodes": []
+    },
+    {
+      "name": "Kungsholmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Långvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Lidingö",
+      "postalCodes": []
+    },
+    {
+      "name": "Lindholmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Märsta",
+      "postalCodes": []
+    },
+    {
+      "name": "Mölnbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Mörtnäs",
+      "postalCodes": []
+    },
+    {
+      "name": "Nacka",
+      "postalCodes": []
+    },
+    {
+      "name": "Norrtälje",
+      "postalCodes": []
+    },
+    {
+      "name": "Nykvarn",
+      "postalCodes": []
+    },
+    {
+      "name": "Nynäshamn",
+      "postalCodes": []
+    },
+    {
+      "name": "Ösmo",
+      "postalCodes": []
+    },
+    {
+      "name": "Östermalm",
+      "postalCodes": []
+    },
+    {
+      "name": "Pershagen",
+      "postalCodes": []
+    },
+    {
+      "name": "Råsunda",
+      "postalCodes": []
+    },
+    {
+      "name": "Resarö",
+      "postalCodes": []
+    },
+    {
+      "name": "Rimbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Rindö",
+      "postalCodes": []
+    },
+    {
+      "name": "Rönninge",
+      "postalCodes": []
+    },
+    {
+      "name": "Rosersberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Saltsjöbaden",
+      "postalCodes": []
+    },
+    {
+      "name": "Segeltorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Sigtuna",
+      "postalCodes": []
+    },
+    {
+      "name": "Skänninge",
+      "postalCodes": []
+    },
+    {
+      "name": "Södermalm",
+      "postalCodes": []
+    },
+    {
+      "name": "Södertälje",
+      "postalCodes": []
+    },
+    {
+      "name": "Sollentuna",
+      "postalCodes": []
+    },
+    {
+      "name": "Solna",
+      "postalCodes": []
+    },
+    {
+      "name": "Stavsnäs",
+      "postalCodes": []
+    },
+    {
+      "name": "Stenhamra",
+      "postalCodes": []
+    },
+    {
+      "name": "Stockholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Strömma",
+      "postalCodes": []
+    },
+    {
+      "name": "Sundbyberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Tensta",
+      "postalCodes": []
+    },
+    {
+      "name": "Tullinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Tumba",
+      "postalCodes": []
+    },
+    {
+      "name": "Upplands Väsby",
+      "postalCodes": []
+    },
+    {
+      "name": "Vallentuna",
+      "postalCodes": []
+    },
+    {
+      "name": "Vårby",
+      "postalCodes": []
+    },
+    {
+      "name": "Vårsta",
+      "postalCodes": []
+    },
+    {
+      "name": "Vasastan",
+      "postalCodes": []
+    },
+    {
+      "name": "Vaxholm",
+      "postalCodes": []
+    }
+  ],
+  "C": [
+    {
+      "name": "Alsike",
+      "postalCodes": []
+    },
+    {
+      "name": "Alunda",
+      "postalCodes": []
+    },
+    {
+      "name": "Älvkarleby",
+      "postalCodes": []
+    },
+    {
+      "name": "Anneberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Bälinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Bålsta",
+      "postalCodes": []
+    },
+    {
+      "name": "Björklinge",
+      "postalCodes": []
+    },
+    {
+      "name": "Enköping",
+      "postalCodes": []
+    },
+    {
+      "name": "Gamla Uppsala",
+      "postalCodes": []
+    },
+    {
+      "name": "Gimo",
+      "postalCodes": []
+    },
+    {
+      "name": "Grillby",
+      "postalCodes": []
+    },
+    {
+      "name": "Heby",
+      "postalCodes": []
+    },
+    {
+      "name": "Irsta",
+      "postalCodes": []
+    },
+    {
+      "name": "Karlholmsbruk",
+      "postalCodes": []
+    },
+    {
+      "name": "Knivsta",
+      "postalCodes": []
+    },
+    {
+      "name": "Lövstalöt",
+      "postalCodes": []
+    },
+    {
+      "name": "Marieberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Morgongåva",
+      "postalCodes": []
+    },
+    {
+      "name": "Örbyhus",
+      "postalCodes": []
+    },
+    {
+      "name": "Öregrund",
+      "postalCodes": []
+    },
+    {
+      "name": "Örsundsbro",
+      "postalCodes": []
+    },
+    {
+      "name": "Österbybruk",
+      "postalCodes": []
+    },
+    {
+      "name": "Östervåla",
+      "postalCodes": []
+    },
+    {
+      "name": "Östhammar",
+      "postalCodes": []
+    },
+    {
+      "name": "Sävja",
+      "postalCodes": []
+    },
+    {
+      "name": "Skutskär",
+      "postalCodes": []
+    },
+    {
+      "name": "Söderfors",
+      "postalCodes": []
+    },
+    {
+      "name": "Storvreta",
+      "postalCodes": []
+    },
+    {
+      "name": "Tärnsjö",
+      "postalCodes": []
+    },
+    {
+      "name": "Tierp",
+      "postalCodes": []
+    },
+    {
+      "name": "Uppsala",
+      "postalCodes": []
+    },
+    {
+      "name": "Vattholma",
+      "postalCodes": []
+    }
+  ],
+  "S": [
+    {
+      "name": "Åmotfors",
+      "postalCodes": []
+    },
+    {
+      "name": "Årjäng",
+      "postalCodes": []
+    },
+    {
+      "name": "Arvika",
+      "postalCodes": []
+    },
+    {
+      "name": "Björneborg",
+      "postalCodes": []
+    },
+    {
+      "name": "Charlottenberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Deje",
+      "postalCodes": []
+    },
+    {
+      "name": "Ekshärad",
+      "postalCodes": []
+    },
+    {
+      "name": "Filipstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Forshaga",
+      "postalCodes": []
+    },
+    {
+      "name": "Grums",
+      "postalCodes": []
+    },
+    {
+      "name": "Hagfors",
+      "postalCodes": []
+    },
+    {
+      "name": "Karlstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Kil",
+      "postalCodes": []
+    },
+    {
+      "name": "Kristinehamn",
+      "postalCodes": []
+    },
+    {
+      "name": "Molkom",
+      "postalCodes": []
+    },
+    {
+      "name": "Munkfors",
+      "postalCodes": []
+    },
+    {
+      "name": "Råtorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Säffle",
+      "postalCodes": []
+    },
+    {
+      "name": "Skåre",
+      "postalCodes": []
+    },
+    {
+      "name": "Skattkärr",
+      "postalCodes": []
+    },
+    {
+      "name": "Skoghall",
+      "postalCodes": []
+    },
+    {
+      "name": "Slottsbron",
+      "postalCodes": []
+    },
+    {
+      "name": "Storfors",
+      "postalCodes": []
+    },
+    {
+      "name": "Sunne",
+      "postalCodes": []
+    },
+    {
+      "name": "Töcksfors",
+      "postalCodes": []
+    },
+    {
+      "name": "Torsby",
+      "postalCodes": []
+    },
+    {
+      "name": "Vålberg",
+      "postalCodes": []
+    }
+  ],
+  "AC": [
+    {
+      "name": "Åsele",
+      "postalCodes": []
+    },
+    {
+      "name": "Backa",
+      "postalCodes": []
+    },
+    {
+      "name": "Bjurholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Boliden",
+      "postalCodes": []
+    },
+    {
+      "name": "Bureå",
+      "postalCodes": []
+    },
+    {
+      "name": "Burträsk",
+      "postalCodes": []
+    },
+    {
+      "name": "Byske",
+      "postalCodes": []
+    },
+    {
+      "name": "Dorotea",
+      "postalCodes": []
+    },
+    {
+      "name": "Ersmark",
+      "postalCodes": []
+    },
+    {
+      "name": "Forsbacka",
+      "postalCodes": []
+    },
+    {
+      "name": "Holmsund",
+      "postalCodes": []
+    },
+    {
+      "name": "Hörnefors",
+      "postalCodes": []
+    },
+    {
+      "name": "Insjön",
+      "postalCodes": []
+    },
+    {
+      "name": "Kåge",
+      "postalCodes": []
+    },
+    {
+      "name": "Långsele",
+      "postalCodes": []
+    },
+    {
+      "name": "Lycksele",
+      "postalCodes": []
+    },
+    {
+      "name": "Malå",
+      "postalCodes": []
+    },
+    {
+      "name": "Nordmaling",
+      "postalCodes": []
+    },
+    {
+      "name": "Norsjö",
+      "postalCodes": []
+    },
+    {
+      "name": "Obbola",
+      "postalCodes": []
+    },
+    {
+      "name": "Röbäck",
+      "postalCodes": []
+    },
+    {
+      "name": "Robertsfors",
+      "postalCodes": []
+    },
+    {
+      "name": "Sävar",
+      "postalCodes": []
+    },
+    {
+      "name": "Skellefteå",
+      "postalCodes": []
+    },
+    {
+      "name": "Skelleftehamn",
+      "postalCodes": []
+    },
+    {
+      "name": "Söderfors",
+      "postalCodes": []
+    },
+    {
+      "name": "Sorsele",
+      "postalCodes": []
+    },
+    {
+      "name": "Storuman",
+      "postalCodes": []
+    },
+    {
+      "name": "Storvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Täfteå",
+      "postalCodes": []
+    },
+    {
+      "name": "Umeå",
+      "postalCodes": []
+    },
+    {
+      "name": "Ursviken",
+      "postalCodes": []
+    },
+    {
+      "name": "Vännäs",
+      "postalCodes": []
+    },
+    {
+      "name": "Vännäsby",
+      "postalCodes": []
+    },
+    {
+      "name": "Viken",
+      "postalCodes": []
+    },
+    {
+      "name": "Vilhelmina",
+      "postalCodes": []
+    },
+    {
+      "name": "Vindeln",
+      "postalCodes": []
+    }
+  ],
+  "Y": [
+    {
+      "name": "Ånge",
+      "postalCodes": []
+    },
+    {
+      "name": "Ås",
+      "postalCodes": []
+    },
+    {
+      "name": "Bergeforsen",
+      "postalCodes": []
+    },
+    {
+      "name": "Bjästa",
+      "postalCodes": []
+    },
+    {
+      "name": "Bollstabruk",
+      "postalCodes": []
+    },
+    {
+      "name": "Bredbyn",
+      "postalCodes": []
+    },
+    {
+      "name": "Fränsta",
+      "postalCodes": []
+    },
+    {
+      "name": "Härnösand",
+      "postalCodes": []
+    },
+    {
+      "name": "Husum",
+      "postalCodes": []
+    },
+    {
+      "name": "Johannedal",
+      "postalCodes": []
+    },
+    {
+      "name": "Köpmanholmen",
+      "postalCodes": []
+    },
+    {
+      "name": "Kramfors",
+      "postalCodes": []
+    },
+    {
+      "name": "Kvissleby",
+      "postalCodes": []
+    },
+    {
+      "name": "Långsele",
+      "postalCodes": []
+    },
+    {
+      "name": "Matfors",
+      "postalCodes": []
+    },
+    {
+      "name": "Njurundabommen",
+      "postalCodes": []
+    },
+    {
+      "name": "Nolby",
+      "postalCodes": []
+    },
+    {
+      "name": "Örnsköldsvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Skottsund",
+      "postalCodes": []
+    },
+    {
+      "name": "Sollefteå",
+      "postalCodes": []
+    },
+    {
+      "name": "Söråker",
+      "postalCodes": []
+    },
+    {
+      "name": "Stockvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Sundsbruk",
+      "postalCodes": []
+    },
+    {
+      "name": "Sundsvall",
+      "postalCodes": []
+    },
+    {
+      "name": "Timrå",
+      "postalCodes": []
+    },
+    {
+      "name": "Vi",
+      "postalCodes": []
+    }
+  ],
+  "U": [
+    {
+      "name": "Arboga",
+      "postalCodes": []
+    },
+    {
+      "name": "Barkarö",
+      "postalCodes": []
+    },
+    {
+      "name": "Dingtuna",
+      "postalCodes": []
+    },
+    {
+      "name": "Enhagen-Ekbacken",
+      "postalCodes": []
+    },
+    {
+      "name": "Fagersta",
+      "postalCodes": []
+    },
+    {
+      "name": "Hallstahammar",
+      "postalCodes": []
+    },
+    {
+      "name": "Hökåsen",
+      "postalCodes": []
+    },
+    {
+      "name": "Irsta",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolbäck",
+      "postalCodes": []
+    },
+    {
+      "name": "Kolsva",
+      "postalCodes": []
+    },
+    {
+      "name": "Köping",
+      "postalCodes": []
+    },
+    {
+      "name": "Kungsör",
+      "postalCodes": []
+    },
+    {
+      "name": "Norberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Ramnäs",
+      "postalCodes": []
+    },
+    {
+      "name": "Sala",
+      "postalCodes": []
+    },
+    {
+      "name": "Skinnskatteberg",
+      "postalCodes": []
+    },
+    {
+      "name": "Skultuna",
+      "postalCodes": []
+    },
+    {
+      "name": "Surahammar",
+      "postalCodes": []
+    },
+    {
+      "name": "Tillberga",
+      "postalCodes": []
+    },
+    {
+      "name": "Västerås",
+      "postalCodes": []
+    }
+  ],
+  "O": [
+    {
+      "name": "Åkarp",
+      "postalCodes": []
+    },
+    {
+      "name": "Alafors",
+      "postalCodes": []
+    },
+    {
+      "name": "Alingsås",
+      "postalCodes": []
+    },
+    {
+      "name": "Älvängen",
+      "postalCodes": []
+    },
+    {
+      "name": "Åmål",
+      "postalCodes": []
+    },
+    {
+      "name": "Andalen",
+      "postalCodes": []
+    },
+    {
+      "name": "Anderstorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Angered",
+      "postalCodes": []
+    },
+    {
+      "name": "Annelund",
+      "postalCodes": []
+    },
+    {
+      "name": "Axvall",
+      "postalCodes": []
+    },
+    {
+      "name": "Bengtsfors",
+      "postalCodes": []
+    },
+    {
+      "name": "Billdal",
+      "postalCodes": []
+    },
+    {
+      "name": "Billingsfors",
+      "postalCodes": []
+    },
+    {
+      "name": "Björboholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Björkö",
+      "postalCodes": []
+    },
+    {
+      "name": "Björlanda",
+      "postalCodes": []
+    },
+    {
+      "name": "Bollebygd",
+      "postalCodes": []
+    },
+    {
+      "name": "Borås",
+      "postalCodes": []
+    },
+    {
+      "name": "Brålanda",
+      "postalCodes": []
+    },
+    {
+      "name": "Brastad",
+      "postalCodes": []
+    },
+    {
+      "name": "Dals Långed",
+      "postalCodes": []
+    },
+    {
+      "name": "Dalsjöfors",
+      "postalCodes": []
+    },
+    {
+      "name": "Diseröd",
+      "postalCodes": []
+    },
+    {
+      "name": "Donsö",
+      "postalCodes": []
+    },
+    {
+      "name": "Ed",
+      "postalCodes": []
+    },
+    {
+      "name": "Ellös",
+      "postalCodes": []
+    },
+    {
+      "name": "Eriksbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Falköping",
+      "postalCodes": []
+    },
+    {
+      "name": "Färgelanda",
+      "postalCodes": []
+    },
+    {
+      "name": "Floby",
+      "postalCodes": []
+    },
+    {
+      "name": "Fristad",
+      "postalCodes": []
+    },
+    {
+      "name": "Fritsla",
+      "postalCodes": []
+    },
+    {
+      "name": "Furulund",
+      "postalCodes": []
+    },
+    {
+      "name": "Gånghester",
+      "postalCodes": []
+    },
+    {
+      "name": "Gårdsten",
+      "postalCodes": []
+    },
+    {
+      "name": "Göta",
+      "postalCodes": []
+    },
+    {
+      "name": "Göteborg",
+      "postalCodes": []
+    },
+    {
+      "name": "Göteborgs stad",
+      "postalCodes": []
+    },
+    {
+      "name": "Götene",
+      "postalCodes": []
+    },
+    {
+      "name": "Gråbo",
+      "postalCodes": []
+    },
+    {
+      "name": "Grästorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Grebbestad",
+      "postalCodes": []
+    },
+    {
+      "name": "Gullspång",
+      "postalCodes": []
+    },
+    {
+      "name": "Hammarkullen",
+      "postalCodes": []
+    },
+    {
+      "name": "Henån",
+      "postalCodes": []
+    },
+    {
+      "name": "Herrljunga",
+      "postalCodes": []
+    },
+    {
+      "name": "Hindås",
+      "postalCodes": []
+    },
+    {
+      "name": "Hjo",
+      "postalCodes": []
+    },
+    {
+      "name": "Hjuvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Hönö",
+      "postalCodes": []
+    },
+    {
+      "name": "Horred",
+      "postalCodes": []
+    },
+    {
+      "name": "Hova",
+      "postalCodes": []
+    },
+    {
+      "name": "Höviksnäs",
+      "postalCodes": []
+    },
+    {
+      "name": "Hunnebostrand",
+      "postalCodes": []
+    },
+    {
+      "name": "Ingared",
+      "postalCodes": []
+    },
+    {
+      "name": "Jonstorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Jörlanda",
+      "postalCodes": []
+    },
+    {
+      "name": "Källby",
+      "postalCodes": []
+    },
+    {
+      "name": "Kållered",
+      "postalCodes": []
+    },
+    {
+      "name": "Karlsborg",
+      "postalCodes": []
+    },
+    {
+      "name": "Kinna",
+      "postalCodes": []
+    },
+    {
+      "name": "Kode",
+      "postalCodes": []
+    },
+    {
+      "name": "Kungälv",
+      "postalCodes": []
+    },
+    {
+      "name": "Kungshamn",
+      "postalCodes": []
+    },
+    {
+      "name": "Kvänum",
+      "postalCodes": []
+    },
+    {
+      "name": "Landvetter",
+      "postalCodes": []
+    },
+    {
+      "name": "Länghem",
+      "postalCodes": []
+    },
+    {
+      "name": "Lerum",
+      "postalCodes": []
+    },
+    {
+      "name": "Lidköping",
+      "postalCodes": []
+    },
+    {
+      "name": "Lilla Edet",
+      "postalCodes": []
+    },
+    {
+      "name": "Limmared",
+      "postalCodes": []
+    },
+    {
+      "name": "Lindome",
+      "postalCodes": []
+    },
+    {
+      "name": "Ljungskile",
+      "postalCodes": []
+    },
+    {
+      "name": "Lödöse",
+      "postalCodes": []
+    },
+    {
+      "name": "Lövgärdet",
+      "postalCodes": []
+    },
+    {
+      "name": "Lysekil",
+      "postalCodes": []
+    },
+    {
+      "name": "Majorna",
+      "postalCodes": []
+    },
+    {
+      "name": "Mariestad",
+      "postalCodes": []
+    },
+    {
+      "name": "Mellerud",
+      "postalCodes": []
+    },
+    {
+      "name": "Mölltorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Mölndal",
+      "postalCodes": []
+    },
+    {
+      "name": "Mölnlycke",
+      "postalCodes": []
+    },
+    {
+      "name": "Munkedal",
+      "postalCodes": []
+    },
+    {
+      "name": "Myggenäs",
+      "postalCodes": []
+    },
+    {
+      "name": "Nolvik",
+      "postalCodes": []
+    },
+    {
+      "name": "Nossebro",
+      "postalCodes": []
+    },
+    {
+      "name": "Öckerö",
+      "postalCodes": []
+    },
+    {
+      "name": "Ödsmål",
+      "postalCodes": []
+    },
+    {
+      "name": "Öjersjö",
+      "postalCodes": []
+    },
+    {
+      "name": "Olofstorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Olstorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Orust",
+      "postalCodes": []
+    },
+    {
+      "name": "Partille",
+      "postalCodes": []
+    },
+    {
+      "name": "Rannebergen",
+      "postalCodes": []
+    },
+    {
+      "name": "Rävlanda",
+      "postalCodes": []
+    },
+    {
+      "name": "Rönnäng",
+      "postalCodes": []
+    },
+    {
+      "name": "Sålanda",
+      "postalCodes": []
+    },
+    {
+      "name": "Sandared",
+      "postalCodes": []
+    },
+    {
+      "name": "Sätila",
+      "postalCodes": []
+    },
+    {
+      "name": "Sjömarken",
+      "postalCodes": []
+    },
+    {
+      "name": "Sjuntorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Skara",
+      "postalCodes": []
+    },
+    {
+      "name": "Skärhamn",
+      "postalCodes": []
+    },
+    {
+      "name": "Skepplanda",
+      "postalCodes": []
+    },
+    {
+      "name": "Skövde",
+      "postalCodes": []
+    },
+    {
+      "name": "Skultorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Smögen",
+      "postalCodes": []
+    },
+    {
+      "name": "Sollebrunn",
+      "postalCodes": []
+    },
+    {
+      "name": "Stenkullen",
+      "postalCodes": []
+    },
+    {
+      "name": "Stenstorp",
+      "postalCodes": []
+    },
+    {
+      "name": "Stenungsund",
+      "postalCodes": []
+    },
+    {
+      "name": "Stöpen",
+      "postalCodes": []
+    },
+    {
+      "name": "Stora Höga",
+      "postalCodes": []
+    },
+    {
+      "name": "Strömstad",
+      "postalCodes": []
+    },
+    {
+      "name": "Styrsö",
+      "postalCodes": []
+    },
+    {
+      "name": "Surte",
+      "postalCodes": []
+    },
+    {
+      "name": "Svanesund",
+      "postalCodes": []
+    },
+    {
+      "name": "Svenljunga",
+      "postalCodes": []
+    },
+    {
+      "name": "Tanumshede",
+      "postalCodes": []
+    },
+    {
+      "name": "Tibro",
+      "postalCodes": []
+    },
+    {
+      "name": "Tidaholm",
+      "postalCodes": []
+    },
+    {
+      "name": "Tjuvkil",
+      "postalCodes": []
+    },
+    {
+      "name": "Töreboda",
+      "postalCodes": []
+    },
+    {
+      "name": "Torslanda",
+      "postalCodes": []
+    },
+    {
+      "name": "Tranemo",
+      "postalCodes": []
+    },
+    {
+      "name": "Trollhättan",
+      "postalCodes": []
+    },
+    {
+      "name": "Uddevalla",
+      "postalCodes": []
+    },
+    {
+      "name": "Ulricehamn",
+      "postalCodes": []
+    },
+    {
+      "name": "Vänersborg",
+      "postalCodes": []
+    },
+    {
+      "name": "Vara",
+      "postalCodes": []
+    },
+    {
+      "name": "Vårgårda",
+      "postalCodes": []
+    },
+    {
+      "name": "Vargön",
+      "postalCodes": []
+    },
+    {
+      "name": "Västra Frölunda",
+      "postalCodes": []
+    },
+    {
+      "name": "Vinninga",
+      "postalCodes": []
+    },
+    {
+      "name": "Viskafors",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

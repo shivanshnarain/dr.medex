@@ -1,0 +1,227 @@
+{
+  "AL": [
+    {
+      "name": "Aileu",
+      "postalCodes": []
+    },
+    {
+      "name": "Lequidoe",
+      "postalCodes": []
+    },
+    {
+      "name": "Remexio",
+      "postalCodes": []
+    }
+  ],
+  "AN": [
+    {
+      "name": "Ainaro",
+      "postalCodes": []
+    },
+    {
+      "name": "Hato-Udo",
+      "postalCodes": []
+    }
+  ],
+  "BA": [
+    {
+      "name": "Baguia",
+      "postalCodes": []
+    },
+    {
+      "name": "Baucau",
+      "postalCodes": []
+    },
+    {
+      "name": "Baukau",
+      "postalCodes": []
+    },
+    {
+      "name": "Laga",
+      "postalCodes": []
+    },
+    {
+      "name": "Quelicai",
+      "postalCodes": []
+    },
+    {
+      "name": "Vemasse",
+      "postalCodes": []
+    },
+    {
+      "name": "Venilale",
+      "postalCodes": []
+    }
+  ],
+  "BO": [
+    {
+      "name": "Maliana",
+      "postalCodes": []
+    }
+  ],
+  "CO": [
+    {
+      "name": "Fatumean",
+      "postalCodes": []
+    },
+    {
+      "name": "Fohorem",
+      "postalCodes": []
+    },
+    {
+      "name": "Maucatar",
+      "postalCodes": []
+    },
+    {
+      "name": "Suai",
+      "postalCodes": []
+    },
+    {
+      "name": "Tilomar",
+      "postalCodes": []
+    }
+  ],
+  "DI": [
+    {
+      "name": "Atauro Island",
+      "postalCodes": []
+    },
+    {
+      "name": "Cristo Rei",
+      "postalCodes": []
+    },
+    {
+      "name": "Dili",
+      "postalCodes": []
+    },
+    {
+      "name": "Metinaro",
+      "postalCodes": []
+    }
+  ],
+  "ER": [
+    {
+      "name": "Ermera Villa",
+      "postalCodes": []
+    },
+    {
+      "name": "Gleno",
+      "postalCodes": []
+    },
+    {
+      "name": "Hatulia",
+      "postalCodes": []
+    },
+    {
+      "name": "Letefoho",
+      "postalCodes": []
+    },
+    {
+      "name": "Railaco",
+      "postalCodes": []
+    }
+  ],
+  "LA": [
+    {
+      "name": "Iliomar",
+      "postalCodes": []
+    },
+    {
+      "name": "Lautem",
+      "postalCodes": []
+    },
+    {
+      "name": "Lospalos",
+      "postalCodes": []
+    },
+    {
+      "name": "Luro",
+      "postalCodes": []
+    },
+    {
+      "name": "Tutuala",
+      "postalCodes": []
+    }
+  ],
+  "LI": [
+    {
+      "name": "Bazartete",
+      "postalCodes": []
+    },
+    {
+      "name": "Likisá",
+      "postalCodes": []
+    },
+    {
+      "name": "Maubara",
+      "postalCodes": []
+    }
+  ],
+  "MT": [
+    {
+      "name": "Barique",
+      "postalCodes": []
+    },
+    {
+      "name": "Laclo",
+      "postalCodes": []
+    },
+    {
+      "name": "Laclubar",
+      "postalCodes": []
+    },
+    {
+      "name": "Manatuto",
+      "postalCodes": []
+    },
+    {
+      "name": "Manatutu",
+      "postalCodes": []
+    },
+    {
+      "name": "Soibada",
+      "postalCodes": []
+    }
+  ],
+  "MF": [
+    {
+      "name": "Alas",
+      "postalCodes": []
+    },
+    {
+      "name": "Fatuberliu",
+      "postalCodes": []
+    },
+    {
+      "name": "Same",
+      "postalCodes": []
+    },
+    {
+      "name": "Turiscai",
+      "postalCodes": []
+    }
+  ],
+  "VI": [
+    {
+      "name": "Lacluta",
+      "postalCodes": []
+    },
+    {
+      "name": "Ossu",
+      "postalCodes": []
+    },
+    {
+      "name": "Uatocarabau",
+      "postalCodes": []
+    },
+    {
+      "name": "Uatolari",
+      "postalCodes": []
+    },
+    {
+      "name": "Viqueque",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

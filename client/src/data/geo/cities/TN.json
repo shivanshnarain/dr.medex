@@ -1,0 +1,585 @@
+{
+  "11": [
+    {
+      "name": "Al Marsá",
+      "postalCodes": []
+    },
+    {
+      "name": "Carthage",
+      "postalCodes": []
+    },
+    {
+      "name": "La Goulette",
+      "postalCodes": []
+    },
+    {
+      "name": "La Mohammedia",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi Bou Saïd",
+      "postalCodes": []
+    },
+    {
+      "name": "Tunis",
+      "postalCodes": []
+    }
+  ],
+  "12": [
+    {
+      "name": "Ariana",
+      "postalCodes": []
+    },
+    {
+      "name": "Galaat el Andeless",
+      "postalCodes": []
+    }
+  ],
+  "13": [
+    {
+      "name": "Ben Arous",
+      "postalCodes": []
+    },
+    {
+      "name": "Hammam Lif",
+      "postalCodes": []
+    },
+    {
+      "name": "Hammam-Lif",
+      "postalCodes": []
+    },
+    {
+      "name": "La Sebala du Mornag",
+      "postalCodes": []
+    },
+    {
+      "name": "Radès",
+      "postalCodes": []
+    }
+  ],
+  "14": [
+    {
+      "name": "El Battan",
+      "postalCodes": []
+    },
+    {
+      "name": "Manouba",
+      "postalCodes": []
+    },
+    {
+      "name": "Mu‘tamadīyat Manūbah",
+      "postalCodes": []
+    },
+    {
+      "name": "Oued Lill",
+      "postalCodes": []
+    }
+  ],
+  "22": [
+    {
+      "name": "El Fahs",
+      "postalCodes": []
+    },
+    {
+      "name": "Zaghouan",
+      "postalCodes": []
+    }
+  ],
+  "23": [
+    {
+      "name": "Al Matlīn",
+      "postalCodes": []
+    },
+    {
+      "name": "Bizerte",
+      "postalCodes": []
+    },
+    {
+      "name": "Bizerte Sud",
+      "postalCodes": []
+    },
+    {
+      "name": "Douar Tindja",
+      "postalCodes": []
+    },
+    {
+      "name": "El Alia",
+      "postalCodes": []
+    },
+    {
+      "name": "Mateur",
+      "postalCodes": []
+    },
+    {
+      "name": "Menzel Abderhaman",
+      "postalCodes": []
+    },
+    {
+      "name": "Menzel Bourguiba",
+      "postalCodes": []
+    },
+    {
+      "name": "Menzel Jemil",
+      "postalCodes": []
+    },
+    {
+      "name": "Rafrāf",
+      "postalCodes": []
+    },
+    {
+      "name": "Rhar el Melah",
+      "postalCodes": []
+    },
+    {
+      "name": "Sejenane",
+      "postalCodes": []
+    },
+    {
+      "name": "Zahānah",
+      "postalCodes": []
+    }
+  ],
+  "31": [
+    {
+      "name": "Béja",
+      "postalCodes": []
+    },
+    {
+      "name": "Délégation de Béja Nord",
+      "postalCodes": []
+    },
+    {
+      "name": "Goubellat",
+      "postalCodes": []
+    },
+    {
+      "name": "Medjez el Bab",
+      "postalCodes": []
+    },
+    {
+      "name": "Tabursuq",
+      "postalCodes": []
+    },
+    {
+      "name": "Testour",
+      "postalCodes": []
+    }
+  ],
+  "32": [
+    {
+      "name": "Fernana",
+      "postalCodes": []
+    },
+    {
+      "name": "Jendouba",
+      "postalCodes": []
+    },
+    {
+      "name": "Oued Meliz",
+      "postalCodes": []
+    },
+    {
+      "name": "Tabarka",
+      "postalCodes": []
+    }
+  ],
+  "33": [
+    {
+      "name": "As Sars",
+      "postalCodes": []
+    },
+    {
+      "name": "El Kef",
+      "postalCodes": []
+    },
+    {
+      "name": "El Ksour",
+      "postalCodes": []
+    },
+    {
+      "name": "Menzel Salem",
+      "postalCodes": []
+    },
+    {
+      "name": "Nibbar",
+      "postalCodes": []
+    },
+    {
+      "name": "Sakiet Sidi Youssef",
+      "postalCodes": []
+    },
+    {
+      "name": "Tajerouine",
+      "postalCodes": []
+    }
+  ],
+  "34": [
+    {
+      "name": "Bou Arada",
+      "postalCodes": []
+    },
+    {
+      "name": "Gafour",
+      "postalCodes": []
+    },
+    {
+      "name": "Kesra",
+      "postalCodes": []
+    },
+    {
+      "name": "Le Krib",
+      "postalCodes": []
+    },
+    {
+      "name": "Maktar",
+      "postalCodes": []
+    },
+    {
+      "name": "Siliana",
+      "postalCodes": []
+    }
+  ],
+  "41": [
+    {
+      "name": "Haffouz",
+      "postalCodes": []
+    },
+    {
+      "name": "Kairouan",
+      "postalCodes": []
+    },
+    {
+      "name": "Sbikha",
+      "postalCodes": []
+    }
+  ],
+  "42": [
+    {
+      "name": "Kasserine",
+      "postalCodes": []
+    },
+    {
+      "name": "Rohia",
+      "postalCodes": []
+    },
+    {
+      "name": "Sbiba",
+      "postalCodes": []
+    },
+    {
+      "name": "Thala",
+      "postalCodes": []
+    }
+  ],
+  "43": [
+    {
+      "name": "Bir el Hafey",
+      "postalCodes": []
+    },
+    {
+      "name": "Er Regueb",
+      "postalCodes": []
+    },
+    {
+      "name": "Jilma",
+      "postalCodes": []
+    },
+    {
+      "name": "Mezzouna",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi Bouzid",
+      "postalCodes": []
+    }
+  ],
+  "51": [
+    {
+      "name": "Akouda",
+      "postalCodes": []
+    },
+    {
+      "name": "Hammam Sousse",
+      "postalCodes": []
+    },
+    {
+      "name": "Harqalah",
+      "postalCodes": []
+    },
+    {
+      "name": "Msaken",
+      "postalCodes": []
+    },
+    {
+      "name": "Port el Kantaoui",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi Bou Ali",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi el Hani",
+      "postalCodes": []
+    },
+    {
+      "name": "Sousse",
+      "postalCodes": []
+    }
+  ],
+  "52": [
+    {
+      "name": "Banbalah",
+      "postalCodes": []
+    },
+    {
+      "name": "Bekalta",
+      "postalCodes": []
+    },
+    {
+      "name": "Beni Hassane",
+      "postalCodes": []
+    },
+    {
+      "name": "Djemmal",
+      "postalCodes": []
+    },
+    {
+      "name": "Ksar Hellal",
+      "postalCodes": []
+    },
+    {
+      "name": "Ksibet el Mediouni",
+      "postalCodes": []
+    },
+    {
+      "name": "Lemta",
+      "postalCodes": []
+    },
+    {
+      "name": "Menzel Kamel",
+      "postalCodes": []
+    },
+    {
+      "name": "Mesdour",
+      "postalCodes": []
+    },
+    {
+      "name": "Monastir",
+      "postalCodes": []
+    },
+    {
+      "name": "Ouardenine",
+      "postalCodes": []
+    },
+    {
+      "name": "Sahline",
+      "postalCodes": []
+    },
+    {
+      "name": "Seïada",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi Ben Nour",
+      "postalCodes": []
+    },
+    {
+      "name": "Skanes",
+      "postalCodes": []
+    },
+    {
+      "name": "Touza",
+      "postalCodes": []
+    }
+  ],
+  "53": [
+    {
+      "name": "Chebba",
+      "postalCodes": []
+    },
+    {
+      "name": "Chorbane",
+      "postalCodes": []
+    },
+    {
+      "name": "El Jem",
+      "postalCodes": []
+    },
+    {
+      "name": "Ksour Essaf",
+      "postalCodes": []
+    },
+    {
+      "name": "Mahdia",
+      "postalCodes": []
+    },
+    {
+      "name": "Melloulèche",
+      "postalCodes": []
+    },
+    {
+      "name": "Salakta",
+      "postalCodes": []
+    },
+    {
+      "name": "Sidi Alouane",
+      "postalCodes": []
+    },
+    {
+      "name": "Zouila",
+      "postalCodes": []
+    }
+  ],
+  "61": [
+    {
+      "name": "Agareb",
+      "postalCodes": []
+    },
+    {
+      "name": "Bir Ali Ben Khalifa",
+      "postalCodes": []
+    },
+    {
+      "name": "Djebeniana",
+      "postalCodes": []
+    },
+    {
+      "name": "Gremda",
+      "postalCodes": []
+    },
+    {
+      "name": "Sfax",
+      "postalCodes": []
+    },
+    {
+      "name": "Skhira",
+      "postalCodes": []
+    }
+  ],
+  "71": [
+    {
+      "name": "Ar Rudayyif",
+      "postalCodes": []
+    },
+    {
+      "name": "As Sanad",
+      "postalCodes": []
+    },
+    {
+      "name": "Gafsa",
+      "postalCodes": []
+    },
+    {
+      "name": "Metlaoui",
+      "postalCodes": []
+    },
+    {
+      "name": "Mu‘tamadīyat ar Rudayyif",
+      "postalCodes": []
+    }
+  ],
+  "72": [
+    {
+      "name": "Chebika",
+      "postalCodes": []
+    },
+    {
+      "name": "Degache",
+      "postalCodes": []
+    },
+    {
+      "name": "Nefta",
+      "postalCodes": []
+    },
+    {
+      "name": "Tamaghzah",
+      "postalCodes": []
+    },
+    {
+      "name": "Tozeur",
+      "postalCodes": []
+    }
+  ],
+  "73": [
+    {
+      "name": "Douz",
+      "postalCodes": []
+    },
+    {
+      "name": "El Golaa",
+      "postalCodes": []
+    },
+    {
+      "name": "Jemna",
+      "postalCodes": []
+    },
+    {
+      "name": "Kebili",
+      "postalCodes": []
+    }
+  ],
+  "81": [
+    {
+      "name": "Bou Attouche",
+      "postalCodes": []
+    },
+    {
+      "name": "El Hamma",
+      "postalCodes": []
+    },
+    {
+      "name": "Gabès",
+      "postalCodes": []
+    },
+    {
+      "name": "Matmata",
+      "postalCodes": []
+    }
+  ],
+  "82": [
+    {
+      "name": "Ben Gardane",
+      "postalCodes": []
+    },
+    {
+      "name": "Beni Kheddache",
+      "postalCodes": []
+    },
+    {
+      "name": "Erriadh",
+      "postalCodes": []
+    },
+    {
+      "name": "Houmt El Souk",
+      "postalCodes": []
+    },
+    {
+      "name": "Jerba Midoun",
+      "postalCodes": []
+    },
+    {
+      "name": "Medenine",
+      "postalCodes": []
+    },
+    {
+      "name": "Midoun",
+      "postalCodes": []
+    },
+    {
+      "name": "Zarzis",
+      "postalCodes": []
+    }
+  ],
+  "83": [
+    {
+      "name": "Remada",
+      "postalCodes": []
+    },
+    {
+      "name": "Tataouine",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

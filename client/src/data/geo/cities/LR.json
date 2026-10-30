@@ -1,0 +1,105 @@
+{
+  "BM": [
+    {
+      "name": "Tubmanburg",
+      "postalCodes": []
+    }
+  ],
+  "BG": [
+    {
+      "name": "Gbarnga",
+      "postalCodes": []
+    }
+  ],
+  "GP": [
+    {
+      "name": "Bopolu",
+      "postalCodes": []
+    }
+  ],
+  "GB": [
+    {
+      "name": "Buchanan",
+      "postalCodes": []
+    }
+  ],
+  "CM": [
+    {
+      "name": "Robertsport",
+      "postalCodes": []
+    }
+  ],
+  "GG": [
+    {
+      "name": "Zwedru",
+      "postalCodes": []
+    }
+  ],
+  "GK": [
+    {
+      "name": "Barclayville",
+      "postalCodes": []
+    }
+  ],
+  "LO": [
+    {
+      "name": "Voinjama",
+      "postalCodes": []
+    }
+  ],
+  "MG": [
+    {
+      "name": "Kakata",
+      "postalCodes": []
+    }
+  ],
+  "MY": [
+    {
+      "name": "Harper",
+      "postalCodes": []
+    }
+  ],
+  "MO": [
+    {
+      "name": "Bensonville",
+      "postalCodes": []
+    },
+    {
+      "name": "Monrovia",
+      "postalCodes": []
+    }
+  ],
+  "NI": [
+    {
+      "name": "Ganta",
+      "postalCodes": []
+    },
+    {
+      "name": "New Yekepa",
+      "postalCodes": []
+    },
+    {
+      "name": "Sanniquellie",
+      "postalCodes": []
+    }
+  ],
+  "RI": [
+    {
+      "name": "Cestos City",
+      "postalCodes": []
+    }
+  ],
+  "RG": [
+    {
+      "name": "Fish Town",
+      "postalCodes": []
+    }
+  ],
+  "SI": [
+    {
+      "name": "Greenville",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

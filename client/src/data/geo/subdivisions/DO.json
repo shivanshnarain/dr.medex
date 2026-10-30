@@ -1,0 +1,157 @@
+[
+  {
+    "code": "02",
+    "name": "Azua Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "03",
+    "name": "Baoruco Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "04",
+    "name": "Barahona Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "05",
+    "name": "Dajabón Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "01",
+    "name": "Distrito Nacional",
+    "countryCode": "DO"
+  },
+  {
+    "code": "06",
+    "name": "Duarte Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "08",
+    "name": "El Seibo Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "09",
+    "name": "Espaillat Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "30",
+    "name": "Hato Mayor Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "19",
+    "name": "Hermanas Mirabal Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "10",
+    "name": "Independencia",
+    "countryCode": "DO"
+  },
+  {
+    "code": "11",
+    "name": "La Altagracia Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "12",
+    "name": "La Romana Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "13",
+    "name": "La Vega Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "14",
+    "name": "María Trinidad Sánchez Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "28",
+    "name": "Monseñor Nouel Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "15",
+    "name": "Monte Cristi Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "29",
+    "name": "Monte Plata Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "16",
+    "name": "Pedernales Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "17",
+    "name": "Peravia Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "18",
+    "name": "Puerto Plata Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "20",
+    "name": "Samaná Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "21",
+    "name": "San Cristóbal Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "31",
+    "name": "San José de Ocoa Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "22",
+    "name": "San Juan Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "23",
+    "name": "San Pedro de Macorís",
+    "countryCode": "DO"
+  },
+  {
+    "code": "24",
+    "name": "Sánchez Ramírez Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "25",
+    "name": "Santiago Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "26",
+    "name": "Santiago Rodríguez Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "32",
+    "name": "Santo Domingo Province",
+    "countryCode": "DO"
+  },
+  {
+    "code": "27",
+    "name": "Valverde Province",
+    "countryCode": "DO"
+  }
+]

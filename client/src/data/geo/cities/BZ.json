@@ -1,0 +1,67 @@
+{
+  "BZ": [
+    {
+      "name": "Belize City",
+      "postalCodes": []
+    },
+    {
+      "name": "San Pedro",
+      "postalCodes": []
+    }
+  ],
+  "CY": [
+    {
+      "name": "Belmopan",
+      "postalCodes": []
+    },
+    {
+      "name": "Benque Viejo el Carmen",
+      "postalCodes": []
+    },
+    {
+      "name": "San Ignacio",
+      "postalCodes": []
+    },
+    {
+      "name": "Valley of Peace",
+      "postalCodes": []
+    }
+  ],
+  "CZL": [
+    {
+      "name": "Corozal",
+      "postalCodes": []
+    }
+  ],
+  "OW": [
+    {
+      "name": "Hopelchén",
+      "postalCodes": []
+    },
+    {
+      "name": "Orange Walk",
+      "postalCodes": []
+    },
+    {
+      "name": "Shipyard",
+      "postalCodes": []
+    }
+  ],
+  "SC": [
+    {
+      "name": "Dangriga",
+      "postalCodes": []
+    },
+    {
+      "name": "Placencia",
+      "postalCodes": []
+    }
+  ],
+  "TOL": [
+    {
+      "name": "Punta Gorda",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}

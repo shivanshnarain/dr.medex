@@ -1,0 +1,62 @@
+[
+  {
+    "code": "AL",
+    "name": "Aileu municipality",
+    "countryCode": "TL"
+  },
+  {
+    "code": "AN",
+    "name": "Ainaro Municipality",
+    "countryCode": "TL"
+  },
+  {
+    "code": "BA",
+    "name": "Baucau Municipality",
+    "countryCode": "TL"
+  },
+  {
+    "code": "BO",
+    "name": "Bobonaro Municipality",
+    "countryCode": "TL"
+  },
+  {
+    "code": "CO",
+    "name": "Cova Lima Municipality",
+    "countryCode": "TL"
+  },
+  {
+    "code": "DI",
+    "name": "Dili municipality",
+    "countryCode": "TL"
+  },
+  {
+    "code": "ER",
+    "name": "Ermera District",
+    "countryCode": "TL"
+  },
+  {
+    "code": "LA",
+    "name": "Lautém Municipality",
+    "countryCode": "TL"
+  },
+  {
+    "code": "LI",
+    "name": "Liquiçá Municipality",
+    "countryCode": "TL"
+  },
+  {
+    "code": "MT",
+    "name": "Manatuto District",
+    "countryCode": "TL"
+  },
+  {
+    "code": "MF",
+    "name": "Manufahi Municipality",
+    "countryCode": "TL"
+  },
+  {
+    "code": "VI",
+    "name": "Viqueque Municipality",
+    "countryCode": "TL"
+  }
+]

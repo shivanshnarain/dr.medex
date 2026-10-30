@@ -1,0 +1,173 @@
+{
+  "AZ": [
+    {
+      "name": "Abu Dhabi Island and Internal Islands City",
+      "postalCodes": []
+    },
+    {
+      "name": "Abu Dhabi Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Ain City",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Ain Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Dhafra",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Shamkhah City",
+      "postalCodes": []
+    },
+    {
+      "name": "Ar Ruways",
+      "postalCodes": []
+    },
+    {
+      "name": "Bani Yas City",
+      "postalCodes": []
+    },
+    {
+      "name": "Khalifah A City",
+      "postalCodes": []
+    },
+    {
+      "name": "Musaffah",
+      "postalCodes": []
+    },
+    {
+      "name": "Muzayri‘",
+      "postalCodes": []
+    },
+    {
+      "name": "Zayed City",
+      "postalCodes": []
+    }
+  ],
+  "AJ": [
+    {
+      "name": "Ajman",
+      "postalCodes": []
+    },
+    {
+      "name": "Ajman City",
+      "postalCodes": []
+    },
+    {
+      "name": "Manama",
+      "postalCodes": []
+    },
+    {
+      "name": "Masfout",
+      "postalCodes": []
+    }
+  ],
+  "DU": [
+    {
+      "name": "Dubai",
+      "postalCodes": []
+    }
+  ],
+  "FU": [
+    {
+      "name": "Al Fujairah City",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Fujairah Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Dibba Al Fujairah Municipality",
+      "postalCodes": []
+    },
+    {
+      "name": "Dibba Al-Fujairah",
+      "postalCodes": []
+    },
+    {
+      "name": "Dibba Al-Hisn",
+      "postalCodes": []
+    },
+    {
+      "name": "Reef Al Fujairah City",
+      "postalCodes": []
+    }
+  ],
+  "RK": [
+    {
+      "name": "Ras Al Khaimah",
+      "postalCodes": []
+    },
+    {
+      "name": "Ras Al Khaimah City",
+      "postalCodes": []
+    }
+  ],
+  "SH": [
+    {
+      "name": "Adh Dhayd",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Batayih",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Hamriyah",
+      "postalCodes": []
+    },
+    {
+      "name": "Al Madam",
+      "postalCodes": []
+    },
+    {
+      "name": "Dhaid",
+      "postalCodes": []
+    },
+    {
+      "name": "Dibba Al Hesn",
+      "postalCodes": []
+    },
+    {
+      "name": "Kalba",
+      "postalCodes": []
+    },
+    {
+      "name": "Khawr Fakkān",
+      "postalCodes": []
+    },
+    {
+      "name": "Khor Fakkan",
+      "postalCodes": []
+    },
+    {
+      "name": "Milehah",
+      "postalCodes": []
+    },
+    {
+      "name": "Murbaḩ",
+      "postalCodes": []
+    },
+    {
+      "name": "Sharjah",
+      "postalCodes": []
+    }
+  ],
+  "UQ": [
+    {
+      "name": "Umm AL Quwain",
+      "postalCodes": []
+    },
+    {
+      "name": "Umm Al Quwain City",
+      "postalCodes": []
+    }
+  ],
+  "_OTHER": []
+}
