@@ -25,12 +25,15 @@ import {
   Globe,
   CreditCard,
   PackageCheck,
-  FileText
+  FileText,
+  Navigation
 } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useCurrency } from "../context/CurrencyContext";
 import { useAuth } from "../context/AuthContext";
 import { InternationalPhoneInput, PhoneCountryItem } from "../components/InternationalPhoneInput";
+import { SmartLocationPrompt, ResolvedLocationData } from "../components/SmartLocationPrompt";
+import { hasDismissedLocationPrompt } from "../services/pushNotificationService";
 import { Order, ShippingAddress } from "../types";
 
 declare global {
@@ -133,6 +136,11 @@ export const CheckoutPage: React.FC = () => {
   const [showAddressSuggestions, setShowAddressSuggestions] = useState(false);
   const autocompleteContainerRef = useRef<HTMLDivElement>(null);
   const debounceTimerRef = useRef<any>(null);
+
+  // Smart Location Detection State
+  const [showLocationPrompt, setShowLocationPrompt] = useState(false);
+  const [isGeolocating, setIsGeolocating] = useState(false);
+  const [locationNotice, setLocationNotice] = useState<string | null>(null);
 
   // Billing Address
   const [billingSameAsShipping, setBillingSameAsShipping] = useState(true);
@@ -322,6 +330,82 @@ export const CheckoutPage: React.FC = () => {
     setAutocompleteQuery(sug.formattedAddress || sug.addressLine1);
     setShowAddressSuggestions(false);
   };
+
+  // 3b. Smart Location Handler: Auto-fill regional destination without overwriting manual intent
+  const handleLocationDetected = (loc: ResolvedLocationData) => {
+    if (loc.countryCode) {
+      setCountryCode(loc.countryCode.toUpperCase());
+    }
+    if (loc.state) {
+      setState(loc.state);
+    }
+    if (loc.city) {
+      setCity(loc.city);
+    } else if (loc.district) {
+      setCity(loc.district);
+    }
+    if (loc.district) {
+      setDistrict(loc.district);
+    }
+    if (loc.postalCode) {
+      setPostalCode(loc.postalCode);
+    }
+    if (loc.streetAddress) {
+      setAddressLine1(loc.streetAddress);
+      setAutocompleteQuery(loc.formattedAddress || loc.streetAddress);
+    } else if (loc.formattedAddress) {
+      setAddressLine1(loc.formattedAddress.split(",")[0].trim());
+      setAutocompleteQuery(loc.formattedAddress);
+    }
+
+    const locSummary = [loc.city || loc.district, loc.state, loc.country].filter(Boolean).join(", ");
+    setLocationNotice(`Location detected: ${locSummary} (All fields are editable)`);
+  };
+
+  const handleDirectDetectLocation = () => {
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your current browser.");
+      return;
+    }
+
+    setIsGeolocating(true);
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        try {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          const res = await fetch(`/api/location/reverse-geocode?lat=${lat}&lng=${lng}`);
+          if (res.ok) {
+            const data = await res.json();
+            if (data.success) {
+              handleLocationDetected(data);
+            }
+          }
+        } catch (err) {
+          console.warn("[Checkout] Geolocation reverse lookup error:", err);
+        } finally {
+          setIsGeolocating(false);
+        }
+      },
+      (err) => {
+        setIsGeolocating(false);
+        console.warn("[Checkout] Geolocation permission error:", err);
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+    );
+  };
+
+  // Check if smart location prompt should be offered on arrival
+  useEffect(() => {
+    if (!hasDismissedLocationPrompt()) {
+      const timer = setTimeout(() => {
+        if (!addressLine1 && !city) {
+          setShowLocationPrompt(true);
+        }
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   // 4. Pre-populate from authenticated user or saved guest draft (STRICTLY NO FAKE MOCK DATA)
   useEffect(() => {
@@ -1490,17 +1574,55 @@ export const CheckoutPage: React.FC = () => {
 
                 {/* 3. SHIPPING DESTINATION WITH ALL 195 COUNTRIES & GOOGLE MAPS AUTOCOMPLETE */}
                 <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
-                  <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-neutral-200">
                     <div className="flex items-center gap-2">
                       <Globe size={18} className="text-[#2D5A4A]" />
                       <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
                         Regional Shipping Destination
                       </h2>
                     </div>
-                    <span className="text-3xs font-bold text-[#2D5A4A] bg-[#F4F7F2] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                      All 195 Sovereign Countries
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={handleDirectDetectLocation}
+                        disabled={isGeolocating}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-2xs font-bold text-[#2D5A4A] bg-[#EBF3E8] hover:bg-[#dcecd5] border border-[#7AA05A]/40 transition-colors cursor-pointer disabled:opacity-60"
+                        title="Detect location and auto-fill regional destination"
+                      >
+                        {isGeolocating ? (
+                          <>
+                            <Loader2 size={12} className="animate-spin text-[#2D5A4A]" />
+                            <span>Detecting Location...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Navigation size={12} className="text-[#2D5A4A]" />
+                            <span>Use My Current Location</span>
+                          </>
+                        )}
+                      </button>
+                      <span className="hidden sm:inline-block text-3xs font-bold text-[#2D5A4A] bg-[#F4F7F2] px-2.5 py-1 rounded-full uppercase tracking-wider">
+                        195 Countries
+                      </span>
+                    </div>
                   </div>
+
+                  {locationNotice && (
+                    <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#F0F7ED] border border-[#7AA05A]/40 text-xs font-semibold text-[#2D5A4A]">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle2 size={15} className="text-[#7AA05A] shrink-0" />
+                        <span>{locationNotice}</span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setLocationNotice(null)}
+                        className="text-neutral-400 hover:text-neutral-700 p-1 rounded hover:bg-black/5 cursor-pointer"
+                        title="Dismiss notification"
+                      >
+                        <X size={14} />
+                      </button>
+                    </div>
+                  )}
 
                   <div className="space-y-4 text-xs">
                     {/* Destination Country Searchable Selector (195 Countries) */}
@@ -2550,6 +2672,13 @@ export const CheckoutPage: React.FC = () => {
             </div>
           </div>
         )}
+
+        {/* Smart Location Permission & Auto-Fill Prompt */}
+        <SmartLocationPrompt
+          isOpen={showLocationPrompt}
+          onClose={() => setShowLocationPrompt(false)}
+          onLocationDetected={handleLocationDetected}
+        />
       </div>
     </div>
   );

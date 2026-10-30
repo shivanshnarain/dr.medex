@@ -8,6 +8,7 @@ const { getClient } = require("./mongoService");
 const store = require("./store");
 const currencyService = require("./currencyService");
 const { isPayPalSupportedCurrency } = require("./paypalService");
+const notificationService = require("./notificationService");
 
 const ORDERS_COLLECTION = "orders";
 const ADDRESSES_COLLECTION = "customer_addresses";
@@ -258,6 +259,9 @@ async function createPendingOrder(payload) {
   // Also keep in store memory
   store.getOrders().unshift(orderRecord);
 
+  // Trigger order placed push notification asynchronously
+  notificationService.sendOrderNotification(orderRecord, "placed").catch(() => {});
+
   return orderRecord;
 }
 
@@ -360,6 +364,9 @@ async function markOrderAsPaid({ orderNumber, paypalOrderId, paypalCaptureId, pa
   } else {
     store.getOrders().unshift(order);
   }
+
+  // Trigger payment confirmed push notification asynchronously
+  notificationService.sendOrderNotification(order, "confirmed").catch(() => {});
 
   return order;
 }

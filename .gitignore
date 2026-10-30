@@ -9,5 +9,6 @@ dist
 **/.env.*
 *serviceAccount*.json
 *service-account*.json
+*vapidKeys.json
 firebase-debug.log*
 firestore-debug.log*

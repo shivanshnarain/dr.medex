@@ -21,7 +21,8 @@ import {
   Search,
   CheckCircle2,
   Sliders,
-  ShieldCheck
+  ShieldCheck,
+  Bell
 } from "lucide-react";
 import { useAdminAuth } from "../../context/AdminAuthContext";
 
@@ -383,6 +384,20 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
               >
                 <Star size={16} className="text-neutral-700 shrink-0" />
                 <span>Reviews</span>
+              </Link>
+
+              {/* Push Notifications */}
+              <Link
+                to="/admin/notifications"
+                onClick={() => setIsMobileSidebarOpen(false)}
+                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+                  location.pathname === "/admin/notifications"
+                    ? "bg-neutral-100 text-black font-bold border-l-2 border-[#FFD400]"
+                    : "text-neutral-600 hover:text-black hover:bg-neutral-100"
+                }`}
+              >
+                <Bell size={16} className="text-neutral-700 shrink-0" />
+                <span>Notifications</span>
               </Link>
             </nav>
           </div>

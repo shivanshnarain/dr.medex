@@ -19,7 +19,8 @@ import {
   Edit2,
   Lock,
   Eye,
-  EyeOff
+  EyeOff,
+  Bell
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useAdminAuth } from "../context/AdminAuthContext";
@@ -27,6 +28,14 @@ import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { useCurrency } from "../context/CurrencyContext";
 import { Logo } from "../components/Logo";
+import {
+  getPushStatus,
+  subscribeToPush,
+  unsubscribeFromPush,
+  savePreferences,
+  PushStatus,
+  PushNotificationPreferences
+} from "../services/pushNotificationService";
 
 interface AccountPageProps {
   initialAuthTab?: "signin" | "signup";
@@ -69,8 +78,13 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
   const [signupError, setSignupError] = useState<string | null>(null);
   const [signupSuccess, setSignupSuccess] = useState<string | null>(null);
 
-  const [activeTab, setActiveTab] = useState<"orders" | "quotes" | "wishlist" | "addresses" | "profile">("orders");
+  const [activeTab, setActiveTab] = useState<"orders" | "quotes" | "wishlist" | "addresses" | "profile" | "notifications">("orders");
   const [profileSuccess, setProfileSuccess] = useState(false);
+
+  // Push Notification state
+  const [pushStatus, setPushStatus] = useState<PushStatus | null>(null);
+  const [isUpdatingPush, setIsUpdatingPush] = useState(false);
+  const [pushFeedback, setPushFeedback] = useState<string | null>(null);
 
   // Form edit state
   const [editFullName, setEditFullName] = useState(user?.fullName || "");
@@ -164,6 +178,69 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
       setEmailUpdateError(err?.message || "An unexpected error occurred while updating email.");
     } finally {
       setIsUpdatingEmail(false);
+    }
+  };
+
+  // Load and manage Push notification settings
+  const refreshPushStatus = async () => {
+    try {
+      const status = await getPushStatus(user?.id);
+      setPushStatus(status);
+    } catch (e) {
+      console.warn("[Account] Failed to load push status:", e);
+    }
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      refreshPushStatus();
+    }
+  }, [isAuthenticated, user?.id]);
+
+  const handleTogglePushSubscription = async () => {
+    setIsUpdatingPush(true);
+    setPushFeedback(null);
+    try {
+      if (pushStatus?.isSubscribed) {
+        await unsubscribeFromPush();
+        await refreshPushStatus();
+        setPushFeedback("Device notifications have been disabled.");
+      } else {
+        const res = await subscribeToPush({
+          customerId: user?.id,
+          customerEmail: user?.email,
+          preferences: pushStatus?.preferences
+        });
+        if (res.success) {
+          await refreshPushStatus();
+          setPushFeedback("Push notifications activated successfully for this device!");
+        } else {
+          setPushFeedback(res.message || "Could not activate browser notifications.");
+        }
+      }
+    } catch (err: any) {
+      setPushFeedback(err.message || "Failed to update notification status.");
+    } finally {
+      setIsUpdatingPush(false);
+      setTimeout(() => setPushFeedback(null), 4000);
+    }
+  };
+
+  const handleToggleCategory = async (key: keyof PushNotificationPreferences) => {
+    if (!pushStatus) return;
+    const current = pushStatus.preferences[key];
+    const updated = {
+      ...pushStatus.preferences,
+      [key]: !current
+    };
+    setPushStatus({
+      ...pushStatus,
+      preferences: updated
+    });
+    if (pushStatus.endpoint) {
+      await savePreferences(updated, pushStatus.endpoint);
+      setPushFeedback("Notification preferences updated.");
+      setTimeout(() => setPushFeedback(null), 3000);
     }
   };
 
@@ -781,6 +858,15 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
               <User size={16} />
               <span>Facility Settings</span>
             </button>
+            <button
+              onClick={() => setActiveTab("notifications")}
+              className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-xs font-bold transition-colors ${
+                activeTab === "notifications" ? "bg-[#111111] text-white" : "text-neutral-700 hover:bg-[#F7F7F7]"
+              }`}
+            >
+              <Bell size={16} />
+              <span>Notification Alerts</span>
+            </button>
           </div>
 
           {/* Tab Content (9 cols) */}
@@ -1248,6 +1334,158 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
                     </button>
                   </div>
                 </form>
+              </div>
+            )}
+
+            {/* NOTIFICATIONS TAB */}
+            {activeTab === "notifications" && (
+              <div className="space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-[#EAEAEA]">
+                  <div>
+                    <h3 className="text-base font-bold text-[#111111]">Device & Push Notifications</h3>
+                    <p className="text-2xs text-neutral-500 mt-0.5">
+                      Manage browser push notifications and real-time medical logistics alerts.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    {pushStatus?.isSubscribed ? (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-3xs font-extrabold uppercase tracking-wider bg-[#EAF5EF] text-[#145A38] border border-[#1F7A4D]/20">
+                        <CheckCircle2 size={12} className="text-[#1F7A4D]" />
+                        Active on this browser
+                      </span>
+                    ) : pushStatus?.permission === "denied" ? (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-3xs font-extrabold uppercase tracking-wider bg-rose-50 text-rose-700 border border-rose-200">
+                        <AlertCircle size={12} className="text-rose-600" />
+                        Blocked in browser settings
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-3xs font-extrabold uppercase tracking-wider bg-neutral-100 text-neutral-600">
+                        Not enabled
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {pushFeedback && (
+                  <div className="p-3 bg-[#F0F7ED] border border-[#7AA05A]/40 rounded-xl text-xs font-semibold text-[#2D5A4A] flex items-center gap-2">
+                    <CheckCircle2 size={16} className="text-[#7AA05A]" />
+                    <span>{pushFeedback}</span>
+                  </div>
+                )}
+
+                {/* Primary Enable / Disable Toggle Action */}
+                <div className="p-5 rounded-xl border border-[#EAEAEA] bg-[#FAFAFA] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <h4 className="text-xs font-bold text-[#111111]">Browser Push Alerts</h4>
+                    <p className="text-2xs text-neutral-500 mt-1 max-w-md">
+                      Receive instant notifications on this device even when the DR.MEDEX tab is in the background or closed.
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleTogglePushSubscription}
+                    disabled={isUpdatingPush || !pushStatus?.supported}
+                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 ${
+                      pushStatus?.isSubscribed
+                        ? "border border-neutral-300 text-neutral-700 hover:bg-neutral-200/60"
+                        : "bg-[#2D5A4A] hover:bg-[#1E3F33] text-white shadow-xs"
+                    }`}
+                  >
+                    {isUpdatingPush ? (
+                      <>
+                        <Loader2 size={13} className="animate-spin" />
+                        <span>Updating...</span>
+                      </>
+                    ) : pushStatus?.isSubscribed ? (
+                      <span>Disable Notifications</span>
+                    ) : (
+                      <>
+                        <Bell size={13} className="text-[#7AA05A]" />
+                        <span>Enable on this Browser</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {/* Categories & Preferences */}
+                <div className="space-y-4 pt-2">
+                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-neutral-400">
+                    Notification Categories & Privacy
+                  </h4>
+
+                  <div className="space-y-3">
+                    {/* Order Updates */}
+                    <label className="flex items-start justify-between p-4 rounded-xl border border-[#EAEAEA] bg-white hover:border-neutral-300 transition-colors cursor-pointer">
+                      <div className="pr-4">
+                        <div className="text-xs font-bold text-[#111111]">Order & Shipment Logistics</div>
+                        <div className="text-2xs text-neutral-500 mt-0.5">
+                          Order confirmation, factory calibration, customs clearance, and DHL/FedEx dispatch tracking.
+                        </div>
+                      </div>
+                      <input
+                        type="checkbox"
+                        checked={pushStatus?.preferences.orderUpdates ?? true}
+                        onChange={() => handleToggleCategory("orderUpdates")}
+                        className="w-4 h-4 mt-0.5 rounded text-[#2D5A4A] accent-[#2D5A4A] focus:ring-[#2D5A4A] cursor-pointer"
+                      />
+                    </label>
+
+                    {/* Announcements */}
+                    <label className="flex items-start justify-between p-4 rounded-xl border border-[#EAEAEA] bg-white hover:border-neutral-300 transition-colors cursor-pointer">
+                      <div className="pr-4">
+                        <div className="text-xs font-bold text-[#111111]">Storefront & Catalogue Updates</div>
+                        <div className="text-2xs text-neutral-500 mt-0.5">
+                          New medical equipment releases, CE/FDA regulatory status notices, and product specification revisions.
+                        </div>
+                      </div>
+                      <input
+                        type="checkbox"
+                        checked={pushStatus?.preferences.websiteAnnouncements ?? true}
+                        onChange={() => handleToggleCategory("websiteAnnouncements")}
+                        className="w-4 h-4 mt-0.5 rounded text-[#2D5A4A] accent-[#2D5A4A] focus:ring-[#2D5A4A] cursor-pointer"
+                      />
+                    </label>
+
+                    {/* Support & RFQ */}
+                    <label className="flex items-start justify-between p-4 rounded-xl border border-[#EAEAEA] bg-white hover:border-neutral-300 transition-colors cursor-pointer">
+                      <div className="pr-4">
+                        <div className="text-xs font-bold text-[#111111]">B2B Quotes & Clinical Support</div>
+                        <div className="text-2xs text-neutral-500 mt-0.5">
+                          Direct engineering alerts when our biomedical team responds to your quotation or clinical inquiry.
+                        </div>
+                      </div>
+                      <input
+                        type="checkbox"
+                        checked={pushStatus?.preferences.customerSupport ?? true}
+                        onChange={() => handleToggleCategory("customerSupport")}
+                        className="w-4 h-4 mt-0.5 rounded text-[#2D5A4A] accent-[#2D5A4A] focus:ring-[#2D5A4A] cursor-pointer"
+                      />
+                    </label>
+
+                    {/* Marketing & Promotions */}
+                    <label className="flex items-start justify-between p-4 rounded-xl border border-[#EAEAEA] bg-white hover:border-neutral-300 transition-colors cursor-pointer">
+                      <div className="pr-4">
+                        <div className="text-xs font-bold text-[#111111] flex items-center gap-2">
+                          <span>Exclusive Institutional Offers & Procurement</span>
+                          <span className="text-3xs font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200">
+                            Opt-in
+                          </span>
+                        </div>
+                        <div className="text-2xs text-neutral-500 mt-0.5">
+                          Bulk hospital purchasing discounts, tender announcements, and end-of-year medical pricing.
+                        </div>
+                      </div>
+                      <input
+                        type="checkbox"
+                        checked={pushStatus?.preferences.marketing ?? false}
+                        onChange={() => handleToggleCategory("marketing")}
+                        className="w-4 h-4 mt-0.5 rounded text-[#2D5A4A] accent-[#2D5A4A] focus:ring-[#2D5A4A] cursor-pointer"
+                      />
+                    </label>
+                  </div>
+                </div>
               </div>
             )}
           </div>

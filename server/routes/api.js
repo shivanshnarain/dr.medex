@@ -14,6 +14,7 @@ const mongoService = require("../services/mongoService");
 const paypalService = require("../services/paypalService");
 const orderService = require("../services/orderService");
 const locationService = require("../services/locationService");
+const notificationService = require("../services/notificationService");
 
 // HEALTH
 router.get("/health", (req, res) => {
@@ -206,6 +207,19 @@ router.get("/location/validate-phone", (req, res) => {
   const { phone, countryCode } = req.query;
   const result = locationService.validatePhoneNumber(phone, countryCode);
   res.json({ success: true, result });
+});
+
+router.get("/location/reverse-geocode", async (req, res) => {
+  try {
+    const { lat, lng } = req.query;
+    if (!lat || !lng) {
+      return res.status(400).json({ success: false, message: "lat and lng query parameters are required" });
+    }
+    const result = await locationService.reverseGeocode(lat, lng);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
 // CURRENCY & EXCHANGE RATES
@@ -1316,6 +1330,114 @@ router.post("/reviews/ai-assist", async (req, res) => {
   } catch (err) {
     console.warn("[API] AI Review Assist error:", err.message);
     res.status(400).json({ success: false, message: err.message || "Failed to generate AI suggestion." });
+  }
+});
+
+// WEB PUSH NOTIFICATIONS
+router.get("/notifications/vapid-public-key", (req, res) => {
+  try {
+    const key = notificationService.getVapidPublicKey();
+    res.json({ success: true, publicKey: key });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/notifications/subscribe", async (req, res) => {
+  try {
+    const { subscription, userId, customerEmail, preferences } = req.body;
+    if (!subscription || !subscription.endpoint) {
+      return res.status(400).json({ success: false, message: "Valid PushSubscription object is required." });
+    }
+    const userAgent = req.headers["user-agent"] || "";
+    const result = await notificationService.saveSubscription({
+      subscription,
+      userId,
+      customerEmail,
+      userAgent,
+      preferences
+    });
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/notifications/unsubscribe", async (req, res) => {
+  try {
+    const { endpoint } = req.body;
+    if (!endpoint) {
+      return res.status(400).json({ success: false, message: "Endpoint is required to unsubscribe." });
+    }
+    const result = await notificationService.deleteSubscription(endpoint);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.get("/notifications/preferences", async (req, res) => {
+  try {
+    const { endpoint, userId } = req.query;
+    const preferences = await notificationService.getPreferences(endpoint, userId);
+    res.json({ success: true, preferences });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/notifications/preferences", async (req, res) => {
+  try {
+    const { endpoint, preferences } = req.body;
+    if (!endpoint) {
+      return res.status(400).json({ success: false, message: "Endpoint is required." });
+    }
+    const result = await notificationService.updatePreferences(endpoint, preferences);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ADMIN NOTIFICATION DISPATCH & METRICS
+router.get("/admin/notifications/stats", async (req, res) => {
+  try {
+    const stats = await notificationService.getSubscribersStats();
+    res.json({ success: true, stats });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.get("/admin/notifications/history", async (req, res) => {
+  try {
+    const limit = parseInt(req.query.limit) || 50;
+    const history = await notificationService.getNotificationHistory(limit);
+    res.json({ success: true, history });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/admin/notifications/send", async (req, res) => {
+  try {
+    const { title, message, url, image, category, targetAudience, userId, sentBy } = req.body;
+    if (!title || !message) {
+      return res.status(400).json({ success: false, message: "Notification title and message are required." });
+    }
+    const result = await notificationService.sendPushNotification({
+      title,
+      message,
+      url,
+      image,
+      category: category || "website",
+      targetAudience: targetAudience || "all",
+      userId,
+      sentBy: sentBy || "DR.MEDEX Medical Operations Admin"
+    });
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 

@@ -52,6 +52,8 @@ import { AdminProductEditorPage } from "./pages/AdminProductEditorPage";
 import { AdminCategoriesPage } from "./pages/AdminCategoriesPage";
 import { AdminReviewsPage } from "./pages/AdminReviewsPage";
 import { AdminCustomersPage } from "./pages/AdminCustomersPage";
+import { AdminNotificationsPage } from "./pages/AdminNotificationsPage";
+import { PushNotificationPrompt } from "./components/PushNotificationPrompt";
 
 // Customer Authentication Pages (Supabase Auth)
 import { SignUpPage } from "./pages/account/SignUpPage";
@@ -129,11 +131,15 @@ function AppContent() {
           <Route path="/admin/categories" element={<AdminCategoriesPage />} />
           <Route path="/admin/reviews" element={<AdminReviewsPage />} />
           <Route path="/admin/customers" element={<AdminCustomersPage />} />
+          <Route path="/admin/notifications" element={<AdminNotificationsPage />} />
 
           {/* 404 Fallback */}
           <Route path="*" element={<HomePage />} />
         </Routes>
       </main>
+
+      {/* Real-time Push Notification Opt-in Prompt */}
+      {!isAdminRoute && <PushNotificationPrompt />}
 
       {/* Interactive Slide-out Cart Drawer (customer only) */}
       {!isAdminRoute && <CartDrawer />}

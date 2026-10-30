@@ -254,6 +254,158 @@ async function autocompleteAddress(query, countryCode = "") {
 }
 
 /**
+ * Reverse Geocode coordinates (lat, lng) to structured address components.
+ * Supports Google Maps Geocoding API if GOOGLE_MAPS_API_KEY is configured,
+ * with high-fidelity OpenStreetMap Nominatim reverse geocoding as default/fallback.
+ */
+async function reverseGeocode(lat, lng) {
+  const latitude = parseFloat(lat);
+  const longitude = parseFloat(lng);
+
+  if (isNaN(latitude) || isNaN(longitude) || latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) {
+    throw new Error("Invalid latitude or longitude coordinates provided.");
+  }
+
+  const googleApiKey = process.env.GOOGLE_MAPS_API_KEY || process.env.GOOGLE_GEOCODING_API_KEY;
+  let rawResult = null;
+  let provider = "nominatim_osm";
+
+  // 1. Try Google Maps Geocoding if API key available
+  if (googleApiKey) {
+    try {
+      const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${googleApiKey}`;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 4000);
+      const res = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeout);
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.status === "OK" && Array.isArray(data.results) && data.results.length > 0) {
+          const first = data.results[0];
+          const getComp = (type) => {
+            const c = first.address_components.find((comp) => comp.types.includes(type));
+            return c ? c.long_name : "";
+          };
+          const getCompShort = (type) => {
+            const c = first.address_components.find((comp) => comp.types.includes(type));
+            return c ? c.short_name : "";
+          };
+
+          const streetNumber = getComp("street_number");
+          const route = getComp("route");
+          const street = [streetNumber, route].filter(Boolean).join(" ");
+          const sublocality = getComp("sublocality_level_1") || getComp("sublocality");
+
+          rawResult = {
+            streetAddress: street || sublocality || "",
+            district: getComp("administrative_area_level_2") || sublocality || "",
+            city: getComp("locality") || getComp("postal_town") || getComp("administrative_area_level_3") || "",
+            state: getComp("administrative_area_level_1") || "",
+            postalCode: getComp("postal_code") || "",
+            country: getComp("country") || "",
+            countryCode: (getCompShort("country") || "").toUpperCase(),
+            formattedAddress: first.formatted_address || ""
+          };
+          provider = "google_maps";
+        }
+      }
+    } catch (gErr) {
+      // Fallback silently to Nominatim
+    }
+  }
+
+  // 2. OpenStreetMap Nominatim Geocoding fallback
+  if (!rawResult) {
+    try {
+      const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 4000);
+      const res = await fetch(url, {
+        signal: controller.signal,
+        headers: {
+          "User-Agent": "DR.MEDEX-Medical-Global/1.0 (procurement@drmedex.com)"
+        }
+      });
+      clearTimeout(timeout);
+
+      if (res.ok) {
+        const data = await res.json();
+        const addr = data.address || {};
+
+        const house = addr.house_number ? `${addr.house_number} ` : "";
+        const road = addr.road || addr.street || addr.pedestrian || addr.suburb || "";
+        const streetAddress = (house + road).trim();
+
+        const city = addr.city || addr.town || addr.village || addr.municipality || addr.hamlet || addr.county || "";
+        const district = addr.state_district || addr.county || addr.district || "";
+        const state = addr.state || addr.province || addr.region || "";
+        const postalCode = addr.postcode || "";
+        const country = addr.country || "";
+        const countryCode = (addr.country_code || "").toUpperCase();
+
+        rawResult = {
+          streetAddress,
+          district,
+          city,
+          state,
+          postalCode,
+          country,
+          countryCode,
+          formattedAddress: data.display_name || ""
+        };
+        provider = "nominatim_osm";
+      }
+    } catch (osmErr) {
+      throw new Error(`Reverse geocoding failed: ${osmErr.message}`);
+    }
+  }
+
+  if (!rawResult) {
+    throw new Error("Unable to resolve coordinates to an address location.");
+  }
+
+  // 3. Match with DR.MEDEX 195 sovereign countries list
+  const matchedCountry = worldwide195.find(
+    (c) => c.code.toUpperCase() === rawResult.countryCode ||
+           c.name.toLowerCase() === rawResult.country.toLowerCase()
+  ) || null;
+
+  // 4. Match with country-state-city State database to find stateCode
+  let matchedStateCode = "";
+  if (matchedCountry && rawResult.state) {
+    const states = State.getStatesOfCountry(matchedCountry.code);
+    const stateClean = rawResult.state.toLowerCase();
+    const foundState = states.find(
+      (s) => s.name.toLowerCase() === stateClean ||
+             s.isoCode.toLowerCase() === stateClean ||
+             stateClean.includes(s.name.toLowerCase()) ||
+             s.name.toLowerCase().includes(stateClean)
+    );
+    if (foundState) {
+      matchedStateCode = foundState.isoCode;
+    }
+  }
+
+  return {
+    success: true,
+    provider,
+    latitude,
+    longitude,
+    country: matchedCountry ? matchedCountry.name : rawResult.country,
+    countryCode: matchedCountry ? matchedCountry.code : rawResult.countryCode,
+    countryData: matchedCountry,
+    state: rawResult.state,
+    stateCode: matchedStateCode,
+    district: rawResult.district,
+    city: rawResult.city,
+    postalCode: rawResult.postalCode,
+    streetAddress: rawResult.streetAddress,
+    formattedAddress: rawResult.formattedAddress
+  };
+}
+
+/**
  * Location Provider Status
  */
 function getProviderStatus() {
@@ -274,5 +426,6 @@ module.exports = {
   getCitiesByCountryAndState,
   validatePhoneNumber,
   autocompleteAddress,
+  reverseGeocode,
   getProviderStatus
 };
