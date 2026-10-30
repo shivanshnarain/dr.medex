@@ -34,6 +34,11 @@ import { useAuth } from "../context/AuthContext";
 import { InternationalPhoneInput, PhoneCountryItem } from "../components/InternationalPhoneInput";
 import { SmartLocationPrompt, ResolvedLocationData } from "../components/SmartLocationPrompt";
 import { hasDismissedLocationPrompt } from "../services/pushNotificationService";
+import {
+  WORLDWIDE_195_COUNTRIES,
+  filterWorldwideCountries,
+  POPULAR_COUNTRY_CODES
+} from "../data/worldwide195Countries";
 import { Order, ShippingAddress } from "../types";
 
 declare global {
@@ -79,7 +84,6 @@ interface AutocompleteSuggestion {
 }
 
 const GUEST_CHECKOUT_STORAGE_KEY = "drmedex_guest_checkout_v4";
-const POPULAR_COUNTRY_CODES = ["IN", "US", "GB", "CA", "AE", "DE", "AU", "PK", "SG", "JP"];
 
 export const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
@@ -100,7 +104,7 @@ export const CheckoutPage: React.FC = () => {
   const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
 
   // Complete 195 Worldwide Countries & States State
-  const [countriesList, setCountriesList] = useState<CountryItem[]>([]);
+  const [countriesList, setCountriesList] = useState<CountryItem[]>(WORLDWIDE_195_COUNTRIES as CountryItem[]);
   const [statesList, setStatesList] = useState<StateItem[]>([]);
   const [isLoadingStates, setIsLoadingStates] = useState(false);
   const [countrySearchQuery, setCountrySearchQuery] = useState("");
@@ -115,7 +119,6 @@ export const CheckoutPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [taxId, setTaxId] = useState("");
-  const [poReference, setPoReference] = useState("");
 
   // Shipping Destination (Initialized 100% empty - NO mock data)
   const [countryCode, setCountryCode] = useState<string>("IN");
@@ -379,17 +382,31 @@ export const CheckoutPage: React.FC = () => {
             const data = await res.json();
             if (data.success) {
               handleLocationDetected(data);
+              return;
             }
           }
-        } catch (err) {
+          let errorDetail = "";
+          try {
+            const errJson = await res.json();
+            if (errJson && errJson.message) errorDetail = errJson.message;
+          } catch (e) {}
+          setLocationNotice(`Unable to auto-detect location${errorDetail ? `: ${errorDetail}` : ""}. You can enter your regional shipping destination manually below.`);
+        } catch (err: any) {
           console.warn("[Checkout] Geolocation reverse lookup error:", err);
+          setLocationNotice("Could not resolve location coordinates automatically. Please enter your address details manually.");
         } finally {
           setIsGeolocating(false);
         }
       },
       (err) => {
         setIsGeolocating(false);
-        console.warn("[Checkout] Geolocation permission error:", err);
+        if (err.code === err.PERMISSION_DENIED) {
+          setLocationNotice("Location permission was denied. Please enter your regional shipping destination manually below.");
+        } else if (err.code === err.POSITION_UNAVAILABLE) {
+          setLocationNotice("GPS location is unavailable on this device. Please enter your address manually.");
+        } else {
+          setLocationNotice("Location request timed out. Please enter your address manually.");
+        }
       },
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
     );
@@ -637,12 +654,12 @@ export const CheckoutPage: React.FC = () => {
       return false;
     }
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setErrorMessage("Please enter a valid official Email Address.");
+      setErrorMessage("Please enter a valid Email Address.");
       window.scrollTo({ top: 120, behavior: "smooth" });
       return false;
     }
     if (!phone.trim() || phone.replace(/[^\d]/g, "").length < 6) {
-      setErrorMessage("Please enter a valid international Phone Number.");
+      setErrorMessage("Please enter a valid Phone Number.");
       window.scrollTo({ top: 120, behavior: "smooth" });
       return false;
     }
@@ -796,8 +813,7 @@ export const CheckoutPage: React.FC = () => {
               countryCode,
               companyName,
               department,
-              taxId,
-              poReference
+              taxId
             },
             shippingAddress: {
               fullName: fullName.trim(),
@@ -938,7 +954,6 @@ export const CheckoutPage: React.FC = () => {
     companyName,
     department,
     taxId,
-    poReference,
     addressLine1,
     addressLine2,
     buildingSuite,
@@ -963,18 +978,13 @@ export const CheckoutPage: React.FC = () => {
 
   // Filtered countries for searchable dropdown
   const { popularCountries, alphabeticalCountries } = useMemo(() => {
-    const q = countrySearchQuery.toLowerCase().trim();
+    const q = countrySearchQuery.trim();
     if (!q) {
       const pop = countriesList.filter((c) => POPULAR_COUNTRY_CODES.includes(c.code));
       const sorted = [...countriesList].sort((a, b) => a.name.localeCompare(b.name));
       return { popularCountries: pop, alphabeticalCountries: sorted };
     }
-    const matched = countriesList.filter(
-      (c) =>
-        c.name.toLowerCase().includes(q) ||
-        c.code.toLowerCase().includes(q) ||
-        c.dialCode.replace(/\s+/g, "").includes(q)
-    ).sort((a, b) => a.name.localeCompare(b.name));
+    const matched = filterWorldwideCountries(countriesList as any, q) as CountryItem[];
     return { popularCountries: [], alphabeticalCountries: matched };
   }, [countriesList, countrySearchQuery]);
 
@@ -1420,7 +1430,7 @@ export const CheckoutPage: React.FC = () => {
                     {/* Email Address */}
                     <div>
                       <label className="block font-bold text-[#171717] mb-1.5">
-                        Official Business Email <span className="text-red-500">*</span>
+                        Email <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
                         <input
@@ -1435,10 +1445,10 @@ export const CheckoutPage: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* International Phone Number with Clean Separation & No Duplicate Code */}
+                    {/* Phone Number with Local Number Input & Country Calling Code */}
                     <div>
                       <label className="block font-bold text-[#171717] mb-1.5">
-                        International Phone Number <span className="text-red-500">*</span>
+                        Phone Number <span className="text-red-500">*</span>
                       </label>
                       <InternationalPhoneInput
                         value={phone}
@@ -1450,8 +1460,8 @@ export const CheckoutPage: React.FC = () => {
                       />
                     </div>
 
-                    {/* Optional Business Details: Tax ID & PO Reference */}
-                    <div>
+                    {/* Optional Business Details: Tax ID */}
+                    <div className="sm:col-span-2">
                       <label className="block font-bold text-[#171717] mb-1.5">
                         VAT / GST / Tax ID <span className="text-neutral-400 font-normal">(Optional)</span>
                       </label>
@@ -1462,22 +1472,6 @@ export const CheckoutPage: React.FC = () => {
                         placeholder="e.g. EU VAT, GSTIN, Tax ID"
                         className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400 uppercase"
                       />
-                    </div>
-
-                    <div>
-                      <label className="block font-bold text-[#171717] mb-1.5">
-                        Purchase Order Reference <span className="text-neutral-400 font-normal">(Optional)</span>
-                      </label>
-                      <div className="relative">
-                        <input
-                          type="text"
-                          value={poReference}
-                          onChange={(e) => setPoReference(e.target.value)}
-                          placeholder="PO Number for invoices"
-                          className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                        />
-                        <FileText size={16} className="absolute left-3 top-3 text-neutral-400 pointer-events-none" />
-                      </div>
                     </div>
                   </div>
                 </div>

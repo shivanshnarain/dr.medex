@@ -336,3 +336,4 @@ export function dismissPushPrompt(): void {
     localStorage.setItem("drmedex_push_prompt_dismissed", "true");
   }
 }
+

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import { ChevronDown, Search } from "lucide-react";
-import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { WORLDWIDE_195_COUNTRIES, filterWorldwideCountries } from "../data/worldwide195Countries";
 
 export interface PhoneCountryItem {
   code: string;
@@ -63,7 +63,9 @@ export const InternationalPhoneInput: React.FC<InternationalPhoneInputProps> = (
   placeholder = "Enter your phone number",
   onCountryChange
 }) => {
-  const [allCountries, setAllCountries] = useState<PhoneCountryItem[]>(countriesList || []);
+  const [allCountries, setAllCountries] = useState<PhoneCountryItem[]>(
+    countriesList && countriesList.length > 0 ? countriesList : (WORLDWIDE_195_COUNTRIES as any)
+  );
   const [selectedCountryCode, setSelectedCountryCode] = useState<string>(countryCode || "IN");
   const [selectedDialCode, setSelectedDialCode] = useState<string>("+91");
   const [selectedFlag, setSelectedFlag] = useState<string>("🇮🇳");
@@ -181,14 +183,7 @@ export const InternationalPhoneInput: React.FC<InternationalPhoneInputProps> = (
   };
 
   const filteredCountries = useMemo(() => {
-    const q = searchQuery.toLowerCase().trim();
-    if (!q) return allCountries;
-    return allCountries.filter(
-      (c) =>
-        c.name.toLowerCase().includes(q) ||
-        c.code.toLowerCase().includes(q) ||
-        c.dialCode.replace(/\s+/g, "").includes(q)
-    );
+    return filterWorldwideCountries(allCountries as any, searchQuery) as any[];
   }, [allCountries, searchQuery]);
 
   return (
@@ -199,7 +194,7 @@ export const InternationalPhoneInput: React.FC<InternationalPhoneInputProps> = (
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 px-3 py-2.5 bg-neutral-50 border-r border-neutral-200 rounded-l-xl hover:bg-neutral-100 transition-colors text-neutral-800 text-xs font-semibold focus:outline-none shrink-0"
+        className="flex items-center gap-1.5 px-3 py-2.5 bg-neutral-50 border-r border-neutral-200 rounded-l-xl hover:bg-neutral-100 transition-colors text-neutral-800 text-xs font-semibold focus:outline-none shrink-0 cursor-pointer"
         title={`Selected: ${selectedFlag} ${selectedCountryCode} (${selectedDialCode})`}
       >
         <span className="text-base leading-none">{selectedFlag}</span>
@@ -210,6 +205,7 @@ export const InternationalPhoneInput: React.FC<InternationalPhoneInputProps> = (
       {/* RIGHT SIDE: ONLY Subscriber Phone Number (Calling code is NEVER duplicated here) */}
       <input
         type="tel"
+        inputMode="tel"
         value={localNumber}
         onChange={handleNumberChange}
         placeholder={placeholder}

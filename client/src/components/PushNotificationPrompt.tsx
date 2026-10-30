@@ -156,3 +156,4 @@ export const PushNotificationPrompt: React.FC<PushNotificationPromptProps> = ({
     </div>
   );
 };
+

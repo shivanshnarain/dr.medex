@@ -16,6 +16,7 @@ const geminiVisionService = require("../services/geminiVisionService");
 const firestoreService = require("../services/firestoreService");
 const supabaseService = require("../services/supabaseService");
 const imageResolver = require("../services/imageResolver");
+const orderService = require("../services/orderService");
 
 /**
  * Authentication Middleware
@@ -172,6 +173,55 @@ router.get("/dashboard", requireAdmin, (req, res) => {
     })),
     auditLogs
   });
+});
+
+// ==========================================
+// 2B. ADMIN ORDERS MANAGEMENT
+// ==========================================
+
+router.get("/orders", requireAdmin, async (req, res) => {
+  try {
+    const mongoOrders = await orderService.getCustomerOrders(null, null);
+    const storeOrders = store.getOrders();
+    const map = new Map();
+    [...mongoOrders, ...storeOrders].forEach(o => {
+      if (o && o.orderNumber) map.set(o.orderNumber, o);
+    });
+    const combined = Array.from(map.values()).sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+    res.json({ success: true, orders: combined });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.put("/orders/:id/status", requireAdmin, async (req, res) => {
+  try {
+    const { status, stageToComplete } = req.body;
+    const orderId = req.params.id;
+    const updated = store.updateOrderStatus(orderId, status, stageToComplete);
+    if (!updated) {
+      return res.status(404).json({ success: false, message: "Order not found" });
+    }
+    try {
+      const client = await mongoService.getClient();
+      const db = client.db();
+      await db.collection("orders").updateOne(
+        { $or: [{ orderNumber: orderId }, { id: orderId }] },
+        { $set: { status, orderStatus: status, updatedAt: new Date().toISOString() } }
+      );
+    } catch (e) {}
+
+    auditService.log({
+      action: "UPDATE_ORDER_STATUS",
+      entity: "orders",
+      entityId: orderId,
+      details: { newStatus: status, stageToComplete }
+    });
+
+    res.json({ success: true, order: updated });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
 // ==========================================

@@ -31,10 +31,8 @@ const categories = [
     icon: "Zap",
     featuredImage: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
     subcategories: [
-      { id: "cautery", slug: "electro-surgical-skin-cautery", name: "Electrosurgical Cautery" },
-      { id: "generators", slug: "electrosurgical-generator", name: "Electrosurgical Generators" },
-      { id: "accessories", slug: "surgical-accessories", name: "Surgical Electrodes & Accessories" },
-      { id: "smoke-evacuators", slug: "smoke-evacuation-systems", name: "Surgical Smoke Evacuators" }
+      { id: "electrosurgical-surgery", slug: "electrosurgical-surgery", name: "Electrosurgical Surgery" },
+      { id: "electrosurgical-generator", slug: "electrosurgical-generator", name: "Electrosurgical Generators" }
     ]
   },
   {

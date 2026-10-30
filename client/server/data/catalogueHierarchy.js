@@ -57,14 +57,15 @@ const catalogueHierarchy = {
     status: "ACTIVE",
     subcategories: [
       {
-        id: "electro-surgical-skin-cautery",
-        name: "Electrosurgical Cautery",
+        id: "electrosurgical-surgery",
+        name: "Electrosurgical Surgery",
         equipmentTypes: [
           { id: "rf-cautery-3-5mhz", name: "RF Radiofrequency Cautery Unit (3.5 MHz)", defaultCode: "RFC" },
           { id: "digital-cautery-mono-bi", name: "Digital Monopolar & Bipolar Cautery", defaultCode: "DMC" },
           { id: "battery-pen-cautery", name: "Battery-Operated Portable Pen Cautery", defaultCode: "BPC" },
           { id: "dermatology-micro-cautery", name: "Dermatology / Ophthalmology Micro Cautery", defaultCode: "DMC" },
-          { id: "wet-field-bipolar-coagulator", name: "Wet-Field Bipolar Coagulator (Ophthalmic & ENT)", defaultCode: "WBC" }
+          { id: "wet-field-bipolar-coagulator", name: "Wet-Field Bipolar Coagulator (Ophthalmic & ENT)", defaultCode: "WBC" },
+          { id: "portable-smoke-evacuator-hepa", name: "Portable Surgical Smoke Evacuator with HEPA Filtration", defaultCode: "PSE" }
         ]
       },
       {
@@ -75,24 +76,6 @@ const catalogueHierarchy = {
           { id: "esu-generator-400w-turp", name: "Advanced Laparoscopic & TURP Generator 400W", defaultCode: "G40" },
           { id: "vessel-sealing-system", name: "Vessel Sealing Electrosurgical System", defaultCode: "VSS" },
           { id: "microprocessor-diathermy", name: "Microprocessor Diathermy Generator", defaultCode: "MDG" }
-        ]
-      },
-      {
-        id: "surgical-accessories",
-        name: "Surgical Electrodes & Accessories",
-        equipmentTypes: [
-          { id: "monopolar-handpiece", name: "Reusable Monopolar Surgical Handpiece", defaultCode: "RMH" },
-          { id: "patient-return-plate", name: "Silicone Patient Return Plate", defaultCode: "PRP" },
-          { id: "bipolar-forceps-cable", name: "Bipolar Coagulation Forceps & Cable", defaultCode: "BFC" },
-          { id: "footswitch-controller", name: "Foot Switch Controller Assembly", defaultCode: "FSC" }
-        ]
-      },
-      {
-        id: "smoke-evacuation-systems",
-        name: "Surgical Smoke Evacuators",
-        equipmentTypes: [
-          { id: "portable-smoke-evacuator-hepa", name: "Portable Surgical Smoke Evacuator with HEPA Filtration", defaultCode: "PSE" },
-          { id: "high-suction-smoke-evacuator", name: "High-Suction ULPA Surgical Smoke Evacuation System", defaultCode: "SSE" }
         ]
       }
     ]

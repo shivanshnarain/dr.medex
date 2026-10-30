@@ -60,7 +60,12 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
 
           const res = await fetch(`/api/location/reverse-geocode?lat=${lat}&lng=${lng}`);
           if (!res.ok) {
-            throw new Error(`Reverse geocoding error (HTTP ${res.status})`);
+            let detail = `HTTP ${res.status}`;
+            try {
+              const errBody = await res.json();
+              if (errBody && errBody.message) detail = errBody.message;
+            } catch (e) {}
+            throw new Error(`Reverse geocoding service error (${detail})`);
           }
 
           const data = await res.json();
@@ -69,16 +74,17 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
           }
 
           dismissLocationPrompt();
-          setSuccessLocation(`${data.city || data.district || ""}, ${data.state || ""}, ${data.country || ""}`);
+          const detectedSummary = [data.city || data.district, data.state, data.country].filter(Boolean).join(", ");
+          setSuccessLocation(detectedSummary || "Regional Address Located");
 
           setTimeout(() => {
             onLocationDetected(data);
             setIsDetecting(false);
             onClose();
-          }, 800);
+          }, 600);
         } catch (err: any) {
           console.warn("[SmartLocationPrompt] Geocode error:", err);
-          setErrorMessage(err.message || "Could not resolve your regional address. You can enter it manually.");
+          setErrorMessage(err.message || "Could not resolve your regional address. You can proceed with standard manual entry below.");
           setIsDetecting(false);
         }
       },
@@ -86,11 +92,13 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
         setIsDetecting(false);
         if (error.code === error.PERMISSION_DENIED) {
           dismissLocationPrompt();
-          setErrorMessage("Location access was denied. You can proceed with standard manual entry.");
+          setErrorMessage("Location access was denied. You can proceed with manual address entry.");
         } else if (error.code === error.POSITION_UNAVAILABLE) {
-          setErrorMessage("Location information is currently unavailable.");
+          setErrorMessage("GPS location is currently unavailable. Please enter your address manually.");
+        } else if (error.code === error.TIMEOUT) {
+          setErrorMessage("Location request timed out. Please enter your address manually.");
         } else {
-          setErrorMessage("Location request timed out. Please enter address manually.");
+          setErrorMessage("Location error. Please enter your shipping address manually.");
         }
       },
       {
@@ -270,3 +278,4 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
     </div>
   );
 };
+
