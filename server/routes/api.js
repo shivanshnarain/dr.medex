@@ -13,6 +13,7 @@ const auditService = require("../services/auditService");
 const mongoService = require("../services/mongoService");
 const paypalService = require("../services/paypalService");
 const orderService = require("../services/orderService");
+const locationService = require("../services/locationService");
 
 // HEALTH
 router.get("/health", (req, res) => {
@@ -146,6 +147,55 @@ router.get("/categories", (req, res) => {
 // COUNTRIES
 router.get("/countries", (req, res) => {
   res.json({ success: true, countries: store.getCountries() });
+});
+
+// LOCATION & WORLDWIDE ADDRESS INTELLIGENCE
+router.get("/location/countries", (req, res) => {
+  try {
+    const countries = locationService.getAllCountries();
+    res.json({ success: true, count: countries.length, countries });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.get("/location/states", (req, res) => {
+  try {
+    const { countryCode } = req.query;
+    if (!countryCode) {
+      return res.status(400).json({ success: false, message: "countryCode query parameter is required" });
+    }
+    const states = locationService.getStatesByCountry(countryCode);
+    res.json({ success: true, countryCode, count: states.length, states });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.get("/location/cities", (req, res) => {
+  try {
+    const { countryCode, stateCode, search } = req.query;
+    if (!countryCode) {
+      return res.status(400).json({ success: false, message: "countryCode query parameter is required" });
+    }
+    const cities = locationService.getCitiesByCountryAndState(countryCode, stateCode, search);
+    res.json({ success: true, count: cities.length, cities });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.get("/location/autocomplete", async (req, res) => {
+  try {
+    const { query, countryCode } = req.query;
+    if (!query || query.trim().length < 2) {
+      return res.json({ success: true, suggestions: [] });
+    }
+    const suggestions = await locationService.autocompleteAddress(query, countryCode);
+    res.json({ success: true, count: suggestions.length, suggestions });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
 // CURRENCY & EXCHANGE RATES

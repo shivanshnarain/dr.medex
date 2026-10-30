@@ -246,3 +246,4 @@ module.exports = {
   getClientId: () => clientId,
   getMode: () => mode
 };
+

@@ -4,6 +4,7 @@ import {
   CheckCircle2,
   Lock,
   ArrowRight,
+  ArrowLeft,
   Truck,
   Printer,
   Building2,
@@ -15,18 +16,21 @@ import {
   MapPin,
   User,
   Mail,
-  Phone,
   Tag,
   Loader2,
   ChevronRight,
   Check,
-  X
+  X,
+  Search,
+  Globe,
+  CreditCard,
+  PackageCheck
 } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useCurrency } from "../context/CurrencyContext";
 import { useAuth } from "../context/AuthContext";
 import { InternationalPhoneInput } from "../components/InternationalPhoneInput";
-import { Order, ShippingAddress, CartItem } from "../types";
+import { Order, ShippingAddress } from "../types";
 
 declare global {
   interface Window {
@@ -40,50 +44,96 @@ interface SavedAddressItem extends ShippingAddress {
   isDefaultBilling?: boolean;
 }
 
-const GUEST_CHECKOUT_STORAGE_KEY = "drmedex_guest_checkout_v2";
+interface CountryItem {
+  code: string;
+  name: string;
+  flag: string;
+  dialCode: string;
+  currency: string;
+  symbol: string;
+  postalLabel?: string;
+  stateLabel?: string;
+}
+
+interface StateItem {
+  code: string;
+  name: string;
+  countryCode: string;
+}
+
+interface AutocompleteSuggestion {
+  formattedAddress: string;
+  addressLine1: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
+  countryCode: string;
+}
+
+const GUEST_CHECKOUT_STORAGE_KEY = "drmedex_guest_checkout_v3";
 
 export const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
-  const { items, baseSubtotalUSD, appliedCoupon, discountUSD, applyCoupon, removeCoupon, clearCart } = useCart();
-  const { currentCountry, currentCurrency, formatPrice, convertPrice, countries, setCountry, exchangeRates } = useCurrency();
-  const { user, isAuthenticated } = useAuth();
+  const { items, appliedCoupon, applyCoupon, removeCoupon, clearCart } = useCart();
+  const { currentCountry, currentCurrency, formatPrice, convertPrice, exchangeRates, setCurrencyManually } = useCurrency();
+  const { user } = useAuth();
 
-  // Multi-step or single-page view state
+  // Multi-step Checkout State (1: Destination & Customer, 2: Air Freight Logistics, 3: Payment & Confirmation)
+  const [currentStep, setCurrentStep] = useState<1 | 2 | 3>(1);
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  // Coupon handling
   const [couponInput, setCouponInput] = useState("");
   const [couponError, setCouponError] = useState("");
   const [couponSuccess, setCouponSuccess] = useState("");
   const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
 
-  // Customer Information
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  // Complete Worldwide Countries & States State
+  const [countriesList, setCountriesList] = useState<CountryItem[]>([]);
+  const [statesList, setStatesList] = useState<StateItem[]>([]);
+  const [isLoadingStates, setIsLoadingStates] = useState(false);
+  const [countrySearchQuery, setCountrySearchQuery] = useState("");
+  const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
+  const countryDropdownRef = useRef<HTMLDivElement>(null);
+
+  // Customer Information (Initialized 100% empty - NO mock data)
+  const [fullName, setFullName] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [companyName, setCompanyName] = useState("");
 
-  // Shipping Address
+  // Shipping Destination (Initialized 100% empty - NO mock data)
+  const [countryCode, setCountryCode] = useState<string>("IN");
   const [addressLine1, setAddressLine1] = useState("");
   const [addressLine2, setAddressLine2] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [postalCode, setPostalCode] = useState("");
-  const [countryCode, setCountryCode] = useState(currentCountry.code);
+  const [deliveryInstructions, setDeliveryInstructions] = useState("");
   const [saveAddressToAccount, setSaveAddressToAccount] = useState(true);
+
+  // Real-Time Address Autocomplete State
+  const [autocompleteQuery, setAutocompleteQuery] = useState("");
+  const [autocompleteSuggestions, setAutocompleteSuggestions] = useState<AutocompleteSuggestion[]>([]);
+  const [isSearchingAddress, setIsSearchingAddress] = useState(false);
+  const [showAddressSuggestions, setShowAddressSuggestions] = useState(false);
+  const autocompleteContainerRef = useRef<HTMLDivElement>(null);
+  const debounceTimerRef = useRef<any>(null);
 
   // Billing Address
   const [billingSameAsShipping, setBillingSameAsShipping] = useState(true);
   const [billingFullName, setBillingFullName] = useState("");
   const [billingCompanyName, setBillingCompanyName] = useState("");
   const [billingPhone, setBillingPhone] = useState("");
+  const [billingCountryCode, setBillingCountryCode] = useState<string>("IN");
   const [billingAddressLine1, setBillingAddressLine1] = useState("");
   const [billingAddressLine2, setBillingAddressLine2] = useState("");
   const [billingCity, setBillingCity] = useState("");
   const [billingState, setBillingState] = useState("");
   const [billingPostalCode, setBillingPostalCode] = useState("");
-  const [billingCountryCode, setBillingCountryCode] = useState(currentCountry.code);
 
   // Saved Addresses (MongoDB & localStorage)
   const [savedAddresses, setSavedAddresses] = useState<SavedAddressItem[]>([]);
@@ -92,11 +142,11 @@ export const CheckoutPage: React.FC = () => {
   const [editingAddress, setEditingAddress] = useState<SavedAddressItem | null>(null);
 
   // Shipping Method
-  const [selectedShippingMethod, setSelectedShippingMethod] = useState({
+  const [selectedShippingMethod] = useState({
     id: "dhl-air-express",
     name: "DHL Express Medical Air Cargo",
     carrier: "DHL Express",
-    costUSD: 0, // Free international air cargo on clinical equipment orders
+    costUSD: 0, // Complimentary international air freight
     estimatedDays: "3–6 Business Days"
   });
 
@@ -107,25 +157,167 @@ export const CheckoutPage: React.FC = () => {
   const paypalButtonContainerRef = useRef<HTMLDivElement>(null);
   const paypalButtonsInstanceRef = useRef<any>(null);
 
-  // Determine PayPal payment currency
-  const paypalCurrency = useMemo(() => {
-    const PAYPAL_SUPPORTED = new Set([
-      "USD", "EUR", "GBP", "CAD", "AUD", "JPY", "CHF", "NZD", "SGD", "HKD",
-      "SEK", "DKK", "PLN", "NOK", "HUF", "CZK", "ILS", "MXN", "BRL", "MYR",
-      "PHP", "TWD", "THB"
-    ]);
-    const curr = (currentCurrency || "USD").toUpperCase();
-    return PAYPAL_SUPPORTED.has(curr) ? curr : "USD";
-  }, [currentCurrency]);
+  // 1. Fetch Complete 250 Worldwide Countries List on Mount
+  useEffect(() => {
+    let isMounted = true;
+    async function loadCountries() {
+      try {
+        const res = await fetch("/api/location/countries");
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && data.success && Array.isArray(data.countries) && data.countries.length > 0) {
+            setCountriesList(data.countries);
+            // If user hasn't explicitly set country yet, sync with currentCountry or default
+            const initialCode = currentCountry?.code || "IN";
+            setCountryCode(initialCode);
+            setBillingCountryCode(initialCode);
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn("Failed to fetch location countries:", err);
+      }
+    }
+    loadCountries();
+    return () => {
+      isMounted = false;
+    };
+  }, [currentCountry]);
 
-  // Load Saved Form / Guest Data on Mount
+  // Active country object
+  const activeCountry = useMemo(() => {
+    const found = countriesList.find((c) => c.code.toUpperCase() === countryCode.toUpperCase());
+    if (found) return found;
+    return {
+      code: countryCode || "IN",
+      name: countryCode === "IN" ? "India" : (countryCode === "US" ? "United States" : countryCode),
+      flag: countryCode === "IN" ? "🇮🇳" : (countryCode === "US" ? "🇺🇸" : "🌐"),
+      dialCode: countryCode === "IN" ? "+91" : (countryCode === "US" ? "+1" : "+1"),
+      currency: countryCode === "IN" ? "INR" : "USD",
+      symbol: countryCode === "IN" ? "₹" : "$",
+      postalLabel: countryCode === "IN" ? "PIN Code" : (countryCode === "US" ? "ZIP Code" : "Postal Code"),
+      stateLabel: countryCode === "CA" ? "Province" : (countryCode === "GB" ? "County / Region" : "State / Province")
+    };
+  }, [countriesList, countryCode]);
+
+  // 2. Fetch States/Provinces dynamically when Country Code changes
+  useEffect(() => {
+    if (!countryCode) return;
+    let isMounted = true;
+    setIsLoadingStates(true);
+
+    fetch(`/api/location/states?countryCode=${encodeURIComponent(countryCode)}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (isMounted) {
+          if (data.success && Array.isArray(data.states)) {
+            setStatesList(data.states);
+          } else {
+            setStatesList([]);
+          }
+          setIsLoadingStates(false);
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setStatesList([]);
+          setIsLoadingStates(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [countryCode]);
+
+  // Handle Country Selection with automatic calling code & currency synchronization
+  const handleSelectCountry = (selected: CountryItem) => {
+    setCountryCode(selected.code);
+    setIsCountryDropdownOpen(false);
+    setCountrySearchQuery("");
+
+    // If billing same as shipping, synchronize billing country too
+    if (billingSameAsShipping) {
+      setBillingCountryCode(selected.code);
+    }
+
+    // Reset dependent state, city, and postal code
+    setState("");
+    setCity("");
+    setPostalCode("");
+    setAutocompleteQuery("");
+    setAutocompleteSuggestions([]);
+
+    // Auto-suggest country native currency if available
+    if (selected.currency && selected.currency !== currentCurrency) {
+      setCurrencyManually(selected.currency);
+    }
+  };
+
+  // Close country dropdown on click outside
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (countryDropdownRef.current && !countryDropdownRef.current.contains(e.target as Node)) {
+        setIsCountryDropdownOpen(false);
+      }
+      if (autocompleteContainerRef.current && !autocompleteContainerRef.current.contains(e.target as Node)) {
+        setShowAddressSuggestions(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // 3. Real-Time Address Autocomplete with Debounce & Cache
+  const handleAddressSearchChange = (query: string) => {
+    setAutocompleteQuery(query);
+    if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+
+    if (query.trim().length < 2) {
+      setAutocompleteSuggestions([]);
+      setShowAddressSuggestions(false);
+      return;
+    }
+
+    setIsSearchingAddress(true);
+    debounceTimerRef.current = setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `/api/location/autocomplete?query=${encodeURIComponent(query)}&countryCode=${encodeURIComponent(countryCode)}`
+        );
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && Array.isArray(data.suggestions)) {
+            setAutocompleteSuggestions(data.suggestions);
+            setShowAddressSuggestions(data.suggestions.length > 0);
+          }
+        }
+      } catch (err) {
+        console.warn("Autocomplete request failed:", err);
+      } finally {
+        setIsSearchingAddress(false);
+      }
+    }, 300);
+  };
+
+  const handleSelectAddressSuggestion = (sug: AutocompleteSuggestion) => {
+    if (sug.addressLine1) setAddressLine1(sug.addressLine1);
+    else if (sug.formattedAddress) setAddressLine1(sug.formattedAddress.split(",")[0]);
+
+    if (sug.city) setCity(sug.city);
+    if (sug.state) setState(sug.state);
+    if (sug.postalCode) setPostalCode(sug.postalCode);
+    setAutocompleteQuery(sug.formattedAddress || sug.addressLine1);
+    setShowAddressSuggestions(false);
+  };
+
+  // 4. Pre-populate from authenticated user or saved guest draft (STRICTLY NO FAKE MOCK DATA)
   useEffect(() => {
     try {
       const savedDraftRaw = localStorage.getItem(GUEST_CHECKOUT_STORAGE_KEY);
       if (savedDraftRaw) {
         const draft = JSON.parse(savedDraftRaw);
-        if (draft.firstName) setFirstName(draft.firstName);
-        if (draft.lastName) setLastName(draft.lastName);
+        if (draft.fullName) setFullName(draft.fullName);
         if (draft.email) setEmail(draft.email);
         if (draft.phone) setPhone(draft.phone);
         if (draft.companyName) setCompanyName(draft.companyName);
@@ -134,27 +326,19 @@ export const CheckoutPage: React.FC = () => {
         if (draft.city) setCity(draft.city);
         if (draft.state) setState(draft.state);
         if (draft.postalCode) setPostalCode(draft.postalCode);
-        if (draft.countryCode) {
-          setCountryCode(draft.countryCode);
-          setCountry(draft.countryCode);
-        }
+        if (draft.countryCode) setCountryCode(draft.countryCode);
       }
     } catch (e) {}
 
-    // Pre-populate from authenticated user if available
     if (user) {
-      if (user.fullName) {
-        const parts = user.fullName.split(" ");
-        setFirstName((prev) => prev || parts[0] || "");
-        setLastName((prev) => prev || parts.slice(1).join(" ") || "");
-      }
+      if (user.fullName) setFullName((prev) => prev || user.fullName);
       if (user.email) setEmail((prev) => prev || user.email);
       if (user.phone) setPhone((prev) => prev || user.phone);
       if (user.institutionName) setCompanyName((prev) => prev || user.institutionName);
     }
   }, [user]);
 
-  // Load Saved Addresses from MongoDB (for authenticated user or local guest storage)
+  // Load Saved Addresses from MongoDB (for authenticated user) or localStorage (for guest)
   useEffect(() => {
     async function loadAddresses() {
       if (user?.id) {
@@ -164,9 +348,8 @@ export const CheckoutPage: React.FC = () => {
             const data = await res.json();
             if (data.success && Array.isArray(data.addresses) && data.addresses.length > 0) {
               setSavedAddresses(data.addresses);
-              // Select default shipping or first address
               const defaultAddr = data.addresses.find((a: SavedAddressItem) => a.isDefaultShipping) || data.addresses[0];
-              if (defaultAddr) {
+              if (defaultAddr && !fullName && !addressLine1) {
                 applySavedAddress(defaultAddr);
                 setSelectedAddressId(defaultAddr.id);
               }
@@ -176,15 +359,12 @@ export const CheckoutPage: React.FC = () => {
         } catch (e) {}
       }
 
-      // Check localStorage for offline / guest saved addresses
       try {
         const localSaved = localStorage.getItem("drmedex_saved_addresses");
         if (localSaved) {
           const parsed = JSON.parse(localSaved);
           if (Array.isArray(parsed) && parsed.length > 0) {
             setSavedAddresses(parsed);
-            applySavedAddress(parsed[0]);
-            setSelectedAddressId(parsed[0].id);
           }
         }
       } catch (e) {}
@@ -193,12 +373,11 @@ export const CheckoutPage: React.FC = () => {
     loadAddresses();
   }, [user?.id]);
 
-  // Synchronize form draft to localStorage
+  // Save draft state securely in localStorage
   useEffect(() => {
     try {
       const draft = {
-        firstName,
-        lastName,
+        fullName,
         email,
         phone,
         companyName,
@@ -211,13 +390,11 @@ export const CheckoutPage: React.FC = () => {
       };
       localStorage.setItem(GUEST_CHECKOUT_STORAGE_KEY, JSON.stringify(draft));
     } catch (e) {}
-  }, [firstName, lastName, email, phone, companyName, addressLine1, addressLine2, city, state, postalCode, countryCode]);
+  }, [fullName, email, phone, companyName, addressLine1, addressLine2, city, state, postalCode, countryCode]);
 
-  // Apply a selected saved address into the form fields
+  // Apply a saved address
   const applySavedAddress = (addr: SavedAddressItem) => {
-    const parts = (addr.fullName || "").split(" ");
-    setFirstName(parts[0] || "");
-    setLastName(parts.slice(1).join(" ") || "");
+    setFullName(addr.fullName || "");
     if (addr.companyName) setCompanyName(addr.companyName);
     if (addr.phone) setPhone(addr.phone);
     if (addr.addressLine1) setAddressLine1(addr.addressLine1);
@@ -227,15 +404,7 @@ export const CheckoutPage: React.FC = () => {
     if (addr.postalCode) setPostalCode(addr.postalCode);
     if (addr.countryCode) {
       setCountryCode(addr.countryCode);
-      setCountry(addr.countryCode);
-    }
-  };
-
-  const handleCountryChange = (code: string) => {
-    setCountryCode(code);
-    setCountry(code);
-    if (billingSameAsShipping) {
-      setBillingCountryCode(code);
+      if (billingSameAsShipping) setBillingCountryCode(addr.countryCode);
     }
   };
 
@@ -243,7 +412,7 @@ export const CheckoutPage: React.FC = () => {
   const handleSaveAddress = async (addrData: Partial<SavedAddressItem>) => {
     const newAddressItem: SavedAddressItem = {
       id: addrData.id || `addr-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
-      fullName: addrData.fullName || `${firstName} ${lastName}`.trim(),
+      fullName: addrData.fullName || fullName,
       companyName: addrData.companyName || companyName,
       email: email,
       phone: addrData.phone || phone,
@@ -252,14 +421,14 @@ export const CheckoutPage: React.FC = () => {
       city: addrData.city || city,
       state: addrData.state || state,
       postalCode: addrData.postalCode || postalCode,
-      country: countries.find(c => c.code === (addrData.countryCode || countryCode))?.name || "United States",
+      country: activeCountry.name,
       countryCode: addrData.countryCode || countryCode,
       isDefaultShipping: Boolean(addrData.isDefaultShipping),
       isDefaultBilling: Boolean(addrData.isDefaultBilling)
     };
 
     let updatedList: SavedAddressItem[] = [];
-    const existingIndex = savedAddresses.findIndex(a => a.id === newAddressItem.id);
+    const existingIndex = savedAddresses.findIndex((a) => a.id === newAddressItem.id);
     if (existingIndex !== -1) {
       updatedList = [...savedAddresses];
       updatedList[existingIndex] = newAddressItem;
@@ -288,7 +457,7 @@ export const CheckoutPage: React.FC = () => {
 
   const handleDeleteAddress = async (addressId: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    const updated = savedAddresses.filter(a => a.id !== addressId);
+    const updated = savedAddresses.filter((a) => a.id !== addressId);
     setSavedAddresses(updated);
     localStorage.setItem("drmedex_saved_addresses", JSON.stringify(updated));
 
@@ -323,10 +492,19 @@ export const CheckoutPage: React.FC = () => {
   // Converted values for display
   const displaySubtotal = convertPrice(subtotalINR);
   const displayDiscount = convertPrice(discountINR);
-  const displayShipping = convertPrice(shippingCostINR);
   const displayGrandTotal = convertPrice(grandTotalINR);
 
-  // Converted value in PayPal currency
+  // Determine PayPal payment currency
+  const paypalCurrency = useMemo(() => {
+    const PAYPAL_SUPPORTED = new Set([
+      "USD", "EUR", "GBP", "CAD", "AUD", "JPY", "CHF", "NZD", "SGD", "HKD",
+      "SEK", "DKK", "PLN", "NOK", "HUF", "CZK", "ILS", "MXN", "BRL", "MYR",
+      "PHP", "TWD", "THB"
+    ]);
+    const curr = (currentCurrency || "USD").toUpperCase();
+    return PAYPAL_SUPPORTED.has(curr) ? curr : "USD";
+  }, [currentCurrency]);
+
   const paypalRate = exchangeRates[paypalCurrency] || 0.010379;
   const paypalAmount = grandTotalINR * paypalRate;
 
@@ -347,6 +525,71 @@ export const CheckoutPage: React.FC = () => {
     }
   };
 
+  // Step 1 Validation
+  const validateStep1 = (): boolean => {
+    if (!fullName.trim()) {
+      setErrorMessage("Please enter your Full Name.");
+      window.scrollTo({ top: 120, behavior: "smooth" });
+      return false;
+    }
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setErrorMessage("Please enter a valid official Email Address.");
+      window.scrollTo({ top: 120, behavior: "smooth" });
+      return false;
+    }
+    if (!phone.trim() || phone.replace(/[^\d]/g, "").length < 6) {
+      setErrorMessage("Please enter a valid international Phone Number.");
+      window.scrollTo({ top: 120, behavior: "smooth" });
+      return false;
+    }
+    if (!addressLine1.trim()) {
+      setErrorMessage("Please enter your Street Shipping Address (Line 1).");
+      return false;
+    }
+    if (!city.trim()) {
+      setErrorMessage("Please specify your Delivery City.");
+      return false;
+    }
+    if (!postalCode.trim()) {
+      setErrorMessage(`Please enter your ${activeCountry.postalLabel || "Postal / ZIP Code"}.`);
+      return false;
+    }
+
+    if (!billingSameAsShipping) {
+      if (!billingFullName.trim()) {
+        setErrorMessage("Please enter the Full Name for Billing.");
+        return false;
+      }
+      if (!billingAddressLine1.trim()) {
+        setErrorMessage("Please enter the Billing Street Address (Line 1).");
+        return false;
+      }
+      if (!billingCity.trim()) {
+        setErrorMessage("Please enter the Billing City.");
+        return false;
+      }
+      if (!billingPostalCode.trim()) {
+        setErrorMessage("Please enter the Billing Postal Code.");
+        return false;
+      }
+    }
+
+    setErrorMessage("");
+    return true;
+  };
+
+  const handleContinueToStep2 = () => {
+    if (validateStep1()) {
+      setCurrentStep(2);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const handleContinueToStep3 = () => {
+    setCurrentStep(3);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   // Fetch PayPal Client ID
   useEffect(() => {
     async function fetchPaypalConfig() {
@@ -361,7 +604,6 @@ export const CheckoutPage: React.FC = () => {
         }
       } catch (e) {}
 
-      // Fallback to client environment variable if set
       const envClientId = (import.meta as any).env?.VITE_PAYPAL_CLIENT_ID;
       if (envClientId) {
         setPaypalClientId(envClientId);
@@ -378,14 +620,12 @@ export const CheckoutPage: React.FC = () => {
     const scriptId = "paypal-sdk-script";
     const existingScript = document.getElementById(scriptId) as HTMLScriptElement;
 
-    // If script with same currency already loaded, ready immediately
     if (existingScript && window.paypal) {
       const currentSrc = existingScript.getAttribute("src") || "";
       if (currentSrc.includes(`currency=${paypalCurrency}`) && currentSrc.includes(paypalClientId)) {
         setIsPaypalSdkLoaded(true);
         return;
       }
-      // If currency changed, remove old script and re-inject
       existingScript.remove();
     }
 
@@ -404,84 +644,21 @@ export const CheckoutPage: React.FC = () => {
     };
 
     script.onerror = () => {
-      setPaypalSdkLoadError("Unable to initialize PayPal SDK. Please verify your connection.");
+      setPaypalSdkLoadError("Unable to initialize PayPal SDK. Please verify your internet connection.");
     };
 
     document.body.appendChild(script);
-
-    return () => {
-      // Clean up script on unmount if needed
-    };
   }, [paypalClientId, paypalCurrency]);
 
-  // Form Validation Helper
-  const validateForm = (): boolean => {
-    if (!firstName.trim()) {
-      setErrorMessage("Please enter your First Name.");
-      return false;
-    }
-    if (!lastName.trim()) {
-      setErrorMessage("Please enter your Last Name.");
-      return false;
-    }
-    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setErrorMessage("Please enter a valid official Email Address.");
-      return false;
-    }
-    if (!phone.trim()) {
-      setErrorMessage("Please enter an international Phone Number.");
-      return false;
-    }
-    if (!addressLine1.trim()) {
-      setErrorMessage("Please provide your Street Shipping Address (Line 1).");
-      return false;
-    }
-    if (!city.trim()) {
-      setErrorMessage("Please specify your Delivery City.");
-      return false;
-    }
-    if (!postalCode.trim()) {
-      setErrorMessage("Please enter your Postal / ZIP Code.");
-      return false;
-    }
-
-    if (!billingSameAsShipping) {
-      if (!billingFullName.trim()) {
-        setErrorMessage("Please enter the Full Name for Billing.");
-        return false;
-      }
-      if (!billingAddressLine1.trim()) {
-        setErrorMessage("Please enter the Billing Address Line 1.");
-        return false;
-      }
-      if (!billingCity.trim()) {
-        setErrorMessage("Please enter the Billing City.");
-        return false;
-      }
-      if (!billingPostalCode.trim()) {
-        setErrorMessage("Please enter the Billing Postal Code.");
-        return false;
-      }
-    }
-
-    setErrorMessage("");
-    return true;
-  };
-
-  // Render Official PayPal Buttons
+  // Render Official PayPal Buttons in Step 3
   useEffect(() => {
-    if (!isPaypalSdkLoaded || !window.paypal || !paypalButtonContainerRef.current) {
+    if (currentStep !== 3 || !isPaypalSdkLoaded || !window.paypal || !paypalButtonContainerRef.current) {
       return;
     }
 
-    // Clean up previous button instance if any
-    if (paypalButtonContainerRef.current) {
-      paypalButtonContainerRef.current.innerHTML = "";
-    }
+    paypalButtonContainerRef.current.innerHTML = "";
 
     try {
-      const activeCountryObj = countries.find(c => c.code === countryCode) || currentCountry;
-
       const buttons = window.paypal.Buttons({
         style: {
           layout: "vertical",
@@ -491,28 +668,31 @@ export const CheckoutPage: React.FC = () => {
           height: 44
         },
 
-        // Triggered when buyer clicks PayPal button
         createOrder: async () => {
-          if (!validateForm()) {
+          if (!validateStep1()) {
             throw new Error(errorMessage || "Please complete all required checkout fields.");
           }
 
           setIsProcessing(true);
           setErrorMessage("");
 
+          const nameParts = fullName.trim().split(" ");
+          const parsedFirstName = nameParts[0] || "Customer";
+          const parsedLastName = nameParts.slice(1).join(" ") || "Procurement";
+
           const payload = {
             customerId: user?.id || null,
             customer: {
-              firstName,
-              lastName,
-              fullName: `${firstName} ${lastName}`.trim(),
+              firstName: parsedFirstName,
+              lastName: parsedLastName,
+              fullName: fullName.trim(),
               email,
               phone,
               countryCode,
               companyName
             },
             shippingAddress: {
-              fullName: `${firstName} ${lastName}`.trim(),
+              fullName: fullName.trim(),
               companyName,
               phone,
               addressLine1,
@@ -520,7 +700,7 @@ export const CheckoutPage: React.FC = () => {
               city,
               state,
               postalCode,
-              country: activeCountryObj.name,
+              country: activeCountry.name,
               countryCode
             },
             billingSameAsShipping,
@@ -535,13 +715,14 @@ export const CheckoutPage: React.FC = () => {
                   city: billingCity,
                   state: billingState,
                   postalCode: billingPostalCode,
-                  country: countries.find(c => c.code === billingCountryCode)?.name || activeCountryObj.name,
+                  country: countriesList.find((c) => c.code === billingCountryCode)?.name || activeCountry.name,
                   countryCode: billingCountryCode
                 },
             currency: currentCurrency,
             couponCode: appliedCoupon?.code || null,
             shippingMethod: selectedShippingMethod,
-            items: items.map(it => ({
+            deliveryInstructions,
+            items: items.map((it) => ({
               productId: it.product.id,
               quantity: it.quantity,
               image: it.product.images[0]
@@ -561,13 +742,11 @@ export const CheckoutPage: React.FC = () => {
             throw new Error(data.message || "Could not initialize PayPal order.");
           }
 
-          // Save pending order number in session
           sessionStorage.setItem("drmedex_pending_order_number", data.orderNumber);
 
-          // If customer checked "Save this address", persist to MongoDB in background
           if (saveAddressToAccount && user?.id) {
             handleSaveAddress({
-              fullName: `${firstName} ${lastName}`.trim(),
+              fullName: fullName.trim(),
               companyName,
               phone,
               addressLine1,
@@ -575,7 +754,7 @@ export const CheckoutPage: React.FC = () => {
               city,
               state,
               postalCode,
-              country: activeCountryObj.name,
+              country: activeCountry.name,
               countryCode
             }).catch(() => {});
           }
@@ -583,11 +762,9 @@ export const CheckoutPage: React.FC = () => {
           return data.orderID;
         },
 
-        // Triggered after buyer authorizes payment in PayPal modal
         onApprove: async (data: any) => {
           setIsProcessing(true);
           setErrorMessage("");
-
           const orderNumber = sessionStorage.getItem("drmedex_pending_order_number");
 
           try {
@@ -612,7 +789,7 @@ export const CheckoutPage: React.FC = () => {
             } else {
               setErrorMessage(
                 captureData.message ||
-                "Payment capture failed. Please check your PayPal account or contact our support team."
+                  "Payment capture failed. Please check your PayPal balance or contact our surgical support team."
               );
             }
           } catch (err: any) {
@@ -623,7 +800,7 @@ export const CheckoutPage: React.FC = () => {
 
         onCancel: () => {
           setIsProcessing(false);
-          setErrorMessage("PayPal checkout was cancelled. Your cart and details remain safely saved.");
+          setErrorMessage("PayPal checkout was cancelled. Your details and cart remain safely saved.");
         },
 
         onError: (err: any) => {
@@ -643,9 +820,9 @@ export const CheckoutPage: React.FC = () => {
       console.error("PayPal render error:", err);
     }
   }, [
+    currentStep,
     isPaypalSdkLoaded,
-    firstName,
-    lastName,
+    fullName,
     email,
     phone,
     companyName,
@@ -665,20 +842,21 @@ export const CheckoutPage: React.FC = () => {
     appliedCoupon,
     items,
     saveAddressToAccount,
-    user?.id
+    user?.id,
+    activeCountry.name
   ]);
 
   // EMPTY CART SCREEN
   if (items.length === 0 && !completedOrder) {
     return (
       <div className="w-full bg-[#FFFFFF] min-h-[70vh] flex items-center justify-center py-16 px-4">
-        <div className="max-w-md w-full bg-white rounded-2xl border border-[#E5E7EB] p-8 text-center space-y-5 shadow-xs">
-          <div className="w-16 h-16 bg-[#F4F1EB] text-[#2D5A4A] rounded-full flex items-center justify-center mx-auto">
+        <div className="max-w-md w-full bg-white rounded-2xl border border-neutral-200 p-8 text-center space-y-5 shadow-xs">
+          <div className="w-16 h-16 bg-[#F4F7F2] text-[#2D5A4A] rounded-full flex items-center justify-center mx-auto">
             <Lock size={28} />
           </div>
           <div className="space-y-1.5">
-            <h2 className="text-xl font-extrabold text-[#111111]">Your Cart is Empty</h2>
-            <p className="text-xs text-[#737373] leading-relaxed">
+            <h2 className="text-xl font-extrabold text-[#171717]">Your Cart is Empty</h2>
+            <p className="text-xs text-neutral-500 leading-relaxed">
               Explore our catalogue of certified medical, surgical, and operating theatre equipment to begin procurement.
             </p>
           </div>
@@ -699,34 +877,35 @@ export const CheckoutPage: React.FC = () => {
     return (
       <div className="w-full bg-[#FFFFFF] min-h-screen py-12 sm:py-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
-          <div className="bg-white rounded-2xl border border-[#E5E7EB] p-6 sm:p-10 shadow-xs space-y-6">
-            
-            {/* Header / Verified Badge */}
+          <div className="bg-white rounded-2xl border border-neutral-200 p-6 sm:p-10 shadow-xs space-y-6">
             <div className="text-center space-y-3">
-              <div className="w-16 h-16 bg-[#F4F1EB] text-[#2D5A4A] rounded-full flex items-center justify-center mx-auto">
+              <div className="w-16 h-16 bg-[#F4F7F2] text-[#2D5A4A] rounded-full flex items-center justify-center mx-auto ring-8 ring-[#F4F7F2]/50">
                 <CheckCircle2 size={36} />
               </div>
               <div className="space-y-1">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-2xs font-bold tracking-wider uppercase bg-[#F4F1EB] text-[#2D5A4A]">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-2xs font-bold tracking-wider uppercase bg-[#F4F7F2] text-[#2D5A4A]">
                   <ShieldCheck size={13} /> Verified PayPal Transaction
                 </span>
-                <h1 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
+                <h1 className="text-2xl sm:text-3xl font-black text-[#171717] tracking-tight">
                   Order Confirmed & Payment Verified
                 </h1>
-                <p className="text-xs text-[#4A4A4A] max-w-lg mx-auto">
+                <p className="text-xs text-neutral-600 max-w-lg mx-auto">
                   A formal commercial confirmation and calibration proforma invoice have been transmitted to{" "}
-                  <strong>{completedOrder.customer?.email}</strong>.
+                  <strong className="text-neutral-900">{completedOrder.customer?.email}</strong>.
                 </p>
               </div>
             </div>
 
             {/* Order Reference Box */}
-            <div className="p-5 bg-[#F8F9FA] border border-[#E5E7EB] rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="p-5 bg-neutral-50 border border-neutral-200 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
-                <div className="text-2xs font-bold text-[#737373] uppercase tracking-wider">Order Reference</div>
+                <div className="text-2xs font-bold text-neutral-500 uppercase tracking-wider">Order Reference</div>
                 <div className="text-2xl font-mono font-black text-[#2D5A4A] mt-0.5">{completedOrder.orderNumber}</div>
-                <div className="text-2xs text-[#737373] mt-1">
-                  PayPal Capture ID: <span className="font-mono text-neutral-800">{completedOrder.payment?.paypalCaptureId || completedOrder.payment?.transactionId || "Confirmed"}</span>
+                <div className="text-2xs text-neutral-500 mt-1">
+                  PayPal Capture ID:{" "}
+                  <span className="font-mono text-neutral-800">
+                    {completedOrder.payment?.paypalCaptureId || completedOrder.payment?.transactionId || "Confirmed"}
+                  </span>
                 </div>
               </div>
               <div className="flex items-center gap-2.5 w-full sm:w-auto">
@@ -739,7 +918,7 @@ export const CheckoutPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => window.print()}
-                  className="px-4 py-2.5 border border-[#E5E7EB] text-[#111111] rounded-xl text-xs font-bold hover:bg-neutral-100 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="px-4 py-2.5 border border-neutral-300 text-neutral-800 rounded-xl text-xs font-bold hover:bg-neutral-100 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <Printer size={15} />
                   <span>Print Receipt</span>
@@ -749,27 +928,30 @@ export const CheckoutPage: React.FC = () => {
 
             {/* Line Items */}
             <div className="space-y-3">
-              <h3 className="text-xs font-bold text-[#111111] uppercase tracking-wider">
+              <h3 className="text-xs font-bold text-[#171717] uppercase tracking-wider">
                 Equipment Ordered ({completedOrder.items?.length || 0})
               </h3>
-              <div className="border border-[#E5E7EB] rounded-2xl divide-y divide-[#E5E7EB] overflow-hidden text-xs">
+              <div className="border border-neutral-200 rounded-2xl divide-y divide-neutral-200 overflow-hidden text-xs">
                 {completedOrder.items?.map((item, idx) => (
                   <div key={idx} className="p-4 flex items-center justify-between gap-4 bg-white">
                     <div className="flex items-center gap-3.5 min-w-0">
                       <img
                         src={item.image || "/placeholder.jpg"}
                         alt={item.title}
-                        className="w-12 h-12 object-contain p-1 rounded-xl border border-[#E5E7EB] bg-[#F8F9FA] shrink-0"
+                        className="w-12 h-12 object-contain p-1 rounded-xl border border-neutral-200 bg-neutral-50 shrink-0"
                       />
                       <div className="min-w-0">
-                        <div className="font-bold text-[#111111] truncate">{item.title}</div>
-                        <div className="text-3xs text-[#737373] font-mono mt-0.5">
+                        <div className="font-bold text-[#171717] truncate">{item.title}</div>
+                        <div className="text-3xs text-neutral-500 font-mono mt-0.5">
                           SKU: {item.sku} • Qty: {item.quantity}
                         </div>
                       </div>
                     </div>
-                    <div className="font-black text-[#111111] whitespace-nowrap">
-                      {item.currency} {(((item.unitPrice ?? item.convertedUnitPrice) || 0) * item.quantity).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    <div className="font-black text-[#171717] whitespace-nowrap">
+                      {item.currency}{" "}
+                      {(
+                        ((item.unitPrice ?? item.convertedUnitPrice) || 0) * item.quantity
+                      ).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </div>
                   </div>
                 ))}
@@ -778,63 +960,74 @@ export const CheckoutPage: React.FC = () => {
 
             {/* Delivery & Payment Details */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-              <div className="p-4 rounded-xl border border-[#E5E7EB] bg-[#F8F9FA] space-y-1.5">
+              <div className="p-4 rounded-xl border border-neutral-200 bg-neutral-50 space-y-1.5">
                 <div className="font-bold text-[#2D5A4A] uppercase text-2xs tracking-wider flex items-center gap-1.5">
                   <MapPin size={13} /> Shipping Destination
                 </div>
-                <div className="font-semibold text-[#111111]">{completedOrder.shippingAddress?.fullName}</div>
+                <div className="font-semibold text-[#171717]">{completedOrder.shippingAddress?.fullName}</div>
                 {completedOrder.shippingAddress?.companyName && (
-                  <div className="text-[#4A4A4A]">{completedOrder.shippingAddress.companyName}</div>
+                  <div className="text-neutral-600">{completedOrder.shippingAddress.companyName}</div>
                 )}
-                <div className="text-[#4A4A4A]">
+                <div className="text-neutral-600">
                   {completedOrder.shippingAddress?.addressLine1}
                   {completedOrder.shippingAddress?.addressLine2 ? `, ${completedOrder.shippingAddress.addressLine2}` : ""}
                 </div>
-                <div className="text-[#4A4A4A]">
-                  {completedOrder.shippingAddress?.city}, {completedOrder.shippingAddress?.state} {completedOrder.shippingAddress?.postalCode}
+                <div className="text-neutral-600">
+                  {completedOrder.shippingAddress?.city}, {completedOrder.shippingAddress?.state}{" "}
+                  {completedOrder.shippingAddress?.postalCode}
                 </div>
-                <div className="text-[#111111] font-medium">{completedOrder.shippingAddress?.country}</div>
+                <div className="text-[#171717] font-medium">{completedOrder.shippingAddress?.country}</div>
               </div>
 
-              <div className="p-4 rounded-xl border border-[#E5E7EB] bg-[#F8F9FA] space-y-1.5">
+              <div className="p-4 rounded-xl border border-neutral-200 bg-neutral-50 space-y-1.5">
                 <div className="font-bold text-[#2D5A4A] uppercase text-2xs tracking-wider flex items-center gap-1.5">
                   <Truck size={13} /> Logistics & Air Cargo
                 </div>
-                <div className="font-semibold text-[#111111]">{completedOrder.shippingMethod?.name}</div>
-                <div className="text-[#4A4A4A]">Estimated Transit: {completedOrder.shippingMethod?.estimatedDays}</div>
-                <div className="text-[#4A4A4A]">Carrier: {completedOrder.shippingMethod?.carrier}</div>
-                <div className="text-3xs text-[#737373] pt-1">Tracking number will be activated upon clinical crate dispatch.</div>
+                <div className="font-semibold text-[#171717]">{completedOrder.shippingMethod?.name}</div>
+                <div className="text-neutral-600">Estimated Transit: {completedOrder.shippingMethod?.estimatedDays}</div>
+                <div className="text-neutral-600">Carrier: {completedOrder.shippingMethod?.carrier}</div>
+                <div className="text-3xs text-neutral-500 pt-1">
+                  Airway bill tracking will activate upon crate dispatch from airport warehouse.
+                </div>
               </div>
             </div>
 
             {/* Final Total Summary */}
-            <div className="p-4 rounded-xl border border-[#E5E7EB] bg-[#F4F1EB]/50 space-y-2 text-xs">
-              <div className="flex justify-between text-[#4A4A4A]">
+            <div className="p-4 rounded-xl border border-neutral-200 bg-[#F4F7F2]/60 space-y-2 text-xs">
+              <div className="flex justify-between text-neutral-600">
                 <span>Equipment Subtotal:</span>
-                <span className="font-medium text-[#111111]">
-                  {completedOrder.pricing?.currency} {completedOrder.pricing?.subtotal?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                <span className="font-medium text-[#171717]">
+                  {completedOrder.pricing?.currency}{" "}
+                  {completedOrder.pricing?.subtotal?.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })}
                 </span>
               </div>
               {completedOrder.pricing?.discount > 0 && (
                 <div className="flex justify-between text-[#2D5A4A]">
                   <span>Clinical Discount:</span>
                   <span className="font-bold">
-                    -{completedOrder.pricing?.currency} {completedOrder.pricing?.discount?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    -{completedOrder.pricing?.currency}{" "}
+                    {completedOrder.pricing?.discount?.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                    })}
                   </span>
                 </div>
               )}
-              <div className="flex justify-between text-[#4A4A4A]">
+              <div className="flex justify-between text-neutral-600">
                 <span>Air Freight & Documentation:</span>
-                <span className="font-medium text-[#111111]">
-                  {completedOrder.pricing?.shipping > 0
-                    ? `${completedOrder.pricing?.currency} ${completedOrder.pricing?.shipping?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-                    : "Complimentary Medical Air Cargo"}
-                </span>
+                <span className="font-medium text-[#2D5A4A]">Complimentary Medical Air Cargo</span>
               </div>
-              <div className="pt-2 border-t border-[#E5E7EB] flex justify-between font-black text-sm text-[#111111]">
+              <div className="pt-2 border-t border-neutral-200 flex justify-between font-black text-sm text-[#171717]">
                 <span>Total Amount Paid (PayPal):</span>
                 <span className="text-base text-[#2D5A4A]">
-                  {completedOrder.pricing?.currency} {completedOrder.pricing?.grandTotal?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  {completedOrder.pricing?.currency}{" "}
+                  {completedOrder.pricing?.grandTotal?.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })}
                 </span>
               </div>
             </div>
@@ -854,30 +1047,153 @@ export const CheckoutPage: React.FC = () => {
     );
   }
 
-  // MAIN CHECKOUT FORM
+  // Filtered countries for searchable dropdown
+  const filteredCountries = countriesList.filter(
+    (c) =>
+      c.name.toLowerCase().includes(countrySearchQuery.toLowerCase()) ||
+      c.code.toLowerCase().includes(countrySearchQuery.toLowerCase()) ||
+      c.dialCode.includes(countrySearchQuery)
+  );
+
   return (
     <div className="w-full bg-[#FFFFFF] min-h-screen py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Checkout Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-8 border-b border-[#E5E7EB]">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xs font-extrabold uppercase tracking-widest text-[#2D5A4A] bg-[#F4F1EB] px-2.5 py-0.5 rounded-full">
-                Direct Clinical Procurement
-              </span>
+        {/* CHECKOUT HEADER & PROGRESS BAR */}
+        <div className="mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 border-b border-neutral-200">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-2xs font-extrabold uppercase tracking-widest text-[#2D5A4A] bg-[#F4F7F2] px-2.5 py-0.5 rounded-full">
+                  Direct Clinical Procurement
+                </span>
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-black text-[#171717] tracking-tight mt-1.5">
+                Worldwide Medical Checkout
+              </h1>
+              <p className="text-xs text-neutral-500 mt-0.5">
+                Certified hospital equipment checkout with worldwide address intelligence and multi-currency PayPal processing.
+              </p>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight mt-1.5">
-              Secure Medical Checkout
-            </h1>
-            <p className="text-xs text-[#737373] mt-0.5">
-              Certified hospital equipment checkout with multi-currency PayPal processing and export documentation.
-            </p>
+
+            <div className="flex items-center gap-2 self-start sm:self-auto text-xs font-semibold text-[#2D5A4A] bg-[#F4F7F2] px-3 py-2 rounded-xl border border-[#2D5A4A]/20">
+              <Lock size={15} />
+              <span>256-Bit SSL Encrypted & PCI Certified</span>
+            </div>
           </div>
 
-          <div className="flex items-center gap-2 self-start sm:self-auto text-xs font-semibold text-[#2D5A4A] bg-[#F4F1EB] px-3 py-2 rounded-xl border border-[#2D5A4A]/20">
-            <Lock size={15} />
-            <span>256-Bit SSL Encrypted & Verified</span>
+          {/* DR.MEDEX GREEN 3-STEP PROGRESS INDICATOR (NO BLACK THEME) */}
+          <div className="mt-6 bg-white rounded-2xl border border-neutral-200 p-4 sm:p-5 shadow-xs">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 relative">
+              {/* Step 1 */}
+              <button
+                type="button"
+                onClick={() => setCurrentStep(1)}
+                className={`flex items-center gap-2 sm:gap-3 text-left transition-all ${
+                  currentStep === 1
+                    ? "opacity-100"
+                    : currentStep > 1
+                    ? "opacity-90 hover:opacity-100 cursor-pointer"
+                    : "opacity-60 cursor-not-allowed"
+                }`}
+              >
+                <div
+                  className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 transition-all ${
+                    currentStep === 1
+                      ? "bg-[#7AA05A] text-white ring-4 ring-[#7AA05A]/20 shadow-xs"
+                      : currentStep > 1
+                      ? "bg-[#2D5A4A] text-white"
+                      : "bg-neutral-100 text-neutral-500 border border-neutral-300"
+                  }`}
+                >
+                  {currentStep > 1 ? <Check size={16} /> : "1"}
+                </div>
+                <div className="min-w-0 hidden xs:block sm:block">
+                  <div
+                    className={`text-2xs sm:text-xs font-bold truncate ${
+                      currentStep === 1 ? "text-[#2D5A4A]" : currentStep > 1 ? "text-neutral-800" : "text-neutral-400"
+                    }`}
+                  >
+                    1. Destination & Customer
+                  </div>
+                  <div className="text-3xs text-neutral-500 truncate hidden md:block">
+                    Customer & Worldwide Address
+                  </div>
+                </div>
+              </button>
+
+              {/* Step 2 */}
+              <button
+                type="button"
+                onClick={() => {
+                  if (validateStep1()) setCurrentStep(2);
+                }}
+                className={`flex items-center gap-2 sm:gap-3 text-left transition-all ${
+                  currentStep === 2
+                    ? "opacity-100"
+                    : currentStep > 2
+                    ? "opacity-90 hover:opacity-100 cursor-pointer"
+                    : "opacity-60"
+                }`}
+              >
+                <div
+                  className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 transition-all ${
+                    currentStep === 2
+                      ? "bg-[#7AA05A] text-white ring-4 ring-[#7AA05A]/20 shadow-xs"
+                      : currentStep > 2
+                      ? "bg-[#2D5A4A] text-white"
+                      : "bg-neutral-100 text-neutral-500 border border-neutral-300"
+                  }`}
+                >
+                  {currentStep > 2 ? <Check size={16} /> : "2"}
+                </div>
+                <div className="min-w-0 hidden xs:block sm:block">
+                  <div
+                    className={`text-2xs sm:text-xs font-bold truncate ${
+                      currentStep === 2 ? "text-[#2D5A4A]" : currentStep > 2 ? "text-neutral-800" : "text-neutral-400"
+                    }`}
+                  >
+                    2. Air Freight Logistics
+                  </div>
+                  <div className="text-3xs text-neutral-500 truncate hidden md:block">
+                    DHL Express Medical Cargo
+                  </div>
+                </div>
+              </button>
+
+              {/* Step 3 */}
+              <button
+                type="button"
+                onClick={() => {
+                  if (validateStep1()) setCurrentStep(3);
+                }}
+                className={`flex items-center gap-2 sm:gap-3 text-left transition-all ${
+                  currentStep === 3 ? "opacity-100" : "opacity-60"
+                }`}
+              >
+                <div
+                  className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 transition-all ${
+                    currentStep === 3
+                      ? "bg-[#7AA05A] text-white ring-4 ring-[#7AA05A]/20 shadow-xs"
+                      : "bg-neutral-100 text-neutral-500 border border-neutral-300"
+                  }`}
+                >
+                  3
+                </div>
+                <div className="min-w-0 hidden xs:block sm:block">
+                  <div
+                    className={`text-2xs sm:text-xs font-bold truncate ${
+                      currentStep === 3 ? "text-[#2D5A4A]" : "text-neutral-400"
+                    }`}
+                  >
+                    3. Payment & Confirmation
+                  </div>
+                  <div className="text-3xs text-neutral-500 truncate hidden md:block">
+                    PayPal Gateway & Settlement
+                  </div>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -886,10 +1202,7 @@ export const CheckoutPage: React.FC = () => {
           <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-start gap-2.5 animate-in fade-in">
             <AlertCircle size={18} className="shrink-0 text-red-600 mt-0.5" />
             <div className="flex-1 font-medium leading-relaxed">{errorMessage}</div>
-            <button
-              onClick={() => setErrorMessage("")}
-              className="text-red-500 hover:text-red-800 cursor-pointer"
-            >
+            <button onClick={() => setErrorMessage("")} className="text-red-500 hover:text-red-800 cursor-pointer">
               <X size={16} />
             </button>
           </div>
@@ -897,447 +1210,859 @@ export const CheckoutPage: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           
-          {/* LEFT COLUMN: Customer Information, Saved Addresses, Shipping Address, Billing (7 cols) */}
+          {/* LEFT COLUMN: ACTIVE STEP CONTENT (7 Cols) */}
           <div className="lg:col-span-7 space-y-6">
-            
-            {/* 1. CUSTOMER INFORMATION */}
-            <div className="bg-white rounded-2xl border border-[#E5E7EB] p-5 sm:p-7 shadow-xs space-y-4">
-              <div className="flex items-center gap-2 pb-3 border-b border-[#E5E7EB]">
-                <User size={18} className="text-[#2D5A4A]" />
-                <h2 className="text-sm font-extrabold text-[#111111] uppercase tracking-wider">
-                  1. Customer & Organization Details
-                </h2>
-              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                <div>
-                  <label className="block font-bold text-[#111111] mb-1.5">
-                    First Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    placeholder="e.g. Jonathan"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E7EB] bg-white text-[#111111] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-bold text-[#111111] mb-1.5">
-                    Last Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    placeholder="e.g. Reyes"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E7EB] bg-white text-[#111111] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="block font-bold text-[#111111] mb-1.5">
-                    Official Email Address <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="procurement@hospital.org"
-                      className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-[#E5E7EB] bg-white text-[#111111] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                    />
-                    <Mail size={16} className="absolute left-3 top-3 text-[#737373] pointer-events-none" />
-                  </div>
-                  <span className="text-3xs text-[#737373] mt-1 block">
-                    Order confirmation, commercial invoice, and calibration certificate will be delivered to this email.
-                  </span>
-                </div>
-
-                <div>
-                  <label className="block font-bold text-[#111111] mb-1.5">
-                    International Telephone <span className="text-red-500">*</span>
-                  </label>
-                  <InternationalPhoneInput
-                    value={phone}
-                    onChange={setPhone}
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-bold text-[#111111] mb-1.5">
-                    Hospital / Entity Name <span className="text-neutral-400 font-normal">(Optional)</span>
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      value={companyName}
-                      onChange={(e) => setCompanyName(e.target.value)}
-                      placeholder="e.g. St. Jude Surgical Wing"
-                      className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-[#E5E7EB] bg-white text-[#111111] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                    />
-                    <Building2 size={16} className="absolute left-3 top-3 text-[#737373] pointer-events-none" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 2. SAVED ADDRESS SELECTION (If Available) */}
-            {savedAddresses.length > 0 && (
-              <div className="bg-white rounded-2xl border border-[#E5E7EB] p-5 sm:p-7 shadow-xs space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-[#E5E7EB]">
-                  <div className="flex items-center gap-2">
-                    <MapPin size={18} className="text-[#2D5A4A]" />
-                    <h2 className="text-sm font-extrabold text-[#111111] uppercase tracking-wider">
-                      Saved Delivery Addresses
+            {/* ========================================================
+                STEP 1: DESTINATION & CUSTOMER INFORMATION
+               ======================================================== */}
+            {currentStep === 1 && (
+              <div className="space-y-6 animate-in fade-in duration-200">
+                
+                {/* 1. CUSTOMER INFORMATION */}
+                <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
+                  <div className="flex items-center gap-2 pb-3 border-b border-neutral-200">
+                    <User size={18} className="text-[#2D5A4A]" />
+                    <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
+                      Customer & Organization Details
                     </h2>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setEditingAddress(null);
-                      setIsAddressModalOpen(true);
-                    }}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#7AA05A] hover:text-[#2D5A4A] cursor-pointer"
-                  >
-                    <Plus size={14} /> Add New Address
-                  </button>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    {/* Full Name */}
+                    <div className="sm:col-span-2">
+                      <label className="block font-bold text-[#171717] mb-1.5">
+                        Full Name <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        placeholder="Enter your full name"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                      />
+                    </div>
+
+                    {/* Hospital / Clinic / Organization */}
+                    <div className="sm:col-span-2">
+                      <label className="block font-bold text-[#171717] mb-1.5">
+                        Hospital / Clinic / Organization <span className="text-neutral-400 font-normal">(Optional)</span>
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          value={companyName}
+                          onChange={(e) => setCompanyName(e.target.value)}
+                          placeholder="Enter hospital or organization name"
+                          className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                        />
+                        <Building2 size={16} className="absolute left-3 top-3 text-neutral-400 pointer-events-none" />
+                      </div>
+                    </div>
+
+                    {/* Email Address */}
+                    <div>
+                      <label className="block font-bold text-[#171717] mb-1.5">
+                        Official Email Address <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="email"
+                          required
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="Enter your email address"
+                          className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                        />
+                        <Mail size={16} className="absolute left-3 top-3 text-neutral-400 pointer-events-none" />
+                      </div>
+                    </div>
+
+                    {/* International Phone Number with auto-synced calling code */}
+                    <div>
+                      <label className="block font-bold text-[#171717] mb-1.5">
+                        International Phone Number <span className="text-red-500">*</span>
+                      </label>
+                      <InternationalPhoneInput
+                        value={phone}
+                        onChange={setPhone}
+                        countryCode={countryCode}
+                        countriesList={countriesList}
+                        required
+                        placeholder="Enter your phone number"
+                      />
+                    </div>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                  {savedAddresses.map((addr) => {
-                    const isSelected = selectedAddressId === addr.id;
-                    return (
-                      <div
-                        key={addr.id}
+                {/* 2. SAVED ADDRESS SELECTION (If available) */}
+                {savedAddresses.length > 0 && (
+                  <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
+                    <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+                      <div className="flex items-center gap-2">
+                        <MapPin size={18} className="text-[#2D5A4A]" />
+                        <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
+                          Saved Delivery Addresses
+                        </h2>
+                      </div>
+                      <button
+                        type="button"
                         onClick={() => {
-                          setSelectedAddressId(addr.id);
-                          applySavedAddress(addr);
+                          setEditingAddress(null);
+                          setIsAddressModalOpen(true);
                         }}
-                        className={`p-3.5 rounded-xl border transition-all cursor-pointer relative flex flex-col justify-between ${
-                          isSelected
-                            ? "border-[#7AA05A] bg-[#F4F1EB]/40 ring-2 ring-[#7AA05A]/20"
-                            : "border-[#E5E7EB] bg-white hover:border-neutral-300"
-                        }`}
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#7AA05A] hover:text-[#2D5A4A] cursor-pointer"
                       >
-                        <div>
-                          <div className="flex items-center justify-between gap-2 mb-1">
-                            <span className="font-bold text-[#111111]">{addr.fullName}</span>
-                            {addr.isDefaultShipping && (
-                              <span className="text-3xs font-extrabold text-[#2D5A4A] bg-[#F4F1EB] px-2 py-0.5 rounded-md">
-                                Default
+                        <Plus size={14} /> Add New Address
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                      {savedAddresses.map((addr) => {
+                        const isSelected = selectedAddressId === addr.id;
+                        return (
+                          <div
+                            key={addr.id}
+                            onClick={() => {
+                              setSelectedAddressId(addr.id);
+                              applySavedAddress(addr);
+                            }}
+                            className={`p-3.5 rounded-xl border transition-all cursor-pointer relative flex flex-col justify-between ${
+                              isSelected
+                                ? "border-[#7AA05A] bg-[#F4F7F2]/60 ring-2 ring-[#7AA05A]/20"
+                                : "border-neutral-200 bg-white hover:border-neutral-300"
+                            }`}
+                          >
+                            <div>
+                              <div className="flex items-center justify-between gap-2 mb-1">
+                                <span className="font-bold text-[#171717]">{addr.fullName}</span>
+                                {addr.isDefaultShipping && (
+                                  <span className="text-3xs font-extrabold text-[#2D5A4A] bg-[#F4F7F2] px-2 py-0.5 rounded-md">
+                                    Default
+                                  </span>
+                                )}
+                              </div>
+                              {addr.companyName && (
+                                <div className="text-neutral-600 font-medium text-3xs">{addr.companyName}</div>
+                              )}
+                              <div className="text-neutral-500 text-2xs mt-1 leading-relaxed">
+                                {addr.addressLine1}
+                                {addr.addressLine2 ? `, ${addr.addressLine2}` : ""}, {addr.city}, {addr.state} {addr.postalCode}, {addr.country}
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between pt-2.5 mt-2 border-t border-neutral-100">
+                              <span className={`text-2xs font-bold ${isSelected ? "text-[#2D5A4A]" : "text-neutral-400"}`}>
+                                {isSelected ? "✓ Selected" : "Select this address"}
                               </span>
+                              <div className="flex items-center gap-1.5">
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setEditingAddress(addr);
+                                    setIsAddressModalOpen(true);
+                                  }}
+                                  className="p-1 text-neutral-400 hover:text-neutral-800 rounded cursor-pointer"
+                                  title="Edit Address"
+                                >
+                                  <Edit3 size={13} />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={(e) => handleDeleteAddress(addr.id, e)}
+                                  className="p-1 text-red-400 hover:text-red-700 rounded cursor-pointer"
+                                  title="Delete Address"
+                                >
+                                  <Trash2 size={13} />
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* 3. SHIPPING DESTINATION FORM WITH WORLDWIDE AUTOCOMPLETE */}
+                <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
+                  <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+                    <div className="flex items-center gap-2">
+                      <Globe size={18} className="text-[#2D5A4A]" />
+                      <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
+                        Regional Shipping Destination
+                      </h2>
+                    </div>
+                    <span className="text-3xs font-bold text-neutral-500 uppercase tracking-wider">
+                      250 Territories Supported
+                    </span>
+                  </div>
+
+                  <div className="space-y-4 text-xs">
+                    {/* Destination Country Searchable Selector */}
+                    <div className="relative" ref={countryDropdownRef}>
+                      <label className="block font-bold text-[#171717] mb-1.5">
+                        Destination Country / Jurisdiction <span className="text-red-500">*</span>
+                      </label>
+
+                      <button
+                        type="button"
+                        onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
+                        className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-semibold hover:border-neutral-400 focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all text-left"
+                      >
+                        <div className="flex items-center gap-2.5 truncate">
+                          <span className="text-lg leading-none">{activeCountry.flag}</span>
+                          <span className="font-bold text-sm text-[#171717] truncate">{activeCountry.name}</span>
+                          <span className="text-2xs font-mono text-neutral-400">({activeCountry.code})</span>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="text-2xs font-bold text-[#2D5A4A] bg-[#F4F7F2] px-2 py-0.5 rounded">
+                            {activeCountry.dialCode}
+                          </span>
+                          <span className="text-2xs text-neutral-500 font-mono">
+                            {activeCountry.currency} ({activeCountry.symbol})
+                          </span>
+                        </div>
+                      </button>
+
+                      {/* Dropdown Menu for Countries */}
+                      {isCountryDropdownOpen && (
+                        <div className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-neutral-200 rounded-xl shadow-xl z-50 py-2 max-h-72 flex flex-col animate-in fade-in zoom-in-95 duration-100">
+                          <div className="px-3 pb-2 border-b border-neutral-100">
+                            <div className="relative">
+                              <Search size={14} className="absolute left-2.5 top-2.5 text-neutral-400" />
+                              <input
+                                type="text"
+                                value={countrySearchQuery}
+                                onChange={(e) => setCountrySearchQuery(e.target.value)}
+                                placeholder="Search by country, code (+91, +92, +1), or ISO..."
+                                className="w-full pl-8 pr-3 py-1.5 text-xs bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-[#7AA05A] text-neutral-800"
+                                autoFocus
+                              />
+                            </div>
+                          </div>
+
+                          <div className="overflow-y-auto max-h-56 divide-y divide-neutral-50">
+                            {filteredCountries.length === 0 ? (
+                              <div className="px-4 py-3 text-xs text-neutral-500 text-center">
+                                No matching country or code found.
+                              </div>
+                            ) : (
+                              filteredCountries.map((c) => (
+                                <button
+                                  key={c.code}
+                                  type="button"
+                                  onClick={() => handleSelectCountry(c)}
+                                  className={`w-full flex items-center justify-between px-3.5 py-2 hover:bg-[#F4F7F2] text-left transition-colors text-xs ${
+                                    c.code === countryCode ? "bg-[#7AA05A]/10 font-bold text-[#2D5A4A]" : "text-neutral-800"
+                                  }`}
+                                >
+                                  <div className="flex items-center gap-2.5 truncate pr-2">
+                                    <span className="text-base">{c.flag}</span>
+                                    <span className="truncate">{c.name}</span>
+                                    <span className="text-3xs font-mono text-neutral-400">({c.code})</span>
+                                  </div>
+                                  <div className="flex items-center gap-2 shrink-0">
+                                    <span className="font-mono text-2xs text-neutral-500">{c.dialCode}</span>
+                                    <span className="text-3xs font-semibold text-neutral-400">{c.currency}</span>
+                                  </div>
+                                </button>
+                              ))
                             )}
                           </div>
-                          {addr.companyName && (
-                            <div className="text-[#4A4A4A] font-medium text-3xs">{addr.companyName}</div>
-                          )}
-                          <div className="text-[#737373] text-2xs mt-1 leading-relaxed">
-                            {addr.addressLine1}
-                            {addr.addressLine2 ? `, ${addr.addressLine2}` : ""}, {addr.city}, {addr.state} {addr.postalCode}, {addr.country}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Real-time Address Autocomplete Search Bar */}
+                    <div className="relative" ref={autocompleteContainerRef}>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <label className="block font-bold text-[#171717]">
+                          Address Autocomplete Search
+                        </label>
+                        <span className="text-3xs text-neutral-400 font-medium">
+                          OpenStreetMap / Photon Geocoded
+                        </span>
+                      </div>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          value={autocompleteQuery}
+                          onChange={(e) => handleAddressSearchChange(e.target.value)}
+                          onFocus={() => {
+                            if (autocompleteSuggestions.length > 0) setShowAddressSuggestions(true);
+                          }}
+                          placeholder={`Search address or hospital landmark in ${activeCountry.name}...`}
+                          className="w-full pl-9 pr-8 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                        />
+                        <Search size={15} className="absolute left-3 top-3 text-neutral-400 pointer-events-none" />
+                        {isSearchingAddress ? (
+                          <Loader2 size={15} className="absolute right-3 top-3 animate-spin text-[#7AA05A]" />
+                        ) : autocompleteQuery ? (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setAutocompleteQuery("");
+                              setAutocompleteSuggestions([]);
+                              setShowAddressSuggestions(false);
+                            }}
+                            className="absolute right-3 top-3 text-neutral-400 hover:text-neutral-700"
+                          >
+                            <X size={14} />
+                          </button>
+                        ) : null}
+                      </div>
+
+                      {/* Autocomplete Suggestions Popup */}
+                      {showAddressSuggestions && autocompleteSuggestions.length > 0 && (
+                        <div className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-neutral-200 rounded-xl shadow-xl z-40 max-h-60 overflow-y-auto divide-y divide-neutral-100 animate-in fade-in duration-100">
+                          {autocompleteSuggestions.map((sug, idx) => (
+                            <button
+                              key={idx}
+                              type="button"
+                              onClick={() => handleSelectAddressSuggestion(sug)}
+                              className="w-full px-3.5 py-2.5 text-left hover:bg-[#F4F7F2] transition-colors flex items-start gap-2.5 cursor-pointer"
+                            >
+                              <MapPin size={15} className="text-[#2D5A4A] shrink-0 mt-0.5" />
+                              <div className="min-w-0">
+                                <div className="text-xs font-semibold text-[#171717] truncate">
+                                  {sug.addressLine1 || sug.formattedAddress.split(",")[0]}
+                                </div>
+                                <div className="text-3xs text-neutral-500 truncate mt-0.5">
+                                  {sug.formattedAddress}
+                                </div>
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Street Address Line 1 */}
+                    <div>
+                      <label className="block font-bold text-[#171717] mb-1.5">
+                        Street Address (Line 1) <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={addressLine1}
+                        onChange={(e) => setAddressLine1(e.target.value)}
+                        placeholder="Building, street, hospital ward, suite number"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                      />
+                    </div>
+
+                    {/* Address Line 2 */}
+                    <div>
+                      <label className="block font-bold text-[#171717] mb-1.5">
+                        Address Line 2 <span className="text-neutral-400 font-normal">(Optional)</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={addressLine2}
+                        onChange={(e) => setAddressLine2(e.target.value)}
+                        placeholder="Apartment, department, ward, floor, loading dock"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      {/* Dynamic State / Province / Territory */}
+                      <div>
+                        <label className="block font-bold text-[#171717] mb-1.5">
+                          {activeCountry.stateLabel || "State / Province"}
+                        </label>
+                        {isLoadingStates ? (
+                          <div className="w-full px-3 py-2.5 rounded-xl border border-neutral-200 bg-neutral-50 text-neutral-400 flex items-center gap-2">
+                            <Loader2 size={13} className="animate-spin text-[#7AA05A]" />
+                            <span>Loading states...</span>
                           </div>
-                          {addr.phone && (
-                            <div className="text-3xs text-[#737373] mt-1 font-mono">{addr.phone}</div>
-                          )}
+                        ) : statesList.length > 0 ? (
+                          <select
+                            value={state}
+                            onChange={(e) => setState(e.target.value)}
+                            className="w-full px-3 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all cursor-pointer"
+                          >
+                            <option value="">Select state/province...</option>
+                            {statesList.map((s) => (
+                              <option key={s.code} value={s.name}>
+                                {s.name}
+                              </option>
+                            ))}
+                          </select>
+                        ) : (
+                          <input
+                            type="text"
+                            value={state}
+                            onChange={(e) => setState(e.target.value)}
+                            placeholder="Enter state or region"
+                            className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                          />
+                        )}
+                      </div>
+
+                      {/* City */}
+                      <div>
+                        <label className="block font-bold text-[#171717] mb-1.5">
+                          City / Municipality <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={city}
+                          onChange={(e) => setCity(e.target.value)}
+                          placeholder="Enter city"
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                        />
+                      </div>
+
+                      {/* Dynamic Postal Code */}
+                      <div>
+                        <label className="block font-bold text-[#171717] mb-1.5">
+                          {activeCountry.postalLabel || "Postal Code"} <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={postalCode}
+                          onChange={(e) => setPostalCode(e.target.value)}
+                          placeholder={
+                            activeCountry.code === "IN"
+                              ? "e.g. 110001"
+                              : activeCountry.code === "US"
+                              ? "e.g. 90210"
+                              : activeCountry.code === "GB"
+                              ? "e.g. SW1A 1AA"
+                              : "Enter postal code"
+                          }
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Special Delivery Instructions (Optional) */}
+                    <div>
+                      <label className="block font-bold text-[#171717] mb-1.5">
+                        Cargo Delivery Instructions <span className="text-neutral-400 font-normal">(Optional)</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={deliveryInstructions}
+                        onChange={(e) => setDeliveryInstructions(e.target.value)}
+                        placeholder="Special hospital delivery instructions, receiving dock hours, contact person"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                      />
+                    </div>
+
+                    {/* Save Address to Account Checkbox */}
+                    <div className="pt-2">
+                      <label className="flex items-center gap-2 cursor-pointer select-none text-xs text-[#171717]">
+                        <input
+                          type="checkbox"
+                          checked={saveAddressToAccount}
+                          onChange={(e) => setSaveAddressToAccount(e.target.checked)}
+                          className="w-4 h-4 rounded text-[#7AA05A] focus:ring-[#7AA05A] accent-[#7AA05A]"
+                        />
+                        <span>Save this delivery address to my DR.MEDEX account for future orders</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4. BILLING ADDRESS TOGGLE */}
+                <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
+                  <div className="flex items-center justify-between">
+                    <label className="flex items-center gap-2.5 cursor-pointer select-none text-xs font-bold text-[#171717]">
+                      <input
+                        type="checkbox"
+                        checked={billingSameAsShipping}
+                        onChange={(e) => setBillingSameAsShipping(e.target.checked)}
+                        className="w-4 h-4 rounded text-[#7AA05A] focus:ring-[#7AA05A] accent-[#7AA05A]"
+                      />
+                      <span>Billing address same as shipping address</span>
+                    </label>
+                  </div>
+
+                  {/* SEPARATE BILLING ADDRESS FORM */}
+                  {!billingSameAsShipping && (
+                    <div className="pt-4 border-t border-neutral-200 space-y-4 animate-in fade-in duration-150 text-xs">
+                      <h3 className="font-extrabold text-[#2D5A4A] uppercase tracking-wider text-2xs">
+                        Separate Billing Information
+                      </h3>
+                      
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="sm:col-span-2">
+                          <label className="block font-bold text-[#171717] mb-1">Billing Full Name *</label>
+                          <input
+                            type="text"
+                            required
+                            value={billingFullName}
+                            onChange={(e) => setBillingFullName(e.target.value)}
+                            placeholder="Accounts department or representative"
+                            className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#7AA05A]"
+                          />
                         </div>
 
-                        <div className="flex items-center justify-between pt-2.5 mt-2 border-t border-[#E5E7EB]">
-                          <span className={`text-2xs font-bold ${isSelected ? "text-[#2D5A4A]" : "text-[#737373]"}`}>
-                            {isSelected ? "✓ Selected for Delivery" : "Select this address"}
-                          </span>
-                          <div className="flex items-center gap-1.5">
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setEditingAddress(addr);
-                                setIsAddressModalOpen(true);
-                              }}
-                              className="p-1 text-[#737373] hover:text-[#111111] rounded cursor-pointer"
-                              title="Edit Address"
-                            >
-                              <Edit3 size={13} />
-                            </button>
-                            <button
-                              type="button"
-                              onClick={(e) => handleDeleteAddress(addr.id, e)}
-                              className="p-1 text-red-400 hover:text-red-700 rounded cursor-pointer"
-                              title="Delete Address"
-                            >
-                              <Trash2 size={13} />
-                            </button>
-                          </div>
+                        <div>
+                          <label className="block font-bold text-[#171717] mb-1">Billing Organization</label>
+                          <input
+                            type="text"
+                            value={billingCompanyName}
+                            onChange={(e) => setBillingCompanyName(e.target.value)}
+                            placeholder="Billing entity or hospital name"
+                            className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#7AA05A]"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block font-bold text-[#171717] mb-1">Billing Country *</label>
+                          <select
+                            value={billingCountryCode}
+                            onChange={(e) => setBillingCountryCode(e.target.value)}
+                            className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white font-medium focus:outline-none focus:border-[#7AA05A]"
+                          >
+                            {countriesList.map((c) => (
+                              <option key={c.code} value={c.code}>
+                                {c.flag} {c.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div className="sm:col-span-2">
+                          <label className="block font-bold text-[#171717] mb-1">Billing Street Address *</label>
+                          <input
+                            type="text"
+                            required
+                            value={billingAddressLine1}
+                            onChange={(e) => setBillingAddressLine1(e.target.value)}
+                            placeholder="Street, suite, financial office"
+                            className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#7AA05A]"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block font-bold text-[#171717] mb-1">Billing City *</label>
+                          <input
+                            type="text"
+                            required
+                            value={billingCity}
+                            onChange={(e) => setBillingCity(e.target.value)}
+                            placeholder="City"
+                            className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#7AA05A]"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block font-bold text-[#171717] mb-1">Billing Postal Code *</label>
+                          <input
+                            type="text"
+                            required
+                            value={billingPostalCode}
+                            onChange={(e) => setBillingPostalCode(e.target.value)}
+                            placeholder="Postal / ZIP code"
+                            className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#7AA05A]"
+                          />
                         </div>
                       </div>
-                    );
-                  })}
+                    </div>
+                  )}
+                </div>
+
+                {/* Step 1 Action Button: Continue to Logistics */}
+                <div className="flex justify-end pt-2">
+                  <button
+                    type="button"
+                    onClick={handleContinueToStep2}
+                    className="w-full sm:w-auto px-8 py-3.5 bg-[#7AA05A] hover:bg-[#688a4c] text-white font-bold rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Continue to Air Freight Logistics</span>
+                    <ArrowRight size={16} />
+                  </button>
                 </div>
               </div>
             )}
 
-            {/* 3. SHIPPING DESTINATION FORM */}
-            <div className="bg-white rounded-2xl border border-[#E5E7EB] p-5 sm:p-7 shadow-xs space-y-4">
-              <div className="flex items-center gap-2 pb-3 border-b border-[#E5E7EB]">
-                <Truck size={18} className="text-[#2D5A4A]" />
-                <h2 className="text-sm font-extrabold text-[#111111] uppercase tracking-wider">
-                  2. Regional Shipping Destination
-                </h2>
-              </div>
+            {/* ========================================================
+                STEP 2: AIR FREIGHT LOGISTICS
+               ======================================================== */}
+            {currentStep === 2 && (
+              <div className="space-y-6 animate-in fade-in duration-200">
+                
+                {/* Destination Review Box */}
+                <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
+                  <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+                    <div className="flex items-center gap-2">
+                      <MapPin size={18} className="text-[#2D5A4A]" />
+                      <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
+                        Delivery Destination Review
+                      </h2>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setCurrentStep(1)}
+                      className="text-xs font-bold text-[#7AA05A] hover:underline cursor-pointer"
+                    >
+                      Edit Address
+                    </button>
+                  </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                <div className="sm:col-span-2">
-                  <label className="block font-bold text-[#111111] mb-1.5">
-                    Destination Country / Jurisdiction <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    value={countryCode}
-                    onChange={(e) => handleCountryChange(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E7EB] bg-white text-[#111111] font-semibold focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all cursor-pointer"
-                  >
-                    {countries.map((c) => (
-                      <option key={c.code} value={c.code}>
-                        {c.flag} {c.name} ({c.currency} - {c.symbol})
-                      </option>
-                    ))}
-                  </select>
-                  <span className="text-3xs text-[#737373] mt-1 block">
-                    Lead time: {currentCountry.leadTimeAirDays || "3-6 business days"} via DHL Express Cargo. Standards: {currentCountry.regulatoryStandards || "ISO 13485:2016"}.
-                  </span>
+                  <div className="p-4 rounded-xl border border-neutral-200 bg-neutral-50 text-xs space-y-1">
+                    <div className="font-bold text-[#171717] text-sm">{fullName}</div>
+                    {companyName && <div className="text-neutral-600 font-medium">{companyName}</div>}
+                    <div className="text-neutral-600">
+                      {addressLine1}
+                      {addressLine2 ? `, ${addressLine2}` : ""}
+                    </div>
+                    <div className="text-neutral-600">
+                      {city}, {state} {postalCode}
+                    </div>
+                    <div className="font-semibold text-[#2D5A4A] flex items-center gap-1.5 pt-1">
+                      <span>{activeCountry.flag}</span>
+                      <span>{activeCountry.name}</span>
+                      <span className="font-mono text-neutral-400">({phone})</span>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="sm:col-span-2">
-                  <label className="block font-bold text-[#111111] mb-1.5">
-                    Street Address (Line 1) <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={addressLine1}
-                    onChange={(e) => setAddressLine1(e.target.value)}
-                    placeholder="Building, street, hospital ward, suite number"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E7EB] bg-white text-[#111111] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                  />
-                </div>
+                {/* Logistics Method */}
+                <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
+                  <div className="flex items-center gap-2 pb-3 border-b border-neutral-200">
+                    <Truck size={18} className="text-[#2D5A4A]" />
+                    <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
+                      Logistics & Heavy-Duty Medical Air Crate
+                    </h2>
+                  </div>
 
-                <div className="sm:col-span-2">
-                  <label className="block font-bold text-[#111111] mb-1.5">
-                    Address Line 2 <span className="text-neutral-400 font-normal">(Optional)</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={addressLine2}
-                    onChange={(e) => setAddressLine2(e.target.value)}
-                    placeholder="Department, floor, surgical suite, loading dock"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E7EB] bg-white text-[#111111] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-bold text-[#111111] mb-1.5">
-                    City / Municipality <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    placeholder="e.g. San Francisco"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E7EB] bg-white text-[#111111] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-bold text-[#111111] mb-1.5">
-                    State / Province / Region
-                  </label>
-                  <input
-                    type="text"
-                    value={state}
-                    onChange={(e) => setState(e.target.value)}
-                    placeholder="e.g. California"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E7EB] bg-white text-[#111111] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="block font-bold text-[#111111] mb-1.5">
-                    Postal / ZIP Code <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={postalCode}
-                    onChange={(e) => setPostalCode(e.target.value)}
-                    placeholder="e.g. 94143"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E7EB] bg-white text-[#111111] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-                  />
-                </div>
-              </div>
-
-              {/* Save Address Checkbox */}
-              {user && (
-                <div className="pt-2">
-                  <label className="flex items-center gap-2 cursor-pointer select-none text-xs text-[#111111]">
-                    <input
-                      type="checkbox"
-                      checked={saveAddressToAccount}
-                      onChange={(e) => setSaveAddressToAccount(e.target.checked)}
-                      className="w-4 h-4 rounded text-[#7AA05A] focus:ring-[#7AA05A] accent-[#7AA05A]"
-                    />
-                    <span>Save this delivery address to my DR.MEDEX account for future orders</span>
-                  </label>
-                </div>
-              )}
-            </div>
-
-            {/* 4. BILLING ADDRESS SAME AS SHIPPING CHECKBOX */}
-            <div className="bg-white rounded-2xl border border-[#E5E7EB] p-5 sm:p-7 shadow-xs space-y-4">
-              <div className="flex items-center justify-between">
-                <label className="flex items-center gap-2.5 cursor-pointer select-none text-xs font-bold text-[#111111]">
-                  <input
-                    type="checkbox"
-                    checked={billingSameAsShipping}
-                    onChange={(e) => setBillingSameAsShipping(e.target.checked)}
-                    className="w-4 h-4 rounded text-[#7AA05A] focus:ring-[#7AA05A] accent-[#7AA05A]"
-                  />
-                  <span>Billing address same as shipping address</span>
-                </label>
-              </div>
-
-              {/* SEPARATE BILLING ADDRESS FORM */}
-              {!billingSameAsShipping && (
-                <div className="pt-4 border-t border-[#E5E7EB] space-y-4 animate-in fade-in duration-150">
-                  <h3 className="text-xs font-extrabold text-[#2D5A4A] uppercase tracking-wider">
-                    Separate Billing Address
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                    <div className="sm:col-span-2">
-                      <label className="block font-bold text-[#111111] mb-1.5">
-                        Billing Full Name <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={billingFullName}
-                        onChange={(e) => setBillingFullName(e.target.value)}
-                        placeholder="Accounts Department / Representative"
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E7EB] bg-white text-[#111111] font-medium focus:outline-none focus:border-[#7AA05A]"
-                      />
+                  <div className="p-5 rounded-2xl border-2 border-[#7AA05A] bg-[#F4F7F2]/40 space-y-3">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-xl bg-white border border-neutral-200 flex items-center justify-center font-black text-xs text-[#2D5A4A] shrink-0 shadow-2xs">
+                          DHL
+                        </div>
+                        <div>
+                          <div className="font-black text-sm text-[#171717]">{selectedShippingMethod.name}</div>
+                          <div className="text-xs text-neutral-500">
+                            Estimated Transit: <strong>{selectedShippingMethod.estimatedDays}</strong> to {activeCountry.name}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <span className="inline-block px-2.5 py-1 rounded-full text-2xs font-extrabold uppercase tracking-wider bg-[#7AA05A] text-white">
+                          Complimentary
+                        </span>
+                        <div className="text-3xs text-[#2D5A4A] font-semibold mt-0.5">Air Cargo Included</div>
+                      </div>
                     </div>
 
-                    <div className="sm:col-span-2">
-                      <label className="block font-bold text-[#111111] mb-1.5">
-                        Billing Country <span className="text-red-500">*</span>
-                      </label>
+                    <div className="pt-3 border-t border-neutral-200/60 grid grid-cols-1 sm:grid-cols-2 gap-2 text-2xs text-neutral-600">
+                      <div className="flex items-center gap-1.5">
+                        <PackageCheck size={14} className="text-[#2D5A4A] shrink-0" />
+                        <span>Vibration-damped foam export crates</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <ShieldCheck size={14} className="text-[#2D5A4A] shrink-0" />
+                        <span>Full transit replacement insurance</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <CheckCircle2 size={14} className="text-[#2D5A4A] shrink-0" />
+                        <span>Calibration proforma certificate attached</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <Globe size={14} className="text-[#2D5A4A] shrink-0" />
+                        <span>Pre-cleared customs documentation</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 2 Action Buttons */}
+                <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep(1)}
+                    className="w-full sm:w-auto px-6 py-3 border border-neutral-300 hover:bg-neutral-50 text-neutral-700 font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <ArrowLeft size={14} />
+                    <span>Back to Customer Details</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleContinueToStep3}
+                    className="w-full sm:w-auto px-8 py-3.5 bg-[#7AA05A] hover:bg-[#688a4c] text-white font-bold rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Continue to Payment & Confirmation</span>
+                    <ArrowRight size={16} />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* ========================================================
+                STEP 3: PAYMENT & CONFIRMATION (PAYPAL GATEWAY)
+               ======================================================== */}
+            {currentStep === 3 && (
+              <div className="space-y-6 animate-in fade-in duration-200">
+                
+                {/* Summary Review Card */}
+                <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
+                  <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+                    <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
+                      Review Order & Recipient
+                    </h2>
+                    <button
+                      type="button"
+                      onClick={() => setCurrentStep(1)}
+                      className="text-xs font-bold text-[#7AA05A] hover:underline cursor-pointer"
+                    >
+                      Change Details
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                    <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 space-y-1">
+                      <div className="font-bold text-neutral-500 uppercase text-3xs">Recipient & Organization</div>
+                      <div className="font-bold text-[#171717]">{fullName}</div>
+                      {companyName && <div className="text-neutral-600 text-2xs">{companyName}</div>}
+                      <div className="text-neutral-500 text-3xs font-mono">{email}</div>
+                      <div className="text-neutral-500 text-3xs font-mono">{phone}</div>
+                    </div>
+
+                    <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 space-y-1">
+                      <div className="font-bold text-neutral-500 uppercase text-3xs">Shipping Destination & Logistics</div>
+                      <div className="text-neutral-700 text-2xs truncate">{addressLine1}</div>
+                      <div className="text-neutral-700 text-2xs">{city}, {state} {postalCode}</div>
+                      <div className="font-semibold text-[#2D5A4A] text-2xs">{activeCountry.flag} {activeCountry.name}</div>
+                      <div className="text-3xs text-neutral-500">DHL Express Air Cargo (Included)</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* PAYPAL PAYMENT GATEWAY CONTAINER */}
+                <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
+                  <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+                    <div className="flex items-center gap-2">
+                      <CreditCard size={18} className="text-[#2D5A4A]" />
+                      <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
+                        PayPal Payment Gateway
+                      </h2>
+                    </div>
+                    <span className="text-3xs font-bold text-[#2D5A4A] bg-[#F4F7F2] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                      Instant Authorization
+                    </span>
+                  </div>
+
+                  <div className="space-y-4">
+                    {/* Independent Currency Selector and Disclosure */}
+                    <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                      <div>
+                        <div className="font-bold text-[#171717]">Select Settlement Currency</div>
+                        <div className="text-3xs text-neutral-500 mt-0.5">
+                          Total amount payable: <strong>{currentCurrency} {displayGrandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>
+                        </div>
+                      </div>
+
                       <select
-                        value={billingCountryCode}
-                        onChange={(e) => setBillingCountryCode(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E7EB] bg-white text-[#111111] font-semibold focus:outline-none focus:border-[#7AA05A]"
+                        value={currentCurrency}
+                        onChange={(e) => setCurrencyManually(e.target.value)}
+                        className="px-3 py-1.5 rounded-lg border border-neutral-300 bg-white text-xs font-bold text-neutral-800 focus:outline-none focus:border-[#7AA05A] cursor-pointer"
                       >
-                        {countries.map((c) => (
-                          <option key={c.code} value={c.code}>
-                            {c.flag} {c.name}
-                          </option>
-                        ))}
+                        <option value="INR">INR (₹ - Indian Rupee)</option>
+                        <option value="USD">USD ($ - US Dollar)</option>
+                        <option value="EUR">EUR (€ - Euro)</option>
+                        <option value="GBP">GBP (£ - British Pound)</option>
+                        <option value="AED">AED (United Arab Emirates Dirham)</option>
+                        <option value="CAD">CAD (CA$ - Canadian Dollar)</option>
+                        <option value="AUD">AUD (A$ - Australian Dollar)</option>
+                        <option value="SAR">SAR (Saudi Riyal)</option>
+                        <option value="SGD">SGD (S$ - Singapore Dollar)</option>
+                        <option value="JPY">JPY (¥ - Japanese Yen)</option>
+                        <option value="CHF">CHF (Swiss Franc)</option>
+                        <option value="ZAR">ZAR (South African Rand)</option>
                       </select>
                     </div>
 
-                    <div className="sm:col-span-2">
-                      <label className="block font-bold text-[#111111] mb-1.5">
-                        Billing Street Address (Line 1) <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={billingAddressLine1}
-                        onChange={(e) => setBillingAddressLine1(e.target.value)}
-                        placeholder="Street, suite, financial office"
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E7EB] bg-white text-[#111111] font-medium focus:outline-none focus:border-[#7AA05A]"
+                    {/* Currency conversion notice if PayPal uses USD for unlisted settlement currencies */}
+                    {paypalCurrency !== currentCurrency && (
+                      <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200 text-3xs text-amber-900 flex items-start gap-1.5">
+                        <ShieldCheck size={14} className="shrink-0 text-amber-700 mt-0.5" />
+                        <span>
+                          PayPal authorization will settle in <strong>{paypalCurrency} (${paypalAmount.toFixed(2)})</strong> via standard interbank conversion.
+                        </span>
+                      </div>
+                    )}
+
+                    {/* PayPal Buttons Render Container */}
+                    <div className="pt-2">
+                      {isProcessing && (
+                        <div className="p-4 rounded-xl bg-[#F4F7F2] border border-[#7AA05A]/30 text-center space-y-2 mb-3">
+                          <Loader2 size={24} className="animate-spin text-[#2D5A4A] mx-auto" />
+                          <p className="text-xs font-bold text-[#171717]">Connecting to PayPal Secure Checkout...</p>
+                          <p className="text-3xs text-neutral-500">Please do not close or reload this window.</p>
+                        </div>
+                      )}
+
+                      {paypalSdkLoadError && (
+                        <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs mb-3">
+                          {paypalSdkLoadError}
+                        </div>
+                      )}
+
+                      {!isPaypalSdkLoaded && !paypalSdkLoadError && (
+                        <div className="py-8 text-center text-xs text-neutral-500 flex flex-col items-center gap-2">
+                          <Loader2 size={20} className="animate-spin text-[#7AA05A]" />
+                          <span>Loading secure PayPal Gateway...</span>
+                        </div>
+                      )}
+
+                      {/* Official PayPal Buttons Container */}
+                      <div
+                        ref={paypalButtonContainerRef}
+                        id="paypal-button-container"
+                        className={`w-full transition-opacity duration-200 ${
+                          isProcessing ? "opacity-40 pointer-events-none" : "opacity-100"
+                        }`}
                       />
                     </div>
 
-                    <div>
-                      <label className="block font-bold text-[#111111] mb-1.5">
-                        Billing City <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={billingCity}
-                        onChange={(e) => setBillingCity(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E7EB] bg-white text-[#111111] font-medium focus:outline-none focus:border-[#7AA05A]"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block font-bold text-[#111111] mb-1.5">
-                        Billing State / Region
-                      </label>
-                      <input
-                        type="text"
-                        value={billingState}
-                        onChange={(e) => setBillingState(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E7EB] bg-white text-[#111111] font-medium focus:outline-none focus:border-[#7AA05A]"
-                      />
-                    </div>
-
-                    <div className="sm:col-span-2">
-                      <label className="block font-bold text-[#111111] mb-1.5">
-                        Billing Postal Code <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={billingPostalCode}
-                        onChange={(e) => setBillingPostalCode(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E7EB] bg-white text-[#111111] font-medium focus:outline-none focus:border-[#7AA05A]"
-                      />
+                    {/* Security credentials */}
+                    <div className="pt-3 border-t border-neutral-100 space-y-1.5 text-3xs text-neutral-500">
+                      <div className="flex items-center gap-1.5 text-[#2D5A4A] font-semibold">
+                        <ShieldCheck size={13} />
+                        <span>Buyer Protection & Official Proforma Documentation Included</span>
+                      </div>
+                      <p className="leading-relaxed">
+                        Payment processed securely via PayPal's Level 1 PCI-DSS compliant infrastructure. DR.MEDEX does not store payment credentials.
+                      </p>
                     </div>
                   </div>
                 </div>
-              )}
-            </div>
 
-            {/* 5. LOGISTICS / AIR CARGO METHOD */}
-            <div className="bg-white rounded-2xl border border-[#E5E7EB] p-5 sm:p-7 shadow-xs space-y-3">
-              <div className="flex items-center gap-2 pb-3 border-b border-[#E5E7EB]">
-                <Truck size={18} className="text-[#2D5A4A]" />
-                <h2 className="text-sm font-extrabold text-[#111111] uppercase tracking-wider">
-                  3. Logistics & Protective Air Crate
-                </h2>
-              </div>
-
-              <div className="p-4 rounded-xl border border-[#7AA05A] bg-[#F4F1EB]/30 flex items-center justify-between gap-3 text-xs">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-white border border-[#E5E7EB] flex items-center justify-center text-[#2D5A4A] shrink-0 font-black">
-                    DHL
-                  </div>
-                  <div>
-                    <div className="font-bold text-[#111111]">{selectedShippingMethod.name}</div>
-                    <div className="text-2xs text-[#737373]">
-                      Lead Time: {selectedShippingMethod.estimatedDays} • Heavy-duty vibration-damped medical export packing
-                    </div>
-                  </div>
-                </div>
-                <div className="font-bold text-[#2D5A4A] text-right whitespace-nowrap">
-                  Included
+                {/* Step 3 Action: Back button */}
+                <div className="flex justify-start pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep(2)}
+                    className="px-6 py-3 border border-neutral-300 hover:bg-neutral-50 text-neutral-700 font-bold rounded-xl text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <ArrowLeft size={14} />
+                    <span>Back to Air Freight Logistics</span>
+                  </button>
                 </div>
               </div>
-            </div>
+            )}
           </div>
 
-          {/* RIGHT COLUMN: Order Summary, Coupon Engine & PayPal Payment Gateway (5 cols) */}
+          {/* ========================================================
+              RIGHT COLUMN: ORDER SUMMARY & COUPON ENGINE (5 Cols)
+             ======================================================== */}
           <div className="lg:col-span-5 space-y-6">
-            
-            {/* ORDER SUMMARY CARD */}
-            <div className="bg-white rounded-2xl border border-[#E5E7EB] p-5 sm:p-7 shadow-xs space-y-5">
-              <div className="flex items-center justify-between pb-3 border-b border-[#E5E7EB]">
-                <h2 className="text-sm font-extrabold text-[#111111] uppercase tracking-wider">
+            <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-5 sticky top-24">
+              <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+                <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
                   Order Summary ({items.length})
                 </h2>
                 <Link to="/cart" className="text-2xs font-bold text-[#7AA05A] hover:underline">
@@ -1346,27 +2071,32 @@ export const CheckoutPage: React.FC = () => {
               </div>
 
               {/* Items List */}
-              <div className="divide-y divide-[#E5E7EB] max-h-80 overflow-y-auto pr-1 space-y-3">
+              <div className="divide-y divide-neutral-100 max-h-80 overflow-y-auto pr-1 space-y-3">
                 {items.map((it) => {
                   const lineTotalDisplay = convertPrice((it.product.basePrice || 0) * it.quantity);
-                  const unitPriceDisplay = convertPrice(it.product.basePrice || 0);
 
                   return (
                     <div key={it.product.id} className="pt-3 first:pt-0 flex items-start gap-3">
                       <img
                         src={it.product.images[0] || "/placeholder.jpg"}
                         alt={it.product.title}
-                        className="w-14 h-14 object-contain rounded-xl p-1 border border-[#E5E7EB] bg-[#F8F9FA] shrink-0"
+                        className="w-14 h-14 object-contain rounded-xl p-1 border border-neutral-200 bg-neutral-50 shrink-0"
                       />
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-bold text-xs text-[#111111] truncate">{it.product.title}</h4>
-                        <div className="text-3xs text-[#737373] font-mono mt-0.5">
+                        <h4 className="font-bold text-xs text-[#171717] truncate">{it.product.title}</h4>
+                        <div className="text-3xs text-neutral-400 font-mono mt-0.5">
                           SKU: {it.product.sku}
                         </div>
-                        <div className="text-2xs text-[#4A4A4A] mt-1 flex items-center justify-between">
-                          <span>Qty: {it.quantity} × {formatPrice(it.product.basePrice || 0)}</span>
-                          <span className="font-bold text-[#111111]">
-                            {currentCurrency} {lineTotalDisplay.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        <div className="text-2xs text-neutral-600 mt-1 flex items-center justify-between">
+                          <span>
+                            Qty: {it.quantity} × {formatPrice(it.product.basePrice || 0)}
+                          </span>
+                          <span className="font-bold text-[#171717]">
+                            {currentCurrency}{" "}
+                            {lineTotalDisplay.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2
+                            })}
                           </span>
                         </div>
                       </div>
@@ -1376,14 +2106,14 @@ export const CheckoutPage: React.FC = () => {
               </div>
 
               {/* COUPON INPUT */}
-              <div className="pt-3 border-t border-[#E5E7EB]">
+              <div className="pt-3 border-t border-neutral-200">
                 {appliedCoupon ? (
-                  <div className="p-3 rounded-xl bg-[#F4F1EB] border border-[#7AA05A]/30 flex items-center justify-between text-xs">
+                  <div className="p-3 rounded-xl bg-[#F4F7F2] border border-[#7AA05A]/30 flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
                       <Tag size={15} className="text-[#2D5A4A]" />
                       <div>
                         <span className="font-extrabold text-[#2D5A4A]">{appliedCoupon.code}</span>
-                        <span className="text-3xs text-[#737373] block">
+                        <span className="text-3xs text-neutral-500 block">
                           {appliedCoupon.description || `${appliedCoupon.discountPercent}% Off Applied`}
                         </span>
                       </div>
@@ -1404,12 +2134,12 @@ export const CheckoutPage: React.FC = () => {
                         value={couponInput}
                         onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
                         placeholder="Discount or Coupon Code"
-                        className="flex-1 px-3 py-2 rounded-xl border border-[#E5E7EB] text-xs uppercase font-semibold focus:outline-none focus:border-[#7AA05A]"
+                        className="flex-1 px-3 py-2 rounded-xl border border-neutral-300 text-xs uppercase font-semibold focus:outline-none focus:border-[#7AA05A]"
                       />
                       <button
                         type="submit"
                         disabled={isApplyingCoupon || !couponInput.trim()}
-                        className="px-4 py-2 bg-[#2D5A4A] hover:bg-[#0D4C3C] disabled:bg-neutral-200 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer shrink-0"
+                        className="px-4 py-2 bg-[#7AA05A] hover:bg-[#688a4c] disabled:bg-neutral-200 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer shrink-0"
                       >
                         {isApplyingCoupon ? <Loader2 size={14} className="animate-spin" /> : "Apply"}
                       </button>
@@ -1421,11 +2151,15 @@ export const CheckoutPage: React.FC = () => {
               </div>
 
               {/* Pricing Breakdown */}
-              <div className="pt-3 border-t border-[#E5E7EB] space-y-2 text-xs">
-                <div className="flex justify-between text-[#737373]">
+              <div className="pt-3 border-t border-neutral-200 space-y-2 text-xs">
+                <div className="flex justify-between text-neutral-600">
                   <span>Catalogue Subtotal:</span>
-                  <span className="font-semibold text-[#111111]">
-                    {currentCurrency} {displaySubtotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  <span className="font-semibold text-[#171717]">
+                    {currentCurrency}{" "}
+                    {displaySubtotal.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                    })}
                   </span>
                 </div>
 
@@ -1433,104 +2167,38 @@ export const CheckoutPage: React.FC = () => {
                   <div className="flex justify-between text-[#2D5A4A]">
                     <span className="font-bold">Clinical Discount:</span>
                     <span className="font-bold">
-                      -{currentCurrency} {displayDiscount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      -{currentCurrency}{" "}
+                      {displayDiscount.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                      })}
                     </span>
                   </div>
                 )}
 
-                <div className="flex justify-between text-[#737373]">
+                <div className="flex justify-between text-neutral-600">
                   <span>International Air Cargo:</span>
-                  <span className="font-semibold text-[#2D5A4A]">
-                    Complimentary Express Cargo
-                  </span>
+                  <span className="font-semibold text-[#2D5A4A]">Complimentary Express Cargo</span>
                 </div>
 
-                <div className="flex justify-between text-[#737373]">
+                <div className="flex justify-between text-neutral-600">
                   <span>Customs Export Duties:</span>
-                  <span className="font-semibold text-[#111111]">Export Certified / Included</span>
+                  <span className="font-semibold text-[#171717]">Export Certified / Included</span>
                 </div>
 
-                <div className="pt-3 border-t border-[#E5E7EB] flex items-baseline justify-between">
+                <div className="pt-3 border-t border-neutral-200 flex items-baseline justify-between">
                   <div>
-                    <div className="text-sm font-black text-[#111111]">Total Amount</div>
-                    <div className="text-3xs text-[#737373]">
-                      Payable in {currentCurrency} via PayPal
-                    </div>
+                    <div className="text-sm font-black text-[#171717]">Total Amount</div>
+                    <div className="text-3xs text-neutral-400">Payable in {currentCurrency} via PayPal</div>
                   </div>
                   <div className="text-xl font-black text-[#2D5A4A]">
-                    {currentCurrency} {displayGrandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    {currentCurrency}{" "}
+                    {displayGrandTotal.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                    })}
                   </div>
                 </div>
-
-                {/* Currency conversion notification if target currency is adjusted for PayPal */}
-                {paypalCurrency !== currentCurrency && (
-                  <div className="p-2.5 rounded-xl bg-[#F8F9FA] border border-[#E5E7EB] text-3xs text-[#4A4A4A] flex items-start gap-1.5">
-                    <ShieldCheck size={14} className="shrink-0 text-[#2D5A4A] mt-0.5" />
-                    <span>
-                      PayPal charge will be settled in <strong>{paypalCurrency} (${paypalAmount.toFixed(2)})</strong> using real-time interbank conversion rates.
-                    </span>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* PAYPAL PAYMENT GATEWAY CONTAINER */}
-            <div className="bg-white rounded-2xl border border-[#E5E7EB] p-5 sm:p-7 shadow-xs space-y-4">
-              <div className="flex items-center justify-between pb-3 border-b border-[#E5E7EB]">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded bg-[#003087] text-white flex items-center justify-center font-black text-2xs italic">
-                    P
-                  </div>
-                  <h2 className="text-sm font-extrabold text-[#111111] uppercase tracking-wider">
-                    PayPal Payment Gateway
-                  </h2>
-                </div>
-                <span className="text-3xs font-bold text-[#737373] uppercase tracking-wider">
-                  Instant Authorization
-                </span>
-              </div>
-
-              {/* PayPal Buttons Render Container */}
-              <div className="space-y-3">
-                {isProcessing && (
-                  <div className="p-4 rounded-xl bg-[#F4F1EB] border border-[#7AA05A]/30 text-center space-y-2">
-                    <Loader2 size={24} className="animate-spin text-[#2D5A4A] mx-auto" />
-                    <p className="text-xs font-bold text-[#111111]">Connecting to PayPal Secure Checkout...</p>
-                    <p className="text-3xs text-[#737373]">Please do not close or refresh this window.</p>
-                  </div>
-                )}
-
-                {paypalSdkLoadError && (
-                  <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs">
-                    {paypalSdkLoadError}
-                  </div>
-                )}
-
-                {!isPaypalSdkLoaded && !paypalSdkLoadError && (
-                  <div className="py-6 text-center text-xs text-[#737373] flex flex-col items-center gap-2">
-                    <Loader2 size={20} className="animate-spin text-[#7AA05A]" />
-                    <span>Loading secure PayPal Gateway...</span>
-                  </div>
-                )}
-
-                {/* The PayPal JS SDK will render into this container */}
-                <div
-                  ref={paypalButtonContainerRef}
-                  className={`w-full transition-opacity duration-200 ${
-                    isProcessing ? "opacity-40 pointer-events-none" : "opacity-100"
-                  }`}
-                />
-              </div>
-
-              {/* Security guarantees */}
-              <div className="pt-3 border-t border-[#E5E7EB] space-y-2 text-3xs text-[#737373]">
-                <div className="flex items-center gap-1.5 text-[#2D5A4A] font-semibold">
-                  <ShieldCheck size={13} />
-                  <span>Buyer Protection & Official Proforma Documentation Included</span>
-                </div>
-                <p className="leading-relaxed">
-                  Your payment is processed through PayPal's PCI-DSS Level 1 compliant infrastructure. DR.MEDEX does not view or store payment card credentials.
-                </p>
               </div>
             </div>
           </div>
@@ -1539,9 +2207,9 @@ export const CheckoutPage: React.FC = () => {
         {/* MODAL: ADD / EDIT ADDRESS */}
         {isAddressModalOpen && (
           <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-[#E5E7EB] space-y-4 animate-in fade-in zoom-in-95 duration-150">
-              <div className="flex items-center justify-between pb-3 border-b border-[#E5E7EB]">
-                <h3 className="text-sm font-extrabold text-[#111111] uppercase tracking-wider">
+            <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-neutral-200 space-y-4 animate-in fade-in zoom-in-95 duration-150">
+              <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+                <h3 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
                   {editingAddress ? "Edit Saved Address" : "Add Delivery Address"}
                 </h3>
                 <button
@@ -1578,98 +2246,105 @@ export const CheckoutPage: React.FC = () => {
                 className="space-y-3.5 text-xs"
               >
                 <div>
-                  <label className="block font-bold text-[#111111] mb-1">Full Name *</label>
+                  <label className="block font-bold text-[#171717] mb-1">Full Name *</label>
                   <input
                     type="text"
                     name="fullName"
                     required
-                    defaultValue={editingAddress?.fullName || `${firstName} ${lastName}`.trim()}
-                    className="w-full px-3 py-2 rounded-xl border border-[#E5E7EB] focus:outline-none focus:border-[#7AA05A]"
+                    defaultValue={editingAddress?.fullName || fullName}
+                    placeholder="Enter your full name"
+                    className="w-full px-3 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#7AA05A]"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#111111] mb-1">Company / Hospital</label>
+                  <label className="block font-bold text-[#171717] mb-1">Hospital / Clinic / Organization</label>
                   <input
                     type="text"
                     name="companyName"
                     defaultValue={editingAddress?.companyName || companyName}
-                    className="w-full px-3 py-2 rounded-xl border border-[#E5E7EB] focus:outline-none focus:border-[#7AA05A]"
+                    placeholder="Enter hospital or organization name"
+                    className="w-full px-3 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#7AA05A]"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#111111] mb-1">Phone Number *</label>
+                  <label className="block font-bold text-[#171717] mb-1">Phone Number *</label>
                   <input
                     type="text"
                     name="phone"
                     required
                     defaultValue={editingAddress?.phone || phone}
-                    className="w-full px-3 py-2 rounded-xl border border-[#E5E7EB] focus:outline-none focus:border-[#7AA05A]"
+                    placeholder="Enter your phone number"
+                    className="w-full px-3 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#7AA05A]"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#111111] mb-1">Country *</label>
+                  <label className="block font-bold text-[#171717] mb-1">Country *</label>
                   <select
                     name="countryCode"
                     defaultValue={editingAddress?.countryCode || countryCode}
-                    className="w-full px-3 py-2 rounded-xl border border-[#E5E7EB] bg-white font-medium focus:outline-none focus:border-[#7AA05A]"
+                    className="w-full px-3 py-2 rounded-xl border border-neutral-300 bg-white font-medium focus:outline-none focus:border-[#7AA05A]"
                   >
-                    {countries.map((c) => (
+                    {countriesList.map((c) => (
                       <option key={c.code} value={c.code}>
-                        {c.flag} {c.name}
+                        {c.flag} {c.name} ({c.dialCode})
                       </option>
                     ))}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#111111] mb-1">Address Line 1 *</label>
+                  <label className="block font-bold text-[#171717] mb-1">Street Address Line 1 *</label>
                   <input
                     type="text"
                     name="addressLine1"
                     required
                     defaultValue={editingAddress?.addressLine1 || addressLine1}
-                    className="w-full px-3 py-2 rounded-xl border border-[#E5E7EB] focus:outline-none focus:border-[#7AA05A]"
+                    placeholder="Building, street, suite number"
+                    className="w-full px-3 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#7AA05A]"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#111111] mb-1">Address Line 2</label>
+                  <label className="block font-bold text-[#171717] mb-1">Address Line 2 (Optional)</label>
                   <input
                     type="text"
                     name="addressLine2"
                     defaultValue={editingAddress?.addressLine2 || addressLine2}
-                    className="w-full px-3 py-2 rounded-xl border border-[#E5E7EB] focus:outline-none focus:border-[#7AA05A]"
+                    placeholder="Department, floor, loading dock"
+                    className="w-full px-3 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#7AA05A]"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block font-bold text-[#111111] mb-1">City *</label>
+                    <label className="block font-bold text-[#171717] mb-1">City *</label>
                     <input
                       type="text"
                       name="city"
                       required
                       defaultValue={editingAddress?.city || city}
-                      className="w-full px-3 py-2 rounded-xl border border-[#E5E7EB] focus:outline-none focus:border-[#7AA05A]"
+                      placeholder="Enter city"
+                      className="w-full px-3 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#7AA05A]"
                     />
                   </div>
                   <div>
-                    <label className="block font-bold text-[#111111] mb-1">Postal Code *</label>
+                    <label className="block font-bold text-[#171717] mb-1">Postal Code *</label>
                     <input
                       type="text"
                       name="postalCode"
                       required
                       defaultValue={editingAddress?.postalCode || postalCode}
-                      className="w-full px-3 py-2 rounded-xl border border-[#E5E7EB] focus:outline-none focus:border-[#7AA05A]"
+                      placeholder="Enter postal code"
+                      className="w-full px-3 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#7AA05A]"
                     />
                   </div>
                 </div>
 
                 <div className="pt-2">
-                  <label className="flex items-center gap-2 cursor-pointer text-xs text-[#111111]">
+                  <label className="flex items-center gap-2 cursor-pointer text-xs text-[#171717]">
                     <input
                       type="checkbox"
                       name="isDefaultShipping"
@@ -1680,14 +2355,14 @@ export const CheckoutPage: React.FC = () => {
                   </label>
                 </div>
 
-                <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-[#E5E7EB]">
+                <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-neutral-200">
                   <button
                     type="button"
                     onClick={() => {
                       setIsAddressModalOpen(false);
                       setEditingAddress(null);
                     }}
-                    className="px-4 py-2 border border-[#E5E7EB] text-[#4A4A4A] rounded-xl hover:bg-neutral-100 cursor-pointer font-bold"
+                    className="px-4 py-2 border border-neutral-300 text-neutral-600 rounded-xl hover:bg-neutral-100 cursor-pointer font-bold"
                   >
                     Cancel
                   </button>
