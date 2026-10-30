@@ -67,7 +67,7 @@ function AppContent() {
   const isAdminRoute = location.pathname.startsWith("/admin");
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-neutral-900 antialiased selection:bg-neutral-200 selection:text-neutral-900 overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-white text-neutral-900 antialiased selection:bg-neutral-200 selection:text-neutral-900 overflow-x-clip">
       {/* Global Customer Navigation Header (hidden on admin console) */}
       {!isAdminRoute && <Header />}
 

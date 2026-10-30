@@ -99,81 +99,136 @@ export const Header: React.FC = () => {
 
   // Scroll direction state for hiding header on scroll down on mobile
   const [isHeaderHidden, setIsHeaderHidden] = useState(false);
+  const isHiddenRef = useRef(false);
+  const lowestScrollYRef = useRef(0);
+  const highestScrollYRef = useRef(0);
   const lastScrollYRef = useRef(0);
-  const accumulatedDeltaRef = useRef(0);
-  const lastDirectionRef = useRef<"up" | "down">("up");
+  const touchStartYRef = useRef(0);
+  const touchStartScrollYRef = useRef(0);
+
+  // Keep isHiddenRef continuously synchronized with state
+  useEffect(() => {
+    isHiddenRef.current = isHeaderHidden;
+  }, [isHeaderHidden]);
 
   useEffect(() => {
-    // Always reset to visible on route change
-    setIsHeaderHidden(false);
-    lastScrollYRef.current = Math.max(0, window.scrollY);
-    accumulatedDeltaRef.current = 0;
-    lastDirectionRef.current = "up";
+    // Cross-browser scroll position helper
+    const getScrollY = (): number => {
+      if (typeof window === "undefined") return 0;
+      return (
+        window.scrollY ??
+        window.pageYOffset ??
+        document.documentElement?.scrollTop ??
+        document.body?.scrollTop ??
+        0
+      );
+    };
 
-    const HIDE_THRESHOLD = 16; // Requires 16px accumulated downward scroll past header
-    const SHOW_THRESHOLD = 4;  // Small 4px upward scroll gesture immediately reveals header
-    const TOP_ZONE = 20;       // Always fully visible at top of page (0-20px)
-    let ticking = false;
+    // Always reset header to visible on route transition
+    setIsHeaderHidden(false);
+    isHiddenRef.current = false;
+    const initialY = getScrollY();
+    lowestScrollYRef.current = initialY;
+    highestScrollYRef.current = initialY;
+    lastScrollYRef.current = initialY;
+
+    // Strict requirements:
+    // UPWARD THRESHOLD: 2.5px — slight upward gesture (2-3px) triggers immediate reveal
+    // DOWNWARD THRESHOLD: 12px — intentional downward scroll hides header, avoiding jitter on thumb lift
+    // TOP ZONE: 20px — header is strictly locked visible at page top
+    const UPWARD_THRESHOLD = 2.5;
+    const DOWNWARD_THRESHOLD = 12;
+    const TOP_ZONE = 20;
 
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const rawScrollY = window.scrollY;
-          // Clamp to avoid iOS rubber-band negative bounce at the top
-          const currentScrollY = Math.max(0, rawScrollY);
-          const prevScrollY = lastScrollYRef.current;
-          const delta = currentScrollY - prevScrollY;
+      const rawScrollY = getScrollY();
+      const currentScrollY = Math.max(0, rawScrollY);
 
-          // Prevent rubber-band bounce at page bottom from triggering false reveal
-          const maxScroll = Math.max(
-            0,
-            document.documentElement.scrollHeight - window.innerHeight
-          );
-          if (maxScroll > 0 && currentScrollY > maxScroll) {
-            lastScrollYRef.current = currentScrollY;
-            ticking = false;
-            return;
-          }
+      // Prevent iOS rubber-band bounce at page bottom from triggering false reveal
+      const maxScroll = Math.max(
+        0,
+        (document.documentElement?.scrollHeight || document.body?.scrollHeight || 0) - window.innerHeight
+      );
+      if (maxScroll > 0 && rawScrollY > maxScroll) {
+        return;
+      }
 
-          // At the absolute top, always keep the complete header visible
-          if (currentScrollY <= TOP_ZONE) {
-            setIsHeaderHidden(false);
-            accumulatedDeltaRef.current = 0;
-            lastDirectionRef.current = "up";
-          } else if (delta > 0) {
-            // Scrolling downward
-            if (lastDirectionRef.current !== "down") {
-              lastDirectionRef.current = "down";
-              accumulatedDeltaRef.current = 0;
-            }
-            accumulatedDeltaRef.current += delta;
+      // 1. Force visible at the top of the page (0-20px)
+      if (currentScrollY <= TOP_ZONE) {
+        if (isHiddenRef.current) {
+          isHiddenRef.current = false;
+          setIsHeaderHidden(false);
+        }
+        lowestScrollYRef.current = currentScrollY;
+        highestScrollYRef.current = currentScrollY;
+        lastScrollYRef.current = currentScrollY;
+        return;
+      }
 
-            if (accumulatedDeltaRef.current >= HIDE_THRESHOLD && currentScrollY > 70) {
-              setIsHeaderHidden((prev) => (prev ? prev : true));
-            }
-          } else if (delta < 0) {
-            // Scrolling upward
-            if (lastDirectionRef.current !== "up") {
-              lastDirectionRef.current = "up";
-              accumulatedDeltaRef.current = 0;
-            }
-            accumulatedDeltaRef.current += Math.abs(delta);
+      // 2. State-based direction tracking
+      if (isHiddenRef.current) {
+        // While hidden, track the deepest point reached
+        if (currentScrollY > lowestScrollYRef.current) {
+          lowestScrollYRef.current = currentScrollY;
+        }
 
-            if (accumulatedDeltaRef.current >= SHOW_THRESHOLD) {
-              setIsHeaderHidden((prev) => (!prev ? prev : false));
-            }
-          }
+        // Compare against deepest scroll depth reached: ANY upward scroll >= 2.5px reveals!
+        const upwardMovement = lowestScrollYRef.current - currentScrollY;
+        if (upwardMovement >= UPWARD_THRESHOLD) {
+          isHiddenRef.current = false;
+          setIsHeaderHidden(false);
+          highestScrollYRef.current = currentScrollY;
+        }
+      } else {
+        // While visible, track the highest point reached
+        if (currentScrollY < highestScrollYRef.current) {
+          highestScrollYRef.current = currentScrollY;
+        }
 
-          lastScrollYRef.current = currentScrollY;
-          ticking = false;
-        });
-        ticking = true;
+        // Compare against highest point: intentional downward scroll >= 12px past top zone hides
+        const downwardMovement = currentScrollY - highestScrollYRef.current;
+        if (downwardMovement >= DOWNWARD_THRESHOLD && currentScrollY > 70) {
+          isHiddenRef.current = true;
+          setIsHeaderHidden(true);
+          lowestScrollYRef.current = currentScrollY;
+        }
+      }
+
+      lastScrollYRef.current = currentScrollY;
+    };
+
+    // Mobile touch listener for instant physical finger response
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches && e.touches.length > 0) {
+        touchStartYRef.current = e.touches[0].clientY;
+        touchStartScrollYRef.current = getScrollY();
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!e.touches || e.touches.length === 0) return;
+      const currentTouchY = e.touches[0].clientY;
+      const touchDeltaY = currentTouchY - touchStartYRef.current; // Positive = pulling finger down = scrolling up
+
+      // If user drags finger down by >= 3px (scrolling page up) while scrolled down:
+      if (touchDeltaY >= 3 && touchStartScrollYRef.current > 20) {
+        if (isHiddenRef.current) {
+          isHiddenRef.current = false;
+          setIsHeaderHidden(false);
+          highestScrollYRef.current = getScrollY();
+          lowestScrollYRef.current = getScrollY();
+        }
       }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
     };
   }, [location.pathname]);
 
@@ -371,7 +426,7 @@ export const Header: React.FC = () => {
 
   return (
     <header
-      className={`w-full z-40 sticky top-0 bg-white select-none transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform motion-reduce:transition-none ${
+      className={`w-full z-40 sticky top-0 bg-white select-none transition-transform duration-200 ease-out will-change-transform motion-reduce:transition-none ${
         shouldHideHeader
           ? "-translate-y-full pointer-events-none lg:translate-y-0 lg:pointer-events-auto shadow-none"
           : "translate-y-0 shadow-xs"
@@ -380,11 +435,7 @@ export const Header: React.FC = () => {
       {/* ==============================================================
           TOP ROW: LOGO (LEFT) | CENTERED SEARCH BAR | UTILITY ICONS (RIGHT)
       ============================================================== */}
-      <div
-        className={`max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
-          shouldHideHeader ? "-translate-y-1 sm:translate-y-0" : "translate-y-0"
-        }`}
-      >
+      <div className="max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3">
         <div className="flex items-center justify-between gap-2 sm:gap-4 lg:gap-8 min-w-0">
           
           {/* LEFT: DR.MEDEX Logo & Mobile Hamburger */}
@@ -1007,7 +1058,7 @@ export const Header: React.FC = () => {
       {/* ==============================================================
           CATEGORY NAVIGATION BELOW SEARCH: Horizontal Scrollable Row
       ============================================================== */}
-      <div className="bg-[#7AA05A] relative w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden transition-transform duration-220 ease-out motion-reduce:transition-none">
+      <div className="bg-[#7AA05A] relative w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-8">
           <nav
             className="flex items-center justify-start lg:justify-center gap-1 xl:gap-2 py-1.5 whitespace-nowrap min-w-max lg:min-w-0"
