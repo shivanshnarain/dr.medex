@@ -191,7 +191,9 @@ export interface OrderItem {
   title: string;
   sku: string;
   quantity: number;
-  basePriceUSD: number;
+  unitPrice?: number;
+  basePriceUSD?: number;
+  basePriceINR?: number;
   convertedUnitPrice: number;
   currency: string;
   image: string;
@@ -240,7 +242,10 @@ export interface Order {
   };
   payment: {
     method: string;
+    provider?: string;
     transactionId: string;
+    paypalOrderId?: string | null;
+    paypalCaptureId?: string | null;
     status: string;
     paidAt: string;
   };

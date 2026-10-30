@@ -11,6 +11,8 @@ const passwordRecoveryService = require("../services/passwordRecoveryService");
 const authService = require("../services/authService");
 const auditService = require("../services/auditService");
 const mongoService = require("../services/mongoService");
+const paypalService = require("../services/paypalService");
+const orderService = require("../services/orderService");
 
 // HEALTH
 router.get("/health", (req, res) => {
@@ -243,6 +245,169 @@ router.get("/track/:orderId", (req, res) => {
       };
     })
   });
+});
+
+// PAYPAL PAYMENT GATEWAY ENDPOINTS
+router.get("/payment/paypal/config", (req, res) => {
+  res.json({
+    success: true,
+    clientId: paypalService.getClientId(),
+    mode: paypalService.getMode()
+  });
+});
+
+router.post("/payment/paypal/create-order", async (req, res) => {
+  try {
+    const pendingOrder = await orderService.createPendingOrder(req.body);
+    const paypalOrder = await paypalService.createOrder({
+      orderNumber: pendingOrder.orderNumber,
+      amount: pendingOrder.pricing.grandTotal,
+      currency: pendingOrder.pricing.currency,
+      description: `DR.MEDEX Medical Equipment Order #${pendingOrder.orderNumber}`,
+      items: pendingOrder.items,
+      customer: pendingOrder.customer
+    });
+
+    res.json({
+      success: true,
+      orderID: paypalOrder.id,
+      orderNumber: pendingOrder.orderNumber,
+      currency: pendingOrder.pricing.currency,
+      amount: pendingOrder.pricing.grandTotal,
+      pendingOrder
+    });
+  } catch (err) {
+    console.error("[PayPal API] Create Order Error:", err);
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/payment/paypal/capture-order", async (req, res) => {
+  const { orderID, orderNumber } = req.body;
+  try {
+    if (!orderID) {
+      return res.status(400).json({ success: false, message: "orderID is required." });
+    }
+    const captureData = await paypalService.captureOrder(orderID);
+    if (captureData.status !== "COMPLETED") {
+      await orderService.markOrderAsFailed(orderNumber, `PayPal Status: ${captureData.status}`);
+      return res.status(400).json({
+        success: false,
+        message: `PayPal payment not completed. Status: ${captureData.status}`,
+        captureData
+      });
+    }
+
+    const captureId = captureData.purchase_units?.[0]?.payments?.captures?.[0]?.id || orderID;
+    const paidOrder = await orderService.markOrderAsPaid({
+      orderNumber,
+      paypalOrderId: orderID,
+      paypalCaptureId: captureId,
+      paymentDetails: captureData
+    });
+
+    res.json({
+      success: true,
+      order: paidOrder,
+      captureData
+    });
+  } catch (err) {
+    console.error("[PayPal API] Capture Order Error:", err);
+    if (orderNumber) {
+      await orderService.markOrderAsFailed(orderNumber, err.message);
+    }
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// PAYPAL WEBHOOK LISTENER
+router.post("/payment/paypal/webhook", async (req, res) => {
+  try {
+    const event = req.body;
+    const eventType = event.event_type;
+    console.log(`[PayPal Webhook] Received event: ${eventType}`);
+
+    if (eventType === "PAYMENT.CAPTURE.COMPLETED") {
+      const resource = event.resource;
+      const orderNumber = resource?.custom_id || resource?.invoice_id;
+      const captureId = resource?.id;
+      if (orderNumber) {
+        await orderService.markOrderAsPaid({
+          orderNumber,
+          paypalOrderId: resource?.supplementary_data?.related_ids?.order_id || null,
+          paypalCaptureId: captureId,
+          paymentDetails: resource
+        });
+      }
+    } else if (eventType === "PAYMENT.CAPTURE.DENIED" || eventType === "PAYMENT.CAPTURE.DECLINED") {
+      const resource = event.resource;
+      const orderNumber = resource?.custom_id || resource?.invoice_id;
+      if (orderNumber) {
+        await orderService.markOrderAsFailed(orderNumber, `PayPal Webhook: ${eventType}`);
+      }
+    }
+
+    res.status(200).json({ received: true });
+  } catch (err) {
+    console.error("[PayPal Webhook Error]:", err.message);
+    res.status(200).json({ received: false, error: err.message });
+  }
+});
+
+// CUSTOMER ADDRESS MANAGEMENT (MongoDB Atlas)
+router.get("/customer/addresses", async (req, res) => {
+  try {
+    const userId = req.query.userId || req.headers["x-user-id"];
+    if (!userId) {
+      return res.json({ success: true, addresses: [] });
+    }
+    const addresses = await orderService.getCustomerAddresses(userId);
+    res.json({ success: true, addresses });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/customer/addresses", async (req, res) => {
+  try {
+    const { userId, address } = req.body;
+    if (!userId || !address) {
+      return res.status(400).json({ success: false, message: "userId and address are required." });
+    }
+    const addresses = await orderService.saveCustomerAddress(userId, address);
+    res.json({ success: true, addresses });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.delete("/customer/addresses/:addressId", async (req, res) => {
+  try {
+    const userId = req.query.userId || req.body?.userId;
+    const addressId = req.params.addressId;
+    if (!userId || !addressId) {
+      return res.status(400).json({ success: false, message: "userId and addressId are required." });
+    }
+    const addresses = await orderService.deleteCustomerAddress(userId, addressId);
+    res.json({ success: true, addresses });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// CUSTOMER ORDER HISTORY
+router.get("/customer/orders", async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    const email = req.query.email;
+    if (!userId && !email) {
+      return res.status(400).json({ success: false, message: "userId or email required." });
+    }
+    const orders = await orderService.getCustomerOrders(userId, email);
+    res.json({ success: true, orders });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
 // B2B QUOTES
