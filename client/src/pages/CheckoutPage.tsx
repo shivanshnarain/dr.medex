@@ -768,7 +768,12 @@ export const CheckoutPage: React.FC = () => {
       const envClientId = (import.meta as any).env?.VITE_PAYPAL_CLIENT_ID;
       if (envClientId) {
         setPaypalClientId(envClientId);
+        return;
       }
+
+      setPaypalSdkLoadError(
+        "PayPal Gateway credentials (PAYPAL_CLIENT_ID) are not configured on the server. Please verify your environment variables."
+      );
     }
 
     fetchPaypalConfig();

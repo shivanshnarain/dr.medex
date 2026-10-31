@@ -56,7 +56,12 @@ function validateAndCalculateOrder(payload) {
 
   for (const item of payload.items) {
     const prodId = item.productId || item.id;
-    const prod = store.getProductById(prodId, false);
+    let prod = store.getProductById(prodId, false);
+    if (!prod) {
+      prod = store.getProducts(true).find(
+        (p) => String(p.id) === String(prodId) || String(p._id) === String(prodId) || String(p.slug) === String(prodId)
+      );
+    }
     if (!prod) {
       throw new Error(`Product not found in active catalogue: ${prodId}`);
     }

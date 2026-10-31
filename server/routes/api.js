@@ -364,7 +364,9 @@ router.post("/payment/paypal/capture-order", async (req, res) => {
     }
     const captureData = await paypalService.captureOrder(orderID);
     if (captureData.status !== "COMPLETED") {
-      await orderService.markOrderAsFailed(orderNumber, `PayPal Status: ${captureData.status}`);
+      if (orderNumber) {
+        await orderService.markOrderAsFailed(orderNumber, `PayPal Status: ${captureData.status}`);
+      }
       return res.status(400).json({
         success: false,
         message: `PayPal payment not completed. Status: ${captureData.status}`,
@@ -373,8 +375,13 @@ router.post("/payment/paypal/capture-order", async (req, res) => {
     }
 
     const captureId = captureData.purchase_units?.[0]?.payments?.captures?.[0]?.id || orderID;
+    const resolvedOrderNumber =
+      orderNumber ||
+      captureData.purchase_units?.[0]?.custom_id ||
+      captureData.purchase_units?.[0]?.reference_id;
+
     const paidOrder = await orderService.markOrderAsPaid({
-      orderNumber,
+      orderNumber: resolvedOrderNumber,
       paypalOrderId: orderID,
       paypalCaptureId: captureId,
       paymentDetails: captureData

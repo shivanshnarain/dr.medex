@@ -3,32 +3,52 @@
  * Server-Side Only: Never exposes PayPal Client Secret to the frontend
  */
 
-const clientId = process.env.PAYPAL_CLIENT_ID || "";
-const clientSecret = process.env.PAYPAL_CLIENT_SECRET || "";
-const mode = process.env.PAYPAL_MODE || "sandbox";
+/**
+ * Dynamic credential getters to guarantee real-time resolution in serverless / Vercel environments
+ */
+function getClientId() {
+  return (process.env.PAYPAL_CLIENT_ID || process.env.VITE_PAYPAL_CLIENT_ID || "").trim();
+}
 
-const BASE_URL = mode === "live"
-  ? "https://api-m.paypal.com"
-  : "https://api-m.sandbox.paypal.com";
+function getClientSecret() {
+  return (process.env.PAYPAL_CLIENT_SECRET || "").trim();
+}
+
+function getMode() {
+  return (process.env.PAYPAL_MODE || "sandbox").trim().toLowerCase();
+}
+
+function getBaseUrl() {
+  return getMode() === "live"
+    ? "https://api-m.paypal.com"
+    : "https://api-m.sandbox.paypal.com";
+}
 
 // In-memory token cache to minimize OAuth round-trips
 let cachedToken = null;
 let tokenExpiresAt = 0;
+let cachedCredentialsHash = "";
 
 /**
  * Obtain or refresh OAuth 2.0 access token from PayPal
  */
 async function getAccessToken() {
-  if (cachedToken && Date.now() < tokenExpiresAt - 60000) {
-    return cachedToken;
-  }
+  const currentClientId = getClientId();
+  const currentClientSecret = getClientSecret();
+  const currentMode = getMode();
+  const baseUrl = getBaseUrl();
 
-  if (!clientId || !clientSecret) {
+  if (!currentClientId || !currentClientSecret) {
     throw new Error("PAYPAL_CLIENT_ID or PAYPAL_CLIENT_SECRET is missing from server environment.");
   }
 
-  const auth = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
-  const res = await fetch(`${BASE_URL}/v1/oauth2/token`, {
+  const credsHash = `${currentClientId}:${currentClientSecret}:${currentMode}`;
+  if (cachedToken && credsHash === cachedCredentialsHash && Date.now() < tokenExpiresAt - 60000) {
+    return cachedToken;
+  }
+
+  const auth = Buffer.from(`${currentClientId}:${currentClientSecret}`).toString("base64");
+  const res = await fetch(`${baseUrl}/v1/oauth2/token`, {
     method: "POST",
     headers: {
       "Authorization": `Basic ${auth}`,
@@ -44,6 +64,7 @@ async function getAccessToken() {
 
   const data = await res.json();
   cachedToken = data.access_token;
+  cachedCredentialsHash = credsHash;
   tokenExpiresAt = Date.now() + (data.expires_in || 3600) * 1000;
   return cachedToken;
 }
@@ -74,31 +95,34 @@ async function createOrder({
   customer = {}
 }) {
   const token = await getAccessToken();
+  const baseUrl = getBaseUrl();
 
+  const numAmount = Number(amount) || 0;
   const formattedAmount = currency === "JPY"
-    ? Math.round(amount).toString()
-    : amount.toFixed(2);
+    ? Math.round(numAmount).toString()
+    : numAmount.toFixed(2);
 
+  // We use reference_id and custom_id for order correlation.
+  // Note: invoice_id is omitted to avoid DUPLICATE_INVOICE_ID on customer re-attempts or retries.
   const purchaseUnit = {
-    reference_id: orderNumber,
-    description: `DR.MEDEX Order #${orderNumber}`,
-    custom_id: orderNumber,
-    invoice_id: orderNumber,
+    reference_id: String(orderNumber || Date.now()),
+    description: `DR.MEDEX Order #${orderNumber}`.substring(0, 127),
+    custom_id: String(orderNumber || ""),
     amount: {
       currency_code: currency,
       value: formattedAmount
     }
   };
 
-  // If item details are provided, format them properly for PayPal
+  // If items are provided, build item line details safely
   if (Array.isArray(items) && items.length > 0) {
     const paypalItems = items.slice(0, 10).map((it) => {
       const itemPrice = currency === "JPY"
-        ? Math.round(it.unitPrice || 0).toString()
+        ? Math.round(Number(it.unitPrice) || 0).toString()
         : Number(it.unitPrice || 0).toFixed(2);
       return {
         name: (it.title || "Medical Device").substring(0, 127),
-        sku: (it.sku || it.productId || "SKU").substring(0, 127),
+        sku: (it.sku || it.productId || "MED-SKU").substring(0, 127),
         unit_amount: {
           currency_code: currency,
           value: itemPrice
@@ -116,7 +140,7 @@ async function createOrder({
       ? Math.round(itemTotal).toString()
       : itemTotal.toFixed(2);
 
-    // If itemTotal matches the overall amount, breakdown can be safely included
+    // Only attach breakdown if item total matches overall amount (no discounts/shipping rounding divergence)
     if (Math.abs(Number(formattedItemTotal) - Number(formattedAmount)) < 0.05) {
       purchaseUnit.items = paypalItems;
       purchaseUnit.amount.breakdown = {
@@ -139,7 +163,7 @@ async function createOrder({
     }
   };
 
-  const res = await fetch(`${BASE_URL}/v2/checkout/orders`, {
+  const res = await fetch(`${baseUrl}/v2/checkout/orders`, {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${token}`,
@@ -151,19 +175,20 @@ async function createOrder({
 
   const data = await res.json();
   if (!res.ok) {
-    throw new Error(`PayPal Order Creation Failed (HTTP ${res.status}): ${JSON.stringify(data)}`);
+    throw new Error(`PayPal Order Creation Failed (HTTP ${res.status}): ${data.message || JSON.stringify(data)}`);
   }
 
   return data;
 }
 
 /**
- * Capture an approved PayPal order
+ * Capture an approved PayPal order with idempotency
  */
 async function captureOrder(paypalOrderId) {
   const token = await getAccessToken();
+  const baseUrl = getBaseUrl();
 
-  const res = await fetch(`${BASE_URL}/v2/checkout/orders/${paypalOrderId}/capture`, {
+  const res = await fetch(`${baseUrl}/v2/checkout/orders/${paypalOrderId}/capture`, {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${token}`,
@@ -174,7 +199,21 @@ async function captureOrder(paypalOrderId) {
 
   const data = await res.json();
   if (!res.ok) {
-    throw new Error(`PayPal Order Capture Failed (HTTP ${res.status}): ${JSON.stringify(data)}`);
+    // If order was already captured (HTTP 422 with ORDER_ALREADY_CAPTURED), retrieve details
+    if (
+      res.status === 422 ||
+      (Array.isArray(data.details) && data.details.some((d) => d.issue === "ORDER_ALREADY_CAPTURED"))
+    ) {
+      try {
+        const existingDetails = await getOrderDetails(paypalOrderId);
+        if (existingDetails && (existingDetails.status === "COMPLETED" || existingDetails.status === "APPROVED")) {
+          return existingDetails;
+        }
+      } catch (checkErr) {
+        // Fall through to throw original error
+      }
+    }
+    throw new Error(`PayPal Order Capture Failed (HTTP ${res.status}): ${data.message || JSON.stringify(data)}`);
   }
 
   return data;
@@ -185,8 +224,9 @@ async function captureOrder(paypalOrderId) {
  */
 async function getOrderDetails(paypalOrderId) {
   const token = await getAccessToken();
+  const baseUrl = getBaseUrl();
 
-  const res = await fetch(`${BASE_URL}/v2/checkout/orders/${paypalOrderId}`, {
+  const res = await fetch(`${baseUrl}/v2/checkout/orders/${paypalOrderId}`, {
     method: "GET",
     headers: {
       "Authorization": `Bearer ${token}`,
@@ -196,7 +236,7 @@ async function getOrderDetails(paypalOrderId) {
 
   const data = await res.json();
   if (!res.ok) {
-    throw new Error(`PayPal Get Order Failed (HTTP ${res.status}): ${JSON.stringify(data)}`);
+    throw new Error(`PayPal Get Order Failed (HTTP ${res.status}): ${data.message || JSON.stringify(data)}`);
   }
 
   return data;
@@ -215,8 +255,9 @@ async function verifyWebhookSignature({
   webhookEvent
 }) {
   const token = await getAccessToken();
+  const baseUrl = getBaseUrl();
 
-  const res = await fetch(`${BASE_URL}/v1/notifications/verify-webhook-signature`, {
+  const res = await fetch(`${baseUrl}/v1/notifications/verify-webhook-signature`, {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${token}`,
@@ -243,7 +284,8 @@ module.exports = {
   captureOrder,
   getOrderDetails,
   verifyWebhookSignature,
-  getClientId: () => clientId,
-  getMode: () => mode
+  getClientId,
+  getClientSecret,
+  getMode,
+  getBaseUrl
 };
-
