@@ -85,7 +85,7 @@ function loadStoredCart(): CartItem[] {
 
 interface CartContextType {
   items: CartItem[];
-  addToCart: (product: Product, quantity?: number) => void;
+  addToCart: (product: Product, quantity?: number, openDrawer?: boolean) => void;
   removeFromCart: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
@@ -251,7 +251,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
   }, []);
 
-  const addToCart = (product: Product, quantity: number = 1) => {
+  const addToCart = (product: Product, quantity: number = 1, openDrawer: boolean = true) => {
     const validQty = Math.max(1, Math.floor(quantity));
     setItems((prev) => {
       const existing = prev.find((item) => item.product.id === product.id);
@@ -264,7 +264,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       return [...prev, { product, quantity: validQty }];
     });
-    setIsDrawerOpen(true);
+    if (openDrawer) {
+      setIsDrawerOpen(true);
+    } else {
+      setIsDrawerOpen(false);
+    }
   };
 
   const removeFromCart = (productId: string) => {

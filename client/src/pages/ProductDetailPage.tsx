@@ -407,7 +407,7 @@ export const ProductDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { formatPrice } = useCurrency();
-  const { addToCart } = useCart();
+  const { addToCart, closeDrawer } = useCart();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
@@ -883,9 +883,14 @@ export const ProductDetailPage: React.FC = () => {
   };
 
   const handleBuyNow = () => {
+    if (!product || isSubmittingBuy) return;
     setIsSubmittingBuy(true);
-    addToCart(product, 1);
+    addToCart(product, 1, false);
+    closeDrawer();
     navigate("/checkout");
+    setTimeout(() => {
+      setIsSubmittingBuy(false);
+    }, 400);
   };
 
   // Exactly Four Technical Specification Cards

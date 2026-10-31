@@ -34,6 +34,7 @@ import { useAuth } from "../context/AuthContext";
 import { InternationalPhoneInput, PhoneCountryItem } from "../components/InternationalPhoneInput";
 import { SmartLocationPrompt, ResolvedLocationData } from "../components/SmartLocationPrompt";
 import { AmazonCascadingAddressForm, AddressFormData } from "../components/AmazonCascadingAddressForm";
+import { renderBrandTitle } from "../components/BrandTitle";
 import { hasDismissedLocationPrompt } from "../services/pushNotificationService";
 import {
   WORLDWIDE_195_GEO_COUNTRIES,
@@ -1996,7 +1997,7 @@ export const CheckoutPage: React.FC = () => {
                         className="w-14 h-14 object-contain rounded-xl p-1 border border-neutral-200 bg-neutral-50 shrink-0"
                       />
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-bold text-xs text-[#171717] truncate">{it.product.title}</h4>
+                        <h4 className="font-bold text-xs text-[#171717] truncate">{renderBrandTitle(it.product.title)}</h4>
                         <div className="text-3xs text-neutral-400 font-mono mt-0.5">
                           SKU: {it.product.sku}
                         </div>

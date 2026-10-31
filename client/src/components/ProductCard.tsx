@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Heart } from "lucide-react";
 import { Product } from "../types";
 import { useWishlist } from "../context/WishlistContext";
+import { renderBrandTitle } from "./BrandTitle";
 
 interface ProductCardProps {
   product: Product;
@@ -142,7 +143,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {/* Product Name in Solid Black — expanded vertical space (+2 lines), natural wrapping without clipping */}
           <h3 className="text-xs sm:text-sm md:text-[14px] font-bold text-black leading-snug min-h-[4.25rem] sm:min-h-[4.75rem] hover:text-[#7AA05A] transition-colors break-words flex-1">
             <Link to={productUrl} title={displayTitle} className="hover:underline">
-              {displayTitle}
+              {renderBrandTitle(displayTitle)}
             </Link>
           </h3>
         </div>

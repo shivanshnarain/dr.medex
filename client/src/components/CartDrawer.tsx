@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { X, ShoppingCart, Trash2, Plus, Minus, ArrowRight, ShieldCheck, Tag } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useCurrency } from "../context/CurrencyContext";
+import { renderBrandTitle } from "./BrandTitle";
 
 export const CartDrawer: React.FC = () => {
   const navigate = useNavigate();
@@ -59,23 +60,38 @@ export const CartDrawer: React.FC = () => {
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
         <div className="w-full max-w-md bg-white shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-300">
           {/* Header */}
-          <div className="px-6 py-5 border-b border-[#EAEAEA] flex items-center justify-between bg-[#FAFAFA]">
-            <div className="flex items-center gap-2.5">
-              <ShoppingCart size={20} className="text-[#111111]" />
-              <h2 className="text-base font-bold text-[#111111]">
-                Equipment Cart ({itemCount})
-              </h2>
+          <div className="px-5 sm:px-6 py-4 border-b border-[#EAEAEA] bg-[#FAFAFA]">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <ShoppingCart size={20} className="text-[#2D5A4A]" />
+                <h2 className="text-base font-bold text-[#111111]">
+                  Equipment Cart ({itemCount})
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={closeDrawer}
+                className="p-1.5 text-neutral-400 hover:text-[#111111] hover:bg-neutral-100 rounded-lg transition-colors cursor-pointer"
+                aria-label="Close cart drawer"
+              >
+                <X size={20} />
+              </button>
             </div>
-            <button
-              onClick={closeDrawer}
-              className="p-1.5 text-neutral-400 hover:text-[#111111] hover:bg-neutral-100 rounded-lg transition-colors"
-            >
-              <X size={20} />
-            </button>
+            {/* View Full Cart Details immediately below the Equipment Cart heading */}
+            <div className="mt-1 pl-7">
+              <Link
+                to="/cart"
+                onClick={closeDrawer}
+                className="text-2xs font-semibold text-[#7AA05A] hover:text-[#2D5A4A] hover:underline transition-colors inline-flex items-center gap-1"
+              >
+                <span>View Full Cart Details</span>
+                <ArrowRight size={12} />
+              </Link>
+            </div>
           </div>
 
           {/* Items List */}
-          <div className="flex-1 overflow-y-auto p-6 divide-y divide-[#EAEAEA]">
+          <div className="flex-1 overflow-y-auto p-5 sm:p-6 divide-y divide-[#EAEAEA]">
             {items.length === 0 ? (
               <div className="py-16 text-center">
                 <div className="w-16 h-16 bg-[#F7F7F7] border border-[#EAEAEA] rounded-full flex items-center justify-center mx-auto mb-4 text-[#111111]">
@@ -90,7 +106,7 @@ export const CartDrawer: React.FC = () => {
                     closeDrawer();
                     navigate("/shop-all");
                   }}
-                  className="mt-6 px-6 py-2.5 text-xs font-semibold bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-lg transition-colors shadow-2xs"
+                  className="mt-6 px-6 py-2.5 text-xs font-semibold bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-lg transition-colors shadow-2xs cursor-pointer"
                 >
                   Explore Medical Catalog
                 </button>
@@ -105,67 +121,94 @@ export const CartDrawer: React.FC = () => {
                     "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
 
                   return (
-                    <div key={product.id} className="pt-4 first:pt-0 flex gap-4 items-start">
-                      <img
-                        src={itemImage}
-                        alt={product.title}
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src =
-                            "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
-                        }}
-                        className="w-16 h-16 object-contain p-1 rounded-lg border border-[#EAEAEA] bg-[#FAFAFA] shrink-0"
-                      />
-                      <div className="flex-1 min-w-0">
-                        <Link
-                          to={`/product/${product.slug}`}
-                          onClick={closeDrawer}
-                          className="text-xs font-semibold text-[#111111] hover:text-[#2D5A4A] line-clamp-2 transition-colors"
-                        >
-                          {product.title}
-                        </Link>
-                        <div className="text-3xs text-neutral-400 font-mono mt-0.5">SKU: {product.sku}</div>
+                    <div key={product.id} className="pt-4 first:pt-0 pb-4 border-b border-[#EAEAEA] last:border-b-0">
+                      <div className="flex gap-3 sm:gap-4 items-start">
+                        {/* Left section: Product image and quantity selector below it */}
+                        <div className="flex flex-col items-center shrink-0 w-20 sm:w-24">
+                          <Link
+                            to={`/product/${product.slug}`}
+                            onClick={closeDrawer}
+                            className="block w-20 h-20 sm:w-24 sm:h-24 rounded-xl border border-[#EAEAEA] bg-[#FAFAFA] p-1.5 hover:border-[#7AA05A]/40 transition-colors"
+                          >
+                            <img
+                              src={itemImage}
+                              alt={product.title}
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).src =
+                                  "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
+                              }}
+                              className="w-full h-full object-contain"
+                            />
+                          </Link>
 
-                        <div className="flex items-center justify-between mt-3">
-                          {/* Quantity Modifier */}
-                          <div className="flex items-center border border-[#EAEAEA] rounded-md bg-white">
+                          {/* Below product image: Quantity selector [ - ] [ qty ] [ + ] */}
+                          <div className="flex items-center justify-between w-full mt-2 border border-[#EAEAEA] rounded-lg bg-white overflow-hidden shadow-2xs">
                             <button
                               type="button"
-                              onClick={() => updateQuantity(product.id, quantity - 1)}
-                              className="p-1.5 text-neutral-500 hover:text-[#111111] hover:bg-[#F7F7F7]"
+                              onClick={() => {
+                                if (quantity > 1) {
+                                  updateQuantity(product.id, quantity - 1);
+                                }
+                              }}
+                              disabled={quantity <= 1}
+                              className="p-1 sm:p-1.5 text-neutral-600 hover:text-[#2D5A4A] hover:bg-[#F4F7F2] transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                              title={quantity <= 1 ? "Minimum quantity is 1 (use delete icon to remove)" : "Decrease quantity"}
+                              aria-label="Decrease quantity"
                             >
                               <Minus size={12} />
                             </button>
-                            <span className="px-2.5 text-xs font-semibold text-[#111111]">{quantity}</span>
+                            <span className="px-1 text-xs font-bold text-[#111111] select-none">
+                              {quantity}
+                            </span>
                             <button
                               type="button"
                               onClick={() => updateQuantity(product.id, quantity + 1)}
-                              className="p-1.5 text-neutral-500 hover:text-[#111111] hover:bg-[#F7F7F7]"
+                              className="p-1 sm:p-1.5 text-neutral-600 hover:text-[#2D5A4A] hover:bg-[#F4F7F2] transition-colors cursor-pointer"
+                              title="Increase quantity"
+                              aria-label="Increase quantity"
                             >
                               <Plus size={12} />
                             </button>
                           </div>
+                        </div>
 
-                          {/* Price */}
-                          <div className="text-right">
-                            <div className="text-xs font-bold text-[#111111]">
-                              {formatPrice(product.basePrice * quantity)}
-                            </div>
-                            {quantity > 1 && (
-                              <div className="text-3xs text-neutral-400">
-                                {formatPrice(product.basePrice)} each
-                              </div>
-                            )}
+                        {/* Right section: Product Name, Prices in Dark Green #2D5A4A, Red Delete Icon */}
+                        <div className="flex-1 min-w-0 flex flex-col justify-between self-stretch">
+                          <div>
+                            <Link
+                              to={`/product/${product.slug}`}
+                              onClick={closeDrawer}
+                              className="text-xs sm:text-sm font-bold text-[#111111] hover:text-[#2D5A4A] line-clamp-2 leading-snug transition-colors block"
+                            >
+                              {renderBrandTitle(product.title)}
+                            </Link>
+                            {/* SKU is completely removed from visible cart UI */}
                           </div>
 
-                          {/* Remove */}
-                          <button
-                            type="button"
-                            onClick={() => removeFromCart(product.id)}
-                            className="text-neutral-400 hover:text-rose-600 p-1 transition-colors"
-                            title="Remove item"
-                          >
-                            <Trash2 size={14} />
-                          </button>
+                          <div className="mt-2 flex flex-col gap-0.5">
+                            {/* Product total price: Dark Green #2D5A4A */}
+                            <div className="text-sm sm:text-base font-extrabold text-[#2D5A4A]">
+                              {formatPrice(product.basePrice * quantity)}
+                            </div>
+
+                            {/* Per-unit price: Dark Green #2D5A4A, clearly labelled Each */}
+                            <div className="text-2xs sm:text-xs font-semibold text-[#2D5A4A]">
+                              {formatPrice(product.basePrice)} <span className="font-normal text-neutral-500">Each</span>
+                            </div>
+                          </div>
+
+                          {/* Red delete/trash icon for removing the product with clear clickable area */}
+                          <div className="mt-2 flex justify-end">
+                            <button
+                              type="button"
+                              onClick={() => removeFromCart(product.id)}
+                              className="p-2 -mr-1.5 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors cursor-pointer flex items-center justify-center"
+                              title="Remove product from cart"
+                              aria-label="Remove product"
+                            >
+                              <Trash2 size={16} className="text-red-500" />
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -177,7 +220,7 @@ export const CartDrawer: React.FC = () => {
 
           {/* Footer & Checkout Breakdown */}
           {items.length > 0 && (
-            <div className="border-t border-[#EAEAEA] bg-[#FAFAFA] p-6 space-y-4">
+            <div className="border-t border-[#EAEAEA] bg-[#FAFAFA] p-5 sm:p-6 space-y-4">
               {/* Promo Coupon Form */}
               <div>
                 {appliedCoupon ? (
@@ -189,7 +232,7 @@ export const CartDrawer: React.FC = () => {
                     <button
                       type="button"
                       onClick={removeCoupon}
-                      className="text-xs text-rose-600 font-bold hover:underline"
+                      className="text-xs text-rose-600 font-bold hover:underline cursor-pointer"
                     >
                       Remove
                     </button>
@@ -206,7 +249,7 @@ export const CartDrawer: React.FC = () => {
                     <button
                       type="submit"
                       disabled={isApplying}
-                      className="px-4 py-2 bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-lg text-xs font-semibold transition-colors disabled:opacity-50 shadow-2xs"
+                      className="px-4 py-2 bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-lg text-xs font-semibold transition-colors disabled:opacity-50 shadow-2xs cursor-pointer"
                     >
                       {isApplying ? "..." : "Apply"}
                     </button>
@@ -228,16 +271,13 @@ export const CartDrawer: React.FC = () => {
                     <span>-{formatPrice(discountUSD)}</span>
                   </div>
                 )}
-                <div className="flex justify-between text-neutral-600">
-                  <span>Export Air Freight to {currentCountry.name}</span>
-                  <span className="font-medium text-neutral-700">Calculated at Checkout</span>
-                </div>
                 <div className="pt-2.5 border-t border-[#EAEAEA] flex justify-between text-sm font-bold text-[#111111]">
                   <span>Estimated Total</span>
-                  <span className="text-[#111111] text-base font-extrabold">{formatPrice(finalSubtotalUSD)}</span>
+                  <span className="text-[#2D5A4A] text-base font-extrabold">{formatPrice(finalSubtotalUSD)}</span>
                 </div>
-                <div className="text-3xs text-neutral-400 text-right">
-                  Displayed in <strong>{currentCurrency}</strong> based on current exchange rate
+                {/* Horizontally centered currency exchange rate message */}
+                <div className="text-3xs text-neutral-400 text-center pt-1">
+                  Displayed in <strong className="text-neutral-600">{currentCurrency}</strong> based on current exchange rate
                 </div>
               </div>
 
@@ -249,24 +289,16 @@ export const CartDrawer: React.FC = () => {
                     closeDrawer();
                     navigate("/checkout");
                   }}
-                  className="w-full py-3.5 bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-all active:scale-[0.99]"
+                  className="w-full py-3.5 bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-all active:scale-[0.99] cursor-pointer"
                 >
                   <span>Proceed to International Checkout</span>
                   <ArrowRight size={15} />
                 </button>
 
-                <div className="flex items-center justify-between text-2xs text-neutral-500 pt-1">
-                  <Link
-                    to="/cart"
-                    onClick={closeDrawer}
-                    className="hover:text-[#2D5A4A] font-medium underline"
-                  >
-                    View Full Cart Details
-                  </Link>
-                  <div className="flex items-center gap-1.5 text-neutral-500">
-                    <ShieldCheck size={14} className="text-[#7AA05A]" />
-                    <span>Secure Checkout</span>
-                  </div>
+                {/* Secure Checkout indication */}
+                <div className="flex items-center justify-center gap-1.5 text-2xs text-neutral-500 pt-1">
+                  <ShieldCheck size={14} className="text-[#7AA05A]" />
+                  <span>Secure Checkout</span>
                 </div>
               </div>
             </div>

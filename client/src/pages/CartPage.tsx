@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart, Trash2, Plus, Minus, ArrowRight, ShieldCheck, Tag, ArrowLeft, Globe } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useCurrency } from "../context/CurrencyContext";
+import { renderBrandTitle } from "../components/BrandTitle";
 
 export const CartPage: React.FC = () => {
   const navigate = useNavigate();
@@ -125,26 +126,31 @@ export const CartPage: React.FC = () => {
                                 to={`/product/${product.slug}`}
                                 className="font-bold text-[#111111] hover:text-[#2D5A4A] line-clamp-2 text-xs transition-colors"
                               >
-                                {product.title}
+                                {renderBrandTitle(product.title)}
                               </Link>
-                              <div className="text-3xs text-neutral-400 font-mono mt-0.5">SKU: {product.sku}</div>
                               <span className="inline-block mt-1 text-3xs font-semibold px-2 py-0.5 bg-[#FAFAFA] border border-[#EAEAEA] text-neutral-700 rounded-md">
-                                {product.brand}
+                                {product.brand || "DR.MEDEX"}
                               </span>
                             </div>
                           </div>
                         </td>
 
-                        <td className="py-5 text-center font-semibold text-neutral-700 whitespace-nowrap">
-                          {formatPrice(product.basePrice)}
+                        <td className="py-5 text-center font-bold text-[#2D5A4A] whitespace-nowrap">
+                          {formatPrice(product.basePrice)} <span className="font-normal text-3xs text-neutral-500">Each</span>
                         </td>
 
                         <td className="py-5 text-center">
                           <div className="inline-flex items-center border border-[#EAEAEA] rounded-lg bg-white">
                             <button
                               type="button"
-                              onClick={() => updateQuantity(product.id, quantity - 1)}
-                              className="p-1.5 text-neutral-500 hover:text-[#111111] hover:bg-[#F7F7F7] rounded-l-lg"
+                              onClick={() => {
+                                if (quantity > 1) {
+                                  updateQuantity(product.id, quantity - 1);
+                                }
+                              }}
+                              disabled={quantity <= 1}
+                              className="p-1.5 text-neutral-500 hover:text-[#111111] hover:bg-[#F7F7F7] rounded-l-lg disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                              title={quantity <= 1 ? "Minimum quantity is 1 (use delete icon to remove)" : "Decrease quantity"}
                             >
                               <Minus size={12} />
                             </button>
@@ -152,14 +158,15 @@ export const CartPage: React.FC = () => {
                             <button
                               type="button"
                               onClick={() => updateQuantity(product.id, quantity + 1)}
-                              className="p-1.5 text-neutral-500 hover:text-[#111111] hover:bg-[#F7F7F7] rounded-r-lg"
+                              className="p-1.5 text-neutral-500 hover:text-[#111111] hover:bg-[#F7F7F7] rounded-r-lg cursor-pointer"
+                              title="Increase quantity"
                             >
                               <Plus size={12} />
                             </button>
                           </div>
                         </td>
 
-                        <td className="py-5 text-right font-bold text-[#111111] whitespace-nowrap text-sm">
+                        <td className="py-5 text-right font-bold text-[#2D5A4A] whitespace-nowrap text-sm">
                           {formatPrice(product.basePrice * quantity)}
                         </td>
 
@@ -167,7 +174,7 @@ export const CartPage: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => removeFromCart(product.id)}
-                            className="text-neutral-400 hover:text-rose-600 p-1.5 transition-colors"
+                            className="text-red-500 hover:text-red-700 p-1.5 transition-colors cursor-pointer"
                             title="Remove item"
                           >
                             <Trash2 size={16} />
