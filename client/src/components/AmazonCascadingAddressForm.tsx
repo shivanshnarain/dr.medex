@@ -143,13 +143,33 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
       if (!isCancelled) {
         setSubdivisions(list);
         setIsLoadingSubdivisions(false);
+
+        // Auto-synchronize state and stateCode if one is missing but the other exists
+        if (data.state && !data.stateCode && list.length > 0) {
+          const sClean = data.state.trim().toLowerCase();
+          const found = list.find(
+            (s) => s.name.toLowerCase() === sClean ||
+                   s.code.toLowerCase() === sClean ||
+                   sClean.includes(s.name.toLowerCase()) ||
+                   s.name.toLowerCase().includes(sClean)
+          );
+          if (found) {
+            onChange({ state: found.name, stateCode: found.code });
+          }
+        } else if (data.stateCode && !data.state && list.length > 0) {
+          const cClean = data.stateCode.trim().toLowerCase();
+          const found = list.find((s) => s.code.toLowerCase() === cClean);
+          if (found) {
+            onChange({ state: found.name, stateCode: found.code });
+          }
+        }
       }
     }
     fetchSubdivisions();
     return () => {
       isCancelled = true;
     };
-  }, [data.countryCode]);
+  }, [data.countryCode, data.state, data.stateCode]);
 
   // 2. Load Cities whenever country or stateCode changes
   useEffect(() => {
@@ -161,14 +181,27 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
       if (!isCancelled) {
         setCities(list);
         setIsLoadingCities(false);
-        setIsManualCityMode(list.length === 0);
+
+        // If a city is already populated (e.g. from GPS detection)
+        if (data.city) {
+          const cClean = data.city.trim().toLowerCase();
+          const existsInList = list.some((c) => c.name.toLowerCase() === cClean);
+          if (!existsInList && list.length > 0) {
+            // Keep the detected city visible in manual mode rather than hiding it
+            setIsManualCityMode(true);
+          } else {
+            setIsManualCityMode(list.length === 0);
+          }
+        } else {
+          setIsManualCityMode(list.length === 0);
+        }
       }
     }
     fetchCities();
     return () => {
       isCancelled = true;
     };
-  }, [data.countryCode, data.stateCode]);
+  }, [data.countryCode, data.stateCode, data.city]);
 
   // 3. Load Postal Suggestions whenever city changes
   useEffect(() => {
@@ -557,7 +590,7 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
                             type="button"
                             onClick={() => handleSelectState(s)}
                             className={`w-full flex items-center justify-between px-3.5 py-2 hover:bg-[#F4F7F2] text-left transition-colors text-xs cursor-pointer ${
-                              s.name === data.state ? "bg-[#7AA05A]/10 font-bold text-[#2D5A4A]" : "text-neutral-800"
+                              s.name === data.state || s.code === data.stateCode ? "bg-[#7AA05A]/10 font-bold text-[#2D5A4A]" : "text-neutral-800"
                             }`}
                           >
                             <span className="truncate">{s.name}</span>

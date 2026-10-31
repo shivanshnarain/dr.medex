@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   CheckCircle2,
   Lock,
@@ -91,6 +91,7 @@ const GUEST_CHECKOUT_STORAGE_KEY = "drmedex_guest_checkout_v4";
 
 export const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
+  const routeLocation = useLocation();
   const { items, appliedCoupon, applyCoupon, removeCoupon, clearCart } = useCart();
   const { currentCountry, currentCurrency, formatPrice, convertPrice, exchangeRates, setCurrencyManually } = useCurrency();
   const { user } = useAuth();
@@ -351,6 +352,9 @@ export const CheckoutPage: React.FC = () => {
     if (loc.state) {
       setState(loc.state);
     }
+    if (loc.stateCode) {
+      setStateCode(loc.stateCode.toUpperCase());
+    }
     if (loc.city) {
       setCity(loc.city);
     } else if (loc.district) {
@@ -370,68 +374,140 @@ export const CheckoutPage: React.FC = () => {
       setAutocompleteQuery(loc.formattedAddress);
     }
 
+    try {
+      sessionStorage.setItem("drmedex_location_session_dismissed", "true");
+    } catch (e) {}
+
     const locSummary = [loc.city || loc.district, loc.state, loc.country].filter(Boolean).join(", ");
-    setLocationNotice(`Location detected: ${locSummary} (All fields are editable)`);
+    if (loc.accuracy && loc.accuracy > 2000) {
+      setLocationNotice(`Approximate location detected: ${locSummary} (~${Math.round(loc.accuracy / 1000)} km precision) — Please verify your delivery address.`);
+    } else {
+      setLocationNotice(`Location detected: ${locSummary} — Please verify your delivery address.`);
+    }
   };
 
   const handleDirectDetectLocation = () => {
     if (!navigator.geolocation) {
-      alert("Geolocation is not supported by your current browser.");
+      setLocationNotice("Geolocation is not supported by your current browser. Please enter your address manually.");
       return;
     }
 
     setIsGeolocating(true);
-    navigator.geolocation.getCurrentPosition(
-      async (pos) => {
-        try {
-          const lat = pos.coords.latitude;
-          const lng = pos.coords.longitude;
-          const res = await fetch(`/api/location/reverse-geocode?lat=${lat}&lng=${lng}`);
-          if (res.ok) {
-            const data = await res.json();
-            if (data.success) {
-              handleLocationDetected(data);
-              return;
-            }
-          }
-          let errorDetail = "";
+    setLocationNotice(null);
+
+    const onGeoSuccess = async (pos: GeolocationPosition) => {
+      try {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        const accuracy = Math.round(pos.coords.accuracy || 0);
+
+        const res = await fetch(`/api/location/reverse-geocode?lat=${lat}&lng=${lng}&acc=${accuracy}`);
+        if (!res.ok) {
+          let errorDetail = `HTTP ${res.status}`;
           try {
             const errJson = await res.json();
             if (errJson && errJson.message) errorDetail = errJson.message;
           } catch (e) {}
-          setLocationNotice(`Unable to auto-detect location${errorDetail ? `: ${errorDetail}` : ""}. You can enter your regional shipping destination manually below.`);
-        } catch (err: any) {
-          console.warn("[Checkout] Geolocation reverse lookup error:", err);
-          setLocationNotice("Could not resolve location coordinates automatically. Please enter your address details manually.");
-        } finally {
-          setIsGeolocating(false);
+          throw new Error(errorDetail);
         }
-      },
-      (err) => {
+
+        const data = await res.json();
+        if (data.success) {
+          handleLocationDetected(data);
+          return;
+        }
+        throw new Error(data.message || "Could not resolve address");
+      } catch (err: any) {
+        console.warn("[Checkout] Geolocation reverse lookup error:", err);
+        setLocationNotice(`Unable to auto-detect location: ${err.message || "Service unavailable"}. Please enter your regional address manually below.`);
+      } finally {
         setIsGeolocating(false);
-        if (err.code === err.PERMISSION_DENIED) {
-          setLocationNotice("Location permission was denied. Please enter your regional shipping destination manually below.");
-        } else if (err.code === err.POSITION_UNAVAILABLE) {
-          setLocationNotice("GPS location is unavailable on this device. Please enter your address manually.");
+      }
+    };
+
+    const onGeoError = (err: GeolocationPositionError) => {
+      setIsGeolocating(false);
+      if (err.code === err.PERMISSION_DENIED) {
+        setLocationNotice("Location permission was denied in your browser settings. You can enter your regional shipping destination manually below, or enable location in site permissions.");
+      } else if (err.code === err.POSITION_UNAVAILABLE) {
+        setLocationNotice("GPS location is unavailable on this device. Please enter your address manually.");
+      } else if (err.code === err.TIMEOUT) {
+        setLocationNotice("Location request timed out. Please enter your address manually.");
+      } else {
+        setLocationNotice("Location error. Please enter your address manually.");
+      }
+    };
+
+    navigator.geolocation.getCurrentPosition(
+      onGeoSuccess,
+      (firstErr) => {
+        if (firstErr.code === firstErr.TIMEOUT) {
+          navigator.geolocation.getCurrentPosition(
+            onGeoSuccess,
+            onGeoError,
+            { enableHighAccuracy: false, timeout: 10000, maximumAge: 10000 }
+          );
         } else {
-          setLocationNotice("Location request timed out. Please enter your address manually.");
+          onGeoError(firstErr);
         }
       },
-      { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 }
     );
   };
 
-  // Check if smart location prompt should be offered on arrival
+  // Checkout Initiation Intent & Smart Location Flow
   useEffect(() => {
-    if (!hasDismissedLocationPrompt()) {
-      const timer = setTimeout(() => {
-        if (!addressLine1 && !city) {
-          setShowLocationPrompt(true);
-        }
-      }, 1500);
-      return () => clearTimeout(timer);
+    const searchParams = new URLSearchParams(routeLocation.search);
+    const hasCheckoutIntent = searchParams.get("initiateLocation") === "1" ||
+                              searchParams.get("promptLocation") === "1" ||
+                              (routeLocation.state as any)?.fromCheckoutIntent;
+
+    // Clean the URL query params so refresh doesn't re-trigger intent
+    if (searchParams.has("initiateLocation") || searchParams.has("promptLocation")) {
+      const cleanUrl = window.location.pathname;
+      window.history.replaceState({}, "", cleanUrl);
     }
-  }, []);
+
+    if (!hasCheckoutIntent) {
+      return;
+    }
+
+    // Check if location prompt was already dismissed in this session
+    let isSessionDismissed = false;
+    try {
+      isSessionDismissed = sessionStorage.getItem("drmedex_location_session_dismissed") === "true";
+    } catch (e) {}
+
+    if (isSessionDismissed) {
+      return;
+    }
+
+    // Check Permissions API if available
+    if (typeof navigator !== "undefined" && navigator.permissions && navigator.permissions.query) {
+      navigator.permissions
+        .query({ name: "geolocation" as PermissionName })
+        .then((permissionStatus) => {
+          if (permissionStatus.state === "granted") {
+            // Permission ALREADY granted: retrieve position directly without displaying modal
+            handleDirectDetectLocation();
+          } else if (permissionStatus.state === "denied") {
+            // Previously denied in browser: do not repeatedly trigger prompt, show helpful non-intrusive tip
+            setLocationNotice(
+              "Location access is currently disabled in your browser. You can enter your delivery address manually below, or enable location in your browser site settings."
+            );
+          } else {
+            // Default / prompt state: display DR.MEDEX location permission modal
+            setShowLocationPrompt(true);
+          }
+        })
+        .catch(() => {
+          // Permissions API query not supported or failed: open DR.MEDEX custom prompt
+          setShowLocationPrompt(true);
+        });
+    } else {
+      setShowLocationPrompt(true);
+    }
+  }, [routeLocation.search, routeLocation.state]);
 
   // 4. Pre-populate from authenticated user or saved guest draft (STRICTLY NO FAKE MOCK DATA)
   useEffect(() => {

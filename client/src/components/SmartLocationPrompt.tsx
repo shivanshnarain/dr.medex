@@ -14,6 +14,8 @@ export interface ResolvedLocationData {
   formattedAddress: string;
   latitude: number;
   longitude: number;
+  accuracy?: number | null;
+  accuracyTier?: "high" | "medium" | "approximate";
   countryData?: {
     name: string;
     code: string;
@@ -43,79 +45,108 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
 
   if (!isOpen) return null;
 
+  const markSessionDismissed = () => {
+    try {
+      sessionStorage.setItem("drmedex_location_session_dismissed", "true");
+    } catch (e) {}
+    dismissLocationPrompt();
+  };
+
   const handleAllowLocation = () => {
     if (!navigator.geolocation) {
-      setErrorMessage("Geolocation is not supported by your current browser.");
+      setErrorMessage("Geolocation is not supported by your current browser. Please enter your address manually.");
       return;
     }
 
     setIsDetecting(true);
     setErrorMessage(null);
 
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        try {
-          const lat = position.coords.latitude;
-          const lng = position.coords.longitude;
+    const onPositionSuccess = async (position: GeolocationPosition) => {
+      try {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        const accuracy = Math.round(position.coords.accuracy || 0);
 
-          const res = await fetch(`/api/location/reverse-geocode?lat=${lat}&lng=${lng}`);
-          if (!res.ok) {
-            let detail = `HTTP ${res.status}`;
-            try {
-              const errBody = await res.json();
-              if (errBody && errBody.message) detail = errBody.message;
-            } catch (e) {}
-            throw new Error(`Reverse geocoding service error (${detail})`);
-          }
-
-          const data = await res.json();
-          if (!data.success) {
-            throw new Error(data.message || "Failed to resolve your regional address.");
-          }
-
-          dismissLocationPrompt();
-          const detectedSummary = [data.city || data.district, data.state, data.country].filter(Boolean).join(", ");
-          setSuccessLocation(detectedSummary || "Regional Address Located");
-
-          setTimeout(() => {
-            onLocationDetected(data);
-            setIsDetecting(false);
-            onClose();
-          }, 600);
-        } catch (err: any) {
-          console.warn("[SmartLocationPrompt] Geocode error:", err);
-          setErrorMessage(err.message || "Could not resolve your regional address. You can proceed with standard manual entry below.");
-          setIsDetecting(false);
+        const res = await fetch(`/api/location/reverse-geocode?lat=${lat}&lng=${lng}&acc=${accuracy}`);
+        if (!res.ok) {
+          let detail = `HTTP ${res.status}`;
+          try {
+            const errBody = await res.json();
+            if (errBody && errBody.message) detail = errBody.message;
+          } catch (e) {}
+          throw new Error(`Reverse geocoding error (${detail})`);
         }
-      },
-      (error) => {
+
+        const data = await res.json();
+        if (!data.success) {
+          throw new Error(data.message || "Failed to resolve your regional address.");
+        }
+
+        markSessionDismissed();
+        const detectedSummary = [data.city || data.district, data.state, data.country].filter(Boolean).join(", ");
+        setSuccessLocation(detectedSummary || "Regional Address Located");
+
+        // Small pause to allow user to see success state before closing
+        setTimeout(() => {
+          onLocationDetected(data);
+          setIsDetecting(false);
+          onClose();
+        }, 500);
+      } catch (err: any) {
+        console.warn("[SmartLocationPrompt] Geocode error:", err);
+        setErrorMessage(err.message || "Could not resolve your regional address. You can enter your delivery address manually below.");
         setIsDetecting(false);
-        if (error.code === error.PERMISSION_DENIED) {
-          dismissLocationPrompt();
-          setErrorMessage("Location access was denied. You can proceed with manual address entry.");
-        } else if (error.code === error.POSITION_UNAVAILABLE) {
-          setErrorMessage("GPS location is currently unavailable. Please enter your address manually.");
-        } else if (error.code === error.TIMEOUT) {
-          setErrorMessage("Location request timed out. Please enter your address manually.");
+      }
+    };
+
+    const onPositionError = (error: GeolocationPositionError) => {
+      setIsDetecting(false);
+      if (error.code === error.PERMISSION_DENIED) {
+        markSessionDismissed();
+        setErrorMessage("Location access was denied in your browser settings. You can enter your delivery address manually below, or allow location in browser site settings.");
+      } else if (error.code === error.POSITION_UNAVAILABLE) {
+        setErrorMessage("GPS location is currently unavailable on this device. Please enter your address manually.");
+      } else if (error.code === error.TIMEOUT) {
+        setErrorMessage("Location request timed out. Please enter your shipping address manually.");
+      } else {
+        setErrorMessage("Unable to retrieve device location. Please enter your shipping address manually.");
+      }
+    };
+
+    // Primary High-Accuracy GPS Request with 20s timeout and fresh position (maximumAge: 0)
+    navigator.geolocation.getCurrentPosition(
+      onPositionSuccess,
+      (firstError) => {
+        // Fallback Retry: If high-accuracy times out (e.g. indoors / laptop without satellite GPS), retry once with standard accuracy
+        if (firstError.code === firstError.TIMEOUT) {
+          navigator.geolocation.getCurrentPosition(
+            onPositionSuccess,
+            onPositionError,
+            {
+              enableHighAccuracy: false,
+              timeout: 10000,
+              maximumAge: 10000
+            }
+          );
         } else {
-          setErrorMessage("Location error. Please enter your shipping address manually.");
+          onPositionError(firstError);
         }
       },
       {
         enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 60000
+        timeout: 20000,
+        maximumAge: 0
       }
     );
   };
 
   const handleManualEntry = () => {
-    dismissLocationPrompt();
+    markSessionDismissed();
     onClose();
   };
 
-  const handleNotNow = () => {
-    dismissLocationPrompt();
+  const handleClose = () => {
+    markSessionDismissed();
     onClose();
   };
 
@@ -138,7 +169,7 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
             </p>
 
             {errorMessage && (
-              <p className="text-xs font-semibold text-rose-600 mt-2 bg-rose-50 p-2 rounded-md border border-rose-200">
+              <p className="text-xs font-semibold text-rose-600 mt-2 bg-rose-50 p-2.5 rounded-lg border border-rose-200">
                 {errorMessage}
               </p>
             )}
@@ -177,14 +208,6 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
               >
                 Enter Address Manually
               </button>
-
-              <button
-                type="button"
-                onClick={handleNotNow}
-                className="px-2.5 py-1.5 text-xs text-neutral-500 hover:text-neutral-800 transition-colors cursor-pointer"
-              >
-                Not Now
-              </button>
             </div>
           </div>
         </div>
@@ -199,8 +222,8 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
         <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#2D5A4A] via-[#7AA05A] to-[#2D5A4A]" />
 
         <button
-          onClick={handleNotNow}
-          className="absolute top-4 right-4 p-1.5 text-neutral-400 hover:text-neutral-700 rounded-lg hover:bg-neutral-100 transition-colors"
+          onClick={handleClose}
+          className="absolute top-4 right-4 p-1.5 text-neutral-400 hover:text-neutral-700 rounded-lg hover:bg-neutral-100 transition-colors cursor-pointer"
           aria-label="Close"
         >
           <X size={18} />
@@ -223,7 +246,7 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
         </p>
 
         {errorMessage && (
-          <div className="mt-3 p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-xs font-medium text-rose-700">
+          <div className="mt-3 p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-xs font-medium text-rose-700 leading-relaxed">
             {errorMessage}
           </div>
         )}
@@ -235,7 +258,7 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
           </div>
         )}
 
-        <div className="mt-5 space-y-2">
+        <div className="mt-5 space-y-2.5">
           <button
             type="button"
             onClick={handleAllowLocation}
@@ -263,19 +286,8 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
           >
             Enter Address Manually
           </button>
-
-          <div className="text-center pt-1">
-            <button
-              type="button"
-              onClick={handleNotNow}
-              className="text-2xs text-neutral-400 hover:text-neutral-700 font-semibold transition-colors cursor-pointer"
-            >
-              Not Now
-            </button>
-          </div>
         </div>
       </div>
     </div>
   );
 };
-

@@ -887,7 +887,7 @@ export const ProductDetailPage: React.FC = () => {
     setIsSubmittingBuy(true);
     addToCart(product, 1, false);
     closeDrawer();
-    navigate("/checkout");
+    navigate("/checkout?initiateLocation=1", { state: { fromCheckoutIntent: true } });
     setTimeout(() => {
       setIsSubmittingBuy(false);
     }, 400);

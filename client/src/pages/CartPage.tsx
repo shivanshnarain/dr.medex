@@ -302,7 +302,7 @@ export const CartPage: React.FC = () => {
               {/* Checkout Button */}
               <button
                 type="button"
-                onClick={() => navigate("/checkout")}
+                onClick={() => navigate("/checkout?initiateLocation=1", { state: { fromCheckoutIntent: true } })}
                 className="w-full py-3.5 bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-xs transition-all active:scale-[0.99]"
               >
                 <span>Proceed to International Checkout</span>

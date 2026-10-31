@@ -10,11 +10,11 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const { lat, lng } = req.query;
+    const { lat, lng, acc } = req.query;
     if (!lat || !lng) {
       return res.status(400).json({ success: false, message: "lat and lng query parameters are required" });
     }
-    const result = await locationService.reverseGeocode(lat, lng);
+    const result = await locationService.reverseGeocode(lat, lng, acc);
     return res.status(200).json(result);
   } catch (err) {
     return res.status(500).json({ success: false, message: err.message });

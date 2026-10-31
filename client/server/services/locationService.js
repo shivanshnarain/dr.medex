@@ -254,11 +254,75 @@ async function autocompleteAddress(query, countryCode = "") {
 }
 
 /**
- * Reverse Geocode coordinates (lat, lng) to structured address components.
- * Supports Google Maps Geocoding API if GOOGLE_MAPS_API_KEY is configured,
- * with high-fidelity OpenStreetMap Nominatim reverse geocoding as default/fallback.
+ * Indian State Aliases & ISO Code Normalization Mapping
  */
-async function reverseGeocode(lat, lng) {
+const INDIA_STATE_ALIASES = {
+  "odisha": { code: "OR", name: "Odisha" },
+  "orissa": { code: "OR", name: "Odisha" },
+  "or": { code: "OR", name: "Odisha" },
+  "od": { code: "OR", name: "Odisha" },
+  "in-od": { code: "OR", name: "Odisha" },
+  "in-or": { code: "OR", name: "Odisha" },
+  "uttarakhand": { code: "UT", name: "Uttarakhand" },
+  "uttaranchal": { code: "UT", name: "Uttarakhand" },
+  "ut": { code: "UT", name: "Uttarakhand" },
+  "uk": { code: "UT", name: "Uttarakhand" },
+  "in-ut": { code: "UT", name: "Uttarakhand" },
+  "in-uk": { code: "UT", name: "Uttarakhand" },
+  "puducherry": { code: "PY", name: "Puducherry" },
+  "pondicherry": { code: "PY", name: "Puducherry" },
+  "py": { code: "PY", name: "Puducherry" },
+  "in-py": { code: "PY", name: "Puducherry" },
+  "delhi": { code: "DL", name: "Delhi" },
+  "nct of delhi": { code: "DL", name: "Delhi" },
+  "national capital territory of delhi": { code: "DL", name: "Delhi" },
+  "dl": { code: "DL", name: "Delhi" },
+  "in-dl": { code: "DL", name: "Delhi" },
+  "assam": { code: "AS", name: "Assam" },
+  "as": { code: "AS", name: "Assam" },
+  "in-as": { code: "AS", name: "Assam" },
+  "uttar pradesh": { code: "UP", name: "Uttar Pradesh" },
+  "up": { code: "UP", name: "Uttar Pradesh" },
+  "in-up": { code: "UP", name: "Uttar Pradesh" },
+  "maharashtra": { code: "MH", name: "Maharashtra" },
+  "mh": { code: "MH", name: "Maharashtra" },
+  "in-mh": { code: "MH", name: "Maharashtra" },
+  "andhra pradesh": { code: "AP", name: "Andhra Pradesh" },
+  "ap": { code: "AP", name: "Andhra Pradesh" },
+  "karnataka": { code: "KA", name: "Karnataka" },
+  "ka": { code: "KA", name: "Karnataka" },
+  "tamil nadu": { code: "TN", name: "Tamil Nadu" },
+  "tn": { code: "TN", name: "Tamil Nadu" },
+  "telangana": { code: "TG", name: "Telangana" },
+  "tg": { code: "TG", name: "Telangana" },
+  "ts": { code: "TG", name: "Telangana" },
+  "west bengal": { code: "WB", name: "West Bengal" },
+  "wb": { code: "WB", name: "West Bengal" },
+  "gujarat": { code: "GJ", name: "Gujarat" },
+  "gj": { code: "GJ", name: "Gujarat" },
+  "rajasthan": { code: "RJ", name: "Rajasthan" },
+  "rj": { code: "RJ", name: "Rajasthan" },
+  "kerala": { code: "KL", name: "Kerala" },
+  "kl": { code: "KL", name: "Kerala" },
+  "punjab": { code: "PB", name: "Punjab" },
+  "pb": { code: "PB", name: "Punjab" },
+  "haryana": { code: "HR", name: "Haryana" },
+  "hr": { code: "HR", name: "Haryana" },
+  "madhya pradesh": { code: "MP", name: "Madhya Pradesh" },
+  "mp": { code: "MP", name: "Madhya Pradesh" },
+  "bihar": { code: "BR", name: "Bihar" },
+  "br": { code: "BR", name: "Bihar" }
+};
+
+/**
+ * Reverse Geocode coordinates (lat, lng) to structured address components.
+ * Multi-tier resilient architecture:
+ * Tier 1: Google Maps Geocoding API (if GOOGLE_MAPS_API_KEY configured)
+ * Tier 2: OpenStreetMap Nominatim (with 10s timeout, custom User-Agent, ISO3166-2 extraction)
+ * Tier 3: BigDataCloud High-Speed Client Reverse Geocoding (sub-second fallback)
+ * Followed by authoritative local dataset normalization for countries, states, and cities.
+ */
+async function reverseGeocode(lat, lng, reportedAccuracy = null) {
   const latitude = parseFloat(lat);
   const longitude = parseFloat(lng);
 
@@ -266,16 +330,20 @@ async function reverseGeocode(lat, lng) {
     throw new Error("Invalid latitude or longitude coordinates provided.");
   }
 
+  const accuracyMeters = reportedAccuracy !== null && reportedAccuracy !== undefined && !isNaN(parseFloat(reportedAccuracy))
+    ? Math.round(parseFloat(reportedAccuracy))
+    : null;
+
   const googleApiKey = process.env.GOOGLE_MAPS_API_KEY || process.env.GOOGLE_GEOCODING_API_KEY;
   let rawResult = null;
   let provider = "nominatim_osm";
 
-  // 1. Try Google Maps Geocoding if API key available
+  // Tier 1: Try Google Maps Geocoding if API key available
   if (googleApiKey) {
     try {
       const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${googleApiKey}`;
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 4000);
+      const timeout = setTimeout(() => controller.abort(), 5000);
       const res = await fetch(url, { signal: controller.signal });
       clearTimeout(timeout);
 
@@ -302,6 +370,7 @@ async function reverseGeocode(lat, lng) {
             district: getComp("administrative_area_level_2") || sublocality || "",
             city: getComp("locality") || getComp("postal_town") || getComp("administrative_area_level_3") || "",
             state: getComp("administrative_area_level_1") || "",
+            stateCode: (getCompShort("administrative_area_level_1") || "").toUpperCase(),
             postalCode: getComp("postal_code") || "",
             country: getComp("country") || "",
             countryCode: (getCompShort("country") || "").toUpperCase(),
@@ -315,16 +384,17 @@ async function reverseGeocode(lat, lng) {
     }
   }
 
-  // 2. OpenStreetMap Nominatim Geocoding fallback
+  // Tier 2: OpenStreetMap Nominatim Geocoding
   if (!rawResult) {
     try {
-      const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
+      const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1&accept-language=en`;
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 4000);
+      const timeout = setTimeout(() => controller.abort(), 9000);
       const res = await fetch(url, {
         signal: controller.signal,
         headers: {
-          "User-Agent": "DR.MEDEX-Medical-Global/1.0 (procurement@drmedex.com)"
+          "User-Agent": "DR.MEDEX-Medical-Global/1.0 (procurement@drmedex.com)",
+          "Accept-Language": "en"
         }
       });
       clearTimeout(timeout);
@@ -340,6 +410,7 @@ async function reverseGeocode(lat, lng) {
         const city = addr.city || addr.town || addr.village || addr.municipality || addr.hamlet || addr.county || "";
         const district = addr.state_district || addr.county || addr.district || "";
         const state = addr.state || addr.province || addr.region || "";
+        const isoState = (addr["ISO3166-2-lvl4"] || "").split("-").pop() || "";
         const postalCode = addr.postcode || "";
         const country = addr.country || "";
         const countryCode = (addr.country_code || "").toUpperCase();
@@ -349,6 +420,7 @@ async function reverseGeocode(lat, lng) {
           district,
           city,
           state,
+          stateCode: isoState.toUpperCase(),
           postalCode,
           country,
           countryCode,
@@ -357,34 +429,138 @@ async function reverseGeocode(lat, lng) {
         provider = "nominatim_osm";
       }
     } catch (osmErr) {
-      throw new Error(`Reverse geocoding failed: ${osmErr.message}`);
+      // Fallback to Tier 3 BigDataCloud
+    }
+  }
+
+  // Tier 3: BigDataCloud High-Speed Client Reverse Geocoder
+  if (!rawResult) {
+    try {
+      const bdcUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6000);
+      const res = await fetch(bdcUrl, { signal: controller.signal });
+      clearTimeout(timeout);
+
+      if (res.ok) {
+        const bdc = await res.json();
+        const isoSub = (bdc.principalSubdivisionCode || "").split("-").pop() || "";
+        const street = [bdc.locality, bdc.city].filter(Boolean)[0] || "";
+
+        rawResult = {
+          streetAddress: "",
+          district: bdc.locality || "",
+          city: bdc.city || bdc.locality || "",
+          state: bdc.principalSubdivision || "",
+          stateCode: isoSub.toUpperCase(),
+          postalCode: bdc.postcode || "",
+          country: bdc.countryName || "",
+          countryCode: (bdc.countryCode || "").toUpperCase(),
+          formattedAddress: [bdc.locality, bdc.city, bdc.principalSubdivision, bdc.countryName].filter(Boolean).join(", ")
+        };
+        provider = "bigdatacloud";
+      }
+    } catch (bdcErr) {
+      // All remote providers failed
     }
   }
 
   if (!rawResult) {
-    throw new Error("Unable to resolve coordinates to an address location.");
+    throw new Error("Unable to resolve coordinates to an address location. Please enter your address manually.");
   }
 
-  // 3. Match with DR.MEDEX 195 sovereign countries list
+  // 1. Authoritative Sovereign Country Matching (195 Sovereign Countries)
   const matchedCountry = worldwide195.find(
     (c) => c.code.toUpperCase() === rawResult.countryCode ||
            c.name.toLowerCase() === rawResult.country.toLowerCase()
   ) || null;
 
-  // 4. Match with country-state-city State database to find stateCode
-  let matchedStateCode = "";
-  if (matchedCountry && rawResult.state) {
-    const states = State.getStatesOfCountry(matchedCountry.code);
-    const stateClean = rawResult.state.toLowerCase();
-    const foundState = states.find(
-      (s) => s.name.toLowerCase() === stateClean ||
-             s.isoCode.toLowerCase() === stateClean ||
-             stateClean.includes(s.name.toLowerCase()) ||
-             s.name.toLowerCase().includes(stateClean)
-    );
-    if (foundState) {
-      matchedStateCode = foundState.isoCode;
+  const targetCountryCode = matchedCountry ? matchedCountry.code : rawResult.countryCode;
+
+  // 2. Authoritative State & Subdivision Normalization
+  let normalizedState = rawResult.state || "";
+  let normalizedStateCode = rawResult.stateCode || "";
+
+  if (targetCountryCode === "IN") {
+    const rawClean = (rawResult.state || "").toLowerCase().trim();
+    const rawCodeClean = (rawResult.stateCode || "").toLowerCase().trim();
+
+    if (INDIA_STATE_ALIASES[rawCodeClean]) {
+      normalizedState = INDIA_STATE_ALIASES[rawCodeClean].name;
+      normalizedStateCode = INDIA_STATE_ALIASES[rawCodeClean].code;
+    } else if (INDIA_STATE_ALIASES[rawClean]) {
+      normalizedState = INDIA_STATE_ALIASES[rawClean].name;
+      normalizedStateCode = INDIA_STATE_ALIASES[rawClean].code;
+    } else {
+      for (const [alias, mapped] of Object.entries(INDIA_STATE_ALIASES)) {
+        if (rawClean.includes(alias) || alias.includes(rawClean)) {
+          normalizedState = mapped.name;
+          normalizedStateCode = mapped.code;
+          break;
+        }
+      }
     }
+  }
+
+  // Match against country-state-city State database as standard international resolver
+  if (!normalizedStateCode && targetCountryCode) {
+    const cscStates = State.getStatesOfCountry(targetCountryCode);
+    const cleanState = (rawResult.state || "").toLowerCase().trim();
+    const cleanCode = (rawResult.stateCode || "").toLowerCase().trim();
+
+    const found = cscStates.find(
+      (s) => s.isoCode.toLowerCase() === cleanCode ||
+             s.name.toLowerCase() === cleanState ||
+             cleanState.includes(s.name.toLowerCase()) ||
+             s.name.toLowerCase().includes(cleanState)
+    );
+    if (found) {
+      normalizedState = found.name;
+      normalizedStateCode = found.isoCode;
+    }
+  }
+
+  // 3. Authoritative City Normalization
+  let normalizedCity = (rawResult.city || "").trim();
+  if (normalizedCity) {
+    // Strip redundant municipal corporate noise returned by some OSM nodes
+    const cleanedCity = normalizedCity
+      .replace(/\b(Municipal Corporation|M\.Corp\.|District|City|Town|Subdivision)\b/gi, "")
+      .replace(/\(.*?\)/g, "")
+      .trim();
+
+    if (cleanedCity) {
+      normalizedCity = cleanedCity;
+    }
+
+    // Try finding exact or closest city in database
+    if (targetCountryCode && normalizedStateCode) {
+      const cscCities = City.getCitiesOfState(targetCountryCode, normalizedStateCode);
+      if (Array.isArray(cscCities) && cscCities.length > 0) {
+        const exact = cscCities.find((c) => c.name.toLowerCase() === normalizedCity.toLowerCase());
+        if (exact) {
+          normalizedCity = exact.name;
+        } else {
+          const candidates = cscCities.filter((c) => {
+            const a = c.name.toLowerCase();
+            const b = normalizedCity.toLowerCase();
+            return a.startsWith(b.slice(0, 5)) || b.startsWith(a.slice(0, 5));
+          });
+          if (candidates.length > 0) {
+            candidates.sort((a, b) => Math.abs(a.name.length - normalizedCity.length) - Math.abs(b.name.length - normalizedCity.length));
+            normalizedCity = candidates[0].name;
+          }
+        }
+      }
+    }
+  }
+
+  // Determine accuracy tier
+  let accuracyTier = "high";
+  if (accuracyMeters !== null) {
+    if (accuracyMeters > 5000) accuracyTier = "approximate";
+    else if (accuracyMeters > 500) accuracyTier = "medium";
+    else accuracyTier = "high";
   }
 
   return {
@@ -392,13 +568,15 @@ async function reverseGeocode(lat, lng) {
     provider,
     latitude,
     longitude,
+    accuracy: accuracyMeters,
+    accuracyTier,
     country: matchedCountry ? matchedCountry.name : rawResult.country,
-    countryCode: matchedCountry ? matchedCountry.code : rawResult.countryCode,
+    countryCode: targetCountryCode,
     countryData: matchedCountry,
-    state: rawResult.state,
-    stateCode: matchedStateCode,
+    state: normalizedState || rawResult.state,
+    stateCode: normalizedStateCode || rawResult.stateCode,
     district: rawResult.district,
-    city: rawResult.city,
+    city: normalizedCity || rawResult.city,
     postalCode: rawResult.postalCode,
     streetAddress: rawResult.streetAddress,
     formattedAddress: rawResult.formattedAddress

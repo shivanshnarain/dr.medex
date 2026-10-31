@@ -28,10 +28,16 @@ export const PushNotificationPrompt: React.FC<PushNotificationPromptProps> = ({
     if (getNotificationPermission() !== "default") return;
     if (hasDismissedPushPrompt()) return;
 
-    // Small delay so it does not interrupt immediate initial page load
+    // Strict rule: Never interrupt initial website load, normal browsing, or product pages
+    const currentPath = typeof window !== "undefined" ? window.location.pathname : "";
+    const isAppropriatePage = currentPath.startsWith("/order-confirmation") ||
+                              currentPath.startsWith("/track") ||
+                              currentPath.startsWith("/account");
+    if (!isAppropriatePage) return;
+
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 3500);
+    }, 4000);
 
     return () => clearTimeout(timer);
   }, []);
