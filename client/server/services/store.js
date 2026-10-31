@@ -789,7 +789,7 @@ module.exports = {
     persist();
     return { equipmentType: newEq, parentCategory: hierParentKey, subcategory: sub.id };
   },
-  deletePrimaryCategory: (id) => {
+  deletePrimaryCategory: (id, cascadeProducts = false) => {
     checkReload();
     const cleanId = (id || "").trim().toLowerCase();
     const cat = state.categories.find(c => c.id.toLowerCase() === cleanId || (c.slug && c.slug.toLowerCase() === cleanId) || c.name.toLowerCase() === cleanId);
@@ -805,24 +805,26 @@ module.exports = {
     const catName = (cat && cat.name) || (hier && hier.name) || id;
     const catSlug = (cat && (cat.slug || cat.id)) || hierKey;
 
-    // 1. Dependency check: linked products
-    const linkedProducts = (state.products || []).filter(p => {
-      const pCat = (p.category || "").toLowerCase();
-      return pCat === cleanId || pCat === (cat?.slug || "").toLowerCase() || pCat === (cat?.id || "").toLowerCase() || pCat === (cat?.name || "").toLowerCase() || pCat === (hierKey || "").toLowerCase();
-    });
+    if (!cascadeProducts) {
+      // 1. Dependency check: linked products
+      const linkedProducts = (state.products || []).filter(p => {
+        const pCat = (p.category || "").toLowerCase();
+        return pCat === cleanId || pCat === (cat?.slug || "").toLowerCase() || pCat === (cat?.id || "").toLowerCase() || pCat === (cat?.name || "").toLowerCase() || pCat === (hierKey || "").toLowerCase();
+      });
 
-    if (linkedProducts.length > 0) {
-      const sampleTitles = linkedProducts.slice(0, 3).map(p => p.title || p.productName || p.sku);
-      throw new Error(`Cannot delete primary category "${catName}": ${linkedProducts.length} product(s) are assigned to it (e.g. "${sampleTitles.join('", "')}"). Please reassign or remove these products before deleting this category.`);
-    }
+      if (linkedProducts.length > 0) {
+        const sampleTitles = linkedProducts.slice(0, 3).map(p => p.title || p.productName || p.sku);
+        throw new Error(`Cannot delete primary category "${catName}": ${linkedProducts.length} product(s) are assigned to it (e.g. "${sampleTitles.join('", "')}"). Please reassign or remove these products before deleting this category.`);
+      }
 
-    // 2. Dependency check: child subcategories
-    const subcats = (cat && Array.isArray(cat.subcategories) && cat.subcategories.length > 0)
-      ? cat.subcategories
-      : (hier && Array.isArray(hier.subcategories) ? hier.subcategories : []);
+      // 2. Dependency check: child subcategories
+      const subcats = (cat && Array.isArray(cat.subcategories) && cat.subcategories.length > 0)
+        ? cat.subcategories
+        : (hier && Array.isArray(hier.subcategories) ? hier.subcategories : []);
 
-    if (subcats.length > 0) {
-      throw new Error(`Cannot delete primary category "${catName}": ${subcats.length} subcategory/subcategories depend on it. Please delete or reassign its child subcategories first.`);
+      if (subcats.length > 0) {
+        throw new Error(`Cannot delete primary category "${catName}": ${subcats.length} subcategory/subcategories depend on it. Please delete or reassign its child subcategories first.`);
+      }
     }
 
     // Safe deletion: delete only the selected taxonomy record
@@ -837,7 +839,7 @@ module.exports = {
     persist();
     return { success: true, message: `Primary category "${catName}" deleted successfully.` };
   },
-  deleteSubcategory: (parentCategory, subId) => {
+  deleteSubcategory: (parentCategory, subId, cascadeProducts = false) => {
     checkReload();
     const cleanParent = (parentCategory || "").trim().toLowerCase();
     const cleanSub = (subId || "").trim().toLowerCase();
@@ -865,21 +867,23 @@ module.exports = {
 
     const subName = subHier?.name || subCat?.name || subId;
 
-    // 1. Dependency check: linked products
-    const linkedProducts = (state.products || []).filter(p => {
-      const pSub = (p.subcategory || "").toLowerCase();
-      return pSub === cleanSub || pSub === (subHier?.name || "").toLowerCase() || pSub === (subCat?.name || "").toLowerCase() || pSub === (subHier?.id || "").toLowerCase();
-    });
+    if (!cascadeProducts) {
+      // 1. Dependency check: linked products
+      const linkedProducts = (state.products || []).filter(p => {
+        const pSub = (p.subcategory || "").toLowerCase();
+        return pSub === cleanSub || pSub === (subHier?.name || "").toLowerCase() || pSub === (subCat?.name || "").toLowerCase() || pSub === (subHier?.id || "").toLowerCase();
+      });
 
-    if (linkedProducts.length > 0) {
-      const sampleTitles = linkedProducts.slice(0, 3).map(p => p.title || p.productName || p.sku);
-      throw new Error(`Cannot delete subcategory "${subName}": ${linkedProducts.length} product(s) are assigned to it (e.g. "${sampleTitles.join('", "')}"). Please reassign or remove these products before deleting this subcategory.`);
-    }
+      if (linkedProducts.length > 0) {
+        const sampleTitles = linkedProducts.slice(0, 3).map(p => p.title || p.productName || p.sku);
+        throw new Error(`Cannot delete subcategory "${subName}": ${linkedProducts.length} product(s) are assigned to it (e.g. "${sampleTitles.join('", "')}"). Please reassign or remove these products before deleting this subcategory.`);
+      }
 
-    // 2. Dependency check: verified equipment types
-    const eqTypes = subHier && Array.isArray(subHier.equipmentTypes) ? subHier.equipmentTypes : [];
-    if (eqTypes.length > 0) {
-      throw new Error(`Cannot delete subcategory "${subName}": ${eqTypes.length} verified equipment type(s) depend on it. Please delete them first.`);
+      // 2. Dependency check: verified equipment types
+      const eqTypes = subHier && Array.isArray(subHier.equipmentTypes) ? subHier.equipmentTypes : [];
+      if (eqTypes.length > 0) {
+        throw new Error(`Cannot delete subcategory "${subName}": ${eqTypes.length} verified equipment type(s) depend on it. Please delete them first.`);
+      }
     }
 
     // Safe deletion

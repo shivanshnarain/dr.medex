@@ -53,6 +53,7 @@ import { AdminCategoriesPage } from "./pages/AdminCategoriesPage";
 import { AdminReviewsPage } from "./pages/AdminReviewsPage";
 import { AdminCustomersPage } from "./pages/AdminCustomersPage";
 import { AdminNotificationsPage } from "./pages/AdminNotificationsPage";
+import { AdminStorageManagementPage } from "./pages/AdminStorageManagementPage";
 import { PushNotificationPrompt } from "./components/PushNotificationPrompt";
 
 // Customer Authentication Pages (Supabase Auth)
@@ -132,6 +133,7 @@ function AppContent() {
           <Route path="/admin/reviews" element={<AdminReviewsPage />} />
           <Route path="/admin/customers" element={<AdminCustomersPage />} />
           <Route path="/admin/notifications" element={<AdminNotificationsPage />} />
+          <Route path="/admin/storage" element={<AdminStorageManagementPage />} />
 
           {/* 404 Fallback */}
           <Route path="*" element={<HomePage />} />

@@ -1798,8 +1798,38 @@ export const AdminProductEditorPage: React.FC = () => {
     setHasUnsavedChanges(true);
   };
 
-  const removeImage = (index: number) => {
+  const removeImage = async (index: number) => {
     const targetSlot = imageSlots[index];
+    if (!targetSlot) return;
+
+    // If existing persisted image on server, prompt and execute permanent deletion from Cloudinary & DB
+    if (productId && productId !== "new" && (targetSlot.url || targetSlot.publicId)) {
+      const confirmDelete = window.confirm(
+        "Permanently delete this image from Cloudinary storage and product record?\n\n" +
+        "• If exclusively owned by this product, the asset will be permanently destroyed from Cloudinary.\n" +
+        "• If shared with another product or order, the asset will be safely preserved."
+      );
+      if (!confirmDelete) return;
+
+      try {
+        const res = await adminFetch(`/api/admin/products/${encodeURIComponent(productId)}/images`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            publicId: targetSlot.publicId,
+            imageUrl: targetSlot.url
+          })
+        });
+
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) {
+          console.warn("Server image deletion response:", data.message);
+        }
+      } catch (err: any) {
+        console.error("Failed to delete image on server:", err.message);
+      }
+    }
+
     if (targetSlot?.previewUrl) {
       try {
         URL.revokeObjectURL(targetSlot.previewUrl);

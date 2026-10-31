@@ -101,6 +101,10 @@ export const AdminCategoriesPage: React.FC = () => {
   } | null>(null);
   const [isSubmittingDelete, setIsSubmittingDelete] = useState(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [deleteInspection, setDeleteInspection] = useState<any>(null);
+  const [isLoadingInspection, setIsLoadingInspection] = useState(false);
+  const [showCascadeConfirm, setShowCascadeConfirm] = useState(false);
+  const [cascadeAcknowledged, setCascadeAcknowledged] = useState(false);
 
   // Fetch full taxonomy data
   const fetchData = useCallback(async () => {
@@ -417,8 +421,8 @@ export const AdminCategoriesPage: React.FC = () => {
     }
   };
 
-  // Open Safe Delete Confirmation
-  const handleOpenDelete = (item: {
+  // Open Dependency-Aware Safe Delete Confirmation
+  const handleOpenDelete = async (item: {
     type: "primary" | "subcategory" | "equipment";
     id: string;
     name: string;
@@ -427,26 +431,47 @@ export const AdminCategoriesPage: React.FC = () => {
   }) => {
     setDeletingItem(item);
     setDeleteError(null);
+    setDeleteInspection(null);
+    setShowCascadeConfirm(false);
+    setCascadeAcknowledged(false);
+    setIsLoadingInspection(true);
+
+    try {
+      const parentParams = new URLSearchParams();
+      if (item.parentCategory) parentParams.set("parentCategory", item.parentCategory);
+      if (item.parentSubcategory) parentParams.set("parentSubcategory", item.parentSubcategory);
+      const qs = parentParams.toString() ? `?${parentParams.toString()}` : "";
+
+      const res = await adminFetch(`/api/admin/catalogue/dependencies/${item.type}/${encodeURIComponent(item.id)}${qs}`);
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.success) {
+        setDeleteInspection(data.inspection);
+      }
+    } catch (e: any) {
+      console.warn("Failed to load dependency inspection:", e.message);
+    } finally {
+      setIsLoadingInspection(false);
+    }
   };
 
-  // Execute Safe Deletion
-  const handleDeleteConfirm = async () => {
+  // Option B: Delete Category Only (Blocked if products or child subcategories depend on it)
+  const handleDeleteOnly = async () => {
     if (!deletingItem) return;
     setDeleteError(null);
     setIsSubmittingDelete(true);
 
     try {
-      let endpoint = "";
-      if (deletingItem.type === "primary") {
-        endpoint = `/api/admin/catalogue/primary-category/${deletingItem.id}`;
-      } else if (deletingItem.type === "subcategory") {
-        endpoint = `/api/admin/catalogue/subcategory/${deletingItem.parentCategory}/${deletingItem.id}`;
-      } else {
-        endpoint = `/api/admin/catalogue/equipment-type/${deletingItem.parentCategory}/${deletingItem.parentSubcategory}/${deletingItem.id}`;
-      }
-
-      const res = await adminFetch(endpoint, {
-        method: "DELETE"
+      const res = await adminFetch("/api/admin/catalogue/delete-cascade", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: deletingItem.type,
+          id: deletingItem.id,
+          parentCategory: deletingItem.parentCategory,
+          parentSubcategory: deletingItem.parentSubcategory,
+          cascadeProducts: false,
+          confirmed: false
+        })
       });
 
       const data = await res.json().catch(() => ({}));
@@ -459,11 +484,52 @@ export const AdminCategoriesPage: React.FC = () => {
         if (data.categories) setCategories(data.categories);
         await fetchData();
       } else {
-        // Backend blocked deletion due to dependency (products or child records)
         setDeleteError(data.message || "Deletion prevented due to associated database dependencies.");
       }
     } catch (err: any) {
       setDeleteError(err.message || "Network error while attempting deletion.");
+    } finally {
+      setIsSubmittingDelete(false);
+    }
+  };
+
+  // Option C: Delete Category and All Associated Products (Cascading deletion with explicit second confirmation)
+  const handleDeleteCascade = async () => {
+    if (!deletingItem || !cascadeAcknowledged) return;
+    setDeleteError(null);
+    setIsSubmittingDelete(true);
+
+    try {
+      const res = await adminFetch("/api/admin/catalogue/delete-cascade", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: deletingItem.type,
+          id: deletingItem.id,
+          parentCategory: deletingItem.parentCategory,
+          parentSubcategory: deletingItem.parentSubcategory,
+          cascadeProducts: true,
+          confirmed: true
+        })
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.success) {
+        const deletedName = deletingItem.name;
+        setDeletingItem(null);
+        setBanner({
+          type: "success",
+          text: data.message || `"${deletedName}" and ${data.deletedProductsCount || 0} associated products permanently deleted.`
+        });
+        if (data.hierarchy) setHierarchy(data.hierarchy);
+        if (data.categories) setCategories(data.categories);
+        await fetchData();
+      } else {
+        setDeleteError(data.message || "Cascading deletion failed.");
+      }
+    } catch (err: any) {
+      setDeleteError(err.message || "Network error during cascading deletion.");
     } finally {
       setIsSubmittingDelete(false);
     }
@@ -1324,76 +1390,196 @@ export const AdminCategoriesPage: React.FC = () => {
       )}
 
       {/* ============================================================ */}
-      {/* SAFE DELETE CONFIRMATION MODAL                               */}
+      {/* DEPENDENCY-AWARE PERMANENT DELETION MODAL                    */}
       {/* ============================================================ */}
       {deletingItem && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-2xs flex items-center justify-center p-4">
-          <div className="bg-[#0D4C3C] text-white rounded-2xl max-w-md w-full border border-white/20 shadow-2xl overflow-hidden flex flex-col">
-            <div className="px-6 py-4 border-b border-white/15 flex items-center justify-between bg-black/20">
-              <div className="flex items-center gap-2">
-                <AlertTriangle size={18} className="text-[#FFD400]" />
-                <h3 className="font-bold text-sm uppercase tracking-wider font-mono text-white">
-                  Confirm Taxonomy Deletion
-                </h3>
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-2xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white text-neutral-900 rounded-2xl max-w-lg w-full border border-neutral-300 shadow-2xl overflow-hidden flex flex-col my-8 animate-in fade-in zoom-in-95 duration-200">
+            {/* Header */}
+            <div className="px-6 py-4 border-b border-neutral-200 flex items-center justify-between bg-neutral-50">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-red-100 text-[#C62828] flex items-center justify-center">
+                  <Trash2 size={16} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm uppercase tracking-wider font-mono text-neutral-900">
+                    Delete {deletingItem.type === "primary" ? "Category" : deletingItem.type === "subcategory" ? "Subcategory" : "Equipment Type"}
+                  </h3>
+                  <div className="text-[11px] text-neutral-500 font-mono">
+                    &ldquo;{deletingItem.name}&rdquo;
+                  </div>
+                </div>
               </div>
               <button
                 type="button"
                 onClick={() => setDeletingItem(null)}
-                className="text-white/60 hover:text-white p-1 rounded cursor-pointer"
+                className="text-neutral-400 hover:text-black p-1.5 rounded-lg transition-colors cursor-pointer"
               >
                 <X size={18} />
               </button>
             </div>
 
             <div className="p-6 space-y-4">
-              <p className="text-xs text-white/90 leading-relaxed">
-                Are you sure you want to delete the {deletingItem.type === "primary" ? "primary category" : deletingItem.type === "subcategory" ? "subcategory" : "equipment type"}{" "}
-                <span className="font-bold text-white bg-black/30 px-2 py-0.5 rounded font-mono">
-                  &ldquo;{deletingItem.name}&rdquo;
-                </span>
-                ?
-              </p>
-
-              {/* Safety notice */}
-              <div className="p-3 bg-white/5 border border-white/15 rounded-xl text-[11px] text-white/80 space-y-1">
-                <div className="font-bold text-[#FFD400] flex items-center gap-1.5">
-                  <ShieldCheck size={14} />
-                  <span>Database Dependency Guard Active</span>
+              {/* Dependency Inspection Summary */}
+              <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-xl space-y-2">
+                <div className="text-xs font-bold text-neutral-800 flex items-center justify-between font-mono">
+                  <span>Dependency Inspection:</span>
+                  {isLoadingInspection && (
+                    <span className="flex items-center gap-1.5 text-neutral-500 font-normal">
+                      <RefreshCw size={12} className="animate-spin text-[#7AA05A]" />
+                      Scanning...
+                    </span>
+                  )}
                 </div>
-                <p>
-                  DR.MEDEX safe deletion prevents accidental orphan records. Deletion will be rejected if any products or child records link to this item.
-                </p>
+
+                {isLoadingInspection ? (
+                  <p className="text-xs text-neutral-500 italic">
+                    Querying MongoDB Atlas and Cloudinary media for dependent records...
+                  </p>
+                ) : deleteInspection ? (
+                  <div className="space-y-1.5 text-xs text-neutral-700">
+                    <p className="font-medium text-neutral-900">
+                      This {deletingItem.type} currently contains:
+                    </p>
+                    <div className="grid grid-cols-2 gap-2 mt-2 font-mono text-[11px]">
+                      <div className="p-2.5 bg-white border border-neutral-200 rounded-lg">
+                        <span className="text-neutral-500 block">Dependent Products:</span>
+                        <strong className={`text-sm ${deleteInspection.productCount > 0 ? "text-[#C62828]" : "text-[#2D5A4A]"}`}>
+                          {deleteInspection.productCount} product(s)
+                        </strong>
+                      </div>
+                      <div className="p-2.5 bg-white border border-neutral-200 rounded-lg">
+                        <span className="text-neutral-500 block">Cloudinary Media:</span>
+                        <strong className={`text-sm ${deleteInspection.imageCount > 0 ? "text-amber-700" : "text-[#2D5A4A]"}`}>
+                          {deleteInspection.imageCount} image(s)
+                        </strong>
+                      </div>
+                      {deleteInspection.subcategoryCount > 0 && (
+                        <div className="p-2.5 bg-white border border-neutral-200 rounded-lg col-span-2">
+                          <span className="text-neutral-500 block">Child Subcategories:</span>
+                          <strong className="text-sm text-neutral-900">
+                            {deleteInspection.subcategoryCount} subcategory/subcategories
+                          </strong>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-xs text-neutral-500">
+                    Inspecting category records...
+                  </p>
+                )}
               </div>
 
-              {/* Rejection / Dependency explanation error */}
+              {/* Error Alert */}
               {deleteError && (
-                <div className="p-3.5 bg-[#C62828]/25 border border-[#C62828] rounded-xl text-xs text-red-100 flex items-start gap-2.5">
-                  <AlertCircle size={16} className="text-[#FF6B6B] shrink-0 mt-0.5" />
+                <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl text-xs text-red-900 flex items-start gap-2.5">
+                  <AlertCircle size={16} className="text-[#C62828] shrink-0 mt-0.5" />
                   <div className="space-y-1">
-                    <div className="font-bold text-white">Deletion Blocked:</div>
-                    <div className="leading-relaxed text-[11px] text-white/90">{deleteError}</div>
+                    <div className="font-bold text-red-900">Deletion Blocked:</div>
+                    <div className="leading-relaxed text-[11px] text-red-850 font-mono">{deleteError}</div>
                   </div>
                 </div>
               )}
 
-              <div className="pt-2 flex items-center justify-end gap-3">
-                <button
-                  type="button"
-                  onClick={() => setDeletingItem(null)}
-                  className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-semibold cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  onClick={handleDeleteConfirm}
-                  disabled={isSubmittingDelete}
-                  className="px-5 py-2 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer disabled:opacity-50 flex items-center gap-2 shadow-md"
-                >
-                  {isSubmittingDelete && <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />}
-                  <span>Confirm Delete</span>
-                </button>
-              </div>
+              {/* SECOND EXPLICIT CONFIRMATION FOR OPTION C */}
+              {showCascadeConfirm ? (
+                <div className="p-4 bg-red-50 border-2 border-red-300 rounded-xl space-y-3">
+                  <div className="flex items-center gap-2 text-red-900 font-bold text-xs uppercase tracking-wider font-mono">
+                    <AlertTriangle size={16} className="text-[#C62828]" />
+                    <span>Confirm Cascading Permanent Deletion</span>
+                  </div>
+                  <p className="text-xs text-neutral-800 leading-relaxed">
+                    You are about to permanently delete <strong>{deleteInspection?.productCount || 0} product(s)</strong> from MongoDB and destroy <strong>{deleteInspection?.imageCount || 0} exclusively owned image(s)</strong> from Cloudinary storage, along with this category.
+                  </p>
+                  <label className="flex items-start gap-2.5 text-xs text-neutral-900 font-semibold cursor-pointer p-2 bg-white/80 rounded-lg border border-red-200">
+                    <input
+                      type="checkbox"
+                      checked={cascadeAcknowledged}
+                      onChange={(e) => setCascadeAcknowledged(e.target.checked)}
+                      className="mt-0.5 rounded text-[#C62828] focus:ring-[#C62828]"
+                    />
+                    <span>
+                      I understand that this action will permanently delete all associated products and assets from storage and cannot be undone.
+                    </span>
+                  </label>
+
+                  <div className="pt-2 flex items-center justify-end gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setShowCascadeConfirm(false)}
+                      className="px-3.5 py-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-lg text-xs font-semibold cursor-pointer"
+                    >
+                      Back
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleDeleteCascade}
+                      disabled={isSubmittingDelete || !cascadeAcknowledged}
+                      className="px-4 py-2 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer disabled:opacity-50 flex items-center gap-2 shadow-md"
+                    >
+                      {isSubmittingDelete && <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />}
+                      <span>Permanently Delete Category & All Products</span>
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                /* THREE STANDARD DELETION OPTIONS */
+                <div className="space-y-3 pt-1">
+                  <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-500">
+                    Select Deletion Option:
+                  </div>
+
+                  {/* OPTION B: Delete Category Only */}
+                  <div className="p-3 border border-neutral-200 rounded-xl flex items-center justify-between gap-3 bg-white">
+                    <div>
+                      <div className="text-xs font-bold text-neutral-900">Option B: Delete Category Only</div>
+                      <div className="text-[11px] text-neutral-500 mt-0.5">
+                        {deleteInspection?.canDeleteDirectly
+                          ? "Safely removes category (0 dependent products)."
+                          : `Blocked: ${deleteInspection?.productCount || 0} product(s) or child subcategories depend on it.`}
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleDeleteOnly}
+                      disabled={isSubmittingDelete || isLoadingInspection || !deleteInspection?.canDeleteDirectly}
+                      className="px-3.5 py-1.5 bg-[#2D5A4A] hover:bg-[#1F4034] text-white text-xs font-bold rounded-lg cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+                    >
+                      Delete Only
+                    </button>
+                  </div>
+
+                  {/* OPTION C: Delete Category and All Associated Products */}
+                  <div className="p-3 border border-red-200 rounded-xl flex items-center justify-between gap-3 bg-red-50/50">
+                    <div>
+                      <div className="text-xs font-bold text-[#C62828]">Option C: Delete Category & All Associated Products</div>
+                      <div className="text-[11px] text-neutral-600 mt-0.5">
+                        Permanently deletes all {deleteInspection?.productCount || 0} products, Cloudinary media, and this category.
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setShowCascadeConfirm(true)}
+                      disabled={isSubmittingDelete || isLoadingInspection}
+                      className="px-3.5 py-1.5 bg-[#C62828] hover:bg-[#B71C1C] text-white text-xs font-bold rounded-lg cursor-pointer disabled:opacity-40 shrink-0"
+                    >
+                      Cascade Delete...
+                    </button>
+                  </div>
+
+                  {/* OPTION A: Cancel */}
+                  <div className="pt-2 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={() => setDeletingItem(null)}
+                      className="px-4 py-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-lg text-xs font-semibold cursor-pointer"
+                    >
+                      Option A: Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

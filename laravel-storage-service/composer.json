@@ -1,0 +1,33 @@
+{
+    "name": "drmedex/storage-management-service",
+    "type": "project",
+    "description": "DR.MEDEX Global — Dedicated Laravel Permanent Deletion & Storage Management Microservice",
+    "keywords": ["drmedex", "storage", "deletion", "mongodb", "cloudinary", "laravel"],
+    "license": "proprietary",
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^11.0",
+        "mongodb/laravel-mongodb": "^5.0",
+        "cloudinary-labs/cloudinary-laravel": "^2.2",
+        "kreait/laravel-firebase": "^5.8",
+        "guzzlehttp/guzzle": "^7.8"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.1",
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

@@ -17,6 +17,7 @@ const firestoreService = require("../services/firestoreService");
 const supabaseService = require("../services/supabaseService");
 const imageResolver = require("../services/imageResolver");
 const orderService = require("../services/orderService");
+const deletionService = require("../services/deletionService");
 
 /**
  * Authentication Middleware
@@ -627,6 +628,46 @@ router.delete("/catalogue/equipment-type/:parentCategory/:subcategory/:eqId", re
       message: result.message,
       hierarchy: store.getCatalogueHierarchy()
     });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// ==========================================
+// CASCADING DELETION & DEPENDENCY INSPECTOR
+// ==========================================
+
+// Inspect Category, Subcategory or Equipment Type Dependencies
+router.get("/catalogue/dependencies/:type/:id", requireAdmin, (req, res) => {
+  try {
+    const { type, id } = req.params;
+    const { parentCategory, parentSubcategory } = req.query;
+    const inspection = deletionService.inspectCategoryDependencies(type, id, parentCategory, parentSubcategory);
+    res.json({ success: true, inspection });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Cascading Deletion Endpoint with Explicit Guard
+router.post("/catalogue/delete-cascade", requireAdmin, async (req, res) => {
+  try {
+    const { type, id, parentCategory, parentSubcategory, cascadeProducts, confirmed } = req.body;
+    if (!type || !id) {
+      return res.status(400).json({ success: false, message: "Entity type and id are required." });
+    }
+    if (cascadeProducts && !confirmed) {
+      return res.status(400).json({ success: false, message: "Explicit confirmation is required for cascading product deletion." });
+    }
+
+    const result = await deletionService.deleteCategoryWithDependencies(type, id, {
+      parentCategory,
+      parentSubcategory,
+      cascadeProducts: Boolean(cascadeProducts),
+      adminEmail: req.admin.email
+    });
+
+    res.json(result);
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
   }
@@ -2135,6 +2176,25 @@ router.delete("/products/:id", requireAdmin, async (req, res) => {
 });
 
 /**
+ * Dedicated Delete Individual Image Route
+ * Deletes exclusively owned image from Cloudinary & removes reference from MongoDB/store
+ */
+router.delete("/products/:id/images", requireAdmin, async (req, res) => {
+  try {
+    const { imageUrl, publicId } = req.body || {};
+    const target = publicId || imageUrl || req.query.publicId || req.query.imageUrl;
+    if (!target) {
+      return res.status(400).json({ success: false, message: "Image publicId or imageUrl is required." });
+    }
+
+    const result = await deletionService.deleteSingleProductImage(req.params.id, target, req.admin.email);
+    res.json(result);
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+/**
  * Dedicated Safe Archive Route for Order-Referenced Products
  */
 router.post("/products/:id/archive", requireAdmin, async (req, res) => {
@@ -2688,6 +2748,59 @@ router.post("/customer-activity/cleanup", requireAdmin, async (req, res) => {
     const result = supabaseService.cleanupExpiredActivity(parseInt(days, 10) || 30);
     auditService.logAction(req.admin.email, "CUSTOMER_ACTIVITY_CLEANED", null, result);
     res.json({ success: true, ...result });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ==========================================
+// 11. STORAGE MANAGEMENT & LIVE INVENTORY
+// ==========================================
+
+router.get("/storage/inventory", requireAdmin, async (req, res) => {
+  try {
+    const inventory = await deletionService.getStorageInventory();
+    res.json(inventory);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.get("/storage/orphaned-assets", requireAdmin, async (req, res) => {
+  try {
+    const report = await deletionService.scanOrphanedCloudinaryAssets();
+    res.json(report);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/storage/delete-orphans", requireAdmin, async (req, res) => {
+  try {
+    const { publicIds, confirmed } = req.body;
+    if (!confirmed) {
+      return res.status(400).json({ success: false, message: "Explicit confirmation required to destroy orphaned assets." });
+    }
+    const result = await deletionService.deleteOrphanedAssets(publicIds, req.admin.email);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.get("/storage/pending-operations", requireAdmin, (req, res) => {
+  try {
+    const pending = deletionService.getPendingOperations();
+    res.json({ success: true, count: pending.length, operations: pending });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/storage/retry-operation/:opId", requireAdmin, async (req, res) => {
+  try {
+    const result = await deletionService.retryPendingOperation(req.params.opId, req.admin.email);
+    res.json({ success: true, result });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }

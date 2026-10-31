@@ -22,7 +22,8 @@ import {
   CheckCircle2,
   Sliders,
   ShieldCheck,
-  Bell
+  Bell,
+  Database
 } from "lucide-react";
 import { useAdminAuth } from "../../context/AdminAuthContext";
 
@@ -408,6 +409,19 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
               System
             </div>
             <nav className="space-y-1">
+              {/* Storage Management */}
+              <Link
+                to="/admin/storage"
+                onClick={() => setIsMobileSidebarOpen(false)}
+                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+                  location.pathname === "/admin/storage"
+                    ? "bg-neutral-100 text-black font-bold border-l-2 border-[#7AA05A]"
+                    : "text-neutral-600 hover:text-black hover:bg-neutral-100"
+                }`}
+              >
+                <Database size={16} className="text-[#2D5A4A] shrink-0" />
+                <span>Storage Management</span>
+              </Link>
               <button
                 type="button"
                 onClick={() =>

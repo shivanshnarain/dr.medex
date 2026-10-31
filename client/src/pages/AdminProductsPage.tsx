@@ -142,6 +142,8 @@ export const AdminProductsPage: React.FC = () => {
   const [sectionFormOrder, setSectionFormOrder] = useState("");
   const [sectionFormError, setSectionFormError] = useState("");
   const [sectionDeleteError, setSectionDeleteError] = useState("");
+  const [sectionCascadeConfirm, setSectionCascadeConfirm] = useState(false);
+  const [sectionCascadeAcknowledged, setSectionCascadeAcknowledged] = useState(false);
   const [isSavingSection, setIsSavingSection] = useState(false);
 
   const handleAddSectionSubmit = async (e: React.FormEvent) => {
@@ -258,7 +260,7 @@ export const AdminProductsPage: React.FC = () => {
     }
   };
 
-  const handleDeleteSectionSubmit = async () => {
+  const handleDeleteSectionSubmit = async (cascade = false) => {
     if (!currentCategoryObj || !deletingSection) return;
     setIsSavingSection(true);
     setSectionDeleteError("");
@@ -267,8 +269,18 @@ export const AdminProductsPage: React.FC = () => {
       const parentCategoryKey = currentCategoryObj.slug || currentCategoryObj.id;
       const subId = deletingSection.slug || deletingSection.id;
       const res = await adminFetch(
-        `/api/admin/catalogue/subcategory/${encodeURIComponent(parentCategoryKey)}/${encodeURIComponent(subId)}`,
-        { method: "DELETE" }
+        "/api/admin/catalogue/delete-cascade",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: "subcategory",
+            id: subId,
+            parentCategory: parentCategoryKey,
+            cascadeProducts: cascade,
+            confirmed: cascade
+          })
+        }
       );
 
       const data = await res.json().catch(() => ({}));
@@ -283,7 +295,9 @@ export const AdminProductsPage: React.FC = () => {
 
       const deletedName = deletingSection.name;
       setDeletingSection(null);
-      showToast("success", `Section "${deletedName}" removed.`, "Section Removed");
+      setSectionCascadeConfirm(false);
+      setSectionCascadeAcknowledged(false);
+      showToast("success", `Section "${deletedName}" permanently removed.`, "Section Removed");
       fetchProducts(true);
     } catch (err: any) {
       setSectionDeleteError(err.message || "Error deleting section.");
@@ -2692,43 +2706,103 @@ export const AdminProductsPage: React.FC = () => {
               )}
 
               {linkedCount > 0 ? (
-                <div className="p-3.5 bg-amber-50 border border-amber-200 rounded-xl space-y-2">
-                  <div className="flex items-center gap-2 text-amber-900 font-bold text-xs">
-                    <AlertTriangle size={15} className="text-amber-600 shrink-0" />
-                    <span>Deletion Blocked: {linkedCount} product{linkedCount === 1 ? "" : "s"} assigned</span>
+                sectionCascadeConfirm ? (
+                  <div className="p-3.5 bg-red-50 border-2 border-red-300 rounded-xl space-y-3">
+                    <div className="flex items-center gap-2 text-red-900 font-bold text-xs uppercase tracking-wider font-mono">
+                      <AlertTriangle size={15} className="text-[#C62828]" />
+                      <span>Confirm Cascading Permanent Deletion</span>
+                    </div>
+                    <p className="text-xs text-neutral-800 leading-relaxed">
+                      This will permanently delete <strong>{linkedCount} product(s)</strong> and all associated Cloudinary images along with section &ldquo;<strong>{deletingSection.name}</strong>&rdquo;.
+                    </p>
+                    <label className="flex items-start gap-2 text-xs text-neutral-900 font-semibold cursor-pointer p-2 bg-white rounded-lg border border-red-200">
+                      <input
+                        type="checkbox"
+                        checked={sectionCascadeAcknowledged}
+                        onChange={(e) => setSectionCascadeAcknowledged(e.target.checked)}
+                        className="mt-0.5 rounded text-[#C62828] focus:ring-[#C62828]"
+                      />
+                      <span>I confirm permanent deletion of all {linkedCount} product(s) and their assets.</span>
+                    </label>
+                    <div className="flex justify-end gap-2 pt-2">
+                      <button
+                        type="button"
+                        onClick={() => setSectionCascadeConfirm(false)}
+                        className="px-3 py-1.5 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-lg text-xs font-semibold"
+                      >
+                        Back
+                      </button>
+                      <button
+                        type="button"
+                        disabled={isSavingSection || !sectionCascadeAcknowledged}
+                        onClick={() => handleDeleteSectionSubmit(true)}
+                        className="px-4 py-1.5 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer disabled:opacity-40"
+                      >
+                        {isSavingSection ? "Deleting..." : "Permanently Delete All"}
+                      </button>
+                    </div>
                   </div>
-                  <p className="text-xs text-amber-800 leading-relaxed">
-                    To prevent accidental loss of catalogue structure, products assigned to &ldquo;<strong>{deletingSection.name}</strong>&rdquo; must be reassigned to another section before deleting this section.
-                  </p>
-                </div>
+                ) : (
+                  <div className="space-y-3">
+                    <div className="p-3.5 bg-amber-50 border border-amber-200 rounded-xl space-y-2">
+                      <div className="flex items-center gap-2 text-amber-900 font-bold text-xs">
+                        <AlertTriangle size={15} className="text-amber-600 shrink-0" />
+                        <span>Section contains {linkedCount} assigned product{linkedCount === 1 ? "" : "s"}</span>
+                      </div>
+                      <p className="text-xs text-amber-800 leading-relaxed">
+                        To preserve catalogue data, Option B (Delete Section Only) is blocked. You can either reassign products first, or use Option C to cascade delete products & Cloudinary media.
+                      </p>
+                    </div>
+
+                    <div className="space-y-2 pt-1 font-sans">
+                      <div className="p-2.5 border border-red-200 rounded-xl flex items-center justify-between gap-3 bg-red-50/50">
+                        <div>
+                          <div className="text-xs font-bold text-[#C62828]">Option C: Cascade Delete Products</div>
+                          <div className="text-[11px] text-neutral-500">Permanently delete {linkedCount} products & images</div>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setSectionCascadeConfirm(true)}
+                          className="px-3 py-1.5 bg-[#C62828] hover:bg-[#B71C1C] text-white text-xs font-bold rounded-lg cursor-pointer shrink-0"
+                        >
+                          Cascade Delete...
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )
               ) : (
                 <p className="text-xs text-neutral-600 leading-relaxed">
                   Are you sure you want to delete section &ldquo;<strong>{deletingSection.name}</strong>&rdquo;? No products are currently assigned to it.
                 </p>
               )}
 
-              <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-neutral-200">
-                <button
-                  type="button"
-                  onClick={() => setDeletingSection(null)}
-                  className="px-4 py-2 border border-neutral-300 text-neutral-700 rounded-xl text-xs font-bold hover:bg-neutral-100 transition-colors cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  disabled={isSavingSection || linkedCount > 0}
-                  onClick={handleDeleteSectionSubmit}
-                  className="px-4 py-2 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs disabled:opacity-40 disabled:cursor-not-allowed"
-                >
-                  {isSavingSection ? (
-                    <RefreshCw size={12} className="animate-spin" />
-                  ) : (
-                    <Trash2 size={13} />
+              {!sectionCascadeConfirm && (
+                <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-neutral-200">
+                  <button
+                    type="button"
+                    onClick={() => setDeletingSection(null)}
+                    className="px-4 py-2 border border-neutral-300 text-neutral-700 rounded-xl text-xs font-bold hover:bg-neutral-100 transition-colors cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  {linkedCount === 0 && (
+                    <button
+                      type="button"
+                      disabled={isSavingSection}
+                      onClick={() => handleDeleteSectionSubmit(false)}
+                      className="px-4 py-2 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs disabled:opacity-40"
+                    >
+                      {isSavingSection ? (
+                        <RefreshCw size={12} className="animate-spin" />
+                      ) : (
+                        <Trash2 size={13} />
+                      )}
+                      <span>{isSavingSection ? "Deleting..." : "Delete Section Only"}</span>
+                    </button>
                   )}
-                  <span>{isSavingSection ? "Deleting..." : "Confirm Delete"}</span>
-                </button>
-              </div>
+                </div>
+              )}
             </div>
           </div>
         );
