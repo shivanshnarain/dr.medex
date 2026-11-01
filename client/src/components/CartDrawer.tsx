@@ -138,7 +138,7 @@ export const CartDrawer: React.FC = () => {
                         <Link
                           to={`/product/${product.slug}`}
                           onClick={closeDrawer}
-                          className="shrink-0 block self-start"
+                          className="shrink-0 block self-start p-0 m-0 border-0 bg-transparent shadow-none outline-none"
                         >
                           <img
                             src={itemImage}
@@ -147,7 +147,7 @@ export const CartDrawer: React.FC = () => {
                               (e.target as HTMLImageElement).src =
                                 "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
                             }}
-                            className="w-20 sm:w-24 max-h-28 object-contain rounded-xl"
+                            className="w-20 sm:w-24 max-h-28 object-contain rounded-xl border-0 shadow-none outline-none bg-transparent"
                           />
                         </Link>
 
@@ -158,7 +158,7 @@ export const CartDrawer: React.FC = () => {
                             <Link
                               to={`/product/${product.slug}`}
                               onClick={closeDrawer}
-                              className="text-xs sm:text-sm font-bold text-[#111111] hover:text-[#2D5A4A] line-clamp-2 leading-snug transition-colors flex-1"
+                              className="text-xs sm:text-sm font-bold text-[#111111] hover:text-[#2D5A4A] leading-snug transition-colors flex-1 break-words whitespace-normal"
                             >
                               {renderBrandTitle(product.title)}
                             </Link>
@@ -175,16 +175,11 @@ export const CartDrawer: React.FC = () => {
                             </button>
                           </div>
 
-                          {/* Middle: Prominent Selling Price (Dark Green #2D5A4A) */}
-                          <div className="mt-1.5 flex items-baseline gap-2">
+                          {/* Middle: Prominent Selling Price (Dark Green #2D5A4A) - Single row total only */}
+                          <div className="mt-1.5 flex items-baseline">
                             <span className="text-sm sm:text-base font-extrabold text-[#2D5A4A] font-sans">
                               {formatPrice(product.basePrice * quantity)}
                             </span>
-                            {quantity > 1 && (
-                              <span className="text-[11px] font-normal text-neutral-500 font-sans">
-                                ({formatPrice(product.basePrice)} each)
-                              </span>
-                            )}
                           </div>
 
                           {/* Bottom: Quantity Selector Stepper */}
