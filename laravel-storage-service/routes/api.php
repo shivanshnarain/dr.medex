@@ -13,3 +13,4 @@ Route::prefix('v1')->group(function () {
     Route::delete('/products/{id}', [StorageManagementController::class, 'deleteProduct']);
     Route::delete('/products/{id}/images', [StorageManagementController::class, 'deleteProductImage']);
 });
+

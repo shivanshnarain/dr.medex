@@ -21,3 +21,4 @@ return [
         'update_date_on_publish' => true,
     ],
 ];
+

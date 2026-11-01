@@ -2117,57 +2117,18 @@ router.delete("/products/:id", requireAdmin, async (req, res) => {
       });
     }
 
-    // 3. No order references: Clean up exclusively owned Cloudinary assets
-    const allProducts = store.getProducts({ includeInactive: true });
-    let cloudinaryResult = null;
-    try {
-      cloudinaryResult = await cloudinaryService.deleteProductExclusivelyOwnedMedia(existing, allProducts, orders);
-    } catch (cErr) {
-      console.warn("[admin.js] Cloudinary media deletion error:", cErr.message);
-      cloudinaryResult = { status: "ERROR", success: false, error: cErr.message };
-    }
-
-    // 4. Delete from MongoDB Atlas (authoritative collection)
-    let mongoResult = null;
-    if (mongoService.isConfigured()) {
-      try {
-        mongoResult = await mongoService.removeApprovedProduct(canonicalId, req.admin.email);
-        if (!mongoResult || !mongoResult.success) {
-          return res.status(500).json({
-            success: false,
-            message: "Failed to delete product from database: Authoritative deletion returned unsuccessful status.",
-            mongo: mongoResult
-          });
-        }
-      } catch (mErr) {
-        console.error("MongoDB Atlas deletion error:", mErr);
-        return res.status(500).json({
-          success: false,
-          message: "Failed to delete product from database: " + mongoService.sanitizeMongoError(mErr)
-        });
-      }
-    }
-
-    // 5. Delete from local store & persistence file
-    const removed = store.deleteProduct(canonicalId) || store.deleteProduct(existing.id);
-
-    // 6. Audit log
-    auditService.logAction(req.admin.email, "PRODUCT_PERMANENTLY_DELETED", canonicalId, {
-      title: productTitle,
-      sku: productSku,
-      cloudinary: cloudinaryResult,
-      mongo: mongoResult
-    });
+    // 3. No order references: Authoritative permanent deletion via unified deletion service
+    const delResult = await deletionService.deleteProductPermanently(canonicalId, req.admin.email);
 
     res.json({
       success: true,
       deleted: true,
       retired: false,
       productId: canonicalId,
-      message: `Product "${productTitle}" and exclusively owned media permanently deleted.`,
-      product: removed || existing,
-      cloudinary: cloudinaryResult,
-      mongo: mongoResult
+      message: delResult.message,
+      product: existing,
+      cloudinary: delResult.media,
+      mongo: delResult.mongo
     });
   } catch (err) {
     console.error("Delete product error:", err);
