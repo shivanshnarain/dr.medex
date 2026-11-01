@@ -6,7 +6,7 @@ import { ProductCard } from "../components/ProductCard";
 import { QuickViewModal } from "../components/QuickViewModal";
 import { B2BQuoteModal } from "../components/B2BQuoteModal";
 import { HeroSection } from "../components/HeroSection";
-import { getProducts } from "../services/productService";
+import { getProducts, fallbackProducts } from "../services/productService";
 
 interface CategorySectionDef {
   id: string;
@@ -173,9 +173,16 @@ function matchesCategory(p: Product, slug: string): boolean {
 }
 
 export const HomePage: React.FC = () => {
-  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<Product[]>(() => {
+    const active = fallbackProducts.filter((p) => {
+      if ((p.status || "ACTIVE") !== "ACTIVE") return false;
+      if (p.category === "physiotherapy" && p.reviewStatus !== "CORRECT") return false;
+      return true;
+    });
+    return active.length > 0 ? active : fallbackProducts;
+  });
   const [blogs, setBlogs] = useState<BlogArticle[]>([]);
-  const [, setIsLoading] = useState(true);
+  const [, setIsLoading] = useState(false);
 
   // Modals state
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
@@ -183,31 +190,35 @@ export const HomePage: React.FC = () => {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
     async function loadHomeData() {
-      try {
-        const [prodResult, blogRes] = await Promise.all([
-          getProducts(),
-          fetch("/api/blogs").catch(() => null)
-        ]);
+      // 1. Fetch live products and update state immediately without waiting for other APIs
+      getProducts()
+        .then((prodResult) => {
+          if (isMounted && prodResult && Array.isArray(prodResult.products) && prodResult.products.length > 0) {
+            setAllProducts(prodResult.products);
+          }
+        })
+        .catch((err) => console.warn("[HomePage] Live products fetch notice:", err))
+        .finally(() => {
+          if (isMounted) setIsLoading(false);
+        });
 
-        if (prodResult && prodResult.products) {
-          setAllProducts(prodResult.products);
-        }
-
-        if (blogRes && blogRes.ok) {
-          const bData = await blogRes.json();
-          if (bData.success && Array.isArray(bData.blogs)) {
+      // 2. Fetch blogs independently without blocking product display
+      fetch("/api/blogs")
+        .then((res) => (res.ok ? res.json() : null))
+        .then((bData) => {
+          if (isMounted && bData && bData.success && Array.isArray(bData.blogs)) {
             setBlogs(bData.blogs.slice(0, 3));
           }
-        }
-      } catch (err) {
-        console.error("Failed to load homepage data:", err);
-      } finally {
-        setIsLoading(false);
-      }
+        })
+        .catch(() => {});
     }
 
     loadHomeData();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleOpenQuote = useCallback((product: Product) => {

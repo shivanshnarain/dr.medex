@@ -1368,14 +1368,14 @@ export const CheckoutPage: React.FC = () => {
             </h1>
           </div>
 
-          {/* THREE-STEP HORIZONTAL PROGRESS INDICATOR WITH ARROWS (PART 6) */}
-          <div className="mt-4 bg-white rounded-2xl border border-neutral-200 p-3.5 sm:p-4 shadow-xs">
-            <div className="flex items-center justify-between max-w-3xl mx-auto">
+          {/* THREE-STEP HORIZONTAL PROGRESS INDICATOR WITH ARROWS */}
+          <div className="mt-4 bg-white rounded-2xl border border-neutral-200 p-2.5 sm:p-4 shadow-xs">
+            <div className="flex items-center justify-between max-w-3xl mx-auto w-full">
               {/* Step 1: Customer Details */}
               <button
                 type="button"
                 onClick={() => setCurrentStep(1)}
-                className="flex items-center gap-2 sm:gap-3 text-left group cursor-pointer"
+                className="flex items-center gap-1.5 sm:gap-3 text-left group cursor-pointer shrink-0"
               >
                 <div
                   className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 transition-all ${
@@ -1386,11 +1386,11 @@ export const CheckoutPage: React.FC = () => {
                       : "bg-neutral-100 text-neutral-400 border border-neutral-300"
                   }`}
                 >
-                  {currentStep > 1 ? <Check size={16} strokeWidth={2.5} /> : "1"}
+                  {currentStep > 1 ? <Check size={14} className="sm:w-4 sm:h-4" strokeWidth={2.5} /> : "1"}
                 </div>
                 <div className="min-w-0">
                   <div
-                    className={`text-2xs sm:text-xs font-bold leading-tight ${
+                    className={`text-[11px] sm:text-xs font-bold leading-tight whitespace-nowrap ${
                       currentStep === 1
                         ? "text-[#2D5A4A]"
                         : currentStep > 1
@@ -1398,16 +1398,17 @@ export const CheckoutPage: React.FC = () => {
                         : "text-neutral-400"
                     }`}
                   >
-                    1. Customer Details
+                    <span className="sm:hidden">Step 1</span>
+                    <span className="hidden sm:inline">1. Customer Details</span>
                   </div>
                 </div>
               </button>
 
               {/* Connecting Arrow 1 -> 2 */}
-              <div className="flex items-center px-1 sm:px-3">
+              <div className="flex items-center px-1 sm:px-3 shrink-0">
                 <ArrowRight
-                  size={16}
-                  className={currentStep > 1 ? "text-[#7AA05A]" : "text-neutral-300"}
+                  size={14}
+                  className={`sm:w-4 sm:h-4 transition-colors ${currentStep > 1 ? "text-[#7AA05A]" : "text-neutral-300"}`}
                 />
               </div>
 
@@ -1417,7 +1418,7 @@ export const CheckoutPage: React.FC = () => {
                 onClick={() => {
                   if (validateStep1()) setCurrentStep(2);
                 }}
-                className="flex items-center gap-2 sm:gap-3 text-left group cursor-pointer"
+                className="flex items-center gap-1.5 sm:gap-3 text-left group cursor-pointer shrink-0"
               >
                 <div
                   className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 transition-all ${
@@ -1428,11 +1429,11 @@ export const CheckoutPage: React.FC = () => {
                       : "bg-neutral-100 text-neutral-400 border border-neutral-300"
                   }`}
                 >
-                  {currentStep > 2 ? <Check size={16} strokeWidth={2.5} /> : "2"}
+                  {currentStep > 2 ? <Check size={14} className="sm:w-4 sm:h-4" strokeWidth={2.5} /> : "2"}
                 </div>
                 <div className="min-w-0">
                   <div
-                    className={`text-2xs sm:text-xs font-bold leading-tight ${
+                    className={`text-[11px] sm:text-xs font-bold leading-tight whitespace-nowrap ${
                       currentStep === 2
                         ? "text-[#2D5A4A]"
                         : currentStep > 2
@@ -1440,16 +1441,17 @@ export const CheckoutPage: React.FC = () => {
                         : "text-neutral-400"
                     }`}
                   >
-                    2. Shipping Address
+                    <span className="sm:hidden">Step 2</span>
+                    <span className="hidden sm:inline">2. Shipping Address</span>
                   </div>
                 </div>
               </button>
 
               {/* Connecting Arrow 2 -> 3 */}
-              <div className="flex items-center px-1 sm:px-3">
+              <div className="flex items-center px-1 sm:px-3 shrink-0">
                 <ArrowRight
-                  size={16}
-                  className={currentStep > 2 ? "text-[#7AA05A]" : "text-neutral-300"}
+                  size={14}
+                  className={`sm:w-4 sm:h-4 transition-colors ${currentStep > 2 ? "text-[#7AA05A]" : "text-neutral-300"}`}
                 />
               </div>
 
@@ -1459,7 +1461,7 @@ export const CheckoutPage: React.FC = () => {
                 onClick={() => {
                   if (validateStep1() && validateStep2()) setCurrentStep(3);
                 }}
-                className="flex items-center gap-2 sm:gap-3 text-left group cursor-pointer"
+                className="flex items-center gap-1.5 sm:gap-3 text-left group cursor-pointer shrink-0"
               >
                 <div
                   className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 transition-all ${
@@ -1472,11 +1474,12 @@ export const CheckoutPage: React.FC = () => {
                 </div>
                 <div className="min-w-0">
                   <div
-                    className={`text-2xs sm:text-xs font-bold leading-tight ${
+                    className={`text-[11px] sm:text-xs font-bold leading-tight whitespace-nowrap ${
                       currentStep === 3 ? "text-[#2D5A4A]" : "text-neutral-400"
                     }`}
                   >
-                    3. Payment & Confirmation
+                    <span className="sm:hidden">Step 3</span>
+                    <span className="hidden sm:inline">3. Payment & Confirmation</span>
                   </div>
                 </div>
               </button>

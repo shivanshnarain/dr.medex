@@ -964,9 +964,9 @@ export const Header: React.FC = () => {
                           setAuthModalTab("signin");
                           setIsAuthModalOpen(true);
                         }}
-                        className="w-full flex items-center justify-center gap-2 px-3 py-2 text-xs font-bold text-[#2D5A4A] bg-[#7AA05A] hover:bg-[#6e9251] rounded-xl transition-colors cursor-pointer shadow-xs"
+                        className="w-full flex items-center justify-center gap-2 px-3 py-2 text-xs font-bold text-white bg-[#7AA05A] hover:bg-[#688a4c] rounded-xl transition-colors cursor-pointer shadow-xs"
                       >
-                        <User size={14} className="text-[#2D5A4A]" />
+                        <User size={14} className="text-white" />
                         <span>Login / Account</span>
                       </button>
                     )}
@@ -1453,9 +1453,9 @@ export const Header: React.FC = () => {
                     setAuthModalTab("signin");
                     setIsAuthModalOpen(true);
                   }}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 text-center bg-[#7AA05A] hover:bg-[#6e9251] text-[#2D5A4A] rounded-xl text-xs font-bold shadow-xs transition-colors cursor-pointer"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 text-center bg-[#7AA05A] hover:bg-[#688a4c] text-white rounded-xl text-xs font-bold shadow-xs transition-colors cursor-pointer"
                 >
-                  <User size={15} className="text-[#2D5A4A]" />
+                  <User size={15} className="text-white" />
                   <span>Sign In / Create Account</span>
                 </button>
               )}

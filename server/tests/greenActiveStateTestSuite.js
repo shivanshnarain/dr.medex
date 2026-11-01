@@ -77,8 +77,8 @@ assert(
   'FAIL: "Login / Account" button must use bg-[#7AA05A]'
 );
 assert(
-  loginButtonMatch[0].includes('text-[#2D5A4A]'),
-  'FAIL: "Login / Account" button must use text-[#2D5A4A]'
+  loginButtonMatch[0].includes('text-white') || loginButtonMatch[0].includes('text-[#FFFFFF]'),
+  'FAIL: "Login / Account" button must use white text (#FFFFFF)'
 );
 assert(
   !loginButtonMatch[0].includes('bg-[#111111]') && !loginButtonMatch[0].includes('bg-black'),
