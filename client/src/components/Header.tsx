@@ -964,9 +964,9 @@ export const Header: React.FC = () => {
                           setAuthModalTab("signin");
                           setIsAuthModalOpen(true);
                         }}
-                        className="w-full flex items-center justify-center gap-2 px-3 py-2 text-xs font-bold text-white bg-[#111111] hover:bg-black rounded-xl transition-colors cursor-pointer shadow-xs"
+                        className="w-full flex items-center justify-center gap-2 px-3 py-2 text-xs font-bold text-[#2D5A4A] bg-[#7AA05A] hover:bg-[#6e9251] rounded-xl transition-colors cursor-pointer shadow-xs"
                       >
-                        <User size={14} />
+                        <User size={14} className="text-[#2D5A4A]" />
                         <span>Login / Account</span>
                       </button>
                     )}
@@ -1236,21 +1236,28 @@ export const Header: React.FC = () => {
                 </span>
               </div>
               <div className="space-y-0.5 max-h-[60vh] overflow-y-auto [scrollbar-width:thin]">
-                {activeItem.subcategories.map((sub) => (
-                  <Link
-                    key={sub.to}
-                    to={sub.to}
-                    onClick={() => setActiveMegaMenu(null)}
-                    className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-neutral-800 hover:text-[#2D5A4A] hover:bg-[#7AA05A]/10 transition-colors group"
-                    role="menuitem"
-                  >
-                    <span>{sub.label}</span>
-                    <ChevronRight
-                      size={13}
-                      className="text-neutral-400 group-hover:text-[#2D5A4A] group-hover:translate-x-0.5 transition-all"
-                    />
-                  </Link>
-                ))}
+                {activeItem.subcategories.map((sub) => {
+                  const isSubActive = location.search.includes(`subcategory=${sub.to.split("subcategory=")[1] || ""}`);
+                  return (
+                    <Link
+                      key={sub.to}
+                      to={sub.to}
+                      onClick={() => setActiveMegaMenu(null)}
+                      className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-colors group ${
+                        isSubActive
+                          ? "bg-[#7AA05A] text-white"
+                          : "text-neutral-800 hover:text-[#2D5A4A] hover:bg-[#7AA05A]/10"
+                      }`}
+                      role="menuitem"
+                    >
+                      <span>{sub.label}</span>
+                      <ChevronRight
+                        size={13}
+                        className={isSubActive ? "text-white" : "text-neutral-400 group-hover:text-[#2D5A4A] group-hover:translate-x-0.5 transition-all"}
+                      />
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>,
@@ -1446,9 +1453,10 @@ export const Header: React.FC = () => {
                     setAuthModalTab("signin");
                     setIsAuthModalOpen(true);
                   }}
-                  className="w-full block py-2.5 text-center bg-[#111111] hover:bg-black text-white rounded-xl text-xs font-bold shadow-xs transition-colors cursor-pointer"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 text-center bg-[#7AA05A] hover:bg-[#6e9251] text-[#2D5A4A] rounded-xl text-xs font-bold shadow-xs transition-colors cursor-pointer"
                 >
-                  Sign In / Create Account
+                  <User size={15} className="text-[#2D5A4A]" />
+                  <span>Sign In / Create Account</span>
                 </button>
               )}
             </div>

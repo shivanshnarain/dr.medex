@@ -166,10 +166,10 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, onClose
                   <button
                     type="button"
                     onClick={handleAddToCart}
-                    className={`flex-1 py-3 px-4 rounded-lg font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-colors ${
+                    className={`flex-1 py-3 px-4 rounded-lg font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-colors cursor-pointer ${
                       isAdded
-                        ? "bg-[#1F7A4D] text-white"
-                        : "bg-[#111111] hover:bg-[#1F7A4D] text-white"
+                        ? "bg-[#2D5A4A] text-white"
+                        : "bg-[#7AA05A] hover:bg-[#688a4c] text-white"
                     }`}
                   >
                     {isAdded ? <Check size={16} /> : <ShoppingCart size={16} />}

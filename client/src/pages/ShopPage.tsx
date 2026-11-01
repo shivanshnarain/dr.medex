@@ -294,8 +294,8 @@ export const ShopPage: React.FC = () => {
               }}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-2xs ${
                 !selectedSubcategory
-                  ? "bg-[#111111] text-white"
-                  : "bg-white text-neutral-700 hover:text-black hover:bg-neutral-50 border border-[#EAEAEA]"
+                  ? "bg-[#7AA05A] text-white hover:bg-[#688a4c]"
+                  : "bg-white text-neutral-700 hover:text-[#2D5A4A] hover:bg-neutral-50 border border-[#EAEAEA]"
               }`}
             >
               <span>All {activeCategoryObject.name.replace(/Equipment|Machines|Units/i, "").trim()}</span>
@@ -324,8 +324,8 @@ export const ShopPage: React.FC = () => {
                   onClick={() => handleSubcategoryClick(sub.slug)}
                   className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-2xs ${
                     isSelected
-                      ? "bg-[#7AA05A] text-white"
-                      : "bg-white text-neutral-700 hover:text-black hover:bg-neutral-50 border border-[#EAEAEA]"
+                      ? "bg-[#7AA05A] text-white hover:bg-[#688a4c]"
+                      : "bg-white text-neutral-700 hover:text-[#2D5A4A] hover:bg-neutral-50 border border-[#EAEAEA]"
                   }`}
                 >
                   <span>{sub.name}</span>
@@ -372,12 +372,12 @@ export const ShopPage: React.FC = () => {
                           onClick={() => handleCategoryClick(cat.slug)}
                           className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-colors ${
                             selectedCategory === cat.slug
-                              ? "bg-[#111111] text-white font-bold"
-                              : "text-neutral-700 hover:bg-[#F7F7F7]"
+                              ? "bg-[#7AA05A] text-white font-bold"
+                              : "text-neutral-700 hover:bg-[#F7F7F7] hover:text-[#2D5A4A]"
                           }`}
                         >
                           <span>{cat.name}</span>
-                          <span className={`text-3xs font-mono ${selectedCategory === cat.slug ? "text-neutral-300" : "text-neutral-400"}`}>
+                          <span className={`text-3xs font-mono ${selectedCategory === cat.slug ? "text-white/80" : "text-neutral-400"}`}>
                             {cat.subcategories.length}
                           </span>
                         </button>
@@ -403,7 +403,7 @@ export const ShopPage: React.FC = () => {
                     step="10000"
                     value={maxPriceINR}
                     onChange={(e) => setMaxPriceINR(Number(e.target.value))}
-                    className="w-full h-1.5 bg-[#EAEAEA] rounded-lg appearance-none cursor-pointer accent-[#111111]"
+                    className="w-full h-1.5 bg-[#EAEAEA] rounded-lg appearance-none cursor-pointer accent-[#7AA05A]"
                   />
                   <div className="flex justify-between text-3xs text-neutral-400 font-mono mt-1.5">
                     <span>{formatPrice(5000)}</span>
@@ -418,7 +418,7 @@ export const ShopPage: React.FC = () => {
                       type="checkbox"
                       checked={onlyInStock}
                       onChange={(e) => setOnlyInStock(e.target.checked)}
-                      className="w-4 h-4 rounded-sm border-[#EAEAEA] text-[#111111] focus:ring-[#111111]"
+                      className="w-4 h-4 rounded-sm border-[#EAEAEA] text-[#2D5A4A] focus:ring-[#7AA05A]"
                     />
                     <span>Show Only In-Stock Equipment</span>
                   </label>
@@ -435,8 +435,8 @@ export const ShopPage: React.FC = () => {
                           onClick={() => setSelectedRating(selectedRating === r ? null : r)}
                           className={`px-3 py-1.5 text-2xs rounded-md border font-semibold transition-all ${
                             selectedRating === r
-                              ? "bg-[#111111] border-[#111111] text-white"
-                              : "border-[#EAEAEA] text-neutral-600 hover:bg-[#F7F7F7]"
+                              ? "bg-[#7AA05A] border-[#7AA05A] text-white font-bold"
+                              : "border-[#EAEAEA] text-neutral-600 hover:bg-[#F7F7F7] hover:text-[#2D5A4A]"
                           }`}
                         >
                           ★ {r}+
@@ -526,10 +526,10 @@ export const ShopPage: React.FC = () => {
                         <a
                           key={sec.id}
                           href={`#${sec.id}`}
-                          className="px-3 py-1.5 rounded-lg bg-[#FAFAFA] hover:bg-[#111111] text-[#111111] hover:text-white border border-[#EAEAEA] text-xs font-semibold transition-all flex items-center gap-1.5 shadow-2xs"
+                          className="px-3 py-1.5 rounded-lg bg-[#FAFAFA] hover:bg-[#7AA05A] text-[#111111] hover:text-white border border-[#EAEAEA] text-xs font-semibold transition-all flex items-center gap-1.5 shadow-2xs group"
                         >
                           <span>{sec.name}</span>
-                          <span className="text-3xs font-mono px-1.5 py-0.2 rounded bg-neutral-200 text-neutral-800">
+                          <span className="text-3xs font-mono px-1.5 py-0.2 rounded bg-neutral-200 text-neutral-800 group-hover:bg-white/20 group-hover:text-white">
                             {count}
                           </span>
                         </a>
@@ -642,10 +642,10 @@ export const ShopPage: React.FC = () => {
                         <a
                           key={sec.id}
                           href={`#${sec.id}`}
-                          className="px-3 py-1.5 rounded-lg bg-[#FAFAFA] hover:bg-[#111111] text-[#111111] hover:text-white border border-[#EAEAEA] text-xs font-semibold transition-all flex items-center gap-1.5 shadow-2xs"
+                          className="px-3 py-1.5 rounded-lg bg-[#FAFAFA] hover:bg-[#7AA05A] text-[#111111] hover:text-white border border-[#EAEAEA] text-xs font-semibold transition-all flex items-center gap-1.5 shadow-2xs group"
                         >
                           <span>{sec.name}</span>
-                          <span className="text-3xs font-mono px-1.5 py-0.2 rounded bg-neutral-200 text-neutral-800">
+                          <span className="text-3xs font-mono px-1.5 py-0.2 rounded bg-neutral-200 text-neutral-800 group-hover:bg-white/20 group-hover:text-white">
                             {count}
                           </span>
                         </a>
@@ -815,7 +815,7 @@ export const ShopPage: React.FC = () => {
                         setIsMobileFilterOpen(false);
                       }}
                       className={`w-full text-left text-xs py-2 px-3 rounded-lg transition-colors ${
-                        selectedCategory === cat.slug ? "bg-[#111111] text-white font-bold" : "text-neutral-700 hover:bg-[#F7F7F7]"
+                        selectedCategory === cat.slug ? "bg-[#7AA05A] text-white font-bold" : "text-neutral-700 hover:bg-[#F7F7F7] hover:text-[#2D5A4A]"
                       }`}
                     >
                       {cat.name}
@@ -828,7 +828,7 @@ export const ShopPage: React.FC = () => {
             <div className="pt-4 border-t border-[#EAEAEA]">
               <button
                 onClick={() => setIsMobileFilterOpen(false)}
-                className="w-full py-3 bg-[#111111] hover:bg-[#1F7A4D] text-white rounded-xl text-xs font-bold transition-colors"
+                className="w-full py-3 bg-[#7AA05A] hover:bg-[#688a4c] text-white rounded-xl text-xs font-bold transition-colors cursor-pointer"
               >
                 Apply Filters
               </button>

@@ -816,7 +816,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
             <button
               onClick={() => setActiveTab("orders")}
               className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-xs font-bold transition-colors ${
-                activeTab === "orders" ? "bg-[#111111] text-white" : "text-neutral-700 hover:bg-[#F7F7F7]"
+                activeTab === "orders" ? "bg-[#7AA05A] text-white" : "text-neutral-700 hover:bg-[#F7F7F7] hover:text-[#2D5A4A]"
               }`}
             >
               <Package size={16} />
@@ -825,7 +825,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
             <button
               onClick={() => setActiveTab("quotes")}
               className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-xs font-bold transition-colors ${
-                activeTab === "quotes" ? "bg-[#111111] text-white" : "text-neutral-700 hover:bg-[#F7F7F7]"
+                activeTab === "quotes" ? "bg-[#7AA05A] text-white" : "text-neutral-700 hover:bg-[#F7F7F7] hover:text-[#2D5A4A]"
               }`}
             >
               <FileText size={16} />
@@ -834,7 +834,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
             <button
               onClick={() => setActiveTab("wishlist")}
               className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-xs font-bold transition-colors ${
-                activeTab === "wishlist" ? "bg-[#111111] text-white" : "text-neutral-700 hover:bg-[#F7F7F7]"
+                activeTab === "wishlist" ? "bg-[#7AA05A] text-white" : "text-neutral-700 hover:bg-[#F7F7F7] hover:text-[#2D5A4A]"
               }`}
             >
               <Heart size={16} />
@@ -843,7 +843,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
             <button
               onClick={() => setActiveTab("addresses")}
               className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-xs font-bold transition-colors ${
-                activeTab === "addresses" ? "bg-[#111111] text-white" : "text-neutral-700 hover:bg-[#F7F7F7]"
+                activeTab === "addresses" ? "bg-[#7AA05A] text-white" : "text-neutral-700 hover:bg-[#F7F7F7] hover:text-[#2D5A4A]"
               }`}
             >
               <MapPin size={16} />
@@ -852,7 +852,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
             <button
               onClick={() => setActiveTab("profile")}
               className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-xs font-bold transition-colors ${
-                activeTab === "profile" ? "bg-[#111111] text-white" : "text-neutral-700 hover:bg-[#F7F7F7]"
+                activeTab === "profile" ? "bg-[#7AA05A] text-white" : "text-neutral-700 hover:bg-[#F7F7F7] hover:text-[#2D5A4A]"
               }`}
             >
               <User size={16} />
@@ -861,7 +861,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({ initialAuthTab }) => {
             <button
               onClick={() => setActiveTab("notifications")}
               className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-xs font-bold transition-colors ${
-                activeTab === "notifications" ? "bg-[#111111] text-white" : "text-neutral-700 hover:bg-[#F7F7F7]"
+                activeTab === "notifications" ? "bg-[#7AA05A] text-white" : "text-neutral-700 hover:bg-[#F7F7F7] hover:text-[#2D5A4A]"
               }`}
             >
               <Bell size={16} />
