@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
@@ -90,9 +90,12 @@ export const Header: React.FC = () => {
     setIsMobileMenuOpen(false);
   }, [location.pathname, location.search]);
 
-  // Mega menu hover state
+  // Mega menu state & positioning
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
   const megaMenuTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const floatingDropdownRef = useRef<HTMLDivElement>(null);
+  const categoryButtonRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const [dropdownPos, setDropdownPos] = useState<{ top: number; left: number } | null>(null);
 
   // Mobile menu accordion state
   const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>(null);
@@ -310,18 +313,87 @@ export const Header: React.FC = () => {
     }
   };
 
+  const updateDropdownPosition = useCallback((categoryId: string) => {
+    const el = categoryButtonRefs.current[categoryId];
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const dropdownWidth = 280;
+    let left = rect.left + rect.width / 2 - dropdownWidth / 2;
+
+    const viewportWidth = window.innerWidth;
+    if (left < 12) left = 12;
+    if (left + dropdownWidth > viewportWidth - 12) {
+      left = Math.max(12, viewportWidth - dropdownWidth - 12);
+    }
+
+    const top = rect.bottom + 4;
+    setDropdownPos({ top, left });
+  }, []);
+
+  const toggleMegaMenu = useCallback((id: string) => {
+    setActiveMegaMenu((prev) => {
+      const next = prev === id ? null : id;
+      if (next) {
+        requestAnimationFrame(() => updateDropdownPosition(next));
+      }
+      return next;
+    });
+  }, [updateDropdownPosition]);
+
   const handleMegaMenuEnter = (id: string) => {
     if (megaMenuTimeoutRef.current) {
       clearTimeout(megaMenuTimeoutRef.current);
+      megaMenuTimeoutRef.current = null;
     }
     setActiveMegaMenu(id);
+    requestAnimationFrame(() => updateDropdownPosition(id));
   };
 
   const handleMegaMenuLeave = () => {
     megaMenuTimeoutRef.current = setTimeout(() => {
       setActiveMegaMenu(null);
-    }, 150);
+    }, 200);
   };
+
+  // Close mega menu on outside click
+  useEffect(() => {
+    if (!activeMegaMenu) return;
+
+    const handleOutsideClick = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node;
+      const currentCategoryEl = categoryButtonRefs.current[activeMegaMenu];
+      if (currentCategoryEl && currentCategoryEl.contains(target)) {
+        return;
+      }
+      if (floatingDropdownRef.current && floatingDropdownRef.current.contains(target)) {
+        return;
+      }
+      setActiveMegaMenu(null);
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener("touchstart", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("touchstart", handleOutsideClick);
+    };
+  }, [activeMegaMenu]);
+
+  // Keep dropdown aligned during scroll or resize
+  useEffect(() => {
+    if (!activeMegaMenu) return;
+
+    const handleScrollOrResize = () => {
+      updateDropdownPosition(activeMegaMenu);
+    };
+
+    window.addEventListener("scroll", handleScrollOrResize, { passive: true });
+    window.addEventListener("resize", handleScrollOrResize, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScrollOrResize);
+      window.removeEventListener("resize", handleScrollOrResize);
+    };
+  }, [activeMegaMenu, updateDropdownPosition]);
 
   // Dynamic Categories from API with graceful instant fallback
   const [categories, setCategories] = useState<Category[]>(() => {
@@ -1071,56 +1143,53 @@ export const Header: React.FC = () => {
               return (
                 <div
                   key={item.id}
-                  className="relative shrink-0"
+                  ref={(el) => {
+                    categoryButtonRefs.current[item.id] = el;
+                  }}
+                  className="relative shrink-0 flex items-center"
                   onMouseEnter={() => item.hasSubmenu && handleMegaMenuEnter(item.id)}
                   onMouseLeave={() => item.hasSubmenu && handleMegaMenuLeave()}
                 >
                   <Link
                     to={item.to}
-                    className={`relative inline-flex items-center gap-1.5 px-3 py-1.5 text-xs tracking-normal transition-all rounded-lg ${
+                    className={`inline-flex items-center pl-3 ${
+                      item.hasSubmenu ? "pr-1.5" : "pr-3"
+                    } py-1.5 text-xs tracking-normal transition-all rounded-l-lg ${
+                      !item.hasSubmenu ? "rounded-r-lg" : ""
+                    } ${
                       active
                         ? "text-white font-bold bg-white/20"
                         : "text-white/95 hover:text-white hover:bg-white/15 font-medium"
                     }`}
                   >
                     <span>{item.label}</span>
-                    {/* Dropdown chevron hidden on mobile, visible on desktop hover */}
-                    {item.hasSubmenu && (
+                  </Link>
+
+                  {/* Dedicated Arrow Toggle Button */}
+                  {item.hasSubmenu && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        toggleMegaMenu(item.id);
+                      }}
+                      className={`inline-flex items-center justify-center pr-2.5 pl-1 py-1.5 text-xs transition-all rounded-r-lg cursor-pointer ${
+                        isMegaOpen || active
+                          ? "text-white bg-white/20"
+                          : "text-white/80 hover:text-white hover:bg-white/15"
+                      }`}
+                      title={`Toggle ${item.label} subcategories`}
+                      aria-expanded={isMegaOpen}
+                      aria-label={`Toggle ${item.label} subcategories`}
+                    >
                       <ChevronDown
                         size={12}
-                        className={`hidden sm:inline-block text-white/80 transition-transform duration-200 ${
+                        className={`transition-transform duration-200 ${
                           isMegaOpen ? "rotate-180 text-white" : ""
                         }`}
                       />
-                    )}
-                  </Link>
-
-                  {/* MEGA MENU HOVER DROPDOWN (Desktop only) */}
-                  {item.hasSubmenu && isMegaOpen && item.subcategories && (
-                    <div
-                      className="hidden sm:block absolute top-full left-1/2 -translate-x-1/2 pt-1 w-72 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
-                      onMouseEnter={() => handleMegaMenuEnter(item.id)}
-                      onMouseLeave={handleMegaMenuLeave}
-                    >
-                      <div className="bg-white rounded-2xl shadow-xl border border-[#E5E7EB] p-2.5 overflow-hidden">
-                        <div className="px-3 py-1.5 text-[10px] font-bold text-[#6B7280] uppercase tracking-wider border-b border-[#E5E7EB] mb-1 flex items-center justify-between">
-                          <span>{item.label} Subcategories</span>
-                        </div>
-                        <div className="space-y-0.5">
-                          {item.subcategories.map((sub) => (
-                            <Link
-                              key={sub.to}
-                              to={sub.to}
-                              onClick={() => setActiveMegaMenu(null)}
-                              className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-[#171717] hover:text-[#2D5A4A] hover:bg-[#7AA05A]/10 transition-colors group"
-                            >
-                              <span>{sub.label}</span>
-                              <ChevronRight size={13} className="text-[#6B7280] group-hover:text-[#2D5A4A] transition-colors" />
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
+                    </button>
                   )}
                 </div>
               );
@@ -1128,6 +1197,66 @@ export const Header: React.FC = () => {
           </nav>
         </div>
       </div>
+
+      {/* ==============================================================
+          FLOATING CATEGORY DROPDOWN PANEL (Portal to document.body)
+      ============================================================== */}
+      {activeMegaMenu && typeof document !== "undefined" && (() => {
+        const activeItem = navCategories.find((cat) => cat.id === activeMegaMenu && cat.hasSubmenu);
+        if (!activeItem || !activeItem.subcategories || activeItem.subcategories.length === 0 || !dropdownPos) {
+          return null;
+        }
+
+        return createPortal(
+          <div
+            ref={floatingDropdownRef}
+            style={{
+              position: "fixed",
+              top: `${dropdownPos.top}px`,
+              left: `${dropdownPos.left}px`,
+              width: "280px",
+              zIndex: 9999
+            }}
+            onMouseEnter={() => {
+              if (megaMenuTimeoutRef.current) {
+                clearTimeout(megaMenuTimeoutRef.current);
+                megaMenuTimeoutRef.current = null;
+              }
+            }}
+            onMouseLeave={handleMegaMenuLeave}
+            className="animate-in fade-in slide-in-from-top-1 duration-150"
+            role="menu"
+            aria-label={`${activeItem.label} subcategories menu`}
+          >
+            <div className="bg-white rounded-2xl shadow-2xl border border-neutral-200/90 p-2.5 overflow-hidden text-neutral-900">
+              <div className="px-3 py-1.5 text-[10px] font-bold text-neutral-400 uppercase tracking-wider border-b border-neutral-100 mb-1 flex items-center justify-between">
+                <span>{activeItem.label} Subcategories</span>
+                <span className="text-[9px] font-mono font-normal text-neutral-400">
+                  {activeItem.subcategories.length} sections
+                </span>
+              </div>
+              <div className="space-y-0.5 max-h-[60vh] overflow-y-auto [scrollbar-width:thin]">
+                {activeItem.subcategories.map((sub) => (
+                  <Link
+                    key={sub.to}
+                    to={sub.to}
+                    onClick={() => setActiveMegaMenu(null)}
+                    className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-neutral-800 hover:text-[#2D5A4A] hover:bg-[#7AA05A]/10 transition-colors group"
+                    role="menuitem"
+                  >
+                    <span>{sub.label}</span>
+                    <ChevronRight
+                      size={13}
+                      className="text-neutral-400 group-hover:text-[#2D5A4A] group-hover:translate-x-0.5 transition-all"
+                    />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>,
+          document.body
+        );
+      })()}
 
       {/* ==============================================================
           MOBILE NAVIGATION DRAWER (Portal to document.body)

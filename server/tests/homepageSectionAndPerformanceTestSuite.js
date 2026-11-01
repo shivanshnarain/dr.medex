@@ -133,3 +133,4 @@ console.log('✅ [PASS] Performance verified: React.memo, CSS content-visibility
 console.log('\n================================================================================');
 console.log('ALL HOMEPAGE & PERFORMANCE TESTS PASSED (5/5)!');
 console.log('================================================================================\n');
+
