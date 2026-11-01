@@ -21,6 +21,7 @@ import { useCurrency } from "../context/CurrencyContext";
 import { useCart } from "../context/CartContext";
 import { ProductCard } from "../components/ProductCard";
 import { B2BQuoteModal } from "../components/B2BQuoteModal";
+import { SmartLocationPrompt, ResolvedLocationData } from "../components/SmartLocationPrompt";
 import { ProductReviewsSection } from "../components/reviews/ProductReviewsSection";
 import { getProductBySlug, fallbackProducts } from "../services/productService";
 
@@ -469,6 +470,7 @@ export const ProductDetailPage: React.FC = () => {
 
   // Quote modal (for related product cards)
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [showLocationPrompt, setShowLocationPrompt] = useState(false);
 
   // Fetch product data
   const loadProduct = useCallback(async () => {
@@ -882,15 +884,63 @@ export const ProductDetailPage: React.FC = () => {
     setTimeout(() => setIsAdded(false), 1600);
   };
 
-  const handleBuyNow = () => {
+  const handleBuyNow = async () => {
     if (!product || isSubmittingBuy) return;
     setIsSubmittingBuy(true);
     addToCart(product, 1, false);
     closeDrawer();
-    navigate("/checkout?initiateLocation=1", { state: { fromCheckoutIntent: true } });
-    setTimeout(() => {
-      setIsSubmittingBuy(false);
-    }, 400);
+
+    // Check if browser permission is already granted or denied
+    if (typeof navigator !== "undefined" && navigator.permissions && navigator.permissions.query) {
+      try {
+        const perm = await navigator.permissions.query({ name: "geolocation" as PermissionName });
+        if (perm.state === "granted") {
+          // Already granted: directly proceed to checkout with instant location detection
+          setIsSubmittingBuy(false);
+          navigate("/checkout?initiateLocation=1", { state: { fromCheckoutIntent: true, fromBuyNow: true } });
+          return;
+        } else if (perm.state === "denied") {
+          // Already denied in browser: navigate to checkout with manual entry option
+          setIsSubmittingBuy(false);
+          navigate("/checkout", { state: { fromCheckoutIntent: true, fromBuyNow: true, locationDenied: true } });
+          return;
+        }
+      } catch (e) {
+        // Permissions API error or prompt state: continue to open location modal below
+      }
+    }
+
+    // Default / prompt state: open DR.MEDEX location permission modal
+    setShowLocationPrompt(true);
+    setIsSubmittingBuy(false);
+  };
+
+  const handleLocationDetectedOnProduct = (data: ResolvedLocationData) => {
+    try {
+      sessionStorage.setItem("drmedex_detected_location", JSON.stringify(data));
+      const savedDraftRaw = localStorage.getItem("drmedex_guest_checkout_draft");
+      const draft = savedDraftRaw ? JSON.parse(savedDraftRaw) : {};
+      draft.country = data.country;
+      draft.countryCode = data.countryCode;
+      draft.state = data.state;
+      draft.stateCode = data.stateCode;
+      draft.district = data.district;
+      draft.city = data.city || data.district;
+      draft.postalCode = data.postalCode;
+      if (data.countryData?.dialCode) {
+        draft.phoneCountryCode = data.countryData.dialCode;
+        draft.phoneIso = data.countryCode;
+      }
+      localStorage.setItem("drmedex_guest_checkout_draft", JSON.stringify(draft));
+    } catch (e) {}
+
+    setShowLocationPrompt(false);
+    navigate("/checkout", { state: { fromCheckoutIntent: true, fromBuyNow: true, detectedLocation: data } });
+  };
+
+  const handleManualAddressOnProduct = () => {
+    setShowLocationPrompt(false);
+    navigate("/checkout", { state: { fromCheckoutIntent: true, fromBuyNow: true } });
   };
 
   // Exactly Four Technical Specification Cards
@@ -1433,6 +1483,14 @@ export const ProductDetailPage: React.FC = () => {
         product={product}
         isOpen={isQuoteModalOpen}
         onClose={() => setIsQuoteModalOpen(false)}
+      />
+
+      {/* Smart Location Permission Modal triggered on Buy Now */}
+      <SmartLocationPrompt
+        isOpen={showLocationPrompt}
+        onClose={handleManualAddressOnProduct}
+        onManualEntry={handleManualAddressOnProduct}
+        onLocationDetected={handleLocationDetectedOnProduct}
       />
     </div>
   );

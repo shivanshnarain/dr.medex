@@ -30,6 +30,7 @@ interface SmartLocationPromptProps {
   isOpen: boolean;
   onClose: () => void;
   onLocationDetected: (location: ResolvedLocationData) => void;
+  onManualEntry?: () => void;
   mode?: "modal" | "inline";
 }
 
@@ -37,6 +38,7 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
   isOpen,
   onClose,
   onLocationDetected,
+  onManualEntry,
   mode = "modal"
 }) => {
   const [isDetecting, setIsDetecting] = useState(false);
@@ -142,7 +144,11 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
 
   const handleManualEntry = () => {
     markSessionDismissed();
-    onClose();
+    if (onManualEntry) {
+      onManualEntry();
+    } else {
+      onClose();
+    }
   };
 
   const handleClose = () => {

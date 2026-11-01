@@ -468,6 +468,28 @@ export const CheckoutPage: React.FC = () => {
       window.history.replaceState({}, "", cleanUrl);
     }
 
+    // 1. Check if detectedLocation was passed via state or saved in sessionStorage
+    const stateLoc = (routeLocation.state as any)?.detectedLocation;
+    let savedLoc: ResolvedLocationData | null = null;
+    if (!stateLoc) {
+      try {
+        const cached = sessionStorage.getItem("drmedex_detected_location");
+        if (cached) savedLoc = JSON.parse(cached);
+      } catch (e) {}
+    }
+    const locToApply = stateLoc || savedLoc;
+    if (locToApply) {
+      handleLocationDetected(locToApply);
+      return;
+    }
+
+    if ((routeLocation.state as any)?.locationDenied) {
+      setLocationNotice(
+        "Location access is currently disabled in your browser. You can enter your delivery address manually below, or enable location in your browser site settings."
+      );
+      return;
+    }
+
     if (!hasCheckoutIntent) {
       return;
     }
@@ -752,7 +774,7 @@ export const CheckoutPage: React.FC = () => {
     }
   };
 
-  // Step 1 Validation
+  // Step 1 Validation: Customer Details (First Name, Last Name, Email, Phone)
   const validateStep1 = (): boolean => {
     const fName = firstName.trim() || fullName.trim().split(" ")[0];
     const lName = lastName.trim() || fullName.trim().split(" ").slice(1).join(" ");
@@ -761,34 +783,46 @@ export const CheckoutPage: React.FC = () => {
       window.scrollTo({ top: 120, behavior: "smooth" });
       return false;
     }
-    if (!phone.trim() || phone.replace(/[^\d]/g, "").length < 6) {
-      setErrorMessage("Please enter a valid Phone Number.");
-      window.scrollTo({ top: 120, behavior: "smooth" });
-      return false;
-    }
-    if (!countryCode) {
-      setErrorMessage("Please select a Destination Country.");
-      return false;
-    }
-    if (activeCountry.hasStates !== false && !state.trim()) {
-      setErrorMessage(`Please select your ${activeCountry.stateLabel || "State / Province"}.`);
-      return false;
-    }
-    if (!city.trim()) {
-      setErrorMessage("Please specify your Delivery City / Locality.");
-      return false;
-    }
-    if (activeCountry.hasPostalCode !== false && !postalCode.trim()) {
-      setErrorMessage(`Please enter your ${activeCountry.postalLabel || "Postal / ZIP Code"}.`);
-      return false;
-    }
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setErrorMessage("Please enter a valid Email Address.");
       window.scrollTo({ top: 120, behavior: "smooth" });
       return false;
     }
+    if (!phone.trim() || phone.replace(/[^\d]/g, "").length < 6) {
+      setErrorMessage("Please enter a valid Phone Number with calling code.");
+      window.scrollTo({ top: 120, behavior: "smooth" });
+      return false;
+    }
+
+    setErrorMessage("");
+    return true;
+  };
+
+  // Step 2 Validation: Shipping Address (Country, State, City, Postal Code, Street Address)
+  const validateStep2 = (): boolean => {
+    if (!countryCode) {
+      setErrorMessage("Please select a Destination Country.");
+      window.scrollTo({ top: 120, behavior: "smooth" });
+      return false;
+    }
+    if (activeCountry.hasStates !== false && !state.trim()) {
+      setErrorMessage(`Please select your ${activeCountry.stateLabel || "State / Province"}.`);
+      window.scrollTo({ top: 120, behavior: "smooth" });
+      return false;
+    }
+    if (!city.trim()) {
+      setErrorMessage("Please specify your Delivery City / Locality.");
+      window.scrollTo({ top: 120, behavior: "smooth" });
+      return false;
+    }
+    if (activeCountry.hasPostalCode !== false && !postalCode.trim()) {
+      setErrorMessage(`Please enter your ${activeCountry.postalLabel || "Postal / ZIP Code"}.`);
+      window.scrollTo({ top: 120, behavior: "smooth" });
+      return false;
+    }
     if (!addressLine1.trim()) {
       setErrorMessage("Please enter your Street Address.");
+      window.scrollTo({ top: 120, behavior: "smooth" });
       return false;
     }
 
@@ -817,14 +851,18 @@ export const CheckoutPage: React.FC = () => {
 
   const handleContinueToStep2 = () => {
     if (validateStep1()) {
+      setErrorMessage("");
       setCurrentStep(2);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   const handleContinueToStep3 = () => {
-    setCurrentStep(3);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (validateStep1() && validateStep2()) {
+      setErrorMessage("");
+      setCurrentStep(3);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   // Fetch PayPal Client ID
@@ -911,8 +949,8 @@ export const CheckoutPage: React.FC = () => {
         },
 
         createOrder: async () => {
-          if (!validateStep1()) {
-            throw new Error(errorMessage || "Please complete all required checkout fields.");
+          if (!validateStep1() || !validateStep2()) {
+            throw new Error(errorMessage || "Please complete all required customer details and shipping address fields.");
           }
 
           setIsProcessing(true);
@@ -1317,137 +1355,123 @@ export const CheckoutPage: React.FC = () => {
     <div className="w-full bg-[#FFFFFF] min-h-screen py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* CHECKOUT HEADER & PROGRESS BAR */}
-        <div className="mb-8">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 border-b border-neutral-200">
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xs font-extrabold uppercase tracking-widest text-[#2D5A4A] bg-[#F4F7F2] px-2.5 py-0.5 rounded-full">
-                  International Clinical Procurement
-                </span>
-              </div>
-              <h1 className="text-2xl sm:text-3xl font-black text-[#171717] tracking-tight mt-1.5">
-                Worldwide Medical Checkout
-              </h1>
-              <p className="text-xs text-neutral-500 mt-0.5">
-                Serving hospitals, surgery centres & distributors across 195 countries with compliant export documentation.
-              </p>
-            </div>
-
-            <div className="flex items-center gap-2 self-start sm:self-auto text-xs font-semibold text-[#2D5A4A] bg-[#F4F7F2] px-3 py-2 rounded-xl border border-[#2D5A4A]/20">
-              <Lock size={15} />
-              <span>256-Bit SSL Encrypted & PCI Certified</span>
-            </div>
+        {/* SIMPLIFIED CHECKOUT HEADER (PART 5) */}
+        <div className="mb-6">
+          <div className="pb-4 border-b border-neutral-200">
+            <h1 className="text-2xl sm:text-3xl font-black text-[#171717] tracking-tight">
+              Checkout
+            </h1>
           </div>
 
-          {/* DR.MEDEX GREEN 3-STEP PROGRESS INDICATOR */}
-          <div className="mt-6 bg-white rounded-2xl border border-neutral-200 p-4 sm:p-5 shadow-xs">
-            <div className="grid grid-cols-3 gap-2 sm:gap-4 relative">
-              {/* Step 1 */}
+          {/* THREE-STEP HORIZONTAL PROGRESS INDICATOR WITH ARROWS (PART 6) */}
+          <div className="mt-4 bg-white rounded-2xl border border-neutral-200 p-3.5 sm:p-4 shadow-xs">
+            <div className="flex items-center justify-between max-w-3xl mx-auto">
+              {/* Step 1: Customer Details */}
               <button
                 type="button"
                 onClick={() => setCurrentStep(1)}
-                className={`flex items-center gap-2 sm:gap-3 text-left transition-all ${
-                  currentStep === 1
-                    ? "opacity-100"
-                    : currentStep > 1
-                    ? "opacity-90 hover:opacity-100 cursor-pointer"
-                    : "opacity-60 cursor-not-allowed"
-                }`}
+                className="flex items-center gap-2 sm:gap-3 text-left group cursor-pointer"
               >
                 <div
-                  className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 transition-all ${
+                  className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 transition-all ${
                     currentStep === 1
                       ? "bg-[#7AA05A] text-white ring-4 ring-[#7AA05A]/20 shadow-xs"
                       : currentStep > 1
                       ? "bg-[#2D5A4A] text-white"
-                      : "bg-neutral-100 text-neutral-500 border border-neutral-300"
+                      : "bg-neutral-100 text-neutral-400 border border-neutral-300"
                   }`}
                 >
-                  {currentStep > 1 ? <Check size={16} /> : "1"}
+                  {currentStep > 1 ? <Check size={16} strokeWidth={2.5} /> : "1"}
                 </div>
-                <div className="min-w-0 hidden xs:block sm:block">
+                <div className="min-w-0">
                   <div
-                    className={`text-2xs sm:text-xs font-bold truncate ${
-                      currentStep === 1 ? "text-[#2D5A4A]" : currentStep > 1 ? "text-neutral-800" : "text-neutral-400"
+                    className={`text-2xs sm:text-xs font-bold leading-tight ${
+                      currentStep === 1
+                        ? "text-[#2D5A4A]"
+                        : currentStep > 1
+                        ? "text-neutral-800"
+                        : "text-neutral-400"
                     }`}
                   >
-                    1. Destination & Customer
-                  </div>
-                  <div className="text-3xs text-neutral-500 truncate hidden md:block">
-                    Customer & 195 Countries
+                    1. Customer Details
                   </div>
                 </div>
               </button>
 
-              {/* Step 2 */}
+              {/* Connecting Arrow 1 -> 2 */}
+              <div className="flex items-center px-1 sm:px-3">
+                <ArrowRight
+                  size={16}
+                  className={currentStep > 1 ? "text-[#7AA05A]" : "text-neutral-300"}
+                />
+              </div>
+
+              {/* Step 2: Shipping Address */}
               <button
                 type="button"
                 onClick={() => {
                   if (validateStep1()) setCurrentStep(2);
                 }}
-                className={`flex items-center gap-2 sm:gap-3 text-left transition-all ${
-                  currentStep === 2
-                    ? "opacity-100"
-                    : currentStep > 2
-                    ? "opacity-90 hover:opacity-100 cursor-pointer"
-                    : "opacity-60"
-                }`}
+                className="flex items-center gap-2 sm:gap-3 text-left group cursor-pointer"
               >
                 <div
-                  className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 transition-all ${
+                  className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 transition-all ${
                     currentStep === 2
                       ? "bg-[#7AA05A] text-white ring-4 ring-[#7AA05A]/20 shadow-xs"
                       : currentStep > 2
                       ? "bg-[#2D5A4A] text-white"
-                      : "bg-neutral-100 text-neutral-500 border border-neutral-300"
+                      : "bg-neutral-100 text-neutral-400 border border-neutral-300"
                   }`}
                 >
-                  {currentStep > 2 ? <Check size={16} /> : "2"}
+                  {currentStep > 2 ? <Check size={16} strokeWidth={2.5} /> : "2"}
                 </div>
-                <div className="min-w-0 hidden xs:block sm:block">
+                <div className="min-w-0">
                   <div
-                    className={`text-2xs sm:text-xs font-bold truncate ${
-                      currentStep === 2 ? "text-[#2D5A4A]" : currentStep > 2 ? "text-neutral-800" : "text-neutral-400"
+                    className={`text-2xs sm:text-xs font-bold leading-tight ${
+                      currentStep === 2
+                        ? "text-[#2D5A4A]"
+                        : currentStep > 2
+                        ? "text-neutral-800"
+                        : "text-neutral-400"
                     }`}
                   >
-                    2. Air Freight Logistics
-                  </div>
-                  <div className="text-3xs text-neutral-500 truncate hidden md:block">
-                    DHL Express Medical Cargo
+                    2. Shipping Address
                   </div>
                 </div>
               </button>
 
-              {/* Step 3 */}
+              {/* Connecting Arrow 2 -> 3 */}
+              <div className="flex items-center px-1 sm:px-3">
+                <ArrowRight
+                  size={16}
+                  className={currentStep > 2 ? "text-[#7AA05A]" : "text-neutral-300"}
+                />
+              </div>
+
+              {/* Step 3: Payment & Confirmation */}
               <button
                 type="button"
                 onClick={() => {
-                  if (validateStep1()) setCurrentStep(3);
+                  if (validateStep1() && validateStep2()) setCurrentStep(3);
                 }}
-                className={`flex items-center gap-2 sm:gap-3 text-left transition-all ${
-                  currentStep === 3 ? "opacity-100" : "opacity-60"
-                }`}
+                className="flex items-center gap-2 sm:gap-3 text-left group cursor-pointer"
               >
                 <div
-                  className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 transition-all ${
+                  className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 transition-all ${
                     currentStep === 3
                       ? "bg-[#7AA05A] text-white ring-4 ring-[#7AA05A]/20 shadow-xs"
-                      : "bg-neutral-100 text-neutral-500 border border-neutral-300"
+                      : "bg-neutral-100 text-neutral-400 border border-neutral-300"
                   }`}
                 >
                   3
                 </div>
-                <div className="min-w-0 hidden xs:block sm:block">
+                <div className="min-w-0">
                   <div
-                    className={`text-2xs sm:text-xs font-bold truncate ${
+                    className={`text-2xs sm:text-xs font-bold leading-tight ${
                       currentStep === 3 ? "text-[#2D5A4A]" : "text-neutral-400"
                     }`}
                   >
                     3. Payment & Confirmation
-                  </div>
-                  <div className="text-3xs text-neutral-500 truncate hidden md:block">
-                    PayPal Gateway & Settlement
                   </div>
                 </div>
               </button>
@@ -1567,8 +1591,9 @@ export const CheckoutPage: React.FC = () => {
                   </div>
                 )}
 
-                {/* 2. AMAZON-STYLE CASCADING ADDRESS FORM (EXACT LOGICAL ORDER 1 TO 8) */}
+                {/* 2. CUSTOMER DETAILS FORM (STEP 1: Fields 1 to 4) */}
                 <AmazonCascadingAddressForm
+                  step={1}
                   data={{
                     firstName,
                     lastName,
@@ -1595,6 +1620,72 @@ export const CheckoutPage: React.FC = () => {
                     if (updated.lastName !== undefined) setLastName(updated.lastName);
                     if (updated.fullName !== undefined) setFullName(updated.fullName);
                     if (updated.phone !== undefined) setPhone(updated.phone);
+                    if (updated.email !== undefined) setEmail(updated.email);
+                  }}
+                />
+
+                {/* Step 1 Action Button: Continue to Shipping Address */}
+                <div className="flex justify-end pt-2">
+                  <button
+                    type="button"
+                    onClick={handleContinueToStep2}
+                    className="w-full sm:w-auto px-8 py-3.5 bg-[#7AA05A] hover:bg-[#688a4c] text-white font-bold rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Continue to Shipping Address</span>
+                    <ArrowRight size={16} />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* ========================================================
+                STEP 2: SHIPPING ADDRESS
+               ======================================================== */}
+            {currentStep === 2 && (
+              <div className="space-y-6 animate-in fade-in duration-200">
+                {/* Delivering To Customer Banner */}
+                <div className="bg-[#F8FAF7] border border-[#7AA05A]/30 rounded-xl p-3.5 flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2.5">
+                    <User size={16} className="text-[#2D5A4A]" />
+                    <div>
+                      <span className="font-bold text-[#171717]">{firstName} {lastName}</span>
+                      <span className="text-neutral-500 ml-2">({email} • {phone})</span>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep(1)}
+                    className="text-xs font-bold text-[#7AA05A] hover:underline cursor-pointer"
+                  >
+                    Edit Customer
+                  </button>
+                </div>
+
+                {/* SHIPPING ADDRESS FORM (STEP 2: Fields 5 to 10 + Tax ID) */}
+                <AmazonCascadingAddressForm
+                  step={2}
+                  data={{
+                    firstName,
+                    lastName,
+                    fullName: fullName || `${firstName} ${lastName}`.trim(),
+                    phone,
+                    phoneCountryCode: activeCountry.dialCode,
+                    phoneIso: countryCode,
+                    country: activeCountry.name,
+                    countryCode,
+                    state,
+                    stateCode,
+                    city,
+                    postalCode,
+                    email,
+                    streetAddress: addressLine1,
+                    additionalAddress: addressLine2 || buildingSuite,
+                    companyName,
+                    department,
+                    professionalTitle,
+                    taxId
+                  }}
+                  onChange={(updated) => {
                     if (updated.countryCode !== undefined) {
                       setCountryCode(updated.countryCode);
                       if (billingSameAsShipping) setBillingCountryCode(updated.countryCode);
@@ -1603,12 +1694,8 @@ export const CheckoutPage: React.FC = () => {
                     if (updated.stateCode !== undefined) setStateCode(updated.stateCode);
                     if (updated.city !== undefined) setCity(updated.city);
                     if (updated.postalCode !== undefined) setPostalCode(updated.postalCode);
-                    if (updated.email !== undefined) setEmail(updated.email);
                     if (updated.streetAddress !== undefined) setAddressLine1(updated.streetAddress);
                     if (updated.additionalAddress !== undefined) setAddressLine2(updated.additionalAddress);
-                    if (updated.companyName !== undefined) setCompanyName(updated.companyName);
-                    if (updated.department !== undefined) setDepartment(updated.department);
-                    if (updated.professionalTitle !== undefined) setProfessionalTitle(updated.professionalTitle);
                     if (updated.taxId !== undefined) setTaxId(updated.taxId);
                   }}
                   onCountryChange={(selected) => {
@@ -1624,7 +1711,7 @@ export const CheckoutPage: React.FC = () => {
                   onDismissLocationNotice={() => setLocationNotice(null)}
                 />
 
-                {/* 3. OPTIONAL CARGO INSTRUCTIONS & ACCOUNT SAVE */}
+                {/* CARGO INSTRUCTIONS & ACCOUNT SAVE */}
                 <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
                   <h3 className="font-extrabold text-[#2D5A4A] uppercase tracking-wider text-2xs">
                     Cargo Delivery Options
@@ -1654,7 +1741,7 @@ export const CheckoutPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 4. BILLING ADDRESS TOGGLE */}
+                {/* BILLING ADDRESS TOGGLE */}
                 <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
                   <div className="flex items-center justify-between">
                     <label className="flex items-center gap-2.5 cursor-pointer select-none text-xs font-bold text-[#171717]">
@@ -1754,68 +1841,6 @@ export const CheckoutPage: React.FC = () => {
                   )}
                 </div>
 
-                {/* Step 1 Action Button: Continue to Logistics */}
-                <div className="flex justify-end pt-2">
-                  <button
-                    type="button"
-                    onClick={handleContinueToStep2}
-                    className="w-full sm:w-auto px-8 py-3.5 bg-[#7AA05A] hover:bg-[#688a4c] text-white font-bold rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <span>Continue to Air Freight Logistics</span>
-                    <ArrowRight size={16} />
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* ========================================================
-                STEP 2: AIR FREIGHT LOGISTICS
-               ======================================================== */}
-            {currentStep === 2 && (
-              <div className="space-y-6 animate-in fade-in duration-200">
-                
-                {/* Destination Review Box */}
-                <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
-                  <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
-                    <div className="flex items-center gap-2">
-                      <MapPin size={18} className="text-[#2D5A4A]" />
-                      <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
-                        Delivery Destination Review
-                      </h2>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setCurrentStep(1)}
-                      className="text-xs font-bold text-[#7AA05A] hover:underline cursor-pointer"
-                    >
-                      Edit Address
-                    </button>
-                  </div>
-
-                  <div className="p-4 rounded-xl border border-neutral-200 bg-neutral-50 text-xs space-y-1">
-                    <div className="font-bold text-[#171717] text-sm">
-                      {professionalTitle ? `${professionalTitle} ` : ""}{fullName}
-                    </div>
-                    {companyName && (
-                      <div className="text-neutral-600 font-medium">
-                        {companyName} {department ? `(${department})` : ""}
-                      </div>
-                    )}
-                    <div className="text-neutral-600">
-                      {addressLine1}
-                      {addressLine2 ? `, ${addressLine2}` : ""}
-                    </div>
-                    <div className="text-neutral-600">
-                      {city}, {state} {postalCode}
-                    </div>
-                    <div className="font-semibold text-[#2D5A4A] flex items-center gap-1.5 pt-1">
-                      <span>{activeCountry.flag}</span>
-                      <span>{activeCountry.name}</span>
-                      <span className="font-mono text-neutral-400">({phone})</span>
-                    </div>
-                  </div>
-                </div>
-
                 {/* Logistics Method */}
                 <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
                   <div className="flex items-center gap-2 pb-3 border-b border-neutral-200">
@@ -1899,38 +1924,44 @@ export const CheckoutPage: React.FC = () => {
                 <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
                   <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
                     <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
-                      Review Order & Recipient
+                      Review Customer & Shipping Destination
                     </h2>
-                    <button
-                      type="button"
-                      onClick={() => setCurrentStep(1)}
-                      className="text-xs font-bold text-[#7AA05A] hover:underline cursor-pointer"
-                    >
-                      Change Details
-                    </button>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                    <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 space-y-1">
-                      <div className="font-bold text-neutral-500 uppercase text-3xs">Recipient & Organization</div>
-                      <div className="font-bold text-[#171717]">
-                        {professionalTitle ? `${professionalTitle} ` : ""}{fullName}
+                    <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 space-y-1 relative">
+                      <div className="flex items-center justify-between">
+                        <div className="font-bold text-neutral-500 uppercase text-3xs">Customer Details</div>
+                        <button
+                          type="button"
+                          onClick={() => setCurrentStep(1)}
+                          className="text-3xs font-bold text-[#7AA05A] hover:underline cursor-pointer"
+                        >
+                          Edit
+                        </button>
                       </div>
-                      {companyName && (
-                        <div className="text-neutral-600 text-2xs">
-                          {companyName} {department ? `(${department})` : ""}
-                        </div>
-                      )}
+                      <div className="font-bold text-[#171717]">
+                        {firstName} {lastName}
+                      </div>
                       <div className="text-neutral-500 text-3xs font-mono">{email}</div>
                       <div className="text-neutral-500 text-3xs font-mono">{phone}</div>
                     </div>
 
-                    <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 space-y-1">
-                      <div className="font-bold text-neutral-500 uppercase text-3xs">Shipping Destination & Logistics</div>
+                    <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 space-y-1 relative">
+                      <div className="flex items-center justify-between">
+                        <div className="font-bold text-neutral-500 uppercase text-3xs">Shipping Destination</div>
+                        <button
+                          type="button"
+                          onClick={() => setCurrentStep(2)}
+                          className="text-3xs font-bold text-[#7AA05A] hover:underline cursor-pointer"
+                        >
+                          Edit
+                        </button>
+                      </div>
                       <div className="text-neutral-700 text-2xs truncate">{addressLine1}</div>
                       <div className="text-neutral-700 text-2xs">{city}, {state} {postalCode}</div>
                       <div className="font-semibold text-[#2D5A4A] text-2xs">{activeCountry.flag} {activeCountry.name}</div>
-                      <div className="text-3xs text-neutral-500">DHL Express Air Cargo (Included)</div>
+                      <div className="text-3xs text-neutral-500">DHL Express Air Cargo (Complimentary)</div>
                     </div>
                   </div>
                 </div>
@@ -2044,7 +2075,7 @@ export const CheckoutPage: React.FC = () => {
                     className="px-6 py-3 border border-neutral-300 hover:bg-neutral-50 text-neutral-700 font-bold rounded-xl text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
                   >
                     <ArrowLeft size={14} />
-                    <span>Back to Air Freight Logistics</span>
+                    <span>Back to Shipping Address</span>
                   </button>
                 </div>
               </div>

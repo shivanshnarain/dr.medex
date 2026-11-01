@@ -54,6 +54,7 @@ interface AmazonCascadingAddressFormProps {
   onDetectLocation?: () => void;
   locationNotice?: string | null;
   onDismissLocationNotice?: () => void;
+  step?: 1 | 2;
 }
 
 export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProps> = ({
@@ -63,7 +64,8 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
   isGeolocating = false,
   onDetectLocation,
   locationNotice,
-  onDismissLocationNotice
+  onDismissLocationNotice,
+  step
 }) => {
   const allCountries = useMemo(() => getAllCountries(), []);
 
@@ -331,8 +333,8 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
 
   return (
     <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs">
-      {/* Geolocation Notice Banner */}
-      {locationNotice && (
+      {/* Geolocation Notice Banner (Shown on Step 2 or full form) */}
+      {(!step || step === 2) && locationNotice && (
         <div className="mb-4 flex items-center justify-between p-3 rounded-xl bg-[#F0F7ED] border border-[#7AA05A]/40 text-xs font-semibold text-[#2D5A4A] animate-in fade-in duration-200">
           <div className="flex items-center gap-2">
             <Check size={16} className="text-[#7AA05A] shrink-0" />
@@ -351,79 +353,88 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
       )}
 
       {/* ========================================================
-          CASCADING ADDRESS FORM (EXACT FIELD ORDER 1 TO 11)
+          CASCADING ADDRESS FORM (EXACT FIELD ORDER 1 TO 10)
          ======================================================== */}
       <div className="space-y-4 text-xs">
         
-        {/* 1. First Name * & 2. Last Name * */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="block font-bold text-[#171717] mb-1.5">
-              First Name <span className="text-red-500">*</span>
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                required
-                value={data.firstName || ""}
-                onChange={(e) => handleFirstNameChange(e.target.value)}
-                placeholder="Enter first name"
-                className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-              />
-              <User size={15} className="absolute left-3 top-3 text-neutral-400 pointer-events-none" />
+        {/* STEP 1: CUSTOMER DETAILS (Fields 1 to 4) */}
+        {(!step || step === 1) && (
+          <>
+            {/* 1. First Name * & 2. Last Name * */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block font-bold text-[#171717] mb-1.5">
+                  First Name <span className="text-red-500">*</span>
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    required
+                    value={data.firstName || ""}
+                    onChange={(e) => handleFirstNameChange(e.target.value)}
+                    placeholder="Enter first name"
+                    className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                  />
+                  <User size={15} className="absolute left-3 top-3 text-neutral-400 pointer-events-none" />
+                </div>
+              </div>
+
+              <div>
+                <label className="block font-bold text-[#171717] mb-1.5">
+                  Last Name <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={data.lastName || ""}
+                  onChange={(e) => handleLastNameChange(e.target.value)}
+                  placeholder="Enter last name"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                />
+              </div>
             </div>
-          </div>
 
-          <div>
-            <label className="block font-bold text-[#171717] mb-1.5">
-              Last Name <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              required
-              value={data.lastName || ""}
-              onChange={(e) => handleLastNameChange(e.target.value)}
-              placeholder="Enter last name"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-            />
-          </div>
-        </div>
+            {/* 3. Email Address * */}
+            <div>
+              <label className="block font-bold text-[#171717] mb-1.5">
+                Email Address <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <input
+                  type="email"
+                  required
+                  value={data.email || ""}
+                  onChange={(e) => onChange({ email: e.target.value })}
+                  placeholder="Enter your email address (personal or institutional)"
+                  className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
+                />
+                <Mail size={15} className="absolute left-3 top-3 text-neutral-400 pointer-events-none" />
+              </div>
+            </div>
 
-        {/* 3. Email Address * */}
-        <div>
-          <label className="block font-bold text-[#171717] mb-1.5">
-            Email Address <span className="text-red-500">*</span>
-          </label>
-          <div className="relative">
-            <input
-              type="email"
-              required
-              value={data.email || ""}
-              onChange={(e) => onChange({ email: e.target.value })}
-              placeholder="Enter your email address (personal or institutional)"
-              className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
-            />
-            <Mail size={15} className="absolute left-3 top-3 text-neutral-400 pointer-events-none" />
-          </div>
-        </div>
+            {/* 4. Phone Number * (Country Flag Selector, Calling Code Selector, Phone Number Input) */}
+            <div>
+              <label className="block font-bold text-[#171717] mb-1.5">
+                Phone Number <span className="text-red-500">*</span>
+              </label>
+              <InternationalPhoneInput
+                value={data.phone || ""}
+                onChange={(val) => onChange({ phone: val })}
+                countryCode={phoneCountryCode}
+                onCountryChange={(code) => {
+                  setHasUserOverriddenPhoneCountry(true);
+                  setPhoneCountryCode(code);
+                }}
+                required
+                placeholder="Enter phone number"
+              />
+            </div>
+          </>
+        )}
 
-        {/* 4. Phone Number * (Country Flag Selector, Calling Code Selector, Phone Number Input) */}
-        <div>
-          <label className="block font-bold text-[#171717] mb-1.5">
-            Phone Number <span className="text-red-500">*</span>
-          </label>
-          <InternationalPhoneInput
-            value={data.phone || ""}
-            onChange={(val) => onChange({ phone: val })}
-            countryCode={phoneCountryCode}
-            onCountryChange={(code) => {
-              setHasUserOverriddenPhoneCountry(true);
-              setPhoneCountryCode(code);
-            }}
-            required
-            placeholder="Enter phone number"
-          />
-        </div>
+        {/* STEP 2: SHIPPING ADDRESS (Fields 5 to 10 + Tax ID) */}
+        {(!step || step === 2) && (
+          <>
 
         {/* 5. Country * (195 Sovereign Countries Dropdown) */}
         <div className="relative" ref={countryDropdownRef}>
@@ -809,36 +820,8 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
           />
         </div>
 
-        {/* 11. Optional Hospital & Medical B2B Details */}
-        <div className="pt-2 border-t border-neutral-100">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div>
-              <label className="block font-semibold text-[#171717] mb-1 text-3xs">
-                Hospital / Organization <span className="text-neutral-400 font-normal">(Optional)</span>
-              </label>
-              <input
-                type="text"
-                value={data.companyName || ""}
-                onChange={(e) => onChange({ companyName: e.target.value })}
-                placeholder="Hospital or clinic name"
-                className="w-full px-3 py-2 rounded-lg border border-neutral-200 bg-white text-xs text-[#171717] focus:outline-none focus:border-[#7AA05A]"
-              />
-            </div>
-
-            <div>
-              <label className="block font-semibold text-[#171717] mb-1 text-3xs">
-                Clinical Department <span className="text-neutral-400 font-normal">(Optional)</span>
-              </label>
-              <input
-                type="text"
-                value={data.department || ""}
-                onChange={(e) => onChange({ department: e.target.value })}
-                placeholder="e.g. Operating Theatre"
-                className="w-full px-3 py-2 rounded-lg border border-neutral-200 bg-white text-xs text-[#171717] focus:outline-none focus:border-[#7AA05A]"
-              />
-            </div>
-
-            <div>
+            {/* Optional Tax ID (VAT / GST) */}
+            <div className="pt-2 border-t border-neutral-100">
               <label className="block font-semibold text-[#171717] mb-1 text-3xs">
                 VAT / GST / Tax ID <span className="text-neutral-400 font-normal">(Optional)</span>
               </label>
@@ -846,12 +829,12 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
                 type="text"
                 value={data.taxId || ""}
                 onChange={(e) => onChange({ taxId: e.target.value })}
-                placeholder="e.g. GSTIN, EU VAT"
-                className="w-full px-3 py-2 rounded-lg border border-neutral-200 bg-white text-xs text-[#171717] focus:outline-none focus:border-[#7AA05A] uppercase"
+                placeholder="e.g. GSTIN, EU VAT (Optional)"
+                className="w-full sm:w-1/2 px-3 py-2 rounded-lg border border-neutral-200 bg-white text-xs text-[#171717] focus:outline-none focus:border-[#7AA05A] uppercase"
               />
             </div>
-          </div>
-        </div>
+          </>
+        )}
 
       </div>
     </div>
