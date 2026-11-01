@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { MapPin, X, Loader2, Navigation, CheckCircle2 } from "lucide-react";
-import { dismissLocationPrompt } from "../services/pushNotificationService";
 
 export interface ResolvedLocationData {
   country: string;
@@ -47,13 +46,6 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
 
   if (!isOpen) return null;
 
-  const markSessionDismissed = () => {
-    try {
-      sessionStorage.setItem("drmedex_location_session_dismissed", "true");
-    } catch (e) {}
-    dismissLocationPrompt();
-  };
-
   const handleAllowLocation = () => {
     if (!navigator.geolocation) {
       setErrorMessage("Geolocation is not supported by your current browser. Please enter your address manually.");
@@ -84,7 +76,6 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
           throw new Error(data.message || "Failed to resolve your regional address.");
         }
 
-        markSessionDismissed();
         const detectedSummary = [data.city || data.district, data.state, data.country].filter(Boolean).join(", ");
         setSuccessLocation(detectedSummary || "Regional Address Located");
 
@@ -104,7 +95,6 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
     const onPositionError = (error: GeolocationPositionError) => {
       setIsDetecting(false);
       if (error.code === error.PERMISSION_DENIED) {
-        markSessionDismissed();
         setErrorMessage("Location access was denied in your browser settings. You can enter your delivery address manually below, or allow location in browser site settings.");
       } else if (error.code === error.POSITION_UNAVAILABLE) {
         setErrorMessage("GPS location is currently unavailable on this device. Please enter your address manually.");
@@ -143,7 +133,6 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
   };
 
   const handleManualEntry = () => {
-    markSessionDismissed();
     if (onManualEntry) {
       onManualEntry();
     } else {
@@ -152,7 +141,6 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
   };
 
   const handleClose = () => {
-    markSessionDismissed();
     onClose();
   };
 
@@ -222,7 +210,12 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs animate-in fade-in duration-200">
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="location-dialog-title"
+    >
       <div className="bg-white rounded-2xl max-w-md w-full border border-neutral-200 shadow-2xl p-6 relative overflow-hidden">
         {/* Top green accent bar */}
         <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#2D5A4A] via-[#7AA05A] to-[#2D5A4A]" />
@@ -240,7 +233,7 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
             <Navigation size={22} className="text-[#7AA05A]" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-[#171717]">Enable Location Services</h3>
+            <h3 id="location-dialog-title" className="text-base font-bold text-[#171717]">Enable Location Services</h3>
             <span className="text-3xs font-semibold text-neutral-500 uppercase tracking-wider">
               DR.MEDEX Fast Checkout
             </span>

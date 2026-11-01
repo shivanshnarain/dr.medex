@@ -483,6 +483,11 @@ export const CheckoutPage: React.FC = () => {
       return;
     }
 
+    // If customer arrived via Buy Now or already handled location prompt this session, do not re-prompt
+    if ((routeLocation.state as any)?.fromBuyNow || (routeLocation.state as any)?.locationPromptHandled) {
+      return;
+    }
+
     if ((routeLocation.state as any)?.locationDenied) {
       setLocationNotice(
         "Location access is currently disabled in your browser. You can enter your delivery address manually below, or enable location in your browser site settings."
