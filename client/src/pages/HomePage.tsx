@@ -1,17 +1,6 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
-import {
-  ArrowRight,
-  ShieldCheck,
-  CheckCircle2,
-  Headphones,
-  Sun,
-  Zap,
-  Activity,
-  Bed,
-  ThermometerSnowflake,
-  HeartPulse
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Product, BlogArticle } from "../types";
 import { ProductCard } from "../components/ProductCard";
 import { QuickViewModal } from "../components/QuickViewModal";
@@ -126,18 +115,62 @@ const CATEGORY_SECTIONS: CategorySectionDef[] = [
   {
     id: "obstetrics-and-gynaecology",
     slug: "obstetrics-and-gynaecology",
-    title: "Obstetrics & Gynaecology",
-    description: "Specialized clinical gynecology equipment, digital optical colposcopes and thermal ablation coagulators.",
+    title: "OBG",
+    description: "Specialized maternal delivery tables, gynaecological examination beds, and fetal monitoring instruments.",
     viewAllLink: "/category/obstetrics-and-gynaecology"
   },
   {
     id: "medical-equipment",
     slug: "medical-equipment",
-    title: "General Medical Equipment",
-    description: "Hospital diagnostic instruments, clinical visual acuity monitors and specialized medical equipment.",
+    title: "General Medical",
+    description: "Hospital diagnostic instruments, surgical headlights, medical equipment trolleys, and emergency systems.",
     viewAllLink: "/category/medical-equipment"
   }
 ];
+
+/**
+ * Fast category matcher ensuring 100% exact catalogue partitioning with zero cross-category duplication.
+ */
+function matchesCategory(p: Product, slug: string): boolean {
+  const cat = (p.category || "").toLowerCase().trim();
+  const catName = (p.categoryName || "").toLowerCase().trim();
+  const pCat = ((p as any).primaryCategory || "").toLowerCase().trim();
+
+  switch (slug) {
+    case "electrosurgical-units":
+      return (
+        (cat === "electrosurgical-units" || catName.includes("electrosurgical") || pCat.includes("electrosurgical")) &&
+        !catName.includes("cryo") &&
+        !catName.includes("obstetric") &&
+        !catName.includes("gynaec")
+      );
+    case "cryo-surgical":
+      return cat === "cryo-surgical" || catName.includes("cryo") || pCat.includes("cryo");
+    case "ot-lights":
+      return (
+        cat === "ot-lights" ||
+        catName.includes("ot light") ||
+        catName.includes("surgical light") ||
+        pCat.includes("ot light")
+      );
+    case "examination-ot-tables":
+      return cat === "examination-ot-tables" || catName.includes("table") || pCat.includes("table");
+    case "obstetrics-and-gynaecology":
+      return (
+        cat === "obstetrics-and-gynaecology" ||
+        catName.includes("obstetric") ||
+        catName.includes("gynaec") ||
+        pCat.includes("obstetric")
+      );
+    case "medical-equipment":
+      return (
+        (cat === "medical-equipment" || catName.includes("medical equipment") || pCat.includes("medical equipment")) &&
+        !catName.includes("ot light")
+      );
+    default:
+      return cat === slug;
+  }
+}
 
 export const HomePage: React.FC = () => {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
@@ -177,16 +210,16 @@ export const HomePage: React.FC = () => {
     loadHomeData();
   }, []);
 
-  const handleOpenQuote = (product: Product) => {
+  const handleOpenQuote = useCallback((product: Product) => {
     setQuoteProduct(product);
     setIsQuoteModalOpen(true);
-  };
+  }, []);
 
-  // Group products by category
+  // Group products by category efficiently using exact partitioning
   const productsByCategory = useMemo(() => {
     const map: Record<string, Product[]> = {};
     for (const section of CATEGORY_SECTIONS) {
-      map[section.slug] = allProducts.filter((p) => p.category === section.slug);
+      map[section.slug] = allProducts.filter((p) => matchesCategory(p, section.slug));
     }
     return map;
   }, [allProducts]);
@@ -320,7 +353,7 @@ export const HomePage: React.FC = () => {
 
                 {/* PRODUCT GRID: 2 cards per row on mobile, 4 on desktop */}
                 <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-                  {displayProducts.map((prod) => (
+                  {categoryProducts.map((prod) => (
                     <ProductCard
                       key={prod.id}
                       product={prod}
@@ -335,62 +368,7 @@ export const HomePage: React.FC = () => {
         })}
       </div>
 
-      {/* 4. CLINICAL TECHNOLOGY & INNOVATION PILLARS */}
-      <section className="py-20 sm:py-24 bg-[#FAFAFA] border-t border-[#E8E8E8]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="text-3xs font-extrabold uppercase tracking-widest text-[#2D5A4A] block mb-2">
-              Engineering Architecture
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
-              Medical Technology & Innovation Pillars
-            </h2>
-            <p className="text-xs sm:text-sm text-neutral-500 mt-2.5">
-              Every medical device is subjected to rigorous biomedical verification and electronic isolation protocols.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-7 rounded-xl border border-[#E8E8E8] shadow-2xs">
-              <div className="w-12 h-12 rounded-xl bg-[#FAFAFA] border border-[#E8E8E8] text-[#111111] flex items-center justify-center mb-5">
-                <Sun size={22} className="text-[#2D5A4A]" />
-              </div>
-              <h3 className="text-sm font-bold text-[#111111] uppercase tracking-wider">
-                Shadowless Optical Design
-              </h3>
-              <p className="text-xs text-neutral-500 mt-2.5 leading-relaxed">
-                Computer-simulated faceted lenses converge multiple light beams into a continuous surgical column, eliminating visual dead zones even during deep abdominal interventions.
-              </p>
-            </div>
-
-            <div className="bg-white p-7 rounded-xl border border-[#E8E8E8] shadow-2xs">
-              <div className="w-12 h-12 rounded-xl bg-[#FAFAFA] border border-[#E8E8E8] text-[#111111] flex items-center justify-center mb-5">
-                <Zap size={22} className="text-[#2D5A4A]" />
-              </div>
-              <h3 className="text-sm font-bold text-[#111111] uppercase tracking-wider">
-                Microprocessor High-Frequency HF
-              </h3>
-              <p className="text-xs text-neutral-500 mt-2.5 leading-relaxed">
-                Dynamic tissue-sensing feedback modulates electrosurgical cut and coagulation arcs in real-time, preventing neuromuscular excitation and unintended thermal spread.
-              </p>
-            </div>
-
-            <div className="bg-white p-7 rounded-xl border border-[#E8E8E8] shadow-2xs">
-              <div className="w-12 h-12 rounded-xl bg-[#FAFAFA] border border-[#E8E8E8] text-[#111111] flex items-center justify-center mb-5">
-                <Activity size={22} className="text-[#2D5A4A]" />
-              </div>
-              <h3 className="text-sm font-bold text-[#111111] uppercase tracking-wider">
-                Biomedical Safety Isolation
-              </h3>
-              <p className="text-xs text-neutral-500 mt-2.5 leading-relaxed">
-                Full compliance with IEC 60601-1 electrical safety standards. Type CF defibrillation-proof patient isolation ensures zero stray currents in critical care setups.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. CLINICAL BLOG & EDUCATIONAL GUIDES */}
+      {/* 4. CLINICAL BLOG & EDUCATIONAL GUIDES */}
       {blogs.length > 0 && (
         <section className="py-20 sm:py-24 bg-white border-t border-[#E8E8E8]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">

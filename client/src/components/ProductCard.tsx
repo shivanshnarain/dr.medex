@@ -30,7 +30,7 @@ const CATEGORY_NAMES: Record<string, string> = {
   "general medical equipment": "GENERAL MEDICAL EQUIPMENT",
 };
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, onQuickView, onOpenQuote }) => {
   const { toggleWishlist, isInWishlist } = useWishlist();
 
   const isSaved = isInWishlist(product.id);
@@ -86,7 +86,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const productUrl = `/product/${product.slug || product.id}`;
 
   return (
-    <div className="group relative bg-white rounded-2xl border border-neutral-200/90 hover:border-neutral-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between h-full p-3 sm:p-4">
+    <div
+      className="group relative bg-white rounded-2xl border border-neutral-200/90 hover:border-neutral-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between h-full p-3 sm:p-4"
+      style={{ contentVisibility: "auto", containIntrinsicSize: "0 400px" }}
+    >
       {/* 1. SQUARE PRODUCT IMAGE AREA (1:1 aspect ratio across all viewports, clean container without inner grey border, object-cover for true edge-to-edge square presentation) */}
       <div
         className="product-card-image relative w-full aspect-square shrink-0 rounded-[16px] overflow-hidden bg-white border-none select-none p-0"
@@ -103,6 +106,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-300 ease-out group-hover:scale-105 block border-none rounded-[16px]"
             style={{ objectFit: "cover", objectPosition: "center" }}
             loading="lazy"
+            decoding="async"
             onError={(e) => {
               // Graceful fallback to approved medical asset placeholder
               (e.currentTarget as HTMLImageElement).src =
@@ -160,4 +164,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
     </div>
   );
-};
+});
+
+ProductCard.displayName = "ProductCard";
