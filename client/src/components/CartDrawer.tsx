@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { X, ShoppingCart, Trash2, Plus, Minus, ArrowRight, ShieldCheck, Tag } from "lucide-react";
+import { X, ShoppingCart, Plus, Minus, ArrowRight, ShieldCheck, Tag } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useCurrency } from "../context/CurrencyContext";
 import { renderBrandTitle } from "./BrandTitle";
@@ -91,7 +91,7 @@ export const CartDrawer: React.FC = () => {
           </div>
 
           {/* Items List */}
-          <div className="flex-1 overflow-y-auto p-5 sm:p-6 divide-y divide-[#EAEAEA]">
+          <div className="flex-1 overflow-y-auto p-5 sm:p-6">
             {items.length === 0 ? (
               <div className="py-16 text-center">
                 <div className="w-16 h-16 bg-[#F7F7F7] border border-[#EAEAEA] rounded-full flex items-center justify-center mx-auto mb-4 text-[#111111]">
@@ -112,106 +112,137 @@ export const CartDrawer: React.FC = () => {
                 </button>
               </div>
             ) : (
-              <div className="space-y-4">
-                {items.map(({ product, quantity }) => {
+              <div className="space-y-1">
+                {items.map(({ product, quantity }, idx) => {
                   const itemImage =
                     (Array.isArray(product.images) && product.images[0]) ||
                     product.primaryImage ||
                     (Array.isArray(product.galleryImages) && product.galleryImages[0]) ||
                     "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
 
+                  const availableStock =
+                    typeof product.stock === "number"
+                      ? product.stock
+                      : (typeof (product as any).stockQuantity === "number" ? (product as any).stockQuantity : 100);
+                  const maxQty = Math.min(50, Math.max(1, availableStock));
+
                   return (
-                    <div key={product.id} className="pt-4 first:pt-0 pb-4 border-b border-[#EAEAEA] last:border-b-0">
-                      <div className="flex gap-3 sm:gap-4 items-start">
-                        {/* Left section: Product image and quantity selector below it */}
-                        <div className="flex flex-col items-center shrink-0 w-20 sm:w-24">
-                          <Link
-                            to={`/product/${product.slug}`}
-                            onClick={closeDrawer}
-                            className="block w-20 h-20 sm:w-24 sm:h-24 rounded-xl border border-[#EAEAEA] bg-[#FAFAFA] p-1.5 hover:border-[#7AA05A]/40 transition-colors"
-                          >
-                            <img
-                              src={itemImage}
-                              alt={product.title}
-                              onError={(e) => {
-                                (e.target as HTMLImageElement).src =
-                                  "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
-                              }}
-                              className="w-full h-full object-contain"
-                            />
-                          </Link>
+                    <React.Fragment key={product.id}>
+                      {/* Subtle green dotted/dashed separator ONLY between consecutive products */}
+                      {idx > 0 && (
+                        <div className="border-b border-dashed border-[#7AA05A]/40 my-3.5" />
+                      )}
 
-                          {/* Below product image: Quantity selector [ - ] [ qty ] [ + ] */}
-                          <div className="flex items-center justify-between w-full mt-2 border border-[#EAEAEA] rounded-lg bg-white overflow-hidden shadow-2xs">
-                            <button
-                              type="button"
-                              onClick={() => {
-                                if (quantity > 1) {
-                                  updateQuantity(product.id, quantity - 1);
-                                }
-                              }}
-                              disabled={quantity <= 1}
-                              className="p-1 sm:p-1.5 text-neutral-600 hover:text-[#2D5A4A] hover:bg-[#F4F7F2] transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-                              title={quantity <= 1 ? "Minimum quantity is 1 (use delete icon to remove)" : "Decrease quantity"}
-                              aria-label="Decrease quantity"
-                            >
-                              <Minus size={12} />
-                            </button>
-                            <span className="px-1 text-xs font-bold text-[#111111] select-none">
-                              {quantity}
-                            </span>
-                            <button
-                              type="button"
-                              onClick={() => updateQuantity(product.id, quantity + 1)}
-                              className="p-1 sm:p-1.5 text-neutral-600 hover:text-[#2D5A4A] hover:bg-[#F4F7F2] transition-colors cursor-pointer"
-                              title="Increase quantity"
-                              aria-label="Increase quantity"
-                            >
-                              <Plus size={12} />
-                            </button>
-                          </div>
-                        </div>
+                      <div className="flex gap-3.5 sm:gap-4 items-start py-1">
+                        {/* LEFT SIDE — PRODUCT IMAGE (Natural Aspect Ratio, Rounded Corners, No Box) */}
+                        <Link
+                          to={`/product/${product.slug}`}
+                          onClick={closeDrawer}
+                          className="shrink-0 block self-start"
+                        >
+                          <img
+                            src={itemImage}
+                            alt={product.title}
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src =
+                                "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
+                            }}
+                            className="w-20 sm:w-24 max-h-28 object-contain rounded-xl"
+                          />
+                        </Link>
 
-                        {/* Right section: Product Name, Prices in Dark Green #2D5A4A, Red Delete Icon */}
+                        {/* RIGHT SIDE — PRODUCT INFORMATION */}
                         <div className="flex-1 min-w-0 flex flex-col justify-between self-stretch">
-                          <div>
+                          {/* Top: Product Name & Remove (×) Button */}
+                          <div className="flex items-start justify-between gap-2">
                             <Link
                               to={`/product/${product.slug}`}
                               onClick={closeDrawer}
-                              className="text-xs sm:text-sm font-bold text-[#111111] hover:text-[#2D5A4A] line-clamp-2 leading-snug transition-colors block"
+                              className="text-xs sm:text-sm font-bold text-[#111111] hover:text-[#2D5A4A] line-clamp-2 leading-snug transition-colors flex-1"
                             >
                               {renderBrandTitle(product.title)}
                             </Link>
-                            {/* SKU is completely removed from visible cart UI */}
-                          </div>
 
-                          <div className="mt-2 flex flex-col gap-0.5">
-                            {/* Product total price: Dark Green #2D5A4A */}
-                            <div className="text-sm sm:text-base font-extrabold text-[#2D5A4A]">
-                              {formatPrice(product.basePrice * quantity)}
-                            </div>
-
-                            {/* Per-unit price: Dark Green #2D5A4A, clearly labelled Each */}
-                            <div className="text-2xs sm:text-xs font-semibold text-[#2D5A4A]">
-                              {formatPrice(product.basePrice)} <span className="font-normal text-neutral-500">Each</span>
-                            </div>
-                          </div>
-
-                          {/* Red delete/trash icon for removing the product with clear clickable area */}
-                          <div className="mt-2 flex justify-end">
+                            {/* Minimal × close/remove button at top-right corner */}
                             <button
                               type="button"
                               onClick={() => removeFromCart(product.id)}
-                              className="p-2 -mr-1.5 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors cursor-pointer flex items-center justify-center"
-                              title="Remove product from cart"
-                              aria-label="Remove product"
+                              className="p-1 -mr-1 -mt-0.5 text-neutral-400 hover:text-[#C62828] hover:bg-red-50 rounded transition-colors cursor-pointer shrink-0"
+                              title="Remove item"
+                              aria-label={`Remove ${product.title} from cart`}
                             >
-                              <Trash2 size={16} className="text-red-500" />
+                              <X size={16} strokeWidth={2.2} />
                             </button>
+                          </div>
+
+                          {/* Middle: Prominent Selling Price (Dark Green #2D5A4A) */}
+                          <div className="mt-1.5 flex items-baseline gap-2">
+                            <span className="text-sm sm:text-base font-extrabold text-[#2D5A4A] font-sans">
+                              {formatPrice(product.basePrice * quantity)}
+                            </span>
+                            {quantity > 1 && (
+                              <span className="text-[11px] font-normal text-neutral-500 font-sans">
+                                ({formatPrice(product.basePrice)} each)
+                              </span>
+                            )}
+                          </div>
+
+                          {/* Bottom: Quantity Selector Stepper */}
+                          <div className="mt-2.5 flex items-center justify-between gap-2">
+                            <div className="inline-flex items-center border border-neutral-300 rounded-lg bg-neutral-50/80 overflow-hidden shadow-2xs">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  if (quantity > 1) {
+                                    updateQuantity(product.id, quantity - 1);
+                                  }
+                                }}
+                                disabled={quantity <= 1}
+                                className="px-2 py-1 text-neutral-600 hover:text-[#2D5A4A] hover:bg-neutral-200/60 transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                                title={quantity <= 1 ? "Minimum quantity is 1" : "Decrease quantity"}
+                                aria-label="Decrease quantity"
+                              >
+                                <Minus size={12} strokeWidth={2.5} />
+                              </button>
+                              <span className="px-2.5 py-0.5 text-xs font-bold text-[#111111] min-w-[28px] text-center select-none font-mono">
+                                {quantity}
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  if (quantity < maxQty) {
+                                    updateQuantity(product.id, quantity + 1);
+                                  }
+                                }}
+                                disabled={quantity >= maxQty}
+                                className="px-2 py-1 text-neutral-600 hover:text-[#2D5A4A] hover:bg-neutral-200/60 transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                                title={
+                                  quantity >= maxQty
+                                    ? availableStock < 50
+                                      ? `Only ${availableStock} in stock`
+                                      : "Maximum allowed quantity is 50"
+                                    : "Increase quantity"
+                                }
+                                aria-label="Increase quantity"
+                              >
+                                <Plus size={12} strokeWidth={2.5} />
+                              </button>
+                            </div>
+
+                            {/* Stock warning if near or at limit */}
+                            {availableStock < 50 && quantity >= availableStock ? (
+                              <span className="text-[10px] text-amber-700 font-semibold font-mono">
+                                Only {availableStock} in stock
+                              </span>
+                            ) : quantity >= 50 ? (
+                              <span className="text-[10px] text-neutral-500 font-medium font-mono">
+                                Max limit (50)
+                              </span>
+                            ) : null}
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </React.Fragment>
                   );
                 })}
               </div>

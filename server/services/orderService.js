@@ -66,7 +66,11 @@ function validateAndCalculateOrder(payload) {
       throw new Error(`Product not found in active catalogue: ${prodId}`);
     }
 
-    const qty = Math.max(1, parseInt(item.quantity, 10) || 1);
+    const rawQty = parseInt(item.quantity, 10) || 1;
+    if (rawQty > 50) {
+      throw new Error(`Maximum allowed order quantity per item is 50. Requested: ${rawQty} for "${prod.title || prod.productName}"`);
+    }
+    const qty = Math.min(50, Math.max(1, rawQty));
     const availableStock = prod.stock !== undefined ? prod.stock : (prod.stockQuantity !== undefined ? prod.stockQuantity : 100);
     if (availableStock < qty) {
       throw new Error(`Insufficient inventory for "${prod.title || prod.productName}". Requested: ${qty}, In Stock: ${availableStock}`);

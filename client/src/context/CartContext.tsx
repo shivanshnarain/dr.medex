@@ -19,7 +19,7 @@ function sanitizeCartItem(item: any): CartItem | null {
 
   const quantity =
     typeof item.quantity === "number" && !isNaN(item.quantity)
-      ? Math.max(1, Math.floor(item.quantity))
+      ? Math.min(50, Math.max(1, Math.floor(item.quantity)))
       : 1;
 
   // Extract valid image array with graceful fallback
@@ -252,13 +252,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const addToCart = (product: Product, quantity: number = 1, openDrawer: boolean = true) => {
-    const validQty = Math.max(1, Math.floor(quantity));
+    const validQty = Math.min(50, Math.max(1, Math.floor(quantity)));
     setItems((prev) => {
       const existing = prev.find((item) => item.product.id === product.id);
       if (existing) {
         return prev.map((item) =>
           item.product.id === product.id
-            ? { ...item, quantity: item.quantity + validQty }
+            ? { ...item, quantity: Math.min(50, item.quantity + validQty) }
             : item
         );
       }
@@ -280,7 +280,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       removeFromCart(productId);
       return;
     }
-    const validQty = Math.max(1, Math.floor(quantity));
+    const validQty = Math.min(50, Math.max(1, Math.floor(quantity)));
     setItems((prev) =>
       prev.map((item) =>
         item.product.id === productId ? { ...item, quantity: validQty } : item
