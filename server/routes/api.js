@@ -26,35 +26,23 @@ router.get("/health", (req, res) => {
 router.get("/products", async (req, res) => {
   try {
     const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
-    let list = store.getProducts(req.query).filter(p => !deletedIds.has(String(p.id)));
+    let list = [];
 
     if (mongoService.isConfigured()) {
       try {
         const mongoList = await mongoService.getProductsFromMongo(req.query);
         if (Array.isArray(mongoList)) {
-          const activeMongoList = mongoList.filter(m => !deletedIds.has(String(m.id)));
-          const mongoMap = new Map(activeMongoList.map(m => [String(m.id), m]));
-          const storeMap = new Set(list.map(p => String(p.id)));
-
-          list = list.map(p => {
-            const m = mongoMap.get(String(p.id));
-            if (m) {
-              return {
-                ...p,
-                ...m
-              };
-            }
-            return p;
-          });
-
-          // Include products that exist in MongoDB and are ACTIVE
-          activeMongoList.forEach(m => {
-            if (!storeMap.has(String(m.id)) && (m.status || "ACTIVE") === "ACTIVE" && !m.isRetired && m.inCatalogue !== false) {
-              list.push(m);
-            }
-          });
+          // When MongoDB is configured and responsive, it is the sole authoritative database source of truth.
+          // Never merge seed/ghost products from in-memory initialProducts.
+          list = mongoList.filter(m => !deletedIds.has(String(m.id)));
+        } else {
+          list = store.getProducts(req.query).filter(p => !deletedIds.has(String(p.id)));
         }
-      } catch (mErr) {}
+      } catch (mErr) {
+        list = store.getProducts(req.query).filter(p => !deletedIds.has(String(p.id)));
+      }
+    } else {
+      list = store.getProducts(req.query).filter(p => !deletedIds.has(String(p.id)));
     }
 
     // Strictly ensure only active, non-archived products are on public storefront
@@ -68,6 +56,11 @@ router.get("/products", async (req, res) => {
       return true;
     });
 
+    // Handle additional query filters that might be on storefront
+    if (req.query.subcategory && req.query.subcategory !== "ALL") {
+      list = list.filter(p => p.subcategory === req.query.subcategory || (Array.isArray(p.subcategories) && p.subcategories.includes(req.query.subcategory)));
+    }
+
     res.json({ success: true, count: list.length, products: list });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -80,22 +73,24 @@ router.get("/products/:slug", async (req, res) => {
     const slugOrId = req.params.slug;
     const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
 
-    let product = store.getProductBySlug(slugOrId) || store.getProductById(slugOrId, true);
-    if (product && deletedIds.has(String(product.id))) {
-      return res.status(404).json({ success: false, message: "Product not found" });
-    }
-
+    let product = null;
     if (mongoService.isConfigured()) {
       try {
-        const lookup = (product && product.id) ? product.id : slugOrId;
-        const mongoProd = await mongoService.getApprovedProduct(lookup) || await mongoService.getApprovedProduct(slugOrId);
-        if (mongoProd) {
-          if (deletedIds.has(String(mongoProd.id))) {
-            return res.status(404).json({ success: false, message: "Product not found" });
-          }
-          product = product ? { ...product, ...mongoProd } : mongoProd;
+        const mongoProd = await mongoService.getApprovedProduct(slugOrId);
+        if (mongoProd && !deletedIds.has(String(mongoProd.id))) {
+          product = mongoProd;
         }
       } catch (mErr) {}
+    }
+
+    // Fallback to in-memory store ONLY if MongoDB is not configured or product wasn't found in MongoDB
+    if (!product) {
+      if (!mongoService.isConfigured()) {
+        product = store.getProductBySlug(slugOrId) || store.getProductById(slugOrId, true);
+        if (product && deletedIds.has(String(product.id))) {
+          product = null;
+        }
+      }
     }
 
     if (!product || product.status === "ARCHIVED" || product.isRetired || product.inCatalogue === false || deletedIds.has(String(product.id))) {
@@ -112,25 +107,26 @@ router.get("/products/:slug", async (req, res) => {
 });
 
 
+// Manual Product & Inventory Control: Reject unauthenticated mutations
 router.post("/products", (req, res) => {
-  const created = store.addProduct(req.body);
-  res.status(201).json({ success: true, product: created });
+  res.status(403).json({
+    success: false,
+    message: "Manual product creation requires authenticated administrator credentials via /api/admin/products."
+  });
 });
 
 router.put("/products/:id", (req, res) => {
-  const updated = store.updateProduct(req.params.id, req.body);
-  if (!updated) {
-    return res.status(404).json({ success: false, message: "Product not found" });
-  }
-  res.json({ success: true, product: updated });
+  res.status(403).json({
+    success: false,
+    message: "Manual product modifications require authenticated administrator credentials via /api/admin/products."
+  });
 });
 
 router.delete("/products/:id", (req, res) => {
-  const removed = store.deleteProduct(req.params.id);
-  if (!removed) {
-    return res.status(404).json({ success: false, message: "Product not found" });
-  }
-  res.json({ success: true, message: "Product deleted", product: removed });
+  res.status(403).json({
+    success: false,
+    message: "Manual product deletion requires authenticated administrator credentials via /api/admin/products."
+  });
 });
 
 // SEARCH AUTOCOMPLETE & LIVE SEARCH

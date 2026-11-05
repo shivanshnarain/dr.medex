@@ -195,8 +195,10 @@ export const HomePage: React.FC = () => {
       // 1. Fetch live products and update state immediately without waiting for other APIs
       getProducts()
         .then((prodResult) => {
-          if (isMounted && prodResult && Array.isArray(prodResult.products) && prodResult.products.length > 0) {
-            setAllProducts(prodResult.products);
+          if (isMounted && prodResult && Array.isArray(prodResult.products)) {
+            if (!prodResult.isFallback || prodResult.products.length > 0) {
+              setAllProducts(prodResult.products);
+            }
           }
         })
         .catch((err) => console.warn("[HomePage] Live products fetch notice:", err))

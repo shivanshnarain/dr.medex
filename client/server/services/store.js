@@ -453,8 +453,16 @@ module.exports = {
   addProduct: (productData) => {
     const assignedId = (productData && productData.id) ? productData.id : "prod-" + Date.now() + "-" + Math.random().toString(36).substring(2, 6);
     const now = new Date().toISOString();
+    const exactStock = (productData && productData.stock !== undefined && productData.stock !== null && !isNaN(Number(productData.stock)))
+      ? Number(productData.stock)
+      : ((productData && productData.stockQuantity !== undefined && productData.stockQuantity !== null && !isNaN(Number(productData.stockQuantity)))
+          ? Number(productData.stockQuantity)
+          : 0);
+
     const newProduct = {
-      stock: 10,
+      stock: exactStock,
+      stockQuantity: exactStock,
+      stockStatus: (productData && productData.stockStatus) || (exactStock > 0 ? (exactStock <= 5 ? "LOW_STOCK" : "IN_STOCK") : "OUT_OF_STOCK"),
       rating: 5.0,
       reviewCount: 0,
       images: [
@@ -464,6 +472,8 @@ module.exports = {
       updatedAt: now,
       status: (productData && productData.status) || "ACTIVE",
       ...productData,
+      stock: exactStock,
+      stockQuantity: exactStock,
       id: assignedId,
       slug: (productData && productData.slug) || (productData && productData.title ? productData.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") : assignedId)
     };
@@ -495,9 +505,21 @@ module.exports = {
         }
       }
 
+      // Preserve exact inventory quantities
+      let exactStock = current.stock !== undefined ? Number(current.stock) : (current.stockQuantity !== undefined ? Number(current.stockQuantity) : 0);
+      if (updates && (updates.stock !== undefined || updates.stockQuantity !== undefined)) {
+        exactStock = (updates.stock !== undefined && updates.stock !== null && !isNaN(Number(updates.stock)))
+          ? Number(updates.stock)
+          : ((updates.stockQuantity !== undefined && updates.stockQuantity !== null && !isNaN(Number(updates.stockQuantity)))
+              ? Number(updates.stockQuantity)
+              : 0);
+      }
+
       const updated = {
         ...current,
         ...updates,
+        stock: exactStock,
+        stockQuantity: exactStock,
         status: safeStatus,
         updatedAt: (updates && updates.updatedAt) || now
       };
@@ -515,9 +537,16 @@ module.exports = {
           safeStatus = candidate;
         }
       }
+      const exactStock = (updates && updates.stock !== undefined && updates.stock !== null && !isNaN(Number(updates.stock)))
+        ? Number(updates.stock)
+        : ((updates && updates.stockQuantity !== undefined && updates.stockQuantity !== null && !isNaN(Number(updates.stockQuantity)))
+            ? Number(updates.stockQuantity)
+            : 0);
       const updated = {
         id: (updates && updates.id) || id || cleanId,
         ...updates,
+        stock: exactStock,
+        stockQuantity: exactStock,
         status: safeStatus,
         updatedAt: (updates && updates.updatedAt) || now
       };

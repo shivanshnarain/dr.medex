@@ -68,9 +68,9 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
   const [regularPrice, setRegularPrice] = useState(1800);
   const [salePrice, setSalePrice] = useState<number | undefined>(undefined);
   const [discountPercentage, setDiscountPercentage] = useState<number | undefined>(undefined);
-  const [stock, setStock] = useState(10);
+  const [stock, setStock] = useState(0);
   const [lowStockThreshold, setLowStockThreshold] = useState(2);
-  const [stockStatus, setStockStatus] = useState<"IN_STOCK" | "LOW_STOCK" | "OUT_OF_STOCK">("IN_STOCK");
+  const [stockStatus, setStockStatus] = useState<"IN_STOCK" | "LOW_STOCK" | "OUT_OF_STOCK">("OUT_OF_STOCK");
 
   // Reference Pricing & Sync
   const [referencePricing, setReferencePricing] = useState<any>(null);
@@ -140,9 +140,10 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
       setRegularPrice(product.regularPrice || product.originalPrice || Math.round((product.basePrice || 0) * 1.2));
       setSalePrice(product.salePrice);
       setDiscountPercentage(product.discountPercentage);
-      setStock(product.stock ?? 10);
+      const currentStock = product.stock !== undefined ? product.stock : (product.stockQuantity !== undefined ? product.stockQuantity : 0);
+      setStock(currentStock);
       setLowStockThreshold(product.lowStockThreshold ?? 2);
-      setStockStatus(product.stockStatus || (product.stock > 0 ? "IN_STOCK" : "OUT_OF_STOCK"));
+      setStockStatus(product.stockStatus || (currentStock > 0 ? "IN_STOCK" : "OUT_OF_STOCK"));
 
       setReferencePricing(product.referencePricing || null);
       setLastPriceSync(product.lastPriceSync || product.referencePricing?.lastSyncedAt || "");
@@ -433,6 +434,7 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
       discountPercentage: discountPercentage ? Number(discountPercentage) : undefined,
       baseCurrency: "INR",
       stock: Number(stock),
+      stockQuantity: Number(stock),
       lowStockThreshold: Number(lowStockThreshold),
       stockStatus,
       referencePricing,

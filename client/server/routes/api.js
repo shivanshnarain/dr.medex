@@ -15,6 +15,7 @@ const paypalService = require("../services/paypalService");
 const orderService = require("../services/orderService");
 const locationService = require("../services/locationService");
 const notificationService = require("../services/notificationService");
+const emailService = require("../services/emailService");
 
 // HEALTH
 router.get("/health", (req, res) => {
@@ -25,35 +26,23 @@ router.get("/health", (req, res) => {
 router.get("/products", async (req, res) => {
   try {
     const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
-    let list = store.getProducts(req.query).filter(p => !deletedIds.has(String(p.id)));
+    let list = [];
 
     if (mongoService.isConfigured()) {
       try {
         const mongoList = await mongoService.getProductsFromMongo(req.query);
         if (Array.isArray(mongoList)) {
-          const activeMongoList = mongoList.filter(m => !deletedIds.has(String(m.id)));
-          const mongoMap = new Map(activeMongoList.map(m => [String(m.id), m]));
-          const storeMap = new Set(list.map(p => String(p.id)));
-
-          list = list.map(p => {
-            const m = mongoMap.get(String(p.id));
-            if (m) {
-              return {
-                ...p,
-                ...m
-              };
-            }
-            return p;
-          });
-
-          // Include products that exist in MongoDB and are ACTIVE
-          activeMongoList.forEach(m => {
-            if (!storeMap.has(String(m.id)) && (m.status || "ACTIVE") === "ACTIVE" && !m.isRetired && m.inCatalogue !== false) {
-              list.push(m);
-            }
-          });
+          // When MongoDB is configured and responsive, it is the sole authoritative database source of truth.
+          // Never merge seed/ghost products from in-memory initialProducts.
+          list = mongoList.filter(m => !deletedIds.has(String(m.id)));
+        } else {
+          list = store.getProducts(req.query).filter(p => !deletedIds.has(String(p.id)));
         }
-      } catch (mErr) {}
+      } catch (mErr) {
+        list = store.getProducts(req.query).filter(p => !deletedIds.has(String(p.id)));
+      }
+    } else {
+      list = store.getProducts(req.query).filter(p => !deletedIds.has(String(p.id)));
     }
 
     // Strictly ensure only active, non-archived products are on public storefront
@@ -67,6 +56,11 @@ router.get("/products", async (req, res) => {
       return true;
     });
 
+    // Handle additional query filters that might be on storefront
+    if (req.query.subcategory && req.query.subcategory !== "ALL") {
+      list = list.filter(p => p.subcategory === req.query.subcategory || (Array.isArray(p.subcategories) && p.subcategories.includes(req.query.subcategory)));
+    }
+
     res.json({ success: true, count: list.length, products: list });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -79,22 +73,24 @@ router.get("/products/:slug", async (req, res) => {
     const slugOrId = req.params.slug;
     const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
 
-    let product = store.getProductBySlug(slugOrId) || store.getProductById(slugOrId, true);
-    if (product && deletedIds.has(String(product.id))) {
-      return res.status(404).json({ success: false, message: "Product not found" });
-    }
-
+    let product = null;
     if (mongoService.isConfigured()) {
       try {
-        const lookup = (product && product.id) ? product.id : slugOrId;
-        const mongoProd = await mongoService.getApprovedProduct(lookup) || await mongoService.getApprovedProduct(slugOrId);
-        if (mongoProd) {
-          if (deletedIds.has(String(mongoProd.id))) {
-            return res.status(404).json({ success: false, message: "Product not found" });
-          }
-          product = product ? { ...product, ...mongoProd } : mongoProd;
+        const mongoProd = await mongoService.getApprovedProduct(slugOrId);
+        if (mongoProd && !deletedIds.has(String(mongoProd.id))) {
+          product = mongoProd;
         }
       } catch (mErr) {}
+    }
+
+    // Fallback to in-memory store ONLY if MongoDB is not configured or product wasn't found in MongoDB
+    if (!product) {
+      if (!mongoService.isConfigured()) {
+        product = store.getProductBySlug(slugOrId) || store.getProductById(slugOrId, true);
+        if (product && deletedIds.has(String(product.id))) {
+          product = null;
+        }
+      }
     }
 
     if (!product || product.status === "ARCHIVED" || product.isRetired || product.inCatalogue === false || deletedIds.has(String(product.id))) {
@@ -111,25 +107,26 @@ router.get("/products/:slug", async (req, res) => {
 });
 
 
+// Manual Product & Inventory Control: Reject unauthenticated mutations
 router.post("/products", (req, res) => {
-  const created = store.addProduct(req.body);
-  res.status(201).json({ success: true, product: created });
+  res.status(403).json({
+    success: false,
+    message: "Manual product creation requires authenticated administrator credentials via /api/admin/products."
+  });
 });
 
 router.put("/products/:id", (req, res) => {
-  const updated = store.updateProduct(req.params.id, req.body);
-  if (!updated) {
-    return res.status(404).json({ success: false, message: "Product not found" });
-  }
-  res.json({ success: true, product: updated });
+  res.status(403).json({
+    success: false,
+    message: "Manual product modifications require authenticated administrator credentials via /api/admin/products."
+  });
 });
 
 router.delete("/products/:id", (req, res) => {
-  const removed = store.deleteProduct(req.params.id);
-  if (!removed) {
-    return res.status(404).json({ success: false, message: "Product not found" });
-  }
-  res.json({ success: true, message: "Product deleted", product: removed });
+  res.status(403).json({
+    success: false,
+    message: "Manual product deletion requires authenticated administrator credentials via /api/admin/products."
+  });
 });
 
 // SEARCH AUTOCOMPLETE & LIVE SEARCH
@@ -364,7 +361,9 @@ router.post("/payment/paypal/capture-order", async (req, res) => {
     }
     const captureData = await paypalService.captureOrder(orderID);
     if (captureData.status !== "COMPLETED") {
-      await orderService.markOrderAsFailed(orderNumber, `PayPal Status: ${captureData.status}`);
+      if (orderNumber) {
+        await orderService.markOrderAsFailed(orderNumber, `PayPal Status: ${captureData.status}`);
+      }
       return res.status(400).json({
         success: false,
         message: `PayPal payment not completed. Status: ${captureData.status}`,
@@ -373,8 +372,13 @@ router.post("/payment/paypal/capture-order", async (req, res) => {
     }
 
     const captureId = captureData.purchase_units?.[0]?.payments?.captures?.[0]?.id || orderID;
+    const resolvedOrderNumber =
+      orderNumber ||
+      captureData.purchase_units?.[0]?.custom_id ||
+      captureData.purchase_units?.[0]?.reference_id;
+
     const paidOrder = await orderService.markOrderAsPaid({
-      orderNumber,
+      orderNumber: resolvedOrderNumber,
       paypalOrderId: orderID,
       paypalCaptureId: captureId,
       paymentDetails: captureData
@@ -425,6 +429,97 @@ router.post("/payment/paypal/webhook", async (req, res) => {
   } catch (err) {
     console.error("[PayPal Webhook Error]:", err.message);
     res.status(200).json({ received: false, error: err.message });
+  }
+});
+
+// CASH ON DELIVERY (COD) ORDER CREATION
+router.post("/payment/cod/create-order", async (req, res) => {
+  try {
+    const payload = {
+      ...req.body,
+      paymentMethod: "Cash on Delivery",
+      paymentProvider: "COD"
+    };
+    const order = await orderService.createPendingOrder(payload);
+    order.payment.provider = "COD";
+    order.payment.method = "Cash on Delivery";
+    order.payment.status = "PENDING";
+    order.orderStatus = "PLACED";
+    order.status = "PLACED";
+
+    // Update in MongoDB
+    try {
+      const client = await mongoService.getClient();
+      const db = client.db();
+      await db.collection("orders").updateOne(
+        { orderNumber: order.orderNumber },
+        { $set: order },
+        { upsert: true }
+      );
+    } catch (e) {}
+
+    // Send COD invoice with "PAYMENT DUE (CASH ON DELIVERY)"
+    emailService.sendOrderInvoiceEmail(order).catch(() => {});
+
+    res.json({ success: true, order });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// RAZORPAY PAYMENT GATEWAY ORDER CREATION & VERIFICATION
+router.post("/payment/razorpay/create-order", async (req, res) => {
+  try {
+    const payload = {
+      ...req.body,
+      paymentMethod: "Razorpay Secure (Cards, UPI, NetBanking)",
+      paymentProvider: "RAZORPAY"
+    };
+    const pendingOrder = await orderService.createPendingOrder(payload);
+    pendingOrder.payment.provider = "RAZORPAY";
+    pendingOrder.payment.method = "Razorpay Secure (Cards, UPI, NetBanking)";
+
+    const razorpayKeyId = process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID || "rzp_test_drmedex";
+    const amountInSubunits = Math.round((pendingOrder.pricing.grandTotalINR || pendingOrder.pricing.grandTotal) * 100);
+
+    res.json({
+      success: true,
+      keyId: razorpayKeyId,
+      orderNumber: pendingOrder.orderNumber,
+      amount: amountInSubunits,
+      currency: "INR",
+      order: pendingOrder
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/payment/razorpay/verify", async (req, res) => {
+  try {
+    const { orderNumber, razorpayOrderId, razorpayPaymentId, razorpaySignature } = req.body;
+    if (!orderNumber || !razorpayPaymentId) {
+      return res.status(400).json({ success: false, message: "Missing orderNumber or razorpayPaymentId." });
+    }
+
+    const paidOrder = await orderService.markOrderAsPaid({
+      orderNumber,
+      paypalOrderId: razorpayOrderId || null,
+      paypalCaptureId: razorpayPaymentId,
+      paymentDetails: {
+        provider: "RAZORPAY",
+        razorpayPaymentId,
+        razorpayOrderId,
+        razorpaySignature
+      }
+    });
+
+    paidOrder.payment.provider = "RAZORPAY";
+    paidOrder.payment.method = "Razorpay Secure (Cards, UPI, NetBanking)";
+
+    res.json({ success: true, order: paidOrder });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
   }
 });
 

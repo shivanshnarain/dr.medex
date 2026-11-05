@@ -20,6 +20,7 @@ export interface Product {
   discountPercentage?: number;
   baseCurrency?: string;
   stock: number;
+  stockQuantity?: number;
   stockStatus?: "IN_STOCK" | "LOW_STOCK" | "OUT_OF_STOCK";
   lowStockThreshold?: number;
   rating: number;

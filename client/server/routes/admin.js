@@ -18,6 +18,7 @@ const supabaseService = require("../services/supabaseService");
 const imageResolver = require("../services/imageResolver");
 const orderService = require("../services/orderService");
 const deletionService = require("../services/deletionService");
+const shiprocketService = require("../services/shiprocketService");
 
 /**
  * Authentication Middleware
@@ -182,14 +183,39 @@ router.get("/dashboard", requireAdmin, (req, res) => {
 
 router.get("/orders", requireAdmin, async (req, res) => {
   try {
-    const mongoOrders = await orderService.getCustomerOrders(null, null);
-    const storeOrders = store.getOrders();
-    const map = new Map();
-    [...mongoOrders, ...storeOrders].forEach(o => {
-      if (o && o.orderNumber) map.set(o.orderNumber, o);
+    const { search, status, paymentStatus, page, limit, includeArchived } = req.query;
+    const result = await orderService.getAllOrdersAdmin({
+      search,
+      status,
+      paymentStatus,
+      page: parseInt(page, 10) || 1,
+      limit: parseInt(limit, 10) || 20,
+      includeArchived: includeArchived === "true"
     });
-    const combined = Array.from(map.values()).sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-    res.json({ success: true, orders: combined });
+    res.json({ success: true, ...result });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.get("/orders/shiprocket/status", requireAdmin, async (req, res) => {
+  try {
+    const status = shiprocketService.getStatus();
+    res.json({ success: true, status });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.get("/orders/:id", requireAdmin, async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const order = await orderService.getOrder(orderId);
+    if (!order) {
+      return res.status(404).json({ success: false, message: "Order not found" });
+    }
+    const shiprocketStatus = shiprocketService.getStatus();
+    res.json({ success: true, order, shiprocketStatus });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -197,31 +223,153 @@ router.get("/orders", requireAdmin, async (req, res) => {
 
 router.put("/orders/:id/status", requireAdmin, async (req, res) => {
   try {
-    const { status, stageToComplete } = req.body;
+    const { status, note } = req.body;
     const orderId = req.params.id;
-    const updated = store.updateOrderStatus(orderId, status, stageToComplete);
-    if (!updated) {
-      return res.status(404).json({ success: false, message: "Order not found" });
-    }
-    try {
-      const client = await mongoService.getClient();
-      const db = client.db();
-      await db.collection("orders").updateOne(
-        { $or: [{ orderNumber: orderId }, { id: orderId }] },
-        { $set: { status, orderStatus: status, updatedAt: new Date().toISOString() } }
-      );
-    } catch (e) {}
+    const adminUser = req.admin?.email || "Admin";
+    const updated = await orderService.updateOrderStatusAdmin(orderId, status, adminUser, note);
 
     auditService.log({
       action: "UPDATE_ORDER_STATUS",
       entity: "orders",
       entityId: orderId,
-      details: { newStatus: status, stageToComplete }
+      details: { newStatus: status, adminUser, note }
     });
 
     res.json({ success: true, order: updated });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.put("/orders/:id/payment-status", requireAdmin, async (req, res) => {
+  try {
+    const { paymentStatus, note } = req.body;
+    const orderId = req.params.id;
+    const adminUser = req.admin?.email || "Admin";
+    const updated = await orderService.updatePaymentStatusAdmin(orderId, paymentStatus, adminUser, note);
+
+    auditService.log({
+      action: "UPDATE_PAYMENT_STATUS",
+      entity: "orders",
+      entityId: orderId,
+      details: { newPaymentStatus: paymentStatus, adminUser, note }
+    });
+
+    res.json({ success: true, order: updated });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/orders/:id/resend-invoice", requireAdmin, async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const result = await orderService.resendInvoiceEmail(orderId);
+
+    auditService.log({
+      action: "RESEND_INVOICE_EMAIL",
+      entity: "orders",
+      entityId: orderId,
+      details: { result }
+    });
+
+    res.json({ success: true, message: `Invoice for order #${orderId} has been resent.`, result });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/orders/:id/cancel", requireAdmin, async (req, res) => {
+  try {
+    const { reason } = req.body;
+    const orderId = req.params.id;
+    const adminUser = req.admin?.email || "Admin";
+    const updated = await orderService.cancelOrderAdmin(orderId, reason, adminUser);
+
+    auditService.log({
+      action: "CANCEL_ORDER",
+      entity: "orders",
+      entityId: orderId,
+      details: { reason, adminUser }
+    });
+
+    res.json({ success: true, order: updated, message: `Order #${orderId} cancelled.` });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.delete("/orders/:id", requireAdmin, async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const adminUser = req.admin?.email || "Admin";
+    const result = await orderService.softDeleteOrderAdmin(orderId, adminUser);
+
+    auditService.log({
+      action: "ARCHIVE_ORDER",
+      entity: "orders",
+      entityId: orderId,
+      details: { adminUser }
+    });
+
+    res.json(result);
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Shiprocket Fulfillment Endpoints
+router.post("/orders/:id/shiprocket/create-shipment", requireAdmin, async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const order = await orderService.getOrder(orderId);
+    if (!order) return res.status(404).json({ success: false, message: "Order not found" });
+
+    const shipmentResult = await shiprocketService.createShipment(order);
+    res.json({ success: true, shipmentResult });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message, status: "AUTH_FAILED", canRetry: true });
+  }
+});
+
+router.post("/orders/:id/shiprocket/generate-awb", requireAdmin, async (req, res) => {
+  try {
+    const { shipmentId, courierId } = req.body;
+    const awbResult = await shiprocketService.generateAWB(shipmentId, courierId);
+    res.json({ success: true, awbResult });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message, canRetry: true });
+  }
+});
+
+router.post("/orders/:id/shiprocket/generate-label", requireAdmin, async (req, res) => {
+  try {
+    const { shipmentId } = req.body;
+    const labelResult = await shiprocketService.generateLabel(shipmentId);
+    res.json({ success: true, labelResult });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message, canRetry: true });
+  }
+});
+
+router.get("/orders/:id/shiprocket/track", requireAdmin, async (req, res) => {
+  try {
+    const { awb } = req.query;
+    if (!awb) return res.status(400).json({ success: false, message: "AWB code required" });
+    const tracking = await shiprocketService.trackAWB(awb);
+    res.json({ success: true, tracking });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/orders/:id/shiprocket/retry-sync", requireAdmin, async (req, res) => {
+  try {
+    // Force refresh token
+    const token = await shiprocketService.getAuthToken(true);
+    res.json({ success: true, message: "Shiprocket session synchronized successfully.", tokenPreview: `${token.substring(0, 6)}***` });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message, status: "AUTH_FAILED", canRetry: true });
   }
 });
 
@@ -246,68 +394,39 @@ router.get("/products", requireAdmin, async (req, res) => {
     }
   });
 
-  // 3. Load base list from store, excluding permanently deleted IDs
-  let list = store.getProducts({ includeInactive: true }).filter(p => !deletedIds.has(String(p.id)));
-
-  // 4. Merge authoritative records from MongoDB if configured and reachable
+  // 3. Load authoritative list from MongoDB Atlas when configured, fallback to store only if not configured or offline
+  let list = [];
   if (mongoService.isConfigured()) {
     try {
       const mongoList = await mongoService.getProductsFromMongo();
       if (Array.isArray(mongoList)) {
+        // Authoritative source of truth: MongoDB Atlas.
+        // Never merge seed or ghost products from initialProducts.
         const activeMongoList = mongoList.filter(m => !deletedIds.has(String(m.id)));
-        const mongoMap = new Map(activeMongoList.map(m => [String(m.id), m]));
-        const storeMap = new Set(list.map(p => String(p.id)));
-
-        // Merge onto existing store items
-        list = list.map(p => {
-          const pid = String(p.id);
-          const hasOrders = orderProductIds.has(pid);
-          const m = mongoMap.get(pid);
-          if (m) {
-            return {
-              ...p,
-              ...m,
-              hasOrders,
-              mongoSyncStatus: "SYNCED",
-              mongoSyncedAt: m.mongoSyncedAt || p.mongoSyncedAt || new Date().toISOString(),
-              reviewStatus: (m.reviewStatus === "CORRECT" || p.reviewStatus === "CORRECT")
-                ? "CORRECT"
-                : (m.reviewStatus === "NEEDS_EDITING" || p.reviewStatus === "NEEDS_EDITING")
-                ? "NEEDS_EDITING"
-                : (m.reviewStatus || p.reviewStatus || "PENDING"),
-              reviewNote: m.reviewNote !== undefined ? m.reviewNote : p.reviewNote
-            };
-          }
+        list = activeMongoList.map(m => {
+          const mid = String(m.id);
           return {
-            ...p,
-            hasOrders,
-            mongoSyncStatus: p.mongoSyncStatus === "SYNC_FAILED" ? "SYNC_FAILED" : (p.mongoSyncStatus || "PENDING")
+            ...m,
+            hasOrders: orderProductIds.has(mid),
+            mongoSyncStatus: "SYNCED",
+            mongoSyncedAt: m.mongoSyncedAt || new Date().toISOString(),
+            reviewStatus: m.reviewStatus || "PENDING"
           };
         });
-
-        // Add any products that exist in MongoDB but NOT in store
-        activeMongoList.forEach(m => {
-          const mid = String(m.id);
-          if (!storeMap.has(mid)) {
-            list.push({
-              ...m,
-              hasOrders: orderProductIds.has(mid),
-              mongoSyncStatus: "SYNCED",
-              mongoSyncedAt: m.mongoSyncedAt || new Date().toISOString(),
-              reviewStatus: m.reviewStatus || "PENDING"
-            });
-          }
-        });
+      } else {
+        list = store.getProducts({ includeInactive: true }).filter(p => !deletedIds.has(String(p.id))).map(p => ({
+          ...p,
+          hasOrders: orderProductIds.has(String(p.id))
+        }));
       }
     } catch (e) {
-      // Fallback gracefully to store
-      list = list.map(p => ({
+      list = store.getProducts({ includeInactive: true }).filter(p => !deletedIds.has(String(p.id))).map(p => ({
         ...p,
         hasOrders: orderProductIds.has(String(p.id))
       }));
     }
   } else {
-    list = list.map(p => ({
+    list = store.getProducts({ includeInactive: true }).filter(p => !deletedIds.has(String(p.id))).map(p => ({
       ...p,
       hasOrders: orderProductIds.has(String(p.id))
     }));
@@ -969,6 +1088,59 @@ router.get("/products/generate-sku", requireAdmin, async (req, res) => {
   });
 });
 
+router.get("/products/validate-sku", requireAdmin, async (req, res) => {
+  try {
+    const { sku, excludeId } = req.query;
+    if (!sku) {
+      return res.json({ success: true, isUnique: true });
+    }
+    const cleanSku = String(sku).trim().toLowerCase();
+    const cleanExclude = excludeId ? String(excludeId).trim().toLowerCase() : "";
+
+    let allProducts = [];
+    if (mongoService.isConfigured()) {
+      try {
+        const mongoList = await mongoService.getProductsFromMongo();
+        if (Array.isArray(mongoList)) {
+          allProducts = mongoList;
+        } else {
+          allProducts = store.getProducts({ includeInactive: true });
+        }
+      } catch (e) {
+        allProducts = store.getProducts({ includeInactive: true });
+      }
+    } else {
+      allProducts = store.getProducts({ includeInactive: true });
+    }
+
+    const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
+    allProducts = allProducts.filter(p => !deletedIds.has(String(p.id)));
+
+    const conflict = allProducts.find(p => {
+      if (cleanExclude && (String(p.id).toLowerCase() === cleanExclude || String(p.slug).toLowerCase() === cleanExclude)) {
+        return false;
+      }
+      return (p.sku || p.SKU || "").trim().toLowerCase() === cleanSku;
+    });
+
+    if (conflict) {
+      return res.json({
+        success: true,
+        isUnique: false,
+        existingProduct: {
+          id: conflict.id,
+          title: conflict.title || conflict.productName,
+          sku: conflict.sku || conflict.SKU
+        }
+      });
+    }
+
+    res.json({ success: true, isUnique: true });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 router.post("/products/check-duplicate", requireAdmin, async (req, res) => {
   const {
     category,
@@ -982,7 +1154,24 @@ router.post("/products/check-duplicate", requireAdmin, async (req, res) => {
     excludeIds
   } = req.body;
 
-  const allProducts = store.getProducts({ includeInactive: true });
+  let allProducts = [];
+  if (mongoService.isConfigured()) {
+    try {
+      const mongoList = await mongoService.getProductsFromMongo();
+      if (Array.isArray(mongoList)) {
+        allProducts = mongoList;
+      } else {
+        allProducts = store.getProducts({ includeInactive: true });
+      }
+    } catch (e) {
+      allProducts = store.getProducts({ includeInactive: true });
+    }
+  } else {
+    allProducts = store.getProducts({ includeInactive: true });
+  }
+
+  const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
+  allProducts = allProducts.filter(p => !deletedIds.has(String(p.id)));
   const norm = (str) => (str || "").toLowerCase().replace(/[^a-z0-9]/g, "").trim();
   const normModel = norm(modelNumber);
   const normTitle = norm(title || productName);
@@ -1582,7 +1771,23 @@ router.post("/products", requireAdmin, async (req, res) => {
       return res.status(400).json({ success: false, message: "Product name is required" });
     }
 
-    const allProducts = store.getProducts({ includeInactive: true });
+    let allProducts = [];
+    if (mongoService.isConfigured()) {
+      try {
+        const mongoList = await mongoService.getProductsFromMongo();
+        if (Array.isArray(mongoList)) {
+          allProducts = mongoList;
+        } else {
+          allProducts = store.getProducts({ includeInactive: true });
+        }
+      } catch (e) {
+        allProducts = store.getProducts({ includeInactive: true });
+      }
+    } else {
+      allProducts = store.getProducts({ includeInactive: true });
+    }
+    const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
+    allProducts = allProducts.filter(p => !deletedIds.has(String(p.id)));
 
     // Enforce SKU Uniqueness
     if (data.sku) {
@@ -1794,7 +1999,24 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
       const cleanSku = updates.sku.trim().toLowerCase();
       const existingClean = (existing.sku || existing.SKU || "").trim().toLowerCase();
       if (cleanSku !== existingClean) {
-        const allProducts = store.getProducts({ includeInactive: true });
+        let allProducts = [];
+        if (mongoService.isConfigured()) {
+          try {
+            const mongoList = await mongoService.getProductsFromMongo();
+            if (Array.isArray(mongoList)) {
+              allProducts = mongoList;
+            } else {
+              allProducts = store.getProducts({ includeInactive: true });
+            }
+          } catch (e) {
+            allProducts = store.getProducts({ includeInactive: true });
+          }
+        } else {
+          allProducts = store.getProducts({ includeInactive: true });
+        }
+        const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
+        allProducts = allProducts.filter(p => !deletedIds.has(String(p.id)));
+
         const skuConflict = allProducts.find(
           p => p.id !== existing.id && p.slug !== existing.slug && (p.sku || p.SKU || "").toLowerCase() === cleanSku
         );
@@ -2216,8 +2438,14 @@ router.post("/products/:id/archive", requireAdmin, async (req, res) => {
   }
 });
 
-router.post("/products/:id/duplicate", requireAdmin, (req, res) => {
-  const existing = store.getProductById(req.params.id, true);
+router.post("/products/:id/duplicate", requireAdmin, async (req, res) => {
+  let existing = store.getProductById(req.params.id, true);
+  if (mongoService.isConfigured()) {
+    try {
+      const mProd = await mongoService.getApprovedProduct(req.params.id);
+      if (mProd) existing = existing ? { ...existing, ...mProd } : mProd;
+    } catch (e) {}
+  }
   if (!existing) {
     return res.status(404).json({ success: false, message: "Product not found" });
   }
@@ -2225,6 +2453,7 @@ router.post("/products/:id/duplicate", requireAdmin, (req, res) => {
   const copySlug = `${existing.slug}-copy-${Math.random().toString(36).substring(2, 6)}`;
   const copyTitle = `${existing.title || existing.productName} (Copy)`;
   const copySku = `${existing.sku || existing.SKU || "DRM"}-CPY`;
+  const existingStock = existing.stock !== undefined ? Number(existing.stock) : (existing.stockQuantity !== undefined ? Number(existing.stockQuantity) : 0);
 
   const duplicatedData = {
     ...existing,
@@ -2233,6 +2462,8 @@ router.post("/products/:id/duplicate", requireAdmin, (req, res) => {
     productName: copyTitle,
     slug: copySlug,
     sku: copySku,
+    stock: existingStock,
+    stockQuantity: existingStock,
     status: "DRAFT",
     featured: false,
     isFeatured: false,
@@ -2245,6 +2476,11 @@ router.post("/products/:id/duplicate", requireAdmin, (req, res) => {
   };
 
   const created = store.addProduct(duplicatedData);
+  if (mongoService.isConfigured()) {
+    try {
+      await mongoService.upsertProduct(created, req.admin.email);
+    } catch (mErr) {}
+  }
   auditService.logAction(req.admin.email, "PRODUCT_DUPLICATED", created.id, { originalId: existing.id, copyTitle });
   res.status(201).json({ success: true, product: created });
 });

@@ -394,68 +394,39 @@ router.get("/products", requireAdmin, async (req, res) => {
     }
   });
 
-  // 3. Load base list from store, excluding permanently deleted IDs
-  let list = store.getProducts({ includeInactive: true }).filter(p => !deletedIds.has(String(p.id)));
-
-  // 4. Merge authoritative records from MongoDB if configured and reachable
+  // 3. Load authoritative list from MongoDB Atlas when configured, fallback to store only if not configured or offline
+  let list = [];
   if (mongoService.isConfigured()) {
     try {
       const mongoList = await mongoService.getProductsFromMongo();
       if (Array.isArray(mongoList)) {
+        // Authoritative source of truth: MongoDB Atlas.
+        // Never merge seed or ghost products from initialProducts.
         const activeMongoList = mongoList.filter(m => !deletedIds.has(String(m.id)));
-        const mongoMap = new Map(activeMongoList.map(m => [String(m.id), m]));
-        const storeMap = new Set(list.map(p => String(p.id)));
-
-        // Merge onto existing store items
-        list = list.map(p => {
-          const pid = String(p.id);
-          const hasOrders = orderProductIds.has(pid);
-          const m = mongoMap.get(pid);
-          if (m) {
-            return {
-              ...p,
-              ...m,
-              hasOrders,
-              mongoSyncStatus: "SYNCED",
-              mongoSyncedAt: m.mongoSyncedAt || p.mongoSyncedAt || new Date().toISOString(),
-              reviewStatus: (m.reviewStatus === "CORRECT" || p.reviewStatus === "CORRECT")
-                ? "CORRECT"
-                : (m.reviewStatus === "NEEDS_EDITING" || p.reviewStatus === "NEEDS_EDITING")
-                ? "NEEDS_EDITING"
-                : (m.reviewStatus || p.reviewStatus || "PENDING"),
-              reviewNote: m.reviewNote !== undefined ? m.reviewNote : p.reviewNote
-            };
-          }
+        list = activeMongoList.map(m => {
+          const mid = String(m.id);
           return {
-            ...p,
-            hasOrders,
-            mongoSyncStatus: p.mongoSyncStatus === "SYNC_FAILED" ? "SYNC_FAILED" : (p.mongoSyncStatus || "PENDING")
+            ...m,
+            hasOrders: orderProductIds.has(mid),
+            mongoSyncStatus: "SYNCED",
+            mongoSyncedAt: m.mongoSyncedAt || new Date().toISOString(),
+            reviewStatus: m.reviewStatus || "PENDING"
           };
         });
-
-        // Add any products that exist in MongoDB but NOT in store
-        activeMongoList.forEach(m => {
-          const mid = String(m.id);
-          if (!storeMap.has(mid)) {
-            list.push({
-              ...m,
-              hasOrders: orderProductIds.has(mid),
-              mongoSyncStatus: "SYNCED",
-              mongoSyncedAt: m.mongoSyncedAt || new Date().toISOString(),
-              reviewStatus: m.reviewStatus || "PENDING"
-            });
-          }
-        });
+      } else {
+        list = store.getProducts({ includeInactive: true }).filter(p => !deletedIds.has(String(p.id))).map(p => ({
+          ...p,
+          hasOrders: orderProductIds.has(String(p.id))
+        }));
       }
     } catch (e) {
-      // Fallback gracefully to store
-      list = list.map(p => ({
+      list = store.getProducts({ includeInactive: true }).filter(p => !deletedIds.has(String(p.id))).map(p => ({
         ...p,
         hasOrders: orderProductIds.has(String(p.id))
       }));
     }
   } else {
-    list = list.map(p => ({
+    list = store.getProducts({ includeInactive: true }).filter(p => !deletedIds.has(String(p.id))).map(p => ({
       ...p,
       hasOrders: orderProductIds.has(String(p.id))
     }));
@@ -1117,6 +1088,59 @@ router.get("/products/generate-sku", requireAdmin, async (req, res) => {
   });
 });
 
+router.get("/products/validate-sku", requireAdmin, async (req, res) => {
+  try {
+    const { sku, excludeId } = req.query;
+    if (!sku) {
+      return res.json({ success: true, isUnique: true });
+    }
+    const cleanSku = String(sku).trim().toLowerCase();
+    const cleanExclude = excludeId ? String(excludeId).trim().toLowerCase() : "";
+
+    let allProducts = [];
+    if (mongoService.isConfigured()) {
+      try {
+        const mongoList = await mongoService.getProductsFromMongo();
+        if (Array.isArray(mongoList)) {
+          allProducts = mongoList;
+        } else {
+          allProducts = store.getProducts({ includeInactive: true });
+        }
+      } catch (e) {
+        allProducts = store.getProducts({ includeInactive: true });
+      }
+    } else {
+      allProducts = store.getProducts({ includeInactive: true });
+    }
+
+    const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
+    allProducts = allProducts.filter(p => !deletedIds.has(String(p.id)));
+
+    const conflict = allProducts.find(p => {
+      if (cleanExclude && (String(p.id).toLowerCase() === cleanExclude || String(p.slug).toLowerCase() === cleanExclude)) {
+        return false;
+      }
+      return (p.sku || p.SKU || "").trim().toLowerCase() === cleanSku;
+    });
+
+    if (conflict) {
+      return res.json({
+        success: true,
+        isUnique: false,
+        existingProduct: {
+          id: conflict.id,
+          title: conflict.title || conflict.productName,
+          sku: conflict.sku || conflict.SKU
+        }
+      });
+    }
+
+    res.json({ success: true, isUnique: true });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 router.post("/products/check-duplicate", requireAdmin, async (req, res) => {
   const {
     category,
@@ -1130,7 +1154,24 @@ router.post("/products/check-duplicate", requireAdmin, async (req, res) => {
     excludeIds
   } = req.body;
 
-  const allProducts = store.getProducts({ includeInactive: true });
+  let allProducts = [];
+  if (mongoService.isConfigured()) {
+    try {
+      const mongoList = await mongoService.getProductsFromMongo();
+      if (Array.isArray(mongoList)) {
+        allProducts = mongoList;
+      } else {
+        allProducts = store.getProducts({ includeInactive: true });
+      }
+    } catch (e) {
+      allProducts = store.getProducts({ includeInactive: true });
+    }
+  } else {
+    allProducts = store.getProducts({ includeInactive: true });
+  }
+
+  const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
+  allProducts = allProducts.filter(p => !deletedIds.has(String(p.id)));
   const norm = (str) => (str || "").toLowerCase().replace(/[^a-z0-9]/g, "").trim();
   const normModel = norm(modelNumber);
   const normTitle = norm(title || productName);
@@ -1730,7 +1771,23 @@ router.post("/products", requireAdmin, async (req, res) => {
       return res.status(400).json({ success: false, message: "Product name is required" });
     }
 
-    const allProducts = store.getProducts({ includeInactive: true });
+    let allProducts = [];
+    if (mongoService.isConfigured()) {
+      try {
+        const mongoList = await mongoService.getProductsFromMongo();
+        if (Array.isArray(mongoList)) {
+          allProducts = mongoList;
+        } else {
+          allProducts = store.getProducts({ includeInactive: true });
+        }
+      } catch (e) {
+        allProducts = store.getProducts({ includeInactive: true });
+      }
+    } else {
+      allProducts = store.getProducts({ includeInactive: true });
+    }
+    const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
+    allProducts = allProducts.filter(p => !deletedIds.has(String(p.id)));
 
     // Enforce SKU Uniqueness
     if (data.sku) {
@@ -1942,7 +1999,24 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
       const cleanSku = updates.sku.trim().toLowerCase();
       const existingClean = (existing.sku || existing.SKU || "").trim().toLowerCase();
       if (cleanSku !== existingClean) {
-        const allProducts = store.getProducts({ includeInactive: true });
+        let allProducts = [];
+        if (mongoService.isConfigured()) {
+          try {
+            const mongoList = await mongoService.getProductsFromMongo();
+            if (Array.isArray(mongoList)) {
+              allProducts = mongoList;
+            } else {
+              allProducts = store.getProducts({ includeInactive: true });
+            }
+          } catch (e) {
+            allProducts = store.getProducts({ includeInactive: true });
+          }
+        } else {
+          allProducts = store.getProducts({ includeInactive: true });
+        }
+        const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
+        allProducts = allProducts.filter(p => !deletedIds.has(String(p.id)));
+
         const skuConflict = allProducts.find(
           p => p.id !== existing.id && p.slug !== existing.slug && (p.sku || p.SKU || "").toLowerCase() === cleanSku
         );
@@ -2364,8 +2438,14 @@ router.post("/products/:id/archive", requireAdmin, async (req, res) => {
   }
 });
 
-router.post("/products/:id/duplicate", requireAdmin, (req, res) => {
-  const existing = store.getProductById(req.params.id, true);
+router.post("/products/:id/duplicate", requireAdmin, async (req, res) => {
+  let existing = store.getProductById(req.params.id, true);
+  if (mongoService.isConfigured()) {
+    try {
+      const mProd = await mongoService.getApprovedProduct(req.params.id);
+      if (mProd) existing = existing ? { ...existing, ...mProd } : mProd;
+    } catch (e) {}
+  }
   if (!existing) {
     return res.status(404).json({ success: false, message: "Product not found" });
   }
@@ -2373,6 +2453,7 @@ router.post("/products/:id/duplicate", requireAdmin, (req, res) => {
   const copySlug = `${existing.slug}-copy-${Math.random().toString(36).substring(2, 6)}`;
   const copyTitle = `${existing.title || existing.productName} (Copy)`;
   const copySku = `${existing.sku || existing.SKU || "DRM"}-CPY`;
+  const existingStock = existing.stock !== undefined ? Number(existing.stock) : (existing.stockQuantity !== undefined ? Number(existing.stockQuantity) : 0);
 
   const duplicatedData = {
     ...existing,
@@ -2381,6 +2462,8 @@ router.post("/products/:id/duplicate", requireAdmin, (req, res) => {
     productName: copyTitle,
     slug: copySlug,
     sku: copySku,
+    stock: existingStock,
+    stockQuantity: existingStock,
     status: "DRAFT",
     featured: false,
     isFeatured: false,
@@ -2393,6 +2476,11 @@ router.post("/products/:id/duplicate", requireAdmin, (req, res) => {
   };
 
   const created = store.addProduct(duplicatedData);
+  if (mongoService.isConfigured()) {
+    try {
+      await mongoService.upsertProduct(created, req.admin.email);
+    } catch (mErr) {}
+  }
   auditService.logAction(req.admin.email, "PRODUCT_DUPLICATED", created.id, { originalId: existing.id, copyTitle });
   res.status(201).json({ success: true, product: created });
 });

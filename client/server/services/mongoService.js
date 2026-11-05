@@ -239,8 +239,29 @@ async function upsertApprovedProduct(product, adminEmail = "admin@drmedex.com") 
     regularPrice: product.regularPrice !== undefined ? Number(product.regularPrice) : null,
     salePrice: product.salePrice !== undefined ? Number(product.salePrice) : null,
     baseCurrency: product.baseCurrency || "INR",
-    stock: Number(product.stock || 0),
-    stockStatus: product.stockStatus || (Number(product.stock || 0) > 0 ? "IN_STOCK" : "OUT_OF_STOCK"),
+    stock: Number(
+      product.stock !== undefined && product.stock !== null && !isNaN(Number(product.stock))
+        ? product.stock
+        : (product.stockQuantity !== undefined && product.stockQuantity !== null && !isNaN(Number(product.stockQuantity))
+            ? product.stockQuantity
+            : 0)
+    ),
+    stockQuantity: Number(
+      product.stock !== undefined && product.stock !== null && !isNaN(Number(product.stock))
+        ? product.stock
+        : (product.stockQuantity !== undefined && product.stockQuantity !== null && !isNaN(Number(product.stockQuantity))
+            ? product.stockQuantity
+            : 0)
+    ),
+    stockStatus: product.stockStatus || (
+      Number(
+        product.stock !== undefined && product.stock !== null && !isNaN(Number(product.stock))
+          ? product.stock
+          : (product.stockQuantity !== undefined && product.stockQuantity !== null && !isNaN(Number(product.stockQuantity))
+              ? product.stockQuantity
+              : 0)
+      ) > 0 ? "IN_STOCK" : "OUT_OF_STOCK"
+    ),
     status: product.status || "ACTIVE",
     isRetired: Boolean(product.isRetired),
     inCatalogue: product.inCatalogue !== undefined ? Boolean(product.inCatalogue) : (product.status !== "ARCHIVED" && !product.isRetired),

@@ -622,7 +622,7 @@ export const AdminProductEditorPage: React.FC = () => {
   // ==========================================
   const [originalPrice, setOriginalPrice] = useState<number>(initialProduct?.originalPrice || initialProduct?.regularPrice || initialProduct?.basePrice || 0);
   const [basePrice, setBasePrice] = useState<number>(initialProduct?.basePrice || initialProduct?.salePrice || 0);
-  const initStock = initialProduct?.stock !== undefined ? initialProduct.stock : (initialProduct?.stockQuantity !== undefined ? initialProduct.stockQuantity : 10);
+  const initStock = initialProduct?.stock !== undefined ? initialProduct.stock : (initialProduct?.stockQuantity !== undefined ? initialProduct.stockQuantity : 0);
   const [stock, setStock] = useState<number>(initStock);
   const [stockStatus, setStockStatus] = useState<"IN_STOCK" | "LOW_STOCK" | "OUT_OF_STOCK">(
     initialProduct?.stockStatus || (initStock > 0 ? (initStock <= 5 ? "LOW_STOCK" : "IN_STOCK") : "OUT_OF_STOCK")
@@ -712,7 +712,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
     setOriginalPrice(p.originalPrice || p.regularPrice || p.basePrice || 0);
     setBasePrice(p.basePrice || p.salePrice || 0);
-    const pStock = p.stock !== undefined ? p.stock : (p.stockQuantity !== undefined ? p.stockQuantity : 10);
+    const pStock = p.stock !== undefined ? p.stock : (p.stockQuantity !== undefined ? p.stockQuantity : 0);
     setStock(pStock);
     setLowStockThreshold(p.lowStockThreshold || 3);
     setStockStatus(p.stockStatus || (pStock > 0 ? (pStock <= 5 ? "LOW_STOCK" : "IN_STOCK") : "OUT_OF_STOCK"));
@@ -1529,13 +1529,7 @@ export const AdminProductEditorPage: React.FC = () => {
       }
     }
 
-    // Step 9: Operational Defaults (Never invent selling price from photographs)
-    if (!manuallyEditedFields.has("stock") && (!stock || stock === 0)) {
-      setStock(10);
-    }
-    if (!manuallyEditedFields.has("stockStatus")) {
-      setStockStatus("IN_STOCK");
-    }
+    // Step 9: Operational Defaults (Never invent selling price or stock from photographs)
     if (!manuallyEditedFields.has("leadTimeWeeks") && !leadTimeWeeks) {
       setLeadTimeWeeks("1–2 Weeks");
     }
@@ -2529,8 +2523,9 @@ export const AdminProductEditorPage: React.FC = () => {
       calculatedSavings,
 
       stock: Number(stock),
+      stockQuantity: Number(stock),
       lowStockThreshold: Number(lowStockThreshold),
-      stockStatus: stock <= 0 ? "OUT_OF_STOCK" : stock <= 5 ? "LOW_STOCK" : "IN_STOCK",
+      stockStatus: stock <= 0 ? "OUT_OF_STOCK" : stock <= (lowStockThreshold || 5) ? "LOW_STOCK" : "IN_STOCK",
       moq: Number(minOrderQuantity),
       leadTimeWeeks,
       shippingInformation,
@@ -4017,7 +4012,7 @@ export const AdminProductEditorPage: React.FC = () => {
                           setStock(0);
                         } else {
                           setStockStatus("IN_STOCK");
-                          if (stock <= 0) setStock(10);
+                          if (stock <= 0) setStock(1);
                         }
                         markFieldEdited("stockStatus");
                         markFieldEdited("stock");
