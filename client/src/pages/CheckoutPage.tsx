@@ -152,6 +152,7 @@ export const CheckoutPage: React.FC = () => {
   const [showLocationPrompt, setShowLocationPrompt] = useState(false);
   const [isGeolocating, setIsGeolocating] = useState(false);
   const [locationNotice, setLocationNotice] = useState<string | null>(null);
+  const locationRequestIdRef = useRef<number>(0);
 
   // Billing Address
   const [billingSameAsShipping, setBillingSameAsShipping] = useState(true);
@@ -346,39 +347,71 @@ export const CheckoutPage: React.FC = () => {
 
   // 3b. Smart Location Handler: Auto-fill regional destination without overwriting manual intent
   const handleLocationDetected = (loc: ResolvedLocationData) => {
-    if (loc.countryCode) {
-      setCountryCode(loc.countryCode.toUpperCase());
+    const newCountryCode = (loc.countryCode || "").toUpperCase();
+    const newState = loc.state || "";
+    const newStateCode = (loc.stateCode || "").toUpperCase();
+    const newCity = loc.city || loc.district || "";
+    const newDistrict = loc.district || "";
+    const newPostalCode = loc.postalCode || "";
+
+    if (newCountryCode) {
+      setCountryCode(newCountryCode);
+      if (billingSameAsShipping) setBillingCountryCode(newCountryCode);
     }
-    if (loc.state) {
-      setState(loc.state);
+    if (newState) {
+      setState(newState);
+      if (billingSameAsShipping) setBillingState(newState);
     }
-    if (loc.stateCode) {
-      setStateCode(loc.stateCode.toUpperCase());
+    if (newStateCode) {
+      setStateCode(newStateCode);
     }
-    if (loc.city) {
-      setCity(loc.city);
-    } else if (loc.district) {
-      setCity(loc.district);
+    if (newCity) {
+      setCity(newCity);
+      if (billingSameAsShipping) setBillingCity(newCity);
     }
-    if (loc.district) {
-      setDistrict(loc.district);
+    if (newDistrict) {
+      setDistrict(newDistrict);
     }
-    if (loc.postalCode) {
-      setPostalCode(loc.postalCode);
+    if (newPostalCode) {
+      setPostalCode(newPostalCode);
+      if (billingSameAsShipping) setBillingPostalCode(newPostalCode);
     }
     if (loc.streetAddress) {
       setAddressLine1(loc.streetAddress);
       setAutocompleteQuery(loc.formattedAddress || loc.streetAddress);
+      if (billingSameAsShipping) setBillingAddressLine1(loc.streetAddress);
     } else if (loc.formattedAddress) {
-      setAddressLine1(loc.formattedAddress.split(",")[0].trim());
+      const firstLine = loc.formattedAddress.split(",")[0].trim();
+      setAddressLine1(firstLine);
       setAutocompleteQuery(loc.formattedAddress);
+      if (billingSameAsShipping) setBillingAddressLine1(firstLine);
     }
+
+    // Immediately persist to localStorage draft so it matches the freshly detected address
+    try {
+      const savedDraftRaw = localStorage.getItem(GUEST_CHECKOUT_STORAGE_KEY);
+      const draft = savedDraftRaw ? JSON.parse(savedDraftRaw) : {};
+      draft.country = loc.country;
+      draft.countryCode = newCountryCode;
+      draft.state = newState;
+      draft.stateCode = newStateCode;
+      draft.city = newCity;
+      draft.district = newDistrict;
+      draft.postalCode = newPostalCode;
+      if (loc.streetAddress) {
+        draft.addressLine1 = loc.streetAddress;
+      } else if (loc.formattedAddress) {
+        draft.addressLine1 = loc.formattedAddress.split(",")[0].trim();
+      }
+      localStorage.setItem(GUEST_CHECKOUT_STORAGE_KEY, JSON.stringify(draft));
+    } catch (e) {}
 
     try {
       sessionStorage.setItem("drmedex_location_session_dismissed", "true");
     } catch (e) {}
 
-    const locSummary = [loc.city || loc.district, loc.state, loc.country].filter(Boolean).join(", ");
+    // Location notice MUST use the EXACT same [newCity, newState, loc.country] populated in the form fields
+    const locSummary = [newCity, newState, loc.country].filter(Boolean).join(", ");
     if (loc.accuracy && loc.accuracy > 2000) {
       setLocationNotice(`Approximate location detected: ${locSummary} (~${Math.round(loc.accuracy / 1000)} km precision) — Please verify your delivery address.`);
     } else {
@@ -392,16 +425,21 @@ export const CheckoutPage: React.FC = () => {
       return;
     }
 
+    const currentReqId = ++locationRequestIdRef.current;
     setIsGeolocating(true);
-    setLocationNotice(null);
+    setLocationNotice("Detecting fresh device location...");
 
     const onGeoSuccess = async (pos: GeolocationPosition) => {
+      if (currentReqId !== locationRequestIdRef.current) return;
       try {
         const lat = pos.coords.latitude;
         const lng = pos.coords.longitude;
         const accuracy = Math.round(pos.coords.accuracy || 0);
 
-        const res = await fetch(`/api/location/reverse-geocode?lat=${lat}&lng=${lng}&acc=${accuracy}`);
+        // Append timestamp &_t to prevent HTTP caching
+        const res = await fetch(`/api/location/reverse-geocode?lat=${lat}&lng=${lng}&acc=${accuracy}&_t=${Date.now()}`);
+        if (currentReqId !== locationRequestIdRef.current) return;
+
         if (!res.ok) {
           let errorDetail = `HTTP ${res.status}`;
           try {
@@ -412,20 +450,26 @@ export const CheckoutPage: React.FC = () => {
         }
 
         const data = await res.json();
+        if (currentReqId !== locationRequestIdRef.current) return;
+
         if (data.success) {
           handleLocationDetected(data);
           return;
         }
         throw new Error(data.message || "Could not resolve address");
       } catch (err: any) {
+        if (currentReqId !== locationRequestIdRef.current) return;
         console.warn("[Checkout] Geolocation reverse lookup error:", err);
         setLocationNotice(`Unable to auto-detect location: ${err.message || "Service unavailable"}. Please enter your regional address manually below.`);
       } finally {
-        setIsGeolocating(false);
+        if (currentReqId === locationRequestIdRef.current) {
+          setIsGeolocating(false);
+        }
       }
     };
 
     const onGeoError = (err: GeolocationPositionError) => {
+      if (currentReqId !== locationRequestIdRef.current) return;
       setIsGeolocating(false);
       if (err.code === err.PERMISSION_DENIED) {
         setLocationNotice("Location permission was denied in your browser settings. You can enter your regional shipping destination manually below, or enable location in site permissions.");
@@ -441,11 +485,12 @@ export const CheckoutPage: React.FC = () => {
     navigator.geolocation.getCurrentPosition(
       onGeoSuccess,
       (firstErr) => {
+        if (currentReqId !== locationRequestIdRef.current) return;
         if (firstErr.code === firstErr.TIMEOUT) {
           navigator.geolocation.getCurrentPosition(
             onGeoSuccess,
             onGeoError,
-            { enableHighAccuracy: false, timeout: 10000, maximumAge: 10000 }
+            { enableHighAccuracy: false, timeout: 10000, maximumAge: 0 }
           );
         } else {
           onGeoError(firstErr);
@@ -468,18 +513,10 @@ export const CheckoutPage: React.FC = () => {
       window.history.replaceState({}, "", cleanUrl);
     }
 
-    // 1. Check if detectedLocation was passed via state or saved in sessionStorage
+    // 1. Check if detectedLocation was passed freshly via navigation state
     const stateLoc = (routeLocation.state as any)?.detectedLocation;
-    let savedLoc: ResolvedLocationData | null = null;
-    if (!stateLoc) {
-      try {
-        const cached = sessionStorage.getItem("drmedex_detected_location");
-        if (cached) savedLoc = JSON.parse(cached);
-      } catch (e) {}
-    }
-    const locToApply = stateLoc || savedLoc;
-    if (locToApply) {
-      handleLocationDetected(locToApply);
+    if (stateLoc) {
+      handleLocationDetected(stateLoc);
       return;
     }
 
@@ -538,6 +575,8 @@ export const CheckoutPage: React.FC = () => {
 
   // 4. Pre-populate from authenticated user or saved guest draft (STRICTLY NO FAKE MOCK DATA)
   useEffect(() => {
+    const hasFreshDetectedLocation = Boolean((routeLocation.state as any)?.detectedLocation);
+
     try {
       const savedDraftRaw = localStorage.getItem(GUEST_CHECKOUT_STORAGE_KEY);
       if (savedDraftRaw) {
@@ -557,15 +596,19 @@ export const CheckoutPage: React.FC = () => {
         if (draft.phone) setPhone(draft.phone);
         if (draft.companyName) setCompanyName(draft.companyName);
         if (draft.department) setDepartment(draft.department);
-        if (draft.addressLine1) setAddressLine1(draft.addressLine1);
-        if (draft.addressLine2) setAddressLine2(draft.addressLine2);
         if (draft.buildingSuite) setBuildingSuite(draft.buildingSuite);
-        if (draft.district) setDistrict(draft.district);
-        if (draft.city) setCity(draft.city);
-        if (draft.state) setState(draft.state);
-        if (draft.stateCode) setStateCode(draft.stateCode);
-        if (draft.postalCode) setPostalCode(draft.postalCode);
-        if (draft.countryCode) setCountryCode(draft.countryCode);
+
+        // Strictly do not allow stale draft address to overwrite a freshly detected GPS location!
+        if (!hasFreshDetectedLocation) {
+          if (draft.addressLine1) setAddressLine1(draft.addressLine1);
+          if (draft.addressLine2) setAddressLine2(draft.addressLine2);
+          if (draft.district) setDistrict(draft.district);
+          if (draft.city) setCity(draft.city);
+          if (draft.state) setState(draft.state);
+          if (draft.stateCode) setStateCode(draft.stateCode);
+          if (draft.postalCode) setPostalCode(draft.postalCode);
+          if (draft.countryCode) setCountryCode(draft.countryCode);
+        }
       }
     } catch (e) {}
 
@@ -660,6 +703,7 @@ export const CheckoutPage: React.FC = () => {
       setCountryCode(addr.countryCode);
       if (billingSameAsShipping) setBillingCountryCode(addr.countryCode);
     }
+    setLocationNotice(null);
   };
 
   // Save address action
@@ -1697,8 +1741,12 @@ export const CheckoutPage: React.FC = () => {
                     if (updated.countryCode !== undefined) {
                       setCountryCode(updated.countryCode);
                       if (billingSameAsShipping) setBillingCountryCode(updated.countryCode);
+                      setLocationNotice(null);
                     }
-                    if (updated.state !== undefined) setState(updated.state);
+                    if (updated.state !== undefined) {
+                      setState(updated.state);
+                      setLocationNotice(null);
+                    }
                     if (updated.stateCode !== undefined) setStateCode(updated.stateCode);
                     if (updated.city !== undefined) setCity(updated.city);
                     if (updated.postalCode !== undefined) setPostalCode(updated.postalCode);
@@ -1712,6 +1760,7 @@ export const CheckoutPage: React.FC = () => {
                     if (selected.currency && selected.currency !== currentCurrency) {
                       setCurrencyManually(selected.currency);
                     }
+                    setLocationNotice(null);
                   }}
                   isGeolocating={isGeolocating}
                   onDetectLocation={handleDirectDetectLocation}

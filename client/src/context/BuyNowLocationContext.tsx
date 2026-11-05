@@ -27,11 +27,10 @@ export const BuyNowLocationProvider: React.FC<{ children: React.ReactNode }> = (
   const [isProcessing, setIsProcessing] = useState(false);
   const [, setPendingItem] = useState<PendingBuyItem | null>(null);
 
-  // Helper to persist detected location into draft and session
+  // Helper to persist detected location into draft
   const saveLocationData = (data: ResolvedLocationData) => {
     try {
-      sessionStorage.setItem("drmedex_detected_location", JSON.stringify(data));
-      const savedDraftRaw = localStorage.getItem("drmedex_guest_checkout_draft");
+      const savedDraftRaw = localStorage.getItem("drmedex_guest_checkout_v4");
       const draft = savedDraftRaw ? JSON.parse(savedDraftRaw) : {};
       draft.country = data.country;
       draft.countryCode = data.countryCode;
@@ -40,11 +39,16 @@ export const BuyNowLocationProvider: React.FC<{ children: React.ReactNode }> = (
       draft.district = data.district;
       draft.city = data.city || data.district;
       draft.postalCode = data.postalCode;
+      if (data.streetAddress) {
+        draft.addressLine1 = data.streetAddress;
+      } else if (data.formattedAddress) {
+        draft.addressLine1 = data.formattedAddress.split(",")[0].trim();
+      }
       if (data.countryData?.dialCode) {
         draft.phoneCountryCode = data.countryData.dialCode;
         draft.phoneIso = data.countryCode;
       }
-      localStorage.setItem("drmedex_guest_checkout_draft", JSON.stringify(draft));
+      localStorage.setItem("drmedex_guest_checkout_v4", JSON.stringify(draft));
     } catch (e) {
       // Ignore storage errors in restricted browser contexts
     }

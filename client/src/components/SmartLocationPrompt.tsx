@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { MapPin, X, Loader2, Navigation, CheckCircle2 } from "lucide-react";
 
 export interface ResolvedLocationData {
@@ -43,6 +43,7 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
   const [isDetecting, setIsDetecting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successLocation, setSuccessLocation] = useState<string | null>(null);
+  const requestIdRef = useRef<number>(0);
 
   if (!isOpen) return null;
 
@@ -52,16 +53,23 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
       return;
     }
 
+    const currentReqId = ++requestIdRef.current;
     setIsDetecting(true);
     setErrorMessage(null);
+    setSuccessLocation(null);
 
     const onPositionSuccess = async (position: GeolocationPosition) => {
+      if (currentReqId !== requestIdRef.current) return;
+
       try {
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
         const accuracy = Math.round(position.coords.accuracy || 0);
 
-        const res = await fetch(`/api/location/reverse-geocode?lat=${lat}&lng=${lng}&acc=${accuracy}`);
+        // Append timestamp &_t to prevent cached HTTP response from previous requests
+        const res = await fetch(`/api/location/reverse-geocode?lat=${lat}&lng=${lng}&acc=${accuracy}&_t=${Date.now()}`);
+        if (currentReqId !== requestIdRef.current) return;
+
         if (!res.ok) {
           let detail = `HTTP ${res.status}`;
           try {
@@ -72,20 +80,25 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
         }
 
         const data = await res.json();
+        if (currentReqId !== requestIdRef.current) return;
+
         if (!data.success) {
           throw new Error(data.message || "Failed to resolve your regional address.");
         }
 
-        const detectedSummary = [data.city || data.district, data.state, data.country].filter(Boolean).join(", ");
+        const resolvedCity = data.city || data.district || "";
+        const detectedSummary = [resolvedCity, data.state, data.country].filter(Boolean).join(", ");
         setSuccessLocation(detectedSummary || "Regional Address Located");
 
         // Small pause to allow user to see success state before closing
         setTimeout(() => {
+          if (currentReqId !== requestIdRef.current) return;
           onLocationDetected(data);
           setIsDetecting(false);
           onClose();
         }, 500);
       } catch (err: any) {
+        if (currentReqId !== requestIdRef.current) return;
         console.warn("[SmartLocationPrompt] Geocode error:", err);
         setErrorMessage(err.message || "Could not resolve your regional address. You can enter your delivery address manually below.");
         setIsDetecting(false);
@@ -93,6 +106,7 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
     };
 
     const onPositionError = (error: GeolocationPositionError) => {
+      if (currentReqId !== requestIdRef.current) return;
       setIsDetecting(false);
       if (error.code === error.PERMISSION_DENIED) {
         setErrorMessage("Location access was denied in your browser settings. You can enter your delivery address manually below, or allow location in browser site settings.");
@@ -105,11 +119,12 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
       }
     };
 
-    // Primary High-Accuracy GPS Request with 20s timeout and fresh position (maximumAge: 0)
+    // Primary High-Accuracy GPS Request with 15s timeout and fresh position (maximumAge: 0)
     navigator.geolocation.getCurrentPosition(
       onPositionSuccess,
       (firstError) => {
-        // Fallback Retry: If high-accuracy times out (e.g. indoors / laptop without satellite GPS), retry once with standard accuracy
+        if (currentReqId !== requestIdRef.current) return;
+        // Fallback Retry: If high-accuracy times out, retry once with standard accuracy (strictly maximumAge: 0)
         if (firstError.code === firstError.TIMEOUT) {
           navigator.geolocation.getCurrentPosition(
             onPositionSuccess,
@@ -117,7 +132,7 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
             {
               enableHighAccuracy: false,
               timeout: 10000,
-              maximumAge: 10000
+              maximumAge: 0
             }
           );
         } else {
@@ -126,7 +141,7 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
       },
       {
         enableHighAccuracy: true,
-        timeout: 20000,
+        timeout: 15000,
         maximumAge: 0
       }
     );

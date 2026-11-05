@@ -337,7 +337,11 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
       {(!step || step === 2) && locationNotice && (
         <div className="mb-4 flex items-center justify-between p-3 rounded-xl bg-[#F0F7ED] border border-[#7AA05A]/40 text-xs font-semibold text-[#2D5A4A] animate-in fade-in duration-200">
           <div className="flex items-center gap-2">
-            <Check size={16} className="text-[#7AA05A] shrink-0" />
+            {isGeolocating ? (
+              <Loader2 size={16} className="text-[#7AA05A] animate-spin shrink-0" />
+            ) : (
+              <Check size={16} className="text-[#7AA05A] shrink-0" />
+            )}
             <span>{locationNotice}</span>
           </div>
           {onDismissLocationNotice && (
