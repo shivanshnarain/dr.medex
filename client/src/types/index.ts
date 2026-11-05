@@ -243,13 +243,19 @@ export interface Order {
   payment: {
     method: string;
     provider?: string;
-    transactionId: string;
+    transactionId?: string;
     paypalOrderId?: string | null;
     paypalCaptureId?: string | null;
+    razorpayPaymentId?: string | null;
+    razorpayOrderId?: string | null;
+    razorpaySignature?: string | null;
     status: string;
-    paidAt: string;
+    paidAt?: string;
   };
-  fulfillmentStatus: string;
+  fulfillmentStatus?: string;
+  orderStatus?: string;
+  paymentMethod?: string;
+  paymentProvider?: string;
   status: string;
   createdAt: string;
   trackingTimeline: OrderTimelineEvent[];

@@ -51,6 +51,7 @@ import { AdminAuthProvider } from "./context/AdminAuthContext";
 import { AdminProductsPage } from "./pages/AdminProductsPage";
 import { AdminProductEditorPage } from "./pages/AdminProductEditorPage";
 import { AdminCategoriesPage } from "./pages/AdminCategoriesPage";
+import { AdminOrdersPage } from "./pages/AdminOrdersPage";
 import { AdminReviewsPage } from "./pages/AdminReviewsPage";
 import { AdminCustomersPage } from "./pages/AdminCustomersPage";
 import { AdminNotificationsPage } from "./pages/AdminNotificationsPage";
@@ -131,6 +132,8 @@ function AppContent() {
           <Route path="/admin/products/new" element={<AdminProductEditorPage />} />
           <Route path="/admin/products/:productId/edit" element={<AdminProductEditorPage />} />
           <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+          <Route path="/admin/orders" element={<AdminOrdersPage />} />
+          <Route path="/admin/orders/:orderId" element={<AdminOrdersPage />} />
           <Route path="/admin/reviews" element={<AdminReviewsPage />} />
           <Route path="/admin/customers" element={<AdminCustomersPage />} />
           <Route path="/admin/notifications" element={<AdminNotificationsPage />} />

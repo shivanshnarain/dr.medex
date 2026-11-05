@@ -18,6 +18,7 @@ const supabaseService = require("../services/supabaseService");
 const imageResolver = require("../services/imageResolver");
 const orderService = require("../services/orderService");
 const deletionService = require("../services/deletionService");
+const shiprocketService = require("../services/shiprocketService");
 
 /**
  * Authentication Middleware
@@ -182,14 +183,39 @@ router.get("/dashboard", requireAdmin, (req, res) => {
 
 router.get("/orders", requireAdmin, async (req, res) => {
   try {
-    const mongoOrders = await orderService.getCustomerOrders(null, null);
-    const storeOrders = store.getOrders();
-    const map = new Map();
-    [...mongoOrders, ...storeOrders].forEach(o => {
-      if (o && o.orderNumber) map.set(o.orderNumber, o);
+    const { search, status, paymentStatus, page, limit, includeArchived } = req.query;
+    const result = await orderService.getAllOrdersAdmin({
+      search,
+      status,
+      paymentStatus,
+      page: parseInt(page, 10) || 1,
+      limit: parseInt(limit, 10) || 20,
+      includeArchived: includeArchived === "true"
     });
-    const combined = Array.from(map.values()).sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-    res.json({ success: true, orders: combined });
+    res.json({ success: true, ...result });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.get("/orders/shiprocket/status", requireAdmin, async (req, res) => {
+  try {
+    const status = shiprocketService.getStatus();
+    res.json({ success: true, status });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.get("/orders/:id", requireAdmin, async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const order = await orderService.getOrder(orderId);
+    if (!order) {
+      return res.status(404).json({ success: false, message: "Order not found" });
+    }
+    const shiprocketStatus = shiprocketService.getStatus();
+    res.json({ success: true, order, shiprocketStatus });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -197,31 +223,153 @@ router.get("/orders", requireAdmin, async (req, res) => {
 
 router.put("/orders/:id/status", requireAdmin, async (req, res) => {
   try {
-    const { status, stageToComplete } = req.body;
+    const { status, note } = req.body;
     const orderId = req.params.id;
-    const updated = store.updateOrderStatus(orderId, status, stageToComplete);
-    if (!updated) {
-      return res.status(404).json({ success: false, message: "Order not found" });
-    }
-    try {
-      const client = await mongoService.getClient();
-      const db = client.db();
-      await db.collection("orders").updateOne(
-        { $or: [{ orderNumber: orderId }, { id: orderId }] },
-        { $set: { status, orderStatus: status, updatedAt: new Date().toISOString() } }
-      );
-    } catch (e) {}
+    const adminUser = req.admin?.email || "Admin";
+    const updated = await orderService.updateOrderStatusAdmin(orderId, status, adminUser, note);
 
     auditService.log({
       action: "UPDATE_ORDER_STATUS",
       entity: "orders",
       entityId: orderId,
-      details: { newStatus: status, stageToComplete }
+      details: { newStatus: status, adminUser, note }
     });
 
     res.json({ success: true, order: updated });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.put("/orders/:id/payment-status", requireAdmin, async (req, res) => {
+  try {
+    const { paymentStatus, note } = req.body;
+    const orderId = req.params.id;
+    const adminUser = req.admin?.email || "Admin";
+    const updated = await orderService.updatePaymentStatusAdmin(orderId, paymentStatus, adminUser, note);
+
+    auditService.log({
+      action: "UPDATE_PAYMENT_STATUS",
+      entity: "orders",
+      entityId: orderId,
+      details: { newPaymentStatus: paymentStatus, adminUser, note }
+    });
+
+    res.json({ success: true, order: updated });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/orders/:id/resend-invoice", requireAdmin, async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const result = await orderService.resendInvoiceEmail(orderId);
+
+    auditService.log({
+      action: "RESEND_INVOICE_EMAIL",
+      entity: "orders",
+      entityId: orderId,
+      details: { result }
+    });
+
+    res.json({ success: true, message: `Invoice for order #${orderId} has been resent.`, result });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/orders/:id/cancel", requireAdmin, async (req, res) => {
+  try {
+    const { reason } = req.body;
+    const orderId = req.params.id;
+    const adminUser = req.admin?.email || "Admin";
+    const updated = await orderService.cancelOrderAdmin(orderId, reason, adminUser);
+
+    auditService.log({
+      action: "CANCEL_ORDER",
+      entity: "orders",
+      entityId: orderId,
+      details: { reason, adminUser }
+    });
+
+    res.json({ success: true, order: updated, message: `Order #${orderId} cancelled.` });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.delete("/orders/:id", requireAdmin, async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const adminUser = req.admin?.email || "Admin";
+    const result = await orderService.softDeleteOrderAdmin(orderId, adminUser);
+
+    auditService.log({
+      action: "ARCHIVE_ORDER",
+      entity: "orders",
+      entityId: orderId,
+      details: { adminUser }
+    });
+
+    res.json(result);
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// Shiprocket Fulfillment Endpoints
+router.post("/orders/:id/shiprocket/create-shipment", requireAdmin, async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const order = await orderService.getOrder(orderId);
+    if (!order) return res.status(404).json({ success: false, message: "Order not found" });
+
+    const shipmentResult = await shiprocketService.createShipment(order);
+    res.json({ success: true, shipmentResult });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message, status: "AUTH_FAILED", canRetry: true });
+  }
+});
+
+router.post("/orders/:id/shiprocket/generate-awb", requireAdmin, async (req, res) => {
+  try {
+    const { shipmentId, courierId } = req.body;
+    const awbResult = await shiprocketService.generateAWB(shipmentId, courierId);
+    res.json({ success: true, awbResult });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message, canRetry: true });
+  }
+});
+
+router.post("/orders/:id/shiprocket/generate-label", requireAdmin, async (req, res) => {
+  try {
+    const { shipmentId } = req.body;
+    const labelResult = await shiprocketService.generateLabel(shipmentId);
+    res.json({ success: true, labelResult });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message, canRetry: true });
+  }
+});
+
+router.get("/orders/:id/shiprocket/track", requireAdmin, async (req, res) => {
+  try {
+    const { awb } = req.query;
+    if (!awb) return res.status(400).json({ success: false, message: "AWB code required" });
+    const tracking = await shiprocketService.trackAWB(awb);
+    res.json({ success: true, tracking });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/orders/:id/shiprocket/retry-sync", requireAdmin, async (req, res) => {
+  try {
+    // Force refresh token
+    const token = await shiprocketService.getAuthToken(true);
+    res.json({ success: true, message: "Shiprocket session synchronized successfully.", tokenPreview: `${token.substring(0, 6)}***` });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message, status: "AUTH_FAILED", canRetry: true });
   }
 });
 

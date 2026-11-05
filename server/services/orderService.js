@@ -9,6 +9,8 @@ const store = require("./store");
 const currencyService = require("./currencyService");
 const { isPayPalSupportedCurrency } = require("./paypalService");
 const notificationService = require("./notificationService");
+const emailService = require("./emailService");
+const shiprocketService = require("./shiprocketService");
 
 const ORDERS_COLLECTION = "orders";
 const ADDRESSES_COLLECTION = "customer_addresses";
@@ -271,6 +273,11 @@ async function createPendingOrder(payload) {
   // Trigger order placed push notification asynchronously
   notificationService.sendOrderNotification(orderRecord, "placed").catch(() => {});
 
+  // Send official invoice email automatically
+  emailService.sendOrderInvoiceEmail(orderRecord).catch(err => {
+    console.warn("[OrderService] Auto-invoice dispatch warning:", err.message);
+  });
+
   return orderRecord;
 }
 
@@ -376,6 +383,11 @@ async function markOrderAsPaid({ orderNumber, paypalOrderId, paypalCaptureId, pa
 
   // Trigger payment confirmed push notification asynchronously
   notificationService.sendOrderNotification(order, "confirmed").catch(() => {});
+
+  // Send verified paid invoice email automatically
+  emailService.sendOrderInvoiceEmail(order).catch(err => {
+    console.warn("[OrderService] Paid auto-invoice dispatch warning:", err.message);
+  });
 
   return order;
 }
@@ -569,6 +581,246 @@ async function deleteCustomerAddress(userId, addressId) {
   }
 }
 
+/**
+ * Admin: Get all orders with search, status filters, and pagination
+ */
+async function getAllOrdersAdmin({ search = "", status = "", paymentStatus = "", page = 1, limit = 20, includeArchived = false } = {}) {
+  await ensureIndexes();
+  let orders = [];
+
+  try {
+    const client = await getClient();
+    const db = client.db();
+    const query = {};
+
+    if (!includeArchived) {
+      query.isArchived = { $ne: true };
+    }
+
+    if (status && status !== "ALL") {
+      query.$or = [{ orderStatus: status }, { status: status }];
+    }
+
+    if (paymentStatus && paymentStatus !== "ALL") {
+      query["payment.status"] = paymentStatus;
+    }
+
+    if (search && search.trim()) {
+      const qClean = search.trim();
+      const regex = new RegExp(qClean, "i");
+      query.$or = [
+        { orderNumber: regex },
+        { "customer.fullName": regex },
+        { "customer.email": regex },
+        { "customer.phone": regex },
+        { "shippingAddress.city": regex }
+      ];
+    }
+
+    orders = await db.collection(ORDERS_COLLECTION).find(query).sort({ createdAt: -1 }).toArray();
+  } catch (err) {
+    console.warn("[OrderService] MongoDB query for admin orders failed, using store:", err.message);
+  }
+
+  // Combine with in-memory store
+  const storeOrders = store.getOrders().filter(o => {
+    if (!includeArchived && o.isArchived) return false;
+    if (status && status !== "ALL" && o.orderStatus !== status && o.status !== status) return false;
+    if (paymentStatus && paymentStatus !== "ALL" && o.payment?.status !== paymentStatus) return false;
+    if (search && search.trim()) {
+      const q = search.trim().toLowerCase();
+      const match = (o.orderNumber || "").toLowerCase().includes(q) ||
+                    (o.customer?.fullName || "").toLowerCase().includes(q) ||
+                    (o.customer?.email || "").toLowerCase().includes(q) ||
+                    (o.customer?.phone || "").toLowerCase().includes(q);
+      if (!match) return false;
+    }
+    return true;
+  });
+
+  const map = new Map();
+  [...orders, ...storeOrders].forEach(o => {
+    if (o && o.orderNumber) map.set(o.orderNumber, o);
+  });
+
+  const allList = Array.from(map.values()).sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+
+  const total = allList.length;
+  const startIndex = (page - 1) * limit;
+  const paginated = allList.slice(startIndex, startIndex + limit);
+
+  return {
+    orders: paginated,
+    total,
+    page,
+    totalPages: Math.ceil(total / limit) || 1
+  };
+}
+
+/**
+ * Admin: Update order fulfillment status with audit logging
+ */
+async function updateOrderStatusAdmin(orderNumber, newStatus, adminUser = "Admin", note = "") {
+  await ensureIndexes();
+  const validStatuses = ["PLACED", "CONFIRMED", "PROCESSING", "SHIPPED", "DELIVERED", "CANCELLED"];
+  const cleanStatus = (newStatus || "").toUpperCase();
+  if (!validStatuses.includes(cleanStatus)) {
+    throw new Error(`Invalid order status "${newStatus}". Valid options: ${validStatuses.join(", ")}`);
+  }
+
+  const order = await getOrder(orderNumber);
+  if (!order) throw new Error(`Order #${orderNumber} not found.`);
+
+  const oldStatus = order.orderStatus || order.status || "PLACED";
+  const now = new Date().toISOString();
+
+  order.orderStatus = cleanStatus;
+  order.status = cleanStatus;
+  order.updatedAt = now;
+
+  // Append audit trail entry
+  if (!Array.isArray(order.auditLogs)) order.auditLogs = [];
+  order.auditLogs.unshift({
+    action: "STATUS_CHANGE",
+    previousStatus: oldStatus,
+    newStatus: cleanStatus,
+    adminUser,
+    note,
+    timestamp: now
+  });
+
+  // Update timeline
+  if (Array.isArray(order.trackingTimeline)) {
+    const stageMap = {
+      CONFIRMED: "PAYMENT_CONFIRMED",
+      PROCESSING: "PROCESSING",
+      SHIPPED: "SHIPPED",
+      DELIVERED: "DELIVERED"
+    };
+    const targetStage = stageMap[cleanStatus];
+    if (targetStage) {
+      order.trackingTimeline.forEach(st => {
+        if (st.stage === targetStage) {
+          st.completed = true;
+          st.timestamp = now;
+        }
+      });
+    }
+  }
+
+  // Persist to MongoDB
+  try {
+    const client = await getClient();
+    const db = client.db();
+    await db.collection(ORDERS_COLLECTION).updateOne(
+      { orderNumber: order.orderNumber },
+      { $set: order },
+      { upsert: true }
+    );
+  } catch (err) {}
+
+  // Update store
+  const idx = store.getOrders().findIndex(o => o.orderNumber === order.orderNumber);
+  if (idx !== -1) store.getOrders()[idx] = order;
+
+  return order;
+}
+
+/**
+ * Admin: Update payment status with audit logging
+ */
+async function updatePaymentStatusAdmin(orderNumber, newPaymentStatus, adminUser = "Admin", note = "") {
+  await ensureIndexes();
+  const validPaymentStatuses = ["PENDING", "PAID", "FAILED", "CANCELLED", "REFUND_PENDING", "PARTIALLY_REFUNDED", "REFUNDED"];
+  const cleanStatus = (newPaymentStatus || "").toUpperCase();
+  if (!validPaymentStatuses.includes(cleanStatus)) {
+    throw new Error(`Invalid payment status "${newPaymentStatus}". Valid options: ${validPaymentStatuses.join(", ")}`);
+  }
+
+  const order = await getOrder(orderNumber);
+  if (!order) throw new Error(`Order #${orderNumber} not found.`);
+
+  const oldPaymentStatus = order.payment?.status || "PENDING";
+  const now = new Date().toISOString();
+
+  if (!order.payment) order.payment = {};
+  order.payment.status = cleanStatus;
+  order.payment.updatedAt = now;
+  order.updatedAt = now;
+
+  // Append audit trail entry
+  if (!Array.isArray(order.auditLogs)) order.auditLogs = [];
+  order.auditLogs.unshift({
+    action: "PAYMENT_STATUS_CHANGE",
+    previousStatus: oldPaymentStatus,
+    newStatus: cleanStatus,
+    adminUser,
+    note,
+    timestamp: now
+  });
+
+  // Persist to MongoDB
+  try {
+    const client = await getClient();
+    const db = client.db();
+    await db.collection(ORDERS_COLLECTION).updateOne(
+      { orderNumber: order.orderNumber },
+      { $set: order },
+      { upsert: true }
+    );
+  } catch (err) {}
+
+  const idx = store.getOrders().findIndex(o => o.orderNumber === order.orderNumber);
+  if (idx !== -1) store.getOrders()[idx] = order;
+
+  return order;
+}
+
+/**
+ * Admin: Cancel an order
+ */
+async function cancelOrderAdmin(orderNumber, reason = "Administrative cancellation", adminUser = "Admin") {
+  return await updateOrderStatusAdmin(orderNumber, "CANCELLED", adminUser, reason);
+}
+
+/**
+ * Admin: Soft delete / archive an order
+ */
+async function softDeleteOrderAdmin(orderNumber, adminUser = "Admin") {
+  const order = await getOrder(orderNumber);
+  if (!order) throw new Error(`Order #${orderNumber} not found.`);
+
+  const now = new Date().toISOString();
+  order.isArchived = true;
+  order.archivedAt = now;
+  order.archivedBy = adminUser;
+
+  try {
+    const client = await getClient();
+    const db = client.db();
+    await db.collection(ORDERS_COLLECTION).updateOne(
+      { orderNumber: order.orderNumber },
+      { $set: { isArchived: true, archivedAt: now, archivedBy: adminUser } }
+    );
+  } catch (err) {}
+
+  const idx = store.getOrders().findIndex(o => o.orderNumber === order.orderNumber);
+  if (idx !== -1) store.getOrders()[idx] = order;
+
+  return { success: true, message: `Order #${orderNumber} archived successfully.` };
+}
+
+/**
+ * Admin: Resend invoice email
+ */
+async function resendInvoiceEmail(orderNumber) {
+  const order = await getOrder(orderNumber);
+  if (!order) throw new Error(`Order #${orderNumber} not found.`);
+
+  const result = await emailService.sendOrderInvoiceEmail(order);
+  return { ...result, recipient: order.customer?.email || result?.recipient };
+}
+
 module.exports = {
   validateAndCalculateOrder,
   createPendingOrder,
@@ -578,6 +830,12 @@ module.exports = {
   getOrder,
   getCustomerAddresses,
   saveCustomerAddress,
-  deleteCustomerAddress
+  deleteCustomerAddress,
+  getAllOrdersAdmin,
+  updateOrderStatusAdmin,
+  updatePaymentStatusAdmin,
+  cancelOrderAdmin,
+  softDeleteOrderAdmin,
+  resendInvoiceEmail
 };
 

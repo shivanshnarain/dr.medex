@@ -26,7 +26,14 @@ import {
   CreditCard,
   PackageCheck,
   FileText,
-  Navigation
+  Navigation,
+  UserCheck,
+  UserPlus,
+  Eye,
+  EyeOff,
+  KeyRound,
+  Phone,
+  RefreshCw
 } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useCurrency } from "../context/CurrencyContext";
@@ -48,6 +55,7 @@ import { Order, ShippingAddress } from "../types";
 declare global {
   interface Window {
     paypal?: any;
+    Razorpay?: any;
   }
 }
 
@@ -94,13 +102,35 @@ export const CheckoutPage: React.FC = () => {
   const routeLocation = useLocation();
   const { items, appliedCoupon, applyCoupon, removeCoupon, clearCart } = useCart();
   const { currentCountry, currentCurrency, formatPrice, convertPrice, exchangeRates, setCurrencyManually } = useCurrency();
-  const { user } = useAuth();
+  const { user, isAuthenticated, signIn, signUp, logout, requestPasswordReset } = useAuth();
 
-  // Multi-step Checkout State (1: Destination & Customer, 2: Air Freight Logistics, 3: Payment & Confirmation)
+  // Multi-step Checkout State (1: Customer Details / Auth, 2: Shipping Destination, 3: Payment & Confirmation)
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3>(1);
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  // Step 1 Customer Authentication & Mode State
+  const [authTab, setAuthTab] = useState<"signin" | "signup" | "guest">("guest");
+  const [authEmail, setAuthEmail] = useState("");
+  const [authPassword, setAuthPassword] = useState("");
+  const [authConfirmPassword, setAuthConfirmPassword] = useState("");
+  const [authFullName, setAuthFullName] = useState("");
+  const [authPhone, setAuthPhone] = useState("");
+  const [authShowPassword, setAuthShowPassword] = useState(false);
+  const [authIsLoading, setAuthIsLoading] = useState(false);
+  const [authFeedback, setAuthFeedback] = useState<{ type: "error" | "success"; message: string } | null>(null);
+
+  // Forgot Password In-Flow
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
+  const [forgotPasswordLoading, setForgotPasswordLoading] = useState(false);
+  const [forgotPasswordFeedback, setForgotPasswordFeedback] = useState<{ type: "error" | "success"; message: string } | null>(null);
+
+  // Step 3 Payment Method Selection
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<"PAYPAL" | "RAZORPAY" | "COD">("PAYPAL");
+  const [isRazorpayLoading, setIsRazorpayLoading] = useState(false);
+  const [isCodLoading, setIsCodLoading] = useState(false);
 
   // Coupon handling
   const [couponInput, setCouponInput] = useState("");
@@ -914,6 +944,325 @@ export const CheckoutPage: React.FC = () => {
     }
   };
 
+  // Unified Order Payload Builder
+  const buildOrderPayload = (customMethod?: string, customProvider?: string) => {
+    const parsedFirstName = firstName.trim() || fullName.trim().split(" ")[0] || "Customer";
+    const parsedLastName = lastName.trim() || fullName.trim().split(" ").slice(1).join(" ") || "Procurement";
+    const computedFullName = fullName.trim() || `${parsedFirstName} ${parsedLastName}`.trim();
+
+    return {
+      customerId: user?.id || null,
+      customer: {
+        firstName: parsedFirstName,
+        lastName: parsedLastName,
+        fullName: computedFullName,
+        professionalTitle,
+        email: email.trim(),
+        phone: phone.trim(),
+        countryCode,
+        companyName,
+        department,
+        taxId
+      },
+      shippingAddress: {
+        firstName: parsedFirstName,
+        lastName: parsedLastName,
+        fullName: computedFullName,
+        companyName,
+        phone: phone.trim(),
+        addressLine1,
+        addressLine2: [buildingSuite, addressLine2].filter(Boolean).join(", "),
+        district,
+        city,
+        state,
+        stateCode,
+        postalCode,
+        country: activeCountry.name,
+        countryCode
+      },
+      billingSameAsShipping,
+      billingAddress: billingSameAsShipping
+        ? null
+        : {
+            fullName: billingFullName,
+            companyName: billingCompanyName,
+            phone: billingPhone || phone,
+            addressLine1: billingAddressLine1,
+            addressLine2: billingAddressLine2,
+            city: billingCity,
+            state: billingState,
+            postalCode: billingPostalCode,
+            country: countriesList.find((c) => c.code === billingCountryCode)?.name || activeCountry.name,
+            countryCode: billingCountryCode
+          },
+      currency: currentCurrency,
+      couponCode: appliedCoupon?.code || null,
+      shippingMethod: selectedShippingMethod,
+      deliveryInstructions,
+      paymentMethod: customMethod || (selectedPaymentMethod === "PAYPAL" ? "PayPal Express Checkout" : selectedPaymentMethod === "RAZORPAY" ? "Razorpay Secure (Cards, UPI, NetBanking)" : "Cash on Delivery"),
+      paymentProvider: customProvider || selectedPaymentMethod,
+      items: items.map((it) => ({
+        productId: it.product.id,
+        quantity: it.quantity,
+        image: it.product.images[0]
+      }))
+    };
+  };
+
+  // Step 1: Customer Authentication Handlers
+  const handleStep1SignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthFeedback(null);
+    const cleanEmail = authEmail.trim().toLowerCase();
+    if (!cleanEmail || !authPassword) {
+      setAuthFeedback({ type: "error", message: "Please enter your email and password." });
+      return;
+    }
+
+    setAuthIsLoading(true);
+    try {
+      const res = await signIn(cleanEmail, authPassword);
+      if (res.success) {
+        setAuthFeedback({ type: "success", message: "Signed in successfully!" });
+        setEmail(cleanEmail);
+        if (res.user?.fullName) {
+          setFullName(res.user.fullName);
+          const parts = res.user.fullName.trim().split(" ");
+          setFirstName(parts[0] || "");
+          setLastName(parts.slice(1).join(" ") || "");
+        }
+        if (res.user?.phone) setPhone(res.user.phone);
+        setTimeout(() => {
+          setCurrentStep(2);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }, 300);
+      } else {
+        setAuthFeedback({ type: "error", message: res.error || "Invalid email or password." });
+      }
+    } catch (err: any) {
+      setAuthFeedback({ type: "error", message: err.message || "Sign in failed. Please try again." });
+    } finally {
+      setAuthIsLoading(false);
+    }
+  };
+
+  const handleStep1SignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthFeedback(null);
+    const cleanEmail = authEmail.trim().toLowerCase();
+    const cleanName = authFullName.trim();
+    const cleanPhone = authPhone.trim();
+
+    if (!cleanName) {
+      setAuthFeedback({ type: "error", message: "Please enter your full name." });
+      return;
+    }
+    if (!cleanEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
+      setAuthFeedback({ type: "error", message: "Please enter a valid email address." });
+      return;
+    }
+    if (!authPassword || authPassword.length < 6) {
+      setAuthFeedback({ type: "error", message: "Password must be at least 6 characters." });
+      return;
+    }
+    if (authPassword !== authConfirmPassword) {
+      setAuthFeedback({ type: "error", message: "Passwords do not match." });
+      return;
+    }
+
+    setAuthIsLoading(true);
+    try {
+      const res = await signUp({
+        fullName: cleanName,
+        email: cleanEmail,
+        phone: cleanPhone,
+        password: authPassword
+      });
+      if (res.success) {
+        setAuthFeedback({ type: "success", message: "Account created successfully!" });
+        setFullName(cleanName);
+        const parts = cleanName.split(" ");
+        setFirstName(parts[0] || "");
+        setLastName(parts.slice(1).join(" ") || "");
+        setEmail(cleanEmail);
+        if (cleanPhone) setPhone(cleanPhone);
+        setTimeout(() => {
+          setCurrentStep(2);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }, 300);
+      } else {
+        setAuthFeedback({ type: "error", message: res.error || "Failed to create account." });
+      }
+    } catch (err: any) {
+      setAuthFeedback({ type: "error", message: err.message || "Registration failed." });
+    } finally {
+      setAuthIsLoading(false);
+    }
+  };
+
+  const handleStep1ForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setForgotPasswordFeedback(null);
+    const cleanEmail = (forgotPasswordEmail || authEmail).trim().toLowerCase();
+    if (!cleanEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
+      setForgotPasswordFeedback({ type: "error", message: "Please enter a valid registered email address." });
+      return;
+    }
+
+    setForgotPasswordLoading(true);
+    try {
+      const res = await fetch("/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: cleanEmail })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.success) {
+        setForgotPasswordFeedback({
+          type: "success",
+          message: "If an account exists with this email address, a password reset link has been dispatched to your inbox."
+        });
+      } else {
+        setForgotPasswordFeedback({
+          type: "error",
+          message: data.message || "Failed to dispatch reset email. Please try again."
+        });
+      }
+    } catch (err: any) {
+      setForgotPasswordFeedback({
+        type: "error",
+        message: err.message || "Network error. Please try again."
+      });
+    } finally {
+      setForgotPasswordLoading(false);
+    }
+  };
+
+  // Step 3: Cash on Delivery (COD) Order Placement
+  const handlePlaceCodOrder = async () => {
+    if (!validateStep1() || !validateStep2()) {
+      return;
+    }
+    setIsCodLoading(true);
+    setErrorMessage("");
+
+    try {
+      const payload = buildOrderPayload("Cash on Delivery", "COD");
+      const res = await fetch("/api/payment/cod/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success && data.order) {
+        setCompletedOrder(data.order);
+        clearCart();
+        localStorage.removeItem(GUEST_CHECKOUT_STORAGE_KEY);
+        sessionStorage.removeItem("drmedex_pending_order_number");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        setErrorMessage(data.message || "Failed to place Cash on Delivery order. Please try again.");
+      }
+    } catch (err: any) {
+      setErrorMessage(`COD Order Error: ${err.message || "Network timeout"}`);
+    } finally {
+      setIsCodLoading(false);
+    }
+  };
+
+  // Step 3: Razorpay Payment Gateway Trigger
+  const handlePayWithRazorpay = async () => {
+    if (!validateStep1() || !validateStep2()) {
+      return;
+    }
+    setIsRazorpayLoading(true);
+    setErrorMessage("");
+
+    try {
+      const payload = buildOrderPayload("Razorpay Secure (Cards, UPI, NetBanking)", "RAZORPAY");
+      const res = await fetch("/api/payment/razorpay/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || "Could not initialize Razorpay checkout.");
+      }
+
+      // Load Razorpay Checkout SDK if missing
+      if (!window.Razorpay) {
+        await new Promise<void>((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = "https://checkout.razorpay.com/v1/checkout.js";
+          script.async = true;
+          script.onload = () => resolve();
+          script.onerror = () => reject(new Error("Unable to load Razorpay checkout SDK."));
+          document.body.appendChild(script);
+        });
+      }
+
+      const options = {
+        key: data.keyId,
+        amount: data.amount,
+        currency: data.currency || "INR",
+        name: "DR.MEDEX Global Surgical",
+        description: `Order #${data.orderNumber} - Certified Medical Equipment`,
+        prefill: {
+          name: fullName || `${firstName} ${lastName}`.trim(),
+          email: email,
+          contact: phone
+        },
+        theme: {
+          color: "#2D5A4A"
+        },
+        handler: async (response: any) => {
+          try {
+            setIsRazorpayLoading(true);
+            const verifyRes = await fetch("/api/payment/razorpay/verify", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                orderNumber: data.orderNumber,
+                razorpayOrderId: response.razorpay_order_id,
+                razorpayPaymentId: response.razorpay_payment_id,
+                razorpaySignature: response.razorpay_signature
+              })
+            });
+
+            const verifyData = await verifyRes.json();
+            if (verifyRes.ok && verifyData.success && verifyData.order) {
+              setCompletedOrder(verifyData.order);
+              clearCart();
+              localStorage.removeItem(GUEST_CHECKOUT_STORAGE_KEY);
+              sessionStorage.removeItem("drmedex_pending_order_number");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+              setErrorMessage(verifyData.message || "Payment verification failed.");
+            }
+          } catch (vErr: any) {
+            setErrorMessage(`Verification error: ${vErr.message || "Network issue"}`);
+          } finally {
+            setIsRazorpayLoading(false);
+          }
+        },
+        modal: {
+          ondismiss: () => {
+            setIsRazorpayLoading(false);
+          }
+        }
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (err: any) {
+      setIsRazorpayLoading(false);
+      setErrorMessage(err.message || "Failed to start Razorpay payment.");
+    }
+  };
+
   // Fetch PayPal Client ID
   useEffect(() => {
     async function fetchPaypalConfig() {
@@ -981,7 +1330,13 @@ export const CheckoutPage: React.FC = () => {
 
   // Render Official PayPal Buttons in Step 3
   useEffect(() => {
-    if (currentStep !== 3 || !isPaypalSdkLoaded || !window.paypal || !paypalButtonContainerRef.current) {
+    if (
+      currentStep !== 3 ||
+      selectedPaymentMethod !== "PAYPAL" ||
+      !isPaypalSdkLoaded ||
+      !window.paypal ||
+      !paypalButtonContainerRef.current
+    ) {
       return;
     }
 
@@ -1005,65 +1360,7 @@ export const CheckoutPage: React.FC = () => {
           setIsProcessing(true);
           setErrorMessage("");
 
-          const parsedFirstName = firstName.trim() || fullName.trim().split(" ")[0] || "Customer";
-          const parsedLastName = lastName.trim() || fullName.trim().split(" ").slice(1).join(" ") || "Procurement";
-          const computedFullName = fullName.trim() || `${parsedFirstName} ${parsedLastName}`.trim();
-
-          const payload = {
-            customerId: user?.id || null,
-            customer: {
-              firstName: parsedFirstName,
-              lastName: parsedLastName,
-              fullName: computedFullName,
-              professionalTitle,
-              email,
-              phone,
-              countryCode,
-              companyName,
-              department,
-              taxId
-            },
-            shippingAddress: {
-              firstName: parsedFirstName,
-              lastName: parsedLastName,
-              fullName: computedFullName,
-              companyName,
-              phone,
-              addressLine1,
-              addressLine2: [buildingSuite, addressLine2].filter(Boolean).join(", "),
-              district,
-              city,
-              state,
-              stateCode,
-              postalCode,
-              country: activeCountry.name,
-              countryCode
-            },
-            billingSameAsShipping,
-            billingAddress: billingSameAsShipping
-              ? null
-              : {
-                  fullName: billingFullName,
-                  companyName: billingCompanyName,
-                  phone: billingPhone || phone,
-                  addressLine1: billingAddressLine1,
-                  addressLine2: billingAddressLine2,
-                  city: billingCity,
-                  state: billingState,
-                  postalCode: billingPostalCode,
-                  country: countriesList.find((c) => c.code === billingCountryCode)?.name || activeCountry.name,
-                  countryCode: billingCountryCode
-                },
-            currency: currentCurrency,
-            couponCode: appliedCoupon?.code || null,
-            shippingMethod: selectedShippingMethod,
-            deliveryInstructions,
-            items: items.map((it) => ({
-              productId: it.product.id,
-              quantity: it.quantity,
-              image: it.product.images[0]
-            }))
-          };
+          const payload = buildOrderPayload("PayPal Express Checkout", "PAYPAL");
 
           const res = await fetch("/api/payment/paypal/create-order", {
             method: "POST",
@@ -1157,6 +1454,7 @@ export const CheckoutPage: React.FC = () => {
     }
   }, [
     currentStep,
+    selectedPaymentMethod,
     isPaypalSdkLoaded,
     fullName,
     professionalTitle,
@@ -1227,6 +1525,12 @@ export const CheckoutPage: React.FC = () => {
 
   // ORDER SUCCESS CONFIRMATION VIEW
   if (completedOrder) {
+    const isCod = completedOrder.payment?.provider === "COD" || completedOrder.payment?.method?.toLowerCase().includes("cash on delivery");
+    const isRazorpay = completedOrder.payment?.provider === "RAZORPAY" || completedOrder.payment?.method?.toLowerCase().includes("razorpay");
+    const isPaypal = !isCod && !isRazorpay;
+    const orderStatus = completedOrder.orderStatus || completedOrder.status || "PLACED";
+    const paymentStatus = completedOrder.payment?.status || (isCod ? "PENDING" : "PAID");
+
     return (
       <div className="w-full bg-[#FFFFFF] min-h-screen py-12 sm:py-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
@@ -1237,15 +1541,49 @@ export const CheckoutPage: React.FC = () => {
               </div>
               <div className="space-y-1">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-2xs font-bold tracking-wider uppercase bg-[#F4F7F2] text-[#2D5A4A]">
-                  <ShieldCheck size={13} /> Verified PayPal Transaction
+                  <ShieldCheck size={13} />
+                  {isCod ? "Cash on Delivery / Direct Proforma" : isRazorpay ? "Verified Razorpay Payment" : "Verified PayPal Transaction"}
                 </span>
                 <h1 className="text-2xl sm:text-3xl font-black text-[#171717] tracking-tight">
-                  Order Confirmed & Payment Verified
+                  {isCod ? "Order Placed Successfully" : "Order Confirmed & Payment Verified"}
                 </h1>
                 <p className="text-xs text-neutral-600 max-w-lg mx-auto">
                   A formal commercial confirmation and calibration proforma invoice have been transmitted to{" "}
                   <strong className="text-neutral-900">{completedOrder.customer?.email}</strong>.
                 </p>
+              </div>
+            </div>
+
+            {/* Strict Separation of Statuses: Order Status vs Payment Status */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 flex items-center justify-between">
+                <div>
+                  <div className="text-3xs font-extrabold uppercase tracking-wider text-neutral-400">Order Status</div>
+                  <div className="font-bold text-xs text-neutral-800 mt-0.5">Fulfillment Pipeline</div>
+                </div>
+                <span className="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200">
+                  {orderStatus}
+                </span>
+              </div>
+
+              <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 flex items-center justify-between">
+                <div>
+                  <div className="text-3xs font-extrabold uppercase tracking-wider text-neutral-400">Payment Status</div>
+                  <div className="font-bold text-xs text-neutral-800 mt-0.5">
+                    {completedOrder.payment?.method || completedOrder.paymentMethod || (isCod ? "Cash on Delivery" : "Online Gateway")}
+                  </div>
+                </div>
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider border ${
+                    paymentStatus === "PAID"
+                      ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                      : paymentStatus === "PENDING"
+                      ? "bg-amber-50 text-amber-800 border-amber-200"
+                      : "bg-red-50 text-red-800 border-red-200"
+                  }`}
+                >
+                  {paymentStatus}
+                </span>
               </div>
             </div>
 
@@ -1255,10 +1593,13 @@ export const CheckoutPage: React.FC = () => {
                 <div className="text-2xs font-bold text-neutral-500 uppercase tracking-wider">Order Reference</div>
                 <div className="text-2xl font-mono font-black text-[#2D5A4A] mt-0.5">{completedOrder.orderNumber}</div>
                 <div className="text-2xs text-neutral-500 mt-1">
-                  PayPal Capture ID:{" "}
-                  <span className="font-mono text-neutral-800">
-                    {completedOrder.payment?.paypalCaptureId || completedOrder.payment?.transactionId || "Confirmed"}
-                  </span>
+                  {isCod ? (
+                    <span>Payment Collection: <strong>Cash / Wire on Delivery</strong></span>
+                  ) : isRazorpay ? (
+                    <span>Razorpay Payment ID: <span className="font-mono text-neutral-800">{completedOrder.payment?.razorpayPaymentId || "Verified"}</span></span>
+                  ) : (
+                    <span>PayPal Capture ID: <span className="font-mono text-neutral-800">{completedOrder.payment?.paypalCaptureId || completedOrder.payment?.transactionId || "Confirmed"}</span></span>
+                  )}
                 </div>
               </div>
               <div className="flex items-center gap-2.5 w-full sm:w-auto">
@@ -1548,13 +1889,468 @@ export const CheckoutPage: React.FC = () => {
           <div className="lg:col-span-7 space-y-6">
 
             {/* ========================================================
-                STEP 1: DESTINATION & CUSTOMER INFORMATION
+                STEP 1: CUSTOMER AUTHENTICATION & CONTACT DETAILS
                ======================================================== */}
             {currentStep === 1 && (
               <div className="space-y-6 animate-in fade-in duration-200">
-                
-                {/* 1. SAVED ADDRESS SELECTION (If available) */}
-                {savedAddresses.length > 0 && (
+                {/* A. AUTHENTICATED CUSTOMER BANNER */}
+                {user ? (
+                  <div className="bg-[#F8FAF7] rounded-2xl border border-[#7AA05A]/40 p-5 sm:p-6 shadow-xs space-y-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#7AA05A]/20">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-[#2D5A4A] text-white flex items-center justify-center font-bold shrink-0">
+                          <UserCheck size={20} />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-extrabold text-sm text-[#171717]">{user.fullName || "Verified Customer"}</span>
+                            <span className="text-3xs font-extrabold px-2 py-0.5 rounded-full bg-[#7AA05A]/20 text-[#2D5A4A] uppercase tracking-wider">
+                              Authenticated Account
+                            </span>
+                          </div>
+                          <div className="text-2xs text-neutral-600 mt-0.5 flex flex-wrap items-center gap-2">
+                            <span className="font-mono">{user.email}</span>
+                            {user.phone && <span>• {user.phone}</span>}
+                          </div>
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          await logout();
+                          setAuthTab("signin");
+                        }}
+                        className="text-xs font-bold text-[#7AA05A] hover:text-[#2D5A4A] hover:underline self-start sm:self-center cursor-pointer"
+                      >
+                        Sign Out / Switch Account
+                      </button>
+                    </div>
+
+                    <p className="text-2xs text-neutral-500">
+                      You are signed in with your verified DR.MEDEX institutional account. Your orders, proforma records, and clinical warranty will automatically attach to this profile.
+                    </p>
+                  </div>
+                ) : (
+                  /* B. UNAUTHENTICATED: 3-TAB SELECTION (SIGN IN / CREATE ACCOUNT / GUEST) */
+                  <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-5">
+                    <div>
+                      <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+                        <div className="flex items-center gap-2">
+                          <Lock size={18} className="text-[#2D5A4A]" />
+                          <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
+                            Customer Identification
+                          </h2>
+                        </div>
+                        <span className="text-3xs font-bold text-neutral-400 uppercase tracking-wider">Step 1 of 3</span>
+                      </div>
+
+                      {/* 3-Tab Selector Buttons */}
+                      <div className="grid grid-cols-3 gap-2 p-1.5 bg-neutral-100 rounded-xl mt-4 text-xs font-bold">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setAuthTab("signin");
+                            setShowForgotPassword(false);
+                            setAuthFeedback(null);
+                          }}
+                          className={`py-2 px-3 rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                            authTab === "signin"
+                              ? "bg-white text-[#2D5A4A] shadow-xs"
+                              : "text-neutral-500 hover:text-neutral-800"
+                          }`}
+                        >
+                          <UserCheck size={14} />
+                          <span className="hidden sm:inline">Existing Customer:</span>
+                          <span>Sign In</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setAuthTab("signup");
+                            setShowForgotPassword(false);
+                            setAuthFeedback(null);
+                          }}
+                          className={`py-2 px-3 rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                            authTab === "signup"
+                              ? "bg-white text-[#2D5A4A] shadow-xs"
+                              : "text-neutral-500 hover:text-neutral-800"
+                          }`}
+                        >
+                          <UserPlus size={14} />
+                          <span className="hidden sm:inline">New Customer:</span>
+                          <span>Sign Up</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setAuthTab("guest");
+                            setShowForgotPassword(false);
+                            setAuthFeedback(null);
+                          }}
+                          className={`py-2 px-3 rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                            authTab === "guest"
+                              ? "bg-white text-[#2D5A4A] shadow-xs"
+                              : "text-neutral-500 hover:text-neutral-800"
+                          }`}
+                        >
+                          <User size={14} />
+                          <span>Guest Checkout</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* TAB 1: SIGN IN */}
+                    {authTab === "signin" && !showForgotPassword && (
+                      <form onSubmit={handleStep1SignIn} className="space-y-4 pt-1">
+                        <div>
+                          <h3 className="font-bold text-sm text-[#171717]">Sign In to Your DR.MEDEX Account</h3>
+                          <p className="text-2xs text-neutral-500 mt-0.5">
+                            Access saved institutional addresses, order histories, and verified clinical proformas.
+                          </p>
+                        </div>
+
+                        {authFeedback && (
+                          <div
+                            className={`p-3 rounded-xl text-xs flex items-center gap-2 ${
+                              authFeedback.type === "success"
+                                ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                                : "bg-red-50 text-red-800 border border-red-200"
+                            }`}
+                          >
+                            <AlertCircle size={15} className="shrink-0" />
+                            <span>{authFeedback.message}</span>
+                          </div>
+                        )}
+
+                        <div className="space-y-3">
+                          <div>
+                            <label className="block text-2xs font-extrabold uppercase tracking-wider text-neutral-700 mb-1">
+                              Registered Email Address <span className="text-red-500">*</span>
+                            </label>
+                            <div className="relative">
+                              <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
+                              <input
+                                type="email"
+                                value={authEmail}
+                                onChange={(e) => setAuthEmail(e.target.value)}
+                                placeholder="surgeon@hospital.org"
+                                required
+                                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-neutral-300 text-xs text-[#171717] focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20"
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <div className="flex items-center justify-between mb-1">
+                              <label className="block text-2xs font-extrabold uppercase tracking-wider text-neutral-700">
+                                Password <span className="text-red-500">*</span>
+                              </label>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setShowForgotPassword(true);
+                                  setForgotPasswordEmail(authEmail);
+                                  setForgotPasswordFeedback(null);
+                                }}
+                                className="text-2xs font-bold text-[#7AA05A] hover:underline cursor-pointer"
+                              >
+                                Forgot Password?
+                              </button>
+                            </div>
+                            <div className="relative">
+                              <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
+                              <input
+                                type={authShowPassword ? "text" : "password"}
+                                value={authPassword}
+                                onChange={(e) => setAuthPassword(e.target.value)}
+                                placeholder="••••••••••••"
+                                required
+                                className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-neutral-300 text-xs text-[#171717] focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => setAuthShowPassword(!authShowPassword)}
+                                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700 cursor-pointer"
+                              >
+                                {authShowPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+                          <button
+                            type="button"
+                            onClick={() => setAuthTab("guest")}
+                            className="text-2xs font-bold text-neutral-500 hover:text-neutral-800 text-left cursor-pointer"
+                          >
+                            Or continue as Guest without signing in →
+                          </button>
+
+                          <button
+                            type="submit"
+                            disabled={authIsLoading}
+                            className="px-6 py-2.5 bg-[#2D5A4A] hover:bg-[#23463a] text-white font-bold rounded-xl text-xs transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+                          >
+                            {authIsLoading ? (
+                              <>
+                                <Loader2 size={14} className="animate-spin" />
+                                <span>Authenticating...</span>
+                              </>
+                            ) : (
+                              <>
+                                <span>Sign In & Continue</span>
+                                <ArrowRight size={14} />
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      </form>
+                    )}
+
+                    {/* FORGOT PASSWORD INLINE VIEW */}
+                    {authTab === "signin" && showForgotPassword && (
+                      <form onSubmit={handleStep1ForgotPassword} className="space-y-4 pt-1">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <KeyRound size={16} className="text-[#2D5A4A]" />
+                            <h3 className="font-bold text-sm text-[#171717]">Reset Password</h3>
+                          </div>
+                          <p className="text-2xs text-neutral-500 mt-0.5">
+                            Enter your registered email address to receive a secure, time-limited reset link.
+                          </p>
+                        </div>
+
+                        {forgotPasswordFeedback && (
+                          <div
+                            className={`p-3 rounded-xl text-xs flex items-center gap-2 ${
+                              forgotPasswordFeedback.type === "success"
+                                ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                                : "bg-red-50 text-red-800 border border-red-200"
+                            }`}
+                          >
+                            {forgotPasswordFeedback.type === "success" ? (
+                              <CheckCircle2 size={16} className="shrink-0 text-emerald-600" />
+                            ) : (
+                              <AlertCircle size={16} className="shrink-0 text-red-600" />
+                            )}
+                            <span>{forgotPasswordFeedback.message}</span>
+                          </div>
+                        )}
+
+                        <div>
+                          <label className="block text-2xs font-extrabold uppercase tracking-wider text-neutral-700 mb-1">
+                            Registered Account Email <span className="text-red-500">*</span>
+                          </label>
+                          <div className="relative">
+                            <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
+                            <input
+                              type="email"
+                              value={forgotPasswordEmail}
+                              onChange={(e) => setForgotPasswordEmail(e.target.value)}
+                              placeholder="doctor@clinic.com"
+                              required
+                              className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-neutral-300 text-xs text-[#171717] focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-2">
+                          <button
+                            type="button"
+                            onClick={() => setShowForgotPassword(false)}
+                            className="text-xs font-bold text-neutral-600 hover:text-neutral-900 cursor-pointer"
+                          >
+                            ← Back to Sign In
+                          </button>
+
+                          <button
+                            type="submit"
+                            disabled={forgotPasswordLoading}
+                            className="px-6 py-2.5 bg-[#7AA05A] hover:bg-[#688a4c] text-white font-bold rounded-xl text-xs transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+                          >
+                            {forgotPasswordLoading ? (
+                              <>
+                                <Loader2 size={14} className="animate-spin" />
+                                <span>Sending Link...</span>
+                              </>
+                            ) : (
+                              <span>Send Reset Link</span>
+                            )}
+                          </button>
+                        </div>
+                      </form>
+                    )}
+
+                    {/* TAB 2: SIGN UP */}
+                    {authTab === "signup" && (
+                      <form onSubmit={handleStep1SignUp} className="space-y-4 pt-1">
+                        <div>
+                          <h3 className="font-bold text-sm text-[#171717]">Create Your DR.MEDEX Customer Account</h3>
+                          <p className="text-2xs text-neutral-500 mt-0.5">
+                            Register your clinical institution or personal practitioner profile for seamless orders and warranties.
+                          </p>
+                        </div>
+
+                        {authFeedback && (
+                          <div
+                            className={`p-3 rounded-xl text-xs flex items-center gap-2 ${
+                              authFeedback.type === "success"
+                                ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                                : "bg-red-50 text-red-800 border border-red-200"
+                            }`}
+                          >
+                            <AlertCircle size={15} className="shrink-0" />
+                            <span>{authFeedback.message}</span>
+                          </div>
+                        )}
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div className="sm:col-span-2">
+                            <label className="block text-2xs font-extrabold uppercase tracking-wider text-neutral-700 mb-1">
+                              Full Legal / Practitioner Name <span className="text-red-500">*</span>
+                            </label>
+                            <div className="relative">
+                              <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
+                              <input
+                                type="text"
+                                value={authFullName}
+                                onChange={(e) => setAuthFullName(e.target.value)}
+                                placeholder="Dr. Sarah Jenkins"
+                                required
+                                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-neutral-300 text-xs text-[#171717] focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20"
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="block text-2xs font-extrabold uppercase tracking-wider text-neutral-700 mb-1">
+                              Email Address <span className="text-red-500">*</span>
+                            </label>
+                            <div className="relative">
+                              <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
+                              <input
+                                type="email"
+                                value={authEmail}
+                                onChange={(e) => setAuthEmail(e.target.value)}
+                                placeholder="sarah@hospital.com"
+                                required
+                                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-neutral-300 text-xs text-[#171717] focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20"
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="block text-2xs font-extrabold uppercase tracking-wider text-neutral-700 mb-1">
+                              Phone Number <span className="text-red-500">*</span>
+                            </label>
+                            <div className="relative">
+                              <Phone size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
+                              <input
+                                type="tel"
+                                value={authPhone}
+                                onChange={(e) => setAuthPhone(e.target.value)}
+                                placeholder="+1 (555) 000-0000"
+                                required
+                                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-neutral-300 text-xs text-[#171717] focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20"
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="block text-2xs font-extrabold uppercase tracking-wider text-neutral-700 mb-1">
+                              Password (min 6 characters) <span className="text-red-500">*</span>
+                            </label>
+                            <div className="relative">
+                              <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
+                              <input
+                                type={authShowPassword ? "text" : "password"}
+                                value={authPassword}
+                                onChange={(e) => setAuthPassword(e.target.value)}
+                                placeholder="••••••••••••"
+                                required
+                                minLength={6}
+                                className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-neutral-300 text-xs text-[#171717] focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => setAuthShowPassword(!authShowPassword)}
+                                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700 cursor-pointer"
+                              >
+                                {authShowPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+                              </button>
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="block text-2xs font-extrabold uppercase tracking-wider text-neutral-700 mb-1">
+                              Confirm Password <span className="text-red-500">*</span>
+                            </label>
+                            <div className="relative">
+                              <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
+                              <input
+                                type={authShowPassword ? "text" : "password"}
+                                value={authConfirmPassword}
+                                onChange={(e) => setAuthConfirmPassword(e.target.value)}
+                                placeholder="••••••••••••"
+                                required
+                                minLength={6}
+                                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-neutral-300 text-xs text-[#171717] focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+                          <button
+                            type="button"
+                            onClick={() => setAuthTab("signin")}
+                            className="text-2xs font-bold text-neutral-500 hover:text-neutral-800 text-left cursor-pointer"
+                          >
+                            Already have an account? Sign in here →
+                          </button>
+
+                          <button
+                            type="submit"
+                            disabled={authIsLoading}
+                            className="px-6 py-2.5 bg-[#2D5A4A] hover:bg-[#23463a] text-white font-bold rounded-xl text-xs transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+                          >
+                            {authIsLoading ? (
+                              <>
+                                <Loader2 size={14} className="animate-spin" />
+                                <span>Creating Account...</span>
+                              </>
+                            ) : (
+                              <>
+                                <span>Create Account & Continue</span>
+                                <ArrowRight size={14} />
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      </form>
+                    )}
+
+                    {/* TAB 3: GUEST CHECKOUT NOTICE */}
+                    {authTab === "guest" && (
+                      <div className="p-3.5 rounded-xl bg-[#F8FAF7] border border-[#7AA05A]/30 flex items-start gap-2.5 text-xs">
+                        <User size={16} className="shrink-0 text-[#2D5A4A] mt-0.5" />
+                        <div>
+                          <div className="font-bold text-[#171717]">Guest Checkout Selected</div>
+                          <div className="text-neutral-600 text-2xs mt-0.5">
+                            You can place your medical equipment order without creating a password. Your order confirmation, VAT tax invoice, and DHL air tracking will be delivered to the email entered below.
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* 1. SAVED ADDRESS SELECTION (If available for user) */}
+                {user && savedAddresses.length > 0 && (
                   <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
                     <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
                       <div className="flex items-center gap-2">
@@ -1644,49 +2440,65 @@ export const CheckoutPage: React.FC = () => {
                 )}
 
                 {/* 2. CUSTOMER DETAILS FORM (STEP 1: Fields 1 to 4) */}
-                <AmazonCascadingAddressForm
-                  step={1}
-                  data={{
-                    firstName,
-                    lastName,
-                    fullName: fullName || `${firstName} ${lastName}`.trim(),
-                    phone,
-                    phoneCountryCode: activeCountry.dialCode,
-                    phoneIso: countryCode,
-                    country: activeCountry.name,
-                    countryCode,
-                    state,
-                    stateCode,
-                    city,
-                    postalCode,
-                    email,
-                    streetAddress: addressLine1,
-                    additionalAddress: addressLine2 || buildingSuite,
-                    companyName,
-                    department,
-                    professionalTitle,
-                    taxId
-                  }}
-                  onChange={(updated) => {
-                    if (updated.firstName !== undefined) setFirstName(updated.firstName);
-                    if (updated.lastName !== undefined) setLastName(updated.lastName);
-                    if (updated.fullName !== undefined) setFullName(updated.fullName);
-                    if (updated.phone !== undefined) setPhone(updated.phone);
-                    if (updated.email !== undefined) setEmail(updated.email);
-                  }}
-                />
+                {(user || authTab === "guest") && (
+                  <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
+                    <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+                      <div className="flex items-center gap-2">
+                        <User size={18} className="text-[#2D5A4A]" />
+                        <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
+                          Customer Contact Details
+                        </h2>
+                      </div>
+                      <span className="text-3xs font-bold text-neutral-400 uppercase tracking-wider">
+                        Required for Dispatch & Invoice
+                      </span>
+                    </div>
 
-                {/* Step 1 Action Button: Continue to Shipping Address */}
-                <div className="flex justify-end pt-2">
-                  <button
-                    type="button"
-                    onClick={handleContinueToStep2}
-                    className="w-full sm:w-auto px-8 py-3.5 bg-[#7AA05A] hover:bg-[#688a4c] text-white font-bold rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <span>Continue to Shipping Address</span>
-                    <ArrowRight size={16} />
-                  </button>
-                </div>
+                    <AmazonCascadingAddressForm
+                      step={1}
+                      data={{
+                        firstName,
+                        lastName,
+                        fullName: fullName || `${firstName} ${lastName}`.trim(),
+                        phone,
+                        phoneCountryCode: activeCountry.dialCode,
+                        phoneIso: countryCode,
+                        country: activeCountry.name,
+                        countryCode,
+                        state,
+                        stateCode,
+                        city,
+                        postalCode,
+                        email,
+                        streetAddress: addressLine1,
+                        additionalAddress: addressLine2 || buildingSuite,
+                        companyName,
+                        department,
+                        professionalTitle,
+                        taxId
+                      }}
+                      onChange={(updated) => {
+                        if (updated.firstName !== undefined) setFirstName(updated.firstName);
+                        if (updated.lastName !== undefined) setLastName(updated.lastName);
+                        if (updated.fullName !== undefined) setFullName(updated.fullName);
+                        if (updated.phone !== undefined) setPhone(updated.phone);
+                        if (updated.email !== undefined) setEmail(updated.email);
+                      }}
+                    />
+
+                    {/* Step 1 Action Button: Continue to Shipping Address */}
+                    <div className="flex justify-end pt-2">
+                      <button
+                        type="button"
+                        onClick={handleContinueToStep2}
+                        className="w-full sm:w-auto px-8 py-3.5 bg-[#7AA05A] hover:bg-[#688a4c] text-white font-bold rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                        <span>Continue to Shipping Address</span>
+                        <ArrowRight size={16} />
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
@@ -2023,106 +2835,352 @@ export const CheckoutPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* PAYPAL PAYMENT GATEWAY CONTAINER */}
+                {/* PAYMENT METHOD SELECTION */}
                 <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
                   <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
                     <div className="flex items-center gap-2">
                       <CreditCard size={18} className="text-[#2D5A4A]" />
                       <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
-                        PayPal Payment Gateway
+                        Choose Payment Method
                       </h2>
                     </div>
                     <span className="text-3xs font-bold text-[#2D5A4A] bg-[#F4F7F2] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                      Instant Authorization
+                      PCI-DSS Level 1 Secure
                     </span>
                   </div>
 
-                  <div className="space-y-4">
-                    {/* Independent Currency Selector and Disclosure */}
-                    <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {/* Method 1: PayPal */}
+                    <div
+                      onClick={() => setSelectedPaymentMethod("PAYPAL")}
+                      className={`p-4 rounded-xl border transition-all cursor-pointer relative flex flex-col justify-between ${
+                        selectedPaymentMethod === "PAYPAL"
+                          ? "border-[#7AA05A] bg-[#F4F7F2]/60 ring-2 ring-[#7AA05A]/20"
+                          : "border-neutral-200 bg-white hover:border-neutral-300"
+                      }`}
+                    >
                       <div>
-                        <div className="font-bold text-[#171717]">Select Settlement Currency</div>
-                        <div className="text-3xs text-neutral-500 mt-0.5">
-                          Total amount payable: <strong>{currentCurrency} {displayGrandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs font-black text-[#003087]">PayPal</span>
+                          <span
+                            className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${
+                              selectedPaymentMethod === "PAYPAL"
+                                ? "border-[#2D5A4A] bg-[#2D5A4A]"
+                                : "border-neutral-300"
+                            }`}
+                          >
+                            {selectedPaymentMethod === "PAYPAL" && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                          </span>
                         </div>
+                        <div className="font-bold text-xs text-[#171717]">PayPal & Cards</div>
+                        <p className="text-3xs text-neutral-500 mt-1 leading-relaxed">
+                          Pay with PayPal balance, Visa, Mastercard, or AMEX across 100+ global currencies.
+                        </p>
                       </div>
-
-                      <select
-                        value={currentCurrency}
-                        onChange={(e) => setCurrencyManually(e.target.value)}
-                        className="px-3 py-1.5 rounded-lg border border-neutral-300 bg-white text-xs font-bold text-neutral-800 focus:outline-none focus:border-[#7AA05A] cursor-pointer"
-                      >
-                        <option value="INR">INR (₹ - Indian Rupee)</option>
-                        <option value="USD">USD ($ - US Dollar)</option>
-                        <option value="EUR">EUR (€ - Euro)</option>
-                        <option value="GBP">GBP (£ - British Pound)</option>
-                        <option value="AED">AED (United Arab Emirates Dirham)</option>
-                        <option value="CAD">CAD (CA$ - Canadian Dollar)</option>
-                        <option value="AUD">AUD (A$ - Australian Dollar)</option>
-                        <option value="SAR">SAR (Saudi Riyal)</option>
-                        <option value="SGD">SGD (S$ - Singapore Dollar)</option>
-                        <option value="JPY">JPY (¥ - Japanese Yen)</option>
-                        <option value="CHF">CHF (Swiss Franc)</option>
-                        <option value="PKR">PKR (₨ - Pakistani Rupee)</option>
-                        <option value="ZAR">ZAR (South African Rand)</option>
-                      </select>
+                      <span className="text-3xs font-bold text-[#003087] mt-3 block">
+                        Instant Authorization
+                      </span>
                     </div>
 
-                    {/* Currency conversion notice if PayPal uses USD for unlisted settlement currencies */}
-                    {paypalCurrency !== currentCurrency && (
-                      <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200 text-3xs text-amber-900 flex items-start gap-1.5">
-                        <ShieldCheck size={14} className="shrink-0 text-amber-700 mt-0.5" />
-                        <span>
-                          PayPal authorization will settle in <strong>{paypalCurrency} (${paypalAmount.toFixed(2)})</strong> via standard interbank conversion.
-                        </span>
+                    {/* Method 2: Razorpay */}
+                    <div
+                      onClick={() => setSelectedPaymentMethod("RAZORPAY")}
+                      className={`p-4 rounded-xl border transition-all cursor-pointer relative flex flex-col justify-between ${
+                        selectedPaymentMethod === "RAZORPAY"
+                          ? "border-[#7AA05A] bg-[#F4F7F2]/60 ring-2 ring-[#7AA05A]/20"
+                          : "border-neutral-200 bg-white hover:border-neutral-300"
+                      }`}
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs font-black text-[#0C2340]">Razorpay</span>
+                          <span
+                            className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${
+                              selectedPaymentMethod === "RAZORPAY"
+                                ? "border-[#2D5A4A] bg-[#2D5A4A]"
+                                : "border-neutral-300"
+                            }`}
+                          >
+                            {selectedPaymentMethod === "RAZORPAY" && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                          </span>
+                        </div>
+                        <div className="font-bold text-xs text-[#171717]">Cards, UPI & NetBanking</div>
+                        <p className="text-3xs text-neutral-500 mt-1 leading-relaxed">
+                          Google Pay, PhonePe, Paytm, RuPay, Visa, Mastercard, and NetBanking across Indian banks.
+                        </p>
                       </div>
-                    )}
-
-                    {/* PayPal Buttons Render Container */}
-                    <div className="pt-2">
-                      {isProcessing && (
-                        <div className="p-4 rounded-xl bg-[#F4F7F2] border border-[#7AA05A]/30 text-center space-y-2 mb-3">
-                          <Loader2 size={24} className="animate-spin text-[#2D5A4A] mx-auto" />
-                          <p className="text-xs font-bold text-[#171717]">Connecting to PayPal Secure Checkout...</p>
-                          <p className="text-3xs text-neutral-500">Please do not close or reload this window.</p>
-                        </div>
-                      )}
-
-                      {paypalSdkLoadError && (
-                        <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs mb-3">
-                          {paypalSdkLoadError}
-                        </div>
-                      )}
-
-                      {!isPaypalSdkLoaded && !paypalSdkLoadError && (
-                        <div className="py-8 text-center text-xs text-neutral-500 flex flex-col items-center gap-2">
-                          <Loader2 size={20} className="animate-spin text-[#7AA05A]" />
-                          <span>Loading secure PayPal Gateway...</span>
-                        </div>
-                      )}
-
-                      {/* Official PayPal Buttons Container */}
-                      <div
-                        ref={paypalButtonContainerRef}
-                        id="paypal-button-container"
-                        className={`w-full transition-opacity duration-200 ${
-                          isProcessing ? "opacity-40 pointer-events-none" : "opacity-100"
-                        }`}
-                      />
+                      <span className="text-3xs font-bold text-[#2D5A4A] mt-3 block">
+                        Zero Domestic Fee
+                      </span>
                     </div>
 
-                    {/* Security credentials */}
-                    <div className="pt-3 border-t border-neutral-100 space-y-1.5 text-3xs text-neutral-500">
-                      <div className="flex items-center gap-1.5 text-[#2D5A4A] font-semibold">
-                        <ShieldCheck size={13} />
-                        <span>Buyer Protection & Official Proforma Documentation Included</span>
+                    {/* Method 3: COD */}
+                    <div
+                      onClick={() => setSelectedPaymentMethod("COD")}
+                      className={`p-4 rounded-xl border transition-all cursor-pointer relative flex flex-col justify-between ${
+                        selectedPaymentMethod === "COD"
+                          ? "border-[#7AA05A] bg-[#F4F7F2]/60 ring-2 ring-[#7AA05A]/20"
+                          : "border-neutral-200 bg-white hover:border-neutral-300"
+                      }`}
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <Truck size={16} className="text-[#2D5A4A]" />
+                          <span
+                            className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${
+                              selectedPaymentMethod === "COD"
+                                ? "border-[#2D5A4A] bg-[#2D5A4A]"
+                                : "border-neutral-300"
+                            }`}
+                          >
+                            {selectedPaymentMethod === "COD" && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                          </span>
+                        </div>
+                        <div className="font-bold text-xs text-[#171717]">Cash on Delivery</div>
+                        <p className="text-3xs text-neutral-500 mt-1 leading-relaxed">
+                          Direct purchase order. Pay upon physical delivery or clear via hospital wire against tax proforma.
+                        </p>
                       </div>
-                      <p className="leading-relaxed">
-                        Payment processed securely via PayPal's Level 1 PCI-DSS compliant infrastructure. DR.MEDEX does not store payment credentials.
-                      </p>
+                      <span className="text-3xs font-bold text-[#7AA05A] mt-3 block">
+                        Pay on Delivery (Pending)
+                      </span>
                     </div>
                   </div>
                 </div>
+
+                {/* PAYPAL PAYMENT GATEWAY CONTAINER */}
+                {selectedPaymentMethod === "PAYPAL" && (
+                  <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
+                    <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+                      <div className="flex items-center gap-2">
+                        <CreditCard size={18} className="text-[#2D5A4A]" />
+                        <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
+                          PayPal Payment Gateway
+                        </h2>
+                      </div>
+                      <span className="text-3xs font-bold text-[#2D5A4A] bg-[#F4F7F2] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                        Instant Authorization
+                      </span>
+                    </div>
+
+                    <div className="space-y-4">
+                      {/* Independent Currency Selector and Disclosure */}
+                      <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                        <div>
+                          <div className="font-bold text-[#171717]">Select Settlement Currency</div>
+                          <div className="text-3xs text-neutral-500 mt-0.5">
+                            Total amount payable: <strong>{currentCurrency} {displayGrandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>
+                          </div>
+                        </div>
+
+                        <select
+                          value={currentCurrency}
+                          onChange={(e) => setCurrencyManually(e.target.value)}
+                          className="px-3 py-1.5 rounded-lg border border-neutral-300 bg-white text-xs font-bold text-neutral-800 focus:outline-none focus:border-[#7AA05A] cursor-pointer"
+                        >
+                          <option value="INR">INR (₹ - Indian Rupee)</option>
+                          <option value="USD">USD ($ - US Dollar)</option>
+                          <option value="EUR">EUR (€ - Euro)</option>
+                          <option value="GBP">GBP (£ - British Pound)</option>
+                          <option value="AED">AED (United Arab Emirates Dirham)</option>
+                          <option value="CAD">CAD (CA$ - Canadian Dollar)</option>
+                          <option value="AUD">AUD (A$ - Australian Dollar)</option>
+                          <option value="SAR">SAR (Saudi Riyal)</option>
+                          <option value="SGD">SGD (S$ - Singapore Dollar)</option>
+                          <option value="JPY">JPY (¥ - Japanese Yen)</option>
+                          <option value="CHF">CHF (Swiss Franc)</option>
+                          <option value="PKR">PKR (₨ - Pakistani Rupee)</option>
+                          <option value="ZAR">ZAR (South African Rand)</option>
+                        </select>
+                      </div>
+
+                      {/* Currency conversion notice if PayPal uses USD for unlisted settlement currencies */}
+                      {paypalCurrency !== currentCurrency && (
+                        <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200 text-3xs text-amber-900 flex items-start gap-1.5">
+                          <ShieldCheck size={14} className="shrink-0 text-amber-700 mt-0.5" />
+                          <span>
+                            PayPal authorization will settle in <strong>{paypalCurrency} (${paypalAmount.toFixed(2)})</strong> via standard interbank conversion. Product pricing is preserved in {currentCurrency}.
+                          </span>
+                        </div>
+                      )}
+
+                      {/* PayPal Buttons Render Container */}
+                      <div className="pt-2">
+                        {isProcessing && (
+                          <div className="p-4 rounded-xl bg-[#F4F7F2] border border-[#7AA05A]/30 text-center space-y-2 mb-3">
+                            <Loader2 size={24} className="animate-spin text-[#2D5A4A] mx-auto" />
+                            <p className="text-xs font-bold text-[#171717]">Connecting to PayPal Secure Checkout...</p>
+                            <p className="text-3xs text-neutral-500">Please do not close or reload this window.</p>
+                          </div>
+                        )}
+
+                        {paypalSdkLoadError && (
+                          <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs mb-3">
+                            {paypalSdkLoadError}
+                          </div>
+                        )}
+
+                        {!isPaypalSdkLoaded && !paypalSdkLoadError && (
+                          <div className="py-8 text-center text-xs text-neutral-500 flex flex-col items-center gap-2">
+                            <Loader2 size={20} className="animate-spin text-[#7AA05A]" />
+                            <span>Loading secure PayPal Gateway...</span>
+                          </div>
+                        )}
+
+                        {/* Official PayPal Buttons Container */}
+                        <div
+                          ref={paypalButtonContainerRef}
+                          id="paypal-button-container"
+                          className={`w-full transition-opacity duration-200 ${
+                            isProcessing ? "opacity-40 pointer-events-none" : "opacity-100"
+                          }`}
+                        />
+                      </div>
+
+                      {/* Security credentials */}
+                      <div className="pt-3 border-t border-neutral-100 space-y-1.5 text-3xs text-neutral-500">
+                        <div className="flex items-center gap-1.5 text-[#2D5A4A] font-semibold">
+                          <ShieldCheck size={13} />
+                          <span>Buyer Protection & Official Proforma Documentation Included</span>
+                        </div>
+                        <p className="leading-relaxed">
+                          Payment processed securely via PayPal's Level 1 PCI-DSS compliant infrastructure. DR.MEDEX does not store payment credentials.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* RAZORPAY GATEWAY CONTAINER */}
+                {selectedPaymentMethod === "RAZORPAY" && (
+                  <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-5">
+                    <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+                      <div className="flex items-center gap-2">
+                        <CreditCard size={18} className="text-[#2D5A4A]" />
+                        <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
+                          Razorpay Secure Gateway
+                        </h2>
+                      </div>
+                      <span className="text-3xs font-bold text-[#2D5A4A] bg-[#F4F7F2] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                        UPI • Cards • NetBanking
+                      </span>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-neutral-50 border border-neutral-200 space-y-2 text-xs">
+                      <div className="flex justify-between items-center">
+                        <span className="text-neutral-600">Payable Amount:</span>
+                        <span className="text-base font-extrabold text-[#171717]">
+                          {currentCurrency} {displayGrandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </span>
+                      </div>
+                      <div className="text-3xs text-neutral-500">
+                        Includes compliant GST invoice and zero surcharge across all domestic UPI & card payments.
+                      </div>
+                    </div>
+
+                    <div className="space-y-2 text-xs text-neutral-600">
+                      <div className="font-bold text-[#171717]">Accepted Payment Methods:</div>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-2xs">
+                        <div className="p-2 rounded-lg bg-neutral-50 border border-neutral-200 text-center font-medium">
+                          UPI (GPay, PhonePe)
+                        </div>
+                        <div className="p-2 rounded-lg bg-neutral-50 border border-neutral-200 text-center font-medium">
+                          Credit & Debit Cards
+                        </div>
+                        <div className="p-2 rounded-lg bg-neutral-50 border border-neutral-200 text-center font-medium">
+                          NetBanking (50+ Banks)
+                        </div>
+                        <div className="p-2 rounded-lg bg-neutral-50 border border-neutral-200 text-center font-medium">
+                          Corporate Cards
+                        </div>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handlePayWithRazorpay}
+                      disabled={isRazorpayLoading}
+                      className="w-full py-3.5 bg-[#2D5A4A] hover:bg-[#23463a] text-white font-bold rounded-xl text-xs transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+                    >
+                      {isRazorpayLoading ? (
+                        <>
+                          <Loader2 size={16} className="animate-spin" />
+                          <span>Initializing Razorpay Checkout...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Lock size={15} />
+                          <span>
+                            Pay {currentCurrency} {displayGrandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} with Razorpay
+                          </span>
+                        </>
+                      )}
+                    </button>
+
+                    <div className="flex items-center gap-1.5 text-3xs text-neutral-400 justify-center">
+                      <ShieldCheck size={13} className="text-[#7AA05A]" />
+                      <span>256-bit Bank Grade Encryption • ISO/IEC 27001 Certified</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* CASH ON DELIVERY / PROFORMA CONTAINER */}
+                {selectedPaymentMethod === "COD" && (
+                  <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-5">
+                    <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+                      <div className="flex items-center gap-2">
+                        <Truck size={18} className="text-[#2D5A4A]" />
+                        <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
+                          Cash on Delivery / Direct Purchase Order
+                        </h2>
+                      </div>
+                      <span className="text-3xs font-bold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full uppercase tracking-wider border border-amber-200">
+                        Payment Status: PENDING
+                      </span>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200 space-y-2 text-xs text-amber-950">
+                      <div className="font-bold flex items-center gap-1.5">
+                        <FileText size={15} className="text-amber-700" />
+                        <span>Direct Institutional Order Confirmation</span>
+                      </div>
+                      <p className="text-2xs leading-relaxed text-amber-900">
+                        Upon clicking confirm, your order will be officially registered in our system with <strong>Order Status: PLACED</strong> and <strong>Payment Status: PENDING</strong>. An official commercial invoice with bank wire instructions will be transmitted to <strong>{email}</strong>.
+                      </p>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-neutral-50 border border-neutral-200 space-y-2 text-xs">
+                      <div className="flex justify-between items-center">
+                        <span className="text-neutral-600">Total Payable upon Handover:</span>
+                        <span className="text-base font-extrabold text-[#171717]">
+                          {currentCurrency} {displayGrandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </span>
+                      </div>
+                      <div className="text-3xs text-neutral-500">
+                        Delivery handled by DHL Express Air Cargo. Payment can be settled via cashier's cheque, cash upon arrival, or institutional NEFT/RTGS wire prior to dispatch.
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handlePlaceCodOrder}
+                      disabled={isCodLoading}
+                      className="w-full py-3.5 bg-[#7AA05A] hover:bg-[#688a4c] text-white font-bold rounded-xl text-xs transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+                    >
+                      {isCodLoading ? (
+                        <>
+                          <Loader2 size={16} className="animate-spin" />
+                          <span>Generating Official Order Record...</span>
+                        </>
+                      ) : (
+                        <>
+                          <PackageCheck size={16} />
+                          <span>Confirm & Place Cash on Delivery Order</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                )}
 
                 {/* Step 3 Action: Back button */}
                 <div className="flex justify-start pt-2">

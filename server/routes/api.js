@@ -15,6 +15,7 @@ const paypalService = require("../services/paypalService");
 const orderService = require("../services/orderService");
 const locationService = require("../services/locationService");
 const notificationService = require("../services/notificationService");
+const emailService = require("../services/emailService");
 
 // HEALTH
 router.get("/health", (req, res) => {
@@ -432,6 +433,97 @@ router.post("/payment/paypal/webhook", async (req, res) => {
   } catch (err) {
     console.error("[PayPal Webhook Error]:", err.message);
     res.status(200).json({ received: false, error: err.message });
+  }
+});
+
+// CASH ON DELIVERY (COD) ORDER CREATION
+router.post("/payment/cod/create-order", async (req, res) => {
+  try {
+    const payload = {
+      ...req.body,
+      paymentMethod: "Cash on Delivery",
+      paymentProvider: "COD"
+    };
+    const order = await orderService.createPendingOrder(payload);
+    order.payment.provider = "COD";
+    order.payment.method = "Cash on Delivery";
+    order.payment.status = "PENDING";
+    order.orderStatus = "PLACED";
+    order.status = "PLACED";
+
+    // Update in MongoDB
+    try {
+      const client = await mongoService.getClient();
+      const db = client.db();
+      await db.collection("orders").updateOne(
+        { orderNumber: order.orderNumber },
+        { $set: order },
+        { upsert: true }
+      );
+    } catch (e) {}
+
+    // Send COD invoice with "PAYMENT DUE (CASH ON DELIVERY)"
+    emailService.sendOrderInvoiceEmail(order).catch(() => {});
+
+    res.json({ success: true, order });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+// RAZORPAY PAYMENT GATEWAY ORDER CREATION & VERIFICATION
+router.post("/payment/razorpay/create-order", async (req, res) => {
+  try {
+    const payload = {
+      ...req.body,
+      paymentMethod: "Razorpay Secure (Cards, UPI, NetBanking)",
+      paymentProvider: "RAZORPAY"
+    };
+    const pendingOrder = await orderService.createPendingOrder(payload);
+    pendingOrder.payment.provider = "RAZORPAY";
+    pendingOrder.payment.method = "Razorpay Secure (Cards, UPI, NetBanking)";
+
+    const razorpayKeyId = process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID || "rzp_test_drmedex";
+    const amountInSubunits = Math.round((pendingOrder.pricing.grandTotalINR || pendingOrder.pricing.grandTotal) * 100);
+
+    res.json({
+      success: true,
+      keyId: razorpayKeyId,
+      orderNumber: pendingOrder.orderNumber,
+      amount: amountInSubunits,
+      currency: "INR",
+      order: pendingOrder
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+});
+
+router.post("/payment/razorpay/verify", async (req, res) => {
+  try {
+    const { orderNumber, razorpayOrderId, razorpayPaymentId, razorpaySignature } = req.body;
+    if (!orderNumber || !razorpayPaymentId) {
+      return res.status(400).json({ success: false, message: "Missing orderNumber or razorpayPaymentId." });
+    }
+
+    const paidOrder = await orderService.markOrderAsPaid({
+      orderNumber,
+      paypalOrderId: razorpayOrderId || null,
+      paypalCaptureId: razorpayPaymentId,
+      paymentDetails: {
+        provider: "RAZORPAY",
+        razorpayPaymentId,
+        razorpayOrderId,
+        razorpaySignature
+      }
+    });
+
+    paidOrder.payment.provider = "RAZORPAY";
+    paidOrder.payment.method = "Razorpay Secure (Cards, UPI, NetBanking)";
+
+    res.json({ success: true, order: paidOrder });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
   }
 });
 

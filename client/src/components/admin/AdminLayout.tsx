@@ -330,19 +330,23 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
               </div>
 
               {/* Orders */}
-              <button
-                type="button"
-                onClick={() =>
-                  setNoticeModal({
-                    title: "Orders Management",
-                    desc: "Live order fulfillment, DHL cargo tracking, and purchase order tracking active. View orders through the Customer Track Order portal or view recent orders on the Dashboard."
-                  })
-                }
-                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-neutral-600 hover:text-black hover:bg-neutral-100 transition-colors text-left cursor-pointer"
+              <Link
+                to="/admin/orders"
+                onClick={() => setIsMobileSidebarOpen(false)}
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+                  location.pathname.startsWith("/admin/orders")
+                    ? "bg-neutral-100 text-black font-bold border-l-2 border-[#FFD400]"
+                    : "text-neutral-600 hover:text-black hover:bg-neutral-100"
+                }`}
               >
-                <ShoppingCart size={16} className="text-neutral-700 shrink-0" />
-                <span>Orders</span>
-              </button>
+                <div className="flex items-center gap-3">
+                  <ShoppingCart size={16} className="text-neutral-700 shrink-0" />
+                  <span>All Orders</span>
+                </div>
+                <span className="text-[10px] font-mono px-1.5 py-0.2 bg-[#FFD400] text-black border border-neutral-300 rounded font-bold">
+                  Live
+                </span>
+              </Link>
 
               {/* Customers */}
               <Link
