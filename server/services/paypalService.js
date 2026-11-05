@@ -11,7 +11,12 @@ function getClientId() {
 }
 
 function getClientSecret() {
-  return (process.env.PAYPAL_CLIENT_SECRET || "").trim();
+  return (
+    process.env.PAYPAL_CLIENT_SECRET ||
+    process.env.PAYPAL_SECRET_KEY ||
+    process.env["paypal-secret_key"] ||
+    ""
+  ).trim();
 }
 
 function getMode() {
