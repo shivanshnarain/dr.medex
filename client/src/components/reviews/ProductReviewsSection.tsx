@@ -681,7 +681,29 @@ export const ProductReviewsSection: React.FC<ProductReviewsSectionProps> = ({
             <Loader2 size={24} className="animate-spin text-[#2D5A4A]" />
             <span className="text-xs">Loading approved customer reviews...</span>
           </div>
-        ) : reviews.length === 0 ? null : (
+        ) : reviews.length === 0 ? (
+          <div className="p-8 text-center bg-[#FAF9F7] border border-[#E5E1DD] rounded-2xl flex flex-col items-center justify-center gap-3">
+            <div className="flex items-center gap-1">
+              {[1, 2, 3, 4, 5].map((starIdx) => (
+                <Star key={starIdx} size={18} className="text-[#F59E0B] fill-[#F59E0B]" />
+              ))}
+            </div>
+            <h4 className="text-sm font-bold text-[#111111]">No Customer Reviews Yet</h4>
+            <p className="text-xs text-neutral-500 max-w-md">
+              Be the first verified clinician or healthcare facility to share feedback for this product.
+            </p>
+            {!showReviewForm && (
+              <button
+                type="button"
+                onClick={handleWriteReviewClick}
+                className="mt-1 px-4 py-2 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-lg text-xs font-bold transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+              >
+                <Plus size={13} />
+                <span>Write the First Review</span>
+              </button>
+            )}
+          </div>
+        ) : (
           reviews.map((rev) => {
             const authorDisplay =
               rev.customerName ||

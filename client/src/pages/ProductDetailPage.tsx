@@ -410,12 +410,35 @@ export const ProductDetailPage: React.FC = () => {
   const { formatPrice } = useCurrency();
   const { addToCart, closeDrawer } = useCart();
 
-  const [product, setProduct] = useState<Product | null>(null);
-  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+  // Immediate candidate resolution from fallback catalogue to eliminate skeleton jump
+  const immediateCandidate = React.useMemo(() => {
+    if (!slug) return null;
+    const clean = slug.toLowerCase().replace(/\/+$/, "").trim();
+    return (
+      fallbackProducts.find((p) => {
+        const pSlug = (p.slug || "").toLowerCase().replace(/\/+$/, "").trim();
+        const pId = (p.id || "").toLowerCase().trim();
+        return pSlug === clean || pId === clean;
+      }) || null
+    );
+  }, [slug]);
+
+  const [product, setProduct] = useState<Product | null>(() => immediateCandidate);
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>(() => {
+    if (!immediateCandidate?.category) return [];
+    return fallbackProducts
+      .filter(
+        (p) =>
+          p.category === immediateCandidate.category &&
+          p.id !== immediateCandidate.id &&
+          p.slug !== immediateCandidate.slug
+      )
+      .slice(0, 4);
+  });
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [hoveredThumbnailIndex, setHoveredThumbnailIndex] = useState<number | null>(null);
   const [isAdded, setIsAdded] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(() => !immediateCandidate);
   const [fetchError, setFetchError] = useState<string | null>(null);
   const { triggerBuyNow, isProcessing: isSubmittingBuy } = useBuyNow();
 
@@ -466,60 +489,80 @@ export const ProductDetailPage: React.FC = () => {
       window.removeEventListener("resize", handleResize);
       if (resizeObserver) resizeObserver.disconnect();
     };
-  }, [updateGalleryHeight, activeImageIndex, product?.id]);
+  }, [updateGalleryHeight, product?.id]);
+
+  useEffect(() => {
+    updateGalleryHeight();
+  }, [updateGalleryHeight, activeImageIndex]);
 
   // Quote modal (for related product cards)
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
+  // Asynchronous non-blocking related products loader
+  const loadRelatedProducts = useCallback(async (prod: Product) => {
+    if (!prod?.category) return;
+    try {
+      const relRes = await fetch(`/api/products?category=${encodeURIComponent(prod.category)}`);
+      if (relRes.ok) {
+        const relData = await relRes.json();
+        if (relData.success && Array.isArray(relData.products)) {
+          const filtered = relData.products
+            .filter((p: Product) => p.id !== prod.id && p.slug !== prod.slug)
+            .slice(0, 4);
+          if (filtered.length > 0) {
+            setRelatedProducts(filtered);
+            return;
+          }
+        }
+      }
+    } catch {
+      // Keep existing fallback
+    }
+
+    const relFallback = fallbackProducts
+      .filter((p) => p.category === prod.category && p.id !== prod.id && p.slug !== prod.slug)
+      .slice(0, 4);
+    setRelatedProducts(relFallback);
+  }, []);
+
   // Fetch product data
   const loadProduct = useCallback(async () => {
     if (!slug) return;
-    setIsLoading(true);
+    // Reconcile if current loaded product doesn't match the new slug
+    if (!product || (product.slug !== slug && product.id !== slug)) {
+      if (immediateCandidate) {
+        setProduct(immediateCandidate);
+        setIsLoading(false);
+      } else {
+        setIsLoading(true);
+      }
+    }
     setFetchError(null);
+
     try {
       const { product: prod } = await getProductBySlug(slug);
       if (prod) {
         setProduct(prod);
         setActiveImageIndex(0);
+        setIsLoading(false);
 
-        // Fetch related products in the same category
-        if (prod.category) {
-          let relatedLoaded = false;
-          try {
-            const relRes = await fetch(`/api/products?category=${encodeURIComponent(prod.category)}`);
-            if (relRes.ok) {
-              const relData = await relRes.json();
-              if (relData.success && Array.isArray(relData.products)) {
-                setRelatedProducts(
-                  relData.products
-                    .filter((p: Product) => p.id !== prod.id && p.slug !== prod.slug)
-                    .slice(0, 4)
-                );
-                relatedLoaded = true;
-              }
-            }
-          } catch {
-            // fallback handled below
-          }
-
-          if (!relatedLoaded) {
-            const relFallback = fallbackProducts
-              .filter((p) => p.category === prod.category && p.id !== prod.id && p.slug !== prod.slug)
-              .slice(0, 4);
-            setRelatedProducts(relFallback);
-          }
-        }
+        // Fetch related products non-blockingly without delaying the main product view
+        loadRelatedProducts(prod);
       } else {
-        setProduct(null);
+        if (!product && !immediateCandidate) {
+          setProduct(null);
+        }
       }
     } catch (e: any) {
       console.error("Failed to load product detail:", e);
-      setFetchError(e.message || "Failed to load product information.");
-      setProduct(null);
+      if (!product && !immediateCandidate) {
+        setFetchError(e.message || "Failed to load product information.");
+        setProduct(null);
+      }
     } finally {
       setIsLoading(false);
     }
-  }, [slug]);
+  }, [slug, immediateCandidate, product, loadRelatedProducts]);
 
   useEffect(() => {
     loadProduct();
@@ -1017,6 +1060,9 @@ export const ProductDetailPage: React.FC = () => {
                 src={productImages[activeImageIndex] || productImages[0]}
                 alt={`${productTitle} - Angle ${activeImageIndex + 1}`}
                 onLoad={updateGalleryHeight}
+                // @ts-ignore
+                fetchPriority="high"
+                decoding="async"
                 className="product-gallery-main-image block w-full h-auto max-w-full object-contain object-center rounded-[8px] border-none select-none"
                 style={{
                   display: "block",

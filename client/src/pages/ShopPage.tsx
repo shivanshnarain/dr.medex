@@ -6,7 +6,7 @@ import { ProductCard } from "../components/ProductCard";
 import { QuickViewModal } from "../components/QuickViewModal";
 import { B2BQuoteModal } from "../components/B2BQuoteModal";
 import { useCurrency } from "../context/CurrencyContext";
-import { getProducts, getCategories } from "../services/productService";
+import { getProducts, getCategories, fallbackProducts, fallbackCategories } from "../services/productService";
 
 export const ShopPage: React.FC = () => {
   const { categorySlug } = useParams<{ categorySlug?: string }>();
@@ -14,9 +14,9 @@ export const ShopPage: React.FC = () => {
   const navigate = useNavigate();
   const { currentCurrency, currentCountry, formatPrice } = useCurrency();
 
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>(() => fallbackProducts);
+  const [categories, setCategories] = useState<Category[]>(() => fallbackCategories);
+  const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
@@ -42,7 +42,9 @@ export const ShopPage: React.FC = () => {
 
   // Load products & categories via resilient product service
   const loadData = async () => {
-    setIsLoading(true);
+    if (products.length === 0) {
+      setIsLoading(true);
+    }
     setApiError(null);
     try {
       const [prodRes, catRes] = await Promise.all([
@@ -50,15 +52,21 @@ export const ShopPage: React.FC = () => {
         getCategories()
       ]);
 
-      setProducts(prodRes.products);
-      setCategories(catRes.categories);
+      if (prodRes && Array.isArray(prodRes.products) && prodRes.products.length > 0) {
+        setProducts(prodRes.products);
+      }
+      if (catRes && Array.isArray(catRes.categories) && catRes.categories.length > 0) {
+        setCategories(catRes.categories);
+      }
 
-      if (prodRes.products.length === 0) {
+      if ((!prodRes || prodRes.products.length === 0) && products.length === 0) {
         setApiError("No product catalog records are currently available.");
       }
     } catch (e: any) {
       console.error("Error loading shop data:", e);
-      setApiError("Unable to establish connection with medical catalog service.");
+      if (products.length === 0) {
+        setApiError("Unable to establish connection with medical catalog service.");
+      }
     } finally {
       setIsLoading(false);
     }

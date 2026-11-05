@@ -25,6 +25,7 @@ router.get("/health", (req, res) => {
 // PRODUCTS
 router.get("/products", async (req, res) => {
   try {
+    res.set("Cache-Control", "public, max-age=60, s-maxage=300, stale-while-revalidate=600");
     const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
     let list = [];
 
@@ -69,7 +70,7 @@ router.get("/products", async (req, res) => {
 
 router.get("/products/:slug", async (req, res) => {
   try {
-    res.set("Cache-Control", "public, max-age=0, must-revalidate");
+    res.set("Cache-Control", "public, max-age=60, s-maxage=300, stale-while-revalidate=600");
     const slugOrId = req.params.slug;
     const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
 
@@ -83,12 +84,23 @@ router.get("/products/:slug", async (req, res) => {
       } catch (mErr) {}
     }
 
-    // Fallback to in-memory store ONLY if MongoDB is not configured or product wasn't found in MongoDB
+    // Fallback: Check canonical product lookup if not directly found in MongoDB by raw slug
     if (!product) {
-      if (!mongoService.isConfigured()) {
-        product = store.getProductBySlug(slugOrId) || store.getProductById(slugOrId, true);
-        if (product && deletedIds.has(String(product.id))) {
-          product = null;
+      const storeProduct = store.getProductBySlug(slugOrId) || store.getProductById(slugOrId, true);
+      if (storeProduct && !deletedIds.has(String(storeProduct.id))) {
+        if (mongoService.isConfigured()) {
+          try {
+            const mongoById = await mongoService.getApprovedProduct(storeProduct.id);
+            if (mongoById && !deletedIds.has(String(mongoById.id))) {
+              product = mongoById;
+            } else if (!mongoService.isConfigured()) {
+              product = storeProduct;
+            }
+          } catch (e) {
+            product = storeProduct;
+          }
+        } else {
+          product = storeProduct;
         }
       }
     }

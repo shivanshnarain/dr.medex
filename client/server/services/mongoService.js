@@ -6,18 +6,38 @@ const DELETED_COLLECTION_NAME = "deleted_products";
 
 function buildProductFilter(identifier) {
   if (!identifier) return null;
-  const idStr = String(identifier).trim();
-  const lowerPid = idStr.toLowerCase();
+  const idStr = String(identifier).trim().replace(/\/+$/, "").replace(/\.html$/i, "");
+  let decoded = idStr;
+  try {
+    decoded = decodeURIComponent(idStr).trim();
+  } catch {}
+  const lowerPid = decoded.toLowerCase();
   const clauses = [
     { id: idStr },
+    { id: decoded },
     { id: lowerPid },
     { slug: idStr },
-    { slug: lowerPid }
+    { slug: decoded },
+    { slug: lowerPid },
+    { canonicalSlug: idStr },
+    { canonicalSlug: decoded },
+    { canonicalSlug: lowerPid }
   ];
-  if (ObjectId.isValid(idStr) && String(new ObjectId(idStr)) === idStr) {
-    clauses.push({ _id: new ObjectId(idStr) });
+  if (ObjectId.isValid(decoded) && String(new ObjectId(decoded)) === decoded) {
+    clauses.push({ _id: new ObjectId(decoded) });
   }
   return { $or: clauses };
+}
+
+// In-memory high performance cache for MongoDB queries (60s TTL)
+let cachedMongoProducts = null;
+let cachedMongoProductsTime = 0;
+const MONGO_PRODUCTS_CACHE_TTL = 60000;
+
+function invalidateMongoCache() {
+  cachedMongoProducts = null;
+  cachedMongoProductsTime = 0;
+  cachedDeletedIds = null;
 }
 
 function getNormalizedUri() {
@@ -295,6 +315,8 @@ async function upsertApprovedProduct(product, adminEmail = "admin@drmedex.com") 
     if (cachedDeletedIds) cachedDeletedIds.delete(approvedRecord.id);
   } catch (e) {}
 
+  invalidateMongoCache();
+
   return {
     success: true,
     status: "SYNCED",
@@ -342,6 +364,8 @@ async function updateProductReviewStatus(productId, reviewStatus, reviewNote = n
     { upsert: true }
   );
 
+  invalidateMongoCache();
+
   return {
     success: true,
     status: "UPDATED",
@@ -386,6 +410,8 @@ async function removeApprovedProduct(productId, adminEmail = "admin@drmedex.com"
     console.warn("[mongoService] Failed to record deleted tombstone:", tombErr.message);
   }
 
+  invalidateMongoCache();
+
   return {
     success: true,
     status: "REMOVED",
@@ -402,13 +428,35 @@ async function getApprovedProduct(productId) {
   if (!isConfigured() || !productId) return null;
   if (Date.now() - lastFailureTime < 15000 && connectionFailureCount > 0) return null;
   try {
-    const filter = buildProductFilter(productId);
+    const cleanId = String(productId).trim().replace(/\/+$/, "").replace(/\.html$/i, "");
+    let decoded = cleanId;
+    try { decoded = decodeURIComponent(cleanId).trim(); } catch {}
+    const lowerId = decoded.toLowerCase();
+    const deletedSet = await getDeletedProductIds();
+
+    // 1. Check in-memory MongoDB cache first (instant sub-millisecond response)
+    if (cachedMongoProducts && (Date.now() - cachedMongoProductsTime < MONGO_PRODUCTS_CACHE_TTL)) {
+      const cachedMatch = cachedMongoProducts.find(p => {
+        if (!p) return false;
+        const pid = String(p.id || "").toLowerCase();
+        const pslug = String(p.slug || "").toLowerCase();
+        const pcan = String(p.canonicalSlug || "").toLowerCase();
+        const p_id = p._id ? String(p._id).toLowerCase() : "";
+        const psku = String(p.sku || p.SKU || "").toLowerCase();
+        return pid === lowerId || pslug === lowerId || pcan === lowerId || p_id === lowerId || (cleanId.length > 5 && psku === lowerId);
+      });
+      if (cachedMatch) {
+        if (deletedSet.has(String(cachedMatch.id))) return null;
+        return cachedMatch;
+      }
+    }
+
+    const filter = buildProductFilter(cleanId);
     if (!filter) return null;
 
     const collection = await getCollection();
     const doc = await collection.findOne(filter);
     if (doc) {
-      const deletedSet = await getDeletedProductIds();
       if (deletedSet.has(String(doc.id))) return null;
     }
     return doc;
@@ -418,30 +466,40 @@ async function getApprovedProduct(productId) {
 }
 
 /**
- * Query all products directly from MongoDB collection
+ * Query all products directly from MongoDB collection with in-memory caching
  */
 async function getProductsFromMongo(filters = {}) {
   if (!isConfigured()) return null;
-  // If connection failed within last 15s, avoid blocking page load
   if (Date.now() - lastFailureTime < 15000 && connectionFailureCount > 0) {
     return null;
   }
   try {
-    const collection = await getCollection();
-    const query = {};
+    const deletedSet = await getDeletedProductIds();
+    let allDocs = null;
+    const isCacheFresh = cachedMongoProducts && (Date.now() - cachedMongoProductsTime < MONGO_PRODUCTS_CACHE_TTL);
+
+    if (isCacheFresh) {
+      allDocs = cachedMongoProducts;
+    } else {
+      const collection = await getCollection();
+      allDocs = await collection.find({}).toArray();
+      cachedMongoProducts = allDocs;
+      cachedMongoProductsTime = Date.now();
+    }
+
+    let docs = allDocs.filter(d => !deletedSet.has(String(d.id)));
+
     if (filters.category && filters.category !== "ALL") {
-      query.category = filters.category;
+      docs = docs.filter(d => d.category === filters.category);
     }
     if (filters.reviewStatus && filters.reviewStatus !== "ALL" && filters.reviewStatus !== "all") {
       if (filters.reviewStatus === "PENDING" || filters.reviewStatus === "NOT_REVIEWED") {
-        query.$or = [{ reviewStatus: "PENDING" }, { reviewStatus: { $exists: false } }];
+        docs = docs.filter(d => !d.reviewStatus || d.reviewStatus === "PENDING");
       } else {
-        query.reviewStatus = filters.reviewStatus;
+        docs = docs.filter(d => d.reviewStatus === filters.reviewStatus);
       }
     }
-    const docs = await collection.find(query).toArray();
-    const deletedSet = await getDeletedProductIds();
-    return docs.filter(d => !deletedSet.has(String(d.id)));
+    return docs;
   } catch (err) {
     console.warn("[mongoService] getProductsFromMongo:", sanitizeMongoError(err));
     return null;
