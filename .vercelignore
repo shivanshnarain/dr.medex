@@ -1,0 +1,26 @@
+# Vercel Deployment Optimization Ignore File
+# Excludes non-runtime files from Deployment Storage and Functions Storage bundles
+
+# Backups and historical dumps
+server/data/backups
+server/data/*.backup*
+*.backup*
+client/server/data/backups
+
+# Test suites and development artifacts
+server/tests
+client/server/tests
+test_suite.js
+*.test.js
+*.spec.js
+
+# Internal scripts and services not invoked in production
+scripts
+laravel-storage-service
+*.md
+
+# Git and OS metadata
+.git
+.github
+.DS_Store
+*.log

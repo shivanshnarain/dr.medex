@@ -795,17 +795,17 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
           )}
         </div>
 
-        {/* 9. Street Address * */}
+        {/* 9. Address * */}
         <div>
           <label className="block font-bold text-[#171717] mb-1.5">
-            Street Address <span className="text-red-500">*</span>
+            Address <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
             required
             value={data.streetAddress || ""}
             onChange={(e) => onChange({ streetAddress: e.target.value })}
-            placeholder="Building number, street name, hospital ward, or clinic suite"
+            placeholder="Enter your complete delivery address."
             className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 bg-white text-[#171717] font-medium focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20 transition-all placeholder:text-neutral-400"
           />
         </div>

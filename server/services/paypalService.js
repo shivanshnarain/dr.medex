@@ -7,7 +7,14 @@
  * Dynamic credential getters to guarantee real-time resolution in serverless / Vercel environments
  */
 function getClientId() {
-  return (process.env.PAYPAL_CLIENT_ID || process.env.VITE_PAYPAL_CLIENT_ID || "").trim();
+  return (
+    process.env.PAYPAL_CLIENT_ID ||
+    process.env.VITE_PAYPAL_CLIENT_ID ||
+    process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ||
+    process.env.REACT_APP_PAYPAL_CLIENT_ID ||
+    process.env.PAYPAL_CLIENT ||
+    ""
+  ).trim().replace(/^["']|["']$/g, "");
 }
 
 function getClientSecret() {
@@ -15,8 +22,10 @@ function getClientSecret() {
     process.env.PAYPAL_CLIENT_SECRET ||
     process.env.PAYPAL_SECRET_KEY ||
     process.env["paypal-secret_key"] ||
+    process.env["PAYPAL_SECRET_KEY"] ||
+    process.env.PAYPAL_SECRET ||
     ""
-  ).trim();
+  ).trim().replace(/^["']|["']$/g, "");
 }
 
 function getMode() {

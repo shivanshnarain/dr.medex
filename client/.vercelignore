@@ -1,0 +1,17 @@
+# Vercel Deployment Optimization Ignore File
+server/data/backups
+server/data/*.backup*
+*.backup*
+client/server/data/backups
+server/tests
+client/server/tests
+test_suite.js
+*.test.js
+*.spec.js
+scripts
+laravel-storage-service
+*.md
+.git
+.github
+.DS_Store
+*.log

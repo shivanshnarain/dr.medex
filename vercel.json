@@ -2,8 +2,9 @@
   "buildCommand": "npm run build",
   "outputDirectory": "client/dist",
   "functions": {
-    "api/**/*.js": {
-      "includeFiles": "server/**"
+    "api/**": {
+      "includeFiles": "server/**",
+      "maxDuration": 30
     }
   },
   "crons": [
@@ -12,10 +13,39 @@
       "schedule": "0 0 * * *"
     }
   ],
+  "headers": [
+    {
+      "source": "/products-catalog/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/category-cards/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/admin/(.*)",
-      "destination": "/api/admin/[...path]?path=$1"
+      "destination": "/api/[...path]?path=admin/$1"
     },
     {
       "source": "/api/(.*)",

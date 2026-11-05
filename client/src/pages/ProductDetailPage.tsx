@@ -1043,6 +1043,10 @@ export const ProductDetailPage: React.FC = () => {
                             : "border-2 border-transparent opacity-65 hover:opacity-100 hover:border-neutral-200"
                         }`}
                         loading="lazy"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src =
+                            "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=400&q=80";
+                        }}
                       />
                     </button>
                   );
@@ -1062,6 +1066,7 @@ export const ProductDetailPage: React.FC = () => {
                 onLoad={updateGalleryHeight}
                 // @ts-ignore
                 fetchPriority="high"
+                loading="eager"
                 decoding="async"
                 className="product-gallery-main-image block w-full h-auto max-w-full object-contain object-center rounded-[8px] border-none select-none"
                 style={{
@@ -1137,6 +1142,10 @@ export const ProductDetailPage: React.FC = () => {
                               : "border-2 border-transparent opacity-70 hover:opacity-100 scale-100"
                           }`}
                           loading="lazy"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src =
+                              "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=400&q=80";
+                          }}
                         />
                       </button>
                     );
