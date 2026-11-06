@@ -105,6 +105,34 @@ function extractHashTokens(): { access_token?: string; type?: string; error?: st
 export const supabase = {
   auth: {
     /**
+     * Set active Supabase session (e.g. from password recovery redirect or OAuth)
+     */
+    async setSession({
+      access_token,
+      refresh_token
+    }: {
+      access_token: string;
+      refresh_token?: string;
+    }): Promise<{ data: { session: SupabaseSession | null } | null; error: any }> {
+      try {
+        const session: SupabaseSession = {
+          access_token,
+          refresh_token: refresh_token || "",
+          user: {
+            id: `usr-${access_token.substring(0, 8)}`,
+            email: "",
+            created_at: new Date().toISOString()
+          }
+        };
+        setStoredSession(session);
+        notifyListeners("SIGNED_IN", session);
+        return { data: { session }, error: null };
+      } catch (err: any) {
+        return { data: null, error: err };
+      }
+    },
+
+    /**
      * Customer registration with Email, Password, and metadata (full_name, phone)
      */
     async signUp({
@@ -297,8 +325,8 @@ export const supabase = {
       const cleanEmail = email.trim().toLowerCase();
 
       try {
-        // 1. If Supabase is pointing to a live custom project, attempt direct call
-        if (!SUPABASE_URL.includes("drmedex.supabase.co")) {
+        // 1. Direct Supabase Auth Password Recovery
+        try {
           const res = await fetch(`${SUPABASE_URL}/auth/v1/recover`, {
             method: "POST",
             headers: {
@@ -307,15 +335,20 @@ export const supabase = {
             },
             body: JSON.stringify({
               email: cleanEmail,
-              redirect_to: options.redirectTo || `${window.location.origin}/account/reset-password`
+              redirect_to: options.redirectTo || "https://dr-medex.vercel.app/account/reset-password"
             })
           });
 
           if (res.ok) {
-            return { data: { message: "Recovery email sent." }, error: null };
+            return { data: { message: "Password recovery email dispatched. Please check your inbox and spam folder." }, error: null };
           }
           const data = await res.json().catch(() => ({}));
-          console.warn("[Supabase] Direct recover failed:", data.message || res.status);
+          console.warn("[Supabase] Direct recover returned status:", res.status, data.message || data.msg);
+          if (res.status === 429) {
+            return { data: null, error: { message: "Rate limit reached. Please wait 15 minutes before requesting another reset." } };
+          }
+        } catch (fetchErr: any) {
+          console.warn("[Supabase] Direct recover connection issue:", fetchErr.message);
         }
 
         // 2. Delegate to DR.MEDEX Backend Password Recovery Engine
@@ -387,7 +420,7 @@ export const supabase = {
           body.email = cleanEmail;
         }
 
-        if (!SUPABASE_URL.includes("drmedex.supabase.co")) {
+        try {
           const res = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
             method: "PUT",
             headers: {
@@ -420,9 +453,13 @@ export const supabase = {
             notifyListeners("USER_UPDATED", updatedSession);
             return { data: { user: updatedUser }, error: null };
           } else {
-            const msg = resData.error_description || resData.msg || resData.message || "Failed to update user.";
-            return { data: null, error: { message: msg, status: res.status } };
+            const msg = resData.error_description || resData.msg || resData.message;
+            if (msg) {
+              return { data: null, error: { message: msg, status: res.status } };
+            }
           }
+        } catch (fetchErr: any) {
+          console.warn("[Supabase] Direct updateUser connection issue:", fetchErr.message);
         }
 
         // Local development / simulated environment

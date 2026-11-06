@@ -1159,13 +1159,8 @@ export const CheckoutPage: React.FC = () => {
 
     setForgotPasswordLoading(true);
     try {
-      const res = await fetch("/api/auth/forgot-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: cleanEmail })
-      });
-      const data = await res.json().catch(() => ({}));
-      if (res.ok && data.success) {
+      const res = await requestPasswordReset(cleanEmail);
+      if (res.success) {
         setForgotPasswordFeedback({
           type: "success",
           message: "If an account exists with this email address, a password reset link has been dispatched to your inbox."
@@ -1173,7 +1168,7 @@ export const CheckoutPage: React.FC = () => {
       } else {
         setForgotPasswordFeedback({
           type: "error",
-          message: data.message || "Failed to dispatch reset email. Please try again."
+          message: res.error || "Failed to dispatch reset email. Please try again."
         });
       }
     } catch (err: any) {
@@ -1311,19 +1306,90 @@ export const CheckoutPage: React.FC = () => {
     }
   };
 
+  // Step 3: PayPal Hosted Payment Gateway Trigger
+  const handlePayWithPayPal = async () => {
+    if (!validateStep1() || !validateStep2()) {
+      return;
+    }
+    setIsProcessing(true);
+    setErrorMessage("");
+
+    try {
+      const payload = buildOrderPayload("PayPal Express Checkout", "PAYPAL");
+      const res = await fetch("/api/payment/paypal/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success || !data.approvalUrl) {
+        throw new Error(data.message || "Failed to initiate PayPal checkout. Please try again or select another payment method.");
+      }
+
+      sessionStorage.setItem("drmedex_paypal_pending_order", data.orderNumber);
+      sessionStorage.setItem("drmedex_paypal_order_id", data.orderID);
+
+      // Redirect user directly to the official PayPal hosted payment page
+      window.location.href = data.approvalUrl;
+    } catch (err: any) {
+      console.error("[PayPal Checkout] Error:", err);
+      setErrorMessage(err.message || "Unable to connect to PayPal. Please try again or use another payment method.");
+      setIsProcessing(false);
+    }
+  };
+
   // Master Step 3 Payment Trigger for Prominent PAY NOW CTA
   const handleTriggerPayment = async () => {
     if (selectedPaymentMethod === "PAYPAL") {
-      const ppEl = document.querySelector("#paypal-button-container iframe") || document.querySelector("#paypal-button-container");
-      if (ppEl) {
-        ppEl.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
+      await handlePayWithPayPal();
     } else if (selectedPaymentMethod === "RAZORPAY" || selectedPaymentMethod === "CARDS") {
       await handlePayWithRazorpay();
     } else if ((selectedPaymentMethod as any) === "COD") {
       await handlePlaceCodOrder();
     }
   };
+
+  // Listen for PayPal hosted return / cancellation
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get("paypal_return") === "1") {
+      const token = params.get("token") || sessionStorage.getItem("drmedex_paypal_order_id");
+      const orderNum = params.get("orderNumber") || sessionStorage.getItem("drmedex_paypal_pending_order");
+
+      if (token && orderNum) {
+        setIsProcessing(true);
+        setCurrentStep(3);
+        setErrorMessage("");
+
+        fetch("/api/payment/paypal/capture-order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ orderID: token, orderNumber: orderNum })
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success && data.order) {
+              setCompletedOrder(data.order);
+              clearCart();
+              sessionStorage.removeItem("drmedex_paypal_pending_order");
+              sessionStorage.removeItem("drmedex_paypal_order_id");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+              setErrorMessage(data.message || "Failed to complete PayPal payment capture. Please try again or contact support.");
+              setIsProcessing(false);
+            }
+          })
+          .catch((err) => {
+            setErrorMessage(err.message || "Network error while completing PayPal payment.");
+            setIsProcessing(false);
+          });
+      }
+    } else if (params.get("paypal_cancel") === "1") {
+      setErrorMessage("PayPal checkout was cancelled. You can review your order or select another payment method.");
+      setCurrentStep(3);
+    }
+  }, [location.search]);
 
   // Fetch PayPal Client ID
   useEffect(() => {
@@ -2792,125 +2858,41 @@ export const CheckoutPage: React.FC = () => {
                 {/* PAYPAL PAYMENT GATEWAY CONTAINER */}
                 {selectedPaymentMethod === "PAYPAL" && (
                   <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-4">
-                    <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
-                      <div className="flex items-center gap-2">
-                        <CreditCard size={18} className="text-[#2D5A4A]" />
-                        <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
-                          PayPal Payment Gateway
-                        </h2>
-                      </div>
+                    <div className="flex items-center gap-2 pb-3 border-b border-neutral-200">
+                      <img src="/images/paypal-logo.png" alt="PayPal" className="h-6 w-auto object-contain" />
+                      <h2 className="text-sm font-extrabold text-[#171717] tracking-wider">
+                        PayPal
+                      </h2>
                     </div>
 
                     <div className="space-y-4">
-                      {/* Independent Currency Selector and Disclosure */}
-                      <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                      {/* Payable Amount & Currency Details */}
+                      <div className="p-4 rounded-xl bg-neutral-50 border border-neutral-200 text-xs space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="font-bold text-[#2D5A4A]">Payable Amount:</span>
+                          <span className="text-base font-extrabold text-[#2D5A4A] font-mono">
+                            ${paypalAmount.toFixed(2)} {paypalCurrency}
+                          </span>
+                        </div>
+                        <div className="text-3xs text-neutral-500">
+                          Base catalogue total: ₹{grandTotalINR.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (settled in {paypalCurrency} via PayPal international conversion).
+                        </div>
+                      </div>
+
+                      {/* Official Hosted Approval Notice */}
+                      <div className="p-3.5 rounded-xl bg-[#F8FAF7] border border-[#7AA05A]/30 text-xs text-neutral-700 flex items-start gap-2.5">
+                        <ShieldCheck size={18} className="shrink-0 text-[#2D5A4A] mt-0.5" />
                         <div>
-                          <div className="font-bold text-[#171717]">Select Settlement Currency</div>
-                          <div className="text-3xs text-neutral-500 mt-0.5">
-                            Total amount payable: <strong>{currentCurrency} {displayGrandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>
-                          </div>
+                          <p className="font-bold text-[#2D5A4A]">Official PayPal-Hosted Checkout</p>
+                          <p className="text-2xs text-neutral-600 mt-0.5 leading-relaxed">
+                            Clicking <strong>PAY ONLINE</strong> below will redirect you to PayPal's official secure payment page to complete your transaction with your PayPal balance or international credit/debit card.
+                          </p>
                         </div>
-
-                        <select
-                          value={currentCurrency}
-                          onChange={(e) => setCurrencyManually(e.target.value)}
-                          className="px-3 py-1.5 rounded-lg border border-neutral-300 bg-white text-xs font-bold text-neutral-800 focus:outline-none focus:border-[#7AA05A] cursor-pointer"
-                        >
-                          <optgroup label="PayPal Direct Currencies">
-                            <option value="USD">USD ($ - US Dollar)</option>
-                            <option value="EUR">EUR (€ - Euro)</option>
-                            <option value="GBP">GBP (£ - British Pound)</option>
-                            <option value="AUD">AUD (A$ - Australian Dollar)</option>
-                            <option value="CAD">CAD (CA$ - Canadian Dollar)</option>
-                            <option value="JPY">JPY (¥ - Japanese Yen)</option>
-                            <option value="CHF">CHF (Swiss Franc)</option>
-                            <option value="SGD">SGD (S$ - Singapore Dollar)</option>
-                            <option value="HKD">HKD (HK$ - Hong Kong Dollar)</option>
-                            <option value="NZD">NZD (NZ$ - New Zealand Dollar)</option>
-                            <option value="SEK">SEK (kr - Swedish Krona)</option>
-                            <option value="DKK">DKK (kr - Danish Krone)</option>
-                            <option value="PLN">PLN (zł - Polish Złoty)</option>
-                            <option value="NOK">NOK (kr - Norwegian Krone)</option>
-                            <option value="CZK">CZK (Kč - Czech Koruna)</option>
-                            <option value="HUF">HUF (Ft - Hungarian Forint)</option>
-                            <option value="ILS">ILS (₪ - Israeli Shekel)</option>
-                            <option value="MXN">MXN (Mex$ - Mexican Peso)</option>
-                            <option value="BRL">BRL (R$ - Brazilian Real)</option>
-                            <option value="MYR">MYR (RM - Malaysian Ringgit)</option>
-                            <option value="PHP">PHP (₱ - Philippine Peso)</option>
-                            <option value="TWD">TWD (NT$ - New Taiwan Dollar)</option>
-                            <option value="THB">THB (฿ - Thai Baht)</option>
-                          </optgroup>
-                          <optgroup label="Catalog Display Currencies">
-                            <option value="INR">INR (₹ - Indian Rupee)</option>
-                            <option value="AED">AED (United Arab Emirates Dirham)</option>
-                            <option value="SAR">SAR (Saudi Riyal)</option>
-                            <option value="ZAR">ZAR (R - South African Rand)</option>
-                          </optgroup>
-                        </select>
                       </div>
 
-                      {/* Dynamic Currency Settlement Message */}
-                      <div className="p-3 rounded-xl bg-[#F8FAF7] border border-[#7AA05A]/30 text-3xs text-neutral-700 space-y-1">
-                        <div className="flex items-center gap-1.5 font-bold text-[#2D5A4A]">
-                          <ShieldCheck size={14} className="shrink-0 text-[#2D5A4A]" />
-                          <span>PayPal International Multi-Currency Processing</span>
-                        </div>
-                        <p className="leading-relaxed">
-                          {paypalCurrency === currentCurrency ? (
-                            <>
-                              Your transaction will be processed directly in <strong>{paypalCurrency} ({paypalCurrency === "JPY" ? `¥${Math.round(paypalAmount).toLocaleString()}` : `${paypalCurrency} ${paypalAmount.toFixed(2)}`})</strong> via PayPal or Debit / Credit Card.
-                            </>
-                          ) : (
-                            <>
-                              Product catalog pricing is preserved in <strong>{currentCurrency}</strong>. PayPal processes international transactions in <strong>{paypalCurrency} (${paypalAmount.toFixed(2)} USD)</strong> at standard bank exchange rates.
-                            </>
-                          )}
-                        </p>
-                      </div>
-
-                      {/* PayPal Buttons Render Container */}
-                      <div className="pt-2">
-                        {isProcessing && (
-                          <div className="p-4 rounded-xl bg-[#F4F7F2] border border-[#7AA05A]/30 text-center space-y-2 mb-3">
-                            <Loader2 size={24} className="animate-spin text-[#2D5A4A] mx-auto" />
-                            <p className="text-xs font-bold text-[#171717]">Connecting to PayPal Secure Checkout...</p>
-                            <p className="text-3xs text-neutral-500">Please do not close or reload this window.</p>
-                          </div>
-                        )}
-
-                        {paypalSdkLoadError && (
-                          <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs mb-3">
-                            {paypalSdkLoadError}
-                          </div>
-                        )}
-
-                        {!isPaypalSdkLoaded && !paypalSdkLoadError && (
-                          <div className="py-8 text-center text-xs text-neutral-500 flex flex-col items-center gap-2">
-                            <Loader2 size={20} className="animate-spin text-[#7AA05A]" />
-                            <span>Loading secure PayPal Gateway...</span>
-                          </div>
-                        )}
-
-                        {/* Official PayPal Buttons Container */}
-                        <div
-                          ref={paypalButtonContainerRef}
-                          id="paypal-button-container"
-                          className={`w-full transition-opacity duration-200 ${
-                            isProcessing ? "opacity-40 pointer-events-none" : "opacity-100"
-                          }`}
-                        />
-                      </div>
-
-                      {/* Security credentials */}
-                      <div className="pt-3 border-t border-neutral-100 space-y-1.5 text-3xs text-neutral-500">
-                        <div className="flex items-center gap-1.5 text-[#2D5A4A] font-semibold">
-                          <ShieldCheck size={13} />
-                          <span>Buyer Protection & Official Proforma Documentation Included</span>
-                        </div>
-                        <p className="leading-relaxed">
-                          Payment processed securely via PayPal's encrypted infrastructure. DR.MEDEX does not store payment credentials.
-                        </p>
+                      <div className="flex items-center gap-1.5 text-3xs text-neutral-400 justify-center pt-1">
+                        <Lock size={12} className="text-[#7AA05A]" />
+                        <span>PayPal Buyer Protection • 256-bit Bank Grade SSL Encryption</span>
                       </div>
                     </div>
                   </div>
@@ -2919,27 +2901,19 @@ export const CheckoutPage: React.FC = () => {
                 {/* RAZORPAY GATEWAY CONTAINER */}
                 {selectedPaymentMethod === "RAZORPAY" && (
                   <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-5">
-                    <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
-                      <div className="flex items-center gap-2">
-                        <CreditCard size={18} className="text-[#2D5A4A]" />
-                        <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
-                          Razorpay Secure Gateway
-                        </h2>
-                      </div>
-                      <span className="text-3xs font-bold text-[#2D5A4A] bg-[#F4F7F2] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                        UPI • Cards • NetBanking
-                      </span>
+                    <div className="flex items-center gap-2 pb-3 border-b border-neutral-200">
+                      <img src="/images/razorpay-logo.png" alt="Razorpay" className="h-6 w-auto object-contain" />
+                      <h2 className="text-sm font-extrabold text-[#171717] tracking-wider">
+                        Razorpay
+                      </h2>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-neutral-50 border border-neutral-200 space-y-2 text-xs">
+                    <div className="p-4 rounded-xl bg-neutral-50 border border-neutral-200 text-xs">
                       <div className="flex justify-between items-center">
-                        <span className="text-neutral-600">Payable Amount:</span>
-                        <span className="text-base font-extrabold text-[#171717]">
+                        <span className="font-bold text-[#2D5A4A]">Payable Amount:</span>
+                        <span className="text-base font-extrabold text-[#2D5A4A] font-mono">
                           ₹{grandTotalINR.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </span>
-                      </div>
-                      <div className="text-3xs text-neutral-500">
-                        Includes compliant GST invoice and zero surcharge across all domestic UPI & card payments.
                       </div>
                     </div>
 
@@ -2950,7 +2924,7 @@ export const CheckoutPage: React.FC = () => {
                           UPI (GPay, PhonePe)
                         </div>
                         <div className="p-2 rounded-lg bg-neutral-50 border border-neutral-200 text-center font-medium">
-                          Credit & Debit Cards
+                          Credit &amp; Debit Cards
                         </div>
                         <div className="p-2 rounded-lg bg-neutral-50 border border-neutral-200 text-center font-medium">
                           NetBanking (50+ Banks)
@@ -3279,10 +3253,10 @@ export const CheckoutPage: React.FC = () => {
           <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-neutral-200 py-3.5 px-4 sm:px-8 shadow-2xl animate-in slide-in-from-bottom duration-200">
             <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
               <div>
-                <div className="text-[10px] sm:text-xs text-neutral-500 uppercase tracking-wider font-extrabold">
-                  Total Amount
+                <div className="text-[10px] sm:text-xs text-black uppercase tracking-wider font-black">
+                  TOTAL AMOUNT
                 </div>
-                <div className="text-lg sm:text-2xl font-black text-[#2D5A4A] font-mono leading-tight">
+                <div className="text-lg sm:text-2xl font-black text-black font-mono leading-tight">
                   {formatPrice(grandTotalINR)}
                 </div>
               </div>

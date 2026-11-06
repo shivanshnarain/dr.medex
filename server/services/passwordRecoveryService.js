@@ -95,13 +95,12 @@ class PasswordRecoveryService {
   }
 
   /**
-   * Check if Supabase endpoint is a live host or known placeholder
+   * Check if Supabase endpoint is configured
    */
   isLiveSupabaseConfigured() {
     return (
-      Boolean(SUPABASE_SECRET_KEY) &&
       Boolean(SUPABASE_URL) &&
-      !SUPABASE_URL.includes("drmedex.supabase.co")
+      Boolean(SUPABASE_SECRET_KEY || process.env.SUPABASE_PUBLISHABLE_KEY)
     );
   }
 
@@ -143,7 +142,8 @@ class PasswordRecoveryService {
       baseOrigin = new URL(origin).origin;
     }
 
-    // 1. Attempt live Supabase Auth recovery if live project is configured
+    // 1. Attempt live Supabase Auth recovery if configured
+    let supabaseError = null;
     if (this.isLiveSupabaseConfigured()) {
       try {
         const res = await fetch(`${SUPABASE_URL}/auth/v1/recover`, {
@@ -161,16 +161,24 @@ class PasswordRecoveryService {
         const data = await res.json().catch(() => ({}));
         if (!res.ok) {
           console.warn("[PasswordRecovery] Supabase recover error:", data.msg || data.message || res.status);
-          // Fall through to secondary dispatch engine
+          supabaseError = data.msg || data.message || `Supabase HTTP ${res.status}`;
+          if (res.status === 429) {
+            return {
+              success: false,
+              code: "RATE_LIMITED",
+              message: "Too many password recovery requests. Please wait 15 minutes before trying again."
+            };
+          }
         } else {
           return {
             success: true,
             provider: "supabase",
-            message: "If an account is associated with this email, password recovery instructions have been sent."
+            message: "If an account is associated with this email, password recovery instructions have been sent via Supabase Auth. Please check your inbox and spam folder."
           };
         }
       } catch (e) {
-        console.warn("[PasswordRecovery] Live Supabase fetch failed:", e.message);
+        console.warn("[PasswordRecovery] Supabase recover connection issue:", e.message);
+        supabaseError = e.message;
       }
     }
 
@@ -232,7 +240,9 @@ class PasswordRecoveryService {
       return {
         success: false,
         code: "EMAIL_NOT_CONFIGURED",
-        message: "Password recovery email service is not configured. Please configure an email provider (SMTP, Resend, or SendGrid) or Supabase Auth in production."
+        message: supabaseError
+          ? `Supabase password recovery error: ${supabaseError}. Please verify your Supabase project configuration in the dashboard.`
+          : "Password recovery service is not configured. Please verify your Supabase Auth configuration."
       };
     }
 

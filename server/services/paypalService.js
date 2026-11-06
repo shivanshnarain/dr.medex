@@ -106,7 +106,9 @@ async function createOrder({
   currency = "USD",
   description = "DR.MEDEX Medical Equipment",
   items = [],
-  customer = {}
+  customer = {},
+  returnUrl,
+  cancelUrl
 }) {
   const token = await getAccessToken();
   const baseUrl = getBaseUrl();
@@ -182,7 +184,9 @@ async function createOrder({
       brand_name: "DR.MEDEX Medical Equipment",
       landing_page: "NO_PREFERENCE",
       user_action: "PAY_NOW",
-      shipping_preference: "NO_SHIPPING"
+      shipping_preference: "NO_SHIPPING",
+      ...(returnUrl ? { return_url: returnUrl } : {}),
+      ...(cancelUrl ? { cancel_url: cancelUrl } : {})
     }
   };
 

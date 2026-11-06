@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Lock, Eye, EyeOff, AlertCircle, CheckCircle, Loader2, ArrowRight, ArrowLeft, ShieldAlert } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
+import { supabase } from "../../lib/supabase";
 import { Logo } from "../../components/Logo";
 
 export const ResetPasswordPage: React.FC = () => {
@@ -47,6 +48,10 @@ export const ResetPasswordPage: React.FC = () => {
         const accessToken = params.get("access_token");
         if (accessToken) {
           // Supabase Auth implicit recovery session established
+          supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: params.get("refresh_token") || ""
+          });
           if (isMounted) {
             setIsTokenInvalid(false);
             setIsVerifyingToken(false);

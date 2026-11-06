@@ -67,127 +67,138 @@ export const CartPage: React.FC = () => {
   return (
     <div className="w-full bg-[#FAFAFA] min-h-screen py-10 sm:py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
-              Hospital & Clinical Equipment Cart
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 sm:mb-8">
+          <div className="min-w-0">
+            <h1 className="text-lg xs:text-xl sm:text-2xl lg:text-3xl font-black text-[#2D5A4A] tracking-tight whitespace-nowrap overflow-hidden text-ellipsis">
+              Hospital &amp; Clinical Equipment Cart
             </h1>
-            <p className="text-xs text-neutral-500 mt-1.5">
-              Review line items and regional export shipping options for <strong>{currentCountry.name}</strong>.
+            <p className="text-xs text-neutral-500 mt-1 whitespace-nowrap overflow-hidden text-ellipsis">
+              Review line items and regional export shipping options for India.
             </p>
           </div>
 
           <button
             type="button"
-            onClick={clearCart}
-            className="text-xs text-rose-600 hover:underline font-semibold"
+            onClick={() => {
+              if (window.confirm("Are you sure you want to clear all items from your cart?")) {
+                clearCart();
+              }
+            }}
+            className="text-xs text-rose-600 hover:text-rose-800 hover:underline font-semibold cursor-pointer shrink-0 self-end sm:self-center"
           >
             Clear All Items
           </button>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-          {/* Cart Table (8 cols) */}
-          <div className="lg:col-span-8 bg-white rounded-xl border border-[#EAEAEA] p-6 sm:p-8 shadow-2xs overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr className="border-b border-[#EAEAEA] text-neutral-400 font-bold uppercase tracking-wider text-3xs pb-3.5">
-                    <th className="pb-3.5">Medical Equipment</th>
-                    <th className="pb-3.5 text-center">Unit Price</th>
-                    <th className="pb-3.5 text-center">Quantity</th>
-                    <th className="pb-3.5 text-right">Subtotal</th>
-                    <th className="pb-3.5 text-right"></th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#EAEAEA]">
-                  {items.map(({ product, quantity }) => {
-                    const itemImage =
-                      (Array.isArray(product.images) && product.images[0]) ||
-                      product.primaryImage ||
-                      (Array.isArray(product.galleryImages) && product.galleryImages[0]) ||
-                      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
+          {/* Cart Products List (8 cols) - Individual Responsive Cards */}
+          <div className="lg:col-span-8 space-y-4">
+            {items.map(({ product, quantity }) => {
+              const itemImage =
+                (Array.isArray(product.images) && product.images[0]) ||
+                product.primaryImage ||
+                (Array.isArray(product.galleryImages) && product.galleryImages[0]) ||
+                "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
+              const availableStock = typeof product.stockQuantity === "number" ? product.stockQuantity : 999;
+              const maxQty = Math.min(50, Math.max(1, availableStock));
 
-                    return (
-                      <tr key={product.id} className="hover:bg-[#FAFAFA] transition-colors">
-                        <td className="py-5 pr-4">
-                          <div className="flex items-center gap-4">
-                            <img
-                              src={itemImage}
-                              alt={product.title}
-                              onError={(e) => {
-                                (e.target as HTMLImageElement).src =
-                                  "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
-                              }}
-                              className="w-16 h-16 object-contain p-1 rounded-lg border border-[#EAEAEA] bg-[#FAFAFA] shrink-0"
-                            />
-                            <div>
-                              <Link
-                                to={`/product/${product.slug}`}
-                                className="font-bold text-[#111111] hover:text-[#2D5A4A] line-clamp-2 text-xs transition-colors"
-                              >
-                                {renderBrandTitle(product.title)}
-                              </Link>
-                              <span className="inline-block mt-1 text-3xs font-semibold px-2 py-0.5 bg-[#FAFAFA] border border-[#EAEAEA] text-neutral-700 rounded-md">
-                                {product.brand || "DR.MEDEX"}
-                              </span>
-                            </div>
-                          </div>
-                        </td>
+              return (
+                <div
+                  key={product.id}
+                  className="bg-white rounded-2xl border border-neutral-200 hover:border-[#7AA05A]/50 p-4 sm:p-5 shadow-2xs transition-all flex items-start gap-4 sm:gap-6"
+                >
+                  {/* LEFT SIDE: Product Image inside rectangular frame with light green outline (#7AA05A) */}
+                  <div className="shrink-0 w-24 sm:w-32 md:w-36 rounded-xl border border-[#7AA05A] p-2 bg-neutral-50/60 flex items-center justify-center">
+                    <img
+                      src={itemImage}
+                      alt={product.title}
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src =
+                          "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
+                      }}
+                      className="max-h-24 sm:max-h-28 w-auto h-auto max-w-full object-contain"
+                    />
+                  </div>
 
-                        <td className="py-5 text-center font-bold text-[#2D5A4A] whitespace-nowrap">
-                          {formatPrice(product.basePrice)} <span className="font-normal text-3xs text-neutral-500">Each</span>
-                        </td>
+                  {/* RIGHT SIDE: Product Information */}
+                  <div className="flex-1 min-w-0 flex flex-col justify-between self-stretch">
+                    <div>
+                      {/* 1. DR.MEDEX brand label */}
+                      <span className="text-3xs font-extrabold uppercase tracking-wider text-[#7AA05A] block">
+                        {product.brand || "DR.MEDEX"}
+                      </span>
 
-                        <td className="py-5 text-center">
-                          <div className="inline-flex items-center border border-[#EAEAEA] rounded-lg bg-white">
-                            <button
-                              type="button"
-                              onClick={() => {
-                                if (quantity > 1) {
-                                  updateQuantity(product.id, quantity - 1);
-                                }
-                              }}
-                              disabled={quantity <= 1}
-                              className="p-1.5 text-neutral-500 hover:text-[#111111] hover:bg-[#F7F7F7] rounded-l-lg disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
-                              title={quantity <= 1 ? "Minimum quantity is 1 (use delete icon to remove)" : "Decrease quantity"}
-                            >
-                              <Minus size={12} />
-                            </button>
-                            <span className="px-2.5 text-xs font-bold text-[#111111]">{quantity}</span>
-                            <button
-                              type="button"
-                              onClick={() => updateQuantity(product.id, quantity + 1)}
-                              className="p-1.5 text-neutral-500 hover:text-[#111111] hover:bg-[#F7F7F7] rounded-r-lg cursor-pointer"
-                              title="Increase quantity"
-                            >
-                              <Plus size={12} />
-                            </button>
-                          </div>
-                        </td>
+                      {/* 2. Complete product name */}
+                      <div className="flex items-start justify-between gap-2 mt-0.5">
+                        <Link
+                          to={`/product/${product.slug}`}
+                          className="font-bold text-xs sm:text-sm text-[#111111] hover:text-[#2D5A4A] transition-colors leading-snug line-clamp-2"
+                        >
+                          {renderBrandTitle(product.title)}
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => removeFromCart(product.id)}
+                          className="text-neutral-400 hover:text-rose-600 p-1 -mr-1 -mt-0.5 transition-colors cursor-pointer shrink-0"
+                          title="Remove item"
+                        >
+                          <Trash2 size={15} />
+                        </button>
+                      </div>
 
-                        <td className="py-5 text-right font-bold text-[#2D5A4A] whitespace-nowrap text-sm">
+                      {/* 3. Unit price clearly displayed below product name */}
+                      <div className="mt-1 text-xs text-neutral-600">
+                        Unit Price: <span className="font-bold text-[#2D5A4A]">{formatPrice(product.basePrice)}</span>
+                      </div>
+                    </div>
+
+                    {/* 4. Quantity Selector & 5. Updated line-item total */}
+                    <div className="mt-3 pt-2.5 border-t border-neutral-100 flex items-center justify-between gap-3 flex-wrap">
+                      <div className="inline-flex items-center border border-neutral-200 rounded-lg bg-neutral-50 overflow-hidden shadow-2xs">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (quantity > 1) {
+                              updateQuantity(product.id, quantity - 1);
+                            }
+                          }}
+                          disabled={quantity <= 1}
+                          className="p-1.5 px-2.5 text-neutral-600 hover:text-[#2D5A4A] hover:bg-neutral-200/50 transition-colors disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                          title="Decrease quantity"
+                        >
+                          <Minus size={12} strokeWidth={2.5} />
+                        </button>
+                        <span className="px-3 text-xs font-bold text-[#111111] font-mono select-none">
+                          {quantity}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (quantity < maxQty) {
+                              updateQuantity(product.id, quantity + 1);
+                            }
+                          }}
+                          disabled={quantity >= maxQty}
+                          className="p-1.5 px-2.5 text-neutral-600 hover:text-[#2D5A4A] hover:bg-neutral-200/50 transition-colors disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                          title="Increase quantity"
+                        >
+                          <Plus size={12} strokeWidth={2.5} />
+                        </button>
+                      </div>
+
+                      <div className="text-right">
+                        <span className="text-3xs text-neutral-400 uppercase tracking-wider block">Line Total</span>
+                        <span className="font-black text-sm sm:text-base text-[#111111] font-mono">
                           {formatPrice(product.basePrice * quantity)}
-                        </td>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
 
-                        <td className="py-5 text-right pl-3">
-                          <button
-                            type="button"
-                            onClick={() => removeFromCart(product.id)}
-                            className="text-red-500 hover:text-red-700 p-1.5 transition-colors cursor-pointer"
-                            title="Remove item"
-                          >
-                            <Trash2 size={16} />
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="pt-6 border-t border-[#EAEAEA] flex items-center justify-between">
+            <div className="pt-4 flex items-center justify-between">
               <Link
                 to="/shop-all"
                 className="text-xs font-bold text-[#111111] hover:text-[#2D5A4A] flex items-center gap-1.5 transition-colors"
@@ -282,20 +293,9 @@ export const CartPage: React.FC = () => {
                   </div>
                 )}
 
-                <div className="flex justify-between text-neutral-600">
-                  <span>Estimated Air Cargo to {currentCountry.name}</span>
-                  <span className="font-semibold text-[#111111]">
-                    {shippingUSD === 0 ? "FREE EXPORT" : formatPrice(shippingUSD)}
-                  </span>
-                </div>
-
                 <div className="pt-3 border-t border-[#EAEAEA] flex justify-between text-base font-black text-[#111111]">
                   <span>Payable Total</span>
                   <span className="text-[#111111] text-xl font-extrabold">{formatPrice(grandTotalUSD)}</span>
-                </div>
-
-                <div className="text-3xs text-neutral-400 text-right">
-                  Settled in <strong>{currentCurrency}</strong> with locked order-time exchange rate
                 </div>
               </div>
 
@@ -303,16 +303,11 @@ export const CartPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => navigate("/checkout?initiateLocation=1", { state: { fromCheckoutIntent: true } })}
-                className="w-full py-3.5 bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-xs transition-all active:scale-[0.99]"
+                className="w-full py-3.5 bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-xs transition-all active:scale-[0.99] cursor-pointer"
               >
                 <span>Proceed to International Checkout</span>
                 <ArrowRight size={16} />
               </button>
-
-              <div className="flex items-center justify-center gap-2 text-2xs text-neutral-400">
-                <ShieldCheck size={14} className="text-[#7AA05A]" />
-                <span>256-Bit SSL Encrypted Healthcare Purchasing</span>
-              </div>
             </div>
           </div>
         </div>

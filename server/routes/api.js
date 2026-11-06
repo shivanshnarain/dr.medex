@@ -337,15 +337,30 @@ router.get("/payment/paypal/config", (req, res) => {
 
 router.post("/payment/paypal/create-order", async (req, res) => {
   try {
+    const rawOrigin = req.headers.origin || req.headers.referer || "https://dr-medex.vercel.app";
+    let origin = "https://dr-medex.vercel.app";
+    try {
+      origin = new URL(rawOrigin).origin;
+    } catch {
+      origin = "https://dr-medex.vercel.app";
+    }
+
     const pendingOrder = await orderService.createPendingOrder(req.body);
+    const returnUrl = `${origin}/checkout?paypal_return=1&orderNumber=${encodeURIComponent(pendingOrder.orderNumber)}`;
+    const cancelUrl = `${origin}/checkout?paypal_cancel=1&orderNumber=${encodeURIComponent(pendingOrder.orderNumber)}`;
+
     const paypalOrder = await paypalService.createOrder({
       orderNumber: pendingOrder.orderNumber,
       amount: pendingOrder.pricing.grandTotal,
       currency: pendingOrder.pricing.currency,
       description: `DR.MEDEX Medical Equipment Order #${pendingOrder.orderNumber}`,
       items: pendingOrder.items,
-      customer: pendingOrder.customer
+      customer: pendingOrder.customer,
+      returnUrl,
+      cancelUrl
     });
+
+    const approvalUrl = paypalOrder.links?.find((l) => l.rel === "approve")?.href || null;
 
     res.json({
       success: true,
@@ -353,6 +368,7 @@ router.post("/payment/paypal/create-order", async (req, res) => {
       orderNumber: pendingOrder.orderNumber,
       currency: pendingOrder.pricing.currency,
       amount: pendingOrder.pricing.grandTotal,
+      approvalUrl,
       pendingOrder
     });
   } catch (err) {
