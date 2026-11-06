@@ -1988,7 +1988,7 @@ export const CheckoutPage: React.FC = () => {
                         onClick={handleContinueToStep2}
                         className="w-full sm:w-auto px-8 py-3.5 bg-[#7AA05A] hover:bg-[#688a4c] text-white font-bold rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
                       >
-                        <span>Continue to Step 2</span>
+                        <span>Continue</span>
                         <ArrowRight size={16} />
                       </button>
                     </div>
@@ -2004,7 +2004,6 @@ export const CheckoutPage: React.FC = () => {
                             Customer Authentication
                           </h2>
                         </div>
-                        <span className="text-3xs font-bold text-neutral-400 uppercase tracking-wider">Step 1 of 3</span>
                       </div>
 
                       {/* 2-Option Selector Buttons */}
@@ -2023,7 +2022,7 @@ export const CheckoutPage: React.FC = () => {
                           }`}
                         >
                           <UserCheck size={14} />
-                          <span>Existing Customer: Sign In</span>
+                          <span>Sign In</span>
                         </button>
 
                         <button
@@ -2040,7 +2039,7 @@ export const CheckoutPage: React.FC = () => {
                           }`}
                         >
                           <UserPlus size={14} />
-                          <span>New Customer: Sign Up</span>
+                          <span>Sign Up</span>
                         </button>
                       </div>
                     </div>
@@ -2463,7 +2462,7 @@ export const CheckoutPage: React.FC = () => {
                 ) : (
                   <div className="bg-[#F8FAF7] border border-[#7AA05A]/30 rounded-2xl p-4 sm:p-5 flex items-center justify-between text-xs shadow-2xs">
                     <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-[#2D5A4A] text-white flex items-center justify-center font-bold shrink-0 mt-0.5">
+                      <div className="w-10 h-10 rounded-full bg-neutral-100 border border-neutral-200/80 flex items-center justify-center text-[#2D5A4A] font-bold shrink-0 mt-0.5 shadow-2xs">
                         <User size={18} />
                       </div>
                       <div className="space-y-0.5">
@@ -2676,14 +2675,14 @@ export const CheckoutPage: React.FC = () => {
                     className="w-full sm:w-auto px-6 py-3 border border-neutral-300 hover:bg-neutral-50 text-neutral-700 font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <ArrowLeft size={14} />
-                    <span>Back to Step 1</span>
+                    <span>Back</span>
                   </button>
                   <button
                     type="button"
                     onClick={handleContinueToStep3}
                     className="w-full sm:w-auto px-8 py-3.5 bg-[#7AA05A] hover:bg-[#688a4c] text-white font-bold rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <span>Continue to Step 3</span>
+                    <span>Continue</span>
                     <ArrowRight size={16} />
                   </button>
                 </div>
@@ -2789,9 +2788,6 @@ export const CheckoutPage: React.FC = () => {
                           PayPal Payment Gateway
                         </h2>
                       </div>
-                      <span className="text-3xs font-bold text-[#2D5A4A] bg-[#F4F7F2] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                        Instant Authorization
-                      </span>
                     </div>
 
                     <div className="space-y-4">
@@ -2809,31 +2805,58 @@ export const CheckoutPage: React.FC = () => {
                           onChange={(e) => setCurrencyManually(e.target.value)}
                           className="px-3 py-1.5 rounded-lg border border-neutral-300 bg-white text-xs font-bold text-neutral-800 focus:outline-none focus:border-[#7AA05A] cursor-pointer"
                         >
-                          <option value="INR">INR (₹ - Indian Rupee)</option>
-                          <option value="USD">USD ($ - US Dollar)</option>
-                          <option value="EUR">EUR (€ - Euro)</option>
-                          <option value="GBP">GBP (£ - British Pound)</option>
-                          <option value="AED">AED (United Arab Emirates Dirham)</option>
-                          <option value="CAD">CAD (CA$ - Canadian Dollar)</option>
-                          <option value="AUD">AUD (A$ - Australian Dollar)</option>
-                          <option value="SAR">SAR (Saudi Riyal)</option>
-                          <option value="SGD">SGD (S$ - Singapore Dollar)</option>
-                          <option value="JPY">JPY (¥ - Japanese Yen)</option>
-                          <option value="CHF">CHF (Swiss Franc)</option>
-                          <option value="PKR">PKR (₨ - Pakistani Rupee)</option>
-                          <option value="ZAR">ZAR (South African Rand)</option>
+                          <optgroup label="PayPal Direct Currencies">
+                            <option value="USD">USD ($ - US Dollar)</option>
+                            <option value="EUR">EUR (€ - Euro)</option>
+                            <option value="GBP">GBP (£ - British Pound)</option>
+                            <option value="AUD">AUD (A$ - Australian Dollar)</option>
+                            <option value="CAD">CAD (CA$ - Canadian Dollar)</option>
+                            <option value="JPY">JPY (¥ - Japanese Yen)</option>
+                            <option value="CHF">CHF (Swiss Franc)</option>
+                            <option value="SGD">SGD (S$ - Singapore Dollar)</option>
+                            <option value="HKD">HKD (HK$ - Hong Kong Dollar)</option>
+                            <option value="NZD">NZD (NZ$ - New Zealand Dollar)</option>
+                            <option value="SEK">SEK (kr - Swedish Krona)</option>
+                            <option value="DKK">DKK (kr - Danish Krone)</option>
+                            <option value="PLN">PLN (zł - Polish Złoty)</option>
+                            <option value="NOK">NOK (kr - Norwegian Krone)</option>
+                            <option value="CZK">CZK (Kč - Czech Koruna)</option>
+                            <option value="HUF">HUF (Ft - Hungarian Forint)</option>
+                            <option value="ILS">ILS (₪ - Israeli Shekel)</option>
+                            <option value="MXN">MXN (Mex$ - Mexican Peso)</option>
+                            <option value="BRL">BRL (R$ - Brazilian Real)</option>
+                            <option value="MYR">MYR (RM - Malaysian Ringgit)</option>
+                            <option value="PHP">PHP (₱ - Philippine Peso)</option>
+                            <option value="TWD">TWD (NT$ - New Taiwan Dollar)</option>
+                            <option value="THB">THB (฿ - Thai Baht)</option>
+                          </optgroup>
+                          <optgroup label="Catalog Display Currencies">
+                            <option value="INR">INR (₹ - Indian Rupee)</option>
+                            <option value="AED">AED (United Arab Emirates Dirham)</option>
+                            <option value="SAR">SAR (Saudi Riyal)</option>
+                            <option value="ZAR">ZAR (R - South African Rand)</option>
+                          </optgroup>
                         </select>
                       </div>
 
-                      {/* Currency conversion notice if PayPal uses USD for unlisted settlement currencies */}
-                      {paypalCurrency !== currentCurrency && (
-                        <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200 text-3xs text-amber-900 flex items-start gap-1.5">
-                          <ShieldCheck size={14} className="shrink-0 text-amber-700 mt-0.5" />
-                          <span>
-                            PayPal authorization will settle in <strong>{paypalCurrency} (${paypalAmount.toFixed(2)})</strong> via standard interbank conversion. Product pricing is preserved in {currentCurrency}.
-                          </span>
+                      {/* Dynamic Currency Settlement Message */}
+                      <div className="p-3 rounded-xl bg-[#F8FAF7] border border-[#7AA05A]/30 text-3xs text-neutral-700 space-y-1">
+                        <div className="flex items-center gap-1.5 font-bold text-[#2D5A4A]">
+                          <ShieldCheck size={14} className="shrink-0 text-[#2D5A4A]" />
+                          <span>PayPal International Multi-Currency Processing</span>
                         </div>
-                      )}
+                        <p className="leading-relaxed">
+                          {paypalCurrency === currentCurrency ? (
+                            <>
+                              Your transaction will be processed directly in <strong>{paypalCurrency} ({paypalCurrency === "JPY" ? `¥${Math.round(paypalAmount).toLocaleString()}` : `${paypalCurrency} ${paypalAmount.toFixed(2)}`})</strong> via PayPal or Debit / Credit Card.
+                            </>
+                          ) : (
+                            <>
+                              Product catalog pricing is preserved in <strong>{currentCurrency}</strong>. PayPal processes international transactions in <strong>{paypalCurrency} (${paypalAmount.toFixed(2)} USD)</strong> at standard bank exchange rates.
+                            </>
+                          )}
+                        </p>
+                      </div>
 
                       {/* PayPal Buttons Render Container */}
                       <div className="pt-2">
@@ -2940,7 +2963,7 @@ export const CheckoutPage: React.FC = () => {
                     type="button"
                     onClick={handleTriggerPayment}
                     disabled={isProcessing || isRazorpayLoading}
-                    className="w-full py-4.5 bg-black hover:bg-neutral-900 active:bg-neutral-950 text-white font-black rounded-xl text-sm sm:text-base transition-all shadow-xl flex items-center justify-center gap-3 cursor-pointer uppercase tracking-wider disabled:opacity-60 disabled:cursor-not-allowed"
+                    className="w-full py-4.5 bg-[#2D5A4A] hover:bg-[#23483b] active:bg-[#1a362c] text-white font-black rounded-xl text-sm sm:text-base transition-all shadow-xl flex items-center justify-center gap-3 cursor-pointer uppercase tracking-wider disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {isProcessing || isRazorpayLoading ? (
                       <>
@@ -2969,7 +2992,7 @@ export const CheckoutPage: React.FC = () => {
                       className="px-6 py-3 border border-neutral-300 hover:bg-neutral-50 text-neutral-700 font-bold rounded-xl text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
                     >
                       <ArrowLeft size={14} />
-                      <span>Back to Step 2</span>
+                      <span>Back</span>
                     </button>
                   </div>
                 </div>
@@ -3089,7 +3112,7 @@ export const CheckoutPage: React.FC = () => {
                     type="button"
                     onClick={handleTriggerPayment}
                     disabled={isProcessing || isRazorpayLoading}
-                    className="w-full mt-2 py-4 bg-black hover:bg-neutral-900 active:bg-neutral-950 text-white font-black rounded-xl text-sm transition-all shadow-lg flex items-center justify-center gap-2.5 cursor-pointer uppercase tracking-wider disabled:opacity-60 disabled:cursor-not-allowed"
+                    className="w-full mt-2 py-4 bg-[#2D5A4A] hover:bg-[#23483b] active:bg-[#1a362c] text-white font-black rounded-xl text-sm transition-all shadow-lg flex items-center justify-center gap-2.5 cursor-pointer uppercase tracking-wider disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {isProcessing || isRazorpayLoading ? (
                       <>
@@ -3298,7 +3321,7 @@ export const CheckoutPage: React.FC = () => {
               type="button"
               onClick={handleTriggerPayment}
               disabled={isProcessing || isRazorpayLoading}
-              className="flex-1 max-w-[220px] py-3.5 px-4 bg-black hover:bg-neutral-900 text-white font-black rounded-xl text-xs flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
+              className="flex-1 max-w-[220px] py-3.5 px-4 bg-[#2D5A4A] hover:bg-[#23483b] text-white font-black rounded-xl text-xs flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {isProcessing || isRazorpayLoading ? (
                 <>

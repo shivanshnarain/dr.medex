@@ -165,38 +165,48 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  // 5. Merge guest cart with authenticated user cart upon login
-  const lastUserIdRef = useRef<string | null>(null);
+  // 5. Safely handle user cart upon fresh login transition
+  const lastUserIdRef = useRef<string | null>(user?.id || null);
   useEffect(() => {
+    // Only trigger when switching from a guest/different user state to an authenticated user
     if (user?.id && user.id !== lastUserIdRef.current) {
+      const previousUserId = lastUserIdRef.current;
       lastUserIdRef.current = user.id;
-      try {
-        const userSavedRaw = localStorage.getItem(`drmedex_user_cart_${user.id}`);
-        if (userSavedRaw) {
-          const userItems = JSON.parse(userSavedRaw)
-            .map(sanitizeCartItem)
-            .filter((it: any): it is CartItem => it !== null);
-          if (Array.isArray(userItems) && userItems.length > 0) {
-            setItems((guestItems) => {
-              const mergedMap = new Map<string, CartItem>();
-              userItems.forEach((it) => mergedMap.set(it.product.id, { ...it }));
-              guestItems.forEach((gIt) => {
-                const existing = mergedMap.get(gIt.product.id);
-                if (existing) {
-                  mergedMap.set(gIt.product.id, {
-                    ...existing,
-                    quantity: existing.quantity + gIt.quantity
-                  });
-                } else {
-                  mergedMap.set(gIt.product.id, { ...gIt });
-                }
+
+      // Only attempt merge if previously unauthenticated (guest -> logged in)
+      if (!previousUserId) {
+        try {
+          const userSavedRaw = localStorage.getItem(`drmedex_user_cart_${user.id}`);
+          if (userSavedRaw) {
+            const userItems = JSON.parse(userSavedRaw)
+              .map(sanitizeCartItem)
+              .filter((it: any): it is CartItem => it !== null);
+
+            if (Array.isArray(userItems) && userItems.length > 0) {
+              setItems((guestItems) => {
+                const mergedMap = new Map<string, CartItem>();
+                // Seed with user's saved items
+                userItems.forEach((it) => mergedMap.set(it.product.id, { ...it }));
+                // Merge guest items without doubling identical items
+                guestItems.forEach((gIt) => {
+                  const existing = mergedMap.get(gIt.product.id);
+                  if (existing) {
+                    // Use the maximum intended quantity rather than blindly adding and compounding
+                    mergedMap.set(gIt.product.id, {
+                      ...existing,
+                      quantity: Math.min(50, Math.max(existing.quantity, gIt.quantity))
+                    });
+                  } else {
+                    mergedMap.set(gIt.product.id, { ...gIt });
+                  }
+                });
+                return Array.from(mergedMap.values());
               });
-              return Array.from(mergedMap.values());
-            });
+            }
           }
+        } catch (err) {
+          console.error("DR.MEDEX Cart: Error synchronizing account cart on login", err);
         }
-      } catch (err) {
-        console.error("DR.MEDEX Cart: Error merging account cart on login", err);
       }
     } else if (!user) {
       lastUserIdRef.current = null;
@@ -252,7 +262,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const addToCart = (product: Product, quantity: number = 1, openDrawer: boolean = true) => {
-    const validQty = Math.min(50, Math.max(1, Math.floor(quantity)));
+    const rawQty = typeof quantity === "number" && !isNaN(quantity) ? quantity : Number(quantity) || 1;
+    const validQty = Math.min(50, Math.max(1, Math.floor(rawQty)));
     setItems((prev) => {
       const existing = prev.find((item) => item.product.id === product.id);
       if (existing) {

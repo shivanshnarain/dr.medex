@@ -111,8 +111,14 @@ async function createOrder({
   const token = await getAccessToken();
   const baseUrl = getBaseUrl();
 
+  // Normalize currency to a verified PayPal-supported ISO code (default USD)
+  const cleanCurrency = isPayPalSupportedCurrency(currency)
+    ? currency.toUpperCase()
+    : "USD";
+
+  const isZeroDecimal = cleanCurrency === "JPY" || cleanCurrency === "HUF" || cleanCurrency === "TWD";
   const numAmount = Number(amount) || 0;
-  const formattedAmount = currency === "JPY"
+  const formattedAmount = isZeroDecimal
     ? Math.round(numAmount).toString()
     : numAmount.toFixed(2);
 
@@ -123,7 +129,7 @@ async function createOrder({
     description: `DR.MEDEX Order #${orderNumber}`.substring(0, 127),
     custom_id: String(orderNumber || ""),
     amount: {
-      currency_code: currency,
+      currency_code: cleanCurrency,
       value: formattedAmount
     }
   };
@@ -131,14 +137,14 @@ async function createOrder({
   // If items are provided, build item line details safely
   if (Array.isArray(items) && items.length > 0) {
     const paypalItems = items.slice(0, 10).map((it) => {
-      const itemPrice = currency === "JPY"
+      const itemPrice = isZeroDecimal
         ? Math.round(Number(it.unitPrice) || 0).toString()
         : Number(it.unitPrice || 0).toFixed(2);
       return {
         name: (it.title || "Medical Device").substring(0, 127),
         sku: (it.sku || it.productId || "MED-SKU").substring(0, 127),
         unit_amount: {
-          currency_code: currency,
+          currency_code: cleanCurrency,
           value: itemPrice
         },
         quantity: String(it.quantity || 1),
@@ -150,17 +156,20 @@ async function createOrder({
       return acc + (Number(it.unit_amount.value) * Number(it.quantity));
     }, 0);
 
-    const formattedItemTotal = currency === "JPY"
+    const formattedItemTotal = isZeroDecimal
       ? Math.round(itemTotal).toString()
       : itemTotal.toFixed(2);
 
-    // Only attach breakdown if item total matches overall amount (no discounts/shipping rounding divergence)
-    if (Math.abs(Number(formattedItemTotal) - Number(formattedAmount)) < 0.05) {
+    // CRITICAL: PayPal strictly enforces that sum(items.unit_amount * quantity) === breakdown.item_total.value
+    // and that item_total + shipping - discount === amount.value.
+    // If there is ANY cent mismatch (e.g. from exchange rate rounding or discounts), breakdown triggers HTTP 422 ITEM_TOTAL_MISMATCH.
+    // Therefore, only include breakdown and items if itemTotal matches formattedAmount EXACTLY to the penny.
+    if (formattedItemTotal === formattedAmount) {
       purchaseUnit.items = paypalItems;
       purchaseUnit.amount.breakdown = {
         item_total: {
-          currency_code: currency,
-          value: formattedAmount
+          currency_code: cleanCurrency,
+          value: formattedItemTotal
         }
       };
     }
@@ -189,7 +198,10 @@ async function createOrder({
 
   const data = await res.json();
   if (!res.ok) {
-    throw new Error(`PayPal Order Creation Failed (HTTP ${res.status}): ${data.message || JSON.stringify(data)}`);
+    const detailMsg = Array.isArray(data.details)
+      ? data.details.map((d) => `${d.issue || d.name || "Error"}: ${d.description || ""}${d.field ? ` (${d.field})` : ""}`).join("; ")
+      : data.message || JSON.stringify(data);
+    throw new Error(`PayPal Order Creation Failed (HTTP ${res.status}): ${detailMsg}`);
   }
 
   return data;
