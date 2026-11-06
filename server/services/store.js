@@ -1112,6 +1112,7 @@ module.exports = {
       customer: orderPayload.customer,
       shippingAddress: orderPayload.shippingAddress,
       billingAddress: orderPayload.billingAddress || orderPayload.shippingAddress,
+      deliveryInstructions: orderPayload.deliveryInstructions || "",
       items: orderPayload.items.map(item => {
         const prod = state.products.find(p => p.id === item.productId) || {};
         const baseINR = item.basePriceINR || item.basePriceUSD || prod.basePrice || 1000;

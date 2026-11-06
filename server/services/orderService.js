@@ -218,6 +218,7 @@ async function createPendingOrder(payload) {
     customer,
     shippingAddress,
     billingAddress,
+    deliveryInstructions: payload.deliveryInstructions || "",
     items,
     pricing,
     shippingMethod: payload.shippingMethod || {

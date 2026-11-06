@@ -101,6 +101,7 @@ interface OrderRecord {
   customer?: OrderCustomer;
   shippingAddress?: OrderAddress;
   billingAddress?: OrderAddress;
+  deliveryInstructions?: string;
   items: OrderItem[];
   pricing: OrderPricing;
   payment: OrderPayment;
@@ -769,6 +770,14 @@ export const AdminOrdersPage: React.FC = () => {
                       <div className="font-semibold text-[#2D5A4A] mt-0.5">
                         {selectedOrder.shippingAddress?.country || "Not provided"} ({selectedOrder.shippingAddress?.countryCode || "N/A"})
                       </div>
+                      {selectedOrder.deliveryInstructions && (
+                        <div className="mt-2.5 pt-2 border-t border-neutral-200">
+                          <span className="text-3xs text-neutral-500 uppercase font-bold block mb-1">Delivery Instructions:</span>
+                          <div className="text-xs bg-amber-50 text-neutral-800 p-2.5 rounded-lg border border-amber-200/80 font-medium whitespace-pre-wrap">
+                            {selectedOrder.deliveryInstructions}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
