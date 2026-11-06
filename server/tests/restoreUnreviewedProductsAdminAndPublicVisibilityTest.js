@@ -54,7 +54,7 @@ async function runTests() {
   try {
     // 1. Check Admin Panel returns all products regardless of review status
     console.log("\n[Test 1] Admin Panel shows ALL products (Correct, Needs Editing, Not Yet Reviewed)...");
-    const adminRes = await fetch(`${baseUrl}/api/admin/products?limit=100`, {
+    const adminRes = await fetch(`${baseUrl}/api/admin/products?limit=500`, {
       headers: { Authorization: `Bearer ${adminToken}` }
     });
     assert.strictEqual(adminRes.status, 200, `Admin /products returned ${adminRes.status}`);
@@ -66,9 +66,11 @@ async function runTests() {
     console.log("Admin review counts:", reviewCounts);
 
     assert.ok(reviewCounts, "Review counts must exist");
-    assert.strictEqual(reviewCounts.all, adminProducts.length, "Total review count must match list length");
-    assert.ok(reviewCounts.correct > 0, "There should be Correct products");
-    assert.ok(reviewCounts.needsEditing > 0, "There should be Needs Editing products");
+    assert.strictEqual(reviewCounts.all, 193, "Total review count must be exactly 193");
+    assert.strictEqual(reviewCounts.correct, 67, "Correct products count must be 67");
+    assert.strictEqual(reviewCounts.pending, 117, "Not Yet Reviewed products count must be 117");
+    assert.strictEqual(reviewCounts.needsEditing, 9, "Needs Editing products count must be 9");
+    assert.strictEqual(adminProducts.length, 193, "Admin list must return all 193 products");
 
     // 2. Check Public Storefront returns ONLY Correct products
     console.log("\n[Test 2] Public Storefront returns ONLY Correct products...");
@@ -242,8 +244,8 @@ async function runTests() {
       seenIds.add(p.id);
     }
     assert.strictEqual(duplicates.length, 0, `Found duplicate product IDs: ${duplicates.join(", ")}`);
-    assert.strictEqual(finalProducts.length, 76, `Expected exactly 76 products, found ${finalProducts.length}`);
-    console.log(`✓ Verified: Exactly 76 products, 0 duplicates, all intact`);
+    assert.strictEqual(finalProducts.length, 193, `Expected exactly 193 products, found ${finalProducts.length}`);
+    console.log(`✓ Verified: Exactly 193 products, 0 duplicates, all intact`);
 
     console.log("\n=== ALL 8 VERIFICATION TESTS PASSED SUCCESSFULLY! ===");
   } finally {
