@@ -1,7 +1,11 @@
 {
   "outputDirectory": "dist",
   "functions": {
-    "api/**": {
+    "api/*.js": {
+      "includeFiles": "server/**",
+      "maxDuration": 30
+    },
+    "api/**/*.js": {
       "includeFiles": "server/**",
       "maxDuration": 30
     }

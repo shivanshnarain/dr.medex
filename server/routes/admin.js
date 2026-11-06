@@ -378,148 +378,171 @@ router.post("/orders/:id/shiprocket/retry-sync", requireAdmin, async (req, res) 
 // ==========================================
 
 router.get("/products", requireAdmin, async (req, res) => {
-  const { search, category, status, includeArchived, stock, reviewStatus, sort = "updated_desc", page = 1, limit = 20 } = req.query;
+  try {
+    const { search, category, status, includeArchived, stock, reviewStatus, sort = "updated_desc", page = 1, limit = 20 } = req.query;
 
-  // 1. Get tombstone deleted product IDs from MongoDB Atlas
-  const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
+    // 1. Get tombstone deleted product IDs from MongoDB Atlas
+    const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
 
-  // 2. Pre-calculate orders reference map so frontend knows whether each product has order history
-  const orders = store.getOrders();
-  const orderProductIds = new Set();
-  orders.forEach(o => {
-    if (Array.isArray(o.items)) {
-      o.items.forEach(it => {
-        if (it && it.productId) orderProductIds.add(String(it.productId));
-      });
-    }
-  });
-
-  // 3. Load authoritative list from MongoDB Atlas when configured, fallback to store only if not configured or offline
-  let list = [];
-  if (mongoService.isConfigured()) {
-    try {
-      const mongoList = await mongoService.getProductsFromMongo();
-      if (Array.isArray(mongoList)) {
-        // Authoritative source of truth: MongoDB Atlas.
-        // Never merge seed or ghost products from initialProducts.
-        const activeMongoList = mongoList.filter(m => !deletedIds.has(String(m.id)));
-        list = activeMongoList.map(m => {
-          const mid = String(m.id);
-          return {
-            ...m,
-            hasOrders: orderProductIds.has(mid),
-            mongoSyncStatus: "SYNCED",
-            mongoSyncedAt: m.mongoSyncedAt || new Date().toISOString(),
-            reviewStatus: m.reviewStatus || "PENDING"
-          };
+    // 2. Pre-calculate orders reference map so frontend knows whether each product has order history
+    const orders = store.getOrders();
+    const orderProductIds = new Set();
+    orders.forEach(o => {
+      if (Array.isArray(o.items)) {
+        o.items.forEach(it => {
+          if (it && it.productId) orderProductIds.add(String(it.productId));
         });
-      } else {
+      }
+    });
+
+    // 3. Load authoritative list from MongoDB Atlas when configured, fallback to store only if not configured or offline
+    let list = [];
+    if (mongoService.isConfigured()) {
+      try {
+        const mongoList = await mongoService.getProductsFromMongo();
+        if (Array.isArray(mongoList)) {
+          // Authoritative source of truth: MongoDB Atlas.
+          // Never merge seed or ghost products from initialProducts.
+          const activeMongoList = mongoList.filter(m => !deletedIds.has(String(m.id)));
+          list = activeMongoList.map(m => {
+            const mid = String(m.id);
+            return {
+              ...m,
+              hasOrders: orderProductIds.has(mid),
+              mongoSyncStatus: "SYNCED",
+              mongoSyncedAt: m.mongoSyncedAt || new Date().toISOString(),
+              reviewStatus: m.reviewStatus || "PENDING"
+            };
+          });
+        } else {
+          list = store.getProducts({ includeInactive: true }).filter(p => !deletedIds.has(String(p.id))).map(p => ({
+            ...p,
+            hasOrders: orderProductIds.has(String(p.id))
+          }));
+        }
+      } catch (e) {
         list = store.getProducts({ includeInactive: true }).filter(p => !deletedIds.has(String(p.id))).map(p => ({
           ...p,
           hasOrders: orderProductIds.has(String(p.id))
         }));
       }
-    } catch (e) {
+    } else {
       list = store.getProducts({ includeInactive: true }).filter(p => !deletedIds.has(String(p.id))).map(p => ({
         ...p,
         hasOrders: orderProductIds.has(String(p.id))
       }));
     }
-  } else {
-    list = store.getProducts({ includeInactive: true }).filter(p => !deletedIds.has(String(p.id))).map(p => ({
-      ...p,
-      hasOrders: orderProductIds.has(String(p.id))
-    }));
-  }
 
-  // 5. Exclude archived/retired products from active catalogue list unless explicitly requested
-  // CRITICAL: Filter AFTER merging MongoDB authoritative status so database status is respected!
-  if (status === "ARCHIVED") {
-    list = list.filter(p => p.status === "ARCHIVED" || p.isRetired === true);
-  } else if (!includeArchived && status !== "ALL_WITH_ARCHIVED") {
-    list = list.filter(p => p.status !== "ARCHIVED" && !p.isRetired && p.inCatalogue !== false);
-  }
-
-  // Calculate live review counts across active catalogue products before filtering
-  const allProducts = list;
-  const reviewCounts = {
-    all: allProducts.length,
-    correct: allProducts.filter(p => p.reviewStatus === "CORRECT").length,
-    needsEditing: allProducts.filter(p => p.reviewStatus === "NEEDS_EDITING").length,
-    pending: allProducts.filter(p => !p.reviewStatus || p.reviewStatus === "PENDING").length
-  };
-
-  // Search filter
-  if (search) {
-    const q = search.toLowerCase();
-    list = list.filter(p => {
-      const t = (p.title || p.productName || "").toLowerCase();
-      const sku = (p.sku || p.SKU || "").toLowerCase();
-      const m = (p.modelNumber || "").toLowerCase();
-      const d = (p.shortDescription || p.overview || "").toLowerCase();
-      return t.includes(q) || sku.includes(q) || m.includes(q) || d.includes(q);
-    });
-  }
-
-  // Category filter
-  if (category && category !== "ALL") {
-    list = list.filter(p => p.category === category);
-  }
-
-  // Status filter (Publication status: ACTIVE, DRAFT, ARCHIVED)
-  if (status && status !== "ALL" && status !== "ARCHIVED") {
-    list = list.filter(p => (p.status || "ACTIVE") === status);
-  }
-
-  // Review Status filter (Decoupled from publication status)
-  if (reviewStatus && reviewStatus !== "ALL" && reviewStatus !== "all") {
-    if (reviewStatus === "CORRECT") {
-      list = list.filter(p => p.reviewStatus === "CORRECT");
-    } else if (reviewStatus === "NEEDS_EDITING") {
-      list = list.filter(p => p.reviewStatus === "NEEDS_EDITING");
-    } else if (reviewStatus === "PENDING" || reviewStatus === "NOT_REVIEWED") {
-      list = list.filter(p => !p.reviewStatus || p.reviewStatus === "PENDING");
+    // 5. Exclude archived/retired products from active catalogue list unless explicitly requested
+    // CRITICAL: Filter AFTER merging MongoDB authoritative status so database status is respected!
+    if (status === "ARCHIVED") {
+      list = list.filter(p => p.status === "ARCHIVED" || p.isRetired === true);
+    } else if (!includeArchived && status !== "ALL_WITH_ARCHIVED") {
+      list = list.filter(p => p.status !== "ARCHIVED" && !p.isRetired && p.inCatalogue !== false);
     }
-  }
 
-  // Stock filter
-  if (stock && stock !== "ALL") {
-    if (stock === "IN_STOCK") {
-      list = list.filter(p => (p.stockQuantity !== undefined ? p.stockQuantity : p.stock) > 0);
-    } else if (stock === "OUT_OF_STOCK") {
-      list = list.filter(p => (p.stockQuantity !== undefined ? p.stockQuantity : p.stock) <= 0);
-    } else if (stock === "LOW_STOCK") {
+    // Calculate live review counts across active catalogue products before filtering
+    const allProducts = list;
+    const reviewCounts = {
+      all: allProducts.length,
+      correct: allProducts.filter(p => p.reviewStatus === "CORRECT").length,
+      needsEditing: allProducts.filter(p => p.reviewStatus === "NEEDS_EDITING").length,
+      pending: allProducts.filter(p => !p.reviewStatus || p.reviewStatus === "PENDING").length
+    };
+
+    // Search filter
+    if (search) {
+      const q = search.toLowerCase();
       list = list.filter(p => {
-        const s = p.stockQuantity !== undefined ? p.stockQuantity : p.stock;
-        return s > 0 && s <= (p.lowStockThreshold || 5);
+        const t = (p.title || p.productName || "").toLowerCase();
+        const sku = (p.sku || p.SKU || "").toLowerCase();
+        const m = (p.modelNumber || "").toLowerCase();
+        const d = (p.shortDescription || p.overview || "").toLowerCase();
+        return t.includes(q) || sku.includes(q) || m.includes(q) || d.includes(q);
       });
     }
+
+    // Category filter
+    if (category && category !== "ALL") {
+      list = list.filter(p => p.category === category);
+    }
+
+    // Status filter (Publication status: ACTIVE, DRAFT, ARCHIVED)
+    if (status && status !== "ALL" && status !== "ARCHIVED") {
+      list = list.filter(p => (p.status || "ACTIVE") === status);
+    }
+
+    // Review Status filter (Decoupled from publication status)
+    if (reviewStatus && reviewStatus !== "ALL" && reviewStatus !== "all") {
+      if (reviewStatus === "CORRECT") {
+        list = list.filter(p => p.reviewStatus === "CORRECT");
+      } else if (reviewStatus === "NEEDS_EDITING") {
+        list = list.filter(p => p.reviewStatus === "NEEDS_EDITING");
+      } else if (reviewStatus === "PENDING" || reviewStatus === "NOT_REVIEWED") {
+        list = list.filter(p => !p.reviewStatus || p.reviewStatus === "PENDING");
+      }
+    }
+
+    // Stock filter
+    if (stock && stock !== "ALL") {
+      if (stock === "IN_STOCK") {
+        list = list.filter(p => (p.stockQuantity !== undefined ? p.stockQuantity : p.stock) > 0);
+      } else if (stock === "OUT_OF_STOCK") {
+        list = list.filter(p => (p.stockQuantity !== undefined ? p.stockQuantity : p.stock) <= 0);
+      } else if (stock === "LOW_STOCK") {
+        list = list.filter(p => {
+          const s = p.stockQuantity !== undefined ? p.stockQuantity : p.stock;
+          return s > 0 && s <= (p.lowStockThreshold || 5);
+        });
+      }
+    }
+
+    // Sorting
+    list.sort((a, b) => {
+      if (sort === "price_asc") return (a.basePrice || 0) - (b.basePrice || 0);
+      if (sort === "price_desc") return (b.basePrice || 0) - (a.basePrice || 0);
+      // Default: recently updated / newest (updatedAt takes precedence over createdAt)
+      const dateA = new Date(a.updatedAt || a.createdAt || 0).getTime();
+      const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
+      return dateB - dateA;
+    });
+
+    const total = list.length;
+    const p = Math.max(1, parseInt(page));
+    const l = Math.max(1, parseInt(limit));
+    const paginated = list.slice((p - 1) * l, p * l);
+
+    res.json({
+      success: true,
+      total,
+      page: p,
+      limit: l,
+      totalPages: Math.ceil(total / l),
+      reviewCounts,
+      products: paginated
+    });
+  } catch (err) {
+    console.error("[Admin /products error]:", err);
+    try {
+      const fallbackList = store.getProducts({ includeInactive: true });
+      return res.json({
+        success: true,
+        total: fallbackList.length,
+        page: 1,
+        limit: fallbackList.length,
+        totalPages: 1,
+        reviewCounts: {
+          all: fallbackList.length,
+          correct: fallbackList.filter(p => p.reviewStatus === "CORRECT").length,
+          needsEditing: fallbackList.filter(p => p.reviewStatus === "NEEDS_EDITING").length,
+          pending: fallbackList.filter(p => !p.reviewStatus || p.reviewStatus === "PENDING").length
+        },
+        products: fallbackList
+      });
+    } catch (fallbackErr) {
+      return res.status(500).json({ success: false, message: "Failed to fetch products: " + err.message });
+    }
   }
-
-  // Sorting
-  list.sort((a, b) => {
-    if (sort === "price_asc") return (a.basePrice || 0) - (b.basePrice || 0);
-    if (sort === "price_desc") return (b.basePrice || 0) - (a.basePrice || 0);
-    // Default: recently updated / newest (updatedAt takes precedence over createdAt)
-    const dateA = new Date(a.updatedAt || a.createdAt || 0).getTime();
-    const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
-    return dateB - dateA;
-  });
-
-  const total = list.length;
-  const p = Math.max(1, parseInt(page));
-  const l = Math.max(1, parseInt(limit));
-  const paginated = list.slice((p - 1) * l, p * l);
-
-  res.json({
-    success: true,
-    total,
-    page: p,
-    limit: l,
-    totalPages: Math.ceil(total / l),
-    reviewCounts,
-    products: paginated
-  });
 });
 
 router.get("/catalogue/hierarchy", requireAdmin, (req, res) => {
