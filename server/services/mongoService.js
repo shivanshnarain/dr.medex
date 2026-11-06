@@ -603,5 +603,6 @@ module.exports = {
   getMongoStatus,
   getDeletedProductIds,
   buildProductFilter,
-  getClient
+  getClient,
+  invalidateMongoCache
 };

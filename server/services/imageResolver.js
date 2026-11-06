@@ -133,13 +133,36 @@ function normalizeImageRef(rawUrl, baseSku, index, isPrimary = false) {
  */
 function extractCloudinaryPublicId(url) {
   if (!url || typeof url !== "string") return null;
-  if (!url.includes("cloudinary.com") && !url.includes("res.cloudinary.com")) return null;
-  const parts = url.split(/\/upload\/(?:[a-zA-Z0-9_,]+(?:\/)?)*(?:v\d+\/)?/);
-  if (parts.length > 1) {
-    const afterUpload = parts[1].split("?")[0];
-    return afterUpload.replace(/\.[a-zA-Z0-9]+$/, "");
+  const str = url.trim();
+  if (!str.includes("cloudinary.com") && !str.includes("res.cloudinary.com")) {
+    if (str.startsWith("dr-medex/") || !str.includes("://")) return str;
+    return null;
   }
-  return null;
+  try {
+    const afterUpload = str.split(/\/image\/upload\//)[1] || str.split(/\/upload\//)[1];
+    if (!afterUpload) return null;
+    const cleanPath = afterUpload.split("?")[0].split("#")[0];
+    const segments = cleanPath.split("/");
+    let startIndex = 0;
+    while (startIndex < segments.length) {
+      const seg = segments[startIndex];
+      if (/^v\d+$/.test(seg)) {
+        startIndex++;
+        break;
+      }
+      if (seg.includes(",") || /^[a-z]{1,3}_[a-z0-9_-]+/i.test(seg)) {
+        startIndex++;
+        continue;
+      }
+      break;
+    }
+    const publicIdWithExt = segments.slice(startIndex).join("/");
+    const lastDotIdx = publicIdWithExt.lastIndexOf(".");
+    if (lastDotIdx !== -1) return publicIdWithExt.substring(0, lastDotIdx);
+    return publicIdWithExt;
+  } catch {
+    return null;
+  }
 }
 
 /**

@@ -440,6 +440,7 @@ export const ProductDetailPage: React.FC = () => {
   const [isAdded, setIsAdded] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(() => !immediateCandidate);
   const [fetchError, setFetchError] = useState<string | null>(null);
+  const [mainImageFailed, setMainImageFailed] = useState(false);
   const { triggerBuyNow, isProcessing: isSubmittingBuy } = useBuyNow();
 
   // Gallery autoplay & interaction state
@@ -494,6 +495,10 @@ export const ProductDetailPage: React.FC = () => {
   useEffect(() => {
     updateGalleryHeight();
   }, [updateGalleryHeight, activeImageIndex]);
+
+  useEffect(() => {
+    setMainImageFailed(false);
+  }, [product?.id, activeImageIndex]);
 
   // Quote modal (for related product cards)
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
@@ -612,9 +617,6 @@ export const ProductDetailPage: React.FC = () => {
     }
     if (Array.isArray(product.galleryImages)) {
       product.galleryImages.forEach(addImageUrl);
-    }
-    if (imgs.length === 0) {
-      imgs.push("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80");
     }
     return imgs;
   }, [product]);
@@ -1044,8 +1046,7 @@ export const ProductDetailPage: React.FC = () => {
                         }`}
                         loading="lazy"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src =
-                            "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=400&q=80";
+                          (e.target as HTMLElement).style.display = "none";
                         }}
                       />
                     </button>
@@ -1059,32 +1060,37 @@ export const ProductDetailPage: React.FC = () => {
               className="relative flex-1 min-w-0 w-full cursor-pointer lg:cursor-default"
               onClick={handleMainImageTap}
             >
-              <img
-                ref={mainImageRef}
-                src={productImages[activeImageIndex] || productImages[0]}
-                alt={`${productTitle} - Angle ${activeImageIndex + 1}`}
-                onLoad={updateGalleryHeight}
-                // @ts-ignore
-                fetchPriority="high"
-                loading="eager"
-                decoding="async"
-                className="product-gallery-main-image block w-full h-auto max-w-full object-contain object-center rounded-[8px] border-none select-none"
-                style={{
-                  display: "block",
-                  width: "100%",
-                  height: "auto",
-                  maxWidth: "100%",
-                  objectFit: "contain",
-                  objectPosition: "center",
-                  borderRadius: "8px",
-                  border: "none",
-                  boxSizing: "border-box"
-                }}
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src =
-                    "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
-                }}
-              />
+              {productImages.length > 0 && !mainImageFailed ? (
+                <img
+                  ref={mainImageRef}
+                  src={productImages[activeImageIndex] || productImages[0]}
+                  alt={`${productTitle} - Angle ${activeImageIndex + 1}`}
+                  onLoad={updateGalleryHeight}
+                  // @ts-ignore
+                  fetchPriority="high"
+                  loading="eager"
+                  decoding="async"
+                  className="product-gallery-main-image block w-full h-auto max-w-full object-contain object-center rounded-[8px] border-none select-none"
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    height: "auto",
+                    maxWidth: "100%",
+                    objectFit: "contain",
+                    objectPosition: "center",
+                    borderRadius: "8px",
+                    border: "none",
+                    boxSizing: "border-box"
+                  }}
+                  onError={() => setMainImageFailed(true)}
+                />
+              ) : (
+                <div className="w-full aspect-square rounded-[8px] bg-neutral-50 flex flex-col items-center justify-center text-neutral-400 p-8 border border-dashed border-neutral-200">
+                  <Package className="w-16 h-16 stroke-[1.2] text-neutral-300 mb-2" />
+                  <span className="text-sm font-semibold text-neutral-700 text-center">{productTitle}</span>
+                  <span className="text-xs text-neutral-400 mt-1">Image Pending Administrative Verification</span>
+                </div>
+              )}
 
               {/* Dark-Green Circular Share Button (Top-Right inside image area, shadow-none, white icon) */}
               <div className="absolute top-3 right-3 z-30">
@@ -1143,8 +1149,7 @@ export const ProductDetailPage: React.FC = () => {
                           }`}
                           loading="lazy"
                           onError={(e) => {
-                            (e.target as HTMLImageElement).src =
-                              "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=400&q=80";
+                            (e.target as HTMLElement).style.display = "none";
                           }}
                         />
                       </button>

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Heart } from "lucide-react";
+import { Heart, Package } from "lucide-react";
 import { Product } from "../types";
 import { useWishlist } from "../context/WishlistContext";
 import { renderBrandTitle } from "./BrandTitle";
@@ -56,32 +56,42 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, on
   // Clean title display
   const displayTitle = product.title || product.productName || "Medical Equipment";
 
+  const [imageFailed, setImageFailed] = useState(false);
+
   // Authoritative Primary Image selection (prioritize admin-selected primaryImage flag / field)
   const resolvePrimaryImage = (): string => {
-    if (product.primaryImage && typeof product.primaryImage === "string" && product.primaryImage.trim()) {
-      return product.primaryImage;
+    if (product.primaryImage && typeof product.primaryImage === "string" && product.primaryImage.trim() && product.primaryImage !== "/placeholder-medical.png") {
+      return product.primaryImage.trim();
     }
     if (Array.isArray(product.images) && product.images.length > 0) {
       // Check for object format with isPrimary flag
       for (const img of product.images) {
         if (typeof img === "object" && img !== null && (img as any).isPrimary && (img as any).url) {
-          return (img as any).url;
+          const u = (img as any).url.trim();
+          if (u && u !== "/placeholder-medical.png") return u;
         }
       }
       // Fallback to first image item
       const first = product.images[0];
-      if (typeof first === "string" && first.trim()) return first;
-      if (typeof first === "object" && first !== null && (first as any).url) return (first as any).url;
+      if (typeof first === "string" && first.trim() && first.trim() !== "/placeholder-medical.png") return first.trim();
+      if (typeof first === "object" && first !== null && (first as any).url) {
+        const u = (first as any).url.trim();
+        if (u && u !== "/placeholder-medical.png") return u;
+      }
     }
     if (Array.isArray(product.galleryImages) && product.galleryImages.length > 0) {
       const first = product.galleryImages[0];
-      if (typeof first === "string" && first.trim()) return first;
-      if (typeof first === "object" && first !== null && (first as any).url) return (first as any).url;
+      if (typeof first === "string" && first.trim() && first.trim() !== "/placeholder-medical.png") return first.trim();
+      if (typeof first === "object" && first !== null && (first as any).url) {
+        const u = (first as any).url.trim();
+        if (u && u !== "/placeholder-medical.png") return u;
+      }
     }
-    return "/placeholder-medical.png";
+    return "";
   };
 
   const primaryImage = resolvePrimaryImage();
+  const hasValidImage = Boolean(primaryImage && !imageFailed);
 
   const productUrl = `/product/${product.slug || product.id}`;
 
@@ -100,19 +110,23 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, on
           className="relative w-full h-full block overflow-hidden rounded-[16px] border-none"
           aria-label={displayTitle}
         >
-          <img
-            src={primaryImage}
-            alt={displayTitle}
-            className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-300 ease-out group-hover:scale-105 block border-none rounded-[16px]"
-            style={{ objectFit: "cover", objectPosition: "center" }}
-            loading="lazy"
-            decoding="async"
-            onError={(e) => {
-              // Graceful fallback to approved medical asset placeholder
-              (e.currentTarget as HTMLImageElement).src =
-                "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80";
-            }}
-          />
+          {hasValidImage ? (
+            <img
+              src={primaryImage}
+              alt={displayTitle}
+              className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-300 ease-out group-hover:scale-105 block border-none rounded-[16px]"
+              style={{ objectFit: "cover", objectPosition: "center" }}
+              loading="lazy"
+              decoding="async"
+              onError={() => setImageFailed(true)}
+            />
+          ) : (
+            <div className="absolute inset-0 w-full h-full bg-neutral-50 flex flex-col items-center justify-center text-neutral-400 p-4 border border-dashed border-neutral-200 rounded-[16px]">
+              <Package className="w-10 h-10 stroke-[1.2] text-neutral-300 mb-1.5" />
+              <span className="text-xs font-semibold text-neutral-600 text-center line-clamp-1">{product.brand || "DR.MEDEX"}</span>
+              <span className="text-[10px] text-neutral-400 mt-0.5">Image Pending</span>
+            </div>
+          )}
         </Link>
 
         {/* 2. FAVOURITE / WISHLIST HEART ICON (upper-right corner of square image container) */}

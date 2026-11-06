@@ -31,22 +31,20 @@ const DELETED_COLLECTION = "deleted_products";
 // Stored in memory and persisted to DB collection only when needed for disaster recovery
 const pendingOperations = new Map();
 
+const imageResolver = require("./imageResolver");
+
 /**
  * Extract Cloudinary public_id safely from URL or object
  */
 function extractCloudinaryPublicId(urlOrId) {
-  if (!urlOrId || typeof urlOrId !== "string") return null;
-  const str = urlOrId.trim();
-  if (!str.includes("res.cloudinary.com") && !str.includes("/")) {
+  if (!urlOrId) return null;
+  if (typeof urlOrId === "object" && urlOrId.publicId) return urlOrId.publicId;
+  const str = typeof urlOrId === "string" ? urlOrId.trim() : "";
+  if (!str) return null;
+  if (!str.includes("res.cloudinary.com") && !str.includes("cloudinary.com") && !str.includes("://")) {
     return str; // Already a raw publicId
   }
-  if (str.includes("res.cloudinary.com")) {
-    const match = str.match(/\/upload\/(?:v\d+\/)?([a-zA-Z0-9_\-\/]+?)(?:\.[a-zA-Z0-9]+)?$/);
-    if (match && match[1] && !match[1].includes(",") && !match[1].split("/").some(s => /^[a-z]_[a-z0-9]/.test(s))) {
-      return match[1];
-    }
-  }
-  return null;
+  return imageResolver.extractCloudinaryPublicId(str);
 }
 
 /**
@@ -555,6 +553,8 @@ async function deleteSingleProductImage(productId, imageUrlOrPublicId, adminEmai
       const db = c.db(process.env.MONGODB_DB || "drmedex");
       const filter = buildProductFilter(product.id);
       await db.collection(COLLECTION_NAME).updateOne(filter, { $set: updates });
+      const { invalidateMongoCache } = require("./mongoService");
+      invalidateMongoCache();
     } catch (mErr) {
       console.warn("[deletionService] MongoDB image ref update error:", sanitizeMongoError(mErr));
     }
@@ -562,6 +562,37 @@ async function deleteSingleProductImage(productId, imageUrlOrPublicId, adminEmai
 
   // Update local store
   store.updateProduct(product.id, updates);
+
+  // Synchronize fallback files to prevent deleted images from resurfacing on fallback
+  try {
+    const fs = require("fs");
+    const path = require("path");
+    const syncFiles = [
+      path.resolve(__dirname, "../../client/src/data/fallbackProducts.json"),
+      path.resolve(__dirname, "../../client/server/data/db.json")
+    ];
+    syncFiles.forEach(fp => {
+      if (fs.existsSync(fp)) {
+        try {
+          const raw = fs.readFileSync(fp, "utf8");
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            const idx = parsed.findIndex(p => p.id === product.id);
+            if (idx !== -1) {
+              parsed[idx] = { ...parsed[idx], ...updates };
+              fs.writeFileSync(fp, JSON.stringify(parsed, null, 2));
+            }
+          } else if (parsed && Array.isArray(parsed.products)) {
+            const idx = parsed.products.findIndex(p => p.id === product.id);
+            if (idx !== -1) {
+              parsed.products[idx] = { ...parsed.products[idx], ...updates };
+              fs.writeFileSync(fp, JSON.stringify(parsed, null, 2));
+            }
+          }
+        } catch {}
+      }
+    });
+  } catch {}
 
   auditService.logAction(adminEmail, "PRODUCT_IMAGE_DELETED", product.id, {
     publicId,

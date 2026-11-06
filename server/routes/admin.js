@@ -2145,49 +2145,72 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
       });
       updates.managedCloudinaryImages = currentManaged;
 
-      // 5. Exclusively owned removed Cloudinary asset cleanup (Issue 3)
-      const currentPublicIds = new Set(currentManaged.map(m => m.publicId).filter(Boolean));
-      const currentUrls = new Set(updates.images);
-      const removedPublicIds = [];
+      // 5. Exclusively owned removed Cloudinary asset cleanup
+      const prevCandidates = new Set();
+      const collectFromPrev = (item) => {
+        if (!item) return;
+        const u = typeof item === "string" ? item : (item.url || item.secureUrl || "");
+        const pid = (typeof item === "object" && item.publicId) ? item.publicId : imageResolver.extractCloudinaryPublicId(u);
+        if (pid) prevCandidates.add(pid);
+      };
+      if (existing.primaryImage) collectFromPrev(existing.primaryImage);
+      if (Array.isArray(existing.images)) existing.images.forEach(collectFromPrev);
+      if (Array.isArray(existing.galleryImages)) existing.galleryImages.forEach(collectFromPrev);
+      if (Array.isArray(existing.managedCloudinaryImages)) existing.managedCloudinaryImages.forEach(collectFromPrev);
 
-      prevManaged.forEach(m => {
-        if (m && m.publicId && !currentPublicIds.has(m.publicId) && !currentUrls.has(m.secureUrl)) {
-          removedPublicIds.push(m.publicId);
-        }
-      });
+      const remainingPublicIds = new Set();
+      const collectFromRemaining = (item) => {
+        if (!item) return;
+        const u = typeof item === "string" ? item : (item.url || item.secureUrl || "");
+        const pid = (typeof item === "object" && item.publicId) ? item.publicId : imageResolver.extractCloudinaryPublicId(u);
+        if (pid) remainingPublicIds.add(pid);
+      };
+      if (updates.primaryImage) collectFromRemaining(updates.primaryImage);
+      if (Array.isArray(updates.images)) updates.images.forEach(collectFromRemaining);
+      if (Array.isArray(updates.galleryImages)) updates.galleryImages.forEach(collectFromRemaining);
+      if (Array.isArray(updates.managedCloudinaryImages)) updates.managedCloudinaryImages.forEach(collectFromRemaining);
+
+      const removedPublicIds = Array.from(prevCandidates).filter(pid => !remainingPublicIds.has(pid));
 
       if (removedPublicIds.length > 0) {
-        setImmediate(async () => {
-          try {
-            const allProds = store.getProducts({ includeInactive: true });
-            const allOrders = store.getOrders();
-            for (const pubId of removedPublicIds) {
-              const isShared = allProds.some(other => {
-                if (other.id === existing.id) return false;
-                const oUrls = [other.primaryImage, ...(other.images || [])];
-                return oUrls.some(u => typeof u === "string" && u.includes(pubId));
-              });
-              if (isShared) continue;
+        // Await deletion synchronously before returning response so Lambda/serverless environment does not freeze
+        try {
+          const allProds = store.getProducts({ includeInactive: true });
+          const allOrders = store.getOrders();
+          for (const pubId of removedPublicIds) {
+            const isShared = allProds.some(other => {
+              if (other.id === existing.id) return false;
+              const otherManaged = Array.isArray(other.managedCloudinaryImages) ? other.managedCloudinaryImages : [];
+              if (otherManaged.some(m => m.publicId === pubId)) return true;
+              const oUrls = [other.primaryImage, ...(other.images || [])];
+              return oUrls.some(u => typeof u === "string" && (u.includes(pubId) || imageResolver.extractCloudinaryPublicId(u) === pubId));
+            });
+            if (isShared) {
+              console.log(`[admin.js] Cloudinary asset ${pubId} is shared with another product. Preserved.`);
+              continue;
+            }
 
-              const inOrders = allOrders.some(o =>
-                Array.isArray(o.items) && o.items.some(it => (it.image && it.image.includes(pubId)) || it.publicId === pubId)
-              );
-              if (inOrders) continue;
+            const inOrders = allOrders.some(o =>
+              Array.isArray(o.items) && o.items.some(it => (it.image && it.image.includes(pubId)) || it.publicId === pubId)
+            );
+            if (inOrders) {
+              console.log(`[admin.js] Cloudinary asset ${pubId} is referenced in order history. Preserved.`);
+              continue;
+            }
 
-              if (cloudinaryService && cloudinaryService.isConfigured()) {
-                try {
-                  const cloudinary = require("cloudinary").v2;
-                  await cloudinary.uploader.destroy(pubId, { invalidate: true });
-                  console.log(`[admin.js] Safely cleaned up exclusively owned removed asset: ${pubId}`);
-                } catch (cDelErr) {
-                  console.warn(`[admin.js] Cloudinary cleanup task retry recorded for ${pubId}:`, cDelErr.message);
-                }
+            if (cloudinaryService && cloudinaryService.isConfigured()) {
+              try {
+                const cloudinary = require("cloudinary").v2;
+                const destroyRes = await cloudinary.uploader.destroy(pubId, { invalidate: true });
+                console.log(`[admin.js] Safely destroyed removed Cloudinary asset: ${pubId} (result: ${destroyRes.result})`);
+              } catch (cDelErr) {
+                console.warn(`[admin.js] Cloudinary destruction error for ${pubId}:`, cDelErr.message);
               }
             }
-          } catch (cleanupErr) {
-            console.warn("[admin.js] Background asset cleanup check error:", cleanupErr.message);
           }
-        });
+        } catch (cleanupErr) {
+          console.warn("[admin.js] Removed asset cleanup error:", cleanupErr.message);
+        }
       }
     } else {
       // Preserve existing canonical image state
@@ -2220,6 +2243,35 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
         mongoResult = { status: "SYNC_FAILED", error: mongoService.sanitizeMongoError(mErr) };
       }
     }
+
+    // Synchronize fallback files so deleted images never resurface on fallback
+    try {
+      const syncFiles = [
+        path.resolve(__dirname, "../../client/src/data/fallbackProducts.json"),
+        path.resolve(__dirname, "../../client/server/data/db.json")
+      ];
+      syncFiles.forEach(fp => {
+        if (fs.existsSync(fp)) {
+          try {
+            const raw = fs.readFileSync(fp, "utf8");
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) {
+              const idx = parsed.findIndex(p => p.id === updated.id);
+              if (idx !== -1) {
+                parsed[idx] = { ...parsed[idx], ...updated };
+                fs.writeFileSync(fp, JSON.stringify(parsed, null, 2));
+              }
+            } else if (parsed && Array.isArray(parsed.products)) {
+              const idx = parsed.products.findIndex(p => p.id === updated.id);
+              if (idx !== -1) {
+                parsed.products[idx] = { ...parsed.products[idx], ...updated };
+                fs.writeFileSync(fp, JSON.stringify(parsed, null, 2));
+              }
+            }
+          } catch {}
+        }
+      });
+    } catch {}
 
     // Detect specific changes for granular audit logging
     const changes = {};
