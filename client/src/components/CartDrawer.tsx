@@ -175,11 +175,20 @@ export const CartDrawer: React.FC = () => {
                             </button>
                           </div>
 
-                          {/* Middle: Prominent Selling Price (Dark Green #2D5A4A) - Single row total only */}
-                          <div className="mt-1.5 flex items-baseline">
+                          {/* Middle: Prominent Selling Price (Dark Green #2D5A4A) & Unit Price */}
+                          <div className="mt-1.5 flex items-baseline gap-2 flex-wrap">
                             <span className="text-sm sm:text-base font-extrabold text-[#2D5A4A] font-sans">
                               {formatPrice(product.basePrice * quantity)}
                             </span>
+                            {quantity > 1 ? (
+                              <span className="text-2xs text-neutral-500 font-medium">
+                                ({formatPrice(product.basePrice)} each × {quantity})
+                              </span>
+                            ) : (
+                              <span className="text-2xs text-neutral-400 font-normal">
+                                ({formatPrice(product.basePrice)} / unit)
+                              </span>
+                            )}
                           </div>
 
                           {/* Bottom: Quantity Selector Stepper */}

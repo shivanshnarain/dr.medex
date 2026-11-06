@@ -7,7 +7,8 @@ import {
   Loader2,
   X,
   Mail,
-  User
+  User,
+  MapPin
 } from "lucide-react";
 import {
   GeoCountry,
@@ -333,6 +334,15 @@ export const AmazonCascadingAddressForm: React.FC<AmazonCascadingAddressFormProp
 
   return (
     <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs">
+      {/* ADDRESS CARD HEADING */}
+      <div className="pb-3 mb-4 border-b border-neutral-200 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <MapPin size={18} className="text-[#2D5A4A]" />
+          <h2 className="text-sm font-extrabold text-[#2D5A4A] uppercase tracking-wider">
+            ADDRESS
+          </h2>
+        </div>
+      </div>
       {/* Geolocation Notice Banner (Shown on Step 2 or full form) */}
       {(!step || step === 2) && locationNotice && (
         <div className="mb-4 flex items-center justify-between p-3 rounded-xl bg-[#F0F7ED] border border-[#7AA05A]/40 text-xs font-semibold text-[#2D5A4A] animate-in fade-in duration-200">
