@@ -49,13 +49,8 @@ router.get("/products", async (req, res) => {
     // Strictly ensure only active, non-archived products are on public storefront
     list = list.filter(p => (p.status || "ACTIVE") === "ACTIVE" && p.status !== "ARCHIVED" && !p.isRetired && p.inCatalogue !== false && !deletedIds.has(String(p.id)));
 
-    // Review-gated publishing rule: unreviewed products in review-gated categories (e.g. physiotherapy) remain unpublished from customer storefront
-    list = list.filter(p => {
-      if (p.category === "physiotherapy" && p.reviewStatus !== "CORRECT") {
-        return false;
-      }
-      return true;
-    });
+    // Website visibility rule: ONLY CORRECT products display on the public storefront
+    list = list.filter(p => p.reviewStatus === "CORRECT");
 
     // Handle additional query filters that might be on storefront
     if (req.query.subcategory && req.query.subcategory !== "ALL") {
@@ -109,7 +104,8 @@ router.get("/products/:slug", async (req, res) => {
       return res.status(404).json({ success: false, message: "Product not found" });
     }
 
-    if (product.category === "physiotherapy" && product.reviewStatus !== "CORRECT") {
+    // Website visibility rule: ONLY CORRECT products are visible on the public storefront
+    if (product.reviewStatus !== "CORRECT") {
       return res.status(404).json({ success: false, message: "Product not found" });
     }
     res.json({ success: true, product });

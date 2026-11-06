@@ -214,7 +214,7 @@ async function runTestSuite() {
           p.status !== "ARCHIVED" &&
           !p.isRetired &&
           p.inCatalogue !== false &&
-          !(p.category === "physiotherapy" && p.reviewStatus !== "CORRECT")
+          p.reviewStatus === "CORRECT"
         );
         assert.strictEqual(
           res.data.products.length,

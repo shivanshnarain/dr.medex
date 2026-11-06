@@ -460,7 +460,7 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
       metaTitle,
       metaDescription,
       keywords,
-      reviewStatus: "CORRECT"
+      reviewStatus: product?.reviewStatus || "PENDING"
     };
 
     try {

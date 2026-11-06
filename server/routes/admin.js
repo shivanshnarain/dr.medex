@@ -447,7 +447,7 @@ router.get("/products", requireAdmin, async (req, res) => {
       all: allProducts.length,
       correct: allProducts.filter(p => p.reviewStatus === "CORRECT").length,
       needsEditing: allProducts.filter(p => p.reviewStatus === "NEEDS_EDITING").length,
-      pending: allProducts.filter(p => !p.reviewStatus || p.reviewStatus === "PENDING").length
+      pending: allProducts.filter(p => !p.reviewStatus || p.reviewStatus === "PENDING" || p.reviewStatus === "NOT_YET_REVIEWED" || p.reviewStatus === "NOT_REVIEWED").length
     };
 
     // Search filter
@@ -474,12 +474,13 @@ router.get("/products", requireAdmin, async (req, res) => {
 
     // Review Status filter (Decoupled from publication status)
     if (reviewStatus && reviewStatus !== "ALL" && reviewStatus !== "all") {
-      if (reviewStatus === "CORRECT") {
+      const normReview = String(reviewStatus).toUpperCase();
+      if (normReview === "CORRECT") {
         list = list.filter(p => p.reviewStatus === "CORRECT");
-      } else if (reviewStatus === "NEEDS_EDITING") {
+      } else if (normReview === "NEEDS_EDITING") {
         list = list.filter(p => p.reviewStatus === "NEEDS_EDITING");
-      } else if (reviewStatus === "PENDING" || reviewStatus === "NOT_REVIEWED") {
-        list = list.filter(p => !p.reviewStatus || p.reviewStatus === "PENDING");
+      } else if (normReview === "PENDING" || normReview === "NOT_REVIEWED" || normReview === "NOT_YET_REVIEWED") {
+        list = list.filter(p => !p.reviewStatus || p.reviewStatus === "PENDING" || p.reviewStatus === "NOT_YET_REVIEWED" || p.reviewStatus === "NOT_REVIEWED");
       }
     }
 
@@ -535,7 +536,7 @@ router.get("/products", requireAdmin, async (req, res) => {
           all: fallbackList.length,
           correct: fallbackList.filter(p => p.reviewStatus === "CORRECT").length,
           needsEditing: fallbackList.filter(p => p.reviewStatus === "NEEDS_EDITING").length,
-          pending: fallbackList.filter(p => !p.reviewStatus || p.reviewStatus === "PENDING").length
+          pending: fallbackList.filter(p => !p.reviewStatus || p.reviewStatus === "PENDING" || p.reviewStatus === "NOT_YET_REVIEWED" || p.reviewStatus === "NOT_REVIEWED").length
         },
         products: fallbackList
       });
@@ -1991,7 +1992,7 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
       finalStatus = String(req.body.status).toUpperCase().trim();
     }
 
-    let finalReviewStatus = "CORRECT";
+    let finalReviewStatus = existing.reviewStatus || "PENDING";
     if (req.body.reviewStatus !== undefined && req.body.reviewStatus !== null) {
       const rawRS = String(req.body.reviewStatus).toUpperCase().trim();
       if (rawRS === "CORRECT" || rawRS === "APPROVED") {

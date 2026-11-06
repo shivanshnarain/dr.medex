@@ -42,7 +42,7 @@ export async function getProducts(forceRefresh = false): Promise<{ products: Pro
   // Graceful fallback: return verified active products preserving exact prices, images, specs, SKUs
   const activeFallback = fallbackProducts.filter((p) => {
     if ((p.status || "ACTIVE") !== "ACTIVE") return false;
-    if (p.category === "physiotherapy" && p.reviewStatus !== "CORRECT") return false;
+    if (p.reviewStatus !== "CORRECT") return false;
     return true;
   });
   return {

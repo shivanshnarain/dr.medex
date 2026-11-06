@@ -222,10 +222,20 @@ module.exports = {
       list = list.filter(p => {
         const cat = state.categories.find(c => c.id === p.category || c.slug === p.category);
         if (cat && (cat.status === "INACTIVE" || cat.active === false)) return false;
-        // Review-gated publishing rule: unreviewed products in review-gated categories (e.g. physiotherapy) remain unpublished from customer storefront
-        if (p.category === "physiotherapy" && p.reviewStatus !== "CORRECT") return false;
+        // Website visibility rule: ONLY CORRECT products display on the public storefront
+        if (p.reviewStatus !== "CORRECT") return false;
         return true;
       });
+    }
+    if (filters.reviewStatus && filters.reviewStatus !== "ALL" && filters.reviewStatus !== "all") {
+      const normReview = String(filters.reviewStatus).toUpperCase();
+      if (normReview === "CORRECT") {
+        list = list.filter(p => p.reviewStatus === "CORRECT");
+      } else if (normReview === "NEEDS_EDITING") {
+        list = list.filter(p => p.reviewStatus === "NEEDS_EDITING");
+      } else if (normReview === "PENDING" || normReview === "NOT_REVIEWED" || normReview === "NOT_YET_REVIEWED") {
+        list = list.filter(p => !p.reviewStatus || p.reviewStatus === "PENDING" || p.reviewStatus === "NOT_YET_REVIEWED" || p.reviewStatus === "NOT_REVIEWED");
+      }
     }
     if (filters.category && filters.category !== "ALL") {
       list = list.filter(p => p.category === filters.category);

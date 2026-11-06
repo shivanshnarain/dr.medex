@@ -99,13 +99,8 @@ export const ShopPage: React.FC = () => {
   const filteredProducts = useMemo(() => {
     let list = [...products];
 
-    // Review-gated publishing rule: unreviewed products in physiotherapy remain unpublished from customer storefront
-    list = list.filter((p) => {
-      if (p.category === "physiotherapy" && p.reviewStatus !== "CORRECT") {
-        return false;
-      }
-      return true;
-    });
+    // Website visibility rule: ONLY CORRECT products display on the public storefront
+    list = list.filter((p) => p.reviewStatus === "CORRECT");
 
     if (selectedCategory) {
       const activeCat = categories.find(

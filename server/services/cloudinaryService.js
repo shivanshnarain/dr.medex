@@ -569,7 +569,7 @@ async function getCatalogueDryRun(products = []) {
     for (const img of imgs) {
       if (typeof img === "string" && img.includes("res.cloudinary.com")) {
         inCloudinary++;
-        if (p.reviewStatus === "NEEDS_EDITING" || p.reviewStatus === "PENDING") {
+        if (p.reviewStatus === "NEEDS_EDITING" || p.reviewStatus === "PENDING" || p.reviewStatus === "NOT_YET_REVIEWED") {
           eligibleForDeletion++;
         }
       } else {

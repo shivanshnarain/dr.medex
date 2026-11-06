@@ -176,7 +176,7 @@ export const HomePage: React.FC = () => {
   const [allProducts, setAllProducts] = useState<Product[]>(() => {
     const active = fallbackProducts.filter((p) => {
       if ((p.status || "ACTIVE") !== "ACTIVE") return false;
-      if (p.category === "physiotherapy" && p.reviewStatus !== "CORRECT") return false;
+      if (p.reviewStatus !== "CORRECT") return false;
       return true;
     });
     return active.length > 0 ? active : fallbackProducts;

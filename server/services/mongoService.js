@@ -493,8 +493,13 @@ async function getProductsFromMongo(filters = {}) {
       docs = docs.filter(d => d.category === filters.category);
     }
     if (filters.reviewStatus && filters.reviewStatus !== "ALL" && filters.reviewStatus !== "all") {
-      if (filters.reviewStatus === "PENDING" || filters.reviewStatus === "NOT_REVIEWED") {
-        docs = docs.filter(d => !d.reviewStatus || d.reviewStatus === "PENDING");
+      const normReview = String(filters.reviewStatus).toUpperCase();
+      if (normReview === "PENDING" || normReview === "NOT_REVIEWED" || normReview === "NOT_YET_REVIEWED") {
+        docs = docs.filter(d => !d.reviewStatus || d.reviewStatus === "PENDING" || d.reviewStatus === "NOT_YET_REVIEWED" || d.reviewStatus === "NOT_REVIEWED");
+      } else if (normReview === "CORRECT") {
+        docs = docs.filter(d => d.reviewStatus === "CORRECT");
+      } else if (normReview === "NEEDS_EDITING") {
+        docs = docs.filter(d => d.reviewStatus === "NEEDS_EDITING");
       } else {
         docs = docs.filter(d => d.reviewStatus === filters.reviewStatus);
       }
