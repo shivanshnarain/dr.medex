@@ -249,8 +249,10 @@ export const SmartLocationPrompt: React.FC<SmartLocationPromptProps> = ({
           </div>
           <div>
             <h3 id="location-dialog-title" className="text-base font-bold text-[#171717]">Enable Location Services</h3>
-            <span className="text-3xs font-semibold text-neutral-500 uppercase tracking-wider">
-              DR.MEDEX Fast Checkout
+            <span className="text-3xs font-semibold uppercase tracking-wider">
+              <span className="text-[#2D5A4A]">DR.</span>
+              <span className="text-[#7AA05A] ml-0.5">MEDEX</span>
+              <span className="text-neutral-500 ml-1">Fast Checkout</span>
             </span>
           </div>
         </div>

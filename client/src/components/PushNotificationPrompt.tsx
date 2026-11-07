@@ -114,7 +114,11 @@ export const PushNotificationPrompt: React.FC<PushNotificationPromptProps> = ({
               </div>
               <div className="pr-6">
                 <h4 className="text-xs font-bold text-[#171717]">Enable Equipment & Shipment Alerts</h4>
-                <span className="text-3xs font-semibold text-[#7AA05A]">DR.MEDEX Instant Tracking</span>
+                <span className="text-3xs font-semibold">
+                  <span className="text-[#2D5A4A]">DR.</span>
+                  <span className="text-[#7AA05A] ml-0.5">MEDEX</span>
+                  <span className="text-neutral-500 ml-1">Instant Tracking</span>
+                </span>
               </div>
             </div>
 

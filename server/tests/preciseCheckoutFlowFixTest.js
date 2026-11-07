@@ -137,8 +137,8 @@ async function runTestSuite() {
   });
 
   // 6. FINAL PAYMENT BUTTON — ADRIZO REFERENCE STYLE
-  test("Payment CTA: Prominent full-width black button with lock icon, white bold text, and right arrow", () => {
-    assert.ok(checkoutCode.includes("bg-black"), "Button must be black");
+  test("Payment CTA: Prominent full-width button with lock icon, white bold text, and right arrow", () => {
+    assert.ok(checkoutCode.includes("bg-[#7AA05A]"), "Button must be #7AA05A light green");
     assert.ok(checkoutCode.includes("<Lock"), "Must have lock icon");
     assert.ok(checkoutCode.includes("PAY ONLINE") || checkoutCode.includes("Pay Online"), "Must display PAY ONLINE");
     assert.ok(checkoutCode.includes("Online"), "Must contain Online");

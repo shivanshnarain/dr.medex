@@ -21,7 +21,7 @@ export const CartPage: React.FC = () => {
 
   if (items.length === 0) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-24 text-center space-y-4">
+      <div className="max-w-4xl mx-auto px-4 py-12 sm:py-16 text-center space-y-4">
         <div className="w-20 h-20 bg-[#FAFAFA] border border-[#EAEAEA] rounded-full flex items-center justify-center mx-auto text-[#111111]">
           <ShoppingCart size={32} />
         </div>
@@ -43,7 +43,7 @@ export const CartPage: React.FC = () => {
   }
 
   return (
-    <div className="w-full bg-[#FAFAFA] min-h-screen py-10 sm:py-14">
+    <div className="w-full bg-[#FAFAFA] py-8 sm:py-10">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Heading & Minimal Red Clear All Items on right */}
         <div className="flex flex-row items-center justify-between gap-3 mb-6 pb-3 border-b border-dotted border-[#7AA05A]/40">
@@ -81,21 +81,23 @@ export const CartPage: React.FC = () => {
         </div>
 
         {/* Dotted separator above total section */}
-        <div className="border-b border-dotted border-[#7AA05A]/40 my-6" />
+        <div className="border-b border-dotted border-[#7AA05A]/40 my-5" />
 
-        {/* Clean Total Section beneath products */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
-          <div className="flex items-baseline gap-3">
+        {/* Clean Order Summary & Checkout directly beneath products */}
+        <div className="space-y-4 pt-1">
+          {/* Total row: Total on LEFT, calculated amount on RIGHT */}
+          <div className="flex items-center justify-between">
             <span className="text-base sm:text-lg font-bold text-[#2D5A4A]">Total</span>
             <span className="text-xl sm:text-2xl font-black text-[#111111] font-mono">
               {formatPrice(finalSubtotalUSD)}
             </span>
           </div>
 
+          {/* Checkout button directly below */}
           <button
             type="button"
             onClick={() => navigate("/checkout?initiateLocation=1", { state: { fromCheckoutIntent: true } })}
-            className="w-full sm:w-auto px-10 py-3.5 bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-xs transition-all active:scale-[0.99] cursor-pointer"
+            className="w-full py-3.5 bg-[#7AA05A] hover:bg-[#688a4c] active:bg-[#5b7a42] text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-xs transition-all active:scale-[0.99] cursor-pointer"
           >
             <span>Checkout</span>
             <ArrowRight size={16} />

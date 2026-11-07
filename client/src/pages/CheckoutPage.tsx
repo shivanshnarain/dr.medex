@@ -1852,7 +1852,7 @@ export const CheckoutPage: React.FC = () => {
   }
 
   return (
-    <div className={`w-full bg-[#FFFFFF] min-h-screen py-8 sm:py-12 ${currentStep === 3 ? "pb-28 sm:pb-36" : ""}`}>
+    <div className={`w-full bg-[#FFFFFF] min-h-screen py-8 sm:py-12 ${currentStep === 3 ? "pb-36 sm:pb-44" : ""}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* SIMPLIFIED CHECKOUT HEADER (PART 5) */}
@@ -2896,11 +2896,11 @@ export const CheckoutPage: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* Official PayPal Buttons Container */}
+                      {/* Official PayPal Buttons Container — isolated stacking context so iframe buttons never overlap fixed sticky bar */}
                       <div
                         ref={paypalButtonContainerRef}
                         id="paypal-button-container"
-                        className={`w-full min-h-[44px] transition-opacity duration-200 ${
+                        className={`w-full min-h-[44px] relative z-0 isolate overflow-hidden transition-opacity duration-200 ${
                           isProcessing ? "opacity-40 pointer-events-none" : "opacity-100"
                         }`}
                       />
@@ -3202,7 +3202,7 @@ export const CheckoutPage: React.FC = () => {
 
         {/* Unified Sticky Bottom Payment Bar for Step 3 (Desktop, Tablet, Mobile) */}
         {currentStep === 3 && (
-          <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-neutral-200 py-3.5 px-4 sm:px-8 shadow-2xl animate-in slide-in-from-bottom duration-200">
+          <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-neutral-200 py-3.5 px-4 sm:px-8 pb-[max(0.875rem,env(safe-area-inset-bottom))] shadow-2xl animate-in slide-in-from-bottom duration-200">
             <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
               <div>
                 <div className="text-[10px] sm:text-xs text-red-600 uppercase tracking-wider font-black">
@@ -3217,7 +3217,7 @@ export const CheckoutPage: React.FC = () => {
                 type="button"
                 onClick={handleTriggerPayment}
                 disabled={isProcessing || isRazorpayLoading}
-                className="py-3.5 px-6 sm:px-10 bg-black hover:bg-neutral-800 active:bg-neutral-900 text-white font-black rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2.5 cursor-pointer uppercase tracking-wider shadow-lg transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                className="py-3.5 px-6 sm:px-10 bg-[#7AA05A] hover:bg-[#688a4c] active:bg-[#5b7a42] text-white font-black rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2.5 cursor-pointer uppercase tracking-wider shadow-lg transition-all disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {isProcessing || isRazorpayLoading ? (
                   <>
