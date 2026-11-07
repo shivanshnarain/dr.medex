@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { X, ShoppingCart, Plus, Minus, ArrowRight, ShieldCheck, Tag } from "lucide-react";
+import { X, ShoppingCart, ArrowRight } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useCurrency } from "../context/CurrencyContext";
-import { renderBrandTitle } from "./BrandTitle";
+import { CartItemCard } from "./cart/CartItemCard";
 
 export const CartDrawer: React.FC = () => {
   const navigate = useNavigate();
@@ -15,37 +15,11 @@ export const CartDrawer: React.FC = () => {
     isDrawerOpen,
     closeDrawer,
     baseSubtotalUSD,
-    appliedCoupon,
-    discountUSD,
-    applyCoupon,
-    removeCoupon
+    discountUSD
   } = useCart();
-  const { formatPrice, currentCurrency, currentCountry } = useCurrency();
-
-  const [couponCode, setCouponCode] = useState("");
-  const [couponError, setCouponError] = useState("");
-  const [couponSuccess, setCouponSuccess] = useState("");
-  const [isApplying, setIsApplying] = useState(false);
+  const { formatPrice, currentCurrency } = useCurrency();
 
   if (!isDrawerOpen) return null;
-
-  const handleApplyCoupon = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setCouponError("");
-    setCouponSuccess("");
-    if (!couponCode.trim()) return;
-
-    setIsApplying(true);
-    const result = await applyCoupon(couponCode.trim());
-    setIsApplying(false);
-
-    if (result.success) {
-      setCouponSuccess(result.message);
-      setCouponCode("");
-    } else {
-      setCouponError(result.message);
-    }
-  };
 
   const finalSubtotalUSD = Math.max(0, baseSubtotalUSD - discountUSD);
 
@@ -113,142 +87,19 @@ export const CartDrawer: React.FC = () => {
               </div>
             ) : (
               <div className="space-y-1">
-                {items.map(({ product, quantity }, idx) => {
-                  const itemImage =
-                    (Array.isArray(product.images) && product.images[0]) ||
-                    product.primaryImage ||
-                    (Array.isArray(product.galleryImages) && product.galleryImages[0]) ||
-                    "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
-
-                  const availableStock =
-                    typeof product.stock === "number"
-                      ? product.stock
-                      : (typeof (product as any).stockQuantity === "number" ? (product as any).stockQuantity : 100);
-                  const maxQty = Math.min(50, Math.max(1, availableStock));
-
-                  return (
-                    <React.Fragment key={product.id}>
-                      {/* Subtle green dotted/dashed separator ONLY between consecutive products */}
-                      {idx > 0 && (
-                        <div className="border-b border-dashed border-[#7AA05A]/40 my-3.5" />
-                      )}
-
-                      <div className="flex gap-3.5 sm:gap-4 items-start py-1">
-                        {/* LEFT SIDE — PRODUCT IMAGE (Natural Aspect Ratio, Rounded Corners, No Box) */}
-                        <Link
-                          to={`/product/${product.slug}`}
-                          onClick={closeDrawer}
-                          className="shrink-0 block self-start p-0 m-0 border-0 bg-transparent shadow-none outline-none"
-                        >
-                          <img
-                            src={itemImage}
-                            alt={product.title}
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).src =
-                                "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80";
-                            }}
-                            className="w-20 sm:w-24 max-h-28 object-contain rounded-xl border-0 shadow-none outline-none bg-transparent"
-                          />
-                        </Link>
-
-                        {/* RIGHT SIDE — PRODUCT INFORMATION */}
-                        <div className="flex-1 min-w-0 flex flex-col justify-between self-stretch">
-                          {/* Top: Product Name & Remove (×) Button */}
-                          <div className="flex items-start justify-between gap-2">
-                            <Link
-                              to={`/product/${product.slug}`}
-                              onClick={closeDrawer}
-                              className="text-xs sm:text-sm font-bold text-[#111111] hover:text-[#2D5A4A] leading-snug transition-colors flex-1 break-words whitespace-normal"
-                            >
-                              {renderBrandTitle(product.title)}
-                            </Link>
-
-                            {/* Minimal × close/remove button at top-right corner */}
-                            <button
-                              type="button"
-                              onClick={() => removeFromCart(product.id)}
-                              className="p-1 -mr-1 -mt-0.5 text-neutral-400 hover:text-[#C62828] hover:bg-red-50 rounded transition-colors cursor-pointer shrink-0"
-                              title="Remove item"
-                              aria-label={`Remove ${product.title} from cart`}
-                            >
-                              <X size={16} strokeWidth={2.2} />
-                            </button>
-                          </div>
-
-                          {/* Middle: Prominent Selling Price (Dark Green #2D5A4A) & Unit Price */}
-                          <div className="mt-1.5 flex items-baseline gap-2 flex-wrap">
-                            <span className="text-sm sm:text-base font-extrabold text-[#2D5A4A] font-sans">
-                              {formatPrice(product.basePrice * quantity)}
-                            </span>
-                            {quantity > 1 ? (
-                              <span className="text-2xs text-neutral-500 font-medium">
-                                ({formatPrice(product.basePrice)} each × {quantity})
-                              </span>
-                            ) : (
-                              <span className="text-2xs text-neutral-400 font-normal">
-                                ({formatPrice(product.basePrice)} / unit)
-                              </span>
-                            )}
-                          </div>
-
-                          {/* Bottom: Quantity Selector Stepper */}
-                          <div className="mt-2.5 flex items-center justify-between gap-2">
-                            <div className="inline-flex items-center border border-neutral-300 rounded-lg bg-neutral-50/80 overflow-hidden shadow-2xs">
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  if (quantity > 1) {
-                                    updateQuantity(product.id, quantity - 1);
-                                  }
-                                }}
-                                disabled={quantity <= 1}
-                                className="px-2 py-1 text-neutral-600 hover:text-[#2D5A4A] hover:bg-neutral-200/60 transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-                                title={quantity <= 1 ? "Minimum quantity is 1" : "Decrease quantity"}
-                                aria-label="Decrease quantity"
-                              >
-                                <Minus size={12} strokeWidth={2.5} />
-                              </button>
-                              <span className="px-2.5 py-0.5 text-xs font-bold text-[#111111] min-w-[28px] text-center select-none font-mono">
-                                {quantity}
-                              </span>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  if (quantity < maxQty) {
-                                    updateQuantity(product.id, quantity + 1);
-                                  }
-                                }}
-                                disabled={quantity >= maxQty}
-                                className="px-2 py-1 text-neutral-600 hover:text-[#2D5A4A] hover:bg-neutral-200/60 transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-                                title={
-                                  quantity >= maxQty
-                                    ? availableStock < 50
-                                      ? `Only ${availableStock} in stock`
-                                      : "Maximum allowed quantity is 50"
-                                    : "Increase quantity"
-                                }
-                                aria-label="Increase quantity"
-                              >
-                                <Plus size={12} strokeWidth={2.5} />
-                              </button>
-                            </div>
-
-                            {/* Stock warning if near or at limit */}
-                            {availableStock < 50 && quantity >= availableStock ? (
-                              <span className="text-[10px] text-amber-700 font-semibold font-mono">
-                                Only {availableStock} in stock
-                              </span>
-                            ) : quantity >= 50 ? (
-                              <span className="text-[10px] text-neutral-500 font-medium font-mono">
-                                Max limit (50)
-                              </span>
-                            ) : null}
-                          </div>
-                        </div>
-                      </div>
-                    </React.Fragment>
-                  );
-                })}
+                {items.map((item, idx) => (
+                  <React.Fragment key={item.product.id}>
+                    {idx > 0 && (
+                      <div className="border-b border-dashed border-[#7AA05A]/30 my-2.5" />
+                    )}
+                    <CartItemCard
+                      item={item}
+                      onUpdateQuantity={updateQuantity}
+                      onRemove={removeFromCart}
+                      onItemClick={closeDrawer}
+                    />
+                  </React.Fragment>
+                ))}
               </div>
             )}
           </div>
@@ -256,59 +107,17 @@ export const CartDrawer: React.FC = () => {
           {/* Footer & Checkout Breakdown */}
           {items.length > 0 && (
             <div className="border-t border-[#EAEAEA] bg-[#FAFAFA] p-5 sm:p-6 space-y-4">
-              {/* Promo Coupon Form */}
-              <div>
-                {appliedCoupon ? (
-                  <div className="flex items-center justify-between p-2.5 bg-[#F4F8F1] border border-[#7AA05A]/30 rounded-lg text-xs text-[#2D5A4A]">
-                    <div className="flex items-center gap-1.5 font-medium">
-                      <Tag size={14} className="text-[#7AA05A]" />
-                      <span>Applied: <strong>{appliedCoupon.code}</strong></span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={removeCoupon}
-                      className="text-xs text-rose-600 font-bold hover:underline cursor-pointer"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleApplyCoupon} className="flex gap-2">
-                    <input
-                      type="text"
-                      value={couponCode}
-                      onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-                      placeholder="Coupon (e.g. DRMEDEX10)"
-                      className="flex-1 px-3 py-2 text-xs bg-white border border-[#EAEAEA] rounded-lg uppercase focus:outline-none focus:border-[#7AA05A] focus:ring-1 focus:ring-[#7AA05A]/30 font-mono text-[#111111]"
-                    />
-                    <button
-                      type="submit"
-                      disabled={isApplying}
-                      className="px-4 py-2 bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-lg text-xs font-semibold transition-colors disabled:opacity-50 shadow-2xs cursor-pointer"
-                    >
-                      {isApplying ? "..." : "Apply"}
-                    </button>
-                  </form>
-                )}
-                {couponError && <p className="text-3xs text-rose-600 mt-1 font-medium">{couponError}</p>}
-                {couponSuccess && <p className="text-3xs text-[#2D5A4A] mt-1 font-medium">{couponSuccess}</p>}
-              </div>
-
               {/* Pricing breakdown */}
               <div className="space-y-2 text-xs">
-                <div className="flex justify-between text-neutral-600">
-                  <span>Subtotal</span>
-                  <span className="font-semibold text-[#111111]">{formatPrice(baseSubtotalUSD)}</span>
-                </div>
                 {discountUSD > 0 && (
                   <div className="flex justify-between text-[#2D5A4A] font-medium">
                     <span>Discount</span>
                     <span>-{formatPrice(discountUSD)}</span>
                   </div>
                 )}
-                <div className="pt-2.5 border-t border-[#EAEAEA] flex justify-between text-sm font-bold text-[#111111]">
-                  <span>Estimated Total</span>
-                  <span className="text-[#2D5A4A] text-base font-extrabold">{formatPrice(finalSubtotalUSD)}</span>
+                <div className="flex justify-between items-center text-sm font-bold text-[#111111]">
+                  <span>Total</span>
+                  <span className="text-[#2D5A4A] text-lg font-black font-sans">{formatPrice(finalSubtotalUSD)}</span>
                 </div>
                 {/* Horizontally centered currency exchange rate message */}
                 <div className="text-3xs text-neutral-400 text-center pt-1">
@@ -317,7 +126,7 @@ export const CartDrawer: React.FC = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="space-y-2.5 pt-1">
+              <div className="pt-1">
                 <button
                   type="button"
                   onClick={() => {
@@ -326,15 +135,9 @@ export const CartDrawer: React.FC = () => {
                   }}
                   className="w-full py-3.5 bg-[#7AA05A] hover:bg-[#2D5A4A] text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-all active:scale-[0.99] cursor-pointer"
                 >
-                  <span>Proceed to International Checkout</span>
+                  <span>Checkout</span>
                   <ArrowRight size={15} />
                 </button>
-
-                {/* Secure Checkout indication */}
-                <div className="flex items-center justify-center gap-1.5 text-2xs text-neutral-500 pt-1">
-                  <ShieldCheck size={14} className="text-[#7AA05A]" />
-                  <span>Secure Checkout</span>
-                </div>
               </div>
             </div>
           )}

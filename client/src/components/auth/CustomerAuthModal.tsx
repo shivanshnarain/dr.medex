@@ -129,9 +129,7 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
             setTimeout(() => {
               onClose();
               if (onSuccess) {
-                onSuccess(user || { email: cleanEmail });
-              } else {
-                navigate("/account");
+                onSuccess(res.user || { email: cleanEmail });
               }
             }, 350);
           }
@@ -206,19 +204,20 @@ export const CustomerAuthModal: React.FC<CustomerAuthModalProps> = ({
           <div className="pr-4">
             <div className="flex items-center gap-2 mb-1.5">
               <span className="w-2 h-2 rounded-full bg-[#7AA05A]" />
-              <span className="text-2xs font-extrabold uppercase tracking-wider text-[#7AA05A]">
-                DR.MEDEX Customer Portal
+              <span className="text-xs font-black tracking-wider uppercase font-sans">
+                <span className="text-[#2D5A4A]">DR.</span>
+                <span className="text-[#7AA05A]">MEDEX</span>
               </span>
             </div>
             <h3 id="auth-modal-title" className="text-xl font-extrabold text-[#111111] tracking-tight">
               {mode === "signin" && (title || "Sign In to Your Account")}
-              {mode === "signup" && "Create Customer Account"}
+              {mode === "signup" && "Create Your Account"}
               {mode === "reset" && "Reset Your Password"}
             </h3>
             <p className="text-xs text-neutral-500 mt-0.5">
-              {mode === "signin" && (subtitle || "Access your hospital orders, RFQs, and saved equipment.")}
-              {mode === "signup" && "Join international healthcare facilities procuring hospital-grade medical technology."}
-              {mode === "reset" && "Enter your registered email address to receive secure recovery instructions."}
+              {mode === "reset"
+                ? "Enter your registered email address to receive secure recovery instructions."
+                : (subtitle || "Access your hospital orders, RFQs, and saved equipment.")}
             </p>
           </div>
 

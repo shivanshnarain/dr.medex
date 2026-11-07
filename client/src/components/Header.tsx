@@ -1470,6 +1470,7 @@ export const Header: React.FC = () => {
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
         initialTab={authModalTab}
+        onSuccess={() => setIsAuthModalOpen(false)}
       />
     </header>
   );

@@ -38,6 +38,7 @@ import {
 import { useCart } from "../context/CartContext";
 import { useCurrency } from "../context/CurrencyContext";
 import { useAuth } from "../context/AuthContext";
+import { CartItemCard } from "../components/cart/CartItemCard";
 import { InternationalPhoneInput, PhoneCountryItem } from "../components/InternationalPhoneInput";
 import { SmartLocationPrompt, ResolvedLocationData } from "../components/SmartLocationPrompt";
 import { AmazonCascadingAddressForm, AddressFormData } from "../components/AmazonCascadingAddressForm";
@@ -127,7 +128,7 @@ const CardsLogo: React.FC<{ className?: string }> = ({ className = "h-5 w-auto" 
 export const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
   const routeLocation = useLocation();
-  const { items, appliedCoupon, applyCoupon, removeCoupon, clearCart } = useCart();
+  const { items, appliedCoupon, applyCoupon, removeCoupon, clearCart, updateQuantity, removeFromCart } = useCart();
   const { currentCountry, currentCurrency, formatPrice, convertPrice, exchangeRates, setCurrencyManually } = useCurrency();
   const { user, isAuthenticated, signIn, signUp, logout, requestPasswordReset } = useAuth();
 
@@ -165,12 +166,6 @@ export const CheckoutPage: React.FC = () => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<"PAYPAL" | "RAZORPAY">("PAYPAL");
   const [isRazorpayLoading, setIsRazorpayLoading] = useState(false);
   const [isCodLoading, setIsCodLoading] = useState(false);
-
-  // Coupon handling
-  const [couponInput, setCouponInput] = useState("");
-  const [couponError, setCouponError] = useState("");
-  const [couponSuccess, setCouponSuccess] = useState("");
-  const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
 
   // Complete 195 Worldwide Countries & States State
   const [countriesList, setCountriesList] = useState<CountryItem[]>(WORLDWIDE_195_GEO_COUNTRIES as unknown as CountryItem[]);
@@ -869,23 +864,6 @@ export const CheckoutPage: React.FC = () => {
 
   const paypalRate = exchangeRates[paypalCurrency] || 0.010379;
   const paypalAmount = grandTotalINR * paypalRate;
-
-  // Coupon handling
-  const handleApplyCoupon = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!couponInput.trim()) return;
-    setIsApplyingCoupon(true);
-    setCouponError("");
-    setCouponSuccess("");
-    const res = await applyCoupon(couponInput.trim());
-    setIsApplyingCoupon(false);
-    if (res.success) {
-      setCouponSuccess(res.message);
-      setCouponInput("");
-    } else {
-      setCouponError(res.message);
-    }
-  };
 
   // Step 1 Validation: Customer Details (First Name, Last Name, Email, Phone)
   const validateStep1 = (): boolean => {
@@ -2081,7 +2059,7 @@ export const CheckoutPage: React.FC = () => {
                         onClick={handleContinueToStep2}
                         className="w-full sm:w-auto px-8 py-3.5 bg-[#7AA05A] hover:bg-[#688a4c] text-white font-bold rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
                       >
-                        <span>Continue</span>
+                        <span>Continue to Step 2</span>
                         <ArrowRight size={16} />
                       </button>
                     </div>
@@ -2761,13 +2739,25 @@ export const CheckoutPage: React.FC = () => {
                 </div>
 
                 {/* Step 2 Action Buttons */}
-                <div className="flex justify-end pt-2">
+                <div className="flex items-center justify-between pt-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCurrentStep(1);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className="text-xs font-bold text-neutral-600 hover:text-[#2D5A4A] flex items-center gap-1.5 cursor-pointer py-2 px-3 rounded-lg hover:bg-neutral-100 transition-colors"
+                  >
+                    <ArrowLeft size={14} />
+                    <span>Back to Step 1</span>
+                  </button>
+
                   <button
                     type="button"
                     onClick={handleContinueToStep3}
                     className="w-full sm:w-auto px-8 py-3.5 bg-[#7AA05A] hover:bg-[#688a4c] text-white font-bold rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <span>Continue</span>
+                    <span>Continue to Step 3</span>
                     <ArrowRight size={16} />
                   </button>
                 </div>
@@ -2788,6 +2778,18 @@ export const CheckoutPage: React.FC = () => {
                         PAYMENT METHOD
                       </h2>
                     </div>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCurrentStep(2);
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
+                      className="text-xs font-bold text-neutral-600 hover:text-[#2D5A4A] flex items-center gap-1.5 cursor-pointer py-1 px-2.5 rounded-lg hover:bg-neutral-100 transition-colors"
+                    >
+                      <ArrowLeft size={14} />
+                      <span>Back to Step 2</span>
+                    </button>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -2960,80 +2962,17 @@ export const CheckoutPage: React.FC = () => {
               </div>
 
               {/* Items List */}
-              <div className="divide-y divide-neutral-100 max-h-80 overflow-y-auto pr-1 space-y-3">
-                {items.map((it) => {
-                  const lineTotalINR = (it.product.basePrice || 0) * it.quantity;
-
-                  return (
-                    <div key={it.product.id} className="pt-3 first:pt-0 flex items-start justify-between gap-3">
-                      <div className="flex items-start gap-3 min-w-0">
-                        <img
-                          src={it.product.images[0] || "/placeholder.jpg"}
-                          alt={it.product.title}
-                          className="w-14 h-14 object-contain rounded-lg p-1 border border-[#7AA05A]/40 shrink-0"
-                        />
-                        <div className="min-w-0">
-                          <h4 className="font-bold text-xs sm:text-sm text-[#171717] line-clamp-2 leading-snug">
-                            {renderBrandTitle(it.product.title)}
-                          </h4>
-                          <div className="text-2xs text-neutral-500 mt-1">
-                            {formatPrice(it.product.basePrice)} • Qty: <span className="font-bold text-neutral-800">{it.quantity}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-right shrink-0 pt-0.5">
-                        <span className="font-extrabold text-xs sm:text-sm text-[#171717]">
-                          {formatPrice(lineTotalINR)}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* COUPON INPUT */}
-              <div className="pt-3 border-t border-neutral-200">
-                {appliedCoupon ? (
-                  <div className="p-3 rounded-xl bg-[#F4F7F2] border border-[#7AA05A]/30 flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-2">
-                      <Tag size={15} className="text-[#2D5A4A]" />
-                      <div>
-                        <span className="font-extrabold text-[#2D5A4A]">{appliedCoupon.code}</span>
-                        <span className="text-3xs text-neutral-500 block">
-                          {appliedCoupon.description || `${appliedCoupon.discountPercent}% Off Applied`}
-                        </span>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={removeCoupon}
-                      className="text-xs font-bold text-red-600 hover:text-red-800 cursor-pointer"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleApplyCoupon} className="space-y-1.5">
-                    <div className="flex gap-2">
-                      <input
-                        type="text"
-                        value={couponInput}
-                        onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
-                        placeholder="Discount or Coupon Code"
-                        className="flex-1 px-3 py-2 rounded-xl border border-neutral-300 text-xs uppercase font-semibold focus:outline-none focus:border-[#7AA05A]"
-                      />
-                      <button
-                        type="submit"
-                        disabled={isApplyingCoupon || !couponInput.trim()}
-                        className="px-4 py-2 bg-[#7AA05A] hover:bg-[#688a4c] disabled:bg-neutral-200 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer shrink-0"
-                      >
-                        {isApplyingCoupon ? <Loader2 size={14} className="animate-spin" /> : "Apply"}
-                      </button>
-                    </div>
-                    {couponError && <span className="text-3xs text-red-600 font-medium block">{couponError}</span>}
-                    {couponSuccess && <span className="text-3xs text-[#2D5A4A] font-medium block">{couponSuccess}</span>}
-                  </form>
-                )}
+              <div className="max-h-80 overflow-y-auto pr-1 space-y-1">
+                {items.map((it, idx) => (
+                  <React.Fragment key={it.product.id}>
+                    {idx > 0 && <div className="border-b border-dashed border-[#7AA05A]/30 my-2" />}
+                    <CartItemCard
+                      item={it}
+                      onUpdateQuantity={updateQuantity}
+                      onRemove={removeFromCart}
+                    />
+                  </React.Fragment>
+                ))}
               </div>
 
               {/* Financial Breakdown */}
@@ -3265,7 +3204,7 @@ export const CheckoutPage: React.FC = () => {
                 type="button"
                 onClick={handleTriggerPayment}
                 disabled={isProcessing || isRazorpayLoading}
-                className="py-3.5 px-6 sm:px-10 bg-[#2D5A4A] hover:bg-[#23483b] active:bg-[#1a362c] text-white font-black rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2.5 cursor-pointer uppercase tracking-wider shadow-lg transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                className="py-3.5 px-6 sm:px-10 bg-black hover:bg-neutral-800 active:bg-neutral-900 text-white font-black rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2.5 cursor-pointer uppercase tracking-wider shadow-lg transition-all disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {isProcessing || isRazorpayLoading ? (
                   <>
@@ -3275,7 +3214,7 @@ export const CheckoutPage: React.FC = () => {
                 ) : (
                   <>
                     <Lock size={16} className="text-white" strokeWidth={2.5} />
-                    <span>PAY ONLINE</span>
+                    <span>Pay ₹{grandTotalINR.toLocaleString("en-IN", { maximumFractionDigits: 0 })} Online</span>
                     <ArrowRight size={16} className="text-white" strokeWidth={2.5} />
                   </>
                 )}
