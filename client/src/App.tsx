@@ -109,6 +109,7 @@ function AppContent() {
           <Route path="/account/signin" element={<AccountPage initialAuthTab="signin" />} />
           <Route path="/account/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/account/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/update-password" element={<ResetPasswordPage />} />
           <Route path="/request-quote" element={<RequestQuotePage />} />
           <Route path="/worldwide-network" element={<WorldwideNetworkPage />} />
           <Route path="/country/:countryCode" element={<CountryPage />} />

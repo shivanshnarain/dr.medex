@@ -154,7 +154,7 @@ class PasswordRecoveryService {
           },
           body: JSON.stringify({
             email: cleanEmail,
-            redirect_to: `${baseOrigin}/account/reset-password`
+            redirect_to: `${baseOrigin}/update-password`
           })
         });
 

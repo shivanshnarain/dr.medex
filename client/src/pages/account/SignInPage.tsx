@@ -130,7 +130,7 @@ export const SignInPage: React.FC = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="name@hospital.org"
+                  placeholder="Enter your email"
                   autoComplete="email"
                   className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                 />

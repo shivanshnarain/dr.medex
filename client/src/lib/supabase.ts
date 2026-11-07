@@ -335,7 +335,7 @@ export const supabase = {
             },
             body: JSON.stringify({
               email: cleanEmail,
-              redirect_to: options.redirectTo || "https://dr-medex.vercel.app/account/reset-password"
+              redirect_to: options.redirectTo || "https://dr-medex.vercel.app/update-password"
             })
           });
 
@@ -357,7 +357,7 @@ export const supabase = {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             email: cleanEmail,
-            redirectTo: options.redirectTo || `${window.location.origin}/account/reset-password`
+            redirectTo: options.redirectTo || `${window.location.origin}/update-password`
           })
         });
 

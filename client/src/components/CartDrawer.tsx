@@ -90,7 +90,7 @@ export const CartDrawer: React.FC = () => {
                 {items.map((item, idx) => (
                   <React.Fragment key={item.product.id}>
                     {idx > 0 && (
-                      <div className="border-b border-dashed border-[#7AA05A]/30 my-2.5" />
+                      <div className="border-b border-dotted border-[#7AA05A]/40 my-2.5" />
                     )}
                     <CartItemCard
                       item={item}

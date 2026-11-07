@@ -37,7 +37,7 @@ async function runAll() {
     assert.ok(cardCode.includes("export const CartItemCard"), "Must export CartItemCard");
     assert.ok(cardCode.includes("renderBrandTitle"), "Must render formatted brand title");
     assert.ok(cardCode.includes("formatPrice"), "Must format price with CurrencyContext");
-    assert.ok(cardCode.includes("border-[#7AA05A]"), "Must have #7AA05A container border");
+    assert.ok(cardCode.includes("rounded-lg"), "Must apply rounded-lg to product image");
   })) passed++;
 
   total++;
@@ -137,3 +137,4 @@ runAll().catch(err => {
   console.error("Test execution failed:", err);
   process.exit(1);
 });
+

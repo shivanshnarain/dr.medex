@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Plus, Minus, X } from "lucide-react";
+import { Plus, Minus, Trash2 } from "lucide-react";
 import { CartItem } from "../../types";
 import { useCurrency } from "../../context/CurrencyContext";
 import { renderBrandTitle } from "../BrandTitle";
@@ -47,12 +47,12 @@ export const CartItemCard: React.FC<CartItemCardProps> = ({
   const lineTotalPrice = (product.basePrice || 0) * quantity;
 
   return (
-    <div className="flex gap-3.5 sm:gap-4 items-start py-2 group w-full">
-      {/* LEFT SIDE — PRODUCT IMAGE with #7AA05A container */}
+    <div className="flex gap-3 sm:gap-4 items-start py-2.5 group w-full">
+      {/* LEFT SIDE — PRODUCT IMAGE: Natural Intrinsic Proportions (no square box/frame, rounded corners on image itself) */}
       <Link
         to={`/product/${product.slug}`}
         onClick={onItemClick}
-        className="shrink-0 block self-start w-20 sm:w-24 h-20 sm:h-24 rounded-xl border border-[#7AA05A]/50 hover:border-[#7AA05A] p-1.5 bg-neutral-50/60 flex items-center justify-center transition-colors overflow-hidden"
+        className="shrink-0 block self-start max-w-[80px] sm:max-w-[100px] flex items-center justify-center"
       >
         <img
           src={itemImage}
@@ -60,19 +60,14 @@ export const CartItemCard: React.FC<CartItemCardProps> = ({
           onError={(e) => {
             (e.target as HTMLImageElement).src = FALLBACK_IMAGE;
           }}
-          className="max-h-full max-w-full object-contain"
+          className="max-h-20 sm:max-h-24 w-auto h-auto max-w-full object-contain rounded-lg"
         />
       </Link>
 
       {/* RIGHT SIDE — PRODUCT DETAILS */}
       <div className="flex-1 min-w-0 flex flex-col justify-between self-stretch">
         <div>
-          {/* Brand Name */}
-          <span className="text-3xs font-extrabold uppercase tracking-wider text-[#7AA05A] block leading-none mb-1">
-            {product.brand || "DR.MEDEX"}
-          </span>
-
-          {/* Product Title & Remove (X) Button */}
+          {/* Product Title & Red Delete/Trash Icon (No redundant DR.MEDEX heading) */}
           <div className="flex items-start justify-between gap-2">
             <Link
               to={`/product/${product.slug}`}
@@ -86,11 +81,11 @@ export const CartItemCard: React.FC<CartItemCardProps> = ({
               <button
                 type="button"
                 onClick={() => onRemove(product.id)}
-                className="p-1 -mr-1 -mt-0.5 text-neutral-400 hover:text-rose-600 hover:bg-rose-50 rounded transition-colors cursor-pointer shrink-0"
+                className="p-1 -mr-1 -mt-0.5 text-rose-600 hover:text-rose-800 hover:bg-rose-50 rounded transition-colors cursor-pointer shrink-0"
                 title="Remove item"
-                aria-label={`Remove ${product.title} from cart`}
+                aria-label="Remove item"
               >
-                <X size={16} strokeWidth={2.2} />
+                <Trash2 size={16} strokeWidth={2} />
               </button>
             )}
           </div>

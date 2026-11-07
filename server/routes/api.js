@@ -360,7 +360,11 @@ router.post("/payment/paypal/create-order", async (req, res) => {
       cancelUrl
     });
 
-    const approvalUrl = paypalOrder.links?.find((l) => l.rel === "approve")?.href || null;
+    const approvalUrl =
+      paypalOrder.links?.find((l) => l.rel === "approve")?.href ||
+      (paypalOrder.id
+        ? `${paypalService.getMode() === "live" ? "https://www.paypal.com" : "https://www.sandbox.paypal.com"}/checkoutnow?token=${paypalOrder.id}`
+        : null);
 
     res.json({
       success: true,

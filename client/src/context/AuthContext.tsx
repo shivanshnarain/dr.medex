@@ -549,8 +549,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return { success: false, error: "Please enter your email address." };
     }
 
+    const redirectUrl = typeof window !== "undefined" && window.location.origin.includes("localhost")
+      ? `${window.location.origin}/update-password`
+      : "https://dr-medex.vercel.app/update-password";
+
     const { error } = await supabase.auth.resetPasswordForEmail(cleanEmail, {
-      redirectTo: `${window.location.origin}/account/reset-password`
+      redirectTo: redirectUrl
     });
 
     if (error) {

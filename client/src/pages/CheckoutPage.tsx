@@ -1301,7 +1301,11 @@ export const CheckoutPage: React.FC = () => {
       });
 
       const data = await res.json();
-      if (!res.ok || !data.success || !data.approvalUrl) {
+      const approvalUrl =
+        data.approvalUrl ||
+        (data.orderID ? `https://www.sandbox.paypal.com/checkoutnow?token=${data.orderID}` : null);
+
+      if (!res.ok || !data.success || !approvalUrl) {
         throw new Error(data.message || "Failed to initiate PayPal checkout. Please try again or select another payment method.");
       }
 
@@ -1309,7 +1313,7 @@ export const CheckoutPage: React.FC = () => {
       sessionStorage.setItem("drmedex_paypal_order_id", data.orderID);
 
       // Redirect user directly to the official PayPal hosted payment page
-      window.location.href = data.approvalUrl;
+      window.location.href = approvalUrl;
     } catch (err: any) {
       console.error("[PayPal Checkout] Error:", err);
       setErrorMessage(err.message || "Unable to connect to PayPal. Please try again or use another payment method.");
@@ -2151,7 +2155,7 @@ export const CheckoutPage: React.FC = () => {
                                 type="email"
                                 value={authEmail}
                                 onChange={(e) => setAuthEmail(e.target.value)}
-                                placeholder="Enter your email ID"
+                                placeholder="Enter your email"
                                 required
                                 className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-neutral-300 text-xs text-[#171717] focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20"
                               />
@@ -2258,7 +2262,7 @@ export const CheckoutPage: React.FC = () => {
                               type="email"
                               value={forgotPasswordEmail}
                               onChange={(e) => setForgotPasswordEmail(e.target.value)}
-                              placeholder="Enter your registered email ID"
+                              placeholder="Enter your email"
                               required
                               className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-neutral-300 text-xs text-[#171717] focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20"
                             />
@@ -2345,7 +2349,7 @@ export const CheckoutPage: React.FC = () => {
                                 type="email"
                                 value={authEmail}
                                 onChange={(e) => setAuthEmail(e.target.value)}
-                                placeholder="Enter your email ID"
+                                placeholder="Enter your email"
                                 required
                                 className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-neutral-300 text-xs text-[#171717] focus:outline-none focus:border-[#7AA05A] focus:ring-2 focus:ring-[#7AA05A]/20"
                               />
@@ -2892,6 +2896,15 @@ export const CheckoutPage: React.FC = () => {
                         </div>
                       </div>
 
+                      {/* Official PayPal Buttons Container */}
+                      <div
+                        ref={paypalButtonContainerRef}
+                        id="paypal-button-container"
+                        className={`w-full min-h-[44px] transition-opacity duration-200 ${
+                          isProcessing ? "opacity-40 pointer-events-none" : "opacity-100"
+                        }`}
+                      />
+
                       <div className="flex items-center gap-1.5 text-3xs text-neutral-400 justify-center pt-1">
                         <Lock size={12} className="text-[#7AA05A]" />
                         <span>PayPal Buyer Protection • 256-bit Bank Grade SSL Encryption</span>
@@ -2948,14 +2961,14 @@ export const CheckoutPage: React.FC = () => {
           </div>
 
           {/* ========================================================
-              RIGHT COLUMN: ORDER SUMMARY & COUPON ENGINE (5 Cols)
+              RIGHT COLUMN: CHECKOUT PRODUCTS & TOTAL (5 Cols)
              ======================================================== */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="bg-white rounded-2xl border border-neutral-200 p-5 sm:p-7 shadow-xs space-y-5 sticky top-24">
-              <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
-                <h2 className="text-sm font-extrabold text-[#171717] uppercase tracking-wider">
-                  Order Summary ({items.length})
-                </h2>
+          <div className="lg:col-span-5 space-y-4">
+            <div className="space-y-4 sticky top-24">
+              <div className="flex items-center justify-between pb-2 border-b border-dotted border-[#7AA05A]/40">
+                <span className="text-xs font-bold text-neutral-500 uppercase tracking-wider">
+                  Items ({items.length})
+                </span>
                 <Link to="/cart" className="text-2xs font-bold text-[#7AA05A] hover:underline">
                   Edit Cart
                 </Link>
@@ -2965,7 +2978,7 @@ export const CheckoutPage: React.FC = () => {
               <div className="max-h-80 overflow-y-auto pr-1 space-y-1">
                 {items.map((it, idx) => (
                   <React.Fragment key={it.product.id}>
-                    {idx > 0 && <div className="border-b border-dashed border-[#7AA05A]/30 my-2" />}
+                    {idx > 0 && <div className="border-b border-dotted border-[#7AA05A]/40 my-2" />}
                     <CartItemCard
                       item={it}
                       onUpdateQuantity={updateQuantity}
@@ -2976,7 +2989,7 @@ export const CheckoutPage: React.FC = () => {
               </div>
 
               {/* Financial Breakdown */}
-              <div className="pt-3 border-t border-neutral-200 space-y-2.5 text-xs">
+              <div className="pt-3 border-t border-dotted border-[#7AA05A]/40 space-y-2.5 text-xs">
                 <div className="flex items-center justify-between text-neutral-600">
                   <span>Subtotal</span>
                   <span className="font-bold text-[#171717]">{formatPrice(subtotalINR)}</span>
@@ -3003,9 +3016,9 @@ export const CheckoutPage: React.FC = () => {
                   </span>
                 </div>
 
-                <div className="pt-2.5 border-t border-neutral-200 flex items-baseline justify-between">
-                  <span className="text-sm font-extrabold text-neutral-900">Total Amount</span>
-                  <span className="text-xl font-black text-[#2D5A4A] font-mono">
+                <div className="pt-2.5 border-t border-dotted border-[#7AA05A]/40 flex items-baseline justify-between">
+                  <span className="text-sm sm:text-base font-extrabold text-[#2D5A4A]">Total</span>
+                  <span className="text-xl font-black text-[#111111] font-mono">
                     {formatPrice(grandTotalINR)}
                   </span>
                 </div>
@@ -3192,7 +3205,7 @@ export const CheckoutPage: React.FC = () => {
           <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-neutral-200 py-3.5 px-4 sm:px-8 shadow-2xl animate-in slide-in-from-bottom duration-200">
             <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
               <div>
-                <div className="text-[10px] sm:text-xs text-black uppercase tracking-wider font-black">
+                <div className="text-[10px] sm:text-xs text-red-600 uppercase tracking-wider font-black">
                   TOTAL AMOUNT
                 </div>
                 <div className="text-lg sm:text-2xl font-black text-black font-mono leading-tight">
@@ -3214,7 +3227,7 @@ export const CheckoutPage: React.FC = () => {
                 ) : (
                   <>
                     <Lock size={16} className="text-white" strokeWidth={2.5} />
-                    <span>Pay ₹{grandTotalINR.toLocaleString("en-IN", { maximumFractionDigits: 0 })} Online</span>
+                    <span>PAY ONLINE</span>
                     <ArrowRight size={16} className="text-white" strokeWidth={2.5} />
                   </>
                 )}

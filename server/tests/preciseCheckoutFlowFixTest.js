@@ -140,7 +140,7 @@ async function runTestSuite() {
   test("Payment CTA: Prominent full-width black button with lock icon, white bold text, and right arrow", () => {
     assert.ok(checkoutCode.includes("bg-black"), "Button must be black");
     assert.ok(checkoutCode.includes("<Lock"), "Must have lock icon");
-    assert.ok(checkoutCode.includes("Pay ₹"), "Must display Pay ₹[amount] Online");
+    assert.ok(checkoutCode.includes("PAY ONLINE") || checkoutCode.includes("Pay Online"), "Must display PAY ONLINE");
     assert.ok(checkoutCode.includes("Online"), "Must contain Online");
     assert.ok(checkoutCode.includes("<ArrowRight"), "Must have right arrow");
   });

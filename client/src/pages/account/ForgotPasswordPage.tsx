@@ -24,7 +24,7 @@ export const ForgotPasswordPage: React.FC = () => {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(cleanEmail)) {
-      setErrorMessage("Please enter a valid email address (e.g. name@hospital.org).");
+      setErrorMessage("Please enter a valid email address (e.g. name@domain.com).");
       return;
     }
 
@@ -121,7 +121,7 @@ export const ForgotPasswordPage: React.FC = () => {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="name@hospital.org"
+                    placeholder="Enter your email"
                     className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-white text-neutral-900 focus:outline-hidden focus:border-[#2D5A4A]"
                   />
                 </div>
