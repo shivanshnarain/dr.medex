@@ -54,6 +54,10 @@
     --admin-status-unreviewed-border: #E5E5E5;
   }
 
+  html {
+    scroll-padding-top: 7.5rem;
+  }
+
   html, body {
     background-color: #ffffff;
     color: #111111;
@@ -230,11 +234,4 @@
 
 .border-medex-light {
   border-color: #E5E0D8;
-}
-
-/* Fixed Parallax Background for Hero (Desktop & Tablet) */
-@media (min-width: 640px) {
-  .hero-fixed-bg {
-    background-attachment: fixed !important;
-  }
 }

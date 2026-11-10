@@ -47,7 +47,7 @@ export const CartPage: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Heading & Minimal Red Clear All Items on right */}
         <div className="flex flex-row items-center justify-between gap-3 mb-6 pb-3 border-b border-dotted border-[#7AA05A]/40">
-          <h1 className="text-base sm:text-xl md:text-2xl font-black text-[#2D5A4A] tracking-tight whitespace-nowrap overflow-hidden text-ellipsis">
+          <h1 className="text-[clamp(0.9rem,3.6vw,1.5rem)] sm:whitespace-nowrap font-black text-[#2D5A4A] tracking-tight leading-snug break-words min-w-0">
             Hospital &amp; Clinical Equipment Cart
           </h1>
 

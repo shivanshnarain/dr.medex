@@ -463,10 +463,10 @@ export const ProductReviewsSection: React.FC<ProductReviewsSectionProps> = ({
               </div>
 
               <div className="flex-1 min-w-0">
-                <h3 className="font-bold text-sm sm:text-base text-neutral-900 leading-tight truncate">
+                <h3 className="font-bold text-sm sm:text-base text-neutral-900 leading-snug break-words">
                   {productTitle}
                 </h3>
-                <p className="text-2xs sm:text-xs text-neutral-500 font-normal mt-0.5 line-clamp-1">
+                <p className="text-2xs sm:text-xs text-neutral-500 font-normal mt-0.5 leading-snug">
                   Share your experience and help other healthcare professionals make informed decisions.
                 </p>
 

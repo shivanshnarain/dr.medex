@@ -28,6 +28,7 @@ import { Product, Category } from "../types";
 import { getCategories } from "../services/productService";
 import rawFallbackCategories from "../data/fallbackCategories.json";
 import { Logo } from "./Logo";
+import { optimizeCloudinaryUrl } from "../lib/imageUtils";
 
 interface SearchCategoryMatch {
   id: string;
@@ -143,20 +144,25 @@ export const Header: React.FC = () => {
     const DOWNWARD_THRESHOLD = 12;
     const TOP_ZONE = 20;
 
-    const handleScroll = () => {
-      const rawScrollY = getScrollY();
-      const currentScrollY = Math.max(0, rawScrollY);
+    let rafId: number | null = null;
+    const isDesktopViewport = () => typeof window !== "undefined" && window.innerWidth >= 1024;
 
-      // Prevent iOS rubber-band bounce at page bottom from triggering false reveal
-      const maxScroll = Math.max(
-        0,
-        (document.documentElement?.scrollHeight || document.body?.scrollHeight || 0) - window.innerHeight
-      );
-      if (maxScroll > 0 && rawScrollY > maxScroll) {
+    const processScroll = () => {
+      rafId = null;
+
+      // On desktop (lg+), header is permanently sticky and visible — skip state churn cleanly
+      if (isDesktopViewport()) {
+        if (isHiddenRef.current) {
+          isHiddenRef.current = false;
+          setIsHeaderHidden(false);
+        }
         return;
       }
 
-      // 1. Force visible at the top of the page (0-20px)
+      const rawScrollY = getScrollY();
+      const currentScrollY = Math.max(0, rawScrollY);
+
+      // 1. Force visible at the top of the page (0-20px) without forcing layout read
       if (currentScrollY <= TOP_ZONE) {
         if (isHiddenRef.current) {
           isHiddenRef.current = false;
@@ -168,14 +174,23 @@ export const Header: React.FC = () => {
         return;
       }
 
+      // Prevent iOS rubber-band bounce at page bottom from triggering false reveal
+      if (currentScrollY > 100) {
+        const maxScroll = Math.max(
+          0,
+          (document.documentElement?.scrollHeight || document.body?.scrollHeight || 0) - window.innerHeight
+        );
+        if (maxScroll > 0 && rawScrollY > maxScroll) {
+          return;
+        }
+      }
+
       // 2. State-based direction tracking
       if (isHiddenRef.current) {
-        // While hidden, track the deepest point reached
         if (currentScrollY > lowestScrollYRef.current) {
           lowestScrollYRef.current = currentScrollY;
         }
 
-        // Compare against deepest scroll depth reached: ANY upward scroll >= 2.5px reveals!
         const upwardMovement = lowestScrollYRef.current - currentScrollY;
         if (upwardMovement >= UPWARD_THRESHOLD) {
           isHiddenRef.current = false;
@@ -183,12 +198,10 @@ export const Header: React.FC = () => {
           highestScrollYRef.current = currentScrollY;
         }
       } else {
-        // While visible, track the highest point reached
         if (currentScrollY < highestScrollYRef.current) {
           highestScrollYRef.current = currentScrollY;
         }
 
-        // Compare against highest point: intentional downward scroll >= 12px past top zone hides
         const downwardMovement = currentScrollY - highestScrollYRef.current;
         if (downwardMovement >= DOWNWARD_THRESHOLD && currentScrollY > 70) {
           isHiddenRef.current = true;
@@ -200,8 +213,15 @@ export const Header: React.FC = () => {
       lastScrollYRef.current = currentScrollY;
     };
 
+    const handleScroll = () => {
+      if (isDesktopViewport()) return;
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(processScroll);
+    };
+
     // Mobile touch listener for instant physical finger response
     const handleTouchStart = (e: TouchEvent) => {
+      if (isDesktopViewport()) return;
       if (e.touches && e.touches.length > 0) {
         touchStartYRef.current = e.touches[0].clientY;
         touchStartScrollYRef.current = getScrollY();
@@ -209,6 +229,7 @@ export const Header: React.FC = () => {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
+      if (isDesktopViewport()) return;
       if (!e.touches || e.touches.length === 0) return;
       const currentTouchY = e.touches[0].clientY;
       const touchDeltaY = currentTouchY - touchStartYRef.current; // Positive = pulling finger down = scrolling up
@@ -229,6 +250,7 @@ export const Header: React.FC = () => {
     window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
     return () => {
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchmove", handleTouchMove);
@@ -498,7 +520,7 @@ export const Header: React.FC = () => {
 
   return (
     <header
-      className={`w-full z-40 sticky top-0 bg-white select-none transition-transform duration-200 ease-out will-change-transform motion-reduce:transition-none ${
+      className={`w-full z-40 sticky top-0 bg-white select-none transition-transform duration-200 ease-out motion-reduce:transition-none ${
         shouldHideHeader
           ? "-translate-y-full pointer-events-none lg:translate-y-0 lg:pointer-events-auto shadow-none"
           : "translate-y-0 shadow-xs"
@@ -588,8 +610,10 @@ export const Header: React.FC = () => {
                           className="px-4 py-3 flex items-center gap-3 hover:bg-neutral-50 transition-colors group"
                         >
                           <img
-                            src={prod.images?.[0] || "/placeholder.jpg"}
+                            src={optimizeCloudinaryUrl(prod.images?.[0] || "/placeholder.jpg", 600)}
                             alt={prod.title}
+                            loading="lazy"
+                            decoding="async"
                             className="w-11 h-11 rounded-lg object-contain bg-neutral-50 shrink-0 border border-neutral-200 p-1"
                             onError={(e) => {
                               (e.target as HTMLImageElement).src =
@@ -597,7 +621,7 @@ export const Header: React.FC = () => {
                             }}
                           />
                           <div className="flex-1 min-w-0">
-                            <div className="text-xs font-bold text-neutral-900 truncate group-hover:text-[#167A4A] transition-colors">
+                            <div className="text-xs font-bold text-neutral-900 leading-snug break-words group-hover:text-[#167A4A] transition-colors">
                               {prod.title}
                             </div>
                             <div className="text-[11px] text-neutral-500 flex items-center gap-2 mt-0.5">
@@ -1095,8 +1119,10 @@ export const Header: React.FC = () => {
                     className="px-3 py-2.5 flex items-center gap-2.5 hover:bg-neutral-50 transition-colors"
                   >
                     <img
-                      src={prod.images?.[0] || "/placeholder.jpg"}
+                      src={optimizeCloudinaryUrl(prod.images?.[0] || "/placeholder.jpg", 600)}
                       alt={prod.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-9 h-9 rounded-lg object-contain bg-neutral-50 shrink-0 border border-neutral-200 p-0.5"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src =
@@ -1104,7 +1130,7 @@ export const Header: React.FC = () => {
                       }}
                     />
                     <div className="flex-1 min-w-0">
-                      <div className="text-xs font-bold text-neutral-900 truncate">
+                      <div className="text-xs font-bold text-neutral-900 leading-snug break-words">
                         {prod.title}
                       </div>
                       <div className="text-[10px] text-neutral-500 capitalize">

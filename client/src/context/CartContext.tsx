@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from "react";
 import { Product, CartItem, Coupon } from "../types";
 import { useAuth } from "./AuthContext";
+import { getProducts } from "../services/productService";
 
 const CART_STORAGE_KEY_V1 = "drmedex_cart_v1";
 const CART_STORAGE_KEY_LEGACY = "drmedex_cart";
@@ -168,13 +169,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const revalidateCatalogPrices = async () => {
       if (items.length === 0) return;
       try {
-        const res = await fetch("/api/products");
-        if (!res.ok) return;
-        const data = await res.json();
-        if (isCancelled || !data?.success || !Array.isArray(data.products)) return;
+        const { products, isFallback } = await getProducts();
+        if (isCancelled || isFallback || !Array.isArray(products) || products.length === 0) return;
 
         const liveProducts = new Map<string, Product>();
-        data.products.forEach((p: Product) => liveProducts.set(p.id, p));
+        products.forEach((p: Product) => liveProducts.set(p.id, p));
 
         setItems((current) => {
           let hasChanges = false;

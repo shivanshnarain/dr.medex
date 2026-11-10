@@ -31,7 +31,7 @@ import {
 import { AdminLayout } from "../components/admin/AdminLayout";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { Category } from "../types";
-import { fallbackProducts } from "../services/productService";
+import { getFallbackProducts } from "../services/productService";
 
 export interface ProductImageSlot {
   id: string;
@@ -69,8 +69,7 @@ function findInitialProduct(productId?: string, locationState?: any): any {
       }
     }
   } catch {}
-  // 3. Fallback verified catalogue data
-  return fallbackProducts.find((p: any) => p.id === productId || p.slug === productId || p.sku === productId) || null;
+  return null;
 }
 
 function parseInitialSpecs(p: any) {
@@ -908,7 +907,8 @@ export const AdminProductEditorPage: React.FC = () => {
               }
             } catch {}
             if (!fallbackP) {
-              fallbackP = fallbackProducts.find((p: any) => p.id === productId || p.slug === productId || p.sku === productId);
+              const fbProducts = await getFallbackProducts();
+              fallbackP = fbProducts.find((p: any) => p.id === productId || p.slug === productId || p.sku === productId);
             }
             if (fallbackP) {
               populateProductFields(fallbackP);

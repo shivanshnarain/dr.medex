@@ -4,6 +4,7 @@ import { Heart, Package } from "lucide-react";
 import { Product } from "../types";
 import { useWishlist } from "../context/WishlistContext";
 import { renderBrandTitle } from "./BrandTitle";
+import { optimizeCloudinaryUrl } from "../lib/imageUtils";
 
 interface ProductCardProps {
   product: Product;
@@ -90,7 +91,7 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, on
     return "";
   };
 
-  const primaryImage = resolvePrimaryImage();
+  const primaryImage = optimizeCloudinaryUrl(resolvePrimaryImage(), 600);
   const hasValidImage = Boolean(primaryImage && !imageFailed);
 
   const productUrl = `/product/${product.slug || product.id}`;
@@ -98,7 +99,7 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, on
   return (
     <div
       className="group relative bg-white rounded-2xl border border-neutral-200/90 hover:border-neutral-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between h-full p-3 sm:p-4"
-      style={{ contentVisibility: "auto", containIntrinsicSize: "0 400px" }}
+      style={{ contentVisibility: "auto", containIntrinsicSize: "auto 450px" }}
     >
       {/* 1. SQUARE PRODUCT IMAGE AREA (1:1 aspect ratio across all viewports, clean container without inner grey border, object-cover for true edge-to-edge square presentation) */}
       <div
@@ -123,7 +124,7 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, on
           ) : (
             <div className="absolute inset-0 w-full h-full bg-neutral-50 flex flex-col items-center justify-center text-neutral-400 p-4 border border-dashed border-neutral-200 rounded-[16px]">
               <Package className="w-10 h-10 stroke-[1.2] text-neutral-300 mb-1.5" />
-              <span className="text-xs font-semibold text-neutral-600 text-center line-clamp-1">{product.brand || "DR.MEDEX"}</span>
+              <span className="text-xs font-semibold text-neutral-600 text-center break-words">{product.brand || "DR.MEDEX"}</span>
               <span className="text-[10px] text-neutral-400 mt-0.5">Image Pending</span>
             </div>
           )}

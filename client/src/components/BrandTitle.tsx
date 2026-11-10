@@ -24,10 +24,12 @@ export function renderBrandTitle(rawTitle: string | null | undefined): React.Rea
   const match = text.match(prefixRegex);
   if (match) {
     return (
-      <span className="inline-flex items-baseline flex-wrap">
-        <span className="text-[#2D5A4A] font-extrabold">DR.</span>
-        <span className="text-[#7AA05A] font-extrabold ml-0.5">MEDEX</span>
-        {match[3] ? <span className="ml-1 text-inherit">{match[3]}</span> : null}
+      <span className="inline whitespace-normal break-words">
+        <span className="inline-flex items-baseline whitespace-nowrap">
+          <span className="text-[#2D5A4A] font-extrabold">DR.</span>
+          <span className="text-[#7AA05A] font-extrabold ml-0.5">MEDEX</span>
+        </span>
+        {match[3] ? <>{" "}<span className="text-inherit">{match[3]}</span></> : null}
       </span>
     );
   }
@@ -40,7 +42,7 @@ export function renderBrandTitle(rawTitle: string | null | undefined): React.Rea
         {parts.map((part, idx) => {
           if (/^DR\.?\s*MEDEX$/i.test(part.trim())) {
             return (
-              <span key={idx} className="inline-flex items-baseline font-extrabold">
+              <span key={idx} className="inline-flex items-baseline whitespace-nowrap font-extrabold">
                 <span className="text-[#2D5A4A]">DR.</span>
                 <span className="text-[#7AA05A] ml-0.5">MEDEX</span>
               </span>

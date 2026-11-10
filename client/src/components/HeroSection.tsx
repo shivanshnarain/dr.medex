@@ -13,17 +13,25 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
       aria-label="DR.MEDEX Hero Showcase"
     >
       {/* 
-        HERO BACKGROUND LAYER WITH FIXED PARALLAX SCROLLING
-        The background image stays visually static while scrolling through the hero area,
-        while the foreground hero card scrolls upward naturally with the page.
+        HERO BACKGROUND LAYER
+        Uses native responsive <picture> with lightweight WebP & eager high-priority decoding
+        (avoids background-attachment: fixed scroll-repaint lock for silky-smooth scrolling).
       */}
-      <div
-        className="hero-fixed-bg absolute inset-0 w-full h-full bg-cover bg-no-repeat bg-[position:top_right] sm:bg-[position:top_center] lg:bg-[position:top_right] sm:bg-fixed pointer-events-none z-0"
-        style={{
-          backgroundImage: `url('/PNG.png')`,
-          backgroundPosition: "top right"
-        }}
-      />
+      <picture className="pointer-events-none select-none">
+        <source type="image/webp" srcSet="/PNG.webp" />
+        <img
+          src="/PNG.png"
+          alt=""
+          aria-hidden="true"
+          width={1672}
+          height={941}
+          // @ts-ignore
+          fetchPriority="high"
+          loading="eager"
+          decoding="sync"
+          className="absolute inset-0 w-full h-full object-cover object-[top_right] sm:object-[top_center] lg:object-[top_right] pointer-events-none z-0"
+        />
+      </picture>
 
       {/* 
         SUBTLE READABILITY OVERLAY

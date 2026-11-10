@@ -22,8 +22,17 @@ import { useCart } from "../context/CartContext";
 import { useBuyNow } from "../context/BuyNowLocationContext";
 import { ProductCard } from "../components/ProductCard";
 import { B2BQuoteModal } from "../components/B2BQuoteModal";
-import { ProductReviewsSection } from "../components/reviews/ProductReviewsSection";
-import { getProductBySlug, fallbackProducts } from "../services/productService";
+const ProductReviewsSection = React.lazy(() =>
+  import("../components/reviews/ProductReviewsSection").then((m) => ({
+    default: m.ProductReviewsSection
+  }))
+);
+import {
+  getProductBySlug,
+  getCachedProductBySlugSync,
+  getProductsByCategory
+} from "../services/productService";
+import { extractImageUrl, optimizeCloudinaryUrl } from "../lib/imageUtils";
 
 /**
  * Pure title parser: separates brand prefix from descriptive title
@@ -410,35 +419,15 @@ export const ProductDetailPage: React.FC = () => {
   const { formatPrice } = useCurrency();
   const { addToCart, closeDrawer } = useCart();
 
-  // Immediate candidate resolution from fallback catalogue to eliminate skeleton jump
-  const immediateCandidate = React.useMemo(() => {
-    if (!slug) return null;
-    const clean = slug.toLowerCase().replace(/\/+$/, "").trim();
-    return (
-      fallbackProducts.find((p) => {
-        const pSlug = (p.slug || "").toLowerCase().replace(/\/+$/, "").trim();
-        const pId = (p.id || "").toLowerCase().trim();
-        return pSlug === clean || pId === clean;
-      }) || null
-    );
-  }, [slug]);
-
-  const [product, setProduct] = useState<Product | null>(() => immediateCandidate);
-  const [relatedProducts, setRelatedProducts] = useState<Product[]>(() => {
-    if (!immediateCandidate?.category) return [];
-    return fallbackProducts
-      .filter(
-        (p) =>
-          p.category === immediateCandidate.category &&
-          p.id !== immediateCandidate.id &&
-          p.slug !== immediateCandidate.slug
-      )
-      .slice(0, 4);
-  });
+  // Synchronously resolve cached product if user navigated from catalogue (0ms, no skeleton jump)
+  const [product, setProduct] = useState<Product | null>(() =>
+    slug ? getCachedProductBySlugSync(slug) : null
+  );
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [hoveredThumbnailIndex, setHoveredThumbnailIndex] = useState<number | null>(null);
   const [isAdded, setIsAdded] = useState(false);
-  const [isLoading, setIsLoading] = useState<boolean>(() => !immediateCandidate);
+  const [isLoading, setIsLoading] = useState<boolean>(() => !(slug ? getCachedProductBySlugSync(slug) : null));
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [mainImageFailed, setMainImageFailed] = useState(false);
   const { triggerBuyNow, isProcessing: isSubmittingBuy } = useBuyNow();
@@ -450,51 +439,52 @@ export const ProductDetailPage: React.FC = () => {
   const slideshowTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [shareToast, setShareToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
-  // Dynamic measurement of product gallery height to coordinate with right column
+  // Dynamic measurement of product gallery height for minimum alignment without constraining text expansion
   const galleryRef = useRef<HTMLDivElement>(null);
   const mainImageRef = useRef<HTMLImageElement>(null);
   const [galleryHeight, setGalleryHeight] = useState<number | null>(null);
 
   const updateGalleryHeight = useCallback(() => {
     if (typeof window !== "undefined" && window.innerWidth >= 1024) {
-      if (galleryRef.current && galleryRef.current.offsetHeight > 0) {
-        setGalleryHeight(Math.round(galleryRef.current.offsetHeight));
-      } else if (mainImageRef.current && mainImageRef.current.offsetHeight > 0) {
-        setGalleryHeight(Math.round(mainImageRef.current.offsetHeight));
+      const measured =
+        galleryRef.current && galleryRef.current.offsetHeight > 0
+          ? Math.round(galleryRef.current.offsetHeight)
+          : mainImageRef.current && mainImageRef.current.offsetHeight > 0
+          ? Math.round(mainImageRef.current.offsetHeight)
+          : 0;
+      if (measured > 0) {
+        setGalleryHeight((prev) => (prev !== null && Math.abs(prev - measured) < 2 ? prev : measured));
       }
     } else {
-      setGalleryHeight(null);
+      setGalleryHeight((prev) => (prev === null ? null : null));
     }
   }, []);
 
   useEffect(() => {
-    updateGalleryHeight();
-
-    const handleResize = () => updateGalleryHeight();
-    window.addEventListener("resize", handleResize);
-
-    let resizeObserver: ResizeObserver | null = null;
-    if (typeof ResizeObserver !== "undefined") {
-      resizeObserver = new ResizeObserver(() => {
+    let rafId: number | null = null;
+    const scheduleUpdate = () => {
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = null;
         updateGalleryHeight();
       });
-      if (mainImageRef.current) {
-        resizeObserver.observe(mainImageRef.current);
-      }
-      if (galleryRef.current) {
-        resizeObserver.observe(galleryRef.current);
-      }
+    };
+
+    scheduleUpdate();
+    window.addEventListener("resize", scheduleUpdate, { passive: true });
+
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined" && galleryRef.current) {
+      resizeObserver = new ResizeObserver(scheduleUpdate);
+      resizeObserver.observe(galleryRef.current);
     }
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
+      window.removeEventListener("resize", scheduleUpdate);
       if (resizeObserver) resizeObserver.disconnect();
     };
   }, [updateGalleryHeight, product?.id]);
-
-  useEffect(() => {
-    updateGalleryHeight();
-  }, [updateGalleryHeight, activeImageIndex]);
 
   useEffect(() => {
     setMainImageFailed(false);
@@ -503,76 +493,107 @@ export const ProductDetailPage: React.FC = () => {
   // Quote modal (for related product cards)
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
-  // Asynchronous non-blocking related products loader
-  const loadRelatedProducts = useCallback(async (prod: Product) => {
+  // Asynchronous non-blocking related products loader (deduped & cached via productService)
+  const loadRelatedProducts = useCallback(async (prod: Product, cancelledRef?: { current: boolean }) => {
     if (!prod?.category) return;
     try {
-      const relRes = await fetch(`/api/products?category=${encodeURIComponent(prod.category)}`);
-      if (relRes.ok) {
-        const relData = await relRes.json();
-        if (relData.success && Array.isArray(relData.products)) {
-          const filtered = relData.products
-            .filter((p: Product) => p.id !== prod.id && p.slug !== prod.slug)
-            .slice(0, 4);
-          if (filtered.length > 0) {
-            setRelatedProducts(filtered);
-            return;
-          }
-        }
-      }
+      const catProds = await getProductsByCategory(prod.category);
+      if (cancelledRef?.current) return;
+      const filtered = catProds
+        .filter((p) => p.id !== prod.id && p.slug !== prod.slug)
+        .slice(0, 4);
+      setRelatedProducts(filtered);
     } catch {
-      // Keep existing fallback
+      // Non-critical related section
     }
-
-    const relFallback = fallbackProducts
-      .filter((p) => p.category === prod.category && p.id !== prod.id && p.slug !== prod.slug)
-      .slice(0, 4);
-    setRelatedProducts(relFallback);
   }, []);
 
-  // Fetch product data
+  // Scroll to top strictly when navigating to a new product slug
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
+
+  // Fetch product data once per slug (never re-trigger on product state update)
   const loadProduct = useCallback(async () => {
     if (!slug) return;
-    // Reconcile if current loaded product doesn't match the new slug
-    if (!product || (product.slug !== slug && product.id !== slug)) {
-      if (immediateCandidate) {
-        setProduct(immediateCandidate);
-        setIsLoading(false);
-      } else {
-        setIsLoading(true);
-      }
+    const cached = getCachedProductBySlugSync(slug);
+    if (cached) {
+      setProduct(cached);
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
     }
+    setActiveImageIndex(0);
+    setIsGalleryPaused(false);
+    setIsMobileStripHidden(false);
     setFetchError(null);
 
     try {
       const { product: prod } = await getProductBySlug(slug);
       if (prod) {
         setProduct(prod);
-        setActiveImageIndex(0);
         setIsLoading(false);
-
-        // Fetch related products non-blockingly without delaying the main product view
         loadRelatedProducts(prod);
-      } else {
-        if (!product && !immediateCandidate) {
-          setProduct(null);
-        }
+      } else if (!cached) {
+        setProduct(null);
       }
     } catch (e: any) {
       console.error("Failed to load product detail:", e);
-      if (!product && !immediateCandidate) {
+      if (!cached) {
         setFetchError(e.message || "Failed to load product information.");
         setProduct(null);
       }
     } finally {
       setIsLoading(false);
     }
-  }, [slug, immediateCandidate, product, loadRelatedProducts]);
+  }, [slug, loadRelatedProducts]);
 
   useEffect(() => {
-    loadProduct();
-    window.scrollTo(0, 0);
-  }, [loadProduct]);
+    const cancelledRef = { current: false };
+    if (!slug) return;
+
+    const run = async () => {
+      const cached = getCachedProductBySlugSync(slug);
+      if (cached) {
+        setProduct(cached);
+        setIsLoading(false);
+      } else {
+        setIsLoading(true);
+      }
+      setActiveImageIndex(0);
+      setIsGalleryPaused(false);
+      setIsMobileStripHidden(false);
+      setFetchError(null);
+
+      try {
+        const { product: prod } = await getProductBySlug(slug);
+        if (cancelledRef.current) return;
+        if (prod) {
+          setProduct(prod);
+          setIsLoading(false);
+          loadRelatedProducts(prod, cancelledRef);
+        } else if (!cached) {
+          setProduct(null);
+        }
+      } catch (e: any) {
+        if (cancelledRef.current) return;
+        console.error("Failed to load product detail:", e);
+        if (!cached) {
+          setFetchError(e.message || "Failed to load product information.");
+          setProduct(null);
+        }
+      } finally {
+        if (!cancelledRef.current) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    run();
+    return () => {
+      cancelledRef.current = true;
+    };
+  }, [slug, loadRelatedProducts]);
 
   // Page visibility listener for gallery autoplay pausing
   useEffect(() => {
@@ -988,7 +1009,7 @@ export const ProductDetailPage: React.FC = () => {
               <IconComponent size={20} strokeWidth={2} />
             </div>
             <div className="min-w-0 flex-1">
-              <h3 className="text-xs sm:text-[13px] font-bold text-[#171717] tracking-tight leading-tight">
+              <h3 className="text-xs sm:text-[13px] font-bold text-[#171717] tracking-tight leading-tight break-words">
                 {card.title}
               </h3>
               <p className="text-[11px] sm:text-xs font-normal text-[#6B7280] leading-snug break-words whitespace-pre-line mt-0.5">
@@ -1037,7 +1058,7 @@ export const ProductDetailPage: React.FC = () => {
                       className="relative inline-flex items-center justify-center shrink-0 cursor-pointer p-0 bg-transparent border-0 focus:outline-none"
                     >
                       <img
-                        src={img}
+                        src={optimizeCloudinaryUrl(img, isSelected ? 1200 : 200)}
                         alt={`${productTitle} thumbnail ${idx + 1}`}
                         className={`block h-16 xl:h-20 w-auto max-w-[76px] xl:max-w-[92px] object-contain rounded-[6px] bg-white select-none pointer-events-none transition-all duration-200 ${
                           isSelected
@@ -1045,6 +1066,9 @@ export const ProductDetailPage: React.FC = () => {
                             : "border-2 border-transparent opacity-65 hover:opacity-100 hover:border-neutral-200"
                         }`}
                         loading="lazy"
+                        decoding="async"
+                        // @ts-ignore
+                        fetchPriority="low"
                         onError={(e) => {
                           (e.target as HTMLElement).style.display = "none";
                         }}
@@ -1063,7 +1087,7 @@ export const ProductDetailPage: React.FC = () => {
               {productImages.length > 0 && !mainImageFailed ? (
                 <img
                   ref={mainImageRef}
-                  src={productImages[activeImageIndex] || productImages[0]}
+                  src={optimizeCloudinaryUrl(productImages[activeImageIndex] || productImages[0], 1200)}
                   alt={`${productTitle} - Angle ${activeImageIndex + 1}`}
                   onLoad={updateGalleryHeight}
                   // @ts-ignore
@@ -1087,7 +1111,7 @@ export const ProductDetailPage: React.FC = () => {
               ) : (
                 <div className="w-full aspect-square rounded-[8px] bg-neutral-50 flex flex-col items-center justify-center text-neutral-400 p-8 border border-dashed border-neutral-200">
                   <Package className="w-16 h-16 stroke-[1.2] text-neutral-300 mb-2" />
-                  <span className="text-sm font-semibold text-neutral-700 text-center">{productTitle}</span>
+                  <span className="text-sm font-semibold text-neutral-700 text-center break-words">{productTitle}</span>
                   <span className="text-xs text-neutral-400 mt-1">Image Pending Administrative Verification</span>
                 </div>
               )}
@@ -1140,7 +1164,7 @@ export const ProductDetailPage: React.FC = () => {
                         className="relative inline-flex items-center justify-center shrink-0 cursor-pointer p-0 bg-transparent border-0 focus:outline-none"
                       >
                         <img
-                          src={img}
+                          src={optimizeCloudinaryUrl(img, isSelected ? 1200 : 200)}
                           alt={`${productTitle} thumbnail ${idx + 1}`}
                           className={`block h-11 sm:h-12 w-auto max-w-[62px] sm:max-w-[72px] object-contain rounded-[6px] bg-white select-none pointer-events-none transition-all duration-200 ${
                             isSelected
@@ -1148,6 +1172,9 @@ export const ProductDetailPage: React.FC = () => {
                               : "border-2 border-transparent opacity-70 hover:opacity-100 scale-100"
                           }`}
                           loading="lazy"
+                          decoding="async"
+                          // @ts-ignore
+                          fetchPriority="low"
                           onError={(e) => {
                             (e.target as HTMLElement).style.display = "none";
                           }}
@@ -1164,7 +1191,7 @@ export const ProductDetailPage: React.FC = () => {
           {/* RIGHT 50%: PRODUCT DETAILS & ACTIONS                    */}
           {/* ------------------------------------------------------- */}
           <div
-            style={galleryHeight ? { height: `${galleryHeight}px` } : undefined}
+            style={galleryHeight ? { minHeight: `${galleryHeight}px` } : undefined}
             className="w-full flex flex-col justify-between min-w-0"
           >
             {/* A. Fixed Top Section (flex-shrink: 0) */}
@@ -1172,7 +1199,7 @@ export const ProductDetailPage: React.FC = () => {
               {/* 1. Breadcrumb navigation */}
               <nav
                 aria-label="Breadcrumb"
-                className="flex items-center gap-1.5 text-xs text-neutral-500 mb-1 sm:mb-1.5"
+                className="flex flex-wrap items-center gap-1.5 text-xs text-neutral-500 mb-1 sm:mb-1.5"
               >
                 <Link to="/" className="hover:text-[#171717] transition-colors">
                   Home
@@ -1180,17 +1207,19 @@ export const ProductDetailPage: React.FC = () => {
                 <span className="text-neutral-400">&gt;</span>
                 <Link
                   to={product.category ? `/shop-all?category=${product.category}` : "/shop-all"}
-                  className="hover:text-[#171717] transition-colors font-medium text-neutral-600"
+                  className="hover:text-[#171717] transition-colors font-medium text-neutral-600 break-words"
                 >
                   {product.categoryName || "Examination & OT Tables"}
                 </Link>
               </nav>
 
               {/* 2. Product title and DR.MEDEX branding */}
-              <div className="shrink-0">
-                <h1 className="text-xl sm:text-2xl lg:text-[1.65rem] tracking-tight leading-snug">
-                  <span className="font-extrabold text-[#2D5A4A]">{titleParts.dr}</span>
-                  <span className="font-extrabold text-[#7AA05A] ml-0.5">{titleParts.medex}</span>{" "}
+              <div className="shrink-0 min-w-0">
+                <h1 className="text-xl sm:text-2xl lg:text-[1.65rem] tracking-tight leading-snug whitespace-normal break-words">
+                  <span className="inline-flex items-baseline whitespace-nowrap">
+                    <span className="font-extrabold text-[#2D5A4A]">{titleParts.dr}</span>
+                    <span className="font-extrabold text-[#7AA05A] ml-0.5">{titleParts.medex}</span>
+                  </span>{" "}
                   <span className="font-normal text-[#171717]">{titleParts.descriptiveName}</span>
                 </h1>
               </div>
@@ -1229,14 +1258,14 @@ export const ProductDetailPage: React.FC = () => {
               <hr className="border-t border-neutral-200 my-1.5 shrink-0" />
             </div>
 
-            {/* B. Middle Description Section — flex: 1; min-height: 0; overflow-y: auto */}
-            <div className="flex-1 min-h-0 flex flex-col py-1 overflow-hidden my-0.5">
+            {/* B. Middle Description Section — expands naturally with content so text never clips or overlaps sections below */}
+            <div className="flex-1 flex flex-col py-1 my-0.5 min-w-0">
               <h2 className="text-sm font-bold text-[#2D5A4A] tracking-tight mb-1 shrink-0">
                 Description
               </h2>
-              <div className="flex-1 min-h-0 lg:overflow-y-auto pr-3 text-xs sm:text-[13px] text-neutral-600 leading-relaxed product-description-scrollbar [scrollbar-color:#7AA05A_#F3F4F6] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-[#F3F4F6] [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#7AA05A] hover:[&::-webkit-scrollbar-thumb]:bg-[#6B8F4E] [&::-webkit-scrollbar-thumb]:rounded-full">
+              <div className="pr-1 sm:pr-3 text-xs sm:text-[13px] text-neutral-600 leading-relaxed break-words">
                 {productOverview ? (
-                  <p className="whitespace-pre-line pb-1">{productOverview}</p>
+                  <p className="whitespace-pre-line pb-1 break-words">{productOverview}</p>
                 ) : (
                   <p className="text-xs text-neutral-400 italic">No description provided for this equipment.</p>
                 )}
@@ -1411,13 +1440,22 @@ export const ProductDetailPage: React.FC = () => {
         {/* CLINICAL EVALUATIONS & VERIFIED PRACTITIONER REVIEWS      */}
         {/* Cloud Firestore Powered with Grounded Gemini AI Assistant  */}
         {/* ========================================================= */}
-        <ProductReviewsSection
-          productId={product.id || (product as any)._id || product.slug || slug || "product"}
-          productSlug={product.slug || slug || product.id}
-          productTitle={product.title || product.productName || "Medical Device"}
-          productImage={(product.images && product.images[0]) || (product as any).image || (product as any).imageUrl || ""}
-          category={product.category}
-        />
+        <React.Suspense fallback={<div className="mt-12 h-32 rounded-xl bg-neutral-50 animate-pulse" />}>
+          <ProductReviewsSection
+            productId={product.id || (product as any)._id || product.slug || slug || "product"}
+            productSlug={product.slug || slug || product.id}
+            productTitle={product.title || product.productName || "Medical Device"}
+            productImage={optimizeCloudinaryUrl(
+              extractImageUrl(product.images && product.images[0]) ||
+                extractImageUrl(product.primaryImage) ||
+                (product as any).image ||
+                (product as any).imageUrl ||
+                "",
+              200
+            )}
+            category={product.category}
+          />
+        </React.Suspense>
 
         {/* ========================================================= */}
         {/* RELATED MEDICAL EQUIPMENT (Compact Card Row)              */}

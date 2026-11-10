@@ -135,7 +135,7 @@ export const B2BQuoteModal: React.FC<B2BQuoteModalProps> = ({ product, isOpen, o
                       className="w-12 h-12 object-contain rounded-lg border border-[#EAEAEA] bg-white shrink-0 p-1"
                     />
                     <div className="min-w-0 flex-1">
-                      <div className="text-xs font-bold text-[#111111] truncate">{product.title}</div>
+                      <div className="text-xs font-bold text-[#111111] leading-snug break-words">{product.title}</div>
                       <div className="text-2xs text-neutral-500 font-mono">SKU: {product.sku}</div>
                     </div>
                   </div>

@@ -6,7 +6,7 @@ import { ProductCard } from "../components/ProductCard";
 import { QuickViewModal } from "../components/QuickViewModal";
 import { B2BQuoteModal } from "../components/B2BQuoteModal";
 import { HeroSection } from "../components/HeroSection";
-import { getProducts, fallbackProducts } from "../services/productService";
+import { getProducts, getCachedProductsSync } from "../services/productService";
 
 interface CategorySectionDef {
   id: string;
@@ -174,15 +174,13 @@ function matchesCategory(p: Product, slug: string): boolean {
 
 export const HomePage: React.FC = () => {
   const [allProducts, setAllProducts] = useState<Product[]>(() => {
-    const active = fallbackProducts.filter((p) => {
-      if ((p.status || "ACTIVE") !== "ACTIVE") return false;
-      if (p.reviewStatus !== "CORRECT") return false;
-      return true;
-    });
-    return active.length > 0 ? active : fallbackProducts;
+    const cached = getCachedProductsSync();
+    if (!cached) return [];
+    const active = cached.filter((p) => (p.status || "ACTIVE") === "ACTIVE" && p.reviewStatus === "CORRECT");
+    return active.length > 0 ? active : cached;
   });
   const [blogs, setBlogs] = useState<BlogArticle[]>([]);
-  const [, setIsLoading] = useState(false);
+  const [, setIsLoading] = useState(() => !getCachedProductsSync());
 
   // Modals state
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
@@ -290,13 +288,19 @@ export const HomePage: React.FC = () => {
                 style={{ borderRadius: "20px", aspectRatio: "20 / 23" }}
               >
                 {/* 1. Original category product image filling the card with proportional vertical alignment */}
-                <img
-                  src={cat.image}
-                  alt={cat.name}
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none"
-                  style={{ objectPosition: cat.objectPosition }}
-                  loading="lazy"
-                />
+                <picture className="pointer-events-none">
+                  <source type="image/webp" srcSet={cat.image.replace(/\.png$/i, ".webp")} />
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    width={820}
+                    height={943}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none"
+                    style={{ objectPosition: cat.objectPosition }}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
 
                 {/* 2. Positioned heading and outlined Explore Product button in negative space */}
                 <div className="relative z-10 p-4 sm:p-5 lg:p-5.5 flex flex-col items-start gap-2 sm:gap-2.5">
@@ -335,9 +339,6 @@ export const HomePage: React.FC = () => {
         {CATEGORY_SECTIONS.map((section) => {
           const categoryProducts = productsByCategory[section.slug] || [];
           if (categoryProducts.length === 0) return null;
-
-          // Display 4 products per row (or up to 4 on desktop)
-          const displayProducts = categoryProducts.slice(0, 4);
 
           return (
             <section key={section.id} className="py-12 sm:py-16">
@@ -414,6 +415,8 @@ export const HomePage: React.FC = () => {
                       <img
                         src={b.image}
                         alt={b.title}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>

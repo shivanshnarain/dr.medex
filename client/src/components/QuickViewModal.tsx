@@ -5,6 +5,8 @@ import { Product } from "../types";
 import { useCurrency } from "../context/CurrencyContext";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
+import { optimizeCloudinaryUrl, extractImageUrl } from "../lib/imageUtils";
+import { renderBrandTitle } from "./BrandTitle";
 
 interface QuickViewModalProps {
   product: Product | null;
@@ -50,7 +52,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, onClose
             <div>
               <div className="aspect-square bg-[#F9F9F9] rounded-xl overflow-hidden border border-[#EAEAEA] mb-3 relative flex items-center justify-center p-4">
                 <img
-                  src={product.images[activeImageIndex] || product.images[0]}
+                  src={optimizeCloudinaryUrl(extractImageUrl(product.images[activeImageIndex] || product.images[0]), 600)}
                   alt={product.title}
                   className="w-full h-full object-contain object-center transition-all duration-300"
                 />
@@ -105,8 +107,8 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, onClose
                   <span className="font-mono text-neutral-400">SKU: {product.sku}</span>
                 </div>
 
-                <h3 className="text-lg font-bold text-[#111111] leading-snug">
-                  {product.title}
+                <h3 className="text-lg font-bold text-[#111111] leading-snug break-words">
+                  {renderBrandTitle(product.title)}
                 </h3>
 
                 {/* Price Display */}
@@ -124,7 +126,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, onClose
                   </span>
                 </div>
 
-                <p className="text-xs text-neutral-600 mt-3 line-clamp-3 leading-relaxed">
+                <p className="text-xs text-neutral-600 mt-3 leading-relaxed break-words">
                   {product.shortDescription}
                 </p>
 

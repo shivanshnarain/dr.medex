@@ -16,7 +16,7 @@ import {
 import { AdminLayout } from "../components/admin/AdminLayout";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { Product, Category } from "../types";
-import { fallbackProducts, fallbackCategories } from "../services/productService";
+import { getFallbackProducts, fallbackCategories } from "../services/productService";
 
 export const AdminDashboardPage: React.FC = () => {
   const { adminFetch } = useAdminAuth();
@@ -58,8 +58,9 @@ export const AdminDashboardPage: React.FC = () => {
           }
         }
       } else {
-        const total = fallbackProducts.length;
-        const active = fallbackProducts.filter(p => (p.status || "ACTIVE") === "ACTIVE").length;
+        const fbProducts = await getFallbackProducts();
+        const total = fbProducts.length;
+        const active = fbProducts.filter(p => (p.status || "ACTIVE") === "ACTIVE").length;
         setStats((prev: any) => ({
           ...prev,
           totalProducts: total,
@@ -67,7 +68,7 @@ export const AdminDashboardPage: React.FC = () => {
           inactiveProducts: total - active,
           totalCategories: fallbackCategories.length
         }));
-        setRecentProducts(fallbackProducts.slice(0, 8));
+        setRecentProducts(fbProducts.slice(0, 8));
       }
 
       if (catRes.ok) {
@@ -80,7 +81,8 @@ export const AdminDashboardPage: React.FC = () => {
       }
     } catch (e) {
       console.error("Dashboard data load error:", e);
-      setRecentProducts(fallbackProducts.slice(0, 8));
+      const fbProducts = await getFallbackProducts();
+      setRecentProducts(fbProducts.slice(0, 8));
       setCategories(fallbackCategories);
     } finally {
       setIsLoading(false);

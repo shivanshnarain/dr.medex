@@ -4,6 +4,7 @@ import { Plus, Minus, Trash2 } from "lucide-react";
 import { CartItem } from "../../types";
 import { useCurrency } from "../../context/CurrencyContext";
 import { renderBrandTitle } from "../BrandTitle";
+import { extractImageUrl, optimizeCloudinaryUrl } from "../../lib/imageUtils";
 
 export interface CartItemCardProps {
   item: CartItem;
@@ -28,12 +29,13 @@ export const CartItemCard: React.FC<CartItemCardProps> = ({
   const { formatPrice } = useCurrency();
   const { product, quantity } = item;
 
-  // Extract clean product image with robust fallback
-  const itemImage =
-    (Array.isArray(product.images) && product.images[0]) ||
-    product.primaryImage ||
-    (Array.isArray(product.galleryImages) && product.galleryImages[0]) ||
+  // Extract clean product image with robust fallback and Cloudinary optimization
+  const rawItemImage =
+    (Array.isArray(product.images) && extractImageUrl(product.images[0])) ||
+    extractImageUrl(product.primaryImage) ||
+    (Array.isArray(product.galleryImages) && extractImageUrl(product.galleryImages[0])) ||
     FALLBACK_IMAGE;
+  const itemImage = optimizeCloudinaryUrl(rawItemImage, 600) || FALLBACK_IMAGE;
 
   const availableStock =
     typeof product.stock === "number"
@@ -57,6 +59,8 @@ export const CartItemCard: React.FC<CartItemCardProps> = ({
         <img
           src={itemImage}
           alt={product.title}
+          loading="lazy"
+          decoding="async"
           onError={(e) => {
             (e.target as HTMLImageElement).src = FALLBACK_IMAGE;
           }}
@@ -72,7 +76,7 @@ export const CartItemCard: React.FC<CartItemCardProps> = ({
             <Link
               to={`/product/${product.slug}`}
               onClick={onItemClick}
-              className="text-xs sm:text-sm font-bold text-[#111111] hover:text-[#2D5A4A] leading-snug transition-colors flex-1 line-clamp-2 break-words"
+              className="text-xs sm:text-sm font-bold text-[#111111] hover:text-[#2D5A4A] leading-snug transition-colors flex-1 whitespace-normal break-words"
             >
               {renderBrandTitle(product.title)}
             </Link>

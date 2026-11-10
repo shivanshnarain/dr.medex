@@ -28,7 +28,7 @@ import { DeleteProductModal } from "../components/admin/DeleteProductModal";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { Product, Category } from "../types";
 import { getApiUrl } from "../lib/apiConfig";
-import { fallbackProducts, fallbackCategories } from "../services/productService";
+import { getFallbackProducts, fallbackCategories } from "../services/productService";
 
 export const AdminProductsPage: React.FC = () => {
   const { adminFetch } = useAdminAuth();
@@ -49,7 +49,7 @@ export const AdminProductsPage: React.FC = () => {
         }
       }
     } catch {}
-    return fallbackProducts && fallbackProducts.length > 0 ? (fallbackProducts as Product[]) : [];
+    return [];
   });
   const [categories, setCategories] = useState<Category[]>(() => {
     return fallbackCategories && fallbackCategories.length > 0 ? (fallbackCategories as Category[]) : [];
@@ -363,8 +363,11 @@ export const AdminProductsPage: React.FC = () => {
               }
             }
           } catch {}
-          if (!loadedProducts.length && fallbackProducts && fallbackProducts.length > 0) {
-            loadedProducts = fallbackProducts;
+          if (!loadedProducts.length) {
+            const fbProducts = await getFallbackProducts();
+            if (fbProducts && fbProducts.length > 0) {
+              loadedProducts = fbProducts;
+            }
           }
           if (loadedProducts.length > 0) {
             setProducts(loadedProducts);
@@ -401,8 +404,11 @@ export const AdminProductsPage: React.FC = () => {
             if (Array.isArray(parsed) && parsed.length > 0) loadedProducts = parsed;
           }
         } catch {}
-        if (!loadedProducts.length && fallbackProducts) {
-          loadedProducts = fallbackProducts;
+        if (!loadedProducts.length) {
+          const fbProducts = await getFallbackProducts();
+          if (fbProducts && fbProducts.length > 0) {
+            loadedProducts = fbProducts;
+          }
         }
         if (loadedProducts.length > 0) {
           setProducts(loadedProducts);

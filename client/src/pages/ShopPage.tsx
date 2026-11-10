@@ -6,7 +6,12 @@ import { ProductCard } from "../components/ProductCard";
 import { QuickViewModal } from "../components/QuickViewModal";
 import { B2BQuoteModal } from "../components/B2BQuoteModal";
 import { useCurrency } from "../context/CurrencyContext";
-import { getProducts, getCategories, fallbackProducts, fallbackCategories } from "../services/productService";
+import {
+  getProducts,
+  getCategories,
+  getCachedProductsSync,
+  fallbackCategories
+} from "../services/productService";
 
 export const ShopPage: React.FC = () => {
   const { categorySlug } = useParams<{ categorySlug?: string }>();
@@ -14,9 +19,9 @@ export const ShopPage: React.FC = () => {
   const navigate = useNavigate();
   const { currentCurrency, currentCountry, formatPrice } = useCurrency();
 
-  const [products, setProducts] = useState<Product[]>(() => fallbackProducts);
+  const [products, setProducts] = useState<Product[]>(() => getCachedProductsSync() || []);
   const [categories, setCategories] = useState<Category[]>(() => fallbackCategories);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(() => !getCachedProductsSync());
   const [apiError, setApiError] = useState<string | null>(null);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 

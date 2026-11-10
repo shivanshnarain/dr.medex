@@ -1744,8 +1744,10 @@ export const CheckoutPage: React.FC = () => {
                         alt={item.title}
                         className="w-12 h-12 object-contain p-1 rounded-xl border border-neutral-200 bg-neutral-50 shrink-0"
                       />
-                      <div className="min-w-0">
-                        <div className="font-bold text-[#171717] truncate">{item.title}</div>
+                      <div className="min-w-0 flex-1">
+                        <div className="font-bold text-[#171717] leading-snug break-words whitespace-normal">
+                          {renderBrandTitle(item.title)}
+                        </div>
                         <div className="text-3xs text-neutral-500 font-mono mt-0.5">
                           SKU: {item.sku} • Qty: {item.quantity}
                         </div>
