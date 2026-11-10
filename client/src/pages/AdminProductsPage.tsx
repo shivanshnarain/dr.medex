@@ -74,6 +74,7 @@ export const AdminProductsPage: React.FC = () => {
   const [reviewModalProduct, setReviewModalProduct] = useState<Product | null>(null);
   const [reviewNoteInput, setReviewNoteInput] = useState<string>("");
   const [downloadingId, setDownloadingId] = useState<string | null>(null);
+  const downloadedBlobCacheRef = useRef<Map<string, Blob>>(new Map());
 
   // Selection & Bulk State
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -859,6 +860,100 @@ export const AdminProductsPage: React.FC = () => {
     }
   };
 
+  const extractImageUrl = (raw: any): string => {
+    if (!raw) return "";
+    let u = typeof raw === "string"
+      ? raw.trim()
+      : (raw.secureUrl || raw.secure_url || raw.url || raw.originalUrl || raw.src || "").trim();
+    if (!u || u.startsWith("data:") || u.startsWith("blob:")) return "";
+    if (u.startsWith("products-catalog/")) u = `/${u}`;
+    return u;
+  };
+
+  const resolveProductImageUrls = (product: Product): string[] => {
+    const urls: string[] = [];
+    const seen = new Set<string>();
+    const currentImages = Array.isArray(product.images) && product.images.length > 0
+      ? product.images
+      : (Array.isArray(product.galleryImages) && product.galleryImages.length > 0
+        ? product.galleryImages
+        : (product.primaryImage ? [product.primaryImage] : []));
+
+    for (const raw of currentImages) {
+      const u = extractImageUrl(raw);
+      if (u && !seen.has(u)) {
+        seen.add(u);
+        urls.push(u);
+      }
+    }
+
+    const normPrimary = extractImageUrl(product.primaryImage) || extractImageUrl((product as any).originalPrimaryImage);
+    if (normPrimary && !seen.has(normPrimary)) {
+      seen.add(normPrimary);
+      urls.unshift(normPrimary);
+    }
+
+    return urls;
+  };
+
+  const fetchImageBlobWithCache = async (imgUrl: string, filename: string): Promise<{ blob: Blob | null; error: string }> => {
+    const cachedBlob = downloadedBlobCacheRef.current.get(imgUrl);
+    if (cachedBlob && cachedBlob.size > 0) {
+      return { blob: cachedBlob, error: "" };
+    }
+
+    let blob: Blob | null = null;
+    let lastErrorMsg = "";
+
+    // Strategy 1: Direct browser/CDN fetch utilizing HTTP cache (fastest for Cloudinary CORS & same-origin assets)
+    try {
+      const directRes = await fetch(imgUrl, {
+        cache: "force-cache",
+        ...(imgUrl.startsWith("http") ? { mode: "cors" as RequestMode } : {})
+      });
+      if (directRes.ok) {
+        const ct = directRes.headers.get("content-type") || "";
+        if (ct.includes("image/") || ct.includes("octet-stream")) {
+          blob = await directRes.blob();
+        }
+      }
+    } catch {
+      // Direct fetch failed (e.g. cross-origin restrictions); fall back to authenticated proxy
+    }
+
+    // Strategy 2: Authenticated backend proxy streaming with cache headers & SSRF fallback
+    if (!blob) {
+      try {
+        const proxyUrl = `/api/admin/download-image?url=${encodeURIComponent(imgUrl)}&filename=${encodeURIComponent(filename)}`;
+        const res = await adminFetch(proxyUrl, { cache: "force-cache" });
+        if (res.ok) {
+          const ct = res.headers.get("content-type") || "";
+          if (ct.includes("image/") || ct.includes("octet-stream")) {
+            blob = await res.blob();
+          } else {
+            const data = await res.json().catch(() => null);
+            lastErrorMsg = data?.message || `Non-image response (${ct})`;
+          }
+        } else {
+          const data = await res.json().catch(() => null);
+          lastErrorMsg = data?.message || `HTTP ${res.status}`;
+        }
+      } catch (pErr: any) {
+        lastErrorMsg = pErr.message || "Proxy connection error";
+      }
+    }
+
+    if (blob && blob.size > 0) {
+      if (downloadedBlobCacheRef.current.size >= 150) {
+        downloadedBlobCacheRef.current.clear();
+      }
+      downloadedBlobCacheRef.current.set(imgUrl, blob);
+      return { blob, error: "" };
+    }
+
+    return { blob: null, error: lastErrorMsg || "File not found" };
+  };
+
   /**
    * Download only individual original product photos (preserves original content, no ZIP packaging)
    */
@@ -867,40 +962,22 @@ export const AdminProductsPage: React.FC = () => {
     setDownloadingId(product.id);
 
     try {
-      // 1. Resolve canonical images via server endpoint, falling back to comprehensive client resolution
-      let urls: string[] = [];
-      try {
-        const imgRes = await adminFetch(`/api/admin/products/${encodeURIComponent(product.id)}/images`);
-        if (imgRes.ok) {
-          const imgData = await imgRes.json().catch(() => null);
-          if (imgData && imgData.success && Array.isArray(imgData.images)) {
-            urls = imgData.images.map((im: any) => im.url).filter(Boolean);
-          }
-        }
-      } catch (err) {
-        console.warn("Failed to fetch resolved images from server endpoint, using client-side fallback:", err);
-      }
+      // 1. Resolve image URLs directly from in-memory product data first to avoid redundant API round-trips
+      let urls = resolveProductImageUrls(product);
 
+      // Fallback to server endpoint only if the product record in memory has no image URLs
       if (urls.length === 0) {
-        const seen = new Set<string>();
-        const addUrl = (raw: any) => {
-          if (!raw) return;
-          let u = typeof raw === "string" ? raw.trim() : (raw.url || raw.secureUrl || raw.secure_url || raw.src || "").trim();
-          if (!u || u.startsWith("data:") || u.startsWith("blob:")) return;
-          if (u.startsWith("products-catalog/")) u = `/${u}`;
-          if (!seen.has(u)) {
-            seen.add(u);
-            urls.push(u);
+        try {
+          const imgRes = await adminFetch(`/api/admin/products/${encodeURIComponent(product.id)}/images`);
+          if (imgRes.ok) {
+            const imgData = await imgRes.json().catch(() => null);
+            if (imgData && imgData.success && Array.isArray(imgData.images)) {
+              urls = imgData.images.map((im: any) => extractImageUrl(im)).filter(Boolean);
+            }
           }
-        };
-
-        const currentImages = Array.isArray(product.images) && product.images.length > 0
-          ? product.images
-          : (Array.isArray(product.galleryImages) && product.galleryImages.length > 0
-            ? product.galleryImages
-            : (product.primaryImage ? [product.primaryImage] : []));
-
-        currentImages.forEach(addUrl);
+        } catch (err) {
+          console.warn("Failed to fetch resolved images from server endpoint:", err);
+        }
       }
 
       if (urls.length === 0) {
@@ -911,57 +988,31 @@ export const AdminProductsPage: React.FC = () => {
         return;
       }
 
-      let downloadedCount = 0;
-      let failedCount = 0;
-      const failedDetails: string[] = [];
       const baseSku = (product.sku || product.id || "product").replace(/[^a-zA-Z0-9_-]/g, "_");
-
-      for (let i = 0; i < urls.length; i++) {
-        const imgUrl = urls[i];
+      const targets = urls.map((imgUrl, i) => {
         let ext = "jpg";
         const extMatch = imgUrl.match(/\.(jpg|jpeg|png|webp|gif|svg|avif)(?:\?.*)?$/i);
         if (extMatch && extMatch[1]) {
           ext = extMatch[1].toLowerCase();
         }
-        const filename = `${baseSku}_photo_${i + 1}.${ext}`;
+        return {
+          imgUrl,
+          filename: `${baseSku}_photo_${i + 1}.${ext}`
+        };
+      });
 
-        let blob: Blob | null = null;
-        let lastErrorMsg = "";
+      // 2. Fetch all photos for this product concurrently in parallel using browser & memory cache
+      const fetchResults = await Promise.all(
+        targets.map(({ imgUrl, filename }) => fetchImageBlobWithCache(imgUrl, filename))
+      );
 
-        // Strategy 1: Direct browser fetch (fastest for same-origin and CORS-enabled assets)
-        try {
-          const directRes = await fetch(imgUrl);
-          if (directRes.ok) {
-            const ct = directRes.headers.get("content-type") || "";
-            if (ct.includes("image/") || ct.includes("octet-stream")) {
-              blob = await directRes.blob();
-            }
-          }
-        } catch {
-          // Direct fetch failed (e.g. cross-origin restrictions); proceed to proxy
-        }
+      let downloadedCount = 0;
+      let failedCount = 0;
+      const failedDetails: string[] = [];
 
-        // Strategy 2: Authenticated backend proxy streaming with SSRF & CDN fallback
-        if (!blob) {
-          try {
-            const proxyUrl = `/api/admin/download-image?url=${encodeURIComponent(imgUrl)}&filename=${encodeURIComponent(filename)}`;
-            const res = await adminFetch(proxyUrl);
-            if (res.ok) {
-              const ct = res.headers.get("content-type") || "";
-              if (ct.includes("image/") || ct.includes("octet-stream")) {
-                blob = await res.blob();
-              } else {
-                const data = await res.json().catch(() => null);
-                lastErrorMsg = data?.message || `Non-image response (${ct})`;
-              }
-            } else {
-              const data = await res.json().catch(() => null);
-              lastErrorMsg = data?.message || `HTTP ${res.status}`;
-            }
-          } catch (pErr: any) {
-            lastErrorMsg = pErr.message || "Proxy connection error";
-          }
-        }
+      for (let i = 0; i < targets.length; i++) {
+        const { filename } = targets[i];
+        const { blob, error } = fetchResults[i];
 
         if (blob && blob.size > 0) {
           const blobUrl = window.URL.createObjectURL(blob);
@@ -971,16 +1022,16 @@ export const AdminProductsPage: React.FC = () => {
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
-          setTimeout(() => window.URL.revokeObjectURL(blobUrl), 1000);
+          setTimeout(() => window.URL.revokeObjectURL(blobUrl), 1500);
           downloadedCount++;
+
+          // Minimal yield only between multiple files so browser download manager accepts each file
+          if (i < targets.length - 1) {
+            await new Promise(resolve => setTimeout(resolve, 60));
+          }
         } else {
           failedCount++;
-          failedDetails.push(`${filename} (${lastErrorMsg || "File not found"})`);
-        }
-
-        // Brief delay between downloads to prevent browser multi-file popup suppression
-        if (i < urls.length - 1) {
-          await new Promise(resolve => setTimeout(resolve, 200));
+          failedDetails.push(`${filename} (${error || "File not found"})`);
         }
       }
 
@@ -1111,7 +1162,7 @@ export const AdminProductsPage: React.FC = () => {
     }
 
     return productList.map((p) => {
-      const img = (p.images && p.images[0]) || p.primaryImage || "";
+      const img = (p.images && extractImageUrl(p.images[0])) || extractImageUrl(p.primaryImage) || resolveProductImageUrls(p)[0] || "";
       const isSelected = selectedIds.includes(p.id);
       const isActive = (p.status || "ACTIVE") === "ACTIVE";
 
@@ -1142,6 +1193,8 @@ export const AdminProductsPage: React.FC = () => {
                   <img
                     src={img}
                     alt={p.title || p.productName}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-contain"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src =

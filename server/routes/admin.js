@@ -1449,6 +1449,7 @@ router.get("/download-image", requireAdmin, async (req, res) => {
 
         res.setHeader("Content-Type", contentType);
         res.setHeader("Content-Disposition", `attachment; filename="${cleanFilename}"`);
+        res.setHeader("Cache-Control", "private, max-age=3600");
         res.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
 
         const fileStream = fs.createReadStream(localPath);
@@ -1471,6 +1472,7 @@ router.get("/download-image", requireAdmin, async (req, res) => {
           if (contentType.includes("image/") || contentType.includes("octet-stream")) {
             res.setHeader("Content-Type", contentType);
             res.setHeader("Content-Disposition", `attachment; filename="${cleanFilename}"`);
+            res.setHeader("Cache-Control", "private, max-age=3600");
             res.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
 
             const buffer = await fetchRes.arrayBuffer();
@@ -1498,6 +1500,7 @@ router.get("/download-image", requireAdmin, async (req, res) => {
       const contentType = fetchRes.headers.get("content-type") || "image/jpeg";
       res.setHeader("Content-Type", contentType);
       res.setHeader("Content-Disposition", `attachment; filename="${cleanFilename}"`);
+      res.setHeader("Cache-Control", "private, max-age=3600");
       res.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
 
       const buffer = await fetchRes.arrayBuffer();

@@ -1796,15 +1796,8 @@ export const AdminProductEditorPage: React.FC = () => {
     const targetSlot = imageSlots[index];
     if (!targetSlot) return;
 
-    // If existing persisted image on server, prompt and execute permanent deletion from Cloudinary & DB
+    // If existing persisted image on server, immediately execute deletion from Cloudinary (with shared-asset protection) & DB
     if (productId && productId !== "new" && (targetSlot.url || targetSlot.publicId)) {
-      const confirmDelete = window.confirm(
-        "Permanently delete this image from Cloudinary storage and product record?\n\n" +
-        "• If exclusively owned by this product, the asset will be permanently destroyed from Cloudinary.\n" +
-        "• If shared with another product or order, the asset will be safely preserved."
-      );
-      if (!confirmDelete) return;
-
       try {
         const res = await adminFetch(`/api/admin/products/${encodeURIComponent(productId)}/images`, {
           method: "DELETE",
@@ -2968,6 +2961,8 @@ export const AdminProductEditorPage: React.FC = () => {
                           <img
                             src={slot.previewUrl || slot.url}
                             alt={`Device view ${idx + 1}`}
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-contain select-none"
                             onError={() => handleSlotLoadError(slot.id)}
                           />
@@ -4243,6 +4238,7 @@ export const AdminProductEditorPage: React.FC = () => {
               <img
                 src={enlargedImage.url}
                 alt={enlargedImage.title}
+                decoding="async"
                 className="max-h-[70vh] max-w-full w-auto h-auto object-contain rounded-lg shadow-md select-none"
               />
             </div>

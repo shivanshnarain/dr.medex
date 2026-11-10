@@ -1386,6 +1386,8 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
                       <img
                         src={imgUrl}
                         alt={`Product ${idx + 1}`}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                       {idx === 0 && (
