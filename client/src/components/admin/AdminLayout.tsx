@@ -182,9 +182,9 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white flex flex-col items-center justify-center text-neutral-900">
-        <div className="w-10 h-10 border-3 border-neutral-900 border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-xs font-mono font-bold tracking-widest uppercase text-neutral-600">
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center text-[#2D5A4A]">
+        <div className="w-10 h-10 border-3 border-[#2D5A4A] border-t-transparent rounded-full animate-spin mb-4" />
+        <p className="text-xs font-mono font-bold tracking-widest uppercase text-[#2D5A4A]">
           Loading DR.MEDEX Platform...
         </p>
       </div>

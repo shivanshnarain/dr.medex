@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Heart, Package } from "lucide-react";
 import { Product } from "../types";
 import { useWishlist } from "../context/WishlistContext";
+import { useCurrency } from "../context/CurrencyContext";
 import { renderBrandTitle } from "./BrandTitle";
 import { optimizeCloudinaryUrl } from "../lib/imageUtils";
 
@@ -31,8 +32,9 @@ const CATEGORY_NAMES: Record<string, string> = {
   "general medical equipment": "GENERAL MEDICAL EQUIPMENT",
 };
 
-export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, onQuickView, onOpenQuote }) => {
+export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product }) => {
   const { toggleWishlist, isInWishlist } = useWishlist();
+  const { formatProductPrice } = useCurrency();
 
   const isSaved = isInWishlist(product.id);
 
@@ -95,6 +97,18 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, on
   const hasValidImage = Boolean(primaryImage && !imageFailed);
 
   const productUrl = `/product/${product.slug || product.id}`;
+
+  const saleAmount = Number(product.salePrice || product.basePrice || 0);
+  const regularAmount = Number(product.regularPrice || product.originalPrice || 0);
+  const computedDiscount =
+    product.discountPercentage && product.discountPercentage > 0
+      ? Math.round(product.discountPercentage)
+      : regularAmount > saleAmount && saleAmount > 0
+      ? Math.round(((regularAmount - saleAmount) / regularAmount) * 100)
+      : 0;
+  const hasDiscount = computedDiscount > 0 && regularAmount > saleAmount && saleAmount > 0;
+  const formattedSale = formatProductPrice(product, "sale");
+  const formattedRegular = hasDiscount ? formatProductPrice(product, "regular") : "";
 
   return (
     <div
@@ -167,8 +181,24 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, on
           </h3>
         </div>
 
-        {/* 4. SINGLE PROMINENT MOSS-GREEN SHOW DETAILS BUTTON — consistently aligned at bottom */}
-        <div className="mt-auto pt-3 shrink-0">
+        {/* 4. PRICE, DISCOUNT & PROMINENT MOSS-GREEN SHOW DETAILS BUTTON — consistently aligned at bottom */}
+        <div className="mt-auto pt-2.5 shrink-0 space-y-2.5">
+          <div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-1 min-h-[1.5rem]">
+            <span className="text-sm sm:text-[15px] font-extrabold text-[#111111] tracking-tight">
+              {formattedSale}
+            </span>
+            {hasDiscount && (
+              <>
+                <span className="text-[11px] sm:text-xs text-neutral-400 line-through font-medium">
+                  {formattedRegular}
+                </span>
+                <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-[#7AA05A]/15 text-[#2D5A4A] text-[10px] font-bold tracking-tight">
+                  {computedDiscount}% OFF
+                </span>
+              </>
+            )}
+          </div>
+
           <Link
             to={productUrl}
             className="w-full py-2.5 sm:py-3 px-4 bg-[#7AA05A] hover:bg-[#688a4c] active:bg-[#5a7842] focus:outline-none focus:ring-2 focus:ring-[#7AA05A]/40 text-white rounded-full text-xs sm:text-sm font-bold tracking-wide transition-colors duration-200 flex items-center justify-center text-center shadow-2xs cursor-pointer block"

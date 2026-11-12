@@ -181,29 +181,7 @@ async function deleteProductPermanently(productId, adminEmail = "ADMIN") {
     const preservedMedia = [];
     const mediaErrors = [];
 
-    // Stage 3: Destroy exclusively owned Cloudinary assets
-    pendingOperations.get(opId).stage = "CLOUDINARY_CLEANUP";
-    for (const pid of publicIds) {
-      const shareCheck = await isAssetSharedOrOrdered(pid, canonicalId);
-      if (shareCheck.shared) {
-        preservedMedia.push({ publicId: pid, reason: shareCheck.reason });
-        continue;
-      }
-
-      try {
-        const destroyRes = await cloudinary.uploader.destroy(pid, { invalidate: true });
-        if (destroyRes.result === "ok" || destroyRes.result === "not found") {
-          deletedMedia.push({ publicId: pid, result: destroyRes.result });
-        } else {
-          mediaErrors.push({ publicId: pid, result: destroyRes.result });
-        }
-      } catch (cErr) {
-        console.error(`[deletionService] Cloudinary destroy error for ${pid}:`, cErr.message);
-        mediaErrors.push({ publicId: pid, error: cErr.message });
-      }
-    }
-
-    // Stage 4: Delete from MongoDB Atlas
+    // Stage 3: Delete from MongoDB Atlas FIRST so DB state is authoritative and fast
     pendingOperations.get(opId).stage = "MONGODB_CLEANUP";
     let mongoResult = null;
     if (isMongoConfigured()) {
@@ -230,9 +208,35 @@ async function deleteProductPermanently(productId, adminEmail = "ADMIN") {
       }
     }
 
-    // Stage 5: Clean from local store
+    // Stage 4: Clean from local store immediately after DB commit
     pendingOperations.get(opId).stage = "LOCAL_STORE_CLEANUP";
     store.deleteProduct(canonicalId);
+
+    // Stage 5: Destroy exclusively owned Cloudinary assets in parallel (preserving shared/ordered assets)
+    pendingOperations.get(opId).stage = "CLOUDINARY_CLEANUP";
+    if (publicIds.length > 0) {
+      await Promise.allSettled(
+        publicIds.map(async (pid) => {
+          const shareCheck = await isAssetSharedOrOrdered(pid, canonicalId);
+          if (shareCheck.shared) {
+            preservedMedia.push({ publicId: pid, reason: shareCheck.reason });
+            return;
+          }
+
+          try {
+            const destroyRes = await cloudinary.uploader.destroy(pid, { invalidate: true });
+            if (destroyRes.result === "ok" || destroyRes.result === "not found") {
+              deletedMedia.push({ publicId: pid, result: destroyRes.result });
+            } else {
+              mediaErrors.push({ publicId: pid, result: destroyRes.result });
+            }
+          } catch (cErr) {
+            console.error(`[deletionService] Cloudinary destroy error for ${pid}:`, cErr.message);
+            mediaErrors.push({ publicId: pid, error: cErr.message });
+          }
+        })
+      );
+    }
 
     // Stage 6: Clean reviews if configured
     try {
@@ -499,26 +503,7 @@ async function deleteSingleProductImage(productId, imageUrlOrPublicId, adminEmai
     throw new Error(`Product "${productId}" was not found.`);
   }
 
-  // 2. Check if shared with any other product or in customer order history
-  const shareCheck = await isAssetSharedOrOrdered(publicId, product.id);
-
-  let assetDestroyed = false;
-  let destroyResult = null;
-
-  if (!shareCheck.shared) {
-    // Exclusively owned: destroy from Cloudinary
-    try {
-      const delRes = await cloudinary.uploader.destroy(publicId, { invalidate: true });
-      if (delRes.result === "ok" || delRes.result === "not found") {
-        assetDestroyed = true;
-        destroyResult = delRes.result;
-      }
-    } catch (cErr) {
-      console.error(`[deletionService] Error destroying single image ${publicId}:`, cErr.message);
-    }
-  }
-
-  // 3. Update product references in local store & MongoDB
+  // 2. Remove product references in MongoDB & local store FIRST so DB update is fast & authoritative
   const isTarget = (img) => {
     if (!img) return false;
     if (typeof img === "string") {
@@ -546,7 +531,7 @@ async function deleteSingleProductImage(productId, imageUrlOrPublicId, adminEmai
     updatedAt: new Date().toISOString()
   };
 
-  // Update MongoDB Atlas if configured
+  // Update MongoDB Atlas if configured (throw if DB update fails so deletion is never falsely reported)
   if (isMongoConfigured()) {
     try {
       const c = await getClient();
@@ -556,12 +541,28 @@ async function deleteSingleProductImage(productId, imageUrlOrPublicId, adminEmai
       const { invalidateMongoCache } = require("./mongoService");
       invalidateMongoCache();
     } catch (mErr) {
-      console.warn("[deletionService] MongoDB image ref update error:", sanitizeMongoError(mErr));
+      console.error("[deletionService] MongoDB image ref update error:", sanitizeMongoError(mErr));
+      throw new Error(`Failed to update product images in database: ${sanitizeMongoError(mErr)}`);
     }
   }
 
   // Update local store
   store.updateProduct(product.id, updates);
+
+  // 3. Check shared-asset protection & destroy from Cloudinary if exclusively owned
+  const shareCheck = await isAssetSharedOrOrdered(publicId, product.id);
+  let assetDestroyed = false;
+
+  if (!shareCheck.shared && cloudinaryService && cloudinaryService.isConfigured()) {
+    try {
+      const delRes = await cloudinary.uploader.destroy(publicId, { invalidate: true });
+      if (delRes.result === "ok" || delRes.result === "not found") {
+        assetDestroyed = true;
+      }
+    } catch (cErr) {
+      console.error(`[deletionService] Error destroying single image ${publicId}:`, cErr.message);
+    }
+  }
 
   // Synchronize fallback files to prevent deleted images from resurfacing on fallback
   try {

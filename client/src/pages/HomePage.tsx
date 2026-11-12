@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Product, BlogArticle } from "../types";
@@ -6,15 +6,8 @@ import { ProductCard } from "../components/ProductCard";
 import { QuickViewModal } from "../components/QuickViewModal";
 import { B2BQuoteModal } from "../components/B2BQuoteModal";
 import { HeroSection } from "../components/HeroSection";
-import { getProducts, getCachedProductsSync } from "../services/productService";
-
-interface CategorySectionDef {
-  id: string;
-  slug: string;
-  title: string;
-  description: string;
-  viewAllLink: string;
-}
+import { ServiceBenefitsBanner } from "../components/Footer";
+import { getRandomShowcaseProducts, getCachedRandomShowcaseSync } from "../services/productService";
 
 interface ActiveCategoryCard {
   id: string;
@@ -83,104 +76,14 @@ const SIX_ACTIVE_CATEGORIES: ActiveCategoryCard[] = [
   }
 ];
 
-const CATEGORY_SECTIONS: CategorySectionDef[] = [
-  {
-    id: "electrosurgical-units",
-    slug: "electrosurgical-units",
-    title: "Electrosurgical",
-    description: "High-performance electrosurgical generators, RF cautery units and smoke evacuation systems.",
-    viewAllLink: "/category/electrosurgical-units"
-  },
-  {
-    id: "cryo-surgical",
-    slug: "cryo-surgical",
-    title: "Cryo Surgical",
-    description: "Precision liquid nitrogen cryo spray guns, dermatological cryotherapy devices and specialized extraction probes.",
-    viewAllLink: "/category/cryo-surgical"
-  },
-  {
-    id: "ot-lights",
-    slug: "ot-lights",
-    title: "OT Lights",
-    description: "Ceiling-mounted single & double dome surgical lights, mobile LED operating theatre lamps and shadowless illumination.",
-    viewAllLink: "/category/ot-lights"
-  },
-  {
-    id: "examination-ot-tables",
-    slug: "examination-ot-tables",
-    title: "OT Tables",
-    description: "Durable and ergonomic operating tables, treatment beds and motorized procedure chairs for surgical suites.",
-    viewAllLink: "/category/examination-ot-tables"
-  },
-  {
-    id: "obstetrics-and-gynaecology",
-    slug: "obstetrics-and-gynaecology",
-    title: "OBG",
-    description: "Specialized maternal delivery tables, gynaecological examination beds, and fetal monitoring instruments.",
-    viewAllLink: "/category/obstetrics-and-gynaecology"
-  },
-  {
-    id: "medical-equipment",
-    slug: "medical-equipment",
-    title: "General Medical",
-    description: "Hospital diagnostic instruments, surgical headlights, medical equipment trolleys, and emergency systems.",
-    viewAllLink: "/category/medical-equipment"
-  }
-];
-
-/**
- * Fast category matcher ensuring 100% exact catalogue partitioning with zero cross-category duplication.
- */
-function matchesCategory(p: Product, slug: string): boolean {
-  const cat = (p.category || "").toLowerCase().trim();
-  const catName = (p.categoryName || "").toLowerCase().trim();
-  const pCat = ((p as any).primaryCategory || "").toLowerCase().trim();
-
-  switch (slug) {
-    case "electrosurgical-units":
-      return (
-        (cat === "electrosurgical-units" || catName.includes("electrosurgical") || pCat.includes("electrosurgical")) &&
-        !catName.includes("cryo") &&
-        !catName.includes("obstetric") &&
-        !catName.includes("gynaec")
-      );
-    case "cryo-surgical":
-      return cat === "cryo-surgical" || catName.includes("cryo") || pCat.includes("cryo");
-    case "ot-lights":
-      return (
-        cat === "ot-lights" ||
-        catName.includes("ot light") ||
-        catName.includes("surgical light") ||
-        pCat.includes("ot light")
-      );
-    case "examination-ot-tables":
-      return cat === "examination-ot-tables" || catName.includes("table") || pCat.includes("table");
-    case "obstetrics-and-gynaecology":
-      return (
-        cat === "obstetrics-and-gynaecology" ||
-        catName.includes("obstetric") ||
-        catName.includes("gynaec") ||
-        pCat.includes("obstetric")
-      );
-    case "medical-equipment":
-      return (
-        (cat === "medical-equipment" || catName.includes("medical equipment") || pCat.includes("medical equipment")) &&
-        !catName.includes("ot light")
-      );
-    default:
-      return cat === slug;
-  }
-}
+const SHOWCASE_COUNT = 12;
 
 export const HomePage: React.FC = () => {
-  const [allProducts, setAllProducts] = useState<Product[]>(() => {
-    const cached = getCachedProductsSync();
-    if (!cached) return [];
-    const active = cached.filter((p) => (p.status || "ACTIVE") === "ACTIVE" && p.reviewStatus === "CORRECT");
-    return active.length > 0 ? active : cached;
+  const [showcaseProducts, setShowcaseProducts] = useState<Product[]>(() => {
+    return getCachedRandomShowcaseSync() || [];
   });
   const [blogs, setBlogs] = useState<BlogArticle[]>([]);
-  const [, setIsLoading] = useState(() => !getCachedProductsSync());
+  const [isLoadingShowcase, setIsLoadingShowcase] = useState(() => !getCachedRandomShowcaseSync());
 
   // Modals state
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
@@ -189,22 +92,21 @@ export const HomePage: React.FC = () => {
 
   useEffect(() => {
     let isMounted = true;
+
     async function loadHomeData() {
-      // 1. Fetch live products and update state immediately without waiting for other APIs
-      getProducts()
-        .then((prodResult) => {
-          if (isMounted && prodResult && Array.isArray(prodResult.products)) {
-            if (!prodResult.isFallback || prodResult.products.length > 0) {
-              setAllProducts(prodResult.products);
-            }
+      // 1. Fetch lightweight randomized active showcase products asynchronously (non-blocking)
+      getRandomShowcaseProducts(SHOWCASE_COUNT)
+        .then((picked) => {
+          if (isMounted && Array.isArray(picked)) {
+            setShowcaseProducts(picked);
           }
         })
-        .catch((err) => console.warn("[HomePage] Live products fetch notice:", err))
+        .catch((err) => console.warn("[HomePage] Random showcase fetch notice:", err))
         .finally(() => {
-          if (isMounted) setIsLoading(false);
+          if (isMounted) setIsLoadingShowcase(false);
         });
 
-      // 2. Fetch blogs independently without blocking product display
+      // 2. Fetch clinical blogs independently
       fetch("/api/blogs")
         .then((res) => (res.ok ? res.json() : null))
         .then((bData) => {
@@ -226,33 +128,24 @@ export const HomePage: React.FC = () => {
     setIsQuoteModalOpen(true);
   }, []);
 
-  // Group products by category efficiently using exact partitioning
-  const productsByCategory = useMemo(() => {
-    const map: Record<string, Product[]> = {};
-    for (const section of CATEGORY_SECTIONS) {
-      map[section.slug] = allProducts.filter((p) => matchesCategory(p, section.slug));
-    }
-    return map;
-  }, [allProducts]);
-
   return (
     <div className="w-full bg-white">
-      {/* 1. HERO SECTION WITH CINEMATIC LIGHTING & CATEGORY TILES */}
+      {/* 1. HERO SECTION (TOP PRIORITY) */}
       <HeroSection
         onOpenQuote={(productTitle?: string) => {
           const match = productTitle
-            ? allProducts.find((p) => p.title.toLowerCase().includes(productTitle.toLowerCase())) || allProducts[0]
-            : allProducts[0];
+            ? showcaseProducts.find((p) => p.title.toLowerCase().includes(productTitle.toLowerCase())) || showcaseProducts[0]
+            : showcaseProducts[0];
           setQuoteProduct(match || null);
           setIsQuoteModalOpen(true);
         }}
         onQuickView={(productId?: string) => {
-          const match = allProducts.find((p) => p.id === productId) || allProducts[0];
+          const match = showcaseProducts.find((p) => p.id === productId) || showcaseProducts[0];
           if (match) setQuickViewProduct(match);
         }}
       />
 
-      {/* 2.5. EXPLORE MEDICAL EQUIPMENT CATEGORIES (6 ACTIVE CATEGORIES) */}
+      {/* 2. EXPLORE MEDICAL EQUIPMENT CATEGORIES (SIX CATEGORY CARDS) */}
       <section className="py-14 sm:py-20 bg-white border-b border-[#E8E8E8]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-[#E8E8E8] gap-3">
@@ -287,7 +180,6 @@ export const HomePage: React.FC = () => {
                 } overflow-hidden rounded-[20px] aspect-[20/23] bg-[#F4F1EB] shadow-xs hover:shadow-xl transition-all duration-300 select-none hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7AA05A] focus-visible:ring-offset-2`}
                 style={{ borderRadius: "20px", aspectRatio: "20 / 23" }}
               >
-                {/* 1. Original category product image filling the card with proportional vertical alignment */}
                 <picture className="pointer-events-none">
                   <source type="image/webp" srcSet={cat.image.replace(/\.png$/i, ".webp")} />
                   <img
@@ -302,7 +194,6 @@ export const HomePage: React.FC = () => {
                   />
                 </picture>
 
-                {/* 2. Positioned heading and outlined Explore Product button in negative space */}
                 <div className="relative z-10 p-4 sm:p-5 lg:p-5.5 flex flex-col items-start gap-2 sm:gap-2.5">
                   <h3
                     className="text-sm sm:text-base lg:text-[17px] font-bold tracking-tight leading-snug"
@@ -334,55 +225,80 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. CATEGORY-WISE PRODUCT SECTIONS (SYSTEMATIC ORDER) */}
-      <div className="w-full bg-white divide-y divide-[#F0F0F0]">
-        {CATEGORY_SECTIONS.map((section) => {
-          const categoryProducts = productsByCategory[section.slug] || [];
-          if (categoryProducts.length === 0) return null;
+      {/* 3. RANDOMLY SELECTED ACTIVE PRODUCT SHOWCASE */}
+      <section className="py-12 sm:py-16 bg-white" aria-label="Featured Medical Equipment">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-[#E8E8E8] gap-3">
+            <div>
+              <span className="text-3xs font-extrabold uppercase tracking-widest text-[#2D5A4A] block mb-1.5">
+                Live Hospital &amp; Clinical Catalogue
+              </span>
+              <h2 className="text-xl sm:text-2xl font-black text-[#111111] tracking-tight">
+                Featured Medical Equipment
+              </h2>
+              <p className="text-xs sm:text-sm text-neutral-500 mt-1">
+                A curated selection of verified medical instruments, surgical systems, and operating theatre devices.
+              </p>
+            </div>
+            <Link
+              to="/shop-all"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#111111] hover:text-[#2D5A4A] transition-colors shrink-0 group uppercase tracking-wider"
+            >
+              <span>Explore Full Catalogue</span>
+              <ArrowRight
+                size={14}
+                className="group-hover:translate-x-1 transition-transform text-[#2D5A4A]"
+              />
+            </Link>
+          </div>
 
-          return (
-            <section key={section.id} className="py-12 sm:py-16">
-              <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-                {/* CATEGORY SECTION HEADER */}
-                <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-[#E8E8E8] gap-3">
-                  <div>
-                    <h2 className="text-lg sm:text-xl font-bold text-[#111111] uppercase tracking-wider">
-                      {section.title}
-                    </h2>
-                    <p className="text-xs sm:text-sm text-neutral-500 mt-1">
-                      {section.description}
-                    </p>
-                  </div>
-                  <Link
-                    to={section.viewAllLink}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#111111] hover:text-[#2D5A4A] transition-colors shrink-0 group uppercase tracking-wider"
-                  >
-                    <span>View All {section.title}</span>
-                    <ArrowRight
-                      size={14}
-                      className="group-hover:translate-x-1 transition-transform text-[#2D5A4A]"
-                    />
-                  </Link>
+          {isLoadingShowcase && showcaseProducts.length === 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+              {Array.from({ length: 8 }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white rounded-2xl border border-neutral-200 p-3 sm:p-4 flex flex-col gap-3 animate-pulse"
+                >
+                  <div className="w-full aspect-square rounded-[16px] bg-neutral-100" />
+                  <div className="h-3 w-1/2 rounded bg-neutral-100" />
+                  <div className="h-4 w-5/6 rounded bg-neutral-100" />
+                  <div className="h-4 w-1/3 rounded bg-neutral-100 mt-auto" />
+                  <div className="h-9 w-full rounded-full bg-neutral-100" />
                 </div>
+              ))}
+            </div>
+          ) : showcaseProducts.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+              {showcaseProducts.map((prod) => (
+                <ProductCard
+                  key={prod.id}
+                  product={prod}
+                  onQuickView={setQuickViewProduct}
+                  onOpenQuote={handleOpenQuote}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-neutral-200 bg-neutral-50 px-6 py-10 text-center">
+              <p className="text-sm font-semibold text-neutral-800">
+                Browse our complete certified medical equipment range.
+              </p>
+              <Link
+                to="/shop-all"
+                className="mt-4 inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#7AA05A] hover:bg-[#688a4c] text-white text-xs font-bold transition-colors"
+              >
+                <span>View All Products</span>
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+          )}
+        </div>
+      </section>
 
-                {/* PRODUCT GRID: 2 cards per row on mobile, 4 on desktop */}
-                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-                  {categoryProducts.map((prod) => (
-                    <ProductCard
-                      key={prod.id}
-                      product={prod}
-                      onQuickView={setQuickViewProduct}
-                      onOpenQuote={handleOpenQuote}
-                    />
-                  ))}
-                </div>
-              </div>
-            </section>
-          );
-        })}
-      </div>
+      {/* 4. GREEN SERVICE-BENEFITS SECTION (DIRECTLY BELOW RANDOM PRODUCT SHOWCASE) */}
+      <ServiceBenefitsBanner />
 
-      {/* 4. CLINICAL BLOG & EDUCATIONAL GUIDES */}
+      {/* 5. CLINICAL BLOG & EDUCATIONAL GUIDES */}
       {blogs.length > 0 && (
         <section className="py-20 sm:py-24 bg-white border-t border-[#E8E8E8]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">

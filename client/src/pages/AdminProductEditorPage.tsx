@@ -32,6 +32,11 @@ import { AdminLayout } from "../components/admin/AdminLayout";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { Category } from "../types";
 import { getFallbackProducts } from "../services/productService";
+import {
+  REQUIRED_PRODUCT_IMAGE_WIDTH,
+  REQUIRED_PRODUCT_IMAGE_HEIGHT,
+  validateProductImageDimensions
+} from "../lib/imageUtils";
 
 export interface ProductImageSlot {
   id: string;
@@ -290,8 +295,10 @@ async function normalizeImageFile(file: File): Promise<{
 }
 
 async function prepareImageBase64(file: File): Promise<{ base64: string; size: number }> {
-  // If the file is reasonably sized (<= 1.5MB), read directly
-  if (file.size <= 1.5 * 1024 * 1024) {
+  const MAX_ENCODED_CHARS = 3.2 * 1024 * 1024; // Stay safely under Vercel 4.5MB serverless body limit
+
+  // If the file is reasonably sized (<= 1.8MB), read directly at full original fidelity
+  if (file.size <= 1.8 * 1024 * 1024) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => resolve({ base64: reader.result as string, size: file.size });
@@ -300,7 +307,7 @@ async function prepareImageBase64(file: File): Promise<{ base64: string; size: n
     });
   }
 
-  // For larger images (> 1.5MB), optimize via Canvas to prevent Vercel 4.5MB request limit
+  // For larger images (> 1.8MB), optimize via Canvas so JSON payload stays within serverless limits
   return new Promise((resolve) => {
     const img = new Image();
     const url = URL.createObjectURL(file);
@@ -331,7 +338,10 @@ async function prepareImageBase64(file: File): Promise<{ base64: string; size: n
         }
         ctx.drawImage(img, 0, 0, width, height);
         const outputMime = file.type === "image/png" ? "image/png" : file.type === "image/webp" ? "image/webp" : "image/jpeg";
-        const base64 = canvas.toDataURL(outputMime, 0.88);
+        let base64 = canvas.toDataURL(outputMime, 0.88);
+        if (base64.length > MAX_ENCODED_CHARS) {
+          base64 = canvas.toDataURL("image/jpeg", 0.82);
+        }
         resolve({ base64, size: Math.round((base64.length * 3) / 4) });
       } catch {
         const reader = new FileReader();
@@ -370,7 +380,13 @@ export const AdminProductEditorPage: React.FC = () => {
   const [skuError, setSkuError] = useState<string | null>(null);
   const [copiedSku, setCopiedSku] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
-  const [statusBanner, setStatusBanner] = useState<{ type: "success" | "error" | "warning"; text: string } | null>(null);
+  const [statusBanner, setStatusBanner] = useState<{
+    type: "success" | "error" | "warning";
+    text: string;
+    duplicateProduct?: { id: string; _id?: string; slug?: string; title?: string; productName?: string; sku?: string };
+    loginRequired?: boolean;
+  } | null>(null);
+  const [missingProductError, setMissingProductError] = useState<string | null>(null);
 
   // Active step & selected card state
   const [activeStep, setActiveStep] = useState<number>(1);
@@ -457,6 +473,10 @@ export const AdminProductEditorPage: React.FC = () => {
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<{ current: number; total: number } | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [dimensionErrorModal, setDimensionErrorModal] = useState<{
+    rejectedFiles: Array<{ filename: string; width: number | null; height: number | null; reason?: string }>;
+    acceptedCount: number;
+  } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const replaceFileInputRef = useRef<HTMLInputElement>(null);
@@ -912,11 +932,16 @@ export const AdminProductEditorPage: React.FC = () => {
             }
             if (fallbackP) {
               populateProductFields(fallbackP);
+              setMissingProductError(null);
               setStatusBanner({
                 type: "warning",
                 text: "Product details loaded from verified local catalogue."
               });
+            } else {
+              setMissingProductError(`Product record "${productId}" was not found or may have been deleted.`);
             }
+          } else {
+            setMissingProductError(null);
           }
           setIsLoading(false);
         } else {
@@ -1617,7 +1642,9 @@ export const AdminProductEditorPage: React.FC = () => {
     }
   };
 
-  // Helper to upload a single slot file to backend
+  const deletingSlotIdsRef = useRef<Set<string>>(new Set());
+
+  // Helper to upload a single slot file to backend with automatic retries on transient errors
   const uploadSlotFile = async (slotId: string, file: File) => {
     try {
       const { normalizedFile, cleanName, mimeType, isValid } = await normalizeImageFile(file);
@@ -1630,37 +1657,94 @@ export const AdminProductEditorPage: React.FC = () => {
         throw new Error("Unable to encode image payload for storage");
       }
 
-      const res = await adminFetch("/api/admin/media/upload", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          data: base64,
-          filename: cleanName,
-          contentType: mimeType,
-          productId: productId || "new-product"
-        })
-      });
+      const maxRetries = 2;
+      let res: Response | null = null;
+      let data: any = null;
+      let lastNetworkError: any = null;
 
-      const data = await res.json().catch(() => null);
-      if (res.ok && data?.success && data?.url) {
+      for (let attempt = 0; attempt <= maxRetries; attempt++) {
+        try {
+          res = await adminFetch("/api/admin/media/upload", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              data: base64,
+              filename: cleanName,
+              contentType: mimeType,
+              productId: productId || "new-product"
+            })
+          });
+          data = await res.json().catch(() => null);
+
+          if (res.ok && data?.success && data?.url) {
+            break;
+          }
+
+          const isRetryableHttp = res.status === 408 || res.status === 429 || res.status >= 500;
+          if (!isRetryableHttp || attempt === maxRetries) {
+            break;
+          }
+          await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
+        } catch (netErr: any) {
+          lastNetworkError = netErr;
+          if (attempt === maxRetries) {
+            throw netErr;
+          }
+          await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
+        }
+      }
+
+      if (res && res.ok && data?.success && data?.url) {
         setImageSlots((curr) =>
           curr.map((s) =>
             s.id === slotId
               ? {
                   ...s,
                   url: data.url,
-                  previewUrl: undefined,
+                  // Preserve valid local blob preview during session so thumbnail never flashes broken if CDN warms up
+                  previewUrl: s.previewUrl,
                   file: normalizedFile,
                   publicId: data.image?.publicId || data.publicId,
                   storageProvider: data.image?.storageProvider || "cloudinary",
                   status: "persisted" as const,
+                  hasLoadError: false,
                   errorMessage: undefined
                 }
               : s
           )
         );
       } else {
-        const errorDetail = data?.message || data?.error || `Upload rejected by server (HTTP ${res.status})`;
+        const statusCode = res?.status || 0;
+        const rawDetail = data?.message || data?.error || lastNetworkError?.message || "";
+        const errorDetail =
+          statusCode === 401
+            ? "Session expired or invalid. Please log in again."
+            : rawDetail || (statusCode ? `Upload rejected by server (HTTP ${statusCode})` : "Temporary network error during upload. Please retry.");
+
+        if (statusCode === 401) {
+          setStatusBanner({
+            type: "error",
+            text: "Your administrator session has expired. Please sign in again in a new tab or re-authenticate before saving — your form inputs remain preserved.",
+            loginRequired: true
+          });
+        }
+
+        if (data?.code === "INVALID_IMAGE_DIMENSIONS") {
+          setImageSlots((curr) => curr.filter((s) => s.id !== slotId));
+          setDimensionErrorModal({
+            rejectedFiles: [
+              {
+                filename: cleanName || file.name,
+                width: data?.dimensions?.width ?? null,
+                height: data?.dimensions?.height ?? null,
+                reason: errorDetail
+              }
+            ],
+            acceptedCount: 0
+          });
+          return;
+        }
+
         setImageSlots((curr) =>
           curr.map((s) =>
             s.id === slotId
@@ -1675,6 +1759,11 @@ export const AdminProductEditorPage: React.FC = () => {
         );
       }
     } catch (err: any) {
+      const msg = String(err?.message || "");
+      const friendlyMsg =
+        msg === "Load failed" || msg === "Failed to fetch"
+          ? "Network connection interrupted during image upload. Click Retry to upload again."
+          : msg || "Network error during upload";
       setImageSlots((curr) =>
         curr.map((s) =>
           s.id === slotId
@@ -1682,7 +1771,7 @@ export const AdminProductEditorPage: React.FC = () => {
                 ...s,
                 file,
                 status: "failed" as const,
-                errorMessage: err?.message || "Network error during upload"
+                errorMessage: friendlyMsg
               }
             : s
         )
@@ -1714,36 +1803,65 @@ export const AdminProductEditorPage: React.FC = () => {
   const handleStep1PhotosSelected = async (selectedFiles: File[]) => {
     if (!selectedFiles || selectedFiles.length === 0) return;
 
-    if (imageSlots.length >= 5) {
+    const currentSlotCount = imageSlotsRef.current.length;
+    if (currentSlotCount >= 5) {
       setUploadError("Maximum 5 photographs allowed per product. Please remove an existing photo first.");
       return;
     }
 
-    const availableSlots = 5 - imageSlots.length;
-    const filesToProcess = selectedFiles.slice(0, availableSlots);
-    if (selectedFiles.length > availableSlots) {
-      setUploadError(`Only ${availableSlots} more photo(s) can be added to reach the maximum 5 photographs limit.`);
-    }
-
+    const availableSlots = 5 - currentSlotCount;
     const normalizedBatch: { file: File; cleanName: string; mimeType: string }[] = [];
-    for (const rawFile of filesToProcess) {
+    const rejectedDimensions: Array<{ filename: string; width: number | null; height: number | null; reason?: string }> = [];
+    const otherErrors: string[] = [];
+
+    // Validate every selected file independently: never resize, crop, stretch, or skip checks.
+    for (const rawFile of selectedFiles) {
       if (rawFile.size > 15 * 1024 * 1024) {
-        setUploadError(`File "${rawFile.name}" exceeds the 15MB limit.`);
-        return;
+        otherErrors.push(`"${rawFile.name}" exceeds the 15MB limit.`);
+        continue;
       }
       const normalized = await normalizeImageFile(rawFile);
       if (!normalized.isValid) {
-        setUploadError(`File "${rawFile.name}" is not a valid or supported image.`);
-        return;
+        otherErrors.push(`"${rawFile.name}" is not a valid or supported image.`);
+        continue;
       }
-      normalizedBatch.push({
-        file: normalized.normalizedFile,
-        cleanName: normalized.cleanName,
-        mimeType: normalized.mimeType
+
+      const dimCheck = await validateProductImageDimensions(normalized.normalizedFile);
+      if (!dimCheck.valid) {
+        rejectedDimensions.push({
+          filename: rawFile.name || normalized.cleanName,
+          width: dimCheck.width,
+          height: dimCheck.height,
+          reason: dimCheck.reason
+        });
+        continue;
+      }
+
+      if (normalizedBatch.length < availableSlots) {
+        normalizedBatch.push({
+          file: normalized.normalizedFile,
+          cleanName: normalized.cleanName,
+          mimeType: normalized.mimeType
+        });
+      }
+    }
+
+    if (selectedFiles.length - rejectedDimensions.length - otherErrors.length > availableSlots) {
+      otherErrors.push(`Only ${availableSlots} more photo(s) can be added to reach the maximum 5 photographs limit.`);
+    }
+
+    setUploadError(otherErrors.length > 0 ? otherErrors.join(" ") : null);
+
+    if (rejectedDimensions.length > 0) {
+      setDimensionErrorModal({
+        rejectedFiles: rejectedDimensions,
+        acceptedCount: normalizedBatch.length
       });
     }
 
-    setUploadError(null);
+    if (normalizedBatch.length === 0) {
+      return;
+    }
 
     const newSlots: ProductImageSlot[] = normalizedBatch.map((item, idx) => {
       const objUrl = URL.createObjectURL(item.file);
@@ -1793,11 +1911,33 @@ export const AdminProductEditorPage: React.FC = () => {
   };
 
   const removeImage = async (index: number) => {
-    const targetSlot = imageSlots[index];
+    const currentSlots = imageSlotsRef.current;
+    const targetSlot = currentSlots[index];
     if (!targetSlot) return;
 
-    // If existing persisted image on server, immediately execute deletion from Cloudinary (with shared-asset protection) & DB
-    if (productId && productId !== "new" && (targetSlot.url || targetSlot.publicId)) {
+    // Prevent duplicate delete requests & race conditions on rapid clicks
+    if (deletingSlotIdsRef.current.has(targetSlot.id)) return;
+    deletingSlotIdsRef.current.add(targetSlot.id);
+
+    const prevSlots = [...currentSlots];
+    const prevPrimaryIndex = primaryImageIndex;
+
+    // Immediately remove from UI for snappy response
+    const filtered = currentSlots.filter((_, i) => i !== index);
+    setImageSlots(filtered);
+    if (primaryImageIndex >= filtered.length) {
+      setPrimaryImageIndex(Math.max(0, filtered.length - 1));
+    }
+    setHasUnsavedChanges(true);
+
+    // If persisted image on server, execute DB & shared-asset-safe Cloudinary deletion asynchronously
+    const isRemotePersisted =
+      productId &&
+      productId !== "new" &&
+      targetSlot.status === "persisted" &&
+      ((targetSlot.url && !targetSlot.url.startsWith("blob:") && !targetSlot.url.startsWith("data:")) || targetSlot.publicId);
+
+    if (isRemotePersisted) {
       try {
         const res = await adminFetch(`/api/admin/products/${encodeURIComponent(productId)}/images`, {
           method: "DELETE",
@@ -1810,11 +1950,22 @@ export const AdminProductEditorPage: React.FC = () => {
 
         const data = await res.json().catch(() => ({}));
         if (!res.ok || !data.success) {
-          console.warn("Server image deletion response:", data.message);
+          // Restore slot if authoritative DB removal failed
+          setImageSlots(prevSlots);
+          setPrimaryImageIndex(prevPrimaryIndex);
+          setUploadError(data.message || "Failed to delete image from database. The photo has been restored.");
+          return;
         }
       } catch (err: any) {
-        console.error("Failed to delete image on server:", err.message);
+        setImageSlots(prevSlots);
+        setPrimaryImageIndex(prevPrimaryIndex);
+        setUploadError(err?.message || "Network error deleting image. The photo has been restored.");
+        return;
+      } finally {
+        deletingSlotIdsRef.current.delete(targetSlot.id);
       }
+    } else {
+      deletingSlotIdsRef.current.delete(targetSlot.id);
     }
 
     if (targetSlot?.previewUrl) {
@@ -1822,12 +1973,6 @@ export const AdminProductEditorPage: React.FC = () => {
         URL.revokeObjectURL(targetSlot.previewUrl);
       } catch {}
     }
-    const filtered = imageSlots.filter((_, i) => i !== index);
-    setImageSlots(filtered);
-    if (primaryImageIndex >= filtered.length) {
-      setPrimaryImageIndex(Math.max(0, filtered.length - 1));
-    }
-    setHasUnsavedChanges(true);
   };
 
   const handleReplaceFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -1837,12 +1982,31 @@ export const AdminProductEditorPage: React.FC = () => {
 
     if (rawFile.size > 15 * 1024 * 1024) {
       setUploadError(`File "${rawFile.name}" exceeds the 15MB limit.`);
+      setReplaceTargetIndex(null);
       return;
     }
 
-    const { normalizedFile, mimeType, isValid } = await normalizeImageFile(rawFile);
+    const { normalizedFile, isValid } = await normalizeImageFile(rawFile);
     if (!isValid) {
       setUploadError(`File "${rawFile.name}" is not a valid or supported image.`);
+      setReplaceTargetIndex(null);
+      return;
+    }
+
+    const dimCheck = await validateProductImageDimensions(normalizedFile);
+    if (!dimCheck.valid) {
+      setDimensionErrorModal({
+        rejectedFiles: [
+          {
+            filename: rawFile.name,
+            width: dimCheck.width,
+            height: dimCheck.height,
+            reason: dimCheck.reason
+          }
+        ],
+        acceptedCount: 0
+      });
+      setReplaceTargetIndex(null);
       return;
     }
 
@@ -1873,7 +2037,13 @@ export const AdminProductEditorPage: React.FC = () => {
 
   const handleSlotLoadError = (slotId: string) => {
     setImageSlots((curr) =>
-      curr.map((s) => (s.id === slotId ? { ...s, hasLoadError: true } : s))
+      curr.map((s) => {
+        if (s.id !== slotId) return s;
+        if (s.previewUrl && s.url && s.previewUrl !== s.url) {
+          return { ...s, previewUrl: undefined, hasLoadError: false };
+        }
+        return { ...s, hasLoadError: true };
+      })
     );
   };
 
@@ -2371,7 +2541,8 @@ export const AdminProductEditorPage: React.FC = () => {
         const conflictingSku = dup?.sku ? ` (SKU: ${dup.sku})` : "";
         setStatusBanner({
           type: "error",
-          text: `Cannot save: A matching product already exists in this category ('${conflictingTitle}'${conflictingSku}). Please review or check allow intentional variant.`
+          text: `Cannot save: A matching product already exists in this category ('${conflictingTitle}'${conflictingSku}). Please review or check allow intentional variant.`,
+          duplicateProduct: dup || undefined
         });
         window.scrollTo({ top: 0, behavior: "smooth" });
         return;
@@ -2670,78 +2841,190 @@ export const AdminProductEditorPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Global Status Banner */}
-      {statusBanner && (
+      {/* Missing / Deleted Product Notice */}
+      {missingProductError && (
         <div
-          role={statusBanner.type === "error" ? "alert" : undefined}
-          className={`mb-6 p-4 rounded-2xl border-2 flex items-start justify-between gap-3 shadow-md ${
-            statusBanner.type === "error"
-              ? "bg-[#FFFFFF] border-[#D32F2F] text-[#D32F2F]"
-              : statusBanner.type === "warning"
-              ? "bg-amber-800 border-white text-white"
-              : "bg-emerald-50 border-emerald-300 text-emerald-900"
-          }`}
+          role="alert"
+          className="mb-6 p-4 rounded-2xl border-2 bg-[#FFFFFF] border-[#D32F2F] text-[#D32F2F] flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md"
         >
           <div className="flex items-start gap-2.5">
-            <AlertCircle
-              size={18}
-              className={`mt-0.5 shrink-0 ${statusBanner.type === "error" ? "text-[#D32F2F]" : statusBanner.type === "warning" ? "text-white" : "text-emerald-700"}`}
-            />
-            <p
-              className={`text-xs font-semibold leading-relaxed ${
-                statusBanner.type === "error" ? "text-[#D32F2F]" : statusBanner.type === "warning" ? "text-white" : "text-emerald-900"
-              }`}
-            >
-              {statusBanner.text}
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={() => setStatusBanner(null)}
-            className={`text-xs font-bold underline hover:no-underline cursor-pointer shrink-0 ${
-              statusBanner.type === "error" ? "text-[#D32F2F] hover:opacity-80" : "text-white"
-            }`}
-          >
-            Dismiss
-          </button>
-        </div>
-      )}
-
-      {/* Duplicate Product Detection Banner */}
-      {duplicateInfo.isDuplicate && duplicateInfo.duplicateProduct && (
-        <div className="mb-6 p-4 rounded-2xl border border-neutral-300 bg-white flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-xs text-neutral-900">
-          <div className="flex items-start gap-3">
-            <AlertTriangle size={18} className="text-[#EAB308] mt-0.5 shrink-0" />
+            <AlertCircle size={18} className="mt-0.5 shrink-0 text-[#D32F2F]" />
             <div>
-              <h4 className="text-xs font-bold text-neutral-900">
-                Potential Duplicate Product Detected in Category
-              </h4>
-              <p className="text-xs text-neutral-600 mt-0.5">
-                Existing item: <strong className="text-neutral-900 underline">{duplicateInfo.duplicateProduct.title}</strong> (SKU: {duplicateInfo.duplicateProduct.sku})
+              <p className="text-xs font-bold text-[#D32F2F]">{missingProductError}</p>
+              <p className="text-[11px] text-neutral-700 mt-0.5">
+                The existing product record may have been permanently deleted or moved.
               </p>
             </div>
           </div>
-
-          <div className="flex items-center gap-3 shrink-0">
-            <Link
-              to={`/admin/products/${duplicateInfo.duplicateProduct.id}/edit`}
-              className="px-3 py-1.5 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 text-neutral-900 rounded-lg text-xs font-bold transition-colors inline-flex items-center gap-1.5"
-            >
-              <ExternalLink size={13} />
-              <span>Open Existing</span>
-            </Link>
-            <label className="flex items-center gap-1.5 text-xs text-neutral-800 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={allowDuplicateOverride}
-                onChange={(e) => setAllowDuplicateOverride(e.target.checked)}
-                className="w-4 h-4 rounded border-neutral-300 text-[#C62828] focus:ring-[#C62828] accent-[#C62828]"
-              />
-              <span>Allow intentional variant</span>
-            </label>
-          </div>
+          <Link
+            to="/admin/products"
+            className="px-3 py-1.5 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-xs font-bold transition-colors inline-flex items-center gap-1.5 shrink-0"
+          >
+            <ArrowLeft size={13} />
+            <span>Return to Products Catalogue</span>
+          </Link>
         </div>
       )}
+
+      {/* Global Status Banner */}
+      {statusBanner && (() => {
+        const dup = statusBanner.duplicateProduct;
+        const dupTargetId = dup ? (dup.id || dup._id || dup.slug || dup.sku) : null;
+        const dupTitle = dup?.title || dup?.productName;
+        return (
+          <div
+            role={statusBanner.type === "error" ? "alert" : undefined}
+            className={`mb-6 p-4 rounded-2xl border-2 flex items-start justify-between gap-3 shadow-md ${
+              statusBanner.type === "error"
+                ? "bg-[#FFFFFF] border-[#D32F2F] text-[#D32F2F]"
+                : statusBanner.type === "warning"
+                ? "bg-amber-800 border-white text-white"
+                : "bg-emerald-50 border-emerald-300 text-emerald-900"
+            }`}
+          >
+            <div className="flex items-start gap-2.5 flex-1 min-w-0">
+              <AlertCircle
+                size={18}
+                className={`mt-0.5 shrink-0 ${statusBanner.type === "error" ? "text-[#D32F2F]" : statusBanner.type === "warning" ? "text-white" : "text-emerald-700"}`}
+              />
+              <div className="space-y-1.5">
+                <p
+                  className={`text-xs font-semibold leading-relaxed ${
+                    statusBanner.type === "error" ? "text-[#D32F2F]" : statusBanner.type === "warning" ? "text-white" : "text-emerald-900"
+                  }`}
+                >
+                  {dup && dupTargetId && dupTitle ? (
+                    <>
+                      Cannot save: A matching product already exists in this category (
+                      <Link
+                        to={`/admin/products/${encodeURIComponent(dupTargetId)}/edit`}
+                        onClick={() => {
+                          try {
+                            sessionStorage.setItem(
+                              `drmedex_editor_draft_${productId || "new"}`,
+                              JSON.stringify({ productName, manufacturerModel, sku, category, subcategory, equipmentType, description, basePrice, originalPrice, stock })
+                            );
+                          } catch {}
+                        }}
+                        className="underline font-black text-[#D32F2F] hover:text-[#B71C1C]"
+                      >
+                        {dupTitle}
+                      </Link>
+                      {dup.sku ? ` · SKU: ${dup.sku}` : ""}). Please review or check allow intentional variant.
+                    </>
+                  ) : (
+                    statusBanner.text
+                  )}
+                </p>
+                {dup && dupTargetId && (
+                  <div>
+                    <Link
+                      to={`/admin/products/${encodeURIComponent(dupTargetId)}/edit`}
+                      onClick={() => {
+                        try {
+                          sessionStorage.setItem(
+                            `drmedex_editor_draft_${productId || "new"}`,
+                            JSON.stringify({ productName, manufacturerModel, sku, category, subcategory, equipmentType, description, basePrice, originalPrice, stock })
+                          );
+                        } catch {}
+                      }}
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#D32F2F] hover:bg-[#B71C1C] text-white text-[11px] font-bold transition-colors"
+                    >
+                      <ExternalLink size={12} />
+                      <span>View Existing Product</span>
+                    </Link>
+                  </div>
+                )}
+                {statusBanner.loginRequired && (
+                  <div>
+                    <Link
+                      to="/admin/login"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#2D5A4A] hover:bg-[#23483b] text-white text-[11px] font-bold transition-colors"
+                    >
+                      <ExternalLink size={12} />
+                      <span>Sign In to Admin Panel</span>
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setStatusBanner(null)}
+              className={`text-xs font-bold underline hover:no-underline cursor-pointer shrink-0 ${
+                statusBanner.type === "error" ? "text-[#D32F2F] hover:opacity-80" : "text-white"
+              }`}
+            >
+              Dismiss
+            </button>
+          </div>
+        );
+      })()}
+
+      {/* Duplicate Product Detection Banner */}
+      {duplicateInfo.isDuplicate && duplicateInfo.duplicateProduct && (() => {
+        const dup = duplicateInfo.duplicateProduct;
+        const dupTargetId = dup.id || dup._id || dup.slug || dup.sku;
+        const saveDraftBeforeNav = () => {
+          try {
+            sessionStorage.setItem(
+              `drmedex_editor_draft_${productId || "new"}`,
+              JSON.stringify({ productName, manufacturerModel, sku, category, subcategory, equipmentType, description, basePrice, originalPrice, stock })
+            );
+          } catch {}
+        };
+        return (
+          <div className="mb-6 p-4 rounded-2xl border border-neutral-300 bg-white flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-xs text-neutral-900">
+            <div className="flex items-start gap-3">
+              <AlertTriangle size={18} className="text-[#EAB308] mt-0.5 shrink-0" />
+              <div>
+                <h4 className="text-xs font-bold text-neutral-900">
+                  Potential Duplicate Product Detected in Category
+                </h4>
+                <p className="text-xs text-neutral-600 mt-0.5">
+                  Existing item:{" "}
+                  {dupTargetId ? (
+                    <Link
+                      to={`/admin/products/${encodeURIComponent(dupTargetId)}/edit`}
+                      onClick={saveDraftBeforeNav}
+                      className="font-bold text-neutral-900 hover:text-[#2D5A4A] underline transition-colors"
+                    >
+                      {dup.title}
+                    </Link>
+                  ) : (
+                    <strong className="text-neutral-900 underline">{dup.title}</strong>
+                  )}{" "}
+                  (SKU: {dup.sku})
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0">
+              {dupTargetId && (
+                <Link
+                  to={`/admin/products/${encodeURIComponent(dupTargetId)}/edit`}
+                  onClick={saveDraftBeforeNav}
+                  className="px-3 py-1.5 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 text-neutral-900 rounded-lg text-xs font-bold transition-colors inline-flex items-center gap-1.5"
+                >
+                  <ExternalLink size={13} />
+                  <span>View Existing Product</span>
+                </Link>
+              )}
+              <label className="flex items-center gap-1.5 text-xs text-neutral-800 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={allowDuplicateOverride}
+                  onChange={(e) => setAllowDuplicateOverride(e.target.checked)}
+                  className="w-4 h-4 rounded border-neutral-300 text-[#C62828] focus:ring-[#C62828] accent-[#C62828]"
+                />
+                <span>Allow intentional variant</span>
+              </label>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* ============================================================ */}
       {/* COMPACT HORIZONTAL NINE-STEP PROGRESS TRACKER                */}
@@ -2896,6 +3179,9 @@ export const AdminProductEditorPage: React.FC = () => {
               <p className="text-[11px] text-neutral-800 mt-0.5">Upload multiple product images at once</p>
               <p className="text-[10px] text-neutral-700 font-mono mt-1">
                 Up to 15MB each (Max 5 photos)
+              </p>
+              <p className="text-[10px] text-[#2D5A4A] font-semibold mt-0.5">
+                Required: {REQUIRED_PRODUCT_IMAGE_WIDTH} × {REQUIRED_PRODUCT_IMAGE_HEIGHT} px (2:3)
               </p>
             </div>
 
@@ -4493,6 +4779,82 @@ export const AdminProductEditorPage: React.FC = () => {
           </div>
         </div>
       )}
+      {/* Incorrect Image Dimensions Alert Modal */}
+      {dimensionErrorModal && (
+        <div
+          className="fixed inset-0 z-50 bg-black/50 backdrop-blur-[2px] flex items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="dimension-error-modal-title"
+        >
+          <div className="bg-white w-full max-w-md rounded-2xl border border-neutral-200 shadow-2xl overflow-hidden">
+            <div className="px-5 py-4 border-b border-neutral-200 flex items-center justify-between bg-[#2D5A4A]/5">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-full bg-red-50 border border-red-200 flex items-center justify-center text-[#C62828] shrink-0">
+                  <AlertCircle size={18} />
+                </div>
+                <h3
+                  id="dimension-error-modal-title"
+                  className="text-sm sm:text-base font-bold text-neutral-900"
+                >
+                  Incorrect Image Dimensions
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setDimensionErrorModal(null)}
+                aria-label="Close"
+                className="p-1.5 rounded-lg text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 transition-colors cursor-pointer"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            <div className="p-5 space-y-4">
+              <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed">
+                Required: <span className="font-bold text-[#2D5A4A]">{REQUIRED_PRODUCT_IMAGE_WIDTH} × {REQUIRED_PRODUCT_IMAGE_HEIGHT} pixels (2:3 portrait ratio)</span>. Please resize or prepare your image to exactly {REQUIRED_PRODUCT_IMAGE_WIDTH} × {REQUIRED_PRODUCT_IMAGE_HEIGHT} pixels before uploading.
+              </p>
+
+              <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-3 space-y-2 max-h-48 overflow-y-auto">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+                  Rejected File{dimensionErrorModal.rejectedFiles.length > 1 ? "s" : ""}
+                </div>
+                {dimensionErrorModal.rejectedFiles.map((item, idx) => (
+                  <div
+                    key={`${item.filename}-${idx}`}
+                    className="flex items-center justify-between gap-2 text-xs bg-white border border-red-100 rounded-lg px-3 py-2"
+                  >
+                    <span className="font-semibold text-neutral-900 truncate" title={item.filename}>
+                      {item.filename}
+                    </span>
+                    <span className="font-mono text-[11px] font-bold text-[#C62828] shrink-0">
+                      {item.width && item.height ? `${item.width} × ${item.height} px` : "Invalid image"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {dimensionErrorModal.acceptedCount > 0 && (
+                <p className="text-xs font-medium text-[#2D5A4A] bg-[#7AA05A]/10 border border-[#7AA05A]/30 rounded-lg px-3 py-2">
+                  {dimensionErrorModal.acceptedCount} valid {REQUIRED_PRODUCT_IMAGE_WIDTH} × {REQUIRED_PRODUCT_IMAGE_HEIGHT} image
+                  {dimensionErrorModal.acceptedCount > 1 ? "s were" : " was"} kept and uploaded.
+                </p>
+              )}
+
+              <div className="flex justify-end pt-1">
+                <button
+                  type="button"
+                  onClick={() => setDimensionErrorModal(null)}
+                  className="px-6 py-2.5 rounded-xl bg-[#2D5A4A] hover:bg-[#23473a] text-white text-xs sm:text-sm font-bold transition-colors shadow-xs cursor-pointer"
+                >
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
     </AdminLayout>
   );
 };

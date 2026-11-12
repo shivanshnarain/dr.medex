@@ -337,9 +337,96 @@ export async function getProductsByCategory(categorySlug: string): Promise<Produ
     );
   })();
 
-  const wrapped = run.finally(() => {
+const wrapped = run.finally(() => {
     categoryProductsInFlight.delete(cleanCat);
   });
   categoryProductsInFlight.set(cleanCat, wrapped);
   return wrapped;
 }
+
+// Session-stable randomized homepage showcase cache (persists for current SPA session, refreshes on reload)
+let sessionRandomShowcaseCache: Product[] | null = null;
+let randomShowcaseInFlight: Promise<Product[]> | null = null;
+
+export function getCachedRandomShowcaseSync(): Product[] | null {
+  return sessionRandomShowcaseCache && sessionRandomShowcaseCache.length > 0
+    ? sessionRandomShowcaseCache
+    : null;
+}
+
+function dedupeAndFilterActive(list: Product[], limit: number): Product[] {
+  const seen = new Set<string>();
+  const out: Product[] = [];
+  for (const p of list) {
+    if (!p || !p.id) continue;
+    const pid = String(p.id);
+    if (seen.has(pid)) continue;
+    if ((p.status || "ACTIVE") !== "ACTIVE" || p.status === "ARCHIVED" || p.isRetired) continue;
+    if (p.reviewStatus && p.reviewStatus !== "CORRECT") continue;
+    seen.add(pid);
+    out.push(p);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+/**
+ * Fetch a lightweight server-randomized batch of active, non-deleted, CORRECT products
+ * for the homepage showcase without downloading the entire catalogue.
+ * Stable during the current browser page session; refreshes on page reload / new visit.
+ */
+export async function getRandomShowcaseProducts(limit = 12): Promise<Product[]> {
+  if (sessionRandomShowcaseCache && sessionRandomShowcaseCache.length > 0) {
+    return sessionRandomShowcaseCache.slice(0, limit);
+  }
+
+  if (randomShowcaseInFlight) {
+    return randomShowcaseInFlight;
+  }
+
+  const run = (async (): Promise<Product[]> => {
+    try {
+      const res = await fetch(`/api/products/random?limit=${encodeURIComponent(String(limit))}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.success && Array.isArray(data.products) && data.products.length > 0) {
+          const picked = dedupeAndFilterActive(data.products, limit);
+          if (picked.length > 0) {
+            sessionRandomShowcaseCache = picked;
+            for (const p of picked) {
+              cacheProductEntries(p);
+            }
+            return picked;
+          }
+        }
+      }
+    } catch (err: any) {
+      console.warn("[productService] Random showcase fetch notice:", err?.message || err);
+    }
+
+    // Graceful fallback: reuse in-memory cache if available, otherwise lazy fallback chunk
+    const source =
+      memoryProductsCache && memoryProductsCache.length > 0
+        ? memoryProductsCache
+        : await getFallbackProducts();
+
+    const pool = dedupeAndFilterActive(source, source.length);
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = pool[i];
+      pool[i] = pool[j];
+      pool[j] = tmp;
+    }
+    const picked = pool.slice(0, limit);
+    if (picked.length > 0) {
+      sessionRandomShowcaseCache = picked;
+    }
+    return picked;
+  })();
+
+  randomShowcaseInFlight = run.finally(() => {
+    randomShowcaseInFlight = null;
+  });
+  return randomShowcaseInFlight;
+}
+

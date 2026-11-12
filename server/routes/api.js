@@ -63,6 +63,92 @@ router.get("/products", async (req, res) => {
   }
 });
 
+/**
+ * Lightweight Randomized Homepage Showcase Endpoint
+ * Returns N randomly selected active, non-deleted, CORRECT products without sending the full catalogue.
+ */
+router.get("/products/random", async (req, res) => {
+  try {
+    const requestedLimit = Number(req.query.limit || 12);
+    const limit = Number.isFinite(requestedLimit) ? Math.max(1, Math.min(24, Math.floor(requestedLimit))) : 12;
+
+    res.set("Cache-Control", "no-store, max-age=0");
+    const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
+    let list = [];
+
+    if (mongoService.isConfigured()) {
+      try {
+        const mongoList = await mongoService.getProductsFromMongo();
+        if (Array.isArray(mongoList)) {
+          list = mongoList.filter(m => !deletedIds.has(String(m.id)));
+        } else {
+          list = store.getProducts({}).filter(p => !deletedIds.has(String(p.id)));
+        }
+      } catch (mErr) {
+        list = store.getProducts({}).filter(p => !deletedIds.has(String(p.id)));
+      }
+    } else {
+      list = store.getProducts({}).filter(p => !deletedIds.has(String(p.id)));
+    }
+
+    // Strict storefront visibility & uniqueness filter
+    const seenIds = new Set();
+    const eligible = [];
+    for (const p of list) {
+      if (!p || !p.id) continue;
+      const pid = String(p.id);
+      if (seenIds.has(pid) || deletedIds.has(pid)) continue;
+      if ((p.status || "ACTIVE") !== "ACTIVE" || p.status === "ARCHIVED" || p.isRetired || p.inCatalogue === false) continue;
+      if (p.reviewStatus !== "CORRECT") continue;
+      seenIds.add(pid);
+      eligible.push(p);
+    }
+
+    // Fisher-Yates shuffle on server
+    for (let i = eligible.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = eligible[i];
+      eligible[i] = eligible[j];
+      eligible[j] = tmp;
+    }
+
+    const picked = eligible.slice(0, limit).map((p) => ({
+      id: p.id,
+      slug: p.slug,
+      title: p.title || p.productName,
+      productName: p.productName || p.title,
+      category: p.category,
+      categoryName: p.categoryName,
+      subcategory: p.subcategory,
+      brand: p.brand,
+      sku: p.sku || p.SKU,
+      primaryImage: p.primaryImage,
+      images: Array.isArray(p.images) ? p.images.slice(0, 1) : [],
+      galleryImages: Array.isArray(p.galleryImages) ? p.galleryImages.slice(0, 1) : [],
+      basePrice: Number(p.basePrice || 0),
+      salePrice: p.salePrice !== undefined ? Number(p.salePrice) : undefined,
+      regularPrice: p.regularPrice !== undefined ? Number(p.regularPrice) : undefined,
+      originalPrice: p.originalPrice !== undefined ? Number(p.originalPrice) : undefined,
+      discountPercentage: p.discountPercentage !== undefined ? Number(p.discountPercentage) : undefined,
+      priceStatus: p.priceStatus,
+      referencePricing: p.referencePricing,
+      stock: p.stock,
+      stockStatus: p.stockStatus,
+      status: p.status,
+      reviewStatus: p.reviewStatus
+    }));
+
+    res.json({
+      success: true,
+      count: picked.length,
+      totalAvailable: eligible.length,
+      products: picked
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 router.get("/products/:slug", async (req, res) => {
   try {
     res.set("Cache-Control", "public, max-age=60, s-maxage=300, stale-while-revalidate=600");

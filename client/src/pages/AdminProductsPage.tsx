@@ -448,16 +448,16 @@ export const AdminProductsPage: React.FC = () => {
           }
           try {
             localStorage.setItem("drmedex_admin_products_cache", JSON.stringify(nextList));
-          } catch (e) {
-            // ignore
-          }
+          } catch {}
           return nextList;
         });
+        setIsLoading(false);
+      } else {
+        fetchProducts(true);
       }
       if (stateMsg) {
         showToast("success", stateMsg, "Catalogue Updated");
       }
-      fetchProducts(true);
       window.history.replaceState({}, document.title);
     }
   }, [location.state]);
@@ -902,73 +902,108 @@ export const AdminProductsPage: React.FC = () => {
     return urls;
   };
 
+  const getAdminListThumbnailUrl = (url: string): string => {
+    if (!url) return "";
+    if (url.includes("res.cloudinary.com") && url.includes("/image/upload/")) {
+      return url.replace("/image/upload/", "/image/upload/w_120,h_120,c_limit,q_auto,f_auto/");
+    }
+    return url;
+  };
+
+  const fetchSingleImageAttempt = async (imgUrl: string, filename: string): Promise<{ blob: Blob | null; error: string; retryable: boolean }> => {
+    let lastErrorMsg = "";
+    let retryable = true;
+
+    // Strategy 1: Direct browser/CDN fetch utilizing HTTP cache (fastest for Cloudinary CORS & same-origin assets)
+    try {
+      const directRes = await fetch(imgUrl, {
+        cache: "default",
+        ...(imgUrl.startsWith("http") ? { mode: "cors" as RequestMode } : {})
+      });
+      if (directRes.ok) {
+        const ct = directRes.headers.get("content-type") || "";
+        if (ct.includes("image/") || ct.includes("octet-stream")) {
+          const blob = await directRes.blob();
+          if (blob && blob.size > 0) {
+            return { blob, error: "", retryable: false };
+          }
+        }
+      } else if (directRes.status === 404 || directRes.status === 403) {
+        retryable = false;
+      }
+    } catch {
+      // Direct fetch failed (e.g. cross-origin restrictions); fall back to authenticated proxy
+    }
+
+    // Strategy 2: Authenticated backend proxy streaming original asset without compression
+    try {
+      const proxyUrl = `/api/admin/download-image?url=${encodeURIComponent(imgUrl)}&filename=${encodeURIComponent(filename)}`;
+      const res = await adminFetch(proxyUrl, { cache: "default" });
+      if (res.ok) {
+        const ct = res.headers.get("content-type") || "";
+        if (ct.includes("image/") || ct.includes("octet-stream")) {
+          const blob = await res.blob();
+          if (blob && blob.size > 0) {
+            return { blob, error: "", retryable: false };
+          }
+          lastErrorMsg = "Empty image response";
+        } else {
+          const data = await res.json().catch(() => null);
+          lastErrorMsg = data?.message || `Non-image response (${ct})`;
+          retryable = false;
+        }
+      } else {
+        const data = await res.json().catch(() => null);
+        lastErrorMsg = data?.message || `HTTP ${res.status}`;
+        retryable = res.status === 408 || res.status === 429 || res.status >= 500;
+      }
+    } catch (pErr: any) {
+      lastErrorMsg = pErr?.message || "Proxy connection error";
+      retryable = true;
+    }
+
+    return { blob: null, error: lastErrorMsg || "File not found", retryable };
+  };
+
   const fetchImageBlobWithCache = async (imgUrl: string, filename: string): Promise<{ blob: Blob | null; error: string }> => {
     const cachedBlob = downloadedBlobCacheRef.current.get(imgUrl);
     if (cachedBlob && cachedBlob.size > 0) {
       return { blob: cachedBlob, error: "" };
     }
 
-    let blob: Blob | null = null;
-    let lastErrorMsg = "";
+    const maxRetries = 2;
+    let lastError = "File not found";
 
-    // Strategy 1: Direct browser/CDN fetch utilizing HTTP cache (fastest for Cloudinary CORS & same-origin assets)
-    try {
-      const directRes = await fetch(imgUrl, {
-        cache: "force-cache",
-        ...(imgUrl.startsWith("http") ? { mode: "cors" as RequestMode } : {})
-      });
-      if (directRes.ok) {
-        const ct = directRes.headers.get("content-type") || "";
-        if (ct.includes("image/") || ct.includes("octet-stream")) {
-          blob = await directRes.blob();
+    for (let attempt = 0; attempt <= maxRetries; attempt++) {
+      const result = await fetchSingleImageAttempt(imgUrl, filename);
+      if (result.blob && result.blob.size > 0) {
+        if (downloadedBlobCacheRef.current.size >= 150) {
+          downloadedBlobCacheRef.current.clear();
         }
+        downloadedBlobCacheRef.current.set(imgUrl, result.blob);
+        return { blob: result.blob, error: "" };
       }
-    } catch {
-      // Direct fetch failed (e.g. cross-origin restrictions); fall back to authenticated proxy
+
+      lastError = result.error || lastError;
+      if (!result.retryable || attempt === maxRetries) {
+        break;
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 300 * (attempt + 1)));
     }
 
-    // Strategy 2: Authenticated backend proxy streaming with cache headers & SSRF fallback
-    if (!blob) {
-      try {
-        const proxyUrl = `/api/admin/download-image?url=${encodeURIComponent(imgUrl)}&filename=${encodeURIComponent(filename)}`;
-        const res = await adminFetch(proxyUrl, { cache: "force-cache" });
-        if (res.ok) {
-          const ct = res.headers.get("content-type") || "";
-          if (ct.includes("image/") || ct.includes("octet-stream")) {
-            blob = await res.blob();
-          } else {
-            const data = await res.json().catch(() => null);
-            lastErrorMsg = data?.message || `Non-image response (${ct})`;
-          }
-        } else {
-          const data = await res.json().catch(() => null);
-          lastErrorMsg = data?.message || `HTTP ${res.status}`;
-        }
-      } catch (pErr: any) {
-        lastErrorMsg = pErr.message || "Proxy connection error";
-      }
-    }
-
-    if (blob && blob.size > 0) {
-      if (downloadedBlobCacheRef.current.size >= 150) {
-        downloadedBlobCacheRef.current.clear();
-      }
-      downloadedBlobCacheRef.current.set(imgUrl, blob);
-      return { blob, error: "" };
-    }
-
-    return { blob: null, error: lastErrorMsg || "File not found" };
+    return { blob: null, error: lastError };
   };
 
   /**
-   * Download only individual original product photos (preserves original content, no ZIP packaging)
+   * Download individual original product photos in exact order without skipping or compressing any image
    */
   const handleDownloadPhotos = async (product: Product) => {
     if (downloadingId) return;
     setDownloadingId(product.id);
 
     try {
-      // 1. Resolve image URLs directly from in-memory product data first to avoid redundant API round-trips
+      // 1. Resolve image URLs in exact canonical product order
       let urls = resolveProductImageUrls(product);
 
       // Fallback to server endpoint only if the product record in memory has no image URLs
@@ -1002,58 +1037,72 @@ export const AdminProductsPage: React.FC = () => {
           ext = extMatch[1].toLowerCase();
         }
         return {
+          index: i + 1,
           imgUrl,
           filename: `${baseSku}_photo_${i + 1}.${ext}`
         };
       });
 
-      // 2. Fetch all photos for this product concurrently in parallel using browser & memory cache
-      const fetchResults = await Promise.all(
-        targets.map(({ imgUrl, filename }) => fetchImageBlobWithCache(imgUrl, filename))
-      );
+      // 2. Fetch all photos using controlled concurrency (3 workers) + Promise.allSettled preserving exact original order
+      const settledResults: { blob: Blob | null; error: string }[] = new Array(targets.length);
+      let nextCursor = 0;
+      const concurrency = Math.min(3, targets.length);
+
+      const workers = Array.from({ length: concurrency }, async () => {
+        while (true) {
+          const currentIdx = nextCursor++;
+          if (currentIdx >= targets.length) break;
+          const target = targets[currentIdx];
+          settledResults[currentIdx] = await fetchImageBlobWithCache(target.imgUrl, target.filename);
+        }
+      });
+      await Promise.allSettled(workers);
 
       let downloadedCount = 0;
       let failedCount = 0;
       const failedDetails: string[] = [];
 
+      // 3. Trigger browser downloads sequentially in exact order with reliable spacing so no file is dropped
       for (let i = 0; i < targets.length; i++) {
-        const { filename } = targets[i];
-        const { blob, error } = fetchResults[i];
+        const { index, filename } = targets[i];
+        const outcome = settledResults[i] || { blob: null, error: "Download interrupted" };
 
-        if (blob && blob.size > 0) {
-          const blobUrl = window.URL.createObjectURL(blob);
+        if (outcome.blob && outcome.blob.size > 0) {
+          const blobUrl = window.URL.createObjectURL(outcome.blob);
           const link = document.createElement("a");
           link.href = blobUrl;
           link.download = filename;
+          link.rel = "noopener";
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
-          setTimeout(() => window.URL.revokeObjectURL(blobUrl), 1500);
+          setTimeout(() => window.URL.revokeObjectURL(blobUrl), 10000);
           downloadedCount++;
 
-          // Minimal yield only between multiple files so browser download manager accepts each file
+          // Adequate browser download manager spacing so Chrome/Safari queues every single file reliably
           if (i < targets.length - 1) {
-            await new Promise(resolve => setTimeout(resolve, 60));
+            await new Promise((resolve) => setTimeout(resolve, 300));
           }
         } else {
           failedCount++;
-          failedDetails.push(`${filename} (${error || "File not found"})`);
+          failedDetails.push(`Photo #${index} (${filename}: ${outcome.error || "File not found"})`);
         }
       }
 
-      if (downloadedCount === urls.length) {
+      // 4. Validate downloaded count matches total target count and report transparently
+      if (downloadedCount === targets.length) {
         setBannerMessage({
-          text: `Downloaded all ${downloadedCount} product photo${downloadedCount === 1 ? "" : "s"} successfully.`,
+          text: `Downloaded all ${downloadedCount} of ${targets.length} product photo${downloadedCount === 1 ? "" : "s"} in order successfully.`,
           type: "success"
         });
       } else if (downloadedCount > 0) {
         setBannerMessage({
-          text: `Downloaded ${downloadedCount} of ${urls.length} product photos (${failedCount} failed: ${failedDetails.join(", ")}).`,
+          text: `Downloaded ${downloadedCount} of ${targets.length} product photos (${failedCount} failed — ${failedDetails.join("; ")}).`,
           type: "warning"
         });
       } else {
         setBannerMessage({
-          text: `Failed to download photos for "${product.title || product.productName}": ${failedDetails.join("; ") || "Asset unavailable on server"}.`,
+          text: `Failed to download all ${targets.length} photos for "${product.title || product.productName}": ${failedDetails.join("; ") || "Asset unavailable on server"}.`,
           type: "error"
         });
       }
@@ -1065,7 +1114,11 @@ export const AdminProductsPage: React.FC = () => {
     }
   };
 
+  const deletingProductIdRef = useRef<string | null>(null);
+
   const handleConfirmPermanentDelete = async (prod: Product): Promise<boolean> => {
+    if (deletingProductIdRef.current === prod.id) return false;
+    deletingProductIdRef.current = prod.id;
     try {
       const res = await adminFetch(`/api/admin/products/${encodeURIComponent(prod.id)}`, { method: "DELETE" });
       const data = await res.json().catch(() => ({}));
@@ -1077,12 +1130,12 @@ export const AdminProductsPage: React.FC = () => {
           } catch {}
           return next;
         });
+        setSelectedIds(prev => prev.filter(id => id !== prod.id));
         showToast("success", data.message || `Product "${prod.title || prod.productName}" permanently deleted.`);
         setBannerMessage({
           text: data.message || `Product "${prod.title || prod.productName}" permanently deleted.`,
           type: "success"
         });
-        await fetchProducts();
         return true;
       } else if (res.status === 409) {
         setBannerMessage({
@@ -1103,10 +1156,14 @@ export const AdminProductsPage: React.FC = () => {
       setBannerMessage({ text: errMsg, type: "error" });
       showToast("error", errMsg, "Error");
       return false;
+    } finally {
+      deletingProductIdRef.current = null;
     }
   };
 
   const handleArchiveProduct = async (prod: Product): Promise<boolean> => {
+    if (deletingProductIdRef.current === prod.id) return false;
+    deletingProductIdRef.current = prod.id;
     try {
       const res = await adminFetch(`/api/admin/products/${encodeURIComponent(prod.id)}/archive`, {
         method: "POST"
@@ -1120,12 +1177,12 @@ export const AdminProductsPage: React.FC = () => {
           } catch {}
           return next;
         });
+        setSelectedIds(prev => prev.filter(id => id !== prod.id));
         showToast("success", data.message || `Product "${prod.title || prod.productName}" safely retired from catalogue.`);
         setBannerMessage({
           text: data.message || `Product "${prod.title || prod.productName}" safely retired from active catalogue. Customer order history preserved.`,
           type: "success"
         });
-        await fetchProducts();
         return true;
       } else {
         const errMsg = data.message || `Failed to archive product (HTTP ${res.status}).`;
@@ -1139,6 +1196,8 @@ export const AdminProductsPage: React.FC = () => {
       setBannerMessage({ text: errMsg, type: "error" });
       showToast("error", errMsg, "Error");
       return false;
+    } finally {
+      deletingProductIdRef.current = null;
     }
   };
 
@@ -1197,14 +1256,19 @@ export const AdminProductsPage: React.FC = () => {
               <div className="w-11 h-11 rounded-lg bg-neutral-100 border border-neutral-300 shrink-0 overflow-hidden flex items-center justify-center p-0.5">
                 {img ? (
                   <img
-                    src={img}
+                    src={getAdminListThumbnailUrl(img)}
                     alt={p.title || p.productName}
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-contain"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src =
-                        "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=150&q=80";
+                      const el = e.target as HTMLImageElement;
+                      if (el.src !== img) {
+                        el.src = img;
+                      } else {
+                        el.src =
+                          "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=150&q=80";
+                      }
                     }}
                   />
                 ) : (

@@ -51,3 +51,63 @@ export function optimizeCloudinaryUrl(rawUrl: string, targetWidth?: number): str
   return result;
 }
 
+export const REQUIRED_PRODUCT_IMAGE_WIDTH = 1024;
+export const REQUIRED_PRODUCT_IMAGE_HEIGHT = 1536;
+
+export interface ImageDimensionCheckResult {
+  valid: boolean;
+  width: number | null;
+  height: number | null;
+  reason?: string;
+}
+
+/**
+ * Reads original image pixel dimensions directly from the selected File
+ * without cropping, stretching, resizing, or modifying the image.
+ */
+export function readOriginalImageDimensions(file: File): Promise<{ width: number; height: number } | null> {
+  return new Promise((resolve) => {
+    const objectUrl = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      const width = img.naturalWidth || img.width || 0;
+      const height = img.naturalHeight || img.height || 0;
+      try {
+        URL.revokeObjectURL(objectUrl);
+      } catch {}
+      resolve(width > 0 && height > 0 ? { width, height } : null);
+    };
+    img.onerror = () => {
+      try {
+        URL.revokeObjectURL(objectUrl);
+      } catch {}
+      resolve(null);
+    };
+    img.src = objectUrl;
+  });
+}
+
+export async function validateProductImageDimensions(file: File): Promise<ImageDimensionCheckResult> {
+  const dims = await readOriginalImageDimensions(file);
+  if (!dims) {
+    return {
+      valid: false,
+      width: null,
+      height: null,
+      reason: "Unable to read original image dimensions."
+    };
+  }
+  const valid =
+    dims.width === REQUIRED_PRODUCT_IMAGE_WIDTH &&
+    dims.height === REQUIRED_PRODUCT_IMAGE_HEIGHT;
+  return {
+    valid,
+    width: dims.width,
+    height: dims.height,
+    reason: valid
+      ? undefined
+      : `Detected ${dims.width} × ${dims.height} px (Required: ${REQUIRED_PRODUCT_IMAGE_WIDTH} × ${REQUIRED_PRODUCT_IMAGE_HEIGHT} px)`
+  };
+}
+
+

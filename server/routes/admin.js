@@ -1799,21 +1799,23 @@ router.post("/products", requireAdmin, async (req, res) => {
     }
 
     let allProducts = [];
+    let deletedIds = new Set();
     if (mongoService.isConfigured()) {
-      try {
-        const mongoList = await mongoService.getProductsFromMongo();
-        if (Array.isArray(mongoList)) {
-          allProducts = mongoList;
-        } else {
-          allProducts = store.getProducts({ includeInactive: true });
-        }
-      } catch (e) {
+      const [mongoRes, delRes] = await Promise.allSettled([
+        mongoService.getProductsFromMongo(),
+        mongoService.getDeletedProductIds()
+      ]);
+      if (mongoRes.status === "fulfilled" && Array.isArray(mongoRes.value)) {
+        allProducts = mongoRes.value;
+      } else {
         allProducts = store.getProducts({ includeInactive: true });
+      }
+      if (delRes.status === "fulfilled" && delRes.value) {
+        deletedIds = delRes.value;
       }
     } else {
       allProducts = store.getProducts({ includeInactive: true });
     }
-    const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
     allProducts = allProducts.filter(p => !deletedIds.has(String(p.id)));
 
     // Enforce SKU Uniqueness
@@ -1852,6 +1854,8 @@ router.post("/products", requireAdmin, async (req, res) => {
         message: "A matching product already exists in this category. Please open the existing product instead of creating a duplicate.",
         duplicateProduct: {
           id: duplicate.id,
+          _id: duplicate._id,
+          slug: duplicate.slug,
           title: duplicate.title || duplicate.productName,
           sku: duplicate.sku || duplicate.SKU,
           modelNumber: duplicate.modelNumber
@@ -1885,11 +1889,14 @@ router.post("/products", requireAdmin, async (req, res) => {
           if (uploadRes && uploadRes.url) {
             processedImages.push(uploadRes.url);
           } else {
-            processedImages.push(img);
+            return res.status(400).json({ success: false, message: "Image upload failed during product creation." });
           }
         } catch (upErr) {
-          console.warn("[admin.js] Image upload error during product create:", upErr.message);
-          processedImages.push(img);
+          return res.status(400).json({
+            success: false,
+            code: upErr.code || "IMAGE_VALIDATION_FAILED",
+            message: upErr.message
+          });
         }
       } else if (img) {
         processedImages.push(img);
@@ -2089,13 +2096,22 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
             if (uploadRes && uploadRes.url) {
               processedImages.push(uploadRes.url);
             } else {
-              processedImages.push(img);
+              return res.status(400).json({
+                success: false,
+                message: "Uploaded image failed server storage validation."
+              });
             }
           } catch (upErr) {
-            console.warn("[admin.js] Image upload error during product save:", upErr.message);
-            processedImages.push(img);
+            return res.status(400).json({
+              success: false,
+              code: upErr.code || "IMAGE_VALIDATION_FAILED",
+              dimensions: upErr.dimensions || null,
+              required: upErr.required || { width: 1024, height: 1536 },
+              message: upErr.message || "Uploaded image failed validation."
+            });
           }
         } else if (img) {
+          // Preserve existing stored URLs untouched (including legacy non-2:3 Cloudinary/product images)
           processedImages.push(img);
         }
       }
@@ -2177,41 +2193,40 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
       const removedPublicIds = Array.from(prevCandidates).filter(pid => !remainingPublicIds.has(pid));
 
       if (removedPublicIds.length > 0) {
-        // Await deletion synchronously before returning response so Lambda/serverless environment does not freeze
+        // Check shared references and destroy exclusively owned assets in parallel
         try {
           const allProds = store.getProducts({ includeInactive: true });
           const allOrders = store.getOrders();
-          for (const pubId of removedPublicIds) {
-            const isShared = allProds.some(other => {
-              if (other.id === existing.id) return false;
-              const otherManaged = Array.isArray(other.managedCloudinaryImages) ? other.managedCloudinaryImages : [];
-              if (otherManaged.some(m => m.publicId === pubId)) return true;
-              const oUrls = [other.primaryImage, ...(other.images || [])];
-              return oUrls.some(u => typeof u === "string" && (u.includes(pubId) || imageResolver.extractCloudinaryPublicId(u) === pubId));
-            });
-            if (isShared) {
-              console.log(`[admin.js] Cloudinary asset ${pubId} is shared with another product. Preserved.`);
-              continue;
-            }
-
-            const inOrders = allOrders.some(o =>
-              Array.isArray(o.items) && o.items.some(it => (it.image && it.image.includes(pubId)) || it.publicId === pubId)
-            );
-            if (inOrders) {
-              console.log(`[admin.js] Cloudinary asset ${pubId} is referenced in order history. Preserved.`);
-              continue;
-            }
-
-            if (cloudinaryService && cloudinaryService.isConfigured()) {
-              try {
-                const cloudinary = require("cloudinary").v2;
-                const destroyRes = await cloudinary.uploader.destroy(pubId, { invalidate: true });
-                console.log(`[admin.js] Safely destroyed removed Cloudinary asset: ${pubId} (result: ${destroyRes.result})`);
-              } catch (cDelErr) {
-                console.warn(`[admin.js] Cloudinary destruction error for ${pubId}:`, cDelErr.message);
+          await Promise.allSettled(
+            removedPublicIds.map(async (pubId) => {
+              const isShared = allProds.some(other => {
+                if (other.id === existing.id) return false;
+                const otherManaged = Array.isArray(other.managedCloudinaryImages) ? other.managedCloudinaryImages : [];
+                if (otherManaged.some(m => m.publicId === pubId)) return true;
+                const oUrls = [other.primaryImage, ...(other.images || [])];
+                return oUrls.some(u => typeof u === "string" && (u.includes(pubId) || imageResolver.extractCloudinaryPublicId(u) === pubId));
+              });
+              if (isShared) {
+                return;
               }
-            }
-          }
+
+              const inOrders = allOrders.some(o =>
+                Array.isArray(o.items) && o.items.some(it => (it.image && it.image.includes(pubId)) || it.publicId === pubId)
+              );
+              if (inOrders) {
+                return;
+              }
+
+              if (cloudinaryService && cloudinaryService.isConfigured()) {
+                try {
+                  const cloudinary = require("cloudinary").v2;
+                  await cloudinary.uploader.destroy(pubId, { invalidate: true });
+                } catch (cDelErr) {
+                  console.warn(`[admin.js] Cloudinary destruction error for ${pubId}:`, cDelErr.message);
+                }
+              }
+            })
+          );
         } catch (cleanupErr) {
           console.warn("[admin.js] Removed asset cleanup error:", cleanupErr.message);
         }
@@ -2767,7 +2782,13 @@ router.post("/media/upload", requireAdmin, async (req, res) => {
       url: uploaded.url
     });
   } catch (err) {
-    res.status(400).json({ success: false, message: err.message });
+    res.status(400).json({
+      success: false,
+      code: err.code || "UPLOAD_FAILED",
+      dimensions: err.dimensions || null,
+      required: err.required || { width: 1024, height: 1536 },
+      message: err.message
+    });
   }
 });
 
@@ -2791,7 +2812,7 @@ router.post("/media/upload-batch", requireAdmin, async (req, res) => {
       const altText = item.altText || filename;
 
       if (!rawImage) {
-        errors.push({ filename, error: "Missing image data" });
+        errors.push({ filename, error: "Missing image data", code: "MISSING_IMAGE_DATA" });
         continue;
       }
 
@@ -2799,8 +2820,26 @@ router.post("/media/upload-batch", requireAdmin, async (req, res) => {
         const uploaded = await mediaService.uploadProductImage(rawImage, filename, mimeType, productId, altText);
         uploadedResults.push(uploaded);
       } catch (uploadErr) {
-        errors.push({ filename, error: uploadErr.message });
+        errors.push({
+          filename,
+          error: uploadErr.message,
+          code: uploadErr.code || "UPLOAD_FAILED",
+          dimensions: uploadErr.dimensions || null,
+          required: uploadErr.required || { width: 1024, height: 1536 }
+        });
       }
+    }
+
+    if (uploadedResults.length === 0 && errors.length > 0) {
+      return res.status(400).json({
+        success: false,
+        uploadedCount: 0,
+        images: [],
+        urls: [],
+        code: errors[0].code || "UPLOAD_FAILED",
+        message: errors[0].error || "All uploaded images failed validation.",
+        errors
+      });
     }
 
     auditService.logAction(req.admin.email, "BATCH_IMAGES_UPLOADED", productId, {

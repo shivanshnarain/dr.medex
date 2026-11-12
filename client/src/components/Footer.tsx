@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Phone,
   Mail,
@@ -11,65 +11,75 @@ import {
   ArrowRight
 } from "lucide-react";
 
-export const Footer: React.FC = () => {
-  return (
-    <footer className="bg-white text-neutral-800 border-t border-neutral-200">
-      {/* Top Quality & Global Trust Banner — Light Green #7AA05A Background */}
-      <div className="bg-[#7AA05A] py-10 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-          {/* Benefit 1 */}
-          <div className="flex items-start gap-3.5">
-            <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center text-[#2D5A4A] shrink-0 shadow-xs">
-              <Globe size={20} className="text-[#2D5A4A]" />
-            </div>
-            <div>
-              <h4 className="text-xs font-bold text-white uppercase tracking-wider">Worldwide Air Delivery</h4>
-              <p className="text-xs text-white/95 mt-1 leading-relaxed">
-                Secure, export-ready packaging and international shipping support for medical equipment orders worldwide.
-              </p>
-            </div>
-          </div>
-
-          {/* Benefit 2 */}
-          <div className="flex items-start gap-3.5">
-            <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center text-[#2D5A4A] shrink-0 shadow-xs">
-              <ShieldCheck size={20} className="text-[#2D5A4A]" />
-            </div>
-            <div>
-              <h4 className="text-xs font-bold text-white uppercase tracking-wider">Certified Medical Quality</h4>
-              <p className="text-xs text-white/95 mt-1 leading-relaxed">
-                Quality-focused medical equipment manufactured and supplied with attention to applicable medical-device standards and quality requirements.
-              </p>
-            </div>
-          </div>
-
-          {/* Benefit 3 */}
-          <div className="flex items-start gap-3.5">
-            <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center text-[#2D5A4A] shrink-0 shadow-xs">
-              <Award size={20} className="text-[#2D5A4A]" />
-            </div>
-            <div>
-              <h4 className="text-xs font-bold text-white uppercase tracking-wider">5-Year OEM Warranty</h4>
-              <p className="text-xs text-white/95 mt-1 leading-relaxed">
-                Up to 5-year OEM warranty on eligible products, subject to the manufacturer’s warranty terms.
-              </p>
-            </div>
-          </div>
-
-          {/* Benefit 4 */}
-          <div className="flex items-start gap-3.5">
-            <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center text-[#2D5A4A] shrink-0 shadow-xs">
-              <Wrench size={20} className="text-[#2D5A4A]" />
-            </div>
-            <div>
-              <h4 className="text-xs font-bold text-white uppercase tracking-wider">Engineering &amp; Technical Support</h4>
-              <p className="text-xs text-white/95 mt-1 leading-relaxed">
-                Technical assistance, equipment guidance and after-sales support for hospitals, clinics and healthcare professionals.
-              </p>
-            </div>
-          </div>
+export const ServiceBenefitsBanner: React.FC = () => (
+  <section
+    aria-label="DR.MEDEX Global Service Benefits"
+    className="bg-[#7AA05A] py-10 px-4 sm:px-6"
+  >
+    <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+      {/* Benefit 1 */}
+      <div className="flex items-start gap-3.5">
+        <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center text-[#2D5A4A] shrink-0 shadow-xs">
+          <Globe size={20} className="text-[#2D5A4A]" />
+        </div>
+        <div>
+          <h4 className="text-xs font-bold text-white uppercase tracking-wider">Worldwide Air Delivery</h4>
+          <p className="text-xs text-white/95 mt-1 leading-relaxed">
+            Secure, export-ready packaging and international shipping support for medical equipment orders worldwide.
+          </p>
         </div>
       </div>
+
+      {/* Benefit 2 */}
+      <div className="flex items-start gap-3.5">
+        <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center text-[#2D5A4A] shrink-0 shadow-xs">
+          <ShieldCheck size={20} className="text-[#2D5A4A]" />
+        </div>
+        <div>
+          <h4 className="text-xs font-bold text-white uppercase tracking-wider">Certified Medical Quality</h4>
+          <p className="text-xs text-white/95 mt-1 leading-relaxed">
+            Quality-focused medical equipment manufactured and supplied with attention to applicable medical-device standards and quality requirements.
+          </p>
+        </div>
+      </div>
+
+      {/* Benefit 3 */}
+      <div className="flex items-start gap-3.5">
+        <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center text-[#2D5A4A] shrink-0 shadow-xs">
+          <Award size={20} className="text-[#2D5A4A]" />
+        </div>
+        <div>
+          <h4 className="text-xs font-bold text-white uppercase tracking-wider">5-Year OEM Warranty</h4>
+          <p className="text-xs text-white/95 mt-1 leading-relaxed">
+            Up to 5-year OEM warranty on eligible products, subject to the manufacturer’s warranty terms.
+          </p>
+        </div>
+      </div>
+
+      {/* Benefit 4 */}
+      <div className="flex items-start gap-3.5">
+        <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center text-[#2D5A4A] shrink-0 shadow-xs">
+          <Wrench size={20} className="text-[#2D5A4A]" />
+        </div>
+        <div>
+          <h4 className="text-xs font-bold text-white uppercase tracking-wider">Engineering &amp; Technical Support</h4>
+          <p className="text-xs text-white/95 mt-1 leading-relaxed">
+            Technical assistance, equipment guidance and after-sales support for hospitals, clinics and healthcare professionals.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+export const Footer: React.FC = () => {
+  const { pathname } = useLocation();
+  const isHomeRoute = pathname === "/";
+
+  return (
+    <footer className="bg-white text-neutral-800 border-t border-neutral-200">
+      {/* Top Quality & Global Trust Banner — rendered on non-home routes; HomePage places it above blogs & footer */}
+      {!isHomeRoute && <ServiceBenefitsBanner />}
 
       {/* Main Two-Column Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 lg:py-16">

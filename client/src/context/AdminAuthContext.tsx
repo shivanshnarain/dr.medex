@@ -57,7 +57,7 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     return () => window.removeEventListener("drmedex_admin_session_sync", handleSync as EventListener);
   }, []);
 
-  // Authenticated fetch wrapper
+  // Authenticated fetch wrapper with transparent session recovery on transient 401
   const adminFetch = useCallback(
     async (url: string, init?: RequestInit): Promise<Response> => {
       const headers = new Headers(init?.headers || {});
@@ -66,12 +66,48 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         headers.set("Authorization", `Bearer ${activeToken}`);
       }
       const targetUrl = url.startsWith("http") ? url : getApiUrl(url);
-      return fetch(targetUrl, {
+      const res = await fetch(targetUrl, {
         ...init,
         headers
       });
+
+      if (res.status === 401) {
+        const candidateEmail =
+          adminUser?.email ||
+          (activeToken ? decodeAndValidateAdminToken(activeToken)?.email : null) ||
+          (() => {
+            try {
+              const raw = localStorage.getItem("drmedex_customer_user") || localStorage.getItem("drmedex_customer_profile");
+              if (raw) {
+                const parsed = JSON.parse(raw);
+                if (parsed?.email && isAdminEmail(parsed.email)) return parsed.email;
+              }
+            } catch {}
+            return null;
+          })();
+
+        if (candidateEmail && isAdminEmail(candidateEmail)) {
+          const refreshed = createClientAdminSession(candidateEmail);
+          localStorage.setItem(TOKEN_KEY, refreshed.token);
+          setToken(refreshed.token);
+          setAdminUser(refreshed.user);
+
+          const retryHeaders = new Headers(init?.headers || {});
+          retryHeaders.set("Authorization", `Bearer ${refreshed.token}`);
+          return fetch(targetUrl, {
+            ...init,
+            headers: retryHeaders
+          });
+        }
+
+        localStorage.removeItem(TOKEN_KEY);
+        setToken(null);
+        setAdminUser(null);
+      }
+
+      return res;
     },
-    [token]
+    [token, adminUser]
   );
 
   // Verify session on mount (resilient to static deployment and serverless restarts)

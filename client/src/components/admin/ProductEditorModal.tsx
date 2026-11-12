@@ -28,6 +28,11 @@ import {
 } from "lucide-react";
 import { Product, Category } from "../../types";
 import { useAdminAuth } from "../../context/AdminAuthContext";
+import {
+  REQUIRED_PRODUCT_IMAGE_WIDTH,
+  REQUIRED_PRODUCT_IMAGE_HEIGHT,
+  validateProductImageDimensions
+} from "../../lib/imageUtils";
 
 interface ProductEditorModalProps {
   product: Product | null; // null means creating a new product
@@ -279,54 +284,57 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
     setImages(updated);
   };
 
-  // File upload simulation & base64 preview
+  // Strict 1024x1536 validated product image upload
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
+    const file = files[0];
+    e.target.value = "";
+
+    if (file.size > 15 * 1024 * 1024) {
+      alert("Image exceeds maximum 15MB limit.");
+      return;
+    }
+
+    const dimCheck = await validateProductImageDimensions(file);
+    if (!dimCheck.valid) {
+      alert(
+        `Incorrect Image Dimensions (${file.name}: ${
+          dimCheck.width && dimCheck.height ? `${dimCheck.width} × ${dimCheck.height} px` : "unreadable"
+        }).\n\nRequired: ${REQUIRED_PRODUCT_IMAGE_WIDTH} × ${REQUIRED_PRODUCT_IMAGE_HEIGHT} pixels (2:3 portrait ratio). Please resize or prepare your image to exactly ${REQUIRED_PRODUCT_IMAGE_WIDTH} × ${REQUIRED_PRODUCT_IMAGE_HEIGHT} pixels before uploading.`
+      );
+      return;
+    }
+
     setIsUploadingImage(true);
     try {
-      const file = files[0];
-      if (file.size > 15 * 1024 * 1024) {
-        alert("Image exceeds maximum 15MB limit.");
-        setIsUploadingImage(false);
-        return;
+      const base64Data = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = () => reject(new Error("Failed to read file"));
+        reader.readAsDataURL(file);
+      });
+
+      const res = await adminFetch("/api/admin/media/upload", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId: product?.id || "temp-new-product",
+          filename: file.name,
+          dataUrl: base64Data
+        })
+      });
+
+      const data = await res.json().catch(() => null);
+      if (res.ok && data?.success && data.image?.url) {
+        setImages([...images, data.image.url]);
+      } else {
+        alert(data?.message || "Image upload failed server validation.");
       }
-
-      // Convert to base64 preview / payload
-      const reader = new FileReader();
-      reader.onload = async () => {
-        const base64Data = reader.result as string;
-        try {
-          const res = await adminFetch("/api/admin/media/upload", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              productId: product?.id || "temp-new-product",
-              filename: file.name,
-              dataUrl: base64Data
-            })
-          });
-
-          if (res.ok) {
-            const data = await res.json();
-            if (data.success && data.image?.url) {
-              setImages([...images, data.image.url]);
-            } else {
-              setImages([...images, base64Data]);
-            }
-          } else {
-            setImages([...images, base64Data]);
-          }
-        } catch {
-          setImages([...images, base64Data]);
-        } finally {
-          setIsUploadingImage(false);
-        }
-      };
-      reader.readAsDataURL(file);
-    } catch (err) {
-      console.error("Upload error:", err);
+    } catch (err: any) {
+      alert(err?.message || "Image upload failed.");
+    } finally {
       setIsUploadingImage(false);
     }
   };
