@@ -29,6 +29,7 @@ import { useAdminAuth } from "../context/AdminAuthContext";
 import { Product, Category } from "../types";
 import { getApiUrl } from "../lib/apiConfig";
 import { getFallbackProducts, fallbackCategories } from "../services/productService";
+import { buildZipArchive, verifyZipArchive, detectImageExtension } from "../lib/zipBuilder";
 
 export const AdminProductsPage: React.FC = () => {
   const { adminFetch } = useAdminAuth();
@@ -74,6 +75,13 @@ export const AdminProductsPage: React.FC = () => {
   const [reviewModalProduct, setReviewModalProduct] = useState<Product | null>(null);
   const [reviewNoteInput, setReviewNoteInput] = useState<string>("");
   const [downloadingId, setDownloadingId] = useState<string | null>(null);
+  const [downloadProgress, setDownloadProgress] = useState<{
+    productId: string;
+    title: string;
+    current: number;
+    total: number;
+    phase: string;
+  } | null>(null);
   const downloadedBlobCacheRef = useRef<Map<string, Blob>>(new Map());
 
   // Selection & Bulk State
@@ -507,6 +515,17 @@ export const AdminProductsPage: React.FC = () => {
 
   const categoryProductCount = categoryScopedProducts.length;
 
+  // Live category count map computed once per products array change
+  const categoryCountsMap = useMemo(() => {
+    const map = new Map<string, number>();
+    for (const p of products) {
+      if (p.category) {
+        map.set(p.category, (map.get(p.category) || 0) + 1);
+      }
+    }
+    return map;
+  }, [products]);
+
   // Live review counts scoped to the selected category - each product belongs to exactly one bucket
   const reviewCounts = useMemo(() => {
     const all = categoryScopedProducts.length;
@@ -553,7 +572,7 @@ export const AdminProductsPage: React.FC = () => {
       }
     }
 
-    // Sorting: Newest First (by createdAt descending) and Price options
+    // Sorting: Newest First (precomputed timestamp key avoids O(N log N) Date allocations)
     switch (sortBy) {
       case "price_asc":
         result.sort((a, b) => (a.basePrice || 0) - (b.basePrice || 0));
@@ -562,15 +581,15 @@ export const AdminProductsPage: React.FC = () => {
         result.sort((a, b) => (b.basePrice || 0) - (a.basePrice || 0));
         break;
       case "newest":
-      default:
-        // Default: Recently Updated / Newest First (updatedAt takes precedence over createdAt)
-        result.sort((a, b) => {
-          const timeA = new Date(a.updatedAt || a.createdAt || 0).getTime();
-          const timeB = new Date(b.updatedAt || b.createdAt || 0).getTime();
-          if (timeB !== timeA) return timeB - timeA;
-          return 0;
-        });
+      default: {
+        const keyed = result.map((item) => ({
+          item,
+          ts: new Date(item.updatedAt || item.createdAt || 0).getTime() || 0
+        }));
+        keyed.sort((a, b) => b.ts - a.ts);
+        result = keyed.map((k) => k.item);
         break;
+      }
     }
 
     return result;
@@ -910,41 +929,68 @@ export const AdminProductsPage: React.FC = () => {
     return url;
   };
 
-  const fetchSingleImageAttempt = async (imgUrl: string, filename: string): Promise<{ blob: Blob | null; error: string; retryable: boolean }> => {
+  const fetchSingleImageAttempt = async (imgUrl: string, filename: string): Promise<{ blob: Blob | null; contentType?: string; error: string; retryable: boolean }> => {
     let lastErrorMsg = "";
     let retryable = true;
 
+    const fetchWithTimeout = async (url: string, init: RequestInit = {}, useAdminAuth = false) => {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
+      try {
+        const merged = { ...init, signal: controller.signal };
+        return useAdminAuth ? await adminFetch(url, merged) : await fetch(url, merged);
+      } finally {
+        clearTimeout(timeout);
+      }
+    };
+
     // Strategy 1: Direct browser/CDN fetch utilizing HTTP cache (fastest for Cloudinary CORS & same-origin assets)
-    try {
-      const directRes = await fetch(imgUrl, {
-        cache: "default",
-        ...(imgUrl.startsWith("http") ? { mode: "cors" as RequestMode } : {})
-      });
-      if (directRes.ok) {
-        const ct = directRes.headers.get("content-type") || "";
-        if (ct.includes("image/") || ct.includes("octet-stream")) {
-          const blob = await directRes.blob();
+    if (!imgUrl.startsWith("data:")) {
+      try {
+        const directRes = await fetchWithTimeout(
+          imgUrl,
+          {
+            cache: "default",
+            ...(imgUrl.startsWith("http") ? { mode: "cors" as RequestMode } : {})
+          },
+          false
+        );
+        if (directRes.ok) {
+          const ct = directRes.headers.get("content-type") || "";
+          if (ct.includes("image/") || ct.includes("octet-stream")) {
+            const blob = await directRes.blob();
+            if (blob && blob.size > 0) {
+              return { blob, contentType: ct, error: "", retryable: false };
+            }
+          }
+        } else if (directRes.status === 404 || directRes.status === 403) {
+          retryable = false;
+        }
+      } catch {
+        // Direct fetch failed (e.g. CORS or network); fall back to authenticated server proxy
+      }
+    } else {
+      try {
+        const dataRes = await fetch(imgUrl);
+        if (dataRes.ok) {
+          const blob = await dataRes.blob();
           if (blob && blob.size > 0) {
-            return { blob, error: "", retryable: false };
+            return { blob, contentType: blob.type, error: "", retryable: false };
           }
         }
-      } else if (directRes.status === 404 || directRes.status === 403) {
-        retryable = false;
-      }
-    } catch {
-      // Direct fetch failed (e.g. cross-origin restrictions); fall back to authenticated proxy
+      } catch {}
     }
 
     // Strategy 2: Authenticated backend proxy streaming original asset without compression
     try {
       const proxyUrl = `/api/admin/download-image?url=${encodeURIComponent(imgUrl)}&filename=${encodeURIComponent(filename)}`;
-      const res = await adminFetch(proxyUrl, { cache: "default" });
+      const res = await fetchWithTimeout(proxyUrl, { cache: "default" }, true);
       if (res.ok) {
         const ct = res.headers.get("content-type") || "";
         if (ct.includes("image/") || ct.includes("octet-stream")) {
           const blob = await res.blob();
           if (blob && blob.size > 0) {
-            return { blob, error: "", retryable: false };
+            return { blob, contentType: ct, error: "", retryable: false };
           }
           lastErrorMsg = "Empty image response";
         } else {
@@ -958,17 +1004,17 @@ export const AdminProductsPage: React.FC = () => {
         retryable = res.status === 408 || res.status === 429 || res.status >= 500;
       }
     } catch (pErr: any) {
-      lastErrorMsg = pErr?.message || "Proxy connection error";
+      lastErrorMsg = pErr?.name === "AbortError" ? "Request timed out" : (pErr?.message || "Proxy connection error");
       retryable = true;
     }
 
     return { blob: null, error: lastErrorMsg || "File not found", retryable };
   };
 
-  const fetchImageBlobWithCache = async (imgUrl: string, filename: string): Promise<{ blob: Blob | null; error: string }> => {
+  const fetchImageBlobWithCache = async (imgUrl: string, filename: string): Promise<{ blob: Blob | null; contentType?: string; error: string }> => {
     const cachedBlob = downloadedBlobCacheRef.current.get(imgUrl);
     if (cachedBlob && cachedBlob.size > 0) {
-      return { blob: cachedBlob, error: "" };
+      return { blob: cachedBlob, contentType: cachedBlob.type, error: "" };
     }
 
     const maxRetries = 2;
@@ -981,7 +1027,7 @@ export const AdminProductsPage: React.FC = () => {
           downloadedBlobCacheRef.current.clear();
         }
         downloadedBlobCacheRef.current.set(imgUrl, result.blob);
-        return { blob: result.blob, error: "" };
+        return { blob: result.blob, contentType: result.contentType, error: "" };
       }
 
       lastError = result.error || lastError;
@@ -989,24 +1035,34 @@ export const AdminProductsPage: React.FC = () => {
         break;
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 300 * (attempt + 1)));
+      await new Promise((resolve) => setTimeout(resolve, 350 * (attempt + 1)));
     }
 
     return { blob: null, error: lastError };
   };
 
   /**
-   * Download individual original product photos in exact order without skipping or compressing any image
+   * Reliable ALL-images download in ONE attempt without browser multi-download drops:
+   * - Fetches all N images with bounded concurrency (3) + retries + live X/N progress
+   * - Strictly fails loudly if ANY image fails (zero silent missing files)
+   * - 1 image -> direct file download; 2+ images -> verified ordered PKZIP archive
    */
   const handleDownloadPhotos = async (product: Product) => {
     if (downloadingId) return;
+    const prodTitle = product.title || product.productName || "Product";
     setDownloadingId(product.id);
+    setDownloadProgress({
+      productId: product.id,
+      title: prodTitle,
+      current: 0,
+      total: 0,
+      phase: "Resolving product images..."
+    });
 
     try {
-      // 1. Resolve image URLs in exact canonical product order
+      // 1. Resolve canonical ordered image list
       let urls = resolveProductImageUrls(product);
 
-      // Fallback to server endpoint only if the product record in memory has no image URLs
       if (urls.length === 0) {
         try {
           const imgRes = await adminFetch(`/api/admin/products/${encodeURIComponent(product.id)}/images`);
@@ -1023,7 +1079,7 @@ export const AdminProductsPage: React.FC = () => {
 
       if (urls.length === 0) {
         setBannerMessage({
-          text: `No photos available to download for "${product.title || product.productName}".`,
+          text: `No photos available to download for "${prodTitle}".`,
           type: "warning"
         });
         return;
@@ -1034,18 +1090,29 @@ export const AdminProductsPage: React.FC = () => {
         let ext = "jpg";
         const extMatch = imgUrl.match(/\.(jpg|jpeg|png|webp|gif|svg|avif)(?:\?.*)?$/i);
         if (extMatch && extMatch[1]) {
-          ext = extMatch[1].toLowerCase();
+          ext = extMatch[1].toLowerCase() === "jpeg" ? "jpg" : extMatch[1].toLowerCase();
         }
+        const seqStr = String(i + 1).padStart(2, "0");
         return {
           index: i + 1,
           imgUrl,
-          filename: `${baseSku}_photo_${i + 1}.${ext}`
+          ext,
+          filename: `${baseSku}_photo_${seqStr}.${ext}`
         };
       });
 
-      // 2. Fetch all photos using controlled concurrency (3 workers) + Promise.allSettled preserving exact original order
-      const settledResults: { blob: Blob | null; error: string }[] = new Array(targets.length);
+      setDownloadProgress({
+        productId: product.id,
+        title: prodTitle,
+        current: 0,
+        total: targets.length,
+        phase: `Fetching 0/${targets.length} photos...`
+      });
+
+      // 2. Fetch ALL N photos with bounded concurrency (3 workers) + live numeric progress
+      const settledResults: { blob: Blob | null; contentType?: string; error: string }[] = new Array(targets.length);
       let nextCursor = 0;
+      let completedCount = 0;
       const concurrency = Math.min(3, targets.length);
 
       const workers = Array.from({ length: concurrency }, async () => {
@@ -1054,63 +1121,109 @@ export const AdminProductsPage: React.FC = () => {
           if (currentIdx >= targets.length) break;
           const target = targets[currentIdx];
           settledResults[currentIdx] = await fetchImageBlobWithCache(target.imgUrl, target.filename);
+          completedCount++;
+          setDownloadProgress({
+            productId: product.id,
+            title: prodTitle,
+            current: completedCount,
+            total: targets.length,
+            phase: `Fetching ${completedCount}/${targets.length} photos...`
+          });
         }
       });
-      await Promise.allSettled(workers);
+      await Promise.all(workers);
 
-      let downloadedCount = 0;
-      let failedCount = 0;
+      // 3. Verify EVERY photo succeeded before saving — never silently skip a file
       const failedDetails: string[] = [];
-
-      // 3. Trigger browser downloads sequentially in exact order with reliable spacing so no file is dropped
       for (let i = 0; i < targets.length; i++) {
-        const { index, filename } = targets[i];
-        const outcome = settledResults[i] || { blob: null, error: "Download interrupted" };
-
-        if (outcome.blob && outcome.blob.size > 0) {
-          const blobUrl = window.URL.createObjectURL(outcome.blob);
-          const link = document.createElement("a");
-          link.href = blobUrl;
-          link.download = filename;
-          link.rel = "noopener";
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          setTimeout(() => window.URL.revokeObjectURL(blobUrl), 10000);
-          downloadedCount++;
-
-          // Adequate browser download manager spacing so Chrome/Safari queues every single file reliably
-          if (i < targets.length - 1) {
-            await new Promise((resolve) => setTimeout(resolve, 300));
-          }
-        } else {
-          failedCount++;
-          failedDetails.push(`Photo #${index} (${filename}: ${outcome.error || "File not found"})`);
+        const outcome = settledResults[i];
+        if (!outcome || !outcome.blob || outcome.blob.size === 0) {
+          failedDetails.push(`Photo #${targets[i].index} (${targets[i].filename}: ${outcome?.error || "File not found"})`);
         }
       }
 
-      // 4. Validate downloaded count matches total target count and report transparently
-      if (downloadedCount === targets.length) {
+      if (failedDetails.length > 0) {
+        const okCount = targets.length - failedDetails.length;
+        const errMsg = `Download aborted (${okCount}/${targets.length} fetched): Failed on ${failedDetails.join("; ")}. Please retry.`;
+        setBannerMessage({ text: errMsg, type: "error" });
+        showToast("error", `${failedDetails.length} of ${targets.length} photos failed to fetch.`, "Download Incomplete");
+        return;
+      }
+
+      const triggerDownloadBlob = (blob: Blob, filename: string) => {
+        const blobUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = filename;
+        link.rel = "noopener";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => window.URL.revokeObjectURL(blobUrl), 15000);
+      };
+
+      // 4a. Single photo -> direct image download with detected extension
+      if (targets.length === 1) {
+        const onlyOutcome = settledResults[0];
+        const buf = new Uint8Array(await onlyOutcome.blob!.arrayBuffer());
+        const exactExt = detectImageExtension(buf, onlyOutcome.contentType || onlyOutcome.blob!.type, targets[0].imgUrl);
+        const exactFilename = `${baseSku}_photo_01.${exactExt}`;
+        triggerDownloadBlob(onlyOutcome.blob!, exactFilename);
+
         setBannerMessage({
-          text: `Downloaded all ${downloadedCount} of ${targets.length} product photo${downloadedCount === 1 ? "" : "s"} in order successfully.`,
+          text: `Downloaded 1/1 photo (${exactFilename}) successfully.`,
           type: "success"
         });
-      } else if (downloadedCount > 0) {
-        setBannerMessage({
-          text: `Downloaded ${downloadedCount} of ${targets.length} product photos (${failedCount} failed — ${failedDetails.join("; ")}).`,
-          type: "warning"
-        });
-      } else {
-        setBannerMessage({
-          text: `Failed to download all ${targets.length} photos for "${product.title || product.productName}": ${failedDetails.join("; ") || "Asset unavailable on server"}.`,
-          type: "error"
+        showToast("success", `Saved ${exactFilename}`, "Download Complete (1/1)");
+        return;
+      }
+
+      // 4b. Multiple photos (2..N) -> build & verify ONE complete ordered ZIP archive
+      setDownloadProgress({
+        productId: product.id,
+        title: prodTitle,
+        current: targets.length,
+        total: targets.length,
+        phase: `Packaging & verifying ${targets.length}/${targets.length} photos...`
+      });
+
+      const zipEntries: { name: string; data: Uint8Array }[] = [];
+      for (let i = 0; i < targets.length; i++) {
+        const outcome = settledResults[i];
+        const data = new Uint8Array(await outcome.blob!.arrayBuffer());
+        const exactExt = detectImageExtension(data, outcome.contentType || outcome.blob!.type, targets[i].imgUrl);
+        const seqStr = String(i + 1).padStart(2, "0");
+        zipEntries.push({
+          name: `${baseSku}_photo_${seqStr}.${exactExt}`,
+          data
         });
       }
+
+      const zipBytes = buildZipArchive(zipEntries);
+      const verification = verifyZipArchive(zipBytes);
+      if (!verification.valid || verification.entryCount !== targets.length) {
+        const errMsg = `ZIP integrity check failed (${verification.entryCount}/${targets.length} files): ${verification.error || "Verification mismatch"}.`;
+        setBannerMessage({ text: errMsg, type: "error" });
+        showToast("error", errMsg, "Archive Verification Failed");
+        return;
+      }
+
+      const zipFilename = `${baseSku}_photos_${targets.length}.zip`;
+      const zipBlob = new Blob([zipBytes.buffer as ArrayBuffer], { type: "application/zip" });
+      triggerDownloadBlob(zipBlob, zipFilename);
+
+      setBannerMessage({
+        text: `Downloaded all ${targets.length}/${targets.length} product photos in exact order inside "${zipFilename}".`,
+        type: "success"
+      });
+      showToast("success", `Verified ${targets.length}/${targets.length} images packaged in ${zipFilename}`, "Download Complete");
     } catch (err: any) {
       console.error("Photo download error:", err);
       setBannerMessage({ text: err.message || "Failed to download product photos.", type: "error" });
+      showToast("error", err.message || "Failed to download product photos.", "Download Failed");
     } finally {
       setDownloadingId(null);
+      setDownloadProgress(null);
     }
   };
 
@@ -1562,19 +1675,27 @@ export const AdminProductsPage: React.FC = () => {
           {/* 6. Actions: Download (icon only), Edit (compact button), More Actions */}
           <td className="py-2.5 px-4 text-right whitespace-nowrap align-middle">
             <div className="flex items-center justify-end gap-1.5">
-              {/* Download — ICON ONLY with Tooltip */}
+              {/* Download — ICON ONLY (with live progress when active) */}
               <button
                 type="button"
                 onClick={() => handleDownloadPhotos(p)}
-                disabled={downloadingId === p.id}
-                title="Download Product Photos"
+                disabled={downloadingId !== null}
+                title={downloadingId === p.id && downloadProgress ? downloadProgress.phase : "Download Product Photos"}
                 aria-label={`Download Product Photos for ${p.title || p.productName}`}
-                className="p-1.5 bg-neutral-100 border border-neutral-300 hover:border-black text-neutral-700 hover:text-black hover:bg-neutral-200 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
+                className="inline-flex items-center gap-1 p-1.5 bg-neutral-100 border border-neutral-300 hover:border-black text-neutral-700 hover:text-black hover:bg-neutral-200 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
               >
-                <Download
-                  size={14}
-                  className={downloadingId === p.id ? "animate-bounce text-black" : "text-neutral-700"}
-                />
+                {downloadingId === p.id ? (
+                  <>
+                    <RefreshCw size={13} className="animate-spin text-black" />
+                    {downloadProgress && downloadProgress.total > 0 && (
+                      <span className="text-[10px] font-mono font-bold text-black">
+                        {downloadProgress.current}/{downloadProgress.total}
+                      </span>
+                    )}
+                  </>
+                ) : (
+                  <Download size={14} className="text-neutral-700" />
+                )}
               </button>
 
               {/* More Actions Menu */}
@@ -1871,6 +1992,36 @@ export const AdminProductsPage: React.FC = () => {
         </div>
       }
     >
+      {/* Active Image Download Progress Bar */}
+      {downloadProgress && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="mb-4 p-3 rounded-xl border border-neutral-300 bg-white text-neutral-900 shadow-xs space-y-1.5"
+        >
+          <div className="flex items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2 font-semibold truncate">
+              <RefreshCw size={14} className="animate-spin text-[#2D5A4A] shrink-0" />
+              <span className="truncate">Downloading photos for "{downloadProgress.title}"</span>
+            </div>
+            <span className="font-mono text-[11px] font-bold text-[#2D5A4A] shrink-0">
+              {downloadProgress.total > 0
+                ? `${downloadProgress.current}/${downloadProgress.total}`
+                : "..."}
+            </span>
+          </div>
+          {downloadProgress.total > 0 && (
+            <div className="w-full h-1.5 bg-neutral-200 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-[#2D5A4A] transition-all duration-150"
+                style={{ width: `${Math.round((downloadProgress.current / downloadProgress.total) * 100)}%` }}
+              />
+            </div>
+          )}
+          <div className="text-[11px] text-neutral-600">{downloadProgress.phase}</div>
+        </div>
+      )}
+
       {/* Notification Banner: Errors MUST BE RED, successes green */}
       {bannerMessage && (
         <div
@@ -1984,7 +2135,7 @@ export const AdminProductsPage: React.FC = () => {
 
           {/* Individual Category Filters */}
           {categories.map((cat) => {
-            const count = products.filter((p) => p.category === cat.slug || p.category === cat.id).length;
+            const count = (categoryCountsMap.get(cat.slug) || 0) + (cat.id !== cat.slug ? (categoryCountsMap.get(cat.id) || 0) : 0);
             const isSelected = selectedCategory === cat.slug;
             return (
               <button

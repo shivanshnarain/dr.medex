@@ -15,7 +15,15 @@
  *    - Never expose API secrets, DB passwords, or connection strings in logs or API responses.
  */
 
-const { getClient, isConfigured: isMongoConfigured, sanitizeMongoError, buildProductFilter, getDeletedProductIds } = require("./mongoService");
+const {
+  getClient,
+  isConfigured: isMongoConfigured,
+  sanitizeMongoError,
+  buildProductFilter,
+  getDeletedProductIds,
+  patchCachedProduct,
+  getCachedProductsSnapshot
+} = require("./mongoService");
 const cloudinaryService = require("./cloudinaryService");
 const firestoreService = require("./firestoreService");
 const store = require("./store");
@@ -81,13 +89,53 @@ function getProductCloudinaryPublicIds(product) {
   return Array.from(candidates);
 }
 
+function escapeRegexStr(str) {
+  return String(str).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function syncFallbackFilesAsync(productId, updates) {
+  if (process.env.VERCEL || !productId || !updates) return;
+  setImmediate(async () => {
+    try {
+      const fs = require("fs");
+      const path = require("path");
+      const syncFiles = [
+        path.resolve(__dirname, "../../client/src/data/fallbackProducts.json"),
+        path.resolve(__dirname, "../../client/server/data/db.json")
+      ];
+      await Promise.all(
+        syncFiles.map(async (fp) => {
+          try {
+            if (!fs.existsSync(fp)) return;
+            const raw = await fs.promises.readFile(fp, "utf8");
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) {
+              const idx = parsed.findIndex(p => p.id === productId);
+              if (idx !== -1) {
+                parsed[idx] = { ...parsed[idx], ...updates };
+                await fs.promises.writeFile(fp, JSON.stringify(parsed));
+              }
+            } else if (parsed && Array.isArray(parsed.products)) {
+              const idx = parsed.products.findIndex(p => p.id === productId);
+              if (idx !== -1) {
+                parsed.products[idx] = { ...parsed.products[idx], ...updates };
+                await fs.promises.writeFile(fp, JSON.stringify(parsed));
+              }
+            }
+          } catch {}
+        })
+      );
+    } catch {}
+  });
+}
+
 /**
  * Check whether a publicId is shared with other products or referenced in customer orders
  */
 async function isAssetSharedOrOrdered(publicId, excludeProductId = null) {
-  if (!publicId) return false;
+  if (!publicId) return { shared: false };
 
-  // 1. Check all products in local store
+  // 1. Check all products in local store (in-memory, sub-ms)
   const allStoreProducts = store.getProducts({ includeInactive: true }) || [];
   for (const other of allStoreProducts) {
     if (excludeProductId && (other.id === excludeProductId || (other.slug && other.slug === excludeProductId))) {
@@ -99,34 +147,60 @@ async function isAssetSharedOrOrdered(publicId, excludeProductId = null) {
     }
   }
 
-  // 2. Check MongoDB Atlas if available
+  // 2. Check warm MongoDB product snapshot in RAM if available
+  const warmSnapshot = getCachedProductsSnapshot();
+  if (warmSnapshot) {
+    for (const other of warmSnapshot) {
+      if (excludeProductId && (other.id === excludeProductId || (other.slug && other.slug === excludeProductId))) {
+        continue;
+      }
+      const otherIds = getProductCloudinaryPublicIds(other);
+      if (otherIds.includes(publicId)) {
+        return { shared: true, reason: `Asset shared with product "${other.title || other.productName || other.id}" in MongoDB` };
+      }
+    }
+  }
+
+  // 3. Run MongoDB share checks concurrently
   if (isMongoConfigured()) {
     try {
       const c = await getClient();
       const db = c.db(process.env.MONGODB_DB || "drmedex");
-      const filter = {
-        $or: [
-          { primaryImage: { $regex: publicId } },
-          { images: { $elemMatch: { $regex: publicId } } },
-          { "galleryImages.url": { $regex: publicId } },
-          { "managedCloudinaryImages.publicId": publicId }
-        ]
-      };
-      if (excludeProductId) {
-        filter.id = { $ne: excludeProductId };
-      }
-      const match = await db.collection(COLLECTION_NAME).findOne(filter, { projection: { id: 1, title: 1, productName: 1 } });
-      if (match) {
-        return { shared: true, reason: `Asset shared with product "${match.title || match.productName || match.id}" in MongoDB` };
-      }
+      const escapedPid = escapeRegexStr(publicId);
 
-      // Check orders collection
-      const orderMatch = await db.collection(ORDERS_COLLECTION).findOne({
+      const orderPromise = db.collection(ORDERS_COLLECTION).findOne({
         $or: [
-          { "items.image": { $regex: publicId } },
+          { "items.image": { $regex: escapedPid } },
           { "items.publicId": publicId }
         ]
       }, { projection: { orderNumber: 1 } });
+
+      let productMatch = null;
+      let orderMatch = null;
+
+      if (!warmSnapshot) {
+        const filter = {
+          $or: [
+            { primaryImage: { $regex: escapedPid } },
+            { images: { $elemMatch: { $regex: escapedPid } } },
+            { "galleryImages.url": { $regex: escapedPid } },
+            { "managedCloudinaryImages.publicId": publicId }
+          ]
+        };
+        if (excludeProductId) {
+          filter.id = { $ne: excludeProductId };
+        }
+        [productMatch, orderMatch] = await Promise.all([
+          db.collection(COLLECTION_NAME).findOne(filter, { projection: { id: 1, title: 1, productName: 1 } }),
+          orderPromise
+        ]);
+      } else {
+        orderMatch = await orderPromise;
+      }
+
+      if (productMatch) {
+        return { shared: true, reason: `Asset shared with product "${productMatch.title || productMatch.productName || productMatch.id}" in MongoDB` };
+      }
       if (orderMatch) {
         return { shared: true, reason: `Asset preserved: referenced in customer order #${orderMatch.orderNumber}` };
       }
@@ -538,8 +612,8 @@ async function deleteSingleProductImage(productId, imageUrlOrPublicId, adminEmai
       const db = c.db(process.env.MONGODB_DB || "drmedex");
       const filter = buildProductFilter(product.id);
       await db.collection(COLLECTION_NAME).updateOne(filter, { $set: updates });
-      const { invalidateMongoCache } = require("./mongoService");
-      invalidateMongoCache();
+      // Update warm cache in place instead of wiping the whole 193-product cache
+      patchCachedProduct(product.id, updates);
     } catch (mErr) {
       console.error("[deletionService] MongoDB image ref update error:", sanitizeMongoError(mErr));
       throw new Error(`Failed to update product images in database: ${sanitizeMongoError(mErr)}`);
@@ -564,36 +638,8 @@ async function deleteSingleProductImage(productId, imageUrlOrPublicId, adminEmai
     }
   }
 
-  // Synchronize fallback files to prevent deleted images from resurfacing on fallback
-  try {
-    const fs = require("fs");
-    const path = require("path");
-    const syncFiles = [
-      path.resolve(__dirname, "../../client/src/data/fallbackProducts.json"),
-      path.resolve(__dirname, "../../client/server/data/db.json")
-    ];
-    syncFiles.forEach(fp => {
-      if (fs.existsSync(fp)) {
-        try {
-          const raw = fs.readFileSync(fp, "utf8");
-          const parsed = JSON.parse(raw);
-          if (Array.isArray(parsed)) {
-            const idx = parsed.findIndex(p => p.id === product.id);
-            if (idx !== -1) {
-              parsed[idx] = { ...parsed[idx], ...updates };
-              fs.writeFileSync(fp, JSON.stringify(parsed, null, 2));
-            }
-          } else if (parsed && Array.isArray(parsed.products)) {
-            const idx = parsed.products.findIndex(p => p.id === product.id);
-            if (idx !== -1) {
-              parsed.products[idx] = { ...parsed.products[idx], ...updates };
-              fs.writeFileSync(fp, JSON.stringify(parsed, null, 2));
-            }
-          }
-        } catch {}
-      }
-    });
-  } catch {}
+  // Synchronize fallback files non-blockingly so deleted images never resurface without slowing HTTP response
+  syncFallbackFilesAsync(product.id, updates);
 
   auditService.logAction(adminEmail, "PRODUCT_IMAGE_DELETED", product.id, {
     publicId,

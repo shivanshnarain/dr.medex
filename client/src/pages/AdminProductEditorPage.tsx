@@ -57,19 +57,60 @@ export interface PackageItem {
   type: "standard" | "optional" | "confirmation";
 }
 
+export interface DuplicateProductRecord {
+  id: string;
+  _id?: string;
+  title?: string;
+  productName?: string;
+  storefrontProductTitle?: string;
+  name?: string;
+  sku?: string;
+  modelNumber?: string;
+  category?: string;
+  slug?: string;
+}
+
+function getDuplicateRecordId(dup?: DuplicateProductRecord | null): string | null {
+  if (!dup) return null;
+  const raw = dup.id || dup._id;
+  if (!raw) return null;
+  const cleaned = String(raw).trim();
+  if (!cleaned || cleaned === "undefined" || cleaned === "null") return null;
+  return cleaned;
+}
+
+function getDuplicateDisplayName(dup?: DuplicateProductRecord | null): string {
+  if (!dup) return "";
+  return String(
+    dup.title ||
+    dup.productName ||
+    dup.storefrontProductTitle ||
+    dup.name ||
+    ""
+  ).trim();
+}
+
 function findInitialProduct(productId?: string, locationState?: any): any {
   if (!productId || productId === "new") return null;
   // 1. Direct pass-through from All Products table
-  if (locationState && locationState.product && (locationState.product.id === productId || locationState.product.slug === productId)) {
+  if (
+    locationState &&
+    locationState.product &&
+    (locationState.product.id === productId ||
+      locationState.product._id === productId ||
+      locationState.product.slug === productId)
+  ) {
     return locationState.product;
   }
-  // 2. Verified local catalogue cache
+  // 2. Verified local catalogue cache (prefer exact id/_id match before slug/sku)
   try {
     const cached = localStorage.getItem("drmedex_admin_products_cache");
     if (cached) {
       const list = JSON.parse(cached);
       if (Array.isArray(list)) {
-        const found = list.find((p: any) => p.id === productId || p.slug === productId || p.sku === productId);
+        const exact = list.find((p: any) => p.id === productId || p._id === productId);
+        if (exact) return exact;
+        const found = list.find((p: any) => p.slug === productId || p.sku === productId);
         if (found) return found;
       }
     }
@@ -383,7 +424,8 @@ export const AdminProductEditorPage: React.FC = () => {
   const [statusBanner, setStatusBanner] = useState<{
     type: "success" | "error" | "warning";
     text: string;
-    duplicateProduct?: { id: string; _id?: string; slug?: string; title?: string; productName?: string; sku?: string };
+    duplicateProduct?: DuplicateProductRecord;
+    duplicateProducts?: DuplicateProductRecord[];
     loginRequired?: boolean;
   } | null>(null);
   const [missingProductError, setMissingProductError] = useState<string | null>(null);
@@ -425,9 +467,11 @@ export const AdminProductEditorPage: React.FC = () => {
   // Duplicate product detection state
   const [duplicateInfo, setDuplicateInfo] = useState<{
     isDuplicate: boolean;
-    duplicateProduct?: { id: string; _id?: string; title: string; sku: string; modelNumber?: string; slug?: string } | null;
-  }>({ isDuplicate: false, duplicateProduct: null });
+    duplicateProduct?: DuplicateProductRecord | null;
+    duplicateProducts?: DuplicateProductRecord[];
+  }>({ isDuplicate: false, duplicateProduct: null, duplicateProducts: [] });
   const [allowDuplicateOverride, setAllowDuplicateOverride] = useState(false);
+  const prevRouteKeyRef = useRef<string>(productId || "new");
 
   // Exchange rates for live currency preview
   const [exchangeRates, setExchangeRates] = useState<Record<string, number>>({
@@ -863,6 +907,53 @@ export const AdminProductEditorPage: React.FC = () => {
   // Fetch initial hierarchy, rates, and product details in PARALLEL
   useEffect(() => {
     let isCancelled = false;
+    const currentRouteKey = productId || "new";
+    const routeChanged = prevRouteKeyRef.current !== currentRouteKey;
+
+    if (routeChanged) {
+      prevRouteKeyRef.current = currentRouteKey;
+      manuallyEditedFieldsRef.current = new Set();
+      setManuallyEditedFields(new Set());
+      setStatusBanner(null);
+      setMissingProductError(null);
+      setSkuError(null);
+      setDuplicateInfo({ isDuplicate: false, duplicateProduct: null, duplicateProducts: [] });
+      setAllowDuplicateOverride(false);
+      setHasUnsavedChanges(false);
+      resolvedProductRef.current = initialProduct || null;
+
+      if (isEditMode) {
+        if (initialProduct) {
+          populateProductFields(initialProduct);
+          setIsLoading(false);
+        } else {
+          setIsLoading(true);
+        }
+      } else {
+        let restoredDraft: any = null;
+        try {
+          const rawDraft = sessionStorage.getItem("drmedex_editor_draft_new");
+          if (rawDraft) restoredDraft = JSON.parse(rawDraft);
+        } catch {}
+        if (restoredDraft) {
+          populateProductFields({
+            category: restoredDraft.category || "ot-lights",
+            subcategory: restoredDraft.subcategory || "",
+            equipmentType: restoredDraft.equipmentType || "",
+            productName: restoredDraft.productName || "",
+            modelNumber: restoredDraft.manufacturerModel || "",
+            sku: restoredDraft.sku || "",
+            description: restoredDraft.description || "",
+            basePrice: restoredDraft.basePrice || 0,
+            originalPrice: restoredDraft.originalPrice || 0,
+            stock: restoredDraft.stock || 0
+          });
+        } else {
+          populateProductFields({});
+        }
+        setIsLoading(false);
+      }
+    }
 
     async function initData() {
       try {
@@ -870,7 +961,7 @@ export const AdminProductEditorPage: React.FC = () => {
           fetch("/api/categories?includeInactive=true").catch(() => null),
           adminFetch("/api/admin/catalogue/hierarchy").catch(() => null),
           fetch("/api/currency/rates").catch(() => null),
-          isEditMode && productId ? adminFetch(`/api/admin/products/${productId}`).catch(() => null) : Promise.resolve(null)
+          isEditMode && productId ? adminFetch(`/api/admin/products/${encodeURIComponent(productId)}`).catch(() => null) : Promise.resolve(null)
         ]);
 
         if (isCancelled) return;
@@ -898,6 +989,13 @@ export const AdminProductEditorPage: React.FC = () => {
         }
 
         if (isEditMode && productId) {
+          if (prodRes && prodRes.status === 404) {
+            resolvedProductRef.current = null;
+            setMissingProductError(`Existing product record "${productId}" was not found or may have been deleted.`);
+            setIsLoading(false);
+            return;
+          }
+
           let liveProduct: any = null;
           if (prodRes && prodRes.ok) {
             try {
@@ -911,24 +1009,24 @@ export const AdminProductEditorPage: React.FC = () => {
           if (isCancelled) return;
 
           if (liveProduct) {
-            if (!hasInitialProduct) {
+            if (!hasInitialProduct || routeChanged) {
               populateProductFields(liveProduct);
             } else {
               reconcileProductFields(liveProduct);
             }
           } else if (!hasInitialProduct) {
-            // Fallback lookup if live request failed and no initial product
+            // Fallback lookup if live request failed due to offline/transient error and no initial product
             let fallbackP: any = null;
             try {
               const cached = localStorage.getItem("drmedex_admin_products_cache");
               if (cached) {
                 const list = JSON.parse(cached);
-                fallbackP = list.find((p: any) => p.id === productId || p.slug === productId || p.sku === productId);
+                fallbackP = list.find((p: any) => p.id === productId || p._id === productId || p.slug === productId || p.sku === productId);
               }
             } catch {}
             if (!fallbackP) {
               const fbProducts = await getFallbackProducts();
-              fallbackP = fbProducts.find((p: any) => p.id === productId || p.slug === productId || p.sku === productId);
+              fallbackP = fbProducts.find((p: any) => p.id === productId || p._id === productId || p.slug === productId || p.sku === productId);
             }
             if (fallbackP) {
               populateProductFields(fallbackP);
@@ -945,8 +1043,10 @@ export const AdminProductEditorPage: React.FC = () => {
           }
           setIsLoading(false);
         } else {
-          // New product mode: automatically generate initial SKU
-          fetchNewSku("ot-lights");
+          // New product mode: automatically generate initial SKU if blank
+          if (!routeChanged || !sessionStorage.getItem("drmedex_editor_draft_new")) {
+            fetchNewSku("ot-lights");
+          }
         }
       } catch (err) {
         console.error("Initialization error:", err);
@@ -1247,26 +1347,29 @@ export const AdminProductEditorPage: React.FC = () => {
 
   // Duplicate Check
   useEffect(() => {
-    if (!category || (!productName && !equipmentType)) {
-      setDuplicateInfo({ isDuplicate: false, duplicateProduct: null });
+    if (!category || (!productName.trim() && !equipmentType.trim() && !sku.trim())) {
+      setDuplicateInfo({ isDuplicate: false, duplicateProduct: null, duplicateProducts: [] });
       return;
     }
 
+    let isCancelled = false;
     const timer = setTimeout(async () => {
       try {
-        const excludeCandidates = [
-          productId,
-          initialProduct?.id,
-          initialProduct?._id,
-          initialProduct?.slug,
-          initialProduct?.sku,
-          resolvedProductRef.current?.id,
-          resolvedProductRef.current?._id,
-          resolvedProductRef.current?.slug,
-          resolvedProductRef.current?.sku,
-          slug,
-          sku
-        ].filter(Boolean);
+        const excludeCandidates = isEditMode
+          ? [
+              productId,
+              initialProduct?.id,
+              initialProduct?._id,
+              initialProduct?.slug,
+              resolvedProductRef.current?.id,
+              resolvedProductRef.current?._id,
+              resolvedProductRef.current?.slug
+            ].filter(Boolean)
+          : [];
+
+        const resolvedCurrentId = isEditMode
+          ? (productId || initialProduct?.id || initialProduct?._id || resolvedProductRef.current?.id || resolvedProductRef.current?._id || undefined)
+          : undefined;
 
         const res = await adminFetch("/api/admin/products/check-duplicate", {
           method: "POST",
@@ -1278,37 +1381,41 @@ export const AdminProductEditorPage: React.FC = () => {
             modelNumber: manufacturerModel,
             title: productName,
             productName,
-            id: productId || initialProduct?.id || initialProduct?._id || resolvedProductRef.current?.id || resolvedProductRef.current?._id || undefined,
+            id: resolvedCurrentId,
             sku,
-            excludeId: productId || initialProduct?.id || initialProduct?._id || resolvedProductRef.current?.id || resolvedProductRef.current?._id || undefined,
+            excludeId: resolvedCurrentId,
             excludeIds: excludeCandidates
           })
         });
 
+        if (isCancelled) return;
+
         if (res.ok) {
           const data = await res.json();
-          if (data.success && data.isDuplicate && data.duplicateProduct) {
-            // Confirm matched duplicate is genuinely another product, not self
-            const dup = data.duplicateProduct;
-            const dupIds = [dup.id, dup._id, dup.slug, dup.sku]
+          if (isCancelled) return;
+
+          const rawList: DuplicateProductRecord[] = Array.isArray(data.duplicateProducts) && data.duplicateProducts.length > 0
+            ? data.duplicateProducts
+            : (data.duplicateProduct ? [data.duplicateProduct] : []);
+
+          const currentIds = excludeCandidates.map((s: any) => String(s).toLowerCase().trim());
+          const filtered = rawList.filter((dup) => {
+            if (!dup) return false;
+            if (!isEditMode) return true;
+            const dupIds = [dup.id, dup._id, dup.slug]
               .filter(Boolean)
               .map((s: any) => String(s).toLowerCase().trim());
-            const currentIds = excludeCandidates.map((s: any) => String(s).toLowerCase().trim());
+            return !dupIds.some((id: string) => currentIds.includes(id));
+          });
 
-            const isSelf = isEditMode && (
-              dupIds.some((id: string) => currentIds.includes(id)) ||
-              (dup?.sku && (sku || "").trim().toLowerCase() === dup.sku.trim().toLowerCase() && (initialProduct?.sku || resolvedProductRef.current?.sku || "").trim().toLowerCase() === dup.sku.trim().toLowerCase())
-            );
-            if (!isSelf) {
-              setDuplicateInfo({
-                isDuplicate: true,
-                duplicateProduct: data.duplicateProduct
-              });
-            } else {
-              setDuplicateInfo({ isDuplicate: false, duplicateProduct: null });
-            }
+          if (data.success && data.isDuplicate && filtered.length > 0) {
+            setDuplicateInfo({
+              isDuplicate: true,
+              duplicateProduct: filtered[0],
+              duplicateProducts: filtered
+            });
           } else {
-            setDuplicateInfo({ isDuplicate: false, duplicateProduct: null });
+            setDuplicateInfo({ isDuplicate: false, duplicateProduct: null, duplicateProducts: [] });
           }
         }
       } catch (err) {
@@ -1316,7 +1423,10 @@ export const AdminProductEditorPage: React.FC = () => {
       }
     }, 400);
 
-    return () => clearTimeout(timer);
+    return () => {
+      isCancelled = true;
+      clearTimeout(timer);
+    };
   }, [category, subcategory, equipmentType, manufacturerModel, productName, productId, isEditMode, sku]);
 
   // Client-side image compression helper to avoid sending massive 10MB base64 camera strings
@@ -1643,6 +1753,8 @@ export const AdminProductEditorPage: React.FC = () => {
   };
 
   const deletingSlotIdsRef = useRef<Set<string>>(new Set());
+  const [deletingImageCount, setDeletingImageCount] = useState<number>(0);
+  const [imageDeleteNotice, setImageDeleteNotice] = useState<string | null>(null);
 
   // Helper to upload a single slot file to backend with automatic retries on transient errors
   const uploadSlotFile = async (slotId: string, file: File) => {
@@ -1915,19 +2027,23 @@ export const AdminProductEditorPage: React.FC = () => {
     const targetSlot = currentSlots[index];
     if (!targetSlot) return;
 
+    const lockKey = targetSlot.publicId || targetSlot.url || targetSlot.id;
+
     // Prevent duplicate delete requests & race conditions on rapid clicks
-    if (deletingSlotIdsRef.current.has(targetSlot.id)) return;
+    if (deletingSlotIdsRef.current.has(targetSlot.id) || deletingSlotIdsRef.current.has(lockKey)) return;
     deletingSlotIdsRef.current.add(targetSlot.id);
+    deletingSlotIdsRef.current.add(lockKey);
 
     const prevSlots = [...currentSlots];
     const prevPrimaryIndex = primaryImageIndex;
 
-    // Immediately remove from UI for snappy response
+    // Immediately remove from UI optimistically for snappy non-blocking feedback
     const filtered = currentSlots.filter((_, i) => i !== index);
     setImageSlots(filtered);
     if (primaryImageIndex >= filtered.length) {
       setPrimaryImageIndex(Math.max(0, filtered.length - 1));
     }
+    setUploadError(null);
     setHasUnsavedChanges(true);
 
     // If persisted image on server, execute DB & shared-asset-safe Cloudinary deletion asynchronously
@@ -1938,6 +2054,8 @@ export const AdminProductEditorPage: React.FC = () => {
       ((targetSlot.url && !targetSlot.url.startsWith("blob:") && !targetSlot.url.startsWith("data:")) || targetSlot.publicId);
 
     if (isRemotePersisted) {
+      setDeletingImageCount((c) => c + 1);
+      setImageDeleteNotice("Removing photograph...");
       try {
         const res = await adminFetch(`/api/admin/products/${encodeURIComponent(productId)}/images`, {
           method: "DELETE",
@@ -1954,18 +2072,59 @@ export const AdminProductEditorPage: React.FC = () => {
           setImageSlots(prevSlots);
           setPrimaryImageIndex(prevPrimaryIndex);
           setUploadError(data.message || "Failed to delete image from database. The photo has been restored.");
+          setImageDeleteNotice(null);
           return;
         }
+
+        // Sync local product cache so navigating back reflects removal immediately
+        if (Array.isArray(data.remainingImages)) {
+          try {
+            const cached = localStorage.getItem("drmedex_admin_products_cache");
+            if (cached) {
+              const list = JSON.parse(cached);
+              if (Array.isArray(list)) {
+                const updatedList = list.map((p: any) =>
+                  p && (p.id === productId || p.slug === productId)
+                    ? {
+                        ...p,
+                        images: data.remainingImages,
+                        primaryImage: data.primaryImage || data.remainingImages[0] || ""
+                      }
+                    : p
+                );
+                localStorage.setItem("drmedex_admin_products_cache", JSON.stringify(updatedList));
+              }
+            }
+          } catch {}
+        }
+
+        setImageDeleteNotice(
+          data.sharedAssetPreserved
+            ? "Removed from product (shared media preserved)."
+            : "Photograph removed from product and storage."
+        );
+        setTimeout(() => {
+          setImageDeleteNotice((prev) =>
+            prev === "Removed from product (shared media preserved)." ||
+            prev === "Photograph removed from product and storage."
+              ? null
+              : prev
+          );
+        }, 2500);
       } catch (err: any) {
         setImageSlots(prevSlots);
         setPrimaryImageIndex(prevPrimaryIndex);
         setUploadError(err?.message || "Network error deleting image. The photo has been restored.");
+        setImageDeleteNotice(null);
         return;
       } finally {
+        setDeletingImageCount((c) => Math.max(0, c - 1));
         deletingSlotIdsRef.current.delete(targetSlot.id);
+        deletingSlotIdsRef.current.delete(lockKey);
       }
     } else {
       deletingSlotIdsRef.current.delete(targetSlot.id);
+      deletingSlotIdsRef.current.delete(lockKey);
     }
 
     if (targetSlot?.previewUrl) {
@@ -2535,14 +2694,17 @@ export const AdminProductEditorPage: React.FC = () => {
       );
 
       if (isSelf) {
-        setDuplicateInfo({ isDuplicate: false, duplicateProduct: null });
+        setDuplicateInfo({ isDuplicate: false, duplicateProduct: null, duplicateProducts: [] });
       } else {
-        const conflictingTitle = dup?.title || (dup as any)?.productName || "existing product";
+        const conflictingTitle = getDuplicateDisplayName(dup) || "existing product";
         const conflictingSku = dup?.sku ? ` (SKU: ${dup.sku})` : "";
         setStatusBanner({
           type: "error",
           text: `Cannot save: A matching product already exists in this category ('${conflictingTitle}'${conflictingSku}). Please review or check allow intentional variant.`,
-          duplicateProduct: dup || undefined
+          duplicateProduct: dup || undefined,
+          duplicateProducts: duplicateInfo.duplicateProducts && duplicateInfo.duplicateProducts.length > 0
+            ? duplicateInfo.duplicateProducts
+            : (dup ? [dup] : [])
         });
         window.scrollTo({ top: 0, behavior: "smooth" });
         return;
@@ -2790,7 +2952,11 @@ export const AdminProductEditorPage: React.FC = () => {
 
       setStatusBanner({
         type: "error",
-        text: data.message || `Failed to save product (HTTP ${res.status}). All entered fields have been safely preserved.`
+        text: data.message || `Failed to save product (HTTP ${res.status}). All entered fields have been safely preserved.`,
+        duplicateProduct: data.duplicateProduct || undefined,
+        duplicateProducts: Array.isArray(data.duplicateProducts)
+          ? data.duplicateProducts
+          : (data.duplicateProduct ? [data.duplicateProduct] : undefined)
       });
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err: any) {
@@ -2868,9 +3034,20 @@ export const AdminProductEditorPage: React.FC = () => {
 
       {/* Global Status Banner */}
       {statusBanner && (() => {
-        const dup = statusBanner.duplicateProduct;
-        const dupTargetId = dup ? (dup.id || dup._id || dup.slug || dup.sku) : null;
-        const dupTitle = dup?.title || dup?.productName;
+        const bannerDuplicates =
+          Array.isArray(statusBanner.duplicateProducts) && statusBanner.duplicateProducts.length > 0
+            ? statusBanner.duplicateProducts
+            : statusBanner.duplicateProduct
+            ? [statusBanner.duplicateProduct]
+            : [];
+        const saveDraftFromBanner = () => {
+          try {
+            sessionStorage.setItem(
+              `drmedex_editor_draft_${productId || "new"}`,
+              JSON.stringify({ productName, manufacturerModel, sku, category, subcategory, equipmentType, description, basePrice, originalPrice, stock })
+            );
+          } catch {}
+        };
         return (
           <div
             role={statusBanner.type === "error" ? "alert" : undefined}
@@ -2887,52 +3064,64 @@ export const AdminProductEditorPage: React.FC = () => {
                 size={18}
                 className={`mt-0.5 shrink-0 ${statusBanner.type === "error" ? "text-[#D32F2F]" : statusBanner.type === "warning" ? "text-white" : "text-emerald-700"}`}
               />
-              <div className="space-y-1.5">
+              <div className="space-y-2 flex-1 min-w-0">
                 <p
-                  className={`text-xs font-semibold leading-relaxed ${
+                  className={`text-xs font-semibold leading-relaxed whitespace-normal break-words ${
                     statusBanner.type === "error" ? "text-[#D32F2F]" : statusBanner.type === "warning" ? "text-white" : "text-emerald-900"
                   }`}
                 >
-                  {dup && dupTargetId && dupTitle ? (
-                    <>
-                      Cannot save: A matching product already exists in this category (
-                      <Link
-                        to={`/admin/products/${encodeURIComponent(dupTargetId)}/edit`}
-                        onClick={() => {
-                          try {
-                            sessionStorage.setItem(
-                              `drmedex_editor_draft_${productId || "new"}`,
-                              JSON.stringify({ productName, manufacturerModel, sku, category, subcategory, equipmentType, description, basePrice, originalPrice, stock })
-                            );
-                          } catch {}
-                        }}
-                        className="underline font-black text-[#D32F2F] hover:text-[#B71C1C]"
-                      >
-                        {dupTitle}
-                      </Link>
-                      {dup.sku ? ` · SKU: ${dup.sku}` : ""}). Please review or check allow intentional variant.
-                    </>
-                  ) : (
-                    statusBanner.text
-                  )}
+                  {bannerDuplicates.length > 0
+                    ? "Cannot save: A matching product already exists in the catalogue. Please open the existing product below or check allow intentional variant."
+                    : statusBanner.text}
                 </p>
-                {dup && dupTargetId && (
-                  <div>
-                    <Link
-                      to={`/admin/products/${encodeURIComponent(dupTargetId)}/edit`}
-                      onClick={() => {
-                        try {
-                          sessionStorage.setItem(
-                            `drmedex_editor_draft_${productId || "new"}`,
-                            JSON.stringify({ productName, manufacturerModel, sku, category, subcategory, equipmentType, description, basePrice, originalPrice, stock })
-                          );
-                        } catch {}
-                      }}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#D32F2F] hover:bg-[#B71C1C] text-white text-[11px] font-bold transition-colors"
-                    >
-                      <ExternalLink size={12} />
-                      <span>View Existing Product</span>
-                    </Link>
+                {bannerDuplicates.length > 0 && (
+                  <div className="space-y-2">
+                    {bannerDuplicates.map((dupItem, idx) => {
+                      const targetId = getDuplicateRecordId(dupItem);
+                      const fullName = getDuplicateDisplayName(dupItem) || (dupItem.sku ? `Existing Product (${dupItem.sku})` : "Existing Product");
+                      return (
+                        <div
+                          key={targetId || `${fullName}-${idx}`}
+                          className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-2.5 rounded-xl bg-red-50/70 border border-red-200"
+                        >
+                          <div className="min-w-0 flex-1 text-xs leading-relaxed">
+                            {targetId ? (
+                              <Link
+                                to={`/admin/products/${encodeURIComponent(targetId)}/edit`}
+                                onClick={saveDraftFromBanner}
+                                className="font-bold text-[#B71C1C] hover:text-[#7F1D1D] underline decoration-2 underline-offset-2 whitespace-normal break-words"
+                              >
+                                {fullName}
+                              </Link>
+                            ) : (
+                              <span className="font-bold text-neutral-900 whitespace-normal break-words">
+                                {fullName}
+                              </span>
+                            )}
+                            {dupItem.sku && (
+                              <span className="inline-block ml-2 font-mono text-[11px] font-semibold text-neutral-700 bg-white border border-red-200 px-1.5 py-0.5 rounded">
+                                SKU: {dupItem.sku}
+                              </span>
+                            )}
+                            {!targetId && (
+                              <span className="block text-[11px] text-neutral-600 mt-0.5">
+                                Existing record ID is unavailable (product may have been deleted).
+                              </span>
+                            )}
+                          </div>
+                          {targetId && (
+                            <Link
+                              to={`/admin/products/${encodeURIComponent(targetId)}/edit`}
+                              onClick={saveDraftFromBanner}
+                              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#D32F2F] hover:bg-[#B71C1C] text-white text-[11px] font-bold transition-colors shrink-0 self-start sm:self-center"
+                            >
+                              <ExternalLink size={12} />
+                              <span>View Existing Product</span>
+                            </Link>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
                 {statusBanner.loginRequired && (
@@ -2964,9 +3153,14 @@ export const AdminProductEditorPage: React.FC = () => {
       })()}
 
       {/* Duplicate Product Detection Banner */}
-      {duplicateInfo.isDuplicate && duplicateInfo.duplicateProduct && (() => {
-        const dup = duplicateInfo.duplicateProduct;
-        const dupTargetId = dup.id || dup._id || dup.slug || dup.sku;
+      {duplicateInfo.isDuplicate && (duplicateInfo.duplicateProduct || (duplicateInfo.duplicateProducts && duplicateInfo.duplicateProducts.length > 0)) && (() => {
+        const duplicateList: DuplicateProductRecord[] =
+          Array.isArray(duplicateInfo.duplicateProducts) && duplicateInfo.duplicateProducts.length > 0
+            ? duplicateInfo.duplicateProducts
+            : duplicateInfo.duplicateProduct
+            ? [duplicateInfo.duplicateProduct]
+            : [];
+        if (duplicateList.length === 0) return null;
         const saveDraftBeforeNav = () => {
           try {
             sessionStorage.setItem(
@@ -2976,43 +3170,25 @@ export const AdminProductEditorPage: React.FC = () => {
           } catch {}
         };
         return (
-          <div className="mb-6 p-4 rounded-2xl border border-neutral-300 bg-white flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-xs text-neutral-900">
-            <div className="flex items-start gap-3">
-              <AlertTriangle size={18} className="text-[#EAB308] mt-0.5 shrink-0" />
-              <div>
-                <h4 className="text-xs font-bold text-neutral-900">
-                  Potential Duplicate Product Detected in Category
-                </h4>
-                <p className="text-xs text-neutral-600 mt-0.5">
-                  Existing item:{" "}
-                  {dupTargetId ? (
-                    <Link
-                      to={`/admin/products/${encodeURIComponent(dupTargetId)}/edit`}
-                      onClick={saveDraftBeforeNav}
-                      className="font-bold text-neutral-900 hover:text-[#2D5A4A] underline transition-colors"
-                    >
-                      {dup.title}
-                    </Link>
-                  ) : (
-                    <strong className="text-neutral-900 underline">{dup.title}</strong>
-                  )}{" "}
-                  (SKU: {dup.sku})
-                </p>
+          <div
+            data-testid="duplicate-product-warning"
+            className="mb-6 p-4 rounded-2xl border border-amber-300 bg-amber-50/40 shadow-xs text-neutral-900 space-y-3"
+          >
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+              <div className="flex items-start gap-2.5 min-w-0 flex-1">
+                <AlertTriangle size={18} className="text-[#D97706] mt-0.5 shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <h4 className="text-xs sm:text-sm font-bold text-neutral-900">
+                    Potential Duplicate Product Detected in Category
+                    {duplicateList.length > 1 ? ` (${duplicateList.length} matches)` : ""}
+                  </h4>
+                  <p className="text-[11px] text-neutral-600 mt-0.5">
+                    Click an existing product below to open its Admin Edit Product page in this tab.
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <div className="flex items-center gap-3 shrink-0">
-              {dupTargetId && (
-                <Link
-                  to={`/admin/products/${encodeURIComponent(dupTargetId)}/edit`}
-                  onClick={saveDraftBeforeNav}
-                  className="px-3 py-1.5 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 text-neutral-900 rounded-lg text-xs font-bold transition-colors inline-flex items-center gap-1.5"
-                >
-                  <ExternalLink size={13} />
-                  <span>View Existing Product</span>
-                </Link>
-              )}
-              <label className="flex items-center gap-1.5 text-xs text-neutral-800 cursor-pointer">
+              <label className="flex items-center gap-2 text-xs font-medium text-neutral-800 cursor-pointer shrink-0 self-start sm:self-center">
                 <input
                   type="checkbox"
                   checked={allowDuplicateOverride}
@@ -3021,6 +3197,63 @@ export const AdminProductEditorPage: React.FC = () => {
                 />
                 <span>Allow intentional variant</span>
               </label>
+            </div>
+
+            <div className="space-y-2">
+              {duplicateList.map((dupItem, idx) => {
+                const dupTargetId = getDuplicateRecordId(dupItem);
+                const fullName =
+                  getDuplicateDisplayName(dupItem) ||
+                  (dupItem.sku ? `Existing Product (${dupItem.sku})` : "Existing Product Record");
+                return (
+                  <div
+                    key={dupTargetId || `${fullName}-${idx}`}
+                    data-testid="duplicate-product-item"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-3 rounded-xl bg-white border border-neutral-200"
+                  >
+                    <div className="min-w-0 flex-1 space-y-1">
+                      <div className="text-xs sm:text-sm leading-relaxed whitespace-normal break-words">
+                        <span className="text-neutral-500 font-medium mr-1.5">Existing product:</span>
+                        {dupTargetId ? (
+                          <Link
+                            to={`/admin/products/${encodeURIComponent(dupTargetId)}/edit`}
+                            onClick={saveDraftBeforeNav}
+                            data-testid="duplicate-existing-product-link"
+                            className="font-bold text-[#2D5A4A] hover:text-[#1F4035] underline decoration-[#2D5A4A]/70 decoration-2 underline-offset-2 whitespace-normal break-words transition-colors"
+                          >
+                            {fullName}
+                          </Link>
+                        ) : (
+                          <strong className="font-bold text-neutral-900 whitespace-normal break-words">
+                            {fullName}
+                          </strong>
+                        )}
+                        {dupItem.sku && (
+                          <span className="inline-block ml-2 align-middle font-mono text-[11px] font-semibold text-neutral-700 bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded">
+                            SKU: {dupItem.sku}
+                          </span>
+                        )}
+                      </div>
+                      {!dupTargetId && (
+                        <p className="text-[11px] text-[#C62828] font-medium">
+                          This existing product record is unavailable or may have been deleted and cannot be opened.
+                        </p>
+                      )}
+                    </div>
+
+                    {dupTargetId && (
+                      <Link
+                        to={`/admin/products/${encodeURIComponent(dupTargetId)}/edit`}
+                        onClick={saveDraftBeforeNav}
+                        className="px-3 py-1.5 bg-neutral-100 hover:bg-[#2D5A4A] hover:text-white border border-neutral-300 hover:border-[#2D5A4A] text-neutral-900 rounded-lg text-xs font-bold transition-colors inline-flex items-center gap-1.5 shrink-0 self-start sm:self-center"
+                      >
+                        <ExternalLink size={13} />
+                        <span>View Existing Product</span>
+                      </Link>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         );
@@ -3125,13 +3358,32 @@ export const AdminProductEditorPage: React.FC = () => {
           className={`rounded-2xl p-6 transition-all duration-200 border ${getCardStyle("step-1")}`}
         >
           {/* Step 1 Header */}
-          <div className="bg-[#FFD400] border border-neutral-900/10 rounded-xl px-4 py-2.5 text-black flex items-center justify-between mb-5 shadow-xs">
+          <div className="bg-[#FFD400] border border-neutral-900/10 rounded-xl px-4 py-2.5 text-black flex items-center justify-between gap-2 mb-5 shadow-xs">
             <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-black">
               STEP 1 — PRODUCT IMAGES
             </span>
-            <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-black/10 border border-black/20 text-black">
-              {imageSlots.length} of 5 Photos
-            </span>
+            <div className="flex items-center gap-2">
+              {deletingImageCount > 0 ? (
+                <span
+                  role="status"
+                  className="inline-flex items-center gap-1.5 text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-white/90 text-[#C62828] border border-[#C62828]/30 shadow-2xs"
+                >
+                  <RefreshCw size={11} className="animate-spin" />
+                  <span>Removing ({deletingImageCount})...</span>
+                </span>
+              ) : imageDeleteNotice ? (
+                <span
+                  role="status"
+                  className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-300"
+                >
+                  <CheckCircle2 size={11} />
+                  <span>{imageDeleteNotice}</span>
+                </span>
+              ) : null}
+              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-black/10 border border-black/20 text-black">
+                {imageSlots.length} of 5 Photos
+              </span>
+            </div>
           </div>
 
           {/* Upload Error Banner */}

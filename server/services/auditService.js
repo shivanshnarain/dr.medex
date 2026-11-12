@@ -18,16 +18,44 @@ try {
   auditLogs = [];
 }
 
-function persistAudit() {
+let auditPersistTimer = null;
+let auditWriteInFlight = false;
+let auditDirtyAgain = false;
+
+async function flushAuditToDisk() {
+  if (process.env.VERCEL) return;
+  if (auditWriteInFlight) {
+    auditDirtyAgain = true;
+    return;
+  }
+  auditWriteInFlight = true;
   try {
     if (fs.existsSync(DB_FILE)) {
-      const raw = fs.readFileSync(DB_FILE, "utf-8");
+      const raw = await fs.promises.readFile(DB_FILE, "utf-8");
       const parsed = JSON.parse(raw);
       parsed.auditLogs = auditLogs;
-      fs.writeFileSync(DB_FILE, JSON.stringify(parsed, null, 2), "utf-8");
+      await fs.promises.writeFile(DB_FILE, JSON.stringify(parsed), "utf-8");
     }
   } catch (e) {
     // Non-fatal
+  } finally {
+    auditWriteInFlight = false;
+    if (auditDirtyAgain) {
+      auditDirtyAgain = false;
+      setImmediate(flushAuditToDisk);
+    }
+  }
+}
+
+function persistAudit() {
+  if (process.env.VERCEL) return;
+  if (auditPersistTimer) return;
+  auditPersistTimer = setTimeout(() => {
+    auditPersistTimer = null;
+    flushAuditToDisk();
+  }, 150);
+  if (typeof auditPersistTimer.unref === "function") {
+    auditPersistTimer.unref();
   }
 }
 

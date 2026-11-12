@@ -381,10 +381,7 @@ router.get("/products", requireAdmin, async (req, res) => {
   try {
     const { search, category, status, includeArchived, stock, reviewStatus, sort = "updated_desc", page = 1, limit = 20 } = req.query;
 
-    // 1. Get tombstone deleted product IDs from MongoDB Atlas
-    const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
-
-    // 2. Pre-calculate orders reference map so frontend knows whether each product has order history
+    // 1. Pre-calculate orders reference map so frontend knows whether each product has order history
     const orders = store.getOrders();
     const orderProductIds = new Set();
     orders.forEach(o => {
@@ -395,14 +392,18 @@ router.get("/products", requireAdmin, async (req, res) => {
       }
     });
 
-    // 3. Load authoritative list from MongoDB Atlas when configured, fallback to store only if not configured or offline
+    // 2. Load tombstone deleted IDs & authoritative MongoDB products concurrently
+    const nowIso = new Date().toISOString();
+    let deletedIds = new Set();
     let list = [];
     if (mongoService.isConfigured()) {
       try {
-        const mongoList = await mongoService.getProductsFromMongo();
+        const [delRes, mongoList] = await Promise.all([
+          mongoService.getDeletedProductIds(),
+          mongoService.getProductsFromMongo()
+        ]);
+        if (delRes) deletedIds = delRes;
         if (Array.isArray(mongoList)) {
-          // Authoritative source of truth: MongoDB Atlas.
-          // Never merge seed or ghost products from initialProducts.
           const activeMongoList = mongoList.filter(m => !deletedIds.has(String(m.id)));
           list = activeMongoList.map(m => {
             const mid = String(m.id);
@@ -410,7 +411,7 @@ router.get("/products", requireAdmin, async (req, res) => {
               ...m,
               hasOrders: orderProductIds.has(mid),
               mongoSyncStatus: "SYNCED",
-              mongoSyncedAt: m.mongoSyncedAt || new Date().toISOString(),
+              mongoSyncedAt: m.mongoSyncedAt || nowIso,
               reviewStatus: m.reviewStatus || "PENDING"
             };
           });
@@ -427,7 +428,7 @@ router.get("/products", requireAdmin, async (req, res) => {
         }));
       }
     } else {
-      list = store.getProducts({ includeInactive: true }).filter(p => !deletedIds.has(String(p.id))).map(p => ({
+      list = store.getProducts({ includeInactive: true }).map(p => ({
         ...p,
         hasOrders: orderProductIds.has(String(p.id))
       }));
@@ -498,15 +499,19 @@ router.get("/products", requireAdmin, async (req, res) => {
       }
     }
 
-    // Sorting
-    list.sort((a, b) => {
-      if (sort === "price_asc") return (a.basePrice || 0) - (b.basePrice || 0);
-      if (sort === "price_desc") return (b.basePrice || 0) - (a.basePrice || 0);
-      // Default: recently updated / newest (updatedAt takes precedence over createdAt)
-      const dateA = new Date(a.updatedAt || a.createdAt || 0).getTime();
-      const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
-      return dateB - dateA;
-    });
+    // Sorting (Schwartzian transform avoids allocating Date objects inside comparator)
+    if (sort === "price_asc") {
+      list.sort((a, b) => (a.basePrice || 0) - (b.basePrice || 0));
+    } else if (sort === "price_desc") {
+      list.sort((a, b) => (b.basePrice || 0) - (a.basePrice || 0));
+    } else {
+      const keyed = list.map(item => ({
+        item,
+        ts: new Date(item.updatedAt || item.createdAt || 0).getTime() || 0
+      }));
+      keyed.sort((a, b) => b.ts - a.ts);
+      list = keyed.map(k => k.item);
+    }
 
     const total = list.length;
     const p = Math.max(1, parseInt(page));
@@ -1267,51 +1272,67 @@ router.post("/products/check-duplicate", requireAdmin, async (req, res) => {
 
   const genericModels = ["stdunit", "standard", "unit", "na", "none", "tbd", ""];
 
-  const matched = allProducts.find(p => {
+  const formatDuplicateRecord = (p) => {
+    const resolvedTitle = String(
+      p.title || p.productName || p.storefrontProductTitle || p.name || ""
+    ).trim();
+    const resolvedProductName = String(
+      p.productName || p.title || p.storefrontProductTitle || p.name || ""
+    ).trim();
+    return {
+      id: p.id ? String(p.id) : (p._id ? String(p._id) : ""),
+      _id: p._id ? String(p._id) : undefined,
+      title: resolvedTitle,
+      productName: resolvedProductName,
+      sku: String(p.sku || p.SKU || "").trim(),
+      modelNumber: p.modelNumber || "",
+      category: p.category || "",
+      slug: p.slug || ""
+    };
+  };
+
+  const matchedMap = new Map();
+  for (const p of allProducts) {
     // Current product being edited is never a duplicate of itself
-    if (isCurrentProduct(p)) return false;
+    if (isCurrentProduct(p)) continue;
 
-    // Check same category
-    const catMatch = p.category === category || norm(p.category) === norm(category);
-    if (!catMatch) return false;
-
-    // 1. Check SKU collision (SKUs must be unique)
+    // 1. Global SKU collision (SKUs must be unique across catalogue)
     const pSku = norm(p.sku || p.SKU);
-    if (reqSku && pSku && reqSku === pSku) {
-      return true;
-    }
+    const isSkuMatch = Boolean(reqSku && pSku && reqSku === pSku);
 
-    // 2. Exact Title / Product Name match in the same category
-    const pTitle = norm(p.title || p.productName);
-    if (normTitle && pTitle && normTitle === pTitle && normTitle.length >= 3) {
-      return true;
-    }
-
-    // 3. Specific manufacturer model number match in the same category
-    if (normModel && !genericModels.includes(normModel)) {
-      const pModel = norm(p.modelNumber);
-      if (pModel && !genericModels.includes(pModel) && pModel === normModel) {
-        return true;
+    // 2. Check same category for title / model collisions
+    const catMatch = p.category === category || norm(p.category) === norm(category);
+    let isCategoryMatch = false;
+    if (catMatch) {
+      const pTitle = norm(p.title || p.productName || p.storefrontProductTitle || p.name);
+      if (normTitle && pTitle && normTitle === pTitle && normTitle.length >= 3) {
+        isCategoryMatch = true;
+      } else if (normModel && !genericModels.includes(normModel)) {
+        const pModel = norm(p.modelNumber);
+        if (pModel && !genericModels.includes(pModel) && pModel === normModel) {
+          isCategoryMatch = true;
+        }
       }
     }
 
-    return false;
-  });
+    if (isSkuMatch || isCategoryMatch) {
+      const formatted = formatDuplicateRecord(p);
+      const dedupeKey = formatted.id || formatted._id;
+      if (dedupeKey && !matchedMap.has(dedupeKey)) {
+        matchedMap.set(dedupeKey, formatted);
+      }
+    }
+  }
 
-  if (matched) {
+  const duplicateProducts = Array.from(matchedMap.values());
+
+  if (duplicateProducts.length > 0) {
     return res.json({
       success: true,
       isDuplicate: true,
       message: "A matching product already exists in this category. Please open the existing product instead of creating a duplicate.",
-      duplicateProduct: {
-        id: matched.id,
-        _id: matched._id,
-        title: matched.title || matched.productName,
-        sku: matched.sku || matched.SKU,
-        modelNumber: matched.modelNumber,
-        category: matched.category,
-        slug: matched.slug
-      }
+      duplicateProduct: duplicateProducts[0],
+      duplicateProducts
     });
   }
 
@@ -1319,7 +1340,8 @@ router.post("/products/check-duplicate", requireAdmin, async (req, res) => {
     success: true,
     isDuplicate: false,
     message: null,
-    duplicateProduct: null
+    duplicateProduct: null,
+    duplicateProducts: []
   });
 });
 
@@ -1386,6 +1408,62 @@ router.get("/products/:id/download-package", requireAdmin, async (req, res) => {
   } catch (err) {
     console.error("Export product package error:", err);
     res.status(500).json({ success: false, message: "Failed to generate product package: " + err.message });
+  }
+});
+
+/**
+ * Reliable Server-Side Verified All-Images ZIP Download
+ * Fetches all N images concurrently with retries and refuses silent partial skips.
+ */
+router.get("/products/:id/download-images-zip", requireAdmin, async (req, res) => {
+  try {
+    let product = store.getProductById(req.params.id, true);
+    if (mongoService.isConfigured()) {
+      try {
+        const mongoProd = await mongoService.getApprovedProduct(req.params.id);
+        if (mongoProd) {
+          product = product ? { ...product, ...mongoProd } : mongoProd;
+        }
+      } catch (mErr) {}
+    }
+
+    if (!product) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    const host = req.headers["x-forwarded-host"] || req.get("host");
+    const proto = req.headers["x-forwarded-proto"] || req.protocol || "https";
+    const origin = host ? `${proto}://${host}` : undefined;
+
+    const result = await exportService.generateImagesZipPackage(product, req.admin, { origin });
+    if (!result.success) {
+      return res.status(result.totalImages === 0 ? 404 : 502).json({
+        success: false,
+        message: result.totalImages === 0
+          ? "No product images found to download."
+          : `Failed to fetch ${result.failedImages.length} of ${result.totalImages} image(s): ${result.failedImages.map(f => `#${f.index} ${f.filename || ""}`).join(", ")}`,
+        totalImages: result.totalImages,
+        includedImages: result.includedImages,
+        failedImages: result.failedImages
+      });
+    }
+
+    auditService.logAction(req.admin.email, "PRODUCT_IMAGES_ZIP_DOWNLOADED", product.id, {
+      title: product.title || product.productName,
+      sku: product.sku || product.SKU,
+      filename: result.filename,
+      count: result.totalImages
+    });
+
+    res.setHeader("Content-Type", "application/zip");
+    res.setHeader("Content-Disposition", `attachment; filename="${result.filename}"`);
+    res.setHeader("Content-Length", result.buffer.length);
+    res.setHeader("X-Images-Count", String(result.totalImages));
+    res.setHeader("Access-Control-Expose-Headers", "Content-Disposition, X-Images-Count");
+    res.send(result.buffer);
+  } catch (err) {
+    console.error("Download images ZIP error:", err);
+    res.status(500).json({ success: false, message: "Failed to package product images: " + err.message });
   }
 });
 
@@ -1818,14 +1896,29 @@ router.post("/products", requireAdmin, async (req, res) => {
     }
     allProducts = allProducts.filter(p => !deletedIds.has(String(p.id)));
 
+    const toDuplicateSummary = (p) => ({
+      id: p.id ? String(p.id) : (p._id ? String(p._id) : ""),
+      _id: p._id ? String(p._id) : undefined,
+      slug: p.slug || "",
+      title: String(p.title || p.productName || p.storefrontProductTitle || p.name || "").trim(),
+      productName: String(p.productName || p.title || p.storefrontProductTitle || p.name || "").trim(),
+      sku: String(p.sku || p.SKU || "").trim(),
+      modelNumber: p.modelNumber || "",
+      category: p.category || ""
+    });
+
     // Enforce SKU Uniqueness
     if (data.sku) {
       const cleanSku = data.sku.trim().toLowerCase();
       const skuConflict = allProducts.find(p => (p.sku || p.SKU || "").toLowerCase() === cleanSku);
       if (skuConflict) {
+        const conflictSummary = toDuplicateSummary(skuConflict);
         return res.status(400).json({
           success: false,
-          message: `SKU '${data.sku}' is already assigned to '${skuConflict.title || skuConflict.productName}'. Please provide a unique SKU.`
+          isDuplicate: true,
+          message: `SKU '${data.sku}' is already assigned to '${conflictSummary.title || conflictSummary.sku}'. Please provide a unique SKU.`,
+          duplicateProduct: conflictSummary,
+          duplicateProducts: [conflictSummary]
         });
       }
     }
@@ -1835,31 +1928,27 @@ router.post("/products", requireAdmin, async (req, res) => {
     const normModel = norm(data.modelNumber);
     const normTitle = norm(data.title || data.productName);
 
-    const duplicate = allProducts.find(p => {
+    const duplicates = allProducts.filter(p => {
       const catMatch = p.category === data.category || norm(p.category) === norm(data.category);
       if (!catMatch) return false;
 
       if (normModel && p.modelNumber && norm(p.modelNumber) === normModel) return true;
-      if (normTitle && p.title && norm(p.title) === normTitle) return true;
+      const pTitle = norm(p.title || p.productName || p.storefrontProductTitle || p.name);
+      if (normTitle && pTitle && pTitle === normTitle) return true;
       if (data.equipmentType && p.equipmentType && norm(p.equipmentType) === norm(data.equipmentType)) {
         if (normModel && p.modelNumber && norm(p.modelNumber) === normModel) return true;
       }
       return false;
     });
 
-    if (duplicate && !data.forceCreate) {
+    if (duplicates.length > 0 && !data.forceCreate) {
+      const duplicateProducts = duplicates.map(toDuplicateSummary);
       return res.status(409).json({
         success: false,
         isDuplicate: true,
         message: "A matching product already exists in this category. Please open the existing product instead of creating a duplicate.",
-        duplicateProduct: {
-          id: duplicate.id,
-          _id: duplicate._id,
-          slug: duplicate.slug,
-          title: duplicate.title || duplicate.productName,
-          sku: duplicate.sku || duplicate.SKU,
-          modelNumber: duplicate.modelNumber
-        }
+        duplicateProduct: duplicateProducts[0],
+        duplicateProducts
       });
     }
 
@@ -2263,34 +2352,39 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
       }
     }
 
-    // Synchronize fallback files so deleted images never resurface on fallback
-    try {
-      const syncFiles = [
-        path.resolve(__dirname, "../../client/src/data/fallbackProducts.json"),
-        path.resolve(__dirname, "../../client/server/data/db.json")
-      ];
-      syncFiles.forEach(fp => {
-        if (fs.existsSync(fp)) {
-          try {
-            const raw = fs.readFileSync(fp, "utf8");
-            const parsed = JSON.parse(raw);
-            if (Array.isArray(parsed)) {
-              const idx = parsed.findIndex(p => p.id === updated.id);
-              if (idx !== -1) {
-                parsed[idx] = { ...parsed[idx], ...updated };
-                fs.writeFileSync(fp, JSON.stringify(parsed, null, 2));
-              }
-            } else if (parsed && Array.isArray(parsed.products)) {
-              const idx = parsed.products.findIndex(p => p.id === updated.id);
-              if (idx !== -1) {
-                parsed.products[idx] = { ...parsed.products[idx], ...updated };
-                fs.writeFileSync(fp, JSON.stringify(parsed, null, 2));
-              }
-            }
-          } catch {}
-        }
+    // Synchronize fallback files asynchronously without blocking HTTP response
+    if (!process.env.VERCEL) {
+      setImmediate(async () => {
+        try {
+          const syncFiles = [
+            path.resolve(__dirname, "../../client/src/data/fallbackProducts.json"),
+            path.resolve(__dirname, "../../client/server/data/db.json")
+          ];
+          await Promise.all(
+            syncFiles.map(async (fp) => {
+              try {
+                if (!fs.existsSync(fp)) return;
+                const raw = await fs.promises.readFile(fp, "utf8");
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) {
+                  const idx = parsed.findIndex(p => p.id === updated.id);
+                  if (idx !== -1) {
+                    parsed[idx] = { ...parsed[idx], ...updated };
+                    await fs.promises.writeFile(fp, JSON.stringify(parsed));
+                  }
+                } else if (parsed && Array.isArray(parsed.products)) {
+                  const idx = parsed.products.findIndex(p => p.id === updated.id);
+                  if (idx !== -1) {
+                    parsed.products[idx] = { ...parsed.products[idx], ...updated };
+                    await fs.promises.writeFile(fp, JSON.stringify(parsed));
+                  }
+                }
+              } catch {}
+            })
+          );
+        } catch {}
       });
-    } catch {}
+    }
 
     // Detect specific changes for granular audit logging
     const changes = {};

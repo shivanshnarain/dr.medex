@@ -15,8 +15,15 @@ app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ extended: true, limit: "25mb" }));
 
 // API Routes (mounted under both /api and root to handle any rewrite format)
+// Note: Skip GET HTML page navigations on /admin/* so direct URL loads & browser reloads serve SPA index.html
 app.use("/api/admin", adminRoutes);
-app.use("/admin", adminRoutes);
+app.use("/admin", (req, res, next) => {
+  const accept = String(req.headers.accept || "");
+  if (req.method === "GET" && accept.includes("text/html")) {
+    return next();
+  }
+  return adminRoutes(req, res, next);
+});
 app.use("/api", apiRoutes);
 app.use("/", apiRoutes);
 

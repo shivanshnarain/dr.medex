@@ -31,10 +31,12 @@ function escapeCSV(val) {
   return `"${escaped}"`;
 }
 
+const imageResolver = require("./imageResolver");
+
 /**
- * Resolve an image URL/path to a Buffer
+ * Resolve an image URL/path to a Buffer with retry & timeout safety
  */
-async function resolveImageBuffer(imgUrl, sourceUrl) {
+async function resolveImageBuffer(imgUrl, sourceUrl, options = {}) {
   if (!imgUrl && !sourceUrl) return null;
   const rawTarget = imgUrl || sourceUrl;
   const targetUrl = typeof rawTarget === "string" ? rawTarget : (rawTarget?.url || rawTarget?.src || "");
@@ -46,15 +48,20 @@ async function resolveImageBuffer(imgUrl, sourceUrl) {
     if (commaIdx !== -1) {
       try {
         const b64Data = targetUrl.substring(commaIdx + 1);
-        return Buffer.from(b64Data, "base64");
-      } catch (e) {
-        // failed parsing base64
-      }
+        const buf = Buffer.from(b64Data, "base64");
+        if (buf.length > 0) return buf;
+      } catch (e) {}
     }
   }
 
   // 1. Check local public directories
-  if (targetUrl.startsWith("/")) {
+  if (targetUrl.startsWith("/") || targetUrl.startsWith("products-catalog/")) {
+    const resolvedLocal = imageResolver.resolveLocalImagePath(targetUrl);
+    if (resolvedLocal && fs.existsSync(resolvedLocal)) {
+      try {
+        return await fs.promises.readFile(resolvedLocal);
+      } catch (e) {}
+    }
     const candidatePaths = [
       path.join(__dirname, "../../client/public", targetUrl),
       path.join(__dirname, "../public", targetUrl),
@@ -63,43 +70,93 @@ async function resolveImageBuffer(imgUrl, sourceUrl) {
     ];
 
     for (const p of candidatePaths) {
-      if (fs.existsSync(p) && fs.statSync(p).isFile()) {
-        try {
-          return fs.readFileSync(p);
-        } catch (e) {
-          // ignore and try next
+      try {
+        if (fs.existsSync(p) && fs.statSync(p).isFile()) {
+          return await fs.promises.readFile(p);
         }
-      }
+      } catch (e) {}
     }
   }
 
   // 2. Check if local relative path exists
-  if (fs.existsSync(targetUrl) && fs.statSync(targetUrl).isFile()) {
-    try {
-      return fs.readFileSync(targetUrl);
-    } catch (e) {
-      // ignore
+  try {
+    if (fs.existsSync(targetUrl) && fs.statSync(targetUrl).isFile()) {
+      return await fs.promises.readFile(targetUrl);
     }
+  } catch (e) {}
+
+  // 3. Remote URL fetch (or origin CDN fallback for serverless) with bounded retries & timeout
+  let remoteUrl = null;
+  if (targetUrl.startsWith("http://") || targetUrl.startsWith("https://")) {
+    remoteUrl = targetUrl;
+  } else if (targetUrl.startsWith("/") && options.origin) {
+    remoteUrl = `${options.origin.replace(/\/+$/, "")}${targetUrl}`;
+  } else if (sourceUrl && typeof sourceUrl === "string" && sourceUrl.startsWith("http")) {
+    remoteUrl = sourceUrl;
   }
 
-  // 3. Remote URL fetch with timeout
-  const remoteUrl = targetUrl.startsWith("http") ? targetUrl : (sourceUrl && typeof sourceUrl === "string" && sourceUrl.startsWith("http") ? sourceUrl : null);
   if (remoteUrl && typeof fetch === "function") {
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 8000);
-      const res = await fetch(remoteUrl, { signal: controller.signal });
-      clearTimeout(timeoutId);
-      if (res.ok) {
-        const arrayBuf = await res.arrayBuffer();
-        return Buffer.from(arrayBuf);
+    const maxRetries = options.retries ?? 2;
+    const timeoutMs = options.timeoutMs ?? 12000;
+    for (let attempt = 0; attempt <= maxRetries; attempt++) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+        const res = await fetch(remoteUrl, {
+          signal: controller.signal,
+          redirect: "follow"
+        });
+        clearTimeout(timeoutId);
+        if (res.ok) {
+          const ct = (res.headers.get("content-type") || "").toLowerCase();
+          if (ct && !ct.includes("image/") && !ct.includes("octet-stream") && !ct.includes("binary")) {
+            continue;
+          }
+          const arrayBuf = await res.arrayBuffer();
+          const buf = Buffer.from(arrayBuf);
+          if (buf.length > 0) return buf;
+        }
+        if (res.status === 404 || res.status === 403 || res.status === 400) {
+          break;
+        }
+      } catch (e) {
+        if (attempt === maxRetries) break;
       }
-    } catch (e) {
-      // Remote fetch failed / timed out
+      await new Promise(r => setTimeout(r, 250 * (attempt + 1)));
     }
   }
 
   return null;
+}
+
+function detectExtensionFromBuffer(buf, fallbackExt = "jpg") {
+  if (!buf || buf.length < 4) return fallbackExt;
+  if (buf[0] === 0xff && buf[1] === 0xd8 && buf[2] === 0xff) return "jpg";
+  if (buf[0] === 0x89 && buf[1] === 0x50 && buf[2] === 0x4e && buf[3] === 0x47) return "png";
+  if (
+    buf.length >= 12 &&
+    buf[0] === 0x52 && buf[1] === 0x49 && buf[2] === 0x46 && buf[3] === 0x46 &&
+    buf[8] === 0x57 && buf[9] === 0x45 && buf[10] === 0x42 && buf[11] === 0x50
+  ) {
+    return "webp";
+  }
+  if (buf[0] === 0x47 && buf[1] === 0x49 && buf[2] === 0x46 && buf[3] === 0x38) return "gif";
+  return fallbackExt;
+}
+
+async function resolveWithConcurrency(items, workerFn, maxConcurrency = 3) {
+  const results = new Array(items.length);
+  let cursor = 0;
+  const concurrency = Math.max(1, Math.min(maxConcurrency, items.length));
+  const workers = Array.from({ length: concurrency }, async () => {
+    while (true) {
+      const idx = cursor++;
+      if (idx >= items.length) break;
+      results[idx] = await workerFn(items[idx], idx);
+    }
+  });
+  await Promise.all(workers);
+  return results;
 }
 
 /**
@@ -184,33 +241,41 @@ async function generateProductPackage(product, adminUser = null) {
     return a.originalOrder - b.originalOrder;
   });
 
-  // 2. Resolve image buffers and assign filenames
+  // 2. Resolve image buffers concurrently (max 3 workers) while preserving exact sequence
   const zipFiles = [];
   const imageManifest = [];
   const failedImages = [];
 
   const cleanSku = sanitizeFilename(sku || "SKU");
-  let imgSeq = 1;
-  for (const imgItem of rawImages) {
-    let ext = "jpg";
-    if (typeof imgItem.url === "string" && imgItem.url.startsWith("data:image/")) {
-      const m = imgItem.url.match(/^data:image\/([a-zA-Z0-9+]+);/);
-      if (m && m[1]) {
-        ext = m[1].toLowerCase();
+  const resolvedBuffers = await resolveWithConcurrency(
+    rawImages,
+    async (imgItem) => {
+      let ext = "jpg";
+      if (typeof imgItem.url === "string" && imgItem.url.startsWith("data:image/")) {
+        const m = imgItem.url.match(/^data:image\/([a-zA-Z0-9+]+);/);
+        if (m && m[1]) {
+          ext = m[1].toLowerCase();
+          if (ext === "jpeg") ext = "jpg";
+        }
+      } else if (typeof imgItem.url === "string") {
+        const extMatch = imgItem.url.match(/\.(jpg|jpeg|png|webp|gif|svg)(\?.*)?$/i);
+        ext = extMatch ? extMatch[1].toLowerCase() : "jpg";
         if (ext === "jpeg") ext = "jpg";
       }
-    } else if (typeof imgItem.url === "string") {
-      const extMatch = imgItem.url.match(/\.(jpg|jpeg|png|webp|gif|svg)(\?.*)?$/i);
-      ext = extMatch ? extMatch[1].toLowerCase() : "jpg";
-      if (ext === "jpeg") ext = "jpg";
-    }
+      const buffer = await resolveImageBuffer(imgItem.url, imgItem.sourceUrl);
+      const detectedExt = detectExtensionFromBuffer(buffer, ext);
+      return { imgItem, buffer, ext: detectedExt };
+    },
+    3
+  );
 
+  let imgSeq = 1;
+  for (const resolved of resolvedBuffers) {
+    const { imgItem, buffer, ext } = resolved;
     const seqStr = String(imgSeq).padStart(2, "0");
-    const filename = `${cleanSku}_img_${seqStr}${imgItem.isPrimary ? '_primary' : ''}.${ext}`;
+    const filename = `${cleanSku}_img_${seqStr}${imgItem.isPrimary ? "_primary" : ""}.${ext}`;
 
-    const buffer = await resolveImageBuffer(imgItem.url, imgItem.sourceUrl);
-
-    if (buffer) {
+    if (buffer && buffer.length > 0) {
       zipFiles.push({
         name: `images/${filename}`,
         content: buffer
@@ -223,7 +288,6 @@ async function generateProductPackage(product, adminUser = null) {
         originalUrl: imgItem.url,
         sizeBytes: buffer.length
       });
-      imgSeq++;
     } else {
       failedImages.push({
         sequence: imgSeq,
@@ -231,6 +295,7 @@ async function generateProductPackage(product, adminUser = null) {
         reason: "Asset file not found locally and remote fetch unavailable"
       });
     }
+    imgSeq++;
   }
 
   // 3. Format product-details.json
@@ -465,7 +530,83 @@ async function generateProductPackage(product, adminUser = null) {
   };
 }
 
+/**
+ * Generate clean images-only ZIP archive for a product in exact canonical order.
+ * Strict integrity check: fails loudly if ANY image cannot be fetched so no file is silently missing.
+ */
+async function generateImagesZipPackage(product, adminUser = null, options = {}) {
+  const imageUrls = imageResolver.resolveProductImages(product);
+  if (!imageUrls || imageUrls.length === 0) {
+    return {
+      success: false,
+      totalImages: 0,
+      includedImages: 0,
+      failedImages: [{ index: 1, reason: "Product has no image URLs configured." }]
+    };
+  }
+
+  const sku = sanitizeFilename(product.sku || product.SKU || product.id || "product");
+  const resolved = await resolveWithConcurrency(
+    imageUrls,
+    async (imgUrl, idx) => {
+      let ext = "jpg";
+      if (typeof imgUrl === "string") {
+        const extMatch = imgUrl.match(/\.(jpg|jpeg|png|webp|gif|svg|avif)(?:\?.*)?$/i);
+        if (extMatch && extMatch[1]) {
+          ext = extMatch[1].toLowerCase() === "jpeg" ? "jpg" : extMatch[1].toLowerCase();
+        }
+      }
+      const buffer = await resolveImageBuffer(imgUrl, null, options);
+      const finalExt = detectExtensionFromBuffer(buffer, ext);
+      const seqStr = String(idx + 1).padStart(2, "0");
+      return {
+        index: idx + 1,
+        imgUrl,
+        filename: `${sku}_photo_${seqStr}.${finalExt}`,
+        buffer
+      };
+    },
+    3
+  );
+
+  const failedImages = resolved
+    .filter(item => !item.buffer || item.buffer.length === 0)
+    .map(item => ({
+      index: item.index,
+      filename: item.filename,
+      url: item.imgUrl,
+      reason: "Image could not be fetched from storage or CDN"
+    }));
+
+  if (failedImages.length > 0) {
+    return {
+      success: false,
+      totalImages: resolved.length,
+      includedImages: resolved.length - failedImages.length,
+      failedImages
+    };
+  }
+
+  const zipFiles = resolved.map(item => ({
+    name: item.filename,
+    content: item.buffer
+  }));
+  const buffer = createZip(zipFiles);
+
+  return {
+    success: true,
+    filename: `${sku}_photos_${resolved.length}.zip`,
+    buffer,
+    totalImages: resolved.length,
+    includedImages: resolved.length,
+    filenames: zipFiles.map(f => f.name),
+    failedImages: []
+  };
+}
+
 module.exports = {
   generateProductPackage,
+  generateImagesZipPackage,
+  resolveImageBuffer,
   sanitizeFilename
 };

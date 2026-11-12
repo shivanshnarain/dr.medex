@@ -44,6 +44,11 @@ const AdminReviewsPage = lazy(() => import("./pages/AdminReviewsPage").then((m) 
 const AdminCustomersPage = lazy(() => import("./pages/AdminCustomersPage").then((m) => ({ default: m.AdminCustomersPage })));
 const AdminNotificationsPage = lazy(() => import("./pages/AdminNotificationsPage").then((m) => ({ default: m.AdminNotificationsPage })));
 const AdminStorageManagementPage = lazy(() => import("./pages/AdminStorageManagementPage").then((m) => ({ default: m.AdminStorageManagementPage })));
+const AdminProductConfigPage = lazy(() => import("./pages/AdminSystemPages").then((m) => ({ default: m.AdminProductConfigPage })));
+const AdminMediaLibraryPage = lazy(() => import("./pages/AdminSystemPages").then((m) => ({ default: m.AdminMediaLibraryPage })));
+const AdminWebsiteContentPage = lazy(() => import("./pages/AdminSystemPages").then((m) => ({ default: m.AdminWebsiteContentPage })));
+const AdminSettingsPage = lazy(() => import("./pages/AdminSystemPages").then((m) => ({ default: m.AdminSettingsPage })));
+const AdminAuditTrailPage = lazy(() => import("./pages/AdminSystemPages").then((m) => ({ default: m.AdminAuditTrailPage })));
 
 function PageLoader() {
   return (
@@ -140,12 +145,17 @@ function AppContent() {
             <Route path="/admin/products/new" element={<AdminProductEditorPage />} />
             <Route path="/admin/products/:productId/edit" element={<AdminProductEditorPage />} />
             <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+            <Route path="/admin/product-configuration" element={<AdminProductConfigPage />} />
             <Route path="/admin/orders" element={<AdminOrdersPage />} />
             <Route path="/admin/orders/:orderId" element={<AdminOrdersPage />} />
             <Route path="/admin/reviews" element={<AdminReviewsPage />} />
             <Route path="/admin/customers" element={<AdminCustomersPage />} />
+            <Route path="/admin/media" element={<AdminMediaLibraryPage />} />
             <Route path="/admin/notifications" element={<AdminNotificationsPage />} />
             <Route path="/admin/storage" element={<AdminStorageManagementPage />} />
+            <Route path="/admin/website-content" element={<AdminWebsiteContentPage />} />
+            <Route path="/admin/settings" element={<AdminSettingsPage />} />
+            <Route path="/admin/audit-logs" element={<AdminAuditTrailPage />} />
 
             {/* 404 Fallback */}
             <Route path="*" element={<HomePage />} />

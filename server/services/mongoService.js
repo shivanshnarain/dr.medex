@@ -40,6 +40,36 @@ function invalidateMongoCache() {
   cachedDeletedIds = null;
 }
 
+/**
+ * Patch a single product inside the warm in-memory MongoDB cache without
+ * invalidating the entire 193-product snapshot.
+ */
+function patchCachedProduct(productId, updates) {
+  if (!Array.isArray(cachedMongoProducts) || !productId || !updates) return false;
+  const cleanId = String(productId).trim().toLowerCase();
+  const idx = cachedMongoProducts.findIndex(p => {
+    if (!p) return false;
+    return (
+      String(p.id || "").toLowerCase() === cleanId ||
+      String(p.slug || "").toLowerCase() === cleanId ||
+      (p._id && String(p._id).toLowerCase() === cleanId)
+    );
+  });
+  if (idx === -1) return false;
+  cachedMongoProducts[idx] = { ...cachedMongoProducts[idx], ...updates };
+  return true;
+}
+
+/**
+ * Return cached MongoDB products array if currently fresh in memory, else null.
+ */
+function getCachedProductsSnapshot() {
+  if (Array.isArray(cachedMongoProducts) && (Date.now() - cachedMongoProductsTime < MONGO_PRODUCTS_CACHE_TTL)) {
+    return cachedMongoProducts;
+  }
+  return null;
+}
+
 function getNormalizedUri() {
   const currentDb = (process.env.MONGODB_DB || "drmedex").trim().replace(/^["']|["']$/g, "");
   let raw = (process.env.MONGODB_URI || "").trim().replace(/^["']|["']$/g, "");
@@ -144,16 +174,16 @@ async function getCollection() {
   const collection = db.collection(COLLECTION_NAME);
 
   if (!indexesEnsured) {
-    try {
-      await collection.createIndex({ id: 1 }, { unique: true });
-      await collection.createIndex({ slug: 1 });
-      await collection.createIndex({ sku: 1 });
-      await collection.createIndex({ category: 1 });
-      indexesEnsured = true;
-    } catch (e) {
-      // index might already exist
-      indexesEnsured = true;
-    }
+    indexesEnsured = true;
+    Promise.all([
+      collection.createIndex({ id: 1 }, { unique: true }),
+      collection.createIndex({ slug: 1 }),
+      collection.createIndex({ sku: 1 }),
+      collection.createIndex({ category: 1 }),
+      collection.createIndex({ status: 1 }),
+      collection.createIndex({ reviewStatus: 1 }),
+      collection.createIndex({ updatedAt: -1 })
+    ]).catch(() => {});
   }
 
   return collection;
@@ -609,5 +639,7 @@ module.exports = {
   getDeletedProductIds,
   buildProductFilter,
   getClient,
-  invalidateMongoCache
+  invalidateMongoCache,
+  patchCachedProduct,
+  getCachedProductsSnapshot
 };

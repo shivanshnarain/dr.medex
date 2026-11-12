@@ -144,7 +144,13 @@ function ensureUniqueProductIds(products) {
 }
 
 let lastMtime = 0;
+let dirtyPersist = false;
+let persistTimer = null;
+let persistInFlight = false;
+let persistAgain = false;
+
 function checkReload() {
+  if (dirtyPersist || persistInFlight) return;
   try {
     // Check writable TMP_DB_FILE first (has latest runtime updates in serverless)
     if (fs.existsSync(TMP_DB_FILE)) {
@@ -190,22 +196,65 @@ function checkReload() {
 ensureUniqueProductIds(state.products);
 checkReload();
 
-function persist() {
+async function flushPersistAsync() {
+  if (persistInFlight) {
+    persistAgain = true;
+    return;
+  }
+  persistInFlight = true;
+  dirtyPersist = false;
+  const serialized = JSON.stringify(state);
   try {
-    fs.writeFileSync(DB_FILE, JSON.stringify(state, null, 2), "utf-8");
+    await fs.promises.writeFile(DB_FILE, serialized, "utf-8");
+    const stat = await fs.promises.stat(DB_FILE).catch(() => null);
+    if (stat) lastMtime = stat.mtimeMs;
+  } catch (e) {
+    try {
+      await fs.promises.writeFile(TMP_DB_FILE, serialized, "utf-8");
+      const stat = await fs.promises.stat(TMP_DB_FILE).catch(() => null);
+      if (stat) lastMtime = stat.mtimeMs;
+    } catch (tmpErr) {}
+  } finally {
+    persistInFlight = false;
+    if (persistAgain) {
+      persistAgain = false;
+      setImmediate(flushPersistAsync);
+    }
+  }
+}
+
+function flushPersistSync() {
+  if (!dirtyPersist) return;
+  dirtyPersist = false;
+  const serialized = JSON.stringify(state);
+  try {
+    fs.writeFileSync(DB_FILE, serialized, "utf-8");
     if (fs.existsSync(DB_FILE)) {
       lastMtime = fs.statSync(DB_FILE).mtimeMs;
     }
   } catch (e) {
-    // Read-only filesystem in Vercel/Lambda serverless: persist to /tmp
     try {
-      fs.writeFileSync(TMP_DB_FILE, JSON.stringify(state, null, 2), "utf-8");
+      fs.writeFileSync(TMP_DB_FILE, serialized, "utf-8");
       if (fs.existsSync(TMP_DB_FILE)) {
         lastMtime = fs.statSync(TMP_DB_FILE).mtimeMs;
       }
     } catch (tmpErr) {}
   }
 }
+
+function persist() {
+  dirtyPersist = true;
+  if (persistTimer) return;
+  persistTimer = setTimeout(() => {
+    persistTimer = null;
+    flushPersistAsync();
+  }, 50);
+  if (typeof persistTimer.unref === "function") {
+    persistTimer.unref();
+  }
+}
+
+process.on("beforeExit", flushPersistSync);
 
 module.exports = {
   reloadFromDisk: () => {
