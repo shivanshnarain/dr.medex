@@ -29,7 +29,7 @@ import { useAdminAuth } from "../context/AdminAuthContext";
 import { Product, Category } from "../types";
 import { getApiUrl } from "../lib/apiConfig";
 import { getFallbackProducts, fallbackCategories } from "../services/productService";
-import { buildZipArchive, verifyZipArchive, detectImageExtension } from "../lib/zipBuilder";
+import { detectImageExtension } from "../lib/zipBuilder";
 
 export const AdminProductsPage: React.FC = () => {
   const { adminFetch } = useAdminAuth();
@@ -1042,10 +1042,10 @@ export const AdminProductsPage: React.FC = () => {
   };
 
   /**
-   * Reliable ALL-images download in ONE attempt without browser multi-download drops:
+   * Reliable ALL-images individual download in ONE click:
    * - Fetches all N images with bounded concurrency (3) + retries + live X/N progress
-   * - Strictly fails loudly if ANY image fails (zero silent missing files)
-   * - 1 image -> direct file download; 2+ images -> verified ordered PKZIP archive
+   * - Strictly aborts with explicit details if ANY image fails (zero silent skips)
+   * - Saves EVERY image as an individual file in its original format (NO ZIP files)
    */
   const handleDownloadPhotos = async (product: Product) => {
     if (downloadingId) return;
@@ -1133,7 +1133,7 @@ export const AdminProductsPage: React.FC = () => {
       });
       await Promise.all(workers);
 
-      // 3. Verify EVERY photo succeeded before saving — never silently skip a file
+      // 3. Verify EVERY photo succeeded before dispatching individual downloads — never silently skip a file
       const failedDetails: string[] = [];
       for (let i = 0; i < targets.length; i++) {
         const outcome = settledResults[i];
@@ -1144,7 +1144,7 @@ export const AdminProductsPage: React.FC = () => {
 
       if (failedDetails.length > 0) {
         const okCount = targets.length - failedDetails.length;
-        const errMsg = `Download aborted (${okCount}/${targets.length} fetched): Failed on ${failedDetails.join("; ")}. Please retry.`;
+        const errMsg = `Download stopped (${okCount}/${targets.length} fetched): Failed on ${failedDetails.join("; ")}. Please retry.`;
         setBannerMessage({ text: errMsg, type: "error" });
         showToast("error", `${failedDetails.length} of ${targets.length} photos failed to fetch.`, "Download Incomplete");
         return;
@@ -1159,64 +1159,60 @@ export const AdminProductsPage: React.FC = () => {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        setTimeout(() => window.URL.revokeObjectURL(blobUrl), 15000);
+        setTimeout(() => window.URL.revokeObjectURL(blobUrl), 30000);
       };
 
-      // 4a. Single photo -> direct image download with detected extension
-      if (targets.length === 1) {
-        const onlyOutcome = settledResults[0];
-        const buf = new Uint8Array(await onlyOutcome.blob!.arrayBuffer());
-        const exactExt = detectImageExtension(buf, onlyOutcome.contentType || onlyOutcome.blob!.type, targets[0].imgUrl);
-        const exactFilename = `${baseSku}_photo_01.${exactExt}`;
-        triggerDownloadBlob(onlyOutcome.blob!, exactFilename);
+      // 4. Trigger individual downloads sequentially in exact canonical order (NEVER ZIP)
+      let savedCount = 0;
+      const savedFilenames: string[] = [];
+      const blockedErrors: string[] = [];
 
-        setBannerMessage({
-          text: `Downloaded 1/1 photo (${exactFilename}) successfully.`,
-          type: "success"
-        });
-        showToast("success", `Saved ${exactFilename}`, "Download Complete (1/1)");
-        return;
-      }
-
-      // 4b. Multiple photos (2..N) -> build & verify ONE complete ordered ZIP archive
-      setDownloadProgress({
-        productId: product.id,
-        title: prodTitle,
-        current: targets.length,
-        total: targets.length,
-        phase: `Packaging & verifying ${targets.length}/${targets.length} photos...`
-      });
-
-      const zipEntries: { name: string; data: Uint8Array }[] = [];
       for (let i = 0; i < targets.length; i++) {
         const outcome = settledResults[i];
-        const data = new Uint8Array(await outcome.blob!.arrayBuffer());
-        const exactExt = detectImageExtension(data, outcome.contentType || outcome.blob!.type, targets[i].imgUrl);
+        const headerBytes = new Uint8Array(await outcome.blob!.slice(0, 32).arrayBuffer());
+        const exactExt = detectImageExtension(
+          headerBytes,
+          outcome.contentType || outcome.blob!.type,
+          targets[i].imgUrl
+        );
         const seqStr = String(i + 1).padStart(2, "0");
-        zipEntries.push({
-          name: `${baseSku}_photo_${seqStr}.${exactExt}`,
-          data
+        const exactFilename = `${baseSku}_photo_${seqStr}.${exactExt}`;
+
+        setDownloadProgress({
+          productId: product.id,
+          title: prodTitle,
+          current: i + 1,
+          total: targets.length,
+          phase: `Downloading photo ${i + 1}/${targets.length}...`
         });
+
+        try {
+          triggerDownloadBlob(outcome.blob!, exactFilename);
+          savedCount++;
+          savedFilenames.push(exactFilename);
+        } catch (dlErr: any) {
+          blockedErrors.push(`${exactFilename} (${dlErr?.message || "Blocked by browser"})`);
+        }
+
+        // Spacing between consecutive downloads so browser download manager queues every file reliably
+        if (i < targets.length - 1) {
+          await new Promise((resolve) => setTimeout(resolve, 350));
+        }
       }
 
-      const zipBytes = buildZipArchive(zipEntries);
-      const verification = verifyZipArchive(zipBytes);
-      if (!verification.valid || verification.entryCount !== targets.length) {
-        const errMsg = `ZIP integrity check failed (${verification.entryCount}/${targets.length} files): ${verification.error || "Verification mismatch"}.`;
-        setBannerMessage({ text: errMsg, type: "error" });
-        showToast("error", errMsg, "Archive Verification Failed");
+      if (blockedErrors.length > 0) {
+        const warnMsg = `Downloaded ${savedCount} of ${targets.length} individual photos; browser blocked remaining files (${blockedErrors.join("; ")}). Please allow multiple automatic downloads for this site and retry.`;
+        setBannerMessage({ text: warnMsg, type: "warning" });
+        showToast("warning", warnMsg, "Multiple Downloads Restricted");
         return;
       }
 
-      const zipFilename = `${baseSku}_photos_${targets.length}.zip`;
-      const zipBlob = new Blob([zipBytes.buffer as ArrayBuffer], { type: "application/zip" });
-      triggerDownloadBlob(zipBlob, zipFilename);
-
+      const countLabel = `${savedCount}/${targets.length} individual photo${savedCount === 1 ? "" : "s"}`;
       setBannerMessage({
-        text: `Downloaded all ${targets.length}/${targets.length} product photos in exact order inside "${zipFilename}".`,
+        text: `Downloaded ${countLabel} (${savedFilenames.join(", ")}) successfully.`,
         type: "success"
       });
-      showToast("success", `Verified ${targets.length}/${targets.length} images packaged in ${zipFilename}`, "Download Complete");
+      showToast("success", `Saved ${countLabel}`, "Download Complete");
     } catch (err: any) {
       console.error("Photo download error:", err);
       setBannerMessage({ text: err.message || "Failed to download product photos.", type: "error" });
