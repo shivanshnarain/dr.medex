@@ -3753,6 +3753,9 @@ export const AdminProductEditorPage: React.FC = () => {
                     }}
                     className="w-full h-11 px-3.5 py-2.5 bg-white text-neutral-900 border border-neutral-300 rounded-xl text-xs font-medium focus:bg-[#FEFCE8] focus:border-[#FFD400] focus:ring-1 focus:ring-[#FFD400] focus:outline-none cursor-pointer"
                   >
+                    {(!category || !allCategories.some((c) => c.slug === category || c.id === category)) && (
+                      <option value="">— Unassigned (Select Category) —</option>
+                    )}
                     {allCategories.map((c) => {
                       const isInactive = c.status === "INACTIVE" || c.active === false;
                       return (

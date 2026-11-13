@@ -15,6 +15,7 @@
  *    - Never expose API secrets, DB passwords, or connection strings in logs or API responses.
  */
 
+const mongoService = require("./mongoService");
 const {
   getClient,
   isConfigured: isMongoConfigured,
@@ -465,23 +466,18 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
 
 /**
  * Execute Cascading Deletion of Category, Subcategory, or Equipment Type
+ * - Safely removes the taxonomy branch (parent category, child subcategories, child equipment types)
+ * - DO NOT delete genuine product records, product images, Cloudinary assets, prices, or SKUs
+ * - Safely detaches category/subcategory/equipmentType references from affected products
+ * - Persists updates to MongoDB Atlas approved_products and local store
+ * - Fully synchronized with public storefront and admin navigation
  */
-async function deleteCategoryWithDependencies(type, id, { parentCategory = null, parentSubcategory = null, cascadeProducts = false, adminEmail = "ADMIN" } = {}) {
-  const inspection = inspectCategoryDependencies(type, id, parentCategory, parentSubcategory);
+async function deleteCategoryWithDependencies(type, id, { parentCategory = null, parentSubcategory = null, cascadeProducts = false, purgeProducts = false, adminEmail = "ADMIN" } = {}) {
+  const cleanId = String(id || "").trim().toLowerCase();
+  const cleanParent = String(parentCategory || "").trim().toLowerCase();
+  const cleanSub = String(parentSubcategory || "").trim().toLowerCase();
 
-  // OPTION B GUARD: If products or child records exist and cascadeProducts is FALSE, reject with clear explanation
-  if (!cascadeProducts && !inspection.canDeleteDirectly) {
-    if (inspection.productCount > 0) {
-      const sample = inspection.products.slice(0, 3).map(p => p.title).join('", "');
-      throw new Error(`Cannot delete ${type} "${inspection.name}": ${inspection.productCount} product(s) depend on it (e.g. "${sample}"). Please reassign/remove these products or confirm "Delete Category and All Associated Products".`);
-    }
-    if (inspection.subcategoryCount > 0) {
-      throw new Error(`Cannot delete ${type} "${inspection.name}": ${inspection.subcategoryCount} child subcategory/subcategories depend on it.`);
-    }
-    if (inspection.equipmentTypeCount > 0) {
-      throw new Error(`Cannot delete ${type} "${inspection.name}": ${inspection.equipmentTypeCount} child equipment type(s) depend on it.`);
-    }
-  }
+  const inspection = inspectCategoryDependencies(type, id, parentCategory, parentSubcategory);
 
   const opId = `del_cat_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
   pendingOperations.set(opId, {
@@ -490,30 +486,109 @@ async function deleteCategoryWithDependencies(type, id, { parentCategory = null,
     targetId: id,
     adminEmail,
     stage: "INITIALIZED",
-    cascadeProducts,
     startedAt: new Date().toISOString()
   });
 
   const deletedProducts = [];
-  const productErrors = [];
   let totalDeletedMedia = 0;
 
-  // OPTION C: Delete all associated products permanently
-  if (cascadeProducts && inspection.products.length > 0) {
-    pendingOperations.get(opId).stage = "CASCADING_PRODUCT_DELETION";
+  // Only if explicit hard purge is requested (e.g. specialized purge tests)
+  if (purgeProducts && inspection.products.length > 0) {
+    pendingOperations.get(opId).stage = "PURGING_PRODUCTS";
     for (const prodInfo of inspection.products) {
       try {
         const prodDelRes = await deleteProductPermanently(prodInfo.id, adminEmail);
         deletedProducts.push(prodDelRes);
         totalDeletedMedia += (prodDelRes.media?.deletedCount || 0);
       } catch (prodErr) {
-        console.error(`[deletionService] Cascading delete error on product ${prodInfo.id}:`, prodErr);
-        productErrors.push({ id: prodInfo.id, error: prodErr.message });
+        console.error(`[deletionService] Purge error on product ${prodInfo.id}:`, prodErr);
+      }
+    }
+  } else {
+    // SAFE PRODUCT PRESERVATION: Detach category/subcategory references in MongoDB Atlas
+    pendingOperations.get(opId).stage = "DETACHING_PRODUCTS_MONGO";
+    if (mongoService.isConfigured()) {
+      try {
+        const client = await mongoService.getClient();
+        const db = client.db(process.env.MONGODB_DB || "drmedex");
+        const col = db.collection("approved_products");
+
+        if (type === "primary") {
+          const catId = cleanId;
+          const catName = inspection.name;
+          const subcatNames = (inspection.subcategories || []).flatMap(s => [s.id, s.name].filter(Boolean));
+          const orList = [
+            { category: { $regex: new RegExp(`^${escapeRegexStr(catId)}$`, "i") } },
+            { category: { $regex: new RegExp(`^${escapeRegexStr(catName)}$`, "i") } }
+          ];
+          if (subcatNames.length > 0) {
+            orList.push({ subcategory: { $in: subcatNames } });
+          }
+          await col.updateMany(
+            { $or: orList },
+            {
+              $set: {
+                category: "",
+                subcategory: "",
+                equipmentType: "",
+                subcategories: [],
+                updatedAt: new Date().toISOString()
+              }
+            }
+          );
+        } else if (type === "subcategory") {
+          const subId = cleanId;
+          const subName = inspection.name;
+          const eqNames = (inspection.equipmentTypes || []).flatMap(e => [e.id, e.name].filter(Boolean));
+          const orList = [
+            { subcategory: { $regex: new RegExp(`^${escapeRegexStr(subId)}$`, "i") } },
+            { subcategory: { $regex: new RegExp(`^${escapeRegexStr(subName)}$`, "i") } },
+            { subcategories: subId },
+            { subcategories: subName }
+          ];
+          if (eqNames.length > 0) {
+            orList.push({ equipmentType: { $in: eqNames } });
+          }
+          await col.updateMany(
+            { $or: orList },
+            {
+              $set: {
+                subcategory: "",
+                equipmentType: "",
+                updatedAt: new Date().toISOString()
+              },
+              $pull: {
+                subcategories: { $in: [subId, subName] }
+              }
+            }
+          );
+        } else if (type === "equipment") {
+          const eqId = cleanId;
+          const eqName = inspection.name;
+          await col.updateMany(
+            {
+              $or: [
+                { equipmentType: { $regex: new RegExp(`^${escapeRegexStr(eqId)}$`, "i") } },
+                { equipmentType: { $regex: new RegExp(`^${escapeRegexStr(eqName)}$`, "i") } }
+              ]
+            },
+            {
+              $set: {
+                equipmentType: "",
+                updatedAt: new Date().toISOString()
+              }
+            }
+          );
+        }
+
+        mongoService.invalidateMongoCache();
+      } catch (mErr) {
+        console.warn("[deletionService] Notice during MongoDB product detachment:", mErr.message);
       }
     }
   }
 
-  // Now delete the taxonomy record from store
+  // Delete the taxonomy record from store (also detaches local store products and persists)
   pendingOperations.get(opId).stage = "TAXONOMY_DELETION";
   let taxonomyResult = null;
   if (type === "primary") {
@@ -526,12 +601,13 @@ async function deleteCategoryWithDependencies(type, id, { parentCategory = null,
 
   pendingOperations.delete(opId);
 
-  auditService.logAction(adminEmail, `TAXONOMY_CASCADE_DELETED`, id, {
+  auditService.logAction(adminEmail, "TAXONOMY_CASCADE_DELETED", id, {
     type,
     name: inspection.name,
-    deletedProductsCount: deletedProducts.length,
-    deletedMediaCount: totalDeletedMedia,
-    errorsCount: productErrors.length
+    detachedProductsCount: inspection.productCount,
+    deletedSubcategoriesCount: inspection.subcategoryCount,
+    deletedEquipmentTypesCount: inspection.equipmentTypeCount,
+    purgedProductsCount: deletedProducts.length
   });
 
   return {
@@ -539,11 +615,11 @@ async function deleteCategoryWithDependencies(type, id, { parentCategory = null,
     type,
     id,
     name: inspection.name,
-    message: `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" and ${deletedProducts.length} associated product(s) permanently deleted.`,
+    message: `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" and dependent taxonomy records deleted successfully. ${inspection.productCount} product(s) safely preserved and detached.`,
+    detachedProductsCount: inspection.productCount,
     deletedProductsCount: deletedProducts.length,
-    deletedMediaCount: totalDeletedMedia,
-    deletedProducts,
-    productErrors,
+    deletedSubcategoriesCount: inspection.subcategoryCount,
+    deletedEquipmentTypesCount: inspection.equipmentTypeCount,
     hierarchy: store.getCatalogueHierarchy(),
     categories: store.getCategories(true)
   };

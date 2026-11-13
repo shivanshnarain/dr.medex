@@ -680,10 +680,11 @@ router.put("/catalogue/primary-category/:id", requireAdmin, (req, res) => {
 });
 
 // Delete Primary Category
-router.delete("/catalogue/primary-category/:id", requireAdmin, (req, res) => {
+router.delete("/catalogue/primary-category/:id", requireAdmin, async (req, res) => {
   try {
-    const result = store.deletePrimaryCategory(req.params.id);
-    auditService.logAction(req.admin?.email || "ADMIN", "PRIMARY_CATEGORY_DELETED", req.params.id, {});
+    const result = await deletionService.deleteCategoryWithDependencies("primary", req.params.id, {
+      adminEmail: req.admin?.email || "ADMIN"
+    });
     res.json({
       success: true,
       message: result.message,
@@ -696,10 +697,11 @@ router.delete("/catalogue/primary-category/:id", requireAdmin, (req, res) => {
 });
 
 // Alias DELETE /categories/:id
-router.delete("/categories/:id", requireAdmin, (req, res) => {
+router.delete("/categories/:id", requireAdmin, async (req, res) => {
   try {
-    const result = store.deletePrimaryCategory(req.params.id);
-    auditService.logAction(req.admin?.email || "ADMIN", "PRIMARY_CATEGORY_DELETED", req.params.id, {});
+    const result = await deletionService.deleteCategoryWithDependencies("primary", req.params.id, {
+      adminEmail: req.admin?.email || "ADMIN"
+    });
     res.json({
       success: true,
       message: result.message,
@@ -735,10 +737,12 @@ router.put("/catalogue/subcategory/:parentCategory/:subId", requireAdmin, (req, 
 });
 
 // Delete Subcategory
-router.delete("/catalogue/subcategory/:parentCategory/:subId", requireAdmin, (req, res) => {
+router.delete("/catalogue/subcategory/:parentCategory/:subId", requireAdmin, async (req, res) => {
   try {
-    const result = store.deleteSubcategory(req.params.parentCategory, req.params.subId);
-    auditService.logAction(req.admin?.email || "ADMIN", "SUBCATEGORY_DELETED", req.params.subId, { parentCategory: req.params.parentCategory });
+    const result = await deletionService.deleteCategoryWithDependencies("subcategory", req.params.subId, {
+      parentCategory: req.params.parentCategory,
+      adminEmail: req.admin?.email || "ADMIN"
+    });
     res.json({
       success: true,
       message: result.message,
@@ -767,10 +771,13 @@ router.put("/catalogue/equipment-type/:parentCategory/:subcategory/:eqId", requi
 });
 
 // Delete Equipment Type
-router.delete("/catalogue/equipment-type/:parentCategory/:subcategory/:eqId", requireAdmin, (req, res) => {
+router.delete("/catalogue/equipment-type/:parentCategory/:subcategory/:eqId", requireAdmin, async (req, res) => {
   try {
-    const result = store.deleteEquipmentType(req.params.parentCategory, req.params.subcategory, req.params.eqId);
-    auditService.logAction(req.admin?.email || "ADMIN", "EQUIPMENT_TYPE_DELETED", req.params.eqId, { parentCategory: req.params.parentCategory, subcategory: req.params.subcategory });
+    const result = await deletionService.deleteCategoryWithDependencies("equipment", req.params.eqId, {
+      parentCategory: req.params.parentCategory,
+      parentSubcategory: req.params.subcategory,
+      adminEmail: req.admin?.email || "ADMIN"
+    });
     res.json({
       success: true,
       message: result.message,
@@ -797,21 +804,17 @@ router.get("/catalogue/dependencies/:type/:id", requireAdmin, (req, res) => {
   }
 });
 
-// Cascading Deletion Endpoint with Explicit Guard
+// Cascading Deletion Endpoint
 router.post("/catalogue/delete-cascade", requireAdmin, async (req, res) => {
   try {
-    const { type, id, parentCategory, parentSubcategory, cascadeProducts, confirmed } = req.body;
+    const { type, id, parentCategory, parentSubcategory } = req.body;
     if (!type || !id) {
       return res.status(400).json({ success: false, message: "Entity type and id are required." });
-    }
-    if (cascadeProducts && !confirmed) {
-      return res.status(400).json({ success: false, message: "Explicit confirmation is required for cascading product deletion." });
     }
 
     const result = await deletionService.deleteCategoryWithDependencies(type, id, {
       parentCategory,
       parentSubcategory,
-      cascadeProducts: Boolean(cascadeProducts),
       adminEmail: req.admin.email
     });
 

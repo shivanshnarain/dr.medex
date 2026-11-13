@@ -103,8 +103,6 @@ export const AdminCategoriesPage: React.FC = () => {
   const [deleteError, setDeleteError] = useState<string | null>(null);
   const [deleteInspection, setDeleteInspection] = useState<any>(null);
   const [isLoadingInspection, setIsLoadingInspection] = useState(false);
-  const [showCascadeConfirm, setShowCascadeConfirm] = useState(false);
-  const [cascadeAcknowledged, setCascadeAcknowledged] = useState(false);
 
   // Fetch full taxonomy data
   const fetchData = useCallback(async () => {
@@ -432,8 +430,6 @@ export const AdminCategoriesPage: React.FC = () => {
     setDeletingItem(item);
     setDeleteError(null);
     setDeleteInspection(null);
-    setShowCascadeConfirm(false);
-    setCascadeAcknowledged(false);
     setIsLoadingInspection(true);
 
     try {
@@ -454,8 +450,8 @@ export const AdminCategoriesPage: React.FC = () => {
     }
   };
 
-  // Option B: Delete Category Only (Blocked if products or child subcategories depend on it)
-  const handleDeleteOnly = async () => {
+  // Confirm & Delete Category / Subcategory / Equipment Type
+  const handleConfirmDelete = async () => {
     if (!deletingItem) return;
     setDeleteError(null);
     setIsSubmittingDelete(true);
@@ -468,9 +464,7 @@ export const AdminCategoriesPage: React.FC = () => {
           type: deletingItem.type,
           id: deletingItem.id,
           parentCategory: deletingItem.parentCategory,
-          parentSubcategory: deletingItem.parentSubcategory,
-          cascadeProducts: false,
-          confirmed: false
+          parentSubcategory: deletingItem.parentSubcategory
         })
       });
 
@@ -484,52 +478,10 @@ export const AdminCategoriesPage: React.FC = () => {
         if (data.categories) setCategories(data.categories);
         await fetchData();
       } else {
-        setDeleteError(data.message || "Deletion prevented due to associated database dependencies.");
+        setDeleteError(data.message || "Deletion failed due to a server error.");
       }
     } catch (err: any) {
       setDeleteError(err.message || "Network error while attempting deletion.");
-    } finally {
-      setIsSubmittingDelete(false);
-    }
-  };
-
-  // Option C: Delete Category and All Associated Products (Cascading deletion with explicit second confirmation)
-  const handleDeleteCascade = async () => {
-    if (!deletingItem || !cascadeAcknowledged) return;
-    setDeleteError(null);
-    setIsSubmittingDelete(true);
-
-    try {
-      const res = await adminFetch("/api/admin/catalogue/delete-cascade", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          type: deletingItem.type,
-          id: deletingItem.id,
-          parentCategory: deletingItem.parentCategory,
-          parentSubcategory: deletingItem.parentSubcategory,
-          cascadeProducts: true,
-          confirmed: true
-        })
-      });
-
-      const data = await res.json().catch(() => ({}));
-
-      if (res.ok && data.success) {
-        const deletedName = deletingItem.name;
-        setDeletingItem(null);
-        setBanner({
-          type: "success",
-          text: data.message || `"${deletedName}" and ${data.deletedProductsCount || 0} associated products permanently deleted.`
-        });
-        if (data.hierarchy) setHierarchy(data.hierarchy);
-        if (data.categories) setCategories(data.categories);
-        await fetchData();
-      } else {
-        setDeleteError(data.message || "Cascading deletion failed.");
-      }
-    } catch (err: any) {
-      setDeleteError(err.message || "Network error during cascading deletion.");
     } finally {
       setIsSubmittingDelete(false);
     }
@@ -1434,35 +1386,38 @@ export const AdminCategoriesPage: React.FC = () => {
 
                 {isLoadingInspection ? (
                   <p className="text-xs text-neutral-500 italic">
-                    Querying MongoDB Atlas and Cloudinary media for dependent records...
+                    Scanning MongoDB Atlas and catalogue records for dependencies...
                   </p>
                 ) : deleteInspection ? (
-                  <div className="space-y-1.5 text-xs text-neutral-700">
-                    <p className="font-medium text-neutral-900">
-                      This {deletingItem.type} currently contains:
-                    </p>
-                    <div className="grid grid-cols-2 gap-2 mt-2 font-mono text-[11px]">
+                  <div className="space-y-3 text-xs text-neutral-700">
+                    <div className="grid grid-cols-2 gap-2 mt-1 font-mono text-[11px]">
                       <div className="p-2.5 bg-white border border-neutral-200 rounded-lg">
-                        <span className="text-neutral-500 block">Dependent Products:</span>
-                        <strong className={`text-sm ${deleteInspection.productCount > 0 ? "text-[#C62828]" : "text-[#2D5A4A]"}`}>
+                        <span className="text-neutral-500 block">Assigned Products:</span>
+                        <strong className={`text-sm ${deleteInspection.productCount > 0 ? "text-amber-800" : "text-[#2D5A4A]"}`}>
                           {deleteInspection.productCount} product(s)
                         </strong>
                       </div>
                       <div className="p-2.5 bg-white border border-neutral-200 rounded-lg">
-                        <span className="text-neutral-500 block">Cloudinary Media:</span>
-                        <strong className={`text-sm ${deleteInspection.imageCount > 0 ? "text-amber-700" : "text-[#2D5A4A]"}`}>
-                          {deleteInspection.imageCount} image(s)
+                        <span className="text-neutral-500 block">Child Records:</span>
+                        <strong className="text-sm text-neutral-900">
+                          {(deleteInspection.subcategoryCount || 0) + (deleteInspection.equipmentTypeCount || 0)} item(s)
                         </strong>
                       </div>
-                      {deleteInspection.subcategoryCount > 0 && (
-                        <div className="p-2.5 bg-white border border-neutral-200 rounded-lg col-span-2">
-                          <span className="text-neutral-500 block">Child Subcategories:</span>
-                          <strong className="text-sm text-neutral-900">
-                            {deleteInspection.subcategoryCount} subcategory/subcategories
-                          </strong>
-                        </div>
-                      )}
                     </div>
+
+                    {deleteInspection.productCount > 0 && (
+                      <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-900 leading-relaxed text-xs">
+                        <strong>Safe Product Preservation:</strong> All {deleteInspection.productCount} product(s) will be <strong>preserved</strong> in the catalog. Their {deletingItem.type === "primary" ? "category" : "subcategory"} reference will be safely unassigned in MongoDB Atlas and the catalog so no product records, prices, or Cloudinary images are deleted.
+                      </div>
+                    )}
+
+                    {(deleteInspection.subcategoryCount > 0 || deleteInspection.equipmentTypeCount > 0) && (
+                      <p className="text-xs text-neutral-600 leading-relaxed font-sans">
+                        Confirming will cascade and permanently remove this {deletingItem.type}
+                        {deleteInspection.subcategoryCount > 0 ? ` and its ${deleteInspection.subcategoryCount} child subcategory/subcategories` : ""}
+                        {deleteInspection.equipmentTypeCount > 0 ? ` and ${deleteInspection.equipmentTypeCount} child equipment type(s)` : ""} from the database and storefront.
+                      </p>
+                    )}
                   </div>
                 ) : (
                   <p className="text-xs text-neutral-500">
@@ -1476,110 +1431,33 @@ export const AdminCategoriesPage: React.FC = () => {
                 <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl text-xs text-red-900 flex items-start gap-2.5">
                   <AlertCircle size={16} className="text-[#C62828] shrink-0 mt-0.5" />
                   <div className="space-y-1">
-                    <div className="font-bold text-red-900">Deletion Blocked:</div>
+                    <div className="font-bold text-red-900">Deletion Error:</div>
                     <div className="leading-relaxed text-[11px] text-red-850 font-mono">{deleteError}</div>
                   </div>
                 </div>
               )}
 
-              {/* SECOND EXPLICIT CONFIRMATION FOR OPTION C */}
-              {showCascadeConfirm ? (
-                <div className="p-4 bg-red-50 border-2 border-red-300 rounded-xl space-y-3">
-                  <div className="flex items-center gap-2 text-red-900 font-bold text-xs uppercase tracking-wider font-mono">
-                    <AlertTriangle size={16} className="text-[#C62828]" />
-                    <span>Confirm Cascading Permanent Deletion</span>
-                  </div>
-                  <p className="text-xs text-neutral-800 leading-relaxed">
-                    You are about to permanently delete <strong>{deleteInspection?.productCount || 0} product(s)</strong> from MongoDB and destroy <strong>{deleteInspection?.imageCount || 0} exclusively owned image(s)</strong> from Cloudinary storage, along with this category.
-                  </p>
-                  <label className="flex items-start gap-2.5 text-xs text-neutral-900 font-semibold cursor-pointer p-2 bg-white/80 rounded-lg border border-red-200">
-                    <input
-                      type="checkbox"
-                      checked={cascadeAcknowledged}
-                      onChange={(e) => setCascadeAcknowledged(e.target.checked)}
-                      className="mt-0.5 rounded text-[#C62828] focus:ring-[#C62828]"
-                    />
-                    <span>
-                      I understand that this action will permanently delete all associated products and assets from storage and cannot be undone.
-                    </span>
-                  </label>
-
-                  <div className="pt-2 flex items-center justify-end gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setShowCascadeConfirm(false)}
-                      className="px-3.5 py-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-lg text-xs font-semibold cursor-pointer"
-                    >
-                      Back
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleDeleteCascade}
-                      disabled={isSubmittingDelete || !cascadeAcknowledged}
-                      className="px-4 py-2 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer disabled:opacity-50 flex items-center gap-2 shadow-md"
-                    >
-                      {isSubmittingDelete && <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />}
-                      <span>Permanently Delete Category & All Products</span>
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                /* THREE STANDARD DELETION OPTIONS */
-                <div className="space-y-3 pt-1">
-                  <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-500">
-                    Select Deletion Option:
-                  </div>
-
-                  {/* OPTION B: Delete Category Only */}
-                  <div className="p-3 border border-neutral-200 rounded-xl flex items-center justify-between gap-3 bg-white">
-                    <div>
-                      <div className="text-xs font-bold text-neutral-900">Option B: Delete Category Only</div>
-                      <div className="text-[11px] text-neutral-500 mt-0.5">
-                        {deleteInspection?.canDeleteDirectly
-                          ? "Safely removes category (0 dependent products)."
-                          : `Blocked: ${deleteInspection?.productCount || 0} product(s) or child subcategories depend on it.`}
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={handleDeleteOnly}
-                      disabled={isSubmittingDelete || isLoadingInspection || !deleteInspection?.canDeleteDirectly}
-                      className="px-3.5 py-1.5 bg-[#2D5A4A] hover:bg-[#1F4034] text-white text-xs font-bold rounded-lg cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
-                    >
-                      Delete Only
-                    </button>
-                  </div>
-
-                  {/* OPTION C: Delete Category and All Associated Products */}
-                  <div className="p-3 border border-red-200 rounded-xl flex items-center justify-between gap-3 bg-red-50/50">
-                    <div>
-                      <div className="text-xs font-bold text-[#C62828]">Option C: Delete Category & All Associated Products</div>
-                      <div className="text-[11px] text-neutral-600 mt-0.5">
-                        Permanently deletes all {deleteInspection?.productCount || 0} products, Cloudinary media, and this category.
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setShowCascadeConfirm(true)}
-                      disabled={isSubmittingDelete || isLoadingInspection}
-                      className="px-3.5 py-1.5 bg-[#C62828] hover:bg-[#B71C1C] text-white text-xs font-bold rounded-lg cursor-pointer disabled:opacity-40 shrink-0"
-                    >
-                      Cascade Delete...
-                    </button>
-                  </div>
-
-                  {/* OPTION A: Cancel */}
-                  <div className="pt-2 flex justify-end">
-                    <button
-                      type="button"
-                      onClick={() => setDeletingItem(null)}
-                      className="px-4 py-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-lg text-xs font-semibold cursor-pointer"
-                    >
-                      Option A: Cancel
-                    </button>
-                  </div>
-                </div>
-              )}
+              {/* Action Buttons */}
+              <div className="pt-2 flex items-center justify-end gap-3 border-t border-neutral-200">
+                <button
+                  type="button"
+                  onClick={() => setDeletingItem(null)}
+                  className="px-4 py-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-lg text-xs font-semibold cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  disabled={isSubmittingDelete || isLoadingInspection}
+                  onClick={handleConfirmDelete}
+                  className="px-4 py-2 bg-[#C62828] hover:bg-[#B71C1C] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer disabled:opacity-50 flex items-center gap-2 shadow-xs"
+                >
+                  {isSubmittingDelete && <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />}
+                  <span>
+                    {isSubmittingDelete ? "Deleting..." : `Confirm & Delete ${deletingItem.type === "primary" ? "Category" : deletingItem.type === "subcategory" ? "Subcategory" : "Equipment Type"}`}
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

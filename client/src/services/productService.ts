@@ -213,6 +213,26 @@ export async function getCategories(
 }
 
 /**
+ * Invalidate client category cache so fresh database taxonomy is refetched
+ */
+export function clearCategoriesCache() {
+  memoryCategoriesCache = null;
+  lastCategoriesFetchTime = 0;
+  categoriesInFlight = null;
+}
+
+/**
+ * Invalidate client product cache
+ */
+export function clearProductsCache() {
+  memoryProductsCache = null;
+  lastProductsFetchTime = 0;
+  productsInFlight = null;
+  memoryProductBySlugCache.clear();
+  sessionRandomShowcaseCache = null;
+}
+
+/**
  * Fetch product by slug with in-flight deduplication, instant memory cache, and lazy fallback
  */
 export async function getProductBySlug(
