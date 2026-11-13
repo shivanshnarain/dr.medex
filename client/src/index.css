@@ -257,12 +257,16 @@
   }
 }
 
-/* DR.MEDEX Hero Heading - White text with thin light-green outline matching Better Care */
+/* DR.MEDEX Hero Heading - White text with uniform, crisp light-green outline matching Better Care */
 .hero-heading-outline {
   color: #FFFFFF;
   -webkit-text-fill-color: #FFFFFF;
-  -webkit-text-stroke: 1.1px #7AA05A;
+  -webkit-text-stroke: 1px #7AA05A;
   paint-order: stroke fill;
+  letter-spacing: 0.02em;
+  word-spacing: 0.06em;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
 }
 
 @supports not (-webkit-text-stroke: 1px black) {

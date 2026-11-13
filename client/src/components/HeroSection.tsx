@@ -149,21 +149,24 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
           
           {/* LEFT COLUMN: HERO CONTENT (ON THE LEFT) */}
           <div className="lg:col-span-5 flex flex-col items-start order-2 lg:order-1">
-            {/* Eyebrow text with dark text and matching dark dot */}
-            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#111111] mb-4 sm:mb-5">
-              <span className="w-2 h-2 rounded-full bg-[#111111] shrink-0" />
+            {/* Eyebrow text with dark-green text and matching dark-green dot */}
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#2D5A4A] mb-4 sm:mb-5">
+              <span className="w-2 h-2 rounded-full bg-[#2D5A4A] shrink-0" />
               <span>TRUSTED MEDICAL EQUIPMENT PARTNER</span>
             </div>
 
             {/* Main Heading: Consistent font family, weight, and size across all lines */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[50px] xl:text-[54px] font-black tracking-tight leading-[1.08] mb-5 sm:mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-[50px] xl:text-[54px] font-black leading-[1.08] mb-5 sm:mb-6">
               <span
-                className="hero-heading-outline inline-block"
+                className="hero-heading-outline inline-block tracking-[0.02em]"
                 style={{
                   color: "#FFFFFF",
                   WebkitTextFillColor: "#FFFFFF",
-                  WebkitTextStroke: "1.1px #7AA05A",
+                  WebkitTextStroke: "1px #7AA05A",
                   paintOrder: "stroke fill",
+                  letterSpacing: "0.02em",
+                  wordSpacing: "0.06em",
+                  textRendering: "geometricPrecision",
                 }}
               >
                 Advanced
@@ -174,7 +177,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               </span>
               <br />
               <span
-                className="text-[#7AA05A] inline-block mt-0.5"
+                className="text-[#7AA05A] inline-block mt-0.5 tracking-tight"
                 style={{ color: "#7AA05A" }}
               >
                 Better Care
@@ -186,14 +189,14 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               Precision-engineered medical equipment for hospitals, clinics and healthcare professionals worldwide.
             </p>
 
-            {/* Explore Products CTA Button with enhanced realistic shadow */}
+            {/* Explore Products CTA Button with black outline and white text */}
             <div>
               <Link
                 to="/shop-all"
-                className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#C62828] hover:bg-[#B71C1C] text-white text-sm sm:text-base font-bold border-2 border-white cta-shadow-enhanced transition-all duration-200 cursor-pointer animate-hero-float"
+                className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#C62828] hover:bg-[#B71C1C] text-white text-sm sm:text-base font-bold border-2 border-black cta-shadow-enhanced transition-all duration-200 cursor-pointer animate-hero-float"
                 style={{ backgroundColor: "#C62828" }}
               >
-                <span>Explore Products</span>
+                <span className="text-white">Explore Products</span>
                 <ArrowRight
                   size={17}
                   className="text-white transition-transform duration-200 ease-out group-hover:translate-x-1.5 shrink-0"
@@ -210,8 +213,8 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
           >
             <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4 items-stretch">
               
-              {/* THREE SECONDARY THUMBNAILS (TO THE LEFT OF MAIN IMAGE): 4:5 ASPECT RATIO, WHITE INSET, DARK-GREEN OUTLINE */}
-              <div className="flex flex-row sm:flex-col gap-2.5 sm:gap-3 w-full sm:w-28 md:w-32 lg:w-36 shrink-0 justify-between">
+              {/* THREE SECONDARY THUMBNAILS (TO THE LEFT OF MAIN IMAGE): NARROWER, 4:5 ASPECT RATIO, THICKER WHITE OUTLINE, DARK-GREEN BORDER */}
+              <div className="flex flex-row sm:flex-col gap-2.5 sm:gap-3 w-full sm:w-20 md:w-22 lg:w-24 shrink-0 justify-between">
                 {secondaryIndices.map((secIdx) => {
                   const secSlide = HERO_CATEGORY_SLIDES[secIdx];
                   return (
@@ -219,14 +222,14 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                       key={secSlide.id}
                       type="button"
                       onClick={() => handleSelectThumbnail(secIdx)}
-                      className="group relative flex-1 rounded-xl p-[4px] bg-white border border-[#2D5A4A] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2D5A4A]/40 transition-all duration-300 select-none shadow-xs hover:shadow-md aspect-[4/5]"
+                      className="group relative flex-1 rounded-lg p-[5px] bg-white border border-[#2D5A4A] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2D5A4A]/40 transition-all duration-300 select-none shadow-xs hover:shadow-md aspect-[4/5]"
                       aria-label={`View ${secSlide.categoryLabel}`}
                     >
-                      <div className="w-full h-full rounded-[8px] overflow-hidden relative">
+                      <div className="w-full h-full rounded-[4px] overflow-hidden relative">
                         <img
                           src={secSlide.imageUrl}
                           alt={secSlide.categoryLabel}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-[8px]"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-[4px]"
                           loading="lazy"
                           onError={(e) => {
                             const target = e.currentTarget;
@@ -235,9 +238,9 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                             }
                           }}
                         />
-                        {/* Category name appears on hover at top-left with subtle white translucent gradient and black text */}
-                        <div className="absolute top-0 left-0 w-full h-3/5 bg-gradient-to-br from-white/90 via-white/50 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none p-2 rounded-tl-[8px] flex items-start justify-start">
-                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#111111] line-clamp-2 text-left">
+                        {/* Category name on hover: pure white text */}
+                        <div className="absolute top-1.5 left-1.5 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-white line-clamp-2 text-left">
                             {secSlide.categoryLabel}
                           </span>
                         </div>
@@ -247,8 +250,8 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 })}
               </div>
 
-              {/* LARGE MAIN IMAGE (TO THE RIGHT OF THUMBNAILS): COMPLETELY BORDERLESS */}
-              <div className="relative flex-1 rounded-2xl overflow-hidden shadow-xs group min-h-[340px] sm:min-h-[420px] lg:min-h-[460px] xl:min-h-[480px]">
+              {/* LARGE MAIN IMAGE (TO THE RIGHT OF THUMBNAILS): COMPLETELY BORDERLESS & SHADOWLESS */}
+              <div className="relative flex-1 rounded-2xl overflow-hidden group min-h-[340px] sm:min-h-[420px] lg:min-h-[460px] xl:min-h-[480px]">
                 
                 {/* 6 Crossfading Images */}
                 {HERO_CATEGORY_SLIDES.map((slide, idx) => {
@@ -280,23 +283,32 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                   );
                 })}
 
-                {/* Category Name on Hover: Top-Left, Subtle White Translucent Gradient, Black Text (NO shadow, NO white text) */}
-                <div className="absolute top-0 left-0 w-3/5 sm:w-1/2 h-2/5 bg-gradient-to-br from-white/90 via-white/40 to-transparent z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none p-4 sm:p-5 rounded-tl-2xl flex items-start justify-start">
-                  <span className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#111111]">
+                {/* Subtle localized gradient ONLY behind upper-left category text: starts soft white at top-left, fades downward & rightward into complete transparency */}
+                <div
+                  className="absolute top-0 left-0 w-64 max-w-[60%] h-20 pointer-events-none z-10 rounded-tl-2xl"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse at top left, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.12) 40%, rgba(255, 255, 255, 0) 75%)",
+                  }}
+                />
+
+                {/* Category Name: Top-Left, Pure White Text, NO dark text box, NO rectangular background, NO text shadow */}
+                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20 pointer-events-none">
+                  <span className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-white">
                     {activeSlide.categoryLabel}
                   </span>
                 </div>
 
-                {/* View Category Text Link: Bottom-Right, RED Text, NO Shadow, NO Button/Box */}
+                {/* View Category Link: Bottom-Right, Pure White Text & Arrow, NO red, NO shadow, NO button/box */}
                 <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-20">
                   <Link
                     to={activeSlide.categoryPath}
-                    className="group/link inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#C62828] hover:text-[#B71C1C] transition-all duration-200 hover:underline"
+                    className="group/link inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-white hover:text-white/85 transition-all duration-200 hover:underline"
                   >
                     <span>View Category</span>
                     <ArrowRight
                       size={14}
-                      className="text-[#C62828] group-hover/link:translate-x-1 transition-transform"
+                      className="text-white group-hover/link:translate-x-1 transition-transform"
                     />
                   </Link>
                 </div>
@@ -308,8 +320,8 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
 
         </div>
 
-        {/* THREE BENEFIT CARDS DIRECTLY BELOW THE HERO: CONTINUOUS FULL DARK-GREEN BG, SQUARE EDGES, WHITE SEPARATORS */}
-        <div className="mt-12 sm:mt-16 lg:mt-20 bg-[#2D5A4A] rounded-none overflow-hidden shadow-xs grid grid-cols-1 md:grid-cols-3 divide-y-2 md:divide-y-0 md:divide-x-4 md:divide-white">
+        {/* THREE BENEFIT CARDS DIRECTLY BELOW THE HERO: UNIFIED CONTINUOUS DARK-GREEN BG, SQUARE EDGES, ZERO WHITE GAPS */}
+        <div className="mt-12 sm:mt-16 lg:mt-20 bg-[#2D5A4A] rounded-none overflow-hidden grid grid-cols-1 md:grid-cols-3">
           
           {/* Card 1 */}
           <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between bg-[#2D5A4A]">
