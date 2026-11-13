@@ -101,7 +101,47 @@ async function runTests() {
 
   // Test 2: Upload 5 Images via /api/admin/media/upload
   console.log("\n--- TEST 2: Upload 5 Images with Duplicate Extensions ---");
-  const sample1x1Base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==";
+  const zlib = require("zlib");
+  function createTestPng(width, height) {
+    const signature = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+    const ihdrData = Buffer.alloc(13);
+    ihdrData.writeUInt32BE(width, 0);
+    ihdrData.writeUInt32BE(height, 4);
+    ihdrData[8] = 8;
+    ihdrData[9] = 2;
+    ihdrData[10] = 0;
+    ihdrData[11] = 0;
+    ihdrData[12] = 0;
+
+    let crc = 0xffffffff;
+    const ihdrFull = Buffer.concat([Buffer.from("IHDR"), ihdrData]);
+    for (let i = 0; i < ihdrFull.length; i++) {
+      crc ^= ihdrFull[i];
+      for (let j = 0; j < 8; j++) crc = (crc >>> 1) ^ (crc & 1 ? 0xedb88320 : 0);
+    }
+    const ihdrCrc = Buffer.alloc(4);
+    ihdrCrc.writeUInt32BE((crc ^ 0xffffffff) >>> 0, 0);
+
+    const ihdrChunk = Buffer.concat([Buffer.from([0, 0, 0, 13]), Buffer.from("IHDR"), ihdrData, ihdrCrc]);
+    const rawScanlines = Buffer.alloc(height * (1 + width * 3), 0);
+    const compressed = zlib.deflateSync(rawScanlines);
+
+    crc = 0xffffffff;
+    const idatFull = Buffer.concat([Buffer.from("IDAT"), compressed]);
+    for (let i = 0; i < idatFull.length; i++) {
+      crc ^= idatFull[i];
+      for (let j = 0; j < 8; j++) crc = (crc >>> 1) ^ (crc & 1 ? 0xedb88320 : 0);
+    }
+    const idatCrc = Buffer.alloc(4);
+    idatCrc.writeUInt32BE((crc ^ 0xffffffff) >>> 0, 0);
+
+    const idatLength = Buffer.alloc(4);
+    idatLength.writeUInt32BE(compressed.length, 0);
+    const idatChunk = Buffer.concat([idatLength, Buffer.from("IDAT"), compressed, idatCrc]);
+    const iendChunk = Buffer.from([0, 0, 0, 0, 0x49, 0x45, 0x4e, 0x44, 0xae, 0x42, 0x60, 0x82]);
+    return Buffer.concat([signature, ihdrChunk, idatChunk, iendChunk]);
+  }
+  const sample1024x1536Base64 = `data:image/png;base64,${createTestPng(1024, 1536).toString("base64")}`;
 
   const uploadedUrls = [];
   for (let i = 1; i <= 5; i++) {
@@ -109,7 +149,7 @@ async function runTests() {
     const res = await makeRequest("/api/admin/media/upload", "POST", {
       headers: authHeaders,
       body: {
-        data: sample1x1Base64,
+        data: sample1024x1536Base64,
         filename,
         contentType: "image/jpeg",
         productId: "test-operating-table"
@@ -182,7 +222,7 @@ async function runTests() {
   const retryRes = await makeRequest("/api/admin/media/upload", "POST", {
     headers: authHeaders,
     body: {
-      data: sample1x1Base64,
+      data: sample1024x1536Base64,
       filename: retryFilename,
       contentType: "image/jpeg",
       productId: createdProduct.id
@@ -203,7 +243,9 @@ async function runTests() {
   console.log("==========================================================================");
 }
 
-runTests().catch((err) => {
-  console.error("Test failure:", err);
-  process.exit(1);
-});
+runTests()
+  .then(() => process.exit(0))
+  .catch((err) => {
+    console.error("Test failure:", err);
+    process.exit(1);
+  });

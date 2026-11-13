@@ -398,7 +398,7 @@ module.exports = {
     }
 
     // Strict pixel dimension validation BEFORE uploading to Cloudinary or local storage:
-    // All newly uploaded product images must be exactly 1024 x 1536 pixels (2:3 portrait ratio).
+    // All newly uploaded product images must be exactly 1024 x 1536 pixels (2:3 ratio).
     const detectedDimensions = detectImageDimensionsFromBuffer(buffer, formatInfo.detectedExt);
     if (
       !detectedDimensions ||
@@ -406,10 +406,12 @@ module.exports = {
       detectedDimensions.height !== REQUIRED_IMAGE_HEIGHT
     ) {
       const actualDesc = detectedDimensions
-        ? `${detectedDimensions.width} × ${detectedDimensions.height} px`
-        : "unknown dimensions";
+        ? `${detectedDimensions.width} × ${detectedDimensions.height}`
+        : "unreadable";
       const dimErr = new Error(
-        `Incorrect Image Dimensions (${actualDesc}). Required: ${REQUIRED_IMAGE_WIDTH} × ${REQUIRED_IMAGE_HEIGHT} pixels (2:3 portrait ratio). Please resize or prepare your image to exactly ${REQUIRED_IMAGE_WIDTH} × ${REQUIRED_IMAGE_HEIGHT} pixels before uploading.`
+        detectedDimensions
+          ? `Invalid Image Dimensions. Only images of exactly ${REQUIRED_IMAGE_WIDTH} × ${REQUIRED_IMAGE_HEIGHT} pixels (2:3 ratio) are accepted. Your uploaded image is ${actualDesc} pixels. Please select a correctly sized image.`
+          : `Invalid Image Dimensions. Only images of exactly ${REQUIRED_IMAGE_WIDTH} × ${REQUIRED_IMAGE_HEIGHT} pixels (2:3 ratio) are accepted. Your uploaded image has unreadable dimensions. Please select a correctly sized image.`
       );
       dimErr.code = "INVALID_IMAGE_DIMENSIONS";
       dimErr.dimensions = detectedDimensions || null;

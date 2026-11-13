@@ -61,6 +61,13 @@ export interface ImageDimensionCheckResult {
   reason?: string;
 }
 
+export function formatInvalidDimensionsMessage(width: number | null, height: number | null): string {
+  if (width !== null && height !== null && width > 0 && height > 0) {
+    return `Invalid Image Dimensions. Only images of exactly ${REQUIRED_PRODUCT_IMAGE_WIDTH} × ${REQUIRED_PRODUCT_IMAGE_HEIGHT} pixels (2:3 ratio) are accepted. Your uploaded image is ${width} × ${height} pixels. Please select a correctly sized image.`;
+  }
+  return `Invalid Image Dimensions. Only images of exactly ${REQUIRED_PRODUCT_IMAGE_WIDTH} × ${REQUIRED_PRODUCT_IMAGE_HEIGHT} pixels (2:3 ratio) are accepted. Your uploaded image has unreadable dimensions. Please select a correctly sized image.`;
+}
+
 /**
  * Reads original image pixel dimensions directly from the selected File
  * without cropping, stretching, resizing, or modifying the image.
@@ -94,7 +101,7 @@ export async function validateProductImageDimensions(file: File): Promise<ImageD
       valid: false,
       width: null,
       height: null,
-      reason: "Unable to read original image dimensions."
+      reason: formatInvalidDimensionsMessage(null, null)
     };
   }
   const valid =
@@ -106,7 +113,7 @@ export async function validateProductImageDimensions(file: File): Promise<ImageD
     height: dims.height,
     reason: valid
       ? undefined
-      : `Detected ${dims.width} × ${dims.height} px (Required: ${REQUIRED_PRODUCT_IMAGE_WIDTH} × ${REQUIRED_PRODUCT_IMAGE_HEIGHT} px)`
+      : formatInvalidDimensionsMessage(dims.width, dims.height)
   };
 }
 

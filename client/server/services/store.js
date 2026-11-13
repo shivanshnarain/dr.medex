@@ -144,7 +144,13 @@ function ensureUniqueProductIds(products) {
 }
 
 let lastMtime = 0;
+let dirtyPersist = false;
+let persistTimer = null;
+let persistInFlight = false;
+let persistAgain = false;
+
 function checkReload() {
+  if (dirtyPersist || persistInFlight) return;
   try {
     // Check writable TMP_DB_FILE first (has latest runtime updates in serverless)
     if (fs.existsSync(TMP_DB_FILE)) {
@@ -156,7 +162,11 @@ function checkReload() {
         if (loaded && loaded.products && loaded.products.length > 0) {
           state = { ...state, ...loaded };
           if (loaded.catalogueHierarchy) {
+            for (const k of Object.keys(initialCatalogueHierarchy)) {
+              delete initialCatalogueHierarchy[k];
+            }
             Object.assign(initialCatalogueHierarchy, loaded.catalogueHierarchy);
+            state.catalogueHierarchy = JSON.parse(JSON.stringify(loaded.catalogueHierarchy));
           } else if (!state.catalogueHierarchy) {
             state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
           }
@@ -175,7 +185,11 @@ function checkReload() {
         if (loaded && loaded.products && loaded.products.length > 0) {
           state = { ...state, ...loaded };
           if (loaded.catalogueHierarchy) {
+            for (const k of Object.keys(initialCatalogueHierarchy)) {
+              delete initialCatalogueHierarchy[k];
+            }
             Object.assign(initialCatalogueHierarchy, loaded.catalogueHierarchy);
+            state.catalogueHierarchy = JSON.parse(JSON.stringify(loaded.catalogueHierarchy));
           } else if (!state.catalogueHierarchy) {
             state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
           }
@@ -190,16 +204,56 @@ function checkReload() {
 ensureUniqueProductIds(state.products);
 checkReload();
 
-function persist() {
+async function flushPersistAsync() {
+  if (persistInFlight) {
+    persistAgain = true;
+    return;
+  }
+  persistInFlight = true;
+  dirtyPersist = false;
+  if (!state || !Array.isArray(state.products) || state.products.length === 0) {
+    persistInFlight = false;
+    return;
+  }
+  const serialized = JSON.stringify(state, null, 2);
   try {
-    fs.writeFileSync(DB_FILE, JSON.stringify(state, null, 2), "utf-8");
+    await fs.promises.writeFile(DB_FILE, serialized, "utf-8");
+    const stat = await fs.promises.stat(DB_FILE).catch(() => null);
+    if (stat) lastMtime = stat.mtimeMs;
+  } catch (e) {
+    try {
+      await fs.promises.writeFile(TMP_DB_FILE, serialized, "utf-8");
+      const stat = await fs.promises.stat(TMP_DB_FILE).catch(() => null);
+      if (stat) lastMtime = stat.mtimeMs;
+    } catch (tmpErr) {}
+  } finally {
+    persistInFlight = false;
+    if (persistAgain) {
+      persistAgain = false;
+      setImmediate(flushPersistAsync);
+    }
+  }
+}
+
+function flushPersistSync() {
+  if (persistTimer) {
+    clearTimeout(persistTimer);
+    persistTimer = null;
+  }
+  if (!dirtyPersist) return;
+  dirtyPersist = false;
+  if (!state || !Array.isArray(state.products) || state.products.length === 0) {
+    return;
+  }
+  const serialized = JSON.stringify(state, null, 2);
+  try {
+    fs.writeFileSync(DB_FILE, serialized, "utf-8");
     if (fs.existsSync(DB_FILE)) {
       lastMtime = fs.statSync(DB_FILE).mtimeMs;
     }
   } catch (e) {
-    // Read-only filesystem in Vercel/Lambda serverless: persist to /tmp
     try {
-      fs.writeFileSync(TMP_DB_FILE, JSON.stringify(state, null, 2), "utf-8");
+      fs.writeFileSync(TMP_DB_FILE, serialized, "utf-8");
       if (fs.existsSync(TMP_DB_FILE)) {
         lastMtime = fs.statSync(TMP_DB_FILE).mtimeMs;
       }
@@ -207,7 +261,22 @@ function persist() {
   }
 }
 
+function persist() {
+  dirtyPersist = true;
+  if (persistTimer) return;
+  persistTimer = setTimeout(() => {
+    persistTimer = null;
+    flushPersistAsync();
+  }, 50);
+  if (typeof persistTimer.unref === "function") {
+    persistTimer.unref();
+  }
+}
+
+process.on("beforeExit", flushPersistSync);
+
 module.exports = {
+  flushPersistSync,
   reloadFromDisk: () => {
     lastMtime = 0;
     checkReload();
@@ -222,10 +291,20 @@ module.exports = {
       list = list.filter(p => {
         const cat = state.categories.find(c => c.id === p.category || c.slug === p.category);
         if (cat && (cat.status === "INACTIVE" || cat.active === false)) return false;
-        // Review-gated publishing rule: unreviewed products in review-gated categories (e.g. physiotherapy) remain unpublished from customer storefront
-        if (p.category === "physiotherapy" && p.reviewStatus !== "CORRECT") return false;
+        // Website visibility rule: ONLY CORRECT products display on the public storefront
+        if (p.reviewStatus !== "CORRECT") return false;
         return true;
       });
+    }
+    if (filters.reviewStatus && filters.reviewStatus !== "ALL" && filters.reviewStatus !== "all") {
+      const normReview = String(filters.reviewStatus).toUpperCase();
+      if (normReview === "CORRECT") {
+        list = list.filter(p => p.reviewStatus === "CORRECT");
+      } else if (normReview === "NEEDS_EDITING") {
+        list = list.filter(p => p.reviewStatus === "NEEDS_EDITING");
+      } else if (normReview === "PENDING" || normReview === "NOT_REVIEWED" || normReview === "NOT_YET_REVIEWED") {
+        list = list.filter(p => !p.reviewStatus || p.reviewStatus === "PENDING" || p.reviewStatus === "NOT_YET_REVIEWED" || p.reviewStatus === "NOT_REVIEWED");
+      }
     }
     if (filters.category && filters.category !== "ALL") {
       list = list.filter(p => p.category === filters.category);
@@ -834,53 +913,83 @@ module.exports = {
     const catName = (cat && cat.name) || (hier && hier.name) || id;
     const catSlug = (cat && (cat.slug || cat.id)) || hierKey;
 
-    if (!cascadeProducts) {
-      // 1. Dependency check: linked products
-      const linkedProducts = (state.products || []).filter(p => {
-        const pCat = (p.category || "").toLowerCase();
-        return pCat === cleanId || pCat === (cat?.slug || "").toLowerCase() || pCat === (cat?.id || "").toLowerCase() || pCat === (cat?.name || "").toLowerCase() || pCat === (hierKey || "").toLowerCase();
-      });
+    // Collect child subcategories to detach from products
+    const subcats = (cat && Array.isArray(cat.subcategories) && cat.subcategories.length > 0)
+      ? cat.subcategories
+      : (hier && Array.isArray(hier.subcategories) ? hier.subcategories : []);
+    const subcatSlugs = subcats.flatMap(s => [s.id, s.slug, s.name].filter(Boolean).map(x => x.toLowerCase()));
 
-      if (linkedProducts.length > 0) {
-        const sampleTitles = linkedProducts.slice(0, 3).map(p => p.title || p.productName || p.sku);
-        throw new Error(`Cannot delete primary category "${catName}": ${linkedProducts.length} product(s) are assigned to it (e.g. "${sampleTitles.join('", "')}"). Please reassign or remove these products before deleting this category.`);
+    // Safe product detachment in store.products (NEVER delete products!)
+    let detachedCount = 0;
+    (state.products || []).forEach(p => {
+      const pCat = (p.category || "").toLowerCase();
+      const pSub = (p.subcategory || "").toLowerCase();
+      const isMatch = (
+        pCat === cleanId ||
+        pCat === (cat?.slug || "").toLowerCase() ||
+        pCat === (cat?.id || "").toLowerCase() ||
+        pCat === (cat?.name || "").toLowerCase() ||
+        pCat === (hierKey || "").toLowerCase() ||
+        (pSub && subcatSlugs.includes(pSub))
+      );
+      if (isMatch) {
+        p.category = "";
+        p.subcategory = "";
+        p.equipmentType = "";
+        p.subcategories = [];
+        p.updatedAt = new Date().toISOString();
+        detachedCount++;
       }
+    });
 
-      // 2. Dependency check: child subcategories
-      const subcats = (cat && Array.isArray(cat.subcategories) && cat.subcategories.length > 0)
-        ? cat.subcategories
-        : (hier && Array.isArray(hier.subcategories) ? hier.subcategories : []);
-
-      if (subcats.length > 0) {
-        throw new Error(`Cannot delete primary category "${catName}": ${subcats.length} subcategory/subcategories depend on it. Please delete or reassign its child subcategories first.`);
-      }
-    }
-
-    // Safe deletion: delete only the selected taxonomy record
+    // Safe deletion: delete only the selected taxonomy record & its children
     if (cat) {
       state.categories = state.categories.filter(c => c.id !== cat.id && c.slug !== cat.slug);
     }
     if (hierKey && state.catalogueHierarchy) {
       delete state.catalogueHierarchy[hierKey];
+    }
+    if (hierKey && initialCatalogueHierarchy[hierKey]) {
       delete initialCatalogueHierarchy[hierKey];
     }
 
     persist();
-    return { success: true, message: `Primary category "${catName}" deleted successfully.` };
+    return {
+      success: true,
+      message: `Primary category "${catName}" deleted successfully. ${detachedCount} product(s) safely detached.`,
+      detachedCount
+    };
   },
   deleteSubcategory: (parentCategory, subId, cascadeProducts = false) => {
     checkReload();
     const cleanParent = (parentCategory || "").trim().toLowerCase();
     const cleanSub = (subId || "").trim().toLowerCase();
 
-    const cat = state.categories.find(c => c.id.toLowerCase() === cleanParent || (c.slug && c.slug.toLowerCase() === cleanParent) || c.name.toLowerCase() === cleanParent);
-    const hierKey = Object.keys(state.catalogueHierarchy || {}).find(
-      k => k.toLowerCase() === cleanParent || (state.catalogueHierarchy[k]?.name || "").toLowerCase() === cleanParent
-    );
-    const hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
+    let hierKey = cleanParent ? Object.keys(state.catalogueHierarchy || {}).find(
+      k => k.toLowerCase() === cleanParent || (state.catalogueHierarchy[k]?.name || "").toLowerCase() === cleanParent || (state.catalogueHierarchy[k]?.id || "").toLowerCase() === cleanParent
+    ) : null;
+    let hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
+    let cat = cleanParent ? state.categories.find(c => c.id.toLowerCase() === cleanParent || (c.slug && c.slug.toLowerCase() === cleanParent) || c.name.toLowerCase() === cleanParent) : null;
+
+    // Fallback: If parent not matched by parameter, scan hierarchy to find which category actually contains this subcategory
+    if (!hier && !cat) {
+      for (const [k, h] of Object.entries(state.catalogueHierarchy || {})) {
+        if (Array.isArray(h.subcategories) && h.subcategories.some(s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub)) {
+          hierKey = k;
+          hier = h;
+          break;
+        }
+      }
+      for (const c of (state.categories || [])) {
+        if (Array.isArray(c.subcategories) && c.subcategories.some(s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub)) {
+          cat = c;
+          break;
+        }
+      }
+    }
 
     if (!cat && !hier) {
-      throw new Error(`Parent category "${parentCategory}" was not found.`);
+      throw new Error(`Parent category "${parentCategory || "Unknown"}" was not found.`);
     }
 
     const subHier = hier && Array.isArray(hier.subcategories)
@@ -895,27 +1004,33 @@ module.exports = {
     }
 
     const subName = subHier?.name || subCat?.name || subId;
+    const subIdentList = [cleanSub, (subHier?.id || "").toLowerCase(), (subHier?.name || "").toLowerCase(), (subCat?.name || "").toLowerCase(), (subCat?.slug || "").toLowerCase()].filter(Boolean);
 
-    if (!cascadeProducts) {
-      // 1. Dependency check: linked products
-      const linkedProducts = (state.products || []).filter(p => {
-        const pSub = (p.subcategory || "").toLowerCase();
-        return pSub === cleanSub || pSub === (subHier?.name || "").toLowerCase() || pSub === (subCat?.name || "").toLowerCase() || pSub === (subHier?.id || "").toLowerCase();
-      });
+    // Collect child equipment types under this subcategory
+    const eqTypes = subHier && Array.isArray(subHier.equipmentTypes) ? subHier.equipmentTypes : [];
+    const eqIdentList = eqTypes.flatMap(e => [e.id, e.name].filter(Boolean).map(x => x.toLowerCase()));
 
-      if (linkedProducts.length > 0) {
-        const sampleTitles = linkedProducts.slice(0, 3).map(p => p.title || p.productName || p.sku);
-        throw new Error(`Cannot delete subcategory "${subName}": ${linkedProducts.length} product(s) are assigned to it (e.g. "${sampleTitles.join('", "')}"). Please reassign or remove these products before deleting this subcategory.`);
+    // Safe product detachment in store.products (NEVER delete products!)
+    let detachedCount = 0;
+    (state.products || []).forEach(p => {
+      const pSub = (p.subcategory || "").toLowerCase();
+      const pEq = (p.equipmentType || "").toLowerCase();
+      const isSubMatch = subIdentList.includes(pSub) ||
+        (Array.isArray(p.subcategories) && p.subcategories.some(s => subIdentList.includes((s || "").toLowerCase())));
+      const isEqMatch = pEq && eqIdentList.includes(pEq);
+
+      if (isSubMatch || isEqMatch) {
+        p.subcategory = "";
+        p.equipmentType = "";
+        if (Array.isArray(p.subcategories)) {
+          p.subcategories = p.subcategories.filter(s => !subIdentList.includes((s || "").toLowerCase()));
+        }
+        p.updatedAt = new Date().toISOString();
+        detachedCount++;
       }
+    });
 
-      // 2. Dependency check: verified equipment types
-      const eqTypes = subHier && Array.isArray(subHier.equipmentTypes) ? subHier.equipmentTypes : [];
-      if (eqTypes.length > 0) {
-        throw new Error(`Cannot delete subcategory "${subName}": ${eqTypes.length} verified equipment type(s) depend on it. Please delete them first.`);
-      }
-    }
-
-    // Safe deletion
+    // Safe taxonomy deletion (cascades equipment types naturally as they belong to this subcategory)
     if (hier && Array.isArray(hier.subcategories)) {
       hier.subcategories = hier.subcategories.filter(s => (s.id || "").toLowerCase() !== cleanSub && (s.name || "").toLowerCase() !== subName.toLowerCase());
       if (initialCatalogueHierarchy[hierKey]?.subcategories) {
@@ -927,7 +1042,11 @@ module.exports = {
     }
 
     persist();
-    return { success: true, message: `Subcategory "${subName}" deleted successfully.` };
+    return {
+      success: true,
+      message: `Subcategory "${subName}" deleted successfully. ${detachedCount} product(s) safely detached.`,
+      detachedCount
+    };
   },
   deleteEquipmentType: (parentCategory, subcategory, eqId) => {
     checkReload();
@@ -935,21 +1054,37 @@ module.exports = {
     const cleanSub = (subcategory || "").trim().toLowerCase();
     const cleanEq = (eqId || "").trim().toLowerCase();
 
-    const hierKey = Object.keys(state.catalogueHierarchy || {}).find(
-      k => k.toLowerCase() === cleanParent || (state.catalogueHierarchy[k]?.name || "").toLowerCase() === cleanParent
-    );
-    const hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
+    let hierKey = cleanParent ? Object.keys(state.catalogueHierarchy || {}).find(
+      k => k.toLowerCase() === cleanParent || (state.catalogueHierarchy[k]?.name || "").toLowerCase() === cleanParent || (state.catalogueHierarchy[k]?.id || "").toLowerCase() === cleanParent
+    ) : null;
+    let hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
 
-    if (!hier) {
-      throw new Error(`Primary category "${parentCategory}" was not found.`);
+    let sub = null;
+    if (hier && Array.isArray(hier.subcategories)) {
+      sub = hier.subcategories.find(
+        s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub
+      );
     }
 
-    const sub = (hier.subcategories || []).find(
-      s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub
-    );
-
+    // Fallback: If parent or subcategory not matched by parameter, scan full hierarchy for this equipment type
     if (!sub) {
-      throw new Error(`Subcategory "${subcategory}" was not found under "${hier.name}".`);
+      for (const [k, h] of Object.entries(state.catalogueHierarchy || {})) {
+        if (Array.isArray(h.subcategories)) {
+          for (const s of h.subcategories) {
+            if (Array.isArray(s.equipmentTypes) && s.equipmentTypes.some(e => (e.id || "").toLowerCase() === cleanEq || (e.name || "").toLowerCase() === cleanEq)) {
+              hierKey = k;
+              hier = h;
+              sub = s;
+              break;
+            }
+          }
+        }
+        if (sub) break;
+      }
+    }
+
+    if (!hier || !sub) {
+      throw new Error(`Equipment type "${eqId}" could not be located in catalogue hierarchy.`);
     }
 
     const eq = (sub.equipmentTypes || []).find(
@@ -961,17 +1096,18 @@ module.exports = {
     }
 
     const eqName = eq.name;
+    const eqIdentList = [cleanEq, (eq.id || "").toLowerCase(), eqName.toLowerCase()].filter(Boolean);
 
-    // 1. Dependency check: linked products
-    const linkedProducts = (state.products || []).filter(p => {
+    // Safe product detachment in store.products
+    let detachedCount = 0;
+    (state.products || []).forEach(p => {
       const pEq = (p.equipmentType || "").toLowerCase();
-      return pEq === cleanEq || pEq === eqName.toLowerCase() || pEq === (eq.id || "").toLowerCase();
+      if (eqIdentList.includes(pEq)) {
+        p.equipmentType = "";
+        p.updatedAt = new Date().toISOString();
+        detachedCount++;
+      }
     });
-
-    if (linkedProducts.length > 0) {
-      const sampleTitles = linkedProducts.slice(0, 3).map(p => p.title || p.productName || p.sku);
-      throw new Error(`Cannot delete verified equipment type "${eqName}": ${linkedProducts.length} product(s) are assigned to it (e.g. "${sampleTitles.join('", "')}"). Please reassign or remove these products before deleting this equipment type.`);
-    }
 
     // Safe deletion
     sub.equipmentTypes = sub.equipmentTypes.filter(e => (e.id || "").toLowerCase() !== cleanEq && (e.name || "").toLowerCase() !== eqName.toLowerCase());
@@ -980,7 +1116,11 @@ module.exports = {
     }
 
     persist();
-    return { success: true, message: `Verified equipment type "${eqName}" deleted successfully.` };
+    return {
+      success: true,
+      message: `Verified equipment type "${eqName}" deleted successfully. ${detachedCount} product(s) safely detached.`,
+      detachedCount
+    };
   },
   updateSubcategory: (parentCategory, subId, { name, description, shortDescription, displayOrder, order }) => {
     checkReload();
@@ -1112,6 +1252,7 @@ module.exports = {
       customer: orderPayload.customer,
       shippingAddress: orderPayload.shippingAddress,
       billingAddress: orderPayload.billingAddress || orderPayload.shippingAddress,
+      deliveryInstructions: orderPayload.deliveryInstructions || "",
       items: orderPayload.items.map(item => {
         const prod = state.products.find(p => p.id === item.productId) || {};
         const baseINR = item.basePriceINR || item.basePriceUSD || prod.basePrice || 1000;

@@ -300,9 +300,10 @@ export const ProductEditorModal: React.FC<ProductEditorModalProps> = ({
     const dimCheck = await validateProductImageDimensions(file);
     if (!dimCheck.valid) {
       alert(
-        `Incorrect Image Dimensions (${file.name}: ${
-          dimCheck.width && dimCheck.height ? `${dimCheck.width} × ${dimCheck.height} px` : "unreadable"
-        }).\n\nRequired: ${REQUIRED_PRODUCT_IMAGE_WIDTH} × ${REQUIRED_PRODUCT_IMAGE_HEIGHT} pixels (2:3 portrait ratio). Please resize or prepare your image to exactly ${REQUIRED_PRODUCT_IMAGE_WIDTH} × ${REQUIRED_PRODUCT_IMAGE_HEIGHT} pixels before uploading.`
+        dimCheck.reason ||
+          `Invalid Image Dimensions. Only images of exactly ${REQUIRED_PRODUCT_IMAGE_WIDTH} × ${REQUIRED_PRODUCT_IMAGE_HEIGHT} pixels (2:3 ratio) are accepted. Your uploaded image is ${
+            dimCheck.width && dimCheck.height ? `${dimCheck.width} × ${dimCheck.height}` : "unreadable"
+          } pixels. Please select a correctly sized image.`
       );
       return;
     }

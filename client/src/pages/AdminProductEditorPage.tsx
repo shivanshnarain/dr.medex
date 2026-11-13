@@ -5052,7 +5052,7 @@ export const AdminProductEditorPage: React.FC = () => {
                   id="dimension-error-modal-title"
                   className="text-sm sm:text-base font-bold text-neutral-900"
                 >
-                  Incorrect Image Dimensions
+                  Invalid Image Dimensions
                 </h3>
               </div>
               <button
@@ -5067,7 +5067,11 @@ export const AdminProductEditorPage: React.FC = () => {
 
             <div className="p-5 space-y-4">
               <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed">
-                Required: <span className="font-bold text-[#2D5A4A]">{REQUIRED_PRODUCT_IMAGE_WIDTH} × {REQUIRED_PRODUCT_IMAGE_HEIGHT} pixels (2:3 portrait ratio)</span>. Please resize or prepare your image to exactly {REQUIRED_PRODUCT_IMAGE_WIDTH} × {REQUIRED_PRODUCT_IMAGE_HEIGHT} pixels before uploading.
+                Only images of exactly{" "}
+                <span className="font-bold text-[#2D5A4A]">
+                  {REQUIRED_PRODUCT_IMAGE_WIDTH} × {REQUIRED_PRODUCT_IMAGE_HEIGHT} pixels (2:3 ratio)
+                </span>{" "}
+                are accepted. Please select a correctly sized image.
               </p>
 
               <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-3 space-y-2 max-h-48 overflow-y-auto">
@@ -5077,14 +5081,22 @@ export const AdminProductEditorPage: React.FC = () => {
                 {dimensionErrorModal.rejectedFiles.map((item, idx) => (
                   <div
                     key={`${item.filename}-${idx}`}
-                    className="flex items-center justify-between gap-2 text-xs bg-white border border-red-100 rounded-lg px-3 py-2"
+                    className="flex flex-col gap-1 text-xs bg-white border border-red-100 rounded-lg px-3 py-2"
                   >
-                    <span className="font-semibold text-neutral-900 truncate" title={item.filename}>
-                      {item.filename}
-                    </span>
-                    <span className="font-mono text-[11px] font-bold text-[#C62828] shrink-0">
-                      {item.width && item.height ? `${item.width} × ${item.height} px` : "Invalid image"}
-                    </span>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="font-semibold text-neutral-900 truncate" title={item.filename}>
+                        {item.filename}
+                      </span>
+                      <span className="font-mono text-[11px] font-bold text-[#C62828] shrink-0">
+                        {item.width && item.height ? `${item.width} × ${item.height} px` : "Invalid dimensions"}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-neutral-600 leading-snug">
+                      {item.reason ||
+                        `Invalid Image Dimensions. Only images of exactly ${REQUIRED_PRODUCT_IMAGE_WIDTH} × ${REQUIRED_PRODUCT_IMAGE_HEIGHT} pixels (2:3 ratio) are accepted. Your uploaded image is ${
+                          item.width && item.height ? `${item.width} × ${item.height}` : "unreadable"
+                        } pixels. Please select a correctly sized image.`}
+                    </p>
                   </div>
                 ))}
               </div>

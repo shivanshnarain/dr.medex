@@ -15,7 +15,16 @@
  *    - Never expose API secrets, DB passwords, or connection strings in logs or API responses.
  */
 
-const { getClient, isConfigured: isMongoConfigured, sanitizeMongoError, buildProductFilter, getDeletedProductIds } = require("./mongoService");
+const mongoService = require("./mongoService");
+const {
+  getClient,
+  isConfigured: isMongoConfigured,
+  sanitizeMongoError,
+  buildProductFilter,
+  getDeletedProductIds,
+  patchCachedProduct,
+  getCachedProductsSnapshot
+} = require("./mongoService");
 const cloudinaryService = require("./cloudinaryService");
 const firestoreService = require("./firestoreService");
 const store = require("./store");
@@ -30,6 +39,90 @@ const DELETED_COLLECTION = "deleted_products";
 // Temporary minimal operational metadata for crash recovery and retries
 // Stored in memory and persisted to DB collection only when needed for disaster recovery
 const pendingOperations = new Map();
+const activeEntityLocks = new Set();
+const failedCleanupsQueue = new Map();
+
+/**
+ * Record a failed Cloudinary cleanup for guaranteed retry
+ */
+async function recordFailedCleanup(publicId, productId, reason) {
+  if (!publicId) return;
+  const entry = {
+    publicId,
+    productId: productId || null,
+    reason: String(reason || "Unknown Cloudinary error"),
+    failedAt: new Date().toISOString(),
+    attempts: 1
+  };
+  failedCleanupsQueue.set(publicId, entry);
+  if (isMongoConfigured()) {
+    try {
+      const c = await getClient();
+      const db = c.db(process.env.MONGODB_DB || "drmedex");
+      await db.collection("failed_cleanups").updateOne(
+        { publicId },
+        { $set: entry, $inc: { attempts: 1 } },
+        { upsert: true }
+      );
+    } catch (e) {
+      console.warn("[deletionService] Notice: unable to write failed_cleanup record to MongoDB:", e.message);
+    }
+  }
+}
+
+/**
+ * Retry all pending/failed Cloudinary cleanups safely
+ */
+async function retryFailedCleanups() {
+  const pending = [];
+  if (isMongoConfigured()) {
+    try {
+      const c = await getClient();
+      const db = c.db(process.env.MONGODB_DB || "drmedex");
+      const docs = await db.collection("failed_cleanups").find({}).toArray();
+      docs.forEach(d => pending.push(d));
+    } catch (e) {}
+  }
+  for (const [pid, entry] of failedCleanupsQueue.entries()) {
+    if (!pending.some(p => p.publicId === pid)) {
+      pending.push(entry);
+    }
+  }
+
+  let retriedCount = 0;
+  let succeededCount = 0;
+  const remainingErrors = [];
+
+  for (const item of pending) {
+    retriedCount++;
+    try {
+      const res = await cloudinary.uploader.destroy(item.publicId, { invalidate: true });
+      if (res.result === "ok" || res.result === "not found") {
+        succeededCount++;
+        failedCleanupsQueue.delete(item.publicId);
+        if (isMongoConfigured()) {
+          try {
+            const c = await getClient();
+            const db = c.db(process.env.MONGODB_DB || "drmedex");
+            await db.collection("failed_cleanups").deleteOne({ publicId: item.publicId });
+          } catch (e) {}
+        }
+      } else {
+        remainingErrors.push({ publicId: item.publicId, result: res.result });
+      }
+    } catch (err) {
+      remainingErrors.push({ publicId: item.publicId, error: err.message });
+    }
+  }
+
+  return {
+    success: true,
+    retriedCount,
+    succeededCount,
+    remainingCount: remainingErrors.length,
+    remainingErrors
+  };
+}
 
 const imageResolver = require("./imageResolver");
 
@@ -81,13 +174,53 @@ function getProductCloudinaryPublicIds(product) {
   return Array.from(candidates);
 }
 
+function escapeRegexStr(str) {
+  return String(str).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function syncFallbackFilesAsync(productId, updates) {
+  if (process.env.VERCEL || !productId || !updates) return;
+  setImmediate(async () => {
+    try {
+      const fs = require("fs");
+      const path = require("path");
+      const syncFiles = [
+        path.resolve(__dirname, "../../client/src/data/fallbackProducts.json"),
+        path.resolve(__dirname, "../../client/server/data/db.json")
+      ];
+      await Promise.all(
+        syncFiles.map(async (fp) => {
+          try {
+            if (!fs.existsSync(fp)) return;
+            const raw = await fs.promises.readFile(fp, "utf8");
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) {
+              const idx = parsed.findIndex(p => p.id === productId);
+              if (idx !== -1) {
+                parsed[idx] = { ...parsed[idx], ...updates };
+                await fs.promises.writeFile(fp, JSON.stringify(parsed));
+              }
+            } else if (parsed && Array.isArray(parsed.products)) {
+              const idx = parsed.products.findIndex(p => p.id === productId);
+              if (idx !== -1) {
+                parsed.products[idx] = { ...parsed.products[idx], ...updates };
+                await fs.promises.writeFile(fp, JSON.stringify(parsed));
+              }
+            }
+          } catch {}
+        })
+      );
+    } catch {}
+  });
+}
+
 /**
  * Check whether a publicId is shared with other products or referenced in customer orders
  */
 async function isAssetSharedOrOrdered(publicId, excludeProductId = null) {
-  if (!publicId) return false;
+  if (!publicId) return { shared: false };
 
-  // 1. Check all products in local store
+  // 1. Check all products in local store (in-memory, sub-ms)
   const allStoreProducts = store.getProducts({ includeInactive: true }) || [];
   for (const other of allStoreProducts) {
     if (excludeProductId && (other.id === excludeProductId || (other.slug && other.slug === excludeProductId))) {
@@ -99,34 +232,60 @@ async function isAssetSharedOrOrdered(publicId, excludeProductId = null) {
     }
   }
 
-  // 2. Check MongoDB Atlas if available
+  // 2. Check warm MongoDB product snapshot in RAM if available
+  const warmSnapshot = getCachedProductsSnapshot();
+  if (warmSnapshot) {
+    for (const other of warmSnapshot) {
+      if (excludeProductId && (other.id === excludeProductId || (other.slug && other.slug === excludeProductId))) {
+        continue;
+      }
+      const otherIds = getProductCloudinaryPublicIds(other);
+      if (otherIds.includes(publicId)) {
+        return { shared: true, reason: `Asset shared with product "${other.title || other.productName || other.id}" in MongoDB` };
+      }
+    }
+  }
+
+  // 3. Run MongoDB share checks concurrently
   if (isMongoConfigured()) {
     try {
       const c = await getClient();
       const db = c.db(process.env.MONGODB_DB || "drmedex");
-      const filter = {
-        $or: [
-          { primaryImage: { $regex: publicId } },
-          { images: { $elemMatch: { $regex: publicId } } },
-          { "galleryImages.url": { $regex: publicId } },
-          { "managedCloudinaryImages.publicId": publicId }
-        ]
-      };
-      if (excludeProductId) {
-        filter.id = { $ne: excludeProductId };
-      }
-      const match = await db.collection(COLLECTION_NAME).findOne(filter, { projection: { id: 1, title: 1, productName: 1 } });
-      if (match) {
-        return { shared: true, reason: `Asset shared with product "${match.title || match.productName || match.id}" in MongoDB` };
-      }
+      const escapedPid = escapeRegexStr(publicId);
 
-      // Check orders collection
-      const orderMatch = await db.collection(ORDERS_COLLECTION).findOne({
+      const orderPromise = db.collection(ORDERS_COLLECTION).findOne({
         $or: [
-          { "items.image": { $regex: publicId } },
+          { "items.image": { $regex: escapedPid } },
           { "items.publicId": publicId }
         ]
       }, { projection: { orderNumber: 1 } });
+
+      let productMatch = null;
+      let orderMatch = null;
+
+      if (!warmSnapshot) {
+        const filter = {
+          $or: [
+            { primaryImage: { $regex: escapedPid } },
+            { images: { $elemMatch: { $regex: escapedPid } } },
+            { "galleryImages.url": { $regex: escapedPid } },
+            { "managedCloudinaryImages.publicId": publicId }
+          ]
+        };
+        if (excludeProductId) {
+          filter.id = { $ne: excludeProductId };
+        }
+        [productMatch, orderMatch] = await Promise.all([
+          db.collection(COLLECTION_NAME).findOne(filter, { projection: { id: 1, title: 1, productName: 1 } }),
+          orderPromise
+        ]);
+      } else {
+        orderMatch = await orderPromise;
+      }
+
+      if (productMatch) {
+        return { shared: true, reason: `Asset shared with product "${productMatch.title || productMatch.productName || productMatch.id}" in MongoDB` };
+      }
       if (orderMatch) {
         return { shared: true, reason: `Asset preserved: referenced in customer order #${orderMatch.orderNumber}` };
       }
@@ -181,29 +340,7 @@ async function deleteProductPermanently(productId, adminEmail = "ADMIN") {
     const preservedMedia = [];
     const mediaErrors = [];
 
-    // Stage 3: Destroy exclusively owned Cloudinary assets
-    pendingOperations.get(opId).stage = "CLOUDINARY_CLEANUP";
-    for (const pid of publicIds) {
-      const shareCheck = await isAssetSharedOrOrdered(pid, canonicalId);
-      if (shareCheck.shared) {
-        preservedMedia.push({ publicId: pid, reason: shareCheck.reason });
-        continue;
-      }
-
-      try {
-        const destroyRes = await cloudinary.uploader.destroy(pid, { invalidate: true });
-        if (destroyRes.result === "ok" || destroyRes.result === "not found") {
-          deletedMedia.push({ publicId: pid, result: destroyRes.result });
-        } else {
-          mediaErrors.push({ publicId: pid, result: destroyRes.result });
-        }
-      } catch (cErr) {
-        console.error(`[deletionService] Cloudinary destroy error for ${pid}:`, cErr.message);
-        mediaErrors.push({ publicId: pid, error: cErr.message });
-      }
-    }
-
-    // Stage 4: Delete from MongoDB Atlas
+    // Stage 3: Delete from MongoDB Atlas FIRST so DB state is authoritative and fast
     pendingOperations.get(opId).stage = "MONGODB_CLEANUP";
     let mongoResult = null;
     if (isMongoConfigured()) {
@@ -230,9 +367,37 @@ async function deleteProductPermanently(productId, adminEmail = "ADMIN") {
       }
     }
 
-    // Stage 5: Clean from local store
+    // Stage 4: Clean from local store immediately after DB commit
     pendingOperations.get(opId).stage = "LOCAL_STORE_CLEANUP";
     store.deleteProduct(canonicalId);
+
+    // Stage 5: Destroy exclusively owned Cloudinary assets in parallel (preserving shared/ordered assets)
+    pendingOperations.get(opId).stage = "CLOUDINARY_CLEANUP";
+    if (publicIds.length > 0) {
+      await Promise.allSettled(
+        publicIds.map(async (pid) => {
+          const shareCheck = await isAssetSharedOrOrdered(pid, canonicalId);
+          if (shareCheck.shared) {
+            preservedMedia.push({ publicId: pid, reason: shareCheck.reason });
+            return;
+          }
+
+          try {
+            const destroyRes = await cloudinary.uploader.destroy(pid, { invalidate: true });
+            if (destroyRes.result === "ok" || destroyRes.result === "not found") {
+              deletedMedia.push({ publicId: pid, result: destroyRes.result });
+            } else {
+              mediaErrors.push({ publicId: pid, result: destroyRes.result });
+              await recordFailedCleanup(pid, canonicalId, destroyRes.result || "Cloudinary deletion non-ok");
+            }
+          } catch (cErr) {
+            console.error(`[deletionService] Cloudinary destroy error for ${pid}:`, cErr.message);
+            mediaErrors.push({ publicId: pid, error: cErr.message });
+            await recordFailedCleanup(pid, canonicalId, cErr.message);
+          }
+        })
+      );
+    }
 
     // Stage 6: Clean reviews if configured
     try {
@@ -285,8 +450,8 @@ async function deleteProductPermanently(productId, adminEmail = "ADMIN") {
  */
 function inspectCategoryDependencies(type, id, parentCategory = null, parentSubcategory = null) {
   const cleanId = String(id || "").trim().toLowerCase();
-  const cleanParent = String(parentCategory || "").trim().toLowerCase();
-  const cleanSub = String(parentSubcategory || "").trim().toLowerCase();
+  let cleanParent = String(parentCategory || "").trim().toLowerCase();
+  let cleanSub = String(parentSubcategory || "").trim().toLowerCase();
 
   const allProducts = store.getProducts({ includeInactive: true }) || [];
   const hierarchy = store.getCatalogueHierarchy() || {};
@@ -297,6 +462,40 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
   let subcategories = [];
   let equipmentTypes = [];
 
+  // Fallback: If cleanParent not provided or invalid for subcategory, auto-detect parent
+  if (type === "subcategory" && (!cleanParent || cleanParent === "null" || cleanParent === "undefined")) {
+    for (const [k, h] of Object.entries(hierarchy)) {
+      if (Array.isArray(h.subcategories) && h.subcategories.some(s => (s.id || "").toLowerCase() === cleanId || (s.name || "").toLowerCase() === cleanId || (s.slug || "").toLowerCase() === cleanId)) {
+        cleanParent = k.toLowerCase();
+        break;
+      }
+    }
+    if (!cleanParent) {
+      for (const c of categories) {
+        if (Array.isArray(c.subcategories) && c.subcategories.some(s => (s.id || "").toLowerCase() === cleanId || (s.name || "").toLowerCase() === cleanId || (s.slug || "").toLowerCase() === cleanId)) {
+          cleanParent = (c.id || c.slug || "").toLowerCase();
+          break;
+        }
+      }
+    }
+  }
+
+  // Fallback: If cleanParent or cleanSub not provided for equipment type, auto-detect
+  if (type === "equipment" && (!cleanSub || cleanSub === "null" || cleanSub === "undefined")) {
+    for (const [k, h] of Object.entries(hierarchy)) {
+      if (Array.isArray(h.subcategories)) {
+        for (const s of h.subcategories) {
+          if (Array.isArray(s.equipmentTypes) && s.equipmentTypes.some(e => (e.id || "").toLowerCase() === cleanId || (e.name || "").toLowerCase() === cleanId)) {
+            cleanParent = k.toLowerCase();
+            cleanSub = (s.id || s.name || "").toLowerCase();
+            break;
+          }
+        }
+      }
+      if (cleanSub) break;
+    }
+  }
+
   if (type === "primary") {
     const cat = categories.find(c => (c.id || "").toLowerCase() === cleanId || (c.slug || "").toLowerCase() === cleanId || (c.name || "").toLowerCase() === cleanId);
     const hierKey = Object.keys(hierarchy).find(k => k.toLowerCase() === cleanId || (hierarchy[k]?.name || "").toLowerCase() === cleanId);
@@ -304,13 +503,7 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
 
     entityName = hier?.name || cat?.name || id;
 
-    // 1. Linked products
-    linkedProducts = allProducts.filter(p => {
-      const pCat = (p.category || "").toLowerCase();
-      return pCat === cleanId || pCat === (cat?.slug || "").toLowerCase() || pCat === (cat?.id || "").toLowerCase() || pCat === (cat?.name || "").toLowerCase() || pCat === (hierKey || "").toLowerCase();
-    });
-
-    // 2. Subcategories
+    // 1. Subcategories & equipment types
     if (hier && Array.isArray(hier.subcategories)) {
       subcategories = hier.subcategories;
       hier.subcategories.forEach(s => {
@@ -321,6 +514,22 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
     } else if (cat && Array.isArray(cat.subcategories)) {
       subcategories = cat.subcategories;
     }
+
+    const subcatSlugs = subcategories.flatMap(s => [s.id, s.slug, s.name].filter(Boolean).map(x => x.toLowerCase()));
+
+    // 2. Linked products
+    linkedProducts = allProducts.filter(p => {
+      const pCat = (p.category || "").toLowerCase();
+      const pSub = (p.subcategory || "").toLowerCase();
+      return (
+        pCat === cleanId ||
+        pCat === (cat?.slug || "").toLowerCase() ||
+        pCat === (cat?.id || "").toLowerCase() ||
+        pCat === (cat?.name || "").toLowerCase() ||
+        pCat === (hierKey || "").toLowerCase() ||
+        (pSub && subcatSlugs.includes(pSub))
+      );
+    });
   } else if (type === "subcategory") {
     const cat = categories.find(c => (c.id || "").toLowerCase() === cleanParent || (c.slug || "").toLowerCase() === cleanParent || (c.name || "").toLowerCase() === cleanParent);
     const hierKey = Object.keys(hierarchy).find(k => k.toLowerCase() === cleanParent || (hierarchy[k]?.name || "").toLowerCase() === cleanParent);
@@ -335,16 +544,24 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
 
     entityName = subHier?.name || subCat?.name || id;
 
-    // 1. Linked products
-    linkedProducts = allProducts.filter(p => {
-      const pSub = (p.subcategory || "").toLowerCase();
-      return pSub === cleanId || pSub === (subHier?.name || "").toLowerCase() || pSub === (subCat?.name || "").toLowerCase() || pSub === (subHier?.id || "").toLowerCase();
-    });
-
-    // 2. Equipment types
+    // Equipment types
     if (subHier && Array.isArray(subHier.equipmentTypes)) {
       equipmentTypes = subHier.equipmentTypes;
     }
+
+    const subIdentList = [cleanId, (subHier?.id || "").toLowerCase(), (subHier?.name || "").toLowerCase(), (subCat?.name || "").toLowerCase(), (subCat?.slug || "").toLowerCase()].filter(Boolean);
+    const eqIdentList = equipmentTypes.flatMap(e => [e.id, e.name].filter(Boolean).map(x => x.toLowerCase()));
+
+    // Linked products
+    linkedProducts = allProducts.filter(p => {
+      const pSub = (p.subcategory || "").toLowerCase();
+      const pEq = (p.equipmentType || "").toLowerCase();
+      const isSubMatch =
+        subIdentList.includes(pSub) ||
+        (Array.isArray(p.subcategories) && p.subcategories.some(s => subIdentList.includes((s || "").toLowerCase())));
+      const isEqMatch = pEq && eqIdentList.includes(pEq);
+      return isSubMatch || isEqMatch;
+    });
   } else if (type === "equipment") {
     entityName = id;
     linkedProducts = allProducts.filter(p => {
@@ -366,8 +583,8 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
     entityType: type,
     id,
     name: entityName,
-    parentCategory,
-    parentSubcategory,
+    parentCategory: cleanParent || parentCategory,
+    parentSubcategory: cleanSub || parentSubcategory,
     productCount: linkedProducts.length,
     products: linkedProducts.map(p => ({
       id: p.id,
@@ -387,23 +604,24 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
 
 /**
  * Execute Cascading Deletion of Category, Subcategory, or Equipment Type
+ * - Deletes selected taxonomy entity and its exclusive child records
+ * - Deletes exclusively associated products & destroys their exclusive Cloudinary assets
+ * - Preserves shared Cloudinary media referenced by surviving records/orders
+ * - Queues failed Cloudinary cleanups for retry
+ * - Prevents duplicate concurrent deletion requests via activeEntityLocks
+ * - Idempotent across repeated executions
  */
-async function deleteCategoryWithDependencies(type, id, { parentCategory = null, parentSubcategory = null, cascadeProducts = false, adminEmail = "ADMIN" } = {}) {
-  const inspection = inspectCategoryDependencies(type, id, parentCategory, parentSubcategory);
+async function deleteCategoryWithDependencies(type, id, { parentCategory = null, parentSubcategory = null, cascadeProducts = true, purgeProducts = false, adminEmail = "ADMIN" } = {}) {
+  const cleanId = String(id || "").trim().toLowerCase();
+  const lockKey = `${type}:${cleanId}`;
 
-  // OPTION B GUARD: If products or child records exist and cascadeProducts is FALSE, reject with clear explanation
-  if (!cascadeProducts && !inspection.canDeleteDirectly) {
-    if (inspection.productCount > 0) {
-      const sample = inspection.products.slice(0, 3).map(p => p.title).join('", "');
-      throw new Error(`Cannot delete ${type} "${inspection.name}": ${inspection.productCount} product(s) depend on it (e.g. "${sample}"). Please reassign/remove these products or confirm "Delete Category and All Associated Products".`);
-    }
-    if (inspection.subcategoryCount > 0) {
-      throw new Error(`Cannot delete ${type} "${inspection.name}": ${inspection.subcategoryCount} child subcategory/subcategories depend on it.`);
-    }
-    if (inspection.equipmentTypeCount > 0) {
-      throw new Error(`Cannot delete ${type} "${inspection.name}": ${inspection.equipmentTypeCount} child equipment type(s) depend on it.`);
-    }
+  // Concurrency check: prevent duplicate requests on same entity
+  if (activeEntityLocks.has(lockKey)) {
+    const err = new Error(`Deletion for ${type} "${id}" is already in progress. Please wait for it to finish.`);
+    err.statusCode = 409;
+    throw err;
   }
+  activeEntityLocks.add(lockKey);
 
   const opId = `del_cat_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
   pendingOperations.set(opId, {
@@ -412,63 +630,171 @@ async function deleteCategoryWithDependencies(type, id, { parentCategory = null,
     targetId: id,
     adminEmail,
     stage: "INITIALIZED",
-    cascadeProducts,
     startedAt: new Date().toISOString()
   });
 
-  const deletedProducts = [];
-  const productErrors = [];
-  let totalDeletedMedia = 0;
+  try {
+    const inspection = inspectCategoryDependencies(type, id, parentCategory, parentSubcategory);
+    const resolvedParent = inspection.parentCategory || parentCategory;
+    const resolvedSub = inspection.parentSubcategory || parentSubcategory;
 
-  // OPTION C: Delete all associated products permanently
-  if (cascadeProducts && inspection.products.length > 0) {
-    pendingOperations.get(opId).stage = "CASCADING_PRODUCT_DELETION";
-    for (const prodInfo of inspection.products) {
-      try {
-        const prodDelRes = await deleteProductPermanently(prodInfo.id, adminEmail);
-        deletedProducts.push(prodDelRes);
-        totalDeletedMedia += (prodDelRes.media?.deletedCount || 0);
-      } catch (prodErr) {
-        console.error(`[deletionService] Cascading delete error on product ${prodInfo.id}:`, prodErr);
-        productErrors.push({ id: prodInfo.id, error: prodErr.message });
+    const shouldDeleteProducts = cascadeProducts === true || purgeProducts === true;
+    const deletedProducts = [];
+    let totalDeletedMedia = 0;
+    let totalPreservedMedia = 0;
+    let totalFailedMedia = 0;
+
+    if (shouldDeleteProducts && inspection.products.length > 0) {
+      pendingOperations.get(opId).stage = "DELETING_ASSOCIATED_PRODUCTS";
+      for (const prodInfo of inspection.products) {
+        try {
+          const prodDelRes = await deleteProductPermanently(prodInfo.id, adminEmail);
+          deletedProducts.push(prodDelRes);
+          totalDeletedMedia += (prodDelRes.media?.deletedCount || 0);
+          totalPreservedMedia += (prodDelRes.media?.preservedCount || 0);
+          totalFailedMedia += (prodDelRes.media?.errorCount || 0);
+        } catch (prodErr) {
+          console.error(`[deletionService] Product deletion notice for ${prodInfo.id}:`, prodErr.message);
+        }
+      }
+    } else if (!shouldDeleteProducts && inspection.products.length > 0) {
+      // Safe detachment fallback if cascadeProducts is explicitly false
+      pendingOperations.get(opId).stage = "DETACHING_PRODUCTS_MONGO";
+      if (mongoService.isConfigured()) {
+        try {
+          const client = await mongoService.getClient();
+          const db = client.db(process.env.MONGODB_DB || "drmedex");
+          const col = db.collection("approved_products");
+
+          if (type === "primary") {
+            const catId = cleanId;
+            const catName = inspection.name;
+            const subcatNames = (inspection.subcategories || []).flatMap(s => [s.id, s.name].filter(Boolean));
+            const orList = [
+              { category: { $regex: new RegExp(`^${escapeRegexStr(catId)}$`, "i") } },
+              { category: { $regex: new RegExp(`^${escapeRegexStr(catName)}$`, "i") } }
+            ];
+            if (subcatNames.length > 0) {
+              orList.push({ subcategory: { $in: subcatNames } });
+            }
+            await col.updateMany(
+              { $or: orList },
+              {
+                $set: {
+                  category: "",
+                  subcategory: "",
+                  equipmentType: "",
+                  subcategories: [],
+                  updatedAt: new Date().toISOString()
+                }
+              }
+            );
+          } else if (type === "subcategory") {
+            const subId = cleanId;
+            const subName = inspection.name;
+            const eqNames = (inspection.equipmentTypes || []).flatMap(e => [e.id, e.name].filter(Boolean));
+            const orList = [
+              { subcategory: { $regex: new RegExp(`^${escapeRegexStr(subId)}$`, "i") } },
+              { subcategory: { $regex: new RegExp(`^${escapeRegexStr(subName)}$`, "i") } },
+              { subcategories: subId },
+              { subcategories: subName }
+            ];
+            if (eqNames.length > 0) {
+              orList.push({ equipmentType: { $in: eqNames } });
+            }
+            await col.updateMany(
+              { $or: orList },
+              {
+                $set: {
+                  subcategory: "",
+                  equipmentType: "",
+                  updatedAt: new Date().toISOString()
+                },
+                $pull: {
+                  subcategories: { $in: [subId, subName] }
+                }
+              }
+            );
+          } else if (type === "equipment") {
+            const eqId = cleanId;
+            const eqName = inspection.name;
+            await col.updateMany(
+              {
+                $or: [
+                  { equipmentType: { $regex: new RegExp(`^${escapeRegexStr(eqId)}$`, "i") } },
+                  { equipmentType: { $regex: new RegExp(`^${escapeRegexStr(eqName)}$`, "i") } }
+                ]
+              },
+              {
+                $set: {
+                  equipmentType: "",
+                  updatedAt: new Date().toISOString()
+                }
+              }
+            );
+          }
+        } catch (mErr) {
+          console.warn("[deletionService] Notice during MongoDB product detachment:", mErr.message);
+        }
       }
     }
+
+    // Invalidate MongoDB cache immediately
+    if (mongoService.isConfigured()) {
+      mongoService.invalidateMongoCache();
+    }
+
+    // Delete the taxonomy record from store (persists to db.json and clears initialHierarchy)
+    pendingOperations.get(opId).stage = "TAXONOMY_DELETION";
+    let taxonomyResult = null;
+    try {
+      if (type === "primary") {
+        taxonomyResult = store.deletePrimaryCategory(id, true);
+      } else if (type === "subcategory") {
+        taxonomyResult = store.deleteSubcategory(resolvedParent, id, true);
+      } else if (type === "equipment") {
+        taxonomyResult = store.deleteEquipmentType(resolvedParent, resolvedSub, id);
+      }
+    } catch (taxErr) {
+      console.warn(`[deletionService] Taxonomy deletion notice for ${type} "${id}":`, taxErr.message);
+    }
+
+    auditService.logAction(adminEmail, "TAXONOMY_CASCADE_DELETED", id, {
+      type,
+      name: inspection.name,
+      deletedProductsCount: deletedProducts.length,
+      deletedSubcategoriesCount: inspection.subcategoryCount,
+      deletedEquipmentTypesCount: inspection.equipmentTypeCount,
+      deletedMediaCount: totalDeletedMedia,
+      preservedMediaCount: totalPreservedMedia,
+      failedMediaCount: totalFailedMedia
+    });
+
+    const isCleanupPending = totalFailedMedia > 0;
+    const message = isCleanupPending
+      ? `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" and associated records deleted. ${deletedProducts.length} product(s) deleted. (${totalFailedMedia} media cleanup(s) pending retry).`
+      : `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" and all associated data deleted successfully.`;
+
+    return {
+      success: true,
+      type,
+      id,
+      name: inspection.name,
+      message,
+      cleanupPending: isCleanupPending,
+      deletedProductsCount: deletedProducts.length,
+      deletedSubcategoriesCount: inspection.subcategoryCount,
+      deletedEquipmentTypesCount: inspection.equipmentTypeCount,
+      deletedMediaCount: totalDeletedMedia,
+      preservedMediaCount: totalPreservedMedia,
+      failedMediaCount: totalFailedMedia,
+      hierarchy: store.getCatalogueHierarchy(),
+      categories: store.getCategories(true)
+    };
+  } finally {
+    activeEntityLocks.delete(lockKey);
+    pendingOperations.delete(opId);
   }
-
-  // Now delete the taxonomy record from store
-  pendingOperations.get(opId).stage = "TAXONOMY_DELETION";
-  let taxonomyResult = null;
-  if (type === "primary") {
-    taxonomyResult = store.deletePrimaryCategory(id, true);
-  } else if (type === "subcategory") {
-    taxonomyResult = store.deleteSubcategory(parentCategory, id, true);
-  } else if (type === "equipment") {
-    taxonomyResult = store.deleteEquipmentType(parentCategory, parentSubcategory, id);
-  }
-
-  pendingOperations.delete(opId);
-
-  auditService.logAction(adminEmail, `TAXONOMY_CASCADE_DELETED`, id, {
-    type,
-    name: inspection.name,
-    deletedProductsCount: deletedProducts.length,
-    deletedMediaCount: totalDeletedMedia,
-    errorsCount: productErrors.length
-  });
-
-  return {
-    success: true,
-    type,
-    id,
-    name: inspection.name,
-    message: `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" and ${deletedProducts.length} associated product(s) permanently deleted.`,
-    deletedProductsCount: deletedProducts.length,
-    deletedMediaCount: totalDeletedMedia,
-    deletedProducts,
-    productErrors,
-    hierarchy: store.getCatalogueHierarchy(),
-    categories: store.getCategories(true)
-  };
 }
 
 /**
@@ -499,26 +825,7 @@ async function deleteSingleProductImage(productId, imageUrlOrPublicId, adminEmai
     throw new Error(`Product "${productId}" was not found.`);
   }
 
-  // 2. Check if shared with any other product or in customer order history
-  const shareCheck = await isAssetSharedOrOrdered(publicId, product.id);
-
-  let assetDestroyed = false;
-  let destroyResult = null;
-
-  if (!shareCheck.shared) {
-    // Exclusively owned: destroy from Cloudinary
-    try {
-      const delRes = await cloudinary.uploader.destroy(publicId, { invalidate: true });
-      if (delRes.result === "ok" || delRes.result === "not found") {
-        assetDestroyed = true;
-        destroyResult = delRes.result;
-      }
-    } catch (cErr) {
-      console.error(`[deletionService] Error destroying single image ${publicId}:`, cErr.message);
-    }
-  }
-
-  // 3. Update product references in local store & MongoDB
+  // 2. Remove product references in MongoDB & local store FIRST so DB update is fast & authoritative
   const isTarget = (img) => {
     if (!img) return false;
     if (typeof img === "string") {
@@ -546,53 +853,41 @@ async function deleteSingleProductImage(productId, imageUrlOrPublicId, adminEmai
     updatedAt: new Date().toISOString()
   };
 
-  // Update MongoDB Atlas if configured
+  // Update MongoDB Atlas if configured (throw if DB update fails so deletion is never falsely reported)
   if (isMongoConfigured()) {
     try {
       const c = await getClient();
       const db = c.db(process.env.MONGODB_DB || "drmedex");
       const filter = buildProductFilter(product.id);
       await db.collection(COLLECTION_NAME).updateOne(filter, { $set: updates });
-      const { invalidateMongoCache } = require("./mongoService");
-      invalidateMongoCache();
+      // Update warm cache in place instead of wiping the whole 193-product cache
+      patchCachedProduct(product.id, updates);
     } catch (mErr) {
-      console.warn("[deletionService] MongoDB image ref update error:", sanitizeMongoError(mErr));
+      console.error("[deletionService] MongoDB image ref update error:", sanitizeMongoError(mErr));
+      throw new Error(`Failed to update product images in database: ${sanitizeMongoError(mErr)}`);
     }
   }
 
   // Update local store
   store.updateProduct(product.id, updates);
 
-  // Synchronize fallback files to prevent deleted images from resurfacing on fallback
-  try {
-    const fs = require("fs");
-    const path = require("path");
-    const syncFiles = [
-      path.resolve(__dirname, "../../client/src/data/fallbackProducts.json"),
-      path.resolve(__dirname, "../../client/server/data/db.json")
-    ];
-    syncFiles.forEach(fp => {
-      if (fs.existsSync(fp)) {
-        try {
-          const raw = fs.readFileSync(fp, "utf8");
-          const parsed = JSON.parse(raw);
-          if (Array.isArray(parsed)) {
-            const idx = parsed.findIndex(p => p.id === product.id);
-            if (idx !== -1) {
-              parsed[idx] = { ...parsed[idx], ...updates };
-              fs.writeFileSync(fp, JSON.stringify(parsed, null, 2));
-            }
-          } else if (parsed && Array.isArray(parsed.products)) {
-            const idx = parsed.products.findIndex(p => p.id === product.id);
-            if (idx !== -1) {
-              parsed.products[idx] = { ...parsed.products[idx], ...updates };
-              fs.writeFileSync(fp, JSON.stringify(parsed, null, 2));
-            }
-          }
-        } catch {}
+  // 3. Check shared-asset protection & destroy from Cloudinary if exclusively owned
+  const shareCheck = await isAssetSharedOrOrdered(publicId, product.id);
+  let assetDestroyed = false;
+
+  if (!shareCheck.shared && cloudinaryService && cloudinaryService.isConfigured()) {
+    try {
+      const delRes = await cloudinary.uploader.destroy(publicId, { invalidate: true });
+      if (delRes.result === "ok" || delRes.result === "not found") {
+        assetDestroyed = true;
       }
-    });
-  } catch {}
+    } catch (cErr) {
+      console.error(`[deletionService] Error destroying single image ${publicId}:`, cErr.message);
+    }
+  }
+
+  // Synchronize fallback files non-blockingly so deleted images never resurface without slowing HTTP response
+  syncFallbackFilesAsync(product.id, updates);
 
   auditService.logAction(adminEmail, "PRODUCT_IMAGE_DELETED", product.id, {
     publicId,
@@ -918,6 +1213,7 @@ module.exports = {
   deleteOrphanedAssets,
   getPendingOperations,
   retryPendingOperation,
+  retryFailedCleanups,
   extractCloudinaryPublicId,
   getProductCloudinaryPublicIds,
   isAssetSharedOrOrdered

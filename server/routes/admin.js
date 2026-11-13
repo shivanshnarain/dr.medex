@@ -1999,6 +1999,8 @@ router.post("/products", requireAdmin, async (req, res) => {
           return res.status(400).json({
             success: false,
             code: upErr.code || "IMAGE_VALIDATION_FAILED",
+            dimensions: upErr.dimensions || null,
+            required: upErr.required || { width: 1024, height: 1536 },
             message: upErr.message
           });
         }
