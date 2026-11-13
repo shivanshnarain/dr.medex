@@ -235,3 +235,24 @@
 .border-medex-light {
   border-color: #E5E0D8;
 }
+
+/* Subtle continuous floating animation for Explore Products button */
+@keyframes heroFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-hero-float {
+  animation: heroFloat 3.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-float {
+    animation: none !important;
+  }
+}
