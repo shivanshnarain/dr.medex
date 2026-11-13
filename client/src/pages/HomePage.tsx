@@ -1,45 +1,178 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { ArrowRight, X } from "lucide-react";
 import { Product, BlogArticle } from "../types";
 import { ProductCard } from "../components/ProductCard";
 import { QuickViewModal } from "../components/QuickViewModal";
 import { B2BQuoteModal } from "../components/B2BQuoteModal";
 import { HeroSection } from "../components/HeroSection";
 import { ServiceBenefitsBanner } from "../components/Footer";
-import { getRandomShowcaseProducts, getCachedRandomShowcaseSync } from "../services/productService";
+import { getProducts, getCachedProductsSync } from "../services/productService";
 
-const SHOWCASE_COUNT = 12;
+const CANONICAL_CATEGORY_MAP: Record<string, string[]> = {
+  "electrosurgical": [
+    "electrosurgical",
+    "electrosurgical-units",
+    "electrosurgical units",
+    "electrosurgical surgery",
+    "electrosurgical generators"
+  ],
+  "electrosurgical-units": [
+    "electrosurgical",
+    "electrosurgical-units",
+    "electrosurgical units",
+    "electrosurgical surgery",
+    "electrosurgical generators"
+  ],
+  "cryo-surgical": [
+    "cryo-surgical",
+    "cryosurgical",
+    "cryosurgical-equipment",
+    "cryo surgical",
+    "cryosurgical equipment"
+  ],
+  "cryosurgical-equipment": [
+    "cryo-surgical",
+    "cryosurgical",
+    "cryosurgical-equipment",
+    "cryo surgical",
+    "cryosurgical equipment"
+  ],
+  "ot-lights": [
+    "ot-lights",
+    "ot / surgical lights",
+    "ot lights",
+    "surgical lights",
+    "single-dome",
+    "double-dome",
+    "mobile-lights"
+  ],
+  "examination-ot-tables": [
+    "examination-ot-tables",
+    "ot-tables",
+    "examination & ot tables",
+    "examination tables",
+    "operating tables",
+    "treatment-tables"
+  ],
+  "ot-tables": [
+    "examination-ot-tables",
+    "ot-tables",
+    "examination & ot tables",
+    "examination tables",
+    "operating tables",
+    "treatment-tables"
+  ],
+  "obstetrics-and-gynaecology": [
+    "obstetrics-and-gynaecology",
+    "obg",
+    "obstetrics & gynaecology",
+    "obstetric-tables",
+    "gynae-tables",
+    "fetal-care"
+  ],
+  "obg": [
+    "obstetrics-and-gynaecology",
+    "obg",
+    "obstetrics & gynaecology",
+    "obstetric-tables",
+    "gynae-tables",
+    "fetal-care"
+  ],
+  "medical-equipment": [
+    "medical-equipment",
+    "general-medical-equipment",
+    "general medical equipment",
+    "medical equipment",
+    "diagnostic",
+    "headlights",
+    "trolleys",
+    "insufflators",
+    "biopsy-instruments"
+  ],
+  "general-medical-equipment": [
+    "medical-equipment",
+    "general-medical-equipment",
+    "general medical equipment",
+    "medical equipment",
+    "diagnostic",
+    "headlights",
+    "trolleys",
+    "insufflators",
+    "biopsy-instruments"
+  ]
+};
+
+function matchProductCategory(product: Product, categorySlugOrId: string): boolean {
+  if (!categorySlugOrId) return true;
+  const target = categorySlugOrId.toLowerCase().trim();
+  const allowed = CANONICAL_CATEGORY_MAP[target] || [target];
+
+  const pCat = (product.category || "").toLowerCase().trim();
+  const pCatName = (product.categoryName || "").toLowerCase().trim();
+  const pSub = (product.subcategory || "").toLowerCase().trim();
+  const pSubName = (product.subcategoryName || "").toLowerCase().trim();
+  const rawCats = (product as any).categories;
+  const pCats: string[] = Array.isArray(rawCats)
+    ? rawCats.map((c: any) => String(c).toLowerCase().trim())
+    : [];
+  const pSubs: string[] = Array.isArray(product.subcategories)
+    ? product.subcategories.map((s: string) => String(s).toLowerCase().trim())
+    : [];
+
+  if (allowed.includes(pCat)) return true;
+  if (allowed.includes(pCatName)) return true;
+  if (allowed.includes(pSub)) return true;
+  if (allowed.includes(pSubName)) return true;
+  if (pCats.some((c: string) => allowed.includes(c))) return true;
+  if (pSubs.some((s: string) => allowed.includes(s))) return true;
+
+  for (const token of allowed) {
+    if (pCat === token || pCatName === token) return true;
+  }
+
+  return false;
+}
 
 export const HomePage: React.FC = () => {
-  const [showcaseProducts, setShowcaseProducts] = useState<Product[]>(() => {
-    return getCachedRandomShowcaseSync() || [];
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedCategory = searchParams.get("category") || "";
+
+  const [allProducts, setAllProducts] = useState<Product[]>(() => {
+    return getCachedProductsSync() || [];
   });
+  const [isLoading, setIsLoading] = useState(() => !getCachedProductsSync());
+  const [visibleCount, setVisibleCount] = useState(24);
   const [blogs, setBlogs] = useState<BlogArticle[]>([]);
-  const [isLoadingShowcase, setIsLoadingShowcase] = useState(() => !getCachedRandomShowcaseSync());
 
   // Modals state
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const [quoteProduct, setQuoteProduct] = useState<Product | null>(null);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
+  const loadMoreRef = useRef<HTMLDivElement>(null);
+
+  // 1. Fetch complete products collection and clinical blogs on mount
   useEffect(() => {
     let isMounted = true;
 
     async function loadHomeData() {
-      // 1. Fetch lightweight randomized active showcase products asynchronously (non-blocking)
-      getRandomShowcaseProducts(SHOWCASE_COUNT)
-        .then((picked) => {
-          if (isMounted && Array.isArray(picked)) {
-            setShowcaseProducts(picked);
+      if (allProducts.length === 0) {
+        setIsLoading(true);
+      }
+
+      getProducts()
+        .then((res) => {
+          if (isMounted && res && Array.isArray(res.products) && res.products.length > 0) {
+            setAllProducts(res.products);
           }
         })
-        .catch((err) => console.warn("[HomePage] Random showcase fetch notice:", err))
+        .catch((err) => console.warn("[HomePage] Products fetch notice:", err))
         .finally(() => {
-          if (isMounted) setIsLoadingShowcase(false);
+          if (isMounted) setIsLoading(false);
         });
 
-      // 2. Fetch clinical blogs independently
+      // Fetch clinical blogs independently
       fetch("/api/blogs")
         .then((res) => (res.ok ? res.json() : null))
         .then((bData) => {
@@ -51,10 +184,98 @@ export const HomePage: React.FC = () => {
     }
 
     loadHomeData();
+
     return () => {
       isMounted = false;
     };
   }, []);
+
+  // Listen for live catalogue updates
+  useEffect(() => {
+    const handleUpdate = () => {
+      getProducts(true).then((res) => {
+        if (res && Array.isArray(res.products)) {
+          setAllProducts(res.products);
+        }
+      });
+    };
+    window.addEventListener("drmedex_catalogue_updated", handleUpdate);
+    return () => window.removeEventListener("drmedex_catalogue_updated", handleUpdate);
+  }, []);
+
+  // Filter products by selected category (only published/active/correct products)
+  const filteredProducts = useMemo(() => {
+    let list = allProducts.filter(
+      (p) =>
+        (p.status || "ACTIVE") === "ACTIVE" &&
+        p.status !== "ARCHIVED" &&
+        !p.isRetired &&
+        p.reviewStatus === "CORRECT"
+    );
+
+    if (selectedCategory) {
+      list = list.filter((p) => matchProductCategory(p, selectedCategory));
+    }
+
+    return list;
+  }, [allProducts, selectedCategory]);
+
+  // Reset pagination count when category changes
+  useEffect(() => {
+    setVisibleCount(24);
+  }, [selectedCategory]);
+
+  // Smooth scroll to catalogue when navbar category filter is engaged
+  useEffect(() => {
+    if (selectedCategory) {
+      const el = document.getElementById("catalogue");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, [selectedCategory]);
+
+  // Continuous infinite scroll observer
+  useEffect(() => {
+    if (visibleCount >= filteredProducts.length) return;
+    const sentinel = loadMoreRef.current;
+    if (!sentinel || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisibleCount((prev) => Math.min(prev + 24, filteredProducts.length));
+        }
+      },
+      { rootMargin: "350px" }
+    );
+
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [visibleCount, filteredProducts.length]);
+
+  const displayedProducts = useMemo(() => {
+    return filteredProducts.slice(0, visibleCount);
+  }, [filteredProducts, visibleCount]);
+
+  const activeCategoryName = useMemo(() => {
+    if (!selectedCategory) return "";
+    const clean = selectedCategory.toLowerCase().trim();
+    if (clean.includes("electro")) return "Electrosurgical";
+    if (clean.includes("cryo")) return "Cryo Surgical";
+    if (clean.includes("light")) return "OT Lights";
+    if (clean.includes("table")) return "OT Tables";
+    if (clean.includes("obg") || clean.includes("obstetric")) return "OBG";
+    if (clean.includes("medical")) return "General Medical";
+    return selectedCategory;
+  }, [selectedCategory]);
+
+  const handleClearCategoryFilter = useCallback(() => {
+    const params = new URLSearchParams(searchParams);
+    params.delete("category");
+    params.delete("subcategory");
+    setSearchParams(params, { replace: true });
+  }, [searchParams, setSearchParams]);
 
   const handleOpenQuote = useCallback((product: Product) => {
     setQuoteProduct(product);
@@ -67,45 +288,57 @@ export const HomePage: React.FC = () => {
       <HeroSection
         onOpenQuote={(productTitle?: string) => {
           const match = productTitle
-            ? showcaseProducts.find((p) => p.title.toLowerCase().includes(productTitle.toLowerCase())) || showcaseProducts[0]
-            : showcaseProducts[0];
+            ? allProducts.find((p) => p.title.toLowerCase().includes(productTitle.toLowerCase())) || allProducts[0]
+            : allProducts[0];
           setQuoteProduct(match || null);
           setIsQuoteModalOpen(true);
         }}
         onQuickView={(productId?: string) => {
-          const match = showcaseProducts.find((p) => p.id === productId) || showcaseProducts[0];
+          const match = allProducts.find((p) => p.id === productId) || allProducts[0];
           if (match) setQuickViewProduct(match);
         }}
       />
 
-      {/* 2. RANDOMLY SELECTED ACTIVE PRODUCT SHOWCASE */}
-      <section className="py-12 sm:py-16 bg-white" aria-label="Featured Medical Equipment">
+      {/* 2. OUR PRODUCTS — SINGLE CONTINUOUS CATALOGUE */}
+      <section id="catalogue" className="py-12 sm:py-16 bg-white scroll-mt-20" aria-label="Explore Our Medical Equipment">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Section Header: Exact required text and typography */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-[#E8E8E8] gap-3">
             <div>
               <span className="text-3xs font-extrabold uppercase tracking-widest text-[#2D5A4A] block mb-1.5">
-                Live Hospital &amp; Clinical Catalogue
+                OUR PRODUCTS
               </span>
-              <h2 className="text-xl sm:text-2xl font-black text-[#111111] tracking-tight">
-                Featured Medical Equipment
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-[#111111] tracking-tight">
+                Explore Our Medical Equipment
               </h2>
-              <p className="text-xs sm:text-sm text-neutral-500 mt-1">
-                A curated selection of verified medical instruments, surgical systems, and operating theatre devices.
+              <p className="text-xs sm:text-sm text-neutral-500 mt-1 max-w-3xl leading-relaxed">
+                Discover our complete range of precision-engineered medical equipment and healthcare solutions for hospitals, clinics and healthcare professionals worldwide.
               </p>
             </div>
-            <Link
-              to="/shop-all"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#111111] hover:text-[#2D5A4A] transition-colors shrink-0 group uppercase tracking-wider"
-            >
-              <span>Explore Full Catalogue</span>
-              <ArrowRight
-                size={14}
-                className="group-hover:translate-x-1 transition-transform text-[#2D5A4A]"
-              />
-            </Link>
+
+            {/* Active category filter pill with clear button */}
+            {selectedCategory && (
+              <div className="flex items-center gap-2 self-start sm:self-end shrink-0">
+                <span className="text-xs font-semibold text-neutral-600">
+                  Filtering: <strong className="text-[#2D5A4A]">{activeCategoryName}</strong> ({filteredProducts.length})
+                </span>
+                <button
+                  type="button"
+                  onClick={handleClearCategoryFilter}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#7AA05A]/15 hover:bg-[#7AA05A]/25 text-[#2D5A4A] text-xs font-bold transition-colors cursor-pointer"
+                  title="Show all products"
+                  aria-label="Show all products"
+                >
+                  <span>Show All</span>
+                  <X size={13} />
+                </button>
+              </div>
+            )}
           </div>
 
-          {isLoadingShowcase && showcaseProducts.length === 0 ? (
+          {/* Product Cards Grid: All products rendered continuously */}
+          {isLoading && displayedProducts.length === 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
               {Array.from({ length: 8 }).map((_, idx) => (
                 <div
@@ -120,38 +353,59 @@ export const HomePage: React.FC = () => {
                 </div>
               ))}
             </div>
-          ) : showcaseProducts.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-              {showcaseProducts.map((prod) => (
-                <ProductCard
-                  key={prod.id}
-                  product={prod}
-                  onQuickView={setQuickViewProduct}
-                  onOpenQuote={handleOpenQuote}
-                />
-              ))}
-            </div>
+          ) : displayedProducts.length > 0 ? (
+            <>
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+                {displayedProducts.map((prod) => (
+                  <ProductCard
+                    key={prod.id}
+                    product={prod}
+                    onQuickView={setQuickViewProduct}
+                    onOpenQuote={handleOpenQuote}
+                  />
+                ))}
+              </div>
+
+              {/* Incremental loading indicator sentinel */}
+              {visibleCount < filteredProducts.length && (
+                <div ref={loadMoreRef} className="py-10 flex flex-col items-center justify-center gap-2">
+                  <div className="w-6 h-6 border-2 border-[#7AA05A] border-t-transparent rounded-full animate-spin" />
+                  <span className="text-xs text-neutral-500 font-medium">
+                    Loading more medical equipment ({displayedProducts.length} of {filteredProducts.length})...
+                  </span>
+                </div>
+              )}
+
+              {/* End of collection indicator */}
+              {visibleCount >= filteredProducts.length && filteredProducts.length > 0 && (
+                <div className="pt-10 pb-4 text-center">
+                  <span className="text-xs text-neutral-400 font-medium">
+                    Showing all {filteredProducts.length} certified medical equipment products
+                  </span>
+                </div>
+              )}
+            </>
           ) : (
-            <div className="rounded-2xl border border-neutral-200 bg-neutral-50 px-6 py-10 text-center">
+            <div className="rounded-2xl border border-neutral-200 bg-neutral-50 px-6 py-12 text-center">
               <p className="text-sm font-semibold text-neutral-800">
-                Browse our complete certified medical equipment range.
+                No medical equipment found matching {selectedCategory ? `“${activeCategoryName}”` : "the selected criteria"}.
               </p>
-              <Link
-                to="/shop-all"
-                className="mt-4 inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#7AA05A] hover:bg-[#688a4c] text-white text-xs font-bold transition-colors"
+              <button
+                type="button"
+                onClick={handleClearCategoryFilter}
+                className="mt-4 inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#7AA05A] hover:bg-[#688a4c] text-white text-xs font-bold transition-colors cursor-pointer"
               >
                 <span>View All Products</span>
-                <ArrowRight size={14} />
-              </Link>
+              </button>
             </div>
           )}
         </div>
       </section>
 
-      {/* 4. GREEN SERVICE-BENEFITS SECTION (DIRECTLY BELOW RANDOM PRODUCT SHOWCASE) */}
+      {/* 3. GREEN SERVICE-BENEFITS SECTION */}
       <ServiceBenefitsBanner />
 
-      {/* 5. CLINICAL BLOG & EDUCATIONAL GUIDES */}
+      {/* 4. CLINICAL BLOG & EDUCATIONAL GUIDES */}
       {blogs.length > 0 && (
         <section className="py-20 sm:py-24 bg-white border-t border-[#E8E8E8]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -161,7 +415,7 @@ export const HomePage: React.FC = () => {
                   Medical Knowledge
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
-                  Clinical Technology Guides & Resources
+                  Clinical Technology Guides &amp; Resources
                 </h2>
               </div>
               <Link

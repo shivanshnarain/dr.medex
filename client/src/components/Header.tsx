@@ -522,14 +522,14 @@ export const Header: React.FC = () => {
       const subs = Array.isArray(matched?.subcategories)
         ? matched!.subcategories.map((sub) => ({
             label: sub.name,
-            to: `/shop-all?category=${slug}&subcategory=${sub.slug}`
+            to: `/?category=${slug}&subcategory=${sub.slug}`
           }))
         : [];
 
       return {
         id: slug,
         label: spec.canonicalLabel,
-        to: `/category/${slug}`,
+        to: `/?category=${slug}`,
         categorySlug: slug,
         hasSubmenu: subs.length > 0,
         subcategories: subs
@@ -540,8 +540,16 @@ export const Header: React.FC = () => {
   // Check active state
   const isNavActive = (item: NavCategoryItem) => {
     if (item.categorySlug) {
+      const searchParams = new URLSearchParams(location.search);
+      const searchCat = searchParams.get("category");
+      if (searchCat) {
+        const sc = searchCat.toLowerCase().trim();
+        const ic = item.categorySlug.toLowerCase().trim();
+        const spec = NAVBAR_CANONICAL_CATEGORIES.find((s) => s.canonicalLabel === item.label);
+        if (spec && spec.matchSlugs.includes(sc)) return true;
+        return sc === ic || item.id.toLowerCase() === sc;
+      }
       return (
-        location.search.includes(`category=${item.categorySlug}`) ||
         location.pathname === `/category/${item.categorySlug}` ||
         location.pathname.startsWith(`/category/${item.categorySlug}/`)
       );
@@ -1096,17 +1104,20 @@ export const Header: React.FC = () => {
                       4. Equipment Categories
                     </div>
                     <div className="space-y-0.5">
-                      {navCategories.map((item) => (
-                        <Link
-                          key={item.id}
-                          to={item.to}
-                          onClick={() => setIsOverflowMenuOpen(false)}
-                          className="flex items-center justify-between px-2.5 py-1.5 rounded-lg hover:bg-[#7AA05A]/10 hover:text-[#2D5A4A] text-xs font-semibold text-neutral-800 transition-colors"
-                        >
-                          <span>{item.label}</span>
-                          <ChevronRight size={13} className="text-neutral-400" />
-                        </Link>
-                      ))}
+                      {navCategories.map((item) => {
+                        const active = isNavActive(item);
+                        return (
+                          <Link
+                            key={item.id}
+                            to={active ? "/" : item.to}
+                            onClick={() => setIsOverflowMenuOpen(false)}
+                            className="flex items-center justify-between px-2.5 py-1.5 rounded-lg hover:bg-[#7AA05A]/10 hover:text-[#2D5A4A] text-xs font-semibold text-neutral-800 transition-colors"
+                          >
+                            <span>{item.label}</span>
+                            <ChevronRight size={13} className="text-neutral-400" />
+                          </Link>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
@@ -1232,7 +1243,7 @@ export const Header: React.FC = () => {
                     }`}
                   >
                     <Link
-                      to={item.to}
+                      to={active ? "/" : item.to}
                       className="inline-flex items-center text-inherit hover:underline"
                     >
                       <span>{item.label}</span>
@@ -1396,7 +1407,7 @@ export const Header: React.FC = () => {
                     <div key={item.id} className="border-b border-neutral-100 pb-1">
                       <div className="flex items-center justify-between">
                         <Link
-                          to={item.to}
+                          to={active ? "/" : item.to}
                           onClick={() => setIsMobileMenuOpen(false)}
                           className={`flex-1 py-2 px-3 rounded-xl transition-colors ${
                             active

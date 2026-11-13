@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Heart, Package } from "lucide-react";
 import { Product } from "../types";
@@ -61,40 +61,85 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product }) 
   const displayTitle = product.title || product.productName || "Medical Equipment";
 
   const [imageFailed, setImageFailed] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isIntersecting, setIsIntersecting] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
-  // Authoritative Primary Image selection (prioritize admin-selected primaryImage flag / field)
-  const resolvePrimaryImage = (): string => {
-    if (product.primaryImage && typeof product.primaryImage === "string" && product.primaryImage.trim() && product.primaryImage !== "/placeholder-medical.png") {
-      return product.primaryImage.trim();
+  // Authoritative Full Image List Resolution
+  const allImages = useMemo(() => {
+    const list: string[] = [];
+    const seen = new Set<string>();
+
+    const addUrl = (raw: any) => {
+      if (!raw) return;
+      let u = "";
+      if (typeof raw === "string") u = raw.trim();
+      else if (typeof raw === "object" && raw !== null && raw.url) u = String(raw.url).trim();
+      if (u && u !== "/placeholder-medical.png" && !seen.has(u)) {
+        seen.add(u);
+        list.push(optimizeCloudinaryUrl(u, 600));
+      }
+    };
+
+    // Primary image always first
+    if (product.primaryImage && typeof product.primaryImage === "string" && product.primaryImage.trim()) {
+      addUrl(product.primaryImage);
     }
-    if (Array.isArray(product.images) && product.images.length > 0) {
-      // Check for object format with isPrimary flag
+    // Check images array for isPrimary first
+    if (Array.isArray(product.images)) {
       for (const img of product.images) {
         if (typeof img === "object" && img !== null && (img as any).isPrimary && (img as any).url) {
-          const u = (img as any).url.trim();
-          if (u && u !== "/placeholder-medical.png") return u;
+          addUrl((img as any).url);
         }
       }
-      // Fallback to first image item
-      const first = product.images[0];
-      if (typeof first === "string" && first.trim() && first.trim() !== "/placeholder-medical.png") return first.trim();
-      if (typeof first === "object" && first !== null && (first as any).url) {
-        const u = (first as any).url.trim();
-        if (u && u !== "/placeholder-medical.png") return u;
-      }
-    } else if (Array.isArray(product.galleryImages) && product.galleryImages.length > 0) {
-      const first = product.galleryImages[0];
-      if (typeof first === "string" && first.trim() && first.trim() !== "/placeholder-medical.png") return first.trim();
-      if (typeof first === "object" && first !== null && (first as any).url) {
-        const u = (first as any).url.trim();
-        if (u && u !== "/placeholder-medical.png") return u;
+      for (const img of product.images) {
+        addUrl(img);
       }
     }
-    return "";
-  };
+    // Check galleryImages array
+    if (Array.isArray(product.galleryImages)) {
+      for (const img of product.galleryImages) {
+        addUrl(img);
+      }
+    }
 
-  const primaryImage = optimizeCloudinaryUrl(resolvePrimaryImage(), 600);
-  const hasValidImage = Boolean(primaryImage && !imageFailed);
+    return list;
+  }, [product]);
+
+  const hasValidImage = allImages.length > 0 && !imageFailed;
+  const primaryImage = allImages[0] || "";
+
+  // IntersectionObserver to pause carousel when out of viewport
+  useEffect(() => {
+    if (allImages.length <= 1) return;
+    const el = cardRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setIsIntersecting(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsIntersecting(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [allImages.length]);
+
+  // Automatic image carousel rotation (3.2 seconds)
+  useEffect(() => {
+    if (allImages.length <= 1 || !isIntersecting) return;
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
+    }, 3200);
+
+    return () => clearInterval(timer);
+  }, [allImages.length, isIntersecting]);
 
   const productUrl = `/product/${product.slug || product.id}`;
 
@@ -120,6 +165,7 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product }) 
 
   return (
     <div
+      ref={cardRef}
       onMouseEnter={handleMouseEnter}
       className="group relative bg-white rounded-2xl border border-neutral-200/90 hover:border-neutral-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between h-full p-3 sm:p-4"
       style={{ contentVisibility: "auto", containIntrinsicSize: "auto 450px" }}
@@ -136,15 +182,24 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product }) 
           aria-label={displayTitle}
         >
           {hasValidImage ? (
-            <img
-              src={primaryImage}
-              alt={displayTitle}
-              className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-300 ease-out group-hover:scale-105 block border-none rounded-[16px]"
-              style={{ objectFit: "cover", objectPosition: "center" }}
-              loading="lazy"
-              decoding="async"
-              onError={() => setImageFailed(true)}
-            />
+            <>
+              {allImages.map((imgUrl, idx) => (
+                <img
+                  key={imgUrl}
+                  src={imgUrl}
+                  alt={`${displayTitle} - View ${idx + 1}`}
+                  className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500 ease-in-out group-hover:scale-105 block border-none rounded-[16px] ${
+                    idx === currentImageIndex ? "opacity-100 z-1" : "opacity-0 z-0 pointer-events-none"
+                  }`}
+                  style={{ objectFit: "cover", objectPosition: "center" }}
+                  loading={idx === 0 ? "lazy" : "lazy"}
+                  decoding="async"
+                  onError={() => {
+                    if (idx === 0 && allImages.length === 1) setImageFailed(true);
+                  }}
+                />
+              ))}
+            </>
           ) : (
             <div className="absolute inset-0 w-full h-full bg-neutral-50 flex flex-col items-center justify-center text-neutral-400 p-4 border border-dashed border-neutral-200 rounded-[16px]">
               <Package className="w-10 h-10 stroke-[1.2] text-neutral-300 mb-1.5" />
@@ -153,6 +208,25 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product }) 
             </div>
           )}
         </Link>
+
+        {/* Position indicator dots (placed near bottom-center inside image container) */}
+        {hasValidImage && allImages.length > 1 && (
+          <div
+            className="absolute bottom-2.5 left-0 right-0 z-10 flex items-center justify-center gap-1.5 pointer-events-none"
+            aria-hidden="true"
+          >
+            {allImages.map((_, idx) => (
+              <span
+                key={idx}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  idx === currentImageIndex
+                    ? "w-5 bg-[#7AA05A] shadow-xs"
+                    : "w-1.5 bg-black/35 backdrop-blur-xs"
+                }`}
+              />
+            ))}
+          </div>
+        )}
 
         {/* 2. FAVOURITE / WISHLIST HEART ICON (upper-right corner of square image container) */}
         <button
