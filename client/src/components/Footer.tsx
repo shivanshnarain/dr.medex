@@ -14,12 +14,12 @@ import {
 export const ServiceBenefitsBanner: React.FC = () => (
   <section
     aria-label="DR.MEDEX Global Service Benefits"
-    className="bg-[#7AA05A] py-8 sm:py-10 px-4 sm:px-6 lg:px-8"
+    className="bg-[#2D5A4A] py-8 sm:py-10 px-4 sm:px-6 lg:px-8"
   >
-    {/* Grid with subtle white dividers matching the feature cards */}
-    <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/30">
+    {/* Grid with subtle white dividers matching the homepage feature cards */}
+    <div className="max-w-7xl mx-auto bg-[#2D5A4A] grid grid-cols-1 md:grid-cols-4 divide-y-2 md:divide-y-0 md:divide-x md:divide-white/40">
       {/* Benefit 1 */}
-      <div className="flex items-start gap-4 py-4 md:py-1 px-3 sm:px-4 lg:px-5">
+      <div className="flex items-start gap-4 py-5 sm:py-6 px-4 sm:px-5 lg:px-6 bg-[#2D5A4A]">
         <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 shadow-xs">
           <Globe size={24} className="text-[#F4B400]" style={{ color: "#F4B400" }} />
         </div>
@@ -34,7 +34,7 @@ export const ServiceBenefitsBanner: React.FC = () => (
       </div>
 
       {/* Benefit 2 */}
-      <div className="flex items-start gap-4 py-4 md:py-1 px-3 sm:px-4 lg:px-5">
+      <div className="flex items-start gap-4 py-5 sm:py-6 px-4 sm:px-5 lg:px-6 bg-[#2D5A4A]">
         <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 shadow-xs">
           <ShieldCheck size={24} className="text-[#F4B400]" style={{ color: "#F4B400" }} />
         </div>
@@ -49,7 +49,7 @@ export const ServiceBenefitsBanner: React.FC = () => (
       </div>
 
       {/* Benefit 3 */}
-      <div className="flex items-start gap-4 py-4 md:py-1 px-3 sm:px-4 lg:px-5">
+      <div className="flex items-start gap-4 py-5 sm:py-6 px-4 sm:px-5 lg:px-6 bg-[#2D5A4A]">
         <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 shadow-xs">
           <Award size={24} className="text-[#F4B400]" style={{ color: "#F4B400" }} />
         </div>
@@ -64,7 +64,7 @@ export const ServiceBenefitsBanner: React.FC = () => (
       </div>
 
       {/* Benefit 4 */}
-      <div className="flex items-start gap-4 py-4 md:py-1 px-3 sm:px-4 lg:px-5">
+      <div className="flex items-start gap-4 py-5 sm:py-6 px-4 sm:px-5 lg:px-6 bg-[#2D5A4A]">
         <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 shadow-xs">
           <Wrench size={24} className="text-[#F4B400]" style={{ color: "#F4B400" }} />
         </div>
