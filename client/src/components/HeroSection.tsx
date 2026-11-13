@@ -7,68 +7,61 @@ interface HeroSectionProps {
   onQuickView?: (productId?: string) => void;
 }
 
-interface HeroProduct {
+interface HeroCategorySlide {
   id: string;
-  category: string;
-  categoryBadge: string;
-  title: string;
+  categoryLabel: string;
   imageUrl: string;
+  fallbackUrl: string;
   categoryPath: string;
 }
 
-const SIX_HERO_PRODUCTS: HeroProduct[] = [
+const HERO_CATEGORY_SLIDES: HeroCategorySlide[] = [
   {
-    id: "electrosurgical",
-    category: "Electrosurgical Equipment",
-    categoryBadge: "Electrosurgical",
-    title: "DR.MEDEX 3.5 MHz RF Cautery Generator",
+    id: "electrosurgical-equipment",
+    categoryLabel: "ELECTROSURGICAL EQUIPMENT",
     imageUrl:
-      "https://res.cloudinary.com/mjqna8qi/image/upload/v1792860858/dr-medex/products/prod-3-5-mhz-rf-cautery-preci/img_1792860858428_aac183ea.png",
+      "https://res.cloudinary.com/mjqna8qi/image/upload/v1794563069/dr-medex/hero-showcase/01-electrosurgical-equipment.png",
+    fallbackUrl: "/hero-showcase/01-electrosurgical-equipment.png",
     categoryPath: "/category/electrosurgical-units",
   },
   {
-    id: "cryosurgical",
-    category: "Cryosurgical Equipment",
-    categoryBadge: "Cryosurgical",
-    title: "DR.MEDEX Precision Mini Cryo Gun 300ML",
+    id: "cryosurgical-equipment",
+    categoryLabel: "CRYOSURGICAL EQUIPMENT",
     imageUrl:
-      "https://res.cloudinary.com/mjqna8qi/image/upload/v1792757761/dr-medex/products/prod-mini-cryo-gun-for-dermat/img_1792757761619_31d06c32.png",
+      "https://res.cloudinary.com/mjqna8qi/image/upload/v1794563071/dr-medex/hero-showcase/02-cryosurgical-equipment.png",
+    fallbackUrl: "/hero-showcase/02-cryosurgical-equipment.png",
     categoryPath: "/category/cryo-surgical",
   },
   {
-    id: "ot-lights",
-    category: "OT Lights",
-    categoryBadge: "OT Lights",
-    title: "DR.MEDEX Ceiling-Mounted Single Dome LED OT Light",
+    id: "ot-lights-equipment",
+    categoryLabel: "OT LIGHTS EQUIPMENT",
     imageUrl:
-      "https://res.cloudinary.com/mjqna8qi/image/upload/v1793204440/dr-medex/products/prod-ceiling-mounted-single-d/img_1793204439968_627b52d5.png",
+      "https://res.cloudinary.com/mjqna8qi/image/upload/v1794563085/dr-medex/hero-showcase/03-ot-lights-equipment.png",
+    fallbackUrl: "/hero-showcase/03-ot-lights-equipment.png",
     categoryPath: "/category/ot-lights",
   },
   {
-    id: "ot-tables",
-    category: "OT Tables",
-    categoryBadge: "OT Tables",
-    title: "DR.MEDEX Surgery Operating OT Table",
+    id: "ot-tables-equipment",
+    categoryLabel: "OT TABLES EQUIPMENT",
     imageUrl:
-      "https://res.cloudinary.com/mjqna8qi/image/upload/v1792725335/dr-medex/products/prod-surgery-operating-ot-tab/img_1792725335748_16242dbe.png",
+      "https://res.cloudinary.com/mjqna8qi/image/upload/v1794563104/dr-medex/hero-showcase/04-ot-tables-equipment.png",
+    fallbackUrl: "/hero-showcase/04-ot-tables-equipment.png",
     categoryPath: "/category/examination-ot-tables",
   },
   {
     id: "obg-equipment",
-    category: "OBG Equipment",
-    categoryBadge: "OBG Equipment",
-    title: "DR.MEDEX Electric Obstetric & Gynecology Exam Table",
+    categoryLabel: "OBG EQUIPMENT",
     imageUrl:
-      "https://res.cloudinary.com/mjqna8qi/image/upload/v1792861920/dr-medex/products/prod-multifunction-adjustable/img_1792861920066_19c9804b.png",
+      "https://res.cloudinary.com/mjqna8qi/image/upload/v1794563111/dr-medex/hero-showcase/05-obg-equipment.png",
+    fallbackUrl: "/hero-showcase/05-obg-equipment.png",
     categoryPath: "/category/obstetrics-and-gynaecology",
   },
   {
-    id: "general-medical",
-    category: "General Medical Equipment",
-    categoryBadge: "General Equipment",
-    title: "DR.MEDEX Diagnostic Wall-Mount Set",
+    id: "general-medical-equipment",
+    categoryLabel: "GENERAL MEDICAL EQUIPMENT",
     imageUrl:
-      "https://res.cloudinary.com/mjqna8qi/image/upload/v1792865371/dr-medex/products/prod-welch-allyn-74710-otosco/img_1792865370976_2d39967c.png",
+      "https://res.cloudinary.com/mjqna8qi/image/upload/v1794563133/dr-medex/hero-showcase/06-general-medical-equipment.png",
+    fallbackUrl: "/hero-showcase/06-general-medical-equipment.png",
     categoryPath: "/category/medical-equipment",
   },
 ];
@@ -92,7 +85,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
     if (isHovered || isManualPause) return;
 
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % SIX_HERO_PRODUCTS.length);
+      setActiveIndex((prev) => (prev + 1) % HERO_CATEGORY_SLIDES.length);
     }, 4800);
 
     return () => clearInterval(interval);
@@ -118,13 +111,13 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
     };
   }, []);
 
-  const activeProduct = SIX_HERO_PRODUCTS[activeIndex];
+  const activeSlide = HERO_CATEGORY_SLIDES[activeIndex];
 
   // 3 smaller thumbnails displayed at a time, cycling through remaining items
   const visibleThumbnailIndices = [
-    (activeIndex + 1) % SIX_HERO_PRODUCTS.length,
-    (activeIndex + 2) % SIX_HERO_PRODUCTS.length,
-    (activeIndex + 3) % SIX_HERO_PRODUCTS.length,
+    (activeIndex + 1) % HERO_CATEGORY_SLIDES.length,
+    (activeIndex + 2) % HERO_CATEGORY_SLIDES.length,
+    (activeIndex + 3) % HERO_CATEGORY_SLIDES.length,
   ];
 
   return (
@@ -136,7 +129,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
         {/* TWO-COLUMN HERO SECTION */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center">
           
-          {/* LEFT COLUMN: HERO CONTENT */}
+          {/* LEFT COLUMN: HERO CONTENT (PRESERVED EXACTLY) */}
           <div className="lg:col-span-5 flex flex-col items-start">
             {/* Eyebrow text */}
             <div className="inline-flex items-center gap-2 text-xs sm:text-xs font-bold uppercase tracking-[0.18em] text-[#7AA05A] mb-4 sm:mb-5">
@@ -178,7 +171,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: MEDICAL EQUIPMENT GALLERY */}
+          {/* RIGHT COLUMN: HERO PRODUCT SHOWCASE (UPDATED WITH 6 USER IMAGES & LABELS) */}
           <div
             className="lg:col-span-7 w-full"
             onMouseEnter={() => setIsHovered(true)}
@@ -189,27 +182,20 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               {/* LARGE PRIMARY IMAGE CONTAINER */}
               <div className="relative flex-1 bg-[#F8F9FA] rounded-2xl border border-neutral-200/90 overflow-hidden min-h-[320px] sm:min-h-[420px] lg:min-h-[460px] xl:min-h-[480px] flex items-center justify-center p-6 sm:p-8">
                 
-                {/* Top Badge: Category */}
+                {/* Top Badge: Category Label (NO slide counter) */}
                 <div className="absolute top-4 left-4 z-20">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/90 backdrop-blur-xs text-[#2D5A4A] border border-[#2D5A4A]/20 shadow-xs">
-                    {activeProduct.category}
+                  <span className="inline-flex items-center px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-extrabold uppercase tracking-wider bg-white/95 backdrop-blur-xs text-[#2D5A4A] border border-[#2D5A4A]/25 shadow-xs">
+                    {activeSlide.categoryLabel}
                   </span>
                 </div>
 
-                {/* Top Right Counter: 01 / 06 */}
-                <div className="absolute top-4 right-4 z-20">
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-white/90 backdrop-blur-xs text-neutral-600 border border-neutral-200 shadow-xs">
-                    {String(activeIndex + 1).padStart(2, "0")} / {String(SIX_HERO_PRODUCTS.length).padStart(2, "0")}
-                  </span>
-                </div>
-
-                {/* Stack of 6 Crossfade Images */}
+                {/* Stack of 6 Crossfade Images (Exact 6 provided images, object-contain, no distortion) */}
                 <div className="relative w-full h-[240px] sm:h-[320px] lg:h-[360px] flex items-center justify-center">
-                  {SIX_HERO_PRODUCTS.map((prod, idx) => {
+                  {HERO_CATEGORY_SLIDES.map((slide, idx) => {
                     const isActive = idx === activeIndex;
                     return (
                       <div
-                        key={prod.id}
+                        key={slide.id}
                         className={`absolute inset-0 flex items-center justify-center transition-opacity duration-700 ease-in-out ${
                           isActive
                             ? "opacity-100 z-10 pointer-events-auto"
@@ -218,30 +204,36 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                         aria-hidden={!isActive}
                       >
                         <img
-                          src={prod.imageUrl}
-                          alt={prod.title}
+                          src={slide.imageUrl}
+                          alt={slide.categoryLabel}
                           className="max-h-full max-w-full object-contain drop-shadow-sm select-none"
                           loading={idx === 0 ? "eager" : "lazy"}
                           decoding="async"
+                          onError={(e) => {
+                            const target = e.currentTarget;
+                            if (target.src !== slide.fallbackUrl) {
+                              target.src = slide.fallbackUrl;
+                            }
+                          }}
                         />
                       </div>
                     );
                   })}
                 </div>
 
-                {/* Bottom Caption Bar */}
-                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-white via-white/85 to-transparent p-4 sm:p-5 pt-8 z-20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2">
+                {/* Bottom Caption Bar: Category Label & View Category Action (NO individual product names) */}
+                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-white via-white/90 to-transparent p-4 sm:p-5 pt-8 z-20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <div className="truncate">
-                    <p className="text-xs sm:text-sm font-bold text-[#111111] truncate">
-                      {activeProduct.title}
-                    </p>
+                    <span className="text-xs sm:text-sm font-extrabold text-[#111111] uppercase tracking-wider block truncate">
+                      {activeSlide.categoryLabel}
+                    </span>
                   </div>
                   <Link
-                    to={activeProduct.categoryPath}
-                    className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold text-[#2D5A4A] hover:underline shrink-0"
+                    to={activeSlide.categoryPath}
+                    className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#2D5A4A] hover:text-[#1F3F34] hover:underline shrink-0 group transition-colors"
                   >
                     <span>View Category</span>
-                    <ArrowRight size={13} />
+                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
               </div>
@@ -249,25 +241,31 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               {/* THREE THUMBNAILS (VERTICAL ON SM+, HORIZONTAL ON MOBILE) */}
               <div className="flex flex-row sm:flex-col gap-2.5 sm:gap-3 w-full sm:w-28 md:w-32 lg:w-36 shrink-0 justify-between">
                 {visibleThumbnailIndices.map((thumbIdx) => {
-                  const thumbProduct = SIX_HERO_PRODUCTS[thumbIdx];
+                  const thumbSlide = HERO_CATEGORY_SLIDES[thumbIdx];
                   return (
                     <button
-                      key={thumbProduct.id}
+                      key={thumbSlide.id}
                       type="button"
                       onClick={() => handleSelectThumbnail(thumbIdx)}
-                      className="group relative flex-1 flex flex-col items-center justify-center p-2.5 sm:p-3 bg-[#F8F9FA] hover:bg-[#F0F2F1] rounded-xl border border-neutral-200/90 hover:border-[#2D5A4A]/50 transition-all cursor-pointer text-left focus:outline-none focus:ring-2 focus:ring-[#2D5A4A]/30"
-                      aria-label={`View ${thumbProduct.title}`}
+                      className="group relative flex-1 flex flex-col items-center justify-center p-2 sm:p-2.5 bg-[#F8F9FA] hover:bg-[#F0F2F1] rounded-xl border border-neutral-200/90 hover:border-[#2D5A4A]/50 transition-all cursor-pointer text-left focus:outline-none focus:ring-2 focus:ring-[#2D5A4A]/30"
+                      aria-label={`View ${thumbSlide.categoryLabel}`}
                     >
                       <div className="w-full h-14 sm:h-20 lg:h-22 flex items-center justify-center mb-1 overflow-hidden">
                         <img
-                          src={thumbProduct.imageUrl}
-                          alt={thumbProduct.title}
+                          src={thumbSlide.imageUrl}
+                          alt={thumbSlide.categoryLabel}
                           className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
                           loading="lazy"
+                          onError={(e) => {
+                            const target = e.currentTarget;
+                            if (target.src !== thumbSlide.fallbackUrl) {
+                              target.src = thumbSlide.fallbackUrl;
+                            }
+                          }}
                         />
                       </div>
-                      <span className="text-[10px] sm:text-[11px] font-semibold text-neutral-700 group-hover:text-[#2D5A4A] text-center line-clamp-1 w-full block transition-colors">
-                        {thumbProduct.categoryBadge}
+                      <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-neutral-700 group-hover:text-[#2D5A4A] text-center line-clamp-1 w-full block transition-colors">
+                        {thumbSlide.categoryLabel}
                       </span>
                     </button>
                   );
@@ -279,7 +277,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
 
         </div>
 
-        {/* THREE FEATURE CARDS DIRECTLY BELOW THE HERO */}
+        {/* THREE FEATURE CARDS DIRECTLY BELOW THE HERO (PRESERVED EXACTLY) */}
         <div className="mt-12 sm:mt-16 lg:mt-20 bg-[#2D5A4A] rounded-2xl overflow-hidden shadow-xs grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/20">
           
           {/* Card 1 */}
