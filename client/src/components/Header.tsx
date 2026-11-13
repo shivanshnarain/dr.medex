@@ -25,7 +25,7 @@ import { useAuth } from "../context/AuthContext";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { CustomerAuthModal } from "./auth/CustomerAuthModal";
 import { Product, Category } from "../types";
-import { getCategories } from "../services/productService";
+import { getCategories, clearCategoriesCache } from "../services/productService";
 import rawFallbackCategories from "../data/fallbackCategories.json";
 import { Logo } from "./Logo";
 import { optimizeCloudinaryUrl } from "../lib/imageUtils";
@@ -440,10 +440,16 @@ export const Header: React.FC = () => {
       }
     };
     fetchCats();
+    const handleUpdate = () => {
+      clearCategoriesCache();
+      fetchCats();
+    };
     window.addEventListener("focus", fetchCats);
+    window.addEventListener("drmedex_catalogue_updated", handleUpdate);
     return () => {
       isMounted = false;
       window.removeEventListener("focus", fetchCats);
+      window.removeEventListener("drmedex_catalogue_updated", handleUpdate);
     };
   }, []);
 

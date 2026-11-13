@@ -6,6 +6,7 @@ const initialCatalogueHierarchy = require("../data/catalogueHierarchy");
 const initialCountries = require("../data/countries");
 const initialBlogs = require("../data/blogs");
 const currencyService = require("./currencyService");
+const mongoService = require("./mongoService");
 
 // File-backed persistence path in server/data/db.json
 const DB_FILE = path.join(__dirname, "../data/db.json");
@@ -160,15 +161,16 @@ function checkReload() {
         const raw = fs.readFileSync(TMP_DB_FILE, "utf-8");
         const loaded = JSON.parse(raw);
         if (loaded && loaded.products && loaded.products.length > 0) {
-          state = { ...state, ...loaded };
-          if (loaded.catalogueHierarchy) {
-            for (const k of Object.keys(initialCatalogueHierarchy)) {
-              delete initialCatalogueHierarchy[k];
-            }
-            Object.assign(initialCatalogueHierarchy, loaded.catalogueHierarchy);
+          state.products = loaded.products;
+          if (loaded.orders) state.orders = loaded.orders;
+          if (loaded.quotes) state.quotes = loaded.quotes;
+          if (loaded.coupons) state.coupons = loaded.coupons;
+          if (loaded.policies) state.policies = loaded.policies;
+          if (loaded.catalogueHierarchy && (!state.catalogueHierarchy || !mongoService.isConfigured())) {
             state.catalogueHierarchy = JSON.parse(JSON.stringify(loaded.catalogueHierarchy));
-          } else if (!state.catalogueHierarchy) {
-            state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
+          }
+          if (Array.isArray(loaded.categories) && (!state.categories || state.categories.length === 0 || !mongoService.isConfigured())) {
+            state.categories = loaded.categories;
           }
           ensureUniqueProductIds(state.products);
           return;
@@ -183,15 +185,16 @@ function checkReload() {
         const raw = fs.readFileSync(DB_FILE, "utf-8");
         const loaded = JSON.parse(raw);
         if (loaded && loaded.products && loaded.products.length > 0) {
-          state = { ...state, ...loaded };
-          if (loaded.catalogueHierarchy) {
-            for (const k of Object.keys(initialCatalogueHierarchy)) {
-              delete initialCatalogueHierarchy[k];
-            }
-            Object.assign(initialCatalogueHierarchy, loaded.catalogueHierarchy);
+          state.products = loaded.products;
+          if (loaded.orders) state.orders = loaded.orders;
+          if (loaded.quotes) state.quotes = loaded.quotes;
+          if (loaded.coupons) state.coupons = loaded.coupons;
+          if (loaded.policies) state.policies = loaded.policies;
+          if (loaded.catalogueHierarchy && (!state.catalogueHierarchy || !mongoService.isConfigured())) {
             state.catalogueHierarchy = JSON.parse(JSON.stringify(loaded.catalogueHierarchy));
-          } else if (!state.catalogueHierarchy) {
-            state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
+          }
+          if (Array.isArray(loaded.categories) && (!state.categories || state.categories.length === 0 || !mongoService.isConfigured())) {
+            state.categories = loaded.categories;
           }
           ensureUniqueProductIds(state.products);
         }
@@ -203,6 +206,110 @@ function checkReload() {
 // Initial load
 ensureUniqueProductIds(state.products);
 checkReload();
+
+let lastTaxonomySyncTime = 0;
+let taxonomySyncInFlight = null;
+let taxonomySaveInFlight = null;
+let taxonomySaveQueued = false;
+let lastTaxonomyAdminEmail = "ADMIN";
+const TAXONOMY_SYNC_TTL = 3000;
+
+function saveTaxonomyToMongoAsync(adminEmail = "ADMIN") {
+  if (!mongoService.isConfigured()) return Promise.resolve();
+  lastTaxonomyAdminEmail = adminEmail;
+  if (taxonomySaveInFlight) {
+    taxonomySaveQueued = true;
+    return taxonomySaveInFlight;
+  }
+
+  taxonomySaveInFlight = (async () => {
+    try {
+      do {
+        taxonomySaveQueued = false;
+        const hierSnapshot = JSON.parse(JSON.stringify(state.catalogueHierarchy || {}));
+        const catsSnapshot = JSON.parse(JSON.stringify(state.categories || []));
+        await Promise.all([
+          mongoService.saveCatalogueHierarchyToMongo(hierSnapshot, lastTaxonomyAdminEmail),
+          mongoService.saveCategoriesToMongo(catsSnapshot, lastAdminEmailSafe())
+        ]);
+      } while (taxonomySaveQueued);
+    } catch (err) {
+      console.warn("[store] saveTaxonomyToMongoAsync error:", err.message);
+    } finally {
+      taxonomySaveInFlight = null;
+    }
+  })();
+
+  return taxonomySaveInFlight;
+}
+
+function lastAdminEmailSafe() {
+  return lastTaxonomyAdminEmail || "ADMIN";
+}
+
+async function syncTaxonomyFromMongo(force = false) {
+  if (!mongoService.isConfigured()) return;
+  if (taxonomySaveInFlight) {
+    try {
+      await taxonomySaveInFlight;
+    } catch (e) {}
+  }
+
+  // If a sync is already running, wait for it to complete
+  if (taxonomySyncInFlight) {
+    try {
+      await taxonomySyncInFlight;
+    } catch (e) {}
+    // If not a forced refresh, the result from that sync is fresh enough
+    if (!force) return;
+  }
+
+  const now = Date.now();
+  if (!force && now - lastTaxonomySyncTime < TAXONOMY_SYNC_TTL) return;
+
+  taxonomySyncInFlight = (async () => {
+    try {
+      const [mongoHier, mongoCats, tombstones] = await Promise.all([
+        mongoService.getCatalogueHierarchyFromMongo(force),
+        mongoService.getCategoriesFromMongo(force),
+        mongoService.getDeletedTaxonomies(force)
+      ]);
+
+      if (mongoHier && Object.keys(mongoHier).length > 0) {
+        state.catalogueHierarchy = mongoHier;
+        for (const k of Object.keys(initialCatalogueHierarchy)) {
+          delete initialCatalogueHierarchy[k];
+        }
+        Object.assign(initialCatalogueHierarchy, mongoHier);
+      } else if (state.catalogueHierarchy && Object.keys(state.catalogueHierarchy).length > 0) {
+        await mongoService.saveCatalogueHierarchyToMongo(state.catalogueHierarchy, "SYSTEM_SEED");
+      }
+
+      if (Array.isArray(mongoCats) && mongoCats.length > 0) {
+        state.categories = mongoCats;
+      } else if (Array.isArray(state.categories) && state.categories.length > 0) {
+        await mongoService.saveCategoriesToMongo(state.categories, "SYSTEM_SEED");
+      }
+
+      if (Array.isArray(tombstones) && tombstones.length > 0) {
+        mongoService.applyTaxonomyTombstones(state.catalogueHierarchy, state.categories, tombstones);
+      }
+
+      lastTaxonomySyncTime = Date.now();
+    } catch (err) {
+      console.warn("[store] MongoDB taxonomy sync notice:", err.message);
+    } finally {
+      taxonomySyncInFlight = null;
+    }
+  })();
+
+  return taxonomySyncInFlight;
+}
+
+// Initial sync on module startup
+if (mongoService.isConfigured()) {
+  syncTaxonomyFromMongo().catch(() => {});
+}
 
 async function flushPersistAsync() {
   if (persistInFlight) {
@@ -273,10 +380,17 @@ function persist() {
   }
 }
 
+function persistTaxonomySync() {
+  dirtyPersist = true;
+  flushPersistSync();
+}
+
 process.on("beforeExit", flushPersistSync);
 
 module.exports = {
   flushPersistSync,
+  syncTaxonomyFromMongo,
+  flushTaxonomyAsync: saveTaxonomyToMongoAsync,
   reloadFromDisk: () => {
     lastMtime = 0;
     checkReload();
@@ -656,19 +770,27 @@ module.exports = {
   },
   getCategories: (includeInactive = false) => {
     checkReload();
-    if (includeInactive) return state.categories;
-    return state.categories.filter(c => c.status !== "INACTIVE" && c.active !== false);
+    const cats = state.categories || [];
+    if (includeInactive) return cats;
+    return cats.filter(c => c && c.status !== "INACTIVE" && c.active !== false);
+  },
+  getCategoriesAsync: async (includeInactive = false) => {
+    await syncTaxonomyFromMongo();
+    return module.exports.getCategories(includeInactive);
   },
   getAllCategories: () => {
     checkReload();
-    return state.categories;
+    return state.categories || [];
   },
   updateCategory: (id, updates) => {
     checkReload();
     const idx = state.categories.findIndex(c => c.id === id || c.slug === id);
     if (idx !== -1) {
       state.categories[idx] = { ...state.categories[idx], ...updates };
-      persist();
+      persistTaxonomySync();
+      if (mongoService.isConfigured()) {
+        saveTaxonomyToMongoAsync();
+      }
       return state.categories[idx];
     }
     return null;
@@ -679,6 +801,10 @@ module.exports = {
       state.catalogueHierarchy = JSON.parse(JSON.stringify(initialCatalogueHierarchy));
     }
     return state.catalogueHierarchy;
+  },
+  getCatalogueHierarchyAsync: async () => {
+    await syncTaxonomyFromMongo();
+    return module.exports.getCatalogueHierarchy();
   },
   addPrimaryCategory: ({ name, code, shortDescription }) => {
     checkReload();
@@ -738,7 +864,11 @@ module.exports = {
     };
 
     Object.assign(initialCatalogueHierarchy, state.catalogueHierarchy);
-    persist();
+    persistTaxonomySync();
+    if (mongoService.isConfigured()) {
+      saveTaxonomyToMongoAsync();
+      mongoService.removeDeletedTaxonomyTombstone({ type: "primary", id: slug }).catch(() => {});
+    }
     return { category: newCategory, hierarchyItem: state.catalogueHierarchy[slug] };
   },
   addSubcategory: ({ parentCategory, name, shortDescription, description, displayOrder, order }) => {
@@ -820,7 +950,11 @@ module.exports = {
     }
 
     Object.assign(initialCatalogueHierarchy, state.catalogueHierarchy);
-    persist();
+    persistTaxonomySync();
+    if (mongoService.isConfigured()) {
+      saveTaxonomyToMongoAsync();
+      mongoService.removeDeletedTaxonomyTombstone({ type: "subcategory", id: subSlug, parentCategory: parentSlug }).catch(() => {});
+    }
     return { subcategory: newSubItem, parentCategory: parentSlug };
   },
   addEquipmentType: ({ parentCategory, subcategory, name, skuPrefix }) => {
@@ -894,7 +1028,11 @@ module.exports = {
     sub.equipmentTypes.push(newEq);
 
     Object.assign(initialCatalogueHierarchy, state.catalogueHierarchy);
-    persist();
+    persistTaxonomySync();
+    if (mongoService.isConfigured()) {
+      saveTaxonomyToMongoAsync();
+      mongoService.removeDeletedTaxonomyTombstone({ type: "equipment", id: eqId, parentCategory: hierParentKey }).catch(() => {});
+    }
     return { equipmentType: newEq, parentCategory: hierParentKey, subcategory: sub.id };
   },
   deletePrimaryCategory: (id, cascadeProducts = false) => {
@@ -953,7 +1091,12 @@ module.exports = {
       delete initialCatalogueHierarchy[hierKey];
     }
 
-    persist();
+    persistTaxonomySync();
+    if (mongoService.isConfigured()) {
+      saveTaxonomyToMongoAsync();
+      mongoService.recordDeletedTaxonomy({ type: "primary", id: cat?.id || hierKey || cleanId, name: catName }).catch(() => {});
+      mongoService.detachProductsFromTaxonomy("primary", cat?.id || hierKey || cleanId).catch(() => {});
+    }
     return {
       success: true,
       message: `Primary category "${catName}" deleted successfully. ${detachedCount} product(s) safely detached.`,
@@ -1041,7 +1184,12 @@ module.exports = {
       cat.subcategories = cat.subcategories.filter(s => (s.id || "").toLowerCase() !== cleanSub && (s.name || "").toLowerCase() !== subName.toLowerCase());
     }
 
-    persist();
+    persistTaxonomySync();
+    if (mongoService.isConfigured()) {
+      saveTaxonomyToMongoAsync();
+      mongoService.recordDeletedTaxonomy({ type: "subcategory", id: cleanSub, name: subName, parentCategory: hierKey || cleanParent }).catch(() => {});
+      mongoService.detachProductsFromTaxonomy("subcategory", cleanSub, { parentCategory: hierKey || cleanParent }).catch(() => {});
+    }
     return {
       success: true,
       message: `Subcategory "${subName}" deleted successfully. ${detachedCount} product(s) safely detached.`,
@@ -1115,7 +1263,12 @@ module.exports = {
       Object.assign(initialCatalogueHierarchy, state.catalogueHierarchy);
     }
 
-    persist();
+    persistTaxonomySync();
+    if (mongoService.isConfigured()) {
+      saveTaxonomyToMongoAsync();
+      mongoService.recordDeletedTaxonomy({ type: "equipment", id: cleanEq, name: eqName, parentCategory: hierKey || cleanParent, parentSubcategory: cleanSub }).catch(() => {});
+      mongoService.detachProductsFromTaxonomy("equipment", cleanEq, { parentCategory: hierKey || cleanParent, parentSubcategory: cleanSub }).catch(() => {});
+    }
     return {
       success: true,
       message: `Verified equipment type "${eqName}" deleted successfully. ${detachedCount} product(s) safely detached.`,
@@ -1164,7 +1317,11 @@ module.exports = {
       }
     }
 
-    persist();
+    persistTaxonomySync();
+    if (mongoService.isConfigured()) {
+      mongoService.saveCatalogueHierarchyToMongo(state.catalogueHierarchy);
+      mongoService.saveCategoriesToMongo(state.categories);
+    }
     return { success: true, message: `Subcategory updated to "${cleanName}".` };
   },
   updateEquipmentType: (parentCategory, subcategory, eqId, { name, code }) => {
@@ -1194,7 +1351,10 @@ module.exports = {
     eq.name = cleanName;
     if (code) eq.defaultCode = String(code).trim().toUpperCase();
 
-    persist();
+    persistTaxonomySync();
+    if (mongoService.isConfigured()) {
+      mongoService.saveCatalogueHierarchyToMongo(state.catalogueHierarchy);
+    }
     return { success: true, message: `Equipment type updated to "${cleanName}".` };
   },
   getCountries: () => state.countries,

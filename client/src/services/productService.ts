@@ -1,5 +1,6 @@
 import { Product, Category } from "../types";
 import rawFallbackCategories from "../data/fallbackCategories.json";
+import { getApiUrl } from "../lib/apiConfig";
 
 export const fallbackCategories: Category[] = (rawFallbackCategories as unknown) as Category[];
 
@@ -186,7 +187,7 @@ export async function getCategories(
 
   const run = (async (): Promise<{ categories: Category[]; isFallback: boolean }> => {
     try {
-      const res = await fetch("/api/categories");
+      const res = await fetch(getApiUrl("/api/categories"));
       if (res.ok) {
         const data = await res.json();
         if (data && data.success && Array.isArray(data.categories) && data.categories.length > 0) {
@@ -230,6 +231,20 @@ export function clearProductsCache() {
   productsInFlight = null;
   memoryProductBySlugCache.clear();
   sessionRandomShowcaseCache = null;
+}
+
+// Global cross-component and cross-tab catalogue synchronization listener
+if (typeof window !== "undefined") {
+  window.addEventListener("drmedex_catalogue_updated", () => {
+    clearCategoriesCache();
+    clearProductsCache();
+  });
+  window.addEventListener("storage", (e) => {
+    if (e.key === "drmedex_catalogue_version") {
+      clearCategoriesCache();
+      clearProductsCache();
+    }
+  });
 }
 
 /**

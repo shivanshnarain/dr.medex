@@ -231,6 +231,20 @@ async function runTests() {
       await deletionService.deleteCategoryWithDependencies("primary", parentCatId);
     } catch (e) {}
 
+    // Cleanup test products from Scenario C if any linger
+    try {
+      store.deleteProduct(testProdIdC1);
+      store.deleteProduct(testProdIdC2);
+      if (mongoService.isConfigured()) {
+        const client = await mongoService.getClient().catch(() => null);
+        if (client) {
+          const db = client.db(process.env.MONGODB_DB || "drmedex");
+          await db.collection("approved_products").deleteMany({ id: { $in: [testProdIdC1, testProdIdC2] } }).catch(() => {});
+          await db.collection("deleted_products").deleteMany({ id: { $in: [testProdIdC1, testProdIdC2] } }).catch(() => {});
+        }
+      }
+    } catch (e) {}
+
     // Restore pristine db.json so test records do not dirty database file
     fs.writeFileSync(DB_FILE, originalDbContent, "utf-8");
     store.reloadFromDisk();

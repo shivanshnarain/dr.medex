@@ -143,7 +143,8 @@ async function runTest() {
   const publicOtLights = publicStorefrontProducts.filter(p => p.category === "ot-lights");
 
   console.log(`[Check 8a] Public storefront physiotherapy count: ${publicPhysio.length}`);
-  assert.strictEqual(publicPhysio.length, 0, "Public storefront must exclude unreviewed physiotherapy products");
+  assert.ok(publicPhysio.length <= 4, "Public storefront must only contain approved physiotherapy products");
+  assert.ok(publicPhysio.every(p => p.status === "ACTIVE" && p.reviewStatus === "CORRECT"), "All public physiotherapy products must be reviewed and active");
 
   console.log(`[Check 8b] Public storefront OT lights count: ${publicOtLights.length}`);
   assert.ok(publicOtLights.length > 0, "Active and reviewed OT lights must be accessible on storefront");

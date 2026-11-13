@@ -79,6 +79,13 @@ export const ShopPage: React.FC = () => {
 
   useEffect(() => {
     loadData();
+    const handleUpdate = () => {
+      loadData();
+    };
+    window.addEventListener("drmedex_catalogue_updated", handleUpdate);
+    return () => {
+      window.removeEventListener("drmedex_catalogue_updated", handleUpdate);
+    };
   }, []);
 
   // Reconcile stale subcategory filter when switching category

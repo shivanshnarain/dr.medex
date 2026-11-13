@@ -551,8 +551,9 @@ router.get("/products", requireAdmin, async (req, res) => {
   }
 });
 
-router.get("/catalogue/hierarchy", requireAdmin, (req, res) => {
-  res.json({ success: true, hierarchy: store.getCatalogueHierarchy() });
+router.get("/catalogue/hierarchy", requireAdmin, async (req, res) => {
+  const hierarchy = await store.getCatalogueHierarchyAsync();
+  res.json({ success: true, hierarchy });
 });
 
 router.post("/catalogue/primary-category", requireAdmin, (req, res) => {
@@ -807,15 +808,17 @@ router.get("/catalogue/dependencies/:type/:id", requireAdmin, (req, res) => {
 // Cascading Deletion Endpoint
 router.post("/catalogue/delete-cascade", requireAdmin, async (req, res) => {
   try {
-    const { type, id, parentCategory, parentSubcategory, cascadeProducts } = req.body;
+    const { type, id, parentCategory, parentSubcategory, cascadeProducts, purgeProducts, forceDeleteProducts } = req.body;
     if (!type || !id) {
       return res.status(400).json({ success: false, message: "Entity type and id are required." });
     }
 
+    const shouldPurge = Boolean((cascadeProducts === true || purgeProducts === true) && (purgeProducts === true || forceDeleteProducts === true));
     const result = await deletionService.deleteCategoryWithDependencies(type, id, {
       parentCategory,
       parentSubcategory,
-      cascadeProducts: cascadeProducts !== false,
+      cascadeProducts: shouldPurge,
+      purgeProducts: shouldPurge,
       adminEmail: req.admin?.email || "ADMIN"
     });
 
@@ -3016,7 +3019,8 @@ router.get("/audit-logs", requireAdmin, (req, res) => {
 // 7. CATEGORY MANAGEMENT ENDPOINTS
 // ==========================================
 
-router.get("/categories", requireAdmin, (req, res) => {
+router.get("/categories", requireAdmin, async (req, res) => {
+  await store.syncTaxonomyFromMongo();
   const allCats = store.getAllCategories();
   const allProds = store.getProducts({ includeInactive: true });
   const categoryStats = allCats.map(cat => {

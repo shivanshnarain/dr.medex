@@ -466,7 +466,7 @@ export const AdminCategoriesPage: React.FC = () => {
           id: deletingItem.id,
           parentCategory: deletingItem.parentCategory,
           parentSubcategory: deletingItem.parentSubcategory,
-          cascadeProducts: true,
+          cascadeProducts: false,
           confirmed: true
         })
       });
@@ -478,7 +478,8 @@ export const AdminCategoriesPage: React.FC = () => {
         setDeletingItem(null);
         clearCategoriesCache();
         clearProductsCache();
-        setBanner({ type: "success", text: data.message || `"${deletedName}" deleted successfully.` });
+        window.dispatchEvent(new CustomEvent("drmedex_catalogue_updated"));
+        setBanner({ type: "success", text: data.message || `"${deletedName}" deleted successfully. Products safely preserved.` });
         if (data.hierarchy) setHierarchy(data.hierarchy);
         if (data.categories) setCategories(data.categories);
         await fetchData();
@@ -1409,26 +1410,26 @@ export const AdminCategoriesPage: React.FC = () => {
                         {(deleteInspection.subcategoryCount > 0 || deleteInspection.equipmentTypeCount > 0) ? " and " : ""}
                         {deleteInspection.productCount} associated product(s)
                       </strong>
-                      . Deleting it will also remove its exclusively associated records and assets from the catalogue.
+                      . Deleting it will safely detach all associated products (preserving them in the catalogue) and permanently delete this taxonomy node.
                     </p>
 
                     <div className="grid grid-cols-2 gap-2 font-mono text-[11px]">
                       <div className="p-2.5 bg-white border border-neutral-200 rounded-lg">
-                        <span className="text-neutral-500 block">Associated Products:</span>
-                        <strong className={`text-sm ${deleteInspection.productCount > 0 ? "text-amber-800" : "text-[#2D5A4A]"}`}>
-                          {deleteInspection.productCount} product(s)
+                        <span className="text-neutral-500 block">Preserved Products:</span>
+                        <strong className={`text-sm ${deleteInspection.productCount > 0 ? "text-emerald-700" : "text-[#2D5A4A]"}`}>
+                          {deleteInspection.productCount} product(s) (Intact)
                         </strong>
                       </div>
                       <div className="p-2.5 bg-white border border-neutral-200 rounded-lg">
-                        <span className="text-neutral-500 block">Dependent Child Records:</span>
+                        <span className="text-neutral-500 block">Removed Taxonomy Records:</span>
                         <strong className="text-sm text-neutral-900">
-                          {(deleteInspection.subcategoryCount || 0) + (deleteInspection.equipmentTypeCount || 0)} item(s)
+                          {(deleteInspection.subcategoryCount || 0) + (deleteInspection.equipmentTypeCount || 0) + 1} item(s)
                         </strong>
                       </div>
                     </div>
 
                     <p className="text-[11px] text-neutral-500 leading-relaxed">
-                      Shared Cloudinary media referenced by surviving products or customer orders will be preserved. Unreferenced records and exclusive assets will be permanently cleaned.
+                      Safe Product Preservation: All products remain in the catalogue. Only the category/subcategory link is detached.
                     </p>
                   </div>
                 ) : (

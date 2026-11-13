@@ -231,9 +231,10 @@ router.get("/search/live", (req, res) => {
 });
 
 // CATEGORIES
-router.get("/categories", (req, res) => {
+router.get("/categories", async (req, res) => {
   const includeInactive = req.query.includeInactive === "true";
-  res.json({ success: true, categories: store.getCategories(includeInactive) });
+  const categories = await store.getCategoriesAsync(includeInactive);
+  res.json({ success: true, categories });
 });
 
 // COUNTRIES

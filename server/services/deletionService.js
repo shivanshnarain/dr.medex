@@ -611,7 +611,7 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
  * - Prevents duplicate concurrent deletion requests via activeEntityLocks
  * - Idempotent across repeated executions
  */
-async function deleteCategoryWithDependencies(type, id, { parentCategory = null, parentSubcategory = null, cascadeProducts = true, purgeProducts = false, adminEmail = "ADMIN" } = {}) {
+async function deleteCategoryWithDependencies(type, id, { parentCategory = null, parentSubcategory = null, cascadeProducts = false, purgeProducts = false, adminEmail = "ADMIN" } = {}) {
   const cleanId = String(id || "").trim().toLowerCase();
   const lockKey = `${type}:${cleanId}`;
 
@@ -755,6 +755,9 @@ async function deleteCategoryWithDependencies(type, id, { parentCategory = null,
       } else if (type === "equipment") {
         taxonomyResult = store.deleteEquipmentType(resolvedParent, resolvedSub, id);
       }
+      if (mongoService.isConfigured()) {
+        await store.flushTaxonomyAsync();
+      }
     } catch (taxErr) {
       console.warn(`[deletionService] Taxonomy deletion notice for ${type} "${id}":`, taxErr.message);
     }
@@ -771,9 +774,11 @@ async function deleteCategoryWithDependencies(type, id, { parentCategory = null,
     });
 
     const isCleanupPending = totalFailedMedia > 0;
-    const message = isCleanupPending
-      ? `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" and associated records deleted. ${deletedProducts.length} product(s) deleted. (${totalFailedMedia} media cleanup(s) pending retry).`
-      : `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" and all associated data deleted successfully.`;
+    const message = shouldDeleteProducts
+      ? (isCleanupPending
+          ? `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" and associated records deleted. ${deletedProducts.length} product(s) deleted. (${totalFailedMedia} media cleanup(s) pending retry).`
+          : `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" and all associated data deleted successfully.`)
+      : `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" permanently deleted. ${inspection.products.length} product(s) safely preserved.`;
 
     return {
       success: true,

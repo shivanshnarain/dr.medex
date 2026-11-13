@@ -34,10 +34,31 @@ let cachedMongoProducts = null;
 let cachedMongoProductsTime = 0;
 const MONGO_PRODUCTS_CACHE_TTL = 60000;
 
+// Taxonomy collections and memory cache
+const TAXONOMY_COLLECTION_NAME = "catalogue_taxonomy";
+const DELETED_TAXONOMY_COLLECTION_NAME = "deleted_taxonomies";
+let cachedMongoHierarchy = null;
+let cachedMongoHierarchyTime = 0;
+let cachedMongoCategories = null;
+let cachedMongoCategoriesTime = 0;
+let cachedDeletedTaxonomies = null;
+let cachedDeletedTaxonomiesTime = 0;
+const TAXONOMY_CACHE_TTL = 3000;
+
+function invalidateTaxonomyCache() {
+  cachedMongoHierarchy = null;
+  cachedMongoHierarchyTime = 0;
+  cachedMongoCategories = null;
+  cachedMongoCategoriesTime = 0;
+  cachedDeletedTaxonomies = null;
+  cachedDeletedTaxonomiesTime = 0;
+}
+
 function invalidateMongoCache() {
   cachedMongoProducts = null;
   cachedMongoProductsTime = 0;
   cachedDeletedIds = null;
+  invalidateTaxonomyCache();
 }
 
 /**
@@ -126,6 +147,11 @@ async function getClient(forceRetry = false) {
   if (forceRetry) {
     global._mongoClientPromise = null;
     global._mongoClient = null;
+    connectionFailureCount = 0;
+    lastFailureTime = 0;
+    lastFailureError = null;
+  } else if (connectionFailureCount > 0 && (Date.now() - lastFailureTime < 10000)) {
+    throw new Error(lastFailureError || "MongoDB Atlas cluster unreachable (circuit breaker active)");
   }
 
   // Serverless-safe global singleton
@@ -624,6 +650,348 @@ async function getMongoStatus() {
   }
 }
 
+async function getTaxonomyCollection() {
+  const c = await getClient();
+  const db = c.db(process.env.MONGODB_DB || "drmedex");
+  return db.collection(TAXONOMY_COLLECTION_NAME);
+}
+
+let deletedTaxonomyIndexesEnsured = false;
+async function getDeletedTaxonomyCollection() {
+  const c = await getClient();
+  const db = c.db(process.env.MONGODB_DB || "drmedex");
+  const col = db.collection(DELETED_TAXONOMY_COLLECTION_NAME);
+  if (!deletedTaxonomyIndexesEnsured) {
+    try {
+      await col.createIndex({ id: 1 });
+      await col.createIndex({ type: 1 });
+      deletedTaxonomyIndexesEnsured = true;
+    } catch (e) {
+      deletedTaxonomyIndexesEnsured = true;
+    }
+  }
+  return col;
+}
+
+async function getCatalogueHierarchyFromMongo(forceRefresh = false) {
+  if (!isConfigured()) return null;
+  const now = Date.now();
+  if (!forceRefresh && cachedMongoHierarchy && now - cachedMongoHierarchyTime < TAXONOMY_CACHE_TTL) {
+    return cachedMongoHierarchy;
+  }
+  try {
+    const col = await getTaxonomyCollection();
+    const doc = await col.findOne({ _id: "catalogue_hierarchy" });
+    if (doc && doc.hierarchy && typeof doc.hierarchy === "object") {
+      cachedMongoHierarchy = doc.hierarchy;
+      cachedMongoHierarchyTime = now;
+      return cachedMongoHierarchy;
+    }
+    return null;
+  } catch (err) {
+    console.warn("[mongoService] getCatalogueHierarchyFromMongo error:", sanitizeMongoError(err));
+    return cachedMongoHierarchy;
+  }
+}
+
+async function saveCatalogueHierarchyToMongo(hierarchy, adminEmail = "ADMIN") {
+  if (!isConfigured() || !hierarchy) return false;
+  cachedMongoHierarchy = JSON.parse(JSON.stringify(hierarchy));
+  cachedMongoHierarchyTime = Date.now();
+  try {
+    const col = await getTaxonomyCollection();
+    await col.updateOne(
+      { _id: "catalogue_hierarchy" },
+      {
+        $set: {
+          _id: "catalogue_hierarchy",
+          hierarchy,
+          updatedAt: new Date().toISOString(),
+          updatedBy: adminEmail
+        }
+      },
+      { upsert: true }
+    );
+    return true;
+  } catch (err) {
+    console.warn("[mongoService] saveCatalogueHierarchyToMongo error:", sanitizeMongoError(err));
+    return false;
+  }
+}
+
+async function getCategoriesFromMongo(forceRefresh = false) {
+  if (!isConfigured()) return null;
+  const now = Date.now();
+  if (!forceRefresh && cachedMongoCategories && now - cachedMongoCategoriesTime < TAXONOMY_CACHE_TTL) {
+    return cachedMongoCategories;
+  }
+  try {
+    const col = await getTaxonomyCollection();
+    const doc = await col.findOne({ _id: "categories_list" });
+    if (doc && Array.isArray(doc.categories) && doc.categories.length > 0) {
+      cachedMongoCategories = doc.categories;
+      cachedMongoCategoriesTime = now;
+      return cachedMongoCategories;
+    }
+    return null;
+  } catch (err) {
+    console.warn("[mongoService] getCategoriesFromMongo error:", sanitizeMongoError(err));
+    return cachedMongoCategories;
+  }
+}
+
+async function saveCategoriesToMongo(categories, adminEmail = "ADMIN") {
+  if (!isConfigured() || !Array.isArray(categories)) return false;
+  cachedMongoCategories = JSON.parse(JSON.stringify(categories));
+  cachedMongoCategoriesTime = Date.now();
+  try {
+    const col = await getTaxonomyCollection();
+    await col.updateOne(
+      { _id: "categories_list" },
+      {
+        $set: {
+          _id: "categories_list",
+          categories,
+          updatedAt: new Date().toISOString(),
+          updatedBy: adminEmail
+        }
+      },
+      { upsert: true }
+    );
+    return true;
+  } catch (err) {
+    console.warn("[mongoService] saveCategoriesToMongo error:", sanitizeMongoError(err));
+    return false;
+  }
+}
+
+async function recordDeletedTaxonomy({ type, id, name = "", parentCategory = null, parentSubcategory = null, adminEmail = "ADMIN" }) {
+  if (!isConfigured() || !id) return false;
+  const cleanId = String(id).trim().toLowerCase();
+  const cleanParent = parentCategory ? String(parentCategory).trim().toLowerCase() : "";
+  const cleanSub = parentSubcategory ? String(parentSubcategory).trim().toLowerCase() : "";
+  const key = `${type}:${cleanParent || "root"}:${cleanId}`;
+
+  try {
+    const col = await getDeletedTaxonomyCollection();
+    await col.updateOne(
+      { _id: key },
+      {
+        $set: {
+          _id: key,
+          id: cleanId,
+          type: String(type || "subcategory").toLowerCase(),
+          name: name ? String(name).trim() : cleanId,
+          parentCategory: cleanParent || null,
+          parentSubcategory: cleanSub || null,
+          deletedAt: new Date().toISOString(),
+          deletedBy: adminEmail
+        }
+      },
+      { upsert: true }
+    );
+    invalidateTaxonomyCache();
+    return true;
+  } catch (err) {
+    console.warn("[mongoService] recordDeletedTaxonomy error:", sanitizeMongoError(err));
+    return false;
+  }
+}
+
+async function removeDeletedTaxonomyTombstone({ type, id, parentCategory = null }) {
+  if (!isConfigured() || !id) return false;
+  const cleanId = String(id).trim().toLowerCase();
+  const cleanParent = parentCategory ? String(parentCategory).trim().toLowerCase() : "";
+  const key = `${type}:${cleanParent || "root"}:${cleanId}`;
+
+  try {
+    const col = await getDeletedTaxonomyCollection();
+    await col.deleteMany({
+      $or: [
+        { _id: key },
+        { id: cleanId, type: String(type || "").toLowerCase() }
+      ]
+    });
+    invalidateTaxonomyCache();
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
+async function getDeletedTaxonomies(forceRefresh = false) {
+  if (!isConfigured()) return [];
+  const now = Date.now();
+  if (!forceRefresh && cachedDeletedTaxonomies && now - cachedDeletedTaxonomiesTime < TAXONOMY_CACHE_TTL) {
+    return cachedDeletedTaxonomies;
+  }
+  try {
+    const col = await getDeletedTaxonomyCollection();
+    const docs = await col.find({}).toArray();
+    cachedDeletedTaxonomies = docs || [];
+    cachedDeletedTaxonomiesTime = now;
+    return cachedDeletedTaxonomies;
+  } catch (err) {
+    return cachedDeletedTaxonomies || [];
+  }
+}
+
+function applyTaxonomyTombstones(hierarchy, categories, tombstones) {
+  if (!tombstones || !Array.isArray(tombstones) || tombstones.length === 0) return;
+
+  const deletedPrimaryIds = new Set();
+  const deletedPrimaryNames = new Set();
+  const deletedSubIds = new Set();
+  const deletedSubNames = new Set();
+  const deletedEqIds = new Set();
+  const deletedEqNames = new Set();
+
+  tombstones.forEach(t => {
+    const tType = String(t.type || "").toLowerCase();
+    const tId = String(t.id || "").trim().toLowerCase();
+    const tName = String(t.name || "").trim().toLowerCase();
+
+    if (tType === "primary") {
+      if (tId) deletedPrimaryIds.add(tId);
+      if (tName) deletedPrimaryNames.add(tName);
+    } else if (tType === "subcategory") {
+      if (tId) deletedSubIds.add(tId);
+      if (tName) deletedSubNames.add(tName);
+    } else if (tType === "equipment") {
+      if (tId) deletedEqIds.add(tId);
+      if (tName) deletedEqNames.add(tName);
+    }
+  });
+
+  // Filter categories array
+  if (Array.isArray(categories)) {
+    for (let i = categories.length - 1; i >= 0; i--) {
+      const cat = categories[i];
+      if (!cat) continue;
+      const catId = String(cat.id || "").toLowerCase();
+      const catSlug = String(cat.slug || "").toLowerCase();
+      const catName = String(cat.name || "").toLowerCase();
+
+      if (deletedPrimaryIds.has(catId) || deletedPrimaryIds.has(catSlug) || deletedPrimaryNames.has(catName)) {
+        categories.splice(i, 1);
+        continue;
+      }
+
+      if (Array.isArray(cat.subcategories)) {
+        cat.subcategories = cat.subcategories.filter(s => {
+          if (!s) return false;
+          const sId = String(s.id || "").toLowerCase();
+          const sSlug = String(s.slug || "").toLowerCase();
+          const sName = String(s.name || "").toLowerCase();
+          return !deletedSubIds.has(sId) && !deletedSubIds.has(sSlug) && !deletedSubNames.has(sName);
+        });
+      }
+    }
+  }
+
+  // Filter hierarchy object
+  if (hierarchy && typeof hierarchy === "object") {
+    for (const [hierKey, hierCat] of Object.entries(hierarchy)) {
+      if (!hierCat) continue;
+      const kLower = hierKey.toLowerCase();
+      const catId = String(hierCat.id || "").toLowerCase();
+      const catName = String(hierCat.name || "").toLowerCase();
+
+      if (deletedPrimaryIds.has(kLower) || deletedPrimaryIds.has(catId) || deletedPrimaryNames.has(catName)) {
+        delete hierarchy[hierKey];
+        continue;
+      }
+
+      if (Array.isArray(hierCat.subcategories)) {
+        hierCat.subcategories = hierCat.subcategories.filter(s => {
+          if (!s) return false;
+          const sId = String(s.id || "").toLowerCase();
+          const sSlug = String(s.slug || "").toLowerCase();
+          const sName = String(s.name || "").toLowerCase();
+          return !deletedSubIds.has(sId) && !deletedSubIds.has(sSlug) && !deletedSubNames.has(sName);
+        });
+
+        hierCat.subcategories.forEach(s => {
+          if (Array.isArray(s.equipmentTypes)) {
+            s.equipmentTypes = s.equipmentTypes.filter(e => {
+              if (!e) return false;
+              const eId = String(e.id || "").toLowerCase();
+              const eName = String(e.name || "").toLowerCase();
+              return !deletedEqIds.has(eId) && !deletedEqNames.has(eName);
+            });
+          }
+        });
+      }
+    }
+  }
+}
+
+async function detachProductsFromTaxonomy(type, id, { parentCategory = null, parentSubcategory = null } = {}) {
+  if (!isConfigured() || !id) return { detachedCount: 0 };
+  const cleanId = String(id).trim().toLowerCase();
+
+  try {
+    const col = await getCollection();
+    const escapeRegex = (s) => s.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
+    let filter = null;
+    let update = null;
+
+    if (type === "primary") {
+      filter = {
+        $or: [
+          { category: { $regex: new RegExp(`^${escapeRegex(cleanId)}$`, "i") } }
+        ]
+      };
+      update = {
+        $set: {
+          category: "",
+          subcategory: "",
+          equipmentType: "",
+          subcategories: [],
+          updatedAt: new Date().toISOString()
+        }
+      };
+    } else if (type === "subcategory") {
+      filter = {
+        $or: [
+          { subcategory: { $regex: new RegExp(`^${escapeRegex(cleanId)}$`, "i") } },
+          { subcategories: cleanId }
+        ]
+      };
+      update = {
+        $set: {
+          subcategory: "",
+          equipmentType: "",
+          updatedAt: new Date().toISOString()
+        },
+        $pull: {
+          subcategories: cleanId
+        }
+      };
+    } else if (type === "equipment") {
+      filter = {
+        equipmentType: { $regex: new RegExp(`^${escapeRegex(cleanId)}$`, "i") }
+      };
+      update = {
+        $set: {
+          equipmentType: "",
+          updatedAt: new Date().toISOString()
+        }
+      };
+    }
+
+    if (filter && update) {
+      const res = await col.updateMany(filter, update);
+      invalidateMongoCache();
+      return { detachedCount: res.modifiedCount || 0 };
+    }
+    return { detachedCount: 0 };
+  } catch (err) {
+    console.warn("[mongoService] detachProductsFromTaxonomy error:", sanitizeMongoError(err));
+    return { detachedCount: 0, error: sanitizeMongoError(err) };
+  }
+}
+
 module.exports = {
   isConfigured,
   sanitizeMongoError,
@@ -640,6 +1008,16 @@ module.exports = {
   buildProductFilter,
   getClient,
   invalidateMongoCache,
+  invalidateTaxonomyCache,
   patchCachedProduct,
-  getCachedProductsSnapshot
+  getCachedProductsSnapshot,
+  getCatalogueHierarchyFromMongo,
+  saveCatalogueHierarchyToMongo,
+  getCategoriesFromMongo,
+  saveCategoriesToMongo,
+  recordDeletedTaxonomy,
+  removeDeletedTaxonomyTombstone,
+  getDeletedTaxonomies,
+  applyTaxonomyTombstones,
+  detachProductsFromTaxonomy
 };

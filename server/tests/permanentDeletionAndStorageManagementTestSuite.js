@@ -196,24 +196,31 @@ async function runPermanentDeletionAndStorageTestSuite() {
     assert.ok(store.getCatalogueHierarchy()[testCatIdB], "Category remains intact when user cancels.");
   });
 
-  await runAsyncTest("Option B (Delete Category Only) is blocked while dependencies exist", async () => {
-    let errorThrown = false;
-    try {
-      await deletionService.deleteCategoryWithDependencies("primary", testCatIdB, {
-        cascadeProducts: false,
-        adminEmail: "admin@drmedex.com"
-      });
-    } catch (err) {
-      errorThrown = true;
-      assert.ok(err.message.includes("Cannot delete primary") && (err.message.includes("product(s) depend on it") || err.message.includes("product(s) are assigned")),
-        `Error must clearly explain dependent products: ${err.message}`);
-    }
-    assert.strictEqual(errorThrown, true, "Option B must throw error when products depend on category.");
+  await runAsyncTest("Option B (Delete Category Safely) succeeds without blocking and detaches products", async () => {
+    const safeRes = await deletionService.deleteCategoryWithDependencies("primary", testCatIdB, {
+      cascadeProducts: false,
+      adminEmail: "admin@drmedex.com"
+    });
+    assert.strictEqual(safeRes.success, true, "Safe deletion must succeed without blocking errors.");
+    assert.strictEqual(safeRes.deletedProductsCount, 0, "Products must be safely preserved (0 deleted).");
+    assert.strictEqual(store.getCatalogueHierarchy()[testCatIdB], undefined, "Primary category must be removed from hierarchy.");
+    
+    // Clean up temporary detached test products
+    store.deleteProduct(testProdIdB1);
+    store.deleteProduct(testProdIdB2);
   });
 
   await runAsyncTest("Option C (Cascading Deletion) permanently removes products and category", async () => {
-    const cascadeRes = await deletionService.deleteCategoryWithDependencies("primary", testCatIdB, {
+    const testCatCascade = `test-cat-cascade-${Date.now()}`;
+    store.addPrimaryCategory({ name: testCatCascade, code: "TCC" });
+    const prodC1 = `test-prod-c1-${Date.now()}`;
+    const prodC2 = `test-prod-c2-${Date.now()}`;
+    store.addProduct({ id: prodC1, sku: `SKU-C1-${Date.now()}`, title: "Cascade Prod 1", category: testCatCascade, status: "ACTIVE" });
+    store.addProduct({ id: prodC2, sku: `SKU-C2-${Date.now()}`, title: "Cascade Prod 2", category: testCatCascade, status: "ACTIVE" });
+
+    const cascadeRes = await deletionService.deleteCategoryWithDependencies("primary", testCatCascade, {
       cascadeProducts: true,
+      purgeProducts: true,
       adminEmail: "admin@drmedex.com"
     });
 
@@ -221,11 +228,11 @@ async function runPermanentDeletionAndStorageTestSuite() {
     assert.strictEqual(cascadeRes.deletedProductsCount, 2, "Must report 2 products permanently deleted.");
 
     // Verify products are gone
-    assert.strictEqual(store.getProductById(testProdIdB1, true), null, "Dependent product B1 must be deleted.");
-    assert.strictEqual(store.getProductById(testProdIdB2, true), null, "Dependent product B2 must be deleted.");
+    assert.strictEqual(store.getProductById(prodC1, true), null, "Dependent product C1 must be deleted.");
+    assert.strictEqual(store.getProductById(prodC2, true), null, "Dependent product C2 must be deleted.");
 
     // Verify category is gone
-    assert.strictEqual(store.getCatalogueHierarchy()[testCatIdB], undefined, "Primary category B must be removed from hierarchy.");
+    assert.strictEqual(store.getCatalogueHierarchy()[testCatCascade], undefined, "Primary category cascade must be removed from hierarchy.");
   });
 
   // ============================================================================

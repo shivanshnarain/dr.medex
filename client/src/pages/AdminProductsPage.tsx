@@ -28,7 +28,7 @@ import { DeleteProductModal } from "../components/admin/DeleteProductModal";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { Product, Category } from "../types";
 import { getApiUrl } from "../lib/apiConfig";
-import { getFallbackProducts, fallbackCategories } from "../services/productService";
+import { getFallbackProducts, fallbackCategories, clearCategoriesCache, clearProductsCache } from "../services/productService";
 import { detectImageExtension } from "../lib/zipBuilder";
 
 export const AdminProductsPage: React.FC = () => {
@@ -285,7 +285,8 @@ export const AdminProductsPage: React.FC = () => {
           body: JSON.stringify({
             type: "subcategory",
             id: subId,
-            parentCategory: parentCategoryKey
+            parentCategory: parentCategoryKey,
+            cascadeProducts: false
           })
         }
       );
@@ -298,7 +299,39 @@ export const AdminProductsPage: React.FC = () => {
 
       if (Array.isArray(data.categories)) {
         setCategories(data.categories);
+      } else {
+        // Optimistically remove the subcategory from current category
+        setCategories((prev) =>
+          prev.map((c) => {
+            if ((c.slug || c.id) === parentCategoryKey) {
+              return {
+                ...c,
+                subcategories: (c.subcategories || []).filter(
+                  (s) => (s.slug || s.id) !== subId && s.name !== deletingSection.name
+                )
+              };
+            }
+            return c;
+          })
+        );
       }
+
+      // Detach section reference from products in local state immediately so UI updates instantly
+      setProducts((prev) =>
+        prev.map((p) => {
+          const pSub = (p.subcategory || "").toLowerCase();
+          const cleanSub = subId.toLowerCase();
+          const cleanName = (deletingSection.name || "").toLowerCase();
+          if (pSub === cleanSub || pSub === cleanName) {
+            return { ...p, subcategory: "" };
+          }
+          return p;
+        })
+      );
+
+      clearCategoriesCache();
+      clearProductsCache();
+      window.dispatchEvent(new CustomEvent("drmedex_catalogue_updated"));
 
       const deletedName = deletingSection.name;
       setDeletingSection(null);
@@ -307,7 +340,10 @@ export const AdminProductsPage: React.FC = () => {
       showToast("success", data.message || `Section "${deletedName}" removed. Products safely preserved.`, "Section Removed");
       fetchProducts(true);
     } catch (err: any) {
-      setSectionDeleteError(err.message || "Error deleting section.");
+      const msg = err?.message === "Load failed"
+        ? "Network connection interrupted or request timed out. Please retry."
+        : (err?.message || "Error deleting section.");
+      setSectionDeleteError(msg);
     } finally {
       setIsSavingSection(false);
     }
