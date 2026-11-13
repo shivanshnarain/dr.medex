@@ -81,8 +81,7 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product }) 
         const u = (first as any).url.trim();
         if (u && u !== "/placeholder-medical.png") return u;
       }
-    }
-    if (Array.isArray(product.galleryImages) && product.galleryImages.length > 0) {
+    } else if (Array.isArray(product.galleryImages) && product.galleryImages.length > 0) {
       const first = product.galleryImages[0];
       if (typeof first === "string" && first.trim() && first.trim() !== "/placeholder-medical.png") return first.trim();
       if (typeof first === "object" && first !== null && (first as any).url) {

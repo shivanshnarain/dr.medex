@@ -606,15 +606,16 @@ export const ProductDetailPage: React.FC = () => {
       }
     };
 
+    const rawList: any[] = Array.isArray(product.images)
+      ? product.images
+      : (Array.isArray(product.galleryImages) && product.galleryImages.length > 0
+        ? product.galleryImages
+        : (product.primaryImage ? [product.primaryImage] : []));
+
     if (product.primaryImage) {
       addImageUrl(product.primaryImage);
     }
-    if (Array.isArray(product.images)) {
-      product.images.forEach(addImageUrl);
-    }
-    if (Array.isArray(product.galleryImages)) {
-      product.galleryImages.forEach(addImageUrl);
-    }
+    rawList.forEach(addImageUrl);
     return imgs;
   }, [product]);
 

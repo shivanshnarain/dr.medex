@@ -167,11 +167,19 @@ function parseInitialPackageItems(p: any): PackageItem[] {
 
 function parseInitialImageSlots(p: any): ProductImageSlot[] {
   if (!p) return [];
-  const loadedImgs: string[] = (Array.isArray(p.images) && p.images.length > 0)
-    ? p.images
-    : (Array.isArray(p.galleryImages) && p.galleryImages.length > 0
-      ? p.galleryImages
-      : (p.primaryImage ? [p.primaryImage] : []));
+  let rawList: any[] = [];
+  if (Array.isArray(p.images)) {
+    rawList = p.images;
+  } else if (Array.isArray(p.galleryImages) && p.galleryImages.length > 0) {
+    rawList = p.galleryImages;
+  } else if (p.primaryImage) {
+    rawList = [p.primaryImage];
+  }
+
+  const loadedImgs: string[] = rawList
+    .map((item) => (typeof item === "string" ? item : (item?.url || item?.secureUrl || item?.src || "")).trim())
+    .filter((u) => Boolean(u) && !u.startsWith("blob:") && !u.startsWith("data:"));
+
   const managedMap = new Map<string, string>();
   if (Array.isArray(p.managedCloudinaryImages)) {
     p.managedCloudinaryImages.forEach((m: any) => {
@@ -493,7 +501,7 @@ export const AdminProductEditorPage: React.FC = () => {
 
   const initialPrimaryIdx = useMemo(() => {
     if (!initialProduct) return 0;
-    const imgs: string[] = (Array.isArray(initialProduct.images) && initialProduct.images.length > 0)
+    const imgs: string[] = Array.isArray(initialProduct.images)
       ? initialProduct.images
       : (Array.isArray(initialProduct.galleryImages) && initialProduct.galleryImages.length > 0
         ? initialProduct.galleryImages
@@ -786,7 +794,7 @@ export const AdminProductEditorPage: React.FC = () => {
     const loadedSlots = parseInitialImageSlots(p);
     setImageSlots(loadedSlots);
 
-    const loadedImgs = (Array.isArray(p.images) && p.images.length > 0)
+    const loadedImgs = Array.isArray(p.images)
       ? p.images
       : (Array.isArray(p.galleryImages) && p.galleryImages.length > 0
         ? p.galleryImages
@@ -897,10 +905,16 @@ export const AdminProductEditorPage: React.FC = () => {
       setStock(fresh.stock);
     }
 
-    // If initial images were empty or fresh has more, update image slots
-    const freshSlots = parseInitialImageSlots(fresh);
-    if (freshSlots.length > 0 && imageSlotsRef.current.length === 0) {
+    // Authoritatively synchronize image slots from live product unless admin manually edited images in this session
+    if (!edited.has("images")) {
+      const freshSlots = parseInitialImageSlots(fresh);
       setImageSlots(freshSlots);
+      if (fresh.primaryImage && freshSlots.length > 0) {
+        const pIdx = freshSlots.findIndex(s => s.url === fresh.primaryImage || (s.publicId && fresh.primaryImage.includes(s.publicId)));
+        setPrimaryImageIndex(pIdx >= 0 ? pIdx : 0);
+      } else {
+        setPrimaryImageIndex(0);
+      }
     }
   };
 
@@ -2040,9 +2054,17 @@ export const AdminProductEditorPage: React.FC = () => {
     // Immediately remove from UI optimistically for snappy non-blocking feedback
     const filtered = currentSlots.filter((_, i) => i !== index);
     setImageSlots(filtered);
-    if (primaryImageIndex >= filtered.length) {
-      setPrimaryImageIndex(Math.max(0, filtered.length - 1));
+    let nextPrimaryIndex = primaryImageIndex;
+    if (primaryImageIndex === index) {
+      nextPrimaryIndex = 0;
+    } else if (primaryImageIndex > index) {
+      nextPrimaryIndex = primaryImageIndex - 1;
     }
+    if (nextPrimaryIndex >= filtered.length) {
+      nextPrimaryIndex = Math.max(0, filtered.length - 1);
+    }
+    setPrimaryImageIndex(nextPrimaryIndex);
+    markFieldEdited("images");
     setUploadError(null);
     setHasUnsavedChanges(true);
 
@@ -2076,6 +2098,23 @@ export const AdminProductEditorPage: React.FC = () => {
           return;
         }
 
+        // Realign primary index if server specified authoritative primary image
+        if (data.primaryImage) {
+          const pIdx = filtered.findIndex((s) => s.url === data.primaryImage || (s.publicId && data.primaryImage.includes(s.publicId)));
+          if (pIdx >= 0) {
+            setPrimaryImageIndex(pIdx);
+          }
+        }
+
+        // Update in-memory resolvedProductRef so subsequent saves stay consistent
+        if (resolvedProductRef.current) {
+          resolvedProductRef.current = {
+            ...resolvedProductRef.current,
+            images: data.remainingImages,
+            primaryImage: data.primaryImage || data.remainingImages?.[0] || ""
+          };
+        }
+
         // Sync local product cache so navigating back reflects removal immediately
         if (Array.isArray(data.remainingImages)) {
           try {
@@ -2084,7 +2123,7 @@ export const AdminProductEditorPage: React.FC = () => {
               const list = JSON.parse(cached);
               if (Array.isArray(list)) {
                 const updatedList = list.map((p: any) =>
-                  p && (p.id === productId || p.slug === productId)
+                  p && (p.id === productId || p.slug === productId || p._id === productId)
                     ? {
                         ...p,
                         images: data.remainingImages,
@@ -2114,7 +2153,10 @@ export const AdminProductEditorPage: React.FC = () => {
       } catch (err: any) {
         setImageSlots(prevSlots);
         setPrimaryImageIndex(prevPrimaryIndex);
-        setUploadError(err?.message || "Network error deleting image. The photo has been restored.");
+        const userMsg = (err?.message === "Load failed" || err?.name === "TypeError")
+          ? "Network connection interrupted while removing image from server. The photo has been restored."
+          : (err?.message || "Failed to remove photograph from server. The photo has been restored.");
+        setUploadError(userMsg);
         setImageDeleteNotice(null);
         return;
       } finally {
@@ -2935,6 +2977,22 @@ export const AdminProductEditorPage: React.FC = () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
           return;
         }
+
+        // Synchronize admin products cache in localStorage so list reflects saved state immediately
+        try {
+          const cached = localStorage.getItem("drmedex_admin_products_cache");
+          if (cached && data.product) {
+            const list = JSON.parse(cached);
+            if (Array.isArray(list)) {
+              const updatedList = list.map((p: any) =>
+                p && (p.id === data.product.id || p.slug === data.product.slug || p._id === data.product._id)
+                  ? { ...p, ...data.product }
+                  : p
+              );
+              localStorage.setItem("drmedex_admin_products_cache", JSON.stringify(updatedList));
+            }
+          }
+        } catch {}
 
         const targetCategory = payload.category || category || "all";
         setHasUnsavedChanges(false);

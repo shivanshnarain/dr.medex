@@ -932,7 +932,7 @@ export const AdminProductsPage: React.FC = () => {
   const resolveProductImageUrls = (product: Product): string[] => {
     const urls: string[] = [];
     const seen = new Set<string>();
-    const currentImages = Array.isArray(product.images) && product.images.length > 0
+    const currentImages = Array.isArray(product.images)
       ? product.images
       : (Array.isArray(product.galleryImages) && product.galleryImages.length > 0
         ? product.galleryImages
@@ -947,7 +947,7 @@ export const AdminProductsPage: React.FC = () => {
     }
 
     const normPrimary = extractImageUrl(product.primaryImage) || extractImageUrl((product as any).originalPrimaryImage);
-    if (normPrimary && !seen.has(normPrimary)) {
+    if (normPrimary && !seen.has(normPrimary) && (!Array.isArray(product.images) || product.images.length > 0)) {
       seen.add(normPrimary);
       urls.unshift(normPrimary);
     }

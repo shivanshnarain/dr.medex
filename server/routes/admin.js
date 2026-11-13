@@ -2227,18 +2227,18 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
       updates.images = processedImages;
 
       // 2. Canonical primary image resolution
-      if (updates.primaryImage && typeof updates.primaryImage === "string") {
-        const pRaw = updates.primaryImage.trim();
-        if (pRaw && !pRaw.startsWith("blob:") && !pRaw.startsWith("data:")) {
+      // If primaryImage is provided and is part of updates.images, retain it.
+      // Otherwise default primaryImage to the first remaining image (or empty string if none remain).
+      // NEVER unshift an obsolete or removed primary image back into updates.images!
+      if (updates.images && updates.images.length > 0) {
+        const pRaw = (typeof updates.primaryImage === "string" ? updates.primaryImage.trim() : "");
+        if (pRaw && updates.images.includes(pRaw)) {
           updates.primaryImage = pRaw;
-          if (updates.images.length > 0 && !updates.images.includes(updates.primaryImage)) {
-            updates.images.unshift(updates.primaryImage);
-          }
         } else {
-          updates.primaryImage = updates.images[0] || "";
+          updates.primaryImage = updates.images[0];
         }
       } else {
-        updates.primaryImage = updates.images[0] || "";
+        updates.primaryImage = "";
       }
 
       // 3. Keep galleryImages in exact sync with canonical images
@@ -2573,14 +2573,20 @@ router.delete("/products/:id", requireAdmin, async (req, res) => {
 router.delete("/products/:id/images", requireAdmin, async (req, res) => {
   try {
     const { imageUrl, publicId } = req.body || {};
-    const target = publicId || imageUrl || req.query.publicId || req.query.imageUrl;
-    if (!target) {
+    const targetUrl = imageUrl || req.query.imageUrl || "";
+    const targetPid = publicId || req.query.publicId || "";
+    if (!targetUrl && !targetPid) {
       return res.status(400).json({ success: false, message: "Image publicId or imageUrl is required." });
     }
 
-    const result = await deletionService.deleteSingleProductImage(req.params.id, target, req.admin.email);
+    const result = await deletionService.deleteSingleProductImage(
+      req.params.id,
+      { imageUrl: targetUrl, publicId: targetPid },
+      req.admin.email
+    );
     res.json(result);
   } catch (err) {
+    console.error("[admin.js] DELETE /products/:id/images error:", err.message);
     res.status(400).json({ success: false, message: err.message });
   }
 });
