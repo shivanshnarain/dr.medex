@@ -62,7 +62,7 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product }) 
 
   const [imageFailed, setImageFailed] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isIntersecting, setIsIntersecting] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
   // Authoritative Full Image List Resolution
@@ -109,37 +109,23 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product }) 
   const hasValidImage = allImages.length > 0 && !imageFailed;
   const primaryImage = allImages[0] || "";
 
-  // IntersectionObserver to pause carousel when out of viewport
+  // Independent hover image transition: ONLY the card under the pointer transitions its images
   useEffect(() => {
-    if (allImages.length <= 1) return;
-    const el = cardRef.current;
-    if (!el || typeof IntersectionObserver === "undefined") {
-      setIsIntersecting(true);
-      return;
-    }
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsIntersecting(entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [allImages.length]);
-
-  // Automatic image carousel rotation (3.2 seconds)
-  useEffect(() => {
-    if (allImages.length <= 1 || !isIntersecting) return;
+    if (!isHovered || allImages.length <= 1) return;
     if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
 
+    // Immediately advance to the next image on pointer enter
+    setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
+
+    // If hover continues, cycle through this card's images smoothly
     const timer = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
-    }, 3200);
+    }, 2000);
 
     return () => clearInterval(timer);
-  }, [allImages.length, isIntersecting]);
+  }, [isHovered, allImages.length]);
 
   const productUrl = `/product/${product.slug || product.id}`;
 
@@ -156,6 +142,7 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product }) 
   const formattedRegular = hasDiscount ? formatProductPrice(product, "regular") : "";
 
   const handleMouseEnter = () => {
+    setIsHovered(true);
     prewarmProduct(product);
     if (primaryImage) {
       const img = new Image();
@@ -163,10 +150,16 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product }) 
     }
   };
 
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setCurrentImageIndex(0); // Restore original/default image immediately when pointer leaves
+  };
+
   return (
     <div
       ref={cardRef}
       onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       className="group relative bg-white rounded-2xl border border-neutral-200/90 hover:border-neutral-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between h-full p-3 sm:p-4"
       style={{ contentVisibility: "auto", containIntrinsicSize: "auto 450px" }}
     >

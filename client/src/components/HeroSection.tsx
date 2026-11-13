@@ -71,7 +71,13 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isManualPause, setIsManualPause] = useState(false);
   const [isTabHidden, setIsTabHidden] = useState(false);
+  const [isMainCardZoomed, setIsMainCardZoomed] = useState(false);
   const manualTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Reset image zoom state when category slide changes
+  useEffect(() => {
+    setIsMainCardZoomed(false);
+  }, [activeIndex]);
 
   // Preload next image to eliminate flicker during rotation
   useEffect(() => {
@@ -224,14 +230,14 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                       key={secSlide.id}
                       type="button"
                       onClick={() => handleSelectThumbnail(secIdx)}
-                      className="group relative flex-1 sm:flex-none w-full max-w-full aspect-[10/13.8] rounded-lg p-[5px] bg-white border-[1.5px] border-[#2D5A4A] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2D5A4A]/40 transition-all duration-200 select-none shadow-xs hover:shadow-md"
+                      className="group relative flex-1 sm:flex-none w-full max-w-full aspect-[10/13.8] rounded-lg p-[7px] bg-white border-[1.5px] border-[#7AA05A] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#7AA05A]/40 transition-all duration-200 select-none shadow-xs hover:shadow-md"
                       aria-label={`View ${secSlide.categoryLabel}`}
                     >
-                      <div className="w-full h-full rounded-[4px] overflow-hidden relative">
+                      <div className="w-full h-full rounded-[3.5px] overflow-hidden relative">
                         <img
                           src={secSlide.imageUrl}
                           alt={secSlide.categoryLabel}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 rounded-[4px]"
+                          className="w-full h-full object-cover group-hover:scale-105 active:scale-105 transition-transform duration-300 rounded-[3.5px]"
                           loading="lazy"
                           onError={(e) => {
                             const target = e.currentTarget;
@@ -247,11 +253,16 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               </div>
 
               {/* LARGE MAIN IMAGE (TO THE RIGHT OF THUMBNAILS): COMPLETELY BORDERLESS & SHADOWLESS */}
-              <div className="relative z-0 flex-1 w-full rounded-2xl overflow-hidden group min-h-[340px] sm:min-h-[420px] lg:min-h-[460px] xl:min-h-[480px]">
+              <div
+                onClick={() => setIsMainCardZoomed((prev) => !prev)}
+                className="relative z-0 flex-1 w-full rounded-2xl overflow-hidden group min-h-[340px] sm:min-h-[420px] lg:min-h-[460px] xl:min-h-[480px] cursor-pointer"
+                title="Click to toggle image zoom"
+              >
                 
                 {/* 6 Crossfading Images */}
                 {HERO_CATEGORY_SLIDES.map((slide, idx) => {
                   const isActive = idx === activeIndex;
+                  const isCurrentSlideZoomed = isActive && isMainCardZoomed;
                   return (
                     <div
                       key={slide.id}
@@ -265,7 +276,11 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                       <img
                         src={slide.imageUrl}
                         alt={slide.categoryLabel}
-                        className="w-full h-full object-cover select-none"
+                        className={`w-full h-full object-cover select-none transition-transform duration-500 ease-out ${
+                          isCurrentSlideZoomed
+                            ? "scale-105"
+                            : "scale-100 group-hover:scale-105"
+                        }`}
                         loading={idx === 0 ? "eager" : "lazy"}
                         decoding="async"
                         onError={(e) => {
@@ -299,7 +314,10 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 </div>
 
                 {/* View Category Link: Bottom-Right, Pure White Text & Arrow, NO red, NO shadow, NO button/box */}
-                <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-20">
+                <div
+                  className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-20"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <Link
                     to={activeSlide.categoryPath}
                     className="group/link inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-white hover:text-white/85 transition-all duration-200 hover:underline"
