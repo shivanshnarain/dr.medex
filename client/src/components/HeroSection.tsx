@@ -144,144 +144,25 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
       aria-label="DR.MEDEX Hero Showcase"
     >
       <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8">
-        {/* TWO-COLUMN HERO SECTION: SHOWCASE ON LEFT, TEXT & CTA ON RIGHT */}
+        {/* TWO-COLUMN HERO SECTION: TEXT ON LEFT, SHOWCASE ON RIGHT */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center">
           
-          {/* LEFT COLUMN: FRAMELESS MEDICAL PRODUCT IMAGE SHOWCASE (ON THE LEFT) */}
-          <div
-            className="lg:col-span-7 w-full order-1 lg:order-1"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch">
-              
-              {/* LARGE MAIN IMAGE: ROUNDED CORNERS, THIN WHITE INSET, THIN DARK-GREEN OUTLINE */}
-              <div className="relative flex-1 rounded-2xl p-[3px] bg-white border border-[#2D5A4A] shadow-xs group min-h-[340px] sm:min-h-[420px] lg:min-h-[460px] xl:min-h-[480px] flex items-center justify-center">
-                <div className="relative w-full h-full rounded-[13px] overflow-hidden">
-                  
-                  {/* 6 Crossfading Images */}
-                  {HERO_CATEGORY_SLIDES.map((slide, idx) => {
-                    const isActive = idx === activeIndex;
-                    return (
-                      <div
-                        key={slide.id}
-                        className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
-                          isActive
-                            ? "opacity-100 z-10 pointer-events-auto"
-                            : "opacity-0 z-0 pointer-events-none"
-                        }`}
-                        aria-hidden={!isActive}
-                      >
-                        <img
-                          src={slide.imageUrl}
-                          alt={slide.categoryLabel}
-                          className="w-full h-full object-cover select-none"
-                          loading={idx === 0 ? "eager" : "lazy"}
-                          decoding="async"
-                          onError={(e) => {
-                            const target = e.currentTarget;
-                            if (target.src !== slide.fallbackUrl) {
-                              target.src = slide.fallbackUrl;
-                            }
-                          }}
-                        />
-                      </div>
-                    );
-                  })}
-
-                  {/* Category Name on Hover: Top-Left, White Text with Subtle Dark Shadow (NO box/pill) */}
-                  <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                    <span
-                      className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-white"
-                      style={{
-                        textShadow: "0 1px 3px rgba(0, 0, 0, 0.9), 0 2px 6px rgba(0, 0, 0, 0.7)",
-                      }}
-                    >
-                      {activeSlide.categoryLabel}
-                    </span>
-                  </div>
-
-                  {/* View Category Text Link: Bottom-Right, White Text with Subtle Dark Shadow (NO button/card/pill) */}
-                  <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-20">
-                    <Link
-                      to={activeSlide.categoryPath}
-                      className="group/link inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-white transition-all duration-200 hover:underline"
-                      style={{
-                        textShadow: "0 1px 3px rgba(0, 0, 0, 0.9), 0 2px 6px rgba(0, 0, 0, 0.7)",
-                      }}
-                    >
-                      <span>View Category</span>
-                      <ArrowRight
-                        size={14}
-                        className="group-hover/link:translate-x-1 transition-transform"
-                      />
-                    </Link>
-                  </div>
-
-                </div>
-              </div>
-
-              {/* THREE SECONDARY THUMBNAILS: 4:5 ASPECT RATIO, ROUNDED, WHITE INSET, DARK-GREEN OUTLINE */}
-              <div className="flex flex-row sm:flex-col gap-2.5 sm:gap-3 w-full sm:w-28 md:w-32 lg:w-36 shrink-0 justify-between">
-                {secondaryIndices.map((secIdx) => {
-                  const secSlide = HERO_CATEGORY_SLIDES[secIdx];
-                  return (
-                    <button
-                      key={secSlide.id}
-                      type="button"
-                      onClick={() => handleSelectThumbnail(secIdx)}
-                      className="group relative flex-1 rounded-xl p-[2px] bg-white border border-[#2D5A4A] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2D5A4A]/40 transition-all duration-300 select-none shadow-xs hover:shadow-md aspect-[4/5]"
-                      aria-label={`View ${secSlide.categoryLabel}`}
-                    >
-                      <div className="w-full h-full rounded-[9px] overflow-hidden relative">
-                        <img
-                          src={secSlide.imageUrl}
-                          alt={secSlide.categoryLabel}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-[9px]"
-                          loading="lazy"
-                          onError={(e) => {
-                            const target = e.currentTarget;
-                            if (target.src !== secSlide.fallbackUrl) {
-                              target.src = secSlide.fallbackUrl;
-                            }
-                          }}
-                        />
-                        {/* Category name appears on hover at top-left with white text and subtle dark shadow */}
-                        <div className="absolute top-2 left-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                          <span
-                            className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-white line-clamp-2 text-left"
-                            style={{
-                              textShadow: "0 1px 3px rgba(0, 0, 0, 0.9), 0 2px 4px rgba(0, 0, 0, 0.7)",
-                            }}
-                          >
-                            {secSlide.categoryLabel}
-                          </span>
-                        </div>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-
-            </div>
-          </div>
-
-          {/* RIGHT COLUMN: HERO CONTENT (ON THE RIGHT) */}
-          <div className="lg:col-span-5 flex flex-col items-start order-2 lg:order-2">
-            {/* Eyebrow text */}
-            <div className="inline-flex items-center gap-2 text-xs sm:text-xs font-bold uppercase tracking-[0.18em] text-[#7AA05A] mb-4 sm:mb-5">
-              <span className="w-2 h-2 rounded-full bg-[#7AA05A] shrink-0" />
+          {/* LEFT COLUMN: HERO CONTENT (ON THE LEFT) */}
+          <div className="lg:col-span-5 flex flex-col items-start order-2 lg:order-1">
+            {/* Eyebrow text with dark text and matching dark dot */}
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#111111] mb-4 sm:mb-5">
+              <span className="w-2 h-2 rounded-full bg-[#111111] shrink-0" />
               <span>TRUSTED MEDICAL EQUIPMENT PARTNER</span>
             </div>
 
-            {/* Main Heading: Consistent font family, weight, and size with crisp outline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[52px] xl:text-[56px] font-black tracking-tight leading-[1.08] mb-5 sm:mb-6">
+            {/* Main Heading: Consistent font family, weight, and size across all lines */}
+            <h1 className="text-4xl sm:text-5xl lg:text-[50px] xl:text-[54px] font-black tracking-tight leading-[1.08] mb-5 sm:mb-6">
               <span
                 className="hero-heading-outline inline-block"
                 style={{
                   color: "#FFFFFF",
                   WebkitTextFillColor: "#FFFFFF",
-                  WebkitTextStroke: "1.85px #2D5A4A",
+                  WebkitTextStroke: "1.1px #7AA05A",
                   paintOrder: "stroke fill",
                 }}
               >
@@ -321,13 +202,117 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
             </div>
           </div>
 
+          {/* RIGHT COLUMN: MEDICAL PRODUCT IMAGE SHOWCASE (ON THE RIGHT) */}
+          <div
+            className="lg:col-span-7 w-full order-1 lg:order-2"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4 items-stretch">
+              
+              {/* THREE SECONDARY THUMBNAILS (TO THE LEFT OF MAIN IMAGE): 4:5 ASPECT RATIO, WHITE INSET, DARK-GREEN OUTLINE */}
+              <div className="flex flex-row sm:flex-col gap-2.5 sm:gap-3 w-full sm:w-28 md:w-32 lg:w-36 shrink-0 justify-between">
+                {secondaryIndices.map((secIdx) => {
+                  const secSlide = HERO_CATEGORY_SLIDES[secIdx];
+                  return (
+                    <button
+                      key={secSlide.id}
+                      type="button"
+                      onClick={() => handleSelectThumbnail(secIdx)}
+                      className="group relative flex-1 rounded-xl p-[4px] bg-white border border-[#2D5A4A] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2D5A4A]/40 transition-all duration-300 select-none shadow-xs hover:shadow-md aspect-[4/5]"
+                      aria-label={`View ${secSlide.categoryLabel}`}
+                    >
+                      <div className="w-full h-full rounded-[8px] overflow-hidden relative">
+                        <img
+                          src={secSlide.imageUrl}
+                          alt={secSlide.categoryLabel}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-[8px]"
+                          loading="lazy"
+                          onError={(e) => {
+                            const target = e.currentTarget;
+                            if (target.src !== secSlide.fallbackUrl) {
+                              target.src = secSlide.fallbackUrl;
+                            }
+                          }}
+                        />
+                        {/* Category name appears on hover at top-left with subtle white translucent gradient and black text */}
+                        <div className="absolute top-0 left-0 w-full h-3/5 bg-gradient-to-br from-white/90 via-white/50 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none p-2 rounded-tl-[8px] flex items-start justify-start">
+                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#111111] line-clamp-2 text-left">
+                            {secSlide.categoryLabel}
+                          </span>
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* LARGE MAIN IMAGE (TO THE RIGHT OF THUMBNAILS): COMPLETELY BORDERLESS */}
+              <div className="relative flex-1 rounded-2xl overflow-hidden shadow-xs group min-h-[340px] sm:min-h-[420px] lg:min-h-[460px] xl:min-h-[480px]">
+                
+                {/* 6 Crossfading Images */}
+                {HERO_CATEGORY_SLIDES.map((slide, idx) => {
+                  const isActive = idx === activeIndex;
+                  return (
+                    <div
+                      key={slide.id}
+                      className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
+                        isActive
+                          ? "opacity-100 z-10 pointer-events-auto"
+                          : "opacity-0 z-0 pointer-events-none"
+                      }`}
+                      aria-hidden={!isActive}
+                    >
+                      <img
+                        src={slide.imageUrl}
+                        alt={slide.categoryLabel}
+                        className="w-full h-full object-cover select-none"
+                        loading={idx === 0 ? "eager" : "lazy"}
+                        decoding="async"
+                        onError={(e) => {
+                          const target = e.currentTarget;
+                          if (target.src !== slide.fallbackUrl) {
+                            target.src = slide.fallbackUrl;
+                          }
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+
+                {/* Category Name on Hover: Top-Left, Subtle White Translucent Gradient, Black Text (NO shadow, NO white text) */}
+                <div className="absolute top-0 left-0 w-3/5 sm:w-1/2 h-2/5 bg-gradient-to-br from-white/90 via-white/40 to-transparent z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none p-4 sm:p-5 rounded-tl-2xl flex items-start justify-start">
+                  <span className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#111111]">
+                    {activeSlide.categoryLabel}
+                  </span>
+                </div>
+
+                {/* View Category Text Link: Bottom-Right, RED Text, NO Shadow, NO Button/Box */}
+                <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-20">
+                  <Link
+                    to={activeSlide.categoryPath}
+                    className="group/link inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#C62828] hover:text-[#B71C1C] transition-all duration-200 hover:underline"
+                  >
+                    <span>View Category</span>
+                    <ArrowRight
+                      size={14}
+                      className="text-[#C62828] group-hover/link:translate-x-1 transition-transform"
+                    />
+                  </Link>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
         </div>
 
-        {/* THREE BENEFIT CARDS DIRECTLY BELOW THE HERO (PRESERVED EXACTLY) */}
-        <div className="mt-12 sm:mt-16 lg:mt-20 bg-[#2D5A4A] rounded-2xl overflow-hidden shadow-xs grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/20">
+        {/* THREE BENEFIT CARDS DIRECTLY BELOW THE HERO: CONTINUOUS FULL DARK-GREEN BG, SQUARE EDGES, WHITE SEPARATORS */}
+        <div className="mt-12 sm:mt-16 lg:mt-20 bg-[#2D5A4A] rounded-none overflow-hidden shadow-xs grid grid-cols-1 md:grid-cols-3 divide-y-2 md:divide-y-0 md:divide-x-4 md:divide-white">
           
           {/* Card 1 */}
-          <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+          <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between bg-[#2D5A4A]">
             <div>
               <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 mb-4 sm:mb-5 shadow-xs">
                 <ShieldCheck size={26} className="text-[#F4B400]" style={{ color: "#F4B400" }} />
@@ -335,14 +320,14 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
                 Trusted Medical Equipment
               </h3>
-              <p className="text-white/85 text-xs sm:text-sm leading-relaxed">
+              <p className="text-white/90 text-xs sm:text-sm leading-relaxed">
                 Reliable medical equipment designed to support hospitals, clinics and healthcare professionals with confidence.
               </p>
             </div>
           </div>
 
           {/* Card 2 */}
-          <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+          <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between bg-[#2D5A4A]">
             <div>
               <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 mb-4 sm:mb-5 shadow-xs">
                 <Cpu size={26} className="text-[#F4B400]" style={{ color: "#F4B400" }} />
@@ -350,14 +335,14 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
                 Advanced Medical Technology
               </h3>
-              <p className="text-white/85 text-xs sm:text-sm leading-relaxed">
+              <p className="text-white/90 text-xs sm:text-sm leading-relaxed">
                 Explore precision-engineered medical solutions built for modern healthcare environments and clinical requirements.
               </p>
             </div>
           </div>
 
           {/* Card 3 */}
-          <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+          <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between bg-[#2D5A4A]">
             <div>
               <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 mb-4 sm:mb-5 shadow-xs">
                 <Award size={26} className="text-[#F4B400]" style={{ color: "#F4B400" }} />
@@ -365,7 +350,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
                 Healthcare Excellence
               </h3>
-              <p className="text-white/85 text-xs sm:text-sm leading-relaxed">
+              <p className="text-white/90 text-xs sm:text-sm leading-relaxed">
                 Supporting healthcare professionals with dependable equipment, professional service and quality-focused solutions.
               </p>
             </div>
