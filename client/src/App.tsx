@@ -89,8 +89,9 @@ function AppContent() {
 
       {/* Main Content Area */}
       <main className="flex-1">
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
+        <ErrorBoundary>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/shop-all" element={<ShopPage />} />
             <Route path="/category/:categorySlug" element={<ShopPage />} />
@@ -161,6 +162,7 @@ function AppContent() {
             <Route path="*" element={<HomePage />} />
           </Routes>
         </Suspense>
+        </ErrorBoundary>
       </main>
 
       {/* Real-time Push Notification Opt-in Prompt */}
