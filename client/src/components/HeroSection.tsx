@@ -158,14 +158,14 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
             {/* Main Heading: Consistent font family, weight, and size across all lines */}
             <h1 className="text-4xl sm:text-5xl lg:text-[50px] xl:text-[54px] font-black leading-[1.08] mb-5 sm:mb-6">
               <span
-                className="hero-heading-outline inline-block tracking-[0.025em]"
+                className="hero-heading-outline inline-block tracking-[0.035em]"
                 style={{
                   color: "#FFFFFF",
                   WebkitTextFillColor: "#FFFFFF",
-                  WebkitTextStroke: "1.35px #7AA05A",
-                  paintOrder: "fill stroke",
-                  letterSpacing: "0.025em",
-                  wordSpacing: "0.06em",
+                  WebkitTextStroke: "1.8px #7AA05A",
+                  paintOrder: "stroke fill",
+                  letterSpacing: "0.035em",
+                  wordSpacing: "0.08em",
                   textRendering: "geometricPrecision",
                 }}
               >
@@ -286,12 +286,11 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                   }}
                 />
 
-                {/* Category Name: WHITE for OT Lights, BLACK for all other categories */}
+                {/* Category Name: Light green matching the DR.MEDEX logo text (MEDEX) */}
                 <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20 pointer-events-none">
                   <span
-                    className={`text-xs sm:text-sm font-extrabold uppercase tracking-wider ${
-                      activeSlide.id === "ot-lights-equipment" ? "text-white" : "text-[#111111]"
-                    }`}
+                    className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#7AA05A]"
+                    style={{ color: "#7AA05A" }}
                   >
                     {activeSlide.categoryLabel}
                   </span>
@@ -318,8 +317,8 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
 
         </div>
 
-        {/* THREE BENEFIT CARDS DIRECTLY BELOW THE HERO: CONTINUOUS DARK-GREEN BG, SQUARE EDGES, RESTORED WHITE SEPARATORS */}
-        <div className="mt-12 sm:mt-16 lg:mt-20 bg-[#2D5A4A] rounded-none overflow-hidden grid grid-cols-1 md:grid-cols-3 divide-y-2 md:divide-y-0 md:divide-x md:divide-white/40">
+        {/* THREE BENEFIT CARDS DIRECTLY BELOW THE HERO: CONTINUOUS DARK-GREEN BG, SQUARE EDGES, CRISP WHITE SEPARATORS */}
+        <div className="mt-12 sm:mt-16 lg:mt-20 bg-[#2D5A4A] rounded-none overflow-hidden grid grid-cols-1 md:grid-cols-3 divide-y-2 md:divide-y-0 md:divide-x-2 divide-white">
           
           {/* Card 1 */}
           <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between bg-[#2D5A4A]">
