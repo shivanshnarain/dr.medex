@@ -158,14 +158,14 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
             {/* Main Heading: Consistent font family, weight, and size across all lines */}
             <h1 className="text-4xl sm:text-5xl lg:text-[50px] xl:text-[54px] font-black leading-[1.08] mb-5 sm:mb-6">
               <span
-                className="hero-heading-outline inline-block tracking-[0.035em]"
+                className="hero-heading-outline inline-block tracking-[0.045em]"
                 style={{
                   color: "#FFFFFF",
                   WebkitTextFillColor: "#FFFFFF",
-                  WebkitTextStroke: "1.8px #7AA05A",
-                  paintOrder: "stroke fill",
-                  letterSpacing: "0.035em",
-                  wordSpacing: "0.08em",
+                  WebkitTextStroke: "2px #2D5A4A",
+                  paintOrder: "fill stroke",
+                  letterSpacing: "0.045em",
+                  wordSpacing: "0.12em",
                   textRendering: "geometricPrecision",
                 }}
               >
