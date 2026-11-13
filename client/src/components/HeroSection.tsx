@@ -18,7 +18,7 @@ interface HeroCategorySlide {
 const HERO_CATEGORY_SLIDES: HeroCategorySlide[] = [
   {
     id: "electrosurgical-equipment",
-    categoryLabel: "ELECTROSURGICAL EQUIPMENT",
+    categoryLabel: "ELECTRO SURGICAL EQUIPMENT",
     imageUrl:
       "https://res.cloudinary.com/mjqna8qi/image/upload/v1794563069/dr-medex/hero-showcase/01-electrosurgical-equipment.png",
     fallbackUrl: "/hero-showcase/01-electrosurgical-equipment.png",
@@ -26,7 +26,7 @@ const HERO_CATEGORY_SLIDES: HeroCategorySlide[] = [
   },
   {
     id: "cryosurgical-equipment",
-    categoryLabel: "CRYOSURGICAL EQUIPMENT",
+    categoryLabel: "CRYO SURGICAL EQUIPMENT",
     imageUrl:
       "https://res.cloudinary.com/mjqna8qi/image/upload/v1794563071/dr-medex/hero-showcase/02-cryosurgical-equipment.png",
     fallbackUrl: "/hero-showcase/02-cryosurgical-equipment.png",
@@ -112,9 +112,10 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
   }, []);
 
   const activeSlide = HERO_CATEGORY_SLIDES[activeIndex];
+  const isOTLights = activeSlide.id === "ot-lights-equipment";
 
-  // 3 smaller thumbnails displayed at a time, cycling through remaining items
-  const visibleThumbnailIndices = [
+  // Exactly 3 secondary images displayed beside main image, cycling sequentially
+  const secondaryIndices = [
     (activeIndex + 1) % HERO_CATEGORY_SLIDES.length,
     (activeIndex + 2) % HERO_CATEGORY_SLIDES.length,
     (activeIndex + 3) % HERO_CATEGORY_SLIDES.length,
@@ -129,7 +130,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
         {/* TWO-COLUMN HERO SECTION */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center">
           
-          {/* LEFT COLUMN: HERO CONTENT (PRESERVED EXACTLY) */}
+          {/* LEFT COLUMN: HERO CONTENT */}
           <div className="lg:col-span-5 flex flex-col items-start">
             {/* Eyebrow text */}
             <div className="inline-flex items-center gap-2 text-xs sm:text-xs font-bold uppercase tracking-[0.18em] text-[#7AA05A] mb-4 sm:mb-5">
@@ -137,15 +138,28 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               <span>TRUSTED MEDICAL EQUIPMENT PARTNER</span>
             </div>
 
-            {/* Main Heading */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[52px] xl:text-[56px] font-black text-[#111111] tracking-tight leading-[1.08] mb-5 sm:mb-6">
-              Advanced
+            {/* Main Heading: Consistent font family, weight, and size */}
+            <h1 className="text-4xl sm:text-5xl lg:text-[52px] xl:text-[56px] font-black tracking-tight leading-[1.08] mb-5 sm:mb-6">
+              <span
+                className="hero-heading-outline inline-block"
+                style={{
+                  color: "#FFFFFF",
+                  WebkitTextFillColor: "#FFFFFF",
+                  WebkitTextStroke: "1.3px #2D5A4A",
+                  paintOrder: "stroke fill",
+                }}
+              >
+                Advanced
+                <br />
+                Medical
+                <br />
+                Technology for
+              </span>
               <br />
-              Medical
-              <br />
-              Technology for
-              <br />
-              <span className="text-[#7AA05A]" style={{ color: "#7AA05A" }}>
+              <span
+                className="text-[#7AA05A] inline-block mt-0.5"
+                style={{ color: "#7AA05A" }}
+              >
                 Better Care
               </span>
             </h1>
@@ -171,7 +185,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: HERO PRODUCT SHOWCASE (UPDATED WITH 6 USER IMAGES & LABELS) */}
+          {/* RIGHT COLUMN: FRAMELESS MEDICAL PRODUCT IMAGE SHOWCASE */}
           <div
             className="lg:col-span-7 w-full"
             onMouseEnter={() => setIsHovered(true)}
@@ -179,94 +193,109 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
           >
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch">
               
-              {/* LARGE PRIMARY IMAGE CONTAINER */}
-              <div className="relative flex-1 bg-[#F8F9FA] rounded-2xl border border-neutral-200/90 overflow-hidden min-h-[320px] sm:min-h-[420px] lg:min-h-[460px] xl:min-h-[480px] flex items-center justify-center p-6 sm:p-8">
+              {/* LARGE MAIN IMAGE: FRAMELESS, ROUNDED CORNERS, NO BOX CONTAINER */}
+              <div className="relative flex-1 rounded-2xl overflow-hidden shadow-xs group min-h-[340px] sm:min-h-[420px] lg:min-h-[460px] xl:min-h-[480px]">
                 
-                {/* Top Badge: Category Label (NO slide counter) */}
-                <div className="absolute top-4 left-4 z-20">
-                  <span className="inline-flex items-center px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-extrabold uppercase tracking-wider bg-white/95 backdrop-blur-xs text-[#2D5A4A] border border-[#2D5A4A]/25 shadow-xs">
+                {/* 6 Crossfading Images */}
+                {HERO_CATEGORY_SLIDES.map((slide, idx) => {
+                  const isActive = idx === activeIndex;
+                  return (
+                    <div
+                      key={slide.id}
+                      className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                        isActive
+                          ? "opacity-100 z-10 pointer-events-auto"
+                          : "opacity-0 z-0 pointer-events-none"
+                      }`}
+                      aria-hidden={!isActive}
+                    >
+                      <img
+                        src={slide.imageUrl}
+                        alt={slide.categoryLabel}
+                        className="w-full h-full object-cover select-none"
+                        loading={idx === 0 ? "eager" : "lazy"}
+                        decoding="async"
+                        onError={(e) => {
+                          const target = e.currentTarget;
+                          if (target.src !== slide.fallbackUrl) {
+                            target.src = slide.fallbackUrl;
+                          }
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+
+                {/* Category Name on Hover: Top-Left, White Text with Subtle White Shadow/Glow (NO box/pill) */}
+                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                  <span
+                    className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-white"
+                    style={{
+                      textShadow:
+                        "0 0 8px rgba(255, 255, 255, 0.95), 0 0 16px rgba(255, 255, 255, 0.8), 0 1px 3px rgba(0, 0, 0, 0.8)",
+                    }}
+                  >
                     {activeSlide.categoryLabel}
                   </span>
                 </div>
 
-                {/* Stack of 6 Crossfade Images (Exact 6 provided images, object-contain, no distortion) */}
-                <div className="relative w-full h-[240px] sm:h-[320px] lg:h-[360px] flex items-center justify-center">
-                  {HERO_CATEGORY_SLIDES.map((slide, idx) => {
-                    const isActive = idx === activeIndex;
-                    return (
-                      <div
-                        key={slide.id}
-                        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-700 ease-in-out ${
-                          isActive
-                            ? "opacity-100 z-10 pointer-events-auto"
-                            : "opacity-0 z-0 pointer-events-none"
-                        }`}
-                        aria-hidden={!isActive}
-                      >
-                        <img
-                          src={slide.imageUrl}
-                          alt={slide.categoryLabel}
-                          className="max-h-full max-w-full object-contain drop-shadow-sm select-none"
-                          loading={idx === 0 ? "eager" : "lazy"}
-                          decoding="async"
-                          onError={(e) => {
-                            const target = e.currentTarget;
-                            if (target.src !== slide.fallbackUrl) {
-                              target.src = slide.fallbackUrl;
-                            }
-                          }}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* Bottom Caption Bar: Category Label & View Category Action (NO individual product names) */}
-                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-white via-white/90 to-transparent p-4 sm:p-5 pt-8 z-20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                  <div className="truncate">
-                    <span className="text-xs sm:text-sm font-extrabold text-[#111111] uppercase tracking-wider block truncate">
-                      {activeSlide.categoryLabel}
-                    </span>
-                  </div>
+                {/* View Category Text Link: Bottom-Right (NO button/card/pill container) */}
+                <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-20">
                   <Link
                     to={activeSlide.categoryPath}
-                    className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#2D5A4A] hover:text-[#1F3F34] hover:underline shrink-0 group transition-colors"
+                    className="group/link inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold transition-all duration-200"
+                    style={{
+                      color: isOTLights ? "#FFFFFF" : "#2D5A4A",
+                      textShadow: isOTLights
+                        ? "0 1px 3px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.5)"
+                        : "0 0 8px rgba(255, 255, 255, 0.95), 0 1px 2px rgba(255, 255, 255, 0.8)",
+                    }}
                   >
-                    <span>View Category</span>
-                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    <span className="hover:underline">View Category</span>
+                    <ArrowRight
+                      size={14}
+                      className="group-hover/link:translate-x-1 transition-transform"
+                    />
                   </Link>
                 </div>
               </div>
 
-              {/* THREE THUMBNAILS (VERTICAL ON SM+, HORIZONTAL ON MOBILE) */}
+              {/* THREE SECONDARY IMAGES: 4:5 ASPECT RATIO, FRAMELESS, ROUNDED CORNERS */}
               <div className="flex flex-row sm:flex-col gap-2.5 sm:gap-3 w-full sm:w-28 md:w-32 lg:w-36 shrink-0 justify-between">
-                {visibleThumbnailIndices.map((thumbIdx) => {
-                  const thumbSlide = HERO_CATEGORY_SLIDES[thumbIdx];
+                {secondaryIndices.map((secIdx) => {
+                  const secSlide = HERO_CATEGORY_SLIDES[secIdx];
                   return (
                     <button
-                      key={thumbSlide.id}
+                      key={secSlide.id}
                       type="button"
-                      onClick={() => handleSelectThumbnail(thumbIdx)}
-                      className="group relative flex-1 flex flex-col items-center justify-center p-2 sm:p-2.5 bg-[#F8F9FA] hover:bg-[#F0F2F1] rounded-xl border border-neutral-200/90 hover:border-[#2D5A4A]/50 transition-all cursor-pointer text-left focus:outline-none focus:ring-2 focus:ring-[#2D5A4A]/30"
-                      aria-label={`View ${thumbSlide.categoryLabel}`}
+                      onClick={() => handleSelectThumbnail(secIdx)}
+                      className="group relative flex-1 rounded-xl overflow-hidden aspect-[4/5] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2D5A4A]/40 transition-all duration-300 select-none shadow-xs hover:shadow-md"
+                      aria-label={`View ${secSlide.categoryLabel}`}
                     >
-                      <div className="w-full h-14 sm:h-20 lg:h-22 flex items-center justify-center mb-1 overflow-hidden">
-                        <img
-                          src={thumbSlide.imageUrl}
-                          alt={thumbSlide.categoryLabel}
-                          className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-                          loading="lazy"
-                          onError={(e) => {
-                            const target = e.currentTarget;
-                            if (target.src !== thumbSlide.fallbackUrl) {
-                              target.src = thumbSlide.fallbackUrl;
-                            }
+                      <img
+                        src={secSlide.imageUrl}
+                        alt={secSlide.categoryLabel}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-xl"
+                        loading="lazy"
+                        onError={(e) => {
+                          const target = e.currentTarget;
+                          if (target.src !== secSlide.fallbackUrl) {
+                            target.src = secSlide.fallbackUrl;
+                          }
+                        }}
+                      />
+                      {/* Category name appears on hover at top-left with white text and subtle white shadow/glow */}
+                      <div className="absolute top-2 left-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                        <span
+                          className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-white line-clamp-2 text-left"
+                          style={{
+                            textShadow:
+                              "0 0 6px rgba(255, 255, 255, 0.95), 0 0 12px rgba(255, 255, 255, 0.8), 0 1px 2px rgba(0, 0, 0, 0.8)",
                           }}
-                        />
+                        >
+                          {secSlide.categoryLabel}
+                        </span>
                       </div>
-                      <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-neutral-700 group-hover:text-[#2D5A4A] text-center line-clamp-1 w-full block transition-colors">
-                        {thumbSlide.categoryLabel}
-                      </span>
                     </button>
                   );
                 })}
@@ -277,7 +306,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
 
         </div>
 
-        {/* THREE FEATURE CARDS DIRECTLY BELOW THE HERO (PRESERVED EXACTLY) */}
+        {/* THREE BENEFIT CARDS DIRECTLY BELOW THE HERO (PRESERVED EXACTLY) */}
         <div className="mt-12 sm:mt-16 lg:mt-20 bg-[#2D5A4A] rounded-2xl overflow-hidden shadow-xs grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/20">
           
           {/* Card 1 */}

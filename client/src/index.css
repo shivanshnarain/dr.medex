@@ -256,3 +256,17 @@
     animation: none !important;
   }
 }
+
+/* DR.MEDEX Hero Heading - White text with subtle dark-green outline */
+.hero-heading-outline {
+  color: #FFFFFF;
+  -webkit-text-fill-color: #FFFFFF;
+  -webkit-text-stroke: 1.3px #2D5A4A;
+  paint-order: stroke fill;
+}
+
+@supports not (-webkit-text-stroke: 1px black) {
+  .hero-heading-outline {
+    color: #2D5A4A;
+  }
+}
