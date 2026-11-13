@@ -965,14 +965,31 @@ module.exports = {
     const cleanParent = (parentCategory || "").trim().toLowerCase();
     const cleanSub = (subId || "").trim().toLowerCase();
 
-    const cat = state.categories.find(c => c.id.toLowerCase() === cleanParent || (c.slug && c.slug.toLowerCase() === cleanParent) || c.name.toLowerCase() === cleanParent);
-    const hierKey = Object.keys(state.catalogueHierarchy || {}).find(
-      k => k.toLowerCase() === cleanParent || (state.catalogueHierarchy[k]?.name || "").toLowerCase() === cleanParent
-    );
-    const hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
+    let hierKey = cleanParent ? Object.keys(state.catalogueHierarchy || {}).find(
+      k => k.toLowerCase() === cleanParent || (state.catalogueHierarchy[k]?.name || "").toLowerCase() === cleanParent || (state.catalogueHierarchy[k]?.id || "").toLowerCase() === cleanParent
+    ) : null;
+    let hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
+    let cat = cleanParent ? state.categories.find(c => c.id.toLowerCase() === cleanParent || (c.slug && c.slug.toLowerCase() === cleanParent) || c.name.toLowerCase() === cleanParent) : null;
+
+    // Fallback: If parent not matched by parameter, scan hierarchy to find which category actually contains this subcategory
+    if (!hier && !cat) {
+      for (const [k, h] of Object.entries(state.catalogueHierarchy || {})) {
+        if (Array.isArray(h.subcategories) && h.subcategories.some(s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub)) {
+          hierKey = k;
+          hier = h;
+          break;
+        }
+      }
+      for (const c of (state.categories || [])) {
+        if (Array.isArray(c.subcategories) && c.subcategories.some(s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub)) {
+          cat = c;
+          break;
+        }
+      }
+    }
 
     if (!cat && !hier) {
-      throw new Error(`Parent category "${parentCategory}" was not found.`);
+      throw new Error(`Parent category "${parentCategory || "Unknown"}" was not found.`);
     }
 
     const subHier = hier && Array.isArray(hier.subcategories)
@@ -1037,21 +1054,37 @@ module.exports = {
     const cleanSub = (subcategory || "").trim().toLowerCase();
     const cleanEq = (eqId || "").trim().toLowerCase();
 
-    const hierKey = Object.keys(state.catalogueHierarchy || {}).find(
-      k => k.toLowerCase() === cleanParent || (state.catalogueHierarchy[k]?.name || "").toLowerCase() === cleanParent
-    );
-    const hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
+    let hierKey = cleanParent ? Object.keys(state.catalogueHierarchy || {}).find(
+      k => k.toLowerCase() === cleanParent || (state.catalogueHierarchy[k]?.name || "").toLowerCase() === cleanParent || (state.catalogueHierarchy[k]?.id || "").toLowerCase() === cleanParent
+    ) : null;
+    let hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
 
-    if (!hier) {
-      throw new Error(`Primary category "${parentCategory}" was not found.`);
+    let sub = null;
+    if (hier && Array.isArray(hier.subcategories)) {
+      sub = hier.subcategories.find(
+        s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub
+      );
     }
 
-    const sub = (hier.subcategories || []).find(
-      s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub
-    );
-
+    // Fallback: If parent or subcategory not matched by parameter, scan full hierarchy for this equipment type
     if (!sub) {
-      throw new Error(`Subcategory "${subcategory}" was not found under "${hier.name}".`);
+      for (const [k, h] of Object.entries(state.catalogueHierarchy || {})) {
+        if (Array.isArray(h.subcategories)) {
+          for (const s of h.subcategories) {
+            if (Array.isArray(s.equipmentTypes) && s.equipmentTypes.some(e => (e.id || "").toLowerCase() === cleanEq || (e.name || "").toLowerCase() === cleanEq)) {
+              hierKey = k;
+              hier = h;
+              sub = s;
+              break;
+            }
+          }
+        }
+        if (sub) break;
+      }
+    }
+
+    if (!hier || !sub) {
+      throw new Error(`Equipment type "${eqId}" could not be located in catalogue hierarchy.`);
     }
 
     const eq = (sub.equipmentTypes || []).find(

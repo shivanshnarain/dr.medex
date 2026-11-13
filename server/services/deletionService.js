@@ -39,6 +39,90 @@ const DELETED_COLLECTION = "deleted_products";
 // Temporary minimal operational metadata for crash recovery and retries
 // Stored in memory and persisted to DB collection only when needed for disaster recovery
 const pendingOperations = new Map();
+const activeEntityLocks = new Set();
+const failedCleanupsQueue = new Map();
+
+/**
+ * Record a failed Cloudinary cleanup for guaranteed retry
+ */
+async function recordFailedCleanup(publicId, productId, reason) {
+  if (!publicId) return;
+  const entry = {
+    publicId,
+    productId: productId || null,
+    reason: String(reason || "Unknown Cloudinary error"),
+    failedAt: new Date().toISOString(),
+    attempts: 1
+  };
+  failedCleanupsQueue.set(publicId, entry);
+  if (isMongoConfigured()) {
+    try {
+      const c = await getClient();
+      const db = c.db(process.env.MONGODB_DB || "drmedex");
+      await db.collection("failed_cleanups").updateOne(
+        { publicId },
+        { $set: entry, $inc: { attempts: 1 } },
+        { upsert: true }
+      );
+    } catch (e) {
+      console.warn("[deletionService] Notice: unable to write failed_cleanup record to MongoDB:", e.message);
+    }
+  }
+}
+
+/**
+ * Retry all pending/failed Cloudinary cleanups safely
+ */
+async function retryFailedCleanups() {
+  const pending = [];
+  if (isMongoConfigured()) {
+    try {
+      const c = await getClient();
+      const db = c.db(process.env.MONGODB_DB || "drmedex");
+      const docs = await db.collection("failed_cleanups").find({}).toArray();
+      docs.forEach(d => pending.push(d));
+    } catch (e) {}
+  }
+  for (const [pid, entry] of failedCleanupsQueue.entries()) {
+    if (!pending.some(p => p.publicId === pid)) {
+      pending.push(entry);
+    }
+  }
+
+  let retriedCount = 0;
+  let succeededCount = 0;
+  const remainingErrors = [];
+
+  for (const item of pending) {
+    retriedCount++;
+    try {
+      const res = await cloudinary.uploader.destroy(item.publicId, { invalidate: true });
+      if (res.result === "ok" || res.result === "not found") {
+        succeededCount++;
+        failedCleanupsQueue.delete(item.publicId);
+        if (isMongoConfigured()) {
+          try {
+            const c = await getClient();
+            const db = c.db(process.env.MONGODB_DB || "drmedex");
+            await db.collection("failed_cleanups").deleteOne({ publicId: item.publicId });
+          } catch (e) {}
+        }
+      } else {
+        remainingErrors.push({ publicId: item.publicId, result: res.result });
+      }
+    } catch (err) {
+      remainingErrors.push({ publicId: item.publicId, error: err.message });
+    }
+  }
+
+  return {
+    success: true,
+    retriedCount,
+    succeededCount,
+    remainingCount: remainingErrors.length,
+    remainingErrors
+  };
+}
 
 const imageResolver = require("./imageResolver");
 
@@ -304,10 +388,12 @@ async function deleteProductPermanently(productId, adminEmail = "ADMIN") {
               deletedMedia.push({ publicId: pid, result: destroyRes.result });
             } else {
               mediaErrors.push({ publicId: pid, result: destroyRes.result });
+              await recordFailedCleanup(pid, canonicalId, destroyRes.result || "Cloudinary deletion non-ok");
             }
           } catch (cErr) {
             console.error(`[deletionService] Cloudinary destroy error for ${pid}:`, cErr.message);
             mediaErrors.push({ publicId: pid, error: cErr.message });
+            await recordFailedCleanup(pid, canonicalId, cErr.message);
           }
         })
       );
@@ -364,8 +450,8 @@ async function deleteProductPermanently(productId, adminEmail = "ADMIN") {
  */
 function inspectCategoryDependencies(type, id, parentCategory = null, parentSubcategory = null) {
   const cleanId = String(id || "").trim().toLowerCase();
-  const cleanParent = String(parentCategory || "").trim().toLowerCase();
-  const cleanSub = String(parentSubcategory || "").trim().toLowerCase();
+  let cleanParent = String(parentCategory || "").trim().toLowerCase();
+  let cleanSub = String(parentSubcategory || "").trim().toLowerCase();
 
   const allProducts = store.getProducts({ includeInactive: true }) || [];
   const hierarchy = store.getCatalogueHierarchy() || {};
@@ -376,6 +462,40 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
   let subcategories = [];
   let equipmentTypes = [];
 
+  // Fallback: If cleanParent not provided or invalid for subcategory, auto-detect parent
+  if (type === "subcategory" && (!cleanParent || cleanParent === "null" || cleanParent === "undefined")) {
+    for (const [k, h] of Object.entries(hierarchy)) {
+      if (Array.isArray(h.subcategories) && h.subcategories.some(s => (s.id || "").toLowerCase() === cleanId || (s.name || "").toLowerCase() === cleanId || (s.slug || "").toLowerCase() === cleanId)) {
+        cleanParent = k.toLowerCase();
+        break;
+      }
+    }
+    if (!cleanParent) {
+      for (const c of categories) {
+        if (Array.isArray(c.subcategories) && c.subcategories.some(s => (s.id || "").toLowerCase() === cleanId || (s.name || "").toLowerCase() === cleanId || (s.slug || "").toLowerCase() === cleanId)) {
+          cleanParent = (c.id || c.slug || "").toLowerCase();
+          break;
+        }
+      }
+    }
+  }
+
+  // Fallback: If cleanParent or cleanSub not provided for equipment type, auto-detect
+  if (type === "equipment" && (!cleanSub || cleanSub === "null" || cleanSub === "undefined")) {
+    for (const [k, h] of Object.entries(hierarchy)) {
+      if (Array.isArray(h.subcategories)) {
+        for (const s of h.subcategories) {
+          if (Array.isArray(s.equipmentTypes) && s.equipmentTypes.some(e => (e.id || "").toLowerCase() === cleanId || (e.name || "").toLowerCase() === cleanId)) {
+            cleanParent = k.toLowerCase();
+            cleanSub = (s.id || s.name || "").toLowerCase();
+            break;
+          }
+        }
+      }
+      if (cleanSub) break;
+    }
+  }
+
   if (type === "primary") {
     const cat = categories.find(c => (c.id || "").toLowerCase() === cleanId || (c.slug || "").toLowerCase() === cleanId || (c.name || "").toLowerCase() === cleanId);
     const hierKey = Object.keys(hierarchy).find(k => k.toLowerCase() === cleanId || (hierarchy[k]?.name || "").toLowerCase() === cleanId);
@@ -383,13 +503,7 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
 
     entityName = hier?.name || cat?.name || id;
 
-    // 1. Linked products
-    linkedProducts = allProducts.filter(p => {
-      const pCat = (p.category || "").toLowerCase();
-      return pCat === cleanId || pCat === (cat?.slug || "").toLowerCase() || pCat === (cat?.id || "").toLowerCase() || pCat === (cat?.name || "").toLowerCase() || pCat === (hierKey || "").toLowerCase();
-    });
-
-    // 2. Subcategories
+    // 1. Subcategories & equipment types
     if (hier && Array.isArray(hier.subcategories)) {
       subcategories = hier.subcategories;
       hier.subcategories.forEach(s => {
@@ -400,6 +514,22 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
     } else if (cat && Array.isArray(cat.subcategories)) {
       subcategories = cat.subcategories;
     }
+
+    const subcatSlugs = subcategories.flatMap(s => [s.id, s.slug, s.name].filter(Boolean).map(x => x.toLowerCase()));
+
+    // 2. Linked products
+    linkedProducts = allProducts.filter(p => {
+      const pCat = (p.category || "").toLowerCase();
+      const pSub = (p.subcategory || "").toLowerCase();
+      return (
+        pCat === cleanId ||
+        pCat === (cat?.slug || "").toLowerCase() ||
+        pCat === (cat?.id || "").toLowerCase() ||
+        pCat === (cat?.name || "").toLowerCase() ||
+        pCat === (hierKey || "").toLowerCase() ||
+        (pSub && subcatSlugs.includes(pSub))
+      );
+    });
   } else if (type === "subcategory") {
     const cat = categories.find(c => (c.id || "").toLowerCase() === cleanParent || (c.slug || "").toLowerCase() === cleanParent || (c.name || "").toLowerCase() === cleanParent);
     const hierKey = Object.keys(hierarchy).find(k => k.toLowerCase() === cleanParent || (hierarchy[k]?.name || "").toLowerCase() === cleanParent);
@@ -414,16 +544,24 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
 
     entityName = subHier?.name || subCat?.name || id;
 
-    // 1. Linked products
-    linkedProducts = allProducts.filter(p => {
-      const pSub = (p.subcategory || "").toLowerCase();
-      return pSub === cleanId || pSub === (subHier?.name || "").toLowerCase() || pSub === (subCat?.name || "").toLowerCase() || pSub === (subHier?.id || "").toLowerCase();
-    });
-
-    // 2. Equipment types
+    // Equipment types
     if (subHier && Array.isArray(subHier.equipmentTypes)) {
       equipmentTypes = subHier.equipmentTypes;
     }
+
+    const subIdentList = [cleanId, (subHier?.id || "").toLowerCase(), (subHier?.name || "").toLowerCase(), (subCat?.name || "").toLowerCase(), (subCat?.slug || "").toLowerCase()].filter(Boolean);
+    const eqIdentList = equipmentTypes.flatMap(e => [e.id, e.name].filter(Boolean).map(x => x.toLowerCase()));
+
+    // Linked products
+    linkedProducts = allProducts.filter(p => {
+      const pSub = (p.subcategory || "").toLowerCase();
+      const pEq = (p.equipmentType || "").toLowerCase();
+      const isSubMatch =
+        subIdentList.includes(pSub) ||
+        (Array.isArray(p.subcategories) && p.subcategories.some(s => subIdentList.includes((s || "").toLowerCase())));
+      const isEqMatch = pEq && eqIdentList.includes(pEq);
+      return isSubMatch || isEqMatch;
+    });
   } else if (type === "equipment") {
     entityName = id;
     linkedProducts = allProducts.filter(p => {
@@ -445,8 +583,8 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
     entityType: type,
     id,
     name: entityName,
-    parentCategory,
-    parentSubcategory,
+    parentCategory: cleanParent || parentCategory,
+    parentSubcategory: cleanSub || parentSubcategory,
     productCount: linkedProducts.length,
     products: linkedProducts.map(p => ({
       id: p.id,
@@ -466,18 +604,24 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
 
 /**
  * Execute Cascading Deletion of Category, Subcategory, or Equipment Type
- * - Safely removes the taxonomy branch (parent category, child subcategories, child equipment types)
- * - DO NOT delete genuine product records, product images, Cloudinary assets, prices, or SKUs
- * - Safely detaches category/subcategory/equipmentType references from affected products
- * - Persists updates to MongoDB Atlas approved_products and local store
- * - Fully synchronized with public storefront and admin navigation
+ * - Deletes selected taxonomy entity and its exclusive child records
+ * - Deletes exclusively associated products & destroys their exclusive Cloudinary assets
+ * - Preserves shared Cloudinary media referenced by surviving records/orders
+ * - Queues failed Cloudinary cleanups for retry
+ * - Prevents duplicate concurrent deletion requests via activeEntityLocks
+ * - Idempotent across repeated executions
  */
-async function deleteCategoryWithDependencies(type, id, { parentCategory = null, parentSubcategory = null, cascadeProducts = false, purgeProducts = false, adminEmail = "ADMIN" } = {}) {
+async function deleteCategoryWithDependencies(type, id, { parentCategory = null, parentSubcategory = null, cascadeProducts = true, purgeProducts = false, adminEmail = "ADMIN" } = {}) {
   const cleanId = String(id || "").trim().toLowerCase();
-  const cleanParent = String(parentCategory || "").trim().toLowerCase();
-  const cleanSub = String(parentSubcategory || "").trim().toLowerCase();
+  const lockKey = `${type}:${cleanId}`;
 
-  const inspection = inspectCategoryDependencies(type, id, parentCategory, parentSubcategory);
+  // Concurrency check: prevent duplicate requests on same entity
+  if (activeEntityLocks.has(lockKey)) {
+    const err = new Error(`Deletion for ${type} "${id}" is already in progress. Please wait for it to finish.`);
+    err.statusCode = 409;
+    throw err;
+  }
+  activeEntityLocks.add(lockKey);
 
   const opId = `del_cat_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
   pendingOperations.set(opId, {
@@ -489,140 +633,168 @@ async function deleteCategoryWithDependencies(type, id, { parentCategory = null,
     startedAt: new Date().toISOString()
   });
 
-  const deletedProducts = [];
-  let totalDeletedMedia = 0;
+  try {
+    const inspection = inspectCategoryDependencies(type, id, parentCategory, parentSubcategory);
+    const resolvedParent = inspection.parentCategory || parentCategory;
+    const resolvedSub = inspection.parentSubcategory || parentSubcategory;
 
-  // Only if explicit hard purge is requested (e.g. specialized purge tests)
-  if (purgeProducts && inspection.products.length > 0) {
-    pendingOperations.get(opId).stage = "PURGING_PRODUCTS";
-    for (const prodInfo of inspection.products) {
-      try {
-        const prodDelRes = await deleteProductPermanently(prodInfo.id, adminEmail);
-        deletedProducts.push(prodDelRes);
-        totalDeletedMedia += (prodDelRes.media?.deletedCount || 0);
-      } catch (prodErr) {
-        console.error(`[deletionService] Purge error on product ${prodInfo.id}:`, prodErr);
-      }
-    }
-  } else {
-    // SAFE PRODUCT PRESERVATION: Detach category/subcategory references in MongoDB Atlas
-    pendingOperations.get(opId).stage = "DETACHING_PRODUCTS_MONGO";
-    if (mongoService.isConfigured()) {
-      try {
-        const client = await mongoService.getClient();
-        const db = client.db(process.env.MONGODB_DB || "drmedex");
-        const col = db.collection("approved_products");
+    const shouldDeleteProducts = cascadeProducts === true || purgeProducts === true;
+    const deletedProducts = [];
+    let totalDeletedMedia = 0;
+    let totalPreservedMedia = 0;
+    let totalFailedMedia = 0;
 
-        if (type === "primary") {
-          const catId = cleanId;
-          const catName = inspection.name;
-          const subcatNames = (inspection.subcategories || []).flatMap(s => [s.id, s.name].filter(Boolean));
-          const orList = [
-            { category: { $regex: new RegExp(`^${escapeRegexStr(catId)}$`, "i") } },
-            { category: { $regex: new RegExp(`^${escapeRegexStr(catName)}$`, "i") } }
-          ];
-          if (subcatNames.length > 0) {
-            orList.push({ subcategory: { $in: subcatNames } });
-          }
-          await col.updateMany(
-            { $or: orList },
-            {
-              $set: {
-                category: "",
-                subcategory: "",
-                equipmentType: "",
-                subcategories: [],
-                updatedAt: new Date().toISOString()
-              }
-            }
-          );
-        } else if (type === "subcategory") {
-          const subId = cleanId;
-          const subName = inspection.name;
-          const eqNames = (inspection.equipmentTypes || []).flatMap(e => [e.id, e.name].filter(Boolean));
-          const orList = [
-            { subcategory: { $regex: new RegExp(`^${escapeRegexStr(subId)}$`, "i") } },
-            { subcategory: { $regex: new RegExp(`^${escapeRegexStr(subName)}$`, "i") } },
-            { subcategories: subId },
-            { subcategories: subName }
-          ];
-          if (eqNames.length > 0) {
-            orList.push({ equipmentType: { $in: eqNames } });
-          }
-          await col.updateMany(
-            { $or: orList },
-            {
-              $set: {
-                subcategory: "",
-                equipmentType: "",
-                updatedAt: new Date().toISOString()
-              },
-              $pull: {
-                subcategories: { $in: [subId, subName] }
-              }
-            }
-          );
-        } else if (type === "equipment") {
-          const eqId = cleanId;
-          const eqName = inspection.name;
-          await col.updateMany(
-            {
-              $or: [
-                { equipmentType: { $regex: new RegExp(`^${escapeRegexStr(eqId)}$`, "i") } },
-                { equipmentType: { $regex: new RegExp(`^${escapeRegexStr(eqName)}$`, "i") } }
-              ]
-            },
-            {
-              $set: {
-                equipmentType: "",
-                updatedAt: new Date().toISOString()
-              }
-            }
-          );
+    if (shouldDeleteProducts && inspection.products.length > 0) {
+      pendingOperations.get(opId).stage = "DELETING_ASSOCIATED_PRODUCTS";
+      for (const prodInfo of inspection.products) {
+        try {
+          const prodDelRes = await deleteProductPermanently(prodInfo.id, adminEmail);
+          deletedProducts.push(prodDelRes);
+          totalDeletedMedia += (prodDelRes.media?.deletedCount || 0);
+          totalPreservedMedia += (prodDelRes.media?.preservedCount || 0);
+          totalFailedMedia += (prodDelRes.media?.errorCount || 0);
+        } catch (prodErr) {
+          console.error(`[deletionService] Product deletion notice for ${prodInfo.id}:`, prodErr.message);
         }
+      }
+    } else if (!shouldDeleteProducts && inspection.products.length > 0) {
+      // Safe detachment fallback if cascadeProducts is explicitly false
+      pendingOperations.get(opId).stage = "DETACHING_PRODUCTS_MONGO";
+      if (mongoService.isConfigured()) {
+        try {
+          const client = await mongoService.getClient();
+          const db = client.db(process.env.MONGODB_DB || "drmedex");
+          const col = db.collection("approved_products");
 
-        mongoService.invalidateMongoCache();
-      } catch (mErr) {
-        console.warn("[deletionService] Notice during MongoDB product detachment:", mErr.message);
+          if (type === "primary") {
+            const catId = cleanId;
+            const catName = inspection.name;
+            const subcatNames = (inspection.subcategories || []).flatMap(s => [s.id, s.name].filter(Boolean));
+            const orList = [
+              { category: { $regex: new RegExp(`^${escapeRegexStr(catId)}$`, "i") } },
+              { category: { $regex: new RegExp(`^${escapeRegexStr(catName)}$`, "i") } }
+            ];
+            if (subcatNames.length > 0) {
+              orList.push({ subcategory: { $in: subcatNames } });
+            }
+            await col.updateMany(
+              { $or: orList },
+              {
+                $set: {
+                  category: "",
+                  subcategory: "",
+                  equipmentType: "",
+                  subcategories: [],
+                  updatedAt: new Date().toISOString()
+                }
+              }
+            );
+          } else if (type === "subcategory") {
+            const subId = cleanId;
+            const subName = inspection.name;
+            const eqNames = (inspection.equipmentTypes || []).flatMap(e => [e.id, e.name].filter(Boolean));
+            const orList = [
+              { subcategory: { $regex: new RegExp(`^${escapeRegexStr(subId)}$`, "i") } },
+              { subcategory: { $regex: new RegExp(`^${escapeRegexStr(subName)}$`, "i") } },
+              { subcategories: subId },
+              { subcategories: subName }
+            ];
+            if (eqNames.length > 0) {
+              orList.push({ equipmentType: { $in: eqNames } });
+            }
+            await col.updateMany(
+              { $or: orList },
+              {
+                $set: {
+                  subcategory: "",
+                  equipmentType: "",
+                  updatedAt: new Date().toISOString()
+                },
+                $pull: {
+                  subcategories: { $in: [subId, subName] }
+                }
+              }
+            );
+          } else if (type === "equipment") {
+            const eqId = cleanId;
+            const eqName = inspection.name;
+            await col.updateMany(
+              {
+                $or: [
+                  { equipmentType: { $regex: new RegExp(`^${escapeRegexStr(eqId)}$`, "i") } },
+                  { equipmentType: { $regex: new RegExp(`^${escapeRegexStr(eqName)}$`, "i") } }
+                ]
+              },
+              {
+                $set: {
+                  equipmentType: "",
+                  updatedAt: new Date().toISOString()
+                }
+              }
+            );
+          }
+        } catch (mErr) {
+          console.warn("[deletionService] Notice during MongoDB product detachment:", mErr.message);
+        }
       }
     }
+
+    // Invalidate MongoDB cache immediately
+    if (mongoService.isConfigured()) {
+      mongoService.invalidateMongoCache();
+    }
+
+    // Delete the taxonomy record from store (persists to db.json and clears initialHierarchy)
+    pendingOperations.get(opId).stage = "TAXONOMY_DELETION";
+    let taxonomyResult = null;
+    try {
+      if (type === "primary") {
+        taxonomyResult = store.deletePrimaryCategory(id, true);
+      } else if (type === "subcategory") {
+        taxonomyResult = store.deleteSubcategory(resolvedParent, id, true);
+      } else if (type === "equipment") {
+        taxonomyResult = store.deleteEquipmentType(resolvedParent, resolvedSub, id);
+      }
+    } catch (taxErr) {
+      console.warn(`[deletionService] Taxonomy deletion notice for ${type} "${id}":`, taxErr.message);
+    }
+
+    auditService.logAction(adminEmail, "TAXONOMY_CASCADE_DELETED", id, {
+      type,
+      name: inspection.name,
+      deletedProductsCount: deletedProducts.length,
+      deletedSubcategoriesCount: inspection.subcategoryCount,
+      deletedEquipmentTypesCount: inspection.equipmentTypeCount,
+      deletedMediaCount: totalDeletedMedia,
+      preservedMediaCount: totalPreservedMedia,
+      failedMediaCount: totalFailedMedia
+    });
+
+    const isCleanupPending = totalFailedMedia > 0;
+    const message = isCleanupPending
+      ? `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" and associated records deleted. ${deletedProducts.length} product(s) deleted. (${totalFailedMedia} media cleanup(s) pending retry).`
+      : `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" and all associated data deleted successfully.`;
+
+    return {
+      success: true,
+      type,
+      id,
+      name: inspection.name,
+      message,
+      cleanupPending: isCleanupPending,
+      deletedProductsCount: deletedProducts.length,
+      deletedSubcategoriesCount: inspection.subcategoryCount,
+      deletedEquipmentTypesCount: inspection.equipmentTypeCount,
+      deletedMediaCount: totalDeletedMedia,
+      preservedMediaCount: totalPreservedMedia,
+      failedMediaCount: totalFailedMedia,
+      hierarchy: store.getCatalogueHierarchy(),
+      categories: store.getCategories(true)
+    };
+  } finally {
+    activeEntityLocks.delete(lockKey);
+    pendingOperations.delete(opId);
   }
-
-  // Delete the taxonomy record from store (also detaches local store products and persists)
-  pendingOperations.get(opId).stage = "TAXONOMY_DELETION";
-  let taxonomyResult = null;
-  if (type === "primary") {
-    taxonomyResult = store.deletePrimaryCategory(id, true);
-  } else if (type === "subcategory") {
-    taxonomyResult = store.deleteSubcategory(parentCategory, id, true);
-  } else if (type === "equipment") {
-    taxonomyResult = store.deleteEquipmentType(parentCategory, parentSubcategory, id);
-  }
-
-  pendingOperations.delete(opId);
-
-  auditService.logAction(adminEmail, "TAXONOMY_CASCADE_DELETED", id, {
-    type,
-    name: inspection.name,
-    detachedProductsCount: inspection.productCount,
-    deletedSubcategoriesCount: inspection.subcategoryCount,
-    deletedEquipmentTypesCount: inspection.equipmentTypeCount,
-    purgedProductsCount: deletedProducts.length
-  });
-
-  return {
-    success: true,
-    type,
-    id,
-    name: inspection.name,
-    message: `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" and dependent taxonomy records deleted successfully. ${inspection.productCount} product(s) safely preserved and detached.`,
-    detachedProductsCount: inspection.productCount,
-    deletedProductsCount: deletedProducts.length,
-    deletedSubcategoriesCount: inspection.subcategoryCount,
-    deletedEquipmentTypesCount: inspection.equipmentTypeCount,
-    hierarchy: store.getCatalogueHierarchy(),
-    categories: store.getCategories(true)
-  };
 }
 
 /**
@@ -1041,6 +1213,7 @@ module.exports = {
   deleteOrphanedAssets,
   getPendingOperations,
   retryPendingOperation,
+  retryFailedCleanups,
   extractCloudinaryPublicId,
   getProductCloudinaryPublicIds,
   isAssetSharedOrOrdered

@@ -29,6 +29,8 @@ async function runTests() {
   const originalDbContent = fs.readFileSync(DB_FILE, "utf-8");
   const timestamp = Date.now();
 
+  let parentCatId = null;
+  try {
   // --------------------------------------------------------------------------
   // SCENARIO A: Delete Empty Category
   // --------------------------------------------------------------------------
@@ -56,7 +58,7 @@ async function runTests() {
   // 1. Create a parent category
   const parentCatName = `Test Parent Cat ${timestamp}`;
   const addParentRes = store.addPrimaryCategory({ name: parentCatName });
-  const parentCatId = addParentRes.category.id;
+  parentCatId = addParentRes.category.id;
 
   // 2. Create a subcategory with child equipment types under it
   const subcatName = `Test Subcat With Children ${timestamp}`;
@@ -148,8 +150,9 @@ async function runTests() {
   const inspectC = deletionService.inspectCategoryDependencies("primary", catCId);
   assert.ok(inspectC.productCount >= 2, "Inspection must find assigned products");
 
-  // Execute deletion
+  // Execute deletion with detachment
   const delCRes = await deletionService.deleteCategoryWithDependencies("primary", catCId, {
+    cascadeProducts: false,
     adminEmail: "test-admin@drmedex.com"
   });
 
@@ -222,14 +225,16 @@ async function runTests() {
   assert.ok(reloadState, "State must reload cleanly from disk");
   console.log("✔ Scenario E Passed: Taxonomy persistence verified.\n");
 
-  // Cleanup parentCat from Scenario B
-  try {
-    await deletionService.deleteCategoryWithDependencies("primary", parentCatId);
-  } catch (e) {}
+  } finally {
+    // Cleanup parentCat from Scenario B
+    try {
+      await deletionService.deleteCategoryWithDependencies("primary", parentCatId);
+    } catch (e) {}
 
-  // Restore pristine db.json so test records do not dirty database file
-  fs.writeFileSync(DB_FILE, originalDbContent, "utf-8");
-  store.reloadFromDisk();
+    // Restore pristine db.json so test records do not dirty database file
+    fs.writeFileSync(DB_FILE, originalDbContent, "utf-8");
+    store.reloadFromDisk();
+  }
 
   console.log("=== ALL TEST SCENARIOS PASSED SUCCESSFULLY ===");
   process.exit(0);

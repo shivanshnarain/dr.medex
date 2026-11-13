@@ -807,7 +807,7 @@ router.get("/catalogue/dependencies/:type/:id", requireAdmin, (req, res) => {
 // Cascading Deletion Endpoint
 router.post("/catalogue/delete-cascade", requireAdmin, async (req, res) => {
   try {
-    const { type, id, parentCategory, parentSubcategory } = req.body;
+    const { type, id, parentCategory, parentSubcategory, cascadeProducts } = req.body;
     if (!type || !id) {
       return res.status(400).json({ success: false, message: "Entity type and id are required." });
     }
@@ -815,12 +815,24 @@ router.post("/catalogue/delete-cascade", requireAdmin, async (req, res) => {
     const result = await deletionService.deleteCategoryWithDependencies(type, id, {
       parentCategory,
       parentSubcategory,
-      adminEmail: req.admin.email
+      cascadeProducts: cascadeProducts !== false,
+      adminEmail: req.admin?.email || "ADMIN"
     });
 
     res.json(result);
   } catch (err) {
-    res.status(400).json({ success: false, message: err.message });
+    const status = err.statusCode || 400;
+    res.status(status).json({ success: false, message: err.message });
+  }
+});
+
+// Retry Failed Media Cleanups
+router.post("/catalogue/failed-cleanups/retry", requireAdmin, async (req, res) => {
+  try {
+    const result = await deletionService.retryFailedCleanups();
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 

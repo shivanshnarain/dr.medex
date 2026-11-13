@@ -24,6 +24,7 @@ import {
 import { AdminLayout } from "../components/admin/AdminLayout";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { Category } from "../types";
+import { clearCategoriesCache, clearProductsCache } from "../services/productService";
 
 interface SubcategoryRecord {
   id: string;
@@ -464,7 +465,9 @@ export const AdminCategoriesPage: React.FC = () => {
           type: deletingItem.type,
           id: deletingItem.id,
           parentCategory: deletingItem.parentCategory,
-          parentSubcategory: deletingItem.parentSubcategory
+          parentSubcategory: deletingItem.parentSubcategory,
+          cascadeProducts: true,
+          confirmed: true
         })
       });
 
@@ -473,15 +476,22 @@ export const AdminCategoriesPage: React.FC = () => {
       if (res.ok && data.success) {
         const deletedName = deletingItem.name;
         setDeletingItem(null);
+        clearCategoriesCache();
+        clearProductsCache();
         setBanner({ type: "success", text: data.message || `"${deletedName}" deleted successfully.` });
         if (data.hierarchy) setHierarchy(data.hierarchy);
         if (data.categories) setCategories(data.categories);
         await fetchData();
       } else {
-        setDeleteError(data.message || "Deletion failed due to a server error.");
+        const errorText = data.message || `Server error (${res.status}): Deletion could not be completed.`;
+        setDeleteError(errorText);
       }
     } catch (err: any) {
-      setDeleteError(err.message || "Network error while attempting deletion.");
+      const errorMsg =
+        err?.message === "Load failed"
+          ? "Network connection interrupted or request timed out. Please check your network and retry."
+          : (err?.message || "Network error while attempting deletion.");
+      setDeleteError(errorMsg);
     } finally {
       setIsSubmittingDelete(false);
     }
@@ -1355,10 +1365,10 @@ export const AdminCategoriesPage: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-sm uppercase tracking-wider font-mono text-neutral-900">
-                    Delete {deletingItem.type === "primary" ? "Category" : deletingItem.type === "subcategory" ? "Subcategory" : "Equipment Type"}
+                    Delete {deletingItem.name}?
                   </h3>
                   <div className="text-[11px] text-neutral-500 font-mono">
-                    &ldquo;{deletingItem.name}&rdquo;
+                    Type: {deletingItem.type === "primary" ? "Primary Category" : deletingItem.type === "subcategory" ? "Subcategory" : "Equipment Type"}
                   </div>
                 </div>
               </div>
@@ -1373,51 +1383,53 @@ export const AdminCategoriesPage: React.FC = () => {
 
             <div className="p-6 space-y-4">
               {/* Dependency Inspection Summary */}
-              <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-xl space-y-2">
+              <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-xl space-y-3">
                 <div className="text-xs font-bold text-neutral-800 flex items-center justify-between font-mono">
-                  <span>Dependency Inspection:</span>
+                  <span>Dependency Summary:</span>
                   {isLoadingInspection && (
                     <span className="flex items-center gap-1.5 text-neutral-500 font-normal">
                       <RefreshCw size={12} className="animate-spin text-[#7AA05A]" />
-                      Scanning...
+                      Scanning database...
                     </span>
                   )}
                 </div>
 
                 {isLoadingInspection ? (
                   <p className="text-xs text-neutral-500 italic">
-                    Scanning MongoDB Atlas and catalogue records for dependencies...
+                    Scanning MongoDB Atlas, catalogue taxonomy and media assets for dependencies...
                   </p>
                 ) : deleteInspection ? (
                   <div className="space-y-3 text-xs text-neutral-700">
-                    <div className="grid grid-cols-2 gap-2 mt-1 font-mono text-[11px]">
+                    <p className="text-xs text-neutral-800 leading-relaxed font-medium">
+                      This {deletingItem.type === "primary" ? "category" : deletingItem.type === "subcategory" ? "subcategory" : "equipment type"} contains{" "}
+                      <strong>
+                        {deleteInspection.subcategoryCount > 0 ? `${deleteInspection.subcategoryCount} dependent subcategory/subcategories` : ""}
+                        {deleteInspection.subcategoryCount > 0 && deleteInspection.equipmentTypeCount > 0 ? " and " : ""}
+                        {deleteInspection.equipmentTypeCount > 0 ? `${deleteInspection.equipmentTypeCount} dependent equipment type(s)` : ""}
+                        {(deleteInspection.subcategoryCount > 0 || deleteInspection.equipmentTypeCount > 0) ? " and " : ""}
+                        {deleteInspection.productCount} associated product(s)
+                      </strong>
+                      . Deleting it will also remove its exclusively associated records and assets from the catalogue.
+                    </p>
+
+                    <div className="grid grid-cols-2 gap-2 font-mono text-[11px]">
                       <div className="p-2.5 bg-white border border-neutral-200 rounded-lg">
-                        <span className="text-neutral-500 block">Assigned Products:</span>
+                        <span className="text-neutral-500 block">Associated Products:</span>
                         <strong className={`text-sm ${deleteInspection.productCount > 0 ? "text-amber-800" : "text-[#2D5A4A]"}`}>
                           {deleteInspection.productCount} product(s)
                         </strong>
                       </div>
                       <div className="p-2.5 bg-white border border-neutral-200 rounded-lg">
-                        <span className="text-neutral-500 block">Child Records:</span>
+                        <span className="text-neutral-500 block">Dependent Child Records:</span>
                         <strong className="text-sm text-neutral-900">
                           {(deleteInspection.subcategoryCount || 0) + (deleteInspection.equipmentTypeCount || 0)} item(s)
                         </strong>
                       </div>
                     </div>
 
-                    {deleteInspection.productCount > 0 && (
-                      <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-900 leading-relaxed text-xs">
-                        <strong>Safe Product Preservation:</strong> All {deleteInspection.productCount} product(s) will be <strong>preserved</strong> in the catalog. Their {deletingItem.type === "primary" ? "category" : "subcategory"} reference will be safely unassigned in MongoDB Atlas and the catalog so no product records, prices, or Cloudinary images are deleted.
-                      </div>
-                    )}
-
-                    {(deleteInspection.subcategoryCount > 0 || deleteInspection.equipmentTypeCount > 0) && (
-                      <p className="text-xs text-neutral-600 leading-relaxed font-sans">
-                        Confirming will cascade and permanently remove this {deletingItem.type}
-                        {deleteInspection.subcategoryCount > 0 ? ` and its ${deleteInspection.subcategoryCount} child subcategory/subcategories` : ""}
-                        {deleteInspection.equipmentTypeCount > 0 ? ` and ${deleteInspection.equipmentTypeCount} child equipment type(s)` : ""} from the database and storefront.
-                      </p>
-                    )}
+                    <p className="text-[11px] text-neutral-500 leading-relaxed">
+                      Shared Cloudinary media referenced by surviving products or customer orders will be preserved. Unreferenced records and exclusive assets will be permanently cleaned.
+                    </p>
                   </div>
                 ) : (
                   <p className="text-xs text-neutral-500">
@@ -1431,7 +1443,7 @@ export const AdminCategoriesPage: React.FC = () => {
                 <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl text-xs text-red-900 flex items-start gap-2.5">
                   <AlertCircle size={16} className="text-[#C62828] shrink-0 mt-0.5" />
                   <div className="space-y-1">
-                    <div className="font-bold text-red-900">Deletion Error:</div>
+                    <div className="font-bold text-red-900">Deletion Notice:</div>
                     <div className="leading-relaxed text-[11px] text-red-850 font-mono">{deleteError}</div>
                   </div>
                 </div>
@@ -1454,7 +1466,7 @@ export const AdminCategoriesPage: React.FC = () => {
                 >
                   {isSubmittingDelete && <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />}
                   <span>
-                    {isSubmittingDelete ? "Deleting..." : `Confirm & Delete ${deletingItem.type === "primary" ? "Category" : deletingItem.type === "subcategory" ? "Subcategory" : "Equipment Type"}`}
+                    {isSubmittingDelete ? "Deleting..." : "Delete Category & Associated Data"}
                   </span>
                 </button>
               </div>

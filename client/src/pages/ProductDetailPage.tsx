@@ -69,6 +69,29 @@ function parseProductTitle(rawTitle: string) {
   };
 }
 
+/**
+ * Resolves the dynamic category name for breadcrumbs and navigation,
+ * ensuring it accurately reflects the actual product category.
+ */
+function getDynamicCategoryName(product: Product | null): string {
+  if (!product) return "Medical Equipment";
+  if (product.categoryName && product.categoryName !== "Examination & OT Tables") {
+    return product.categoryName;
+  }
+  const cat = (product.category || "").toLowerCase().trim();
+  if (cat === "ot-lights" || cat === "ot_lights" || cat.includes("ot-light")) return "OT Lights";
+  if (cat.includes("physio")) return "Physiotherapy & Rehabilitation";
+  if (cat.includes("electro")) return "Electrosurgical Units";
+  if (cat.includes("table")) return "Examination & OT Tables";
+  if (cat) {
+    return cat
+      .split(/[-_]+/)
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ");
+  }
+  return "Medical Equipment";
+}
+
 interface NormalizedSpec {
   key: string;
   value: string;
@@ -1028,7 +1051,7 @@ export const ProductDetailPage: React.FC = () => {
         {/* ========================================================= */}
         {/* TOP SECTION: 50/50 SPLIT GALLERY & DETAILS                */}
         {/* ========================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-start lg:items-stretch">
           {/* ------------------------------------------------------- */}
           {/* LEFT 50%: PRODUCT IMAGE GALLERY                          */}
           {/* ------------------------------------------------------- */}
@@ -1191,12 +1214,16 @@ export const ProductDetailPage: React.FC = () => {
           {/* RIGHT 50%: PRODUCT DETAILS & ACTIONS                    */}
           {/* ------------------------------------------------------- */}
           <div
-            style={galleryHeight ? { minHeight: `${galleryHeight}px` } : undefined}
-            className="w-full flex flex-col justify-between min-w-0"
+            style={
+              galleryHeight && typeof window !== "undefined" && window.innerWidth >= 1024
+                ? { height: `${Math.max(galleryHeight, 560)}px`, maxHeight: `${Math.max(galleryHeight, 560)}px` }
+                : undefined
+            }
+            className="w-full flex flex-col justify-between min-w-0 lg:h-full lg:min-h-[560px] lg:max-h-[760px]"
           >
             {/* A. Fixed Top Section (flex-shrink: 0) */}
             <div className="shrink-0 space-y-2">
-              {/* 1. Breadcrumb navigation */}
+              {/* 1. Dynamic Breadcrumb navigation */}
               <nav
                 aria-label="Breadcrumb"
                 className="flex flex-wrap items-center gap-1.5 text-xs text-neutral-500 mb-1 sm:mb-1.5"
@@ -1206,10 +1233,10 @@ export const ProductDetailPage: React.FC = () => {
                 </Link>
                 <span className="text-neutral-400">&gt;</span>
                 <Link
-                  to={product.category ? `/shop-all?category=${product.category}` : "/shop-all"}
+                  to={product.category ? `/shop-all?category=${encodeURIComponent(product.category)}` : "/shop-all"}
                   className="hover:text-[#171717] transition-colors font-medium text-neutral-600 break-words"
                 >
-                  {product.categoryName || "Examination & OT Tables"}
+                  {getDynamicCategoryName(product)}
                 </Link>
               </nav>
 
@@ -1258,12 +1285,17 @@ export const ProductDetailPage: React.FC = () => {
               <hr className="border-t border-neutral-200 my-1.5 shrink-0" />
             </div>
 
-            {/* B. Middle Description Section — expands naturally with content so text never clips or overlaps sections below */}
-            <div className="flex-1 flex flex-col py-1 my-0.5 min-w-0">
+            {/* B. Middle Description Section — independently scrollable on desktop */}
+            <div className="flex-1 min-h-0 flex flex-col py-1 my-1 overflow-hidden">
               <h2 className="text-sm font-bold text-[#2D5A4A] tracking-tight mb-1 shrink-0">
                 Description
               </h2>
-              <div className="pr-1 sm:pr-3 text-xs sm:text-[13px] text-neutral-600 leading-relaxed break-words">
+              <div
+                tabIndex={0}
+                role="region"
+                aria-label="Product description"
+                className="flex-1 min-h-0 overflow-y-auto pr-2 sm:pr-3 text-xs sm:text-[13px] text-neutral-600 leading-relaxed break-words [scrollbar-width:thin] [scrollbar-color:#7AA05A_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#7AA05A]/40 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-[#7AA05A]"
+              >
                 {productOverview ? (
                   <p className="whitespace-pre-line pb-1 break-words">{productOverview}</p>
                 ) : (
@@ -1275,7 +1307,7 @@ export const ProductDetailPage: React.FC = () => {
             {/* C. Fixed Bottom Section — flex-shrink: 0; margin-top: auto */}
             <div className="shrink-0 mt-auto pt-1 space-y-3">
               {/* 1. Thin horizontal divider immediately above purchase actions */}
-              <hr className="border-t border-neutral-200 mb-3 shrink-0" />
+              <hr className="border-t border-neutral-200 mb-2.5 shrink-0" />
 
               {/* 2. Purchase Buttons (Desktop layout) */}
               <div className="hidden lg:flex items-center gap-3 w-full">
