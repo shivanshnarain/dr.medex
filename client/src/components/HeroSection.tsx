@@ -158,13 +158,13 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
             {/* Main Heading: Consistent font family, weight, and size across all lines */}
             <h1 className="text-4xl sm:text-5xl lg:text-[50px] xl:text-[54px] font-black leading-[1.08] mb-5 sm:mb-6">
               <span
-                className="hero-heading-outline inline-block tracking-[0.02em]"
+                className="hero-heading-outline inline-block tracking-[0.025em]"
                 style={{
                   color: "#FFFFFF",
                   WebkitTextFillColor: "#FFFFFF",
-                  WebkitTextStroke: "1px #7AA05A",
-                  paintOrder: "stroke fill",
-                  letterSpacing: "0.02em",
+                  WebkitTextStroke: "1.35px #7AA05A",
+                  paintOrder: "fill stroke",
+                  letterSpacing: "0.025em",
                   wordSpacing: "0.06em",
                   textRendering: "geometricPrecision",
                 }}
@@ -189,11 +189,11 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               Precision-engineered medical equipment for hospitals, clinics and healthcare professionals worldwide.
             </p>
 
-            {/* Explore Products CTA Button with black outline and white text */}
+            {/* Explore Products CTA Button with white outline and red background */}
             <div>
               <Link
                 to="/shop-all"
-                className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#C62828] hover:bg-[#B71C1C] text-white text-sm sm:text-base font-bold border-2 border-black cta-shadow-enhanced transition-all duration-200 cursor-pointer animate-hero-float"
+                className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#C62828] hover:bg-[#B71C1C] text-white text-sm sm:text-base font-bold border-2 border-white cta-shadow-enhanced transition-all duration-200 cursor-pointer animate-hero-float"
                 style={{ backgroundColor: "#C62828" }}
               >
                 <span className="text-white">Explore Products</span>
@@ -211,10 +211,10 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4 items-stretch">
+            <div className="flex flex-col-reverse sm:flex-row gap-3.5 sm:gap-4 lg:gap-5 items-stretch">
               
-              {/* THREE SECONDARY THUMBNAILS (TO THE LEFT OF MAIN IMAGE): NARROWER, 4:5 ASPECT RATIO, THICKER WHITE OUTLINE, DARK-GREEN BORDER */}
-              <div className="flex flex-row sm:flex-col gap-2.5 sm:gap-3 w-full sm:w-20 md:w-22 lg:w-24 shrink-0 justify-between">
+              {/* THREE SECONDARY THUMBNAILS: CLEAN THUMBNAILS, NO TEXT, NO OVERLAYS, NARROWER FOOTPRINT */}
+              <div className="relative z-10 flex flex-row sm:flex-col gap-2.5 sm:gap-3 w-full sm:w-[76px] md:w-[82px] lg:w-[88px] shrink-0 justify-between">
                 {secondaryIndices.map((secIdx) => {
                   const secSlide = HERO_CATEGORY_SLIDES[secIdx];
                   return (
@@ -222,14 +222,14 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                       key={secSlide.id}
                       type="button"
                       onClick={() => handleSelectThumbnail(secIdx)}
-                      className="group relative flex-1 rounded-lg p-[5px] bg-white border border-[#2D5A4A] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2D5A4A]/40 transition-all duration-300 select-none shadow-xs hover:shadow-md aspect-[4/5]"
+                      className="group relative flex-1 rounded-lg p-[3.5px] bg-white border border-[#2D5A4A] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2D5A4A]/40 transition-all duration-200 select-none shadow-xs hover:shadow-md aspect-[4/5]"
                       aria-label={`View ${secSlide.categoryLabel}`}
                     >
                       <div className="w-full h-full rounded-[4px] overflow-hidden relative">
                         <img
                           src={secSlide.imageUrl}
                           alt={secSlide.categoryLabel}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-[4px]"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 rounded-[4px]"
                           loading="lazy"
                           onError={(e) => {
                             const target = e.currentTarget;
@@ -238,12 +238,6 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                             }
                           }}
                         />
-                        {/* Category name on hover: pure white text */}
-                        <div className="absolute top-1.5 left-1.5 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-white line-clamp-2 text-left">
-                            {secSlide.categoryLabel}
-                          </span>
-                        </div>
                       </div>
                     </button>
                   );
@@ -251,7 +245,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               </div>
 
               {/* LARGE MAIN IMAGE (TO THE RIGHT OF THUMBNAILS): COMPLETELY BORDERLESS & SHADOWLESS */}
-              <div className="relative flex-1 rounded-2xl overflow-hidden group min-h-[340px] sm:min-h-[420px] lg:min-h-[460px] xl:min-h-[480px]">
+              <div className="relative z-0 flex-1 rounded-2xl overflow-hidden group min-h-[340px] sm:min-h-[420px] lg:min-h-[460px] xl:min-h-[480px]">
                 
                 {/* 6 Crossfading Images */}
                 {HERO_CATEGORY_SLIDES.map((slide, idx) => {
@@ -283,7 +277,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                   );
                 })}
 
-                {/* Subtle localized gradient ONLY behind upper-left category text: starts soft white at top-left, fades downward & rightward into complete transparency */}
+                {/* Subtle localized gradient ONLY behind upper-left category text */}
                 <div
                   className="absolute top-0 left-0 w-64 max-w-[60%] h-20 pointer-events-none z-10 rounded-tl-2xl"
                   style={{
@@ -292,9 +286,13 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                   }}
                 />
 
-                {/* Category Name: Top-Left, Pure White Text, NO dark text box, NO rectangular background, NO text shadow */}
+                {/* Category Name: WHITE for OT Lights, BLACK for all other categories */}
                 <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20 pointer-events-none">
-                  <span className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-white">
+                  <span
+                    className={`text-xs sm:text-sm font-extrabold uppercase tracking-wider ${
+                      activeSlide.id === "ot-lights-equipment" ? "text-white" : "text-[#111111]"
+                    }`}
+                  >
                     {activeSlide.categoryLabel}
                   </span>
                 </div>
@@ -320,8 +318,8 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
 
         </div>
 
-        {/* THREE BENEFIT CARDS DIRECTLY BELOW THE HERO: UNIFIED CONTINUOUS DARK-GREEN BG, SQUARE EDGES, ZERO WHITE GAPS */}
-        <div className="mt-12 sm:mt-16 lg:mt-20 bg-[#2D5A4A] rounded-none overflow-hidden grid grid-cols-1 md:grid-cols-3">
+        {/* THREE BENEFIT CARDS DIRECTLY BELOW THE HERO: CONTINUOUS DARK-GREEN BG, SQUARE EDGES, RESTORED WHITE SEPARATORS */}
+        <div className="mt-12 sm:mt-16 lg:mt-20 bg-[#2D5A4A] rounded-none overflow-hidden grid grid-cols-1 md:grid-cols-3 divide-y-2 md:divide-y-0 md:divide-x md:divide-white/40">
           
           {/* Card 1 */}
           <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between bg-[#2D5A4A]">
