@@ -549,7 +549,15 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
       equipmentTypes = subHier.equipmentTypes;
     }
 
-    const subIdentList = [cleanId, (subHier?.id || "").toLowerCase(), (subHier?.name || "").toLowerCase(), (subCat?.name || "").toLowerCase(), (subCat?.slug || "").toLowerCase()].filter(Boolean);
+    const subIdentList = Array.from(new Set([
+      cleanId,
+      (subHier?.id || "").toLowerCase(),
+      (subHier?.slug || "").toLowerCase(),
+      (subHier?.name || "").toLowerCase(),
+      (subCat?.id || "").toLowerCase(),
+      (subCat?.slug || "").toLowerCase(),
+      (subCat?.name || "").toLowerCase()
+    ])).filter(Boolean);
     const eqIdentList = equipmentTypes.flatMap(e => [e.id, e.name].filter(Boolean).map(x => x.toLowerCase()));
 
     // Linked products
@@ -611,7 +619,12 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
  * - Prevents duplicate concurrent deletion requests via activeEntityLocks
  * - Idempotent across repeated executions
  */
-async function deleteCategoryWithDependencies(type, id, { parentCategory = null, parentSubcategory = null, cascadeProducts = false, purgeProducts = false, adminEmail = "ADMIN" } = {}) {
+async function deleteCategoryWithDependencies(type, id, { parentCategory = null, parentSubcategory = null, entityName = null, cascadeProducts = false, purgeProducts = false, adminEmail = "ADMIN" } = {}) {
+  // Ensure any pending disk writes are flushed so store and disk are consistent
+  if (typeof store.flushPersistSync === "function") {
+    store.flushPersistSync();
+  }
+
   const cleanId = String(id || "").trim().toLowerCase();
   const lockKey = `${type}:${cleanId}`;
 
@@ -635,6 +648,9 @@ async function deleteCategoryWithDependencies(type, id, { parentCategory = null,
 
   try {
     const inspection = inspectCategoryDependencies(type, id, parentCategory, parentSubcategory);
+    if (entityName && (!inspection.name || inspection.name === id)) {
+      inspection.name = entityName;
+    }
     const resolvedParent = inspection.parentCategory || parentCategory;
     const resolvedSub = inspection.parentSubcategory || parentSubcategory;
 
@@ -692,12 +708,16 @@ async function deleteCategoryWithDependencies(type, id, { parentCategory = null,
           } else if (type === "subcategory") {
             const subId = cleanId;
             const subName = inspection.name;
+            const subAliases = Array.from(new Set([
+              subId,
+              (inspection.id || "").toLowerCase(),
+              (inspection.name || "").toLowerCase(),
+              ...(inspection.subcategories || []).flatMap(s => [s.id, s.slug, s.name].filter(Boolean).map(x => x.toLowerCase()))
+            ])).filter(Boolean);
             const eqNames = (inspection.equipmentTypes || []).flatMap(e => [e.id, e.name].filter(Boolean));
             const orList = [
-              { subcategory: { $regex: new RegExp(`^${escapeRegexStr(subId)}$`, "i") } },
-              { subcategory: { $regex: new RegExp(`^${escapeRegexStr(subName)}$`, "i") } },
-              { subcategories: subId },
-              { subcategories: subName }
+              { subcategory: { $in: subAliases.map(a => new RegExp(`^${escapeRegexStr(a)}$`, "i")) } },
+              { subcategories: { $in: subAliases } }
             ];
             if (eqNames.length > 0) {
               orList.push({ equipmentType: { $in: eqNames } });
@@ -711,7 +731,7 @@ async function deleteCategoryWithDependencies(type, id, { parentCategory = null,
                   updatedAt: new Date().toISOString()
                 },
                 $pull: {
-                  subcategories: { $in: [subId, subName] }
+                  subcategories: { $in: subAliases }
                 }
               }
             );

@@ -10,6 +10,7 @@ const mongoService = require("./mongoService");
 
 // File-backed persistence path in server/data/db.json
 const DB_FILE = path.join(__dirname, "../data/db.json");
+const CLIENT_SERVER_DB_FILE = path.join(__dirname, "../../client/server/data/db.json");
 const TMP_DB_FILE = path.join(require("os").tmpdir(), "drmedex_db.json");
 
 let state = {
@@ -311,6 +312,8 @@ if (mongoService.isConfigured()) {
   syncTaxonomyFromMongo().catch(() => {});
 }
 
+let currentWriteVersion = 0;
+
 async function flushPersistAsync() {
   if (persistInFlight) {
     persistAgain = true;
@@ -318,6 +321,7 @@ async function flushPersistAsync() {
   }
   persistInFlight = true;
   dirtyPersist = false;
+  const writeVersion = ++currentWriteVersion;
   if (!state || !Array.isArray(state.products) || state.products.length === 0) {
     persistInFlight = false;
     return;
@@ -325,13 +329,22 @@ async function flushPersistAsync() {
   const serialized = JSON.stringify(state, null, 2);
   try {
     await fs.promises.writeFile(DB_FILE, serialized, "utf-8");
-    const stat = await fs.promises.stat(DB_FILE).catch(() => null);
-    if (stat) lastMtime = stat.mtimeMs;
+    if (writeVersion === currentWriteVersion) {
+      const stat = await fs.promises.stat(DB_FILE).catch(() => null);
+      if (stat) lastMtime = stat.mtimeMs;
+      if (fs.existsSync(path.dirname(CLIENT_SERVER_DB_FILE))) {
+        await fs.promises.writeFile(CLIENT_SERVER_DB_FILE, serialized, "utf-8").catch(() => {});
+      }
+    } else {
+      persistAgain = true;
+    }
   } catch (e) {
     try {
       await fs.promises.writeFile(TMP_DB_FILE, serialized, "utf-8");
-      const stat = await fs.promises.stat(TMP_DB_FILE).catch(() => null);
-      if (stat) lastMtime = stat.mtimeMs;
+      if (writeVersion === currentWriteVersion) {
+        const stat = await fs.promises.stat(TMP_DB_FILE).catch(() => null);
+        if (stat) lastMtime = stat.mtimeMs;
+      }
     } catch (tmpErr) {}
   } finally {
     persistInFlight = false;
@@ -349,6 +362,8 @@ function flushPersistSync() {
   }
   if (!dirtyPersist) return;
   dirtyPersist = false;
+  persistAgain = false;
+  const writeVersion = ++currentWriteVersion;
   if (!state || !Array.isArray(state.products) || state.products.length === 0) {
     return;
   }
@@ -357,6 +372,11 @@ function flushPersistSync() {
     fs.writeFileSync(DB_FILE, serialized, "utf-8");
     if (fs.existsSync(DB_FILE)) {
       lastMtime = fs.statSync(DB_FILE).mtimeMs;
+    }
+    if (fs.existsSync(path.dirname(CLIENT_SERVER_DB_FILE))) {
+      try {
+        fs.writeFileSync(CLIENT_SERVER_DB_FILE, serialized, "utf-8");
+      } catch (clientErr) {}
     }
   } catch (e) {
     try {
@@ -1038,23 +1058,31 @@ module.exports = {
   deletePrimaryCategory: (id, cascadeProducts = false) => {
     checkReload();
     const cleanId = (id || "").trim().toLowerCase();
-    const cat = state.categories.find(c => c.id.toLowerCase() === cleanId || (c.slug && c.slug.toLowerCase() === cleanId) || c.name.toLowerCase() === cleanId);
-    const hierKey = Object.keys(state.catalogueHierarchy || {}).find(
-      k => k.toLowerCase() === cleanId || (state.catalogueHierarchy[k]?.name || "").toLowerCase() === cleanId
+    let cat = (state.categories || []).find(
+      c => (c.id || "").toLowerCase() === cleanId || ((c.slug || "").toLowerCase() === cleanId) || (c.name || "").toLowerCase() === cleanId
     );
-    const hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
-
-    if (!cat && !hier) {
-      throw new Error(`Primary category "${id}" was not found.`);
-    }
+    let hierKey = Object.keys(state.catalogueHierarchy || {}).find(
+      k => k.toLowerCase() === cleanId || ((state.catalogueHierarchy[k]?.name || "").toLowerCase() === cleanId) || ((state.catalogueHierarchy[k]?.id || "").toLowerCase() === cleanId)
+    );
+    let hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
 
     const catName = (cat && cat.name) || (hier && hier.name) || id;
-    const catSlug = (cat && (cat.slug || cat.id)) || hierKey;
+    const catSlug = (cat && (cat.slug || cat.id)) || hierKey || cleanId;
+    const catIdentList = Array.from(new Set([
+      cleanId,
+      (cat?.id || "").toLowerCase(),
+      (cat?.slug || "").toLowerCase(),
+      (cat?.name || "").toLowerCase(),
+      (hierKey || "").toLowerCase(),
+      (hier?.id || "").toLowerCase(),
+      (hier?.slug || "").toLowerCase(),
+      (hier?.name || "").toLowerCase()
+    ])).filter(Boolean);
 
     // Collect child subcategories to detach from products
-    const subcats = (cat && Array.isArray(cat.subcategories) && cat.subcategories.length > 0)
-      ? cat.subcategories
-      : (hier && Array.isArray(hier.subcategories) ? hier.subcategories : []);
+    const subcats = [];
+    if (cat && Array.isArray(cat.subcategories)) subcats.push(...cat.subcategories);
+    if (hier && Array.isArray(hier.subcategories)) subcats.push(...hier.subcategories);
     const subcatSlugs = subcats.flatMap(s => [s.id, s.slug, s.name].filter(Boolean).map(x => x.toLowerCase()));
 
     // Safe product detachment in store.products (NEVER delete products!)
@@ -1062,40 +1090,55 @@ module.exports = {
     (state.products || []).forEach(p => {
       const pCat = (p.category || "").toLowerCase();
       const pSub = (p.subcategory || "").toLowerCase();
-      const isMatch = (
-        pCat === cleanId ||
-        pCat === (cat?.slug || "").toLowerCase() ||
-        pCat === (cat?.id || "").toLowerCase() ||
-        pCat === (cat?.name || "").toLowerCase() ||
-        pCat === (hierKey || "").toLowerCase() ||
-        (pSub && subcatSlugs.includes(pSub))
-      );
+      const isMatch = catIdentList.includes(pCat) || (pSub && subcatSlugs.includes(pSub));
       if (isMatch) {
-        p.category = "";
-        p.subcategory = "";
-        p.equipmentType = "";
-        p.subcategories = [];
+        if (catIdentList.includes(pCat)) p.category = "";
+        if (pSub && subcatSlugs.includes(pSub)) {
+          p.subcategory = "";
+          p.equipmentType = "";
+        }
+        if (Array.isArray(p.subcategories)) {
+          p.subcategories = p.subcategories.filter(s => {
+            const sl = String(s).toLowerCase();
+            return !catIdentList.includes(sl) && !subcatSlugs.includes(sl);
+          });
+        }
         p.updatedAt = new Date().toISOString();
         detachedCount++;
       }
     });
 
-    // Safe deletion: delete only the selected taxonomy record & its children
-    if (cat) {
-      state.categories = state.categories.filter(c => c.id !== cat.id && c.slug !== cat.slug);
+    // Safe deletion from state.categories (filter by id, slug, and name)
+    if (Array.isArray(state.categories)) {
+      state.categories = state.categories.filter(c => {
+        const cid = (c.id || "").toLowerCase();
+        const cslug = (c.slug || "").toLowerCase();
+        const cname = (c.name || "").toLowerCase();
+        return !catIdentList.includes(cid) && !catIdentList.includes(cslug) && !catIdentList.includes(cname);
+      });
     }
-    if (hierKey && state.catalogueHierarchy) {
-      delete state.catalogueHierarchy[hierKey];
+
+    // Safe deletion from state.catalogueHierarchy
+    if (state.catalogueHierarchy && typeof state.catalogueHierarchy === "object") {
+      Object.keys(state.catalogueHierarchy).forEach(k => {
+        if (catIdentList.includes(k.toLowerCase()) || catIdentList.includes((state.catalogueHierarchy[k]?.name || "").toLowerCase()) || catIdentList.includes((state.catalogueHierarchy[k]?.id || "").toLowerCase())) {
+          delete state.catalogueHierarchy[k];
+        }
+      });
     }
-    if (hierKey && initialCatalogueHierarchy[hierKey]) {
-      delete initialCatalogueHierarchy[hierKey];
+    if (initialCatalogueHierarchy && typeof initialCatalogueHierarchy === "object") {
+      Object.keys(initialCatalogueHierarchy).forEach(k => {
+        if (catIdentList.includes(k.toLowerCase()) || catIdentList.includes((initialCatalogueHierarchy[k]?.name || "").toLowerCase()) || catIdentList.includes((initialCatalogueHierarchy[k]?.id || "").toLowerCase())) {
+          delete initialCatalogueHierarchy[k];
+        }
+      });
     }
 
     persistTaxonomySync();
     if (mongoService.isConfigured()) {
       saveTaxonomyToMongoAsync();
-      mongoService.recordDeletedTaxonomy({ type: "primary", id: cat?.id || hierKey || cleanId, name: catName }).catch(() => {});
-      mongoService.detachProductsFromTaxonomy("primary", cat?.id || hierKey || cleanId).catch(() => {});
+      mongoService.recordDeletedTaxonomy({ type: "primary", id: cleanId, name: catName, slug: catSlug, aliases: catIdentList }).catch(() => {});
+      mongoService.detachProductsFromTaxonomy("primary", cleanId, { aliases: catIdentList }).catch(() => {});
     }
     return {
       success: true,
@@ -1114,44 +1157,55 @@ module.exports = {
     let hier = hierKey ? state.catalogueHierarchy[hierKey] : null;
     let cat = cleanParent ? state.categories.find(c => c.id.toLowerCase() === cleanParent || (c.slug && c.slug.toLowerCase() === cleanParent) || c.name.toLowerCase() === cleanParent) : null;
 
-    // Fallback: If parent not matched by parameter, scan hierarchy to find which category actually contains this subcategory
-    if (!hier && !cat) {
-      for (const [k, h] of Object.entries(state.catalogueHierarchy || {})) {
-        if (Array.isArray(h.subcategories) && h.subcategories.some(s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub)) {
-          hierKey = k;
-          hier = h;
-          break;
-        }
-      }
-      for (const c of (state.categories || [])) {
-        if (Array.isArray(c.subcategories) && c.subcategories.some(s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub)) {
-          cat = c;
-          break;
-        }
-      }
-    }
-
-    if (!cat && !hier) {
-      throw new Error(`Parent category "${parentCategory || "Unknown"}" was not found.`);
-    }
-
-    const subHier = hier && Array.isArray(hier.subcategories)
+    let subHier = hier && Array.isArray(hier.subcategories)
       ? hier.subcategories.find(s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub)
       : null;
-    const subCat = cat && Array.isArray(cat.subcategories)
+    let subCat = cat && Array.isArray(cat.subcategories)
       ? cat.subcategories.find(s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub)
       : null;
 
-    if (!subHier && !subCat) {
-      throw new Error(`Subcategory "${subId}" was not found under "${hier?.name || cat?.name || parentCategory}".`);
+    // Fallback: If not found under specified parent, scan ALL categories in hierarchy and categories array
+    if (!subHier || !subCat) {
+      for (const [k, h] of Object.entries(state.catalogueHierarchy || {})) {
+        if (Array.isArray(h.subcategories)) {
+          const match = h.subcategories.find(s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub);
+          if (match) {
+            if (!hier) {
+              hierKey = k;
+              hier = h;
+            }
+            if (!subHier) subHier = match;
+            break;
+          }
+        }
+      }
+      for (const c of (state.categories || [])) {
+        if (Array.isArray(c.subcategories)) {
+          const match = c.subcategories.find(s => (s.id || "").toLowerCase() === cleanSub || (s.name || "").toLowerCase() === cleanSub || (s.slug || "").toLowerCase() === cleanSub);
+          if (match) {
+            if (!cat) cat = c;
+            if (!subCat) subCat = match;
+            break;
+          }
+        }
+      }
     }
 
     const subName = subHier?.name || subCat?.name || subId;
-    const subIdentList = [cleanSub, (subHier?.id || "").toLowerCase(), (subHier?.name || "").toLowerCase(), (subCat?.name || "").toLowerCase(), (subCat?.slug || "").toLowerCase()].filter(Boolean);
+    const subSlug = subHier?.slug || subCat?.slug || cleanSub;
+    const subIdentList = Array.from(new Set([
+      cleanSub,
+      (subHier?.id || "").toLowerCase(),
+      (subHier?.slug || "").toLowerCase(),
+      (subHier?.name || "").toLowerCase(),
+      (subCat?.id || "").toLowerCase(),
+      (subCat?.slug || "").toLowerCase(),
+      (subCat?.name || "").toLowerCase()
+    ])).filter(Boolean);
 
     // Collect child equipment types under this subcategory
     const eqTypes = subHier && Array.isArray(subHier.equipmentTypes) ? subHier.equipmentTypes : [];
-    const eqIdentList = eqTypes.flatMap(e => [e.id, e.name].filter(Boolean).map(x => x.toLowerCase()));
+    const eqIdentList = eqTypes.flatMap(e => [e.id, (e.id || "").toLowerCase(), (e.slug || "").toLowerCase(), (e.name || "").toLowerCase(), (e.code || "").toLowerCase()].filter(Boolean));
 
     // Safe product detachment in store.products (NEVER delete products!)
     let detachedCount = 0;
@@ -1163,8 +1217,8 @@ module.exports = {
       const isEqMatch = pEq && eqIdentList.includes(pEq);
 
       if (isSubMatch || isEqMatch) {
-        p.subcategory = "";
-        p.equipmentType = "";
+        if (isSubMatch) p.subcategory = "";
+        if (isEqMatch) p.equipmentType = "";
         if (Array.isArray(p.subcategories)) {
           p.subcategories = p.subcategories.filter(s => !subIdentList.includes((s || "").toLowerCase()));
         }
@@ -1173,22 +1227,54 @@ module.exports = {
       }
     });
 
-    // Safe taxonomy deletion (cascades equipment types naturally as they belong to this subcategory)
+    // Helper matcher function for subcategory record deletion
+    const isSubcategoryRecordMatch = (s) => {
+      if (!s) return false;
+      const sid = (s.id || "").toLowerCase();
+      const sslug = (s.slug || "").toLowerCase();
+      const sname = (s.name || "").toLowerCase();
+      return subIdentList.includes(sid) || subIdentList.includes(sslug) || subIdentList.includes(sname);
+    };
+
+    // Safe taxonomy deletion: clean targeted parent
     if (hier && Array.isArray(hier.subcategories)) {
-      hier.subcategories = hier.subcategories.filter(s => (s.id || "").toLowerCase() !== cleanSub && (s.name || "").toLowerCase() !== subName.toLowerCase());
+      hier.subcategories = hier.subcategories.filter(s => !isSubcategoryRecordMatch(s));
       if (initialCatalogueHierarchy[hierKey]?.subcategories) {
         initialCatalogueHierarchy[hierKey].subcategories = hier.subcategories;
       }
     }
     if (cat && Array.isArray(cat.subcategories)) {
-      cat.subcategories = cat.subcategories.filter(s => (s.id || "").toLowerCase() !== cleanSub && (s.name || "").toLowerCase() !== subName.toLowerCase());
+      cat.subcategories = cat.subcategories.filter(s => !isSubcategoryRecordMatch(s));
+    }
+
+    // Comprehensive scan: clean across ALL categories in hierarchy and categories to purge duplicate/orphaned records
+    if (state.catalogueHierarchy && typeof state.catalogueHierarchy === "object") {
+      for (const [k, h] of Object.entries(state.catalogueHierarchy)) {
+        if (Array.isArray(h.subcategories)) {
+          h.subcategories = h.subcategories.filter(s => !isSubcategoryRecordMatch(s));
+        }
+      }
+    }
+    if (initialCatalogueHierarchy && typeof initialCatalogueHierarchy === "object") {
+      for (const [k, h] of Object.entries(initialCatalogueHierarchy)) {
+        if (Array.isArray(h.subcategories)) {
+          h.subcategories = h.subcategories.filter(s => !isSubcategoryRecordMatch(s));
+        }
+      }
+    }
+    if (Array.isArray(state.categories)) {
+      state.categories.forEach(c => {
+        if (Array.isArray(c.subcategories)) {
+          c.subcategories = c.subcategories.filter(s => !isSubcategoryRecordMatch(s));
+        }
+      });
     }
 
     persistTaxonomySync();
     if (mongoService.isConfigured()) {
       saveTaxonomyToMongoAsync();
-      mongoService.recordDeletedTaxonomy({ type: "subcategory", id: cleanSub, name: subName, parentCategory: hierKey || cleanParent }).catch(() => {});
-      mongoService.detachProductsFromTaxonomy("subcategory", cleanSub, { parentCategory: hierKey || cleanParent }).catch(() => {});
+      mongoService.recordDeletedTaxonomy({ type: "subcategory", id: cleanSub, name: subName, slug: subSlug, aliases: subIdentList, parentCategory: hierKey || cleanParent }).catch(() => {});
+      mongoService.detachProductsFromTaxonomy("subcategory", cleanSub, { parentCategory: hierKey || cleanParent, aliases: subIdentList }).catch(() => {});
     }
     return {
       success: true,
@@ -1215,36 +1301,37 @@ module.exports = {
     }
 
     // Fallback: If parent or subcategory not matched by parameter, scan full hierarchy for this equipment type
-    if (!sub) {
+    let foundEq = null;
+    if (sub && Array.isArray(sub.equipmentTypes)) {
+      foundEq = sub.equipmentTypes.find(e => (e.id || "").toLowerCase() === cleanEq || (e.name || "").toLowerCase() === cleanEq || (e.code || "").toLowerCase() === cleanEq);
+    }
+    if (!foundEq) {
       for (const [k, h] of Object.entries(state.catalogueHierarchy || {})) {
         if (Array.isArray(h.subcategories)) {
           for (const s of h.subcategories) {
-            if (Array.isArray(s.equipmentTypes) && s.equipmentTypes.some(e => (e.id || "").toLowerCase() === cleanEq || (e.name || "").toLowerCase() === cleanEq)) {
-              hierKey = k;
-              hier = h;
-              sub = s;
-              break;
+            if (Array.isArray(s.equipmentTypes)) {
+              const eq = s.equipmentTypes.find(e => (e.id || "").toLowerCase() === cleanEq || (e.name || "").toLowerCase() === cleanEq || (e.code || "").toLowerCase() === cleanEq);
+              if (eq) {
+                hierKey = k;
+                hier = h;
+                sub = s;
+                foundEq = eq;
+                break;
+              }
             }
           }
         }
-        if (sub) break;
+        if (foundEq) break;
       }
     }
 
-    if (!hier || !sub) {
-      throw new Error(`Equipment type "${eqId}" could not be located in catalogue hierarchy.`);
-    }
-
-    const eq = (sub.equipmentTypes || []).find(
-      e => (e.id || "").toLowerCase() === cleanEq || (e.name || "").toLowerCase() === cleanEq
-    );
-
-    if (!eq) {
-      throw new Error(`Equipment type "${eqId}" was not found under "${sub.name}".`);
-    }
-
-    const eqName = eq.name;
-    const eqIdentList = [cleanEq, (eq.id || "").toLowerCase(), eqName.toLowerCase()].filter(Boolean);
+    const eqName = foundEq?.name || eqId;
+    const eqIdentList = Array.from(new Set([
+      cleanEq,
+      (foundEq?.id || "").toLowerCase(),
+      (foundEq?.name || "").toLowerCase(),
+      (foundEq?.code || "").toLowerCase()
+    ])).filter(Boolean);
 
     // Safe product detachment in store.products
     let detachedCount = 0;
@@ -1257,17 +1344,45 @@ module.exports = {
       }
     });
 
-    // Safe deletion
-    sub.equipmentTypes = sub.equipmentTypes.filter(e => (e.id || "").toLowerCase() !== cleanEq && (e.name || "").toLowerCase() !== eqName.toLowerCase());
-    if (initialCatalogueHierarchy[hierKey]) {
-      Object.assign(initialCatalogueHierarchy, state.catalogueHierarchy);
+    // Safe deletion: remove across all matching subcategories in hierarchy
+    if (state.catalogueHierarchy && typeof state.catalogueHierarchy === "object") {
+      for (const [k, h] of Object.entries(state.catalogueHierarchy)) {
+        if (Array.isArray(h.subcategories)) {
+          h.subcategories.forEach(s => {
+            if (Array.isArray(s.equipmentTypes)) {
+              s.equipmentTypes = s.equipmentTypes.filter(e => {
+                const eid = (e.id || "").toLowerCase();
+                const ename = (e.name || "").toLowerCase();
+                const ecode = (e.code || "").toLowerCase();
+                return !eqIdentList.includes(eid) && !eqIdentList.includes(ename) && !eqIdentList.includes(ecode);
+              });
+            }
+          });
+        }
+      }
+    }
+    if (initialCatalogueHierarchy && typeof initialCatalogueHierarchy === "object") {
+      for (const [k, h] of Object.entries(initialCatalogueHierarchy)) {
+        if (Array.isArray(h.subcategories)) {
+          h.subcategories.forEach(s => {
+            if (Array.isArray(s.equipmentTypes)) {
+              s.equipmentTypes = s.equipmentTypes.filter(e => {
+                const eid = (e.id || "").toLowerCase();
+                const ename = (e.name || "").toLowerCase();
+                const ecode = (e.code || "").toLowerCase();
+                return !eqIdentList.includes(eid) && !eqIdentList.includes(ename) && !eqIdentList.includes(ecode);
+              });
+            }
+          });
+        }
+      }
     }
 
     persistTaxonomySync();
     if (mongoService.isConfigured()) {
       saveTaxonomyToMongoAsync();
-      mongoService.recordDeletedTaxonomy({ type: "equipment", id: cleanEq, name: eqName, parentCategory: hierKey || cleanParent, parentSubcategory: cleanSub }).catch(() => {});
-      mongoService.detachProductsFromTaxonomy("equipment", cleanEq, { parentCategory: hierKey || cleanParent, parentSubcategory: cleanSub }).catch(() => {});
+      mongoService.recordDeletedTaxonomy({ type: "equipment", id: cleanEq, name: eqName, aliases: eqIdentList, parentCategory: hierKey || cleanParent, parentSubcategory: cleanSub }).catch(() => {});
+      mongoService.detachProductsFromTaxonomy("equipment", cleanEq, { parentCategory: hierKey || cleanParent, parentSubcategory: cleanSub, aliases: eqIdentList }).catch(() => {});
     }
     return {
       success: true,

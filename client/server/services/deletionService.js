@@ -549,7 +549,15 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
       equipmentTypes = subHier.equipmentTypes;
     }
 
-    const subIdentList = [cleanId, (subHier?.id || "").toLowerCase(), (subHier?.name || "").toLowerCase(), (subCat?.name || "").toLowerCase(), (subCat?.slug || "").toLowerCase()].filter(Boolean);
+    const subIdentList = Array.from(new Set([
+      cleanId,
+      (subHier?.id || "").toLowerCase(),
+      (subHier?.slug || "").toLowerCase(),
+      (subHier?.name || "").toLowerCase(),
+      (subCat?.id || "").toLowerCase(),
+      (subCat?.slug || "").toLowerCase(),
+      (subCat?.name || "").toLowerCase()
+    ])).filter(Boolean);
     const eqIdentList = equipmentTypes.flatMap(e => [e.id, e.name].filter(Boolean).map(x => x.toLowerCase()));
 
     // Linked products
@@ -611,7 +619,12 @@ function inspectCategoryDependencies(type, id, parentCategory = null, parentSubc
  * - Prevents duplicate concurrent deletion requests via activeEntityLocks
  * - Idempotent across repeated executions
  */
-async function deleteCategoryWithDependencies(type, id, { parentCategory = null, parentSubcategory = null, cascadeProducts = true, purgeProducts = false, adminEmail = "ADMIN" } = {}) {
+async function deleteCategoryWithDependencies(type, id, { parentCategory = null, parentSubcategory = null, entityName = null, cascadeProducts = false, purgeProducts = false, adminEmail = "ADMIN" } = {}) {
+  // Ensure any pending disk writes are flushed so store and disk are consistent
+  if (typeof store.flushPersistSync === "function") {
+    store.flushPersistSync();
+  }
+
   const cleanId = String(id || "").trim().toLowerCase();
   const lockKey = `${type}:${cleanId}`;
 
@@ -635,6 +648,9 @@ async function deleteCategoryWithDependencies(type, id, { parentCategory = null,
 
   try {
     const inspection = inspectCategoryDependencies(type, id, parentCategory, parentSubcategory);
+    if (entityName && (!inspection.name || inspection.name === id)) {
+      inspection.name = entityName;
+    }
     const resolvedParent = inspection.parentCategory || parentCategory;
     const resolvedSub = inspection.parentSubcategory || parentSubcategory;
 
@@ -692,12 +708,16 @@ async function deleteCategoryWithDependencies(type, id, { parentCategory = null,
           } else if (type === "subcategory") {
             const subId = cleanId;
             const subName = inspection.name;
+            const subAliases = Array.from(new Set([
+              subId,
+              (inspection.id || "").toLowerCase(),
+              (inspection.name || "").toLowerCase(),
+              ...(inspection.subcategories || []).flatMap(s => [s.id, s.slug, s.name].filter(Boolean).map(x => x.toLowerCase()))
+            ])).filter(Boolean);
             const eqNames = (inspection.equipmentTypes || []).flatMap(e => [e.id, e.name].filter(Boolean));
             const orList = [
-              { subcategory: { $regex: new RegExp(`^${escapeRegexStr(subId)}$`, "i") } },
-              { subcategory: { $regex: new RegExp(`^${escapeRegexStr(subName)}$`, "i") } },
-              { subcategories: subId },
-              { subcategories: subName }
+              { subcategory: { $in: subAliases.map(a => new RegExp(`^${escapeRegexStr(a)}$`, "i")) } },
+              { subcategories: { $in: subAliases } }
             ];
             if (eqNames.length > 0) {
               orList.push({ equipmentType: { $in: eqNames } });
@@ -711,7 +731,7 @@ async function deleteCategoryWithDependencies(type, id, { parentCategory = null,
                   updatedAt: new Date().toISOString()
                 },
                 $pull: {
-                  subcategories: { $in: [subId, subName] }
+                  subcategories: { $in: subAliases }
                 }
               }
             );
@@ -755,6 +775,9 @@ async function deleteCategoryWithDependencies(type, id, { parentCategory = null,
       } else if (type === "equipment") {
         taxonomyResult = store.deleteEquipmentType(resolvedParent, resolvedSub, id);
       }
+      if (mongoService.isConfigured()) {
+        await store.flushTaxonomyAsync();
+      }
     } catch (taxErr) {
       console.warn(`[deletionService] Taxonomy deletion notice for ${type} "${id}":`, taxErr.message);
     }
@@ -771,9 +794,11 @@ async function deleteCategoryWithDependencies(type, id, { parentCategory = null,
     });
 
     const isCleanupPending = totalFailedMedia > 0;
-    const message = isCleanupPending
-      ? `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" and associated records deleted. ${deletedProducts.length} product(s) deleted. (${totalFailedMedia} media cleanup(s) pending retry).`
-      : `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" and all associated data deleted successfully.`;
+    const message = shouldDeleteProducts
+      ? (isCleanupPending
+          ? `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" and associated records deleted. ${deletedProducts.length} product(s) deleted. (${totalFailedMedia} media cleanup(s) pending retry).`
+          : `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" and all associated data deleted successfully.`)
+      : `${type.charAt(0).toUpperCase() + type.slice(1)} "${inspection.name}" permanently deleted. ${inspection.products.length} product(s) safely preserved.`;
 
     return {
       success: true,
@@ -801,14 +826,33 @@ async function deleteCategoryWithDependencies(type, id, { parentCategory = null,
  * Delete Individual Product Image
  * - If exclusively owned: destroys from Cloudinary
  * - If shared: preserves Cloudinary asset, removes reference only
- * - Removes reference from MongoDB Atlas document and local store
+ * - Removes reference from MongoDB Atlas document, warm cache, and local store
+ * - Automatically reassigns primary image if the primary photograph was removed
  */
-async function deleteSingleProductImage(productId, imageUrlOrPublicId, adminEmail = "ADMIN") {
+async function deleteSingleProductImage(productId, imageUrlOrPublicIdOrSpec, adminEmail = "ADMIN") {
   if (!productId) throw new Error("Product ID is required to remove image.");
-  if (!imageUrlOrPublicId) throw new Error("Image URL or publicId is required.");
+  if (!imageUrlOrPublicIdOrSpec) throw new Error("Image URL or publicId is required.");
 
-  let publicId = extractCloudinaryPublicId(imageUrlOrPublicId) || imageUrlOrPublicId;
-  const targetUrl = typeof imageUrlOrPublicId === "string" ? imageUrlOrPublicId : "";
+  let targetUrl = "";
+  let publicId = "";
+
+  if (typeof imageUrlOrPublicIdOrSpec === "string") {
+    const trimmed = imageUrlOrPublicIdOrSpec.trim();
+    if (trimmed.startsWith("http://") || trimmed.startsWith("https://") || trimmed.startsWith("/")) {
+      targetUrl = trimmed;
+      publicId = extractCloudinaryPublicId(targetUrl) || "";
+    } else {
+      publicId = trimmed;
+    }
+  } else if (typeof imageUrlOrPublicIdOrSpec === "object" && imageUrlOrPublicIdOrSpec !== null) {
+    const rawUrl = imageUrlOrPublicIdOrSpec.imageUrl || imageUrlOrPublicIdOrSpec.url || "";
+    const rawPid = imageUrlOrPublicIdOrSpec.publicId || "";
+    targetUrl = typeof rawUrl === "string" ? rawUrl.trim() : "";
+    publicId = typeof rawPid === "string" ? rawPid.trim() : "";
+    if (!publicId && targetUrl) {
+      publicId = extractCloudinaryPublicId(targetUrl) || "";
+    }
+  }
 
   // 1. Fetch product
   let product = null;
@@ -825,14 +869,65 @@ async function deleteSingleProductImage(productId, imageUrlOrPublicId, adminEmai
     throw new Error(`Product "${productId}" was not found.`);
   }
 
-  // 2. Remove product references in MongoDB & local store FIRST so DB update is fast & authoritative
+  // 2. Build comprehensive target matching set across URLs, paths, publicIds and managed representations
+  const targetTokens = new Set();
+  const normalizeForMatch = (s) => {
+    if (!s || typeof s !== "string") return "";
+    return s.trim().replace(/^https?:\/\//i, "").replace(/\/+$/, "");
+  };
+
+  if (targetUrl) {
+    targetTokens.add(targetUrl.trim());
+    targetTokens.add(normalizeForMatch(targetUrl));
+    const extractedFromTarget = extractCloudinaryPublicId(targetUrl);
+    if (extractedFromTarget) {
+      targetTokens.add(extractedFromTarget);
+      targetTokens.add(extractedFromTarget.toLowerCase());
+    }
+  }
+  if (publicId) {
+    targetTokens.add(publicId.trim());
+    targetTokens.add(publicId.trim().toLowerCase());
+  }
+
+  // Inspect managedCloudinaryImages to associate any alternate URLs (e.g. originalUrl or secureUrl)
+  const managedList = Array.isArray(product.managedCloudinaryImages) ? product.managedCloudinaryImages : [];
+  for (const m of managedList) {
+    const mPid = m?.publicId || m?.public_id || "";
+    const mUrl = m?.secureUrl || m?.secure_url || m?.url || "";
+    const mOrig = m?.originalUrl || "";
+    const isThisManagedTarget =
+      (publicId && mPid && mPid.toLowerCase() === publicId.toLowerCase()) ||
+      (targetUrl && mUrl && (mUrl === targetUrl || normalizeForMatch(mUrl) === normalizeForMatch(targetUrl))) ||
+      (targetUrl && mOrig && (mOrig === targetUrl || normalizeForMatch(mOrig) === normalizeForMatch(targetUrl)));
+
+    if (isThisManagedTarget) {
+      if (mPid) { targetTokens.add(mPid); targetTokens.add(mPid.toLowerCase()); }
+      if (mUrl) { targetTokens.add(mUrl); targetTokens.add(normalizeForMatch(mUrl)); }
+      if (mOrig) { targetTokens.add(mOrig); targetTokens.add(normalizeForMatch(mOrig)); }
+    }
+  }
+
   const isTarget = (img) => {
     if (!img) return false;
     if (typeof img === "string") {
-      return img === targetUrl || img === publicId || (publicId && img.includes(publicId));
+      const s = img.trim();
+      const sNorm = normalizeForMatch(s);
+      if (targetTokens.has(s) || targetTokens.has(sNorm)) return true;
+      const sPid = extractCloudinaryPublicId(s);
+      if (sPid && (targetTokens.has(sPid) || targetTokens.has(sPid.toLowerCase()))) return true;
+      if (publicId && publicId.length > 5 && s.includes(publicId)) return true;
+      return false;
     }
     if (typeof img === "object") {
-      return img.publicId === publicId || img.url === targetUrl || (publicId && img.url && img.url.includes(publicId));
+      const u = (img.url || img.secureUrl || img.originalUrl || "").trim();
+      const pid = (img.publicId || img.public_id || "").trim();
+      if (pid && (targetTokens.has(pid) || targetTokens.has(pid.toLowerCase()))) return true;
+      if (u && (targetTokens.has(u) || targetTokens.has(normalizeForMatch(u)))) return true;
+      const uPid = extractCloudinaryPublicId(u);
+      if (uPid && (targetTokens.has(uPid) || targetTokens.has(uPid.toLowerCase()))) return true;
+      if (publicId && publicId.length > 5 && u && u.includes(publicId)) return true;
+      return false;
     }
     return false;
   };
@@ -840,9 +935,16 @@ async function deleteSingleProductImage(productId, imageUrlOrPublicId, adminEmai
   const updatedImages = (product.images || []).filter(img => !isTarget(img));
   const updatedGallery = (product.galleryImages || []).filter(img => !isTarget(img));
   const updatedManaged = (product.managedCloudinaryImages || []).filter(img => !isTarget(img));
-  let updatedPrimary = product.primaryImage;
-  if (isTarget(updatedPrimary)) {
-    updatedPrimary = updatedImages[0] || (updatedGallery[0]?.url || updatedGallery[0]) || null;
+
+  // 3. Automatic Primary Image Reassignment:
+  // If the removed photograph was the primary image (or if primaryImage is no longer in remaining images),
+  // assign the first remaining photograph as the new primary image. If no images remain, clear primaryImage.
+  let updatedPrimary = product.primaryImage || "";
+  if (!updatedPrimary || isTarget(updatedPrimary) || (updatedImages.length > 0 && !updatedImages.includes(updatedPrimary))) {
+    updatedPrimary = updatedImages[0] || (typeof updatedGallery[0] === "string" ? updatedGallery[0] : updatedGallery[0]?.url) || "";
+  }
+  if (updatedImages.length === 0) {
+    updatedPrimary = "";
   }
 
   const updates = {
@@ -853,14 +955,14 @@ async function deleteSingleProductImage(productId, imageUrlOrPublicId, adminEmai
     updatedAt: new Date().toISOString()
   };
 
-  // Update MongoDB Atlas if configured (throw if DB update fails so deletion is never falsely reported)
+  // 4. Update MongoDB Atlas if configured (throw if DB update fails so deletion is never falsely reported)
   if (isMongoConfigured()) {
     try {
       const c = await getClient();
       const db = c.db(process.env.MONGODB_DB || "drmedex");
-      const filter = buildProductFilter(product.id);
+      const filter = product._id ? { _id: product._id } : buildProductFilter(product.id);
       await db.collection(COLLECTION_NAME).updateOne(filter, { $set: updates });
-      // Update warm cache in place instead of wiping the whole 193-product cache
+      // Update warm cache in place instead of wiping the whole catalogue cache
       patchCachedProduct(product.id, updates);
     } catch (mErr) {
       console.error("[deletionService] MongoDB image ref update error:", sanitizeMongoError(mErr));
@@ -868,41 +970,56 @@ async function deleteSingleProductImage(productId, imageUrlOrPublicId, adminEmai
     }
   }
 
-  // Update local store
+  // Update local store in memory
   store.updateProduct(product.id, updates);
 
-  // 3. Check shared-asset protection & destroy from Cloudinary if exclusively owned
-  const shareCheck = await isAssetSharedOrOrdered(publicId, product.id);
-  let assetDestroyed = false;
+  // Synchronize fallback files non-blockingly so deleted images never resurface
+  syncFallbackFilesAsync(product.id, updates);
 
-  if (!shareCheck.shared && cloudinaryService && cloudinaryService.isConfigured()) {
+  // 5. Exclusively owned Cloudinary asset destruction with timeout & safe isolation
+  let assetDestroyed = false;
+  let sharedAssetPreserved = false;
+  let shareReason = null;
+
+  const cleanCloudinaryPid = (publicId && !publicId.includes("://") && !publicId.startsWith("/"))
+    ? publicId
+    : (targetUrl ? extractCloudinaryPublicId(targetUrl) : null);
+
+  if (cleanCloudinaryPid && cloudinaryService && cloudinaryService.isConfigured()) {
     try {
-      const delRes = await cloudinary.uploader.destroy(publicId, { invalidate: true });
-      if (delRes.result === "ok" || delRes.result === "not found") {
-        assetDestroyed = true;
+      // Run share check with a safe timeout guard so queries never hang or abort the HTTP response
+      const shareCheckPromise = isAssetSharedOrOrdered(cleanCloudinaryPid, product.id);
+      const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({ shared: false, timedOut: true }), 3500));
+      const shareCheck = await Promise.race([shareCheckPromise, timeoutPromise]);
+
+      if (shareCheck.shared) {
+        sharedAssetPreserved = true;
+        shareReason = shareCheck.reason || "Asset preserved: referenced by another product or order.";
+      } else {
+        const delRes = await cloudinary.uploader.destroy(cleanCloudinaryPid, { invalidate: true });
+        if (delRes && (delRes.result === "ok" || delRes.result === "not found")) {
+          assetDestroyed = true;
+        }
       }
     } catch (cErr) {
-      console.error(`[deletionService] Error destroying single image ${publicId}:`, cErr.message);
+      console.warn(`[deletionService] Cloudinary cleanup notice for ${cleanCloudinaryPid}:`, cErr.message);
     }
   }
 
-  // Synchronize fallback files non-blockingly so deleted images never resurface without slowing HTTP response
-  syncFallbackFilesAsync(product.id, updates);
-
   auditService.logAction(adminEmail, "PRODUCT_IMAGE_DELETED", product.id, {
-    publicId,
+    publicId: cleanCloudinaryPid || publicId || targetUrl,
     assetDestroyed,
-    sharedAssetPreserved: shareCheck.shared,
+    sharedAssetPreserved,
     remainingImagesCount: updatedImages.length
   });
 
   return {
     success: true,
     productId: product.id,
-    publicId,
+    publicId: cleanCloudinaryPid || publicId || targetUrl,
     assetDestroyed,
-    sharedAssetPreserved: shareCheck.shared,
-    shareReason: shareCheck.reason || null,
+    sharedAssetPreserved,
+    shareReason,
     remainingImages: updatedImages,
     primaryImage: updatedPrimary
   };

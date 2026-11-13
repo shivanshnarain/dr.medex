@@ -551,8 +551,9 @@ router.get("/products", requireAdmin, async (req, res) => {
   }
 });
 
-router.get("/catalogue/hierarchy", requireAdmin, (req, res) => {
-  res.json({ success: true, hierarchy: store.getCatalogueHierarchy() });
+router.get("/catalogue/hierarchy", requireAdmin, async (req, res) => {
+  const hierarchy = await store.getCatalogueHierarchyAsync();
+  res.json({ success: true, hierarchy });
 });
 
 router.post("/catalogue/primary-category", requireAdmin, (req, res) => {
@@ -807,15 +808,18 @@ router.get("/catalogue/dependencies/:type/:id", requireAdmin, (req, res) => {
 // Cascading Deletion Endpoint
 router.post("/catalogue/delete-cascade", requireAdmin, async (req, res) => {
   try {
-    const { type, id, parentCategory, parentSubcategory, cascadeProducts } = req.body;
+    const { type, id, name, parentCategory, parentSubcategory, cascadeProducts, purgeProducts, forceDeleteProducts } = req.body;
     if (!type || !id) {
       return res.status(400).json({ success: false, message: "Entity type and id are required." });
     }
 
+    const shouldPurge = Boolean((cascadeProducts === true || purgeProducts === true) && (purgeProducts === true || forceDeleteProducts === true));
     const result = await deletionService.deleteCategoryWithDependencies(type, id, {
       parentCategory,
       parentSubcategory,
-      cascadeProducts: cascadeProducts !== false,
+      entityName: name,
+      cascadeProducts: shouldPurge,
+      purgeProducts: shouldPurge,
       adminEmail: req.admin?.email || "ADMIN"
     });
 
@@ -2224,18 +2228,18 @@ router.put("/products/:id", requireAdmin, async (req, res) => {
       updates.images = processedImages;
 
       // 2. Canonical primary image resolution
-      if (updates.primaryImage && typeof updates.primaryImage === "string") {
-        const pRaw = updates.primaryImage.trim();
-        if (pRaw && !pRaw.startsWith("blob:") && !pRaw.startsWith("data:")) {
+      // If primaryImage is provided and is part of updates.images, retain it.
+      // Otherwise default primaryImage to the first remaining image (or empty string if none remain).
+      // NEVER unshift an obsolete or removed primary image back into updates.images!
+      if (updates.images && updates.images.length > 0) {
+        const pRaw = (typeof updates.primaryImage === "string" ? updates.primaryImage.trim() : "");
+        if (pRaw && updates.images.includes(pRaw)) {
           updates.primaryImage = pRaw;
-          if (updates.images.length > 0 && !updates.images.includes(updates.primaryImage)) {
-            updates.images.unshift(updates.primaryImage);
-          }
         } else {
-          updates.primaryImage = updates.images[0] || "";
+          updates.primaryImage = updates.images[0];
         }
       } else {
-        updates.primaryImage = updates.images[0] || "";
+        updates.primaryImage = "";
       }
 
       // 3. Keep galleryImages in exact sync with canonical images
@@ -2570,14 +2574,20 @@ router.delete("/products/:id", requireAdmin, async (req, res) => {
 router.delete("/products/:id/images", requireAdmin, async (req, res) => {
   try {
     const { imageUrl, publicId } = req.body || {};
-    const target = publicId || imageUrl || req.query.publicId || req.query.imageUrl;
-    if (!target) {
+    const targetUrl = imageUrl || req.query.imageUrl || "";
+    const targetPid = publicId || req.query.publicId || "";
+    if (!targetUrl && !targetPid) {
       return res.status(400).json({ success: false, message: "Image publicId or imageUrl is required." });
     }
 
-    const result = await deletionService.deleteSingleProductImage(req.params.id, target, req.admin.email);
+    const result = await deletionService.deleteSingleProductImage(
+      req.params.id,
+      { imageUrl: targetUrl, publicId: targetPid },
+      req.admin.email
+    );
     res.json(result);
   } catch (err) {
+    console.error("[admin.js] DELETE /products/:id/images error:", err.message);
     res.status(400).json({ success: false, message: err.message });
   }
 });
@@ -3016,7 +3026,8 @@ router.get("/audit-logs", requireAdmin, (req, res) => {
 // 7. CATEGORY MANAGEMENT ENDPOINTS
 // ==========================================
 
-router.get("/categories", requireAdmin, (req, res) => {
+router.get("/categories", requireAdmin, async (req, res) => {
+  await store.syncTaxonomyFromMongo();
   const allCats = store.getAllCategories();
   const allProds = store.getProducts({ includeInactive: true });
   const categoryStats = allCats.map(cat => {

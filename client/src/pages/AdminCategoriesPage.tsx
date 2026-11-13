@@ -464,6 +464,7 @@ export const AdminCategoriesPage: React.FC = () => {
         body: JSON.stringify({
           type: deletingItem.type,
           id: deletingItem.id,
+          name: deletingItem.name,
           parentCategory: deletingItem.parentCategory,
           parentSubcategory: deletingItem.parentSubcategory,
           cascadeProducts: false,

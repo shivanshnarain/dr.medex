@@ -765,12 +765,19 @@ async function saveCategoriesToMongo(categories, adminEmail = "ADMIN") {
   }
 }
 
-async function recordDeletedTaxonomy({ type, id, name = "", parentCategory = null, parentSubcategory = null, adminEmail = "ADMIN" }) {
+async function recordDeletedTaxonomy({ type, id, name = "", slug = "", aliases = [], parentCategory = null, parentSubcategory = null, adminEmail = "ADMIN" }) {
   if (!isConfigured() || !id) return false;
   const cleanId = String(id).trim().toLowerCase();
   const cleanParent = parentCategory ? String(parentCategory).trim().toLowerCase() : "";
   const cleanSub = parentSubcategory ? String(parentSubcategory).trim().toLowerCase() : "";
   const key = `${type}:${cleanParent || "root"}:${cleanId}`;
+
+  const aliasList = Array.from(new Set([
+    cleanId,
+    slug ? String(slug).trim().toLowerCase() : "",
+    name ? String(name).trim().toLowerCase() : "",
+    ...(aliases || []).map(a => String(a).trim().toLowerCase())
+  ])).filter(Boolean);
 
   try {
     const col = await getDeletedTaxonomyCollection();
@@ -782,6 +789,8 @@ async function recordDeletedTaxonomy({ type, id, name = "", parentCategory = nul
           id: cleanId,
           type: String(type || "subcategory").toLowerCase(),
           name: name ? String(name).trim() : cleanId,
+          slug: slug ? String(slug).trim().toLowerCase() : cleanId,
+          aliases: aliasList,
           parentCategory: cleanParent || null,
           parentSubcategory: cleanSub || null,
           deletedAt: new Date().toISOString(),
@@ -850,16 +859,29 @@ function applyTaxonomyTombstones(hierarchy, categories, tombstones) {
     const tType = String(t.type || "").toLowerCase();
     const tId = String(t.id || "").trim().toLowerCase();
     const tName = String(t.name || "").trim().toLowerCase();
+    const tSlug = String(t.slug || "").trim().toLowerCase();
+    const allAliases = Array.from(new Set([
+      tId,
+      tName,
+      tSlug,
+      ...(Array.isArray(t.aliases) ? t.aliases.map(a => String(a).trim().toLowerCase()) : [])
+    ])).filter(Boolean);
 
     if (tType === "primary") {
-      if (tId) deletedPrimaryIds.add(tId);
-      if (tName) deletedPrimaryNames.add(tName);
+      allAliases.forEach(a => {
+        deletedPrimaryIds.add(a);
+        deletedPrimaryNames.add(a);
+      });
     } else if (tType === "subcategory") {
-      if (tId) deletedSubIds.add(tId);
-      if (tName) deletedSubNames.add(tName);
+      allAliases.forEach(a => {
+        deletedSubIds.add(a);
+        deletedSubNames.add(a);
+      });
     } else if (tType === "equipment") {
-      if (tId) deletedEqIds.add(tId);
-      if (tName) deletedEqNames.add(tName);
+      allAliases.forEach(a => {
+        deletedEqIds.add(a);
+        deletedEqNames.add(a);
+      });
     }
   });
 
@@ -926,20 +948,26 @@ function applyTaxonomyTombstones(hierarchy, categories, tombstones) {
   }
 }
 
-async function detachProductsFromTaxonomy(type, id, { parentCategory = null, parentSubcategory = null } = {}) {
+async function detachProductsFromTaxonomy(type, id, { parentCategory = null, parentSubcategory = null, aliases = [] } = {}) {
   if (!isConfigured() || !id) return { detachedCount: 0 };
   const cleanId = String(id).trim().toLowerCase();
+  const allAliases = Array.from(new Set([
+    cleanId,
+    ...(Array.isArray(aliases) ? aliases.map(a => String(a).trim().toLowerCase()) : [])
+  ])).filter(Boolean);
 
   try {
     const col = await getCollection();
     const escapeRegex = (s) => s.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
+    const regexList = allAliases.map(a => new RegExp(`^${escapeRegex(a)}$`, "i"));
+
     let filter = null;
     let update = null;
 
     if (type === "primary") {
       filter = {
         $or: [
-          { category: { $regex: new RegExp(`^${escapeRegex(cleanId)}$`, "i") } }
+          { category: { $in: regexList } }
         ]
       };
       update = {
@@ -954,8 +982,9 @@ async function detachProductsFromTaxonomy(type, id, { parentCategory = null, par
     } else if (type === "subcategory") {
       filter = {
         $or: [
-          { subcategory: { $regex: new RegExp(`^${escapeRegex(cleanId)}$`, "i") } },
-          { subcategories: cleanId }
+          { subcategory: { $in: regexList } },
+          { subcategories: { $in: allAliases } },
+          { subcategories: { $in: regexList } }
         ]
       };
       update = {
@@ -965,12 +994,12 @@ async function detachProductsFromTaxonomy(type, id, { parentCategory = null, par
           updatedAt: new Date().toISOString()
         },
         $pull: {
-          subcategories: cleanId
+          subcategories: { $in: allAliases }
         }
       };
     } else if (type === "equipment") {
       filter = {
-        equipmentType: { $regex: new RegExp(`^${escapeRegex(cleanId)}$`, "i") }
+        equipmentType: { $in: regexList }
       };
       update = {
         $set: {
