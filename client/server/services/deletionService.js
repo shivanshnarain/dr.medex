@@ -962,11 +962,25 @@ async function deleteSingleProductImage(productId, imageUrlOrPublicIdOrSpec, adm
       const db = c.db(process.env.MONGODB_DB || "drmedex");
       const filter = product._id ? { _id: product._id } : buildProductFilter(product.id);
       await db.collection(COLLECTION_NAME).updateOne(filter, { $set: updates });
-      // Update warm cache in place instead of wiping the whole catalogue cache
-      patchCachedProduct(product.id, updates);
     } catch (mErr) {
       console.error("[deletionService] MongoDB image ref update error:", sanitizeMongoError(mErr));
       throw new Error(`Failed to update product images in database: ${sanitizeMongoError(mErr)}`);
+    }
+
+    // Update warm cache in place, or invalidate cache so fresh data loads on next request
+    try {
+      if (typeof mongoService.patchCachedProduct === "function") {
+        mongoService.patchCachedProduct(product.id, updates);
+      } else if (typeof patchCachedProduct === "function") {
+        patchCachedProduct(product.id, updates);
+      } else if (typeof mongoService.invalidateMongoCache === "function") {
+        mongoService.invalidateMongoCache();
+      }
+    } catch (cacheErr) {
+      console.warn("[deletionService] Cache patch warning (non-fatal):", cacheErr.message);
+      if (typeof mongoService.invalidateMongoCache === "function") {
+        mongoService.invalidateMongoCache();
+      }
     }
   }
 

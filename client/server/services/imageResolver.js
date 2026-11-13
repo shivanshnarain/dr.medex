@@ -176,7 +176,7 @@ function resolveProductImages(product) {
 
   // 1. Establish the single authoritative current gallery array
   let canonicalList = [];
-  if (Array.isArray(product.images) && product.images.length > 0) {
+  if (Array.isArray(product.images)) {
     canonicalList = product.images;
   } else if (Array.isArray(product.galleryImages) && product.galleryImages.length > 0) {
     canonicalList = product.galleryImages;
@@ -204,8 +204,8 @@ function resolveProductImages(product) {
     }
   }
 
-  // If primary image exists and is not represented in the list, place it at the front
-  if (normPrimary && !seenUrls.has(normPrimary)) {
+  // If primary image exists, is not represented in list, and images was not explicitly cleared
+  if (normPrimary && !seenUrls.has(normPrimary) && (!Array.isArray(product.images) || product.images.length > 0)) {
     rawCandidates.unshift(normPrimary);
     seenUrls.add(normPrimary);
   }
