@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import {
   ShoppingCart,
   Check,
@@ -439,18 +439,22 @@ function parseKeyFactor(raw: string): { title: string; detail: string } {
 export const ProductDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const { formatPrice } = useCurrency();
   const { addToCart, closeDrawer } = useCart();
 
-  // Synchronously resolve cached product if user navigated from catalogue (0ms, no skeleton jump)
-  const [product, setProduct] = useState<Product | null>(() =>
-    slug ? getCachedProductBySlugSync(slug) : null
-  );
+  const initialFromNav = (location.state as any)?.initialProduct as Product | undefined;
+  const initialProduct = (initialFromNav && (initialFromNav.slug === slug || initialFromNav.id === slug))
+    ? initialFromNav
+    : (slug ? getCachedProductBySlugSync(slug) : null);
+
+  // Synchronously resolve product if user navigated from catalogue (0ms instant render, no skeleton jump)
+  const [product, setProduct] = useState<Product | null>(() => initialProduct);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [hoveredThumbnailIndex, setHoveredThumbnailIndex] = useState<number | null>(null);
   const [isAdded, setIsAdded] = useState(false);
-  const [isLoading, setIsLoading] = useState<boolean>(() => !(slug ? getCachedProductBySlugSync(slug) : null));
+  const [isLoading, setIsLoading] = useState<boolean>(() => !initialProduct);
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [mainImageFailed, setMainImageFailed] = useState(false);
   const { triggerBuyNow, isProcessing: isSubmittingBuy } = useBuyNow();
@@ -529,10 +533,14 @@ export const ProductDetailPage: React.FC = () => {
     if (!slug) return;
 
     const run = async () => {
-      const cached = getCachedProductBySlugSync(slug);
+      const cached = (initialFromNav && (initialFromNav.slug === slug || initialFromNav.id === slug))
+        ? initialFromNav
+        : getCachedProductBySlugSync(slug);
+
       if (cached) {
         setProduct(cached);
         setIsLoading(false);
+        loadRelatedProducts(cached, cancelledRef);
       } else {
         setIsLoading(true);
       }

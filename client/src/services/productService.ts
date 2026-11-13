@@ -76,6 +76,15 @@ function cacheProductEntries(product: Product, requestedSlug?: string) {
   }
 }
 
+/**
+ * Pre-warms the in-memory cache for a product so clicks and navigation resolve immediately
+ */
+export function prewarmProduct(product: Product) {
+  if (product) {
+    cacheProductEntries(product);
+  }
+}
+
 export function getCachedProductsSync(): Product[] | null {
   if (memoryProductsCache && memoryProductsCache.length > 0) {
     return memoryProductsCache;

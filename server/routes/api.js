@@ -153,26 +153,22 @@ router.get("/products/:slug", async (req, res) => {
   try {
     res.set("Cache-Control", "public, max-age=60, s-maxage=300, stale-while-revalidate=600");
     const slugOrId = req.params.slug;
-    const deletedIds = mongoService.isConfigured() ? await mongoService.getDeletedProductIds() : new Set();
 
     let product = null;
     if (mongoService.isConfigured()) {
       try {
-        const mongoProd = await mongoService.getApprovedProduct(slugOrId);
-        if (mongoProd && !deletedIds.has(String(mongoProd.id))) {
-          product = mongoProd;
-        }
+        product = await mongoService.getApprovedProduct(slugOrId);
       } catch (mErr) {}
     }
 
     // Fallback: Check canonical product lookup if not directly found in MongoDB by raw slug
     if (!product) {
       const storeProduct = store.getProductBySlug(slugOrId) || store.getProductById(slugOrId, true);
-      if (storeProduct && !deletedIds.has(String(storeProduct.id))) {
+      if (storeProduct) {
         if (mongoService.isConfigured()) {
           try {
             const mongoById = await mongoService.getApprovedProduct(storeProduct.id);
-            if (mongoById && !deletedIds.has(String(mongoById.id))) {
+            if (mongoById) {
               product = mongoById;
             } else if (!mongoService.isConfigured()) {
               product = storeProduct;
@@ -186,7 +182,7 @@ router.get("/products/:slug", async (req, res) => {
       }
     }
 
-    if (!product || product.status === "ARCHIVED" || product.isRetired || product.inCatalogue === false || deletedIds.has(String(product.id))) {
+    if (!product || product.status === "ARCHIVED" || product.isRetired || product.inCatalogue === false) {
       return res.status(404).json({ success: false, message: "Product not found" });
     }
 

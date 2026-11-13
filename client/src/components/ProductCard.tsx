@@ -6,6 +6,7 @@ import { useWishlist } from "../context/WishlistContext";
 import { useCurrency } from "../context/CurrencyContext";
 import { renderBrandTitle } from "./BrandTitle";
 import { optimizeCloudinaryUrl } from "../lib/imageUtils";
+import { prewarmProduct } from "../services/productService";
 
 interface ProductCardProps {
   product: Product;
@@ -109,8 +110,17 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product }) 
   const formattedSale = formatProductPrice(product, "sale");
   const formattedRegular = hasDiscount ? formatProductPrice(product, "regular") : "";
 
+  const handleMouseEnter = () => {
+    prewarmProduct(product);
+    if (primaryImage) {
+      const img = new Image();
+      img.src = primaryImage;
+    }
+  };
+
   return (
     <div
+      onMouseEnter={handleMouseEnter}
       className="group relative bg-white rounded-2xl border border-neutral-200/90 hover:border-neutral-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between h-full p-3 sm:p-4"
       style={{ contentVisibility: "auto", containIntrinsicSize: "auto 450px" }}
     >
@@ -121,6 +131,7 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product }) 
       >
         <Link
           to={productUrl}
+          state={{ initialProduct: product }}
           className="relative w-full h-full block overflow-hidden rounded-[16px] border-none"
           aria-label={displayTitle}
         >
@@ -174,7 +185,12 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product }) 
 
           {/* Product Name in Solid Black — expanded vertical space (+2 lines), natural wrapping without clipping */}
           <h3 className="text-xs sm:text-sm md:text-[14px] font-bold text-black leading-snug min-h-[4.25rem] sm:min-h-[4.75rem] hover:text-[#7AA05A] transition-colors break-words flex-1">
-            <Link to={productUrl} title={displayTitle} className="hover:underline">
+            <Link
+              to={productUrl}
+              state={{ initialProduct: product }}
+              title={displayTitle}
+              className="hover:underline"
+            >
               {renderBrandTitle(displayTitle)}
             </Link>
           </h3>
@@ -200,6 +216,7 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product }) 
 
           <Link
             to={productUrl}
+            state={{ initialProduct: product }}
             className="w-full py-2.5 sm:py-3 px-4 bg-[#7AA05A] hover:bg-[#688a4c] active:bg-[#5a7842] focus:outline-none focus:ring-2 focus:ring-[#7AA05A]/40 text-white rounded-full text-xs sm:text-sm font-bold tracking-wide transition-colors duration-200 flex items-center justify-center text-center shadow-2xs cursor-pointer block"
           >
             Show Details

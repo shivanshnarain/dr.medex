@@ -1182,47 +1182,43 @@ export const Header: React.FC = () => {
                   onMouseEnter={() => item.hasSubmenu && handleMegaMenuEnter(item.id)}
                   onMouseLeave={() => item.hasSubmenu && handleMegaMenuLeave()}
                 >
-                  <Link
-                    to={item.to}
-                    className={`inline-flex items-center pl-3 ${
-                      item.hasSubmenu ? "pr-1.5" : "pr-3"
-                    } py-1.5 text-xs tracking-normal transition-all rounded-l-lg ${
-                      !item.hasSubmenu ? "rounded-r-lg" : ""
-                    } ${
-                      active
-                        ? "text-white font-bold bg-white/20"
+                  {/* Single unified active/hover background container for both label and arrow */}
+                  <div
+                    className={`group inline-flex items-center gap-1.5 px-3 py-1.5 text-xs tracking-normal transition-all rounded-lg cursor-pointer select-none ${
+                      isMegaOpen || active
+                        ? "text-white font-bold bg-white/20 shadow-xs"
                         : "text-white/95 hover:text-white hover:bg-white/15 font-medium"
                     }`}
                   >
-                    <span>{item.label}</span>
-                  </Link>
-
-                  {/* Dedicated Arrow Toggle Button */}
-                  {item.hasSubmenu && (
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        toggleMegaMenu(item.id);
-                      }}
-                      className={`inline-flex items-center justify-center pr-2.5 pl-1 py-1.5 text-xs transition-all rounded-r-lg cursor-pointer ${
-                        isMegaOpen || active
-                          ? "text-white bg-white/20"
-                          : "text-white/80 hover:text-white hover:bg-white/15"
-                      }`}
-                      title={`Toggle ${item.label} subcategories`}
-                      aria-expanded={isMegaOpen}
-                      aria-label={`Toggle ${item.label} subcategories`}
+                    <Link
+                      to={item.to}
+                      className="inline-flex items-center text-inherit hover:underline"
                     >
-                      <ChevronDown
-                        size={12}
-                        className={`transition-transform duration-200 ${
-                          isMegaOpen ? "rotate-180 text-white" : ""
-                        }`}
-                      />
-                    </button>
-                  )}
+                      <span>{item.label}</span>
+                    </Link>
+
+                    {item.hasSubmenu && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          toggleMegaMenu(item.id);
+                        }}
+                        className="inline-flex items-center justify-center p-0.5 text-inherit cursor-pointer focus:outline-none"
+                        title={`Toggle ${item.label} subcategories`}
+                        aria-expanded={isMegaOpen}
+                        aria-label={`Toggle ${item.label} subcategories`}
+                      >
+                        <ChevronDown
+                          size={12}
+                          className={`transition-transform duration-200 shrink-0 ${
+                            isMegaOpen ? "rotate-180 text-white" : "text-white/80 group-hover:text-white"
+                          }`}
+                        />
+                      </button>
+                    )}
+                  </div>
                 </div>
               );
             })}
@@ -1260,13 +1256,8 @@ export const Header: React.FC = () => {
             role="menu"
             aria-label={`${activeItem.label} subcategories menu`}
           >
-            <div className="bg-white rounded-2xl shadow-2xl border border-neutral-200/90 p-2.5 overflow-hidden text-neutral-900">
-              <div className="px-3 py-1.5 text-[10px] font-bold text-neutral-400 uppercase tracking-wider border-b border-neutral-100 mb-1 flex items-center justify-between">
-                <span>{activeItem.label} Subcategories</span>
-                <span className="text-[9px] font-mono font-normal text-neutral-400">
-                  {activeItem.subcategories.length} sections
-                </span>
-              </div>
+            <div className="bg-white rounded-2xl shadow-2xl border border-neutral-200/90 p-2 overflow-hidden text-neutral-900">
+              {/* Clean, compact subcategory list without redundant headings or section counters */}
               <div className="space-y-0.5 max-h-[60vh] overflow-y-auto [scrollbar-width:thin]">
                 {activeItem.subcategories.map((sub) => {
                   const isSubActive = location.search.includes(`subcategory=${sub.to.split("subcategory=")[1] || ""}`);
