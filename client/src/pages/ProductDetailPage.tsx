@@ -462,53 +462,6 @@ export const ProductDetailPage: React.FC = () => {
   const slideshowTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [shareToast, setShareToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
-  // Dynamic measurement of product gallery height for minimum alignment without constraining text expansion
-  const galleryRef = useRef<HTMLDivElement>(null);
-  const mainImageRef = useRef<HTMLImageElement>(null);
-  const [galleryHeight, setGalleryHeight] = useState<number | null>(null);
-
-  const updateGalleryHeight = useCallback(() => {
-    if (typeof window !== "undefined" && window.innerWidth >= 1024) {
-      const measured =
-        galleryRef.current && galleryRef.current.offsetHeight > 0
-          ? Math.round(galleryRef.current.offsetHeight)
-          : mainImageRef.current && mainImageRef.current.offsetHeight > 0
-          ? Math.round(mainImageRef.current.offsetHeight)
-          : 0;
-      if (measured > 0) {
-        setGalleryHeight((prev) => (prev !== null && Math.abs(prev - measured) < 2 ? prev : measured));
-      }
-    } else {
-      setGalleryHeight((prev) => (prev === null ? null : null));
-    }
-  }, []);
-
-  useEffect(() => {
-    let rafId: number | null = null;
-    const scheduleUpdate = () => {
-      if (rafId !== null) return;
-      rafId = window.requestAnimationFrame(() => {
-        rafId = null;
-        updateGalleryHeight();
-      });
-    };
-
-    scheduleUpdate();
-    window.addEventListener("resize", scheduleUpdate, { passive: true });
-
-    let resizeObserver: ResizeObserver | null = null;
-    if (typeof ResizeObserver !== "undefined" && galleryRef.current) {
-      resizeObserver = new ResizeObserver(scheduleUpdate);
-      resizeObserver.observe(galleryRef.current);
-    }
-
-    return () => {
-      if (rafId !== null) window.cancelAnimationFrame(rafId);
-      window.removeEventListener("resize", scheduleUpdate);
-      if (resizeObserver) resizeObserver.disconnect();
-    };
-  }, [updateGalleryHeight, product?.id]);
-
   useEffect(() => {
     setMainImageFailed(false);
   }, [product?.id, activeImageIndex]);
@@ -1056,7 +1009,6 @@ export const ProductDetailPage: React.FC = () => {
           {/* LEFT 50%: PRODUCT IMAGE GALLERY                          */}
           {/* ------------------------------------------------------- */}
           <div
-            ref={galleryRef}
             className="w-full flex items-start gap-3 lg:gap-4 select-none"
             aria-label="Product Image Gallery"
           >
@@ -1109,10 +1061,8 @@ export const ProductDetailPage: React.FC = () => {
             >
               {productImages.length > 0 && !mainImageFailed ? (
                 <img
-                  ref={mainImageRef}
                   src={optimizeCloudinaryUrl(productImages[activeImageIndex] || productImages[0], 1200)}
                   alt={`${productTitle} - Angle ${activeImageIndex + 1}`}
-                  onLoad={updateGalleryHeight}
                   // @ts-ignore
                   fetchPriority="high"
                   loading="eager"
@@ -1213,132 +1163,127 @@ export const ProductDetailPage: React.FC = () => {
           {/* ------------------------------------------------------- */}
           {/* RIGHT 50%: PRODUCT DETAILS & ACTIONS                    */}
           {/* ------------------------------------------------------- */}
-          <div
-            style={
-              galleryHeight && typeof window !== "undefined" && window.innerWidth >= 1024
-                ? { height: `${Math.max(galleryHeight, 560)}px`, maxHeight: `${Math.max(galleryHeight, 560)}px` }
-                : undefined
-            }
-            className="w-full flex flex-col justify-between min-w-0 lg:h-full lg:min-h-[560px] lg:max-h-[760px]"
-          >
-            {/* A. Fixed Top Section (flex-shrink: 0) */}
-            <div className="shrink-0 space-y-2">
-              {/* 1. Dynamic Breadcrumb navigation */}
-              <nav
-                aria-label="Breadcrumb"
-                className="flex flex-wrap items-center gap-1.5 text-xs text-neutral-500 mb-1 sm:mb-1.5"
-              >
-                <Link to="/" className="hover:text-[#171717] transition-colors">
-                  Home
-                </Link>
-                <span className="text-neutral-400">&gt;</span>
-                <Link
-                  to={product.category ? `/shop-all?category=${encodeURIComponent(product.category)}` : "/shop-all"}
-                  className="hover:text-[#171717] transition-colors font-medium text-neutral-600 break-words"
+          <div className="w-full relative min-w-0 lg:h-full lg:min-h-[580px]">
+            <div className="w-full flex flex-col justify-between min-w-0 lg:absolute lg:inset-0">
+              {/* A. Fixed Top Section (flex-shrink: 0) */}
+              <div className="shrink-0 space-y-2">
+                {/* 1. Dynamic Breadcrumb navigation */}
+                <nav
+                  aria-label="Breadcrumb"
+                  className="flex flex-wrap items-center gap-1.5 text-xs text-neutral-500 mb-1 sm:mb-1.5"
                 >
-                  {getDynamicCategoryName(product)}
-                </Link>
-              </nav>
+                  <Link to="/" className="hover:text-[#171717] transition-colors">
+                    Home
+                  </Link>
+                  <span className="text-neutral-400">&gt;</span>
+                  <Link
+                    to={product.category ? `/shop-all?category=${encodeURIComponent(product.category)}` : "/shop-all"}
+                    className="hover:text-[#171717] transition-colors font-medium text-neutral-600 break-words"
+                  >
+                    {getDynamicCategoryName(product)}
+                  </Link>
+                </nav>
 
-              {/* 2. Product title and DR.MEDEX branding */}
-              <div className="shrink-0 min-w-0">
-                <h1 className="text-xl sm:text-2xl lg:text-[1.65rem] tracking-tight leading-snug whitespace-normal break-words">
-                  <span className="inline-flex items-baseline whitespace-nowrap">
-                    <span className="font-extrabold text-[#2D5A4A]">{titleParts.dr}</span>
-                    <span className="font-extrabold text-[#7AA05A] ml-0.5">{titleParts.medex}</span>
-                  </span>{" "}
-                  <span className="font-normal text-[#171717]">{titleParts.descriptiveName}</span>
-                </h1>
-              </div>
-
-              {/* 3. Rating, when available */}
-              {typeof product.rating === "number" && product.rating > 0 && (
-                <div className="flex items-center gap-1.5 pt-0.5 text-xs text-neutral-600 shrink-0">
-                  <div className="flex items-center text-amber-500">
-                    <Star size={14} className="fill-amber-400 text-amber-400" />
-                    <span className="font-bold ml-1 text-neutral-800">{product.rating.toFixed(1)}</span>
-                  </div>
-                  {product.reviewCount ? (
-                    <span className="text-neutral-400">({product.reviewCount} {product.reviewCount === 1 ? "review" : "reviews"})</span>
-                  ) : null}
+                {/* 2. Product title and DR.MEDEX branding */}
+                <div className="shrink-0 min-w-0">
+                  <h1 className="text-xl sm:text-2xl lg:text-[1.65rem] tracking-tight leading-snug whitespace-normal break-words">
+                    <span className="inline-flex items-baseline whitespace-nowrap">
+                      <span className="font-extrabold text-[#2D5A4A]">{titleParts.dr}</span>
+                      <span className="font-extrabold text-[#7AA05A] ml-0.5">{titleParts.medex}</span>
+                    </span>{" "}
+                    <span className="font-normal text-[#171717]">{titleParts.descriptiveName}</span>
+                  </h1>
                 </div>
-              )}
 
-              {/* 4. Selling price, original price, and discount badge */}
-              <div className="flex items-baseline gap-3 pt-0.5 flex-wrap shrink-0">
-                <span className="text-2xl sm:text-3xl font-extrabold text-[#171717] font-mono tracking-tight">
-                  {formatPrice(product.basePrice)}
-                </span>
-                {originalPrice && originalPrice > product.basePrice && (
-                  <span className="text-base sm:text-lg text-neutral-400 line-through font-mono">
-                    {formatPrice(originalPrice)}
+                {/* 3. Rating, when available */}
+                {typeof product.rating === "number" && product.rating > 0 && (
+                  <div className="flex items-center gap-1.5 pt-0.5 text-xs text-neutral-600 shrink-0">
+                    <div className="flex items-center text-amber-500">
+                      <Star size={14} className="fill-amber-400 text-amber-400" />
+                      <span className="font-bold ml-1 text-neutral-800">{product.rating.toFixed(1)}</span>
+                    </div>
+                    {product.reviewCount ? (
+                      <span className="text-neutral-400">({product.reviewCount} {product.reviewCount === 1 ? "review" : "reviews"})</span>
+                    ) : null}
+                  </div>
+                )}
+
+                {/* 4. Selling price, original price, and discount badge */}
+                <div className="flex items-baseline gap-3 pt-0.5 flex-wrap shrink-0">
+                  <span className="text-2xl sm:text-3xl font-extrabold text-[#171717] font-mono tracking-tight">
+                    {formatPrice(product.basePrice)}
                   </span>
-                )}
-                {discountPercentage > 0 && (
-                  <span className="px-2.5 py-1 text-xs font-bold uppercase bg-[#D92D32] text-white rounded tracking-wide shadow-2xs">
-                    {discountPercentage}% OFF
-                  </span>
-                )}
-              </div>
-
-              {/* 5. Thin horizontal divider immediately below the pricing section */}
-              <hr className="border-t border-neutral-200 my-1.5 shrink-0" />
-            </div>
-
-            {/* B. Middle Description Section — independently scrollable on desktop */}
-            <div className="flex-1 min-h-0 flex flex-col py-1 my-1 overflow-hidden">
-              <h2 className="text-sm font-bold text-[#2D5A4A] tracking-tight mb-1 shrink-0">
-                Description
-              </h2>
-              <div
-                tabIndex={0}
-                role="region"
-                aria-label="Product description"
-                className="flex-1 min-h-0 overflow-y-auto pr-2 sm:pr-3 text-xs sm:text-[13px] text-neutral-600 leading-relaxed break-words [scrollbar-width:thin] [scrollbar-color:#7AA05A_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#7AA05A]/40 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-[#7AA05A]"
-              >
-                {productOverview ? (
-                  <p className="whitespace-pre-line pb-1 break-words">{productOverview}</p>
-                ) : (
-                  <p className="text-xs text-neutral-400 italic">No description provided for this equipment.</p>
-                )}
-              </div>
-            </div>
-
-            {/* C. Fixed Bottom Section — flex-shrink: 0; margin-top: auto */}
-            <div className="shrink-0 mt-auto pt-1 space-y-3">
-              {/* 1. Thin horizontal divider immediately above purchase actions */}
-              <hr className="border-t border-neutral-200 mb-2.5 shrink-0" />
-
-              {/* 2. Purchase Buttons (Desktop layout) */}
-              <div className="hidden lg:flex items-center gap-3 w-full">
-                {/* Add to Cart button: Filled Moss Green #7AA05A bg, white text & cart icon */}
-                <button
-                  type="button"
-                  onClick={handleAddToCart}
-                  className="flex-1 h-11 sm:h-12 px-4 bg-[#7AA05A] hover:bg-[#6b8f4e] text-white border border-[#7AA05A] rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-colors duration-200 shadow-2xs cursor-pointer select-none"
-                >
-                  {isAdded ? (
-                    <Check size={18} className="text-white" />
-                  ) : (
-                    <ShoppingCart size={18} className="text-white" />
+                  {originalPrice && originalPrice > product.basePrice && (
+                    <span className="text-base sm:text-lg text-neutral-400 line-through font-mono">
+                      {formatPrice(originalPrice)}
+                    </span>
                   )}
-                  <span>{isAdded ? "Added to Cart" : "Add to Cart"}</span>
-                </button>
+                  {discountPercentage > 0 && (
+                    <span className="px-2.5 py-1 text-xs font-bold uppercase bg-[#D92D32] text-white rounded tracking-wide shadow-2xs">
+                      {discountPercentage}% OFF
+                    </span>
+                  )}
+                </div>
 
-                {/* Buy Now button: Solid Slate Green #2D5A4A bg, white text */}
-                <button
-                  type="button"
-                  onClick={handleBuyNow}
-                  disabled={isSubmittingBuy}
-                  className="flex-1 h-11 sm:h-12 px-4 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center transition-colors duration-200 shadow-2xs cursor-pointer select-none disabled:opacity-50"
-                >
-                  {isSubmittingBuy ? "Processing..." : "Buy Now"}
-                </button>
+                {/* 5. Thin horizontal divider immediately below the pricing section */}
+                <hr className="border-t border-neutral-200 my-1.5 shrink-0" />
               </div>
 
-              {/* 3-6. Benefits: Power Supply, Quality Standard, Regulatory Status, Warranty (Desktop placement) */}
-              <div className="hidden lg:block pt-1">
-                {renderSpecCardsGrid()}
+              {/* B. Middle Description Section — independently scrollable on desktop */}
+              <div className="flex-1 min-h-0 flex flex-col py-1 my-1 overflow-hidden">
+                <h2 className="text-sm font-bold text-[#2D5A4A] tracking-tight mb-1 shrink-0">
+                  Description
+                </h2>
+                <div
+                  tabIndex={0}
+                  role="region"
+                  aria-label="Product description"
+                  className="flex-1 min-h-0 overflow-y-auto pr-2 sm:pr-3 text-xs sm:text-[13px] text-neutral-600 leading-relaxed break-words [scrollbar-width:thin] [scrollbar-color:#7AA05A_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#7AA05A]/40 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-[#7AA05A]"
+                >
+                  {productOverview ? (
+                    <p className="whitespace-pre-line pb-1 break-words">{productOverview}</p>
+                  ) : (
+                    <p className="text-xs text-neutral-400 italic">No description provided for this equipment.</p>
+                  )}
+                </div>
+              </div>
+
+              {/* C. Fixed Bottom Section — flex-shrink: 0; margin-top: auto */}
+              <div className="shrink-0 mt-auto pt-1 space-y-3">
+                {/* 1. Thin horizontal divider immediately above purchase actions */}
+                <hr className="border-t border-neutral-200 mb-2.5 shrink-0" />
+
+                {/* 2. Purchase Buttons (Desktop layout) */}
+                <div className="hidden lg:flex items-center gap-3 w-full">
+                  {/* Add to Cart button: Filled Moss Green #7AA05A bg, white text & cart icon */}
+                  <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    className="flex-1 h-11 sm:h-12 px-4 bg-[#7AA05A] hover:bg-[#6b8f4e] text-white border border-[#7AA05A] rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-colors duration-200 shadow-2xs cursor-pointer select-none"
+                  >
+                    {isAdded ? (
+                      <Check size={18} className="text-white" />
+                    ) : (
+                      <ShoppingCart size={18} className="text-white" />
+                    )}
+                    <span>{isAdded ? "Added to Cart" : "Add to Cart"}</span>
+                  </button>
+
+                  {/* Buy Now button: Solid Slate Green #2D5A4A bg, white text */}
+                  <button
+                    type="button"
+                    onClick={handleBuyNow}
+                    disabled={isSubmittingBuy}
+                    className="flex-1 h-11 sm:h-12 px-4 bg-[#2D5A4A] hover:bg-[#23473a] text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center transition-colors duration-200 shadow-2xs cursor-pointer select-none disabled:opacity-50"
+                  >
+                    {isSubmittingBuy ? "Processing..." : "Buy Now"}
+                  </button>
+                </div>
+
+                {/* 3-6. Benefits: Power Supply, Quality Standard, Regulatory Status, Warranty (Desktop placement) */}
+                <div className="hidden lg:block pt-1">
+                  {renderSpecCardsGrid()}
+                </div>
               </div>
             </div>
           </div>
