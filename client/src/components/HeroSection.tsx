@@ -211,10 +211,10 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            <div className="flex flex-col-reverse sm:flex-row gap-3.5 sm:gap-4 lg:gap-5 items-stretch">
+            <div className="flex flex-col-reverse sm:flex-row gap-4 sm:gap-6 md:gap-7 lg:gap-8 items-center sm:items-stretch">
               
-              {/* THREE SECONDARY THUMBNAILS: CLEAN THUMBNAILS, NO TEXT, NO OVERLAYS, NARROWER FOOTPRINT */}
-              <div className="relative z-10 flex flex-row sm:flex-col gap-2.5 sm:gap-3 w-full sm:w-[76px] md:w-[82px] lg:w-[88px] shrink-0 justify-between">
+              {/* THREE SECONDARY THUMBNAILS: CLEAN THUMBNAILS, NO TEXT, NO OVERLAYS, VISIBLE CLEAR SPACING */}
+              <div className="relative z-10 flex flex-row sm:flex-col gap-2.5 sm:gap-3.5 md:gap-4 w-full sm:w-[88px] md:w-[96px] lg:w-[104px] shrink-0 justify-between items-center sm:items-stretch">
                 {secondaryIndices.map((secIdx) => {
                   const secSlide = HERO_CATEGORY_SLIDES[secIdx];
                   return (
@@ -222,7 +222,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                       key={secSlide.id}
                       type="button"
                       onClick={() => handleSelectThumbnail(secIdx)}
-                      className="group relative flex-1 rounded-lg p-[3.5px] bg-white border border-[#2D5A4A] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2D5A4A]/40 transition-all duration-200 select-none shadow-xs hover:shadow-md aspect-[4/5]"
+                      className="group relative flex-1 sm:flex-none w-full max-w-full aspect-[4/5] rounded-lg p-[3.5px] bg-white border border-[#2D5A4A] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2D5A4A]/40 transition-all duration-200 select-none shadow-xs hover:shadow-md"
                       aria-label={`View ${secSlide.categoryLabel}`}
                     >
                       <div className="w-full h-full rounded-[4px] overflow-hidden relative">
@@ -245,7 +245,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               </div>
 
               {/* LARGE MAIN IMAGE (TO THE RIGHT OF THUMBNAILS): COMPLETELY BORDERLESS & SHADOWLESS */}
-              <div className="relative z-0 flex-1 rounded-2xl overflow-hidden group min-h-[340px] sm:min-h-[420px] lg:min-h-[460px] xl:min-h-[480px]">
+              <div className="relative z-0 flex-1 w-full rounded-2xl overflow-hidden group min-h-[340px] sm:min-h-[420px] lg:min-h-[460px] xl:min-h-[480px]">
                 
                 {/* 6 Crossfading Images */}
                 {HERO_CATEGORY_SLIDES.map((slide, idx) => {

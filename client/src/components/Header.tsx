@@ -453,19 +453,6 @@ export const Header: React.FC = () => {
     };
   }, []);
 
-  // Category navigation label formatter
-  const getCategoryNavLabel = (cat: Category): string => {
-    const s = (cat.slug || cat.id || "").toLowerCase().trim();
-    if (s === "electrosurgical-units" || s === "electrosurgical") return "Electrosurgical";
-    if (s === "cryo-surgical" || s === "cryosurgical-equipment") return "Cryo Surgical";
-    if (s === "ot-lights") return "OT Lights";
-    if (s === "examination-ot-tables" || s === "ot-tables") return "OT Tables";
-    if (s === "obstetrics-and-gynaecology" || s === "obg") return "OBG";
-    if (s === "medical-equipment" || s === "general-medical-equipment") return "General Medical";
-    if (s === "physiotherapy") return "Physiotherapy";
-    return cat.name || "Equipment";
-  };
-
   interface NavCategoryItem {
     id: string;
     label: string;
@@ -475,19 +462,73 @@ export const Header: React.FC = () => {
     subcategories?: Array<{ label: string; to: string }>;
   }
 
-  // Second row category items - strictly dynamic equipment categories, without "Home" or "Shop All"
+  // Canonical definition of the exact six navbar categories and their required order
+  interface CanonicalNavSpec {
+    canonicalLabel: string;
+    matchSlugs: string[];
+    fallbackSlug: string;
+  }
+
+  const NAVBAR_CANONICAL_CATEGORIES: CanonicalNavSpec[] = [
+    {
+      canonicalLabel: "Electrosurgical",
+      matchSlugs: ["electrosurgical-units", "electrosurgical"],
+      fallbackSlug: "electrosurgical-units"
+    },
+    {
+      canonicalLabel: "Cryo Surgical",
+      matchSlugs: ["cryo-surgical", "cryosurgical-equipment"],
+      fallbackSlug: "cryo-surgical"
+    },
+    {
+      canonicalLabel: "OT Lights",
+      matchSlugs: ["ot-lights"],
+      fallbackSlug: "ot-lights"
+    },
+    {
+      canonicalLabel: "OT Tables",
+      matchSlugs: ["examination-ot-tables", "ot-tables"],
+      fallbackSlug: "examination-ot-tables"
+    },
+    {
+      canonicalLabel: "OBG",
+      matchSlugs: ["obstetrics-and-gynaecology", "obg"],
+      fallbackSlug: "obstetrics-and-gynaecology"
+    },
+    {
+      canonicalLabel: "General Medical",
+      matchSlugs: ["medical-equipment", "general-medical-equipment"],
+      fallbackSlug: "medical-equipment"
+    }
+  ];
+
+  // Strictly filter and order the navbar to ONLY the six specified original categories in exact order
   const navCategories: NavCategoryItem[] = React.useMemo(() => {
-    return categories.map((cat) => {
-      const slug = cat.slug || cat.id;
-      const subs = Array.isArray(cat.subcategories)
-        ? cat.subcategories.map((sub) => ({
+    const fallbackList = (rawFallbackCategories as unknown) as Category[];
+
+    return NAVBAR_CANONICAL_CATEGORIES.map((spec) => {
+      // Find matching live category from fetched categories (or fallbackList if missing)
+      const matched =
+        categories.find((c) => {
+          const s = (c.slug || c.id || "").toLowerCase().trim();
+          return spec.matchSlugs.includes(s);
+        }) ||
+        fallbackList.find((c) => {
+          const s = (c.slug || c.id || "").toLowerCase().trim();
+          return spec.matchSlugs.includes(s);
+        });
+
+      const slug = matched?.slug || matched?.id || spec.fallbackSlug;
+      const subs = Array.isArray(matched?.subcategories)
+        ? matched!.subcategories.map((sub) => ({
             label: sub.name,
             to: `/shop-all?category=${slug}&subcategory=${sub.slug}`
           }))
         : [];
+
       return {
         id: slug,
-        label: getCategoryNavLabel(cat),
+        label: spec.canonicalLabel,
         to: `/category/${slug}`,
         categorySlug: slug,
         hasSubmenu: subs.length > 0,
