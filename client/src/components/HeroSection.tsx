@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ShieldCheck, Cpu, Award, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ShieldCheck, Cpu, Award } from "lucide-react";
 
 interface HeroSectionProps {
   onOpenQuote?: (productTitle?: string) => void;
@@ -189,7 +189,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
 
   return (
     <section
-      className="relative w-full bg-white select-none pt-8 sm:pt-12 lg:pt-14 pb-12 sm:pb-16"
+      className="relative w-full bg-white select-none pt-0 sm:pt-12 lg:pt-14 pb-12 sm:pb-16"
       aria-label="DR.MEDEX Hero Showcase"
     >
       <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8">
@@ -343,32 +343,6 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                   })}
                 </div>
 
-                {/* Left / Previous Slide Arrow (Mobile Only) */}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handlePrev();
-                  }}
-                  className="sm:hidden absolute left-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-black/40 hover:bg-black/60 active:bg-black/75 text-white flex items-center justify-center backdrop-blur-xs transition-all cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-white/50"
-                  aria-label="Previous Slide"
-                >
-                  <ChevronLeft size={20} className="text-white -ml-0.5" />
-                </button>
-
-                {/* Right / Next Slide Arrow (Mobile Only) */}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleNext();
-                  }}
-                  className="sm:hidden absolute right-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-black/40 hover:bg-black/60 active:bg-black/75 text-white flex items-center justify-center backdrop-blur-xs transition-all cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-white/50"
-                  aria-label="Next Slide"
-                >
-                  <ChevronRight size={20} className="text-white -mr-0.5" />
-                </button>
-
                 {/* Subtle localized gradient ONLY behind upper-left category text */}
                 <div
                   className="absolute top-0 left-0 w-64 max-w-[60%] h-20 pointer-events-none z-10 rounded-none sm:rounded-tl-2xl"
@@ -405,6 +379,29 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                   </Link>
                 </div>
 
+              </div>
+
+              {/* EXACTLY SIX SLIDESHOW INDICATOR DOTS BELOW THE IMAGE (MOBILE ONLY) */}
+              <div
+                className="w-full flex sm:hidden items-center justify-center gap-2 mt-3.5 select-none"
+                aria-label="Slideshow position indicator"
+                role="tablist"
+              >
+                {HERO_CATEGORY_SLIDES.map((slide, idx) => {
+                  const isActive = idx === activeIndex;
+                  return (
+                    <span
+                      key={slide.id}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        isActive
+                          ? "w-5 bg-[#7AA05A]"
+                          : "w-1.5 bg-[#D1D5DB]"
+                      }`}
+                      aria-current={isActive ? "true" : undefined}
+                      aria-label={`Slide ${idx + 1} of 6: ${slide.categoryLabel}`}
+                    />
+                  );
+                })}
               </div>
 
             </div>

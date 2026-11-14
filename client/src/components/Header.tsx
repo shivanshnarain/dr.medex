@@ -1258,9 +1258,9 @@ export const Header: React.FC = () => {
       </div>
 
       {/* ==============================================================
-          CATEGORY NAVIGATION BELOW SEARCH: Horizontal Scrollable Row
+          CATEGORY NAVIGATION BELOW SEARCH: Horizontal Scrollable Row (Desktop/Tablet Only, Hidden on Mobile)
       ============================================================== */}
-      <div className="bg-[#7AA05A] relative w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="hidden sm:block bg-[#7AA05A] relative w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-8">
           <nav
             className="flex items-center justify-start lg:justify-center gap-1 xl:gap-2 py-1.5 whitespace-nowrap min-w-max lg:min-w-0"
