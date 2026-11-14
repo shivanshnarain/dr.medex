@@ -70,8 +70,10 @@ export const Header: React.FC = () => {
   const [totalMatches, setTotalMatches] = useState(0);
   const [isSearching, setIsSearching] = useState(false);
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const mobileSearchContainerRef = useRef<HTMLDivElement>(null);
+  const mobileSearchInputRef = useRef<HTMLInputElement>(null);
   const countryModalRef = useRef<HTMLDivElement>(null);
 
   // Lock body scrolling when mobile navigation drawer is open
@@ -86,9 +88,11 @@ export const Header: React.FC = () => {
     };
   }, [isMobileMenuOpen]);
 
-  // Close mobile drawer on route navigation
+  // Close mobile drawer and mobile search on route navigation
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setIsMobileSearchOpen(false);
+    setShowSearchDropdown(false);
   }, [location.pathname, location.search]);
 
   // Mega menu state & positioning
@@ -314,6 +318,7 @@ export const Header: React.FC = () => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") {
         setShowSearchDropdown(false);
+        setIsMobileSearchOpen(false);
         setIsCountryModalOpen(false);
         setIsUserMenuOpen(false);
         setIsOverflowMenuOpen(false);
@@ -520,10 +525,19 @@ export const Header: React.FC = () => {
 
       const slug = matched?.slug || matched?.id || spec.fallbackSlug;
       const subs = Array.isArray(matched?.subcategories)
-        ? matched!.subcategories.map((sub) => ({
-            label: sub.name,
-            to: `/?category=${slug}&subcategory=${sub.slug}`
-          }))
+        ? matched!.subcategories
+            .filter((sub) => {
+              const subName = (sub.name || "").toLowerCase();
+              // Prevent any cross-category "Electrosurgical Surgical Light" or unwanted light subcategory under Electrosurgical
+              if (spec.canonicalLabel === "Electrosurgical" && (subName.includes("light") || subName.includes("lamp"))) {
+                return false;
+              }
+              return true;
+            })
+            .map((sub) => ({
+              label: sub.name,
+              to: `/?category=${slug}&subcategory=${sub.slug}`
+            }))
         : [];
 
       return {
@@ -838,6 +852,29 @@ export const Header: React.FC = () => {
             {/* Subtle Divider (Desktop only) */}
             <span className="w-px h-4 bg-neutral-200 hidden sm:block mx-1" />
 
+            {/* Mobile Search Toggle Icon — immediately to the LEFT of Login/Admin on mobile */}
+            <button
+              type="button"
+              onClick={() => {
+                setIsMobileSearchOpen((prev) => {
+                  const nextState = !prev;
+                  if (nextState) {
+                    setTimeout(() => {
+                      mobileSearchInputRef.current?.focus();
+                    }, 120);
+                  } else {
+                    setShowSearchDropdown(false);
+                  }
+                  return nextState;
+                });
+              }}
+              className="sm:hidden w-9 h-9 rounded-full flex items-center justify-center hover:bg-neutral-100 text-neutral-800 hover:text-[#2D5A4A] transition-all cursor-pointer shrink-0"
+              aria-label={isMobileSearchOpen ? "Close search" : "Open search"}
+              aria-expanded={isMobileSearchOpen}
+            >
+              {isMobileSearchOpen ? <X size={19} /> : <Search size={19} />}
+            </button>
+
             {/* Circular Login/Account Icon (No dropdown arrow on mobile) */}
             {user ? (
               <div className="relative" ref={userMenuRef}>
@@ -1127,88 +1164,97 @@ export const Header: React.FC = () => {
         </div>
 
         {/* ==============================================================
-            SEARCH BAR PLACEMENT: Directly below top header on mobile
+            SEARCH BAR PLACEMENT: Directly below top header on mobile (Revealed on toggle)
         ============================================================== */}
-        <div className="mt-2.5 sm:hidden relative" ref={mobileSearchContainerRef}>
-          <form onSubmit={handleSearchSubmit} className="relative w-full">
-            <div className="flex items-center bg-[#F7F7F7] hover:bg-[#F2F2F2] focus-within:bg-white rounded-full border border-[#E5E5E5] focus-within:border-[#167A4A] focus-within:ring-2 focus-within:ring-[#167A4A]/20 transition-all pl-3.5 pr-1 py-1">
-              <Search size={16} className="text-neutral-400 mr-2 shrink-0 pointer-events-none" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onFocus={() => {
-                  if (searchResults.length > 0 || searchCategories.length > 0) {
-                    setShowSearchDropdown(true);
-                  }
-                }}
-                placeholder="Search medical equipment..."
-                className="w-full bg-transparent text-xs text-neutral-900 placeholder-neutral-500 focus:outline-none font-medium py-1 min-w-0"
-              />
-              {isSearching ? (
-                <div className="w-7 h-7 flex items-center justify-center shrink-0">
-                  <div className="w-3.5 h-3.5 border-2 border-[#167A4A] border-t-transparent rounded-full animate-spin" />
-                </div>
-              ) : (
-                <button
-                  type="submit"
-                  aria-label="Search Catalog"
-                  className="w-7 h-7 rounded-full bg-[#167A4A] hover:bg-[#13673e] text-white flex items-center justify-center shrink-0 shadow-xs transition-colors cursor-pointer"
-                >
-                  <Search size={13} />
-                </button>
-              )}
-            </div>
-          </form>
-
-          {/* Mobile Search Results Dropdown */}
-          {showSearchDropdown && (searchResults.length > 0 || searchCategories.length > 0) && (
-            <div className="absolute left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl border border-[#E5E5E5] overflow-hidden z-50 animate-in fade-in duration-150">
-              <div className="p-2.5 border-b border-neutral-100 bg-[#F7F7F7] flex items-center justify-between text-[11px] font-bold text-neutral-500 uppercase tracking-wider">
-                <span>Search Results</span>
-                <span>{totalMatches} matching items</span>
-              </div>
-              <div className="max-h-72 overflow-y-auto divide-y divide-neutral-100">
-                {searchResults.map((prod) => (
-                  <Link
-                    key={prod.id}
-                    to={`/product/${prod.slug}`}
-                    onClick={() => setShowSearchDropdown(false)}
-                    className="px-3 py-2.5 flex items-center gap-2.5 hover:bg-neutral-50 transition-colors"
+        {isMobileSearchOpen && (
+          <div className="mt-2.5 sm:hidden relative animate-in fade-in slide-in-from-top-1 duration-200" ref={mobileSearchContainerRef}>
+            <form onSubmit={handleSearchSubmit} className="relative w-full">
+              <div className="flex items-center bg-[#F7F7F7] hover:bg-[#F2F2F2] focus-within:bg-white rounded-full border border-[#E5E5E5] focus-within:border-[#167A4A] focus-within:ring-2 focus-within:ring-[#167A4A]/20 transition-all pl-3.5 pr-1 py-1 shadow-xs">
+                <Search size={16} className="text-neutral-400 mr-2 shrink-0 pointer-events-none" />
+                <input
+                  ref={mobileSearchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => {
+                    if (searchResults.length > 0 || searchCategories.length > 0) {
+                      setShowSearchDropdown(true);
+                    }
+                  }}
+                  placeholder="Search medical equipment, models, specifications..."
+                  className="w-full bg-transparent text-xs text-neutral-900 placeholder-neutral-500 focus:outline-none font-medium py-1 min-w-0"
+                />
+                {isSearching ? (
+                  <div className="w-7 h-7 flex items-center justify-center shrink-0">
+                    <div className="w-3.5 h-3.5 border-2 border-[#167A4A] border-t-transparent rounded-full animate-spin" />
+                  </div>
+                ) : (
+                  <button
+                    type="submit"
+                    aria-label="Search Catalog"
+                    className="w-7 h-7 rounded-full bg-[#167A4A] hover:bg-[#13673e] text-white flex items-center justify-center shrink-0 shadow-xs transition-colors cursor-pointer"
                   >
-                    <img
-                      src={optimizeCloudinaryUrl(prod.images?.[0] || "/placeholder.jpg", 600)}
-                      alt={prod.title}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-9 h-9 rounded-lg object-contain bg-neutral-50 shrink-0 border border-neutral-200 p-0.5"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src =
-                          "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=300&q=80";
+                    <Search size={13} />
+                  </button>
+                )}
+              </div>
+            </form>
+
+            {/* Mobile Search Results Dropdown */}
+            {showSearchDropdown && (searchResults.length > 0 || searchCategories.length > 0) && (
+              <div className="absolute left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl border border-[#E5E5E5] overflow-hidden z-50 animate-in fade-in duration-150">
+                <div className="p-2.5 border-b border-neutral-100 bg-[#F7F7F7] flex items-center justify-between text-[11px] font-bold text-neutral-500 uppercase tracking-wider">
+                  <span>Search Results</span>
+                  <span>{totalMatches} matching items</span>
+                </div>
+                <div className="max-h-72 overflow-y-auto divide-y divide-neutral-100">
+                  {searchResults.map((prod) => (
+                    <Link
+                      key={prod.id}
+                      to={`/product/${prod.slug}`}
+                      onClick={() => {
+                        setShowSearchDropdown(false);
+                        setIsMobileSearchOpen(false);
                       }}
-                    />
-                    <div className="flex-1 min-w-0">
-                      <div className="text-xs font-bold text-neutral-900 leading-snug break-words">
-                        {prod.title}
+                      className="px-3 py-2.5 flex items-center gap-2.5 hover:bg-neutral-50 transition-colors"
+                    >
+                      <img
+                        src={optimizeCloudinaryUrl(prod.images?.[0] || "/placeholder.jpg", 600)}
+                        alt={prod.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-9 h-9 rounded-lg object-contain bg-neutral-50 shrink-0 border border-neutral-200 p-0.5"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src =
+                            "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=300&q=80";
+                        }}
+                      />
+                      <div className="flex-1 min-w-0">
+                        <div className="text-xs font-bold text-neutral-900 leading-snug break-words">
+                          {prod.title}
+                        </div>
+                        <div className="text-[10px] text-neutral-500 capitalize">
+                          {prod.category?.replace(/-/g, " ")}
+                        </div>
                       </div>
-                      <div className="text-[10px] text-neutral-500 capitalize">
-                        {prod.category?.replace(/-/g, " ")}
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  ))}
+                </div>
+                <div className="p-2 bg-neutral-50 border-t border-neutral-100 text-center">
+                  <button
+                    onClick={(e) => {
+                      handleSearchSubmit(e);
+                      setIsMobileSearchOpen(false);
+                    }}
+                    className="text-xs font-bold text-[#167A4A] hover:underline"
+                  >
+                    View all ({totalMatches}) results
+                  </button>
+                </div>
               </div>
-              <div className="p-2 bg-neutral-50 border-t border-neutral-100 text-center">
-                <button
-                  onClick={handleSearchSubmit}
-                  className="text-xs font-bold text-[#167A4A] hover:underline"
-                >
-                  View all ({totalMatches}) results
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* ==============================================================

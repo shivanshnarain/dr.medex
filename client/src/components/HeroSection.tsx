@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ShieldCheck, Cpu, Award } from "lucide-react";
+import { ArrowRight, ShieldCheck, Cpu, Award, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface HeroSectionProps {
   onOpenQuote?: (productTitle?: string) => void;
@@ -73,6 +73,8 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
   const [isTabHidden, setIsTabHidden] = useState(false);
   const [isMainCardZoomed, setIsMainCardZoomed] = useState(false);
   const manualTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
 
   // Reset image zoom state when category slide changes
   useEffect(() => {
@@ -95,7 +97,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
     return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
   }, []);
 
-  // Automatic image rotation: every 3 seconds (3000ms)
+  // Automatic image rotation: natural continuous flow every 4.5 seconds (4500ms)
   useEffect(() => {
     // Respect prefers-reduced-motion
     if (
@@ -109,23 +111,64 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
 
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % HERO_CATEGORY_SLIDES.length);
-    }, 3000);
+    }, 4500);
 
     return () => clearInterval(interval);
   }, [isHovered, isManualPause, isTabHidden]);
 
-  // Manual thumbnail selection: updates immediately and resumes auto-rotation from selected index
-  const handleSelectThumbnail = useCallback((index: number) => {
-    setActiveIndex(index);
+  // Reset manual pause timer and resume autoplay after 4.5s idle
+  const resetManualTimer = useCallback(() => {
     setIsManualPause(true);
     if (manualTimerRef.current) {
       clearTimeout(manualTimerRef.current);
     }
-    // Resume auto-rotation after 4s idle from the selected image
     manualTimerRef.current = setTimeout(() => {
       setIsManualPause(false);
-    }, 4000);
+    }, 4500);
   }, []);
+
+  // Next slide navigation with seamless looping
+  const handleNext = useCallback(() => {
+    setActiveIndex((prev) => (prev + 1) % HERO_CATEGORY_SLIDES.length);
+    resetManualTimer();
+  }, [resetManualTimer]);
+
+  // Previous slide navigation with seamless looping
+  const handlePrev = useCallback(() => {
+    setActiveIndex((prev) => (prev - 1 + HERO_CATEGORY_SLIDES.length) % HERO_CATEGORY_SLIDES.length);
+    resetManualTimer();
+  }, [resetManualTimer]);
+
+  // Manual thumbnail selection: updates immediately and resumes auto-rotation from selected index
+  const handleSelectThumbnail = useCallback((index: number) => {
+    setActiveIndex(index);
+    resetManualTimer();
+  }, [resetManualTimer]);
+
+  // Touch swipe gesture handlers for mobile showcase
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.touches[0].clientX;
+    touchStartYRef.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartXRef.current === null || touchStartYRef.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartXRef.current;
+    const deltaY = e.changedTouches[0].clientY - touchStartYRef.current;
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+
+    // Detect horizontal swipe (> 35px threshold and greater than vertical movement)
+    if (Math.abs(deltaX) > 35 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX < 0) {
+        // Swiped left -> next slide
+        handleNext();
+      } else {
+        // Swiped right -> previous slide
+        handlePrev();
+      }
+    }
+  };
 
   useEffect(() => {
     return () => {
@@ -137,7 +180,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
 
   const activeSlide = HERO_CATEGORY_SLIDES[activeIndex];
 
-  // Exactly 3 secondary images displayed beside main image, cycling sequentially
+  // Exactly 3 secondary images displayed beside main image on desktop/tablet, cycling sequentially
   const secondaryIndices = [
     (activeIndex + 1) % HERO_CATEGORY_SLIDES.length,
     (activeIndex + 2) % HERO_CATEGORY_SLIDES.length,
@@ -215,14 +258,14 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
 
           {/* RIGHT COLUMN: MEDICAL PRODUCT IMAGE SHOWCASE (ON THE RIGHT) */}
           <div
-            className="lg:col-span-7 w-full order-1 lg:order-2"
+            className="lg:col-span-7 w-full order-1 lg:order-2 -mx-4 sm:mx-0 w-[calc(100%+2rem)] sm:w-full"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            <div className="flex flex-col-reverse sm:flex-row gap-4 sm:gap-6 md:gap-7 lg:gap-8 items-center sm:items-stretch">
+            <div className="flex flex-col sm:flex-row gap-0 sm:gap-6 md:gap-7 lg:gap-8 items-center sm:items-stretch">
               
-              {/* THREE SECONDARY THUMBNAILS: CLEAN THUMBNAILS, NO TEXT, NO OVERLAYS, VISIBLE CLEAR SPACING */}
-              <div className="relative z-10 flex flex-row sm:flex-col gap-2.5 sm:gap-3.5 md:gap-4 w-full sm:w-[88px] md:w-[96px] lg:w-[104px] shrink-0 justify-between items-center sm:items-stretch">
+              {/* THREE SECONDARY THUMBNAILS: HIDDEN ON MOBILE PHONES, VISIBLE ON SM AND UP */}
+              <div className="relative z-10 hidden sm:flex sm:flex-col gap-2.5 sm:gap-3.5 md:gap-4 w-full sm:w-[88px] md:w-[96px] lg:w-[104px] shrink-0 justify-between items-center sm:items-stretch">
                 {secondaryIndices.map((secIdx) => {
                   const secSlide = HERO_CATEGORY_SLIDES[secIdx];
                   return (
@@ -252,51 +295,83 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 })}
               </div>
 
-              {/* LARGE MAIN IMAGE (TO THE RIGHT OF THUMBNAILS): COMPLETELY BORDERLESS & SHADOWLESS */}
+              {/* LARGE MAIN IMAGE (TO THE RIGHT OF THUMBNAILS): FULL-FRAME BORDERLESS ON MOBILE */}
               <div
                 onClick={() => setIsMainCardZoomed((prev) => !prev)}
-                className="relative z-0 flex-1 w-full rounded-2xl overflow-hidden group min-h-[340px] sm:min-h-[420px] lg:min-h-[460px] xl:min-h-[480px] cursor-pointer"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+                className="relative z-0 flex-1 w-full rounded-none sm:rounded-2xl overflow-hidden group min-h-[260px] sm:min-h-[420px] lg:min-h-[460px] xl:min-h-[480px] aspect-[4/3] sm:aspect-auto select-none cursor-pointer border-0 shadow-none"
                 title="Click to toggle image zoom"
               >
-                
-                {/* 6 Crossfading Images */}
-                {HERO_CATEGORY_SLIDES.map((slide, idx) => {
-                  const isActive = idx === activeIndex;
-                  const isCurrentSlideZoomed = isActive && isMainCardZoomed;
-                  return (
-                    <div
-                      key={slide.id}
-                      className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
-                        isActive
-                          ? "opacity-100 z-10 pointer-events-auto"
-                          : "opacity-0 z-0 pointer-events-none"
-                      }`}
-                      aria-hidden={!isActive}
-                    >
-                      <img
-                        src={slide.imageUrl}
-                        alt={slide.categoryLabel}
-                        className={`w-full h-full object-cover select-none transition-transform duration-500 ease-out ${
-                          isCurrentSlideZoomed
-                            ? "scale-105"
-                            : "scale-100 group-hover:scale-105"
+                {/* Mobile: Horizontal slide track with transform; Desktop: static/absolute crossfade stack */}
+                <div
+                  className="hero-slider-track"
+                  style={{ "--slide-x": `-${activeIndex * 100}%` } as React.CSSProperties}
+                >
+                  {HERO_CATEGORY_SLIDES.map((slide, idx) => {
+                    const isActive = idx === activeIndex;
+                    const isCurrentSlideZoomed = isActive && isMainCardZoomed;
+                    return (
+                      <div
+                        key={slide.id}
+                        className={`w-full min-w-full shrink-0 h-full relative sm:absolute sm:inset-0 sm:min-w-0 sm:shrink sm:transition-opacity sm:duration-500 sm:ease-in-out ${
+                          isActive
+                            ? "sm:opacity-100 sm:z-10 sm:pointer-events-auto"
+                            : "sm:opacity-0 sm:z-0 sm:pointer-events-none"
                         }`}
-                        loading={idx === 0 ? "eager" : "lazy"}
-                        decoding="async"
-                        onError={(e) => {
-                          const target = e.currentTarget;
-                          if (target.src !== slide.fallbackUrl) {
-                            target.src = slide.fallbackUrl;
-                          }
-                        }}
-                      />
-                    </div>
-                  );
-                })}
+                        aria-hidden={!isActive}
+                      >
+                        <img
+                          src={slide.imageUrl}
+                          alt={slide.categoryLabel}
+                          className={`w-full h-full object-cover select-none rounded-none sm:rounded-2xl transition-transform duration-500 ease-out ${
+                            isCurrentSlideZoomed
+                              ? "scale-105"
+                              : "scale-100 sm:group-hover:scale-105"
+                          }`}
+                          loading={idx === 0 ? "eager" : "lazy"}
+                          decoding="async"
+                          onError={(e) => {
+                            const target = e.currentTarget;
+                            if (target.src !== slide.fallbackUrl) {
+                              target.src = slide.fallbackUrl;
+                            }
+                          }}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Left / Previous Slide Arrow (Mobile Only) */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePrev();
+                  }}
+                  className="sm:hidden absolute left-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-black/40 hover:bg-black/60 active:bg-black/75 text-white flex items-center justify-center backdrop-blur-xs transition-all cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-white/50"
+                  aria-label="Previous Slide"
+                >
+                  <ChevronLeft size={20} className="text-white -ml-0.5" />
+                </button>
+
+                {/* Right / Next Slide Arrow (Mobile Only) */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleNext();
+                  }}
+                  className="sm:hidden absolute right-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-black/40 hover:bg-black/60 active:bg-black/75 text-white flex items-center justify-center backdrop-blur-xs transition-all cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-white/50"
+                  aria-label="Next Slide"
+                >
+                  <ChevronRight size={20} className="text-white -mr-0.5" />
+                </button>
 
                 {/* Subtle localized gradient ONLY behind upper-left category text */}
                 <div
-                  className="absolute top-0 left-0 w-64 max-w-[60%] h-20 pointer-events-none z-10 rounded-tl-2xl"
+                  className="absolute top-0 left-0 w-64 max-w-[60%] h-20 pointer-events-none z-10 rounded-none sm:rounded-tl-2xl"
                   style={{
                     background:
                       "radial-gradient(ellipse at top left, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.12) 40%, rgba(255, 255, 255, 0) 75%)",
